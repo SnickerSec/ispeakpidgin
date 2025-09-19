@@ -2890,6 +2890,168 @@ const comprehensivePidginData = {
         audioExample: 'Yups, das da one'
     },
 
+    // Additional missing terms
+    'ainokea': {
+        pidgin: 'ainokea',
+        english: "I don't care",
+        category: 'expressions',
+        pronunciation: 'EYE-no-KEY-ah',
+        example: 'You like come? Ainokea to me',
+        usage: 'Expression of indifference',
+        origin: 'English "I no care"',
+        audioExample: 'Ainokea what you do'
+    },
+    'aurite': {
+        pidgin: 'aurite',
+        english: 'alright/okay',
+        category: 'expressions',
+        pronunciation: 'AW-right',
+        example: 'Aurite, let\'s go',
+        usage: 'Agreement or acknowledgment',
+        origin: 'English "alright"',
+        audioExample: 'Aurite, see you later'
+    },
+    'chance um': {
+        pidgin: 'chance um',
+        english: 'take a chance/go for it',
+        category: 'expressions',
+        pronunciation: 'CHANCE-um',
+        example: 'Just chance um, see what happens',
+        usage: 'Encouragement to take a risk',
+        origin: 'English "chance it"',
+        audioExample: 'Chance um, brah!'
+    },
+    'choice': {
+        pidgin: 'choice',
+        english: 'awesome/excellent',
+        category: 'expressions',
+        pronunciation: 'CHOICE',
+        example: 'Dat meal was choice!',
+        usage: 'Expression of approval',
+        origin: 'English',
+        audioExample: 'Choice, we going beach!'
+    },
+    'correck': {
+        pidgin: 'correck',
+        english: 'correct',
+        category: 'expressions',
+        pronunciation: 'cor-RECK',
+        example: 'Das correck, you got um right',
+        usage: 'Confirmation of correctness',
+        origin: 'English "correct"',
+        audioExample: 'Correck! Das how you do um'
+    },
+    'da bomb': {
+        pidgin: 'da bomb',
+        english: 'the best/awesome',
+        category: 'expressions',
+        pronunciation: 'da-BOMB',
+        example: 'Dis food stay da bomb!',
+        usage: 'Expression of excellence',
+        origin: 'English slang',
+        audioExample: 'Da party was da bomb'
+    },
+    'deep kimchi': {
+        pidgin: 'deep kimchi',
+        english: 'in big trouble',
+        category: 'expressions',
+        pronunciation: 'DEEP-kim-CHEE',
+        example: 'You stay in deep kimchi now',
+        usage: 'Being in serious trouble',
+        origin: 'Korean "kimchi" + English',
+        audioExample: 'We stay deep kimchi if we late'
+    },
+    'dirty lickens': {
+        pidgin: 'dirty lickens',
+        english: 'a beating/punishment',
+        category: 'expressions',
+        pronunciation: 'DIRTY-lick-ens',
+        example: 'He going get dirty lickens',
+        usage: 'Physical punishment or beating',
+        origin: 'English "licking"',
+        audioExample: 'Give um dirty lickens!'
+    },
+    'garanz': {
+        pidgin: 'garanz',
+        english: 'guaranteed',
+        category: 'expressions',
+        pronunciation: 'gah-RANZ',
+        example: 'Garanz going rain today',
+        usage: 'Certainty or guarantee',
+        origin: 'English "guaranteed"',
+        audioExample: 'Garanz he going be late'
+    },
+    'geff um': {
+        pidgin: 'geff um',
+        english: 'give it your all/go for it',
+        category: 'expressions',
+        pronunciation: 'GEFF-um',
+        example: 'Just geff um, try your best',
+        usage: 'Encouragement to try hard',
+        origin: 'English "give it"',
+        audioExample: 'Geff um! You can do um!'
+    },
+    'hammajang': {
+        pidgin: 'hammajang',
+        english: 'messed up/broken',
+        category: 'expressions',
+        pronunciation: 'HAM-mah-jang',
+        example: 'Da car stay all hammajang',
+        usage: 'Something broken or messed up',
+        origin: 'Unknown',
+        audioExample: 'Everything stay hammajang'
+    },
+    'like beef': {
+        pidgin: 'like beef',
+        english: 'want to fight',
+        category: 'expressions',
+        pronunciation: 'LIKE-beef',
+        example: 'What, you like beef or what?',
+        usage: 'Challenge to fight',
+        origin: 'English "like" + "beef" (conflict)',
+        audioExample: 'He stay like beef with everybody'
+    },
+    'shootz': {
+        pidgin: 'shootz',
+        english: 'okay/sounds good',
+        category: 'expressions',
+        pronunciation: 'SHOOTS',
+        example: 'Meet you at da beach? Shootz!',
+        usage: 'Agreement or acknowledgment',
+        origin: 'English "shoot"',
+        audioExample: 'Shootz, see you there'
+    },
+    'talk stink': {
+        pidgin: 'talk stink',
+        english: 'badmouth/speak badly of',
+        category: 'expressions',
+        pronunciation: 'TALK-stink',
+        example: 'No talk stink about my friend',
+        usage: 'Speaking negatively about someone',
+        origin: 'English',
+        audioExample: 'Why you stay talk stink?'
+    },
+    'tita': {
+        pidgin: 'tita',
+        english: 'tough local girl',
+        category: 'slang',
+        pronunciation: 'TEE-tah',
+        example: 'She one tita, no mess with her',
+        usage: 'Strong, tough local woman',
+        origin: 'Spanish "tía" (aunt)',
+        audioExample: 'Dat tita can scrap!'
+    },
+    'wikiwiki': {
+        pidgin: 'wikiwiki',
+        english: 'hurry up/fast',
+        category: 'expressions',
+        pronunciation: 'WEE-kee-WEE-kee',
+        example: 'Come wikiwiki, we going be late',
+        usage: 'Urgency or speed',
+        origin: 'Hawaiian',
+        audioExample: 'Wikiwiki! Da bus coming!'
+    },
+
     // Letter Z
     'zori': {
         pidgin: 'zori',
