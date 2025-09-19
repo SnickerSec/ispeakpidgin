@@ -44,8 +44,19 @@ async function preloadCommonPhrases() {
             "talk story", "pau hana", "da kine", "chicken skin"
         ];
 
-        // Preload silently in the background
-        console.log('Preloading common phrases for faster playback...');
+        // Only preload from network if we don't have cached items
+        const cachedCount = elevenLabsSpeech.cache.size;
+        if (cachedCount > 0) {
+            console.log(`Using ${cachedCount} cached audio items from previous sessions`);
+            return;
+        }
+
+        // Preload silently in the background (only when API is available)
+        console.log('Will preload phrases when API is available...');
+
+        // Don't attempt preloading since ElevenLabs is currently blocked
+        // Uncomment this when API is working:
+        /*
         for (const phrase of commonPhrases) {
             try {
                 // Check if already cached before preloading
@@ -56,8 +67,10 @@ async function preloadCommonPhrases() {
                 }
             } catch (error) {
                 console.warn(`Failed to preload "${phrase}":`, error);
+                break; // Stop trying if API fails
             }
         }
+        */
     }
 }
 

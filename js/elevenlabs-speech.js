@@ -118,7 +118,9 @@ class ElevenLabsSpeech {
             // Check cache first
             if (this.cache.has(normalizedText)) {
                 console.log('Playing cached audio for:', text);
-                this.playAudioBlob(this.cache.get(normalizedText));
+                if (!options.silent) {
+                    this.playAudioBlob(this.cache.get(normalizedText));
+                }
                 return;
             }
 
@@ -174,6 +176,12 @@ class ElevenLabsSpeech {
 
     playAudioBlob(audioBlob) {
         try {
+            // Ensure we have a valid blob
+            if (!audioBlob || !(audioBlob instanceof Blob)) {
+                console.error('Invalid audio blob');
+                return;
+            }
+
             // Create audio URL from blob
             const audioUrl = URL.createObjectURL(audioBlob);
 
@@ -181,25 +189,45 @@ class ElevenLabsSpeech {
             this.currentAudio = new Audio(audioUrl);
             this.isPlaying = true;
 
+            // Track the URL for cleanup
+            this.currentAudioUrl = audioUrl;
+
             // Set up event listeners
             this.currentAudio.addEventListener('ended', () => {
                 this.isPlaying = false;
-                URL.revokeObjectURL(audioUrl); // Clean up blob URL
+                if (this.currentAudioUrl) {
+                    URL.revokeObjectURL(this.currentAudioUrl);
+                    this.currentAudioUrl = null;
+                }
                 this.currentAudio = null;
             });
 
             this.currentAudio.addEventListener('error', (e) => {
                 console.error('Audio playback error:', e);
                 this.isPlaying = false;
-                URL.revokeObjectURL(audioUrl);
+                if (this.currentAudioUrl) {
+                    URL.revokeObjectURL(this.currentAudioUrl);
+                    this.currentAudioUrl = null;
+                }
                 this.currentAudio = null;
+                // Fallback to browser TTS on error
+                if (e.target && e.target.error && e.target.error.code === 4) {
+                    console.log('Media not supported, using fallback');
+                }
             });
 
             // Play the audio
             this.currentAudio.play().catch(error => {
-                console.error('Audio play error:', error);
+                if (error.name === 'NotAllowedError') {
+                    console.log('Audio autoplay blocked - user interaction required');
+                } else {
+                    console.error('Audio play error:', error);
+                }
                 this.isPlaying = false;
-                URL.revokeObjectURL(audioUrl);
+                if (this.currentAudioUrl) {
+                    URL.revokeObjectURL(this.currentAudioUrl);
+                    this.currentAudioUrl = null;
+                }
                 this.currentAudio = null;
             });
 
