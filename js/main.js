@@ -32,6 +32,12 @@ function initNavigation() {
 
 // Daily phrase functionality
 function initDailyPhrase() {
+    // Ensure getDailyPhrase function is available
+    if (typeof getDailyPhrase === 'undefined') {
+        console.error('getDailyPhrase function not found');
+        return;
+    }
+
     const dailyPhrase = getDailyPhrase();
 
     const phrasePidgin = document.getElementById('phrase-pidgin');

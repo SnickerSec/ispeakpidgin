@@ -25,7 +25,7 @@ class PidginTranslator {
             'da kine': 'the thing',
             'pau hana': 'after work',
             'pau': 'finished',
-            'shoots': 'okay',
+            'shoots': 'okay/see you later',
             'no can': 'cannot',
             'stay': 'is',
             'da': 'the',
