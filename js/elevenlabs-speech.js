@@ -210,28 +210,49 @@ class ElevenLabsSpeech {
     }
 
     fallbackToWebSpeech(text) {
-        console.log('Falling back to web speech synthesis');
+        console.log('Using browser speech synthesis (ElevenLabs unavailable)');
 
         if ('speechSynthesis' in window) {
             const utterance = new SpeechSynthesisUtterance(text);
-            utterance.rate = 0.8;
-            utterance.pitch = 1.0;
-            utterance.volume = 0.8;
+            utterance.rate = 0.85; // Slightly slower for pidgin
+            utterance.pitch = 0.95; // Slightly lower pitch
+            utterance.volume = 0.9;
 
-            // Try to use a voice that might sound more natural
+            // Try to find the best available voice
             const voices = speechSynthesis.getVoices();
-            const preferredVoice = voices.find(voice =>
-                voice.lang.includes('en') &&
-                (voice.name.includes('Natural') || voice.name.includes('Enhanced'))
-            ) || voices.find(voice => voice.lang.includes('en-US'));
 
-            if (preferredVoice) {
-                utterance.voice = preferredVoice;
+            // Priority order for voices
+            const voicePreferences = [
+                voice => voice.name.includes('Samantha'), // macOS natural voice
+                voice => voice.name.includes('Daniel'), // British accent
+                voice => voice.name.includes('Karen'), // Australian accent
+                voice => voice.name.includes('Natural'),
+                voice => voice.name.includes('Enhanced'),
+                voice => voice.lang === 'en-US',
+                voice => voice.lang.startsWith('en')
+            ];
+
+            let selectedVoice = null;
+            for (const preference of voicePreferences) {
+                selectedVoice = voices.find(preference);
+                if (selectedVoice) break;
             }
 
+            if (selectedVoice) {
+                utterance.voice = selectedVoice;
+                console.log('Using voice:', selectedVoice.name);
+            }
+
+            // Add slight pauses for better pronunciation
+            const modifiedText = text
+                .replace(/([.!?])/g, '$1 ')  // Add pause after punctuation
+                .replace(/,/g, ', ');         // Add pause after commas
+
+            utterance.text = modifiedText;
             speechSynthesis.speak(utterance);
         } else {
             console.warn('Speech synthesis not supported');
+            alert('Text-to-speech is not available. Please try a different browser.');
         }
     }
 
