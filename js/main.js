@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize all modules
     initNavigation();
     initDailyPhrase();
+    initEssentialPhrases();
     initTranslator();
     initLearningHub();
     initCommunity();
@@ -58,6 +59,36 @@ function initDailyPhrase() {
     }
 }
 
+// Essential phrases functionality
+function initEssentialPhrases() {
+    // Ensure pidginPhrases is available
+    if (typeof pidginPhrases === 'undefined' || !pidginPhrases.dailyPhrases) {
+        console.error('pidginPhrases not found');
+        return;
+    }
+
+    const grid = document.getElementById('essential-phrases-grid');
+    if (!grid) return;
+
+    // Get 6 random phrases
+    const allPhrases = [...pidginPhrases.dailyPhrases];
+    const selectedPhrases = [];
+
+    for (let i = 0; i < 6 && allPhrases.length > 0; i++) {
+        const randomIndex = Math.floor(Math.random() * allPhrases.length);
+        selectedPhrases.push(allPhrases.splice(randomIndex, 1)[0]);
+    }
+
+    // Create HTML for each phrase
+    grid.innerHTML = selectedPhrases.map(phrase => `
+        <div class="phrase-card bg-white rounded-lg p-6 shadow hover:shadow-lg transition">
+            <h3 class="text-xl font-bold text-green-600 mb-2">${phrase.pidgin}</h3>
+            <p class="text-gray-600 mb-2">${phrase.english}</p>
+            <p class="text-sm text-gray-500">${phrase.usage}</p>
+        </div>
+    `).join('');
+}
+
 // Translator functionality
 function initTranslator() {
     const translatorInput = document.getElementById('translator-input');
@@ -74,6 +105,9 @@ function initTranslator() {
     // Toggle button functionality
     if (engToPidginBtn && pidginToEngBtn) {
         engToPidginBtn.addEventListener('click', () => {
+            // Don't switch if already in this mode
+            if (currentDirection === 'eng-to-pidgin') return;
+
             currentDirection = 'eng-to-pidgin';
 
             // Update button styles
@@ -88,12 +122,14 @@ function initTranslator() {
             translatorInput.placeholder = 'Type English text here...';
             translateBtn.textContent = 'Translate to Pidgin';
 
-            // Clear previous output
-            translatorOutput.textContent = '';
-            speakTranslationBtn.classList.add('hidden');
+            // Auto-translate existing text if any
+            autoTranslateOnToggle();
         });
 
         pidginToEngBtn.addEventListener('click', () => {
+            // Don't switch if already in this mode
+            if (currentDirection === 'pidgin-to-eng') return;
+
             currentDirection = 'pidgin-to-eng';
 
             // Update button styles
@@ -108,10 +144,50 @@ function initTranslator() {
             translatorInput.placeholder = 'Type Pidgin text here...';
             translateBtn.textContent = 'Translate to English';
 
+            // Auto-translate existing text if any
+            autoTranslateOnToggle();
+        });
+    }
+
+    // Auto-translate when toggling between directions
+    function autoTranslateOnToggle() {
+        const inputText = translatorInput.value.trim();
+        if (inputText) {
             // Clear previous output
             translatorOutput.textContent = '';
             speakTranslationBtn.classList.add('hidden');
-        });
+
+            // Remove any existing pronunciation guides
+            const existingGuide = translatorOutput.querySelector('.pronunciation-guide');
+            if (existingGuide) {
+                existingGuide.remove();
+            }
+
+            // Translate the existing text
+            const translatedText = translator.translate(inputText, currentDirection);
+            translatorOutput.textContent = translatedText;
+
+            // Show pronunciation button
+            if (speakTranslationBtn && translatedText) {
+                speakTranslationBtn.classList.remove('hidden');
+                speakTranslationBtn.onclick = () => speakText(translatedText);
+            }
+
+            // Add pronunciation guide if translating to Pidgin
+            if (currentDirection === 'eng-to-pidgin') {
+                const pronunciation = translator.getPronunciation(translatedText);
+                if (pronunciation) {
+                    const guideEl = document.createElement('p');
+                    guideEl.className = 'text-sm text-gray-600 mt-2 italic pronunciation-guide';
+                    guideEl.textContent = pronunciation;
+                    translatorOutput.appendChild(guideEl);
+                }
+            }
+        } else {
+            // Just clear output if no input text
+            translatorOutput.textContent = '';
+            speakTranslationBtn.classList.add('hidden');
+        }
     }
 
     // Translation functionality
