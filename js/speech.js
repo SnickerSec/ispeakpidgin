@@ -311,9 +311,9 @@ class PidginSpeech {
 
     // Apply SSML markup for natural rhythm and intonation
     applySSMLMarkup(text) {
-        if (!this.ssmlSupported) {
-            return text; // Return plain text if SSML not supported
-        }
+        // Note: Most browsers don't actually support SSML in speechSynthesis
+        // This function is mainly for logging/debugging purposes
+        // We'll simulate the effects through other means
 
         let ssmlText = text;
 
@@ -373,7 +373,7 @@ class PidginSpeech {
         return params;
     }
 
-    // Main speak function with advanced SSML and phonetic processing
+    // Main speak function with enhanced phonetic processing
     speak(text, options = {}) {
         return new Promise((resolve, reject) => {
             if (!('speechSynthesis' in window)) {
@@ -393,11 +393,11 @@ class PidginSpeech {
             // Apply comprehensive phonetic transformations
             const phoneticText = this.applyPhoneticTransform(text);
 
-            // Apply SSML markup for rhythm and intonation
+            // Generate SSML for debugging purposes (not actually used for speech)
             const ssmlText = this.applySSMLMarkup(phoneticText);
 
-            // Create utterance with processed text
-            const utterance = new SpeechSynthesisUtterance(ssmlText);
+            // Create utterance with phonetic text (NOT SSML - most browsers don't support it)
+            const utterance = new SpeechSynthesisUtterance(phoneticText);
 
             // Set voice (prefer non-rhotic accents)
             if (this.preferredVoice) {
@@ -410,11 +410,23 @@ class PidginSpeech {
             utterance.pitch = options.pitch || params.pitch;
             utterance.volume = options.volume || params.volume;
 
+            // Simulate rhythm by adding pauses using periods
+            let textWithPauses = phoneticText;
+            textWithPauses = textWithPauses.replace(/,/g, '... ');
+            textWithPauses = textWithPauses.replace(/\./g, '..... ');
+            textWithPauses = textWithPauses.replace(/!/g, '!... ');
+            textWithPauses = textWithPauses.replace(/\?/g, '?... ');
+
+            // Use the text with simulated pauses for speech
+            utterance.text = textWithPauses;
+
             // Enhanced debugging
             if (options.debug) {
+                console.log('🎙️ Speech Debug Info:');
                 console.log('Original text:', text);
                 console.log('Phonetic text:', phoneticText);
-                console.log('SSML text:', ssmlText);
+                console.log('Final speech text:', textWithPauses);
+                console.log('SSML (for reference):', ssmlText);
                 console.log('Selected voice:', this.preferredVoice?.name);
                 console.log('Speech parameters:', params);
             }
@@ -422,19 +434,11 @@ class PidginSpeech {
             // Event handlers
             utterance.onend = () => resolve();
             utterance.onerror = (error) => {
-                console.warn('SSML speech failed, trying plain text...', error);
-                // Fallback to plain text if SSML fails
-                const fallbackUtterance = new SpeechSynthesisUtterance(phoneticText);
-                fallbackUtterance.voice = this.preferredVoice;
-                fallbackUtterance.rate = utterance.rate;
-                fallbackUtterance.pitch = utterance.pitch;
-                fallbackUtterance.volume = utterance.volume;
-                fallbackUtterance.onend = () => resolve();
-                fallbackUtterance.onerror = (err) => reject(err);
-                speechSynthesis.speak(fallbackUtterance);
+                console.warn('Speech failed:', error);
+                reject(error);
             };
 
-            // Speak with SSML
+            // Speak the enhanced text
             speechSynthesis.speak(utterance);
         });
     }
