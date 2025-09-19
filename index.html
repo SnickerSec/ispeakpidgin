@@ -7,13 +7,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-green-50 min-h-screen">
+<body class="min-h-screen relative">
+    <!-- Hawaiian Pattern Overlay -->
+    <div class="hawaiian-pattern"></div>
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
+    <nav class="shadow-lg sticky top-0 z-50">
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center">
-                    <span class="text-2xl font-bold text-green-600">🌺 ChokePidgin.com</span>
+                    <span class="text-2xl font-bold bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+                        🌺🌴 ChokePidgin.com 🌊
+                    </span>
                 </div>
                 <div class="hidden md:flex space-x-6 items-center">
                     <a href="#home" class="nav-link text-gray-700 hover:text-green-600 transition">Home</a>
@@ -43,15 +47,25 @@
     <!-- Home Section -->
     <section id="home" class="py-12 px-4">
         <div class="container mx-auto">
-            <!-- Hero -->
-            <div class="text-center mb-12">
-                <h1 class="text-5xl font-bold text-gray-800 mb-4">E Komo Mai! Welcome to ChokePidgin.com</h1>
-                <p class="text-xl text-gray-600">Learn Hawaiian Pidgin English da easy way, brah!</p>
+            <!-- Hero with Hawaiian styling -->
+            <div class="text-center mb-12 relative">
+                <div class="absolute inset-0 flex justify-center items-center opacity-10">
+                    <span class="text-[200px]">🤙</span>
+                </div>
+                <h1 class="text-5xl font-bold text-white mb-4 drop-shadow-lg relative z-10">
+                    <span class="inline-block animate-pulse">🌺</span>
+                    E Komo Mai!
+                    <span class="inline-block animate-pulse">🌺</span>
+                </h1>
+                <p class="text-2xl text-white drop-shadow-md relative z-10">Learn Hawaiian Pidgin English da easy way, brah! 🏄</p>
             </div>
 
-            <!-- Daily Phrase -->
-            <div class="bg-white rounded-lg shadow-xl p-8 mb-12 max-w-3xl mx-auto">
-                <h2 class="text-3xl font-bold text-center mb-6 text-green-600">Today's Pidgin Phrase</h2>
+            <!-- Daily Phrase with Aloha Spirit -->
+            <div class="aloha-spirit shadow-xl mb-12 max-w-3xl mx-auto relative overflow-hidden">
+                <div class="absolute top-0 right-0 text-8xl opacity-10">🌈</div>
+                <h2 class="text-3xl font-bold text-center mb-6 bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
+                    🌴 Today's Pidgin Phrase 🌴
+                </h2>
                 <div id="daily-phrase" class="text-center">
                     <p class="text-4xl font-bold text-gray-800 mb-4" id="phrase-pidgin">Howzit, brah!</p>
                     <p class="text-2xl text-gray-600 mb-4" id="phrase-english">How are you, friend!</p>
@@ -62,9 +76,12 @@
                 </div>
             </div>
 
-            <!-- Featured Greetings -->
+            <!-- Featured Greetings with Hawaiian theme -->
             <div class="mb-12">
-                <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Essential Pidgin Phrases</h2>
+                <div class="hawaiian-divider"></div>
+                <h2 class="text-3xl font-bold text-center mb-8 text-white drop-shadow-lg">
+                    🌊 Essential Pidgin Phrases 🌊
+                </h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto" id="essential-phrases-grid">
                     <!-- Phrases will be dynamically loaded -->
                 </div>
@@ -82,10 +99,16 @@
         </div>
     </section>
 
-    <!-- Translator Section -->
-    <section id="translator" class="py-12 px-4 bg-white">
-        <div class="container mx-auto max-w-4xl">
-            <h2 class="text-4xl font-bold text-center mb-8 text-gray-800">Pidgin Translator</h2>
+    <!-- Translator Section with Beach Theme -->
+    <section id="translator" class="py-12 px-4 bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50 relative">
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute top-10 left-10 text-9xl">🏖️</div>
+            <div class="absolute bottom-10 right-10 text-9xl">🌊</div>
+        </div>
+        <div class="container mx-auto max-w-4xl relative z-10">
+            <h2 class="text-4xl font-bold text-center mb-8 text-gray-800">
+                <span class="text-5xl">🏝️</span> Pidgin Translator <span class="text-5xl">🌺</span>
+            </h2>
 
             <!-- Translation Direction Toggle -->
             <div class="flex justify-center mb-6">
@@ -99,7 +122,7 @@
                 </div>
             </div>
 
-            <div class="bg-gray-50 rounded-lg p-8 shadow-lg">
+            <div class="bg-white/90 backdrop-blur rounded-lg p-8 shadow-2xl border-4 border-orange-200">
                 <div class="mb-6">
                     <label id="input-label" class="block text-lg font-semibold mb-2 text-gray-700">English</label>
                     <textarea id="translator-input"
@@ -125,14 +148,16 @@
         </div>
     </section>
 
-    <!-- Learning Hub Section -->
-    <section id="learning" class="py-12 px-4">
-        <div class="container mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-8 text-gray-800">Learning Hub</h2>
+    <!-- Learning Hub Section with Tropical Theme -->
+    <section id="learning" class="py-12 px-4 relative">
+        <div class="container mx-auto relative z-10">
+            <h2 class="text-4xl font-bold text-center mb-8 text-white drop-shadow-lg">
+                🌴 Learning Hub 🌴
+            </h2>
 
-            <!-- Level Tabs -->
+            <!-- Level Tabs with Hawaiian styling -->
             <div class="flex justify-center mb-8">
-                <div class="bg-white rounded-lg shadow-lg p-1">
+                <div class="bg-white/95 backdrop-blur rounded-lg shadow-2xl p-1 border-2 border-orange-300">
                     <button class="level-btn px-6 py-2 rounded-lg bg-green-500 text-white" data-level="beginner">Beginner</button>
                     <button class="level-btn px-6 py-2 rounded-lg hover:bg-gray-100" data-level="intermediate">Intermediate</button>
                     <button class="level-btn px-6 py-2 rounded-lg hover:bg-gray-100" data-level="advanced">Advanced</button>
@@ -154,15 +179,23 @@
         </div>
     </section>
 
-    <!-- Community Section -->
-    <section id="community" class="py-12 px-4 bg-white">
-        <div class="container mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-8 text-gray-800">Community & Stories</h2>
+    <!-- Community Section with Ohana Theme -->
+    <section id="community" class="py-12 px-4 bg-gradient-to-br from-yellow-50 via-orange-50 to-red-50 relative">
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute top-20 left-20 text-9xl">🤝</div>
+            <div class="absolute bottom-20 right-20 text-9xl">🌺</div>
+        </div>
+        <div class="container mx-auto relative z-10">
+            <h2 class="text-4xl font-bold text-center mb-8 text-gray-800">
+                🤙 Ohana Community & Stories 🤙
+            </h2>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-                <!-- Story Corner -->
-                <div class="bg-gray-50 rounded-lg p-6 shadow-lg">
-                    <h3 class="text-2xl font-bold mb-4 text-green-600">Pidgin Story Corner</h3>
+                <!-- Story Corner with Sunset Theme -->
+                <div class="bg-gradient-to-br from-white/90 to-orange-50/90 backdrop-blur rounded-lg p-6 shadow-xl border-2 border-orange-200">
+                    <h3 class="text-2xl font-bold mb-4 bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+                        🌅 Pidgin Story Corner 🌅
+                    </h3>
                     <div id="stories-container">
                         <article class="mb-6 pb-6 border-b">
                             <h4 class="text-lg font-bold mb-2">Da Beach Day</h4>
@@ -177,9 +210,11 @@
                     </div>
                 </div>
 
-                <!-- Ask a Local -->
-                <div class="bg-gray-50 rounded-lg p-6 shadow-lg">
-                    <h3 class="text-2xl font-bold mb-4 text-green-600">Ask a Local</h3>
+                <!-- Ask a Local with Island Theme -->
+                <div class="bg-gradient-to-br from-white/90 to-blue-50/90 backdrop-blur rounded-lg p-6 shadow-xl border-2 border-blue-200">
+                    <h3 class="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-teal-500 bg-clip-text text-transparent">
+                        🏝️ Ask a Local 🏝️
+                    </h3>
                     <form id="ask-form" class="mb-6">
                         <textarea class="w-full p-3 border rounded-lg mb-3" rows="3" placeholder="Ask your question about Pidgin..."></textarea>
                         <button type="submit" class="bg-green-500 text-white px-6 py-2 rounded-full hover:bg-green-600 transition">
@@ -198,26 +233,29 @@
                 </div>
             </div>
 
-            <!-- Cultural Insights -->
+            <!-- Cultural Insights with Lei Border -->
             <div class="mt-12 max-w-4xl mx-auto">
-                <h3 class="text-2xl font-bold mb-6 text-center text-green-600">Cultural Insights</h3>
+                <div class="hawaiian-divider"></div>
+                <h3 class="text-2xl font-bold mb-6 text-center bg-gradient-to-r from-green-500 to-blue-500 bg-clip-text text-transparent">
+                    🌺 Cultural Insights 🌺
+                </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <article class="bg-gray-50 rounded-lg p-6 shadow">
+                    <article class="bg-white/90 backdrop-blur rounded-lg p-6 shadow-lg border-2 border-pink-200 hover:border-pink-400 transition-all duration-300">
                         <h4 class="text-xl font-bold mb-2">The History of Pidgin</h4>
                         <p class="text-gray-700 mb-3">Hawaiian Pidgin developed in the 19th century on sugar plantations when workers from Hawaii, China, Japan, Philippines, Portugal, and other countries needed to communicate. It evolved from a simple trade language into a rich creole.</p>
                         <p class="text-sm text-gray-600">Key influences: Hawaiian, English, Portuguese, Chinese, Japanese, Filipino languages</p>
                     </article>
-                    <article class="bg-gray-50 rounded-lg p-6 shadow">
+                    <article class="bg-white/90 backdrop-blur rounded-lg p-6 shadow-lg border-2 border-blue-200 hover:border-blue-400 transition-all duration-300">
                         <h4 class="text-xl font-bold mb-2">Pidgin in Modern Hawaii</h4>
                         <p class="text-gray-700 mb-3">Today, Pidgin is spoken by over 600,000 people and is recognized as a legitimate language. It represents the multicultural spirit of Hawaii and is used in literature, music, and everyday conversation.</p>
                         <p class="text-sm text-gray-600">Status: Official recognition as Hawaiian Creole English (HCE)</p>
                     </article>
-                    <article class="bg-gray-50 rounded-lg p-6 shadow">
+                    <article class="bg-white/90 backdrop-blur rounded-lg p-6 shadow-lg border-2 border-green-200 hover:border-green-400 transition-all duration-300">
                         <h4 class="text-xl font-bold mb-2">Island Life Expressions</h4>
                         <p class="text-gray-700 mb-3">"Hawaiian time" reflects the island's relaxed pace, while "talk story" embodies the tradition of community storytelling. "Kanak attack" humorously describes post-meal sleepiness in the warm climate.</p>
                         <p class="text-sm text-gray-600">Culture: Reflects laid-back island lifestyle and community values</p>
                     </article>
-                    <article class="bg-gray-50 rounded-lg p-6 shadow">
+                    <article class="bg-white/90 backdrop-blur rounded-lg p-6 shadow-lg border-2 border-purple-200 hover:border-purple-400 transition-all duration-300">
                         <h4 class="text-xl font-bold mb-2">Respect for Hawaiian Culture</h4>
                         <p class="text-gray-700 mb-3">Words like "kapu" (sacred/forbidden) and "aloha" carry deep spiritual meaning in Hawaiian culture. Learning Pidgin means understanding and respecting these cultural roots.</p>
                         <p class="text-sm text-gray-600">Values: Respect for native Hawaiian language and traditions</p>
@@ -227,11 +265,14 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8 px-4">
+    <!-- Hawaiian Themed Footer -->
+    <footer class="text-white py-8 px-4 relative z-10">
         <div class="container mx-auto text-center">
-            <p class="mb-2">© 2025 ChokePidgin.com - Learn Hawaiian Pidgin English</p>
-            <p class="text-sm text-gray-400">Made with aloha 🌺</p>
+            <p class="mb-2 text-lg font-semibold">© 2025 ChokePidgin.com - Learn Hawaiian Pidgin English</p>
+            <p class="text-md text-gray-300">
+                Made with aloha 🌺 🤙 🌊 🌴 🌅
+            </p>
+            <p class="text-sm text-gray-400 mt-2">E komo mai - Everyone is welcome here</p>
         </div>
     </footer>
 
@@ -377,5 +418,9 @@
     <script src="js/lessons.js"></script>
     <script src="js/speech.js"></script>
     <script src="js/main.js"></script>
+    <!-- Hawaiian Tiki Torches -->
+    <div class="tiki-torch left">🔥</div>
+    <div class="tiki-torch right">🔥</div>
+
 </body>
 </html>

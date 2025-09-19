@@ -1,13 +1,36 @@
-/* Custom styles for Pidgin Pal */
+/* Custom styles for Pidgin Pal - Hawaiian Theme */
 
-/* Tropical gradient background animation */
+/* Hawaiian ocean and sunset gradient background */
 body {
-    background: linear-gradient(-45deg, #e3f2fd, #c8e6c9, #fff9c4, #ffccbc);
+    background: linear-gradient(135deg,
+        #1e6ba8 0%,    /* Deep ocean blue */
+        #5ca3db 25%,   /* Pacific blue */
+        #87ceeb 50%,   /* Sky blue */
+        #ffb347 75%,   /* Sunset orange */
+        #ff6b6b 100%); /* Hawaiian sunset red */
     background-size: 400% 400%;
-    animation: gradientShift 15s ease infinite;
+    animation: hawaiianSunset 20s ease infinite;
+    position: relative;
 }
 
-@keyframes gradientShift {
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.05" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>'),
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.03" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,218.7C672,235,768,245,864,234.7C960,224,1056,192,1152,192C1248,192,1344,224,1392,240L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+    background-position: top, bottom;
+    background-repeat: repeat-x;
+    animation: waves 10s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes hawaiianSunset {
     0% {
         background-position: 0% 50%;
     }
@@ -19,21 +42,58 @@ body {
     }
 }
 
-/* Navigation hover effects */
+@keyframes waves {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-1440px);
+    }
+}
+
+/* Hawaiian pattern overlay */
+.hawaiian-pattern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.03;
+    background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 35px,
+        rgba(255, 255, 255, 0.1) 35px,
+        rgba(255, 255, 255, 0.1) 70px
+    );
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Navigation with Hawaiian styling */
+nav {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.95), rgba(255, 251, 235, 0.95));
+    backdrop-filter: blur(10px);
+    border-bottom: 3px solid #ff6b6b;
+}
+
 .nav-link {
     position: relative;
     transition: all 0.3s ease;
+    color: #1e6ba8;
+    font-weight: 500;
 }
 
 .nav-link::after {
     content: '';
     position: absolute;
     width: 0;
-    height: 2px;
+    height: 3px;
     bottom: -5px;
     left: 50%;
-    background-color: #10b981;
+    background: linear-gradient(to right, #ff6b6b, #ffb347);
     transition: all 0.3s ease;
+    border-radius: 2px;
 }
 
 .nav-link:hover::after {
@@ -41,32 +101,54 @@ body {
     left: 0;
 }
 
-/* Phrase cards hover animation */
+/* Hawaiian themed phrase cards */
 .phrase-card {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 251, 235, 0.9));
+    border: 2px solid transparent;
+    background-clip: padding-box;
 }
 
 .phrase-card::before {
     content: '🌺';
     position: absolute;
-    font-size: 100px;
-    opacity: 0.05;
-    right: -20px;
-    bottom: -20px;
+    font-size: 120px;
+    opacity: 0.1;
+    right: -30px;
+    bottom: -30px;
     transform: rotate(-15deg);
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 10px rgba(255, 107, 107, 0.3));
+}
+
+.phrase-card::after {
+    content: '🌴';
+    position: absolute;
+    font-size: 80px;
+    opacity: 0.05;
+    left: -20px;
+    top: -20px;
+    transform: rotate(15deg);
     transition: all 0.3s ease;
 }
 
 .phrase-card:hover::before {
-    transform: rotate(0deg) scale(1.2);
-    opacity: 0.1;
+    transform: rotate(0deg) scale(1.3);
+    opacity: 0.15;
+}
+
+.phrase-card:hover::after {
+    transform: rotate(0deg) scale(1.1);
+    opacity: 0.08;
 }
 
 .phrase-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 15px 40px rgba(30, 107, 168, 0.2);
+    border-color: #ffb347;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(255, 251, 235, 1));
 }
 
 /* Daily phrase animation */
@@ -95,10 +177,23 @@ body {
     box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
-/* Button animations */
+/* Hawaiian styled buttons */
 button {
     position: relative;
     overflow: hidden;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.bg-green-500 {
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.bg-blue-500 {
+    background: linear-gradient(135deg, #1e6ba8, #5ca3db) !important;
+    box-shadow: 0 4px 15px rgba(30, 107, 168, 0.3);
 }
 
 button::after {
@@ -109,14 +204,31 @@ button::after {
     width: 0;
     height: 0;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.5), transparent);
     transform: translate(-50%, -50%);
     transition: width 0.6s, height 0.6s;
 }
 
+button::before {
+    content: '🌊';
+    position: absolute;
+    font-size: 150px;
+    opacity: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: all 0.5s ease;
+    pointer-events: none;
+}
+
 button:active::after {
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    height: 400px;
+}
+
+button:hover::before {
+    opacity: 0.1;
+    transform: translate(-50%, -50%) scale(1);
 }
 
 /* Quiz options hover effect */
@@ -151,30 +263,58 @@ button:active::after {
     border-left: 4px solid #10b981;
 }
 
-/* Footer waves effect */
+/* Hawaiian themed footer */
 footer {
     position: relative;
     overflow: hidden;
+    background: linear-gradient(to bottom, #1f2937, #111827);
+    border-top: 4px solid #ff6b6b;
 }
 
 footer::before {
     content: '';
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
     width: 100%;
-    height: 100px;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="%23ffffff" opacity="0.1"></path></svg>') repeat-x;
-    animation: wave 10s linear infinite;
-    opacity: 0.3;
+    height: 100%;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 100px,
+        rgba(255, 107, 107, 0.05) 100px,
+        rgba(255, 107, 107, 0.05) 200px
+    );
+    animation: slidePattern 20s linear infinite;
 }
 
-@keyframes wave {
+footer::after {
+    content: '🌺 🌴 🌊 🏄 🌺 🌴 🌊 🏄';
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 200%;
+    font-size: 20px;
+    opacity: 0.1;
+    animation: slideEmojis 30s linear infinite;
+    white-space: nowrap;
+}
+
+@keyframes slidePattern {
     0% {
         transform: translateX(0);
     }
     100% {
-        transform: translateX(-1200px);
+        transform: translateX(-200px);
+    }
+}
+
+@keyframes slideEmojis {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
     }
 }
 
@@ -217,17 +357,48 @@ html {
     }
 }
 
-/* Lesson card icons bounce on hover */
+/* Lesson card Hawaiian animation */
 .bg-white.rounded-lg.shadow-lg:hover .text-4xl {
-    animation: bounce 0.5s ease;
+    animation: hulaWave 0.8s ease;
 }
 
-@keyframes bounce {
+@keyframes hulaWave {
     0%, 100% {
-        transform: translateY(0);
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-5px) rotate(-5deg);
+    }
+    75% {
+        transform: translateY(-5px) rotate(5deg);
+    }
+}
+
+/* Hawaiian themed cards */
+.lesson-card, .quiz-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 251, 235, 0.95));
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+    overflow: hidden;
+}
+
+.lesson-card::before, .quiz-card::before {
+    content: '🌊';
+    position: absolute;
+    font-size: 200px;
+    opacity: 0.03;
+    bottom: -50px;
+    right: -50px;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
     }
     50% {
-        transform: translateY(-10px);
+        transform: translateY(-20px) rotate(10deg);
     }
 }
 
@@ -267,26 +438,112 @@ article.bg-gray-50:hover {
     }
 }
 
-/* Accessibility improvements */
+/* Accessibility improvements with Hawaiian colors */
 button:focus, a:focus, input:focus, textarea:focus {
-    outline: 2px solid #10b981;
+    outline: 3px solid #ff6b6b;
     outline-offset: 2px;
+    box-shadow: 0 0 0 6px rgba(255, 107, 107, 0.1);
 }
 
-/* Custom scrollbar */
+/* Hawaiian loading spinner */
+.hawaiian-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 107, 107, 0.2);
+    border-top-color: #ff6b6b;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    position: relative;
+}
+
+.hawaiian-spinner::after {
+    content: '🌺';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Tiki torch animation */
+.tiki-torch {
+    position: fixed;
+    bottom: 20px;
+    font-size: 40px;
+    animation: flicker 2s ease-in-out infinite;
+    z-index: 100;
+}
+
+.tiki-torch.left {
+    left: 20px;
+}
+
+.tiki-torch.right {
+    right: 20px;
+}
+
+@keyframes flicker {
+    0%, 100% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+}
+
+/* Hawaiian themed scrollbar */
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: linear-gradient(to bottom, #e0f2fe, #fef3c7);
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #10b981;
-    border-radius: 5px;
+    background: linear-gradient(to bottom, #1e6ba8, #5ca3db);
+    border-radius: 10px;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.1);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #059669;
+    background: linear-gradient(to bottom, #ff6b6b, #ffb347);
+}
+
+/* Additional Hawaiian elements */
+.hawaiian-divider {
+    width: 100%;
+    height: 40px;
+    margin: 2rem 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 40"><path fill="%23ff6b6b" fill-opacity="0.3" d="M0,20 Q360,0 720,20 T1440,20 L1440,40 L0,40 Z"></path></svg>');
+    background-size: cover;
+}
+
+.aloha-spirit {
+    background: linear-gradient(135deg,
+        rgba(255, 107, 107, 0.1),
+        rgba(255, 179, 71, 0.1),
+        rgba(30, 107, 168, 0.1));
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+}
+
+.aloha-spirit::before {
+    content: '🤙';
+    position: absolute;
+    font-size: 60px;
+    opacity: 0.1;
+    right: 20px;
+    top: 20px;
+    transform: rotate(-10deg);
 }
