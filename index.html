@@ -288,6 +288,12 @@
             </div>
 
             <div class="mb-4">
+                <button id="voice-install-guide-btn" class="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition w-full">
+                    📥 Get Better Voices (Installation Guide)
+                </button>
+            </div>
+
+            <div class="mb-4">
                 <label class="flex items-center">
                     <input type="checkbox" id="debug-mode" class="mr-2">
                     <span class="text-sm text-gray-700">Debug Mode (show phonetic transformations)</span>
@@ -311,6 +317,76 @@
                     <li>✅ Vowel shifts (dis, dat, ting)</li>
                     <li>✅ Natural pauses and emphasis</li>
                 </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Voice Installation Guide Modal -->
+    <div id="voice-install-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-lg max-w-2xl w-full p-6 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-gray-800">📥 Install Better Voices for Pidgin</h3>
+                <button id="close-voice-install" class="text-gray-500 hover:text-gray-700 text-2xl">×</button>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Windows -->
+                <div class="border rounded-lg p-4">
+                    <h4 class="text-lg font-bold mb-2 text-blue-600">🪟 Windows</h4>
+                    <ol class="list-decimal list-inside space-y-2 text-sm">
+                        <li>Open <strong>Settings</strong> → <strong>Time & Language</strong> → <strong>Speech</strong></li>
+                        <li>Click <strong>"Manage voices"</strong></li>
+                        <li>Click <strong>"Add voices"</strong></li>
+                        <li>Download: <strong>English (Australia) - Catherine, James, William</strong></li>
+                        <li>Download: <strong>English (New Zealand) - Hazel</strong></li>
+                        <li>Restart your browser after installation</li>
+                    </ol>
+                    <p class="text-xs text-gray-600 mt-2">These voices are free and work great for Pidgin pronunciation!</p>
+                </div>
+
+                <!-- macOS -->
+                <div class="border rounded-lg p-4">
+                    <h4 class="text-lg font-bold mb-2 text-gray-600">🍎 macOS</h4>
+                    <ol class="list-decimal list-inside space-y-2 text-sm">
+                        <li>Open <strong>System Preferences</strong> → <strong>Accessibility</strong> → <strong>Spoken Content</strong></li>
+                        <li>Click <strong>"System Voice"</strong> dropdown</li>
+                        <li>Click <strong>"Customize..."</strong></li>
+                        <li>Download: <strong>Karen (Australian)</strong>, <strong>Lee (Australian)</strong></li>
+                        <li>Restart your browser after installation</li>
+                    </ol>
+                    <p class="text-xs text-gray-600 mt-2">Note: macOS has fewer Australian voices, but Karen and Lee work well.</p>
+                </div>
+
+                <!-- Cloud Alternative -->
+                <div class="border rounded-lg p-4 bg-green-50">
+                    <h4 class="text-lg font-bold mb-2 text-green-600">☁️ Alternative: Use Google's Voices</h4>
+                    <p class="text-sm mb-2">For the best Pidgin experience without installing anything:</p>
+                    <ol class="list-decimal list-inside space-y-2 text-sm">
+                        <li>Use <strong>Chrome browser</strong> (has the best voice selection)</li>
+                        <li>Enable <strong>online voices</strong> in Chrome settings</li>
+                        <li>Look for <strong>"Google Australian English"</strong> voices</li>
+                    </ol>
+                </div>
+
+                <!-- Current Optimization -->
+                <div class="border rounded-lg p-4 bg-blue-50">
+                    <h4 class="text-lg font-bold mb-2 text-blue-600">🎯 Current System Optimization</h4>
+                    <p class="text-sm">Even with US voices, ChokePidgin.com optimizes pronunciation with:</p>
+                    <ul class="list-disc list-inside space-y-1 text-xs mt-2">
+                        <li>R-dropping simulation ("brah" → "bra-ah")</li>
+                        <li>Th-fronting ("the" → "da", "them" → "dem")</li>
+                        <li>Vowel shifts ("that" → "dat", "this" → "dis")</li>
+                        <li>Natural rhythm and pauses</li>
+                        <li>Pidgin-specific emphasis patterns</li>
+                    </ul>
+                    <p class="text-xs text-gray-600 mt-2">Your current setup will still sound much more authentic than standard English!</p>
+                </div>
+            </div>
+
+            <div class="mt-6 text-center">
+                <button id="close-voice-install-btn" class="bg-green-500 text-white px-6 py-2 rounded-full hover:bg-green-600 transition">
+                    Got it! Let's use what I have
+                </button>
             </div>
         </div>
     </div>

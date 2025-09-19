@@ -436,6 +436,10 @@ function initVoiceSettings() {
     const pitchValue = document.getElementById('pitch-value');
     const testVoiceBtn = document.getElementById('test-voice-btn');
     const debugMode = document.getElementById('debug-mode');
+    const voiceInstallGuideBtn = document.getElementById('voice-install-guide-btn');
+    const voiceInstallModal = document.getElementById('voice-install-modal');
+    const closeVoiceInstall = document.getElementById('close-voice-install');
+    const closeVoiceInstallBtn = document.getElementById('close-voice-install-btn');
 
     if (!voiceSettingsBtn || !voiceSettingsModal) return;
 
@@ -696,6 +700,27 @@ Accent: ${pidginSpeech.preferredVoice?.lang || 'Unknown'}`);
                 console.log('All available voices:', speechSynthesis.getVoices());
                 console.log('Pidgin speech voices:', pidginSpeech.getAvailableVoices());
                 console.log('Preferred voice:', pidginSpeech.preferredVoice);
+            }
+        });
+    }
+
+    // Voice installation guide modal
+    if (voiceInstallGuideBtn && voiceInstallModal) {
+        voiceInstallGuideBtn.addEventListener('click', () => {
+            voiceInstallModal.classList.remove('hidden');
+        });
+
+        closeVoiceInstall.addEventListener('click', () => {
+            voiceInstallModal.classList.add('hidden');
+        });
+
+        closeVoiceInstallBtn.addEventListener('click', () => {
+            voiceInstallModal.classList.add('hidden');
+        });
+
+        voiceInstallModal.addEventListener('click', (e) => {
+            if (e.target === voiceInstallModal) {
+                voiceInstallModal.classList.add('hidden');
             }
         });
     }

@@ -209,11 +209,14 @@ class PidginSpeech {
             { pattern: /en[_-]US/i, score: 75 },
             { pattern: /english.*united states/i, score: 73 },
 
-            // Specific US voice names that work well
-            { pattern: /samantha/i, score: 70 }, // macOS
-            { pattern: /alex/i, score: 68 },      // macOS
-            { pattern: /victoria/i, score: 65 },  // Windows
-            { pattern: /david/i, score: 63 },     // Windows
+            // Specific US voice names optimized for Pidgin-like pronunciation
+            { pattern: /samantha/i, score: 75 }, // macOS - female, clear
+            { pattern: /alex/i, score: 73 },      // macOS - male, deeper
+            { pattern: /daniel/i, score: 71 },    // Windows - male, good rhythm
+            { pattern: /mark/i, score: 69 },      // Windows - male, clear
+            { pattern: /david/i, score: 67 },     // Windows - male
+            { pattern: /zira/i, score: 65 },      // Windows - female
+            { pattern: /victoria/i, score: 63 },  // Windows - female
 
             // British voices (non-rhotic but different vowels)
             { pattern: /en[_-]GB/i, score: 60 },
