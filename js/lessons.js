@@ -51,6 +51,57 @@ const lessonsData = {
                 culturalNote: 'In Hawaii, directions are often given using mauka (mountains) and makai (ocean) as reference points instead of north/south.',
                 practice: 'Practice using mauka and makai when giving directions.'
             }
+        },
+        {
+            id: 'family',
+            title: 'Family & People',
+            icon: '👨‍👩‍👧‍👦',
+            content: {
+                vocabulary: [
+                    { pidgin: 'Ohana', english: 'Family', example: 'My ohana stay coming fo\' dinner.' },
+                    { pidgin: 'Keiki', english: 'Child/Children', example: 'Da keiki stay playing at da beach.' },
+                    { pidgin: 'Tutu', english: 'Grandparent', example: 'My tutu make da best cookies.' },
+                    { pidgin: 'Aunty', english: 'Elder woman (respectful)', example: 'Aunty, can you help me?' },
+                    { pidgin: 'Uncle', english: 'Elder man (respectful)', example: 'Uncle stay fixing da car.' },
+                    { pidgin: 'Bruddah', english: 'Brother/Close friend', example: 'Dis my bruddah from school.' }
+                ],
+                culturalNote: 'In Hawaiian culture, "Aunty" and "Uncle" are terms of respect for any elder, not just blood relatives. Ohana extends beyond blood family.',
+                practice: 'Use "Aunty" and "Uncle" when talking to elders you meet.'
+            }
+        },
+        {
+            id: 'weather',
+            title: 'Weather & Nature',
+            icon: '🌞',
+            content: {
+                vocabulary: [
+                    { pidgin: 'Stay hot', english: 'It\'s hot', example: 'Ho, stay hot today!' },
+                    { pidgin: 'Stay raining', english: 'It\'s raining', example: 'Stay raining mauka side.' },
+                    { pidgin: 'Nice day', english: 'Beautiful day', example: 'What one nice day fo\' beach!' },
+                    { pidgin: 'Da sun stay out', english: 'The sun is shining', example: 'Da sun stay out, let\'s go surf!' },
+                    { pidgin: 'Trade winds', english: 'Cooling breeze', example: 'Lucky we get trade winds today.' },
+                    { pidgin: 'Vog', english: 'Volcanic smog', example: 'Da vog stay thick on Big Island.' }
+                ],
+                culturalNote: 'Weather talk is important in Hawaii. Trade winds bring relief from heat, and vog (volcanic smog) affects air quality on Big Island.',
+                practice: 'Start conversations by commenting on the weather Hawaiian style!'
+            }
+        },
+        {
+            id: 'numbers-time',
+            title: 'Numbers & Time',
+            icon: '⏰',
+            content: {
+                vocabulary: [
+                    { pidgin: 'One', english: 'A/An/One', example: 'I like one plate lunch.' },
+                    { pidgin: 'Two-two', english: 'Two each', example: 'Give everybody two-two cookies.' },
+                    { pidgin: 'Plenny', english: 'A lot/Many', example: 'Get plenny fish in da ocean.' },
+                    { pidgin: 'Small kine', english: 'A little bit', example: 'Just put small kine salt.' },
+                    { pidgin: 'Long time', english: 'A long time', example: 'I no see you fo\' long time!' },
+                    { pidgin: 'Right now', english: 'Immediately', example: 'Come here right now!' }
+                ],
+                culturalNote: 'Pidgin uses "one" where English uses "a" or "an". Time expressions are often more relaxed and approximate.',
+                practice: 'Try using "one" instead of "a" when you speak.'
+            }
         }
     ],
 
@@ -244,6 +295,23 @@ const lessonsData = {
                 culturalNote: 'Understanding Pidgin means understanding Hawaiian values like ohana, aloha, and respect for the land.',
                 practice: 'Learn about Hawaiian culture to better understand Pidgin context.'
             }
+        },
+        {
+            id: 'advanced-conversation',
+            title: 'Advanced Conversation Skills',
+            icon: '🗣️',
+            content: {
+                vocabulary: [
+                    { pidgin: 'You know wat I mean or wat?', english: 'Do you understand what I\'m saying?', example: 'Da waves was so big, you know wat I mean or wat?' },
+                    { pidgin: 'Ass why hard', english: 'That\'s why it\'s difficult', example: 'No more money, ass why hard fo\' go vacation.' },
+                    { pidgin: 'How you figga?', english: 'What makes you think that?', example: 'How you figga I like go work today?' },
+                    { pidgin: 'What da scoop?', english: 'What\'s the situation/news?', example: 'Eh brah, what da scoop wit da party tonight?' },
+                    { pidgin: 'No act', english: 'Don\'t show off/Don\'t pretend', example: 'No act like you no hear me calling you.' },
+                    { pidgin: 'Yeah, but still...', english: 'Yes, but nevertheless...', example: 'Yeah, but still, we gotta try fo\' do \'em right.' }
+                ],
+                culturalNote: 'Advanced Pidgin involves subtle conversational patterns and implied meanings. These phrases help you navigate complex social situations with local flair.',
+                practice: 'Practice these phrases in real conversations to sound more natural and connected to local culture.'
+            }
         }
     ]
 };
@@ -265,6 +333,21 @@ const quizQuestions = {
             question: "What does 'shoots' mean?",
             options: ['Gun', 'Basketball', 'Okay/Sounds good', 'No way'],
             correct: 2
+        },
+        {
+            question: "What does 'Ohana' mean?",
+            options: ['Friend', 'Family', 'House', 'Food'],
+            correct: 1
+        },
+        {
+            question: "What does 'Stay hot' mean?",
+            options: ['It\'s spicy', 'It\'s popular', 'It\'s hot (weather)', 'It\'s angry'],
+            correct: 2
+        },
+        {
+            question: "How do you say 'a little bit' in Pidgin?",
+            options: ['Plenny', 'Small kine', 'Long time', 'Two-two'],
+            correct: 1
         }
     ],
     intermediate: [
@@ -307,6 +390,16 @@ const quizQuestions = {
                 'Make a fool of yourself',
                 'Be successful',
                 'Help someone'
+            ],
+            correct: 1
+        },
+        {
+            question: "What does 'What da scoop?' mean?",
+            options: [
+                'Where is the ice cream?',
+                'What\'s the news/situation?',
+                'How much does it cost?',
+                'When are we leaving?'
             ],
             correct: 1
         }

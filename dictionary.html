@@ -18,7 +18,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS (Development CDN - For production, build locally) -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Custom Styles -->
@@ -86,8 +86,12 @@
                     <a href="index.html" class="text-gray-700 hover:text-green-600 transition">Home</a>
                     <a href="index.html#translator" class="text-gray-700 hover:text-green-600 transition">Translator</a>
                     <a href="dictionary.html" class="text-green-600 font-semibold">Dictionary</a>
-                    <a href="index.html#learning" class="text-gray-700 hover:text-green-600 transition">Learning</a>
+                    <a href="index.html#learning" class="text-gray-700 hover:text-green-600 transition">Learning Hub</a>
+                    <a href="ask-local.html" class="text-gray-700 hover:text-green-600 transition">Ask a Local</a>
                     <a href="index.html#community" class="text-gray-700 hover:text-green-600 transition">Community</a>
+                    <button id="voice-settings-btn" class="text-gray-700 hover:text-green-600 transition" title="Voice Settings">
+                        🔊
+                    </button>
                 </div>
 
                 <!-- Mobile menu button -->
@@ -107,7 +111,8 @@
                 <a href="index.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Home</a>
                 <a href="index.html#translator" class="block px-3 py-2 text-gray-700 hover:text-green-600">Translator</a>
                 <a href="dictionary.html" class="block px-3 py-2 text-green-600 font-semibold">Dictionary</a>
-                <a href="index.html#learning" class="block px-3 py-2 text-gray-700 hover:text-green-600">Learning</a>
+                <a href="index.html#learning" class="block px-3 py-2 text-gray-700 hover:text-green-600">Learning Hub</a>
+                <a href="ask-local.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Ask a Local</a>
                 <a href="index.html#community" class="block px-3 py-2 text-gray-700 hover:text-green-600">Community</a>
             </div>
         </div>
@@ -265,10 +270,12 @@
     <!-- Scripts -->
     <script src="js/phrases-data.js"></script>
     <script src="js/comprehensive-pidgin-data.js"></script>
+    <script src="js/stories-data.js"></script>
     <script src="js/translator.js"></script>
     <script src="js/dictionary.js"></script>
     <script src="js/lessons.js"></script>
     <script src="js/speech.js"></script>
+    <script src="js/main.js"></script>
     <script src="js/dictionary-page.js"></script>
 </body>
 </html>

@@ -1,11 +1,29 @@
 // Main JavaScript file for Pidgin Pal
+
+// Handle browser extension errors gracefully
+window.addEventListener('error', function(event) {
+    // Suppress browser extension errors that don't affect our app
+    if (event.message && event.message.includes('message channel closed')) {
+        event.preventDefault();
+        return true;
+    }
+});
+
+// Handle unhandled promise rejections from browser extensions
+window.addEventListener('unhandledrejection', function(event) {
+    // Suppress browser extension promise rejections
+    if (event.reason && event.reason.message &&
+        event.reason.message.includes('message channel closed')) {
+        event.preventDefault();
+    }
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all modules
     initNavigation();
     initDailyPhrase();
     initEssentialPhrases();
     initTranslator();
-    initDictionary();
     initLearningHub();
     initCommunity();
     initSmoothScrolling();
@@ -90,232 +108,6 @@ function initEssentialPhrases() {
     `).join('');
 }
 
-// Dictionary functionality
-function initDictionary() {
-    const searchInput = document.getElementById('dictionary-search');
-    const searchBtn = document.getElementById('dictionary-search-btn');
-    const categoryBtns = document.querySelectorAll('.dict-category');
-    const dictionaryGrid = document.getElementById('dictionary-grid');
-    const alphabetBrowser = document.getElementById('alphabet-browser');
-    const quickSearchBtns = document.querySelectorAll('.quick-search');
-
-    // Initialize alphabet browser
-    if (alphabetBrowser) {
-        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-        alphabetBrowser.innerHTML = alphabet.map(letter =>
-            `<button class="alphabet-btn px-3 py-1 bg-yellow-100 hover:bg-yellow-200 rounded transition font-bold" data-letter="${letter}">${letter}</button>`
-        ).join('');
-
-        // Add click handlers for alphabet buttons
-        const alphabetBtns = alphabetBrowser.querySelectorAll('.alphabet-btn');
-        alphabetBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const letter = btn.dataset.letter;
-                const results = pidginDictionary.getByLetter(letter.toLowerCase());
-                displayDictionaryResults(results);
-            });
-        });
-    }
-
-    // Load initial dictionary entries
-    loadDictionaryEntries('all');
-
-    // Search functionality
-    if (searchBtn && searchInput) {
-        searchBtn.addEventListener('click', performSearch);
-        searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                performSearch();
-            }
-        });
-    }
-
-    function performSearch() {
-        const term = searchInput.value.trim();
-        if (term) {
-            const results = pidginDictionary.searchDictionary(term);
-            displayDictionaryResults(results);
-        }
-    }
-
-    // Quick search buttons
-    quickSearchBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const word = btn.dataset.word;
-            searchInput.value = word;
-            performSearch();
-        });
-    });
-
-    // Category filtering
-    categoryBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Update button styles
-            categoryBtns.forEach(b => {
-                b.classList.remove('bg-purple-500', 'text-white');
-                b.classList.add('bg-white', 'text-gray-700');
-            });
-            btn.classList.add('bg-purple-500', 'text-white');
-            btn.classList.remove('bg-white', 'text-gray-700');
-
-            // Load entries for selected category
-            const category = btn.dataset.category;
-            loadDictionaryEntries(category);
-        });
-    });
-
-    function loadDictionaryEntries(category) {
-        const entries = pidginDictionary.getByCategory(category);
-        displayDictionaryResults(entries);
-    }
-
-    function displayDictionaryResults(entries) {
-        if (!dictionaryGrid) return;
-
-        if (entries.length === 0) {
-            dictionaryGrid.innerHTML = `
-                <div class="col-span-full text-center py-8">
-                    <p class="text-xl text-gray-600">No entries found. Try another search!</p>
-                </div>
-            `;
-            return;
-        }
-
-        // Sort entries alphabetically
-        entries.sort((a, b) => a.pidgin.localeCompare(b.pidgin));
-
-        dictionaryGrid.innerHTML = entries.map(entry => `
-            <div class="dictionary-entry bg-white/90 backdrop-blur rounded-lg p-4 shadow-lg border-2 border-purple-100 hover:border-purple-300 transition cursor-pointer" data-word="${entry.key}">
-                <div class="flex justify-between items-start mb-2">
-                    <h3 class="text-xl font-bold text-purple-600">${entry.pidgin}</h3>
-                    <span class="text-xs px-2 py-1 bg-purple-100 rounded-full">${entry.category}</span>
-                </div>
-                <p class="text-gray-700 mb-2">${entry.english}</p>
-                <p class="text-sm text-gray-600 italic">"${entry.example}"</p>
-                <div class="mt-3 flex gap-2">
-                    <button class="dict-speak-btn text-xs px-3 py-1 bg-blue-100 hover:bg-blue-200 rounded-full transition" data-text="${entry.audioExample}">
-                        🔊 Listen
-                    </button>
-                    <button class="dict-details-btn text-xs px-3 py-1 bg-green-100 hover:bg-green-200 rounded-full transition" data-word="${entry.key}">
-                        📖 Details
-                    </button>
-                </div>
-            </div>
-        `).join('');
-
-        // Add click handlers for speak buttons
-        const speakBtns = dictionaryGrid.querySelectorAll('.dict-speak-btn');
-        speakBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const text = btn.dataset.text;
-                speakText(text);
-            });
-        });
-
-        // Add click handlers for details buttons
-        const detailsBtns = dictionaryGrid.querySelectorAll('.dict-details-btn');
-        detailsBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const word = btn.dataset.word;
-                showWordDetails(word);
-            });
-        });
-
-        // Add click handlers for entire cards
-        const entries = dictionaryGrid.querySelectorAll('.dictionary-entry');
-        entries.forEach(entry => {
-            entry.addEventListener('click', () => {
-                const word = entry.dataset.word;
-                showWordDetails(word);
-            });
-        });
-    }
-
-    function showWordDetails(wordKey) {
-        const entry = pidginDictionary.dictionary[wordKey];
-        if (!entry) return;
-
-        // Create modal
-        const modal = document.createElement('div');
-        modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
-
-        modal.innerHTML = `
-            <div class="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto p-8">
-                <div class="flex justify-between items-start mb-6">
-                    <div>
-                        <h2 class="text-3xl font-bold text-purple-600 mb-2">${entry.pidgin}</h2>
-                        <p class="text-xl text-gray-700">${entry.english}</p>
-                    </div>
-                    <button class="close-modal text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
-                </div>
-
-                <div class="space-y-4">
-                    <div class="bg-purple-50 rounded-lg p-4">
-                        <h3 class="font-bold text-purple-800 mb-2">Pronunciation</h3>
-                        <p class="text-lg">${entry.pronunciation}</p>
-                    </div>
-
-                    <div class="bg-blue-50 rounded-lg p-4">
-                        <h3 class="font-bold text-blue-800 mb-2">Example</h3>
-                        <p class="text-lg italic">"${entry.example}"</p>
-                        <button class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition speak-example">
-                            🔊 Listen to Example
-                        </button>
-                    </div>
-
-                    <div class="bg-green-50 rounded-lg p-4">
-                        <h3 class="font-bold text-green-800 mb-2">Usage</h3>
-                        <p>${entry.usage}</p>
-                    </div>
-
-                    <div class="bg-yellow-50 rounded-lg p-4">
-                        <h3 class="font-bold text-yellow-800 mb-2">Origin</h3>
-                        <p>${entry.origin}</p>
-                    </div>
-
-                    <div class="bg-gray-50 rounded-lg p-4">
-                        <h3 class="font-bold text-gray-800 mb-2">Category</h3>
-                        <span class="px-3 py-1 bg-purple-200 rounded-full">${entry.category}</span>
-                    </div>
-                </div>
-
-                <div class="mt-6 flex gap-3">
-                    <button class="px-6 py-3 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition practice-btn">
-                        🎯 Practice This Word
-                    </button>
-                    <button class="px-6 py-3 bg-green-500 text-white rounded-full hover:bg-green-600 transition close-btn">
-                        ✓ Got It!
-                    </button>
-                </div>
-            </div>
-        `;
-
-        document.body.appendChild(modal);
-
-        // Close modal functionality
-        const closeBtn = modal.querySelector('.close-modal');
-        const gotItBtn = modal.querySelector('.close-btn');
-        closeBtn.addEventListener('click', () => document.body.removeChild(modal));
-        gotItBtn.addEventListener('click', () => document.body.removeChild(modal));
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) document.body.removeChild(modal);
-        });
-
-        // Speak example
-        const speakExampleBtn = modal.querySelector('.speak-example');
-        speakExampleBtn.addEventListener('click', () => {
-            speakText(entry.audioExample);
-        });
-
-        // Practice button
-        const practiceBtn = modal.querySelector('.practice-btn');
-        practiceBtn.addEventListener('click', () => {
-            alert(`Practice feature coming soon! Try saying: "${entry.pidgin}"`);
-        });
-    }
-}
 
 // Translator functionality
 function initTranslator() {
@@ -676,14 +468,168 @@ function initCommunity() {
         });
     }
 
-    // Story expansion
-    const storyButtons = document.querySelectorAll('#stories-container button');
-    storyButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // In a real app, this would load the full story
-            alert('Full story feature coming soon! Mahalo fo\' your patience!');
+    // Initialize story functionality
+    initStories();
+}
+
+// Story functionality
+function initStories() {
+    // Read More button functionality for individual stories
+    const readMoreBtns = document.querySelectorAll('.read-more-btn');
+    readMoreBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const storyPreview = btn.closest('.story-preview');
+            const storyId = storyPreview.dataset.story;
+            showFullStory(storyId);
         });
     });
+
+    // Show More Stories button
+    const showMoreBtn = document.getElementById('show-more-stories');
+    if (showMoreBtn) {
+        showMoreBtn.addEventListener('click', () => {
+            showAllStories();
+        });
+    }
+}
+
+// Show full story in modal
+function showFullStory(storyId) {
+    const story = getStoryById(storyId);
+    if (!story) return;
+
+    // Create modal
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
+
+    modal.innerHTML = `
+        <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-orange-500 to-red-500 text-white p-8 rounded-t-2xl">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span class="text-4xl mb-2 block">🌅</span>
+                        <h2 class="text-3xl font-bold mb-2">${story.title}</h2>
+                        <p class="text-orange-100 text-lg">Hawaiian Pidgin Short Story</p>
+                    </div>
+                    <button class="close-modal text-white hover:text-orange-200 text-3xl font-bold">×</button>
+                </div>
+            </div>
+
+            <!-- Story Content -->
+            <div class="p-8">
+                <div class="prose prose-lg max-w-none">
+                    <div class="text-gray-800 leading-relaxed text-lg whitespace-pre-line">${story.content}</div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="p-8 border-t bg-gray-50 rounded-b-2xl">
+                <div class="flex gap-4 justify-center flex-wrap">
+                    <button class="px-8 py-4 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition font-semibold listen-story">
+                        🔊 Listen to Story
+                    </button>
+                    <button class="px-8 py-4 bg-green-500 text-white rounded-full hover:bg-green-600 transition font-semibold share-story">
+                        📤 Share Story
+                    </button>
+                    <button class="px-8 py-4 bg-gray-500 text-white rounded-full hover:bg-gray-600 transition font-semibold close-btn">
+                        ✓ Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    // Event handlers
+    const closeBtn = modal.querySelector('.close-modal');
+    const closeBtnBottom = modal.querySelector('.close-btn');
+    const listenBtn = modal.querySelector('.listen-story');
+    const shareBtn = modal.querySelector('.share-story');
+
+    // Close modal
+    [closeBtn, closeBtnBottom].forEach(btn => {
+        btn.addEventListener('click', () => document.body.removeChild(modal));
+    });
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) document.body.removeChild(modal);
+    });
+
+    // Listen to story
+    listenBtn.addEventListener('click', () => {
+        speakText(story.content);
+        listenBtn.innerHTML = '🔊 Playing...';
+        setTimeout(() => {
+            listenBtn.innerHTML = '🔊 Listen to Story';
+        }, 3000);
+    });
+
+    // Share story
+    shareBtn.addEventListener('click', () => {
+        if (navigator.share) {
+            navigator.share({
+                title: story.title,
+                text: story.preview,
+                url: window.location.href
+            });
+        } else {
+            // Fallback for browsers without Web Share API
+            navigator.clipboard.writeText(`${story.title}\n\n${story.content}\n\nFrom ChokePidgin.com`).then(() => {
+                shareBtn.innerHTML = '✓ Copied!';
+                setTimeout(() => {
+                    shareBtn.innerHTML = '📤 Share Story';
+                }, 2000);
+            });
+        }
+    });
+}
+
+// Show all stories in expanded view
+function showAllStories() {
+    const storiesContainer = document.getElementById('stories-container');
+    const remainingStories = getRemainingStories();
+    const showMoreBtn = document.getElementById('show-more-stories');
+
+    // Remove show more button
+    if (showMoreBtn && showMoreBtn.parentElement) {
+        showMoreBtn.parentElement.remove();
+    }
+
+    // Add remaining stories
+    remainingStories.forEach(storyId => {
+        const story = getStoryById(storyId);
+        const article = document.createElement('article');
+        article.className = 'mb-6 pb-6 border-b story-preview';
+        article.dataset.story = storyId;
+
+        article.innerHTML = `
+            <h4 class="text-lg font-bold mb-2">${story.title}</h4>
+            <p class="text-gray-700 mb-2 italic">${story.preview}</p>
+            <button class="read-more-btn text-green-600 hover:underline">Read More →</button>
+        `;
+
+        storiesContainer.appendChild(article);
+
+        // Add event listener to new read more button
+        const readMoreBtn = article.querySelector('.read-more-btn');
+        readMoreBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            showFullStory(storyId);
+        });
+    });
+
+    // Add "Back to Top" button for stories section
+    const backToTopDiv = document.createElement('div');
+    backToTopDiv.className = 'text-center mt-6';
+    backToTopDiv.innerHTML = `
+        <button class="bg-orange-400 text-white px-6 py-3 rounded-full hover:bg-orange-500 transition font-semibold" onclick="document.getElementById('community').scrollIntoView({behavior: 'smooth'})">
+            ⬆️ Back to Top
+        </button>
+    `;
+    storiesContainer.appendChild(backToTopDiv);
 }
 
 // Smooth scrolling for navigation links
