@@ -233,6 +233,7 @@ class AskLocalManager {
             const hasResponses = q.responses && q.responses.length > 0;
             const statusClass = hasResponses ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800';
             const statusText = hasResponses ? '✅ Answered' : '⏳ Pending Response';
+            const responseCount = hasResponses ? q.responses.length : 0;
 
             return `
                 <div class="bg-white border rounded-lg overflow-hidden">
@@ -249,7 +250,18 @@ class AskLocalManager {
                             </div>
                         </div>
 
-                        ${hasResponses ? this.renderResponses(q.responses) : ''}
+                        ${hasResponses ? `
+                            <div class="mt-3">
+                                <button class="expand-responses-btn text-green-600 hover:text-green-800 text-sm font-medium" data-question-id="${q.id}">
+                                    👁️ View ${responseCount} Response${responseCount !== 1 ? 's' : ''} →
+                                </button>
+                            </div>
+
+                            <!-- Responses Container (initially hidden) -->
+                            <div id="responses-container-${q.id}" class="hidden mt-3">
+                                ${this.renderResponses(q.responses)}
+                            </div>
+                        ` : ''}
 
                         <div class="mt-3">
                             <button class="respond-btn text-blue-600 hover:text-blue-800 text-sm font-medium" data-question-id="${q.id}">
@@ -330,6 +342,14 @@ class AskLocalManager {
     }
 
     addResponseEventListeners() {
+        // Expand responses button clicks
+        document.querySelectorAll('.expand-responses-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const questionId = e.target.getAttribute('data-question-id');
+                this.toggleResponsesVisibility(questionId, e.target);
+            });
+        });
+
         // Response button clicks
         document.querySelectorAll('.respond-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -361,6 +381,24 @@ class AskLocalManager {
                 this.markResponseHelpful(responseId);
             });
         });
+    }
+
+    toggleResponsesVisibility(questionId, button) {
+        const responsesContainer = document.getElementById(`responses-container-${questionId}`);
+        if (responsesContainer) {
+            const isHidden = responsesContainer.classList.contains('hidden');
+
+            if (isHidden) {
+                responsesContainer.classList.remove('hidden');
+                button.innerHTML = '🔽 Hide Responses';
+            } else {
+                responsesContainer.classList.add('hidden');
+                // Find response count from button text
+                const match = button.textContent.match(/View (\d+) Response/);
+                const count = match ? match[1] : '1';
+                button.innerHTML = `👁️ View ${count} Response${count !== '1' ? 's' : ''} →`;
+            }
+        }
     }
 
     showResponseForm(questionId) {
