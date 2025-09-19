@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const compression = require('compression');
@@ -92,7 +93,7 @@ app.post('/api/text-to-speech', async (req, res) => {
             }
         };
 
-        // Make request to ElevenLabs API
+        // Make request to ElevenLabs API using fetch (Node.js 18+)
         const response = await fetch(url, {
             method: 'POST',
             headers: {
@@ -104,8 +105,9 @@ app.post('/api/text-to-speech', async (req, res) => {
         });
 
         if (!response.ok) {
-            console.error('ElevenLabs API error:', response.status, response.statusText);
-            return res.status(response.status).json({ error: 'TTS service error' });
+            const errorText = await response.text();
+            console.error('ElevenLabs API error:', response.status, errorText);
+            return res.status(response.status).json({ error: 'TTS service error', details: errorText });
         }
 
         // Set appropriate headers for audio streaming
@@ -114,8 +116,9 @@ app.post('/api/text-to-speech', async (req, res) => {
             'Cache-Control': 'public, max-age=3600', // Cache for 1 hour
         });
 
-        // Stream the audio data back to the client
-        response.body.pipe(res);
+        // Get the audio buffer and send it
+        const audioBuffer = await response.arrayBuffer();
+        res.send(Buffer.from(audioBuffer));
 
     } catch (error) {
         console.error('Text-to-speech error:', error);

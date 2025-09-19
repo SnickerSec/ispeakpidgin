@@ -667,13 +667,10 @@ function speakText(text, options = {}) {
             options.pitch = options.pitch || parseFloat(pitchSlider.value);
         }
 
-        // Use the enhanced Pidgin speech synthesizer
+        // Use the enhanced Pidgin speech synthesizer (handles all fallbacks internally)
         pidginSpeech.speak(text, options).catch(err => {
-            console.error('Speech error:', err);
-            // Fallback to basic speech
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.rate = 0.9;
-            speechSynthesis.speak(utterance);
+            console.error('All speech methods failed:', err);
+            alert('Sorry, speech synthesis is not available right now.');
         });
     } else {
         alert('Sorry, your browser doesn\'t support text-to-speech!');

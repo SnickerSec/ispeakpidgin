@@ -481,15 +481,13 @@ document.addEventListener('DOMContentLoaded', function() {
 // Enhanced text-to-speech functionality (reuse from main.js)
 function speakText(text, options = {}) {
     if ('speechSynthesis' in window && typeof pidginSpeech !== 'undefined') {
+        // Use the enhanced Pidgin speech synthesizer (handles all fallbacks internally)
         pidginSpeech.speak(text, options).catch(err => {
-            console.error('Speech error:', err);
-            // Fallback to basic speech
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.rate = 0.9;
-            speechSynthesis.speak(utterance);
+            console.error('All speech methods failed:', err);
+            alert('Sorry, speech synthesis is not available right now.');
         });
     } else {
-        // Basic fallback
+        // Basic fallback only if pidginSpeech is not available
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.rate = 0.9;
         speechSynthesis.speak(utterance);
