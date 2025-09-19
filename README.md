@@ -1,6 +1,6 @@
-# Pidgin Pal - Learn Hawaiian Pidgin English
+# ChokePidgin.com - Learn Hawaiian Pidgin English
 
-Welcome to Pidgin Pal, an interactive web application designed to help you learn Hawaiian Pidgin English through daily phrases, practical translation tools, and structured lessons.
+Welcome to ChokePidgin.com, an interactive web application designed to help you learn Hawaiian Pidgin English through daily phrases, practical translation tools, and structured lessons.
 
 ## Features
 
@@ -39,7 +39,7 @@ Welcome to Pidgin Pal, an interactive web application designed to help you learn
 ## Project Structure
 
 ```
-ispeakpidgin/
+chokepidgin/
 ├── index.html          # Main HTML file
 ├── css/
 │   └── style.css      # Custom styles and animations
@@ -177,4 +177,4 @@ This is an educational project intended to promote understanding and appreciatio
 
 ---
 
-**Mahalo for learning Pidgin! E komo mai (Welcome) to the Pidgin Pal ohana!** 🌺
+**Mahalo for learning Pidgin! E komo mai (Welcome) to the ChokePidgin.com ohana!** 🌺

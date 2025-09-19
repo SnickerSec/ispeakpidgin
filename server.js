@@ -53,6 +53,6 @@ app.use((req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-    console.log(`🌺 Pidgin Pal is running on port ${PORT}`);
+    console.log(`🌺 ChokePidgin.com is running on port ${PORT}`);
     console.log(`🌊 Visit http://localhost:${PORT} to start learning Hawaiian Pidgin!`);
 });

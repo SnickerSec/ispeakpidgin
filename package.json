@@ -1,7 +1,7 @@
 {
-  "name": "ispeakpidgin",
+  "name": "chokepidgin",
   "version": "1.0.0",
-  "description": "Pidgin Pal - Learn Hawaiian Pidgin English",
+  "description": "ChokePidgin.com - Learn Hawaiian Pidgin English",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
