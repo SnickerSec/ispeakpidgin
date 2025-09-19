@@ -171,6 +171,20 @@ app.post('/api/text-to-speech', async (req, res) => {
     }
 });
 
+// Favicon handlers
+app.get('/favicon.ico', (req, res) => {
+    const faviconPath = path.join(__dirname, 'favicon.ico');
+    if (require('fs').existsSync(faviconPath)) {
+        res.sendFile(faviconPath);
+    } else {
+        res.status(204).end();
+    }
+});
+
+app.get('/favicon.svg', (req, res) => {
+    res.sendFile(path.join(__dirname, 'favicon.svg'));
+});
+
 // Handle 404
 app.use((req, res) => {
     res.status(404).sendFile(path.join(__dirname, 'index.html'));
