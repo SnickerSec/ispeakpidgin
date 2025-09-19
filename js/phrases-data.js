@@ -358,9 +358,8 @@ const pidginPhrases = {
     ]
 };
 
-// Function to get daily phrase (changes daily)
+// Function to get random daily phrase
 function getDailyPhrase() {
-    const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
-    const index = dayOfYear % pidginPhrases.dailyPhrases.length;
-    return pidginPhrases.dailyPhrases[index];
+    const randomIndex = Math.floor(Math.random() * pidginPhrases.dailyPhrases.length);
+    return pidginPhrases.dailyPhrases[randomIndex];
 }
