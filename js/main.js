@@ -130,6 +130,9 @@ function initTranslator() {
             // Don't switch if already in this mode
             if (currentDirection === 'pidgin-to-eng') return;
 
+            // Store current input text before switching
+            const currentInputText = translatorInput.value.trim();
+
             currentDirection = 'pidgin-to-eng';
 
             // Update button styles
@@ -144,8 +147,23 @@ function initTranslator() {
             translatorInput.placeholder = 'Type Pidgin text here...';
             translateBtn.textContent = 'Translate to English';
 
-            // Auto-translate existing text if any
-            autoTranslateOnToggle();
+            // If there was English text, convert it to Pidgin and swap
+            if (currentInputText) {
+                // Convert English to Pidgin
+                const pidginText = translator.translate(currentInputText, 'eng-to-pidgin');
+                // Put the Pidgin in the input
+                translatorInput.value = pidginText;
+                // Put the original English in the output
+                translatorOutput.textContent = currentInputText;
+                // Show pronunciation button for the original English
+                if (speakTranslationBtn) {
+                    speakTranslationBtn.classList.remove('hidden');
+                    speakTranslationBtn.onclick = () => speakText(currentInputText);
+                }
+            } else {
+                // Auto-translate existing text if any
+                autoTranslateOnToggle();
+            }
         });
     }
 
