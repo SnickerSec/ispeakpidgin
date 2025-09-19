@@ -459,12 +459,19 @@ function initVoiceSettings() {
 
                 // Add English voices first, grouped by accent type
                 if (groupedVoices['en']) {
+                    // List of known non-rhotic voice names
+                    const nonRhoticNames = [
+                        'karen', 'lee', 'james', 'catherine', 'ryan', 'hayley',  // Australian
+                        'hazel', 'william',  // New Zealand
+                        'nicole', 'russell'  // Additional Australian
+                    ];
+
                     // Separate by accent type for better recommendations
                     const nonRhoticVoices = groupedVoices['en'].filter(v =>
                         v.lang.includes('AU') || v.lang.includes('NZ') ||
                         v.name.toLowerCase().includes('australia') ||
-                        v.name.toLowerCase().includes('karen') ||
-                        v.name.toLowerCase().includes('lee'));
+                        v.name.toLowerCase().includes('new zealand') ||
+                        nonRhoticNames.some(name => v.name.toLowerCase().includes(name.toLowerCase())));
 
                     const usVoices = groupedVoices['en'].filter(v =>
                         v.lang.includes('US') && !nonRhoticVoices.includes(v));
@@ -472,20 +479,60 @@ function initVoiceSettings() {
                     const otherEnglish = groupedVoices['en'].filter(v =>
                         !nonRhoticVoices.includes(v) && !usVoices.includes(v));
 
+                    // Helper function to identify voice accent type
+                    function getVoiceAccentType(voice) {
+                        const name = voice.name.toLowerCase();
+                        const lang = voice.lang.toLowerCase();
+
+                        if (lang.includes('au') || name.includes('australia') ||
+                            ['karen', 'lee', 'james', 'catherine', 'ryan', 'hayley', 'nicole', 'russell'].some(n => name.includes(n))) {
+                            return 'Australian';
+                        }
+                        if (lang.includes('nz') || name.includes('new zealand') ||
+                            ['hazel', 'william'].some(n => name.includes(n))) {
+                            return 'New Zealand';
+                        }
+                        return null;
+                    }
+
                     // Non-rhotic voices first (best for Pidgin)
                     if (nonRhoticVoices.length > 0) {
                         const optgroup = document.createElement('optgroup');
-                        optgroup.label = '🌟 Best for Pidgin (Non-rhotic)';
+                        optgroup.label = '🌟 Best for Pidgin (Non-rhotic Accents)';
+
+                        // Sort by quality score
+                        nonRhoticVoices.sort((a, b) => {
+                            const scoreA = getVoiceScore(a);
+                            const scoreB = getVoiceScore(b);
+                            return scoreB - scoreA;
+                        });
+
                         nonRhoticVoices.forEach(voice => {
                             const option = document.createElement('option');
                             option.value = voice.name;
-                            option.textContent = `${voice.name} ${voice.local ? '(Local)' : '(Online)'}`;
+                            const accentType = getVoiceAccentType(voice);
+                            const localText = voice.local ? 'Local' : 'Online';
+                            option.textContent = `${voice.name} (${accentType} • ${localText})`;
                             if (pidginSpeech.preferredVoice?.name === voice.name) {
                                 option.selected = true;
                             }
                             optgroup.appendChild(option);
                         });
                         voiceSelect.appendChild(optgroup);
+                    }
+
+                    // Helper function to calculate voice quality score
+                    function getVoiceScore(voice) {
+                        const name = voice.name.toLowerCase();
+                        const lang = voice.lang.toLowerCase();
+
+                        if (name.includes('karen') || name.includes('lee')) return 95;
+                        if (name.includes('hazel') || name.includes('william')) return 90;
+                        if (name.includes('james') || name.includes('catherine')) return 85;
+                        if (lang.includes('au')) return 80;
+                        if (lang.includes('nz')) return 78;
+                        if (lang.includes('us')) return 70;
+                        return 50;
                     }
 
                     // US voices second

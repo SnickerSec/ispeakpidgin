@@ -184,15 +184,26 @@ class PidginSpeech {
             { pattern: /pacific/i, score: 95 },
 
             // Non-rhotic English accents (better for Pidgin)
-            { pattern: /australia/i, score: 90 },
-            { pattern: /en[_-]AU/i, score: 88 },
-            { pattern: /new zealand/i, score: 86 },
-            { pattern: /en[_-]NZ/i, score: 84 },
+            { pattern: /australia/i, score: 95 },
+            { pattern: /en[_-]AU/i, score: 93 },
+            { pattern: /new zealand/i, score: 91 },
+            { pattern: /en[_-]NZ/i, score: 89 },
 
-            // Specific voices known for good Pidgin pronunciation
-            { pattern: /karen/i, score: 82 },     // Australian voice
-            { pattern: /lee/i, score: 80 },       // Australian voice
-            { pattern: /james/i, score: 78 },     // Australian voice
+            // Specific Australian voices (excellent for Pidgin)
+            { pattern: /karen/i, score: 92 },        // Microsoft Karen - Australian
+            { pattern: /lee/i, score: 90 },          // Microsoft Lee - Australian
+            { pattern: /james/i, score: 88 },        // Microsoft James - Australian
+            { pattern: /catherine/i, score: 86 },    // Microsoft Catherine - Australian
+            { pattern: /ryan/i, score: 84 },         // Microsoft Ryan - Australian
+            { pattern: /hayley/i, score: 82 },       // Microsoft Hayley - Australian
+
+            // Specific New Zealand voices (excellent for Pidgin)
+            { pattern: /hazel/i, score: 90 },        // Microsoft Hazel - New Zealand
+            { pattern: /william/i, score: 88 },      // Microsoft William - New Zealand
+
+            // Additional Australian voices
+            { pattern: /nicole/i, score: 80 },       // Australian voice variant
+            { pattern: /russell/i, score: 78 },      // Australian voice variant
 
             // US English (still good, but more rhotic)
             { pattern: /en[_-]US/i, score: 75 },
