@@ -3,13 +3,105 @@ class ElevenLabsSpeech {
     constructor() {
         this.isPlaying = false;
         this.currentAudio = null;
-        this.cache = new Map(); // Cache audio blobs for repeated terms
+        this.cache = new Map(); // In-memory cache
+        this.dbName = 'PidginAudioCache';
+        this.storeName = 'audioCache';
         this.initializationPromise = this.initialize();
     }
 
     async initialize() {
         console.log('ElevenLabs TTS initialized with Hawaiian voice');
+        await this.initIndexedDB();
+        await this.loadCacheFromDB();
         return true;
+    }
+
+    async initIndexedDB() {
+        return new Promise((resolve, reject) => {
+            const request = indexedDB.open(this.dbName, 1);
+
+            request.onerror = () => {
+                console.warn('IndexedDB not available, using memory cache only');
+                resolve();
+            };
+
+            request.onsuccess = (event) => {
+                this.db = event.target.result;
+                resolve();
+            };
+
+            request.onupgradeneeded = (event) => {
+                const db = event.target.result;
+                if (!db.objectStoreNames.contains(this.storeName)) {
+                    const store = db.createObjectStore(this.storeName, { keyPath: 'text' });
+                    store.createIndex('timestamp', 'timestamp', { unique: false });
+                }
+            };
+        });
+    }
+
+    async loadCacheFromDB() {
+        if (!this.db) return;
+
+        try {
+            const transaction = this.db.transaction([this.storeName], 'readonly');
+            const store = transaction.objectStore(this.storeName);
+            const request = store.getAll();
+
+            return new Promise((resolve) => {
+                request.onsuccess = (event) => {
+                    const cachedItems = event.target.result;
+                    const oneWeekAgo = Date.now() - (7 * 24 * 60 * 60 * 1000);
+
+                    cachedItems.forEach(item => {
+                        // Only load items from the last week
+                        if (item.timestamp > oneWeekAgo) {
+                            this.cache.set(item.text, item.blob);
+                        }
+                    });
+
+                    console.log(`Loaded ${this.cache.size} cached audio items from IndexedDB`);
+                    resolve();
+                };
+
+                request.onerror = () => {
+                    console.warn('Failed to load cache from IndexedDB');
+                    resolve();
+                };
+            });
+        } catch (error) {
+            console.warn('Error loading cache from IndexedDB:', error);
+        }
+    }
+
+    async saveToDB(text, blob) {
+        if (!this.db) return;
+
+        try {
+            const transaction = this.db.transaction([this.storeName], 'readwrite');
+            const store = transaction.objectStore(this.storeName);
+
+            store.put({
+                text: text,
+                blob: blob,
+                timestamp: Date.now()
+            });
+
+            // Clean up old entries (older than 1 week)
+            const oneWeekAgo = Date.now() - (7 * 24 * 60 * 60 * 1000);
+            const index = store.index('timestamp');
+            const range = IDBKeyRange.upperBound(oneWeekAgo);
+
+            index.openCursor(range).onsuccess = (event) => {
+                const cursor = event.target.result;
+                if (cursor) {
+                    store.delete(cursor.primaryKey);
+                    cursor.continue();
+                }
+            };
+        } catch (error) {
+            console.warn('Failed to save to IndexedDB:', error);
+        }
     }
 
     async speak(text, options = {}) {
@@ -55,6 +147,9 @@ class ElevenLabsSpeech {
 
             // Cache the audio for future use
             this.cache.set(normalizedText, audioBlob);
+
+            // Also save to IndexedDB for persistent storage
+            await this.saveToDB(normalizedText, audioBlob);
 
             // Play the audio
             this.playAudioBlob(audioBlob);
@@ -215,6 +310,18 @@ class ElevenLabsSpeech {
     // Clear cache to free memory
     clearCache() {
         this.cache.clear();
+
+        // Also clear IndexedDB
+        if (this.db) {
+            try {
+                const transaction = this.db.transaction([this.storeName], 'readwrite');
+                const store = transaction.objectStore(this.storeName);
+                store.clear();
+            } catch (error) {
+                console.warn('Failed to clear IndexedDB cache:', error);
+            }
+        }
+
         console.log('Audio cache cleared');
     }
 }

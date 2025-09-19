@@ -64,6 +64,10 @@ app.get('/ask-local.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'ask-local.html'));
 });
 
+// Simple in-memory cache for TTS responses
+const ttsCache = new Map();
+const crypto = require('crypto');
+
 // ElevenLabs Text-to-Speech API endpoint
 app.post('/api/text-to-speech', async (req, res) => {
     try {
@@ -71,6 +75,26 @@ app.post('/api/text-to-speech', async (req, res) => {
 
         if (!text) {
             return res.status(400).json({ error: 'Text is required' });
+        }
+
+        // Create cache key based on normalized text
+        const normalizedText = text.trim().toLowerCase();
+        const cacheKey = crypto.createHash('md5').update(normalizedText).digest('hex');
+
+        // Check if we have this audio cached
+        if (ttsCache.has(cacheKey)) {
+            const cached = ttsCache.get(cacheKey);
+            console.log('Serving cached TTS for:', text);
+
+            // Set strong cache headers
+            res.set({
+                'Content-Type': 'audio/mpeg',
+                'Cache-Control': 'public, max-age=604800, immutable', // Cache for 1 week
+                'ETag': `"${cacheKey}"`,
+                'X-Cache': 'HIT'
+            });
+
+            return res.send(cached.buffer);
         }
 
         // Check if ElevenLabs API key is configured
@@ -110,15 +134,36 @@ app.post('/api/text-to-speech', async (req, res) => {
             return res.status(response.status).json({ error: 'TTS service error', details: errorText });
         }
 
+        // Get the audio buffer
+        const audioBuffer = Buffer.from(await response.arrayBuffer());
+
+        // Cache the audio buffer (limit cache size to prevent memory issues)
+        if (ttsCache.size < 100) { // Keep max 100 cached items
+            ttsCache.set(cacheKey, {
+                buffer: audioBuffer,
+                timestamp: Date.now()
+            });
+        } else {
+            // Remove oldest entry
+            const oldestKey = ttsCache.keys().next().value;
+            ttsCache.delete(oldestKey);
+            ttsCache.set(cacheKey, {
+                buffer: audioBuffer,
+                timestamp: Date.now()
+            });
+        }
+
+        console.log('Generated and cached TTS for:', text);
+
         // Set appropriate headers for audio streaming
         res.set({
             'Content-Type': 'audio/mpeg',
-            'Cache-Control': 'public, max-age=3600', // Cache for 1 hour
+            'Cache-Control': 'public, max-age=604800, immutable', // Cache for 1 week
+            'ETag': `"${cacheKey}"`,
+            'X-Cache': 'MISS'
         });
 
-        // Get the audio buffer and send it
-        const audioBuffer = await response.arrayBuffer();
-        res.send(Buffer.from(audioBuffer));
+        res.send(audioBuffer);
 
     } catch (error) {
         console.error('Text-to-speech error:', error);
