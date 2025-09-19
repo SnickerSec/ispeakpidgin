@@ -122,7 +122,24 @@ railway up
 
 ### Environment Configuration
 
-The app will automatically use the PORT provided by Railway. No additional environment variables are required.
+**Required Environment Variables for ElevenLabs TTS:**
+
+1. **In Railway Dashboard:**
+   - Go to your project settings
+   - Navigate to "Variables" tab
+   - Add the following variable:
+
+   ```
+   ELEVENLABS_API_KEY=your_actual_api_key_here
+   ```
+
+2. **Getting your ElevenLabs API Key:**
+   - Sign up at [ElevenLabs](https://elevenlabs.io/)
+   - Go to your API Keys section
+   - Generate a new API key
+   - Copy the key to Railway's environment variables
+
+**Note:** The app will automatically use the PORT provided by Railway. The ElevenLabs API key is required for the premium Hawaiian voice text-to-speech functionality. Without it, the app will fall back to browser-based speech synthesis.
 
 ### Post-Deployment
 

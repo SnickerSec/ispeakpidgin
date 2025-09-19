@@ -387,84 +387,138 @@ class PidginSpeech {
         return params;
     }
 
-    // Main speak function with enhanced phonetic processing
+    // Main speak function with ElevenLabs integration and fallback
     speak(text, options = {}) {
-        return new Promise((resolve, reject) => {
-            if (!('speechSynthesis' in window)) {
-                reject(new Error('Speech synthesis not supported'));
-                return;
+        return new Promise(async (resolve, reject) => {
+            try {
+                // First try ElevenLabs if available
+                if (typeof elevenLabsSpeech !== 'undefined' && elevenLabsSpeech.isSupported()) {
+                    console.log('Using ElevenLabs Hawaiian voice');
+
+                    // Apply phonetic transformations for ElevenLabs too
+                    const phoneticText = this.applyPhoneticTransform(text);
+
+                    await elevenLabsSpeech.speak(phoneticText, {
+                        onStart: options.onStart,
+                        onSuccess: () => {
+                            if (options.onSuccess) options.onSuccess();
+                            resolve();
+                        },
+                        onError: (error) => {
+                            console.warn('ElevenLabs failed, falling back to browser speech:', error);
+                            this.fallbackToBrowserSpeech(text, options, resolve, reject);
+                        }
+                    });
+                    return;
+                }
+
+                // Fallback to browser speech synthesis
+                this.fallbackToBrowserSpeech(text, options, resolve, reject);
+
+            } catch (error) {
+                console.warn('Speech error, falling back to browser speech:', error);
+                this.fallbackToBrowserSpeech(text, options, resolve, reject);
             }
-
-            // Cancel any ongoing speech
-            speechSynthesis.cancel();
-
-            // Wait for voices to load if needed
-            if (!this.isLoaded) {
-                setTimeout(() => this.speak(text, options), 100);
-                return;
-            }
-
-            // Apply comprehensive phonetic transformations
-            const phoneticText = this.applyPhoneticTransform(text);
-
-            // Generate SSML for debugging purposes (not actually used for speech)
-            const ssmlText = this.applySSMLMarkup(phoneticText);
-
-            // Create utterance with phonetic text (NOT SSML - most browsers don't support it)
-            const utterance = new SpeechSynthesisUtterance(phoneticText);
-
-            // Set voice (prefer non-rhotic accents)
-            if (this.preferredVoice) {
-                utterance.voice = this.preferredVoice;
-            }
-
-            // Apply speech parameters optimized for Pidgin
-            const params = this.getSpeechParameters(text);
-            utterance.rate = options.rate || params.rate;
-            utterance.pitch = options.pitch || params.pitch;
-            utterance.volume = options.volume || params.volume;
-
-            // Simulate rhythm by adding pauses using periods
-            let textWithPauses = phoneticText;
-            textWithPauses = textWithPauses.replace(/,/g, '... ');
-            textWithPauses = textWithPauses.replace(/\./g, '..... ');
-            textWithPauses = textWithPauses.replace(/!/g, '!... ');
-            textWithPauses = textWithPauses.replace(/\?/g, '?... ');
-
-            // Use the text with simulated pauses for speech
-            utterance.text = textWithPauses;
-
-            // Enhanced debugging
-            if (options.debug) {
-                console.log('🎙️ Speech Debug Info:');
-                console.log('Original text:', text);
-                console.log('Phonetic text:', phoneticText);
-                console.log('Final speech text:', textWithPauses);
-                console.log('SSML (for reference):', ssmlText);
-                console.log('Selected voice:', this.preferredVoice?.name);
-                console.log('Speech parameters:', params);
-            }
-
-            // Event handlers
-            utterance.onend = () => resolve();
-            utterance.onerror = (error) => {
-                console.warn('Speech failed:', error);
-                reject(error);
-            };
-
-            // Speak the enhanced text
-            speechSynthesis.speak(utterance);
         });
     }
 
-    // Get available voices for user selection
+    // Fallback to browser speech synthesis
+    fallbackToBrowserSpeech(text, options, resolve, reject) {
+        if (!('speechSynthesis' in window)) {
+            reject(new Error('Speech synthesis not supported'));
+            return;
+        }
+
+        // Cancel any ongoing speech
+        speechSynthesis.cancel();
+
+        // Wait for voices to load if needed
+        if (!this.isLoaded) {
+            setTimeout(() => this.fallbackToBrowserSpeech(text, options, resolve, reject), 100);
+            return;
+        }
+
+        // Apply comprehensive phonetic transformations
+        const phoneticText = this.applyPhoneticTransform(text);
+
+        // Generate SSML for debugging purposes (not actually used for speech)
+        const ssmlText = this.applySSMLMarkup(phoneticText);
+
+        // Create utterance with phonetic text (NOT SSML - most browsers don't support it)
+        const utterance = new SpeechSynthesisUtterance(phoneticText);
+
+        // Set voice (prefer non-rhotic accents)
+        if (this.preferredVoice) {
+            utterance.voice = this.preferredVoice;
+        }
+
+        // Apply speech parameters optimized for Pidgin
+        const params = this.getSpeechParameters(text);
+        utterance.rate = options.rate || params.rate;
+        utterance.pitch = options.pitch || params.pitch;
+        utterance.volume = options.volume || params.volume;
+
+        // Simulate rhythm by adding pauses using periods
+        let textWithPauses = phoneticText;
+        textWithPauses = textWithPauses.replace(/,/g, '... ');
+        textWithPauses = textWithPauses.replace(/\./g, '..... ');
+        textWithPauses = textWithPauses.replace(/!/g, '!... ');
+        textWithPauses = textWithPauses.replace(/\?/g, '?... ');
+
+        // Use the text with simulated pauses for speech
+        utterance.text = textWithPauses;
+
+        // Enhanced debugging
+        if (options.debug) {
+            console.log('🎙️ Speech Debug Info (Browser Fallback):');
+            console.log('Original text:', text);
+            console.log('Phonetic text:', phoneticText);
+            console.log('Final speech text:', textWithPauses);
+            console.log('SSML (for reference):', ssmlText);
+            console.log('Selected voice:', this.preferredVoice?.name);
+            console.log('Speech parameters:', params);
+        }
+
+        // Event handlers
+        utterance.onend = () => {
+            if (options.onSuccess) options.onSuccess();
+            resolve();
+        };
+        utterance.onerror = (error) => {
+            console.warn('Speech failed:', error);
+            if (options.onError) options.onError(error);
+            reject(error);
+        };
+
+        // Speak the enhanced text
+        speechSynthesis.speak(utterance);
+    }
+
+    // Get available voices for user selection including ElevenLabs
     getAvailableVoices() {
-        return this.voices.map(voice => ({
+        const voices = this.voices.map(voice => ({
             name: voice.name,
             lang: voice.lang,
             local: voice.localService,
-            default: voice.default
+            default: voice.default,
+            provider: 'Browser'
         }));
+
+        // Add ElevenLabs voice if available
+        if (typeof elevenLabsSpeech !== 'undefined' && elevenLabsSpeech.isSupported()) {
+            const elevenLabsVoice = elevenLabsSpeech.getVoiceInfo();
+            voices.unshift({
+                name: elevenLabsVoice.name,
+                lang: elevenLabsVoice.language,
+                local: false,
+                default: false,
+                provider: elevenLabsVoice.provider,
+                quality: elevenLabsVoice.quality,
+                description: elevenLabsVoice.description
+            });
+        }
+
+        return voices;
     }
 
     // Allow manual voice selection
