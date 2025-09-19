@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pidgin Pal - Learn Hawaiian Pidgin English</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-green-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-green-600">🌺 Pidgin Pal</span>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#home" class="nav-link text-gray-700 hover:text-green-600 transition">Home</a>
+                    <a href="#translator" class="nav-link text-gray-700 hover:text-green-600 transition">Translator</a>
+                    <a href="#learning" class="nav-link text-gray-700 hover:text-green-600 transition">Learning Hub</a>
+                    <a href="#community" class="nav-link text-gray-700 hover:text-green-600 transition">Community</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <a href="#home" class="block py-2 text-gray-700 hover:text-green-600">Home</a>
+                <a href="#translator" class="block py-2 text-gray-700 hover:text-green-600">Translator</a>
+                <a href="#learning" class="block py-2 text-gray-700 hover:text-green-600">Learning Hub</a>
+                <a href="#community" class="block py-2 text-gray-700 hover:text-green-600">Community</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="py-12 px-4">
+        <div class="container mx-auto">
+            <!-- Hero -->
+            <div class="text-center mb-12">
+                <h1 class="text-5xl font-bold text-gray-800 mb-4">E Komo Mai! Welcome to Pidgin Pal</h1>
+                <p class="text-xl text-gray-600">Learn Hawaiian Pidgin English da easy way, brah!</p>
+            </div>
+
+            <!-- Daily Phrase -->
+            <div class="bg-white rounded-lg shadow-xl p-8 mb-12 max-w-3xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-6 text-green-600">Today's Pidgin Phrase</h2>
+                <div id="daily-phrase" class="text-center">
+                    <p class="text-4xl font-bold text-gray-800 mb-4" id="phrase-pidgin">Howzit, brah!</p>
+                    <p class="text-2xl text-gray-600 mb-4" id="phrase-english">How are you, friend!</p>
+                    <p class="text-lg text-gray-500" id="phrase-usage">A casual greeting used among friends in Hawaii</p>
+                    <button id="speak-phrase" class="mt-4 bg-green-500 text-white px-6 py-2 rounded-full hover:bg-green-600 transition">
+                        🔊 Hear it
+                    </button>
+                </div>
+            </div>
+
+            <!-- Featured Greetings -->
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Essential Pidgin Phrases</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                    <div class="phrase-card bg-white rounded-lg p-6 shadow hover:shadow-lg transition">
+                        <h3 class="text-xl font-bold text-green-600 mb-2">Shoots!</h3>
+                        <p class="text-gray-600 mb-2">Okay! / Sounds good!</p>
+                        <p class="text-sm text-gray-500">Used to agree with someone</p>
+                    </div>
+                    <div class="phrase-card bg-white rounded-lg p-6 shadow hover:shadow-lg transition">
+                        <h3 class="text-xl font-bold text-green-600 mb-2">No can</h3>
+                        <p class="text-gray-600 mb-2">Cannot / Unable to</p>
+                        <p class="text-sm text-gray-500">When something isn't possible</p>
+                    </div>
+                    <div class="phrase-card bg-white rounded-lg p-6 shadow hover:shadow-lg transition">
+                        <h3 class="text-xl font-bold text-green-600 mb-2">Da kine</h3>
+                        <p class="text-gray-600 mb-2">The thing / Whatchamacallit</p>
+                        <p class="text-sm text-gray-500">Universal placeholder word</p>
+                    </div>
+                    <div class="phrase-card bg-white rounded-lg p-6 shadow hover:shadow-lg transition">
+                        <h3 class="text-xl font-bold text-green-600 mb-2">Broke da mouth</h3>
+                        <p class="text-gray-600 mb-2">Delicious!</p>
+                        <p class="text-sm text-gray-500">When food is really good</p>
+                    </div>
+                    <div class="phrase-card bg-white rounded-lg p-6 shadow hover:shadow-lg transition">
+                        <h3 class="text-xl font-bold text-green-600 mb-2">Pau hana</h3>
+                        <p class="text-gray-600 mb-2">After work / Done with work</p>
+                        <p class="text-sm text-gray-500">End of the workday</p>
+                    </div>
+                    <div class="phrase-card bg-white rounded-lg p-6 shadow hover:shadow-lg transition">
+                        <h3 class="text-xl font-bold text-green-600 mb-2">Choke</h3>
+                        <p class="text-gray-600 mb-2">A lot / Many</p>
+                        <p class="text-sm text-gray-500">To describe abundance</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Access Buttons -->
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4">
+                <a href="#translator" class="bg-blue-500 text-white px-8 py-4 rounded-full text-xl hover:bg-blue-600 transition">
+                    🔄 Try the Translator
+                </a>
+                <a href="#learning" class="bg-green-500 text-white px-8 py-4 rounded-full text-xl hover:bg-green-600 transition">
+                    📚 Start Learning
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Translator Section -->
+    <section id="translator" class="py-12 px-4 bg-white">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-4xl font-bold text-center mb-8 text-gray-800">Pidgin Translator</h2>
+
+            <!-- Translation Direction Toggle -->
+            <div class="flex justify-center mb-6">
+                <div class="bg-gray-100 rounded-full p-1 flex items-center">
+                    <button id="eng-to-pidgin" class="px-6 py-2 rounded-full bg-green-500 text-white transition">
+                        English → Pidgin
+                    </button>
+                    <button id="pidgin-to-eng" class="px-6 py-2 rounded-full hover:bg-gray-200 transition">
+                        Pidgin → English
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-8 shadow-lg">
+                <div class="mb-6">
+                    <label id="input-label" class="block text-lg font-semibold mb-2 text-gray-700">English</label>
+                    <textarea id="translator-input"
+                              class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-green-500 focus:outline-none"
+                              rows="4"
+                              placeholder="Type English text here..."></textarea>
+                </div>
+                <div class="text-center mb-6">
+                    <button id="translate-btn" class="bg-green-500 text-white px-8 py-3 rounded-full text-lg hover:bg-green-600 transition">
+                        Translate to Pidgin
+                    </button>
+                </div>
+                <div>
+                    <label id="output-label" class="block text-lg font-semibold mb-2 text-gray-700">Pidgin</label>
+                    <div class="bg-white p-4 border-2 border-green-300 rounded-lg min-h-[100px]">
+                        <p id="translator-output" class="text-lg text-gray-800"></p>
+                        <button id="speak-translation" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition hidden">
+                            🔊 Hear Translation
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Hub Section -->
+    <section id="learning" class="py-12 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-8 text-gray-800">Learning Hub</h2>
+
+            <!-- Level Tabs -->
+            <div class="flex justify-center mb-8">
+                <div class="bg-white rounded-lg shadow-lg p-1">
+                    <button class="level-btn px-6 py-2 rounded-lg bg-green-500 text-white" data-level="beginner">Beginner</button>
+                    <button class="level-btn px-6 py-2 rounded-lg hover:bg-gray-100" data-level="intermediate">Intermediate</button>
+                    <button class="level-btn px-6 py-2 rounded-lg hover:bg-gray-100" data-level="advanced">Advanced</button>
+                </div>
+            </div>
+
+            <!-- Lessons Grid -->
+            <div id="lessons-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                <!-- Lessons will be dynamically loaded here -->
+            </div>
+
+            <!-- Quiz Section -->
+            <div id="quiz-section" class="hidden mt-12 max-w-3xl mx-auto">
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <h3 class="text-2xl font-bold mb-6">Quick Quiz</h3>
+                    <div id="quiz-content"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section id="community" class="py-12 px-4 bg-white">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-8 text-gray-800">Community & Stories</h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <!-- Story Corner -->
+                <div class="bg-gray-50 rounded-lg p-6 shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-green-600">Pidgin Story Corner</h3>
+                    <div id="stories-container">
+                        <article class="mb-6 pb-6 border-b">
+                            <h4 class="text-lg font-bold mb-2">Da Beach Day</h4>
+                            <p class="text-gray-700 mb-2 italic">"Eh, yesterday was so nice, yeah? Me and da boys wen go beach..."</p>
+                            <button class="text-green-600 hover:underline">Read More →</button>
+                        </article>
+                        <article class="mb-6 pb-6 border-b">
+                            <h4 class="text-lg font-bold mb-2">Local Grinds</h4>
+                            <p class="text-gray-700 mb-2 italic">"Ho brah, da plate lunch from aunty's place stay broke da mouth..."</p>
+                            <button class="text-green-600 hover:underline">Read More →</button>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- Ask a Local -->
+                <div class="bg-gray-50 rounded-lg p-6 shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-green-600">Ask a Local</h3>
+                    <form id="ask-form" class="mb-6">
+                        <textarea class="w-full p-3 border rounded-lg mb-3" rows="3" placeholder="Ask your question about Pidgin..."></textarea>
+                        <button type="submit" class="bg-green-500 text-white px-6 py-2 rounded-full hover:bg-green-600 transition">
+                            Submit Question
+                        </button>
+                    </form>
+                    <div id="recent-questions">
+                        <h4 class="font-bold mb-3">Recent Questions</h4>
+                        <div class="space-y-3">
+                            <div class="bg-white p-3 rounded">
+                                <p class="font-semibold">What's the difference between "stay" and "is"?</p>
+                                <p class="text-sm text-gray-600 mt-1">In Pidgin, "stay" often replaces "is/are"...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cultural Insights -->
+            <div class="mt-12 max-w-4xl mx-auto">
+                <h3 class="text-2xl font-bold mb-6 text-center text-green-600">Cultural Insights</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <article class="bg-gray-50 rounded-lg p-6 shadow">
+                        <h4 class="text-xl font-bold mb-2">The History of Pidgin</h4>
+                        <p class="text-gray-700">Hawaiian Pidgin developed in the 19th century on sugar plantations...</p>
+                        <button class="text-green-600 hover:underline mt-3">Learn More →</button>
+                    </article>
+                    <article class="bg-gray-50 rounded-lg p-6 shadow">
+                        <h4 class="text-xl font-bold mb-2">Pidgin in Modern Hawaii</h4>
+                        <p class="text-gray-700">Today, Pidgin is recognized as an official language...</p>
+                        <button class="text-green-600 hover:underline mt-3">Learn More →</button>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 px-4">
+        <div class="container mx-auto text-center">
+            <p class="mb-2">© 2024 Pidgin Pal - Learn Hawaiian Pidgin English</p>
+            <p class="text-sm text-gray-400">Made with aloha 🌺</p>
+        </div>
+    </footer>
+
+    <script src="js/phrases-data.js"></script>
+    <script src="js/translator.js"></script>
+    <script src="js/lessons.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

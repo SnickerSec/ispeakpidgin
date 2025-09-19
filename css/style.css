@@ -1,0 +1,292 @@
+/* Custom styles for Pidgin Pal */
+
+/* Tropical gradient background animation */
+body {
+    background: linear-gradient(-45deg, #e3f2fd, #c8e6c9, #fff9c4, #ffccbc);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Navigation hover effects */
+.nav-link {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 50%;
+    background-color: #10b981;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+/* Phrase cards hover animation */
+.phrase-card {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.phrase-card::before {
+    content: '🌺';
+    position: absolute;
+    font-size: 100px;
+    opacity: 0.05;
+    right: -20px;
+    bottom: -20px;
+    transform: rotate(-15deg);
+    transition: all 0.3s ease;
+}
+
+.phrase-card:hover::before {
+    transform: rotate(0deg) scale(1.2);
+    opacity: 0.1;
+}
+
+.phrase-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Daily phrase animation */
+#daily-phrase {
+    animation: fadeInUp 1s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Translator section styles */
+#english-input, #pidgin-output {
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+}
+
+#english-input:focus {
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* Button animations */
+button {
+    position: relative;
+    overflow: hidden;
+}
+
+button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+button:active::after {
+    width: 300px;
+    height: 300px;
+}
+
+/* Quiz options hover effect */
+.quiz-option {
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+}
+
+.quiz-option:hover {
+    border-color: #10b981;
+    transform: translateX(5px);
+}
+
+/* Level button styles */
+.level-btn {
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.level-btn:not(.bg-green-500):hover {
+    background-color: #f3f4f6;
+}
+
+/* Story articles */
+#stories-container article {
+    transition: all 0.3s ease;
+    padding-left: 0;
+}
+
+#stories-container article:hover {
+    padding-left: 10px;
+    border-left: 4px solid #10b981;
+}
+
+/* Footer waves effect */
+footer {
+    position: relative;
+    overflow: hidden;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="%23ffffff" opacity="0.1"></path></svg>') repeat-x;
+    animation: wave 10s linear infinite;
+    opacity: 0.3;
+}
+
+@keyframes wave {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-1200px);
+    }
+}
+
+/* Mobile menu animation */
+#mobile-menu {
+    transition: all 0.3s ease;
+    max-height: 0;
+    overflow: hidden;
+}
+
+#mobile-menu:not(.hidden) {
+    max-height: 500px;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Loading animation for translations */
+.translating {
+    position: relative;
+}
+
+.translating::after {
+    content: '...';
+    position: absolute;
+    animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+    0%, 20% {
+        content: '.';
+    }
+    40% {
+        content: '..';
+    }
+    60%, 100% {
+        content: '...';
+    }
+}
+
+/* Lesson card icons bounce on hover */
+.bg-white.rounded-lg.shadow-lg:hover .text-4xl {
+    animation: bounce 0.5s ease;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Cultural insights cards */
+article.bg-gray-50 {
+    transition: all 0.3s ease;
+}
+
+article.bg-gray-50:hover {
+    transform: scale(1.02);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .phrase-card::before {
+        font-size: 60px;
+    }
+
+    #daily-phrase p {
+        font-size: 1.5rem;
+    }
+}
+
+/* Print styles */
+@media print {
+    body {
+        background: white;
+    }
+
+    nav, footer, button {
+        display: none;
+    }
+
+    .phrase-card, article {
+        page-break-inside: avoid;
+    }
+}
+
+/* Accessibility improvements */
+button:focus, a:focus, input:focus, textarea:focus {
+    outline: 2px solid #10b981;
+    outline-offset: 2px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #10b981;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #059669;
+}
