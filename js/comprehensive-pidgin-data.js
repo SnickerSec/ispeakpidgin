@@ -1996,6 +1996,838 @@ const comprehensivePidginData = {
         audioExample: 'Move wiki wiki!'
     },
 
+    // Additional comprehensive terms from expanded list
+    // Letter A (Additional)
+    'a\'ole': {
+        pidgin: 'a\'ole',
+        english: 'not at all',
+        category: 'expressions',
+        pronunciation: 'ah-OH-leh',
+        example: 'A\'ole, I no like dat',
+        usage: 'Strong negation',
+        origin: 'Hawaiian',
+        audioExample: 'A\'ole way I going do dat!'
+    },
+    'ai yah': {
+        pidgin: 'ai yah',
+        english: 'oops',
+        category: 'expressions',
+        pronunciation: 'AYE-yah',
+        example: 'Ai yah, I wen forget!',
+        usage: 'Expressing mistake',
+        origin: 'Chinese influence',
+        audioExample: 'Ai yah, dropped my phone!'
+    },
+    'aikea': {
+        pidgin: 'aikea',
+        english: 'I care (sarcastic)',
+        category: 'expressions',
+        pronunciation: 'eye-KEH-ah',
+        example: 'Oh aikea, so wat?',
+        usage: 'Sarcastic caring',
+        origin: 'Hawaiian',
+        audioExample: 'Aikea if you no like'
+    },
+    'aisus': {
+        pidgin: 'aisus',
+        english: 'darn',
+        category: 'expressions',
+        pronunciation: 'AY-sus',
+        example: 'Aisus, forgot my keys!',
+        usage: 'Mild frustration',
+        origin: 'Portuguese "Jesus"',
+        audioExample: 'Aisus, not again!'
+    },
+    'alas': {
+        pidgin: 'alas',
+        english: 'testicles',
+        category: 'slang',
+        pronunciation: 'AH-las',
+        example: 'Stay careful wit your alas',
+        usage: 'Crude anatomical reference',
+        origin: 'Portuguese',
+        audioExample: 'Ouch, my alas!'
+    },
+    'all buss': {
+        pidgin: 'all buss',
+        english: 'very drunk',
+        category: 'slang',
+        pronunciation: 'all-BUS',
+        example: 'He stay all buss from da party',
+        usage: 'Extreme intoxication',
+        origin: 'English "bust"',
+        audioExample: 'I was all buss last night'
+    },
+    'aloha friday': {
+        pidgin: 'aloha friday',
+        english: 'casual wear Friday',
+        category: 'expressions',
+        pronunciation: 'ah-LOH-hah-FRY-day',
+        example: 'Today stay aloha friday',
+        usage: 'Dress-down day',
+        origin: 'Hawaiian business culture',
+        audioExample: 'Can wear slippahs fo aloha friday'
+    },
+    'and then': {
+        pidgin: 'and then',
+        english: 'who cares/so what',
+        category: 'expressions',
+        pronunciation: 'an-DEN',
+        example: 'You no like? And then?',
+        usage: 'Dismissive challenge',
+        origin: 'English',
+        audioExample: 'And then wat you going do?'
+    },
+    'any kine': {
+        pidgin: 'any kine',
+        english: 'anything goes',
+        category: 'expressions',
+        pronunciation: 'EH-nee-kyne',
+        example: 'We get any kine food',
+        usage: 'Variety available',
+        origin: 'English',
+        audioExample: 'Any kine music stay good'
+    },
+    'ass why': {
+        pidgin: 'ass why',
+        english: 'that\'s why',
+        category: 'expressions',
+        pronunciation: 'ass-WHY',
+        example: 'Ass why I wen tell you',
+        usage: 'Explanation',
+        origin: 'English',
+        audioExample: 'Ass why hard fo understand'
+    },
+    'aurite': {
+        pidgin: 'aurite',
+        english: 'yippee/alright',
+        category: 'expressions',
+        pronunciation: 'au-RITE',
+        example: 'Aurite! We going beach!',
+        usage: 'Excitement or agreement',
+        origin: 'English "alright"',
+        audioExample: 'Aurite den, let\'s go!'
+    },
+
+    // Letter B (Additional)
+    'b-52': {
+        pidgin: 'b-52',
+        english: 'large cockroach',
+        category: 'slang',
+        pronunciation: 'BEE-fif-tee-too',
+        example: 'One big B-52 in da kitchen!',
+        usage: 'Describing large roaches',
+        origin: 'Military bomber reference',
+        audioExample: 'Kill dat B-52!'
+    },
+    'bag': {
+        pidgin: 'bag',
+        english: 'to leave/depart',
+        category: 'slang',
+        pronunciation: 'BAG',
+        example: 'Time fo bag, pau hana',
+        usage: 'Going home',
+        origin: 'English',
+        audioExample: 'We should bag now'
+    },
+    'beer in my ear': {
+        pidgin: 'beer in my ear',
+        english: 'deaf',
+        category: 'slang',
+        pronunciation: 'beer-in-my-EAR',
+        example: 'I get beer in my ear, no can hear',
+        usage: 'Can\'t hear well',
+        origin: 'Local expression',
+        audioExample: 'Talk louder, I get beer in my ear'
+    },
+    'before time': {
+        pidgin: 'before time',
+        english: 'back in the day',
+        category: 'expressions',
+        pronunciation: 'bee-FOR-time',
+        example: 'Before time was mo bettah',
+        usage: 'Nostalgic reference',
+        origin: 'English',
+        audioExample: 'Before time, no had computers'
+    },
+    'bite': {
+        pidgin: 'bite',
+        english: 'to copy/emulate',
+        category: 'slang',
+        pronunciation: 'BITE',
+        example: 'You stay biting my style',
+        usage: 'Copying someone',
+        origin: 'English',
+        audioExample: 'No bite my moves'
+    },
+    'blind mullet': {
+        pidgin: 'blind mullet',
+        english: 'can\'t see',
+        category: 'slang',
+        pronunciation: 'blind-MUL-let',
+        example: 'I stay blind mullet without my glasses',
+        usage: 'Poor vision',
+        origin: 'Local fishing reference',
+        audioExample: 'Like one blind mullet in da dark'
+    },
+    'bobora': {
+        pidgin: 'bobora',
+        english: 'Japanese person',
+        category: 'slang',
+        pronunciation: 'boh-BOH-rah',
+        example: 'My bobora friend',
+        usage: 'Reference to Japanese ethnicity',
+        origin: 'Local term',
+        audioExample: 'Da bobora family next door'
+    },
+    'boddah you': {
+        pidgin: 'boddah you',
+        english: 'does this bother you',
+        category: 'expressions',
+        pronunciation: 'BOH-dah-you',
+        example: 'Boddah you if I smoke?',
+        usage: 'Polite inquiry',
+        origin: 'English "bother"',
+        audioExample: 'Boddah you da loud music?'
+    },
+    'boom kanani': {
+        pidgin: 'boom kanani',
+        english: 'oh yeah!/awesome',
+        category: 'expressions',
+        pronunciation: 'boom-kah-NAH-nee',
+        example: 'Boom kanani! We wen win!',
+        usage: 'Celebration',
+        origin: 'Local expression',
+        audioExample: 'Boom kanani, das wat I talking about!'
+    },
+    'boro boroz': {
+        pidgin: 'boro boroz',
+        english: 'worn out/tired',
+        category: 'slang',
+        pronunciation: 'BOH-roh-BOH-rohz',
+        example: 'I stay boro boroz after work',
+        usage: 'Exhaustion',
+        origin: 'Unknown',
+        audioExample: 'My car stay boro boroz'
+    },
+    'bumbucha': {
+        pidgin: 'bumbucha',
+        english: 'very big',
+        category: 'slang',
+        pronunciation: 'bum-BOO-chah',
+        example: 'Dat wave was bumbucha!',
+        usage: 'Describing large size',
+        origin: 'Local expression',
+        audioExample: 'One bumbucha plate lunch'
+    },
+    'buss up': {
+        pidgin: 'buss up',
+        english: 'broken/beaten up',
+        category: 'slang',
+        pronunciation: 'bus-UP',
+        example: 'My car stay all buss up',
+        usage: 'Damaged condition',
+        origin: 'English "bust up"',
+        audioExample: 'His face stay buss up'
+    },
+
+    // Letter C (Additional)
+    'chang': {
+        pidgin: 'chang',
+        english: 'very cheap person',
+        category: 'slang',
+        pronunciation: 'CHAHNG',
+        example: 'He so chang, neva pay fo notting',
+        usage: 'Describing stinginess',
+        origin: 'Chinese surname stereotype',
+        audioExample: 'No be so chang!'
+    },
+    'chawan cut': {
+        pidgin: 'chawan cut',
+        english: 'bowl haircut',
+        category: 'slang',
+        pronunciation: 'chah-WAHN-cut',
+        example: 'Get one chawan cut from da barber',
+        usage: 'Bad haircut style',
+        origin: 'Japanese "chawan" (bowl)',
+        audioExample: 'Look like chawan cut'
+    },
+    'chee': {
+        pidgin: 'chee',
+        english: 'geez',
+        category: 'expressions',
+        pronunciation: 'CHEE',
+        example: 'Chee, why you do dat?',
+        usage: 'Mild exclamation',
+        origin: 'English "geez"',
+        audioExample: 'Chee brah, relax!'
+    },
+    'chee hu': {
+        pidgin: 'chee hu',
+        english: 'woo hoo',
+        category: 'expressions',
+        pronunciation: 'chee-HOO',
+        example: 'Chee hu! Going Vegas!',
+        usage: 'Excitement',
+        origin: 'Local expression',
+        audioExample: 'Chee hu, we going beach!'
+    },
+    'chinee': {
+        pidgin: 'chinee',
+        english: 'Chinese person',
+        category: 'slang',
+        pronunciation: 'chy-NEE',
+        example: 'My chinee friend',
+        usage: 'Reference to Chinese ethnicity',
+        origin: 'English "Chinese"',
+        audioExample: 'Da chinee store get good food'
+    },
+    'cho cho lips': {
+        pidgin: 'cho cho lips',
+        english: 'thick lips',
+        category: 'slang',
+        pronunciation: 'CHOH-choh-lips',
+        example: 'He get cho cho lips',
+        usage: 'Describing lip size',
+        origin: 'Local expression',
+        audioExample: 'Look at dose cho cho lips'
+    },
+    'choke your neck': {
+        pidgin: 'choke your neck',
+        english: 'in trouble',
+        category: 'slang',
+        pronunciation: 'choke-your-NEK',
+        example: 'You going choke your neck wit mom',
+        usage: 'Warning about consequences',
+        origin: 'Local expression',
+        audioExample: 'Going choke your neck if you late'
+    },
+    'classic': {
+        pidgin: 'classic',
+        english: 'hilarious',
+        category: 'slang',
+        pronunciation: 'KLAS-sik',
+        example: 'Dat joke was classic!',
+        usage: 'Very funny',
+        origin: 'English',
+        audioExample: 'Classic! You so funny!'
+    },
+    'crash': {
+        pidgin: 'crash',
+        english: 'to sleep',
+        category: 'slang',
+        pronunciation: 'KRASH',
+        example: 'I going crash now',
+        usage: 'Going to bed',
+        origin: 'English',
+        audioExample: 'Time fo crash, tired'
+    },
+
+    // Letter D (Additional)
+    'da cute': {
+        pidgin: 'da cute',
+        english: 'how precious',
+        category: 'expressions',
+        pronunciation: 'dah-KYOOT',
+        example: 'Oh da cute baby!',
+        usage: 'Finding something adorable',
+        origin: 'English',
+        audioExample: 'Da cute little keiki'
+    },
+    'da haps': {
+        pidgin: 'da haps',
+        english: 'what\'s happening',
+        category: 'expressions',
+        pronunciation: 'dah-HAPS',
+        example: 'Wassup wit da haps?',
+        usage: 'What\'s going on',
+        origin: 'English "happenings"',
+        audioExample: 'Tell me da haps'
+    },
+    'daikon': {
+        pidgin: 'daikon',
+        english: 'cellulite',
+        category: 'slang',
+        pronunciation: 'DYE-kon',
+        example: 'Get choke daikon on her legs',
+        usage: 'Describing skin texture',
+        origin: 'Japanese radish resemblance',
+        audioExample: 'Too much daikon'
+    },
+    'das why hard': {
+        pidgin: 'das why hard',
+        english: 'that\'s why it\'s difficult',
+        category: 'expressions',
+        pronunciation: 'das-why-HARD',
+        example: 'Das why hard fo understand',
+        usage: 'Explaining difficulty',
+        origin: 'English',
+        audioExample: 'Das why hard fo learn pidgin'
+    },
+    'dea him': {
+        pidgin: 'dea him',
+        english: 'there he is',
+        category: 'expressions',
+        pronunciation: 'DEH-ah-him',
+        example: 'Dea him, by da car',
+        usage: 'Pointing someone out',
+        origin: 'English',
+        audioExample: 'Dea him coming now'
+    },
+    'deaf ear': {
+        pidgin: 'deaf ear',
+        english: 'deaf',
+        category: 'slang',
+        pronunciation: 'def-EAR',
+        example: 'I get deaf ear today',
+        usage: 'Can\'t hear',
+        origin: 'English',
+        audioExample: 'Talk loud, I get deaf ear'
+    },
+    'dem': {
+        pidgin: 'dem',
+        english: 'them/those people',
+        category: 'expressions',
+        pronunciation: 'DEM',
+        example: 'Dem guys over dea',
+        usage: 'Referring to group',
+        origin: 'English "them"',
+        audioExample: 'Tell dem I said hi'
+    },
+    'dog luck': {
+        pidgin: 'dog luck',
+        english: 'very lucky',
+        category: 'expressions',
+        pronunciation: 'dog-LUK',
+        example: 'You get dog luck today',
+        usage: 'Extremely fortunate',
+        origin: 'Local expression',
+        audioExample: 'Dog luck you neva get hurt'
+    },
+
+    // Letter E (Additional)
+    'even steven': {
+        pidgin: 'even steven',
+        english: 'even/equal',
+        category: 'expressions',
+        pronunciation: 'EE-ven-STEE-ven',
+        example: 'We stay even steven now',
+        usage: 'Balanced situation',
+        origin: 'English',
+        audioExample: 'Make um even steven'
+    },
+
+    // Letter F (Additional)
+    'f.b.i.': {
+        pidgin: 'f.b.i.',
+        english: 'from Big Island',
+        category: 'slang',
+        pronunciation: 'ef-bee-EYE',
+        example: 'He one F.B.I.',
+        usage: 'Big Island resident',
+        origin: 'Local acronym',
+        audioExample: 'All da F.B.I. guys stay country'
+    },
+    'f.o.b.': {
+        pidgin: 'f.o.b.',
+        english: 'fresh off the boat',
+        category: 'slang',
+        pronunciation: 'ef-oh-BEE',
+        example: 'He one F.O.B. from Philippines',
+        usage: 'Recent immigrant',
+        origin: 'Immigration term',
+        audioExample: 'Still F.O.B., learning English'
+    },
+    'face': {
+        pidgin: 'face',
+        english: 'I knew it',
+        category: 'expressions',
+        pronunciation: 'FACE',
+        example: 'Face! I wen tell you so',
+        usage: 'Vindication',
+        origin: 'English',
+        audioExample: 'Face, das wat I thought'
+    },
+    'fast kine': {
+        pidgin: 'fast kine',
+        english: 'fast',
+        category: 'expressions',
+        pronunciation: 'fast-KYNE',
+        example: 'Drive fast kine',
+        usage: 'Quickly',
+        origin: 'English',
+        audioExample: 'Eat fast kine, we late'
+    },
+    'fo what': {
+        pidgin: 'fo what',
+        english: 'why/for what reason',
+        category: 'expressions',
+        pronunciation: 'foh-WHAT',
+        example: 'Fo what you do dat?',
+        usage: 'Questioning reason',
+        origin: 'English',
+        audioExample: 'Fo what you crying?'
+    },
+    'futless': {
+        pidgin: 'futless',
+        english: 'restless/antsy',
+        category: 'slang',
+        pronunciation: 'FUT-less',
+        example: 'I stay futless, cannot sit still',
+        usage: 'Unable to relax',
+        origin: 'Local expression',
+        audioExample: 'So futless, need go outside'
+    },
+
+    // Letter G (Additional)
+    'garans': {
+        pidgin: 'garans',
+        english: 'guaranteed',
+        category: 'expressions',
+        pronunciation: 'gah-RANZ',
+        example: 'Garans going rain today',
+        usage: 'Certainty',
+        origin: 'English "guarantee"',
+        audioExample: 'Garans ball bearings!'
+    },
+    'giri giri': {
+        pidgin: 'giri giri',
+        english: 'hair swirl/cowlick',
+        category: 'slang',
+        pronunciation: 'GEE-ree-GEE-ree',
+        example: 'He get one giri giri',
+        usage: 'Hair pattern',
+        origin: 'Japanese',
+        audioExample: 'Cannot comb down da giri giri'
+    },
+    'goin': {
+        pidgin: 'goin',
+        english: 'going',
+        category: 'expressions',
+        pronunciation: 'GO-in',
+        example: 'We goin beach',
+        usage: 'Future action',
+        origin: 'English "going"',
+        audioExample: 'Goin be late'
+    },
+    'guaranz': {
+        pidgin: 'guaranz',
+        english: 'no doubt/for sure',
+        category: 'expressions',
+        pronunciation: 'GWAR-anz',
+        example: 'Guaranz going be good',
+        usage: 'Certainty',
+        origin: 'English "guarantee"',
+        audioExample: 'Guaranz you going like it'
+    },
+
+    // Letter H (Additional)
+    'haah': {
+        pidgin: 'haah',
+        english: 'are you serious',
+        category: 'expressions',
+        pronunciation: 'HAAH',
+        example: 'Haah!? You fo real?',
+        usage: 'Disbelief or surprise',
+        origin: 'English',
+        audioExample: 'Haah!? No way!'
+    },
+    'habut': {
+        pidgin: 'habut',
+        english: 'in a bad mood',
+        category: 'emotions',
+        pronunciation: 'hah-BUT',
+        example: 'He stay habut today',
+        usage: 'Grumpy state',
+        origin: 'Japanese "habuteru"',
+        audioExample: 'Why you so habut?'
+    },
+    'hana kuso': {
+        pidgin: 'hana kuso',
+        english: 'booger',
+        category: 'slang',
+        pronunciation: 'HAH-nah-KOO-soh',
+        example: 'Get hana kuso hanging',
+        usage: 'Nose mucus',
+        origin: 'Japanese',
+        audioExample: 'Wipe your hana kuso'
+    },
+    'hana okolele': {
+        pidgin: 'hana okolele',
+        english: 'you\'re in trouble',
+        category: 'expressions',
+        pronunciation: 'HAH-nah-oh-koh-LEH-leh',
+        example: 'Hana okolele when mom finds out',
+        usage: 'Warning about consequences',
+        origin: 'Hawaiian/Local',
+        audioExample: 'Hana okolele if you late'
+    },
+    'hanai': {
+        pidgin: 'hanai',
+        english: 'to adopt',
+        category: 'expressions',
+        pronunciation: 'hah-NYE',
+        example: 'They hanai the baby',
+        usage: 'Informal adoption',
+        origin: 'Hawaiian',
+        audioExample: 'We hanai him like family'
+    },
+    'handles': {
+        pidgin: 'handles',
+        english: 'under control',
+        category: 'expressions',
+        pronunciation: 'HAN-dels',
+        example: 'I get handles on dis',
+        usage: 'Managing situation',
+        origin: 'English',
+        audioExample: 'No worry, I get handles'
+    },
+    'haunas': {
+        pidgin: 'haunas',
+        english: 'stinky',
+        category: 'slang',
+        pronunciation: 'HOW-nahs',
+        example: 'Dat fish stay haunas',
+        usage: 'Bad smell',
+        origin: 'Hawaiian "hauna"',
+        audioExample: 'Something stay haunas in hea'
+    },
+    'hawaiian time': {
+        pidgin: 'hawaiian time',
+        english: 'running late',
+        category: 'expressions',
+        pronunciation: 'hah-WHY-an-time',
+        example: 'He stay on Hawaiian time',
+        usage: 'Relaxed attitude toward punctuality',
+        origin: 'Local culture',
+        audioExample: 'Party starts at 7, Hawaiian time'
+    },
+    'hea': {
+        pidgin: 'hea',
+        english: 'here',
+        category: 'expressions',
+        pronunciation: 'HEH-ah',
+        example: 'Come ova hea',
+        usage: 'Location reference',
+        origin: 'English "here"',
+        audioExample: 'Put um right hea'
+    },
+    'hemo': {
+        pidgin: 'hemo',
+        english: 'remove/take off',
+        category: 'expressions',
+        pronunciation: 'HEH-moh',
+        example: 'Hemo your shoes',
+        usage: 'Taking something off',
+        origin: 'Hawaiian',
+        audioExample: 'Hemo da plastic'
+    },
+    'hikie\'e': {
+        pidgin: 'hikie\'e',
+        english: 'large couch',
+        category: 'expressions',
+        pronunciation: 'hee-kee-EH',
+        example: 'Crash on da hikie\'e',
+        usage: 'Traditional Hawaiian bed/couch',
+        origin: 'Hawaiian',
+        audioExample: 'Da hikie\'e stay comfortable'
+    },
+    'honey girl': {
+        pidgin: 'honey girl',
+        english: 'young daughter',
+        category: 'expressions',
+        pronunciation: 'HUN-nee-gerl',
+        example: 'My honey girl so cute',
+        usage: 'Endearment for young female',
+        origin: 'English',
+        audioExample: 'Come honey girl, time fo eat'
+    },
+    'how you figgah': {
+        pidgin: 'how you figgah',
+        english: 'how is that possible',
+        category: 'expressions',
+        pronunciation: 'how-you-FIG-gah',
+        example: 'How you figgah he did dat?',
+        usage: 'Questioning logic',
+        origin: 'English "figure"',
+        audioExample: 'How you figgah going work?'
+    },
+    'hukilau': {
+        pidgin: 'hukilau',
+        english: 'community net fishing',
+        category: 'expressions',
+        pronunciation: 'HOO-kee-lau',
+        example: 'We going hukilau dis weekend',
+        usage: 'Traditional fishing method',
+        origin: 'Hawaiian',
+        audioExample: 'Hukilau at da beach tomorrow'
+    },
+    'humbug': {
+        pidgin: 'humbug',
+        english: 'a bother/trouble',
+        category: 'expressions',
+        pronunciation: 'HUM-bug',
+        example: 'Das one humbug job',
+        usage: 'Annoying task',
+        origin: 'English',
+        audioExample: 'Such a humbug fo fix'
+    },
+
+    // Letter I (Additional)
+    'i no kid you': {
+        pidgin: 'i no kid you',
+        english: 'I\'m serious',
+        category: 'expressions',
+        pronunciation: 'eye-no-KID-you',
+        example: 'I no kid you, was real',
+        usage: 'Emphasizing truth',
+        origin: 'English',
+        audioExample: 'I no kid you, he stay lolo'
+    },
+    'i tink so': {
+        pidgin: 'i tink so',
+        english: 'I think so/yeah right',
+        category: 'expressions',
+        pronunciation: 'eye-TINK-so',
+        example: 'You coming? I tink so...',
+        usage: 'Sarcastic agreement',
+        origin: 'English "think"',
+        audioExample: 'I tink so... maybe not'
+    },
+    'imelda': {
+        pidgin: 'imelda',
+        english: 'having extravagant tastes',
+        category: 'slang',
+        pronunciation: 'ee-MEL-dah',
+        example: 'She so imelda wit da shoes',
+        usage: 'Excessive shopping habits',
+        origin: 'Imelda Marcos reference',
+        audioExample: 'Going imelda at da mall'
+    },
+    'imua': {
+        pidgin: 'imua',
+        english: 'forward/ahead',
+        category: 'expressions',
+        pronunciation: 'ee-MOO-ah',
+        example: 'We going imua',
+        usage: 'Moving forward',
+        origin: 'Hawaiian',
+        audioExample: 'Imua! Keep going!'
+    },
+    'in oddah words': {
+        pidgin: 'in oddah words',
+        english: 'in other words',
+        category: 'expressions',
+        pronunciation: 'in-OH-dah-werdz',
+        example: 'In oddah words, you no like',
+        usage: 'Clarifying meaning',
+        origin: 'English',
+        audioExample: 'In oddah words, we broke'
+    },
+    'island style': {
+        pidgin: 'island style',
+        english: 'laid-back way',
+        category: 'expressions',
+        pronunciation: 'EYE-land-style',
+        example: 'We do um island style',
+        usage: 'Relaxed approach',
+        origin: 'Local culture',
+        audioExample: 'Take it island style'
+    },
+
+    // Letter J (Additional)
+    'j.o.j.': {
+        pidgin: 'j.o.j.',
+        english: 'just off the jet',
+        category: 'slang',
+        pronunciation: 'jay-oh-JAY',
+        example: 'He one J.O.J. tourist',
+        usage: 'Recent arrival',
+        origin: 'Local acronym',
+        audioExample: 'All da J.O.J. people at Waikiki'
+    },
+    'jam up': {
+        pidgin: 'jam up',
+        english: 'messed up',
+        category: 'slang',
+        pronunciation: 'jam-UP',
+        example: 'Da situation stay jam up',
+        usage: 'Complicated problem',
+        origin: 'English',
+        audioExample: 'Everything stay jam up now'
+    },
+    'japanee': {
+        pidgin: 'japanee',
+        english: 'Japanese person',
+        category: 'slang',
+        pronunciation: 'jah-pah-NEE',
+        example: 'My japanee neighbor',
+        usage: 'Reference to Japanese ethnicity',
+        origin: 'English "Japanese"',
+        audioExample: 'Da japanee restaurant get good food'
+    },
+    'jawaiian': {
+        pidgin: 'jawaiian',
+        english: 'reggae-Hawaiian music mix',
+        category: 'expressions',
+        pronunciation: 'jah-WHY-an',
+        example: 'Love dat jawaiian music',
+        usage: 'Music genre',
+        origin: 'Jamaican + Hawaiian',
+        audioExample: 'Play some jawaiian songs'
+    },
+    'joose': {
+        pidgin: 'joose',
+        english: 'not fair',
+        category: 'expressions',
+        pronunciation: 'JOOS',
+        example: 'Das joose, he wen cheat',
+        usage: 'Unfair situation',
+        origin: 'Unknown',
+        audioExample: 'So joose, I neva get one'
+    },
+    'junior boy': {
+        pidgin: 'junior boy',
+        english: 'young son',
+        category: 'expressions',
+        pronunciation: 'JOON-yor-boy',
+        example: 'My junior boy stay smart',
+        usage: 'Endearment for young male',
+        origin: 'English',
+        audioExample: 'Junior boy, come eat'
+    },
+    'junks': {
+        pidgin: 'junks',
+        english: 'clutter/stuff',
+        category: 'expressions',
+        pronunciation: 'JUNKS',
+        example: 'Get choke junks in da garage',
+        usage: 'Messy items',
+        origin: 'English "junk"',
+        audioExample: 'Clean up all da junks'
+    },
+    'jus buckaloose': {
+        pidgin: 'jus buckaloose',
+        english: 'just relax',
+        category: 'expressions',
+        pronunciation: 'jus-buk-ah-LOOS',
+        example: 'Jus buckaloose, no stress',
+        usage: 'Calming advice',
+        origin: 'Local expression',
+        audioExample: 'Jus buckaloose and enjoy'
+    },
+    'jus joke': {
+        pidgin: 'jus joke',
+        english: 'just kidding',
+        category: 'expressions',
+        pronunciation: 'jus-JOKE',
+        example: 'Jus joke! No take serious',
+        usage: 'Not serious',
+        origin: 'English',
+        audioExample: 'Jus joke brah, relax'
+    },
+
+    // Continue with additional terms...
     // Letter Y
     'yeah': {
         pidgin: 'yeah',
@@ -2016,6 +2848,58 @@ const comprehensivePidginData = {
         usage: 'Respectful agreement',
         origin: 'English',
         audioExample: 'Yessah boss!'
+    },
+    'yeah no': {
+        pidgin: 'yeah no',
+        english: 'I agree',
+        category: 'expressions',
+        pronunciation: 'yeah-NO',
+        example: 'Yeah no, you stay right',
+        usage: 'Agreeing emphatically',
+        origin: 'English',
+        audioExample: 'Yeah no, das exactly wat I mean'
+    },
+    'yobo': {
+        pidgin: 'yobo',
+        english: 'Korean person',
+        category: 'slang',
+        pronunciation: 'YOH-boh',
+        example: 'My yobo friend',
+        usage: 'Reference to Korean ethnicity',
+        origin: 'Korean greeting',
+        audioExample: 'Da yobo store get good kimchi'
+    },
+    'you know dat': {
+        pidgin: 'you know dat',
+        english: 'yes definitely',
+        category: 'expressions',
+        pronunciation: 'you-know-DAT',
+        example: 'Good food? You know dat!',
+        usage: 'Strong agreement',
+        origin: 'English',
+        audioExample: 'You know dat right!'
+    },
+    'yups': {
+        pidgin: 'yups',
+        english: 'yes',
+        category: 'expressions',
+        pronunciation: 'YUPS',
+        example: 'Yups, I coming',
+        usage: 'Casual agreement',
+        origin: 'English "yep"',
+        audioExample: 'Yups, das da one'
+    },
+
+    // Letter Z
+    'zori': {
+        pidgin: 'zori',
+        english: 'informal footwear/flip-flops',
+        category: 'expressions',
+        pronunciation: 'ZOH-ree',
+        example: 'Put on your zori',
+        usage: 'Japanese-style sandals',
+        origin: 'Japanese',
+        audioExample: 'My zori stay broken'
     }
 };
 

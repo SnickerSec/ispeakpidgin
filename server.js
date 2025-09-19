@@ -46,6 +46,15 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// Dictionary page route
+app.get('/dictionary', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dictionary.html'));
+});
+
+app.get('/dictionary.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dictionary.html'));
+});
+
 // Handle 404
 app.use((req, res) => {
     res.status(404).sendFile(path.join(__dirname, 'index.html'));

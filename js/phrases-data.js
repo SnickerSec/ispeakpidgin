@@ -191,7 +191,7 @@ const pidginPhrases = {
             pidgin: "Bumbye da sun going set",
             english: "Soon the sun will set",
             usage: "Noting time passing"
-        }
+        },
         {
             pidgin: "We go holo holo around da island",
             english: "Let's cruise around the island",
