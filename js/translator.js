@@ -110,7 +110,32 @@ class PidginTranslator {
             'ohana': 'family',
             'kokua': 'help',
             'pono': 'righteous',
-            'ho brah': 'wow'
+            'ho brah': 'wow',
+
+            // New expanded vocabulary from content
+            'chee hoo': 'expression of joy/excitement',
+            'rajah dat': 'roger that/i agree',
+            'hana hou': 'do it again/encore',
+            'k den': 'okay then',
+            'kanak attack': 'sleepy after eating',
+            'hawaiian time': 'running late/relaxed time',
+            'green bottles': 'heineken beer',
+            'slippahs': 'flip-flops/sandals',
+            'da haps': 'what happened/events',
+            'side': 'area/direction',
+            'kapu': 'forbidden/sacred/off-limits',
+            'keiki': 'child/children',
+            'lanai': 'porch/patio/balcony',
+            'pupu': 'appetizers/snacks',
+            'mahalo': 'thank you',
+            'chance um': 'try it/take a chance',
+            'like beef': 'want to fight',
+            'holo holo': 'cruise around/leisurely drive',
+            'hamajang': 'messed up/broken/out of order',
+            'mean': 'awesome/cool/amazing',
+            'lolo': 'crazy/silly/dumb/goofy',
+            'chicken skin': 'goosebumps',
+            'ono': 'delicious/tasty'
         });
 
         return reverse;

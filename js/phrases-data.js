@@ -17,9 +17,9 @@ const pidginPhrases = {
             usage: "Invitation to share a meal together"
         },
         {
-            pidgin: "Da buggah stay broke",
-            english: "That thing is broken",
-            usage: "Describing something that doesn't work"
+            pidgin: "Da grinds stay broke da mouth!",
+            english: "The food is exceptionally delicious!",
+            usage: "Expressing that food is amazing"
         },
         {
             pidgin: "Ho, da waves stay pumping!",
@@ -35,6 +35,91 @@ const pidginPhrases = {
             pidgin: "No need beef",
             english: "There's no need to fight",
             usage: "Calming down a tense situation"
+        },
+        {
+            pidgin: "Chee hoo! Da sunset stay beautiful!",
+            english: "Wow! The sunset is beautiful!",
+            usage: "Expressing joy and excitement about something beautiful"
+        },
+        {
+            pidgin: "Come talk story wit me",
+            english: "Come chat with me",
+            usage: "Inviting someone to have a conversation"
+        },
+        {
+            pidgin: "I stay so chicken skin from dat movie",
+            english: "I got goosebumps from that movie",
+            usage: "Describing being moved by something"
+        },
+        {
+            pidgin: "Da keiki stay lolo today",
+            english: "The kids are being silly today",
+            usage: "Describing playful or silly behavior"
+        },
+        {
+            pidgin: "Bumbai we go beach, eh?",
+            english: "Later we'll go to the beach, okay?",
+            usage: "Making plans for later"
+        },
+        {
+            pidgin: "Rajah dat, bruddah!",
+            english: "I understand, brother!",
+            usage: "Showing agreement and understanding"
+        },
+        {
+            pidgin: "Da kine stay all hamajang",
+            english: "That thing is all messed up",
+            usage: "Describing something that's broken or disorganized"
+        },
+        {
+            pidgin: "Chance 'um! No sked!",
+            english: "Give it a try! Don't be scared!",
+            usage: "Encouraging someone to take a risk"
+        },
+        {
+            pidgin: "Pau hana time! We go green bottles!",
+            english: "Work's done! Let's go get some beer!",
+            usage: "Celebrating the end of the work day"
+        },
+        {
+            pidgin: "You like beef or wat?",
+            english: "Do you want to fight or what?",
+            usage: "Challenging someone (usually not serious)"
+        },
+        {
+            pidgin: "Dis place stay kapu, eh",
+            english: "This place is forbidden/off-limits",
+            usage: "Warning about restricted areas"
+        },
+        {
+            pidgin: "I get choke homework tonight",
+            english: "I have a lot of homework tonight",
+            usage: "Expressing having many tasks"
+        },
+        {
+            pidgin: "We go holo holo around da island",
+            english: "Let's cruise around the island",
+            usage: "Suggesting a leisurely drive or trip"
+        },
+        {
+            pidgin: "Da haps at da party was mean!",
+            english: "What happened at the party was awesome!",
+            usage: "Describing exciting events"
+        },
+        {
+            pidgin: "I stay on Hawaiian time today",
+            english: "I'm running late today",
+            usage: "Explaining tardiness with local humor"
+        },
+        {
+            pidgin: "Get choke pūpū at da luau",
+            english: "There are lots of appetizers at the party",
+            usage: "Describing abundant food at gatherings"
+        },
+        {
+            pidgin: "Hana hou! Dat was ono!",
+            english: "Do it again! That was delicious!",
+            usage: "Asking for more of something good"
         }
     ],
 
@@ -43,20 +128,34 @@ const pidginPhrases = {
         // Common words
         "hello": "howzit",
         "hi": "howzit",
+        "what's up": "howzit",
+        "how's it going": "howzit",
         "friend": "brah",
         "brother": "brah",
+        "bruddah": "brah",
+        "buddy": "brah",
         "sister": "sistah",
         "food": "grinds",
+        "meal": "grinds",
+        "kau kau": "grinds",
         "eat": "grind",
         "eating": "grinding",
         "good": "good",
         "very good": "da kine good",
-        "delicious": "broke da mouth",
+        "delicious": "ono",
+        "tasty": "ono",
+        "exceptionally delicious": "broke da mouth",
+        "very delicious": "broke da mouth",
+        "amazing food": "broke da mouth",
         "a lot": "choke",
         "many": "choke",
         "plenty": "choke",
+        "lots": "choke",
         "thing": "da kine",
         "things": "da kine stuff",
+        "whatchamacallit": "da kine",
+        "thingamajig": "da kine",
+        "placeholder": "da kine",
         "work": "hana",
         "after work": "pau hana",
         "done": "pau",
@@ -115,10 +214,37 @@ const pidginPhrases = {
         "ugly": "hamajang",
         "broken": "broke",
         "messed up": "hamajang",
+        "out of order": "hamajang",
+        "disorganized": "hamajang",
         "crazy": "lolo",
         "stupid": "lolo",
+        "dumb": "lolo",
+        "goofy": "lolo",
+        "silly": "lolo",
         "smart": "akamai",
         "clever": "akamai",
+        "awesome": "mean",
+        "cool": "mean",
+        "amazing": "mean",
+        "excited": "stoked",
+        "joy": "chee hoo",
+        "excitement": "chee hoo",
+        "wow": "ho",
+        "goosebumps": "chicken skin",
+        "flip-flops": "slippahs",
+        "sandals": "slippahs",
+        "house": "hale",
+        "home": "hale",
+        "child": "keiki",
+        "children": "keiki",
+        "kids": "keiki",
+        "porch": "lanai",
+        "patio": "lanai",
+        "balcony": "lanai",
+        "appetizers": "pupu",
+        "snacks": "pupu",
+        "beer": "green bottles",
+        "heineken": "green bottles",
         "tired": "tired",
         "sleep": "moemoe",
         "sleeping": "moemoe",
@@ -144,6 +270,41 @@ const pidginPhrases = {
         "take care": "malama",
         "let's go": "we go",
         "let's eat": "we go grind",
+        "chat": "talk story",
+        "gossip": "talk story",
+        "catch up": "talk story",
+        "converse": "talk story",
+        "yes": "shoots",
+        "for sure": "shoots",
+        "roger that": "rajah dat",
+        "i agree": "rajah dat",
+        "later": "bumbai",
+        "otherwise": "bumbai",
+        "get attention": "eh",
+        "hey": "eh",
+        "do it again": "hana hou",
+        "encore": "hana hou",
+        "not able": "no can",
+        "can't do": "no can",
+        "okay then": "k den",
+        "sleepy after eating": "kanak attack",
+        "what's happening": "da haps",
+        "what's going on": "da haps",
+        "towards mountains": "mauka",
+        "towards ocean": "makai",
+        "cruise around": "holo holo",
+        "leisurely drive": "holo holo",
+        "running late": "hawaiian time",
+        "relaxed time": "hawaiian time",
+        "area": "side",
+        "direction": "side",
+        "try something": "chance um",
+        "take a chance": "chance um",
+        "want to fight": "like beef",
+        "do you want to fight": "like beef",
+        "forbidden": "kapu",
+        "taboo": "kapu",
+        "off limits": "kapu",
         "come here": "come",
         "go away": "hele on",
         "hurry up": "wiki wiki",

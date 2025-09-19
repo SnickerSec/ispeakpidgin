@@ -56,6 +56,57 @@ const lessonsData = {
 
     intermediate: [
         {
+            id: 'exclamations',
+            title: 'Exclamations & Expressions',
+            icon: '🎉',
+            content: {
+                vocabulary: [
+                    { pidgin: 'Chee hoo!', english: 'Expression of joy/excitement', example: 'Chee hoo! We going beach!' },
+                    { pidgin: 'Ho!', english: 'Wow! (expression of surprise)', example: 'Ho! Look at dat sunset!' },
+                    { pidgin: 'Eh!', english: 'Hey! (to get attention)', example: 'Eh! Come here!' },
+                    { pidgin: 'Rajah dat!', english: 'Roger that!/I agree!', example: 'We go eat? Rajah dat!' },
+                    { pidgin: 'Hana hou!', english: 'Do it again!/Encore!', example: 'Dat song was good! Hana hou!' },
+                    { pidgin: 'K den', english: 'Okay then', example: 'You no like come? K den.' }
+                ],
+                culturalNote: 'These expressions add emotion and energy to Pidgin conversations. They are often used to show enthusiasm or agreement.',
+                practice: 'Use "Chee hoo!" when you are excited and "Rajah dat!" when you agree.'
+            }
+        },
+        {
+            id: 'descriptions',
+            title: 'Describing Things & People',
+            icon: '👀',
+            content: {
+                vocabulary: [
+                    { pidgin: 'Lolo', english: 'Crazy/Silly/Dumb', example: 'You stay so lolo today!' },
+                    { pidgin: 'Mean', english: 'Awesome/Cool', example: 'Dat car stay mean!' },
+                    { pidgin: 'Hamajang', english: 'Messed up/Broken', example: 'Da TV stay all hamajang.' },
+                    { pidgin: 'Chicken skin', english: 'Goosebumps', example: 'Dat story give me chicken skin.' },
+                    { pidgin: 'Stoked', english: 'Excited/Happy', example: 'I stay so stoked for da party!' },
+                    { pidgin: 'Ono', english: 'Delicious', example: 'Dis poke stay ono!' }
+                ],
+                culturalNote: 'Pidgin uses vivid, descriptive words that paint a picture. "Chicken skin" literally refers to the bumpy texture of skin when you get goosebumps.',
+                practice: 'Describe your feelings using these colorful Pidgin expressions.'
+            }
+        },
+        {
+            id: 'activities',
+            title: 'Activities & Actions',
+            icon: '🏄‍♂️',
+            content: {
+                vocabulary: [
+                    { pidgin: 'Talk story', english: 'Chat/Gossip/Catch up', example: 'Come talk story with me!' },
+                    { pidgin: 'Holo holo', english: 'Cruise around/Leisurely drive', example: 'We go holo holo around da island.' },
+                    { pidgin: 'Chance um', english: 'Try it/Take a chance', example: 'You scared? Chance um!' },
+                    { pidgin: 'Grind', english: 'Eat', example: 'Time to grind! I stay hungry.' },
+                    { pidgin: 'Like beef?', english: 'Want to fight?', example: 'You get problem? Like beef?' },
+                    { pidgin: 'No can', english: 'Cannot/Unable to', example: 'I like help but I no can today.' }
+                ],
+                culturalNote: 'These action words reflect the laid-back island lifestyle. "Talk story" is a beloved Hawaiian tradition of sharing stories and connecting.',
+                practice: 'Use "talk story" when inviting someone to chat, and "holo holo" for casual outings.'
+            }
+        },
+        {
             id: 'emotions',
             title: 'Emotions & Feelings',
             icon: '😊',
@@ -109,6 +160,40 @@ const lessonsData = {
     ],
 
     advanced: [
+        {
+            id: 'local-culture',
+            title: 'Local Culture & Lifestyle',
+            icon: '🌺',
+            content: {
+                vocabulary: [
+                    { pidgin: 'Kanak attack', english: 'Sleepiness after eating', example: 'Ho! I get kanak attack after dat plate lunch.' },
+                    { pidgin: 'Hawaiian time', english: 'Running late/Relaxed time', example: 'Sorry I stay late, I was on Hawaiian time.' },
+                    { pidgin: 'Green bottles', english: 'Heineken beer', example: 'Pau hana! Time for green bottles!' },
+                    { pidgin: 'Slippahs', english: 'Flip-flops/Sandals', example: 'No forget your slippahs!' },
+                    { pidgin: 'Da haps', english: 'What happened/Events', example: 'Tell me da haps from last night!' },
+                    { pidgin: 'Side', english: 'Area/Direction', example: 'We going town side or country side?' }
+                ],
+                culturalNote: 'These terms reflect unique aspects of Hawaiian island life, from the post-meal drowsiness to the relaxed approach to punctuality.',
+                practice: 'Use these cultural terms to sound like a true local when describing daily island life.'
+            }
+        },
+        {
+            id: 'hawaiian-words',
+            title: 'Hawaiian Words in Pidgin',
+            icon: '🏝️',
+            content: {
+                vocabulary: [
+                    { pidgin: 'Kapu', english: 'Forbidden/Sacred/Off-limits', example: 'Dis area stay kapu, no go there.' },
+                    { pidgin: 'Keiki', english: 'Child/Children', example: 'Da keiki stay playing at da beach.' },
+                    { pidgin: 'Lānai', english: 'Porch/Patio/Balcony', example: 'Come sit on da lānai and talk story.' },
+                    { pidgin: 'Pūpū', english: 'Appetizers/Snacks', example: 'Get plenty pūpū at da party tonight.' },
+                    { pidgin: 'Mahalo', english: 'Thank you', example: 'Mahalo for da help, bruddah!' },
+                    { pidgin: 'Aloha', english: 'Hello/Goodbye/Love', example: 'Aloha! Nice to meet you!' }
+                ],
+                culturalNote: 'Many Hawaiian words are seamlessly integrated into Pidgin. These words carry deep cultural meaning and respect for the native Hawaiian language.',
+                practice: 'Learn the cultural significance of these Hawaiian words - they are not just vocabulary but carry spiritual meaning.'
+            }
+        },
         {
             id: 'complex',
             title: 'Complex Expressions',
