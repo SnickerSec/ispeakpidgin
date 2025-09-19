@@ -151,8 +151,10 @@ class ElevenLabsSpeech {
             // Also save to IndexedDB for persistent storage
             await this.saveToDB(normalizedText, audioBlob);
 
-            // Play the audio
-            this.playAudioBlob(audioBlob);
+            // Play the audio (unless silent mode for preloading)
+            if (!options.silent) {
+                this.playAudioBlob(audioBlob);
+            }
 
             if (options.onSuccess) {
                 options.onSuccess();

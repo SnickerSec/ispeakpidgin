@@ -81,6 +81,22 @@ app.post('/api/text-to-speech', async (req, res) => {
         const normalizedText = text.trim().toLowerCase();
         const cacheKey = crypto.createHash('md5').update(normalizedText).digest('hex');
 
+        // Check if we have a pre-generated audio file
+        const preGeneratedPath = path.join(__dirname, 'audio', 'cache', `${cacheKey}.mp3`);
+        if (require('fs').existsSync(preGeneratedPath)) {
+            console.log('Serving pre-generated audio for:', text);
+            const audioBuffer = require('fs').readFileSync(preGeneratedPath);
+
+            res.set({
+                'Content-Type': 'audio/mpeg',
+                'Cache-Control': 'public, max-age=31536000, immutable', // Cache for 1 year
+                'ETag': `"${cacheKey}"`,
+                'X-Cache': 'PRE-GENERATED'
+            });
+
+            return res.send(audioBuffer);
+        }
+
         // Check if we have this audio cached
         if (ttsCache.has(cacheKey)) {
             const cached = ttsCache.get(cacheKey);

@@ -28,7 +28,38 @@ document.addEventListener('DOMContentLoaded', function() {
     initCommunity();
     initSmoothScrolling();
     initVoiceSettings();
+
+    // Preload common phrases to minimize API calls
+    preloadCommonPhrases();
 });
+
+// Preload frequently used phrases
+async function preloadCommonPhrases() {
+    // Only preload if ElevenLabs is available
+    if (typeof elevenLabsSpeech !== 'undefined') {
+        // Most common phrases from the daily phrases and essentials
+        const commonPhrases = [
+            "howzit", "aloha", "mahalo", "shoots", "rajah",
+            "no worry beef curry", "broke da mouth", "grindz",
+            "talk story", "pau hana", "da kine", "chicken skin"
+        ];
+
+        // Preload silently in the background
+        console.log('Preloading common phrases for faster playback...');
+        for (const phrase of commonPhrases) {
+            try {
+                // Check if already cached before preloading
+                if (!elevenLabsSpeech.cache.has(phrase.toLowerCase())) {
+                    // Small delay between preloads to avoid overwhelming the server
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                    await elevenLabsSpeech.speak(phrase, { silent: true });
+                }
+            } catch (error) {
+                console.warn(`Failed to preload "${phrase}":`, error);
+            }
+        }
+    }
+}
 
 // Navigation functionality
 function initNavigation() {
@@ -654,6 +685,33 @@ function initSmoothScrolling() {
 }
 
 // Enhanced text-to-speech functionality using PidginSpeech
+// Predictively cache nearby phrases when user shows interest
+function predictiveCache(element) {
+    if (typeof elevenLabsSpeech === 'undefined') return;
+
+    // Find nearby speakable elements
+    const parent = element.closest('.phrase-card, .term-item, .translation-output');
+    if (!parent) return;
+
+    const speakableElements = parent.querySelectorAll('[data-pidgin], .pidgin-text');
+    speakableElements.forEach(async (el) => {
+        const text = el.dataset.pidgin || el.textContent.trim();
+        const normalizedText = text.toLowerCase();
+
+        // Only preload if not already cached
+        if (!elevenLabsSpeech.cache.has(normalizedText)) {
+            // Delay to avoid overwhelming the server
+            setTimeout(async () => {
+                try {
+                    await elevenLabsSpeech.speak(text, { silent: true });
+                } catch (error) {
+                    // Silent fail for predictive loading
+                }
+            }, Math.random() * 2000); // Random delay 0-2 seconds
+        }
+    });
+}
+
 function speakText(text, options = {}) {
     if ('speechSynthesis' in window) {
         // Get user preferences from sliders if they exist
