@@ -1,10 +1,13 @@
-// Enhanced Speech Synthesis for Pidgin
+// Enhanced Speech Synthesis for Pidgin with SSML Support
 class PidginSpeech {
     constructor() {
         this.voices = [];
         this.preferredVoice = null;
         this.isLoaded = false;
         this.phonemeMap = this.createPhonemeMap();
+        this.ssmlSupported = this.checkSSMLSupport();
+        this.rhythmPatterns = this.createRhythmPatterns();
+        this.accentFeatures = this.createAccentFeatures();
 
         // Initialize voices
         this.loadVoices();
@@ -13,6 +16,85 @@ class PidginSpeech {
         if (speechSynthesis.onvoiceschanged !== undefined) {
             speechSynthesis.onvoiceschanged = () => this.loadVoices();
         }
+    }
+
+    // Check if the browser supports SSML
+    checkSSMLSupport() {
+        try {
+            const testUtterance = new SpeechSynthesisUtterance('<speak>test</speak>');
+            return true; // Most modern browsers support basic SSML
+        } catch (e) {
+            return false;
+        }
+    }
+
+    // Create rhythm and pause patterns for natural Pidgin flow
+    createRhythmPatterns() {
+        return {
+            // Natural pause patterns in Pidgin speech
+            sentenceEnding: '<break time="700ms"/>',
+            commaBreak: '<break time="300ms"/>',
+            questionRise: '<prosody pitch="+15%" rate="95%">',
+            questionEnd: '</prosody><break time="500ms"/>',
+            exclamationEmphasis: '<prosody pitch="+10%" volume="+20%">',
+            exclamationEnd: '</prosody><break time="400ms"/>',
+
+            // Pidgin-specific rhythm patterns
+            beforeBrah: '<break time="200ms"/>',
+            afterYeah: '<break time="300ms"/>',
+            beforeShaka: '<break time="150ms"/>',
+
+            // Emphasis patterns
+            strongEmphasis: '<prosody pitch="+20%" volume="+30%">',
+            strongEmphasisEnd: '</prosody>',
+            softEmphasis: '<prosody rate="90%">',
+            softEmphasisEnd: '</prosody>'
+        };
+    }
+
+    // Create accent features for non-rhotic simulation
+    createAccentFeatures() {
+        return {
+            // R-dropping rules (non-rhotic feature)
+            rDropping: {
+                'brah': 'bra-ah',
+                'fo\' sure': 'fo-ah shu-ah',
+                'more': 'mo-ah',
+                'better': 'beh-tah',
+                'over': 'oh-vah',
+                'under': 'un-dah',
+                'never': 'neh-vah',
+                'water': 'wah-tah',
+                'after': 'af-tah',
+                'sister': 'sis-tah',
+                'brother': 'bruh-dah',
+                'mother': 'muh-dah',
+                'father': 'fah-dah',
+                'teacher': 'tee-chah',
+                'dinner': 'din-nah',
+                'together': 'tuh-geh-dah'
+            },
+
+            // Vowel shifts characteristic of Pidgin
+            vowelShifts: {
+                'that': 'dat',
+                'this': 'dis',
+                'think': 'tink',
+                'thing': 'ting',
+                'three': 'tree',
+                'through': 'tru',
+                'throw': 'trow'
+            },
+
+            // Consonant cluster simplification
+            clusterSimplification: {
+                'asked': 'ask',
+                'sixth': 'six',
+                'fifths': 'fifs',
+                'months': 'mont',
+                'lengths': 'lent'
+            }
+        };
     }
 
     // Create phoneme mapping for better Pidgin pronunciation
@@ -95,23 +177,38 @@ class PidginSpeech {
 
     // Select the most appropriate voice for Pidgin
     selectBestVoice() {
-        // Priority order for voice selection
+        // Priority order for voice selection - updated for better Pidgin pronunciation
         const voicePreferences = [
             // Ideal: Pacific/Hawaiian voices
             { pattern: /hawaii/i, score: 100 },
-            { pattern: /pacific/i, score: 90 },
+            { pattern: /pacific/i, score: 95 },
 
-            // Good: American English voices (closer to Pidgin)
-            { pattern: /en[_-]US/i, score: 80 },
-            { pattern: /english.*united states/i, score: 75 },
+            // Non-rhotic English accents (better for Pidgin)
+            { pattern: /australia/i, score: 90 },
+            { pattern: /en[_-]AU/i, score: 88 },
+            { pattern: /new zealand/i, score: 86 },
+            { pattern: /en[_-]NZ/i, score: 84 },
 
-            // Specific voice names that work well
+            // Specific voices known for good Pidgin pronunciation
+            { pattern: /karen/i, score: 82 },     // Australian voice
+            { pattern: /lee/i, score: 80 },       // Australian voice
+            { pattern: /james/i, score: 78 },     // Australian voice
+
+            // US English (still good, but more rhotic)
+            { pattern: /en[_-]US/i, score: 75 },
+            { pattern: /english.*united states/i, score: 73 },
+
+            // Specific US voice names that work well
             { pattern: /samantha/i, score: 70 }, // macOS
-            { pattern: /alex/i, score: 65 },      // macOS
-            { pattern: /victoria/i, score: 60 },  // Windows
-            { pattern: /david/i, score: 55 },     // Windows
+            { pattern: /alex/i, score: 68 },      // macOS
+            { pattern: /victoria/i, score: 65 },  // Windows
+            { pattern: /david/i, score: 63 },     // Windows
 
-            // Male voices (often better for Pidgin)
+            // British voices (non-rhotic but different vowels)
+            { pattern: /en[_-]GB/i, score: 60 },
+            { pattern: /british/i, score: 58 },
+
+            // Male voices (often better for Pidgin rhythm)
             { pattern: /male/i, score: 50 },
 
             // Fallback to any English
@@ -147,11 +244,11 @@ class PidginSpeech {
         console.log('Selected voice:', this.preferredVoice?.name);
     }
 
-    // Apply phonetic transformations for better pronunciation
+    // Apply comprehensive phonetic transformations for realistic Pidgin pronunciation
     applyPhoneticTransform(text) {
         let transformed = text.toLowerCase();
 
-        // Sort by length (longest first) to match phrases before individual words
+        // 1. Apply basic phoneme mapping first
         const sortedPhrases = Object.keys(this.phonemeMap)
             .sort((a, b) => b.length - a.length);
 
@@ -160,7 +257,94 @@ class PidginSpeech {
             transformed = transformed.replace(regex, this.phonemeMap[phrase]);
         });
 
+        // 2. Apply non-rhotic accent features (R-dropping)
+        Object.keys(this.accentFeatures.rDropping).forEach(word => {
+            const regex = new RegExp(`\\b${word}\\b`, 'gi');
+            transformed = transformed.replace(regex, this.accentFeatures.rDropping[word]);
+        });
+
+        // 3. Apply vowel shifts
+        Object.keys(this.accentFeatures.vowelShifts).forEach(word => {
+            const regex = new RegExp(`\\b${word}\\b`, 'gi');
+            transformed = transformed.replace(regex, this.accentFeatures.vowelShifts[word]);
+        });
+
+        // 4. Apply consonant cluster simplification
+        Object.keys(this.accentFeatures.clusterSimplification).forEach(word => {
+            const regex = new RegExp(`\\b${word}\\b`, 'gi');
+            transformed = transformed.replace(regex, this.accentFeatures.clusterSimplification[word]);
+        });
+
+        // 5. Additional Pidgin-specific transformations
+        transformed = this.applyAdvancedPidginFeatures(transformed);
+
         return transformed;
+    }
+
+    // Apply advanced Pidgin linguistic features
+    applyAdvancedPidginFeatures(text) {
+        let transformed = text;
+
+        // Th-fronting (th → t or d)
+        transformed = transformed.replace(/\bthe\b/g, 'da');
+        transformed = transformed.replace(/\bthem\b/g, 'dem');
+        transformed = transformed.replace(/\bthey\b/g, 'dey');
+        transformed = transformed.replace(/\bthen\b/g, 'den');
+        transformed = transformed.replace(/\bthere\b/g, 'dea');
+
+        // Final consonant cluster reduction
+        transformed = transformed.replace(/sts\b/g, 's');
+        transformed = transformed.replace(/nds\b/g, 'ns');
+        transformed = transformed.replace(/mps\b/g, 'ms');
+
+        // Syllable-final L-vocalization (bottle → bot-o)
+        transformed = transformed.replace(/tle\b/g, 'to');
+        transformed = transformed.replace(/dle\b/g, 'do');
+
+        // Reduce unstressed syllables
+        transformed = transformed.replace(/about/g, 'bout');
+        transformed = transformed.replace(/around/g, 'round');
+        transformed = transformed.replace(/because/g, 'cause');
+
+        return transformed;
+    }
+
+    // Apply SSML markup for natural rhythm and intonation
+    applySSMLMarkup(text) {
+        if (!this.ssmlSupported) {
+            return text; // Return plain text if SSML not supported
+        }
+
+        let ssmlText = text;
+
+        // Add pauses for natural rhythm
+        ssmlText = ssmlText.replace(/,/g, this.rhythmPatterns.commaBreak);
+        ssmlText = ssmlText.replace(/\./g, this.rhythmPatterns.sentenceEnding);
+
+        // Handle questions with rising intonation
+        ssmlText = ssmlText.replace(/([^?]+)\?/g,
+            this.rhythmPatterns.questionRise + '$1' + this.rhythmPatterns.questionEnd);
+
+        // Handle exclamations with emphasis
+        ssmlText = ssmlText.replace(/([^!]+)!/g,
+            this.rhythmPatterns.exclamationEmphasis + '$1' + this.rhythmPatterns.exclamationEnd);
+
+        // Add Pidgin-specific rhythm patterns
+        ssmlText = ssmlText.replace(/\bbrah\b/g,
+            this.rhythmPatterns.beforeBrah + 'brah');
+        ssmlText = ssmlText.replace(/\byeah\b/g,
+            'yeah' + this.rhythmPatterns.afterYeah);
+
+        // Emphasize key Pidgin words
+        const emphasizedWords = ['howzit', 'shoots', 'broke da mouth', 'choke', 'da kine'];
+        emphasizedWords.forEach(word => {
+            const regex = new RegExp(`\\b${word}\\b`, 'gi');
+            ssmlText = ssmlText.replace(regex,
+                this.rhythmPatterns.softEmphasis + word + this.rhythmPatterns.softEmphasisEnd);
+        });
+
+        // Wrap in SSML speak tag
+        return `<speak>${ssmlText}</speak>`;
     }
 
     // Adjust speech parameters for more natural Pidgin sound
@@ -189,7 +373,7 @@ class PidginSpeech {
         return params;
     }
 
-    // Main speak function with enhanced pronunciation
+    // Main speak function with advanced SSML and phonetic processing
     speak(text, options = {}) {
         return new Promise((resolve, reject) => {
             if (!('speechSynthesis' in window)) {
@@ -206,44 +390,51 @@ class PidginSpeech {
                 return;
             }
 
-            // Apply phonetic transformations
+            // Apply comprehensive phonetic transformations
             const phoneticText = this.applyPhoneticTransform(text);
 
-            // Create utterance
-            const utterance = new SpeechSynthesisUtterance(phoneticText);
+            // Apply SSML markup for rhythm and intonation
+            const ssmlText = this.applySSMLMarkup(phoneticText);
 
-            // Set voice
+            // Create utterance with processed text
+            const utterance = new SpeechSynthesisUtterance(ssmlText);
+
+            // Set voice (prefer non-rhotic accents)
             if (this.preferredVoice) {
                 utterance.voice = this.preferredVoice;
             }
 
-            // Apply speech parameters
+            // Apply speech parameters optimized for Pidgin
             const params = this.getSpeechParameters(text);
             utterance.rate = options.rate || params.rate;
             utterance.pitch = options.pitch || params.pitch;
             utterance.volume = options.volume || params.volume;
 
-            // Add SSML-like pauses for better rhythm
-            let processedText = phoneticText;
-            processedText = processedText.replace(/,/g, ',<pause300>');
-            processedText = processedText.replace(/\./g, '.<pause500>');
-            processedText = processedText.replace(/!/g, '!<pause400>');
-            processedText = processedText.replace(/\?/g, '?<pause400>');
-
-            // Handle pauses (basic implementation)
-            if (processedText.includes('<pause')) {
-                processedText = processedText.replace(/<pause(\d+)>/g, (match, ms) => {
-                    return '...'; // Use periods as a pause proxy
-                });
+            // Enhanced debugging
+            if (options.debug) {
+                console.log('Original text:', text);
+                console.log('Phonetic text:', phoneticText);
+                console.log('SSML text:', ssmlText);
+                console.log('Selected voice:', this.preferredVoice?.name);
+                console.log('Speech parameters:', params);
             }
-
-            utterance.text = processedText;
 
             // Event handlers
             utterance.onend = () => resolve();
-            utterance.onerror = (error) => reject(error);
+            utterance.onerror = (error) => {
+                console.warn('SSML speech failed, trying plain text...', error);
+                // Fallback to plain text if SSML fails
+                const fallbackUtterance = new SpeechSynthesisUtterance(phoneticText);
+                fallbackUtterance.voice = this.preferredVoice;
+                fallbackUtterance.rate = utterance.rate;
+                fallbackUtterance.pitch = utterance.pitch;
+                fallbackUtterance.volume = utterance.volume;
+                fallbackUtterance.onend = () => resolve();
+                fallbackUtterance.onerror = (err) => reject(err);
+                speechSynthesis.speak(fallbackUtterance);
+            };
 
-            // Speak
+            // Speak with SSML
             speechSynthesis.speak(utterance);
         });
     }

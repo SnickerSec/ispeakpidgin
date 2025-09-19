@@ -435,6 +435,7 @@ function initVoiceSettings() {
     const rateValue = document.getElementById('rate-value');
     const pitchValue = document.getElementById('pitch-value');
     const testVoiceBtn = document.getElementById('test-voice-btn');
+    const debugMode = document.getElementById('debug-mode');
 
     if (!voiceSettingsBtn || !voiceSettingsModal) return;
 
@@ -456,20 +457,68 @@ function initVoiceSettings() {
                     groupedVoices[lang].push(voice);
                 });
 
-                // Add English voices first (preferred)
+                // Add English voices first, grouped by accent type
                 if (groupedVoices['en']) {
-                    const optgroup = document.createElement('optgroup');
-                    optgroup.label = 'English Voices (Recommended)';
-                    groupedVoices['en'].forEach(voice => {
-                        const option = document.createElement('option');
-                        option.value = voice.name;
-                        option.textContent = `${voice.name} ${voice.local ? '(Local)' : '(Online)'}`;
-                        if (pidginSpeech.preferredVoice?.name === voice.name) {
-                            option.selected = true;
-                        }
-                        optgroup.appendChild(option);
-                    });
-                    voiceSelect.appendChild(optgroup);
+                    // Separate by accent type for better recommendations
+                    const nonRhoticVoices = groupedVoices['en'].filter(v =>
+                        v.lang.includes('AU') || v.lang.includes('NZ') ||
+                        v.name.toLowerCase().includes('australia') ||
+                        v.name.toLowerCase().includes('karen') ||
+                        v.name.toLowerCase().includes('lee'));
+
+                    const usVoices = groupedVoices['en'].filter(v =>
+                        v.lang.includes('US') && !nonRhoticVoices.includes(v));
+
+                    const otherEnglish = groupedVoices['en'].filter(v =>
+                        !nonRhoticVoices.includes(v) && !usVoices.includes(v));
+
+                    // Non-rhotic voices first (best for Pidgin)
+                    if (nonRhoticVoices.length > 0) {
+                        const optgroup = document.createElement('optgroup');
+                        optgroup.label = '🌟 Best for Pidgin (Non-rhotic)';
+                        nonRhoticVoices.forEach(voice => {
+                            const option = document.createElement('option');
+                            option.value = voice.name;
+                            option.textContent = `${voice.name} ${voice.local ? '(Local)' : '(Online)'}`;
+                            if (pidginSpeech.preferredVoice?.name === voice.name) {
+                                option.selected = true;
+                            }
+                            optgroup.appendChild(option);
+                        });
+                        voiceSelect.appendChild(optgroup);
+                    }
+
+                    // US voices second
+                    if (usVoices.length > 0) {
+                        const optgroup = document.createElement('optgroup');
+                        optgroup.label = '👍 Good (US English)';
+                        usVoices.forEach(voice => {
+                            const option = document.createElement('option');
+                            option.value = voice.name;
+                            option.textContent = `${voice.name} ${voice.local ? '(Local)' : '(Online)'}`;
+                            if (pidginSpeech.preferredVoice?.name === voice.name) {
+                                option.selected = true;
+                            }
+                            optgroup.appendChild(option);
+                        });
+                        voiceSelect.appendChild(optgroup);
+                    }
+
+                    // Other English voices
+                    if (otherEnglish.length > 0) {
+                        const optgroup = document.createElement('optgroup');
+                        optgroup.label = '⚠️ Other English';
+                        otherEnglish.forEach(voice => {
+                            const option = document.createElement('option');
+                            option.value = voice.name;
+                            option.textContent = `${voice.name} ${voice.local ? '(Local)' : '(Online)'}`;
+                            if (pidginSpeech.preferredVoice?.name === voice.name) {
+                                option.selected = true;
+                            }
+                            optgroup.appendChild(option);
+                        });
+                        voiceSelect.appendChild(optgroup);
+                    }
                 }
 
                 // Add other voices
@@ -526,20 +575,43 @@ function initVoiceSettings() {
         pitchValue.textContent = `${pitchSlider.value}x`;
     });
 
-    // Test voice button
+    // Test voice button with debug mode
     testVoiceBtn.addEventListener('click', () => {
         const testPhrases = [
             "Howzit brah! Da waves stay pumping today!",
-            "Eh, we go grind! Da food stay broke da mouth!",
-            "Ho brah, da sunset stay beautiful tonight, yeah?",
-            "Shoots! Tanks fo' da help, sistah!",
-            "No worries, brah. Everything stay good."
+            "Eh, we go grind! The food is broke da mouth!",
+            "Ho brah, that sunset is beautiful tonight, yeah?",
+            "Shoots! Thanks for the help, sister!",
+            "No worries, brah. Everything is good, they asked about it.",
+            "More better if you come over there with them, brother."
         ];
         const randomPhrase = testPhrases[Math.floor(Math.random() * testPhrases.length)];
 
+        const isDebugMode = debugMode && debugMode.checked;
+
         speakText(randomPhrase, {
             rate: parseFloat(rateSlider.value),
-            pitch: parseFloat(pitchSlider.value)
+            pitch: parseFloat(pitchSlider.value),
+            debug: isDebugMode
         });
+
+        // Show debug information if enabled
+        if (isDebugMode) {
+            setTimeout(() => {
+                const phoneticText = pidginSpeech.applyPhoneticTransform(randomPhrase);
+                const ssmlText = pidginSpeech.applySSMLMarkup(phoneticText);
+
+                alert(`🎙️ Debug Info:
+
+Original: "${randomPhrase}"
+
+Phonetic: "${phoneticText}"
+
+SSML: "${ssmlText}"
+
+Voice: ${pidginSpeech.preferredVoice?.name || 'Default'}
+Accent: ${pidginSpeech.preferredVoice?.lang || 'Unknown'}`);
+            }, 500);
+        }
     });
 }
