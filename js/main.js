@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initDailyPhrase();
     initEssentialPhrases();
     initTranslator();
+    initDictionary();
     initLearningHub();
     initCommunity();
     initSmoothScrolling();
@@ -87,6 +88,233 @@ function initEssentialPhrases() {
             <p class="text-sm text-gray-500">${phrase.usage}</p>
         </div>
     `).join('');
+}
+
+// Dictionary functionality
+function initDictionary() {
+    const searchInput = document.getElementById('dictionary-search');
+    const searchBtn = document.getElementById('dictionary-search-btn');
+    const categoryBtns = document.querySelectorAll('.dict-category');
+    const dictionaryGrid = document.getElementById('dictionary-grid');
+    const alphabetBrowser = document.getElementById('alphabet-browser');
+    const quickSearchBtns = document.querySelectorAll('.quick-search');
+
+    // Initialize alphabet browser
+    if (alphabetBrowser) {
+        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+        alphabetBrowser.innerHTML = alphabet.map(letter =>
+            `<button class="alphabet-btn px-3 py-1 bg-yellow-100 hover:bg-yellow-200 rounded transition font-bold" data-letter="${letter}">${letter}</button>`
+        ).join('');
+
+        // Add click handlers for alphabet buttons
+        const alphabetBtns = alphabetBrowser.querySelectorAll('.alphabet-btn');
+        alphabetBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const letter = btn.dataset.letter;
+                const results = pidginDictionary.getByLetter(letter.toLowerCase());
+                displayDictionaryResults(results);
+            });
+        });
+    }
+
+    // Load initial dictionary entries
+    loadDictionaryEntries('all');
+
+    // Search functionality
+    if (searchBtn && searchInput) {
+        searchBtn.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+    }
+
+    function performSearch() {
+        const term = searchInput.value.trim();
+        if (term) {
+            const results = pidginDictionary.searchDictionary(term);
+            displayDictionaryResults(results);
+        }
+    }
+
+    // Quick search buttons
+    quickSearchBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const word = btn.dataset.word;
+            searchInput.value = word;
+            performSearch();
+        });
+    });
+
+    // Category filtering
+    categoryBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Update button styles
+            categoryBtns.forEach(b => {
+                b.classList.remove('bg-purple-500', 'text-white');
+                b.classList.add('bg-white', 'text-gray-700');
+            });
+            btn.classList.add('bg-purple-500', 'text-white');
+            btn.classList.remove('bg-white', 'text-gray-700');
+
+            // Load entries for selected category
+            const category = btn.dataset.category;
+            loadDictionaryEntries(category);
+        });
+    });
+
+    function loadDictionaryEntries(category) {
+        const entries = pidginDictionary.getByCategory(category);
+        displayDictionaryResults(entries);
+    }
+
+    function displayDictionaryResults(entries) {
+        if (!dictionaryGrid) return;
+
+        if (entries.length === 0) {
+            dictionaryGrid.innerHTML = `
+                <div class="col-span-full text-center py-8">
+                    <p class="text-xl text-gray-600">No entries found. Try another search!</p>
+                </div>
+            `;
+            return;
+        }
+
+        // Sort entries alphabetically
+        entries.sort((a, b) => a.pidgin.localeCompare(b.pidgin));
+
+        dictionaryGrid.innerHTML = entries.map(entry => `
+            <div class="dictionary-entry bg-white/90 backdrop-blur rounded-lg p-4 shadow-lg border-2 border-purple-100 hover:border-purple-300 transition cursor-pointer" data-word="${entry.key}">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold text-purple-600">${entry.pidgin}</h3>
+                    <span class="text-xs px-2 py-1 bg-purple-100 rounded-full">${entry.category}</span>
+                </div>
+                <p class="text-gray-700 mb-2">${entry.english}</p>
+                <p class="text-sm text-gray-600 italic">"${entry.example}"</p>
+                <div class="mt-3 flex gap-2">
+                    <button class="dict-speak-btn text-xs px-3 py-1 bg-blue-100 hover:bg-blue-200 rounded-full transition" data-text="${entry.audioExample}">
+                        🔊 Listen
+                    </button>
+                    <button class="dict-details-btn text-xs px-3 py-1 bg-green-100 hover:bg-green-200 rounded-full transition" data-word="${entry.key}">
+                        📖 Details
+                    </button>
+                </div>
+            </div>
+        `).join('');
+
+        // Add click handlers for speak buttons
+        const speakBtns = dictionaryGrid.querySelectorAll('.dict-speak-btn');
+        speakBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const text = btn.dataset.text;
+                speakText(text);
+            });
+        });
+
+        // Add click handlers for details buttons
+        const detailsBtns = dictionaryGrid.querySelectorAll('.dict-details-btn');
+        detailsBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const word = btn.dataset.word;
+                showWordDetails(word);
+            });
+        });
+
+        // Add click handlers for entire cards
+        const entries = dictionaryGrid.querySelectorAll('.dictionary-entry');
+        entries.forEach(entry => {
+            entry.addEventListener('click', () => {
+                const word = entry.dataset.word;
+                showWordDetails(word);
+            });
+        });
+    }
+
+    function showWordDetails(wordKey) {
+        const entry = pidginDictionary.dictionary[wordKey];
+        if (!entry) return;
+
+        // Create modal
+        const modal = document.createElement('div');
+        modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
+
+        modal.innerHTML = `
+            <div class="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto p-8">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <h2 class="text-3xl font-bold text-purple-600 mb-2">${entry.pidgin}</h2>
+                        <p class="text-xl text-gray-700">${entry.english}</p>
+                    </div>
+                    <button class="close-modal text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-purple-50 rounded-lg p-4">
+                        <h3 class="font-bold text-purple-800 mb-2">Pronunciation</h3>
+                        <p class="text-lg">${entry.pronunciation}</p>
+                    </div>
+
+                    <div class="bg-blue-50 rounded-lg p-4">
+                        <h3 class="font-bold text-blue-800 mb-2">Example</h3>
+                        <p class="text-lg italic">"${entry.example}"</p>
+                        <button class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition speak-example">
+                            🔊 Listen to Example
+                        </button>
+                    </div>
+
+                    <div class="bg-green-50 rounded-lg p-4">
+                        <h3 class="font-bold text-green-800 mb-2">Usage</h3>
+                        <p>${entry.usage}</p>
+                    </div>
+
+                    <div class="bg-yellow-50 rounded-lg p-4">
+                        <h3 class="font-bold text-yellow-800 mb-2">Origin</h3>
+                        <p>${entry.origin}</p>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <h3 class="font-bold text-gray-800 mb-2">Category</h3>
+                        <span class="px-3 py-1 bg-purple-200 rounded-full">${entry.category}</span>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex gap-3">
+                    <button class="px-6 py-3 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition practice-btn">
+                        🎯 Practice This Word
+                    </button>
+                    <button class="px-6 py-3 bg-green-500 text-white rounded-full hover:bg-green-600 transition close-btn">
+                        ✓ Got It!
+                    </button>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        // Close modal functionality
+        const closeBtn = modal.querySelector('.close-modal');
+        const gotItBtn = modal.querySelector('.close-btn');
+        closeBtn.addEventListener('click', () => document.body.removeChild(modal));
+        gotItBtn.addEventListener('click', () => document.body.removeChild(modal));
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) document.body.removeChild(modal);
+        });
+
+        // Speak example
+        const speakExampleBtn = modal.querySelector('.speak-example');
+        speakExampleBtn.addEventListener('click', () => {
+            speakText(entry.audioExample);
+        });
+
+        // Practice button
+        const practiceBtn = modal.querySelector('.practice-btn');
+        practiceBtn.addEventListener('click', () => {
+            alert(`Practice feature coming soon! Try saying: "${entry.pidgin}"`);
+        });
+    }
 }
 
 // Translator functionality

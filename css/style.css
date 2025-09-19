@@ -547,3 +547,109 @@ button:focus, a:focus, input:focus, textarea:focus {
     top: 20px;
     transform: rotate(-10deg);
 }
+
+/* Dictionary Section Hawaiian Styling */
+.dictionary-entry {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.dictionary-entry::before {
+    content: '🌊';
+    position: absolute;
+    font-size: 100px;
+    opacity: 0.05;
+    right: -20px;
+    bottom: -20px;
+    transform: rotate(-15deg);
+    transition: all 0.3s ease;
+}
+
+.dictionary-entry:hover::before {
+    opacity: 0.1;
+    transform: rotate(0deg) scale(1.2);
+}
+
+.dictionary-entry:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(147, 51, 234, 0.2);
+}
+
+.alphabet-btn {
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.alphabet-btn:hover {
+    transform: scale(1.2);
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: white;
+    font-weight: bold;
+}
+
+.dict-category {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.dict-category::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(147, 51, 234, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+}
+
+.dict-category:active::after {
+    width: 200px;
+    height: 200px;
+}
+
+.quick-search {
+    position: relative;
+    overflow: hidden;
+}
+
+.quick-search::before {
+    content: '🔍';
+    position: absolute;
+    font-size: 20px;
+    opacity: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: all 0.3s ease;
+}
+
+.quick-search:hover::before {
+    opacity: 0.2;
+    transform: translate(-50%, -50%) scale(2);
+}
+
+#dictionary-search:focus {
+    box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.2);
+    border-color: #9333ea;
+}
+
+/* Dictionary modal animations */
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.dictionary-modal {
+    animation: modalSlideIn 0.3s ease;
+}

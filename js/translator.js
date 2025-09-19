@@ -1,16 +1,47 @@
 // Pidgin Translator Module
 class PidginTranslator {
     constructor() {
+        // Use both the original translation dict and the comprehensive data
         this.dict = pidginPhrases.translationDict;
+        this.comprehensiveDict = this.createComprehensiveDict();
         this.reverseDict = this.createReverseDict();
+    }
+
+    // Create translation dictionary from comprehensive data
+    createComprehensiveDict() {
+        const dict = {};
+        for (let [key, entry] of Object.entries(comprehensivePidginData)) {
+            // Add pidgin to english mapping
+            dict[entry.english.toLowerCase()] = entry.pidgin;
+
+            // Add variations and synonyms
+            if (entry.english.includes('/')) {
+                entry.english.split('/').forEach(variant => {
+                    dict[variant.trim().toLowerCase()] = entry.pidgin;
+                });
+            }
+        }
+        return dict;
     }
 
     // Create reverse dictionary for Pidgin to English translation
     createReverseDict() {
         const reverse = {};
+
+        // Add from original dict
         for (let [english, pidgin] of Object.entries(this.dict)) {
-            // Handle multiple word mappings
             reverse[pidgin] = english;
+        }
+
+        // Add from comprehensive data
+        for (let [key, entry] of Object.entries(comprehensivePidginData)) {
+            reverse[entry.pidgin] = entry.english;
+
+            // Handle variations
+            if (entry.english.includes('/')) {
+                const mainTranslation = entry.english.split('/')[0].trim();
+                reverse[entry.pidgin] = mainTranslation;
+            }
         }
 
         // Add additional Pidgin-specific mappings that might not have direct English equivalents
@@ -210,22 +241,32 @@ class PidginTranslator {
     translateEnglishToPidgin(englishText) {
         let text = englishText.toLowerCase().trim();
 
-        // First try to match complete phrases
+        // First try comprehensive dictionary
+        for (let [english, pidgin] of Object.entries(this.comprehensiveDict)) {
+            if (text === english) {
+                return this.capitalizeFirst(pidgin);
+            }
+        }
+
+        // Then try original dictionary
         for (let [english, pidgin] of Object.entries(this.dict)) {
             if (text === english) {
                 return this.capitalizeFirst(pidgin);
             }
         }
 
+        // Combine both dictionaries for phrase matching
+        const combinedDict = { ...this.dict, ...this.comprehensiveDict };
+
         // Try to match longer phrases first
-        const sortedPhrases = Object.keys(this.dict)
+        const sortedPhrases = Object.keys(combinedDict)
             .filter(key => key.includes(' '))
             .sort((a, b) => b.length - a.length);
 
         for (let phrase of sortedPhrases) {
             const regex = new RegExp(`\\b${this.escapeRegex(phrase)}\\b`, 'gi');
             if (regex.test(text)) {
-                text = text.replace(regex, this.dict[phrase]);
+                text = text.replace(regex, combinedDict[phrase]);
             }
         }
 
@@ -242,7 +283,12 @@ class PidginTranslator {
                 cleanWord = word.slice(0, -punctuation.length);
             }
 
-            // Check if word exists in dictionary
+            // Check comprehensive dictionary first
+            if (this.comprehensiveDict[cleanWord]) {
+                return this.comprehensiveDict[cleanWord] + punctuation;
+            }
+
+            // Check original dictionary
             if (this.dict[cleanWord]) {
                 return this.dict[cleanWord] + punctuation;
             }
@@ -324,7 +370,14 @@ class PidginTranslator {
 
     // Generate pronunciation guide
     getPronunciation(pidginText) {
-        // Simple pronunciation rules
+        // Check comprehensive data first
+        for (let [key, entry] of Object.entries(comprehensivePidginData)) {
+            if (pidginText.toLowerCase().includes(entry.pidgin.toLowerCase())) {
+                return `Pronunciation: ${entry.pidgin} = ${entry.pronunciation}`;
+            }
+        }
+
+        // Fallback to simple pronunciation rules
         const pronunciationGuide = {
             'brah': 'brah (like "bra")',
             'da kine': 'dah kyne',

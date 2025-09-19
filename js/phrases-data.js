@@ -1,6 +1,57 @@
 // Pidgin phrases database
 const pidginPhrases = {
     dailyPhrases: [
+        // Enhanced with comprehensive data
+        {
+            pidgin: "Aloha! E komo mai!",
+            english: "Hello! Welcome!",
+            usage: "Traditional Hawaiian greeting showing hospitality"
+        },
+        {
+            pidgin: "Shoots, brah! Rajah dat!",
+            english: "Alright, friend! I understand!",
+            usage: "Confirming agreement in local style"
+        },
+        {
+            pidgin: "Eh, wassup? You stay good?",
+            english: "Hey, what's up? Are you doing well?",
+            usage: "Casual check-in with friends"
+        },
+        {
+            pidgin: "Ho! Dat stay so nails!",
+            english: "Wow! That's so tough/cool!",
+            usage: "Expressing admiration for something impressive"
+        },
+        {
+            pidgin: "I stay small kine tired",
+            english: "I'm a little bit tired",
+            usage: "Understated way of expressing being tired"
+        },
+        {
+            pidgin: "No sked, chance um!",
+            english: "Don't be scared, go for it!",
+            usage: "Encouraging someone to take a risk"
+        },
+        {
+            pidgin: "Get choke people at da beach today",
+            english: "There are a lot of people at the beach today",
+            usage: "Describing a crowded place"
+        },
+        {
+            pidgin: "Da keiki stay acting lolo",
+            english: "The kids are acting silly",
+            usage: "Describing playful children's behavior"
+        },
+        {
+            pidgin: "Mahalo plenty fo da kokua!",
+            english: "Thank you very much for the help!",
+            usage: "Expressing deep gratitude"
+        },
+        {
+            pidgin: "Time fo pau hana already!",
+            english: "Time to finish work already!",
+            usage: "Looking forward to end of workday"
+        },
         {
             pidgin: "Howzit, brah!",
             english: "How are you, friend!",
@@ -96,6 +147,51 @@ const pidginPhrases = {
             english: "I have a lot of homework tonight",
             usage: "Expressing having many tasks"
         },
+        {
+            pidgin: "Dis grind stay so ono!",
+            english: "This food is so delicious!",
+            usage: "Praising food quality"
+        },
+        {
+            pidgin: "Eh sistah, you stay akamai!",
+            english: "Hey sister, you're smart!",
+            usage: "Complimenting someone's intelligence"
+        },
+        {
+            pidgin: "Wiki wiki! We going be late!",
+            english: "Hurry up! We're going to be late!",
+            usage: "Urging someone to move quickly"
+        },
+        {
+            pidgin: "No make li'dat in front aunty",
+            english: "Don't act like that in front of elder",
+            usage: "Showing respect for elders"
+        },
+        {
+            pidgin: "Da vog stay thick today",
+            english: "The volcanic smog is thick today",
+            usage: "Commenting on Big Island air quality"
+        },
+        {
+            pidgin: "We go holoholo dis weekend",
+            english: "We'll go cruising this weekend",
+            usage: "Making leisure plans"
+        },
+        {
+            pidgin: "My tutu made da best haupia",
+            english: "My grandmother made the best coconut pudding",
+            usage: "Praising family cooking"
+        },
+        {
+            pidgin: "Geev um! You can do it!",
+            english: "Go for it! You can do it!",
+            usage: "Encouraging maximum effort"
+        },
+        {
+            pidgin: "Bumbye da sun going set",
+            english: "Soon the sun will set",
+            usage: "Noting time passing"
+        }
         {
             pidgin: "We go holo holo around da island",
             english: "Let's cruise around the island",
