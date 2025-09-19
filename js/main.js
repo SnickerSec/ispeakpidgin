@@ -444,6 +444,9 @@ function initVoiceSettings() {
         setTimeout(() => {
             const voices = pidginSpeech.getAvailableVoices();
 
+            console.log('🎙️ Available voices:', voices.length);
+            console.log('Voice details:', voices.map(v => ({ name: v.name, lang: v.lang })));
+
             if (voices.length > 0) {
                 voiceSelect.innerHTML = '';
 
@@ -457,6 +460,8 @@ function initVoiceSettings() {
                     groupedVoices[lang].push(voice);
                 });
 
+                console.log('Grouped voices:', groupedVoices);
+
                 // Add English voices first, grouped by accent type
                 if (groupedVoices['en']) {
                     // List of known non-rhotic voice names
@@ -467,17 +472,25 @@ function initVoiceSettings() {
                     ];
 
                     // Separate by accent type for better recommendations
-                    const nonRhoticVoices = groupedVoices['en'].filter(v =>
-                        v.lang.includes('AU') || v.lang.includes('NZ') ||
-                        v.name.toLowerCase().includes('australia') ||
-                        v.name.toLowerCase().includes('new zealand') ||
-                        nonRhoticNames.some(name => v.name.toLowerCase().includes(name.toLowerCase())));
+                    const nonRhoticVoices = groupedVoices['en'].filter(v => {
+                        const hasAuNz = v.lang.includes('AU') || v.lang.includes('NZ');
+                        const hasCountryName = v.name.toLowerCase().includes('australia') || v.name.toLowerCase().includes('new zealand');
+                        const hasVoiceName = nonRhoticNames.some(name => v.name.toLowerCase().includes(name.toLowerCase()));
+
+                        console.log(`Voice ${v.name} (${v.lang}): AU/NZ=${hasAuNz}, Country=${hasCountryName}, Name=${hasVoiceName}`);
+
+                        return hasAuNz || hasCountryName || hasVoiceName;
+                    });
 
                     const usVoices = groupedVoices['en'].filter(v =>
                         v.lang.includes('US') && !nonRhoticVoices.includes(v));
 
                     const otherEnglish = groupedVoices['en'].filter(v =>
                         !nonRhoticVoices.includes(v) && !usVoices.includes(v));
+
+                    console.log('Non-rhotic voices found:', nonRhoticVoices.map(v => `${v.name} (${v.lang})`));
+                    console.log('US voices found:', usVoices.map(v => `${v.name} (${v.lang})`));
+                    console.log('Other voices found:', otherEnglish.map(v => `${v.name} (${v.lang})`));
 
                     // Helper function to identify voice accent type
                     function getVoiceAccentType(voice) {
@@ -518,6 +531,19 @@ function initVoiceSettings() {
                             }
                             optgroup.appendChild(option);
                         });
+                        voiceSelect.appendChild(optgroup);
+                        console.log(`✅ Added ${nonRhoticVoices.length} non-rhotic voices to dropdown`);
+                    } else {
+                        console.log('❌ No Australian/NZ voices found on this system');
+
+                        // Add a message about missing voices
+                        const optgroup = document.createElement('optgroup');
+                        optgroup.label = '⚠️ No Australian/NZ voices available';
+                        const option = document.createElement('option');
+                        option.value = '';
+                        option.textContent = 'Install Microsoft Voices for better Pidgin pronunciation';
+                        option.disabled = true;
+                        optgroup.appendChild(option);
                         voiceSelect.appendChild(optgroup);
                     }
 
@@ -661,4 +687,16 @@ Accent: ${pidginSpeech.preferredVoice?.lang || 'Unknown'}`);
             }, 500);
         }
     });
+
+    // Add a test button to check available voices
+    if (debugMode) {
+        debugMode.addEventListener('change', () => {
+            if (debugMode.checked) {
+                console.log('🎙️ Debug mode enabled - Voice information:');
+                console.log('All available voices:', speechSynthesis.getVoices());
+                console.log('Pidgin speech voices:', pidginSpeech.getAvailableVoices());
+                console.log('Preferred voice:', pidginSpeech.preferredVoice);
+            }
+        });
+    }
 }
