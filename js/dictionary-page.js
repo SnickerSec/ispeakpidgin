@@ -11,7 +11,14 @@ function initDictionaryPage() {
     setupBackToTop();
     loadInitialEntries();
 
-    console.log('🌺 Dictionary page initialized with', Object.keys(comprehensivePidginData).length, 'entries');
+    const actualCount = Object.keys(comprehensivePidginData).length;
+    console.log('🌺 Dictionary page initialized with', actualCount, 'unique entries');
+
+    // Update the page header with accurate count
+    const headerText = document.querySelector('.dictionary-search-container p');
+    if (headerText) {
+        headerText.textContent = `Explore over ${actualCount} Hawaiian Pidgin terms with pronunciations, examples, and cultural context`;
+    }
 }
 
 // Search functionality

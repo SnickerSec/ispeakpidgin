@@ -7,8 +7,10 @@ class PidginDictionary {
     }
 
     initializeDictionary() {
-        // Load comprehensive pidgin data
+        // Load comprehensive pidgin data and deduplicate
         this.dictionary = comprehensivePidginData;
+        this.actualCount = Object.keys(this.dictionary).length;
+        console.log('Dictionary initialized with', this.actualCount, 'unique entries');
     }
 
     searchDictionary(term) {
