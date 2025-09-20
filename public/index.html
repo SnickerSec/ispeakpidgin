@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChokePidgin.com - Learn Hawaiian Pidgin English | Free Translator & Dictionary</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Learn Hawaiian Pidgin English with our free translator, comprehensive dictionary, and interactive lessons. Discover authentic local phrases, pronunciations, and cultural context from Hawaii.">
+    <meta name="keywords" content="Hawaiian Pidgin, Pidgin English, Hawaii language, Hawaiian slang, Pidgin translator, Hawaiian dictionary, learn Hawaiian, island speak, local language Hawaii, Pidgin lessons">
+    <meta name="author" content="ChokePidgin.com">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="en">
+    <meta name="geo.region" content="US-HI">
+    <meta name="geo.placename" content="Hawaii">
+    <meta name="geo.position" content="21.3099;-157.8581">
+    <meta name="ICBM" content="21.3099, -157.8581">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="ChokePidgin.com - Learn Hawaiian Pidgin English">
+    <meta property="og:description" content="Free Hawaiian Pidgin translator, dictionary, and lessons. Learn authentic local expressions with pronunciations and cultural context.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chokepidgin.com">
+    <meta property="og:site_name" content="ChokePidgin.com">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ChokePidgin.com - Learn Hawaiian Pidgin English">
+    <meta name="twitter:description" content="Free Hawaiian Pidgin translator, dictionary, and lessons. Learn authentic local expressions.">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://chokepidgin.com">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" href="/favicon.ico">
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "ChokePidgin.com",
+        "url": "https://chokepidgin.com",
+        "description": "Learn Hawaiian Pidgin English with our free translator, comprehensive dictionary, and interactive lessons.",
+        "inLanguage": "en-US",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://chokepidgin.com/dictionary.html?search={search_term_string}",
+            "query-input": "required name=search_term_string"
+        },
+        "mainEntity": {
+            "@type": "EducationalOrganization",
+            "name": "ChokePidgin.com",
+            "description": "Educational platform for learning Hawaiian Pidgin English",
+            "url": "https://chokepidgin.com",
+            "sameAs": [],
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "customer service"
+            },
+            "areaServed": {
+                "@type": "Place",
+                "name": "Hawaii"
+            },
+            "hasOfferCatalog": {
+                "@type": "OfferCatalog",
+                "name": "Hawaiian Pidgin Learning Resources",
+                "itemListElement": [
+                    {
+                        "@type": "Course",
+                        "name": "Hawaiian Pidgin Translator",
+                        "description": "Free online translator between English and Hawaiian Pidgin",
+                        "provider": {
+                            "@type": "Organization",
+                            "name": "ChokePidgin.com"
+                        }
+                    },
+                    {
+                        "@type": "Course",
+                        "name": "Hawaiian Pidgin Dictionary",
+                        "description": "Comprehensive dictionary with over 270 Hawaiian Pidgin terms",
+                        "provider": {
+                            "@type": "Organization",
+                            "name": "ChokePidgin.com"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+    </script>
+
+    <!-- Tailwind CSS (Development CDN - For production, build locally) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body class="min-h-screen relative">
+    <!-- Hawaiian Pattern Overlay -->
+    <div class="hawaiian-pattern"></div>
+    <!-- Navigation -->
+    <nav class="shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+                        🌴 ChokePidgin 🌊
+                    </span>
+                </div>
+                <div class="hidden md:flex space-x-6 items-center">
+                    <a href="#home" class="nav-link text-gray-700 hover:text-green-600 transition">Home</a>
+                    <a href="#translator" class="nav-link text-gray-700 hover:text-green-600 transition">Translator</a>
+                    <a href="dictionary.html" class="nav-link text-gray-700 hover:text-green-600 transition">Dictionary</a>
+                    <a href="#learning" class="nav-link text-gray-700 hover:text-green-600 transition">Learning Hub</a>
+                    <a href="ask-local.html" class="nav-link text-gray-700 hover:text-green-600 transition">Ask a Local</a>
+                    <a href="#community" class="nav-link text-gray-700 hover:text-green-600 transition">Community</a>
+                    <button id="voice-settings-btn" class="text-gray-700 hover:text-green-600 transition" title="Voice Settings">
+                        🔊
+                    </button>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <a href="#home" class="block py-2 text-gray-700 hover:text-green-600">Home</a>
+                <a href="#translator" class="block py-2 text-gray-700 hover:text-green-600">Translator</a>
+                <a href="dictionary.html" class="block py-2 text-gray-700 hover:text-green-600">Dictionary</a>
+                <a href="#learning" class="block py-2 text-gray-700 hover:text-green-600">Learning Hub</a>
+                <a href="#community" class="block py-2 text-gray-700 hover:text-green-600">Community</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="py-12 px-4">
+        <div class="container mx-auto">
+            <!-- Hero with Hawaiian styling -->
+            <div class="text-center mb-12 relative">
+                <div class="absolute inset-0 flex justify-center items-center opacity-10">
+                    <span class="text-[200px]">🤙</span>
+                </div>
+                <h1 class="text-5xl font-bold text-white mb-4 drop-shadow-lg relative z-10">
+                    <span class="inline-block animate-pulse">🌺</span>
+                    E Komo Mai!
+                    <span class="inline-block animate-pulse">🌺</span>
+                </h1>
+                <p class="text-2xl text-white drop-shadow-md relative z-10">Learn Hawaiian Pidgin English da easy way, brah! 🏄</p>
+            </div>
+
+            <!-- Daily Phrase with Aloha Spirit -->
+            <div class="aloha-spirit shadow-xl mb-12 max-w-3xl mx-auto relative overflow-hidden">
+                <div class="absolute top-0 right-0 text-8xl opacity-10">🌈</div>
+                <h2 class="text-3xl font-bold text-center mb-6 bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
+                    🌴 Today's Pidgin Phrase 🌴
+                </h2>
+                <div id="daily-phrase" class="text-center">
+                    <p class="text-4xl font-bold text-gray-800 mb-4" id="phrase-pidgin">Howzit, brah!</p>
+                    <p class="text-2xl text-gray-600 mb-4" id="phrase-english">How are you, friend!</p>
+                    <p class="text-lg text-gray-500" id="phrase-usage">A casual greeting used among friends in Hawaii</p>
+                    <button id="speak-phrase" class="mt-4 bg-green-500 text-white px-6 py-2 rounded-full hover:bg-green-600 transition">
+                        🔊 Hear it
+                    </button>
+                </div>
+            </div>
+
+            <!-- Featured Greetings with Hawaiian theme -->
+            <div class="mb-12">
+                <div class="hawaiian-divider"></div>
+                <h2 class="text-3xl font-bold text-center mb-8 text-white drop-shadow-lg">
+                    🌊 Essential Pidgin Phrases 🌊
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto" id="essential-phrases-grid">
+                    <!-- Phrases will be dynamically loaded -->
+                </div>
+            </div>
+
+            <!-- Quick Access Buttons -->
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4">
+                <a href="#translator" class="bg-blue-500 text-white px-8 py-4 rounded-full text-xl hover:bg-blue-600 transition">
+                    🔄 Try the Translator
+                </a>
+                <a href="#learning" class="bg-green-500 text-white px-8 py-4 rounded-full text-xl hover:bg-green-600 transition">
+                    📚 Start Learning
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Translator Section with Beach Theme -->
+    <section id="translator" class="py-12 px-4 bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50 relative">
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute top-10 left-10 text-9xl">🏖️</div>
+            <div class="absolute bottom-10 right-10 text-9xl">🌊</div>
+        </div>
+        <div class="container mx-auto max-w-4xl relative z-10">
+            <h2 class="text-4xl font-bold text-center mb-8 text-gray-800">
+                <span class="text-5xl">🏝️</span> Pidgin Translator <span class="text-5xl">🌺</span>
+            </h2>
+
+            <!-- Translation Direction Toggle -->
+            <div class="flex justify-center mb-6">
+                <div class="bg-gray-100 rounded-full p-1 flex items-center">
+                    <button id="eng-to-pidgin" class="px-6 py-2 rounded-full bg-green-500 text-white transition">
+                        English → Pidgin
+                    </button>
+                    <button id="pidgin-to-eng" class="px-6 py-2 rounded-full hover:bg-gray-200 transition">
+                        Pidgin → English
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-white/90 backdrop-blur rounded-lg p-8 shadow-2xl border-4 border-orange-200">
+                <div class="mb-6">
+                    <label id="input-label" class="block text-lg font-semibold mb-2 text-gray-700">English</label>
+                    <textarea id="translator-input"
+                              class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-green-500 focus:outline-none"
+                              rows="4"
+                              placeholder="Type English text here..."></textarea>
+                </div>
+                <div class="text-center mb-6">
+                    <button id="translate-btn" class="bg-green-500 text-white px-8 py-3 rounded-full text-lg hover:bg-green-600 transition">
+                        Translate to Pidgin
+                    </button>
+                </div>
+                <div>
+                    <label id="output-label" class="block text-lg font-semibold mb-2 text-gray-700">Pidgin</label>
+                    <div class="bg-white p-4 border-2 border-green-300 rounded-lg min-h-[100px]">
+                        <p id="translator-output" class="text-lg text-gray-800"></p>
+                        <button id="speak-translation" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition hidden">
+                            🔊 Hear Translation
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dictionary Link Section -->
+    <section class="py-12 px-4 bg-gradient-to-br from-purple-50 via-pink-50 to-yellow-50 relative">
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute top-10 right-10 text-9xl">📖</div>
+            <div class="absolute bottom-10 left-10 text-9xl">🔍</div>
+        </div>
+        <div class="container mx-auto relative z-10 text-center">
+            <h2 class="text-4xl font-bold mb-6 text-gray-800">
+                <span class="text-5xl">📚</span> Comprehensive Pidgin Dictionary <span class="text-5xl">🌺</span>
+            </h2>
+            <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                Explore over 400 Hawaiian Pidgin terms with pronunciations, examples, and cultural context in our dedicated dictionary experience.
+            </p>
+
+            <!-- Features Preview -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-8">
+                <div class="bg-white/90 backdrop-blur rounded-lg p-6 shadow-lg border-2 border-purple-200">
+                    <div class="text-3xl mb-3">🔍</div>
+                    <h3 class="font-bold text-lg mb-2">Advanced Search</h3>
+                    <p class="text-gray-600 text-sm">Search by Pidgin or English with real-time results</p>
+                </div>
+                <div class="bg-white/90 backdrop-blur rounded-lg p-6 shadow-lg border-2 border-purple-200">
+                    <div class="text-3xl mb-3">🔊</div>
+                    <h3 class="font-bold text-lg mb-2">Audio Pronunciation</h3>
+                    <p class="text-gray-600 text-sm">Listen to authentic Pidgin pronunciation</p>
+                </div>
+                <div class="bg-white/90 backdrop-blur rounded-lg p-6 shadow-lg border-2 border-purple-200">
+                    <div class="text-3xl mb-3">🌺</div>
+                    <h3 class="font-bold text-lg mb-2">Cultural Context</h3>
+                    <p class="text-gray-600 text-sm">Learn the origins and proper usage</p>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <a href="dictionary.html" class="inline-block bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xl font-bold px-10 py-4 rounded-full hover:from-purple-600 hover:to-pink-600 transition transform hover:scale-105 shadow-xl">
+                🚀 Explore Full Dictionary
+            </a>
+        </div>
+    </section>
+
+    <!-- Learning Hub Section with Tropical Theme -->
+    <section id="learning" class="py-12 px-4 relative">
+        <div class="container mx-auto relative z-10">
+            <h2 class="text-4xl font-bold text-center mb-8 text-white drop-shadow-lg">
+                🌴 Learning Hub 🌴
+            </h2>
+
+            <!-- Level Tabs with Hawaiian styling -->
+            <div class="flex justify-center mb-8">
+                <div class="bg-white/95 backdrop-blur rounded-lg shadow-2xl p-1 border-2 border-orange-300">
+                    <button class="level-btn px-6 py-2 rounded-lg bg-green-500 text-white" data-level="beginner">Beginner</button>
+                    <button class="level-btn px-6 py-2 rounded-lg hover:bg-gray-100" data-level="intermediate">Intermediate</button>
+                    <button class="level-btn px-6 py-2 rounded-lg hover:bg-gray-100" data-level="advanced">Advanced</button>
+                </div>
+            </div>
+
+            <!-- Lessons Grid -->
+            <div id="lessons-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                <!-- Lessons will be dynamically loaded here -->
+            </div>
+
+            <!-- Quiz Section -->
+            <div id="quiz-section" class="hidden mt-12 max-w-3xl mx-auto">
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <h3 class="text-2xl font-bold mb-6">Quick Quiz</h3>
+                    <div id="quiz-content"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section with Ohana Theme -->
+    <section id="community" class="py-12 px-4 bg-gradient-to-br from-yellow-50 via-orange-50 to-red-50 relative">
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute top-20 left-20 text-9xl">🤝</div>
+            <div class="absolute bottom-20 right-20 text-9xl">🌺</div>
+        </div>
+        <div class="container mx-auto relative z-10">
+            <h2 class="text-4xl font-bold text-center mb-8 text-gray-800">
+                🤙 Ohana Community & Stories 🤙
+            </h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <!-- Story Corner with Sunset Theme -->
+                <div class="bg-gradient-to-br from-white/90 to-orange-50/90 backdrop-blur rounded-lg p-6 shadow-xl border-2 border-orange-200">
+                    <h3 class="text-2xl font-bold mb-4 bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+                        🌅 Pidgin Story Corner 🌅
+                    </h3>
+                    <div id="stories-container">
+                        <article class="mb-6 pb-6 border-b story-preview" data-story="shave-ice">
+                            <h4 class="text-lg font-bold mb-2">Da Shave Ice Stand</h4>
+                            <p class="text-gray-700 mb-2 italic">"Eh brah, you like one shave ice or what?" Uncle Taro stay behind da counter...</p>
+                            <button class="read-more-btn text-green-600 hover:underline">Read More →</button>
+                        </article>
+                        <article class="mb-6 pb-6 border-b story-preview" data-story="late-work">
+                            <h4 class="text-lg font-bold mb-2">Late for Work Again</h4>
+                            <p class="text-gray-700 mb-2 italic">My alarm clock wen broke last night, so I wake up late again...</p>
+                            <button class="read-more-btn text-green-600 hover:underline">Read More →</button>
+                        </article>
+                        <article class="mb-6 pb-6 border-b story-preview" data-story="fishing-trip">
+                            <h4 class="text-lg font-bold mb-2">Da Fishing Trip</h4>
+                            <p class="text-gray-700 mb-2 italic">Me and my cousin wen wake up 4 AM for go fishing...</p>
+                            <button class="read-more-btn text-green-600 hover:underline">Read More →</button>
+                        </article>
+                        <article class="mb-6 pb-6 border-b story-preview" data-story="graduation">
+                            <h4 class="text-lg font-bold mb-2">Graduation Day</h4>
+                            <p class="text-gray-700 mb-2 italic">My keiki finally graduate high school today...</p>
+                            <button class="read-more-btn text-green-600 hover:underline">Read More →</button>
+                        </article>
+                        <article class="mb-6 pb-6 border-b story-preview" data-story="bbq">
+                            <h4 class="text-lg font-bold mb-2">Da Neighborhood Barbecue</h4>
+                            <p class="text-gray-700 mb-2 italic">Every Sunday, our street get together for one big barbecue...</p>
+                            <button class="read-more-btn text-green-600 hover:underline">Read More →</button>
+                        </article>
+                        <div class="text-center mt-6">
+                            <button id="show-more-stories" class="bg-orange-500 text-white px-6 py-3 rounded-full hover:bg-orange-600 transition font-semibold">
+                                📚 Show More Stories (5 more)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ask a Local with Island Theme -->
+                <div class="bg-gradient-to-br from-white/90 to-blue-50/90 backdrop-blur rounded-lg p-6 shadow-xl border-2 border-blue-200">
+                    <h3 class="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-teal-500 bg-clip-text text-transparent">
+                        🏝️ Ask a Local 🏝️
+                    </h3>
+                    <form id="ask-form" class="mb-6">
+                        <div class="mb-4">
+                            <label class="block text-sm font-bold mb-2" for="user-name">Your Name (optional)</label>
+                            <input type="text" id="user-name" class="w-full p-3 border rounded-lg" placeholder="What should we call you?">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-bold mb-2" for="question-text">Your Question</label>
+                            <textarea id="question-text" class="w-full p-3 border rounded-lg" rows="3" placeholder="Ask your question about Pidgin..." required></textarea>
+                        </div>
+
+                        <!-- Simple Math CAPTCHA for Spam Protection -->
+                        <div class="mb-4 bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                            <label class="block text-sm font-bold mb-2" for="captcha-answer">
+                                🛡️ Spam Protection: What is <span id="captcha-question"></span>?
+                            </label>
+                            <div class="flex items-center gap-3 mb-3">
+                                <input type="number" id="captcha-answer" class="w-24 p-2 border rounded" placeholder="Answer" required>
+                                <button type="button" id="refresh-captcha" class="text-blue-500 hover:text-blue-700 text-sm">🔄 New question</button>
+                                <div class="flex-1"></div>
+                                <button type="submit" id="submit-question-btn" class="bg-green-500 text-white px-6 py-2 rounded-full hover:bg-green-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed">
+                                    🌺 Submit Question
+                                </button>
+                            </div>
+
+                            <div id="submit-feedback" class="text-sm"></div>
+                        </div>
+                    </form>
+                    <div id="recent-questions">
+                        <h4 class="font-bold mb-3">Recent Questions</h4>
+                        <div class="space-y-3">
+                            <div class="bg-white p-3 rounded">
+                                <p class="font-semibold">What's the difference between "stay" and "is"?</p>
+                                <p class="text-sm text-gray-600 mt-1">In Pidgin, "stay" often replaces "is/are"...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cultural Insights with Lei Border -->
+            <div class="mt-12 max-w-4xl mx-auto">
+                <div class="hawaiian-divider"></div>
+                <h3 class="text-2xl font-bold mb-6 text-center bg-gradient-to-r from-green-500 to-blue-500 bg-clip-text text-transparent">
+                    🌺 Cultural Insights 🌺
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <article class="bg-white/90 backdrop-blur rounded-lg p-6 shadow-lg border-2 border-pink-200 hover:border-pink-400 transition-all duration-300">
+                        <h4 class="text-xl font-bold mb-2">The History of Pidgin</h4>
+                        <p class="text-gray-700 mb-3">Hawaiian Pidgin developed in the 19th century on sugar plantations when workers from Hawaii, China, Japan, Philippines, Portugal, and other countries needed to communicate. It evolved from a simple trade language into a rich creole.</p>
+                        <p class="text-sm text-gray-600">Key influences: Hawaiian, English, Portuguese, Chinese, Japanese, Filipino languages</p>
+                    </article>
+                    <article class="bg-white/90 backdrop-blur rounded-lg p-6 shadow-lg border-2 border-blue-200 hover:border-blue-400 transition-all duration-300">
+                        <h4 class="text-xl font-bold mb-2">Pidgin in Modern Hawaii</h4>
+                        <p class="text-gray-700 mb-3">Today, Pidgin is spoken by over 600,000 people and is recognized as a legitimate language. It represents the multicultural spirit of Hawaii and is used in literature, music, and everyday conversation.</p>
+                        <p class="text-sm text-gray-600">Status: Official recognition as Hawaiian Creole English (HCE)</p>
+                    </article>
+                    <article class="bg-white/90 backdrop-blur rounded-lg p-6 shadow-lg border-2 border-green-200 hover:border-green-400 transition-all duration-300">
+                        <h4 class="text-xl font-bold mb-2">Island Life Expressions</h4>
+                        <p class="text-gray-700 mb-3">"Hawaiian time" reflects the island's relaxed pace, while "talk story" embodies the tradition of community storytelling. "Kanak attack" humorously describes post-meal sleepiness in the warm climate.</p>
+                        <p class="text-sm text-gray-600">Culture: Reflects laid-back island lifestyle and community values</p>
+                    </article>
+                    <article class="bg-white/90 backdrop-blur rounded-lg p-6 shadow-lg border-2 border-purple-200 hover:border-purple-400 transition-all duration-300">
+                        <h4 class="text-xl font-bold mb-2">Respect for Hawaiian Culture</h4>
+                        <p class="text-gray-700 mb-3">Words like "kapu" (sacred/forbidden) and "aloha" carry deep spiritual meaning in Hawaiian culture. Learning Pidgin means understanding and respecting these cultural roots.</p>
+                        <p class="text-sm text-gray-600">Values: Respect for native Hawaiian language and traditions</p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hawaiian Themed Footer -->
+    <footer class="text-white py-8 px-4 relative z-10">
+        <div class="container mx-auto text-center">
+            <p class="mb-2 text-lg font-semibold">© 2025 ChokePidgin.com - Learn Hawaiian Pidgin English</p>
+            <p class="text-md text-gray-300">
+                Made with aloha 🌺 🤙 🌊 🌴 🌅
+            </p>
+            <p class="text-sm text-gray-400 mt-2">E komo mai - Everyone is welcome here</p>
+        </div>
+    </footer>
+
+    <!-- Voice Settings Modal -->
+    <div id="voice-settings-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-lg max-w-md w-full p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-gray-800">🔊 Voice Settings</h3>
+                <button id="close-voice-settings" class="text-gray-500 hover:text-gray-700 text-2xl">×</button>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-sm font-semibold mb-2 text-gray-700">Select Voice</label>
+                <select id="voice-select" class="w-full p-2 border rounded-lg">
+                    <option value="">Loading voices...</option>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-sm font-semibold mb-2 text-gray-700">Speech Rate</label>
+                <input type="range" id="rate-slider" min="0.5" max="1.5" step="0.1" value="0.9" class="w-full">
+                <span id="rate-value" class="text-sm text-gray-600">0.9x</span>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-sm font-semibold mb-2 text-gray-700">Pitch</label>
+                <input type="range" id="pitch-slider" min="0.5" max="2" step="0.1" value="1" class="w-full">
+                <span id="pitch-value" class="text-sm text-gray-600">1.0x</span>
+            </div>
+
+            <div class="mb-4">
+                <button id="test-voice-btn" class="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition w-full">
+                    Test Voice: "Howzit brah!"
+                </button>
+            </div>
+
+            <div class="mb-4">
+                <button id="voice-install-guide-btn" class="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition w-full">
+                    📥 Get Better Voices (Installation Guide)
+                </button>
+            </div>
+
+            <div class="mb-4">
+                <label class="flex items-center">
+                    <input type="checkbox" id="debug-mode" class="mr-2">
+                    <span class="text-sm text-gray-700">Debug Mode (show phonetic transformations)</span>
+                </label>
+            </div>
+
+            <div class="text-sm text-gray-600">
+                <p class="mb-2">💡 <strong>Best voices for Pidgin:</strong></p>
+                <ul class="list-disc list-inside text-xs mb-3">
+                    <li><strong>🥇 Ideal:</strong> Karen, Lee, James (Australian) • Hazel, William (NZ)</li>
+                    <li><strong>🥈 Best US:</strong> Mark (Windows default) • Samantha, Alex (macOS)</li>
+                    <li><strong>🥉 Good:</strong> Catherine, Ryan, Hayley (Australian) • Other US voices</li>
+                    <li><strong>❌ Avoid:</strong> British voices (different vowel sounds)</li>
+                </ul>
+
+                <p class="mb-2">🎙️ <strong>Voice features:</strong></p>
+                <ul class="list-disc list-inside text-xs">
+                    <li>✅ SSML rhythm patterns</li>
+                    <li>✅ R-dropping (non-rhotic accent)</li>
+                    <li>✅ Th-fronting (da, dem, dey)</li>
+                    <li>✅ Vowel shifts (dis, dat, ting)</li>
+                    <li>✅ Natural pauses and emphasis</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Voice Installation Guide Modal -->
+    <div id="voice-install-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-lg max-w-2xl w-full p-6 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-gray-800">📥 Install Better Voices for Pidgin</h3>
+                <button id="close-voice-install" class="text-gray-500 hover:text-gray-700 text-2xl">×</button>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Windows -->
+                <div class="border rounded-lg p-4">
+                    <h4 class="text-lg font-bold mb-2 text-blue-600">🪟 Windows</h4>
+                    <ol class="list-decimal list-inside space-y-2 text-sm">
+                        <li>Open <strong>Settings</strong> → <strong>Time & Language</strong> → <strong>Speech</strong></li>
+                        <li>Click <strong>"Manage voices"</strong></li>
+                        <li>Click <strong>"Add voices"</strong></li>
+                        <li>Download: <strong>English (Australia) - Catherine, James, William</strong></li>
+                        <li>Download: <strong>English (New Zealand) - Hazel</strong></li>
+                        <li>Restart your browser after installation</li>
+                    </ol>
+                    <p class="text-xs text-gray-600 mt-2">These voices are free and work great for Pidgin pronunciation!</p>
+                </div>
+
+                <!-- macOS -->
+                <div class="border rounded-lg p-4">
+                    <h4 class="text-lg font-bold mb-2 text-gray-600">🍎 macOS</h4>
+                    <ol class="list-decimal list-inside space-y-2 text-sm">
+                        <li>Open <strong>System Preferences</strong> → <strong>Accessibility</strong> → <strong>Spoken Content</strong></li>
+                        <li>Click <strong>"System Voice"</strong> dropdown</li>
+                        <li>Click <strong>"Customize..."</strong></li>
+                        <li>Download: <strong>Karen (Australian)</strong>, <strong>Lee (Australian)</strong></li>
+                        <li>Restart your browser after installation</li>
+                    </ol>
+                    <p class="text-xs text-gray-600 mt-2">Note: macOS has fewer Australian voices, but Karen and Lee work well.</p>
+                </div>
+
+                <!-- Cloud Alternative -->
+                <div class="border rounded-lg p-4 bg-green-50">
+                    <h4 class="text-lg font-bold mb-2 text-green-600">☁️ Alternative: Use Google's Voices</h4>
+                    <p class="text-sm mb-2">For the best Pidgin experience without installing anything:</p>
+                    <ol class="list-decimal list-inside space-y-2 text-sm">
+                        <li>Use <strong>Chrome browser</strong> (has the best voice selection)</li>
+                        <li>Enable <strong>online voices</strong> in Chrome settings</li>
+                        <li>Look for <strong>"Google Australian English"</strong> voices</li>
+                    </ol>
+                </div>
+
+                <!-- Current Optimization -->
+                <div class="border rounded-lg p-4 bg-blue-50">
+                    <h4 class="text-lg font-bold mb-2 text-blue-600">🎯 Current System Optimization</h4>
+                    <p class="text-sm">Even with US voices, ChokePidgin.com optimizes pronunciation with:</p>
+                    <ul class="list-disc list-inside space-y-1 text-xs mt-2">
+                        <li>R-dropping simulation ("brah" → "bra-ah")</li>
+                        <li>Th-fronting ("the" → "da", "them" → "dem")</li>
+                        <li>Vowel shifts ("that" → "dat", "this" → "dis")</li>
+                        <li>Natural rhythm and pauses</li>
+                        <li>Pidgin-specific emphasis patterns</li>
+                    </ul>
+                    <p class="text-xs text-gray-600 mt-2">Your current setup will still sound much more authentic than standard English!</p>
+                </div>
+            </div>
+
+            <div class="mt-6 text-center">
+                <button id="close-voice-install-btn" class="bg-green-500 text-white px-6 py-2 rounded-full hover:bg-green-600 transition">
+                    Got it! Let's use what I have
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/components/data-loader.js"></script>
+    <script src="js/data/phrases-data.js"></script>
+    <script src="js/data/comprehensive-pidgin-data.js"></script>
+    <script src="js/data/stories-data.js"></script>
+    <script src="js/components/translator.js"></script>
+    <script src="js/components/lessons.js"></script>
+    <script src="js/components/elevenlabs-speech.js"></script>
+    <script src="js/components/speech.js"></script>
+    <script src="js/components/ask-local.js"></script>
+    <script src="js/components/main.js"></script>
+    <!-- Hawaiian Tiki Torches -->
+    <div class="tiki-torch left">🔥</div>
+    <div class="tiki-torch right">🔥</div>
+
+</body>
+</html>

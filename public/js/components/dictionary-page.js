@@ -11,14 +11,17 @@ function initDictionaryPage() {
     setupBackToTop();
     loadInitialEntries();
 
-    const actualCount = Object.keys(comprehensivePidginData).length;
-    console.log('🌺 Dictionary page initialized with', actualCount, 'unique entries');
+    // Wait for dictionary to initialize and get accurate count
+    setTimeout(() => {
+        const actualCount = pidginDictionary.getTotalCount();
+        console.log('🌺 Dictionary page initialized with', actualCount, 'unique entries');
 
-    // Update the page header with accurate count
-    const headerText = document.querySelector('.dictionary-search-container p');
-    if (headerText) {
-        headerText.textContent = `Explore over ${actualCount} Hawaiian Pidgin terms with pronunciations, examples, and cultural context`;
-    }
+        // Update the page header with accurate count
+        const headerText = document.querySelector('.dictionary-search-container p');
+        if (headerText) {
+            headerText.textContent = `Explore over ${actualCount} Hawaiian Pidgin terms with pronunciations, examples, and cultural context`;
+        }
+    }, 1000);
 }
 
 // Search functionality
@@ -172,7 +175,14 @@ function displayResults(entries) {
     // Sort entries alphabetically
     entries.sort((a, b) => a.pidgin.localeCompare(b.pidgin));
 
-    grid.innerHTML = entries.map(entry => `
+    grid.innerHTML = entries.map(entry => {
+        // Handle both new and legacy data formats
+        const englishText = Array.isArray(entry.english) ? entry.english.join(', ') : entry.english;
+        const exampleText = Array.isArray(entry.examples) ? entry.examples[0] || entry.example || '' : entry.example || '';
+        const pronunciationText = entry.pronunciation || '';
+        const audioText = entry.audioExample || exampleText;
+
+        return `
         <div class="dictionary-entry-card bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer border-l-4 border-transparent"
              data-word="${entry.key}">
             <div class="flex justify-between items-start mb-3">
@@ -182,20 +192,24 @@ function displayResults(entries) {
                 </span>
             </div>
 
-            <p class="text-gray-700 mb-3 font-medium">${entry.english}</p>
+            <p class="text-gray-700 mb-3 font-medium">${englishText}</p>
 
+            ${exampleText ? `
             <div class="mb-4">
-                <p class="text-sm text-gray-600 italic">"${entry.example}"</p>
+                <p class="text-sm text-gray-600 italic">"${exampleText}"</p>
             </div>
+            ` : ''}
 
+            ${pronunciationText ? `
             <div class="mb-4 bg-yellow-50 rounded-lg p-3">
                 <div class="text-xs text-yellow-800 font-semibold mb-1">Pronunciation:</div>
-                <div class="text-sm text-yellow-700">${entry.pronunciation}</div>
+                <div class="text-sm text-yellow-700">${pronunciationText}</div>
             </div>
+            ` : ''}
 
             <div class="flex gap-2 flex-wrap">
                 <button class="dict-speak-btn text-xs px-3 py-2 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-full transition font-medium"
-                        data-text="${entry.audioExample}">
+                        data-text="${audioText}">
                     🔊 Listen
                 </button>
                 <button class="dict-details-btn text-xs px-3 py-2 bg-green-100 hover:bg-green-200 text-green-700 rounded-full transition font-medium"
@@ -208,7 +222,8 @@ function displayResults(entries) {
                 </button>
             </div>
         </div>
-    `).join('');
+        `;
+    }).join('');
 
     // Add event listeners
     addEntryEventListeners();
@@ -266,8 +281,28 @@ function addEntryEventListeners() {
 
 // Show detailed word information
 function showWordDetails(wordKey) {
-    const entry = comprehensivePidginData[wordKey];
+    // Try to get entry from new system first
+    let entry = null;
+
+    if (pidginDictionary.isNewSystem) {
+        entry = pidginDictionary.dataLoader.getById(wordKey);
+    } else {
+        entry = comprehensivePidginData[wordKey];
+    }
+
     if (!entry) return;
+
+    // Normalize entry format for display
+    const displayEntry = {
+        pidgin: entry.pidgin,
+        english: Array.isArray(entry.english) ? entry.english.join(', ') : entry.english,
+        pronunciation: entry.pronunciation || '',
+        examples: Array.isArray(entry.examples) ? entry.examples : [entry.example || ''],
+        usage: entry.usage || '',
+        origin: entry.origin || '',
+        category: entry.category || '',
+        audioExample: entry.audioExample || entry.examples?.[0] || entry.example || ''
+    };
 
     // Create modal
     const modal = document.createElement('div');
@@ -279,8 +314,8 @@ function showWordDetails(wordKey) {
             <div class="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-8 rounded-t-2xl">
                 <div class="flex justify-between items-start">
                     <div>
-                        <h2 class="text-4xl font-bold mb-2">${entry.pidgin}</h2>
-                        <p class="text-xl text-purple-100">${entry.english}</p>
+                        <h2 class="text-4xl font-bold mb-2">${displayEntry.pidgin}</h2>
+                        <p class="text-xl text-purple-100">${displayEntry.english}</p>
                     </div>
                     <button class="close-modal text-white hover:text-purple-200 text-3xl font-bold">×</button>
                 </div>
@@ -288,43 +323,53 @@ function showWordDetails(wordKey) {
 
             <!-- Content -->
             <div class="p-8 space-y-6">
+                ${displayEntry.pronunciation ? `
                 <!-- Pronunciation -->
                 <div class="bg-purple-50 rounded-xl p-6">
                     <h3 class="font-bold text-purple-800 mb-3 text-lg flex items-center">
                         🗣️ Pronunciation
                     </h3>
-                    <p class="text-2xl text-purple-700 font-mono">${entry.pronunciation}</p>
+                    <p class="text-2xl text-purple-700 font-mono">${displayEntry.pronunciation}</p>
                     <button class="mt-3 px-6 py-3 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition speak-word">
                         🔊 Hear Pronunciation
                     </button>
                 </div>
+                ` : ''}
 
-                <!-- Example -->
+                ${displayEntry.examples.filter(ex => ex).length > 0 ? `
+                <!-- Examples -->
                 <div class="bg-blue-50 rounded-xl p-6">
                     <h3 class="font-bold text-blue-800 mb-3 text-lg flex items-center">
-                        💬 Example
+                        💬 Examples
                     </h3>
-                    <p class="text-xl italic text-blue-700 mb-3">"${entry.example}"</p>
+                    ${displayEntry.examples.filter(ex => ex).map(example => `
+                        <p class="text-xl italic text-blue-700 mb-3">"${example}"</p>
+                    `).join('')}
                     <button class="px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition speak-example">
                         🔊 Listen to Example
                     </button>
                 </div>
+                ` : ''}
 
+                ${displayEntry.usage ? `
                 <!-- Usage & Context -->
                 <div class="bg-green-50 rounded-xl p-6">
                     <h3 class="font-bold text-green-800 mb-3 text-lg flex items-center">
                         📚 Usage & Context
                     </h3>
-                    <p class="text-green-700 text-lg">${entry.usage}</p>
+                    <p class="text-green-700 text-lg">${displayEntry.usage}</p>
                 </div>
+                ` : ''}
 
+                ${displayEntry.origin ? `
                 <!-- Cultural Origin -->
                 <div class="bg-yellow-50 rounded-xl p-6">
                     <h3 class="font-bold text-yellow-800 mb-3 text-lg flex items-center">
                         🌺 Cultural Origin
                     </h3>
-                    <p class="text-yellow-700 text-lg">${entry.origin}</p>
+                    <p class="text-yellow-700 text-lg">${displayEntry.origin}</p>
                 </div>
+                ` : ''}
 
                 <!-- Category -->
                 <div class="bg-gray-50 rounded-xl p-6">
@@ -332,7 +377,7 @@ function showWordDetails(wordKey) {
                         🏷️ Category
                     </h3>
                     <span class="inline-block px-4 py-2 bg-purple-200 text-purple-800 rounded-full font-medium">
-                        ${entry.category}
+                        ${displayEntry.category}
                     </span>
                 </div>
             </div>
@@ -374,8 +419,8 @@ function showWordDetails(wordKey) {
     });
 
     // Audio actions
-    speakWordBtn.addEventListener('click', () => speakText(entry.pidgin));
-    speakExampleBtn.addEventListener('click', () => speakText(entry.audioExample));
+    speakWordBtn.addEventListener('click', () => speakText(displayEntry.pidgin));
+    speakExampleBtn.addEventListener('click', () => speakText(displayEntry.audioExample));
 
     // Practice action
     practiceBtn.addEventListener('click', () => {
@@ -385,22 +430,35 @@ function showWordDetails(wordKey) {
 
     // Translate action
     translateBtn.addEventListener('click', () => {
-        window.location.href = `index.html#translator?word=${encodeURIComponent(entry.pidgin)}`;
+        window.location.href = `index.html#translator?word=${encodeURIComponent(displayEntry.pidgin)}`;
     });
 }
 
 // Start word practice
 function startWordPractice(wordKey) {
-    const entry = comprehensivePidginData[wordKey];
+    // Get entry from appropriate system
+    let entry = null;
+
+    if (pidginDictionary.isNewSystem) {
+        entry = pidginDictionary.dataLoader.getById(wordKey);
+    } else {
+        entry = comprehensivePidginData[wordKey];
+    }
+
     if (!entry) return;
+
+    // Normalize entry format
+    const pidgin = entry.pidgin;
+    const english = Array.isArray(entry.english) ? entry.english.join(', ') : entry.english;
+    const example = Array.isArray(entry.examples) ? entry.examples[0] : entry.example || '';
 
     alert(`🎯 Practice Session Starting!
 
-Word: ${entry.pidgin}
-Meaning: ${entry.english}
+Word: ${pidgin}
+Meaning: ${english}
 
-Try using "${entry.pidgin}" in a sentence!
-Example: "${entry.example}"
+Try using "${pidgin}" in a sentence!
+${example ? `Example: "${example}"` : ''}
 
 Practice speaking it out loud and use it in conversation today! 🌺`);
 }

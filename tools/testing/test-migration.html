@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Migration Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .success { background: #d4edda; border-color: #c3e6cb; }
+        .error { background: #f8d7da; border-color: #f5c6cb; }
+        .info { background: #d1ecf1; border-color: #b3d7dc; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .results {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Migration Test Page</h1>
+        <p>This page tests the enhanced JSON data system vs legacy system.</p>
+
+        <div id="system-status" class="test-section info">
+            <h3>System Status</h3>
+            <p>Checking which system is active...</p>
+        </div>
+
+        <div class="test-section">
+            <h3>Test 1: Data Loading</h3>
+            <button onclick="testDataLoading()">Test Data Loading</button>
+            <div id="test1-results" class="results"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>Test 2: Search Functionality</h3>
+            <button onclick="testSearch()">Test Search</button>
+            <div id="test2-results" class="results"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>Test 3: Category Filtering</h3>
+            <button onclick="testCategories()">Test Categories</button>
+            <div id="test3-results" class="results"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>Test 4: Data Quality</h3>
+            <button onclick="testDataQuality()">Test Data Quality</button>
+            <div id="test4-results" class="results"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>Test 5: Performance</h3>
+            <button onclick="testPerformance()">Test Performance</button>
+            <div id="test5-results" class="results"></div>
+        </div>
+    </div>
+
+    <!-- Load both systems -->
+    <script src="js/data-loader.js"></script>
+    <script src="js/comprehensive-pidgin-data.js"></script>
+    <script src="js/dictionary.js"></script>
+
+    <script>
+        let testLog = [];
+
+        function log(message, testId = null) {
+            const timestamp = new Date().toLocaleTimeString();
+            const logMessage = `[${timestamp}] ${message}`;
+            testLog.push(logMessage);
+
+            if (testId) {
+                const resultsEl = document.getElementById(`${testId}-results`);
+                if (resultsEl) {
+                    resultsEl.innerHTML += logMessage + '\n';
+                    resultsEl.scrollTop = resultsEl.scrollHeight;
+                }
+            }
+
+            console.log(logMessage);
+        }
+
+        // Check system status on load
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(checkSystemStatus, 1000);
+        });
+
+        function checkSystemStatus() {
+            const statusEl = document.getElementById('system-status');
+            let statusHTML = '<h3>System Status</h3>';
+
+            // Check data loader
+            if (typeof pidginDataLoader !== 'undefined') {
+                statusHTML += `<p>✅ Enhanced Data Loader: Available (${pidginDataLoader.loaded ? 'Loaded' : 'Loading...'})</p>`;
+            } else {
+                statusHTML += '<p>❌ Enhanced Data Loader: Not Available</p>';
+            }
+
+            // Check legacy data
+            if (typeof comprehensivePidginData !== 'undefined') {
+                statusHTML += `<p>✅ Legacy Data: Available (${Object.keys(comprehensivePidginData).length} entries)</p>`;
+            } else {
+                statusHTML += '<p>❌ Legacy Data: Not Available</p>';
+            }
+
+            // Check dictionary
+            if (typeof pidginDictionary !== 'undefined') {
+                statusHTML += `<p>✅ Dictionary Module: Available (${pidginDictionary.isNewSystem ? 'Using Enhanced System' : 'Using Legacy System'})</p>`;
+            } else {
+                statusHTML += '<p>❌ Dictionary Module: Not Available</p>';
+            }
+
+            statusEl.innerHTML = statusHTML;
+            statusEl.className = 'test-section success';
+        }
+
+        function testDataLoading() {
+            const testId = 'test1';
+            document.getElementById(`${testId}-results`).innerHTML = '';
+
+            log('Starting data loading test...', testId);
+
+            try {
+                // Test enhanced system
+                if (typeof pidginDataLoader !== 'undefined' && pidginDataLoader.loaded) {
+                    const enhancedEntries = pidginDataLoader.getAllEntries();
+                    log(`Enhanced system: ${enhancedEntries.length} entries loaded`, testId);
+
+                    const sampleEntry = enhancedEntries[0];
+                    log(`Sample entry: ${sampleEntry.pidgin} = ${Array.isArray(sampleEntry.english) ? sampleEntry.english.join(', ') : sampleEntry.english}`, testId);
+                }
+
+                // Test legacy system
+                if (typeof comprehensivePidginData !== 'undefined') {
+                    const legacyCount = Object.keys(comprehensivePidginData).length;
+                    log(`Legacy system: ${legacyCount} entries loaded`, testId);
+                }
+
+                // Test dictionary wrapper
+                const dictCount = pidginDictionary.getTotalCount();
+                log(`Dictionary wrapper: ${dictCount} entries accessible`, testId);
+
+                log('✅ Data loading test completed successfully', testId);
+
+            } catch (error) {
+                log(`❌ Data loading test failed: ${error.message}`, testId);
+            }
+        }
+
+        function testSearch() {
+            const testId = 'test2';
+            document.getElementById(`${testId}-results`).innerHTML = '';
+
+            log('Starting search functionality test...', testId);
+
+            const testQueries = ['howzit', 'food', 'ono', 'brah'];
+
+            testQueries.forEach(query => {
+                try {
+                    const results = pidginDictionary.searchDictionary(query);
+                    log(`Search "${query}": ${results.length} results found`, testId);
+
+                    if (results.length > 0) {
+                        log(`  First result: ${results[0].pidgin} = ${Array.isArray(results[0].english) ? results[0].english.join(', ') : results[0].english}`, testId);
+                    }
+                } catch (error) {
+                    log(`❌ Search "${query}" failed: ${error.message}`, testId);
+                }
+            });
+
+            log('✅ Search functionality test completed', testId);
+        }
+
+        function testCategories() {
+            const testId = 'test3';
+            document.getElementById(`${testId}-results`).innerHTML = '';
+
+            log('Starting category filtering test...', testId);
+
+            try {
+                const categories = pidginDictionary.getCategories();
+                log(`Available categories: ${Object.keys(categories).length}`, testId);
+
+                const testCategories = ['greetings', 'food', 'slang', 'all'];
+
+                testCategories.forEach(category => {
+                    try {
+                        const results = pidginDictionary.getByCategory(category);
+                        log(`Category "${category}": ${results.length} entries`, testId);
+                    } catch (error) {
+                        log(`❌ Category "${category}" failed: ${error.message}`, testId);
+                    }
+                });
+
+                log('✅ Category filtering test completed', testId);
+
+            } catch (error) {
+                log(`❌ Category test failed: ${error.message}`, testId);
+            }
+        }
+
+        function testDataQuality() {
+            const testId = 'test4';
+            document.getElementById(`${testId}-results`).innerHTML = '';
+
+            log('Starting data quality test...', testId);
+
+            try {
+                const allEntries = pidginDictionary.getByCategory('all');
+                log(`Total entries to check: ${allEntries.length}`, testId);
+
+                let validEntries = 0;
+                let issues = [];
+
+                allEntries.forEach((entry, index) => {
+                    if (!entry.pidgin) issues.push(`Entry ${index}: Missing pidgin field`);
+                    if (!entry.english) issues.push(`Entry ${index}: Missing english field`);
+                    if (!entry.category) issues.push(`Entry ${index}: Missing category field`);
+
+                    if (entry.pidgin && entry.english && entry.category) {
+                        validEntries++;
+                    }
+                });
+
+                log(`Valid entries: ${validEntries}/${allEntries.length}`, testId);
+                log(`Issues found: ${issues.length}`, testId);
+
+                if (issues.length > 0 && issues.length < 10) {
+                    issues.slice(0, 5).forEach(issue => log(`  ${issue}`, testId));
+                    if (issues.length > 5) log(`  ... and ${issues.length - 5} more`, testId);
+                }
+
+                log('✅ Data quality test completed', testId);
+
+            } catch (error) {
+                log(`❌ Data quality test failed: ${error.message}`, testId);
+            }
+        }
+
+        function testPerformance() {
+            const testId = 'test5';
+            document.getElementById(`${testId}-results`).innerHTML = '';
+
+            log('Starting performance test...', testId);
+
+            try {
+                // Test search performance
+                const start1 = performance.now();
+                for (let i = 0; i < 100; i++) {
+                    pidginDictionary.searchDictionary('ho');
+                }
+                const searchTime = performance.now() - start1;
+                log(`100 searches took: ${searchTime.toFixed(2)}ms (avg: ${(searchTime/100).toFixed(2)}ms)`, testId);
+
+                // Test category filtering performance
+                const start2 = performance.now();
+                for (let i = 0; i < 100; i++) {
+                    pidginDictionary.getByCategory('all');
+                }
+                const categoryTime = performance.now() - start2;
+                log(`100 category filters took: ${categoryTime.toFixed(2)}ms (avg: ${(categoryTime/100).toFixed(2)}ms)`, testId);
+
+                // Test random words performance
+                const start3 = performance.now();
+                for (let i = 0; i < 100; i++) {
+                    pidginDictionary.getRandomWords(10);
+                }
+                const randomTime = performance.now() - start3;
+                log(`100 random selections took: ${randomTime.toFixed(2)}ms (avg: ${(randomTime/100).toFixed(2)}ms)`, testId);
+
+                log('✅ Performance test completed', testId);
+
+            } catch (error) {
+                log(`❌ Performance test failed: ${error.message}`, testId);
+            }
+        }
+    </script>
+</body>
+</html>

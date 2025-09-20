@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hawaiian Pidgin Dictionary - 270+ Terms with Pronunciations | ChokePidgin.com</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" href="/favicon.ico">
+
+    <!-- Meta Tags -->
+    <meta name="description" content="Comprehensive Hawaiian Pidgin dictionary with hundreds of terms, pronunciations, examples, and cultural context. Learn authentic local expressions and island slang.">
+    <meta name="keywords" content="Hawaiian Pidgin, Pidgin English, Hawaii slang, local language, island speak, Hawaiian dictionary">
+    <meta name="author" content="ChokePidgin.com">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="en">
+    <meta name="geo.region" content="US-HI">
+    <meta name="geo.placename" content="Hawaii">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Hawaiian Pidgin Dictionary - ChokePidgin.com">
+    <meta property="og:description" content="Comprehensive dictionary of Hawaiian Pidgin with pronunciations and cultural context">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chokepidgin.com/dictionary.html">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://chokepidgin.com/dictionary.html">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <!-- Tailwind CSS (Development CDN - For production, build locally) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* Dictionary-specific styles */
+        .dictionary-search-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .dictionary-entry-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .dictionary-entry-card:hover {
+            transform: translateY(-2px);
+            border-left-color: #667eea;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .category-filter.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .alphabet-browser button {
+            transition: all 0.2s ease;
+        }
+
+        .alphabet-browser button:hover {
+            transform: scale(1.1);
+            background: #fbbf24;
+        }
+
+        .alphabet-browser button.active {
+            background: #667eea;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .search-stats {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <a href="index.html">
+                        <span class="text-2xl font-bold bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+                            🌴 ChokePidgin 🌊
+                        </span>
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-6 items-center">
+                    <a href="index.html#home" class="nav-link text-gray-700 hover:text-green-600 transition">Home</a>
+                    <a href="index.html#translator" class="nav-link text-gray-700 hover:text-green-600 transition">Translator</a>
+                    <a href="dictionary.html" class="nav-link text-green-600 font-semibold">Dictionary</a>
+                    <a href="index.html#learning" class="nav-link text-gray-700 hover:text-green-600 transition">Learning Hub</a>
+                    <a href="ask-local.html" class="nav-link text-gray-700 hover:text-green-600 transition">Ask a Local</a>
+                    <a href="index.html#community" class="nav-link text-gray-700 hover:text-green-600 transition">Community</a>
+                    <button id="voice-settings-btn" class="text-gray-700 hover:text-green-600 transition" title="Voice Settings">
+                        🔊
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-700 p-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html#home" class="block px-3 py-2 text-gray-700 hover:text-green-600">Home</a>
+                <a href="index.html#translator" class="block px-3 py-2 text-gray-700 hover:text-green-600">Translator</a>
+                <a href="dictionary.html" class="block px-3 py-2 text-green-600 font-semibold">Dictionary</a>
+                <a href="index.html#learning" class="block px-3 py-2 text-gray-700 hover:text-green-600">Learning Hub</a>
+                <a href="ask-local.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Ask a Local</a>
+                <a href="index.html#community" class="block px-3 py-2 text-gray-700 hover:text-green-600">Community</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="dictionary-search-container py-16 px-4 relative overflow-hidden">
+        <!-- Background decoration -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-10 left-10 text-6xl">📚</div>
+            <div class="absolute top-20 right-20 text-4xl">🌺</div>
+            <div class="absolute bottom-20 left-20 text-5xl">🤙</div>
+            <div class="absolute bottom-10 right-10 text-3xl">🏝️</div>
+        </div>
+
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h1 class="text-5xl font-bold text-white mb-4">
+                📚 Pidgin Dictionary
+            </h1>
+            <p class="text-xl text-white/90 mb-8">
+                Explore our comprehensive collection of Hawaiian Pidgin terms with pronunciations, examples, and cultural context
+            </p>
+
+            <!-- Search Bar -->
+            <div class="bg-white/20 backdrop-blur rounded-2xl p-6 mb-6">
+                <div class="flex gap-3 mb-4">
+                    <input
+                        type="text"
+                        id="dictionary-search"
+                        placeholder="Search for any pidgin word or English meaning..."
+                        class="flex-1 p-4 rounded-xl border-2 border-white/30 bg-white/90 backdrop-blur text-gray-800 placeholder-gray-600 focus:outline-none focus:border-yellow-400 transition"
+                    >
+                    <button id="dictionary-search-btn" class="bg-yellow-500 hover:bg-yellow-600 text-white px-8 py-4 rounded-xl font-semibold transition shadow-lg">
+                        🔍 Search
+                    </button>
+                </div>
+
+                <!-- Quick Search Suggestions -->
+                <div class="flex flex-wrap gap-2 justify-center">
+                    <span class="text-white/80 text-sm mr-2">Quick search:</span>
+                    <button class="quick-search bg-white/20 hover:bg-white/30 text-white px-3 py-1 rounded-full text-sm transition" data-word="howzit">howzit</button>
+                    <button class="quick-search bg-white/20 hover:bg-white/30 text-white px-3 py-1 rounded-full text-sm transition" data-word="brah">brah</button>
+                    <button class="quick-search bg-white/20 hover:bg-white/30 text-white px-3 py-1 rounded-full text-sm transition" data-word="grinds">grinds</button>
+                    <button class="quick-search bg-white/20 hover:bg-white/30 text-white px-3 py-1 rounded-full text-sm transition" data-word="shoots">shoots</button>
+                    <button class="quick-search bg-white/20 hover:bg-white/30 text-white px-3 py-1 rounded-full text-sm transition" data-word="pau">pau</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="bg-white/95 backdrop-blur border-b sticky top-16 z-30">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <!-- Categories -->
+            <div class="mb-4">
+                <div class="flex flex-wrap gap-2 justify-center">
+                    <button class="dict-category category-filter active px-4 py-2 rounded-full border transition" data-category="all">
+                        All Categories
+                    </button>
+                    <button class="dict-category category-filter px-4 py-2 rounded-full border transition" data-category="greetings">
+                        🙋‍♂️ Greetings
+                    </button>
+                    <button class="dict-category category-filter px-4 py-2 rounded-full border transition" data-category="food">
+                        🍽️ Food
+                    </button>
+                    <button class="dict-category category-filter px-4 py-2 rounded-full border transition" data-category="expressions">
+                        💬 Expressions
+                    </button>
+                    <button class="dict-category category-filter px-4 py-2 rounded-full border transition" data-category="slang">
+                        🤙 Slang
+                    </button>
+                    <button class="dict-category category-filter px-4 py-2 rounded-full border transition" data-category="emotions">
+                        😊 Emotions
+                    </button>
+                    <button class="dict-category category-filter px-4 py-2 rounded-full border transition" data-category="directions">
+                        🧭 Directions
+                    </button>
+                    <button class="dict-category category-filter px-4 py-2 rounded-full border transition" data-category="nature">
+                        🌿 Nature
+                    </button>
+                </div>
+            </div>
+
+            <!-- Alphabet Browser -->
+            <div id="alphabet-browser" class="alphabet-browser flex flex-wrap gap-1 justify-center">
+                <!-- Generated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Stats -->
+    <div class="search-stats py-4 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div id="search-results-count" class="text-center text-gray-600">
+                Loading dictionary...
+            </div>
+        </div>
+    </div>
+
+    <!-- Dictionary Grid -->
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <div id="dictionary-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Dictionary entries will be populated by JavaScript -->
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading-state" class="text-center py-12">
+            <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+            <p class="mt-4 text-gray-600">Loading dictionary entries...</p>
+        </div>
+
+        <!-- No Results State -->
+        <div id="no-results" class="hidden text-center py-12">
+            <div class="text-6xl mb-4">🤔</div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">No matches found</h3>
+            <p class="text-gray-600 mb-6">Try a different search term or browse by category</p>
+            <button id="show-all-btn" class="bg-purple-500 text-white px-6 py-3 rounded-full hover:bg-purple-600 transition">
+                Show All Words
+            </button>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 bg-purple-600 text-white p-3 rounded-full shadow-lg hover:bg-purple-700 transition opacity-0 pointer-events-none z-50">
+        ↑
+    </button>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 mt-16">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center items-center space-x-2 mb-4">
+                <span class="text-3xl">🌺</span>
+                <span class="text-2xl font-bold">ChokePidgin.com</span>
+            </div>
+
+            <p class="text-gray-400 mb-6">
+                Learn Hawaiian Pidgin with authentic pronunciations and cultural context
+            </p>
+
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="index.html" class="text-gray-400 hover:text-white transition">Home</a>
+                <a href="index.html#translator" class="text-gray-400 hover:text-white transition">Translator</a>
+                <a href="dictionary.html" class="text-gray-400 hover:text-white transition">Dictionary</a>
+                <a href="index.html#learning" class="text-gray-400 hover:text-white transition">Learning</a>
+            </div>
+
+            <div class="border-t border-gray-800 pt-6">
+                <p class="text-gray-500 text-sm">
+                    © 2024 ChokePidgin.com - Preserving and sharing Hawaiian Pidgin culture
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/data-loader.js"></script>
+    <script src="js/phrases-data.js"></script>
+    <script src="js/comprehensive-pidgin-data.js"></script>
+    <script src="js/stories-data.js"></script>
+    <script src="js/translator.js"></script>
+    <script src="js/dictionary.js"></script>
+    <script src="js/lessons.js"></script>
+    <script src="js/elevenlabs-speech.js"></script>
+    <script src="js/speech.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/dictionary-page.js"></script>
+</body>
+</html>
