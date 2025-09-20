@@ -227,8 +227,10 @@ function initTranslator() {
                 existingGuide.remove();
             }
 
-            // Translate the existing text
-            const translatedText = translator.translate(inputText, currentDirection);
+            // Translate the existing text with enhanced features
+            const result = translator.translate(inputText, currentDirection);
+            const translatedText = typeof result === 'string' ? result : result.text;
+
             translatorOutput.textContent = translatedText;
 
             // Show pronunciation button
@@ -237,8 +239,49 @@ function initTranslator() {
                 speakTranslationBtn.onclick = () => speakText(translatedText);
             }
 
-            // Add pronunciation guide if translating to Pidgin
-            if (currentDirection === 'eng-to-pidgin') {
+            // Add enhanced features if result is object
+            if (typeof result === 'object') {
+                // Add confidence indicator
+                if (result.confidence !== undefined) {
+                    const confidenceEl = document.createElement('div');
+                    confidenceEl.className = 'flex items-center mt-2 text-sm';
+
+                    const confidenceColor = result.confidence >= 80 ? 'text-green-600' :
+                                          result.confidence >= 60 ? 'text-yellow-600' : 'text-red-600';
+
+                    confidenceEl.innerHTML = `
+                        <span class="${confidenceColor} font-semibold">Confidence: ${result.confidence}%</span>
+                        <div class="ml-2 w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full ${result.confidence >= 80 ? 'bg-green-500' :
+                                               result.confidence >= 60 ? 'bg-yellow-500' : 'bg-red-500'}"
+                                 style="width: ${result.confidence}%"></div>
+                        </div>
+                    `;
+                    translatorOutput.appendChild(confidenceEl);
+                }
+
+                // Add suggestions if available
+                if (result.suggestions && result.suggestions.length > 0) {
+                    const suggestionsEl = document.createElement('div');
+                    suggestionsEl.className = 'mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200';
+                    suggestionsEl.innerHTML = `
+                        <div class="text-sm font-semibold text-blue-800 mb-2">💡 Suggestions:</div>
+                        ${result.suggestions.map(suggestion =>
+                            `<div class="text-sm text-blue-700 mb-1">• ${suggestion}</div>`
+                        ).join('')}
+                    `;
+                    translatorOutput.appendChild(suggestionsEl);
+                }
+
+                // Add pronunciation guide
+                if (result.pronunciation) {
+                    const guideEl = document.createElement('p');
+                    guideEl.className = 'text-sm text-gray-600 mt-2 italic pronunciation-guide';
+                    guideEl.textContent = result.pronunciation;
+                    translatorOutput.appendChild(guideEl);
+                }
+            } else if (currentDirection === 'eng-to-pidgin') {
+                // Fallback for old format
                 const pronunciation = translator.getPronunciation(translatedText);
                 if (pronunciation) {
                     const guideEl = document.createElement('p');
@@ -259,7 +302,17 @@ function initTranslator() {
         translateBtn.addEventListener('click', () => {
             const inputText = translatorInput.value;
             if (inputText.trim()) {
-                const translatedText = translator.translate(inputText, currentDirection);
+                // Clear previous output
+                translatorOutput.textContent = '';
+
+                // Remove any existing additional elements
+                const existingElements = translatorOutput.querySelectorAll('.pronunciation-guide, .confidence-indicator, .suggestions-box');
+                existingElements.forEach(el => el.remove());
+
+                // Translate with enhanced features
+                const result = translator.translate(inputText, currentDirection);
+                const translatedText = typeof result === 'string' ? result : result.text;
+
                 translatorOutput.textContent = translatedText;
 
                 // Show pronunciation button
@@ -268,14 +321,51 @@ function initTranslator() {
                     speakTranslationBtn.onclick = () => speakText(translatedText);
                 }
 
-                // Add pronunciation guide if available (only for Pidgin output)
-                if (currentDirection === 'eng-to-pidgin') {
+                // Add enhanced features if result is object
+                if (typeof result === 'object') {
+                    // Add confidence indicator
+                    if (result.confidence !== undefined) {
+                        const confidenceEl = document.createElement('div');
+                        confidenceEl.className = 'confidence-indicator flex items-center mt-2 text-sm';
+
+                        const confidenceColor = result.confidence >= 80 ? 'text-green-600' :
+                                              result.confidence >= 60 ? 'text-yellow-600' : 'text-red-600';
+
+                        confidenceEl.innerHTML = `
+                            <span class="${confidenceColor} font-semibold">Confidence: ${result.confidence}%</span>
+                            <div class="ml-2 w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
+                                <div class="h-full ${result.confidence >= 80 ? 'bg-green-500' :
+                                                   result.confidence >= 60 ? 'bg-yellow-500' : 'bg-red-500'}"
+                                     style="width: ${result.confidence}%"></div>
+                            </div>
+                        `;
+                        translatorOutput.appendChild(confidenceEl);
+                    }
+
+                    // Add suggestions if available
+                    if (result.suggestions && result.suggestions.length > 0) {
+                        const suggestionsEl = document.createElement('div');
+                        suggestionsEl.className = 'suggestions-box mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200';
+                        suggestionsEl.innerHTML = `
+                            <div class="text-sm font-semibold text-blue-800 mb-2">💡 Suggestions:</div>
+                            ${result.suggestions.map(suggestion =>
+                                `<div class="text-sm text-blue-700 mb-1">• ${suggestion}</div>`
+                            ).join('')}
+                        `;
+                        translatorOutput.appendChild(suggestionsEl);
+                    }
+
+                    // Add pronunciation guide
+                    if (result.pronunciation) {
+                        const guideEl = document.createElement('p');
+                        guideEl.className = 'text-sm text-gray-600 mt-2 italic pronunciation-guide';
+                        guideEl.textContent = result.pronunciation;
+                        translatorOutput.appendChild(guideEl);
+                    }
+                } else if (currentDirection === 'eng-to-pidgin') {
+                    // Fallback for old format
                     const pronunciation = translator.getPronunciation(translatedText);
                     if (pronunciation) {
-                        const existingGuide = translatorOutput.querySelector('.pronunciation-guide');
-                        if (existingGuide) {
-                            existingGuide.remove();
-                        }
                         const guideEl = document.createElement('p');
                         guideEl.className = 'text-sm text-gray-600 mt-2 italic pronunciation-guide';
                         guideEl.textContent = pronunciation;
