@@ -5,7 +5,10 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "./scripts/dev-server.sh",
+    "build": "./scripts/build.sh",
+    "deploy": "./scripts/deploy.sh",
+    "serve": "node server.js"
   },
   "keywords": [
     "pidgin",

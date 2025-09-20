@@ -1,18 +1,37 @@
 User-agent: *
 Allow: /
 
-# Disallow common non-content directories
+# Disallow technical directories and files
 Disallow: /js/
 Disallow: /css/
+Disallow: /tools/
+Disallow: /config/
+Disallow: /backup/
+Disallow: /scripts/
 Disallow: /*.js$
 Disallow: /*.css$
+Disallow: /*.json$
 
-# Allow important assets
+# Allow important assets and content
 Allow: /favicon.ico
 Allow: /favicon.svg
+Allow: /assets/
+Allow: /dictionary.html
+Allow: /ask-local.html
+
+# Specific bot configurations
+User-agent: Googlebot
+Crawl-delay: 1
+
+User-agent: Bingbot
+Crawl-delay: 2
+
+User-agent: facebookexternalhit
+Allow: /
 
 # Sitemap location
 Sitemap: https://chokepidgin.com/sitemap.xml
 
-# Crawl-delay for polite crawling
-Crawl-delay: 1
+# Additional metadata
+# Site: ChokePidgin.com - Hawaiian Pidgin English Learning Platform
+# Contact: webmaster@chokepidgin.com

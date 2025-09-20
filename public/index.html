@@ -35,59 +35,175 @@
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="alternate icon" href="/favicon.ico">
-    <!-- Structured Data -->
+    <!-- Enhanced Structured Data -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "ChokePidgin.com",
+        "alternateName": "Choke Pidgin",
         "url": "https://chokepidgin.com",
-        "description": "Learn Hawaiian Pidgin English with our free translator, comprehensive dictionary, and interactive lessons.",
-        "inLanguage": "en-US",
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://chokepidgin.com/dictionary.html?search={search_term_string}",
-            "query-input": "required name=search_term_string"
+        "description": "Learn Hawaiian Pidgin English with our free translator, comprehensive dictionary, and interactive lessons. Discover authentic local phrases, pronunciations, and cultural context from Hawaii.",
+        "inLanguage": ["en-US", "hwc"],
+        "about": {
+            "@type": "Language",
+            "name": "Hawaiian Pidgin",
+            "alternateName": ["Hawaii Creole English", "Hawaiian Creole", "Pidgin"],
+            "iso6393Code": "hwc"
         },
-        "mainEntity": {
-            "@type": "EducationalOrganization",
+        "audience": {
+            "@type": "Audience",
+            "audienceType": ["language learners", "Hawaii visitors", "local residents", "linguists", "educators"]
+        },
+        "creator": {
+            "@type": "Organization",
             "name": "ChokePidgin.com",
-            "description": "Educational platform for learning Hawaiian Pidgin English",
-            "url": "https://chokepidgin.com",
-            "sameAs": [],
-            "contactPoint": {
-                "@type": "ContactPoint",
-                "contactType": "customer service"
+            "url": "https://chokepidgin.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "ChokePidgin.com",
+            "url": "https://chokepidgin.com"
+        },
+        "potentialAction": [
+            {
+                "@type": "SearchAction",
+                "target": "https://chokepidgin.com/dictionary.html?search={search_term_string}",
+                "query-input": "required name=search_term_string"
             },
-            "areaServed": {
-                "@type": "Place",
-                "name": "Hawaii"
-            },
-            "hasOfferCatalog": {
-                "@type": "OfferCatalog",
-                "name": "Hawaiian Pidgin Learning Resources",
-                "itemListElement": [
-                    {
-                        "@type": "Course",
-                        "name": "Hawaiian Pidgin Translator",
-                        "description": "Free online translator between English and Hawaiian Pidgin",
-                        "provider": {
-                            "@type": "Organization",
-                            "name": "ChokePidgin.com"
-                        }
-                    },
-                    {
+            {
+                "@type": "TranslateAction",
+                "target": "https://chokepidgin.com/#translator",
+                "object": {
+                    "@type": "Language",
+                    "name": "English"
+                },
+                "result": {
+                    "@type": "Language",
+                    "name": "Hawaiian Pidgin"
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- Educational Organization Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "ChokePidgin.com",
+        "description": "Educational platform for learning Hawaiian Pidgin English with comprehensive dictionary, translator, and interactive lessons",
+        "url": "https://chokepidgin.com",
+        "educationalUse": "language learning",
+        "teaches": "Hawaiian Pidgin English",
+        "areaServed": {
+            "@type": "Place",
+            "name": "Hawaii",
+            "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": "21.3099",
+                "longitude": "-157.8581"
+            }
+        },
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Hawaiian Pidgin Learning Tools",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
                         "@type": "Course",
                         "name": "Hawaiian Pidgin Dictionary",
-                        "description": "Comprehensive dictionary with over 270 Hawaiian Pidgin terms",
+                        "description": "Comprehensive dictionary with 428+ terms, pronunciations, and cultural context",
                         "provider": {
                             "@type": "Organization",
                             "name": "ChokePidgin.com"
-                        }
-                    }
-                ]
-            }
+                        },
+                        "educationalLevel": "Beginner to Advanced",
+                        "timeRequired": "Self-paced",
+                        "courseMode": "online"
+                    },
+                    "price": "0",
+                    "priceCurrency": "USD"
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Course",
+                        "name": "Pidgin-English Translator",
+                        "description": "Bidirectional translator with confidence scoring and fuzzy matching",
+                        "provider": {
+                            "@type": "Organization",
+                            "name": "ChokePidgin.com"
+                        },
+                        "educationalLevel": "All Levels",
+                        "timeRequired": "Instant",
+                        "courseMode": "online"
+                    },
+                    "price": "0",
+                    "priceCurrency": "USD"
+                }
+            ]
         }
+    }
+    </script>
+
+    <!-- FAQ Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is Hawaiian Pidgin?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Hawaiian Pidgin, also known as Hawaii Creole English (HCE), is a creole language spoken in Hawaii. It developed from contact between Hawaiian, English, Portuguese, Japanese, Filipino, and other languages brought by immigrants to Hawaii."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I use the Pidgin translator?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Simply type or paste English text into the translator box and it will convert it to Hawaiian Pidgin. You can also translate from Pidgin to English. The translator uses advanced matching algorithms to provide accurate translations with confidence scores."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is ChokePidgin.com free to use?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes! ChokePidgin.com is completely free to use. All features including the dictionary, translator, and learning materials are available at no cost to help preserve and share Hawaiian Pidgin culture."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How many words are in the Pidgin dictionary?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Our comprehensive dictionary contains over 428 Hawaiian Pidgin terms with pronunciations, examples, cultural context, and usage notes. The dictionary is regularly updated with new entries."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I contribute to the dictionary?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes! Use our 'Ask a Local' feature to suggest new words, corrections, or share your knowledge about Hawaiian Pidgin. Community contributions help keep our dictionary accurate and comprehensive."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is Hawaiian Pidgin the same as Hawaiian language?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No, Hawaiian Pidgin (Hawaii Creole English) is different from Hawaiian language (ʻŌlelo Hawaiʻi). Hawaiian is the indigenous Polynesian language of Hawaii, while Pidgin is a creole that developed from multiple languages including Hawaiian, English, and immigrant languages."
+                }
+            }
+        ]
     }
     </script>
 

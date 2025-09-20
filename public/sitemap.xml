@@ -4,50 +4,60 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
-    <!-- Homepage -->
+    <!-- Homepage - Main landing page -->
     <url>
         <loc>https://chokepidgin.com/</loc>
-        <lastmod>2025-01-19</lastmod>
+        <lastmod>2025-09-20</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
 
-    <!-- Dictionary Page -->
+    <!-- Dictionary Page - Main feature -->
     <url>
         <loc>https://chokepidgin.com/dictionary.html</loc>
-        <lastmod>2025-01-19</lastmod>
+        <lastmod>2025-09-20</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
 
-    <!-- Ask a Local Page -->
+    <!-- Ask a Local Page - Community feature -->
     <url>
         <loc>https://chokepidgin.com/ask-local.html</loc>
-        <lastmod>2025-01-19</lastmod>
-        <changefreq>weekly</changefreq>
+        <lastmod>2025-09-20</lastmod>
+        <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
 
-    <!-- Main sections (anchors) -->
+    <!-- Translator Tool - Key functionality -->
     <url>
         <loc>https://chokepidgin.com/#translator</loc>
-        <lastmod>2025-01-19</lastmod>
+        <lastmod>2025-09-20</lastmod>
         <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Learning Hub - Educational content -->
+    <url>
+        <loc>https://chokepidgin.com/#learning</loc>
+        <lastmod>2025-09-20</lastmod>
+        <changefreq>bi-weekly</changefreq>
         <priority>0.8</priority>
     </url>
 
+    <!-- Community Section -->
     <url>
-        <loc>https://chokepidgin.com/#learning</loc>
-        <lastmod>2025-01-19</lastmod>
-        <changefreq>weekly</changefreq>
+        <loc>https://chokepidgin.com/#community</loc>
+        <lastmod>2025-09-20</lastmod>
+        <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
 
+    <!-- About Section -->
     <url>
-        <loc>https://chokepidgin.com/#community</loc>
-        <lastmod>2025-01-19</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
+        <loc>https://chokepidgin.com/#about</loc>
+        <lastmod>2025-09-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
     </url>
 
 </urlset>
