@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "./scripts/dev-server.sh",
-    "build": "node tools/build/build.js",
+    "build": "node build.js",
     "build-sh": "./scripts/build.sh",
     "deploy": "./scripts/deploy.sh",
     "serve": "node server.js"
