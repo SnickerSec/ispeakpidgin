@@ -4051,7 +4051,29 @@ const comprehensivePidginData = {
     'white kukui blossom': { pidgin: 'white kukui blossom', english: 'official flower of Molokai', category: 'cultural', pronunciation: 'white koo-KOO-ee BLAH-sum', example: 'Da white kukui blossom stay beautiful', usage: 'Island flower', origin: 'Hawaiian', audioExample: 'Pick white kukui blossom' },
     'whaddsdascoops': { pidgin: 'whaddsdascoops', english: "what's going on", category: 'greetings', pronunciation: 'wahts-dah-SKOOPS', example: 'Eh, whaddsdascoops?', usage: 'Casual greeting', origin: 'Local slang', audioExample: 'Whaddsdascoops brah?' },
     'winnahz': { pidgin: 'winnahz', english: 'delicious/awesome', category: 'slang', pronunciation: 'WIN-nahz', example: 'Da food stay winnahz', usage: 'Really good', origin: 'English "winner"', audioExample: 'Winnahz grindz!' },
-    'wop yo jaw': { pidgin: 'wop yo jaw', english: 'I told you so', category: 'expressions', pronunciation: 'wop-yo-JAW', example: 'Wop yo jaw, I said so!', usage: 'Being right', origin: 'Local slang', audioExample: 'Wop yo jaw!' }
+    'wop yo jaw': { pidgin: 'wop yo jaw', english: 'I told you so', category: 'expressions', pronunciation: 'wop-yo-JAW', example: 'Wop yo jaw, I said so!', usage: 'Being right', origin: 'Local slang', audioExample: 'Wop yo jaw!' },
+
+    // Final batch of essential missing terms
+    'mahimahi': { pidgin: 'mahimahi', english: 'dolphin fish', category: 'food', pronunciation: 'MAH-hee-MAH-hee', example: 'Catch fresh mahimahi', usage: 'Popular eating fish', origin: 'Hawaiian', audioExample: 'Ono mahimahi!' },
+    'haupia': { pidgin: 'haupia', english: 'coconut pudding', category: 'food', pronunciation: 'how-PEE-ah', example: 'Aunty made haupia', usage: 'Traditional dessert', origin: 'Hawaiian', audioExample: 'Sweet haupia!' },
+    'lilikoi': { pidgin: 'lilikoi', english: 'passion fruit', category: 'food', pronunciation: 'LEE-lee-koy', example: 'Get lilikoi juice', usage: 'Tropical fruit', origin: 'Hawaiian', audioExample: 'Tart lilikoi' },
+    'laulau': { pidgin: 'laulau', english: 'meat wrapped in taro leaves', category: 'food', pronunciation: 'LOW-low', example: 'Grandma made laulau', usage: 'Traditional dish', origin: 'Hawaiian', audioExample: 'Tender laulau!' },
+    'menehune': { pidgin: 'menehune', english: 'mythological dwarf people', category: 'cultural', pronunciation: 'meh-neh-HOO-neh', example: 'Da menehune built dat wall', usage: 'Legendary little people', origin: 'Hawaiian', audioExample: 'Menehune magic!' },
+    'honu': { pidgin: 'honu', english: 'sea turtle', category: 'animals', pronunciation: 'HOH-noo', example: 'Swimming with da honu', usage: 'Hawaiian green sea turtle', origin: 'Hawaiian', audioExample: 'Beautiful honu!' },
+    'nēnē': { pidgin: 'nēnē', english: 'Hawaiian goose', category: 'animals', pronunciation: 'NAY-nay', example: 'See da nēnē at park', usage: 'State bird of Hawaii', origin: 'Hawaiian', audioExample: 'Rare nēnē!' },
+    'pueo': { pidgin: 'pueo', english: 'Hawaiian owl', category: 'animals', pronunciation: 'POO-eh-oh', example: 'Da pueo hunting at night', usage: 'Native Hawaiian owl', origin: 'Hawaiian', audioExample: 'Wise pueo!' },
+    'heiau': { pidgin: 'heiau', english: 'Hawaiian temple', category: 'cultural', pronunciation: 'HEY-ow', example: 'Visit da old heiau', usage: 'Sacred Hawaiian temple', origin: 'Hawaiian', audioExample: 'Ancient heiau!' },
+    'lūʻau': { pidgin: 'lūʻau', english: 'Hawaiian feast', category: 'cultural', pronunciation: 'loo-OW', example: 'Going to da big lūʻau', usage: 'Traditional Hawaiian party', origin: 'Hawaiian', audioExample: 'Fun lūʻau tonight!' },
+    'ukulele': { pidgin: 'ukulele', english: 'small four-stringed guitar', category: 'cultural', pronunciation: 'oo-koo-LEH-leh', example: 'Play da ukulele', usage: 'Hawaiian musical instrument', origin: 'Hawaiian', audioExample: 'Sweet ukulele music!' },
+    'lānai': { pidgin: 'lānai', english: 'porch or veranda', category: 'architecture', pronunciation: 'lah-NYE', example: 'Sit on da lānai', usage: 'Covered outdoor area', origin: 'Hawaiian', audioExample: 'Relax on lānai!' },
+    'lei': { pidgin: 'lei', english: 'garland of flowers', category: 'cultural', pronunciation: 'LAY', example: 'Get beautiful lei', usage: 'Hawaiian flower necklace', origin: 'Hawaiian', audioExample: 'Fragrant lei!' },
+    'muʻumuʻu': { pidgin: 'muʻumuʻu', english: 'loose Hawaiian dress', category: 'clothing', pronunciation: 'moo-oo-MOO-oo', example: 'Wear your muʻumuʻu', usage: 'Traditional Hawaiian dress', origin: 'Hawaiian', audioExample: 'Comfortable muʻumuʻu!' },
+    'pāhoehoe': { pidgin: 'pāhoehoe', english: 'smooth ropy lava', category: 'nature', pronunciation: 'pah-HOH-eh-HOH-eh', example: 'Walking on pāhoehoe', usage: 'Type of volcanic rock', origin: 'Hawaiian', audioExample: 'Hot pāhoehoe!' },
+    'pali': { pidgin: 'pali', english: 'cliff or precipice', category: 'nature', pronunciation: 'PAH-lee', example: 'Look over da pali', usage: 'Steep cliff or mountain ridge', origin: 'Hawaiian', audioExample: 'Scary pali drop!' },
+    'mauna': { pidgin: 'mauna', english: 'mountain', category: 'nature', pronunciation: 'MOW-nah', example: 'Climb da mauna', usage: 'Mountain or large hill', origin: 'Hawaiian', audioExample: 'Tall mauna!' },
+    'wakea': { pidgin: 'wakea', english: 'Sky Father in mythology', category: 'cultural', pronunciation: 'wah-KEH-ah', example: 'Wakea and Papa', usage: 'Hawaiian god figure', origin: 'Hawaiian', audioExample: 'Wakea up high!' },
+    'limu': { pidgin: 'limu', english: 'seaweed', category: 'food', pronunciation: 'LEE-moo', example: 'Pick limu from rocks', usage: 'Edible seaweed', origin: 'Hawaiian', audioExample: 'Fresh limu!' },
+    'taro': { pidgin: 'taro', english: 'tropical plant with edible root', category: 'food', pronunciation: 'TAIR-oh', example: 'Grow taro in loʻi', usage: 'Staple Hawaiian food crop', origin: 'Hawaiian adaptation', audioExample: 'Pound taro!' }
 };
 
 // Export for use in other modules
