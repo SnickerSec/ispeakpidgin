@@ -175,6 +175,21 @@ function copyAssets() {
     });
 }
 
+// Copy favicon files to root
+function copyFavicons() {
+    const faviconFiles = ['favicon.ico', 'favicon.svg'];
+
+    faviconFiles.forEach(filename => {
+        const srcPath = path.join(config.publicDir, 'assets', 'icons', filename);
+        const destPath = path.join(config.publicDir, filename);
+
+        if (fs.existsSync(srcPath)) {
+            fs.copyFileSync(srcPath, destPath);
+            console.log(`🎯 Copied favicon: ${filename}`);
+        }
+    });
+}
+
 // Main build function
 function build() {
     try {
@@ -186,6 +201,7 @@ function build() {
         copyDataFiles();
         copyCSSFiles();
         copyAssets();
+        copyFavicons();
 
         console.log('\n✅ Build completed successfully!');
         console.log('📂 Production files are in the /public directory');
