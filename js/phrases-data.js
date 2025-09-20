@@ -216,6 +216,158 @@ const pidginPhrases = {
             pidgin: "Hana hou! Dat was ono!",
             english: "Do it again! That was delicious!",
             usage: "Asking for more of something good"
+        },
+
+        // Enhanced phrases from comprehensive data
+        {
+            pidgin: "Shoots brah, latahs!",
+            english: "Alright friend, see you later!",
+            usage: "Casual farewell between friends"
+        },
+        {
+            pidgin: "Da kanak attack stay hitting me",
+            english: "Food coma is hitting me",
+            usage: "Feeling sleepy after a big meal"
+        },
+        {
+            pidgin: "You like chance um or wat?",
+            english: "Do you want to try it or what?",
+            usage: "Encouraging someone to take a risk"
+        },
+        {
+            pidgin: "I stay small kine shame",
+            english: "I'm a little embarrassed",
+            usage: "Expressing mild embarrassment"
+        },
+        {
+            pidgin: "No make liddiss in front kupuna",
+            english: "Don't act like this in front of elders",
+            usage: "Showing respect for elderly"
+        },
+        {
+            pidgin: "Da weather stay so pilau today",
+            english: "The weather is so gross today",
+            usage: "Complaining about bad weather"
+        },
+        {
+            pidgin: "We go kanikapila at da beach",
+            english: "Let's go play music at the beach",
+            usage: "Inviting friends to jam session"
+        },
+        {
+            pidgin: "He get one hagemoge face",
+            english: "He has an exhausted face",
+            usage: "Describing someone who looks very tired"
+        },
+        {
+            pidgin: "Dis buggah stay all kapakahi",
+            english: "This thing is all crooked",
+            usage: "Describing something that's not straight"
+        },
+        {
+            pidgin: "Ho brah, you stay erking me!",
+            english: "Hey friend, you're irritating me!",
+            usage: "Expressing mild annoyance"
+        },
+        {
+            pidgin: "Rajah dat, no need pilikia",
+            english: "Got it, no need for trouble",
+            usage: "Acknowledging and avoiding problems"
+        },
+        {
+            pidgin: "Da manapua man stay coming!",
+            english: "The food truck is coming!",
+            usage: "Excitement about mobile food vendor"
+        },
+        {
+            pidgin: "I going holoholo wit my ohana",
+            english: "I'm going to cruise with my family",
+            usage: "Spending leisure time with family"
+        },
+        {
+            pidgin: "Try wait, I get one phone call",
+            english: "Hold on, I have a phone call",
+            usage: "Asking for patience during interruption"
+        },
+        {
+            pidgin: "You stay acting all mento today",
+            english: "You're acting all crazy today",
+            usage: "Commenting on someone's wild behavior"
+        },
+        {
+            pidgin: "Da party was so nails last night",
+            english: "The party was so awesome last night",
+            usage: "Describing an amazing event"
+        },
+        {
+            pidgin: "No be one tantaran at school",
+            english: "Don't be a show-off at school",
+            usage: "Advising against boastful behavior"
+        },
+        {
+            pidgin: "My tutu kane stay teaching me fish",
+            english: "My grandfather is teaching me to fish",
+            usage: "Learning from elders"
+        },
+        {
+            pidgin: "Eh sistah, you look winnahz today!",
+            english: "Hey sister, you look awesome today!",
+            usage: "Complimenting someone's appearance"
+        },
+        {
+            pidgin: "I going sample dat new poke place",
+            english: "I'm going to try that new poke place",
+            usage: "Planning to test new food"
+        },
+        {
+            pidgin: "Da surf stay all bumboocha today",
+            english: "The surf is huge today",
+            usage: "Describing big waves"
+        },
+        {
+            pidgin: "You like beef or you just talking?",
+            english: "Do you want to fight or are you just talking?",
+            usage: "Challenging someone's words"
+        },
+        {
+            pidgin: "Dis place get too much shark bait",
+            english: "This place has too many tourists",
+            usage: "Commenting on crowded tourist areas"
+        },
+        {
+            pidgin: "My car stay all hammajang again",
+            english: "My car is all messed up again",
+            usage: "Complaining about broken vehicle"
+        },
+        {
+            pidgin: "We go scrap or wat, brah?",
+            english: "Are we going to fight or what, friend?",
+            usage: "Escalating a confrontation"
+        },
+        {
+            pidgin: "Aurite den, I catch you later",
+            english: "Alright then, I'll see you later",
+            usage: "Ending conversation and departing"
+        },
+        {
+            pidgin: "Da keiki stay all kolohe today",
+            english: "The kids are being mischievous today",
+            usage: "Describing playfully naughty children"
+        },
+        {
+            pidgin: "You going get lickens if you no listen",
+            english: "You're going to get a beating if you don't listen",
+            usage: "Warning about consequences"
+        },
+        {
+            pidgin: "Chee hoo! Da waves stay firing!",
+            english: "Awesome! The waves are perfect!",
+            usage: "Excitement about surf conditions"
+        },
+        {
+            pidgin: "I stay so moe moe after dat meal",
+            english: "I'm so sleepy after that meal",
+            usage: "Post-meal drowsiness"
         }
     ],
 
@@ -440,7 +592,125 @@ const pidginPhrases = {
         "good job": "good job",
         "well done": "good job",
         "be careful": "watch out",
-        "watch out": "watch out"
+        "watch out": "watch out",
+
+        // Enhanced translations from comprehensive pidgin data
+        "irritating": "erking",
+        "annoying": "erking",
+        "bothering": "erking",
+        "exhausted": "hagemoge",
+        "worn out": "hagemoge",
+        "beat": "hagemoge",
+        "crooked": "kapakahi",
+        "lopsided": "kapakahi",
+        "uneven": "kapakahi",
+        "mischievous": "kolohe",
+        "naughty": "kolohe",
+        "rascal": "kolohe",
+        "show-off": "tantaran",
+        "braggart": "tantaran",
+        "boastful": "tantaran",
+        "sleepy": "moe moe",
+        "drowsy": "moe moe",
+        "tired": "moe moe",
+        "nervous": "nerjis",
+        "anxious": "nerjis",
+        "worried": "nerjis",
+        "disgusting": "ujee",
+        "gross": "ujee",
+        "nasty": "ujee",
+        "awesome": "nails",
+        "tough": "nails",
+        "difficult": "nails",
+        "cool": "trippy",
+        "weird": "trippy",
+        "strange": "trippy",
+        "delicious": "winnahz",
+        "excellent": "winnahz",
+        "outstanding": "winnahz",
+        "thirty": "turtles",
+        "tourist": "shark bait",
+        "visitor": "shark bait",
+        "mainland person": "shark bait",
+        "dirty old man": "sukebe",
+        "pervert": "sukebe",
+        "creep": "sukebe",
+        "embarrassed": "shame",
+        "ashamed": "shame",
+        "bashful": "shame",
+        "try": "sample",
+        "taste": "sample",
+        "test": "sample",
+        "jam session": "kanikapila",
+        "play music": "kanikapila",
+        "music gathering": "kanikapila",
+        "food coma": "kanak attack",
+        "sleepy after eating": "kanak attack",
+        "post-meal drowsiness": "kanak attack",
+        "food truck": "manapua man",
+        "mobile vendor": "manapua man",
+        "street food": "manapua man",
+        "huge": "bumboocha",
+        "enormous": "bumboocha",
+        "gigantic": "bumboocha",
+        "crooked": "kapakahi",
+        "slanted": "kapakahi",
+        "askew": "kapakahi",
+        "messed up": "hammajang",
+        "broken": "hammajang",
+        "ruined": "hammajang",
+        "trouble": "pilikia",
+        "problem": "pilikia",
+        "difficulty": "pilikia",
+        "elder": "kupuna",
+        "grandparent": "kupuna",
+        "ancestor": "kupuna",
+        "family": "ohana",
+        "relatives": "ohana",
+        "clan": "ohana",
+        "fight": "scrap",
+        "battle": "scrap",
+        "brawl": "scrap",
+        "beating": "lickens",
+        "spanking": "lickens",
+        "punishment": "lickens",
+        "understand": "sabe",
+        "comprehend": "sabe",
+        "get it": "sabe",
+        "cruise": "holoholo",
+        "drive around": "holoholo",
+        "go for a ride": "holoholo",
+        "stinky": "pilau",
+        "smelly": "pilau",
+        "foul": "pilau",
+        "Korean person": "yobo",
+        "Korean": "yobo",
+        "Chinese person": "pake",
+        "Chinese": "pake",
+        "Filipino person": "flip",
+        "Filipino": "flip",
+        "Japanese person": "japanee",
+        "Japanese": "japanee",
+        "Portuguese person": "potagee",
+        "Portuguese": "potagee",
+        "Hawaiian person": "kanaka",
+        "Native Hawaiian": "kanaka",
+        "local person": "kanaka",
+        "thing": "buggah",
+        "person": "buggah",
+        "guy": "buggah",
+        "mental": "mento",
+        "crazy": "mento",
+        "insane": "mento",
+        "minor": "minors",
+        "small thing": "minors",
+        "no big deal": "minors",
+        "what's going on": "whaddsdascoops",
+        "what's happening": "whaddsdascoops",
+        "what's up": "whaddsdascoops",
+        "I told you so": "wop yo jaw",
+        "see I was right": "wop yo jaw",
+        "told you": "wop yo jaw"
     },
 
     // Greetings and common expressions
@@ -450,7 +720,79 @@ const pidginPhrases = {
         { pidgin: "Rajah dat", english: "Roger that/Got it", context: "Understanding" },
         { pidgin: "Latahs", english: "See you later", context: "Saying goodbye" },
         { pidgin: "Tanks ah", english: "Thank you", context: "Gratitude" },
-        { pidgin: "No worries", english: "You're welcome", context: "Response to thanks" }
+        { pidgin: "No worries", english: "You're welcome", context: "Response to thanks" },
+        { pidgin: "Eh, wassup?", english: "Hey, what's up?", context: "Casual greeting" },
+        { pidgin: "Whaddsdascoops?", english: "What's going on?", context: "Asking about happenings" },
+        { pidgin: "Aurite den", english: "Alright then", context: "Agreeing or departing" },
+        { pidgin: "Chee hoo!", english: "Awesome!/Woohoo!", context: "Excitement" }
+    ],
+
+    // Food and eating phrases
+    foodPhrases: [
+        { pidgin: "Da grindz stay broke da mouth", english: "The food is incredibly delicious", context: "Praising amazing food" },
+        { pidgin: "Dis stay so ono", english: "This is so delicious", context: "Enjoying food" },
+        { pidgin: "We go grind", english: "Let's eat", context: "Invitation to eat" },
+        { pidgin: "I get kanak attack", english: "I have food coma", context: "Sleepy after big meal" },
+        { pidgin: "Da manapua man stay coming", english: "The food truck is coming", context: "Mobile food vendor" },
+        { pidgin: "Get choke pūpū", english: "There are lots of appetizers", context: "Party food" },
+        { pidgin: "Sample dat", english: "Try that", context: "Taste testing" },
+        { pidgin: "Dis stay winnahz", english: "This is excellent", context: "Outstanding food" }
+    ],
+
+    // Family and relationships
+    familyPhrases: [
+        { pidgin: "My ohana stay tight", english: "My family is close", context: "Strong family bonds" },
+        { pidgin: "Respect da kupuna", english: "Respect the elders", context: "Honoring elderly" },
+        { pidgin: "Da keiki stay kolohe", english: "The kids are mischievous", context: "Playful children" },
+        { pidgin: "My tutu stay teaching me", english: "My grandmother is teaching me", context: "Learning from elders" },
+        { pidgin: "Eh sistah, howzit?", english: "Hey sister, how are you?", context: "Greeting female friend" },
+        { pidgin: "Brah, you my bruddah", english: "Friend, you're my brother", context: "Close friendship" }
+    ],
+
+    // Emotions and reactions
+    emotionPhrases: [
+        { pidgin: "I stay small kine shame", english: "I'm a little embarrassed", context: "Mild embarrassment" },
+        { pidgin: "Ho, dat stay nails!", english: "Wow, that's awesome!", context: "Admiration" },
+        { pidgin: "You stay erking me", english: "You're irritating me", context: "Mild annoyance" },
+        { pidgin: "I stay so moe moe", english: "I'm so sleepy", context: "Being tired" },
+        { pidgin: "I stay nerjis", english: "I'm nervous", context: "Feeling anxious" },
+        { pidgin: "Dat stay trippy", english: "That's weird/cool", context: "Something strange or interesting" }
+    ],
+
+    // Local culture and lifestyle
+    culturePhrases: [
+        { pidgin: "We go holoholo", english: "Let's go cruise around", context: "Leisure activity" },
+        { pidgin: "Time fo kanikapila", english: "Time for music session", context: "Playing music together" },
+        { pidgin: "Da waves stay firing", english: "The waves are perfect", context: "Great surf conditions" },
+        { pidgin: "Get choke shark bait today", english: "There are lots of tourists today", context: "Crowded with visitors" },
+        { pidgin: "I stay on Hawaiian time", english: "I'm running late", context: "Relaxed attitude about time" },
+        { pidgin: "Dis place stay kapu", english: "This place is forbidden", context: "Restricted area" }
+    ],
+
+    // Conflict and attitude
+    attitudePhrases: [
+        { pidgin: "You like beef?", english: "Do you want to fight?", context: "Challenging someone" },
+        { pidgin: "No be one tantaran", english: "Don't be a show-off", context: "Advising against boasting" },
+        { pidgin: "You going get lickens", english: "You're going to get a beating", context: "Warning about consequences" },
+        { pidgin: "We go scrap or wat?", english: "Are we going to fight or what?", context: "Escalating confrontation" },
+        { pidgin: "No make liddat", english: "Don't act like that", context: "Disapproving of behavior" },
+        { pidgin: "Wop yo jaw!", english: "I told you so!", context: "Being proven right" }
+    ],
+
+    // Weather and environment
+    environmentPhrases: [
+        { pidgin: "Da weather stay pilau", english: "The weather is gross", context: "Bad weather conditions" },
+        { pidgin: "Da vog stay thick", english: "The volcanic smog is thick", context: "Big Island air quality" },
+        { pidgin: "Da surf stay bumboocha", english: "The surf is huge", context: "Big wave conditions" },
+        { pidgin: "Get chicken skin", english: "I have goosebumps", context: "Cold or emotional reaction" }
+    ],
+
+    // Work and school
+    workSchoolPhrases: [
+        { pidgin: "Pau hana time!", english: "Work is finished!", context: "End of work day" },
+        { pidgin: "I get choke homework", english: "I have lots of homework", context: "Heavy academic workload" },
+        { pidgin: "My car stay hammajang", english: "My car is messed up", context: "Vehicle problems" },
+        { pidgin: "Everything stay kapakahi", english: "Everything is crooked/wrong", context: "Things not working properly" }
     ]
 };
 
@@ -458,4 +800,106 @@ const pidginPhrases = {
 function getDailyPhrase() {
     const randomIndex = Math.floor(Math.random() * pidginPhrases.dailyPhrases.length);
     return pidginPhrases.dailyPhrases[randomIndex];
+}
+
+// Function to get random phrase from specific category
+function getCategoryPhrase(category) {
+    const categories = {
+        'greetings': pidginPhrases.greetings,
+        'food': pidginPhrases.foodPhrases,
+        'family': pidginPhrases.familyPhrases,
+        'emotions': pidginPhrases.emotionPhrases,
+        'culture': pidginPhrases.culturePhrases,
+        'attitude': pidginPhrases.attitudePhrases,
+        'environment': pidginPhrases.environmentPhrases,
+        'work': pidginPhrases.workSchoolPhrases
+    };
+
+    const phrases = categories[category];
+    if (!phrases || phrases.length === 0) return null;
+
+    const randomIndex = Math.floor(Math.random() * phrases.length);
+    return phrases[randomIndex];
+}
+
+// Function to get all phrases from a category
+function getAllCategoryPhrases(category) {
+    const categories = {
+        'greetings': pidginPhrases.greetings,
+        'food': pidginPhrases.foodPhrases,
+        'family': pidginPhrases.familyPhrases,
+        'emotions': pidginPhrases.emotionPhrases,
+        'culture': pidginPhrases.culturePhrases,
+        'attitude': pidginPhrases.attitudePhrases,
+        'environment': pidginPhrases.environmentPhrases,
+        'work': pidginPhrases.workSchoolPhrases,
+        'daily': pidginPhrases.dailyPhrases
+    };
+
+    return categories[category] || [];
+}
+
+// Function to search phrases by English text
+function searchPhrases(searchTerm) {
+    const allPhrases = [
+        ...pidginPhrases.dailyPhrases,
+        ...pidginPhrases.greetings,
+        ...pidginPhrases.foodPhrases,
+        ...pidginPhrases.familyPhrases,
+        ...pidginPhrases.emotionPhrases,
+        ...pidginPhrases.culturePhrases,
+        ...pidginPhrases.attitudePhrases,
+        ...pidginPhrases.environmentPhrases,
+        ...pidginPhrases.workSchoolPhrases
+    ];
+
+    const term = searchTerm.toLowerCase();
+    return allPhrases.filter(phrase =>
+        phrase.pidgin.toLowerCase().includes(term) ||
+        phrase.english.toLowerCase().includes(term) ||
+        (phrase.usage && phrase.usage.toLowerCase().includes(term)) ||
+        (phrase.context && phrase.context.toLowerCase().includes(term))
+    );
+}
+
+// Function to get phrase categories list
+function getPhraseCategories() {
+    return [
+        { key: 'daily', name: 'Daily Conversations', count: pidginPhrases.dailyPhrases.length },
+        { key: 'greetings', name: 'Greetings & Farewells', count: pidginPhrases.greetings.length },
+        { key: 'food', name: 'Food & Eating', count: pidginPhrases.foodPhrases.length },
+        { key: 'family', name: 'Family & Relationships', count: pidginPhrases.familyPhrases.length },
+        { key: 'emotions', name: 'Emotions & Reactions', count: pidginPhrases.emotionPhrases.length },
+        { key: 'culture', name: 'Local Culture & Lifestyle', count: pidginPhrases.culturePhrases.length },
+        { key: 'attitude', name: 'Attitude & Conflict', count: pidginPhrases.attitudePhrases.length },
+        { key: 'environment', name: 'Weather & Environment', count: pidginPhrases.environmentPhrases.length },
+        { key: 'work', name: 'Work & School', count: pidginPhrases.workSchoolPhrases.length }
+    ];
+}
+
+// Enhanced translation function using comprehensive dictionary
+function translateToPidgin(englishText) {
+    const words = englishText.toLowerCase().split(/\s+/);
+    const translated = words.map(word => {
+        // Remove punctuation for lookup
+        const cleanWord = word.replace(/[^\w]/g, '');
+        return pidginPhrases.translationDict[cleanWord] ||
+               pidginPhrases.translationDict[word] ||
+               word;
+    });
+
+    return translated.join(' ');
+}
+
+// Export functions for use in other modules
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        pidginPhrases,
+        getDailyPhrase,
+        getCategoryPhrase,
+        getAllCategoryPhrases,
+        searchPhrases,
+        getPhraseCategories,
+        translateToPidgin
+    };
 }
