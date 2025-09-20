@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const compression = require('compression');
 const helmet = require('helmet');
+const fetch = require('node-fetch');
 require('dotenv').config();
 
 const app = express();
