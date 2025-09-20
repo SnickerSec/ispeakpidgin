@@ -46,7 +46,7 @@ app.post('/api/text-to-speech', async (req, res) => {
         }
 
         // ElevenLabs API configuration
-        const voiceId = 'XrExE9yKIg1WjnnlVkGX'; // Hawaiian voice ID
+        const voiceId = 'f0ODjLMfcJmlKfs7dFCW'; // Hawaiian voice ID
         const apiUrl = `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`;
 
         const response = await fetch(apiUrl, {
@@ -58,7 +58,7 @@ app.post('/api/text-to-speech', async (req, res) => {
             },
             body: JSON.stringify({
                 text: text,
-                model_id: 'eleven_multilingual_v2',
+                model_id: 'eleven_flash_v2_5',
                 voice_settings: {
                     stability: 0.5,
                     similarity_boost: 0.8,
