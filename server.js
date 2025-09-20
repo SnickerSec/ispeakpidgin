@@ -16,7 +16,10 @@ app.use(helmet({
             scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.tailwindcss.com"],
             imgSrc: ["'self'", "data:", "https:"],
             fontSrc: ["'self'", "https:"],
-            connectSrc: ["'self'", "https://api.elevenlabs.io"]
+            connectSrc: ["'self'", "https://api.elevenlabs.io"],
+            mediaSrc: ["'self'", "blob:", "data:", "https:"],
+            objectSrc: ["'none'"],
+            frameSrc: ["'none'"]
         }
     }
 }));
