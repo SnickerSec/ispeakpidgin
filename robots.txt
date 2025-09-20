@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# Disallow common non-content directories
+Disallow: /js/
+Disallow: /css/
+Disallow: /*.js$
+Disallow: /*.css$
+
+# Allow important assets
+Allow: /favicon.ico
+Allow: /favicon.svg
+
+# Sitemap location
+Sitemap: https://chokepidgin.com/sitemap.xml
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1
