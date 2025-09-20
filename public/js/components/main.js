@@ -165,6 +165,159 @@ function initTranslator() {
     const outputLabel = document.getElementById('output-label');
 
     let currentDirection = 'eng-to-pidgin';
+    let autoTranslateEnabled = false;
+    let typingTimer;
+    const typingDelay = 800; // Wait 800ms after user stops typing
+
+    // Auto-translate toggle functionality
+    function initAutoTranslateToggle() {
+        // Create auto-translate toggle if it doesn't exist
+        let autoToggleContainer = document.getElementById('auto-translate-container');
+        if (!autoToggleContainer) {
+            autoToggleContainer = document.createElement('div');
+            autoToggleContainer.id = 'auto-translate-container';
+            autoToggleContainer.className = 'flex items-center justify-center mb-4';
+            autoToggleContainer.innerHTML = `
+                <label class="flex items-center cursor-pointer">
+                    <input type="checkbox" id="auto-translate-toggle" class="sr-only">
+                    <div class="relative">
+                        <div class="block bg-gray-300 w-14 h-8 rounded-full"></div>
+                        <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition transform"></div>
+                    </div>
+                    <span class="ml-3 text-gray-700 font-medium">Auto-translate</span>
+                </label>
+            `;
+
+            // Insert before the translator input
+            const translatorSection = translatorInput.closest('.mb-6');
+            if (translatorSection) {
+                translatorSection.parentNode.insertBefore(autoToggleContainer, translatorSection);
+            }
+        }
+
+        const autoToggle = document.getElementById('auto-translate-toggle');
+        const toggleBg = autoToggleContainer.querySelector('.block');
+        const toggleDot = autoToggleContainer.querySelector('.dot');
+
+        if (autoToggle) {
+            autoToggle.addEventListener('change', () => {
+                autoTranslateEnabled = autoToggle.checked;
+
+                if (autoTranslateEnabled) {
+                    toggleBg.classList.remove('bg-gray-300');
+                    toggleBg.classList.add('bg-green-500');
+                    toggleDot.classList.add('translate-x-6');
+                } else {
+                    toggleBg.classList.remove('bg-green-500');
+                    toggleBg.classList.add('bg-gray-300');
+                    toggleDot.classList.remove('translate-x-6');
+                }
+
+                // Auto-translate current text if enabled and text exists
+                if (autoTranslateEnabled && translatorInput.value.trim()) {
+                    performTranslation();
+                }
+            });
+        }
+    }
+
+    // Initialize auto-translate toggle
+    initAutoTranslateToggle();
+
+    // Perform translation (shared function)
+    function performTranslation() {
+        const inputText = translatorInput.value.trim();
+        if (!inputText) {
+            translatorOutput.textContent = '';
+            speakTranslationBtn.classList.add('hidden');
+            return;
+        }
+
+        // Clear previous output
+        translatorOutput.textContent = '';
+        speakTranslationBtn.classList.add('hidden');
+
+        // Remove any existing additional elements
+        const existingElements = translatorOutput.querySelectorAll('.pronunciation-guide, .confidence-indicator, .suggestions-box');
+        existingElements.forEach(el => el.remove());
+
+        // Translate with enhanced features
+        const result = translator.translate(inputText, currentDirection);
+        const translatedText = typeof result === 'string' ? result : result.text;
+
+        translatorOutput.textContent = translatedText;
+
+        // Show pronunciation button
+        if (speakTranslationBtn && translatedText) {
+            speakTranslationBtn.classList.remove('hidden');
+            speakTranslationBtn.onclick = () => speakText(translatedText);
+        }
+
+        // Add enhanced features if result is object
+        if (typeof result === 'object') {
+            // Add confidence indicator
+            if (result.confidence !== undefined) {
+                const confidenceEl = document.createElement('div');
+                confidenceEl.className = 'confidence-indicator flex items-center mt-2 text-sm';
+
+                const confidenceColor = result.confidence >= 80 ? 'text-green-600' :
+                                      result.confidence >= 60 ? 'text-yellow-600' : 'text-red-600';
+
+                confidenceEl.innerHTML = `
+                    <span class="${confidenceColor} font-semibold">Confidence: ${result.confidence}%</span>
+                    <div class="ml-2 w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div class="h-full ${result.confidence >= 80 ? 'bg-green-500' :
+                                           result.confidence >= 60 ? 'bg-yellow-500' : 'bg-red-500'}"
+                             style="width: ${result.confidence}%"></div>
+                    </div>
+                `;
+                translatorOutput.appendChild(confidenceEl);
+            }
+
+            // Add suggestions if available
+            if (result.suggestions && result.suggestions.length > 0) {
+                const suggestionsEl = document.createElement('div');
+                suggestionsEl.className = 'suggestions-box mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200';
+                suggestionsEl.innerHTML = `
+                    <div class="text-sm font-semibold text-blue-800 mb-2">💡 Suggestions:</div>
+                    ${result.suggestions.map(suggestion =>
+                        `<div class="text-sm text-blue-700 mb-1">• ${suggestion}</div>`
+                    ).join('')}
+                `;
+                translatorOutput.appendChild(suggestionsEl);
+            }
+
+            // Add pronunciation guide
+            if (result.pronunciation) {
+                const guideEl = document.createElement('p');
+                guideEl.className = 'text-sm text-gray-600 mt-2 italic pronunciation-guide';
+                guideEl.textContent = result.pronunciation;
+                translatorOutput.appendChild(guideEl);
+            }
+        } else if (currentDirection === 'eng-to-pidgin') {
+            // Fallback for old format
+            const pronunciation = translator.getPronunciation(translatedText);
+            if (pronunciation) {
+                const guideEl = document.createElement('p');
+                guideEl.className = 'text-sm text-gray-600 mt-2 italic pronunciation-guide';
+                guideEl.textContent = pronunciation;
+                translatorOutput.appendChild(guideEl);
+            }
+        }
+    }
+
+    // Add auto-translate input listener
+    if (translatorInput) {
+        translatorInput.addEventListener('input', () => {
+            clearTimeout(typingTimer);
+
+            if (autoTranslateEnabled) {
+                typingTimer = setTimeout(() => {
+                    performTranslation();
+                }, typingDelay);
+            }
+        });
+    }
 
     // Toggle button functionality
     if (engToPidginBtn && pidginToEngBtn) {
@@ -186,8 +339,14 @@ function initTranslator() {
             translatorInput.placeholder = 'Type English text here...';
             translateBtn.textContent = 'Translate to Pidgin';
 
-            // Auto-translate existing text if any
-            autoTranslateOnToggle();
+            // Clear input field and output
+            translatorInput.value = '';
+            translatorOutput.textContent = '';
+            speakTranslationBtn.classList.add('hidden');
+
+            // Remove any existing additional elements
+            const existingElements = translatorOutput.querySelectorAll('.pronunciation-guide, .confidence-indicator, .suggestions-box');
+            existingElements.forEach(el => el.remove());
         });
 
         pidginToEngBtn.addEventListener('click', () => {
@@ -208,171 +367,22 @@ function initTranslator() {
             translatorInput.placeholder = 'Type Pidgin text here...';
             translateBtn.textContent = 'Translate to English';
 
-            // Auto-translate existing text if any
-            autoTranslateOnToggle();
+            // Clear input field and output
+            translatorInput.value = '';
+            translatorOutput.textContent = '';
+            speakTranslationBtn.classList.add('hidden');
+
+            // Remove any existing additional elements
+            const existingElements = translatorOutput.querySelectorAll('.pronunciation-guide, .confidence-indicator, .suggestions-box');
+            existingElements.forEach(el => el.remove());
         });
     }
 
-    // Auto-translate when toggling between directions
-    function autoTranslateOnToggle() {
-        const inputText = translatorInput.value.trim();
-        if (inputText) {
-            // Clear previous output
-            translatorOutput.textContent = '';
-            speakTranslationBtn.classList.add('hidden');
-
-            // Remove any existing pronunciation guides
-            const existingGuide = translatorOutput.querySelector('.pronunciation-guide');
-            if (existingGuide) {
-                existingGuide.remove();
-            }
-
-            // Translate the existing text with enhanced features
-            const result = translator.translate(inputText, currentDirection);
-            const translatedText = typeof result === 'string' ? result : result.text;
-
-            translatorOutput.textContent = translatedText;
-
-            // Show pronunciation button
-            if (speakTranslationBtn && translatedText) {
-                speakTranslationBtn.classList.remove('hidden');
-                speakTranslationBtn.onclick = () => speakText(translatedText);
-            }
-
-            // Add enhanced features if result is object
-            if (typeof result === 'object') {
-                // Add confidence indicator
-                if (result.confidence !== undefined) {
-                    const confidenceEl = document.createElement('div');
-                    confidenceEl.className = 'flex items-center mt-2 text-sm';
-
-                    const confidenceColor = result.confidence >= 80 ? 'text-green-600' :
-                                          result.confidence >= 60 ? 'text-yellow-600' : 'text-red-600';
-
-                    confidenceEl.innerHTML = `
-                        <span class="${confidenceColor} font-semibold">Confidence: ${result.confidence}%</span>
-                        <div class="ml-2 w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
-                            <div class="h-full ${result.confidence >= 80 ? 'bg-green-500' :
-                                               result.confidence >= 60 ? 'bg-yellow-500' : 'bg-red-500'}"
-                                 style="width: ${result.confidence}%"></div>
-                        </div>
-                    `;
-                    translatorOutput.appendChild(confidenceEl);
-                }
-
-                // Add suggestions if available
-                if (result.suggestions && result.suggestions.length > 0) {
-                    const suggestionsEl = document.createElement('div');
-                    suggestionsEl.className = 'mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200';
-                    suggestionsEl.innerHTML = `
-                        <div class="text-sm font-semibold text-blue-800 mb-2">💡 Suggestions:</div>
-                        ${result.suggestions.map(suggestion =>
-                            `<div class="text-sm text-blue-700 mb-1">• ${suggestion}</div>`
-                        ).join('')}
-                    `;
-                    translatorOutput.appendChild(suggestionsEl);
-                }
-
-                // Add pronunciation guide
-                if (result.pronunciation) {
-                    const guideEl = document.createElement('p');
-                    guideEl.className = 'text-sm text-gray-600 mt-2 italic pronunciation-guide';
-                    guideEl.textContent = result.pronunciation;
-                    translatorOutput.appendChild(guideEl);
-                }
-            } else if (currentDirection === 'eng-to-pidgin') {
-                // Fallback for old format
-                const pronunciation = translator.getPronunciation(translatedText);
-                if (pronunciation) {
-                    const guideEl = document.createElement('p');
-                    guideEl.className = 'text-sm text-gray-600 mt-2 italic pronunciation-guide';
-                    guideEl.textContent = pronunciation;
-                    translatorOutput.appendChild(guideEl);
-                }
-            }
-        } else {
-            // Just clear output if no input text
-            translatorOutput.textContent = '';
-            speakTranslationBtn.classList.add('hidden');
-        }
-    }
 
     // Translation functionality
-    if (translateBtn && translatorInput && translatorOutput) {
+    if (translateBtn) {
         translateBtn.addEventListener('click', () => {
-            const inputText = translatorInput.value;
-            if (inputText.trim()) {
-                // Clear previous output
-                translatorOutput.textContent = '';
-
-                // Remove any existing additional elements
-                const existingElements = translatorOutput.querySelectorAll('.pronunciation-guide, .confidence-indicator, .suggestions-box');
-                existingElements.forEach(el => el.remove());
-
-                // Translate with enhanced features
-                const result = translator.translate(inputText, currentDirection);
-                const translatedText = typeof result === 'string' ? result : result.text;
-
-                translatorOutput.textContent = translatedText;
-
-                // Show pronunciation button
-                if (speakTranslationBtn) {
-                    speakTranslationBtn.classList.remove('hidden');
-                    speakTranslationBtn.onclick = () => speakText(translatedText);
-                }
-
-                // Add enhanced features if result is object
-                if (typeof result === 'object') {
-                    // Add confidence indicator
-                    if (result.confidence !== undefined) {
-                        const confidenceEl = document.createElement('div');
-                        confidenceEl.className = 'confidence-indicator flex items-center mt-2 text-sm';
-
-                        const confidenceColor = result.confidence >= 80 ? 'text-green-600' :
-                                              result.confidence >= 60 ? 'text-yellow-600' : 'text-red-600';
-
-                        confidenceEl.innerHTML = `
-                            <span class="${confidenceColor} font-semibold">Confidence: ${result.confidence}%</span>
-                            <div class="ml-2 w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
-                                <div class="h-full ${result.confidence >= 80 ? 'bg-green-500' :
-                                                   result.confidence >= 60 ? 'bg-yellow-500' : 'bg-red-500'}"
-                                     style="width: ${result.confidence}%"></div>
-                            </div>
-                        `;
-                        translatorOutput.appendChild(confidenceEl);
-                    }
-
-                    // Add suggestions if available
-                    if (result.suggestions && result.suggestions.length > 0) {
-                        const suggestionsEl = document.createElement('div');
-                        suggestionsEl.className = 'suggestions-box mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200';
-                        suggestionsEl.innerHTML = `
-                            <div class="text-sm font-semibold text-blue-800 mb-2">💡 Suggestions:</div>
-                            ${result.suggestions.map(suggestion =>
-                                `<div class="text-sm text-blue-700 mb-1">• ${suggestion}</div>`
-                            ).join('')}
-                        `;
-                        translatorOutput.appendChild(suggestionsEl);
-                    }
-
-                    // Add pronunciation guide
-                    if (result.pronunciation) {
-                        const guideEl = document.createElement('p');
-                        guideEl.className = 'text-sm text-gray-600 mt-2 italic pronunciation-guide';
-                        guideEl.textContent = result.pronunciation;
-                        translatorOutput.appendChild(guideEl);
-                    }
-                } else if (currentDirection === 'eng-to-pidgin') {
-                    // Fallback for old format
-                    const pronunciation = translator.getPronunciation(translatedText);
-                    if (pronunciation) {
-                        const guideEl = document.createElement('p');
-                        guideEl.className = 'text-sm text-gray-600 mt-2 italic pronunciation-guide';
-                        guideEl.textContent = pronunciation;
-                        translatorOutput.appendChild(guideEl);
-                    }
-                }
-            }
+            performTranslation();
         });
 
         // Allow Enter key to translate
