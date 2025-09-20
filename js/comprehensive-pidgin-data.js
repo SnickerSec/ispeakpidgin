@@ -4030,7 +4030,28 @@ const comprehensivePidginData = {
     'yessah': { pidgin: 'yessah', english: 'yes sir', category: 'expressions', pronunciation: 'YES-sah', example: 'Yessah boss', usage: 'Respectful yes', origin: 'English', audioExample: 'Yessah!' },
     'yessah blessah': { pidgin: 'yessah blessah', english: 'awesome/great', category: 'slang', pronunciation: 'YES-sah BLESS-ah', example: 'Yessah blessah!', usage: 'Excitement', origin: 'Local slang', audioExample: 'Yessah blessah brah!' },
     'yobo': { pidgin: 'yobo', english: 'Korean person', category: 'people', pronunciation: 'YOH-boh', example: 'My friend yobo', usage: 'Korean', origin: 'Korean', audioExample: 'Da yobo guy' },
-    'you stay go?': { pidgin: 'you stay go?', english: 'are you going?', category: 'questions', pronunciation: 'you-stay-GO', example: 'You stay go o wat?', usage: 'Asking plans', origin: 'English pidgin', audioExample: 'You stay go?' }
+    'you stay go?': { pidgin: 'you stay go?', english: 'are you going?', category: 'questions', pronunciation: 'you-stay-GO', example: 'You stay go o wat?', usage: 'Asking plans', origin: 'English pidgin', audioExample: 'You stay go?' },
+
+    // Additional missing terms from the comprehensive list
+    'karang yo alas': { pidgin: 'karang yo alas', english: 'to cause harm to testicles', category: 'slang', pronunciation: 'kah-RANG yo ah-LAHS', example: 'No karang yo alas!', usage: 'Warning about harm', origin: 'Local pidgin', audioExample: 'Watch out, karang yo alas!' },
+    'katonk': { pidgin: 'katonk', english: 'Asian American (derogatory)', category: 'people', pronunciation: 'kah-TONK', example: 'No call him katonk', usage: 'Offensive term', origin: 'WWII era', audioExample: 'Dat katonk guy' },
+    'kefe': { pidgin: 'kefe', english: 'Samoan swear word', category: 'slang', pronunciation: 'KEH-feh', example: 'He said kefe!', usage: 'Strong language', origin: 'Samoan', audioExample: 'Kefe dat!' },
+    'kim chee breath': { pidgin: 'kim chee breath', english: 'bad breath', category: 'slang', pronunciation: 'KIM-chee breath', example: 'He get kim chee breath', usage: 'Bad breath smell', origin: 'Korean food reference', audioExample: 'Brush teeth, kim chee breath!' },
+    'mempachi eye': { pidgin: 'mempachi eye', english: 'glassy unfocused stare', category: 'descriptions', pronunciation: 'mem-PAH-chee eye', example: 'He get mempachi eye', usage: 'Blank stare', origin: 'Japanese fish reference', audioExample: 'Stop da mempachi eye!' },
+    'minors': { pidgin: 'minors', english: 'no problem', category: 'expressions', pronunciation: 'MY-nors', example: 'Minors, no worry', usage: 'No big deal', origin: 'English "minor"', audioExample: 'Das minors!' },
+    'moe moe': { pidgin: 'moe moe', english: 'sleepy', category: 'descriptions', pronunciation: 'MOH-eh MOH-eh', example: 'I stay moe moe', usage: 'Being tired', origin: 'Hawaiian', audioExample: 'So moe moe already' },
+    'ne ne': { pidgin: 'ne ne', english: 'to sleep', category: 'actions', pronunciation: 'NEH-neh', example: 'Time fo ne ne', usage: 'Baby talk for sleep', origin: 'Baby talk', audioExample: 'Go ne ne now' },
+    'nerjis': { pidgin: 'nerjis', english: 'nervous', category: 'emotions', pronunciation: 'NER-jis', example: 'I stay nerjis', usage: 'Being anxious', origin: 'English "nervous"', audioExample: 'Why you nerjis?' },
+    'shark bait': { pidgin: 'shark bait', english: 'tourist', category: 'people', pronunciation: 'SHARK-bayt', example: 'Look at da shark bait', usage: 'Pale tourist', origin: 'Surfing culture', audioExample: 'Choke shark bait today!' },
+    'sukebe': { pidgin: 'sukebe', english: 'dirty old man', category: 'people', pronunciation: 'soo-KEH-beh', example: 'He one sukebe', usage: 'Perverted person', origin: 'Japanese', audioExample: 'Stay away from da sukebe' },
+    'tantaran': { pidgin: 'tantaran', english: 'show-off', category: 'people', pronunciation: 'tan-tah-RAHN', example: 'No be tantaran', usage: 'Showing off', origin: 'Filipino', audioExample: 'You tantaran!' },
+    'trippy': { pidgin: 'trippy', english: 'cool/weird', category: 'slang', pronunciation: 'TRIP-pee', example: 'Dat stay trippy', usage: 'Strange or cool', origin: 'English slang', audioExample: 'So trippy brah!' },
+    'turtles': { pidgin: 'turtles', english: 'thirty', category: 'numbers', pronunciation: 'TUR-tuls', example: 'I stay turtles years old', usage: 'Age reference', origin: 'Rhyming slang', audioExample: 'Almost turtles!' },
+    'ujee': { pidgin: 'ujee', english: 'disgusting', category: 'descriptions', pronunciation: 'OO-jee', example: 'Dat food stay ujee', usage: 'Something gross', origin: 'Unknown', audioExample: 'So ujee!' },
+    'white kukui blossom': { pidgin: 'white kukui blossom', english: 'official flower of Molokai', category: 'cultural', pronunciation: 'white koo-KOO-ee BLAH-sum', example: 'Da white kukui blossom stay beautiful', usage: 'Island flower', origin: 'Hawaiian', audioExample: 'Pick white kukui blossom' },
+    'whaddsdascoops': { pidgin: 'whaddsdascoops', english: "what's going on", category: 'greetings', pronunciation: 'wahts-dah-SKOOPS', example: 'Eh, whaddsdascoops?', usage: 'Casual greeting', origin: 'Local slang', audioExample: 'Whaddsdascoops brah?' },
+    'winnahz': { pidgin: 'winnahz', english: 'delicious/awesome', category: 'slang', pronunciation: 'WIN-nahz', example: 'Da food stay winnahz', usage: 'Really good', origin: 'English "winner"', audioExample: 'Winnahz grindz!' },
+    'wop yo jaw': { pidgin: 'wop yo jaw', english: 'I told you so', category: 'expressions', pronunciation: 'wop-yo-JAW', example: 'Wop yo jaw, I said so!', usage: 'Being right', origin: 'Local slang', audioExample: 'Wop yo jaw!' }
 };
 
 // Export for use in other modules
