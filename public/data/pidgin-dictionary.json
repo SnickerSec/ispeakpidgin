@@ -2,7 +2,7 @@
   "metadata": {
     "version": "2.0",
     "lastUpdated": "2025-09-20",
-    "totalEntries": 428,
+    "totalEntries": 436,
     "description": "Comprehensive Hawaiian Pidgin Dictionary",
     "contributors": [
       "ChokePidgin.com"
@@ -9223,6 +9223,198 @@
         "japanese"
       ],
       "audioExample": "My zori stay broken"
+    },
+    {
+      "id": "getum_501",
+      "pidgin": "get'um",
+      "english": [
+        "go for it",
+        "give it your all",
+        "seize the opportunity"
+      ],
+      "category": "actions",
+      "pronunciation": "get-UM",
+      "examples": [
+        "Ho, he saw da wave and wen get'um!",
+        "You see dat job posting? Get'um!",
+        "Da surf stay good, get'um brah!"
+      ],
+      "culturalNote": "Encouragement to seize an opportunity with full commitment",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "actions",
+        "encouragement",
+        "surfing"
+      ]
+    },
+    {
+      "id": "buss_laff_502",
+      "pidgin": "buss laff",
+      "english": [
+        "laugh hard",
+        "crack up",
+        "burst out laughing"
+      ],
+      "category": "emotions",
+      "pronunciation": "bus LAF",
+      "examples": [
+        "We wen talk story and buss laff",
+        "His joke made me buss laff",
+        "Da whole class wen buss laff"
+      ],
+      "culturalNote": "To laugh so hard you might 'bust' from laughter",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "emotions",
+        "laughter",
+        "expressions"
+      ]
+    },
+    {
+      "id": "bust_em_up_503",
+      "pidgin": "bust 'em up",
+      "english": [
+        "laugh really hard",
+        "crack up completely",
+        "break down laughing"
+      ],
+      "category": "emotions",
+      "pronunciation": "bust-em-UP",
+      "examples": [
+        "Dat story made me bust 'em up",
+        "We was busting 'em up all night",
+        "His dancing made everyone bust 'em up"
+      ],
+      "culturalNote": "Even more intense than 'buss laff' - laughing so hard you're broken up",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "emotions",
+        "laughter",
+        "slang"
+      ]
+    },
+    {
+      "id": "auwe_504",
+      "pidgin": "auwe",
+      "english": [
+        "oh my gosh",
+        "oh dear",
+        "expression of shock or dismay"
+      ],
+      "category": "expressions",
+      "pronunciation": "ow-WEH",
+      "examples": [
+        "Auwe! Look da mess!",
+        "Auwe, I forgot my wallet",
+        "Auwe, so sad!"
+      ],
+      "culturalNote": "Hawaiian exclamation expressing shock, dismay, or sympathy",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "exclamations",
+        "emotions"
+      ]
+    },
+    {
+      "id": "guerentee_505",
+      "pidgin": "gueren-tee",
+      "english": [
+        "definitely",
+        "for sure",
+        "guaranteed"
+      ],
+      "category": "expressions",
+      "pronunciation": "gair-en-TEE",
+      "examples": [
+        "Dat sushi is good, gueren-tee",
+        "He going be late, gueren-tee",
+        "This weather going change, gueren-tee"
+      ],
+      "culturalNote": "Pidgin pronunciation of 'guarantee' used as emphasis",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "emphasis",
+        "certainty"
+      ]
+    },
+    {
+      "id": "small_kid_time_506",
+      "pidgin": "small kid time",
+      "english": [
+        "when I was a kid",
+        "back in the day",
+        "childhood days"
+      ],
+      "category": "expressions",
+      "pronunciation": "small kid TIME",
+      "examples": [
+        "Small kid time, I used to play marbles",
+        "Small kid time was so fun",
+        "We did dat all da time, small kid time"
+      ],
+      "culturalNote": "Nostalgic phrase referring to one's childhood memories",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "nostalgia",
+        "childhood"
+      ]
+    },
+    {
+      "id": "ballah_head_507",
+      "pidgin": "ballah head",
+      "english": [
+        "bald head",
+        "bald person",
+        "no hair"
+      ],
+      "category": "descriptions",
+      "pronunciation": "BAL-lah head",
+      "examples": [
+        "Uncle get ballah head",
+        "He stay ballah head since young time",
+        "My bruddah going ballah head like daddy"
+      ],
+      "culturalNote": "Casual way to describe someone who is bald",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "descriptions",
+        "appearance",
+        "slang"
+      ]
+    },
+    {
+      "id": "yeah_you_508",
+      "pidgin": "yeah you",
+      "english": [
+        "you're right",
+        "that's right",
+        "I agree with you"
+      ],
+      "category": "expressions",
+      "pronunciation": "yeah YOU",
+      "examples": [
+        "He wen bust his board, yeah you?",
+        "Da traffic was bad, yeah you!",
+        "Yeah you, dat's exactly what happened"
+      ],
+      "culturalNote": "Way to affirm or seek affirmation, unique Pidgin phrase structure",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "agreement",
+        "conversation"
+      ]
     }
   ]
 }
