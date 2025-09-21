@@ -549,11 +549,38 @@ function initLearningHub() {
                         ${percentage}%
                     </p>
                     <p class="text-lg mb-6">You got ${score} out of ${questions.length} questions correct!</p>
-                    <button class="bg-green-500 text-white px-6 py-3 rounded-full hover:bg-green-600 transition" onclick="location.reload()">
-                        Try Another Quiz
-                    </button>
+                    <div class="space-y-3">
+                        <button id="try-another-quiz" class="bg-green-500 text-white px-6 py-3 rounded-full hover:bg-green-600 transition">
+                            Try Another Quiz
+                        </button>
+                        <br>
+                        <button id="close-quiz" class="bg-gray-500 text-white px-6 py-3 rounded-full hover:bg-gray-600 transition">
+                            Close Quiz
+                        </button>
+                    </div>
                 </div>
             `;
+
+            // Add event listeners for the new buttons
+            const tryAnotherBtn = document.getElementById('try-another-quiz');
+            const closeQuizBtn = document.getElementById('close-quiz');
+
+            if (tryAnotherBtn) {
+                tryAnotherBtn.addEventListener('click', () => {
+                    // Reset quiz state
+                    currentQuestion = 0;
+                    score = 0;
+                    // Restart the quiz
+                    showQuestion();
+                });
+            }
+
+            if (closeQuizBtn) {
+                closeQuizBtn.addEventListener('click', () => {
+                    // Hide the quiz section
+                    quizSection.classList.add('hidden');
+                });
+            }
         }
 
         showQuestion();
