@@ -165,64 +165,38 @@ function initTranslator() {
     const outputLabel = document.getElementById('output-label');
 
     let currentDirection = 'eng-to-pidgin';
-    let autoTranslateEnabled = false;
+    let autoTranslateEnabled = true; // Always enabled
     let typingTimer;
     const typingDelay = 800; // Wait 800ms after user stops typing
 
-    // Auto-translate toggle functionality
-    function initAutoTranslateToggle() {
-        // Create auto-translate toggle if it doesn't exist
-        let autoToggleContainer = document.getElementById('auto-translate-container');
-        if (!autoToggleContainer) {
-            autoToggleContainer = document.createElement('div');
-            autoToggleContainer.id = 'auto-translate-container';
-            autoToggleContainer.className = 'flex items-center justify-center mb-4';
-            autoToggleContainer.innerHTML = `
-                <label class="flex items-center cursor-pointer">
-                    <input type="checkbox" id="auto-translate-toggle" class="sr-only">
+    // Auto-translate status display (no longer a toggle)
+    function initAutoTranslateDisplay() {
+        // Create auto-translate status display if it doesn't exist
+        let autoStatusContainer = document.getElementById('auto-translate-container');
+        if (!autoStatusContainer) {
+            autoStatusContainer = document.createElement('div');
+            autoStatusContainer.id = 'auto-translate-container';
+            autoStatusContainer.className = 'flex items-center justify-center mb-4';
+            autoStatusContainer.innerHTML = `
+                <div class="flex items-center">
                     <div class="relative">
-                        <div class="block bg-gray-300 w-14 h-8 rounded-full"></div>
-                        <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition transform"></div>
+                        <div class="block bg-green-500 w-14 h-8 rounded-full"></div>
+                        <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition transform translate-x-6"></div>
                     </div>
-                    <span class="ml-3 text-gray-700 font-medium">Auto-translate</span>
-                </label>
+                    <span class="ml-3 text-gray-700 font-medium">Auto-translate (Always On)</span>
+                </div>
             `;
 
             // Insert before the translator input
             const translatorSection = translatorInput.closest('.mb-6');
             if (translatorSection) {
-                translatorSection.parentNode.insertBefore(autoToggleContainer, translatorSection);
+                translatorSection.parentNode.insertBefore(autoStatusContainer, translatorSection);
             }
-        }
-
-        const autoToggle = document.getElementById('auto-translate-toggle');
-        const toggleBg = autoToggleContainer.querySelector('.block');
-        const toggleDot = autoToggleContainer.querySelector('.dot');
-
-        if (autoToggle) {
-            autoToggle.addEventListener('change', () => {
-                autoTranslateEnabled = autoToggle.checked;
-
-                if (autoTranslateEnabled) {
-                    toggleBg.classList.remove('bg-gray-300');
-                    toggleBg.classList.add('bg-green-500');
-                    toggleDot.classList.add('translate-x-6');
-                } else {
-                    toggleBg.classList.remove('bg-green-500');
-                    toggleBg.classList.add('bg-gray-300');
-                    toggleDot.classList.remove('translate-x-6');
-                }
-
-                // Auto-translate current text if enabled and text exists
-                if (autoTranslateEnabled && translatorInput.value.trim()) {
-                    performTranslation();
-                }
-            });
         }
     }
 
-    // Initialize auto-translate toggle
-    initAutoTranslateToggle();
+    // Initialize auto-translate display
+    initAutoTranslateDisplay();
 
     // Perform translation (shared function)
     function performTranslation() {
@@ -379,19 +353,9 @@ function initTranslator() {
     }
 
 
-    // Translation functionality
+    // Remove translate button since auto-translate is always on
     if (translateBtn) {
-        translateBtn.addEventListener('click', () => {
-            performTranslation();
-        });
-
-        // Allow Enter key to translate
-        translatorInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                translateBtn.click();
-            }
-        });
+        translateBtn.style.display = 'none';
     }
 }
 
