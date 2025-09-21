@@ -316,17 +316,18 @@ const lessonsData = {
     ]
 };
 
-// Quiz questions
+// Quiz questions - expanded with multiple questions per lesson topic
 const quizQuestions = {
     beginner: [
+        // Basic Greetings Questions
         {
             question: "What does 'Howzit' mean?",
             options: ['Goodbye', 'Hello/How are you', 'Thank you', 'Excuse me'],
             correct: 1
         },
         {
-            question: "How do you say 'food' in Pidgin?",
-            options: ['Ono', 'Grinds', 'Pau', 'Broke'],
+            question: "How do you say 'See you later' in Pidgin?",
+            options: ['Aloha', 'Latahs', 'Shoots', 'Tanks'],
             correct: 1
         },
         {
@@ -335,26 +336,337 @@ const quizQuestions = {
             correct: 2
         },
         {
+            question: "How do you say 'Thank you' in Pidgin?",
+            options: ['Shoots', 'Howzit', 'Tanks', 'Latahs'],
+            correct: 2
+        },
+        {
+            question: "What does 'No worries' mean?",
+            options: ['Don\'t worry', 'You\'re welcome', 'Be careful', 'I\'m sorry'],
+            correct: 1
+        },
+        {
+            question: "Which greeting can mean hello, goodbye, AND love?",
+            options: ['Howzit', 'Shoots', 'Aloha', 'Latahs'],
+            correct: 2
+        },
+        // Food & Eating Questions
+        {
+            question: "How do you say 'food' in Pidgin?",
+            options: ['Ono', 'Grinds', 'Pau', 'Broke'],
+            correct: 1
+        },
+        {
+            question: "What does 'ono' mean?",
+            options: ['Bad', 'Expensive', 'Delicious', 'Spicy'],
+            correct: 2
+        },
+        {
+            question: "What does 'broke da mouth' mean?",
+            options: ['Hurt your teeth', 'Very delicious', 'Too spicy', 'Bad taste'],
+            correct: 1
+        },
+        {
+            question: "What does 'pau' mean in relation to eating?",
+            options: ['Start eating', 'Hungry', 'Finished/Done', 'More food'],
+            correct: 2
+        },
+        {
+            question: "How do you say 'to eat' in Pidgin?",
+            options: ['Grinds', 'Grind', 'Ono', 'Pau'],
+            correct: 1
+        },
+        {
+            question: "What does 'mo bettah' mean?",
+            options: ['More food', 'Better/More better', 'Mother', 'Maybe'],
+            correct: 1
+        },
+        // Directions & Places Questions
+        {
+            question: "What does 'mauka' mean?",
+            options: ['Toward the ocean', 'Toward the mountains', 'Left side', 'Right side'],
+            correct: 1
+        },
+        {
+            question: "What does 'makai' mean?",
+            options: ['Toward the mountains', 'Toward the ocean', 'North', 'South'],
+            correct: 1
+        },
+        {
+            question: "What does 'hale' mean?",
+            options: ['Street', 'Beach', 'House/Home', 'Store'],
+            correct: 2
+        },
+        {
+            question: "How do you say 'over there' in Pidgin?",
+            options: ['Wea dea', 'Ova dea', 'Da kine', 'Dis place'],
+            correct: 1
+        },
+        {
+            question: "What does 'wea' mean?",
+            options: ['Who', 'What', 'Where', 'When'],
+            correct: 2
+        },
+        {
+            question: "What does 'da kine place' mean?",
+            options: ['A nice place', 'That place (you know)', 'The beach', 'The store'],
+            correct: 1
+        },
+        // Family & People Questions
+        {
             question: "What does 'Ohana' mean?",
             options: ['Friend', 'Family', 'House', 'Food'],
             correct: 1
         },
+        {
+            question: "What does 'keiki' mean?",
+            options: ['Adult', 'Elder', 'Child/Children', 'Parent'],
+            correct: 2
+        },
+        {
+            question: "What does 'tutu' mean?",
+            options: ['Child', 'Parent', 'Grandparent', 'Friend'],
+            correct: 2
+        },
+        {
+            question: "In Hawaiian culture, who do you call 'Aunty'?",
+            options: ['Only your mother\'s sister', 'Only blood relatives', 'Any respected elder woman', 'Young women'],
+            correct: 2
+        },
+        {
+            question: "What does 'bruddah' mean?",
+            options: ['Only blood brother', 'Brother or close friend', 'Father', 'Cousin'],
+            correct: 1
+        },
+        {
+            question: "Who would you respectfully call 'Uncle'?",
+            options: ['Only father\'s brother', 'Any respected elder man', 'Young men', 'Only family members'],
+            correct: 1
+        },
+        // Weather & Nature Questions
         {
             question: "What does 'Stay hot' mean?",
             options: ['It\'s spicy', 'It\'s popular', 'It\'s hot (weather)', 'It\'s angry'],
             correct: 2
         },
         {
+            question: "How do you say 'It\'s raining' in Pidgin?",
+            options: ['Get rain', 'Stay raining', 'Was rain', 'Going rain'],
+            correct: 1
+        },
+        {
+            question: "What are 'trade winds'?",
+            options: ['Storm winds', 'Cooling breeze', 'Hot winds', 'No wind'],
+            correct: 1
+        },
+        {
+            question: "What is 'vog'?",
+            options: ['Fog', 'Rain cloud', 'Volcanic smog', 'Morning mist'],
+            correct: 2
+        },
+        {
+            question: "How would you say 'The sun is shining'?",
+            options: ['Sun stay hot', 'Da sun stay out', 'Sun going shine', 'Get sun'],
+            correct: 1
+        },
+        {
+            question: "What does 'nice day' mean in Pidgin context?",
+            options: ['Cold day', 'Rainy day', 'Beautiful day', 'Cloudy day'],
+            correct: 2
+        },
+        // Numbers & Time Questions
+        {
             question: "How do you say 'a little bit' in Pidgin?",
             options: ['Plenny', 'Small kine', 'Long time', 'Two-two'],
+            correct: 1
+        },
+        {
+            question: "What does 'plenny' mean?",
+            options: ['A little', 'None', 'A lot/Many', 'Two'],
+            correct: 2
+        },
+        {
+            question: "What does 'two-two' mean?",
+            options: ['Twenty-two', 'Two each', 'Twice', 'Second'],
+            correct: 1
+        },
+        {
+            question: "In Pidgin, 'one' is often used instead of:",
+            options: ['Two', 'The', 'A/An', 'Some'],
+            correct: 2
+        },
+        {
+            question: "What does 'long time' mean?",
+            options: ['A few minutes', 'Yesterday', 'A long time', 'Never'],
+            correct: 2
+        },
+        {
+            question: "How do you say 'immediately' in Pidgin?",
+            options: ['Bumbye', 'Right now', 'Small kine', 'Long time'],
             correct: 1
         }
     ],
     intermediate: [
+        // Exclamations & Expressions Questions
+        {
+            question: "What does 'Chee hoo!' express?",
+            options: ['Anger', 'Fear', 'Joy/Excitement', 'Sadness'],
+            correct: 2
+        },
+        {
+            question: "What does 'Ho!' mean?",
+            options: ['Stop', 'Wow/Surprise', 'Come here', 'Go away'],
+            correct: 1
+        },
+        {
+            question: "What does 'Rajah dat!' mean?",
+            options: ['No way!', 'Roger that/I agree', 'Stop that', 'Look at that'],
+            correct: 1
+        },
+        {
+            question: "When would you say 'Hana hou'?",
+            options: ['When leaving', 'When arriving', 'Asking for an encore', 'When eating'],
+            correct: 2
+        },
+        {
+            question: "What does 'K den' mean?",
+            options: ['Okay then', 'Not okay', 'Maybe', 'Never'],
+            correct: 0
+        },
+        {
+            question: "How is 'Eh!' typically used?",
+            options: ['To say goodbye', 'To get attention', 'To show anger', 'To express love'],
+            correct: 1
+        },
+        // Describing Things & People Questions
+        {
+            question: "What does 'lolo' mean?",
+            options: ['Smart', 'Crazy/Silly', 'Tall', 'Strong'],
+            correct: 1
+        },
+        {
+            question: "In Pidgin, 'mean' means:",
+            options: ['Average', 'Cruel', 'Awesome/Cool', 'Small'],
+            correct: 2
+        },
+        {
+            question: "What does 'hamajang' describe?",
+            options: ['Perfect', 'Messed up/Broken', 'Beautiful', 'New'],
+            correct: 1
+        },
+        {
+            question: "What does 'chicken skin' mean?",
+            options: ['Food', 'Goosebumps', 'Coward', 'Thin'],
+            correct: 1
+        },
+        {
+            question: "What does 'stoked' mean?",
+            options: ['Tired', 'Angry', 'Excited/Happy', 'Confused'],
+            correct: 2
+        },
+        {
+            question: "If something is 'ono', it is:",
+            options: ['Ugly', 'Delicious', 'Expensive', 'Cold'],
+            correct: 1
+        },
+        // Activities & Actions Questions
+        {
+            question: "What does 'talk story' mean?",
+            options: ['Tell lies', 'Read a book', 'Chat/Converse', 'Be quiet'],
+            correct: 2
+        },
+        {
+            question: "What does 'holo holo' mean?",
+            options: ['Run fast', 'Cruise around leisurely', 'Work hard', 'Sleep'],
+            correct: 1
+        },
+        {
+            question: "What does 'chance um' mean?",
+            options: ['Give up', 'Wait', 'Try it/Take a chance', 'Stop'],
+            correct: 2
+        },
+        {
+            question: "What does 'like beef?' mean?",
+            options: ['Want meat?', 'Want to fight?', 'Are you hungry?', 'Do you like steak?'],
+            correct: 1
+        },
+        {
+            question: "What does 'no can' mean?",
+            options: ['No container', 'Cannot/Unable to', 'Don\'t want to', 'Not allowed'],
+            correct: 1
+        },
+        {
+            question: "How do you say 'eat' in Pidgin?",
+            options: ['Ono', 'Pau', 'Grind', 'Broke'],
+            correct: 2
+        },
+        // Emotions & Feelings Questions
+        {
+            question: "What does 'bummers' express?",
+            options: ['Happiness', 'Disappointment', 'Anger', 'Fear'],
+            correct: 1
+        },
+        {
+            question: "What does 'huhu' mean?",
+            options: ['Happy', 'Sleepy', 'Angry', 'Excited'],
+            correct: 2
+        },
+        {
+            question: "What does 'shame' mean in Pidgin?",
+            options: ['Proud', 'Embarrassed', 'Angry', 'Happy'],
+            correct: 1
+        },
+        {
+            question: "What does 'all buss up' mean?",
+            options: ['Broken', 'Exhausted', 'Happy', 'Rich'],
+            correct: 1
+        },
+        {
+            question: "If you're 'stoked', you are:",
+            options: ['Sad', 'Tired', 'Excited', 'Sick'],
+            correct: 2
+        },
+        {
+            question: "Getting 'chicken skin' means you have:",
+            options: ['A rash', 'Goosebumps', 'Sunburn', 'Dry skin'],
+            correct: 1
+        },
+        // Time Expressions Questions
         {
             question: "What does 'pau hana' mean?",
             options: ['Start work', 'After work', 'Lunch break', 'Weekend'],
             correct: 1
+        },
+        {
+            question: "What does 'bumbye' mean?",
+            options: ['Never', 'Right now', 'Later/Eventually', 'Yesterday'],
+            correct: 2
+        },
+        {
+            question: "What word indicates past tense in Pidgin?",
+            options: ['Stay', 'Wen', 'Going', 'Get'],
+            correct: 1
+        },
+        {
+            question: "What does 'stay' indicate in Pidgin grammar?",
+            options: ['Stop', 'Remain', 'Present continuous action', 'Past action'],
+            correct: 2
+        },
+        {
+            question: "How would you say 'I went to the store yesterday'?",
+            options: ['I stay go store', 'I wen go store yesterday', 'I going store', 'I go store wen'],
+            correct: 1
+        },
+        {
+            question: "What does 'long time no see' mean?",
+            options: ['I can\'t see', 'Haven\'t seen you in a while', 'See you later', 'I don\'t want to see you'],
+            correct: 1
+        },
+        // Common Slang Questions
+        {
+            question: "What does 'da kine' mean?",
+            options: ['The best', 'The worst', 'The thing/whatchamacallit', 'The person'],
+            correct: 2
         },
         {
             question: "What does 'choke' mean in Pidgin?",
@@ -362,12 +674,90 @@ const quizQuestions = {
             correct: 2
         },
         {
-            question: "What word indicates past tense in Pidgin?",
-            options: ['Stay', 'Wen', 'Going', 'Get'],
+            question: "What does 'junk' mean?",
+            options: ['Treasure', 'Bad/Terrible', 'Good', 'New'],
+            correct: 1
+        },
+        {
+            question: "If a car is 'mean', it is:",
+            options: ['Broken', 'Ugly', 'Awesome/Cool', 'Slow'],
+            correct: 2
+        },
+        {
+            question: "What does 'nuts' mean?",
+            options: ['Food', 'Crazy', 'Smart', 'Strong'],
+            correct: 1
+        },
+        {
+            question: "What does 'beef' mean in Pidgin slang?",
+            options: ['Meat', 'Fight/Problem', 'Friend', 'Money'],
             correct: 1
         }
     ],
     advanced: [
+        // Local Culture & Lifestyle Questions
+        {
+            question: "What is a 'kanak attack'?",
+            options: ['A fight', 'Sleepiness after eating', 'Sunburn', 'Headache'],
+            correct: 1
+        },
+        {
+            question: "What does 'Hawaiian time' mean?",
+            options: ['Exact time', 'Running late/Relaxed time', 'Early arrival', 'Time zone'],
+            correct: 1
+        },
+        {
+            question: "What are 'green bottles'?",
+            options: ['Medicine', 'Heineken beer', 'Soda', 'Wine'],
+            correct: 1
+        },
+        {
+            question: "What are 'slippahs'?",
+            options: ['Slippers for bed', 'Flip-flops/Sandals', 'Shoes', 'Socks'],
+            correct: 1
+        },
+        {
+            question: "What does 'da haps' mean?",
+            options: ['Happiness', 'What happened/Events', 'Music', 'Food'],
+            correct: 1
+        },
+        {
+            question: "In directions, what does 'side' mean?",
+            options: ['Next to', 'Area/Direction', 'Wrong way', 'Beside someone'],
+            correct: 1
+        },
+        // Hawaiian Words in Pidgin Questions
+        {
+            question: "What does 'kapu' mean?",
+            options: ['Welcome', 'Forbidden/Sacred', 'Beautiful', 'Large'],
+            correct: 1
+        },
+        {
+            question: "What is a 'lānai'?",
+            options: ['Island', 'Beach', 'Porch/Patio', 'Garden'],
+            correct: 2
+        },
+        {
+            question: "What are 'pūpū'?",
+            options: ['Drinks', 'Appetizers/Snacks', 'Main course', 'Dessert'],
+            correct: 1
+        },
+        {
+            question: "What does 'mahalo' mean?",
+            options: ['Hello', 'Goodbye', 'Thank you', 'Excuse me'],
+            correct: 2
+        },
+        {
+            question: "What does 'keiki' mean?",
+            options: ['Adult', 'Elder', 'Child/Children', 'Teacher'],
+            correct: 2
+        },
+        {
+            question: "What does 'aloha' NOT mean?",
+            options: ['Hello', 'Goodbye', 'Love', 'Money'],
+            correct: 3
+        },
+        // Complex Expressions Questions
         {
             question: "What does 'If can can, if no can no can' mean?",
             options: [
@@ -379,8 +769,18 @@ const quizQuestions = {
             correct: 1
         },
         {
-            question: "What does 'talk story' mean?",
-            options: ['Tell lies', 'Read a book', 'Chat/Converse', 'Be quiet'],
+            question: "What does 'no make like' mean?",
+            options: ['Don\'t make it', 'Don\'t pretend', 'Don\'t like it', 'Don\'t go'],
+            correct: 1
+        },
+        {
+            question: "What does 'Wat, like beef?' mean?",
+            options: ['Want some meat?', 'Do you want to fight?', 'Are you hungry?', 'Want to eat?'],
+            correct: 1
+        },
+        {
+            question: "What does 'geev um' mean?",
+            options: ['Give it to me', 'Take it away', 'Go for it/Give it your all', 'Stop it'],
             correct: 2
         },
         {
@@ -394,12 +794,130 @@ const quizQuestions = {
             correct: 1
         },
         {
+            question: "What does 'talk story' mean?",
+            options: ['Tell lies', 'Read a book', 'Chat/Converse', 'Be quiet'],
+            correct: 2
+        },
+        // Grammar Patterns Questions
+        {
+            question: "In Pidgin, 'stay + verb-ing' indicates:",
+            options: ['Past tense', 'Present continuous', 'Future tense', 'Command'],
+            correct: 1
+        },
+        {
+            question: "What does 'wen + verb' indicate?",
+            options: ['Future', 'Present', 'Past', 'Maybe'],
+            correct: 2
+        },
+        {
+            question: "How do you express future tense in Pidgin?",
+            options: ['Stay + verb', 'Wen + verb', 'Going + verb', 'Get + verb'],
+            correct: 2
+        },
+        {
+            question: "What does 'get' mean in 'Get plenty fish'?",
+            options: ['To obtain', 'There is/are', 'To catch', 'To buy'],
+            correct: 1
+        },
+        {
+            question: "What does 'no more' mean in Pidgin?",
+            options: ['Don\'t want more', 'There isn\'t/aren\'t', 'Stop', 'Finished'],
+            correct: 1
+        },
+        {
+            question: "In Pidgin, 'try' is often used as:",
+            options: ['Attempt', 'Test', 'Please (softener)', 'Maybe'],
+            correct: 2
+        },
+        // Cultural Context Questions
+        {
+            question: "What is 'aloha spirit'?",
+            options: ['A drink', 'Spirit of love and compassion', 'Ghost story', 'Party mood'],
+            correct: 1
+        },
+        {
+            question: "What does 'ohana' represent in Hawaiian culture?",
+            options: ['Just blood relatives', 'Friends only', 'Family (including extended)', 'Neighbors'],
+            correct: 2
+        },
+        {
+            question: "What does 'malama' mean?",
+            options: ['To destroy', 'To care for', 'To ignore', 'To sell'],
+            correct: 1
+        },
+        {
+            question: "What does 'pono' mean?",
+            options: ['Wrong', 'Righteous/Proper', 'Maybe', 'Never'],
+            correct: 1
+        },
+        {
+            question: "What does 'kokua' mean?",
+            options: ['Problem', 'Help/Assistance', 'Food', 'Money'],
+            correct: 1
+        },
+        {
+            question: "What does 'Ho brah' express?",
+            options: ['Anger', 'Amazement', 'Sadness', 'Fear'],
+            correct: 1
+        },
+        // Advanced Conversation Skills Questions
+        {
+            question: "What does 'You know wat I mean or wat?' mean?",
+            options: [
+                'Are you listening?',
+                'Do you understand what I\'m saying?',
+                'What do you mean?',
+                'I don\'t understand'
+            ],
+            correct: 1
+        },
+        {
+            question: "What does 'Ass why hard' mean?",
+            options: [
+                'It\'s easy',
+                'That\'s why it\'s difficult',
+                'Work harder',
+                'Don\'t be difficult'
+            ],
+            correct: 1
+        },
+        {
+            question: "What does 'How you figga?' mean?",
+            options: [
+                'How are you?',
+                'What\'s your figure?',
+                'What makes you think that?',
+                'How do you calculate?'
+            ],
+            correct: 2
+        },
+        {
             question: "What does 'What da scoop?' mean?",
             options: [
                 'Where is the ice cream?',
                 'What\'s the news/situation?',
                 'How much does it cost?',
                 'When are we leaving?'
+            ],
+            correct: 1
+        },
+        {
+            question: "What does 'No act' mean?",
+            options: [
+                'Don\'t perform',
+                'Don\'t show off/pretend',
+                'No action',
+                'Stop moving'
+            ],
+            correct: 1
+        },
+        {
+            question: "What does 'Yeah, but still...' imply?",
+            options: [
+                'Complete agreement',
+                'Yes, but nevertheless...',
+                'Total disagreement',
+                'Maybe later'
             ],
             correct: 1
         }
