@@ -22,10 +22,22 @@ class PracticeSession {
         this.currentIndex = 0;
         this.stats = { correct: 0, incorrect: 0, total: 0 };
 
-        // Get word data
+        // Get word data with retry mechanism
         const word = this.getWordData(wordKey);
         if (!word) {
             console.error('Word not found:', wordKey);
+            // Try again after a short delay in case data is still loading
+            setTimeout(() => {
+                const retryWord = this.getWordData(wordKey);
+                if (retryWord) {
+                    this.sessionWords = [retryWord];
+                    this.currentWord = retryWord;
+                    this.createPracticeModal();
+                    this.renderCurrentMode();
+                } else {
+                    alert('Word data not available. Please try again in a moment.');
+                }
+            }, 500);
             return;
         }
 
@@ -58,12 +70,18 @@ class PracticeSession {
         let entry = null;
 
         if (window.pidginDictionary && window.pidginDictionary.isNewSystem) {
-            entry = window.pidginDictionary.dataLoader.getById(wordKey);
+            // Ensure data is loaded before accessing
+            if (window.pidginDictionary.dataLoader && window.pidginDictionary.dataLoader.getAllEntries().length > 0) {
+                entry = window.pidginDictionary.dataLoader.getById(wordKey);
+            }
         } else if (window.comprehensivePidginData) {
             entry = window.comprehensivePidginData[wordKey];
         }
 
-        if (!entry) return null;
+        if (!entry) {
+            console.warn(`Entry not found for key: ${wordKey}. Data system loaded: ${window.pidginDictionary?.isNewSystem ? 'new' : 'legacy'}`);
+            return null;
+        }
 
         // Normalize entry format
         return {
