@@ -312,6 +312,9 @@ class PracticeSession {
         const flipBtn = document.getElementById('flip-card');
         const assessmentBtns = document.getElementById('assessment-buttons');
 
+        // Add speak event listener
+        this.addSpeakEventListener(this.currentWord.pidgin);
+
         // Flip functionality
         const flip = () => {
             const front = document.getElementById('card-front');
@@ -353,18 +356,23 @@ class PracticeSession {
             <button id="speak-word" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
                 🔊 Hear pronunciation
             </button>
-            <script>
-                document.getElementById('speak-word').addEventListener('click', () => {
-                    if (typeof speakText === 'function') {
-                        speakText('${text}');
-                    } else if ('speechSynthesis' in window) {
-                        const utterance = new SpeechSynthesisUtterance('${text}');
-                        utterance.rate = 0.8;
-                        speechSynthesis.speak(utterance);
-                    }
-                });
-            </script>
         `;
+    }
+
+    // Add event listener for speak button
+    addSpeakEventListener(text) {
+        const speakBtn = document.getElementById('speak-word');
+        if (speakBtn) {
+            speakBtn.addEventListener('click', () => {
+                if (typeof speakText === 'function') {
+                    speakText(text);
+                } else if ('speechSynthesis' in window) {
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.rate = 0.8;
+                    speechSynthesis.speak(utterance);
+                }
+            });
+        }
     }
 
     // Record practice answer
