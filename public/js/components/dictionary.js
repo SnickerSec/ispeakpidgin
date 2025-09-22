@@ -157,3 +157,6 @@ class PidginDictionary {
 
 // Initialize the dictionary
 const pidginDictionary = new PidginDictionary();
+
+// Expose to global scope for practice system and other modules
+window.pidginDictionary = pidginDictionary;
