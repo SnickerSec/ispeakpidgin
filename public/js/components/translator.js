@@ -9,18 +9,23 @@ class PidginTranslator {
         this.grammarRules = this.createGrammarRules();
     }
 
-    // Create translation dictionary from comprehensive data
+    // Create translation dictionary from enhanced data
     createComprehensiveDict() {
         const dict = {};
-        for (let [key, entry] of Object.entries(comprehensivePidginData)) {
-            // Add pidgin to english mapping
-            dict[entry.english.toLowerCase()] = entry.pidgin;
+        if (window.pidginDictionary && window.pidginDictionary.isNewSystem) {
+            const entries = window.pidginDictionary.dataLoader.getAllEntries();
+            for (let entry of entries) {
+                // Add pidgin to english mapping
+                for (let englishTranslation of entry.english) {
+                    dict[englishTranslation.toLowerCase()] = entry.pidgin;
 
-            // Add variations and synonyms
-            if (entry.english.includes('/')) {
-                entry.english.split('/').forEach(variant => {
-                    dict[variant.trim().toLowerCase()] = entry.pidgin;
-                });
+                    // Add variations and synonyms
+                    if (englishTranslation.includes('/')) {
+                        englishTranslation.split('/').forEach(variant => {
+                            dict[variant.trim().toLowerCase()] = entry.pidgin;
+                        });
+                    }
+                }
             }
         }
         return dict;
@@ -90,14 +95,17 @@ class PidginTranslator {
             reverse[pidgin] = english;
         }
 
-        // Add from comprehensive data
-        for (let [key, entry] of Object.entries(comprehensivePidginData)) {
-            reverse[entry.pidgin] = entry.english;
+        // Add from enhanced data
+        if (window.pidginDictionary && window.pidginDictionary.isNewSystem) {
+            const entries = window.pidginDictionary.dataLoader.getAllEntries();
+            for (let entry of entries) {
+                reverse[entry.pidgin] = entry.english[0]; // Use first English translation
 
-            // Handle variations
-            if (entry.english.includes('/')) {
-                const mainTranslation = entry.english.split('/')[0].trim();
-                reverse[entry.pidgin] = mainTranslation;
+                // Handle variations
+                if (entry.english[0].includes('/')) {
+                    const mainTranslation = entry.english[0].split('/')[0].trim();
+                    reverse[entry.pidgin] = mainTranslation;
+                }
             }
         }
 
@@ -663,13 +671,16 @@ class PidginTranslator {
         const pronunciations = [];
         const words = pidginText.toLowerCase().split(' ');
 
-        // Check comprehensive data for each word
-        for (let word of words) {
-            const cleanWord = word.replace(/[.,!?;:]/g, '');
-            for (let [key, entry] of Object.entries(comprehensivePidginData)) {
-                if (cleanWord === entry.pidgin.toLowerCase() && entry.pronunciation) {
-                    pronunciations.push(`${entry.pidgin} = ${entry.pronunciation}`);
-                    break;
+        // Check enhanced data for each word
+        if (window.pidginDictionary && window.pidginDictionary.isNewSystem) {
+            const entries = window.pidginDictionary.dataLoader.getAllEntries();
+            for (let word of words) {
+                const cleanWord = word.replace(/[.,!?;:]/g, '');
+                for (let entry of entries) {
+                    if (cleanWord === entry.pidgin.toLowerCase() && entry.pronunciation) {
+                        pronunciations.push(`${entry.pidgin} = ${entry.pronunciation}`);
+                        break;
+                    }
                 }
             }
         }

@@ -149,9 +149,10 @@ function setupAlphabetBrowser() {
 
 // Get count of words starting with a letter
 function getLetterCount(letter) {
-    return Object.keys(comprehensivePidginData).filter(key =>
-        key.charAt(0).toLowerCase() === letter.toLowerCase()
-    ).length;
+    if (pidginDictionary.isNewSystem) {
+        return pidginDictionary.dataLoader.getByLetter(letter).length;
+    }
+    return 0;
 }
 
 // Display search results
@@ -281,13 +282,11 @@ function addEntryEventListeners() {
 
 // Show detailed word information
 function showWordDetails(wordKey) {
-    // Try to get entry from new system first
+    // Get entry from enhanced data system
     let entry = null;
 
     if (pidginDictionary.isNewSystem) {
         entry = pidginDictionary.dataLoader.getById(wordKey);
-    } else {
-        entry = comprehensivePidginData[wordKey];
     }
 
     if (!entry) return;
@@ -443,12 +442,10 @@ function startWordPractice(wordKey) {
         // Fallback to old system if practice session not loaded
         console.error('Practice session not available');
 
-        // Get entry from appropriate system
+        // Get entry from enhanced data system
         let entry = null;
         if (pidginDictionary.isNewSystem) {
             entry = pidginDictionary.dataLoader.getById(wordKey);
-        } else {
-            entry = comprehensivePidginData[wordKey];
         }
 
         if (!entry) return;

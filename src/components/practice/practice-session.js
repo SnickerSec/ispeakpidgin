@@ -65,7 +65,7 @@ class PracticeSession {
         this.renderCurrentMode();
     }
 
-    // Get word data from appropriate source
+    // Get word data from enhanced data system
     getWordData(wordKey) {
         let entry = null;
 
@@ -74,12 +74,10 @@ class PracticeSession {
             if (window.pidginDictionary.dataLoader && window.pidginDictionary.dataLoader.getAllEntries().length > 0) {
                 entry = window.pidginDictionary.dataLoader.getById(wordKey);
             }
-        } else if (window.comprehensivePidginData) {
-            entry = window.comprehensivePidginData[wordKey];
         }
 
         if (!entry) {
-            console.warn(`Entry not found for key: ${wordKey}. Data system loaded: ${window.pidginDictionary?.isNewSystem ? 'new' : 'legacy'}`);
+            console.warn(`Entry not found for key: ${wordKey}. Enhanced data system available: ${!!window.pidginDictionary?.isNewSystem}`);
             return null;
         }
 
