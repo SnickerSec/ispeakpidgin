@@ -507,8 +507,333 @@ class PracticeSession {
 
     // Show detailed statistics
     showStatistics() {
-        // TODO: Implement detailed statistics view
-        alert('📊 Statistics view coming soon!\n\nYour session data has been saved and will be available in the statistics dashboard.');
+        if (!this.practiceData) {
+            alert('📊 Statistics are not available.\n\nNo practice data storage system found.');
+            return;
+        }
+
+        const stats = this.calculateDetailedStats();
+        this.renderStatisticsView(stats);
+    }
+
+    // Calculate detailed statistics from practice data
+    calculateDetailedStats() {
+        const data = this.practiceData.data;
+        const now = new Date();
+        const today = now.toDateString();
+
+        // Current session stats
+        const currentSession = {
+            correct: this.stats.correct,
+            incorrect: this.stats.incorrect,
+            total: this.stats.total,
+            accuracy: this.stats.total > 0 ? Math.round((this.stats.correct / this.stats.total) * 100) : 0,
+            duration: Math.round((Date.now() - this.startTime) / 1000)
+        };
+
+        // All-time stats
+        const allTime = {
+            totalSessions: data.stats.totalSessions,
+            totalWordsLearned: data.stats.totalWordsLearned,
+            totalTimeSpent: data.stats.totalTimeSpent,
+            averageAccuracy: Math.round(data.stats.averageAccuracy),
+            currentStreak: data.stats.currentStreak,
+            longestStreak: data.stats.longestStreak,
+            lastPracticeDate: data.stats.lastPracticeDate
+        };
+
+        // Recent sessions (last 7 days)
+        const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+        const recentSessions = data.sessions.filter(session =>
+            new Date(session.timestamp) >= weekAgo
+        ).slice(-10); // Last 10 sessions
+
+        // Today's stats
+        const todaySessions = data.sessions.filter(session =>
+            new Date(session.timestamp).toDateString() === today
+        );
+
+        const todayStats = {
+            sessions: todaySessions.length,
+            wordsStudied: todaySessions.reduce((sum, session) => sum + (session.wordsStudied || 0), 0),
+            timeSpent: todaySessions.reduce((sum, session) => sum + (session.duration || 0), 0),
+            avgAccuracy: todaySessions.length > 0 ?
+                Math.round(todaySessions.reduce((sum, session) => sum + (session.accuracy || 0), 0) / todaySessions.length) : 0
+        };
+
+        // Word-level progress
+        const wordProgress = Object.keys(data.words).length;
+        const masteredWords = Object.values(data.words).filter(word => word.masteryLevel >= 4).length;
+
+        // Category breakdown
+        const categoryStats = this.calculateCategoryStats(data.words);
+
+        return {
+            currentSession,
+            allTime,
+            todayStats,
+            recentSessions,
+            wordProgress,
+            masteredWords,
+            categoryStats
+        };
+    }
+
+    // Calculate statistics by category
+    calculateCategoryStats(words) {
+        const categories = {};
+
+        for (const [wordId, wordData] of Object.entries(words)) {
+            // Get word info to determine category
+            const wordInfo = this.getWordData(wordId);
+            const category = wordInfo?.category || 'unknown';
+
+            if (!categories[category]) {
+                categories[category] = {
+                    practiced: 0,
+                    mastered: 0,
+                    accuracy: 0,
+                    totalAttempts: 0,
+                    correctAttempts: 0
+                };
+            }
+
+            categories[category].practiced++;
+            if (wordData.masteryLevel >= 4) categories[category].mastered++;
+            categories[category].totalAttempts += wordData.timesCorrect + wordData.timesIncorrect;
+            categories[category].correctAttempts += wordData.timesCorrect;
+        }
+
+        // Calculate accuracy for each category
+        for (const category of Object.values(categories)) {
+            category.accuracy = category.totalAttempts > 0 ?
+                Math.round((category.correctAttempts / category.totalAttempts) * 100) : 0;
+        }
+
+        return categories;
+    }
+
+    // Render comprehensive statistics view
+    renderStatisticsView(stats) {
+        const content = document.getElementById('practice-content');
+        content.innerHTML = `
+            <div class="statistics-dashboard">
+                <div class="mb-6">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">📊 Practice Statistics</h3>
+
+                    <!-- Current Session Stats -->
+                    <div class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-4 mb-6">
+                        <h4 class="text-lg font-semibold text-gray-700 mb-3">Current Session</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-green-600">${stats.currentSession.correct}</div>
+                                <div class="text-sm text-gray-600">Correct</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-red-600">${stats.currentSession.incorrect}</div>
+                                <div class="text-sm text-gray-600">Incorrect</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-purple-600">${stats.currentSession.accuracy}%</div>
+                                <div class="text-sm text-gray-600">Accuracy</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-blue-600">${stats.currentSession.duration}s</div>
+                                <div class="text-sm text-gray-600">Duration</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Today's Progress -->
+                    <div class="bg-green-50 rounded-xl p-4 mb-6">
+                        <h4 class="text-lg font-semibold text-gray-700 mb-3">Today's Progress</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-green-600">${stats.todayStats.sessions}</div>
+                                <div class="text-sm text-gray-600">Sessions</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-blue-600">${stats.todayStats.wordsStudied}</div>
+                                <div class="text-sm text-gray-600">Words Studied</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-purple-600">${Math.round(stats.todayStats.timeSpent / 60)}m</div>
+                                <div class="text-sm text-gray-600">Time Spent</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-orange-600">${stats.todayStats.avgAccuracy}%</div>
+                                <div class="text-sm text-gray-600">Avg Accuracy</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- All-Time Stats -->
+                    <div class="bg-blue-50 rounded-xl p-4 mb-6">
+                        <h4 class="text-lg font-semibold text-gray-700 mb-3">All-Time Statistics</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-blue-600">${stats.allTime.totalSessions}</div>
+                                <div class="text-sm text-gray-600">Total Sessions</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-green-600">${stats.wordProgress}</div>
+                                <div class="text-sm text-gray-600">Words Practiced</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-purple-600">${stats.masteredWords}</div>
+                                <div class="text-sm text-gray-600">Words Mastered</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-orange-600">${Math.round(stats.allTime.totalTimeSpent / 3600)}h</div>
+                                <div class="text-sm text-gray-600">Total Time</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-red-600">${stats.allTime.currentStreak}</div>
+                                <div class="text-sm text-gray-600">Current Streak</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-indigo-600">${stats.allTime.averageAccuracy}%</div>
+                                <div class="text-sm text-gray-600">Avg Accuracy</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category Breakdown -->
+                    ${this.renderCategoryStats(stats.categoryStats)}
+
+                    <!-- Recent Sessions -->
+                    ${this.renderRecentSessions(stats.recentSessions)}
+
+                    <!-- Action Buttons -->
+                    <div class="flex gap-3 mt-6">
+                        <button id="stats-back" class="flex-1 px-6 py-3 bg-gray-600 text-white rounded-xl hover:bg-gray-700 transition font-semibold">
+                            ← Back to Results
+                        </button>
+                        <button id="stats-export" class="flex-1 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition font-semibold">
+                            📤 Export Data
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        this.attachStatisticsEvents();
+    }
+
+    // Render category statistics
+    renderCategoryStats(categoryStats) {
+        const categories = Object.entries(categoryStats);
+        if (categories.length === 0) {
+            return '<div class="bg-gray-50 rounded-xl p-4 mb-6 text-center text-gray-500">No category data available yet.</div>';
+        }
+
+        return `
+            <div class="bg-orange-50 rounded-xl p-4 mb-6">
+                <h4 class="text-lg font-semibold text-gray-700 mb-3">Progress by Category</h4>
+                <div class="space-y-3">
+                    ${categories.map(([category, data]) => `
+                        <div class="flex items-center justify-between p-3 bg-white rounded-lg">
+                            <div class="flex-1">
+                                <div class="font-medium text-gray-700 capitalize">${category}</div>
+                                <div class="text-sm text-gray-500">${data.practiced} words practiced • ${data.mastered} mastered</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-lg font-bold text-orange-600">${data.accuracy}%</div>
+                                <div class="text-sm text-gray-500">accuracy</div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    }
+
+    // Render recent sessions
+    renderRecentSessions(recentSessions) {
+        if (recentSessions.length === 0) {
+            return '<div class="bg-gray-50 rounded-xl p-4 mb-6 text-center text-gray-500">No recent sessions found.</div>';
+        }
+
+        return `
+            <div class="bg-gray-50 rounded-xl p-4 mb-6">
+                <h4 class="text-lg font-semibold text-gray-700 mb-3">Recent Sessions</h4>
+                <div class="space-y-2">
+                    ${recentSessions.slice(-5).reverse().map(session => {
+                        const date = new Date(session.timestamp);
+                        const dateStr = date.toLocaleDateString();
+                        const timeStr = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                        return `
+                            <div class="flex items-center justify-between p-3 bg-white rounded-lg">
+                                <div>
+                                    <div class="font-medium text-gray-700">${session.mode || 'Practice'} Session</div>
+                                    <div class="text-sm text-gray-500">${dateStr} at ${timeStr}</div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-semibold text-purple-600">${session.accuracy || 0}% accuracy</div>
+                                    <div class="text-sm text-gray-500">${session.wordsStudied || 0} words • ${session.duration || 0}s</div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            </div>
+        `;
+    }
+
+    // Attach event listeners for statistics view
+    attachStatisticsEvents() {
+        document.getElementById('stats-back').addEventListener('click', () => {
+            this.showResults(); // Go back to results view
+        });
+
+        document.getElementById('stats-export').addEventListener('click', () => {
+            this.exportStatistics();
+        });
+    }
+
+    // Export statistics as JSON
+    exportStatistics() {
+        try {
+            const stats = this.calculateDetailedStats();
+            const exportData = {
+                exportDate: new Date().toISOString(),
+                currentSession: stats.currentSession,
+                allTimeStats: stats.allTime,
+                todayStats: stats.todayStats,
+                wordProgress: {
+                    totalPracticed: stats.wordProgress,
+                    totalMastered: stats.masteredWords
+                },
+                categoryBreakdown: stats.categoryStats,
+                recentSessions: stats.recentSessions
+            };
+
+            const dataStr = JSON.stringify(exportData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `pidgin-practice-stats-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+
+            // Show confirmation
+            const exportBtn = document.getElementById('stats-export');
+            const originalText = exportBtn.textContent;
+            exportBtn.textContent = '✅ Exported!';
+            exportBtn.classList.add('bg-green-600');
+            exportBtn.classList.remove('bg-blue-600');
+
+            setTimeout(() => {
+                exportBtn.textContent = originalText;
+                exportBtn.classList.remove('bg-green-600');
+                exportBtn.classList.add('bg-blue-600');
+            }, 2000);
+
+        } catch (error) {
+            console.error('Error exporting statistics:', error);
+            alert('Error exporting statistics. Please try again.');
+        }
     }
 
     // End session and cleanup
