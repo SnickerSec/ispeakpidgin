@@ -284,7 +284,7 @@ class PracticeSession {
                 </div>
 
                 <!-- Action Buttons (shown after flip) -->
-                <div id="assessment-buttons" class="hidden space-x-4">
+                <div id="assessment-buttons" class="hidden flex justify-center items-center gap-4 mb-4">
                     <button id="know-it" class="px-6 py-3 bg-green-500 text-white rounded-xl hover:bg-green-600 transition font-semibold flex items-center gap-2">
                         ✓ I know this!
                     </button>
