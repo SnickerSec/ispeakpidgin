@@ -104,6 +104,58 @@ class ElevenLabsSpeech {
         }
     }
 
+    // Pidgin pronunciation corrections for TTS
+    applyPronunciationCorrections(text) {
+        // Map of Pidgin words to phonetic spelling for better TTS pronunciation
+        const pronunciationMap = {
+            // "kine" should rhyme with "nine"
+            'kine': 'kyne',
+            'da kine': 'da kyne',
+            'any kine': 'any kyne',
+            'small kine': 'small kyne',
+            'funny kine': 'funny kyne',
+            'fast kine': 'fast kyne',
+            'faskine': 'fas-kyne',
+
+            // Other common mispronunciations
+            'pau': 'pow',
+            'mauka': 'mow-kah',
+            'makai': 'mah-kye',
+            'ono': 'oh-no',
+            'auwe': 'ow-weh',
+            'wahine': 'vah-hee-neh',
+            'kane': 'kah-neh',
+            'keiki': 'kay-kee',
+            'tutu': 'too-too',
+            'lanai': 'lah-nye',
+            'mahalo': 'mah-hah-low',
+            'aloha': 'ah-low-hah',
+            'ohana': 'oh-hah-nah',
+            'kokua': 'koh-koo-ah',
+            'malama': 'mah-lah-mah',
+            'kapu': 'kah-poo',
+            'wiki': 'vee-kee',
+            'wikiwiki': 'vee-kee-vee-kee',
+            'pupus': 'poo-poos',
+            'pupu': 'poo-poo',
+            'hale': 'hah-leh',
+            'kupuna': 'koo-poo-nah',
+            'lolo': 'low-low',
+            'pilau': 'pee-lau',
+            'puka': 'poo-kah'
+        };
+
+        let correctedText = text;
+
+        // Apply corrections (case-insensitive)
+        Object.entries(pronunciationMap).forEach(([original, phonetic]) => {
+            const regex = new RegExp(`\\b${original}\\b`, 'gi');
+            correctedText = correctedText.replace(regex, phonetic);
+        });
+
+        return correctedText;
+    }
+
     async speak(text, options = {}) {
         try {
             // Wait for initialization
@@ -112,7 +164,12 @@ class ElevenLabsSpeech {
             // Stop any currently playing audio
             this.stop();
 
-            // Normalize text for caching
+            // Apply pronunciation corrections for Pidgin words
+            const correctedText = this.applyPronunciationCorrections(text);
+            console.log('Original text:', text);
+            console.log('Corrected for TTS:', correctedText);
+
+            // Normalize text for caching (use original text for cache key)
             const normalizedText = text.trim().toLowerCase();
 
             // Check cache first
@@ -131,13 +188,16 @@ class ElevenLabsSpeech {
                 options.onStart();
             }
 
-            // Make request to our backend API
+            // Make request to our backend API with corrected pronunciation
             const response = await fetch('/api/text-to-speech', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ text: text })
+                body: JSON.stringify({
+                    text: correctedText,  // Use corrected text for better pronunciation
+                    originalText: text    // Keep original for reference
+                })
             });
 
             if (!response.ok) {
@@ -241,7 +301,9 @@ class ElevenLabsSpeech {
         console.log('Using browser speech synthesis (ElevenLabs unavailable)');
 
         if ('speechSynthesis' in window) {
-            const utterance = new SpeechSynthesisUtterance(text);
+            // Apply pronunciation corrections for better Web Speech API pronunciation
+            const correctedText = this.applyPronunciationCorrections(text);
+            const utterance = new SpeechSynthesisUtterance(correctedText);
             utterance.rate = 0.85; // Slightly slower for pidgin
             utterance.pitch = 0.95; // Slightly lower pitch
             utterance.volume = 0.9;
@@ -272,7 +334,7 @@ class ElevenLabsSpeech {
             }
 
             // Add slight pauses for better pronunciation
-            const modifiedText = text
+            const modifiedText = correctedText
                 .replace(/([.!?])/g, '$1 ')  // Add pause after punctuation
                 .replace(/,/g, ', ');         // Add pause after commas
 
