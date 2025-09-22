@@ -494,6 +494,42 @@ function initLearningHub() {
         if (!quizSection) return;
 
         quizSection.classList.remove('hidden');
+
+        // Smooth scroll to quiz section for better mobile UX
+        setTimeout(() => {
+            // Get the quiz section position
+            const quizSectionTop = quizSection.getBoundingClientRect().top + window.pageYOffset;
+            // Add a small offset to ensure the quiz header is visible
+            const offset = 100;
+
+            // Smooth scroll to the quiz section
+            window.scrollTo({
+                top: quizSectionTop - offset,
+                behavior: 'smooth'
+            });
+
+            // For mobile devices, ensure the quiz content is in view
+            if (window.innerWidth <= 768) {
+                // Additional focus for mobile to ensure visibility
+                setTimeout(() => {
+                    quizSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center',
+                        inline: 'nearest'
+                    });
+                }, 300);
+            }
+
+            // Add a subtle highlight effect to draw attention
+            quizSection.style.transition = 'box-shadow 0.3s ease';
+            quizSection.style.boxShadow = '0 0 20px rgba(34, 197, 94, 0.5)';
+
+            // Remove the highlight after a moment
+            setTimeout(() => {
+                quizSection.style.boxShadow = '';
+            }, 2000);
+        }, 100); // Small delay to ensure quiz is rendered
+
         const quizContent = document.getElementById('quiz-content');
         const questions = quizQuestions[level];
         let currentQuestion = 0;
