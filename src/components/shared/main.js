@@ -164,6 +164,11 @@ function initTranslator() {
     const inputLabel = document.getElementById('input-label');
     const outputLabel = document.getElementById('output-label');
 
+    // Early return if translator elements don't exist
+    if (!translatorInput || !translatorOutput) {
+        return;
+    }
+
     let currentDirection = 'eng-to-pidgin';
     let autoTranslateEnabled = true; // Always enabled
     let typingTimer;
@@ -173,7 +178,7 @@ function initTranslator() {
     function initAutoTranslateDisplay() {
         // Create auto-translate status display if it doesn't exist
         let autoStatusContainer = document.getElementById('auto-translate-container');
-        if (!autoStatusContainer) {
+        if (!autoStatusContainer && translatorInput) {
             autoStatusContainer = document.createElement('div');
             autoStatusContainer.id = 'auto-translate-container';
             autoStatusContainer.className = 'flex items-center justify-center mb-4';
