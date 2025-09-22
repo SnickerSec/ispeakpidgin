@@ -90,7 +90,8 @@ function copyJavaScriptFiles() {
         'src/components/dictionary',
         'src/components/translator',
         'src/components/speech',
-        'src/components/shared'
+        'src/components/shared',
+        'src/components/practice'
     ];
 
     jsSourceDirs.forEach(dir => {

@@ -653,3 +653,57 @@ button:focus, a:focus, input:focus, textarea:focus {
 .dictionary-modal {
     animation: modalSlideIn 0.3s ease;
 }
+
+/* Practice Modal Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.3s ease;
+}
+
+.animate-slideUp {
+    animation: slideUp 0.3s ease;
+}
+
+/* Practice Flashcard Styles */
+.card-side {
+    transition: all 0.3s ease;
+}
+
+/* Practice Modal Responsive */
+@media (max-width: 640px) {
+    #practice-modal .max-w-2xl {
+        max-width: 95vw;
+        margin: 0.5rem;
+    }
+
+    #practice-modal .p-6 {
+        padding: 1rem;
+    }
+
+    #practice-modal .text-4xl {
+        font-size: 2rem;
+    }
+
+    #practice-modal .text-3xl {
+        font-size: 1.5rem;
+    }
+}

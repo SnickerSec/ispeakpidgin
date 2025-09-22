@@ -436,23 +436,28 @@ function showWordDetails(wordKey) {
 
 // Start word practice
 function startWordPractice(wordKey) {
-    // Get entry from appropriate system
-    let entry = null;
-
-    if (pidginDictionary.isNewSystem) {
-        entry = pidginDictionary.dataLoader.getById(wordKey);
+    // Use the new interactive practice system
+    if (window.practiceSession) {
+        window.practiceSession.start(wordKey, 'flashcard');
     } else {
-        entry = comprehensivePidginData[wordKey];
-    }
+        // Fallback to old system if practice session not loaded
+        console.error('Practice session not available');
 
-    if (!entry) return;
+        // Get entry from appropriate system
+        let entry = null;
+        if (pidginDictionary.isNewSystem) {
+            entry = pidginDictionary.dataLoader.getById(wordKey);
+        } else {
+            entry = comprehensivePidginData[wordKey];
+        }
 
-    // Normalize entry format
-    const pidgin = entry.pidgin;
-    const english = Array.isArray(entry.english) ? entry.english.join(', ') : entry.english;
-    const example = Array.isArray(entry.examples) ? entry.examples[0] : entry.example || '';
+        if (!entry) return;
 
-    alert(`🎯 Practice Session Starting!
+        const pidgin = entry.pidgin;
+        const english = Array.isArray(entry.english) ? entry.english.join(', ') : entry.english;
+        const example = Array.isArray(entry.examples) ? entry.examples[0] : entry.example || '';
+
+        alert(`🎯 Practice Session Starting!
 
 Word: ${pidgin}
 Meaning: ${english}
@@ -461,6 +466,7 @@ Try using "${pidgin}" in a sentence!
 ${example ? `Example: "${example}"` : ''}
 
 Practice speaking it out loud and use it in conversation today! 🌺`);
+    }
 }
 
 // Update search statistics

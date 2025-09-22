@@ -467,7 +467,7 @@ function initLearningHub() {
                 <p class="text-gray-700">${lesson.content.practice}</p>
             </div>
 
-            <button class="quiz-btn bg-green-500 text-white px-6 py-3 rounded-full hover:bg-green-600 transition" data-level="${level}">
+            <button class="quiz-btn bg-green-500 text-white px-6 py-3 rounded-full hover:bg-green-600 transition" data-level="${level}" data-lesson-id="${lesson.id}">
                 Take Quiz on This Topic →
             </button>
         `;
@@ -490,17 +490,143 @@ function initLearningHub() {
         // Quiz button
         const quizBtn = modalContent.querySelector('.quiz-btn');
         quizBtn.addEventListener('click', () => {
+            const lessonId = quizBtn.getAttribute('data-lesson-id');
             document.body.removeChild(modal);
-            startQuiz(level);
+            startLessonQuiz(lesson);
         });
     }
 
-    function startQuiz(level) {
+    // Generate quiz questions dynamically from lesson vocabulary
+    function generateLessonQuiz(lesson) {
+        const questions = [];
+        const vocab = lesson.content.vocabulary;
+
+        // Shuffle vocabulary to randomize questions
+        const shuffledVocab = [...vocab].sort(() => Math.random() - 0.5);
+
+        // Generate 5-6 questions from the lesson vocabulary
+        const numQuestions = Math.min(6, vocab.length);
+
+        for (let i = 0; i < numQuestions; i++) {
+            const currentWord = shuffledVocab[i];
+
+            // Type 1: What does this Pidgin word mean?
+            if (i % 3 === 0) {
+                // Create wrong options from other vocabulary items
+                const wrongOptions = vocab
+                    .filter(v => v.pidgin !== currentWord.pidgin)
+                    .map(v => v.english)
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, 3);
+
+                // If not enough wrong options, add generic ones
+                while (wrongOptions.length < 3) {
+                    const genericWrong = ['Something else', 'Not sure', 'Different meaning', 'Other'];
+                    wrongOptions.push(genericWrong[wrongOptions.length]);
+                }
+
+                const allOptions = [currentWord.english, ...wrongOptions].sort(() => Math.random() - 0.5);
+
+                questions.push({
+                    question: `What does "${currentWord.pidgin}" mean?`,
+                    options: allOptions,
+                    correct: allOptions.indexOf(currentWord.english)
+                });
+            }
+            // Type 2: How do you say this in Pidgin?
+            else if (i % 3 === 1) {
+                const wrongOptions = vocab
+                    .filter(v => v.pidgin !== currentWord.pidgin)
+                    .map(v => v.pidgin)
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, 3);
+
+                while (wrongOptions.length < 3) {
+                    const genericWrong = ['Da kine', 'Someting', 'Dat one', 'Oddah one'];
+                    wrongOptions.push(genericWrong[wrongOptions.length]);
+                }
+
+                const allOptions = [currentWord.pidgin, ...wrongOptions].sort(() => Math.random() - 0.5);
+
+                questions.push({
+                    question: `How do you say "${currentWord.english}" in Pidgin?`,
+                    options: allOptions,
+                    correct: allOptions.indexOf(currentWord.pidgin)
+                });
+            }
+            // Type 3: Complete the sentence
+            else {
+                if (currentWord.example) {
+                    // Replace the Pidgin word in the example with a blank
+                    const blankedExample = currentWord.example.replace(
+                        new RegExp(currentWord.pidgin, 'i'),
+                        '_____'
+                    );
+
+                    const wrongOptions = vocab
+                        .filter(v => v.pidgin !== currentWord.pidgin)
+                        .map(v => v.pidgin)
+                        .sort(() => Math.random() - 0.5)
+                        .slice(0, 3);
+
+                    while (wrongOptions.length < 3) {
+                        const genericWrong = ['Da kine', 'Someting', 'Dat one', 'Oddah one'];
+                        wrongOptions.push(genericWrong[wrongOptions.length]);
+                    }
+
+                    const allOptions = [currentWord.pidgin, ...wrongOptions].sort(() => Math.random() - 0.5);
+
+                    questions.push({
+                        question: `Complete the sentence: "${blankedExample}"`,
+                        options: allOptions,
+                        correct: allOptions.indexOf(currentWord.pidgin)
+                    });
+                }
+            }
+        }
+
+        return questions;
+    }
+
+    // Start a quiz for a specific lesson
+    function startLessonQuiz(lesson) {
         if (!quizSection) return;
 
         quizSection.classList.remove('hidden');
+
+        // Generate questions specific to this lesson
+        const questions = generateLessonQuiz(lesson);
+
+        // Smooth scroll to quiz section for better mobile UX
+        setTimeout(() => {
+            const quizSectionTop = quizSection.getBoundingClientRect().top + window.pageYOffset;
+            const offset = 100;
+
+            window.scrollTo({
+                top: quizSectionTop - offset,
+                behavior: 'smooth'
+            });
+
+            if (window.innerWidth <= 768) {
+                setTimeout(() => {
+                    quizSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center',
+                        inline: 'nearest'
+                    });
+                }, 300);
+            }
+
+            // Add a subtle highlight effect to draw attention
+            quizSection.style.transition = 'box-shadow 0.3s ease';
+            quizSection.style.boxShadow = '0 0 20px rgba(34, 197, 94, 0.5)';
+
+            setTimeout(() => {
+                quizSection.style.boxShadow = '';
+            }, 2000);
+        }, 100);
+
         const quizContent = document.getElementById('quiz-content');
-        const questions = quizQuestions[level];
         let currentQuestion = 0;
         let score = 0;
 
@@ -513,7 +639,139 @@ function initLearningHub() {
             const q = questions[currentQuestion];
             quizContent.innerHTML = `
                 <div class="mb-6">
-                    <p class="text-lg font-semibold mb-4">Question ${currentQuestion + 1} of ${questions.length}</p>
+                    <h3 class="text-xl font-bold mb-2">Question ${currentQuestion + 1} of ${questions.length}</h3>
+                    <p class="text-lg mb-4">${q.question}</p>
+                    <div class="space-y-2">
+                        ${q.options.map((option, index) => `
+                            <button class="quiz-option w-full text-left p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition" data-index="${index}">
+                                ${option}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            const optionBtns = quizContent.querySelectorAll('.quiz-option');
+            optionBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const selectedIndex = parseInt(btn.dataset.index);
+                    if (selectedIndex === q.correct) {
+                        score++;
+                        btn.classList.add('bg-green-100', 'border-green-500');
+                    } else {
+                        btn.classList.add('bg-red-100', 'border-red-500');
+                        optionBtns[q.correct].classList.add('bg-green-100', 'border-green-500');
+                    }
+
+                    setTimeout(() => {
+                        currentQuestion++;
+                        showQuestion();
+                    }, 1500);
+                });
+            });
+        }
+
+        function showResults() {
+            const percentage = Math.round((score / questions.length) * 100);
+            quizContent.innerHTML = `
+                <div class="text-center">
+                    <h3 class="text-2xl font-bold mb-4">Lesson Quiz Complete!</h3>
+                    <p class="text-4xl font-bold mb-4 ${percentage >= 70 ? 'text-green-600' : 'text-orange-600'}">
+                        ${percentage}%
+                    </p>
+                    <p class="text-lg mb-6">You got ${score} out of ${questions.length} questions correct!</p>
+                    <p class="text-md mb-6 text-gray-600">This quiz tested your knowledge of: <strong>${lesson.title}</strong></p>
+                    <div class="space-y-3">
+                        <button id="try-another-quiz" class="bg-green-500 text-white px-6 py-3 rounded-full hover:bg-green-600 transition">
+                            Try This Quiz Again
+                        </button>
+                        <br>
+                        <button id="close-quiz" class="bg-gray-500 text-white px-6 py-3 rounded-full hover:bg-gray-600 transition">
+                            Close Quiz
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            // Add event listeners for the new buttons
+            const tryAnotherBtn = document.getElementById('try-another-quiz');
+            const closeQuizBtn = document.getElementById('close-quiz');
+
+            if (tryAnotherBtn) {
+                tryAnotherBtn.addEventListener('click', () => {
+                    // Restart the same lesson quiz
+                    startLessonQuiz(level, lessonId, lesson);
+                });
+            }
+
+            if (closeQuizBtn) {
+                closeQuizBtn.addEventListener('click', () => {
+                    // Hide the quiz section
+                    quizSection.classList.add('hidden');
+                });
+            }
+        }
+
+        showQuestion();
+    }
+
+    // Keep the old startQuiz function for backward compatibility
+    function startQuiz(level) {
+        if (!quizSection) return;
+
+        quizSection.classList.remove('hidden');
+
+        // Smooth scroll to quiz section for better mobile UX
+        setTimeout(() => {
+            // Get the quiz section position
+            const quizSectionTop = quizSection.getBoundingClientRect().top + window.pageYOffset;
+            // Add a small offset to ensure the quiz header is visible
+            const offset = 100;
+
+            // Smooth scroll to the quiz section
+            window.scrollTo({
+                top: quizSectionTop - offset,
+                behavior: 'smooth'
+            });
+
+            // For mobile devices, ensure the quiz content is in view
+            if (window.innerWidth <= 768) {
+                // Additional focus for mobile to ensure visibility
+                setTimeout(() => {
+                    quizSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center',
+                        inline: 'nearest'
+                    });
+                }, 300);
+            }
+
+            // Add a subtle highlight effect to draw attention
+            quizSection.style.transition = 'box-shadow 0.3s ease';
+            quizSection.style.boxShadow = '0 0 20px rgba(34, 197, 94, 0.5)';
+
+            // Remove the highlight after a moment
+            setTimeout(() => {
+                quizSection.style.boxShadow = '';
+            }, 2000);
+        }, 100); // Small delay to ensure quiz is rendered
+
+        const quizContent = document.getElementById('quiz-content');
+        const questions = generateLessonQuiz(lesson);
+        let currentQuestion = 0;
+        let score = 0;
+
+        function showQuestion() {
+            if (currentQuestion >= questions.length) {
+                showResults();
+                return;
+            }
+
+            const q = questions[currentQuestion];
+            quizContent.innerHTML = `
+                <div class="mb-6">
+                    <p class="text-lg font-semibold mb-2">Question ${currentQuestion + 1} of ${questions.length}</p>
+                    <p class="text-sm text-gray-600 mb-4">Lesson: ${lesson.title}</p>
                     <p class="text-xl mb-6">${q.question}</p>
                     <div class="space-y-3">
                         ${q.options.map((option, index) => `
@@ -550,6 +808,7 @@ function initLearningHub() {
             quizContent.innerHTML = `
                 <div class="text-center">
                     <h3 class="text-2xl font-bold mb-4">Quiz Complete!</h3>
+                    <p class="text-sm text-gray-600 mb-2">Lesson: ${lesson.title}</p>
                     <p class="text-4xl font-bold mb-4 ${percentage >= 70 ? 'text-green-600' : 'text-orange-600'}">
                         ${percentage}%
                     </p>
