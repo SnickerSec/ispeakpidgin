@@ -644,7 +644,7 @@ function showFullStory(storyId) {
             <div class="bg-gradient-to-r from-orange-500 to-red-500 text-white p-8 rounded-t-2xl">
                 <div class="flex justify-between items-start">
                     <div>
-                        <span class="text-4xl mb-2 block">🌅</span>
+                        <span class="text-4xl mb-2 block">📖</span>
                         <h2 class="text-3xl font-bold mb-2">${story.title}</h2>
                         <p class="text-orange-100 text-lg">Hawaiian Pidgin Short Story</p>
                     </div>
