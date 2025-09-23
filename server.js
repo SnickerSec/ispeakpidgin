@@ -14,10 +14,28 @@ app.use(helmet({
         directives: {
             defaultSrc: ["'self'"],
             styleSrc: ["'self'", "'unsafe-inline'", "https://cdn.tailwindcss.com"],
-            scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.tailwindcss.com"],
-            imgSrc: ["'self'", "data:", "https:"],
+            scriptSrc: [
+                "'self'",
+                "'unsafe-inline'",
+                "https://cdn.tailwindcss.com",
+                "https://www.googletagmanager.com",
+                "https://www.google-analytics.com"
+            ],
+            imgSrc: [
+                "'self'",
+                "data:",
+                "https:",
+                "https://www.google-analytics.com",
+                "https://www.googletagmanager.com"
+            ],
             fontSrc: ["'self'", "https:"],
-            connectSrc: ["'self'", "https://api.elevenlabs.io"],
+            connectSrc: [
+                "'self'",
+                "https://api.elevenlabs.io",
+                "https://www.google-analytics.com",
+                "https://analytics.google.com",
+                "https://stats.g.doubleclick.net"
+            ],
             mediaSrc: ["'self'", "blob:", "data:", "https:"],
             objectSrc: ["'none'"],
             frameSrc: ["'none'"]

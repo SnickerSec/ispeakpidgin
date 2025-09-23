@@ -10,6 +10,9 @@ class AskLocalPageManager {
     }
 
     initializePage() {
+        // Initialize mobile menu
+        this.initializeMobileMenu();
+
         // Initialize form handling
         this.correctAnswer = 0;
         this.submissionAttempts = 0;
@@ -22,6 +25,48 @@ class AskLocalPageManager {
         this.loadSampleQuestions();
         this.loadQuestions();
         this.setupBackToTop();
+    }
+
+    initializeMobileMenu() {
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuBtn && mobileMenu) {
+            // Clone button to remove any existing event listeners
+            const newBtn = mobileMenuBtn.cloneNode(true);
+            mobileMenuBtn.parentNode.replaceChild(newBtn, mobileMenuBtn);
+
+            // Add event listener to toggle menu
+            newBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                mobileMenu.classList.toggle('hidden');
+
+                // Update aria-expanded for accessibility
+                const isExpanded = !mobileMenu.classList.contains('hidden');
+                newBtn.setAttribute('aria-expanded', isExpanded);
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!newBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+                    mobileMenu.classList.add('hidden');
+                    newBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // Close mobile menu when clicking on a link
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    newBtn.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            // Set initial aria-expanded state
+            newBtn.setAttribute('aria-expanded', 'false');
+        }
     }
 
     initializeFormHandling() {
