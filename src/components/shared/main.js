@@ -1041,8 +1041,8 @@ function initStoryCorner() {
     const storyIds = Object.keys(pidginStories);
     const shuffledStoryIds = shuffleArray([...storyIds]);
 
-    // Display 6 random stories (or all if less than 6)
-    const storiesToShow = shuffledStoryIds.slice(0, 6);
+    // Display 4 random stories (or all if less than 4)
+    const storiesToShow = shuffledStoryIds.slice(0, 4);
 
     storyCorner.innerHTML = '';
 
