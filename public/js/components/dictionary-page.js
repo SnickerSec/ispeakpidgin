@@ -530,13 +530,23 @@ function debounce(func, wait) {
 }
 
 // Mobile menu functionality
-document.addEventListener('DOMContentLoaded', function() {
+function initMobileMenu() {
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
 
     if (mobileMenuBtn && mobileMenu) {
-        mobileMenuBtn.addEventListener('click', () => {
+        // Remove any existing listeners to avoid duplicates
+        const newBtn = mobileMenuBtn.cloneNode(true);
+        mobileMenuBtn.parentNode.replaceChild(newBtn, mobileMenuBtn);
+
+        newBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             mobileMenu.classList.toggle('hidden');
+
+            // Toggle aria-expanded for accessibility
+            const isExpanded = !mobileMenu.classList.contains('hidden');
+            newBtn.setAttribute('aria-expanded', isExpanded);
         });
 
         // Close mobile menu when clicking a link
@@ -544,10 +554,27 @@ document.addEventListener('DOMContentLoaded', function() {
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
+                newBtn.setAttribute('aria-expanded', 'false');
             });
         });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!newBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+                mobileMenu.classList.add('hidden');
+                newBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
     }
-});
+}
+
+// Initialize mobile menu when DOM is ready or immediately if already ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMobileMenu);
+} else {
+    // DOM is already ready
+    initMobileMenu();
+}
 
 // Enhanced text-to-speech functionality (reuse from main.js)
 function speakText(text, options = {}) {
