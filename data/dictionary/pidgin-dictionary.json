@@ -1,8 +1,8 @@
 {
   "metadata": {
     "version": "2.0",
-    "lastUpdated": "2025-09-20",
-    "totalEntries": 436,
+    "lastUpdated": "2025-09-22",
+    "totalEntries": 437,
     "description": "Comprehensive Hawaiian Pidgin Dictionary",
     "contributors": [
       "ChokePidgin.com"
@@ -1662,11 +1662,11 @@
         "brother"
       ],
       "category": "people",
-      "pronunciation": "BRAH-dah",
+      "pronunciation": "BRƏ-də",
       "examples": [
         "Eh braddah"
       ],
-      "usage": "Friend/brother",
+      "usage": "Friend/brother - casual term for brother or male friend",
       "origin": "English \"brother\"",
       "difficulty": "beginner",
       "frequency": "medium",
@@ -1674,7 +1674,32 @@
         "people",
         "english"
       ],
-      "audioExample": "Howzit braddah?"
+      "audioExample": "Howzit braddah?",
+      "notes": "Pronounced with 'brud' sounding like 'bud' but with an 'r', and 'dah' rhyming with 'duh'"
+    },
+    {
+      "id": "bruddah_429",
+      "pidgin": "bruddah",
+      "english": [
+        "brother"
+      ],
+      "category": "people",
+      "pronunciation": "BRƏ-də",
+      "examples": [
+        "Wassup bruddah!",
+        "Tanks bruddah"
+      ],
+      "usage": "Alternative spelling of 'braddah' - casual term for brother or male friend",
+      "origin": "English \"brother\"",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "people",
+        "english",
+        "greetings"
+      ],
+      "audioExample": "Eh bruddah, you like go beach?",
+      "notes": "Common alternative spelling. Pronounced with 'brud' sounding like 'bud' but with an 'r', and 'dah' rhyming with 'duh'"
     },
     {
       "id": "brah_023",
