@@ -23,116 +23,10 @@ class PidginDataLoader {
             return this.data;
         } catch (error) {
             console.error('❌ Failed to load pidgin data:', error);
-            // Fallback to legacy data if available
-            return this.loadLegacyData();
+            throw error;
         }
     }
 
-    // Fallback to legacy comprehensive data
-    loadLegacyData() {
-        console.log('🔄 Falling back to legacy data format...');
-
-        if (typeof comprehensivePidginData !== 'undefined') {
-            // Convert legacy format to new format
-            this.data = this.convertLegacyData(comprehensivePidginData);
-            this.loaded = true;
-            console.log(`✅ Converted ${this.data.entries.length} legacy entries`);
-            return this.data;
-        }
-
-        throw new Error('No pidgin data available');
-    }
-
-    // Convert legacy JavaScript object to new JSON format
-    convertLegacyData(legacyData) {
-        const entries = [];
-        let idCounter = 1;
-
-        for (const [key, entry] of Object.entries(legacyData)) {
-            // Skip if entry is invalid
-            if (!entry || !entry.pidgin || !entry.english) continue;
-
-            const newEntry = {
-                id: `${key.replace(/[^a-z0-9]/g, '_')}_${idCounter.toString().padStart(3, '0')}`,
-                pidgin: entry.pidgin,
-                english: Array.isArray(entry.english) ? entry.english : [entry.english],
-                category: entry.category || 'expressions',
-                pronunciation: entry.pronunciation || '',
-                examples: entry.example ? [entry.example] : [],
-                usage: entry.usage || '',
-                origin: entry.origin || '',
-                difficulty: this.inferDifficulty(entry.pidgin),
-                frequency: this.inferFrequency(entry.pidgin),
-                tags: this.generateTags(entry),
-                audioExample: entry.audioExample || entry.example || ''
-            };
-
-            entries.push(newEntry);
-            idCounter++;
-        }
-
-        return {
-            metadata: {
-                version: '2.0',
-                lastUpdated: new Date().toISOString().split('T')[0],
-                totalEntries: entries.length,
-                description: 'Hawaiian Pidgin Dictionary (Converted from Legacy)',
-                source: 'legacy-conversion'
-            },
-            categories: this.getDefaultCategories(),
-            entries: entries
-        };
-    }
-
-    // Infer difficulty level based on word characteristics
-    inferDifficulty(pidgin) {
-        const commonWords = ['howzit', 'brah', 'ono', 'pau', 'shoots', 'stay', 'da', 'grindz'];
-        const intermediateWords = ['da kine', 'broke da mouth', 'talk story', 'pau hana'];
-
-        if (commonWords.includes(pidgin.toLowerCase())) return 'beginner';
-        if (intermediateWords.includes(pidgin.toLowerCase())) return 'intermediate';
-        if (pidgin.includes(' ') || pidgin.length > 8) return 'advanced';
-        return 'beginner';
-    }
-
-    // Infer frequency based on word characteristics
-    inferFrequency(pidgin) {
-        const veryHigh = ['howzit', 'brah', 'da', 'stay', 'pau', 'shoots', 'ono'];
-        const high = ['grindz', 'da kine', 'choke', 'no can', 'like'];
-
-        if (veryHigh.includes(pidgin.toLowerCase())) return 'very_high';
-        if (high.includes(pidgin.toLowerCase())) return 'high';
-        return 'medium';
-    }
-
-    // Generate tags based on entry data
-    generateTags(entry) {
-        const tags = [];
-
-        if (entry.category) tags.push(entry.category);
-        if (entry.origin === 'Hawaiian') tags.push('hawaiian');
-        if (entry.origin === 'English') tags.push('english');
-        if (entry.english.includes('food') || entry.category === 'food') tags.push('food');
-        if (entry.english.includes('greeting') || entry.category === 'greetings') tags.push('greeting');
-
-        return tags;
-    }
-
-    // Get default categories
-    getDefaultCategories() {
-        return {
-            greetings: { name: "Greetings", description: "Ways to say hello", icon: "🙋‍♂️" },
-            food: { name: "Food", description: "Food and eating", icon: "🍽️" },
-            expressions: { name: "Expressions", description: "Common phrases", icon: "💬" },
-            slang: { name: "Slang", description: "Casual language", icon: "🤙" },
-            emotions: { name: "Emotions", description: "Feelings", icon: "😊" },
-            actions: { name: "Actions", description: "Verbs", icon: "⚡" },
-            directions: { name: "Directions", description: "Locations", icon: "🧭" },
-            nature: { name: "Nature", description: "Environment", icon: "🌿" },
-            cultural: { name: "Cultural", description: "Traditional", icon: "🌺" },
-            family: { name: "Family", description: "Relationships", icon: "👨‍👩‍👧‍👦" }
-        };
-    }
 
     // Get all entries
     getAllEntries() {
@@ -229,22 +123,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         await pidginDataLoader.loadData();
 
-        // Create compatibility layer for existing code
-        window.comprehensivePidginData = {};
-        pidginDataLoader.getAllEntries().forEach(entry => {
-            window.comprehensivePidginData[entry.pidgin] = {
-                pidgin: entry.pidgin,
-                english: entry.english[0], // Use first English translation
-                category: entry.category,
-                pronunciation: entry.pronunciation,
-                example: entry.examples[0] || '',
-                usage: entry.usage,
-                origin: entry.origin,
-                audioExample: entry.audioExample
-            };
-        });
-
-        console.log('✅ Compatibility layer created for legacy code');
 
         // Dispatch custom event for modules that need to know data is ready
         window.dispatchEvent(new CustomEvent('pidginDataLoaded', {

@@ -113,7 +113,6 @@ function copyJavaScriptFiles() {
 function copyDataFiles() {
     const dataFiles = [
         { src: 'data/dictionary/pidgin-dictionary.json', dest: 'public/data/pidgin-dictionary.json' },
-        { src: 'data/dictionary/legacy/comprehensive-pidgin-data.js', dest: 'public/js/data/comprehensive-pidgin-data.js' },
         { src: 'data/phrases/phrases-data.js', dest: 'public/js/data/phrases-data.js' },
         { src: 'data/phrases/stories-data.js', dest: 'public/js/data/stories-data.js' }
     ];
