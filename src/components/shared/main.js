@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initEssentialPhrases();
     initTranslator();
     initLearningHub();
+    initStoryCorner();
     initCommunity();
     initSmoothScrolling();
     initVoiceSettings();
@@ -1029,6 +1030,137 @@ function showAllStories() {
         </button>
     `;
     storiesContainer.appendChild(backToTopDiv);
+}
+
+// Initialize Story Corner with randomized stories
+function initStoryCorner() {
+    const storyCorner = document.getElementById('story-corner');
+    if (!storyCorner || typeof pidginStories === 'undefined') return;
+
+    // Get all story IDs and randomize them
+    const storyIds = Object.keys(pidginStories);
+    const shuffledStoryIds = shuffleArray([...storyIds]);
+
+    // Display 6 random stories (or all if less than 6)
+    const storiesToShow = shuffledStoryIds.slice(0, 6);
+
+    storyCorner.innerHTML = '';
+
+    storiesToShow.forEach(storyId => {
+        const story = pidginStories[storyId];
+
+        const storyCard = document.createElement('div');
+        storyCard.className = 'bg-white/95 backdrop-blur rounded-lg shadow-lg p-6 transform hover:scale-105 transition-all duration-200 cursor-pointer';
+        storyCard.dataset.storyId = storyId;
+
+        storyCard.innerHTML = `
+            <div class="mb-4">
+                <span class="text-3xl">📖</span>
+            </div>
+            <h4 class="text-xl font-bold text-gray-800 mb-2">${story.title}</h4>
+            <p class="text-gray-600 italic line-clamp-3">${story.preview}</p>
+            <button class="mt-4 text-green-600 font-semibold hover:text-green-700 transition">
+                Read Story →
+            </button>
+        `;
+
+        // Add click event to show full story
+        storyCard.addEventListener('click', () => {
+            showStoryModal(storyId);
+        });
+
+        storyCorner.appendChild(storyCard);
+    });
+
+    // Add refresh button
+    const refreshButton = document.createElement('div');
+    refreshButton.className = 'col-span-full text-center mt-6';
+    refreshButton.innerHTML = `
+        <button id="refresh-stories" class="bg-green-500 text-white px-6 py-3 rounded-full hover:bg-green-600 transition font-semibold shadow-lg">
+            🔄 Show Different Stories
+        </button>
+    `;
+    storyCorner.appendChild(refreshButton);
+
+    // Add refresh functionality
+    document.getElementById('refresh-stories').addEventListener('click', () => {
+        initStoryCorner(); // Reinitialize with new random stories
+    });
+}
+
+// Show story in modal
+function showStoryModal(storyId) {
+    const story = pidginStories[storyId];
+    if (!story) return;
+
+    // Create modal
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
+    modal.style.animation = 'fadeIn 0.3s ease';
+
+    modal.innerHTML = `
+        <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl" style="animation: slideUp 0.3s ease">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-green-500 to-teal-500 text-white p-8 rounded-t-2xl">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span class="text-4xl mb-2 block">📚</span>
+                        <h2 class="text-3xl font-bold mb-2">${story.title}</h2>
+                        <p class="text-green-100 text-lg">Pidgin Story Corner</p>
+                    </div>
+                    <button class="close-modal text-white hover:text-green-200 text-3xl font-bold transition">×</button>
+                </div>
+            </div>
+
+            <!-- Story Content -->
+            <div class="p-8">
+                <div class="prose prose-lg max-w-none">
+                    <div class="text-gray-800 leading-relaxed text-lg whitespace-pre-line">${story.content}</div>
+                </div>
+
+                <!-- Story Actions -->
+                <div class="mt-8 pt-6 border-t flex justify-between items-center">
+                    <button class="speak-story bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition">
+                        🔊 Listen to Story
+                    </button>
+                    <button class="close-btn bg-gray-500 text-white px-6 py-2 rounded-full hover:bg-gray-600 transition">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    // Close modal functionality
+    const closeModal = () => {
+        modal.style.animation = 'fadeOut 0.3s ease';
+        setTimeout(() => modal.remove(), 300);
+    };
+
+    modal.querySelector('.close-modal').addEventListener('click', closeModal);
+    modal.querySelector('.close-btn').addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+
+    // Speak story functionality
+    modal.querySelector('.speak-story').addEventListener('click', () => {
+        if (window.speechModule && window.speechModule.speakText) {
+            window.speechModule.speakText(story.content);
+        }
+    });
+}
+
+// Utility function to shuffle array (Fisher-Yates algorithm)
+function shuffleArray(array) {
+    const newArray = [...array];
+    for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
 }
 
 // Smooth scrolling for navigation links
