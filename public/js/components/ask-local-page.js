@@ -638,6 +638,11 @@ class AskLocalPageManager {
 }
 
 // Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        new AskLocalPageManager();
+    });
+} else {
+    // DOM is already loaded
     new AskLocalPageManager();
-});
+}
