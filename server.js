@@ -127,19 +127,37 @@ app.get('*', (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`🌺 ChokePidgin server running on port ${PORT}`);
     console.log(`🌐 Local: http://localhost:${PORT}`);
     console.log(`📁 Serving files from: ${path.join(__dirname, 'public')}`);
 });
 
 // Graceful shutdown
-process.on('SIGTERM', () => {
-    console.log('🛑 Server shutting down gracefully...');
-    process.exit(0);
+const gracefulShutdown = (signal) => {
+    console.log(`\n🛑 Received ${signal}, starting graceful shutdown...`);
+
+    server.close(() => {
+        console.log('✅ HTTP server closed');
+        process.exit(0);
+    });
+
+    // Force close after 10 seconds
+    setTimeout(() => {
+        console.error('⚠️ Could not close connections in time, forcefully shutting down');
+        process.exit(1);
+    }, 10000);
+};
+
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+
+// Handle uncaught exceptions
+process.on('uncaughtException', (err) => {
+    console.error('⚠️ Uncaught Exception:', err);
+    gracefulShutdown('UNCAUGHT_EXCEPTION');
 });
 
-process.on('SIGINT', () => {
-    console.log('🛑 Server shutting down gracefully...');
-    process.exit(0);
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('⚠️ Unhandled Rejection at:', promise, 'reason:', reason);
 });
