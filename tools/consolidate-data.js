@@ -11,9 +11,17 @@ const path = require('path');
 
 // Paths
 const dataDir = path.join(__dirname, '..', 'data');
-const dictionaryPath = path.join(dataDir, 'dictionary', 'pidgin-dictionary.json');
-const phrasesPath = path.join(dataDir, 'phrases', 'phrases-data.js');
-const storiesPath = path.join(dataDir, 'phrases', 'stories-data.js');
+// Check if legacy files exist in backup, otherwise use master as source
+const legacyBackupDir = path.join(dataDir, '_legacy_backup');
+const dictionaryPath = fs.existsSync(path.join(legacyBackupDir, 'dictionary', 'pidgin-dictionary.json'))
+    ? path.join(legacyBackupDir, 'dictionary', 'pidgin-dictionary.json')
+    : path.join(dataDir, 'master', 'pidgin-master.json');
+const phrasesPath = fs.existsSync(path.join(legacyBackupDir, 'phrases', 'phrases-data.js'))
+    ? path.join(legacyBackupDir, 'phrases', 'phrases-data.js')
+    : null;
+const storiesPath = fs.existsSync(path.join(legacyBackupDir, 'phrases', 'stories-data.js'))
+    ? path.join(legacyBackupDir, 'phrases', 'stories-data.js')
+    : null;
 const masterPath = path.join(dataDir, 'master', 'pidgin-master.json');
 
 // Helper function to safely require JS files
@@ -40,33 +48,41 @@ console.log('📚 Loading existing data sources...');
 const dictionaryData = JSON.parse(fs.readFileSync(dictionaryPath, 'utf8'));
 console.log(`✅ Loaded ${dictionaryData.metadata.totalEntries} dictionary entries`);
 
-// 2. Load phrases data (JS)
-const phrasesContent = fs.readFileSync(phrasesPath, 'utf8');
-// Extract the pidginPhrases object
-const phrasesMatch = phrasesContent.match(/const pidginPhrases = ({[\s\S]*?^};)/m);
+// 2. Load phrases data (JS) if available
 let phrasesData = null;
-if (phrasesMatch) {
-    try {
-        // Use eval to parse the object (safe since it's our own data)
-        eval('phrasesData = ' + phrasesMatch[1]);
-        console.log(`✅ Loaded ${phrasesData.dailyPhrases.length} daily phrases`);
-        console.log(`✅ Loaded ${Object.keys(phrasesData.translationDict).length} translation mappings`);
-    } catch (error) {
-        console.error('Error parsing phrases data:', error.message);
+if (phrasesPath && fs.existsSync(phrasesPath)) {
+    const phrasesContent = fs.readFileSync(phrasesPath, 'utf8');
+    // Extract the pidginPhrases object
+    const phrasesMatch = phrasesContent.match(/const pidginPhrases = ({[\s\S]*?^};)/m);
+    if (phrasesMatch) {
+        try {
+            // Use eval to parse the object (safe since it's our own data)
+            eval('phrasesData = ' + phrasesMatch[1]);
+            console.log(`✅ Loaded ${phrasesData.dailyPhrases.length} daily phrases`);
+            console.log(`✅ Loaded ${Object.keys(phrasesData.translationDict).length} translation mappings`);
+        } catch (error) {
+            console.error('Error parsing phrases data:', error.message);
+        }
     }
+} else {
+    console.log('ℹ️ No phrases data file found (already consolidated)');
 }
 
-// 3. Load stories data
-const storiesContent = fs.readFileSync(storiesPath, 'utf8');
-const storiesMatch = storiesContent.match(/const pidginStories = ({[\s\S]*?^};)/m);
+// 3. Load stories data if available
 let storiesData = null;
-if (storiesMatch) {
-    try {
-        eval('storiesData = ' + storiesMatch[1]);
-        console.log(`✅ Loaded ${storiesData.stories.length} cultural stories`);
-    } catch (error) {
-        console.error('Error parsing stories data:', error.message);
+if (storiesPath && fs.existsSync(storiesPath)) {
+    const storiesContent = fs.readFileSync(storiesPath, 'utf8');
+    const storiesMatch = storiesContent.match(/const pidginStories = ({[\s\S]*?^};)/m);
+    if (storiesMatch) {
+        try {
+            eval('storiesData = ' + storiesMatch[1]);
+            console.log(`✅ Loaded ${storiesData.stories.length} cultural stories`);
+        } catch (error) {
+            console.error('Error parsing stories data:', error.message);
+        }
     }
+} else {
+    console.log('ℹ️ No stories data file found (already consolidated)');
 }
 
 // Create master data structure

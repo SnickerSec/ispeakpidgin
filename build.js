@@ -139,21 +139,24 @@ function copyDataFiles() {
         });
     }
 
-    // Always copy legacy files for backward compatibility
-    const legacyFiles = [
-        { src: 'data/dictionary/pidgin-dictionary.json', dest: 'public/data/dictionary/pidgin-dictionary.json' },
-        { src: 'data/phrases/phrases-data.js', dest: 'public/js/data/phrases-data.js' },
-        { src: 'data/phrases/stories-data.js', dest: 'public/js/data/stories-data.js' }
-    ];
+    // Copy legacy files from backup if they exist (for backward compatibility during transition)
+    const legacyBackupDir = 'data/_legacy_backup';
+    if (fs.existsSync(legacyBackupDir)) {
+        const legacyFiles = [
+            { src: `${legacyBackupDir}/dictionary/pidgin-dictionary.json`, dest: 'public/data/dictionary/pidgin-dictionary.json' },
+            { src: `${legacyBackupDir}/phrases/phrases-data.js`, dest: 'public/js/data/phrases-data.js' },
+            { src: `${legacyBackupDir}/phrases/stories-data.js`, dest: 'public/js/data/stories-data.js' }
+        ];
 
-    legacyFiles.forEach(({ src, dest }) => {
-        if (fs.existsSync(src)) {
-            // Ensure destination directory exists
-            fs.mkdirSync(path.dirname(dest), { recursive: true });
-            fs.copyFileSync(src, dest);
-            console.log(`📊 Copied data: ${path.basename(dest)}`);
-        }
-    });
+        legacyFiles.forEach(({ src, dest }) => {
+            if (fs.existsSync(src)) {
+                // Ensure destination directory exists
+                fs.mkdirSync(path.dirname(dest), { recursive: true });
+                fs.copyFileSync(src, dest);
+                console.log(`📊 Copied legacy data (from backup): ${path.basename(dest)}`);
+            }
+        });
+    }
 }
 
 // Copy CSS files
