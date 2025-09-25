@@ -22,6 +22,7 @@ const pathMappings = {
     'js/comprehensive-pidgin-data.js': 'js/data/comprehensive-pidgin-data.js',
     'js/stories-data.js': 'js/data/stories-data.js',
     'js/translator.js': 'js/components/translator.js',
+    'js/translator-page.js': 'js/components/translator-page.js',
     'js/dictionary.js': 'js/components/dictionary.js',
     'js/dictionary-page.js': 'js/components/dictionary-page.js',
     'js/lessons.js': 'js/components/lessons.js',

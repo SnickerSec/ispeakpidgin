@@ -1,6 +1,17 @@
 // Translator Page Specific JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-    initTranslatorPage();
+    // Wait for translator to be available before initializing
+    const initWhenReady = () => {
+        if (typeof pidginTranslator !== 'undefined' && pidginTranslator) {
+            initTranslatorPage();
+        } else {
+            // Check again in 100ms
+            setTimeout(initWhenReady, 100);
+        }
+    };
+
+    // Start checking after a brief delay
+    setTimeout(initWhenReady, 100);
 });
 
 function initTranslatorPage() {
@@ -12,7 +23,7 @@ function initTranslatorPage() {
     setupCharacterCounter();
     setupVoiceInput();
 
-    console.log('🔄 Translator page initialized');
+    console.log('🔄 Translator page initialized with pidginTranslator ready');
 }
 
 // Translation direction toggle
@@ -93,8 +104,14 @@ function setupTranslationControls() {
         translateTimeout = setTimeout(() => {
             if (inputField.value.trim()) {
                 performTranslation();
+            } else {
+                // Clear output when input is empty
+                outputDiv.innerHTML = '<p class="text-gray-400 italic">Translation will appear here...</p>';
+                confidenceIndicator?.classList.add('hidden');
+                copyBtn?.classList.add('hidden');
+                speakBtn?.classList.add('hidden');
             }
-        }, 500);
+        }, 300); // Reduced from 500ms to 300ms for faster response
     });
 
     // Clear button
@@ -165,8 +182,8 @@ function performTranslation() {
     // Determine direction
     const direction = localStorage.getItem('translatorDirection') || 'en-to-pid';
 
-    // Use the translator module
-    if (typeof pidginTranslator !== 'undefined') {
+    // Use the translator module - wait for it to be available
+    if (typeof pidginTranslator !== 'undefined' && pidginTranslator) {
         let results;
 
         if (direction === 'en-to-pid') {
