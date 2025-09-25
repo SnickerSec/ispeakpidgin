@@ -63,7 +63,7 @@ function createPublicStructure() {
 
 // Copy and process HTML files
 function processHTMLFiles() {
-    const htmlFiles = ['index.html', 'dictionary.html', 'ask-local.html'];
+    const htmlFiles = ['index.html', 'translator.html', 'dictionary.html', 'ask-local.html'];
 
     htmlFiles.forEach(file => {
         const srcPath = path.join('src/pages', file);
