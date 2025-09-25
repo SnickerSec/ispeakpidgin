@@ -96,34 +96,56 @@ function initNavigation() {
 }
 
 // Daily phrase functionality
-function initDailyPhrase() {
-    // Ensure getDailyPhrase function is available
-    if (typeof getDailyPhrase === 'undefined') {
-        console.error('getDailyPhrase function not found');
-        return;
-    }
-
-    const dailyPhrase = getDailyPhrase();
-
+async function initDailyPhrase() {
     const phrasePidgin = document.getElementById('phrase-pidgin');
     const phraseEnglish = document.getElementById('phrase-english');
     const phraseUsage = document.getElementById('phrase-usage');
     const speakBtn = document.getElementById('speak-phrase');
 
-    if (phrasePidgin && dailyPhrase) {
+    if (!phrasePidgin || !phraseEnglish || !phraseUsage) {
+        console.log('Daily phrase elements not found');
+        return;
+    }
+
+    // Wait for phrases to load if needed
+    if (typeof getDailyPhrase === 'undefined') {
+        console.log('getDailyPhrase function not available yet, retrying...');
+        setTimeout(() => initDailyPhrase(), 1000);
+        return;
+    }
+
+    let dailyPhrase = getDailyPhrase();
+
+    // If phrases aren't loaded yet, wait for them
+    if (!dailyPhrase && window.phrasesLoadPromise) {
+        console.log('Waiting for phrases to load for daily phrase...');
+        try {
+            await window.phrasesLoadPromise;
+            dailyPhrase = getDailyPhrase();
+        } catch (error) {
+            console.log('Could not load phrases for daily phrase');
+            return;
+        }
+    }
+
+    if (dailyPhrase) {
+        console.log('✅ Setting daily phrase:', dailyPhrase.pidgin);
         phrasePidgin.textContent = dailyPhrase.pidgin;
         phraseEnglish.textContent = dailyPhrase.english;
         phraseUsage.textContent = dailyPhrase.context || dailyPhrase.usage || '';
-    }
 
-    if (speakBtn) {
-        speakBtn.addEventListener('click', () => {
-            if (dailyPhrase && dailyPhrase.pidgin) {
-                speakText(dailyPhrase.pidgin);
-            } else {
-                console.warn('Daily phrase not available for speech');
-            }
-        });
+        // Set up speak button
+        if (speakBtn) {
+            speakBtn.addEventListener('click', () => {
+                if (dailyPhrase && dailyPhrase.pidgin) {
+                    speakText(dailyPhrase.pidgin);
+                } else {
+                    console.warn('Daily phrase not available for speech');
+                }
+            });
+        }
+    } else {
+        console.log('No daily phrase available, keeping default');
     }
 }
 
