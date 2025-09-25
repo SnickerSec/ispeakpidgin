@@ -104,10 +104,10 @@ function setupTranslationControls() {
     confidenceBar = document.getElementById('confidence-bar');
     confidenceText = document.getElementById('confidence-text');
 
-    // Translate button
-    translateBtn?.addEventListener('click', performTranslation);
+    // Remove translate button listener since it's gone
+    // translateBtn?.addEventListener('click', performTranslation);
 
-    // Enter key to translate
+    // Keep Enter key to force re-translate if needed
     inputField?.addEventListener('keypress', (e) => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();

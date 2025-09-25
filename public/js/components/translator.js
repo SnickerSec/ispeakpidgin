@@ -740,5 +740,24 @@ const translator = new PidginTranslator();
 // Make available as pidginTranslator for consistency
 const pidginTranslator = translator;
 
+// Add methods for backward compatibility with translator-page.js
+pidginTranslator.englishToPidgin = function(text) {
+    const result = this.translate(text, 'eng-to-pidgin');
+    return [{
+        translation: result.text,
+        confidence: (result.confidence || 80) / 100,
+        pronunciation: result.pronunciation
+    }];
+};
+
+pidginTranslator.pidginToEnglish = function(text) {
+    const result = this.translate(text, 'pidgin-to-eng');
+    return [{
+        translation: result.text,
+        confidence: (result.confidence || 80) / 100,
+        pronunciation: result.pronunciation
+    }];
+};
+
 // Global exposure for other modules
 window.pidginTranslator = pidginTranslator;
