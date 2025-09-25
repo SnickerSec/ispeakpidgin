@@ -54,6 +54,15 @@ class PidginTranslator {
                         }
                     }
                 }
+
+                // Debug: Check if 'hello' is in the dictionary
+                console.log(`Created dictionary with ${Object.keys(dict).length} entries`);
+                if (dict['hello']) {
+                    console.log(`✅ Found 'hello' -> '${dict['hello']}'`);
+                } else {
+                    console.log('❌ "hello" not found in dictionary');
+                    console.log('Dictionary keys sample:', Object.keys(dict).slice(0, 10));
+                }
             } catch (error) {
                 console.error('Error creating dictionary from loader:', error);
             }
@@ -400,6 +409,9 @@ class PidginTranslator {
         let text = englishText.toLowerCase().trim();
         let originalText = text;
 
+        console.log(`🔍 Translating: "${englishText}" -> "${text}"`);
+        console.log(`Dictionary sizes: comprehensive=${Object.keys(this.comprehensiveDict).length}, original=${Object.keys(this.dict).length}`);
+
         // Detect context for better translation
         const context = this.detectContext(text);
 
@@ -410,15 +422,19 @@ class PidginTranslator {
         }
 
         // First try comprehensive dictionary
+        console.log(`🔎 Looking in comprehensive dict for: "${text}"`);
         for (let [english, pidgin] of Object.entries(this.comprehensiveDict)) {
             if (text === english) {
+                console.log(`✅ Found match: "${english}" -> "${pidgin}"`);
                 return this.enhanceWithContext(this.capitalizeFirst(pidgin), context);
             }
         }
 
         // Then try original dictionary
+        console.log(`🔎 Looking in original dict for: "${text}"`);
         for (let [english, pidgin] of Object.entries(this.dict)) {
             if (text === english) {
+                console.log(`✅ Found match: "${english}" -> "${pidgin}"`);
                 return this.enhanceWithContext(this.capitalizeFirst(pidgin), context);
             }
         }
