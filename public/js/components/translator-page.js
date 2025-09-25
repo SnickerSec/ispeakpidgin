@@ -302,10 +302,8 @@ function setupTranslationHistory() {
 
     // Clear history button
     clearHistoryBtn?.addEventListener('click', () => {
-        if (confirm('Clear all translation history?')) {
-            localStorage.removeItem('translationHistory');
-            loadHistory();
-        }
+        localStorage.removeItem('translationHistory');
+        loadHistory();
     });
 }
 
@@ -330,8 +328,8 @@ function addToHistory(original, translation, direction) {
             timestamp: new Date().toISOString()
         });
 
-        // Keep only last 10 translations
-        history = history.slice(0, 10);
+        // Keep only last 5 translations
+        history = history.slice(0, 5);
 
         // Save to localStorage
         localStorage.setItem('translationHistory', JSON.stringify(history));
