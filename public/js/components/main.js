@@ -1056,20 +1056,23 @@ async function initStoryCorner() {
     const storyCorner = document.getElementById('story-corner');
     if (!storyCorner) return;
 
-    // Try to get stories from various sources
+    // Try to get stories from various sources (prioritize consolidated data)
     let stories = [];
 
-    // First try from window.pidginStories (array from stories-data.js)
-    if (typeof window !== 'undefined' && window.pidginStories && Array.isArray(window.pidginStories)) {
-        stories = window.pidginStories;
-    }
-    // Then try from pidginDataLoader if available
-    else if (typeof pidginDataLoader !== 'undefined' && pidginDataLoader.masterData && pidginDataLoader.masterData.content && pidginDataLoader.masterData.content.stories) {
+    // First try from pidginDataLoader (consolidated data system)
+    if (typeof pidginDataLoader !== 'undefined' && pidginDataLoader.masterData && pidginDataLoader.masterData.content && pidginDataLoader.masterData.content.stories) {
         stories = pidginDataLoader.masterData.content.stories;
+        console.log('✅ Using stories from consolidated data system');
+    }
+    // Then try from window.pidginStories (array from stories-data.js)
+    else if (typeof window !== 'undefined' && window.pidginStories && Array.isArray(window.pidginStories)) {
+        stories = window.pidginStories;
+        console.log('✅ Using stories from stories-data.js');
     }
     // Also check the global storiesData
     else if (typeof window !== 'undefined' && window.storiesData && window.storiesData.stories) {
         stories = window.storiesData.stories;
+        console.log('✅ Using stories from storiesData');
     }
 
     if (!stories || stories.length === 0) {

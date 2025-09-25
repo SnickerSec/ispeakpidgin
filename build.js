@@ -157,6 +157,24 @@ function copyDataFiles() {
             }
         });
     }
+
+    // Copy data files from src/data/ directory
+    const srcDataDir = 'src/data';
+    if (fs.existsSync(srcDataDir)) {
+        const srcDataFiles = [
+            { src: `${srcDataDir}/phrases-data.js`, dest: 'public/js/data/phrases-data.js' },
+            { src: `${srcDataDir}/stories-data.js`, dest: 'public/js/data/stories-data.js' }
+        ];
+
+        srcDataFiles.forEach(({ src, dest }) => {
+            if (fs.existsSync(src)) {
+                // Ensure destination directory exists
+                fs.mkdirSync(path.dirname(dest), { recursive: true });
+                fs.copyFileSync(src, dest);
+                console.log(`📊 Copied src data: ${path.basename(dest)}`);
+            }
+        });
+    }
 }
 
 // Copy CSS files

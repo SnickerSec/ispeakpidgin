@@ -1,6 +1,15 @@
-// Hawaiian Pidgin Stories for Story Corner
-// Cultural stories showcasing authentic Hawaiian Pidgin dialogue and local culture
+// Hawaiian Pidgin Stories - Consolidated Data System
+//
+// ⚠️ IMPORTANT: Stories are now managed through the consolidated data system!
+// Primary location: data/master/pidgin-master.json under content.stories[]
+//
+// The application should use pidginDataLoader.masterData.content.stories
+// This file exists only for backward compatibility during transition.
 
+console.log('📚 Stories-data.js: Stories are managed in consolidated data system');
+console.log('📍 Primary location: data/master/pidgin-master.json -> content.stories');
+
+// Minimal fallback structure for compatibility
 const pidginStories = {
     stories: [
         {
