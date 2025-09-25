@@ -19,6 +19,13 @@ class PidginTranslator {
     }
 
     tryInitialize() {
+        console.log('🔄 Translator tryInitialize called...', {
+            initialized: this.initialized,
+            pidginDataLoader: typeof pidginDataLoader !== 'undefined',
+            dataLoaded: typeof pidginDataLoader !== 'undefined' ? pidginDataLoader.loaded : false,
+            pidginPhrases: typeof pidginPhrases !== 'undefined'
+        });
+
         if (this.initialized) return;
 
         // Try to use pidginDataLoader if available
@@ -34,6 +41,8 @@ class PidginTranslator {
             this.reverseDict = this.createReverseDict();
             this.initialized = true;
             console.log('✅ Translator initialized with pidginPhrases');
+        } else {
+            console.warn('⚠️ No data sources available for translator initialization');
         }
     }
 
