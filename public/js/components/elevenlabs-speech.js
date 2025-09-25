@@ -157,156 +157,250 @@ class ElevenLabsSpeech {
     }
 
     async speak(text, options = {}) {
-        try {
-            // Wait for initialization
-            await this.initializationPromise;
+        const maxRetries = 2; // Retry failed API calls
+        let attempt = 0;
 
-            // Stop any currently playing audio
-            this.stop();
+        while (attempt <= maxRetries) {
+            try {
+                // Wait for initialization
+                await this.initializationPromise;
 
-            // Apply pronunciation corrections for Pidgin words
-            const correctedText = this.applyPronunciationCorrections(text);
-            console.log('Original text:', text);
-            console.log('Corrected for TTS:', correctedText);
+                // Stop any currently playing audio
+                this.stop();
 
-            // Normalize text for caching (use original text for cache key)
-            const normalizedText = text.trim().toLowerCase();
+                // Apply pronunciation corrections for Pidgin words
+                const correctedText = this.applyPronunciationCorrections(text);
+                console.log('Original text:', text);
+                console.log('Corrected for TTS:', correctedText);
 
-            // Check cache first
-            if (this.cache.has(normalizedText)) {
-                console.log('Playing cached audio for:', text);
-                if (!options.silent) {
-                    // Pass original text for fallback
-                    this.playAudioBlob(this.cache.get(normalizedText), correctedText);
+                // Normalize text for caching (use original text for cache key)
+                const normalizedText = text.trim().toLowerCase();
+
+                // Check cache first
+                if (this.cache.has(normalizedText)) {
+                    console.log('Playing cached audio for:', text);
+                    if (!options.silent) {
+                        // Try to play cached audio with retry fallback
+                        const success = await this.playAudioBlobWithRetry(this.cache.get(normalizedText), correctedText, normalizedText);
+                        if (success) return;
+
+                        // If cached audio failed, remove from cache and retry API
+                        console.log('Cached audio failed, removing from cache and retrying API');
+                        this.cache.delete(normalizedText);
+                        // Continue to API call below
+                    } else {
+                        return; // Silent mode, don't play
+                    }
                 }
-                return;
+
+                if (attempt > 0) {
+                    console.log(`ElevenLabs API retry attempt ${attempt} for:`, text);
+                }
+
+                console.log('Generating Hawaiian Pidgin speech for:', text);
+
+                // Show loading state if callback provided
+                if (options.onStart) {
+                    options.onStart();
+                }
+
+                // Make request to our backend API with corrected pronunciation
+                const response = await fetch('/api/text-to-speech', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        text: correctedText,  // Use corrected text for better pronunciation
+                        originalText: text    // Keep original for reference
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`TTS request failed: ${response.status} ${response.statusText}`);
+                }
+
+                // Get audio blob from response
+                const audioBlob = await response.blob();
+
+                // Validate blob
+                if (!audioBlob || audioBlob.size === 0) {
+                    throw new Error('Received empty audio blob from API');
+                }
+
+                // Cache the audio for future use
+                this.cache.set(normalizedText, audioBlob);
+
+                // Also save to IndexedDB for persistent storage
+                await this.saveToDB(normalizedText, audioBlob);
+
+                // Play the audio (unless silent mode for preloading)
+                if (!options.silent) {
+                    const success = await this.playAudioBlobWithRetry(audioBlob, correctedText, normalizedText);
+                    if (!success && attempt < maxRetries) {
+                        throw new Error('Audio playback failed, retrying API call');
+                    }
+                }
+
+                if (options.onSuccess) {
+                    options.onSuccess();
+                }
+
+                return; // Success, exit retry loop
+
+            } catch (error) {
+                console.error(`ElevenLabs TTS error (attempt ${attempt + 1}):`, error);
+
+                attempt++;
+
+                if (attempt <= maxRetries) {
+                    // Wait before retry (exponential backoff)
+                    const delay = Math.min(1000 * Math.pow(2, attempt - 1), 5000);
+                    console.log(`Retrying ElevenLabs API in ${delay}ms...`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                } else {
+                    // All retries exhausted
+                    console.log('All ElevenLabs retry attempts failed, falling back to browser TTS');
+
+                    if (options.onError) {
+                        options.onError(error);
+                    }
+
+                    // Fallback to browser speech synthesis
+                    this.fallbackToWebSpeech(text);
+                    return;
+                }
             }
-
-            console.log('Generating Hawaiian Pidgin speech for:', text);
-
-            // Show loading state if callback provided
-            if (options.onStart) {
-                options.onStart();
-            }
-
-            // Make request to our backend API with corrected pronunciation
-            const response = await fetch('/api/text-to-speech', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    text: correctedText,  // Use corrected text for better pronunciation
-                    originalText: text    // Keep original for reference
-                })
-            });
-
-            if (!response.ok) {
-                throw new Error(`TTS request failed: ${response.status} ${response.statusText}`);
-            }
-
-            // Get audio blob from response
-            const audioBlob = await response.blob();
-
-            // Cache the audio for future use
-            this.cache.set(normalizedText, audioBlob);
-
-            // Also save to IndexedDB for persistent storage
-            await this.saveToDB(normalizedText, audioBlob);
-
-            // Play the audio (unless silent mode for preloading)
-            if (!options.silent) {
-                this.playAudioBlob(audioBlob);
-            }
-
-            if (options.onSuccess) {
-                options.onSuccess();
-            }
-
-        } catch (error) {
-            console.error('ElevenLabs TTS error:', error);
-
-            if (options.onError) {
-                options.onError(error);
-            }
-
-            // Fallback to browser speech synthesis
-            this.fallbackToWebSpeech(text);
         }
     }
 
-    playAudioBlob(audioBlob, fallbackText = '') {
-        try {
-            // Ensure we have a valid blob
-            if (!audioBlob || !(audioBlob instanceof Blob)) {
-                console.error('Invalid audio blob');
-                return;
-            }
-
-            // Create audio URL from blob
-            const audioUrl = URL.createObjectURL(audioBlob);
-
-            // Create and configure audio element
-            this.currentAudio = new Audio(audioUrl);
-            this.isPlaying = true;
-
-            // Track the URL for cleanup
-            this.currentAudioUrl = audioUrl;
-
-            // Set up event listeners
-            this.currentAudio.addEventListener('ended', () => {
-                this.isPlaying = false;
-                if (this.currentAudioUrl) {
-                    URL.revokeObjectURL(this.currentAudioUrl);
-                    this.currentAudioUrl = null;
+    // New method with retry logic and better error handling
+    async playAudioBlobWithRetry(audioBlob, fallbackText = '', cacheKey = '', maxRetries = 1) {
+        for (let attempt = 0; attempt <= maxRetries; attempt++) {
+            try {
+                // Ensure we have a valid blob
+                if (!audioBlob || !(audioBlob instanceof Blob)) {
+                    console.error('Invalid audio blob');
+                    return false;
                 }
-                this.currentAudio = null;
-            });
 
-            this.currentAudio.addEventListener('error', (e) => {
-                console.error('Audio playback error:', e);
-                this.isPlaying = false;
-                if (this.currentAudioUrl) {
-                    URL.revokeObjectURL(this.currentAudioUrl);
-                    this.currentAudioUrl = null;
-                }
-                this.currentAudio = null;
-                // Fallback to browser TTS on any audio error
-                if (fallbackText) {
-                    console.log('ElevenLabs audio failed, falling back to browser TTS');
-                    this.fallbackToWebSpeech(fallbackText);
-                }
-            });
+                // Create audio URL from blob
+                const audioUrl = URL.createObjectURL(audioBlob);
 
-            // Play the audio
-            this.currentAudio.play().catch(error => {
-                if (error.name === 'NotAllowedError') {
-                    console.log('Audio autoplay blocked - user interaction required');
+                // Create and configure audio element
+                this.currentAudio = new Audio(audioUrl);
+                this.isPlaying = true;
+
+                // Track the URL for cleanup
+                this.currentAudioUrl = audioUrl;
+
+                // Return a promise that resolves when audio starts playing successfully
+                const playResult = await new Promise((resolve, reject) => {
+                    let resolved = false;
+
+                    // Set up event listeners
+                    const onEnded = () => {
+                        if (!resolved) {
+                            resolved = true;
+                            resolve(true);
+                        }
+                        this.cleanup();
+                    };
+
+                    const onError = (e) => {
+                        console.error('Audio playback error:', e);
+                        if (!resolved) {
+                            resolved = true;
+                            reject(e);
+                        }
+                        this.cleanup();
+                    };
+
+                    const onCanPlay = () => {
+                        if (!resolved) {
+                            resolved = true;
+                            resolve(true);
+                        }
+                    };
+
+                    // Add listeners
+                    this.currentAudio.addEventListener('ended', onEnded);
+                    this.currentAudio.addEventListener('error', onError);
+                    this.currentAudio.addEventListener('canplay', onCanPlay);
+
+                    // Attempt to play
+                    this.currentAudio.play().catch(error => {
+                        if (error.name === 'NotAllowedError') {
+                            console.log('Audio autoplay blocked - user interaction required');
+                            if (!resolved) {
+                                resolved = true;
+                                resolve(false); // Not really a failure, just blocked
+                            }
+                        } else {
+                            console.error('Audio play error:', error);
+                            if (!resolved) {
+                                resolved = true;
+                                reject(error);
+                            }
+                        }
+                        this.cleanup();
+                    });
+
+                    // Timeout after 5 seconds
+                    setTimeout(() => {
+                        if (!resolved) {
+                            resolved = true;
+                            reject(new Error('Audio play timeout'));
+                        }
+                    }, 5000);
+                });
+
+                return playResult;
+
+            } catch (error) {
+                console.error(`Audio play attempt ${attempt + 1} failed:`, error);
+
+                // Clean up on error
+                this.cleanup();
+
+                if (attempt < maxRetries) {
+                    console.log(`Retrying audio playback (attempt ${attempt + 2})...`);
+                    await new Promise(resolve => setTimeout(resolve, 100));
                 } else {
-                    console.error('Audio play error:', error);
-                    // Fallback to browser TTS on play errors
-                    if (fallbackText) {
-                        console.log('Audio play failed, falling back to browser TTS');
-                        this.fallbackToWebSpeech(fallbackText);
-                    }
+                    // All attempts failed
+                    console.log('All audio playback attempts failed');
+                    return false;
                 }
-                this.isPlaying = false;
-                if (this.currentAudioUrl) {
-                    URL.revokeObjectURL(this.currentAudioUrl);
-                    this.currentAudioUrl = null;
-                }
-                this.currentAudio = null;
-            });
+            }
+        }
 
-        } catch (error) {
+        return false;
+    }
+
+    // Legacy method for backward compatibility
+    playAudioBlob(audioBlob, fallbackText = '') {
+        this.playAudioBlobWithRetry(audioBlob, fallbackText).then(success => {
+            if (!success && fallbackText) {
+                console.log('ElevenLabs audio failed, falling back to browser TTS');
+                this.fallbackToWebSpeech(fallbackText);
+            }
+        }).catch(error => {
             console.error('Error playing audio blob:', error);
-            this.isPlaying = false;
-            // Fallback to browser TTS on blob creation errors
             if (fallbackText) {
                 console.log('Blob creation failed, falling back to browser TTS');
                 this.fallbackToWebSpeech(fallbackText);
             }
+        });
+    }
+
+    // Helper method for cleanup
+    cleanup() {
+        this.isPlaying = false;
+        if (this.currentAudioUrl) {
+            URL.revokeObjectURL(this.currentAudioUrl);
+            this.currentAudioUrl = null;
         }
+        this.currentAudio = null;
     }
 
     fallbackToWebSpeech(text) {
@@ -362,9 +456,9 @@ class ElevenLabsSpeech {
         if (this.currentAudio) {
             this.currentAudio.pause();
             this.currentAudio.currentTime = 0;
-            this.currentAudio = null;
         }
-        this.isPlaying = false;
+
+        this.cleanup();
 
         // Also stop web speech synthesis
         if ('speechSynthesis' in window) {
