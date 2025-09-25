@@ -1052,32 +1052,56 @@ function showAllStories() {
 }
 
 // Initialize Story Corner with randomized stories
-function initStoryCorner() {
+async function initStoryCorner() {
     const storyCorner = document.getElementById('story-corner');
-    if (!storyCorner || typeof pidginStories === 'undefined') return;
+    if (!storyCorner) return;
 
-    // Get all story IDs and randomize them
-    const storyIds = Object.keys(pidginStories);
-    const shuffledStoryIds = shuffleArray([...storyIds]);
+    // Try to get stories from various sources
+    let stories = [];
 
-    // Display 3 random stories (or all if less than 3)
-    const storiesToShow = shuffledStoryIds.slice(0, 3);
+    // First try from window.pidginStories (array from stories-data.js)
+    if (typeof window !== 'undefined' && window.pidginStories && Array.isArray(window.pidginStories)) {
+        stories = window.pidginStories;
+    }
+    // Then try from pidginDataLoader if available
+    else if (typeof pidginDataLoader !== 'undefined' && pidginDataLoader.masterData && pidginDataLoader.masterData.content && pidginDataLoader.masterData.content.stories) {
+        stories = pidginDataLoader.masterData.content.stories;
+    }
+    // Also check the global storiesData
+    else if (typeof window !== 'undefined' && window.storiesData && window.storiesData.stories) {
+        stories = window.storiesData.stories;
+    }
+
+    if (!stories || stories.length === 0) {
+        storyCorner.innerHTML = '<p class="text-gray-500 text-center col-span-full">Stories are loading...</p>';
+        console.log('No stories found, will retry in 2 seconds...');
+        setTimeout(() => initStoryCorner(), 2000);
+        return;
+    }
+
+    console.log(`Found ${stories.length} stories for story corner`);
+
+    // Randomize stories array and show 3 random ones
+    const shuffledStories = shuffleArray([...stories]);
+    const storiesToShow = shuffledStories.slice(0, 3);
 
     storyCorner.innerHTML = '';
 
-    storiesToShow.forEach(storyId => {
-        const story = pidginStories[storyId];
+    storiesToShow.forEach((story, index) => {
 
         const storyCard = document.createElement('div');
         storyCard.className = 'bg-white/95 backdrop-blur rounded-lg shadow-lg p-6 transform hover:scale-105 transition-all duration-200 cursor-pointer';
-        storyCard.dataset.storyId = storyId;
+        storyCard.dataset.storyId = story.id;
+
+        // Create a preview from the pidgin text (first ~100 chars)
+        const preview = story.pidginText ? story.pidginText.substring(0, 100) + '...' : 'Click to read this Hawaiian Pidgin story...';
 
         storyCard.innerHTML = `
             <div class="mb-4">
                 <span class="text-3xl">📖</span>
             </div>
             <h4 class="text-xl font-bold text-gray-800 mb-2">${story.title}</h4>
-            <p class="text-gray-600 italic line-clamp-3">${story.preview}</p>
+            <p class="text-gray-600 italic line-clamp-3">${preview}</p>
             <button class="mt-4 text-green-600 font-semibold hover:text-green-700 transition">
                 Read Story →
             </button>
@@ -1085,7 +1109,7 @@ function initStoryCorner() {
 
         // Add click event to show full story
         storyCard.addEventListener('click', () => {
-            showStoryModal(storyId);
+            showStoryModal(story);
         });
 
         storyCorner.appendChild(storyCard);
@@ -1108,8 +1132,7 @@ function initStoryCorner() {
 }
 
 // Show story in modal
-function showStoryModal(storyId) {
-    const story = pidginStories[storyId];
+function showStoryModal(story) {
     if (!story) return;
 
     // Create modal
