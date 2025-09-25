@@ -120,6 +120,9 @@ class PidginDataLoader {
 // Initialize global data loader
 const pidginDataLoader = new PidginDataLoader();
 
+// Make it globally available
+window.pidginDataLoader = pidginDataLoader;
+
 // Auto-load data when DOM is ready
 document.addEventListener('DOMContentLoaded', async () => {
     try {

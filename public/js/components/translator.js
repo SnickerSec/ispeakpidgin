@@ -28,13 +28,6 @@ class PidginTranslator {
             this.initialized = true;
             console.log('✅ Translator initialized with pidginDataLoader');
         }
-        // Try comprehensive pidgin data next
-        else if (typeof comprehensivePidginData !== 'undefined') {
-            this.createDictFromComprehensiveData();
-            this.reverseDict = this.createReverseDict();
-            this.initialized = true;
-            console.log('✅ Translator initialized with comprehensivePidginData');
-        }
         // Fallback to pidginPhrases if available
         else if (typeof pidginPhrases !== 'undefined') {
             this.createDictFromPhrases();
@@ -93,25 +86,6 @@ class PidginTranslator {
         }
     }
 
-    // Create translation dictionary from comprehensive pidgin data
-    createDictFromComprehensiveData() {
-        const dict = {};
-        if (typeof comprehensivePidginData !== 'undefined') {
-            // Process comprehensive data - it's structured as key: {english: string, pidgin: string}
-            Object.keys(comprehensivePidginData).forEach(key => {
-                const entry = comprehensivePidginData[key];
-                if (entry.english && entry.pidgin) {
-                    // Add english to pidgin mapping
-                    dict[entry.english.toLowerCase()] = entry.pidgin;
-                    // Also add the key itself as a potential english word
-                    dict[key.toLowerCase()] = entry.pidgin;
-                }
-            });
-            this.dict = dict;
-            this.comprehensiveDict = dict;
-            console.log(`📚 Loaded ${Object.keys(dict).length} translations from comprehensive data`);
-        }
-    }
 
     // Create context patterns for better translation
     createContextPatterns() {
@@ -195,15 +169,6 @@ class PidginTranslator {
             }
         }
 
-        // Add from comprehensive data if available
-        if (typeof comprehensivePidginData !== 'undefined') {
-            Object.keys(comprehensivePidginData).forEach(key => {
-                const entry = comprehensivePidginData[key];
-                if (entry.english && entry.pidgin) {
-                    reverse[entry.pidgin.toLowerCase()] = entry.english;
-                }
-            });
-        }
 
         // Add from phrases if available
         if (typeof pidginPhrases !== 'undefined' && pidginPhrases.dailyPhrases) {
