@@ -452,6 +452,16 @@ footer nav {
     background: none !important;
     backdrop-filter: none !important;
     border: none !important;
+    pointer-events: auto !important;
+    z-index: 10 !important;
+    position: relative !important;
+}
+
+/* Ensure footer links are clickable */
+footer nav a {
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 11 !important;
 }
 
 /* Accessibility improvements with Hawaiian colors */
