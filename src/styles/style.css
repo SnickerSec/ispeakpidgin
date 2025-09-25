@@ -447,6 +447,13 @@ article.bg-gray-50:hover {
     color: #bbf7d0 !important; /* green-200 */
 }
 
+/* Footer navigation - remove background gradient */
+footer nav {
+    background: none !important;
+    backdrop-filter: none !important;
+    border: none !important;
+}
+
 /* Accessibility improvements with Hawaiian colors */
 button:focus, a:focus, input:focus, textarea:focus {
     outline: 3px solid #ff6b6b;
