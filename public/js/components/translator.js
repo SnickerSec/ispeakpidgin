@@ -66,6 +66,10 @@ class PidginTranslator {
                     }
                 }
                 console.log(`📚 Loaded ${Object.keys(dict).length} translations from data loader`);
+
+                // Debug: Show some sample entries
+                const samples = Object.entries(dict).slice(0, 5);
+                console.log('Sample dictionary entries:', samples);
             } catch (error) {
                 console.error('Error creating dictionary from loader:', error);
             }
@@ -413,6 +417,12 @@ class PidginTranslator {
         let text = englishText.toLowerCase().trim();
         let originalText = text;
 
+        console.log(`🔍 Translating English to Pidgin: "${englishText}" -> "${text}"`);
+        console.log('Dictionary sizes:', {
+            dict: Object.keys(this.dict).length,
+            comprehensiveDict: Object.keys(this.comprehensiveDict).length
+        });
+
         // Detect context for better translation
         const context = this.detectContext(text);
 
@@ -423,15 +433,19 @@ class PidginTranslator {
         }
 
         // First try comprehensive dictionary
+        console.log(`🔎 Looking for exact match in comprehensive dict for: "${text}"`);
         for (let [english, pidgin] of Object.entries(this.comprehensiveDict)) {
             if (text === english) {
+                console.log(`✅ Found exact match: "${english}" -> "${pidgin}"`);
                 return this.enhanceWithContext(this.capitalizeFirst(pidgin), context);
             }
         }
 
         // Then try original dictionary
+        console.log(`🔎 Looking for exact match in original dict for: "${text}"`);
         for (let [english, pidgin] of Object.entries(this.dict)) {
             if (text === english) {
+                console.log(`✅ Found exact match: "${english}" -> "${pidgin}"`);
                 return this.enhanceWithContext(this.capitalizeFirst(pidgin), context);
             }
         }
