@@ -193,13 +193,13 @@ function displayResults(entries) {
 
     if (entries.length === 0) {
         grid.innerHTML = '';
-        grid.classList.add('hidden');
+        grid.style.display = 'none';
         if (noResults) noResults.classList.remove('hidden');
         return;
     }
 
     // Show grid and hide no results
-    grid.classList.remove('hidden');
+    grid.style.display = ''; // Remove inline display: none
     if (noResults) noResults.classList.add('hidden');
 
     // Sort entries alphabetically
