@@ -113,7 +113,7 @@ function initDailyPhrase() {
     if (phrasePidgin && dailyPhrase) {
         phrasePidgin.textContent = dailyPhrase.pidgin;
         phraseEnglish.textContent = dailyPhrase.english;
-        phraseUsage.textContent = dailyPhrase.usage;
+        phraseUsage.textContent = dailyPhrase.context || dailyPhrase.usage || '';
     }
 
     if (speakBtn) {
@@ -124,18 +124,33 @@ function initDailyPhrase() {
 }
 
 // Essential phrases functionality
-function initEssentialPhrases() {
-    // Ensure pidginPhrases is available
-    if (typeof pidginPhrases === 'undefined' || !pidginPhrases.dailyPhrases) {
-        console.error('pidginPhrases not found');
-        return;
-    }
-
+async function initEssentialPhrases() {
     const grid = document.getElementById('essential-phrases-grid');
     if (!grid) return;
 
-    // Get 6 random phrases
-    const allPhrases = [...pidginPhrases.dailyPhrases];
+    // Wait for phrases to load if they haven't yet
+    if (typeof window.pidginPhrases === 'undefined' || window.pidginPhrases.length === 0) {
+        if (window.phrasesLoadPromise) {
+            console.log('Waiting for phrases to load...');
+            try {
+                await window.phrasesLoadPromise;
+            } catch (error) {
+                console.log('Could not load phrases for essential phrases');
+                return;
+            }
+        } else {
+            console.log('No phrases available for essential phrases');
+            return;
+        }
+    }
+
+    // Use the new pidginPhrases array format
+    const allPhrases = [...window.pidginPhrases];
+    if (allPhrases.length === 0) {
+        console.log('No phrases loaded yet for essential phrases');
+        return;
+    }
+
     const selectedPhrases = [];
 
     for (let i = 0; i < 6 && allPhrases.length > 0; i++) {
@@ -148,7 +163,7 @@ function initEssentialPhrases() {
         <div class="phrase-card bg-white rounded-lg p-6 shadow hover:shadow-lg transition">
             <h3 class="text-xl font-bold text-green-600 mb-2">${phrase.pidgin}</h3>
             <p class="text-gray-600 mb-2">${phrase.english}</p>
-            <p class="text-sm text-gray-500">${phrase.usage}</p>
+            <p class="text-sm text-gray-500">${phrase.context || phrase.usage || ''}</p>
         </div>
     `).join('');
 }

@@ -28,12 +28,19 @@ window.getDailyPhrase = function() {
         const index = dayOfYear % window.pidginPhrases.length;
         return window.pidginPhrases[index];
     }
-    console.log('getDailyPhrase: No phrases loaded yet');
+    // If phrases aren't loaded yet, try to wait a bit and retry
+    if (!window.phrasesLoadPromise) {
+        console.log('getDailyPhrase: Phrases still loading, will retry...');
+        return null;
+    }
     return null;
 };
 
+// Store the loading promise globally so other functions can await it
+window.phrasesLoadPromise = null;
+
 // Auto-load phrases when script runs
-loadPhrasesFromView();
+window.phrasesLoadPromise = loadPhrasesFromView();
 
 // Export for module systems
 if (typeof module !== 'undefined' && module.exports) {
