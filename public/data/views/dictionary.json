@@ -3,7 +3,7 @@
     "version": "3.0",
     "lastUpdated": "2025-09-25",
     "totalEntries": 453,
-    "totalPhrases": 105,
+    "totalPhrases": 0,
     "totalStories": 0,
     "description": "Unified Hawaiian Pidgin Master Database",
     "sources": [
@@ -14,105 +14,105 @@
     "viewType": "dictionary"
   },
   "categories": {
-    "greetings": {
-      "name": "Greetings",
-      "description": "Ways to say hello and greet people",
-      "icon": "🙋‍♂️"
+    "expressions": {
+      "name": "expressions",
+      "count": 185,
+      "description": ""
     },
     "food": {
-      "name": "Food & Eating",
-      "description": "Food, eating, and dining terms",
-      "icon": "🍽️"
-    },
-    "expressions": {
-      "name": "Expressions",
-      "description": "Common expressions and phrases",
-      "icon": "💬"
-    },
-    "slang": {
-      "name": "Slang",
-      "description": "Casual and street language",
-      "icon": "🤙"
-    },
-    "emotions": {
-      "name": "Emotions",
-      "description": "Feelings and emotional expressions",
-      "icon": "😊"
-    },
-    "actions": {
-      "name": "Actions",
-      "description": "Verbs and action words",
-      "icon": "⚡"
-    },
-    "directions": {
-      "name": "Directions",
-      "description": "Location and direction terms",
-      "icon": "🧭"
+      "name": "food",
+      "count": 28,
+      "description": ""
     },
     "nature": {
-      "name": "Nature",
-      "description": "Natural world and environment",
-      "icon": "🌿"
+      "name": "nature",
+      "count": 8,
+      "description": ""
+    },
+    "greetings": {
+      "name": "greetings",
+      "count": 15,
+      "description": ""
+    },
+    "actions": {
+      "name": "actions",
+      "count": 16,
+      "description": ""
     },
     "cultural": {
-      "name": "Cultural",
-      "description": "Cultural and traditional terms",
-      "icon": "🌺"
-    },
-    "family": {
-      "name": "Family",
-      "description": "Family and relationship terms",
-      "icon": "👨‍👩‍👧‍👦"
-    },
-    "people": {
-      "name": "People",
-      "description": "Terms for people and relationships",
-      "icon": "👥"
+      "name": "cultural",
+      "count": 15,
+      "description": ""
     },
     "descriptions": {
-      "name": "Descriptions",
-      "description": "Descriptive words and adjectives",
-      "icon": "📝"
+      "name": "descriptions",
+      "count": 12,
+      "description": ""
+    },
+    "slang": {
+      "name": "slang",
+      "count": 116,
+      "description": ""
     },
     "grammar": {
-      "name": "Grammar",
-      "description": "Grammar and sentence structure",
-      "icon": "📚"
+      "name": "grammar",
+      "count": 7,
+      "description": ""
     },
-    "concepts": {
-      "name": "Concepts",
-      "description": "Abstract concepts and ideas",
-      "icon": "💭"
+    "people": {
+      "name": "people",
+      "count": 20,
+      "description": ""
+    },
+    "emotions": {
+      "name": "emotions",
+      "count": 8,
+      "description": ""
     },
     "clothing": {
-      "name": "Clothing",
-      "description": "Clothing and accessories",
-      "icon": "👕"
+      "name": "clothing",
+      "count": 3,
+      "description": ""
     },
     "animals": {
-      "name": "Animals",
-      "description": "Animals and creatures",
-      "icon": "🐾"
+      "name": "animals",
+      "count": 4,
+      "description": ""
     },
     "games": {
-      "name": "Games",
-      "description": "Games and activities",
-      "icon": "🎮"
+      "name": "games",
+      "count": 1,
+      "description": ""
+    },
+    "family": {
+      "name": "family",
+      "count": 2,
+      "description": ""
+    },
+    "concepts": {
+      "name": "concepts",
+      "count": 2,
+      "description": ""
     },
     "architecture": {
-      "name": "Architecture",
-      "description": "Buildings and structures",
-      "icon": "🏗️"
+      "name": "architecture",
+      "count": 1,
+      "description": ""
+    },
+    "directions": {
+      "name": "directions",
+      "count": 4,
+      "description": ""
     },
     "numbers": {
-      "name": "Numbers",
-      "description": "Numbers and counting",
-      "icon": "🔢"
+      "name": "numbers",
+      "count": 2,
+      "description": ""
     },
     "questions": {
-      "name": "Questions",
-      "description": "Question words and phrases",
-      "icon": "❓"
+      "name": "questions",
+      "count": 4,
+      "description": ""
     }
   },
   "entries": [

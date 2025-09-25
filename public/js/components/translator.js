@@ -683,7 +683,23 @@ class PidginTranslator {
                 'crazy': 'pilau'
             };
 
-            return successfulPhrases[originalLower] === translatedLower;
+            // Check for exact matches first
+            if (successfulPhrases[originalLower] === translatedLower) {
+                return true;
+            }
+
+            // Check for partial phrase matches (e.g., "how are you today" contains "how are you" → "howzit")
+            for (let [engPhrase, pidginPhrase] of Object.entries(successfulPhrases)) {
+                if (originalLower.includes(engPhrase) && translatedLower.includes(pidginPhrase)) {
+                    // Make sure the phrase was actually translated, not just coincidentally present
+                    const engWords = engPhrase.split(' ');
+                    if (engWords.length > 1) { // Multi-word phrases only
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         } else {
             // Pidgin to English phrase matches
             const successfulPhrases = {
