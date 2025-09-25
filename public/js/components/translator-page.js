@@ -15,15 +15,28 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initTranslatorPage() {
-    // Initialize components
-    setupTranslationDirection();
-    setupTranslationControls();
-    setupExamplePhrases();
-    setupTranslationHistory();
-    setupCharacterCounter();
-    setupVoiceInput();
+    try {
+        // Initialize components
+        console.log('🔄 Initializing translator page components...');
+        setupTranslationDirection();
+        setupTranslationControls();
+        setupExamplePhrases();
+        setupTranslationHistory();
+        setupCharacterCounter();
+        setupVoiceInput();
 
-    console.log('🔄 Translator page initialized with pidginTranslator ready');
+        console.log('✅ Translator page initialized with pidginTranslator ready');
+
+        // Test if key elements exist
+        const testInput = document.getElementById('translator-input');
+        const testOutput = document.getElementById('translation-output');
+        console.log('Input element:', testInput ? 'Found' : 'Missing');
+        console.log('Output element:', testOutput ? 'Found' : 'Missing');
+        console.log('pidginTranslator available:', typeof pidginTranslator !== 'undefined');
+
+    } catch (error) {
+        console.error('❌ Error initializing translator page:', error);
+    }
 }
 
 // Translation direction toggle
@@ -73,18 +86,23 @@ function setupTranslationDirection() {
     }
 }
 
+// Global DOM element references for translator page
+let translateBtn, inputField, outputDiv, clearBtn, pasteBtn, copyBtn, speakBtn;
+let confidenceIndicator, confidenceBar, confidenceText;
+
 // Translation controls
 function setupTranslationControls() {
-    const translateBtn = document.getElementById('translate-btn');
-    const inputField = document.getElementById('translator-input');
-    const outputDiv = document.getElementById('translation-output');
-    const clearBtn = document.getElementById('clear-input-btn');
-    const pasteBtn = document.getElementById('paste-btn');
-    const copyBtn = document.getElementById('copy-btn');
-    const speakBtn = document.getElementById('speak-btn');
-    const confidenceIndicator = document.getElementById('confidence-indicator');
-    const confidenceBar = document.getElementById('confidence-bar');
-    const confidenceText = document.getElementById('confidence-text');
+    // Get all DOM elements and store them globally for this module
+    translateBtn = document.getElementById('translate-btn');
+    inputField = document.getElementById('translator-input');
+    outputDiv = document.getElementById('translation-output');
+    clearBtn = document.getElementById('clear-input-btn');
+    pasteBtn = document.getElementById('paste-btn');
+    copyBtn = document.getElementById('copy-btn');
+    speakBtn = document.getElementById('speak-btn');
+    confidenceIndicator = document.getElementById('confidence-indicator');
+    confidenceBar = document.getElementById('confidence-bar');
+    confidenceText = document.getElementById('confidence-text');
 
     // Translate button
     translateBtn?.addEventListener('click', performTranslation);
@@ -168,13 +186,11 @@ function setupTranslationControls() {
 
 // Perform translation
 function performTranslation() {
-    const inputField = document.getElementById('translator-input');
-    const outputDiv = document.getElementById('translation-output');
-    const copyBtn = document.getElementById('copy-btn');
-    const speakBtn = document.getElementById('speak-btn');
-    const confidenceIndicator = document.getElementById('confidence-indicator');
-    const confidenceBar = document.getElementById('confidence-bar');
-    const confidenceText = document.getElementById('confidence-text');
+    // Use global references instead of querying DOM again
+    if (!inputField || !outputDiv) {
+        console.error('Translation elements not found');
+        return;
+    }
 
     const text = inputField.value.trim();
     if (!text) return;
