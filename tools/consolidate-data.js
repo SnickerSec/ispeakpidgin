@@ -332,7 +332,74 @@ const learningView = {
 fs.writeFileSync(path.join(dataDir, 'views', 'learning.json'), JSON.stringify(learningView, null, 2));
 console.log('✅ Created learning view');
 
-// 4. Search index
+// 4. Phrases view (extracted from dictionary examples)
+const phrasesFromExamples = [];
+masterData.entries.forEach(entry => {
+    if (entry.examples && entry.examples.length > 0) {
+        entry.examples.forEach(example => {
+            if (example && example.trim()) {
+                phrasesFromExamples.push({
+                    pidgin: example.trim(),
+                    english: entry.english[0] || "Unknown meaning",
+                    category: entry.category || "expressions",
+                    context: entry.usage || "",
+                    pronunciation: entry.pronunciation || "",
+                    source: `dictionary:${entry.id}`,
+                    difficulty: entry.difficulty || "intermediate",
+                    tags: entry.tags || []
+                });
+            }
+        });
+    }
+
+    // Also include audioExample if it's different from examples
+    if (entry.audioExample && entry.audioExample.trim()) {
+        const exists = entry.examples?.some(ex => ex.toLowerCase().trim() === entry.audioExample.toLowerCase().trim());
+        if (!exists) {
+            phrasesFromExamples.push({
+                pidgin: entry.audioExample.trim(),
+                english: entry.english[0] || "Unknown meaning",
+                category: entry.category || "expressions",
+                context: entry.usage || "",
+                pronunciation: entry.pronunciation || "",
+                source: `dictionary:${entry.id}:audio`,
+                difficulty: entry.difficulty || "intermediate",
+                tags: entry.tags || []
+            });
+        }
+    }
+});
+
+const phrasesView = {
+    metadata: {
+        version: masterData.metadata.version,
+        viewType: "phrases",
+        lastUpdated: masterData.metadata.lastUpdated,
+        totalPhrases: phrasesFromExamples.length
+    },
+    phrases: phrasesFromExamples,
+    categorized: {},
+    // Legacy format for backward compatibility
+    pidginPhrases: phrasesFromExamples.map(p => ({
+        pidgin: p.pidgin,
+        english: p.english,
+        context: p.context
+    }))
+};
+
+// Group by category for easier access
+phrasesFromExamples.forEach(phrase => {
+    const cat = phrase.category;
+    if (!phrasesView.categorized[cat]) {
+        phrasesView.categorized[cat] = [];
+    }
+    phrasesView.categorized[cat].push(phrase);
+});
+
+fs.writeFileSync(path.join(dataDir, 'views', 'phrases.json'), JSON.stringify(phrasesView, null, 2));
+console.log(`✅ Created phrases view (${phrasesFromExamples.length} phrases extracted from dictionary examples)`);
+
+// 5. Search index
 const searchIndex = {
     metadata: {
         version: masterData.metadata.version,
