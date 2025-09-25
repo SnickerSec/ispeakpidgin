@@ -1,34 +1,89 @@
 // Pidgin Translator Module
 class PidginTranslator {
     constructor() {
-        // Use both the original translation dict and the comprehensive data
-        this.dict = (typeof pidginPhrases !== 'undefined' && pidginPhrases.translationDict) ? pidginPhrases.translationDict : {};
-        this.comprehensiveDict = this.createComprehensiveDict();
-        this.reverseDict = this.createReverseDict();
+        // Initialize empty dictionaries
+        this.dict = {};
+        this.comprehensiveDict = {};
+        this.reverseDict = {};
         this.contextPatterns = this.createContextPatterns();
         this.grammarRules = this.createGrammarRules();
+        this.initialized = false;
+
+        // Try to initialize immediately if data is available
+        this.tryInitialize();
+
+        // Also listen for data load event
+        window.addEventListener('pidginDataLoaded', () => {
+            this.tryInitialize();
+        });
     }
 
-    // Create translation dictionary from enhanced data
-    createComprehensiveDict() {
-        const dict = {};
-        if (window.pidginDictionary && window.pidginDictionary.isNewSystem) {
-            const entries = window.pidginDictionary.dataLoader.getAllEntries();
-            for (let entry of entries) {
-                // Add pidgin to english mapping
-                for (let englishTranslation of entry.english) {
-                    dict[englishTranslation.toLowerCase()] = entry.pidgin;
+    tryInitialize() {
+        if (this.initialized) return;
 
-                    // Add variations and synonyms
-                    if (englishTranslation.includes('/')) {
-                        englishTranslation.split('/').forEach(variant => {
-                            dict[variant.trim().toLowerCase()] = entry.pidgin;
-                        });
+        // Try to use pidginDataLoader if available
+        if (typeof pidginDataLoader !== 'undefined' && pidginDataLoader.loaded) {
+            this.comprehensiveDict = this.createComprehensiveDictFromLoader();
+            this.reverseDict = this.createReverseDict();
+            this.initialized = true;
+            console.log('✅ Translator initialized with pidginDataLoader');
+        }
+        // Fallback to pidginPhrases if available
+        else if (typeof pidginPhrases !== 'undefined') {
+            this.createDictFromPhrases();
+            this.reverseDict = this.createReverseDict();
+            this.initialized = true;
+            console.log('✅ Translator initialized with pidginPhrases');
+        }
+    }
+
+    // Create translation dictionary from pidginDataLoader
+    createComprehensiveDictFromLoader() {
+        const dict = {};
+        if (typeof pidginDataLoader !== 'undefined' && pidginDataLoader.loaded) {
+            try {
+                const entries = pidginDataLoader.getAllEntries();
+                for (let entry of entries) {
+                    // Add english to pidgin mapping
+                    for (let englishTranslation of entry.english) {
+                        dict[englishTranslation.toLowerCase()] = entry.pidgin;
+
+                        // Add variations and synonyms
+                        if (englishTranslation.includes('/')) {
+                            englishTranslation.split('/').forEach(variant => {
+                                dict[variant.trim().toLowerCase()] = entry.pidgin;
+                            });
+                        }
                     }
                 }
+                console.log(`📚 Loaded ${Object.keys(dict).length} translations from data loader`);
+            } catch (error) {
+                console.error('Error creating dictionary from loader:', error);
             }
         }
         return dict;
+    }
+
+    // Create translation dictionary from phrases data
+    createDictFromPhrases() {
+        const dict = {};
+        if (typeof pidginPhrases !== 'undefined') {
+            // Process daily phrases
+            if (pidginPhrases.dailyPhrases) {
+                pidginPhrases.dailyPhrases.forEach(phrase => {
+                    dict[phrase.english.toLowerCase()] = phrase.pidgin;
+                });
+            }
+            // Process learning phrases if available
+            if (pidginPhrases.learningPhrases) {
+                pidginPhrases.learningPhrases.forEach(phrase => {
+                    dict[phrase.english.toLowerCase()] = phrase.pidgin;
+                });
+            }
+            this.dict = dict;
+            this.comprehensiveDict = dict;
+            console.log(`📚 Loaded ${Object.keys(dict).length} translations from phrases`);
+        }
     }
 
     // Create context patterns for better translation
@@ -95,18 +150,29 @@ class PidginTranslator {
             reverse[pidgin] = english;
         }
 
-        // Add from enhanced data
-        if (window.pidginDictionary && window.pidginDictionary.isNewSystem) {
-            const entries = window.pidginDictionary.dataLoader.getAllEntries();
-            for (let entry of entries) {
-                reverse[entry.pidgin] = entry.english[0]; // Use first English translation
+        // Add from pidginDataLoader if available
+        if (typeof pidginDataLoader !== 'undefined' && pidginDataLoader.loaded) {
+            try {
+                const entries = pidginDataLoader.getAllEntries();
+                for (let entry of entries) {
+                    reverse[entry.pidgin.toLowerCase()] = entry.english[0]; // Use first English translation
 
-                // Handle variations
-                if (entry.english[0].includes('/')) {
-                    const mainTranslation = entry.english[0].split('/')[0].trim();
-                    reverse[entry.pidgin] = mainTranslation;
+                    // Handle variations
+                    if (entry.english[0].includes('/')) {
+                        const mainTranslation = entry.english[0].split('/')[0].trim();
+                        reverse[entry.pidgin.toLowerCase()] = mainTranslation;
+                    }
                 }
+            } catch (error) {
+                console.error('Error adding reverse mappings from loader:', error);
             }
+        }
+
+        // Add from phrases if available
+        if (typeof pidginPhrases !== 'undefined' && pidginPhrases.dailyPhrases) {
+            pidginPhrases.dailyPhrases.forEach(phrase => {
+                reverse[phrase.pidgin.toLowerCase()] = phrase.english;
+            });
         }
 
         // Add additional Pidgin-specific mappings that might not have direct English equivalents
@@ -671,17 +737,21 @@ class PidginTranslator {
         const pronunciations = [];
         const words = pidginText.toLowerCase().split(' ');
 
-        // Check enhanced data for each word
-        if (window.pidginDictionary && window.pidginDictionary.isNewSystem) {
-            const entries = window.pidginDictionary.dataLoader.getAllEntries();
-            for (let word of words) {
-                const cleanWord = word.replace(/[.,!?;:]/g, '');
-                for (let entry of entries) {
-                    if (cleanWord === entry.pidgin.toLowerCase() && entry.pronunciation) {
-                        pronunciations.push(`${entry.pidgin} = ${entry.pronunciation}`);
-                        break;
+        // Check pidginDataLoader for each word
+        if (typeof pidginDataLoader !== 'undefined' && pidginDataLoader.loaded) {
+            try {
+                const entries = pidginDataLoader.getAllEntries();
+                for (let word of words) {
+                    const cleanWord = word.replace(/[.,!?;:]/g, '');
+                    for (let entry of entries) {
+                        if (cleanWord === entry.pidgin.toLowerCase() && entry.pronunciation) {
+                            pronunciations.push(`${entry.pidgin} = ${entry.pronunciation}`);
+                            break;
+                        }
                     }
                 }
+            } catch (error) {
+                console.error('Error getting pronunciations:', error);
             }
         }
 
