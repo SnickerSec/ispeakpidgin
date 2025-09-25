@@ -149,7 +149,7 @@ masterData.entries = dictionaryData.entries.map(entry => {
         masterData.taxonomy.categories[entry.category] = {
             name: entry.category,
             count: 0,
-            description: dictionaryData.categories[entry.category]?.description || ""
+            description: dictionaryData.categories?.[entry.category]?.description || ""
         };
     }
     masterData.taxonomy.categories[entry.category].count++;
@@ -298,7 +298,7 @@ const dictionaryView = {
         ...masterData.metadata,
         viewType: "dictionary"
     },
-    categories: dictionaryData.categories,
+    categories: dictionaryData.categories || masterData.taxonomy.categories,
     entries: masterData.entries
 };
 fs.writeFileSync(path.join(dataDir, 'views', 'dictionary.json'), JSON.stringify(dictionaryView, null, 2));

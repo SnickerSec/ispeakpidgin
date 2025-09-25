@@ -3,7 +3,7 @@
     "version": "3.0",
     "lastUpdated": "2025-09-25",
     "totalEntries": 453,
-    "totalPhrases": 105,
+    "totalPhrases": 0,
     "totalStories": 0,
     "description": "Unified Hawaiian Pidgin Master Database",
     "sources": [
@@ -9733,729 +9733,9 @@
     }
   ],
   "phrases": {
-    "daily": [
-      {
-        "pidgin": "Aloha! E komo mai!",
-        "english": "Hello! Welcome!",
-        "usage": "Traditional Hawaiian greeting showing hospitality",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Shoots, brah! Rajah dat!",
-        "english": "Alright, friend! I understand!",
-        "usage": "Confirming agreement in local style",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Eh, wassup? You stay good?",
-        "english": "Hey, what's up? Are you doing well?",
-        "usage": "Casual check-in with friends",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Ho! Dat stay so nails!",
-        "english": "Wow! That's so tough/cool!",
-        "usage": "Expressing admiration for something impressive",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "I stay small kine tired",
-        "english": "I'm a little bit tired",
-        "usage": "Understated way of expressing being tired",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "No sked, chance um!",
-        "english": "Don't be scared, go for it!",
-        "usage": "Encouraging someone to take a risk",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Get choke people at da beach today",
-        "english": "There are a lot of people at the beach today",
-        "usage": "Describing a crowded place",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Da keiki stay acting lolo",
-        "english": "The kids are acting silly",
-        "usage": "Describing playful children's behavior",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Mahalo plenty fo da kokua!",
-        "english": "Thank you very much for the help!",
-        "usage": "Expressing deep gratitude",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Time fo pau hana already!",
-        "english": "Time to finish work already!",
-        "usage": "Looking forward to end of workday",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Howzit, brah!",
-        "english": "How are you, friend!",
-        "usage": "A casual greeting used among friends in Hawaii",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Eh, no make li'dat!",
-        "english": "Hey, don't do that!",
-        "usage": "Used to tell someone to stop doing something",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "We go grind!",
-        "english": "Let's eat!",
-        "usage": "Invitation to share a meal together",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Da grinds stay broke da mouth!",
-        "english": "The food is exceptionally delicious!",
-        "usage": "Expressing that food is amazing",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Ho, da waves stay pumping!",
-        "english": "Wow, the waves are really good!",
-        "usage": "Expressing excitement about surf conditions",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Try wait, yeah?",
-        "english": "Please wait a moment",
-        "usage": "Politely asking someone to be patient",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "No need beef",
-        "english": "There's no need to fight",
-        "usage": "Calming down a tense situation",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Chee hoo! Da sunset stay beautiful!",
-        "english": "Wow! The sunset is beautiful!",
-        "usage": "Expressing joy and excitement about something beautiful",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Come talk story wit me",
-        "english": "Come chat with me",
-        "usage": "Inviting someone to have a conversation",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "I stay so chicken skin from dat movie",
-        "english": "I got goosebumps from that movie",
-        "usage": "Describing being moved by something",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Da keiki stay lolo today",
-        "english": "The kids are being silly today",
-        "usage": "Describing playful or silly behavior",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Bumbai we go beach, eh?",
-        "english": "Later we'll go to the beach, okay?",
-        "usage": "Making plans for later",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Rajah dat, bruddah!",
-        "english": "I understand, brother!",
-        "usage": "Showing agreement and understanding",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Da kine stay all hamajang",
-        "english": "That thing is all messed up",
-        "usage": "Describing something that's broken or disorganized",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Chance 'um! No sked!",
-        "english": "Give it a try! Don't be scared!",
-        "usage": "Encouraging someone to take a risk",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Pau hana time! We go green bottles!",
-        "english": "Work's done! Let's go get some beer!",
-        "usage": "Celebrating the end of the work day",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "You like beef or wat?",
-        "english": "Do you want to fight or what?",
-        "usage": "Challenging someone (usually not serious)",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Dis place stay kapu, eh",
-        "english": "This place is forbidden/off-limits",
-        "usage": "Warning about restricted areas",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "I get choke homework tonight",
-        "english": "I have a lot of homework tonight",
-        "usage": "Expressing having many tasks",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Dis grind stay so ono!",
-        "english": "This food is so delicious!",
-        "usage": "Praising food quality",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Eh sistah, you stay akamai!",
-        "english": "Hey sister, you're smart!",
-        "usage": "Complimenting someone's intelligence",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Wiki wiki! We going be late!",
-        "english": "Hurry up! We're going to be late!",
-        "usage": "Urging someone to move quickly",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "No make li'dat in front aunty",
-        "english": "Don't act like that in front of elder",
-        "usage": "Showing respect for elders",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Da vog stay thick today",
-        "english": "The volcanic smog is thick today",
-        "usage": "Commenting on Big Island air quality",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "We go holoholo dis weekend",
-        "english": "We'll go cruising this weekend",
-        "usage": "Making leisure plans",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "My tutu made da best haupia",
-        "english": "My grandmother made the best coconut pudding",
-        "usage": "Praising family cooking",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Geev um! You can do it!",
-        "english": "Go for it! You can do it!",
-        "usage": "Encouraging maximum effort",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Bumbye da sun going set",
-        "english": "Soon the sun will set",
-        "usage": "Noting time passing",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "We go holo holo around da island",
-        "english": "Let's cruise around the island",
-        "usage": "Suggesting a leisurely drive or trip",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Da haps at da party was mean!",
-        "english": "What happened at the party was awesome!",
-        "usage": "Describing exciting events",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "I stay on Hawaiian time today",
-        "english": "I'm running late today",
-        "usage": "Explaining tardiness with local humor",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Get choke pūpū at da luau",
-        "english": "There are lots of appetizers at the party",
-        "usage": "Describing abundant food at gatherings",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Hana hou! Dat was ono!",
-        "english": "Do it again! That was delicious!",
-        "usage": "Asking for more of something good",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Shoots brah, latahs!",
-        "english": "Alright friend, see you later!",
-        "usage": "Casual farewell between friends",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Da kanak attack stay hitting me",
-        "english": "Food coma is hitting me",
-        "usage": "Feeling sleepy after a big meal",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "You like chance um or wat?",
-        "english": "Do you want to try it or what?",
-        "usage": "Encouraging someone to take a risk",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "I stay small kine shame",
-        "english": "I'm a little embarrassed",
-        "usage": "Expressing mild embarrassment",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "No make liddiss in front kupuna",
-        "english": "Don't act like this in front of elders",
-        "usage": "Showing respect for elderly",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Da weather stay so pilau today",
-        "english": "The weather is so gross today",
-        "usage": "Complaining about bad weather",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "We go kanikapila at da beach",
-        "english": "Let's go play music at the beach",
-        "usage": "Inviting friends to jam session",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "He get one hagemoge face",
-        "english": "He has an exhausted face",
-        "usage": "Describing someone who looks very tired",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Dis buggah stay all kapakahi",
-        "english": "This thing is all crooked",
-        "usage": "Describing something that's not straight",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Ho brah, you stay erking me!",
-        "english": "Hey friend, you're irritating me!",
-        "usage": "Expressing mild annoyance",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Rajah dat, no need pilikia",
-        "english": "Got it, no need for trouble",
-        "usage": "Acknowledging and avoiding problems",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Da manapua man stay coming!",
-        "english": "The food truck is coming!",
-        "usage": "Excitement about mobile food vendor",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "I going holoholo wit my ohana",
-        "english": "I'm going to cruise with my family",
-        "usage": "Spending leisure time with family",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Try wait, I get one phone call",
-        "english": "Hold on, I have a phone call",
-        "usage": "Asking for patience during interruption",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "You stay acting all mento today",
-        "english": "You're acting all crazy today",
-        "usage": "Commenting on someone's wild behavior",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Da party was so nails last night",
-        "english": "The party was so awesome last night",
-        "usage": "Describing an amazing event",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "No be one tantaran at school",
-        "english": "Don't be a show-off at school",
-        "usage": "Advising against boastful behavior",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "My tutu kane stay teaching me fish",
-        "english": "My grandfather is teaching me to fish",
-        "usage": "Learning from elders",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Eh sistah, you look winnahz today!",
-        "english": "Hey sister, you look awesome today!",
-        "usage": "Complimenting someone's appearance",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "I going sample dat new poke place",
-        "english": "I'm going to try that new poke place",
-        "usage": "Planning to test new food",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Da surf stay all bumboocha today",
-        "english": "The surf is huge today",
-        "usage": "Describing big waves",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "You like beef or you just talking?",
-        "english": "Do you want to fight or are you just talking?",
-        "usage": "Challenging someone's words",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Dis place get too much shark bait",
-        "english": "This place has too many tourists",
-        "usage": "Commenting on crowded tourist areas",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "My car stay all hammajang again",
-        "english": "My car is all messed up again",
-        "usage": "Complaining about broken vehicle",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "We go scrap or wat, brah?",
-        "english": "Are we going to fight or what, friend?",
-        "usage": "Escalating a confrontation",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Aurite den, I catch you later",
-        "english": "Alright then, I'll see you later",
-        "usage": "Ending conversation and departing",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Da keiki stay all kolohe today",
-        "english": "The kids are being mischievous today",
-        "usage": "Describing playfully naughty children",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "You going get lickens if you no listen",
-        "english": "You're going to get a beating if you don't listen",
-        "usage": "Warning about consequences",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Chee hoo! Da waves stay firing!",
-        "english": "Awesome! The waves are perfect!",
-        "usage": "Excitement about surf conditions",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "I stay so moe moe after dat meal",
-        "english": "I'm so sleepy after that meal",
-        "usage": "Post-meal drowsiness",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Eh, you stay wit' da kine?",
-        "english": "Hey, are you with that thingamajig?",
-        "usage": "Used when you can't remember the word for something specific",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Shoots, brah! Sounds good!",
-        "english": "Alright, brother! Sounds good!",
-        "usage": "Term of agreement or approval between friends",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "No talk stink about my cousin",
-        "english": "Don't gossip about my cousin",
-        "usage": "Warning against speaking negatively about someone",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Dis grindz is da bes'!",
-        "english": "This food is the best!",
-        "usage": "Expressing that something is excellent",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Go mo' bettah next time",
-        "english": "Do it better next time",
-        "usage": "Encouraging someone to improve",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Which buggah you talking about?",
-        "english": "Which person are you talking about?",
-        "usage": "Asking for clarification about someone",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Mahalo, for da hookup with da job!",
-        "english": "Thank you for the connection with the job!",
-        "usage": "Thanking someone for a favor or connection",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Get choke people at da beach today",
-        "english": "There are a lot of people at the beach today",
-        "usage": "Indicating there's a large amount of something",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "No make funny with me, I stay serious",
-        "english": "Don't joke with me, I'm being serious",
-        "usage": "Telling someone to stop teasing",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Howzit, uncle? You stay good?",
-        "english": "How are you, sir? Are you doing well?",
-        "usage": "Respectful greeting for an older man",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "You like eat, eh? I going cook",
-        "english": "You want to eat, right? I'm going to cook",
-        "usage": "Offering food with local hospitality",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "We need da kine, da whole kine for da party",
-        "english": "We need everything, the whole setup for the party",
-        "usage": "Referring to everything related to something",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "No can, da buggah stay broke",
-        "english": "Can't do it, the thing is broken",
-        "usage": "Explaining inability due to broken equipment",
-        "category": "daily",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Just cruising at da beach today",
-        "english": "Just relaxing at the beach today",
-        "usage": "Describing a laid-back, leisurely day",
-        "category": "daily",
-        "source": "phrases-data.js"
-      }
-    ],
-    "greetings": [
-      {
-        "pidgin": "Howzit",
-        "english": "Hello/How are you",
-        "context": "Universal greeting",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Shoots",
-        "english": "Okay/Sounds good",
-        "context": "Agreement",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Rajah dat",
-        "english": "Roger that/Got it",
-        "context": "Understanding",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Latahs",
-        "english": "See you later",
-        "context": "Saying goodbye",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Tanks ah",
-        "english": "Thank you",
-        "context": "Gratitude",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "No worries",
-        "english": "You're welcome",
-        "context": "Response to thanks",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Eh, wassup?",
-        "english": "Hey, what's up?",
-        "context": "Casual greeting",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Whaddsdascoops?",
-        "english": "What's going on?",
-        "context": "Asking about happenings",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Aurite den",
-        "english": "Alright then",
-        "context": "Agreeing or departing",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Chee hoo!",
-        "english": "Awesome!/Woohoo!",
-        "context": "Excitement",
-        "source": "phrases-data.js"
-      }
-    ],
-    "food": [
-      {
-        "pidgin": "Da grindz stay broke da mouth",
-        "english": "The food is incredibly delicious",
-        "context": "Praising amazing food",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Dis stay so ono",
-        "english": "This is so delicious",
-        "context": "Enjoying food",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "We go grind",
-        "english": "Let's eat",
-        "context": "Invitation to eat",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "I get kanak attack",
-        "english": "I have food coma",
-        "context": "Sleepy after big meal",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Da manapua man stay coming",
-        "english": "The food truck is coming",
-        "context": "Mobile food vendor",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Get choke pūpū",
-        "english": "There are lots of appetizers",
-        "context": "Party food",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Sample dat",
-        "english": "Try that",
-        "context": "Taste testing",
-        "source": "phrases-data.js"
-      },
-      {
-        "pidgin": "Dis stay winnahz",
-        "english": "This is excellent",
-        "context": "Outstanding food",
-        "source": "phrases-data.js"
-      }
-    ],
+    "daily": [],
+    "greetings": [],
+    "food": [],
     "emotions": [],
     "expressions": [],
     "directions": [],
@@ -10475,11 +9755,6 @@
           "pidgin": "negz",
           "confidence": 1,
           "id": "negz_372"
-        },
-        {
-          "pidgin": "no",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "not": [
@@ -10499,11 +9774,6 @@
           "pidgin": "minors",
           "confidence": 1,
           "id": "minors_402"
-        },
-        {
-          "pidgin": "no worries",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "yes": [
@@ -10521,11 +9791,6 @@
           "pidgin": "yups",
           "confidence": 1,
           "id": "yups_277"
-        },
-        {
-          "pidgin": "shoots",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "yellowfin tuna": [
@@ -10902,11 +10167,6 @@
           "pidgin": "aloha",
           "confidence": 1,
           "id": "aloha_011"
-        },
-        {
-          "pidgin": "howzit",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "goodbye": [
@@ -11203,11 +10463,6 @@
           "pidgin": "bibadeez",
           "confidence": 1,
           "id": "bibadeez_313"
-        },
-        {
-          "pidgin": "da kine",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "was": [
@@ -11220,11 +10475,6 @@
           "pidgin": "had",
           "confidence": 1,
           "id": "had_056"
-        },
-        {
-          "pidgin": "was",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "been": [
@@ -11344,11 +10594,6 @@
           "pidgin": "yessah blessah",
           "confidence": 1,
           "id": "yessah_blessah_395"
-        },
-        {
-          "pidgin": "da bes'",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "worn out": [
@@ -11356,11 +10601,6 @@
           "pidgin": "boro boroz",
           "confidence": 1,
           "id": "boro_boroz_211"
-        },
-        {
-          "pidgin": "hagemoge",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "tired": [
@@ -11368,11 +10608,6 @@
           "pidgin": "boro boroz",
           "confidence": 1,
           "id": "boro_boroz_211"
-        },
-        {
-          "pidgin": "moe moe",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "broke": [
@@ -11521,11 +10756,6 @@
           "pidgin": "mayjah",
           "confidence": 1,
           "id": "mayjah_368"
-        },
-        {
-          "pidgin": "big",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "huge": [
@@ -11562,11 +10792,6 @@
           "pidgin": "kaput",
           "confidence": 1,
           "id": "kaput_358"
-        },
-        {
-          "pidgin": "hammajang",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "busted": [
@@ -11729,11 +10954,6 @@
           "pidgin": "pākē",
           "confidence": 1,
           "id": "pk_376"
-        },
-        {
-          "pidgin": "pake",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "thick lips": [
@@ -11753,11 +10973,6 @@
           "pidgin": "da bomb",
           "confidence": 1,
           "id": "da_bomb_279"
-        },
-        {
-          "pidgin": "da bes'",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "top quality": [
@@ -11864,11 +11079,6 @@
           "pidgin": "cruzin",
           "confidence": 1,
           "id": "cruzin_038"
-        },
-        {
-          "pidgin": "cruising",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "devil": [
@@ -11907,11 +11117,6 @@
           "pidgin": "no ka oi",
           "confidence": 1,
           "id": "no_ka_oi_129"
-        },
-        {
-          "pidgin": "da bes'",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "how precious": [
@@ -11926,11 +11131,6 @@
           "pidgin": "da haps",
           "confidence": 1,
           "id": "da_haps_224"
-        },
-        {
-          "pidgin": "whaddsdascoops",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "the thing": [
@@ -12058,11 +11258,6 @@
           "pidgin": "e kala mai",
           "confidence": 1,
           "id": "e_kala_mai_327"
-        },
-        {
-          "pidgin": "excuse",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "sorry": [
@@ -12070,11 +11265,6 @@
           "pidgin": "e kala mai",
           "confidence": 1,
           "id": "e_kala_mai_327"
-        },
-        {
-          "pidgin": "sorry",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "welcome": [
@@ -12235,11 +11425,6 @@
           "pidgin": "wiki wiki",
           "confidence": 1,
           "id": "wiki_wiki_195"
-        },
-        {
-          "pidgin": "fast",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "filipino": [
@@ -12289,11 +11474,6 @@
           "pidgin": "fo what",
           "confidence": 1,
           "id": "fo_what_236"
-        },
-        {
-          "pidgin": "why",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "for sure": [
@@ -12316,11 +11496,6 @@
           "pidgin": "gueren-tee",
           "confidence": 1,
           "id": "guerentee_505"
-        },
-        {
-          "pidgin": "fo' real",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "definitely": [
@@ -12340,11 +11515,6 @@
           "pidgin": "funny kine",
           "confidence": 1,
           "id": "funny_kine_049"
-        },
-        {
-          "pidgin": "trippy",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "weird": [
@@ -12443,11 +11613,6 @@
           "pidgin": "geff um",
           "confidence": 1,
           "id": "geff_um_281"
-        },
-        {
-          "pidgin": "sabe",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "grab it": [
@@ -12511,11 +11676,6 @@
           "pidgin": "goin",
           "confidence": 1,
           "id": "goin_240"
-        },
-        {
-          "pidgin": "going",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "will go": [
@@ -12596,11 +11756,6 @@
           "pidgin": "had",
           "confidence": 1,
           "id": "had_056"
-        },
-        {
-          "pidgin": "was",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "exhausted": [
@@ -12875,11 +12030,6 @@
           "pidgin": "ho nah",
           "confidence": 1,
           "id": "ho_nah_351"
-        },
-        {
-          "pidgin": "real",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "go cruising": [
@@ -13208,11 +12358,6 @@
           "pidgin": "kai",
           "confidence": 1,
           "id": "kai_084"
-        },
-        {
-          "pidgin": "ocean",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "sea": [
@@ -13283,11 +12428,6 @@
           "pidgin": "kau kau",
           "confidence": 1,
           "id": "kau_kau_092"
-        },
-        {
-          "pidgin": "grind",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "samoan swear word": [
@@ -13506,11 +12646,6 @@
           "pidgin": "mahalo",
           "confidence": 1,
           "id": "mahalo_109"
-        },
-        {
-          "pidgin": "tanks",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "dolphin fish": [
@@ -13525,11 +12660,6 @@
           "pidgin": "maika'i",
           "confidence": 1,
           "id": "maikai_110"
-        },
-        {
-          "pidgin": "good",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "fine": [
@@ -13624,11 +12754,6 @@
           "pidgin": "minahs",
           "confidence": 1,
           "id": "minahs_369"
-        },
-        {
-          "pidgin": "small",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "stingy": [
@@ -13650,11 +12775,6 @@
           "pidgin": "mauna",
           "confidence": 1,
           "id": "mauna_426"
-        },
-        {
-          "pidgin": "mauka",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "major": [
@@ -13702,11 +12822,6 @@
           "pidgin": "minahs",
           "confidence": 1,
           "id": "minahs_369"
-        },
-        {
-          "pidgin": "minors",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "much better": [
@@ -14016,11 +13131,6 @@
           "pidgin": "planny",
           "confidence": 1,
           "id": "planny_379"
-        },
-        {
-          "pidgin": "choke",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "local meal combo": [
@@ -14263,11 +13373,6 @@
           "pidgin": "sole",
           "confidence": 1,
           "id": "sole_164"
-        },
-        {
-          "pidgin": "brah",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "special ed": [
@@ -14282,11 +13387,6 @@
           "pidgin": "sped",
           "confidence": 1,
           "id": "sped_386"
-        },
-        {
-          "pidgin": "slow",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "is": [
@@ -14442,11 +13542,6 @@
           "pidgin": "try",
           "confidence": 1,
           "id": "try_176"
-        },
-        {
-          "pidgin": "please",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "attempt": [
@@ -14482,11 +13577,6 @@
           "pidgin": "tutu",
           "confidence": 1,
           "id": "tutu_179"
-        },
-        {
-          "pidgin": "kupuna",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "disgusting": [
@@ -14522,11 +13612,6 @@
           "pidgin": "unreal",
           "confidence": 1,
           "id": "unreal_184"
-        },
-        {
-          "pidgin": "mean",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "unbelievable": [
@@ -14604,11 +13689,6 @@
           "pidgin": "wassup",
           "confidence": 1,
           "id": "wassup_190"
-        },
-        {
-          "pidgin": "whaddsdascoops",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "let's go": [
@@ -14693,11 +13773,6 @@
           "pidgin": "yeah no",
           "confidence": 1,
           "id": "yeah_no_274"
-        },
-        {
-          "pidgin": "rajah dat",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ],
       "agree, right?": [
@@ -15153,2001 +14228,6 @@
           "pidgin": "cruising",
           "confidence": 1,
           "id": "cruising_524"
-        }
-      ],
-      "hello! welcome!": [
-        {
-          "pidgin": "Aloha! E komo mai!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "alright, friend! i understand!": [
-        {
-          "pidgin": "Shoots, brah! Rajah dat!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "hey, what's up? are you doing well?": [
-        {
-          "pidgin": "Eh, wassup? You stay good?",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "wow! that's so tough/cool!": [
-        {
-          "pidgin": "Ho! Dat stay so nails!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "i'm a little bit tired": [
-        {
-          "pidgin": "I stay small kine tired",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "don't be scared, go for it!": [
-        {
-          "pidgin": "No sked, chance um!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "there are a lot of people at the beach today": [
-        {
-          "pidgin": "Get choke people at da beach today",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "the kids are acting silly": [
-        {
-          "pidgin": "Da keiki stay acting lolo",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "thank you very much for the help!": [
-        {
-          "pidgin": "Mahalo plenty fo da kokua!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "time to finish work already!": [
-        {
-          "pidgin": "Time fo pau hana already!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "how are you, friend!": [
-        {
-          "pidgin": "Howzit, brah!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "hey, don't do that!": [
-        {
-          "pidgin": "Eh, no make li'dat!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "let's eat!": [
-        {
-          "pidgin": "We go grind!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "the food is exceptionally delicious!": [
-        {
-          "pidgin": "Da grinds stay broke da mouth!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "wow, the waves are really good!": [
-        {
-          "pidgin": "Ho, da waves stay pumping!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "please wait a moment": [
-        {
-          "pidgin": "Try wait, yeah?",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "there's no need to fight": [
-        {
-          "pidgin": "No need beef",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "wow! the sunset is beautiful!": [
-        {
-          "pidgin": "Chee hoo! Da sunset stay beautiful!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "come chat with me": [
-        {
-          "pidgin": "Come talk story wit me",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "i got goosebumps from that movie": [
-        {
-          "pidgin": "I stay so chicken skin from dat movie",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "the kids are being silly today": [
-        {
-          "pidgin": "Da keiki stay lolo today",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "later we'll go to the beach, okay?": [
-        {
-          "pidgin": "Bumbai we go beach, eh?",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "i understand, brother!": [
-        {
-          "pidgin": "Rajah dat, bruddah!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "that thing is all messed up": [
-        {
-          "pidgin": "Da kine stay all hamajang",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "give it a try! don't be scared!": [
-        {
-          "pidgin": "Chance 'um! No sked!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "work's done! let's go get some beer!": [
-        {
-          "pidgin": "Pau hana time! We go green bottles!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "do you want to fight or what?": [
-        {
-          "pidgin": "You like beef or wat?",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "this place is forbidden/off-limits": [
-        {
-          "pidgin": "Dis place stay kapu, eh",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "i have a lot of homework tonight": [
-        {
-          "pidgin": "I get choke homework tonight",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "this food is so delicious!": [
-        {
-          "pidgin": "Dis grind stay so ono!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "hey sister, you're smart!": [
-        {
-          "pidgin": "Eh sistah, you stay akamai!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "hurry up! we're going to be late!": [
-        {
-          "pidgin": "Wiki wiki! We going be late!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "don't act like that in front of elder": [
-        {
-          "pidgin": "No make li'dat in front aunty",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "the volcanic smog is thick today": [
-        {
-          "pidgin": "Da vog stay thick today",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "we'll go cruising this weekend": [
-        {
-          "pidgin": "We go holoholo dis weekend",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "my grandmother made the best coconut pudding": [
-        {
-          "pidgin": "My tutu made da best haupia",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "go for it! you can do it!": [
-        {
-          "pidgin": "Geev um! You can do it!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "soon the sun will set": [
-        {
-          "pidgin": "Bumbye da sun going set",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "let's cruise around the island": [
-        {
-          "pidgin": "We go holo holo around da island",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "what happened at the party was awesome!": [
-        {
-          "pidgin": "Da haps at da party was mean!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "i'm running late today": [
-        {
-          "pidgin": "I stay on Hawaiian time today",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "there are lots of appetizers at the party": [
-        {
-          "pidgin": "Get choke pūpū at da luau",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "do it again! that was delicious!": [
-        {
-          "pidgin": "Hana hou! Dat was ono!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "alright friend, see you later!": [
-        {
-          "pidgin": "Shoots brah, latahs!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "food coma is hitting me": [
-        {
-          "pidgin": "Da kanak attack stay hitting me",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "do you want to try it or what?": [
-        {
-          "pidgin": "You like chance um or wat?",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "i'm a little embarrassed": [
-        {
-          "pidgin": "I stay small kine shame",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "don't act like this in front of elders": [
-        {
-          "pidgin": "No make liddiss in front kupuna",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "the weather is so gross today": [
-        {
-          "pidgin": "Da weather stay so pilau today",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "let's go play music at the beach": [
-        {
-          "pidgin": "We go kanikapila at da beach",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "he has an exhausted face": [
-        {
-          "pidgin": "He get one hagemoge face",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "this thing is all crooked": [
-        {
-          "pidgin": "Dis buggah stay all kapakahi",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "hey friend, you're irritating me!": [
-        {
-          "pidgin": "Ho brah, you stay erking me!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "got it, no need for trouble": [
-        {
-          "pidgin": "Rajah dat, no need pilikia",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "the food truck is coming!": [
-        {
-          "pidgin": "Da manapua man stay coming!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "i'm going to cruise with my family": [
-        {
-          "pidgin": "I going holoholo wit my ohana",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "hold on, i have a phone call": [
-        {
-          "pidgin": "Try wait, I get one phone call",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "you're acting all crazy today": [
-        {
-          "pidgin": "You stay acting all mento today",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "the party was so awesome last night": [
-        {
-          "pidgin": "Da party was so nails last night",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "don't be a show-off at school": [
-        {
-          "pidgin": "No be one tantaran at school",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "my grandfather is teaching me to fish": [
-        {
-          "pidgin": "My tutu kane stay teaching me fish",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "hey sister, you look awesome today!": [
-        {
-          "pidgin": "Eh sistah, you look winnahz today!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "i'm going to try that new poke place": [
-        {
-          "pidgin": "I going sample dat new poke place",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "the surf is huge today": [
-        {
-          "pidgin": "Da surf stay all bumboocha today",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "do you want to fight or are you just talking?": [
-        {
-          "pidgin": "You like beef or you just talking?",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "this place has too many tourists": [
-        {
-          "pidgin": "Dis place get too much shark bait",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "my car is all messed up again": [
-        {
-          "pidgin": "My car stay all hammajang again",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "are we going to fight or what, friend?": [
-        {
-          "pidgin": "We go scrap or wat, brah?",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "alright then, i'll see you later": [
-        {
-          "pidgin": "Aurite den, I catch you later",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "the kids are being mischievous today": [
-        {
-          "pidgin": "Da keiki stay all kolohe today",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "you're going to get a beating if you don't listen": [
-        {
-          "pidgin": "You going get lickens if you no listen",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "awesome! the waves are perfect!": [
-        {
-          "pidgin": "Chee hoo! Da waves stay firing!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "i'm so sleepy after that meal": [
-        {
-          "pidgin": "I stay so moe moe after dat meal",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "alright, brother! sounds good!": [
-        {
-          "pidgin": "Shoots, brah! Sounds good!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "don't gossip about my cousin": [
-        {
-          "pidgin": "No talk stink about my cousin",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "this food is the best!": [
-        {
-          "pidgin": "Dis grindz is da bes'!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "do it better next time": [
-        {
-          "pidgin": "Go mo' bettah next time",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "which person are you talking about?": [
-        {
-          "pidgin": "Which buggah you talking about?",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "thank you for the connection with the job!": [
-        {
-          "pidgin": "Mahalo, for da hookup with da job!",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "don't joke with me, i'm being serious": [
-        {
-          "pidgin": "No make funny with me, I stay serious",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "how are you, sir? are you doing well?": [
-        {
-          "pidgin": "Howzit, uncle? You stay good?",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "you want to eat, right? i'm going to cook": [
-        {
-          "pidgin": "You like eat, eh? I going cook",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "we need everything, the whole setup for the party": [
-        {
-          "pidgin": "We need da kine, da whole kine for da party",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "can't do it, the thing is broken": [
-        {
-          "pidgin": "No can, da buggah stay broke",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "just relaxing at the beach today": [
-        {
-          "pidgin": "Just cruising at da beach today",
-          "confidence": 0.9,
-          "source": "phrases"
-        }
-      ],
-      "hi": [
-        {
-          "pidgin": "howzit",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "how's it going": [
-        {
-          "pidgin": "howzit",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "bruddah": [
-        {
-          "pidgin": "brah",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "meal": [
-        {
-          "pidgin": "grinds",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "kau kau": [
-        {
-          "pidgin": "grinds",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "eating": [
-        {
-          "pidgin": "grinding",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "very good": [
-        {
-          "pidgin": "da kine good",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "tasty": [
-        {
-          "pidgin": "ono",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "exceptionally delicious": [
-        {
-          "pidgin": "broke da mouth",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "very delicious": [
-        {
-          "pidgin": "broke da mouth",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "amazing food": [
-        {
-          "pidgin": "broke da mouth",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "many": [
-        {
-          "pidgin": "choke",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "things": [
-        {
-          "pidgin": "da kine stuff",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "placeholder": [
-        {
-          "pidgin": "da kine",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "see ya": [
-        {
-          "pidgin": "shoots",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "catch you later": [
-        {
-          "pidgin": "shoots",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "can't": [
-        {
-          "pidgin": "no can",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "want": [
-        {
-          "pidgin": "like",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "wants": [
-        {
-          "pidgin": "like",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "don't": [
-        {
-          "pidgin": "no",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "doesn't": [
-        {
-          "pidgin": "no",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "are": [
-        {
-          "pidgin": "stay",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "the": [
-        {
-          "pidgin": "da",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "what": [
-        {
-          "pidgin": "wat",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "when": [
-        {
-          "pidgin": "wen",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "how": [
-        {
-          "pidgin": "how",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "come": [
-        {
-          "pidgin": "come",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "go": [
-        {
-          "pidgin": "go",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "went": [
-        {
-          "pidgin": "wen go",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "home": [
-        {
-          "pidgin": "hale",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "beach": [
-        {
-          "pidgin": "beach",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "water": [
-        {
-          "pidgin": "wai",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "car": [
-        {
-          "pidgin": "ride",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "drive": [
-        {
-          "pidgin": "cruise",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "little": [
-        {
-          "pidgin": "litto",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "very": [
-        {
-          "pidgin": "real",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "super": [
-        {
-          "pidgin": "choke",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "nice": [
-        {
-          "pidgin": "nice",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "beautiful": [
-        {
-          "pidgin": "beautiful",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "pretty": [
-        {
-          "pidgin": "pretty",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "ugly": [
-        {
-          "pidgin": "hamajang",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "out of order": [
-        {
-          "pidgin": "hamajang",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "disorganized": [
-        {
-          "pidgin": "hamajang",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "dumb": [
-        {
-          "pidgin": "lolo",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "goofy": [
-        {
-          "pidgin": "lolo",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "silly": [
-        {
-          "pidgin": "lolo",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "joy": [
-        {
-          "pidgin": "chee hoo",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "children": [
-        {
-          "pidgin": "keiki",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "kids": [
-        {
-          "pidgin": "keiki",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "porch": [
-        {
-          "pidgin": "lanai",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "patio": [
-        {
-          "pidgin": "lanai",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "balcony": [
-        {
-          "pidgin": "lanai",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "appetizers": [
-        {
-          "pidgin": "pupu",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "beer": [
-        {
-          "pidgin": "green bottles",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "heineken": [
-        {
-          "pidgin": "green bottles",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "sleep": [
-        {
-          "pidgin": "moemoe",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "sleeping": [
-        {
-          "pidgin": "moemoe",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "wake up": [
-        {
-          "pidgin": "wake up",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "tomorrow": [
-        {
-          "pidgin": "tomorrow",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "yesterday": [
-        {
-          "pidgin": "yesterday",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "today": [
-        {
-          "pidgin": "today",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "now": [
-        {
-          "pidgin": "now",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "wait": [
-        {
-          "pidgin": "wait",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "please wait": [
-        {
-          "pidgin": "try wait",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "you're welcome": [
-        {
-          "pidgin": "no worries",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "take care": [
-        {
-          "pidgin": "malama",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "let's eat": [
-        {
-          "pidgin": "we go grind",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "catch up": [
-        {
-          "pidgin": "talk story",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "roger that": [
-        {
-          "pidgin": "rajah dat",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "otherwise": [
-        {
-          "pidgin": "bumbai",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "get attention": [
-        {
-          "pidgin": "eh",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "not able": [
-        {
-          "pidgin": "no can",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "can't do": [
-        {
-          "pidgin": "no can",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "sleepy after eating": [
-        {
-          "pidgin": "kanak attack",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "towards mountains": [
-        {
-          "pidgin": "mauka",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "towards ocean": [
-        {
-          "pidgin": "makai",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "cruise around": [
-        {
-          "pidgin": "holo holo",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "leisurely drive": [
-        {
-          "pidgin": "holo holo",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "relaxed time": [
-        {
-          "pidgin": "hawaiian time",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "area": [
-        {
-          "pidgin": "side",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "direction": [
-        {
-          "pidgin": "side",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "try something": [
-        {
-          "pidgin": "chance um",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "take a chance": [
-        {
-          "pidgin": "chance um",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "do you want to fight": [
-        {
-          "pidgin": "like beef",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "taboo": [
-        {
-          "pidgin": "kapu",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "off limits": [
-        {
-          "pidgin": "kapu",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "come here": [
-        {
-          "pidgin": "come",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "slow down": [
-        {
-          "pidgin": "slow down",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "be quiet": [
-        {
-          "pidgin": "shh",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "shut up": [
-        {
-          "pidgin": "shut up",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "i don't know": [
-        {
-          "pidgin": "i no know",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "i know": [
-        {
-          "pidgin": "i know",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "do you understand": [
-        {
-          "pidgin": "you sabe",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "i understand": [
-        {
-          "pidgin": "i sabe",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "what did you say": [
-        {
-          "pidgin": "wat you said",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "never mind": [
-        {
-          "pidgin": "no mind",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "of course": [
-        {
-          "pidgin": "shoots",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "are you sure": [
-        {
-          "pidgin": "you sure or wat",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "i'm hungry": [
-        {
-          "pidgin": "i stay hungry",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "i'm tired": [
-        {
-          "pidgin": "i stay tired",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "i'm good": [
-        {
-          "pidgin": "i stay good",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "that's good": [
-        {
-          "pidgin": "dat's good",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "that's not good": [
-        {
-          "pidgin": "dat's no good",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "it's okay": [
-        {
-          "pidgin": "stay okay",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "it's broken": [
-        {
-          "pidgin": "da buggah stay broke",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "where are you going": [
-        {
-          "pidgin": "wea you going",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "what are you doing": [
-        {
-          "pidgin": "wat you doing",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "can you help me": [
-        {
-          "pidgin": "you can help me or wat",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "i need help": [
-        {
-          "pidgin": "i need help",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "come with me": [
-        {
-          "pidgin": "come wit me",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "wait for me": [
-        {
-          "pidgin": "wait fo' me",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "look at that": [
-        {
-          "pidgin": "look dat",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "right here": [
-        {
-          "pidgin": "right hea",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "long time no see": [
-        {
-          "pidgin": "long time no see",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "what's wrong": [
-        {
-          "pidgin": "wat's wrong",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "everything is fine": [
-        {
-          "pidgin": "everything stay good",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "take it easy": [
-        {
-          "pidgin": "take it easy",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "good job": [
-        {
-          "pidgin": "good job",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "well done": [
-        {
-          "pidgin": "good job",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "be careful": [
-        {
-          "pidgin": "watch out",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "watch out": [
-        {
-          "pidgin": "watch out",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "bothering": [
-        {
-          "pidgin": "erking",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "beat": [
-        {
-          "pidgin": "hagemoge",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "lopsided": [
-        {
-          "pidgin": "kapakahi",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "uneven": [
-        {
-          "pidgin": "kapakahi",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "naughty": [
-        {
-          "pidgin": "kolohe",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "rascal": [
-        {
-          "pidgin": "kolohe",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "braggart": [
-        {
-          "pidgin": "tantaran",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "boastful": [
-        {
-          "pidgin": "tantaran",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "drowsy": [
-        {
-          "pidgin": "moe moe",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "anxious": [
-        {
-          "pidgin": "nerjis",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "worried": [
-        {
-          "pidgin": "nerjis",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "gross": [
-        {
-          "pidgin": "ujee",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "nasty": [
-        {
-          "pidgin": "ujee",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "difficult": [
-        {
-          "pidgin": "nails",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "outstanding": [
-        {
-          "pidgin": "winnahz",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "visitor": [
-        {
-          "pidgin": "shark bait",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "mainland person": [
-        {
-          "pidgin": "shark bait",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "pervert": [
-        {
-          "pidgin": "sukebe",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "creep": [
-        {
-          "pidgin": "sukebe",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "ashamed": [
-        {
-          "pidgin": "shame",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "bashful": [
-        {
-          "pidgin": "shame",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "try": [
-        {
-          "pidgin": "sample",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "taste": [
-        {
-          "pidgin": "sample",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "test": [
-        {
-          "pidgin": "sample",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "play music": [
-        {
-          "pidgin": "kanikapila",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "music gathering": [
-        {
-          "pidgin": "kanikapila",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "post-meal drowsiness": [
-        {
-          "pidgin": "kanak attack",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "food truck": [
-        {
-          "pidgin": "manapua man",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "mobile vendor": [
-        {
-          "pidgin": "manapua man",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "street food": [
-        {
-          "pidgin": "manapua man",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "enormous": [
-        {
-          "pidgin": "bumboocha",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "gigantic": [
-        {
-          "pidgin": "bumboocha",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "slanted": [
-        {
-          "pidgin": "kapakahi",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "askew": [
-        {
-          "pidgin": "kapakahi",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "ruined": [
-        {
-          "pidgin": "hammajang",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "difficulty": [
-        {
-          "pidgin": "pilikia",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "ancestor": [
-        {
-          "pidgin": "kupuna",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "relatives": [
-        {
-          "pidgin": "ohana",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "clan": [
-        {
-          "pidgin": "ohana",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "battle": [
-        {
-          "pidgin": "scrap",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "brawl": [
-        {
-          "pidgin": "scrap",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "spanking": [
-        {
-          "pidgin": "lickens",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "punishment": [
-        {
-          "pidgin": "lickens",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "understand": [
-        {
-          "pidgin": "sabe",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "comprehend": [
-        {
-          "pidgin": "sabe",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "cruise": [
-        {
-          "pidgin": "holoholo",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "drive around": [
-        {
-          "pidgin": "holoholo",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "go for a ride": [
-        {
-          "pidgin": "holoholo",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "smelly": [
-        {
-          "pidgin": "pilau",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "foul": [
-        {
-          "pidgin": "pilau",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "korean": [
-        {
-          "pidgin": "yobo",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "chinese": [
-        {
-          "pidgin": "pake",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "filipino person": [
-        {
-          "pidgin": "flip",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "japanese": [
-        {
-          "pidgin": "japanee",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "portuguese person": [
-        {
-          "pidgin": "potagee",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "portuguese": [
-        {
-          "pidgin": "potagee",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "native hawaiian": [
-        {
-          "pidgin": "kanaka",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "local person": [
-        {
-          "pidgin": "kanaka",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "insane": [
-        {
-          "pidgin": "mento",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "small thing": [
-        {
-          "pidgin": "minors",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "no big deal": [
-        {
-          "pidgin": "minors",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "see i was right": [
-        {
-          "pidgin": "wop yo jaw",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "told you": [
-        {
-          "pidgin": "wop yo jaw",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "do better": [
-        {
-          "pidgin": "go mo' bettah",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "improve": [
-        {
-          "pidgin": "go mo' bettah",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "connection": [
-        {
-          "pidgin": "hookup",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "favor": [
-        {
-          "pidgin": "hookup",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "play a joke": [
-        {
-          "pidgin": "make funny",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "tease": [
-        {
-          "pidgin": "make funny",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "mess around": [
-        {
-          "pidgin": "make funny",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "older man": [
-        {
-          "pidgin": "uncle",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "mister": [
-        {
-          "pidgin": "uncle",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "sir": [
-        {
-          "pidgin": "uncle",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "want to eat": [
-        {
-          "pidgin": "like eat",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "hungry": [
-        {
-          "pidgin": "like eat",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "the whole thing": [
-        {
-          "pidgin": "da whole kine",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "everything": [
-        {
-          "pidgin": "da whole kine",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "all of that": [
-        {
-          "pidgin": "da whole kine",
-          "confidence": 0.85,
-          "source": "translationDict"
-        }
-      ],
-      "not working": [
-        {
-          "pidgin": "da buggah stay broke",
-          "confidence": 0.85,
-          "source": "translationDict"
         }
       ]
     },
@@ -18707,267 +15787,6 @@
         "hanging out",
         "taking it easy",
         "driving around leisurely"
-      ],
-      "grinding": [
-        "eating"
-      ],
-      "good": [
-        "good"
-      ],
-      "da kine good": [
-        "very good"
-      ],
-      "da kine stuff": [
-        "things"
-      ],
-      "no": [
-        "no"
-      ],
-      "like": [
-        "want"
-      ],
-      "was": [
-        "was"
-      ],
-      "da": [
-        "the"
-      ],
-      "wat": [
-        "what"
-      ],
-      "why": [
-        "why"
-      ],
-      "how": [
-        "how"
-      ],
-      "come": [
-        "come"
-      ],
-      "go": [
-        "go"
-      ],
-      "going": [
-        "going"
-      ],
-      "wen go": [
-        "went"
-      ],
-      "beach": [
-        "beach"
-      ],
-      "ocean": [
-        "ocean"
-      ],
-      "wai": [
-        "water"
-      ],
-      "ride": [
-        "car"
-      ],
-      "cruise": [
-        "drive"
-      ],
-      "fast": [
-        "fast"
-      ],
-      "slow": [
-        "slow"
-      ],
-      "big": [
-        "big"
-      ],
-      "small": [
-        "small"
-      ],
-      "litto": [
-        "little"
-      ],
-      "real": [
-        "very"
-      ],
-      "da bes'": [
-        "awesome"
-      ],
-      "nice": [
-        "nice"
-      ],
-      "beautiful": [
-        "beautiful"
-      ],
-      "pretty": [
-        "pretty"
-      ],
-      "lanai": [
-        "porch"
-      ],
-      "green bottles": [
-        "beer"
-      ],
-      "moemoe": [
-        "sleep"
-      ],
-      "wake up": [
-        "wake up"
-      ],
-      "tomorrow": [
-        "tomorrow"
-      ],
-      "yesterday": [
-        "yesterday"
-      ],
-      "today": [
-        "today"
-      ],
-      "now": [
-        "now"
-      ],
-      "wait": [
-        "wait"
-      ],
-      "no worries": [
-        "you're welcome"
-      ],
-      "excuse": [
-        "excuse me"
-      ],
-      "sorry": [
-        "sorry"
-      ],
-      "please": [
-        "please"
-      ],
-      "we go grind": [
-        "let's eat"
-      ],
-      "fo' real": [
-        "for sure"
-      ],
-      "rajah dat": [
-        "roger that"
-      ],
-      "holo holo": [
-        "cruise around"
-      ],
-      "side": [
-        "area"
-      ],
-      "slow down": [
-        "slow down"
-      ],
-      "shh": [
-        "be quiet"
-      ],
-      "shut up": [
-        "shut up"
-      ],
-      "i no know": [
-        "i don't know"
-      ],
-      "i know": [
-        "i know"
-      ],
-      "you sabe": [
-        "do you understand"
-      ],
-      "i sabe": [
-        "i understand"
-      ],
-      "wat you said": [
-        "what did you say"
-      ],
-      "no mind": [
-        "never mind"
-      ],
-      "you sure or wat": [
-        "are you sure"
-      ],
-      "i stay hungry": [
-        "i'm hungry"
-      ],
-      "i stay tired": [
-        "i'm tired"
-      ],
-      "i stay good": [
-        "i'm good"
-      ],
-      "dat's good": [
-        "that's good"
-      ],
-      "dat's no good": [
-        "that's not good"
-      ],
-      "stay okay": [
-        "it's okay"
-      ],
-      "da buggah stay broke": [
-        "it's broken"
-      ],
-      "wea you going": [
-        "where are you going"
-      ],
-      "wat you doing": [
-        "what are you doing"
-      ],
-      "you can help me or wat": [
-        "can you help me"
-      ],
-      "i need help": [
-        "i need help"
-      ],
-      "come wit me": [
-        "come with me"
-      ],
-      "wait fo' me": [
-        "wait for me"
-      ],
-      "look dat": [
-        "look at that"
-      ],
-      "right hea": [
-        "right here"
-      ],
-      "long time no see": [
-        "long time no see"
-      ],
-      "wat's wrong": [
-        "what's wrong"
-      ],
-      "everything stay good": [
-        "everything is fine"
-      ],
-      "take it easy": [
-        "take it easy"
-      ],
-      "good job": [
-        "good job"
-      ],
-      "watch out": [
-        "be careful"
-      ],
-      "sample": [
-        "try"
-      ],
-      "sabe": [
-        "understand"
-      ],
-      "pake": [
-        "Chinese person"
-      ],
-      "potagee": [
-        "Portuguese person"
-      ],
-      "hookup": [
-        "connection"
-      ],
-      "uncle": [
-        "older man"
-      ],
-      "like eat": [
-        "want to eat"
-      ],
-      "da whole kine": [
-        "the whole thing"
       ]
     }
   },
@@ -18981,102 +15800,102 @@
       "expressions": {
         "name": "expressions",
         "count": 185,
-        "description": "Common expressions and phrases"
+        "description": ""
       },
       "food": {
         "name": "food",
         "count": 28,
-        "description": "Food, eating, and dining terms"
+        "description": ""
       },
       "nature": {
         "name": "nature",
         "count": 8,
-        "description": "Natural world and environment"
+        "description": ""
       },
       "greetings": {
         "name": "greetings",
         "count": 15,
-        "description": "Ways to say hello and greet people"
+        "description": ""
       },
       "actions": {
         "name": "actions",
         "count": 16,
-        "description": "Verbs and action words"
+        "description": ""
       },
       "cultural": {
         "name": "cultural",
         "count": 15,
-        "description": "Cultural and traditional terms"
+        "description": ""
       },
       "descriptions": {
         "name": "descriptions",
         "count": 12,
-        "description": "Descriptive words and adjectives"
+        "description": ""
       },
       "slang": {
         "name": "slang",
         "count": 116,
-        "description": "Casual and street language"
+        "description": ""
       },
       "grammar": {
         "name": "grammar",
         "count": 7,
-        "description": "Grammar and sentence structure"
+        "description": ""
       },
       "people": {
         "name": "people",
         "count": 20,
-        "description": "Terms for people and relationships"
+        "description": ""
       },
       "emotions": {
         "name": "emotions",
         "count": 8,
-        "description": "Feelings and emotional expressions"
+        "description": ""
       },
       "clothing": {
         "name": "clothing",
         "count": 3,
-        "description": "Clothing and accessories"
+        "description": ""
       },
       "animals": {
         "name": "animals",
         "count": 4,
-        "description": "Animals and creatures"
+        "description": ""
       },
       "games": {
         "name": "games",
         "count": 1,
-        "description": "Games and activities"
+        "description": ""
       },
       "family": {
         "name": "family",
         "count": 2,
-        "description": "Family and relationship terms"
+        "description": ""
       },
       "concepts": {
         "name": "concepts",
         "count": 2,
-        "description": "Abstract concepts and ideas"
+        "description": ""
       },
       "architecture": {
         "name": "architecture",
         "count": 1,
-        "description": "Buildings and structures"
+        "description": ""
       },
       "directions": {
         "name": "directions",
         "count": 4,
-        "description": "Location and direction terms"
+        "description": ""
       },
       "numbers": {
         "name": "numbers",
         "count": 2,
-        "description": "Numbers and counting"
+        "description": ""
       },
       "questions": {
         "name": "questions",
         "count": 4,
-        "description": "Question words and phrases"
+        "description": ""
       }
     },
     "tags": [

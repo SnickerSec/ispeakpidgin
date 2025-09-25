@@ -109,8 +109,8 @@ npm run rebuild-data         # Consolidate + build
 ```
 
 #### Add New Entries
-1. Edit `data/_legacy_backup/dictionary/pidgin-dictionary.json`
-2. Run `npm run consolidate-data` (regenerates master from backup sources)
+1. Edit `data/master/pidgin-master.json`
+2. Run `npm run consolidate-data` (regenerates optimized views)
 3. Build and deploy with `npm run build`
 
 #### Test Migration
@@ -119,7 +119,7 @@ Open `tools/test-data-migration.html` in browser
 ### For Content Editors
 
 #### Add Dictionary Entry
-Edit the master file and add to the `entries` array:
+Edit `data/master/pidgin-master.json` and add to the `entries` array:
 ```json
 {
     "id": "unique_id",
@@ -135,7 +135,7 @@ Edit the master file and add to the `entries` array:
 ```
 
 #### Add Phrase
-Edit the master file and add to the appropriate `phrases` category:
+Edit `data/master/pidgin-master.json` and add to the appropriate `phrases` category:
 ```json
 {
     "pidgin": "Shoots, brah!",
