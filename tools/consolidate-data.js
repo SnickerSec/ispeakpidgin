@@ -21,6 +21,8 @@ const phrasesPath = fs.existsSync(path.join(legacyBackupDir, 'phrases', 'phrases
     : null;
 const storiesPath = fs.existsSync(path.join(legacyBackupDir, 'phrases', 'stories-data.js'))
     ? path.join(legacyBackupDir, 'phrases', 'stories-data.js')
+    : fs.existsSync(path.join(__dirname, '../src/data', 'stories-data.js'))
+    ? path.join(__dirname, '../src/data', 'stories-data.js')
     : null;
 const masterPath = path.join(dataDir, 'master', 'pidgin-master.json');
 
