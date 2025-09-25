@@ -180,83 +180,83 @@ class ElevenLabsSpeech {
                         this.stop();
                     }
 
-                // Apply pronunciation corrections for Pidgin words
-                const correctedText = this.applyPronunciationCorrections(text);
-                console.log('Original text:', text);
-                console.log('Corrected for TTS:', correctedText);
+                    // Apply pronunciation corrections for Pidgin words
+                    const correctedText = this.applyPronunciationCorrections(text);
+                    console.log('Original text:', text);
+                    console.log('Corrected for TTS:', correctedText);
 
-                // Normalize text for caching (use original text for cache key)
-                const normalizedText = text.trim().toLowerCase();
+                    // Normalize text for caching (use original text for cache key)
+                    const normalizedText = text.trim().toLowerCase();
 
-                // Check cache first
-                if (this.cache.has(normalizedText)) {
-                    console.log('Playing cached audio for:', text);
+                    // Check cache first
+                    if (this.cache.has(normalizedText)) {
+                        console.log('Playing cached audio for:', text);
+                        if (!options.silent) {
+                            // Try to play cached audio with retry fallback
+                            const success = await this.playAudioBlobWithRetry(this.cache.get(normalizedText), correctedText, normalizedText);
+                            if (success) return;
+
+                            // If cached audio failed, remove from cache and retry API
+                            console.log('Cached audio failed, removing from cache and retrying API');
+                            this.cache.delete(normalizedText);
+                            // Continue to API call below
+                        } else {
+                            return; // Silent mode, don't play
+                        }
+                    }
+
+                    if (attempt > 0) {
+                        console.log(`ElevenLabs API retry attempt ${attempt} for:`, text);
+                    }
+
+                    console.log('Generating Hawaiian Pidgin speech for:', text);
+
+                    // Show loading state if callback provided
+                    if (options.onStart) {
+                        options.onStart();
+                    }
+
+                    // Make request to our backend API with corrected pronunciation
+                    const response = await fetch('/api/text-to-speech', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            text: correctedText,  // Use corrected text for better pronunciation
+                            originalText: text    // Keep original for reference
+                        })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`TTS request failed: ${response.status} ${response.statusText}`);
+                    }
+
+                    // Get audio blob from response
+                    const audioBlob = await response.blob();
+
+                    // Validate blob
+                    if (!audioBlob || audioBlob.size === 0) {
+                        throw new Error('Received empty audio blob from API');
+                    }
+
+                    // Cache the audio for future use
+                    this.cache.set(normalizedText, audioBlob);
+
+                    // Also save to IndexedDB for persistent storage
+                    await this.saveToDB(normalizedText, audioBlob);
+
+                    // Play the audio (unless silent mode for preloading)
                     if (!options.silent) {
-                        // Try to play cached audio with retry fallback
-                        const success = await this.playAudioBlobWithRetry(this.cache.get(normalizedText), correctedText, normalizedText);
-                        if (success) return;
-
-                        // If cached audio failed, remove from cache and retry API
-                        console.log('Cached audio failed, removing from cache and retrying API');
-                        this.cache.delete(normalizedText);
-                        // Continue to API call below
-                    } else {
-                        return; // Silent mode, don't play
+                        const success = await this.playAudioBlobWithRetry(audioBlob, correctedText, normalizedText);
+                        if (!success && attempt < maxRetries) {
+                            throw new Error('Audio playback failed, retrying API call');
+                        }
                     }
-                }
 
-                if (attempt > 0) {
-                    console.log(`ElevenLabs API retry attempt ${attempt} for:`, text);
-                }
-
-                console.log('Generating Hawaiian Pidgin speech for:', text);
-
-                // Show loading state if callback provided
-                if (options.onStart) {
-                    options.onStart();
-                }
-
-                // Make request to our backend API with corrected pronunciation
-                const response = await fetch('/api/text-to-speech', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        text: correctedText,  // Use corrected text for better pronunciation
-                        originalText: text    // Keep original for reference
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`TTS request failed: ${response.status} ${response.statusText}`);
-                }
-
-                // Get audio blob from response
-                const audioBlob = await response.blob();
-
-                // Validate blob
-                if (!audioBlob || audioBlob.size === 0) {
-                    throw new Error('Received empty audio blob from API');
-                }
-
-                // Cache the audio for future use
-                this.cache.set(normalizedText, audioBlob);
-
-                // Also save to IndexedDB for persistent storage
-                await this.saveToDB(normalizedText, audioBlob);
-
-                // Play the audio (unless silent mode for preloading)
-                if (!options.silent) {
-                    const success = await this.playAudioBlobWithRetry(audioBlob, correctedText, normalizedText);
-                    if (!success && attempt < maxRetries) {
-                        throw new Error('Audio playback failed, retrying API call');
+                    if (options.onSuccess) {
+                        options.onSuccess();
                     }
-                }
-
-                if (options.onSuccess) {
-                    options.onSuccess();
-                }
 
                 return; // Success, exit retry loop
 
@@ -282,6 +282,7 @@ class ElevenLabsSpeech {
                     this.fallbackToWebSpeech(text);
                     return;
                 }
+        }
             }
         })();
 
