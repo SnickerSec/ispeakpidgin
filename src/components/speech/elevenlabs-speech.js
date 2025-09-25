@@ -176,7 +176,8 @@ class ElevenLabsSpeech {
             if (this.cache.has(normalizedText)) {
                 console.log('Playing cached audio for:', text);
                 if (!options.silent) {
-                    this.playAudioBlob(this.cache.get(normalizedText));
+                    // Pass original text for fallback
+                    this.playAudioBlob(this.cache.get(normalizedText), correctedText);
                 }
                 return;
             }
@@ -234,7 +235,7 @@ class ElevenLabsSpeech {
         }
     }
 
-    playAudioBlob(audioBlob) {
+    playAudioBlob(audioBlob, fallbackText = '') {
         try {
             // Ensure we have a valid blob
             if (!audioBlob || !(audioBlob instanceof Blob)) {
@@ -270,9 +271,10 @@ class ElevenLabsSpeech {
                     this.currentAudioUrl = null;
                 }
                 this.currentAudio = null;
-                // Fallback to browser TTS on error
-                if (e.target && e.target.error && e.target.error.code === 4) {
-                    console.log('Media not supported, using fallback');
+                // Fallback to browser TTS on any audio error
+                if (fallbackText) {
+                    console.log('ElevenLabs audio failed, falling back to browser TTS');
+                    this.fallbackToWebSpeech(fallbackText);
                 }
             });
 
@@ -282,6 +284,11 @@ class ElevenLabsSpeech {
                     console.log('Audio autoplay blocked - user interaction required');
                 } else {
                     console.error('Audio play error:', error);
+                    // Fallback to browser TTS on play errors
+                    if (fallbackText) {
+                        console.log('Audio play failed, falling back to browser TTS');
+                        this.fallbackToWebSpeech(fallbackText);
+                    }
                 }
                 this.isPlaying = false;
                 if (this.currentAudioUrl) {
@@ -294,6 +301,11 @@ class ElevenLabsSpeech {
         } catch (error) {
             console.error('Error playing audio blob:', error);
             this.isPlaying = false;
+            // Fallback to browser TTS on blob creation errors
+            if (fallbackText) {
+                console.log('Blob creation failed, falling back to browser TTS');
+                this.fallbackToWebSpeech(fallbackText);
+            }
         }
     }
 
