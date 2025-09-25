@@ -165,8 +165,10 @@ class ElevenLabsSpeech {
                 // Wait for initialization
                 await this.initializationPromise;
 
-                // Stop any currently playing audio
-                this.stop();
+                // Only stop if we're going to play new audio (not during retries)
+                if (attempt === 0) {
+                    this.stop();
+                }
 
                 // Apply pronunciation corrections for Pidgin words
                 const correctedText = this.applyPronunciationCorrections(text);
@@ -277,6 +279,9 @@ class ElevenLabsSpeech {
     // New method with retry logic and better error handling
     async playAudioBlobWithRetry(audioBlob, fallbackText = '', cacheKey = '', maxRetries = 1) {
         for (let attempt = 0; attempt <= maxRetries; attempt++) {
+            let audioUrl = null;
+            let audio = null;
+
             try {
                 // Ensure we have a valid blob
                 if (!audioBlob || !(audioBlob instanceof Blob)) {
@@ -284,19 +289,41 @@ class ElevenLabsSpeech {
                     return false;
                 }
 
-                // Create audio URL from blob
-                const audioUrl = URL.createObjectURL(audioBlob);
+                // Create fresh audio URL from blob for each attempt
+                audioUrl = URL.createObjectURL(audioBlob);
+                audio = new Audio(audioUrl);
 
-                // Create and configure audio element
-                this.currentAudio = new Audio(audioUrl);
-                this.isPlaying = true;
-
-                // Track the URL for cleanup
-                this.currentAudioUrl = audioUrl;
+                // Don't interrupt existing audio during retries
+                if (attempt === 0) {
+                    // Only set current audio on first attempt
+                    this.currentAudio = audio;
+                    this.currentAudioUrl = audioUrl;
+                    this.isPlaying = true;
+                }
 
                 // Return a promise that resolves when audio starts playing successfully
                 const playResult = await new Promise((resolve, reject) => {
                     let resolved = false;
+                    let cleanupDone = false;
+
+                    const cleanup = () => {
+                        if (cleanupDone) return;
+                        cleanupDone = true;
+
+                        if (audioUrl && attempt === maxRetries) {
+                            // Only revoke URL on final attempt or success
+                            setTimeout(() => URL.revokeObjectURL(audioUrl), 1000);
+                        }
+
+                        if (attempt === 0) {
+                            // Only clean main references on first attempt
+                            this.isPlaying = false;
+                            if (this.currentAudio === audio) {
+                                this.currentAudio = null;
+                                this.currentAudioUrl = null;
+                            }
+                        }
+                    };
 
                     // Set up event listeners
                     const onEnded = () => {
@@ -304,7 +331,7 @@ class ElevenLabsSpeech {
                             resolved = true;
                             resolve(true);
                         }
-                        this.cleanup();
+                        cleanup();
                     };
 
                     const onError = (e) => {
@@ -313,7 +340,7 @@ class ElevenLabsSpeech {
                             resolved = true;
                             reject(e);
                         }
-                        this.cleanup();
+                        cleanup();
                     };
 
                     const onCanPlay = () => {
@@ -321,20 +348,28 @@ class ElevenLabsSpeech {
                             resolved = true;
                             resolve(true);
                         }
+                        // Don't cleanup on canplay - let audio continue
                     };
 
                     // Add listeners
-                    this.currentAudio.addEventListener('ended', onEnded);
-                    this.currentAudio.addEventListener('error', onError);
-                    this.currentAudio.addEventListener('canplay', onCanPlay);
+                    audio.addEventListener('ended', onEnded, { once: true });
+                    audio.addEventListener('error', onError, { once: true });
+                    audio.addEventListener('canplay', onCanPlay, { once: true });
 
                     // Attempt to play
-                    this.currentAudio.play().catch(error => {
+                    audio.play().catch(error => {
                         if (error.name === 'NotAllowedError') {
                             console.log('Audio autoplay blocked - user interaction required');
                             if (!resolved) {
                                 resolved = true;
                                 resolve(false); // Not really a failure, just blocked
+                            }
+                        } else if (error.name === 'AbortError') {
+                            // Don't treat AbortError as failure if audio is playing elsewhere
+                            console.log('Audio play was interrupted, but may be playing elsewhere');
+                            if (!resolved) {
+                                resolved = true;
+                                resolve(false);
                             }
                         } else {
                             console.error('Audio play error:', error);
@@ -343,16 +378,17 @@ class ElevenLabsSpeech {
                                 reject(error);
                             }
                         }
-                        this.cleanup();
+                        cleanup();
                     });
 
-                    // Timeout after 5 seconds
+                    // Timeout after 3 seconds (reduced from 5)
                     setTimeout(() => {
                         if (!resolved) {
                             resolved = true;
                             reject(new Error('Audio play timeout'));
+                            cleanup();
                         }
-                    }, 5000);
+                    }, 3000);
                 });
 
                 return playResult;
@@ -360,12 +396,14 @@ class ElevenLabsSpeech {
             } catch (error) {
                 console.error(`Audio play attempt ${attempt + 1} failed:`, error);
 
-                // Clean up on error
-                this.cleanup();
+                // Clean up URLs on error
+                if (audioUrl) {
+                    setTimeout(() => URL.revokeObjectURL(audioUrl), 100);
+                }
 
                 if (attempt < maxRetries) {
                     console.log(`Retrying audio playback (attempt ${attempt + 2})...`);
-                    await new Promise(resolve => setTimeout(resolve, 100));
+                    await new Promise(resolve => setTimeout(resolve, 200));
                 } else {
                     // All attempts failed
                     console.log('All audio playback attempts failed');
