@@ -1,5 +1,5 @@
-// Legacy phrases data - now loads from consolidated phrases view
-// This file provides backward compatibility while using the new data structure
+// Phrases data loader - uses consolidated data system
+// Loads phrases from data/views/phrases.json (generated from master data)
 
 // Function to load phrases from the consolidated view
 async function loadPhrasesFromView() {
@@ -11,22 +11,21 @@ async function loadPhrasesFromView() {
         window.pidginPhrases = phrasesData.pidginPhrases || [];
         window.phrasesData = phrasesData; // Full structured data
 
-        console.log(`✅ Loaded ${phrasesData.metadata.totalPhrases} phrases from consolidated view`);
+        console.log(`✅ Loaded ${phrasesData.metadata.totalPhrases} phrases from consolidated data system`);
         return phrasesData;
     } catch (error) {
-        console.log('⚠️ Could not load phrases view, falling back to empty data');
+        console.log('⚠️ Could not load phrases from consolidated data system');
         window.pidginPhrases = [];
         return null;
     }
 }
 
-// Get daily phrase function
+// Get daily phrase function (randomized on page load)
 window.getDailyPhrase = function() {
     if (window.pidginPhrases && window.pidginPhrases.length > 0) {
-        const today = new Date();
-        const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
-        const index = dayOfYear % window.pidginPhrases.length;
-        return window.pidginPhrases[index];
+        // Generate random index for each page load
+        const randomIndex = Math.floor(Math.random() * window.pidginPhrases.length);
+        return window.pidginPhrases[randomIndex];
     }
     // If phrases aren't loaded yet, try to wait a bit and retry
     if (!window.phrasesLoadPromise) {
@@ -50,4 +49,4 @@ if (typeof module !== 'undefined' && module.exports) {
     };
 }
 
-console.log('✅ Legacy phrases-data.js loaded (using consolidated phrases view)');
+console.log('✅ Phrases data loader initialized (using consolidated data system)');
