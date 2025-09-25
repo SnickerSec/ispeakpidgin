@@ -808,6 +808,11 @@ const translator = new PidginTranslator();
 // Make available as pidginTranslator for consistency
 const pidginTranslator = translator;
 
+// Expose initialization status
+Object.defineProperty(pidginTranslator, 'initialized', {
+    get: function() { return translator.initialized; }
+});
+
 // Add methods for backward compatibility with translator-page.js
 pidginTranslator.englishToPidgin = function(text) {
     const result = this.translate(text, 'eng-to-pidgin');

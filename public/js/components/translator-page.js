@@ -1,18 +1,8 @@
 // Translator Page Specific JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🔄 Translator page DOM loaded, waiting for translator...');
-
     // Wait for translator to be available before initializing
     const initWhenReady = () => {
-        console.log('Checking translator availability...', {
-            pidginTranslator: typeof pidginTranslator !== 'undefined',
-            initialized: typeof pidginTranslator !== 'undefined' ? pidginTranslator.initialized : false,
-            pidginDataLoader: typeof pidginDataLoader !== 'undefined',
-            dataLoaded: typeof pidginDataLoader !== 'undefined' ? pidginDataLoader.loaded : false
-        });
-
         if (typeof pidginTranslator !== 'undefined' && pidginTranslator && pidginTranslator.initialized) {
-            console.log('✅ Translator ready, initializing page...');
             initTranslatorPage();
         } else {
             // Check again in 100ms
@@ -25,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Also listen for the data loaded event
     window.addEventListener('pidginDataLoaded', () => {
-        console.log('📚 Pidgin data loaded event received, checking translator...');
         setTimeout(initWhenReady, 100);
     });
 });
@@ -33,25 +22,14 @@ document.addEventListener('DOMContentLoaded', function() {
 function initTranslatorPage() {
     try {
         // Initialize components
-        console.log('🔄 Initializing translator page components...');
         setupTranslationDirection();
         setupTranslationControls();
         setupExamplePhrases();
         setupTranslationHistory();
         setupCharacterCounter();
         setupVoiceInput();
-
-        console.log('✅ Translator page initialized with pidginTranslator ready');
-
-        // Test if key elements exist
-        const testInput = document.getElementById('translator-input');
-        const testOutput = document.getElementById('translation-output');
-        console.log('Input element:', testInput ? 'Found' : 'Missing');
-        console.log('Output element:', testOutput ? 'Found' : 'Missing');
-        console.log('pidginTranslator available:', typeof pidginTranslator !== 'undefined');
-
     } catch (error) {
-        console.error('❌ Error initializing translator page:', error);
+        console.error('Error initializing translator page:', error);
     }
 }
 
@@ -202,28 +180,21 @@ function setupTranslationControls() {
 
 // Perform translation
 function performTranslation() {
-    console.log('🔄 performTranslation called');
-
     // Use global references instead of querying DOM again
     if (!inputField || !outputDiv) {
-        console.error('Translation elements not found', { inputField: !!inputField, outputDiv: !!outputDiv });
+        console.error('Translation elements not found');
         return;
     }
 
     const text = inputField.value.trim();
-    console.log('Input text:', text);
     if (!text) return;
 
     // Determine direction
     const direction = localStorage.getItem('translatorDirection') || 'en-to-pid';
-    console.log('Translation direction:', direction);
 
     // Use the translator module - wait for it to be available
     if (typeof pidginTranslator !== 'undefined' && pidginTranslator) {
-        console.log('Translator available, initialized:', pidginTranslator.initialized);
-
         if (!pidginTranslator.initialized) {
-            console.warn('Translator not initialized, trying to initialize...');
             pidginTranslator.tryInitialize();
         }
 
@@ -234,7 +205,6 @@ function performTranslation() {
             } else {
                 results = pidginTranslator.pidginToEnglish(text);
             }
-            console.log('Translation results:', results);
         } catch (error) {
             console.error('Translation error:', error);
             outputDiv.innerHTML = '<p class="text-red-500 italic">Translation error. Please try again.</p>';

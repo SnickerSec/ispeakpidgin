@@ -19,13 +19,6 @@ class PidginTranslator {
     }
 
     tryInitialize() {
-        console.log('🔄 Translator tryInitialize called...', {
-            initialized: this.initialized,
-            pidginDataLoader: typeof pidginDataLoader !== 'undefined',
-            dataLoaded: typeof pidginDataLoader !== 'undefined' ? pidginDataLoader.loaded : false,
-            pidginPhrases: typeof pidginPhrases !== 'undefined'
-        });
-
         if (this.initialized) return;
 
         // Try to use pidginDataLoader if available
@@ -33,16 +26,12 @@ class PidginTranslator {
             this.comprehensiveDict = this.createComprehensiveDictFromLoader();
             this.reverseDict = this.createReverseDict();
             this.initialized = true;
-            console.log('✅ Translator initialized with pidginDataLoader');
         }
         // Fallback to pidginPhrases if available
         else if (typeof pidginPhrases !== 'undefined') {
             this.createDictFromPhrases();
             this.reverseDict = this.createReverseDict();
             this.initialized = true;
-            console.log('✅ Translator initialized with pidginPhrases');
-        } else {
-            console.warn('⚠️ No data sources available for translator initialization');
         }
     }
 
@@ -65,11 +54,6 @@ class PidginTranslator {
                         }
                     }
                 }
-                console.log(`📚 Loaded ${Object.keys(dict).length} translations from data loader`);
-
-                // Debug: Show some sample entries
-                const samples = Object.entries(dict).slice(0, 5);
-                console.log('Sample dictionary entries:', samples);
             } catch (error) {
                 console.error('Error creating dictionary from loader:', error);
             }
@@ -95,7 +79,6 @@ class PidginTranslator {
             }
             this.dict = dict;
             this.comprehensiveDict = dict;
-            console.log(`📚 Loaded ${Object.keys(dict).length} translations from phrases`);
         }
     }
 
@@ -417,12 +400,6 @@ class PidginTranslator {
         let text = englishText.toLowerCase().trim();
         let originalText = text;
 
-        console.log(`🔍 Translating English to Pidgin: "${englishText}" -> "${text}"`);
-        console.log('Dictionary sizes:', {
-            dict: Object.keys(this.dict).length,
-            comprehensiveDict: Object.keys(this.comprehensiveDict).length
-        });
-
         // Detect context for better translation
         const context = this.detectContext(text);
 
@@ -433,19 +410,15 @@ class PidginTranslator {
         }
 
         // First try comprehensive dictionary
-        console.log(`🔎 Looking for exact match in comprehensive dict for: "${text}"`);
         for (let [english, pidgin] of Object.entries(this.comprehensiveDict)) {
             if (text === english) {
-                console.log(`✅ Found exact match: "${english}" -> "${pidgin}"`);
                 return this.enhanceWithContext(this.capitalizeFirst(pidgin), context);
             }
         }
 
         // Then try original dictionary
-        console.log(`🔎 Looking for exact match in original dict for: "${text}"`);
         for (let [english, pidgin] of Object.entries(this.dict)) {
             if (text === english) {
-                console.log(`✅ Found exact match: "${english}" -> "${pidgin}"`);
                 return this.enhanceWithContext(this.capitalizeFirst(pidgin), context);
             }
         }
@@ -834,6 +807,11 @@ const translator = new PidginTranslator();
 
 // Make available as pidginTranslator for consistency
 const pidginTranslator = translator;
+
+// Expose initialization status
+Object.defineProperty(pidginTranslator, 'initialized', {
+    get: function() { return translator.initialized; }
+});
 
 // Add methods for backward compatibility with translator-page.js
 pidginTranslator.englishToPidgin = function(text) {

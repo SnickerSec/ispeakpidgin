@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Translation Test</title>
+</head>
+<body>
+    <h1>Translation Test</h1>
+    <div id="output"></div>
+
+    <script src="js/components/data-loader.js"></script>
+    <script src="js/components/translator.js"></script>
+    <script>
+        async function testTranslation() {
+            console.log('Starting translation test...');
+
+            // Wait for data to load
+            await new Promise(resolve => {
+                if (typeof pidginDataLoader !== 'undefined' && pidginDataLoader.loaded) {
+                    resolve();
+                } else {
+                    window.addEventListener('pidginDataLoaded', resolve);
+                }
+            });
+
+            console.log('Data loaded, testing translation...');
+
+            // Force reinitialize the translator
+            if (typeof pidginTranslator !== 'undefined') {
+                pidginTranslator.tryInitialize();
+
+                // Test direct translation
+                const result = pidginTranslator.translate('hello', 'eng-to-pidgin');
+                console.log('Translation result for "hello":', result);
+
+                // Test compatibility method
+                const compatResult = pidginTranslator.englishToPidgin('hello');
+                console.log('Compatibility method result:', compatResult);
+
+                document.getElementById('output').innerHTML =
+                    `Direct: ${JSON.stringify(result)}<br>Compat: ${JSON.stringify(compatResult)}`;
+            } else {
+                console.error('pidginTranslator not found');
+            }
+        }
+
+        // Start test when page loads
+        document.addEventListener('DOMContentLoaded', testTranslation);
+    </script>
+</body>
+</html>
