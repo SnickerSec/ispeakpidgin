@@ -313,22 +313,32 @@ function setupTranslationHistory() {
 function addToHistory(original, translation, direction) {
     let history = JSON.parse(localStorage.getItem('translationHistory') || '[]');
 
-    // Add new translation to beginning
-    history.unshift({
-        original,
-        translation,
-        direction,
-        timestamp: new Date().toISOString()
-    });
+    // Check if this exact translation already exists in recent history (prevent duplicates)
+    const isDuplicate = history.some(entry =>
+        entry.original === original &&
+        entry.translation === translation &&
+        entry.direction === direction
+    );
 
-    // Keep only last 10 translations
-    history = history.slice(0, 10);
+    // Only add if it's not a duplicate
+    if (!isDuplicate) {
+        // Add new translation to beginning
+        history.unshift({
+            original,
+            translation,
+            direction,
+            timestamp: new Date().toISOString()
+        });
 
-    // Save to localStorage
-    localStorage.setItem('translationHistory', JSON.stringify(history));
+        // Keep only last 10 translations
+        history = history.slice(0, 10);
 
-    // Update display
-    loadHistory();
+        // Save to localStorage
+        localStorage.setItem('translationHistory', JSON.stringify(history));
+
+        // Update display
+        loadHistory();
+    }
 }
 
 // Load and display history
