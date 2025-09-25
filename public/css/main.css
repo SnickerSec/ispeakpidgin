@@ -438,6 +438,15 @@ article.bg-gray-50:hover {
     }
 }
 
+/* Footer link styling */
+.footer-link {
+    color: white !important;
+}
+
+.footer-link:hover {
+    color: #bbf7d0 !important; /* green-200 */
+}
+
 /* Accessibility improvements with Hawaiian colors */
 button:focus, a:focus, input:focus, textarea:focus {
     outline: 3px solid #ff6b6b;
