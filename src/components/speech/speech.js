@@ -159,7 +159,7 @@ class PidginSpeech {
             'shaka': 'shah-kah',
             'stoked': 'stohked',
             'sistah': 'sis-tah',
-            'bruddah': 'bru-dah',
+            'bruddah': 'brad-ah',
             'aunty': 'ahn-tee',
             'uncle': 'ahn-koh'
         };
