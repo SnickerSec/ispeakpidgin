@@ -7,7 +7,7 @@ class PidginDataLoader {
     }
 
     // Load dictionary data from JSON
-    async loadData(url = 'data/pidgin-dictionary.json') {
+    async loadData(url = 'data/dictionary/pidgin-dictionary.json') {
         try {
             console.log('📚 Loading pidgin dictionary data...');
             const response = await fetch(url);

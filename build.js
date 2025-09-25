@@ -113,13 +113,15 @@ function copyJavaScriptFiles() {
 // Copy data files
 function copyDataFiles() {
     const dataFiles = [
-        { src: 'data/dictionary/pidgin-dictionary.json', dest: 'public/data/pidgin-dictionary.json' },
+        { src: 'data/dictionary/pidgin-dictionary.json', dest: 'public/data/dictionary/pidgin-dictionary.json' },
         { src: 'data/phrases/phrases-data.js', dest: 'public/js/data/phrases-data.js' },
         { src: 'data/phrases/stories-data.js', dest: 'public/js/data/stories-data.js' }
     ];
 
     dataFiles.forEach(({ src, dest }) => {
         if (fs.existsSync(src)) {
+            // Ensure destination directory exists
+            fs.mkdirSync(path.dirname(dest), { recursive: true });
             fs.copyFileSync(src, dest);
             console.log(`📊 Copied data: ${path.basename(dest)}`);
         }
