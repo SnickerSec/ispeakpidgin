@@ -14,7 +14,6 @@ class PidginTranslator {
 
         // Also listen for data load event and force re-initialization
         window.addEventListener('pidginDataLoaded', () => {
-            console.log('🔄 JSON data loaded, re-initializing translator...');
             this.initialized = false; // Force re-initialization
             this.tryInitialize();
         });
@@ -23,27 +22,17 @@ class PidginTranslator {
     tryInitialize() {
         if (this.initialized) return;
 
-        console.log('🔄 Translator trying to initialize...', {
-            pidginDataLoader: typeof pidginDataLoader !== 'undefined',
-            dataLoaded: typeof pidginDataLoader !== 'undefined' ? pidginDataLoader.loaded : false,
-            pidginPhrases: typeof pidginPhrases !== 'undefined'
-        });
-
         // Try to use pidginDataLoader if available
         if (typeof pidginDataLoader !== 'undefined' && pidginDataLoader.loaded) {
-            console.log('✅ Using pidginDataLoader (JSON data)');
             this.comprehensiveDict = this.createComprehensiveDictFromLoader();
             this.reverseDict = this.createReverseDict();
             this.initialized = true;
         }
         // Fallback to pidginPhrases if available
         else if (typeof pidginPhrases !== 'undefined') {
-            console.log('⚠️ Falling back to pidginPhrases (old data)');
             this.createDictFromPhrases();
             this.reverseDict = this.createReverseDict();
             this.initialized = true;
-        } else {
-            console.log('❌ No data sources available');
         }
     }
 
@@ -67,14 +56,6 @@ class PidginTranslator {
                     }
                 }
 
-                // Debug: Check if 'hello' is in the dictionary
-                console.log(`Created dictionary with ${Object.keys(dict).length} entries`);
-                if (dict['hello']) {
-                    console.log(`✅ Found 'hello' -> '${dict['hello']}'`);
-                } else {
-                    console.log('❌ "hello" not found in dictionary');
-                    console.log('Dictionary keys sample:', Object.keys(dict).slice(0, 10));
-                }
             } catch (error) {
                 console.error('Error creating dictionary from loader:', error);
             }
@@ -421,9 +402,6 @@ class PidginTranslator {
         let text = englishText.toLowerCase().trim();
         let originalText = text;
 
-        console.log(`🔍 Translating: "${englishText}" -> "${text}"`);
-        console.log(`Dictionary sizes: comprehensive=${Object.keys(this.comprehensiveDict).length}, original=${Object.keys(this.dict).length}`);
-
         // Detect context for better translation
         const context = this.detectContext(text);
 
@@ -434,19 +412,15 @@ class PidginTranslator {
         }
 
         // First try comprehensive dictionary
-        console.log(`🔎 Looking in comprehensive dict for: "${text}"`);
         for (let [english, pidgin] of Object.entries(this.comprehensiveDict)) {
             if (text === english) {
-                console.log(`✅ Found match: "${english}" -> "${pidgin}"`);
                 return this.enhanceWithContext(this.capitalizeFirst(pidgin), context);
             }
         }
 
         // Then try original dictionary
-        console.log(`🔎 Looking in original dict for: "${text}"`);
         for (let [english, pidgin] of Object.entries(this.dict)) {
             if (text === english) {
-                console.log(`✅ Found match: "${english}" -> "${pidgin}"`);
                 return this.enhanceWithContext(this.capitalizeFirst(pidgin), context);
             }
         }
