@@ -24,9 +24,28 @@ class PidginTranslator {
 
         // Try to use pidginDataLoader if available
         if (typeof pidginDataLoader !== 'undefined' && pidginDataLoader.loaded) {
-            this.comprehensiveDict = this.createComprehensiveDictFromLoader();
-            this.reverseDict = this.createReverseDict();
-            this.initialized = true;
+            // Check if new translations are available
+            if (pidginDataLoader.data && pidginDataLoader.data.translations) {
+                const translations = pidginDataLoader.getTranslations();
+
+                // Build comprehensive dict from translations
+                this.comprehensiveDict = {};
+                Object.entries(translations.englishToPidgin).forEach(([eng, pidgins]) => {
+                    if (pidgins.length > 0) {
+                        this.comprehensiveDict[eng] = pidgins[0].pidgin;
+                    }
+                });
+
+                // Build reverse dict
+                this.reverseDict = translations.pidginToEnglish || {};
+                this.initialized = true;
+                console.log('✅ Translator initialized with new optimized data');
+            } else {
+                // Fallback to old method
+                this.comprehensiveDict = this.createComprehensiveDictFromLoader();
+                this.reverseDict = this.createReverseDict();
+                this.initialized = true;
+            }
         }
         // Fallback to pidginPhrases if available
         else if (typeof pidginPhrases !== 'undefined') {

@@ -1,18 +1,17 @@
 {
   "metadata": {
-    "version": "2.0",
-    "lastUpdated": "2025-09-22",
+    "version": "3.0",
+    "lastUpdated": "2025-09-25",
     "totalEntries": 453,
-    "description": "Comprehensive Hawaiian Pidgin Dictionary",
-    "contributors": [
-      "ChokePidgin.com"
+    "totalPhrases": 105,
+    "totalStories": 0,
+    "description": "Unified Hawaiian Pidgin Master Database",
+    "sources": [
+      "pidgin-dictionary.json",
+      "phrases-data.js",
+      "stories-data.js"
     ],
-    "license": "Open Source",
-    "migrationInfo": {
-      "sourceEntries": 428,
-      "duplicatesRemoved": 0,
-      "migratedAt": "2025-09-20T19:18:30.097Z"
-    }
+    "viewType": "dictionary"
   },
   "categories": {
     "greetings": {

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Migration Test - ChokePidgin</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #5a67d8;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Data Migration Test Suite</h1>
+
+        <!-- Test Controls -->
+        <div style="text-align: center; margin: 20px 0;">
+            <button onclick="runAllTests()">🚀 Run All Tests</button>
+            <button onclick="clearResults()">🗑️ Clear Results</button>
+            <button onclick="compareStructures()">📊 Compare Old vs New</button>
+        </div>
+
+        <!-- Summary Stats -->
+        <div id="stats" class="stats" style="display: none;">
+            <div class="stat-card">
+                <div class="stat-value" id="total-tests">0</div>
+                <div class="stat-label">Total Tests</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="passed-tests">0</div>
+                <div class="stat-label">Passed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="failed-tests">0</div>
+                <div class="stat-label">Failed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="load-time">0ms</div>
+                <div class="stat-label">Load Time</div>
+            </div>
+        </div>
+
+        <!-- Test Results -->
+        <div id="test-results"></div>
+    </div>
+
+    <!-- Load the new data loader -->
+    <script src="../public/js/components/data-loader.js"></script>
+
+    <script>
+        let testResults = {
+            total: 0,
+            passed: 0,
+            failed: 0,
+            loadTime: 0
+        };
+
+        function logTest(message, status = 'info') {
+            const resultsDiv = document.getElementById('test-results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result ${status}`;
+            resultDiv.innerHTML = message;
+            resultsDiv.appendChild(resultDiv);
+
+            if (status === 'success') testResults.passed++;
+            if (status === 'error') testResults.failed++;
+            testResults.total++;
+            updateStats();
+        }
+
+        function updateStats() {
+            document.getElementById('stats').style.display = 'grid';
+            document.getElementById('total-tests').textContent = testResults.total;
+            document.getElementById('passed-tests').textContent = testResults.passed;
+            document.getElementById('failed-tests').textContent = testResults.failed;
+            document.getElementById('load-time').textContent = testResults.loadTime + 'ms';
+        }
+
+        function clearResults() {
+            document.getElementById('test-results').innerHTML = '';
+            document.getElementById('stats').style.display = 'none';
+            testResults = { total: 0, passed: 0, failed: 0, loadTime: 0 };
+        }
+
+        async function runAllTests() {
+            clearResults();
+            logTest('<h3>🏃 Running Data Migration Tests...</h3>', 'info');
+
+            const startTime = performance.now();
+
+            // Test 1: Load new structure
+            logTest('<h4>Test 1: Loading New Data Structure</h4>', 'info');
+            try {
+                await pidginDataLoader.autoLoad();
+                testResults.loadTime = Math.round(performance.now() - startTime);
+
+                if (pidginDataLoader.isNewSystem) {
+                    logTest('✅ New consolidated data structure loaded successfully', 'success');
+                    logTest(`📊 View type: ${pidginDataLoader.viewType}`, 'info');
+                } else {
+                    logTest('⚠️ Fell back to legacy structure', 'warning');
+                }
+            } catch (error) {
+                logTest(`❌ Failed to load data: ${error.message}`, 'error');
+                return;
+            }
+
+            // Test 2: Check data integrity
+            logTest('<h4>Test 2: Data Integrity Checks</h4>', 'info');
+
+            if (pidginDataLoader.viewType === 'dictionary') {
+                const entries = pidginDataLoader.getAllEntries();
+                if (entries.length > 0) {
+                    logTest(`✅ Dictionary has ${entries.length} entries`, 'success');
+
+                    // Check sample entry structure
+                    const sample = entries[0];
+                    if (sample.id && sample.pidgin && sample.english) {
+                        logTest('✅ Entry structure is valid', 'success');
+                    } else {
+                        logTest('❌ Entry structure is invalid', 'error');
+                    }
+                } else {
+                    logTest('❌ No dictionary entries found', 'error');
+                }
+            }
+
+            // Test 3: Translation mappings
+            logTest('<h4>Test 3: Translation Mappings</h4>', 'info');
+            try {
+                const translations = pidginDataLoader.getTranslations();
+                const engCount = Object.keys(translations.englishToPidgin || {}).length;
+                const pidCount = Object.keys(translations.pidginToEnglish || {}).length;
+
+                if (engCount > 0 && pidCount > 0) {
+                    logTest(`✅ English→Pidgin: ${engCount} mappings`, 'success');
+                    logTest(`✅ Pidgin→English: ${pidCount} mappings`, 'success');
+                } else {
+                    logTest('❌ Translation mappings are missing', 'error');
+                }
+            } catch (error) {
+                logTest(`❌ Failed to get translations: ${error.message}`, 'error');
+            }
+
+            // Test 4: Search functionality
+            logTest('<h4>Test 4: Search Functionality</h4>', 'info');
+            try {
+                const searchResults = pidginDataLoader.search('aloha');
+                if (searchResults.length > 0) {
+                    logTest(`✅ Search for "aloha" returned ${searchResults.length} results`, 'success');
+                } else {
+                    logTest('⚠️ Search returned no results', 'warning');
+                }
+            } catch (error) {
+                logTest(`❌ Search failed: ${error.message}`, 'error');
+            }
+
+            // Test 5: Category filtering
+            logTest('<h4>Test 5: Category Filtering</h4>', 'info');
+            try {
+                const categories = pidginDataLoader.getCategories();
+                const categoryCount = Object.keys(categories).length;
+
+                if (categoryCount > 0) {
+                    logTest(`✅ Found ${categoryCount} categories`, 'success');
+
+                    // Test filtering by category
+                    const greetings = pidginDataLoader.getByCategory('greetings');
+                    if (greetings.length > 0) {
+                        logTest(`✅ Category filter works (${greetings.length} greetings)`, 'success');
+                    }
+                } else {
+                    logTest('⚠️ No categories found', 'warning');
+                }
+            } catch (error) {
+                logTest(`❌ Category test failed: ${error.message}`, 'error');
+            }
+
+            // Test 6: Pronunciation map
+            logTest('<h4>Test 6: Pronunciation Map</h4>', 'info');
+            if (pidginDataLoader.pronunciationMap) {
+                const pronCount = Object.keys(pidginDataLoader.pronunciationMap).length;
+                logTest(`✅ Pronunciation map loaded with ${pronCount} entries`, 'success');
+
+                // Test sample pronunciation
+                const testPron = pidginDataLoader.getPronunciation('aloha');
+                if (testPron) {
+                    logTest(`✅ Sample pronunciation: aloha = "${testPron}"`, 'success');
+                }
+            } else {
+                logTest('⚠️ Pronunciation map not loaded', 'warning');
+            }
+
+            // Test 7: Search index
+            logTest('<h4>Test 7: Search Index</h4>', 'info');
+            if (pidginDataLoader.searchIndex) {
+                const termCount = Object.keys(pidginDataLoader.searchIndex.terms || {}).length;
+                logTest(`✅ Search index loaded with ${termCount} indexed terms`, 'success');
+            } else {
+                logTest('⚠️ Search index not loaded', 'warning');
+            }
+
+            // Test 8: Performance test
+            logTest('<h4>Test 8: Performance Test</h4>', 'info');
+            const perfStart = performance.now();
+            for (let i = 0; i < 100; i++) {
+                pidginDataLoader.search('test');
+            }
+            const perfTime = Math.round(performance.now() - perfStart);
+
+            if (perfTime < 100) {
+                logTest(`✅ 100 searches completed in ${perfTime}ms (excellent)`, 'success');
+            } else if (perfTime < 500) {
+                logTest(`✅ 100 searches completed in ${perfTime}ms (good)`, 'success');
+            } else {
+                logTest(`⚠️ 100 searches completed in ${perfTime}ms (slow)`, 'warning');
+            }
+
+            // Final summary
+            logTest(`<h3>📊 Test Summary: ${testResults.passed} passed, ${testResults.failed} failed</h3>`,
+                    testResults.failed === 0 ? 'success' : 'warning');
+        }
+
+        async function compareStructures() {
+            clearResults();
+            logTest('<h3>📊 Comparing Old vs New Data Structures</h3>', 'info');
+
+            try {
+                // Load old structure
+                const oldResponse = await fetch('../public/data/dictionary/pidgin-dictionary.json');
+                const oldData = await oldResponse.json();
+
+                // Load new structure
+                const newResponse = await fetch('../public/data/master/pidgin-master.json');
+                const newData = await newResponse.json();
+
+                logTest('<h4>Old Structure (Legacy)</h4>', 'info');
+                logTest(`Entries: ${oldData.entries.length}`, 'info');
+                logTest(`File size: ~${(JSON.stringify(oldData).length / 1024).toFixed(1)}KB`, 'info');
+
+                logTest('<h4>New Structure (Master)</h4>', 'info');
+                logTest(`Entries: ${newData.entries.length}`, 'info');
+                logTest(`Phrases: ${newData.metadata.totalPhrases}`, 'info');
+                logTest(`English→Pidgin: ${Object.keys(newData.translations.englishToPidgin).length}`, 'info');
+                logTest(`Pidgin→English: ${Object.keys(newData.translations.pidginToEnglish).length}`, 'info');
+                logTest(`File size: ~${(JSON.stringify(newData).length / 1024).toFixed(1)}KB`, 'info');
+
+                // Check for new entries
+                const oldIds = new Set(oldData.entries.map(e => e.id));
+                const newIds = new Set(newData.entries.map(e => e.id));
+                const newEntries = [...newIds].filter(id => !oldIds.has(id));
+
+                if (newEntries.length > 0) {
+                    logTest(`✅ ${newEntries.length} new entries added in consolidation`, 'success');
+                }
+
+                // Load optimized views
+                logTest('<h4>Optimized Views</h4>', 'info');
+                const views = ['dictionary', 'translator', 'learning'];
+                for (const view of views) {
+                    const viewResponse = await fetch(`../public/data/views/${view}.json`);
+                    const viewData = await viewResponse.json();
+                    const size = (JSON.stringify(viewData).length / 1024).toFixed(1);
+                    logTest(`${view} view: ~${size}KB`, 'info');
+                }
+
+            } catch (error) {
+                logTest(`❌ Comparison failed: ${error.message}`, 'error');
+            }
+        }
+
+        // Auto-run tests on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(runAllTests, 500);
+        });
+    </script>
+</body>
+</html>

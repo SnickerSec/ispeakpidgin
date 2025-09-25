@@ -9,7 +9,9 @@
     "build": "node build.js",
     "build-sh": "./scripts/build.sh",
     "deploy": "./scripts/deploy.sh",
-    "serve": "node server.js"
+    "serve": "node server.js",
+    "consolidate-data": "node tools/consolidate-data.js",
+    "rebuild-data": "npm run consolidate-data && npm run build"
   },
   "keywords": [
     "pidgin",

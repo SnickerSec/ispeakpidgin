@@ -1,0 +1,7642 @@
+{
+  "metadata": {
+    "version": "3.0",
+    "viewType": "search",
+    "lastUpdated": "2025-09-25"
+  },
+  "terms": {
+    "'a'ole": [
+      {
+        "id": "aole_307",
+        "type": "entry",
+        "english": "no"
+      }
+    ],
+    "no": [
+      {
+        "id": "aole_307",
+        "type": "entry",
+        "pidgin": "'a'ole"
+      },
+      {
+        "id": "negz_372",
+        "type": "entry",
+        "pidgin": "negz"
+      }
+    ],
+    "not": [
+      {
+        "id": "aole_307",
+        "type": "entry",
+        "pidgin": "'a'ole"
+      }
+    ],
+    "'a'ole pilikia": [
+      {
+        "id": "aole_pilikia_308",
+        "type": "entry",
+        "english": "no problem"
+      }
+    ],
+    "no problem": [
+      {
+        "id": "aole_pilikia_308",
+        "type": "entry",
+        "pidgin": "'a'ole pilikia"
+      },
+      {
+        "id": "minors_402",
+        "type": "entry",
+        "pidgin": "minors"
+      }
+    ],
+    "'ae": [
+      {
+        "id": "ae_300",
+        "type": "entry",
+        "english": "yes"
+      }
+    ],
+    "yes": [
+      {
+        "id": "ae_300",
+        "type": "entry",
+        "pidgin": "'ae"
+      },
+      {
+        "id": "yeah_272",
+        "type": "entry",
+        "pidgin": "yeah"
+      },
+      {
+        "id": "yups_277",
+        "type": "entry",
+        "pidgin": "yups"
+      }
+    ],
+    "'ahi": [
+      {
+        "id": "ahi_301",
+        "type": "entry",
+        "english": "yellowfin tuna"
+      }
+    ],
+    "yellowfin tuna": [
+      {
+        "id": "ahi_301",
+        "type": "entry",
+        "pidgin": "'ahi"
+      }
+    ],
+    "'āina": [
+      {
+        "id": "ina_309",
+        "type": "entry",
+        "english": "land"
+      }
+    ],
+    "land": [
+      {
+        "id": "ina_309",
+        "type": "entry",
+        "pidgin": "'āina"
+      }
+    ],
+    "earth": [
+      {
+        "id": "ina_309",
+        "type": "entry",
+        "pidgin": "'āina"
+      }
+    ],
+    "'ama'ama": [
+      {
+        "id": "amaama_302",
+        "type": "entry",
+        "english": "mullet fish"
+      }
+    ],
+    "mullet fish": [
+      {
+        "id": "amaama_302",
+        "type": "entry",
+        "pidgin": "'ama'ama"
+      }
+    ],
+    "'ano'ai": [
+      {
+        "id": "anoai_303",
+        "type": "entry",
+        "english": "greetings"
+      }
+    ],
+    "greetings": [
+      {
+        "id": "anoai_303",
+        "type": "entry",
+        "pidgin": "'ano'ai"
+      }
+    ],
+    "'au'au": [
+      {
+        "id": "auau_306",
+        "type": "entry",
+        "english": "bathe"
+      }
+    ],
+    "bathe": [
+      {
+        "id": "auau_306",
+        "type": "entry",
+        "pidgin": "'au'au"
+      }
+    ],
+    "swim": [
+      {
+        "id": "auau_306",
+        "type": "entry",
+        "pidgin": "'au'au"
+      }
+    ],
+    "'auana": [
+      {
+        "id": "auana_304",
+        "type": "entry",
+        "english": "modern hula"
+      }
+    ],
+    "modern hula": [
+      {
+        "id": "auana_304",
+        "type": "entry",
+        "pidgin": "'auana"
+      }
+    ],
+    "'aumakua": [
+      {
+        "id": "aumakua_305",
+        "type": "entry",
+        "english": "family guardian"
+      }
+    ],
+    "family guardian": [
+      {
+        "id": "aumakua_305",
+        "type": "entry",
+        "pidgin": "'aumakua"
+      }
+    ],
+    "'ehu": [
+      {
+        "id": "ehu_329",
+        "type": "entry",
+        "english": "reddish hair"
+      }
+    ],
+    "reddish hair": [
+      {
+        "id": "ehu_329",
+        "type": "entry",
+        "pidgin": "'ehu"
+      }
+    ],
+    "spray": [
+      {
+        "id": "ehu_329",
+        "type": "entry",
+        "pidgin": "'ehu"
+      }
+    ],
+    "a'ole": [
+      {
+        "id": "aole_196",
+        "type": "entry",
+        "english": "not at all"
+      }
+    ],
+    "not at all": [
+      {
+        "id": "aole_196",
+        "type": "entry",
+        "pidgin": "a'ole"
+      }
+    ],
+    "accidentally on purpose": [
+      {
+        "id": "accidentally_on_purp_001",
+        "type": "entry",
+        "english": "doing something on purpose but making it look accidental"
+      }
+    ],
+    "doing something on purpose but making it look accidental": [
+      {
+        "id": "accidentally_on_purp_001",
+        "type": "entry",
+        "pidgin": "accidentally on purpose"
+      }
+    ],
+    "ack": [
+      {
+        "id": "ack_002",
+        "type": "entry",
+        "english": "to act"
+      }
+    ],
+    "to act": [
+      {
+        "id": "ack_002",
+        "type": "entry",
+        "pidgin": "ack"
+      }
+    ],
+    "behave": [
+      {
+        "id": "ack_002",
+        "type": "entry",
+        "pidgin": "ack"
+      }
+    ],
+    "ackshun": [
+      {
+        "id": "ackshun_286",
+        "type": "entry",
+        "english": "action"
+      }
+    ],
+    "action": [
+      {
+        "id": "ackshun_286",
+        "type": "entry",
+        "pidgin": "ackshun"
+      }
+    ],
+    "activity": [
+      {
+        "id": "ackshun_286",
+        "type": "entry",
+        "pidgin": "ackshun"
+      }
+    ],
+    "ai yah": [
+      {
+        "id": "ai_yah_197",
+        "type": "entry",
+        "english": "oops"
+      }
+    ],
+    "oops": [
+      {
+        "id": "ai_yah_197",
+        "type": "entry",
+        "pidgin": "ai yah"
+      }
+    ],
+    "aikea": [
+      {
+        "id": "aikea_003",
+        "type": "entry",
+        "english": "I care (sarcastic)"
+      }
+    ],
+    "i care (sarcastic)": [
+      {
+        "id": "aikea_003",
+        "type": "entry",
+        "pidgin": "aikea"
+      }
+    ],
+    "ainokea": [
+      {
+        "id": "ainokea_278",
+        "type": "entry",
+        "english": "I don't care"
+      }
+    ],
+    "i don't care": [
+      {
+        "id": "ainokea_278",
+        "type": "entry",
+        "pidgin": "ainokea"
+      }
+    ],
+    "aisus": [
+      {
+        "id": "aisus_004",
+        "type": "entry",
+        "english": "darn"
+      }
+    ],
+    "darn": [
+      {
+        "id": "aisus_004",
+        "type": "entry",
+        "pidgin": "aisus"
+      }
+    ],
+    "aiyah": [
+      {
+        "id": "aiyah_005",
+        "type": "entry",
+        "english": "expression of frustration"
+      }
+    ],
+    "expression of frustration": [
+      {
+        "id": "aiyah_005",
+        "type": "entry",
+        "pidgin": "aiyah"
+      }
+    ],
+    "surprise": [
+      {
+        "id": "aiyah_005",
+        "type": "entry",
+        "pidgin": "aiyah"
+      }
+    ],
+    "akamai": [
+      {
+        "id": "akamai_006",
+        "type": "entry",
+        "english": "smart"
+      }
+    ],
+    "smart": [
+      {
+        "id": "akamai_006",
+        "type": "entry",
+        "pidgin": "akamai"
+      }
+    ],
+    "clever": [
+      {
+        "id": "akamai_006",
+        "type": "entry",
+        "pidgin": "akamai"
+      }
+    ],
+    "intelligent": [
+      {
+        "id": "akamai_006",
+        "type": "entry",
+        "pidgin": "akamai"
+      }
+    ],
+    "akua": [
+      {
+        "id": "akua_287",
+        "type": "entry",
+        "english": "god"
+      }
+    ],
+    "god": [
+      {
+        "id": "akua_287",
+        "type": "entry",
+        "pidgin": "akua"
+      }
+    ],
+    "deity": [
+      {
+        "id": "akua_287",
+        "type": "entry",
+        "pidgin": "akua"
+      }
+    ],
+    "akule": [
+      {
+        "id": "akule_288",
+        "type": "entry",
+        "english": "big-eyed scad fish"
+      }
+    ],
+    "big-eyed scad fish": [
+      {
+        "id": "akule_288",
+        "type": "entry",
+        "pidgin": "akule"
+      }
+    ],
+    "alas": [
+      {
+        "id": "alas_198",
+        "type": "entry",
+        "english": "testicles"
+      },
+      {
+        "id": "au_299",
+        "type": "entry",
+        "pidgin": "auē"
+      }
+    ],
+    "testicles": [
+      {
+        "id": "alas_198",
+        "type": "entry",
+        "pidgin": "alas"
+      }
+    ],
+    "ali'i": [
+      {
+        "id": "alii_289",
+        "type": "entry",
+        "english": "chief"
+      }
+    ],
+    "chief": [
+      {
+        "id": "alii_289",
+        "type": "entry",
+        "pidgin": "ali'i"
+      }
+    ],
+    "royalty": [
+      {
+        "id": "alii_289",
+        "type": "entry",
+        "pidgin": "ali'i"
+      }
+    ],
+    "all bline": [
+      {
+        "id": "all_bline_290",
+        "type": "entry",
+        "english": "completely blind"
+      }
+    ],
+    "completely blind": [
+      {
+        "id": "all_bline_290",
+        "type": "entry",
+        "pidgin": "all bline"
+      }
+    ],
+    "all buss": [
+      {
+        "id": "all_buss_007",
+        "type": "entry",
+        "english": "very drunk"
+      }
+    ],
+    "very drunk": [
+      {
+        "id": "all_buss_007",
+        "type": "entry",
+        "pidgin": "all buss"
+      }
+    ],
+    "all jag": [
+      {
+        "id": "all_jag_291",
+        "type": "entry",
+        "english": "messed up"
+      }
+    ],
+    "messed up": [
+      {
+        "id": "all_jag_291",
+        "type": "entry",
+        "pidgin": "all jag"
+      },
+      {
+        "id": "hamajang_059",
+        "type": "entry",
+        "pidgin": "hamajang"
+      },
+      {
+        "id": "hammajang_282",
+        "type": "entry",
+        "pidgin": "hammajang"
+      },
+      {
+        "id": "jam_up_264",
+        "type": "entry",
+        "pidgin": "jam up"
+      }
+    ],
+    "crooked": [
+      {
+        "id": "all_jag_291",
+        "type": "entry",
+        "pidgin": "all jag"
+      },
+      {
+        "id": "kapakahi_090",
+        "type": "entry",
+        "pidgin": "kapakahi"
+      }
+    ],
+    "all jam up": [
+      {
+        "id": "all_jam_up_008",
+        "type": "entry",
+        "english": "crowded"
+      }
+    ],
+    "crowded": [
+      {
+        "id": "all_jam_up_008",
+        "type": "entry",
+        "pidgin": "all jam up"
+      }
+    ],
+    "congested": [
+      {
+        "id": "all_jam_up_008",
+        "type": "entry",
+        "pidgin": "all jam up"
+      }
+    ],
+    "all katsu": [
+      {
+        "id": "all_katsu_292",
+        "type": "entry",
+        "english": "perfect"
+      }
+    ],
+    "perfect": [
+      {
+        "id": "all_katsu_292",
+        "type": "entry",
+        "pidgin": "all katsu"
+      }
+    ],
+    "victorious": [
+      {
+        "id": "all_katsu_292",
+        "type": "entry",
+        "pidgin": "all katsu"
+      }
+    ],
+    "all nuts": [
+      {
+        "id": "all_nuts_009",
+        "type": "entry",
+        "english": "crazy"
+      }
+    ],
+    "crazy": [
+      {
+        "id": "all_nuts_009",
+        "type": "entry",
+        "pidgin": "all nuts"
+      },
+      {
+        "id": "lolo_107",
+        "type": "entry",
+        "pidgin": "lolo"
+      },
+      {
+        "id": "mento_121",
+        "type": "entry",
+        "pidgin": "mento"
+      }
+    ],
+    "wild": [
+      {
+        "id": "all_nuts_009",
+        "type": "entry",
+        "pidgin": "all nuts"
+      }
+    ],
+    "all pau": [
+      {
+        "id": "all_pau_010",
+        "type": "entry",
+        "english": "all finished"
+      }
+    ],
+    "all finished": [
+      {
+        "id": "all_pau_010",
+        "type": "entry",
+        "pidgin": "all pau"
+      }
+    ],
+    "done": [
+      {
+        "id": "all_pau_010",
+        "type": "entry",
+        "pidgin": "all pau"
+      },
+      {
+        "id": "pau_143",
+        "type": "entry",
+        "pidgin": "pau"
+      }
+    ],
+    "all randle": [
+      {
+        "id": "all_randle_293",
+        "type": "entry",
+        "english": "out of control"
+      }
+    ],
+    "out of control": [
+      {
+        "id": "all_randle_293",
+        "type": "entry",
+        "pidgin": "all randle"
+      }
+    ],
+    "all salty": [
+      {
+        "id": "all_salty_294",
+        "type": "entry",
+        "english": "angry"
+      }
+    ],
+    "angry": [
+      {
+        "id": "all_salty_294",
+        "type": "entry",
+        "pidgin": "all salty"
+      },
+      {
+        "id": "huhu_073",
+        "type": "entry",
+        "pidgin": "huhu"
+      }
+    ],
+    "bitter": [
+      {
+        "id": "all_salty_294",
+        "type": "entry",
+        "pidgin": "all salty"
+      }
+    ],
+    "aloha": [
+      {
+        "id": "aloha_011",
+        "type": "entry",
+        "english": "hello"
+      }
+    ],
+    "hello": [
+      {
+        "id": "aloha_011",
+        "type": "entry",
+        "pidgin": "aloha"
+      }
+    ],
+    "goodbye": [
+      {
+        "id": "aloha_011",
+        "type": "entry",
+        "pidgin": "aloha"
+      },
+      {
+        "id": "latahz_362",
+        "type": "entry",
+        "pidgin": "latahz"
+      },
+      {
+        "id": "shoots_159",
+        "type": "entry",
+        "pidgin": "shoots"
+      },
+      {
+        "id": "shoots_509",
+        "type": "entry",
+        "pidgin": "shoots"
+      }
+    ],
+    "love": [
+      {
+        "id": "aloha_011",
+        "type": "entry",
+        "pidgin": "aloha"
+      }
+    ],
+    "aloha 'oe": [
+      {
+        "id": "aloha_oe_295",
+        "type": "entry",
+        "english": "farewell to you"
+      }
+    ],
+    "farewell to you": [
+      {
+        "id": "aloha_oe_295",
+        "type": "entry",
+        "pidgin": "aloha 'oe"
+      }
+    ],
+    "aloha friday": [
+      {
+        "id": "aloha_friday_199",
+        "type": "entry",
+        "english": "casual wear Friday"
+      }
+    ],
+    "casual wear friday": [
+      {
+        "id": "aloha_friday_199",
+        "type": "entry",
+        "pidgin": "aloha friday"
+      }
+    ],
+    "amped": [
+      {
+        "id": "amped_296",
+        "type": "entry",
+        "english": "excited"
+      }
+    ],
+    "excited": [
+      {
+        "id": "amped_296",
+        "type": "entry",
+        "pidgin": "amped"
+      },
+      {
+        "id": "stoked_167",
+        "type": "entry",
+        "pidgin": "stoked"
+      }
+    ],
+    "energized": [
+      {
+        "id": "amped_296",
+        "type": "entry",
+        "pidgin": "amped"
+      }
+    ],
+    "amping": [
+      {
+        "id": "amping_297",
+        "type": "entry",
+        "english": "getting excited"
+      }
+    ],
+    "getting excited": [
+      {
+        "id": "amping_297",
+        "type": "entry",
+        "pidgin": "amping"
+      }
+    ],
+    "and then": [
+      {
+        "id": "and_then_200",
+        "type": "entry",
+        "english": "who cares"
+      }
+    ],
+    "who cares": [
+      {
+        "id": "and_then_200",
+        "type": "entry",
+        "pidgin": "and then"
+      }
+    ],
+    "so what": [
+      {
+        "id": "and_then_200",
+        "type": "entry",
+        "pidgin": "and then"
+      }
+    ],
+    "anden": [
+      {
+        "id": "anden_012",
+        "type": "entry",
+        "english": "and then what?"
+      }
+    ],
+    "and then what?": [
+      {
+        "id": "anden_012",
+        "type": "entry",
+        "pidgin": "anden"
+      }
+    ],
+    "animal": [
+      {
+        "id": "animal_298",
+        "type": "entry",
+        "english": "wild person"
+      }
+    ],
+    "wild person": [
+      {
+        "id": "animal_298",
+        "type": "entry",
+        "pidgin": "animal"
+      }
+    ],
+    "any kine": [
+      {
+        "id": "any_kine_201",
+        "type": "entry",
+        "english": "anything goes"
+      }
+    ],
+    "anything goes": [
+      {
+        "id": "any_kine_201",
+        "type": "entry",
+        "pidgin": "any kine"
+      }
+    ],
+    "ass right": [
+      {
+        "id": "ass_right_013",
+        "type": "entry",
+        "english": "that's right"
+      }
+    ],
+    "that's right": [
+      {
+        "id": "ass_right_013",
+        "type": "entry",
+        "pidgin": "ass right"
+      },
+      {
+        "id": "yeah_you_508",
+        "type": "entry",
+        "pidgin": "yeah you"
+      }
+    ],
+    "ass why": [
+      {
+        "id": "ass_why_202",
+        "type": "entry",
+        "english": "that's why"
+      }
+    ],
+    "that's why": [
+      {
+        "id": "ass_why_202",
+        "type": "entry",
+        "pidgin": "ass why"
+      }
+    ],
+    "auē": [
+      {
+        "id": "au_299",
+        "type": "entry",
+        "english": "oh dear"
+      }
+    ],
+    "oh dear": [
+      {
+        "id": "au_299",
+        "type": "entry",
+        "pidgin": "auē"
+      },
+      {
+        "id": "auwe_504",
+        "type": "entry",
+        "pidgin": "auwe"
+      }
+    ],
+    "aunty": [
+      {
+        "id": "aunty_014",
+        "type": "entry",
+        "english": "respectful term for older woman"
+      }
+    ],
+    "respectful term for older woman": [
+      {
+        "id": "aunty_014",
+        "type": "entry",
+        "pidgin": "aunty"
+      }
+    ],
+    "aurite": [
+      {
+        "id": "aurite_015",
+        "type": "entry",
+        "english": "alright"
+      }
+    ],
+    "alright": [
+      {
+        "id": "aurite_015",
+        "type": "entry",
+        "pidgin": "aurite"
+      },
+      {
+        "id": "shootz_283",
+        "type": "entry",
+        "pidgin": "shootz"
+      },
+      {
+        "id": "shoots_509",
+        "type": "entry",
+        "pidgin": "shoots"
+      }
+    ],
+    "okay": [
+      {
+        "id": "aurite_015",
+        "type": "entry",
+        "pidgin": "aurite"
+      },
+      {
+        "id": "rajah_153",
+        "type": "entry",
+        "pidgin": "rajah"
+      },
+      {
+        "id": "shoots_159",
+        "type": "entry",
+        "pidgin": "shoots"
+      },
+      {
+        "id": "shoots_509",
+        "type": "entry",
+        "pidgin": "shoots"
+      }
+    ],
+    "b-52": [
+      {
+        "id": "b52_203",
+        "type": "entry",
+        "english": "large cockroach"
+      }
+    ],
+    "large cockroach": [
+      {
+        "id": "b52_203",
+        "type": "entry",
+        "pidgin": "b-52"
+      }
+    ],
+    "bachi": [
+      {
+        "id": "bachi_016",
+        "type": "entry",
+        "english": "bad luck"
+      }
+    ],
+    "bad luck": [
+      {
+        "id": "bachi_016",
+        "type": "entry",
+        "pidgin": "bachi"
+      }
+    ],
+    "curse": [
+      {
+        "id": "bachi_016",
+        "type": "entry",
+        "pidgin": "bachi"
+      }
+    ],
+    "bag": [
+      {
+        "id": "bag_204",
+        "type": "entry",
+        "english": "to leave"
+      }
+    ],
+    "to leave": [
+      {
+        "id": "bag_204",
+        "type": "entry",
+        "pidgin": "bag"
+      }
+    ],
+    "depart": [
+      {
+        "id": "bag_204",
+        "type": "entry",
+        "pidgin": "bag"
+      }
+    ],
+    "bahjuju": [
+      {
+        "id": "bahjuju_310",
+        "type": "entry",
+        "english": "bad vibes"
+      }
+    ],
+    "bad vibes": [
+      {
+        "id": "bahjuju_310",
+        "type": "entry",
+        "pidgin": "bahjuju"
+      }
+    ],
+    "bang": [
+      {
+        "id": "bang_311",
+        "type": "entry",
+        "english": "suddenly"
+      }
+    ],
+    "suddenly": [
+      {
+        "id": "bang_311",
+        "type": "entry",
+        "pidgin": "bang"
+      }
+    ],
+    "batu": [
+      {
+        "id": "batu_312",
+        "type": "entry",
+        "english": "crystal meth"
+      }
+    ],
+    "crystal meth": [
+      {
+        "id": "batu_312",
+        "type": "entry",
+        "pidgin": "batu"
+      }
+    ],
+    "beef": [
+      {
+        "id": "beef_017",
+        "type": "entry",
+        "english": "to fight"
+      }
+    ],
+    "to fight": [
+      {
+        "id": "beef_017",
+        "type": "entry",
+        "pidgin": "beef"
+      }
+    ],
+    "have a problem": [
+      {
+        "id": "beef_017",
+        "type": "entry",
+        "pidgin": "beef"
+      }
+    ],
+    "beer in my ear": [
+      {
+        "id": "beer_in_my_ear_205",
+        "type": "entry",
+        "english": "deaf"
+      }
+    ],
+    "deaf": [
+      {
+        "id": "beer_in_my_ear_205",
+        "type": "entry",
+        "pidgin": "beer in my ear"
+      },
+      {
+        "id": "deaf_ear_228",
+        "type": "entry",
+        "pidgin": "deaf ear"
+      }
+    ],
+    "before time": [
+      {
+        "id": "before_time_206",
+        "type": "entry",
+        "english": "back in the day"
+      }
+    ],
+    "back in the day": [
+      {
+        "id": "before_time_206",
+        "type": "entry",
+        "pidgin": "before time"
+      },
+      {
+        "id": "small_kid_time_506",
+        "type": "entry",
+        "pidgin": "small kid time"
+      }
+    ],
+    "bento": [
+      {
+        "id": "bento_018",
+        "type": "entry",
+        "english": "Japanese lunch box"
+      }
+    ],
+    "japanese lunch box": [
+      {
+        "id": "bento_018",
+        "type": "entry",
+        "pidgin": "bento"
+      }
+    ],
+    "bibadeez": [
+      {
+        "id": "bibadeez_313",
+        "type": "entry",
+        "english": "thingamajig"
+      }
+    ],
+    "thingamajig": [
+      {
+        "id": "bibadeez_313",
+        "type": "entry",
+        "pidgin": "bibadeez"
+      }
+    ],
+    "bin": [
+      {
+        "id": "bin_314",
+        "type": "entry",
+        "english": "was"
+      }
+    ],
+    "was": [
+      {
+        "id": "bin_314",
+        "type": "entry",
+        "pidgin": "bin"
+      },
+      {
+        "id": "had_056",
+        "type": "entry",
+        "pidgin": "had"
+      }
+    ],
+    "been": [
+      {
+        "id": "bin_314",
+        "type": "entry",
+        "pidgin": "bin"
+      }
+    ],
+    "bite": [
+      {
+        "id": "bite_207",
+        "type": "entry",
+        "english": "to copy"
+      }
+    ],
+    "to copy": [
+      {
+        "id": "bite_207",
+        "type": "entry",
+        "pidgin": "bite"
+      }
+    ],
+    "emulate": [
+      {
+        "id": "bite_207",
+        "type": "entry",
+        "pidgin": "bite"
+      }
+    ],
+    "blind mullet": [
+      {
+        "id": "blind_mullet_208",
+        "type": "entry",
+        "english": "can't see"
+      }
+    ],
+    "can't see": [
+      {
+        "id": "blind_mullet_208",
+        "type": "entry",
+        "pidgin": "blind mullet"
+      }
+    ],
+    "bobora": [
+      {
+        "id": "bobora_209",
+        "type": "entry",
+        "english": "Japanese person"
+      }
+    ],
+    "japanese person": [
+      {
+        "id": "bobora_209",
+        "type": "entry",
+        "pidgin": "bobora"
+      },
+      {
+        "id": "japanee_265",
+        "type": "entry",
+        "pidgin": "japanee"
+      }
+    ],
+    "bocha": [
+      {
+        "id": "bocha_019",
+        "type": "entry",
+        "english": "to bathe"
+      }
+    ],
+    "to bathe": [
+      {
+        "id": "bocha_019",
+        "type": "entry",
+        "pidgin": "bocha"
+      }
+    ],
+    "take bath": [
+      {
+        "id": "bocha_019",
+        "type": "entry",
+        "pidgin": "bocha"
+      }
+    ],
+    "boddah you": [
+      {
+        "id": "boddah_you_210",
+        "type": "entry",
+        "english": "does this bother you"
+      }
+    ],
+    "does this bother you": [
+      {
+        "id": "boddah_you_210",
+        "type": "entry",
+        "pidgin": "boddah you"
+      }
+    ],
+    "bolo": [
+      {
+        "id": "bolo_315",
+        "type": "entry",
+        "english": "bald"
+      }
+    ],
+    "bald": [
+      {
+        "id": "bolo_315",
+        "type": "entry",
+        "pidgin": "bolo"
+      }
+    ],
+    "bolo head": [
+      {
+        "id": "bolo_head_020",
+        "type": "entry",
+        "english": "bald person"
+      }
+    ],
+    "bald person": [
+      {
+        "id": "bolo_head_020",
+        "type": "entry",
+        "pidgin": "bolo head"
+      },
+      {
+        "id": "ballah_head_507",
+        "type": "entry",
+        "pidgin": "ballah head"
+      }
+    ],
+    "boom kanani": [
+      {
+        "id": "boom_kanani_021",
+        "type": "entry",
+        "english": "oh yeah!"
+      }
+    ],
+    "oh yeah!": [
+      {
+        "id": "boom_kanani_021",
+        "type": "entry",
+        "pidgin": "boom kanani"
+      }
+    ],
+    "awesome": [
+      {
+        "id": "boom_kanani_021",
+        "type": "entry",
+        "pidgin": "boom kanani"
+      },
+      {
+        "id": "killaz_359",
+        "type": "entry",
+        "pidgin": "killaz"
+      },
+      {
+        "id": "mean_119",
+        "type": "entry",
+        "pidgin": "mean"
+      },
+      {
+        "id": "unreal_184",
+        "type": "entry",
+        "pidgin": "unreal"
+      },
+      {
+        "id": "winnahz_414",
+        "type": "entry",
+        "pidgin": "winnahz"
+      },
+      {
+        "id": "yessah_blessah_395",
+        "type": "entry",
+        "pidgin": "yessah blessah"
+      }
+    ],
+    "boro boroz": [
+      {
+        "id": "boro_boroz_211",
+        "type": "entry",
+        "english": "worn out"
+      }
+    ],
+    "worn out": [
+      {
+        "id": "boro_boroz_211",
+        "type": "entry",
+        "pidgin": "boro boroz"
+      }
+    ],
+    "tired": [
+      {
+        "id": "boro_boroz_211",
+        "type": "entry",
+        "pidgin": "boro boroz"
+      }
+    ],
+    "borot": [
+      {
+        "id": "borot_022",
+        "type": "entry",
+        "english": "broke"
+      }
+    ],
+    "broke": [
+      {
+        "id": "borot_022",
+        "type": "entry",
+        "pidgin": "borot"
+      }
+    ],
+    "no money": [
+      {
+        "id": "borot_022",
+        "type": "entry",
+        "pidgin": "borot"
+      }
+    ],
+    "boto": [
+      {
+        "id": "boto_316",
+        "type": "entry",
+        "english": "penis (vulgar)"
+      }
+    ],
+    "penis (vulgar)": [
+      {
+        "id": "boto_316",
+        "type": "entry",
+        "pidgin": "boto"
+      }
+    ],
+    "boto eatah": [
+      {
+        "id": "boto_eatah_317",
+        "type": "entry",
+        "english": "offensive insult"
+      }
+    ],
+    "offensive insult": [
+      {
+        "id": "boto_eatah_317",
+        "type": "entry",
+        "pidgin": "boto eatah"
+      }
+    ],
+    "braddah": [
+      {
+        "id": "braddah_318",
+        "type": "entry",
+        "english": "brother"
+      }
+    ],
+    "brother": [
+      {
+        "id": "braddah_318",
+        "type": "entry",
+        "pidgin": "braddah"
+      },
+      {
+        "id": "bruddah_429",
+        "type": "entry",
+        "pidgin": "bruddah"
+      },
+      {
+        "id": "brah_023",
+        "type": "entry",
+        "pidgin": "brah"
+      }
+    ],
+    "bruddah": [
+      {
+        "id": "bruddah_429",
+        "type": "entry",
+        "english": "brother"
+      }
+    ],
+    "brah": [
+      {
+        "id": "brah_023",
+        "type": "entry",
+        "english": "brother"
+      }
+    ],
+    "friend": [
+      {
+        "id": "brah_023",
+        "type": "entry",
+        "pidgin": "brah"
+      },
+      {
+        "id": "cuz_039",
+        "type": "entry",
+        "pidgin": "cuz"
+      },
+      {
+        "id": "sole_164",
+        "type": "entry",
+        "pidgin": "sole"
+      }
+    ],
+    "broke da mouth": [
+      {
+        "id": "broke_da_mouth_024",
+        "type": "entry",
+        "english": "incredibly delicious"
+      }
+    ],
+    "incredibly delicious": [
+      {
+        "id": "broke_da_mouth_024",
+        "type": "entry",
+        "pidgin": "broke da mouth"
+      }
+    ],
+    "buggah": [
+      {
+        "id": "buggah_025",
+        "type": "entry",
+        "english": "guy"
+      },
+      {
+        "id": "buggah_515",
+        "type": "entry",
+        "english": "bugger"
+      }
+    ],
+    "guy": [
+      {
+        "id": "buggah_025",
+        "type": "entry",
+        "pidgin": "buggah"
+      },
+      {
+        "id": "buggah_515",
+        "type": "entry",
+        "pidgin": "buggah"
+      }
+    ],
+    "thing": [
+      {
+        "id": "buggah_025",
+        "type": "entry",
+        "pidgin": "buggah"
+      },
+      {
+        "id": "buggah_515",
+        "type": "entry",
+        "pidgin": "buggah"
+      }
+    ],
+    "bulai": [
+      {
+        "id": "bulai_026",
+        "type": "entry",
+        "english": "to lie"
+      }
+    ],
+    "to lie": [
+      {
+        "id": "bulai_026",
+        "type": "entry",
+        "pidgin": "bulai"
+      }
+    ],
+    "deceive": [
+      {
+        "id": "bulai_026",
+        "type": "entry",
+        "pidgin": "bulai"
+      }
+    ],
+    "bumbai": [
+      {
+        "id": "bumbai_027",
+        "type": "entry",
+        "english": "later"
+      }
+    ],
+    "later": [
+      {
+        "id": "bumbai_027",
+        "type": "entry",
+        "pidgin": "bumbai"
+      },
+      {
+        "id": "bumbye_028",
+        "type": "entry",
+        "pidgin": "bumbye"
+      },
+      {
+        "id": "latahz_362",
+        "type": "entry",
+        "pidgin": "latahz"
+      },
+      {
+        "id": "shoots_509",
+        "type": "entry",
+        "pidgin": "shoots"
+      }
+    ],
+    "by and by": [
+      {
+        "id": "bumbai_027",
+        "type": "entry",
+        "pidgin": "bumbai"
+      }
+    ],
+    "bumboocha": [
+      {
+        "id": "bumboocha_319",
+        "type": "entry",
+        "english": "big"
+      }
+    ],
+    "big": [
+      {
+        "id": "bumboocha_319",
+        "type": "entry",
+        "pidgin": "bumboocha"
+      },
+      {
+        "id": "mayjah_368",
+        "type": "entry",
+        "pidgin": "mayjah"
+      }
+    ],
+    "huge": [
+      {
+        "id": "bumboocha_319",
+        "type": "entry",
+        "pidgin": "bumboocha"
+      }
+    ],
+    "bumbucha": [
+      {
+        "id": "bumbucha_212",
+        "type": "entry",
+        "english": "very big"
+      }
+    ],
+    "very big": [
+      {
+        "id": "bumbucha_212",
+        "type": "entry",
+        "pidgin": "bumbucha"
+      }
+    ],
+    "bumbye": [
+      {
+        "id": "bumbye_028",
+        "type": "entry",
+        "english": "later"
+      }
+    ],
+    "buss": [
+      {
+        "id": "buss_029",
+        "type": "entry",
+        "english": "broken"
+      }
+    ],
+    "broken": [
+      {
+        "id": "buss_029",
+        "type": "entry",
+        "pidgin": "buss"
+      },
+      {
+        "id": "buss_up_213",
+        "type": "entry",
+        "pidgin": "buss up"
+      },
+      {
+        "id": "hamajang_059",
+        "type": "entry",
+        "pidgin": "hamajang"
+      },
+      {
+        "id": "kaput_358",
+        "type": "entry",
+        "pidgin": "kaput"
+      }
+    ],
+    "busted": [
+      {
+        "id": "buss_029",
+        "type": "entry",
+        "pidgin": "buss"
+      }
+    ],
+    "buss um out": [
+      {
+        "id": "buss_um_out_320",
+        "type": "entry",
+        "english": "break it out"
+      }
+    ],
+    "break it out": [
+      {
+        "id": "buss_um_out_320",
+        "type": "entry",
+        "pidgin": "buss um out"
+      }
+    ],
+    "start": [
+      {
+        "id": "buss_um_out_320",
+        "type": "entry",
+        "pidgin": "buss um out"
+      }
+    ],
+    "buss up": [
+      {
+        "id": "buss_up_213",
+        "type": "entry",
+        "english": "broken"
+      }
+    ],
+    "beaten up": [
+      {
+        "id": "buss_up_213",
+        "type": "entry",
+        "pidgin": "buss up"
+      }
+    ],
+    "cabbage": [
+      {
+        "id": "cabbage_321",
+        "type": "entry",
+        "english": "money"
+      }
+    ],
+    "money": [
+      {
+        "id": "cabbage_321",
+        "type": "entry",
+        "pidgin": "cabbage"
+      }
+    ],
+    "cancel": [
+      {
+        "id": "cancel_322",
+        "type": "entry",
+        "english": "forget it"
+      }
+    ],
+    "forget it": [
+      {
+        "id": "cancel_322",
+        "type": "entry",
+        "pidgin": "cancel"
+      }
+    ],
+    "nevermind": [
+      {
+        "id": "cancel_322",
+        "type": "entry",
+        "pidgin": "cancel"
+      },
+      {
+        "id": "nevamine_125",
+        "type": "entry",
+        "pidgin": "nevamine"
+      }
+    ],
+    "chance um": [
+      {
+        "id": "chance_um_030",
+        "type": "entry",
+        "english": "try it"
+      }
+    ],
+    "try it": [
+      {
+        "id": "chance_um_030",
+        "type": "entry",
+        "pidgin": "chance um"
+      }
+    ],
+    "risk it": [
+      {
+        "id": "chance_um_030",
+        "type": "entry",
+        "pidgin": "chance um"
+      }
+    ],
+    "chang": [
+      {
+        "id": "chang_214",
+        "type": "entry",
+        "english": "very cheap person"
+      }
+    ],
+    "very cheap person": [
+      {
+        "id": "chang_214",
+        "type": "entry",
+        "pidgin": "chang"
+      }
+    ],
+    "chawan cut": [
+      {
+        "id": "chawan_cut_215",
+        "type": "entry",
+        "english": "bowl haircut"
+      }
+    ],
+    "bowl haircut": [
+      {
+        "id": "chawan_cut_215",
+        "type": "entry",
+        "pidgin": "chawan cut"
+      }
+    ],
+    "chee": [
+      {
+        "id": "chee_216",
+        "type": "entry",
+        "english": "geez"
+      }
+    ],
+    "geez": [
+      {
+        "id": "chee_216",
+        "type": "entry",
+        "pidgin": "chee"
+      }
+    ],
+    "chee hoo": [
+      {
+        "id": "chee_hoo_031",
+        "type": "entry",
+        "english": "expression of joy"
+      }
+    ],
+    "expression of joy": [
+      {
+        "id": "chee_hoo_031",
+        "type": "entry",
+        "pidgin": "chee hoo"
+      }
+    ],
+    "excitement": [
+      {
+        "id": "chee_hoo_031",
+        "type": "entry",
+        "pidgin": "chee hoo"
+      }
+    ],
+    "chee hu": [
+      {
+        "id": "chee_hu_217",
+        "type": "entry",
+        "english": "woo hoo"
+      }
+    ],
+    "woo hoo": [
+      {
+        "id": "chee_hu_217",
+        "type": "entry",
+        "pidgin": "chee hu"
+      }
+    ],
+    "cherreh": [
+      {
+        "id": "cherreh_323",
+        "type": "entry",
+        "english": "cherry"
+      }
+    ],
+    "cherry": [
+      {
+        "id": "cherreh_323",
+        "type": "entry",
+        "pidgin": "cherreh"
+      },
+      {
+        "id": "cherry_032",
+        "type": "entry",
+        "english": "cool"
+      }
+    ],
+    "red": [
+      {
+        "id": "cherreh_323",
+        "type": "entry",
+        "pidgin": "cherreh"
+      }
+    ],
+    "cool": [
+      {
+        "id": "cherry_032",
+        "type": "entry",
+        "pidgin": "cherry"
+      },
+      {
+        "id": "trippy_409",
+        "type": "entry",
+        "pidgin": "trippy"
+      }
+    ],
+    "desirable": [
+      {
+        "id": "cherry_032",
+        "type": "entry",
+        "pidgin": "cherry"
+      }
+    ],
+    "chicken skin": [
+      {
+        "id": "chicken_skin_033",
+        "type": "entry",
+        "english": "goosebumps"
+      }
+    ],
+    "goosebumps": [
+      {
+        "id": "chicken_skin_033",
+        "type": "entry",
+        "pidgin": "chicken skin"
+      }
+    ],
+    "chinee": [
+      {
+        "id": "chinee_218",
+        "type": "entry",
+        "english": "Chinese person"
+      }
+    ],
+    "chinese person": [
+      {
+        "id": "chinee_218",
+        "type": "entry",
+        "pidgin": "chinee"
+      },
+      {
+        "id": "pk_376",
+        "type": "entry",
+        "pidgin": "pākē"
+      }
+    ],
+    "cho cho lips": [
+      {
+        "id": "cho_cho_lips_219",
+        "type": "entry",
+        "english": "thick lips"
+      }
+    ],
+    "thick lips": [
+      {
+        "id": "cho_cho_lips_219",
+        "type": "entry",
+        "pidgin": "cho cho lips"
+      }
+    ],
+    "choice": [
+      {
+        "id": "choice_034",
+        "type": "entry",
+        "english": "excellent"
+      }
+    ],
+    "excellent": [
+      {
+        "id": "choice_034",
+        "type": "entry",
+        "pidgin": "choice"
+      },
+      {
+        "id": "da_bomb_279",
+        "type": "entry",
+        "pidgin": "da bomb"
+      }
+    ],
+    "top quality": [
+      {
+        "id": "choice_034",
+        "type": "entry",
+        "pidgin": "choice"
+      }
+    ],
+    "choke": [
+      {
+        "id": "choke_035",
+        "type": "entry",
+        "english": "a lot"
+      }
+    ],
+    "a lot": [
+      {
+        "id": "choke_035",
+        "type": "entry",
+        "pidgin": "choke"
+      }
+    ],
+    "plenty": [
+      {
+        "id": "choke_035",
+        "type": "entry",
+        "pidgin": "choke"
+      },
+      {
+        "id": "planny_379",
+        "type": "entry",
+        "pidgin": "planny"
+      }
+    ],
+    "choke manini": [
+      {
+        "id": "choke_manini_324",
+        "type": "entry",
+        "english": "very many small ones"
+      }
+    ],
+    "very many small ones": [
+      {
+        "id": "choke_manini_324",
+        "type": "entry",
+        "pidgin": "choke manini"
+      }
+    ],
+    "choke your neck": [
+      {
+        "id": "choke_your_neck_220",
+        "type": "entry",
+        "english": "in trouble"
+      }
+    ],
+    "in trouble": [
+      {
+        "id": "choke_your_neck_220",
+        "type": "entry",
+        "pidgin": "choke your neck"
+      }
+    ],
+    "classic": [
+      {
+        "id": "classic_221",
+        "type": "entry",
+        "english": "hilarious"
+      }
+    ],
+    "hilarious": [
+      {
+        "id": "classic_221",
+        "type": "entry",
+        "pidgin": "classic"
+      }
+    ],
+    "cockaroach": [
+      {
+        "id": "cockaroach_036",
+        "type": "entry",
+        "english": "to steal"
+      }
+    ],
+    "to steal": [
+      {
+        "id": "cockaroach_036",
+        "type": "entry",
+        "pidgin": "cockaroach"
+      }
+    ],
+    "take": [
+      {
+        "id": "cockaroach_036",
+        "type": "entry",
+        "pidgin": "cockaroach"
+      },
+      {
+        "id": "rip_154",
+        "type": "entry",
+        "pidgin": "rip"
+      }
+    ],
+    "correck": [
+      {
+        "id": "correck_037",
+        "type": "entry",
+        "english": "correct"
+      }
+    ],
+    "correct": [
+      {
+        "id": "correck_037",
+        "type": "entry",
+        "pidgin": "correck"
+      }
+    ],
+    "right": [
+      {
+        "id": "correck_037",
+        "type": "entry",
+        "pidgin": "correck"
+      }
+    ],
+    "crash": [
+      {
+        "id": "crash_222",
+        "type": "entry",
+        "english": "to sleep"
+      }
+    ],
+    "to sleep": [
+      {
+        "id": "crash_222",
+        "type": "entry",
+        "pidgin": "crash"
+      },
+      {
+        "id": "ne_ne_404",
+        "type": "entry",
+        "pidgin": "ne ne"
+      }
+    ],
+    "cruzin": [
+      {
+        "id": "cruzin_038",
+        "type": "entry",
+        "english": "cruising"
+      }
+    ],
+    "cruising": [
+      {
+        "id": "cruzin_038",
+        "type": "entry",
+        "pidgin": "cruzin"
+      },
+      {
+        "id": "cruising_524",
+        "type": "entry",
+        "english": "relaxing"
+      }
+    ],
+    "driving around": [
+      {
+        "id": "cruzin_038",
+        "type": "entry",
+        "pidgin": "cruzin"
+      }
+    ],
+    "cu diab": [
+      {
+        "id": "cu_diab_325",
+        "type": "entry",
+        "english": "devil"
+      }
+    ],
+    "devil": [
+      {
+        "id": "cu_diab_325",
+        "type": "entry",
+        "pidgin": "cu diab"
+      }
+    ],
+    "demon": [
+      {
+        "id": "cu_diab_325",
+        "type": "entry",
+        "pidgin": "cu diab"
+      }
+    ],
+    "cuz": [
+      {
+        "id": "cuz_039",
+        "type": "entry",
+        "english": "cousin"
+      }
+    ],
+    "cousin": [
+      {
+        "id": "cuz_039",
+        "type": "entry",
+        "pidgin": "cuz"
+      }
+    ],
+    "da bomb": [
+      {
+        "id": "da_bomb_279",
+        "type": "entry",
+        "english": "excellent"
+      }
+    ],
+    "the best": [
+      {
+        "id": "da_bomb_279",
+        "type": "entry",
+        "pidgin": "da bomb"
+      },
+      {
+        "id": "no_ka_oi_373",
+        "type": "entry",
+        "pidgin": "no ka 'oi"
+      },
+      {
+        "id": "no_ka_oi_129",
+        "type": "entry",
+        "pidgin": "no ka oi"
+      }
+    ],
+    "da cute": [
+      {
+        "id": "da_cute_223",
+        "type": "entry",
+        "english": "how precious"
+      }
+    ],
+    "how precious": [
+      {
+        "id": "da_cute_223",
+        "type": "entry",
+        "pidgin": "da cute"
+      }
+    ],
+    "da haps": [
+      {
+        "id": "da_haps_224",
+        "type": "entry",
+        "english": "what's happening"
+      }
+    ],
+    "what's happening": [
+      {
+        "id": "da_haps_224",
+        "type": "entry",
+        "pidgin": "da haps"
+      }
+    ],
+    "da kine": [
+      {
+        "id": "da_kine_040",
+        "type": "entry",
+        "english": "the thing"
+      }
+    ],
+    "the thing": [
+      {
+        "id": "da_kine_040",
+        "type": "entry",
+        "pidgin": "da kine"
+      }
+    ],
+    "whatchamacallit": [
+      {
+        "id": "da_kine_040",
+        "type": "entry",
+        "pidgin": "da kine"
+      }
+    ],
+    "daikon": [
+      {
+        "id": "daikon_225",
+        "type": "entry",
+        "english": "cellulite"
+      }
+    ],
+    "cellulite": [
+      {
+        "id": "daikon_225",
+        "type": "entry",
+        "pidgin": "daikon"
+      }
+    ],
+    "das": [
+      {
+        "id": "das_041",
+        "type": "entry",
+        "english": "that's"
+      }
+    ],
+    "that's": [
+      {
+        "id": "das_041",
+        "type": "entry",
+        "pidgin": "das"
+      }
+    ],
+    "das why hard": [
+      {
+        "id": "das_why_hard_226",
+        "type": "entry",
+        "english": "that's why it's difficult"
+      }
+    ],
+    "that's why it's difficult": [
+      {
+        "id": "das_why_hard_226",
+        "type": "entry",
+        "pidgin": "das why hard"
+      }
+    ],
+    "dat": [
+      {
+        "id": "dat_042",
+        "type": "entry",
+        "english": "that"
+      }
+    ],
+    "that": [
+      {
+        "id": "dat_042",
+        "type": "entry",
+        "pidgin": "dat"
+      }
+    ],
+    "dea him": [
+      {
+        "id": "dea_him_227",
+        "type": "entry",
+        "english": "there he is"
+      }
+    ],
+    "there he is": [
+      {
+        "id": "dea_him_227",
+        "type": "entry",
+        "pidgin": "dea him"
+      }
+    ],
+    "deaf ear": [
+      {
+        "id": "deaf_ear_228",
+        "type": "entry",
+        "english": "deaf"
+      }
+    ],
+    "deep kimchi": [
+      {
+        "id": "deep_kimchi_280",
+        "type": "entry",
+        "english": "in big trouble"
+      }
+    ],
+    "in big trouble": [
+      {
+        "id": "deep_kimchi_280",
+        "type": "entry",
+        "pidgin": "deep kimchi"
+      }
+    ],
+    "dem": [
+      {
+        "id": "dem_229",
+        "type": "entry",
+        "english": "them"
+      }
+    ],
+    "them": [
+      {
+        "id": "dem_229",
+        "type": "entry",
+        "pidgin": "dem"
+      }
+    ],
+    "those people": [
+      {
+        "id": "dem_229",
+        "type": "entry",
+        "pidgin": "dem"
+      }
+    ],
+    "dirty lickens": [
+      {
+        "id": "dirty_lickens_043",
+        "type": "entry",
+        "english": "severe beating"
+      }
+    ],
+    "severe beating": [
+      {
+        "id": "dirty_lickens_043",
+        "type": "entry",
+        "pidgin": "dirty lickens"
+      }
+    ],
+    "dis": [
+      {
+        "id": "dis_044",
+        "type": "entry",
+        "english": "this"
+      }
+    ],
+    "this": [
+      {
+        "id": "dis_044",
+        "type": "entry",
+        "pidgin": "dis"
+      }
+    ],
+    "dog luck": [
+      {
+        "id": "dog_luck_230",
+        "type": "entry",
+        "english": "very lucky"
+      }
+    ],
+    "very lucky": [
+      {
+        "id": "dog_luck_230",
+        "type": "entry",
+        "pidgin": "dog luck"
+      }
+    ],
+    "doo doo": [
+      {
+        "id": "doo_doo_326",
+        "type": "entry",
+        "english": "feces"
+      }
+    ],
+    "feces": [
+      {
+        "id": "doo_doo_326",
+        "type": "entry",
+        "pidgin": "doo doo"
+      },
+      {
+        "id": "kukae_098",
+        "type": "entry",
+        "pidgin": "kukae"
+      },
+      {
+        "id": "unko_183",
+        "type": "entry",
+        "pidgin": "unko"
+      }
+    ],
+    "poop": [
+      {
+        "id": "doo_doo_326",
+        "type": "entry",
+        "pidgin": "doo doo"
+      },
+      {
+        "id": "unko_183",
+        "type": "entry",
+        "pidgin": "unko"
+      }
+    ],
+    "e kala mai": [
+      {
+        "id": "e_kala_mai_327",
+        "type": "entry",
+        "english": "excuse me"
+      }
+    ],
+    "excuse me": [
+      {
+        "id": "e_kala_mai_327",
+        "type": "entry",
+        "pidgin": "e kala mai"
+      }
+    ],
+    "sorry": [
+      {
+        "id": "e_kala_mai_327",
+        "type": "entry",
+        "pidgin": "e kala mai"
+      }
+    ],
+    "e komo mai": [
+      {
+        "id": "e_komo_mai_328",
+        "type": "entry",
+        "english": "welcome"
+      }
+    ],
+    "welcome": [
+      {
+        "id": "e_komo_mai_328",
+        "type": "entry",
+        "pidgin": "e komo mai"
+      }
+    ],
+    "come in": [
+      {
+        "id": "e_komo_mai_328",
+        "type": "entry",
+        "pidgin": "e komo mai"
+      }
+    ],
+    "eh": [
+      {
+        "id": "eh_045",
+        "type": "entry",
+        "english": "hey"
+      }
+    ],
+    "hey": [
+      {
+        "id": "eh_045",
+        "type": "entry",
+        "pidgin": "eh"
+      }
+    ],
+    "right?": [
+      {
+        "id": "eh_045",
+        "type": "entry",
+        "pidgin": "eh"
+      },
+      {
+        "id": "yeah_393",
+        "type": "entry",
+        "pidgin": "yeah?"
+      }
+    ],
+    "erking": [
+      {
+        "id": "erking_046",
+        "type": "entry",
+        "english": "irritating"
+      }
+    ],
+    "irritating": [
+      {
+        "id": "erking_046",
+        "type": "entry",
+        "pidgin": "erking"
+      },
+      {
+        "id": "irraz_079",
+        "type": "entry",
+        "pidgin": "irraz"
+      }
+    ],
+    "annoying": [
+      {
+        "id": "erking_046",
+        "type": "entry",
+        "pidgin": "erking"
+      }
+    ],
+    "even steven": [
+      {
+        "id": "even_steven_231",
+        "type": "entry",
+        "english": "even"
+      }
+    ],
+    "even": [
+      {
+        "id": "even_steven_231",
+        "type": "entry",
+        "pidgin": "even steven"
+      }
+    ],
+    "equal": [
+      {
+        "id": "even_steven_231",
+        "type": "entry",
+        "pidgin": "even steven"
+      }
+    ],
+    "f.b.i.": [
+      {
+        "id": "fbi_232",
+        "type": "entry",
+        "english": "from Big Island"
+      }
+    ],
+    "from big island": [
+      {
+        "id": "fbi_232",
+        "type": "entry",
+        "pidgin": "f.b.i."
+      }
+    ],
+    "f.o.b.": [
+      {
+        "id": "fob_233",
+        "type": "entry",
+        "english": "fresh off the boat"
+      }
+    ],
+    "fresh off the boat": [
+      {
+        "id": "fob_233",
+        "type": "entry",
+        "pidgin": "f.o.b."
+      }
+    ],
+    "fa'afetai": [
+      {
+        "id": "faafetai_330",
+        "type": "entry",
+        "english": "thank you (Samoan)"
+      }
+    ],
+    "thank you (samoan)": [
+      {
+        "id": "faafetai_330",
+        "type": "entry",
+        "pidgin": "fa'afetai"
+      }
+    ],
+    "fa'amolemole": [
+      {
+        "id": "faamolemole_334",
+        "type": "entry",
+        "english": "please (Samoan)"
+      }
+    ],
+    "please (samoan)": [
+      {
+        "id": "faamolemole_334",
+        "type": "entry",
+        "pidgin": "fa'amolemole"
+      }
+    ],
+    "face": [
+      {
+        "id": "face_234",
+        "type": "entry",
+        "english": "I knew it"
+      }
+    ],
+    "i knew it": [
+      {
+        "id": "face_234",
+        "type": "entry",
+        "pidgin": "face"
+      }
+    ],
+    "faka": [
+      {
+        "id": "faka_331",
+        "type": "entry",
+        "english": "faker"
+      }
+    ],
+    "faker": [
+      {
+        "id": "faka_331",
+        "type": "entry",
+        "pidgin": "faka"
+      }
+    ],
+    "pretender": [
+      {
+        "id": "faka_331",
+        "type": "entry",
+        "pidgin": "faka"
+      }
+    ],
+    "fakawat": [
+      {
+        "id": "fakawat_332",
+        "type": "entry",
+        "english": "for what reason"
+      }
+    ],
+    "for what reason": [
+      {
+        "id": "fakawat_332",
+        "type": "entry",
+        "pidgin": "fakawat"
+      },
+      {
+        "id": "fo_what_236",
+        "type": "entry",
+        "pidgin": "fo what"
+      }
+    ],
+    "false crack": [
+      {
+        "id": "false_crack_047",
+        "type": "entry",
+        "english": "lie"
+      }
+    ],
+    "lie": [
+      {
+        "id": "false_crack_047",
+        "type": "entry",
+        "pidgin": "false crack"
+      }
+    ],
+    "false statement": [
+      {
+        "id": "false_crack_047",
+        "type": "entry",
+        "pidgin": "false crack"
+      }
+    ],
+    "faskine": [
+      {
+        "id": "faskine_333",
+        "type": "entry",
+        "english": "fascinating"
+      }
+    ],
+    "fascinating": [
+      {
+        "id": "faskine_333",
+        "type": "entry",
+        "pidgin": "faskine"
+      }
+    ],
+    "fast kine": [
+      {
+        "id": "fast_kine_235",
+        "type": "entry",
+        "english": "fast"
+      }
+    ],
+    "fast": [
+      {
+        "id": "fast_kine_235",
+        "type": "entry",
+        "pidgin": "fast kine"
+      },
+      {
+        "id": "wiki_wiki_195",
+        "type": "entry",
+        "pidgin": "wiki wiki"
+      }
+    ],
+    "flip": [
+      {
+        "id": "flip_335",
+        "type": "entry",
+        "english": "Filipino"
+      },
+      {
+        "id": "huli_075",
+        "type": "entry",
+        "pidgin": "huli"
+      }
+    ],
+    "filipino": [
+      {
+        "id": "flip_335",
+        "type": "entry",
+        "pidgin": "flip"
+      }
+    ],
+    "fo": [
+      {
+        "id": "fo_336",
+        "type": "entry",
+        "english": "for"
+      }
+    ],
+    "for": [
+      {
+        "id": "fo_336",
+        "type": "entry",
+        "pidgin": "fo"
+      }
+    ],
+    "fo real": [
+      {
+        "id": "fo_real_048",
+        "type": "entry",
+        "english": "for real"
+      }
+    ],
+    "for real": [
+      {
+        "id": "fo_real_048",
+        "type": "entry",
+        "pidgin": "fo real"
+      }
+    ],
+    "seriously": [
+      {
+        "id": "fo_real_048",
+        "type": "entry",
+        "pidgin": "fo real"
+      }
+    ],
+    "fo wat?": [
+      {
+        "id": "fo_wat_337",
+        "type": "entry",
+        "english": "why?"
+      }
+    ],
+    "why?": [
+      {
+        "id": "fo_wat_337",
+        "type": "entry",
+        "pidgin": "fo wat?"
+      }
+    ],
+    "for what reason?": [
+      {
+        "id": "fo_wat_337",
+        "type": "entry",
+        "pidgin": "fo wat?"
+      }
+    ],
+    "fo what": [
+      {
+        "id": "fo_what_236",
+        "type": "entry",
+        "english": "why"
+      }
+    ],
+    "why": [
+      {
+        "id": "fo_what_236",
+        "type": "entry",
+        "pidgin": "fo what"
+      }
+    ],
+    "fosho": [
+      {
+        "id": "fosho_338",
+        "type": "entry",
+        "english": "for sure"
+      }
+    ],
+    "for sure": [
+      {
+        "id": "fosho_338",
+        "type": "entry",
+        "pidgin": "fosho"
+      },
+      {
+        "id": "garanz_050",
+        "type": "entry",
+        "pidgin": "garanz"
+      },
+      {
+        "id": "guaranz_241",
+        "type": "entry",
+        "pidgin": "guaranz"
+      },
+      {
+        "id": "guerentee_505",
+        "type": "entry",
+        "pidgin": "gueren-tee"
+      }
+    ],
+    "definitely": [
+      {
+        "id": "fosho_338",
+        "type": "entry",
+        "pidgin": "fosho"
+      },
+      {
+        "id": "guerentee_505",
+        "type": "entry",
+        "pidgin": "gueren-tee"
+      }
+    ],
+    "funny kine": [
+      {
+        "id": "funny_kine_049",
+        "type": "entry",
+        "english": "strange"
+      }
+    ],
+    "strange": [
+      {
+        "id": "funny_kine_049",
+        "type": "entry",
+        "pidgin": "funny kine"
+      }
+    ],
+    "weird": [
+      {
+        "id": "funny_kine_049",
+        "type": "entry",
+        "pidgin": "funny kine"
+      },
+      {
+        "id": "trippy_409",
+        "type": "entry",
+        "pidgin": "trippy"
+      }
+    ],
+    "fut": [
+      {
+        "id": "fut_339",
+        "type": "entry",
+        "english": "fart"
+      }
+    ],
+    "fart": [
+      {
+        "id": "fut_339",
+        "type": "entry",
+        "pidgin": "fut"
+      }
+    ],
+    "futless": [
+      {
+        "id": "futless_237",
+        "type": "entry",
+        "english": "restless"
+      }
+    ],
+    "restless": [
+      {
+        "id": "futless_237",
+        "type": "entry",
+        "pidgin": "futless"
+      }
+    ],
+    "antsy": [
+      {
+        "id": "futless_237",
+        "type": "entry",
+        "pidgin": "futless"
+      }
+    ],
+    "ganja": [
+      {
+        "id": "ganja_340",
+        "type": "entry",
+        "english": "marijuana"
+      }
+    ],
+    "marijuana": [
+      {
+        "id": "ganja_340",
+        "type": "entry",
+        "pidgin": "ganja"
+      },
+      {
+        "id": "pakalolo_141",
+        "type": "entry",
+        "pidgin": "pakalolo"
+      }
+    ],
+    "garans": [
+      {
+        "id": "garans_238",
+        "type": "entry",
+        "english": "guaranteed"
+      }
+    ],
+    "guaranteed": [
+      {
+        "id": "garans_238",
+        "type": "entry",
+        "pidgin": "garans"
+      },
+      {
+        "id": "garanz_050",
+        "type": "entry",
+        "pidgin": "garanz"
+      },
+      {
+        "id": "guerentee_505",
+        "type": "entry",
+        "pidgin": "gueren-tee"
+      }
+    ],
+    "garanz": [
+      {
+        "id": "garanz_050",
+        "type": "entry",
+        "english": "guaranteed"
+      }
+    ],
+    "geev um": [
+      {
+        "id": "geev_um_051",
+        "type": "entry",
+        "english": "go for it"
+      }
+    ],
+    "go for it": [
+      {
+        "id": "geev_um_051",
+        "type": "entry",
+        "pidgin": "geev um"
+      },
+      {
+        "id": "getum_501",
+        "type": "entry",
+        "pidgin": "get'um"
+      }
+    ],
+    "give it your all": [
+      {
+        "id": "geev_um_051",
+        "type": "entry",
+        "pidgin": "geev um"
+      },
+      {
+        "id": "go_fo_broke_053",
+        "type": "entry",
+        "pidgin": "go fo broke"
+      },
+      {
+        "id": "getum_501",
+        "type": "entry",
+        "pidgin": "get'um"
+      }
+    ],
+    "geff um": [
+      {
+        "id": "geff_um_281",
+        "type": "entry",
+        "english": "get it"
+      }
+    ],
+    "get it": [
+      {
+        "id": "geff_um_281",
+        "type": "entry",
+        "pidgin": "geff um"
+      }
+    ],
+    "grab it": [
+      {
+        "id": "geff_um_281",
+        "type": "entry",
+        "pidgin": "geff um"
+      }
+    ],
+    "get": [
+      {
+        "id": "get_052",
+        "type": "entry",
+        "english": "have"
+      }
+    ],
+    "have": [
+      {
+        "id": "get_052",
+        "type": "entry",
+        "pidgin": "get"
+      }
+    ],
+    "there is": [
+      {
+        "id": "get_052",
+        "type": "entry",
+        "pidgin": "get"
+      }
+    ],
+    "get chance": [
+      {
+        "id": "get_chance_341",
+        "type": "entry",
+        "english": "have opportunity"
+      }
+    ],
+    "have opportunity": [
+      {
+        "id": "get_chance_341",
+        "type": "entry",
+        "pidgin": "get chance"
+      }
+    ],
+    "get?": [
+      {
+        "id": "get_342",
+        "type": "entry",
+        "english": "understand?"
+      }
+    ],
+    "understand?": [
+      {
+        "id": "get_342",
+        "type": "entry",
+        "pidgin": "get?"
+      }
+    ],
+    "got it?": [
+      {
+        "id": "get_342",
+        "type": "entry",
+        "pidgin": "get?"
+      }
+    ],
+    "giri giri": [
+      {
+        "id": "giri_giri_239",
+        "type": "entry",
+        "english": "hair swirl"
+      }
+    ],
+    "hair swirl": [
+      {
+        "id": "giri_giri_239",
+        "type": "entry",
+        "pidgin": "giri giri"
+      }
+    ],
+    "cowlick": [
+      {
+        "id": "giri_giri_239",
+        "type": "entry",
+        "pidgin": "giri giri"
+      }
+    ],
+    "go fo broke": [
+      {
+        "id": "go_fo_broke_053",
+        "type": "entry",
+        "english": "give it your all"
+      }
+    ],
+    "goin": [
+      {
+        "id": "goin_240",
+        "type": "entry",
+        "english": "going"
+      }
+    ],
+    "going": [
+      {
+        "id": "goin_240",
+        "type": "entry",
+        "pidgin": "goin"
+      }
+    ],
+    "going go": [
+      {
+        "id": "going_go_343",
+        "type": "entry",
+        "english": "will go"
+      }
+    ],
+    "will go": [
+      {
+        "id": "going_go_343",
+        "type": "entry",
+        "pidgin": "going go"
+      }
+    ],
+    "planning to go": [
+      {
+        "id": "going_go_343",
+        "type": "entry",
+        "pidgin": "going go"
+      }
+    ],
+    "grind": [
+      {
+        "id": "grind_054",
+        "type": "entry",
+        "english": "to eat"
+      }
+    ],
+    "to eat": [
+      {
+        "id": "grind_054",
+        "type": "entry",
+        "pidgin": "grind"
+      }
+    ],
+    "grinds": [
+      {
+        "id": "grinds_055",
+        "type": "entry",
+        "english": "food"
+      }
+    ],
+    "food": [
+      {
+        "id": "grinds_055",
+        "type": "entry",
+        "pidgin": "grinds"
+      },
+      {
+        "id": "grindz_344",
+        "type": "entry",
+        "pidgin": "grindz"
+      },
+      {
+        "id": "kau_kau_092",
+        "type": "entry",
+        "pidgin": "kau kau"
+      }
+    ],
+    "grindz": [
+      {
+        "id": "grindz_344",
+        "type": "entry",
+        "english": "food"
+      }
+    ],
+    "guaranz": [
+      {
+        "id": "guaranz_241",
+        "type": "entry",
+        "english": "no doubt"
+      }
+    ],
+    "no doubt": [
+      {
+        "id": "guaranz_241",
+        "type": "entry",
+        "pidgin": "guaranz"
+      }
+    ],
+    "gullah gullahs": [
+      {
+        "id": "gullah_gullahs_345",
+        "type": "entry",
+        "english": "mixed up"
+      }
+    ],
+    "mixed up": [
+      {
+        "id": "gullah_gullahs_345",
+        "type": "entry",
+        "pidgin": "gullah gullahs"
+      }
+    ],
+    "confused": [
+      {
+        "id": "gullah_gullahs_345",
+        "type": "entry",
+        "pidgin": "gullah gullahs"
+      }
+    ],
+    "haah": [
+      {
+        "id": "haah_242",
+        "type": "entry",
+        "english": "are you serious"
+      }
+    ],
+    "are you serious": [
+      {
+        "id": "haah_242",
+        "type": "entry",
+        "pidgin": "haah"
+      }
+    ],
+    "habut": [
+      {
+        "id": "habut_243",
+        "type": "entry",
+        "english": "in a bad mood"
+      }
+    ],
+    "in a bad mood": [
+      {
+        "id": "habut_243",
+        "type": "entry",
+        "pidgin": "habut"
+      }
+    ],
+    "had": [
+      {
+        "id": "had_056",
+        "type": "entry",
+        "english": "was"
+      }
+    ],
+    "were": [
+      {
+        "id": "had_056",
+        "type": "entry",
+        "pidgin": "had"
+      }
+    ],
+    "hagemoge": [
+      {
+        "id": "hagemoge_346",
+        "type": "entry",
+        "english": "exhausted"
+      }
+    ],
+    "exhausted": [
+      {
+        "id": "hagemoge_346",
+        "type": "entry",
+        "pidgin": "hagemoge"
+      }
+    ],
+    "hakakā": [
+      {
+        "id": "hakak_347",
+        "type": "entry",
+        "english": "fight"
+      }
+    ],
+    "fight": [
+      {
+        "id": "hakak_347",
+        "type": "entry",
+        "pidgin": "hakakā"
+      },
+      {
+        "id": "scrap_156",
+        "type": "entry",
+        "pidgin": "scrap"
+      }
+    ],
+    "hala": [
+      {
+        "id": "hala_057",
+        "type": "entry",
+        "english": "pandanus tree"
+      }
+    ],
+    "pandanus tree": [
+      {
+        "id": "hala_057",
+        "type": "entry",
+        "pidgin": "hala"
+      }
+    ],
+    "hale": [
+      {
+        "id": "hale_058",
+        "type": "entry",
+        "english": "house"
+      }
+    ],
+    "house": [
+      {
+        "id": "hale_058",
+        "type": "entry",
+        "pidgin": "hale"
+      }
+    ],
+    "building": [
+      {
+        "id": "hale_058",
+        "type": "entry",
+        "pidgin": "hale"
+      }
+    ],
+    "hamajang": [
+      {
+        "id": "hamajang_059",
+        "type": "entry",
+        "english": "messed up"
+      }
+    ],
+    "hammah": [
+      {
+        "id": "hammah_060",
+        "type": "entry",
+        "english": "pound hard"
+      }
+    ],
+    "pound hard": [
+      {
+        "id": "hammah_060",
+        "type": "entry",
+        "pidgin": "hammah"
+      }
+    ],
+    "hammajang": [
+      {
+        "id": "hammajang_282",
+        "type": "entry",
+        "english": "messed up"
+      }
+    ],
+    "hana": [
+      {
+        "id": "hana_061",
+        "type": "entry",
+        "english": "work"
+      }
+    ],
+    "work": [
+      {
+        "id": "hana_061",
+        "type": "entry",
+        "pidgin": "hana"
+      }
+    ],
+    "hana hou": [
+      {
+        "id": "hana_hou_062",
+        "type": "entry",
+        "english": "do it again"
+      }
+    ],
+    "do it again": [
+      {
+        "id": "hana_hou_062",
+        "type": "entry",
+        "pidgin": "hana hou"
+      }
+    ],
+    "encore": [
+      {
+        "id": "hana_hou_062",
+        "type": "entry",
+        "pidgin": "hana hou"
+      }
+    ],
+    "hana kuso": [
+      {
+        "id": "hana_kuso_244",
+        "type": "entry",
+        "english": "booger"
+      }
+    ],
+    "booger": [
+      {
+        "id": "hana_kuso_244",
+        "type": "entry",
+        "pidgin": "hana kuso"
+      }
+    ],
+    "hana okolele": [
+      {
+        "id": "hana_okolele_245",
+        "type": "entry",
+        "english": "you're in trouble"
+      }
+    ],
+    "you're in trouble": [
+      {
+        "id": "hana_okolele_245",
+        "type": "entry",
+        "pidgin": "hana okolele"
+      }
+    ],
+    "hanabada": [
+      {
+        "id": "hanabada_348",
+        "type": "entry",
+        "english": "runny nose"
+      }
+    ],
+    "runny nose": [
+      {
+        "id": "hanabada_348",
+        "type": "entry",
+        "pidgin": "hanabada"
+      }
+    ],
+    "hanabada days": [
+      {
+        "id": "hanabada_days_349",
+        "type": "entry",
+        "english": "childhood"
+      }
+    ],
+    "childhood": [
+      {
+        "id": "hanabada_days_349",
+        "type": "entry",
+        "pidgin": "hanabada days"
+      }
+    ],
+    "hanabata": [
+      {
+        "id": "hanabata_063",
+        "type": "entry",
+        "english": "nose mucus"
+      }
+    ],
+    "nose mucus": [
+      {
+        "id": "hanabata_063",
+        "type": "entry",
+        "pidgin": "hanabata"
+      }
+    ],
+    "boogers": [
+      {
+        "id": "hanabata_063",
+        "type": "entry",
+        "pidgin": "hanabata"
+      }
+    ],
+    "hanai": [
+      {
+        "id": "hanai_246",
+        "type": "entry",
+        "english": "to adopt"
+      }
+    ],
+    "to adopt": [
+      {
+        "id": "hanai_246",
+        "type": "entry",
+        "pidgin": "hanai"
+      }
+    ],
+    "handles": [
+      {
+        "id": "handles_247",
+        "type": "entry",
+        "english": "under control"
+      }
+    ],
+    "under control": [
+      {
+        "id": "handles_247",
+        "type": "entry",
+        "pidgin": "handles"
+      }
+    ],
+    "haole": [
+      {
+        "id": "haole_064",
+        "type": "entry",
+        "english": "white person"
+      }
+    ],
+    "white person": [
+      {
+        "id": "haole_064",
+        "type": "entry",
+        "pidgin": "haole"
+      }
+    ],
+    "foreigner": [
+      {
+        "id": "haole_064",
+        "type": "entry",
+        "pidgin": "haole"
+      }
+    ],
+    "hapa": [
+      {
+        "id": "hapa_065",
+        "type": "entry",
+        "english": "half"
+      }
+    ],
+    "half": [
+      {
+        "id": "hapa_065",
+        "type": "entry",
+        "pidgin": "hapa"
+      }
+    ],
+    "mixed race": [
+      {
+        "id": "hapa_065",
+        "type": "entry",
+        "pidgin": "hapa"
+      }
+    ],
+    "hapai": [
+      {
+        "id": "hapai_066",
+        "type": "entry",
+        "english": "pregnant"
+      }
+    ],
+    "pregnant": [
+      {
+        "id": "hapai_066",
+        "type": "entry",
+        "pidgin": "hapai"
+      }
+    ],
+    "haunas": [
+      {
+        "id": "haunas_248",
+        "type": "entry",
+        "english": "stinky"
+      }
+    ],
+    "stinky": [
+      {
+        "id": "haunas_248",
+        "type": "entry",
+        "pidgin": "haunas"
+      },
+      {
+        "id": "pilau_145",
+        "type": "entry",
+        "pidgin": "pilau"
+      }
+    ],
+    "haupia": [
+      {
+        "id": "haupia_067",
+        "type": "entry",
+        "english": "coconut pudding"
+      }
+    ],
+    "coconut pudding": [
+      {
+        "id": "haupia_067",
+        "type": "entry",
+        "pidgin": "haupia"
+      }
+    ],
+    "hawaiian time": [
+      {
+        "id": "hawaiian_time_249",
+        "type": "entry",
+        "english": "running late"
+      }
+    ],
+    "running late": [
+      {
+        "id": "hawaiian_time_249",
+        "type": "entry",
+        "pidgin": "hawaiian time"
+      }
+    ],
+    "hea": [
+      {
+        "id": "hea_250",
+        "type": "entry",
+        "english": "here"
+      }
+    ],
+    "here": [
+      {
+        "id": "hea_250",
+        "type": "entry",
+        "pidgin": "hea"
+      }
+    ],
+    "heiau": [
+      {
+        "id": "heiau_420",
+        "type": "entry",
+        "english": "Hawaiian temple"
+      }
+    ],
+    "hawaiian temple": [
+      {
+        "id": "heiau_420",
+        "type": "entry",
+        "pidgin": "heiau"
+      }
+    ],
+    "hele on": [
+      {
+        "id": "hele_on_068",
+        "type": "entry",
+        "english": "go away"
+      }
+    ],
+    "go away": [
+      {
+        "id": "hele_on_068",
+        "type": "entry",
+        "pidgin": "hele on"
+      }
+    ],
+    "get going": [
+      {
+        "id": "hele_on_068",
+        "type": "entry",
+        "pidgin": "hele on"
+      }
+    ],
+    "hemo": [
+      {
+        "id": "hemo_251",
+        "type": "entry",
+        "english": "remove"
+      }
+    ],
+    "remove": [
+      {
+        "id": "hemo_251",
+        "type": "entry",
+        "pidgin": "hemo"
+      }
+    ],
+    "take off": [
+      {
+        "id": "hemo_251",
+        "type": "entry",
+        "pidgin": "hemo"
+      }
+    ],
+    "high maka maka": [
+      {
+        "id": "high_maka_maka_069",
+        "type": "entry",
+        "english": "stuck up"
+      }
+    ],
+    "stuck up": [
+      {
+        "id": "high_maka_maka_069",
+        "type": "entry",
+        "pidgin": "high maka maka"
+      }
+    ],
+    "high waters": [
+      {
+        "id": "high_waters_350",
+        "type": "entry",
+        "english": "short pants"
+      }
+    ],
+    "short pants": [
+      {
+        "id": "high_waters_350",
+        "type": "entry",
+        "pidgin": "high waters"
+      }
+    ],
+    "hikie'e": [
+      {
+        "id": "hikiee_252",
+        "type": "entry",
+        "english": "large couch"
+      }
+    ],
+    "large couch": [
+      {
+        "id": "hikiee_252",
+        "type": "entry",
+        "pidgin": "hikie'e"
+      }
+    ],
+    "ho": [
+      {
+        "id": "ho_070",
+        "type": "entry",
+        "english": "wow"
+      }
+    ],
+    "wow": [
+      {
+        "id": "ho_070",
+        "type": "entry",
+        "pidgin": "ho"
+      },
+      {
+        "id": "ho_nah_351",
+        "type": "entry",
+        "pidgin": "ho nah"
+      }
+    ],
+    "whoa": [
+      {
+        "id": "ho_070",
+        "type": "entry",
+        "pidgin": "ho"
+      }
+    ],
+    "ho nah": [
+      {
+        "id": "ho_nah_351",
+        "type": "entry",
+        "english": "wow"
+      }
+    ],
+    "really": [
+      {
+        "id": "ho_nah_351",
+        "type": "entry",
+        "pidgin": "ho nah"
+      }
+    ],
+    "holoholo": [
+      {
+        "id": "holoholo_071",
+        "type": "entry",
+        "english": "go cruising"
+      }
+    ],
+    "go cruising": [
+      {
+        "id": "holoholo_071",
+        "type": "entry",
+        "pidgin": "holoholo"
+      }
+    ],
+    "honey girl": [
+      {
+        "id": "honey_girl_253",
+        "type": "entry",
+        "english": "young daughter"
+      }
+    ],
+    "young daughter": [
+      {
+        "id": "honey_girl_253",
+        "type": "entry",
+        "pidgin": "honey girl"
+      }
+    ],
+    "honu": [
+      {
+        "id": "honu_417",
+        "type": "entry",
+        "english": "sea turtle"
+      }
+    ],
+    "sea turtle": [
+      {
+        "id": "honu_417",
+        "type": "entry",
+        "pidgin": "honu"
+      }
+    ],
+    "how you figgah": [
+      {
+        "id": "how_you_figgah_254",
+        "type": "entry",
+        "english": "how is that possible"
+      }
+    ],
+    "how is that possible": [
+      {
+        "id": "how_you_figgah_254",
+        "type": "entry",
+        "pidgin": "how you figgah"
+      }
+    ],
+    "how you stay?": [
+      {
+        "id": "how_you_stay_352",
+        "type": "entry",
+        "english": "how are you?"
+      }
+    ],
+    "how are you?": [
+      {
+        "id": "how_you_stay_352",
+        "type": "entry",
+        "pidgin": "how you stay?"
+      }
+    ],
+    "howzit": [
+      {
+        "id": "howzit_072",
+        "type": "entry",
+        "english": "how are you"
+      }
+    ],
+    "how are you": [
+      {
+        "id": "howzit_072",
+        "type": "entry",
+        "pidgin": "howzit"
+      }
+    ],
+    "huhu": [
+      {
+        "id": "huhu_073",
+        "type": "entry",
+        "english": "angry"
+      }
+    ],
+    "upset": [
+      {
+        "id": "huhu_073",
+        "type": "entry",
+        "pidgin": "huhu"
+      }
+    ],
+    "hui": [
+      {
+        "id": "hui_074",
+        "type": "entry",
+        "english": "group"
+      }
+    ],
+    "group": [
+      {
+        "id": "hui_074",
+        "type": "entry",
+        "pidgin": "hui"
+      }
+    ],
+    "club": [
+      {
+        "id": "hui_074",
+        "type": "entry",
+        "pidgin": "hui"
+      }
+    ],
+    "hukilau": [
+      {
+        "id": "hukilau_255",
+        "type": "entry",
+        "english": "community net fishing"
+      }
+    ],
+    "community net fishing": [
+      {
+        "id": "hukilau_255",
+        "type": "entry",
+        "pidgin": "hukilau"
+      }
+    ],
+    "huli": [
+      {
+        "id": "huli_075",
+        "type": "entry",
+        "english": "to turn"
+      }
+    ],
+    "to turn": [
+      {
+        "id": "huli_075",
+        "type": "entry",
+        "pidgin": "huli"
+      }
+    ],
+    "humbalah": [
+      {
+        "id": "humbalah_353",
+        "type": "entry",
+        "english": "humble"
+      }
+    ],
+    "humble": [
+      {
+        "id": "humbalah_353",
+        "type": "entry",
+        "pidgin": "humbalah"
+      }
+    ],
+    "humbug": [
+      {
+        "id": "humbug_256",
+        "type": "entry",
+        "english": "a bother"
+      }
+    ],
+    "a bother": [
+      {
+        "id": "humbug_256",
+        "type": "entry",
+        "pidgin": "humbug"
+      }
+    ],
+    "trouble": [
+      {
+        "id": "humbug_256",
+        "type": "entry",
+        "pidgin": "humbug"
+      },
+      {
+        "id": "pilikia_146",
+        "type": "entry",
+        "pidgin": "pilikia"
+      }
+    ],
+    "i mua": [
+      {
+        "id": "i_mua_355",
+        "type": "entry",
+        "english": "forward"
+      }
+    ],
+    "forward": [
+      {
+        "id": "i_mua_355",
+        "type": "entry",
+        "pidgin": "i mua"
+      },
+      {
+        "id": "imua_260",
+        "type": "entry",
+        "pidgin": "imua"
+      }
+    ],
+    "onward": [
+      {
+        "id": "i_mua_355",
+        "type": "entry",
+        "pidgin": "i mua"
+      }
+    ],
+    "i no kid you": [
+      {
+        "id": "i_no_kid_you_257",
+        "type": "entry",
+        "english": "I'm serious"
+      }
+    ],
+    "i'm serious": [
+      {
+        "id": "i_no_kid_you_257",
+        "type": "entry",
+        "pidgin": "i no kid you"
+      }
+    ],
+    "i shame": [
+      {
+        "id": "i_shame_076",
+        "type": "entry",
+        "english": "embarrassed"
+      }
+    ],
+    "embarrassed": [
+      {
+        "id": "i_shame_076",
+        "type": "entry",
+        "pidgin": "i shame"
+      },
+      {
+        "id": "shame_157",
+        "type": "entry",
+        "pidgin": "shame"
+      }
+    ],
+    "i tink so": [
+      {
+        "id": "i_tink_so_258",
+        "type": "entry",
+        "english": "I think so"
+      }
+    ],
+    "i think so": [
+      {
+        "id": "i_tink_so_258",
+        "type": "entry",
+        "pidgin": "i tink so"
+      }
+    ],
+    "yeah right": [
+      {
+        "id": "i_tink_so_258",
+        "type": "entry",
+        "pidgin": "i tink so"
+      }
+    ],
+    "if can can if no can no can": [
+      {
+        "id": "if_can_can_if_no_can_077",
+        "type": "entry",
+        "english": "do it if possible"
+      }
+    ],
+    "do it if possible": [
+      {
+        "id": "if_can_can_if_no_can_077",
+        "type": "entry",
+        "pidgin": "if can can if no can no can"
+      }
+    ],
+    "if can, can": [
+      {
+        "id": "if_can_can_356",
+        "type": "entry",
+        "english": "if possible"
+      }
+    ],
+    "if possible": [
+      {
+        "id": "if_can_can_356",
+        "type": "entry",
+        "pidgin": "if can, can"
+      }
+    ],
+    "imelda": [
+      {
+        "id": "imelda_259",
+        "type": "entry",
+        "english": "having extravagant tastes"
+      }
+    ],
+    "having extravagant tastes": [
+      {
+        "id": "imelda_259",
+        "type": "entry",
+        "pidgin": "imelda"
+      }
+    ],
+    "imu": [
+      {
+        "id": "imu_078",
+        "type": "entry",
+        "english": "underground oven"
+      }
+    ],
+    "underground oven": [
+      {
+        "id": "imu_078",
+        "type": "entry",
+        "pidgin": "imu"
+      }
+    ],
+    "imua": [
+      {
+        "id": "imua_260",
+        "type": "entry",
+        "english": "forward"
+      }
+    ],
+    "ahead": [
+      {
+        "id": "imua_260",
+        "type": "entry",
+        "pidgin": "imua"
+      }
+    ],
+    "in oddah words": [
+      {
+        "id": "in_oddah_words_261",
+        "type": "entry",
+        "english": "in other words"
+      }
+    ],
+    "in other words": [
+      {
+        "id": "in_oddah_words_261",
+        "type": "entry",
+        "pidgin": "in oddah words"
+      }
+    ],
+    "irraz": [
+      {
+        "id": "irraz_079",
+        "type": "entry",
+        "english": "irritating"
+      }
+    ],
+    "island style": [
+      {
+        "id": "island_style_262",
+        "type": "entry",
+        "english": "laid-back way"
+      }
+    ],
+    "laid-back way": [
+      {
+        "id": "island_style_262",
+        "type": "entry",
+        "pidgin": "island style"
+      }
+    ],
+    "iykyk": [
+      {
+        "id": "iykyk_354",
+        "type": "entry",
+        "english": "if you know you know"
+      }
+    ],
+    "if you know you know": [
+      {
+        "id": "iykyk_354",
+        "type": "entry",
+        "pidgin": "iykyk"
+      }
+    ],
+    "j.o.j.": [
+      {
+        "id": "joj_263",
+        "type": "entry",
+        "english": "just off the jet"
+      }
+    ],
+    "just off the jet": [
+      {
+        "id": "joj_263",
+        "type": "entry",
+        "pidgin": "j.o.j."
+      }
+    ],
+    "jam up": [
+      {
+        "id": "jam_up_264",
+        "type": "entry",
+        "english": "messed up"
+      }
+    ],
+    "jan ken po": [
+      {
+        "id": "jan_ken_po_080",
+        "type": "entry",
+        "english": "rock paper scissors"
+      }
+    ],
+    "rock paper scissors": [
+      {
+        "id": "jan_ken_po_080",
+        "type": "entry",
+        "pidgin": "jan ken po"
+      }
+    ],
+    "japanee": [
+      {
+        "id": "japanee_265",
+        "type": "entry",
+        "english": "Japanese person"
+      }
+    ],
+    "jawaiian": [
+      {
+        "id": "jawaiian_266",
+        "type": "entry",
+        "english": "reggae-Hawaiian music mix"
+      }
+    ],
+    "reggae-hawaiian music mix": [
+      {
+        "id": "jawaiian_266",
+        "type": "entry",
+        "pidgin": "jawaiian"
+      }
+    ],
+    "joose": [
+      {
+        "id": "joose_267",
+        "type": "entry",
+        "english": "not fair"
+      }
+    ],
+    "not fair": [
+      {
+        "id": "joose_267",
+        "type": "entry",
+        "pidgin": "joose"
+      }
+    ],
+    "junior boy": [
+      {
+        "id": "junior_boy_268",
+        "type": "entry",
+        "english": "young son"
+      }
+    ],
+    "young son": [
+      {
+        "id": "junior_boy_268",
+        "type": "entry",
+        "pidgin": "junior boy"
+      }
+    ],
+    "junk": [
+      {
+        "id": "junk_081",
+        "type": "entry",
+        "english": "bad"
+      }
+    ],
+    "bad": [
+      {
+        "id": "junk_081",
+        "type": "entry",
+        "pidgin": "junk"
+      }
+    ],
+    "worthless": [
+      {
+        "id": "junk_081",
+        "type": "entry",
+        "pidgin": "junk"
+      }
+    ],
+    "junks": [
+      {
+        "id": "junks_269",
+        "type": "entry",
+        "english": "clutter"
+      }
+    ],
+    "clutter": [
+      {
+        "id": "junks_269",
+        "type": "entry",
+        "pidgin": "junks"
+      }
+    ],
+    "stuff": [
+      {
+        "id": "junks_269",
+        "type": "entry",
+        "pidgin": "junks"
+      }
+    ],
+    "jus buckaloose": [
+      {
+        "id": "jus_buckaloose_270",
+        "type": "entry",
+        "english": "just relax"
+      }
+    ],
+    "just relax": [
+      {
+        "id": "jus_buckaloose_270",
+        "type": "entry",
+        "pidgin": "jus buckaloose"
+      }
+    ],
+    "jus joke": [
+      {
+        "id": "jus_joke_271",
+        "type": "entry",
+        "english": "just kidding"
+      }
+    ],
+    "just kidding": [
+      {
+        "id": "jus_joke_271",
+        "type": "entry",
+        "pidgin": "jus joke"
+      }
+    ],
+    "k den": [
+      {
+        "id": "k_den_082",
+        "type": "entry",
+        "english": "okay then"
+      }
+    ],
+    "okay then": [
+      {
+        "id": "k_den_082",
+        "type": "entry",
+        "pidgin": "k den"
+      },
+      {
+        "id": "kden_357",
+        "type": "entry",
+        "pidgin": "k-den"
+      }
+    ],
+    "k-den": [
+      {
+        "id": "kden_357",
+        "type": "entry",
+        "english": "okay then"
+      }
+    ],
+    "kahuna": [
+      {
+        "id": "kahuna_083",
+        "type": "entry",
+        "english": "expert"
+      }
+    ],
+    "expert": [
+      {
+        "id": "kahuna_083",
+        "type": "entry",
+        "pidgin": "kahuna"
+      }
+    ],
+    "priest": [
+      {
+        "id": "kahuna_083",
+        "type": "entry",
+        "pidgin": "kahuna"
+      }
+    ],
+    "kai": [
+      {
+        "id": "kai_084",
+        "type": "entry",
+        "english": "ocean"
+      }
+    ],
+    "ocean": [
+      {
+        "id": "kai_084",
+        "type": "entry",
+        "pidgin": "kai"
+      }
+    ],
+    "sea": [
+      {
+        "id": "kai_084",
+        "type": "entry",
+        "pidgin": "kai"
+      }
+    ],
+    "kalo": [
+      {
+        "id": "kalo_085",
+        "type": "entry",
+        "english": "taro"
+      }
+    ],
+    "taro": [
+      {
+        "id": "kalo_085",
+        "type": "entry",
+        "pidgin": "kalo"
+      },
+      {
+        "id": "taro_173",
+        "type": "entry",
+        "english": "tropical plant with edible root"
+      }
+    ],
+    "kamaaina": [
+      {
+        "id": "kamaaina_086",
+        "type": "entry",
+        "english": "local resident"
+      }
+    ],
+    "local resident": [
+      {
+        "id": "kamaaina_086",
+        "type": "entry",
+        "pidgin": "kamaaina"
+      }
+    ],
+    "kanak attack": [
+      {
+        "id": "kanak_attack_087",
+        "type": "entry",
+        "english": "food coma"
+      }
+    ],
+    "food coma": [
+      {
+        "id": "kanak_attack_087",
+        "type": "entry",
+        "pidgin": "kanak attack"
+      }
+    ],
+    "kanaka": [
+      {
+        "id": "kanaka_088",
+        "type": "entry",
+        "english": "Hawaiian person"
+      }
+    ],
+    "hawaiian person": [
+      {
+        "id": "kanaka_088",
+        "type": "entry",
+        "pidgin": "kanaka"
+      }
+    ],
+    "kanikapila": [
+      {
+        "id": "kanikapila_089",
+        "type": "entry",
+        "english": "jam session"
+      }
+    ],
+    "jam session": [
+      {
+        "id": "kanikapila_089",
+        "type": "entry",
+        "pidgin": "kanikapila"
+      }
+    ],
+    "kapakahi": [
+      {
+        "id": "kapakahi_090",
+        "type": "entry",
+        "english": "crooked"
+      }
+    ],
+    "kapu": [
+      {
+        "id": "kapu_091",
+        "type": "entry",
+        "english": "forbidden"
+      }
+    ],
+    "forbidden": [
+      {
+        "id": "kapu_091",
+        "type": "entry",
+        "pidgin": "kapu"
+      }
+    ],
+    "kaput": [
+      {
+        "id": "kaput_358",
+        "type": "entry",
+        "english": "broken"
+      }
+    ],
+    "karang yo alas": [
+      {
+        "id": "karang_yo_alas_397",
+        "type": "entry",
+        "english": "to cause harm to testicles"
+      }
+    ],
+    "to cause harm to testicles": [
+      {
+        "id": "karang_yo_alas_397",
+        "type": "entry",
+        "pidgin": "karang yo alas"
+      }
+    ],
+    "katonk": [
+      {
+        "id": "katonk_398",
+        "type": "entry",
+        "english": "Asian American (derogatory)"
+      }
+    ],
+    "asian american (derogatory)": [
+      {
+        "id": "katonk_398",
+        "type": "entry",
+        "pidgin": "katonk"
+      }
+    ],
+    "kau kau": [
+      {
+        "id": "kau_kau_092",
+        "type": "entry",
+        "english": "food"
+      }
+    ],
+    "eat": [
+      {
+        "id": "kau_kau_092",
+        "type": "entry",
+        "pidgin": "kau kau"
+      }
+    ],
+    "kefe": [
+      {
+        "id": "kefe_399",
+        "type": "entry",
+        "english": "Samoan swear word"
+      }
+    ],
+    "samoan swear word": [
+      {
+        "id": "kefe_399",
+        "type": "entry",
+        "pidgin": "kefe"
+      }
+    ],
+    "keiki": [
+      {
+        "id": "keiki_093",
+        "type": "entry",
+        "english": "child"
+      }
+    ],
+    "child": [
+      {
+        "id": "keiki_093",
+        "type": "entry",
+        "pidgin": "keiki"
+      }
+    ],
+    "killaz": [
+      {
+        "id": "killaz_359",
+        "type": "entry",
+        "english": "awesome"
+      }
+    ],
+    "kim chee breath": [
+      {
+        "id": "kim_chee_breath_400",
+        "type": "entry",
+        "english": "bad breath"
+      }
+    ],
+    "bad breath": [
+      {
+        "id": "kim_chee_breath_400",
+        "type": "entry",
+        "pidgin": "kim chee breath"
+      }
+    ],
+    "kine": [
+      {
+        "id": "kine_094",
+        "type": "entry",
+        "english": "kind"
+      }
+    ],
+    "kind": [
+      {
+        "id": "kine_094",
+        "type": "entry",
+        "pidgin": "kine"
+      }
+    ],
+    "type": [
+      {
+        "id": "kine_094",
+        "type": "entry",
+        "pidgin": "kine"
+      }
+    ],
+    "kokua": [
+      {
+        "id": "kokua_096",
+        "type": "entry",
+        "english": "help"
+      }
+    ],
+    "help": [
+      {
+        "id": "kokua_096",
+        "type": "entry",
+        "pidgin": "kokua"
+      },
+      {
+        "id": "kkua_361",
+        "type": "entry",
+        "pidgin": "kōkua"
+      }
+    ],
+    "assistance": [
+      {
+        "id": "kokua_096",
+        "type": "entry",
+        "pidgin": "kokua"
+      }
+    ],
+    "kōkua": [
+      {
+        "id": "kkua_361",
+        "type": "entry",
+        "english": "help"
+      }
+    ],
+    "kolohe": [
+      {
+        "id": "kolohe_095",
+        "type": "entry",
+        "english": "mischievous"
+      }
+    ],
+    "mischievous": [
+      {
+        "id": "kolohe_095",
+        "type": "entry",
+        "pidgin": "kolohe"
+      }
+    ],
+    "kukae": [
+      {
+        "id": "kukae_098",
+        "type": "entry",
+        "english": "feces"
+      }
+    ],
+    "crap": [
+      {
+        "id": "kukae_098",
+        "type": "entry",
+        "pidgin": "kukae"
+      }
+    ],
+    "kuleana": [
+      {
+        "id": "kuleana_097",
+        "type": "entry",
+        "english": "responsibility"
+      }
+    ],
+    "responsibility": [
+      {
+        "id": "kuleana_097",
+        "type": "entry",
+        "pidgin": "kuleana"
+      }
+    ],
+    "kupuna": [
+      {
+        "id": "kupuna_360",
+        "type": "entry",
+        "english": "elder"
+      }
+    ],
+    "elder": [
+      {
+        "id": "kupuna_360",
+        "type": "entry",
+        "pidgin": "kupuna"
+      }
+    ],
+    "lānai": [
+      {
+        "id": "lnai_422",
+        "type": "entry",
+        "english": "porch or veranda"
+      }
+    ],
+    "porch or veranda": [
+      {
+        "id": "lnai_422",
+        "type": "entry",
+        "pidgin": "lānai"
+      }
+    ],
+    "latahs": [
+      {
+        "id": "latahs_099",
+        "type": "entry",
+        "english": "see you later"
+      }
+    ],
+    "see you later": [
+      {
+        "id": "latahs_099",
+        "type": "entry",
+        "pidgin": "latahs"
+      },
+      {
+        "id": "shoots_509",
+        "type": "entry",
+        "pidgin": "shoots"
+      }
+    ],
+    "latahz": [
+      {
+        "id": "latahz_362",
+        "type": "entry",
+        "english": "later"
+      }
+    ],
+    "lauhala": [
+      {
+        "id": "lauhala_100",
+        "type": "entry",
+        "english": "pandanus leaves"
+      }
+    ],
+    "pandanus leaves": [
+      {
+        "id": "lauhala_100",
+        "type": "entry",
+        "pidgin": "lauhala"
+      }
+    ],
+    "laulau": [
+      {
+        "id": "laulau_101",
+        "type": "entry",
+        "english": "meat wrapped in taro leaves"
+      }
+    ],
+    "meat wrapped in taro leaves": [
+      {
+        "id": "laulau_101",
+        "type": "entry",
+        "pidgin": "laulau"
+      }
+    ],
+    "lei": [
+      {
+        "id": "lei_102",
+        "type": "entry",
+        "english": "garland of flowers"
+      }
+    ],
+    "garland of flowers": [
+      {
+        "id": "lei_102",
+        "type": "entry",
+        "pidgin": "lei"
+      }
+    ],
+    "lick": [
+      {
+        "id": "lick_363",
+        "type": "entry",
+        "english": "hit"
+      }
+    ],
+    "hit": [
+      {
+        "id": "lick_363",
+        "type": "entry",
+        "pidgin": "lick"
+      }
+    ],
+    "punch": [
+      {
+        "id": "lick_363",
+        "type": "entry",
+        "pidgin": "lick"
+      }
+    ],
+    "lickens": [
+      {
+        "id": "lickens_103",
+        "type": "entry",
+        "english": "beating"
+      }
+    ],
+    "beating": [
+      {
+        "id": "lickens_103",
+        "type": "entry",
+        "pidgin": "lickens"
+      }
+    ],
+    "liddat": [
+      {
+        "id": "liddat_104",
+        "type": "entry",
+        "english": "like that"
+      }
+    ],
+    "like that": [
+      {
+        "id": "liddat_104",
+        "type": "entry",
+        "pidgin": "liddat"
+      }
+    ],
+    "like beef": [
+      {
+        "id": "like_beef_105",
+        "type": "entry",
+        "english": "want to fight"
+      }
+    ],
+    "want to fight": [
+      {
+        "id": "like_beef_105",
+        "type": "entry",
+        "pidgin": "like beef"
+      }
+    ],
+    "like beef?": [
+      {
+        "id": "like_beef_364",
+        "type": "entry",
+        "english": "want to fight?"
+      }
+    ],
+    "want to fight?": [
+      {
+        "id": "like_beef_364",
+        "type": "entry",
+        "pidgin": "like beef?"
+      }
+    ],
+    "lilibit": [
+      {
+        "id": "lilibit_365",
+        "type": "entry",
+        "english": "little bit"
+      }
+    ],
+    "little bit": [
+      {
+        "id": "lilibit_365",
+        "type": "entry",
+        "pidgin": "lilibit"
+      }
+    ],
+    "lilikoi": [
+      {
+        "id": "lilikoi_106",
+        "type": "entry",
+        "english": "passion fruit"
+      }
+    ],
+    "passion fruit": [
+      {
+        "id": "lilikoi_106",
+        "type": "entry",
+        "pidgin": "lilikoi"
+      }
+    ],
+    "limu": [
+      {
+        "id": "limu_428",
+        "type": "entry",
+        "english": "seaweed"
+      }
+    ],
+    "seaweed": [
+      {
+        "id": "limu_428",
+        "type": "entry",
+        "pidgin": "limu"
+      }
+    ],
+    "lolo": [
+      {
+        "id": "lolo_107",
+        "type": "entry",
+        "english": "crazy"
+      }
+    ],
+    "stupid": [
+      {
+        "id": "lolo_107",
+        "type": "entry",
+        "pidgin": "lolo"
+      }
+    ],
+    "lose money": [
+      {
+        "id": "lose_money_366",
+        "type": "entry",
+        "english": "bad deal"
+      }
+    ],
+    "bad deal": [
+      {
+        "id": "lose_money_366",
+        "type": "entry",
+        "pidgin": "lose money"
+      }
+    ],
+    "luau": [
+      {
+        "id": "luau_108",
+        "type": "entry",
+        "english": "Hawaiian feast"
+      }
+    ],
+    "hawaiian feast": [
+      {
+        "id": "luau_108",
+        "type": "entry",
+        "pidgin": "luau"
+      },
+      {
+        "id": "lau_421",
+        "type": "entry",
+        "pidgin": "lūʻau"
+      }
+    ],
+    "lūʻau": [
+      {
+        "id": "lau_421",
+        "type": "entry",
+        "english": "Hawaiian feast"
+      }
+    ],
+    "mahalo": [
+      {
+        "id": "mahalo_109",
+        "type": "entry",
+        "english": "thank you"
+      }
+    ],
+    "thank you": [
+      {
+        "id": "mahalo_109",
+        "type": "entry",
+        "pidgin": "mahalo"
+      }
+    ],
+    "mahimahi": [
+      {
+        "id": "mahimahi_416",
+        "type": "entry",
+        "english": "dolphin fish"
+      }
+    ],
+    "dolphin fish": [
+      {
+        "id": "mahimahi_416",
+        "type": "entry",
+        "pidgin": "mahimahi"
+      }
+    ],
+    "maika'i": [
+      {
+        "id": "maikai_110",
+        "type": "entry",
+        "english": "good"
+      }
+    ],
+    "good": [
+      {
+        "id": "maikai_110",
+        "type": "entry",
+        "pidgin": "maika'i"
+      }
+    ],
+    "fine": [
+      {
+        "id": "maikai_110",
+        "type": "entry",
+        "pidgin": "maika'i"
+      }
+    ],
+    "makai": [
+      {
+        "id": "makai_112",
+        "type": "entry",
+        "english": "toward the ocean"
+      }
+    ],
+    "toward the ocean": [
+      {
+        "id": "makai_112",
+        "type": "entry",
+        "pidgin": "makai"
+      }
+    ],
+    "make": [
+      {
+        "id": "make_111",
+        "type": "entry",
+        "english": "dead"
+      }
+    ],
+    "dead": [
+      {
+        "id": "make_111",
+        "type": "entry",
+        "pidgin": "make"
+      }
+    ],
+    "die": [
+      {
+        "id": "make_111",
+        "type": "entry",
+        "pidgin": "make"
+      }
+    ],
+    "malama": [
+      {
+        "id": "malama_113",
+        "type": "entry",
+        "english": "to care for"
+      }
+    ],
+    "to care for": [
+      {
+        "id": "malama_113",
+        "type": "entry",
+        "pidgin": "malama"
+      }
+    ],
+    "protect": [
+      {
+        "id": "malama_113",
+        "type": "entry",
+        "pidgin": "malama"
+      }
+    ],
+    "malihini": [
+      {
+        "id": "malihini_114",
+        "type": "entry",
+        "english": "newcomer"
+      }
+    ],
+    "newcomer": [
+      {
+        "id": "malihini_114",
+        "type": "entry",
+        "pidgin": "malihini"
+      }
+    ],
+    "tourist": [
+      {
+        "id": "malihini_114",
+        "type": "entry",
+        "pidgin": "malihini"
+      },
+      {
+        "id": "shark_bait_406",
+        "type": "entry",
+        "pidgin": "shark bait"
+      }
+    ],
+    "mana": [
+      {
+        "id": "mana_115",
+        "type": "entry",
+        "english": "spiritual power"
+      }
+    ],
+    "spiritual power": [
+      {
+        "id": "mana_115",
+        "type": "entry",
+        "pidgin": "mana"
+      }
+    ],
+    "manapua": [
+      {
+        "id": "manapua_116",
+        "type": "entry",
+        "english": "pork bun"
+      }
+    ],
+    "pork bun": [
+      {
+        "id": "manapua_116",
+        "type": "entry",
+        "pidgin": "manapua"
+      }
+    ],
+    "manapua man": [
+      {
+        "id": "manapua_man_367",
+        "type": "entry",
+        "english": "food truck vendor"
+      }
+    ],
+    "food truck vendor": [
+      {
+        "id": "manapua_man_367",
+        "type": "entry",
+        "pidgin": "manapua man"
+      }
+    ],
+    "manini": [
+      {
+        "id": "manini_117",
+        "type": "entry",
+        "english": "small"
+      }
+    ],
+    "small": [
+      {
+        "id": "manini_117",
+        "type": "entry",
+        "pidgin": "manini"
+      },
+      {
+        "id": "minahs_369",
+        "type": "entry",
+        "pidgin": "minahs"
+      }
+    ],
+    "stingy": [
+      {
+        "id": "manini_117",
+        "type": "entry",
+        "pidgin": "manini"
+      }
+    ],
+    "mauka": [
+      {
+        "id": "mauka_118",
+        "type": "entry",
+        "english": "toward the mountains"
+      }
+    ],
+    "toward the mountains": [
+      {
+        "id": "mauka_118",
+        "type": "entry",
+        "pidgin": "mauka"
+      }
+    ],
+    "mauna": [
+      {
+        "id": "mauna_426",
+        "type": "entry",
+        "english": "mountain"
+      }
+    ],
+    "mountain": [
+      {
+        "id": "mauna_426",
+        "type": "entry",
+        "pidgin": "mauna"
+      }
+    ],
+    "mayjah": [
+      {
+        "id": "mayjah_368",
+        "type": "entry",
+        "english": "major"
+      }
+    ],
+    "major": [
+      {
+        "id": "mayjah_368",
+        "type": "entry",
+        "pidgin": "mayjah"
+      }
+    ],
+    "mean": [
+      {
+        "id": "mean_119",
+        "type": "entry",
+        "english": "awesome"
+      }
+    ],
+    "great": [
+      {
+        "id": "mean_119",
+        "type": "entry",
+        "pidgin": "mean"
+      },
+      {
+        "id": "yessah_blessah_395",
+        "type": "entry",
+        "pidgin": "yessah blessah"
+      }
+    ],
+    "mempachi eye": [
+      {
+        "id": "mempachi_eye_401",
+        "type": "entry",
+        "english": "glassy unfocused stare"
+      }
+    ],
+    "glassy unfocused stare": [
+      {
+        "id": "mempachi_eye_401",
+        "type": "entry",
+        "pidgin": "mempachi eye"
+      }
+    ],
+    "menehune": [
+      {
+        "id": "menehune_120",
+        "type": "entry",
+        "english": "mythological dwarf people"
+      }
+    ],
+    "mythological dwarf people": [
+      {
+        "id": "menehune_120",
+        "type": "entry",
+        "pidgin": "menehune"
+      }
+    ],
+    "mento": [
+      {
+        "id": "mento_121",
+        "type": "entry",
+        "english": "mental"
+      }
+    ],
+    "mental": [
+      {
+        "id": "mento_121",
+        "type": "entry",
+        "pidgin": "mento"
+      }
+    ],
+    "minahs": [
+      {
+        "id": "minahs_369",
+        "type": "entry",
+        "english": "minor"
+      }
+    ],
+    "minor": [
+      {
+        "id": "minahs_369",
+        "type": "entry",
+        "pidgin": "minahs"
+      }
+    ],
+    "minors": [
+      {
+        "id": "minors_402",
+        "type": "entry",
+        "english": "no problem"
+      }
+    ],
+    "mo bettah": [
+      {
+        "id": "mo_bettah_122",
+        "type": "entry",
+        "english": "much better"
+      }
+    ],
+    "much better": [
+      {
+        "id": "mo_bettah_122",
+        "type": "entry",
+        "pidgin": "mo bettah"
+      },
+      {
+        "id": "mo_bettah_370",
+        "type": "entry",
+        "pidgin": "mo' bettah"
+      }
+    ],
+    "mo' bettah": [
+      {
+        "id": "mo_bettah_370",
+        "type": "entry",
+        "english": "much better"
+      }
+    ],
+    "moe moe": [
+      {
+        "id": "moe_moe_403",
+        "type": "entry",
+        "english": "sleepy"
+      }
+    ],
+    "sleepy": [
+      {
+        "id": "moe_moe_403",
+        "type": "entry",
+        "pidgin": "moe moe"
+      }
+    ],
+    "moke": [
+      {
+        "id": "moke_123",
+        "type": "entry",
+        "english": "tough local guy"
+      }
+    ],
+    "tough local guy": [
+      {
+        "id": "moke_123",
+        "type": "entry",
+        "pidgin": "moke"
+      }
+    ],
+    "muʻumuʻu": [
+      {
+        "id": "muumuu_423",
+        "type": "entry",
+        "english": "loose Hawaiian dress"
+      }
+    ],
+    "loose hawaiian dress": [
+      {
+        "id": "muumuu_423",
+        "type": "entry",
+        "pidgin": "muʻumuʻu"
+      }
+    ],
+    "nai nai": [
+      {
+        "id": "nai_nai_371",
+        "type": "entry",
+        "english": "sleep (baby talk)"
+      }
+    ],
+    "sleep (baby talk)": [
+      {
+        "id": "nai_nai_371",
+        "type": "entry",
+        "pidgin": "nai nai"
+      }
+    ],
+    "nails": [
+      {
+        "id": "nails_124",
+        "type": "entry",
+        "english": "tough"
+      }
+    ],
+    "tough": [
+      {
+        "id": "nails_124",
+        "type": "entry",
+        "pidgin": "nails"
+      }
+    ],
+    "hard": [
+      {
+        "id": "nails_124",
+        "type": "entry",
+        "pidgin": "nails"
+      }
+    ],
+    "ne ne": [
+      {
+        "id": "ne_ne_404",
+        "type": "entry",
+        "english": "to sleep"
+      }
+    ],
+    "negz": [
+      {
+        "id": "negz_372",
+        "type": "entry",
+        "english": "negative"
+      }
+    ],
+    "negative": [
+      {
+        "id": "negz_372",
+        "type": "entry",
+        "pidgin": "negz"
+      }
+    ],
+    "nēnē": [
+      {
+        "id": "nn_418",
+        "type": "entry",
+        "english": "Hawaiian goose"
+      }
+    ],
+    "hawaiian goose": [
+      {
+        "id": "nn_418",
+        "type": "entry",
+        "pidgin": "nēnē"
+      }
+    ],
+    "nerjis": [
+      {
+        "id": "nerjis_405",
+        "type": "entry",
+        "english": "nervous"
+      }
+    ],
+    "nervous": [
+      {
+        "id": "nerjis_405",
+        "type": "entry",
+        "pidgin": "nerjis"
+      }
+    ],
+    "nevamine": [
+      {
+        "id": "nevamine_125",
+        "type": "entry",
+        "english": "nevermind"
+      }
+    ],
+    "niele": [
+      {
+        "id": "niele_126",
+        "type": "entry",
+        "english": "nosy"
+      }
+    ],
+    "nosy": [
+      {
+        "id": "niele_126",
+        "type": "entry",
+        "pidgin": "niele"
+      }
+    ],
+    "curious": [
+      {
+        "id": "niele_126",
+        "type": "entry",
+        "pidgin": "niele"
+      }
+    ],
+    "no ack": [
+      {
+        "id": "no_ack_127",
+        "type": "entry",
+        "english": "don't act"
+      }
+    ],
+    "don't act": [
+      {
+        "id": "no_ack_127",
+        "type": "entry",
+        "pidgin": "no ack"
+      }
+    ],
+    "no can": [
+      {
+        "id": "no_can_128",
+        "type": "entry",
+        "english": "cannot"
+      }
+    ],
+    "cannot": [
+      {
+        "id": "no_can_128",
+        "type": "entry",
+        "pidgin": "no can"
+      }
+    ],
+    "unable": [
+      {
+        "id": "no_can_128",
+        "type": "entry",
+        "pidgin": "no can"
+      }
+    ],
+    "no ka 'oi": [
+      {
+        "id": "no_ka_oi_373",
+        "type": "entry",
+        "english": "the best"
+      }
+    ],
+    "no ka oi": [
+      {
+        "id": "no_ka_oi_129",
+        "type": "entry",
+        "english": "the best"
+      }
+    ],
+    "no make": [
+      {
+        "id": "no_make_130",
+        "type": "entry",
+        "english": "don't die"
+      }
+    ],
+    "don't die": [
+      {
+        "id": "no_make_130",
+        "type": "entry",
+        "pidgin": "no make"
+      }
+    ],
+    "no need": [
+      {
+        "id": "no_need_131",
+        "type": "entry",
+        "english": "not necessary"
+      }
+    ],
+    "not necessary": [
+      {
+        "id": "no_need_131",
+        "type": "entry",
+        "pidgin": "no need"
+      }
+    ],
+    "no sked": [
+      {
+        "id": "no_sked_132",
+        "type": "entry",
+        "english": "not scared"
+      }
+    ],
+    "not scared": [
+      {
+        "id": "no_sked_132",
+        "type": "entry",
+        "pidgin": "no sked"
+      }
+    ],
+    "nuff": [
+      {
+        "id": "nuff_133",
+        "type": "entry",
+        "english": "enough"
+      }
+    ],
+    "enough": [
+      {
+        "id": "nuff_133",
+        "type": "entry",
+        "pidgin": "nuff"
+      }
+    ],
+    "obake": [
+      {
+        "id": "obake_134",
+        "type": "entry",
+        "english": "ghost"
+      }
+    ],
+    "ghost": [
+      {
+        "id": "obake_134",
+        "type": "entry",
+        "pidgin": "obake"
+      }
+    ],
+    "spirit": [
+      {
+        "id": "obake_134",
+        "type": "entry",
+        "pidgin": "obake"
+      }
+    ],
+    "oh wow ladat": [
+      {
+        "id": "oh_wow_ladat_374",
+        "type": "entry",
+        "english": "like that?"
+      }
+    ],
+    "like that?": [
+      {
+        "id": "oh_wow_ladat_374",
+        "type": "entry",
+        "pidgin": "oh wow ladat"
+      }
+    ],
+    "really?": [
+      {
+        "id": "oh_wow_ladat_374",
+        "type": "entry",
+        "pidgin": "oh wow ladat"
+      }
+    ],
+    "ohana": [
+      {
+        "id": "ohana_135",
+        "type": "entry",
+        "english": "family"
+      }
+    ],
+    "family": [
+      {
+        "id": "ohana_135",
+        "type": "entry",
+        "pidgin": "ohana"
+      }
+    ],
+    "ono": [
+      {
+        "id": "ono_136",
+        "type": "entry",
+        "english": "delicious"
+      }
+    ],
+    "delicious": [
+      {
+        "id": "ono_136",
+        "type": "entry",
+        "pidgin": "ono"
+      },
+      {
+        "id": "winnahz_414",
+        "type": "entry",
+        "pidgin": "winnahz"
+      }
+    ],
+    "oof": [
+      {
+        "id": "oof_137",
+        "type": "entry",
+        "english": "sex"
+      }
+    ],
+    "sex": [
+      {
+        "id": "oof_137",
+        "type": "entry",
+        "pidgin": "oof"
+      }
+    ],
+    "intercourse": [
+      {
+        "id": "oof_137",
+        "type": "entry",
+        "pidgin": "oof"
+      }
+    ],
+    "opala": [
+      {
+        "id": "opala_138",
+        "type": "entry",
+        "english": "trash"
+      }
+    ],
+    "trash": [
+      {
+        "id": "opala_138",
+        "type": "entry",
+        "pidgin": "opala"
+      }
+    ],
+    "garbage": [
+      {
+        "id": "opala_138",
+        "type": "entry",
+        "pidgin": "opala"
+      }
+    ],
+    "opihi": [
+      {
+        "id": "opihi_139",
+        "type": "entry",
+        "english": "limpet (shellfish)"
+      }
+    ],
+    "limpet (shellfish)": [
+      {
+        "id": "opihi_139",
+        "type": "entry",
+        "pidgin": "opihi"
+      }
+    ],
+    "ova dea": [
+      {
+        "id": "ova_dea_140",
+        "type": "entry",
+        "english": "over there"
+      }
+    ],
+    "over there": [
+      {
+        "id": "ova_dea_140",
+        "type": "entry",
+        "pidgin": "ova dea"
+      },
+      {
+        "id": "ova_dere_375",
+        "type": "entry",
+        "pidgin": "ova dere"
+      }
+    ],
+    "ova dere": [
+      {
+        "id": "ova_dere_375",
+        "type": "entry",
+        "english": "over there"
+      }
+    ],
+    "pāhoehoe": [
+      {
+        "id": "phoehoe_424",
+        "type": "entry",
+        "english": "smooth ropy lava"
+      }
+    ],
+    "smooth ropy lava": [
+      {
+        "id": "phoehoe_424",
+        "type": "entry",
+        "pidgin": "pāhoehoe"
+      }
+    ],
+    "pakalolo": [
+      {
+        "id": "pakalolo_141",
+        "type": "entry",
+        "english": "marijuana"
+      }
+    ],
+    "pākē": [
+      {
+        "id": "pk_376",
+        "type": "entry",
+        "english": "Chinese person"
+      }
+    ],
+    "pali": [
+      {
+        "id": "pali_425",
+        "type": "entry",
+        "english": "cliff or precipice"
+      }
+    ],
+    "cliff or precipice": [
+      {
+        "id": "pali_425",
+        "type": "entry",
+        "pidgin": "pali"
+      }
+    ],
+    "pancit": [
+      {
+        "id": "pancit_377",
+        "type": "entry",
+        "english": "Filipino noodles"
+      }
+    ],
+    "filipino noodles": [
+      {
+        "id": "pancit_377",
+        "type": "entry",
+        "pidgin": "pancit"
+      }
+    ],
+    "paniolo": [
+      {
+        "id": "paniolo_142",
+        "type": "entry",
+        "english": "Hawaiian cowboy"
+      }
+    ],
+    "hawaiian cowboy": [
+      {
+        "id": "paniolo_142",
+        "type": "entry",
+        "pidgin": "paniolo"
+      }
+    ],
+    "panty": [
+      {
+        "id": "panty_378",
+        "type": "entry",
+        "english": "weak"
+      }
+    ],
+    "weak": [
+      {
+        "id": "panty_378",
+        "type": "entry",
+        "pidgin": "panty"
+      }
+    ],
+    "soft": [
+      {
+        "id": "panty_378",
+        "type": "entry",
+        "pidgin": "panty"
+      }
+    ],
+    "pau": [
+      {
+        "id": "pau_143",
+        "type": "entry",
+        "english": "finished"
+      }
+    ],
+    "finished": [
+      {
+        "id": "pau_143",
+        "type": "entry",
+        "pidgin": "pau"
+      }
+    ],
+    "pau hana": [
+      {
+        "id": "pau_hana_144",
+        "type": "entry",
+        "english": "after work"
+      }
+    ],
+    "after work": [
+      {
+        "id": "pau_hana_144",
+        "type": "entry",
+        "pidgin": "pau hana"
+      }
+    ],
+    "pilau": [
+      {
+        "id": "pilau_145",
+        "type": "entry",
+        "english": "stinky"
+      }
+    ],
+    "rotten": [
+      {
+        "id": "pilau_145",
+        "type": "entry",
+        "pidgin": "pilau"
+      }
+    ],
+    "pilikia": [
+      {
+        "id": "pilikia_146",
+        "type": "entry",
+        "english": "trouble"
+      }
+    ],
+    "problem": [
+      {
+        "id": "pilikia_146",
+        "type": "entry",
+        "pidgin": "pilikia"
+      }
+    ],
+    "planny": [
+      {
+        "id": "planny_379",
+        "type": "entry",
+        "english": "plenty"
+      }
+    ],
+    "lots": [
+      {
+        "id": "planny_379",
+        "type": "entry",
+        "pidgin": "planny"
+      }
+    ],
+    "plate lunch": [
+      {
+        "id": "plate_lunch_147",
+        "type": "entry",
+        "english": "local meal combo"
+      }
+    ],
+    "local meal combo": [
+      {
+        "id": "plate_lunch_147",
+        "type": "entry",
+        "pidgin": "plate lunch"
+      }
+    ],
+    "pohō": [
+      {
+        "id": "poh_380",
+        "type": "entry",
+        "english": "waste"
+      }
+    ],
+    "waste": [
+      {
+        "id": "poh_380",
+        "type": "entry",
+        "pidgin": "pohō"
+      }
+    ],
+    "loss": [
+      {
+        "id": "poh_380",
+        "type": "entry",
+        "pidgin": "pohō"
+      }
+    ],
+    "poi": [
+      {
+        "id": "poi_148",
+        "type": "entry",
+        "english": "pounded taro paste"
+      }
+    ],
+    "pounded taro paste": [
+      {
+        "id": "poi_148",
+        "type": "entry",
+        "pidgin": "poi"
+      }
+    ],
+    "poke": [
+      {
+        "id": "poke_149",
+        "type": "entry",
+        "english": "raw fish salad"
+      }
+    ],
+    "raw fish salad": [
+      {
+        "id": "poke_149",
+        "type": "entry",
+        "pidgin": "poke"
+      }
+    ],
+    "pono": [
+      {
+        "id": "pono_150",
+        "type": "entry",
+        "english": "righteous"
+      }
+    ],
+    "righteous": [
+      {
+        "id": "pono_150",
+        "type": "entry",
+        "pidgin": "pono"
+      }
+    ],
+    "proper": [
+      {
+        "id": "pono_150",
+        "type": "entry",
+        "pidgin": "pono"
+      }
+    ],
+    "popo": [
+      {
+        "id": "popo_381",
+        "type": "entry",
+        "english": "police"
+      }
+    ],
+    "police": [
+      {
+        "id": "popo_381",
+        "type": "entry",
+        "pidgin": "popo"
+      }
+    ],
+    "pueo": [
+      {
+        "id": "pueo_419",
+        "type": "entry",
+        "english": "Hawaiian owl"
+      }
+    ],
+    "hawaiian owl": [
+      {
+        "id": "pueo_419",
+        "type": "entry",
+        "pidgin": "pueo"
+      }
+    ],
+    "puinsai": [
+      {
+        "id": "puinsai_382",
+        "type": "entry",
+        "english": "annoying child"
+      }
+    ],
+    "annoying child": [
+      {
+        "id": "puinsai_382",
+        "type": "entry",
+        "pidgin": "puinsai"
+      }
+    ],
+    "puka": [
+      {
+        "id": "puka_151",
+        "type": "entry",
+        "english": "hole"
+      }
+    ],
+    "hole": [
+      {
+        "id": "puka_151",
+        "type": "entry",
+        "pidgin": "puka"
+      }
+    ],
+    "opening": [
+      {
+        "id": "puka_151",
+        "type": "entry",
+        "pidgin": "puka"
+      }
+    ],
+    "punani": [
+      {
+        "id": "punani_383",
+        "type": "entry",
+        "english": "vagina (vulgar)"
+      }
+    ],
+    "vagina (vulgar)": [
+      {
+        "id": "punani_383",
+        "type": "entry",
+        "pidgin": "punani"
+      }
+    ],
+    "pupu": [
+      {
+        "id": "pupu_152",
+        "type": "entry",
+        "english": "appetizer"
+      }
+    ],
+    "appetizer": [
+      {
+        "id": "pupu_152",
+        "type": "entry",
+        "pidgin": "pupu"
+      },
+      {
+        "id": "pp_384",
+        "type": "entry",
+        "pidgin": "pūpū"
+      }
+    ],
+    "snacks": [
+      {
+        "id": "pupu_152",
+        "type": "entry",
+        "pidgin": "pupu"
+      }
+    ],
+    "pūpū": [
+      {
+        "id": "pp_384",
+        "type": "entry",
+        "english": "appetizer"
+      }
+    ],
+    "snack": [
+      {
+        "id": "pp_384",
+        "type": "entry",
+        "pidgin": "pūpū"
+      }
+    ],
+    "rajah": [
+      {
+        "id": "rajah_153",
+        "type": "entry",
+        "english": "roger"
+      }
+    ],
+    "roger": [
+      {
+        "id": "rajah_153",
+        "type": "entry",
+        "pidgin": "rajah"
+      }
+    ],
+    "rip": [
+      {
+        "id": "rip_154",
+        "type": "entry",
+        "english": "steal"
+      }
+    ],
+    "steal": [
+      {
+        "id": "rip_154",
+        "type": "entry",
+        "pidgin": "rip"
+      }
+    ],
+    "rubbah slippahs": [
+      {
+        "id": "rubbah_slippahs_155",
+        "type": "entry",
+        "english": "flip flops"
+      }
+    ],
+    "flip flops": [
+      {
+        "id": "rubbah_slippahs_155",
+        "type": "entry",
+        "pidgin": "rubbah slippahs"
+      }
+    ],
+    "sandals": [
+      {
+        "id": "rubbah_slippahs_155",
+        "type": "entry",
+        "pidgin": "rubbah slippahs"
+      },
+      {
+        "id": "slippahs_161",
+        "type": "entry",
+        "pidgin": "slippahs"
+      }
+    ],
+    "sample dat": [
+      {
+        "id": "sample_dat_385",
+        "type": "entry",
+        "english": "try that"
+      }
+    ],
+    "try that": [
+      {
+        "id": "sample_dat_385",
+        "type": "entry",
+        "pidgin": "sample dat"
+      }
+    ],
+    "scrap": [
+      {
+        "id": "scrap_156",
+        "type": "entry",
+        "english": "fight"
+      }
+    ],
+    "shame": [
+      {
+        "id": "shame_157",
+        "type": "entry",
+        "english": "embarrassed"
+      }
+    ],
+    "shark bait": [
+      {
+        "id": "shark_bait_406",
+        "type": "entry",
+        "english": "tourist"
+      }
+    ],
+    "shishi": [
+      {
+        "id": "shishi_158",
+        "type": "entry",
+        "english": "urinate"
+      }
+    ],
+    "urinate": [
+      {
+        "id": "shishi_158",
+        "type": "entry",
+        "pidgin": "shishi"
+      }
+    ],
+    "pee": [
+      {
+        "id": "shishi_158",
+        "type": "entry",
+        "pidgin": "shishi"
+      }
+    ],
+    "shoots": [
+      {
+        "id": "shoots_159",
+        "type": "entry",
+        "english": "okay"
+      },
+      {
+        "id": "shoots_509",
+        "type": "entry",
+        "english": "alright"
+      }
+    ],
+    "sounds good": [
+      {
+        "id": "shoots_159",
+        "type": "entry",
+        "pidgin": "shoots"
+      },
+      {
+        "id": "shootz_283",
+        "type": "entry",
+        "pidgin": "shootz"
+      },
+      {
+        "id": "shoots_509",
+        "type": "entry",
+        "pidgin": "shoots"
+      }
+    ],
+    "shootz": [
+      {
+        "id": "shootz_283",
+        "type": "entry",
+        "english": "alright"
+      }
+    ],
+    "sistah": [
+      {
+        "id": "sistah_160",
+        "type": "entry",
+        "english": "sister"
+      }
+    ],
+    "sister": [
+      {
+        "id": "sistah_160",
+        "type": "entry",
+        "pidgin": "sistah"
+      }
+    ],
+    "female friend": [
+      {
+        "id": "sistah_160",
+        "type": "entry",
+        "pidgin": "sistah"
+      }
+    ],
+    "slippahs": [
+      {
+        "id": "slippahs_161",
+        "type": "entry",
+        "english": "flip-flops"
+      }
+    ],
+    "flip-flops": [
+      {
+        "id": "slippahs_161",
+        "type": "entry",
+        "pidgin": "slippahs"
+      },
+      {
+        "id": "zori_285",
+        "type": "entry",
+        "pidgin": "zori"
+      }
+    ],
+    "small kine": [
+      {
+        "id": "small_kine_162",
+        "type": "entry",
+        "english": "a little bit"
+      }
+    ],
+    "a little bit": [
+      {
+        "id": "small_kine_162",
+        "type": "entry",
+        "pidgin": "small kine"
+      }
+    ],
+    "so nails": [
+      {
+        "id": "so_nails_163",
+        "type": "entry",
+        "english": "very difficult"
+      }
+    ],
+    "very difficult": [
+      {
+        "id": "so_nails_163",
+        "type": "entry",
+        "pidgin": "so nails"
+      }
+    ],
+    "sole": [
+      {
+        "id": "sole_164",
+        "type": "entry",
+        "english": "friend"
+      }
+    ],
+    "buddy": [
+      {
+        "id": "sole_164",
+        "type": "entry",
+        "pidgin": "sole"
+      }
+    ],
+    "sped": [
+      {
+        "id": "sped_386",
+        "type": "entry",
+        "english": "special ed"
+      }
+    ],
+    "special ed": [
+      {
+        "id": "sped_386",
+        "type": "entry",
+        "pidgin": "sped"
+      }
+    ],
+    "slow": [
+      {
+        "id": "sped_386",
+        "type": "entry",
+        "pidgin": "sped"
+      }
+    ],
+    "stay": [
+      {
+        "id": "stay_165",
+        "type": "entry",
+        "english": "is"
+      }
+    ],
+    "is": [
+      {
+        "id": "stay_165",
+        "type": "entry",
+        "pidgin": "stay"
+      }
+    ],
+    "are (verb marker)": [
+      {
+        "id": "stay_165",
+        "type": "entry",
+        "pidgin": "stay"
+      }
+    ],
+    "stink eye": [
+      {
+        "id": "stink_eye_166",
+        "type": "entry",
+        "english": "dirty look"
+      }
+    ],
+    "dirty look": [
+      {
+        "id": "stink_eye_166",
+        "type": "entry",
+        "pidgin": "stink eye"
+      }
+    ],
+    "stoked": [
+      {
+        "id": "stoked_167",
+        "type": "entry",
+        "english": "excited"
+      }
+    ],
+    "happy": [
+      {
+        "id": "stoked_167",
+        "type": "entry",
+        "pidgin": "stoked"
+      }
+    ],
+    "suck em up": [
+      {
+        "id": "suck_em_up_168",
+        "type": "entry",
+        "english": "drink it up"
+      }
+    ],
+    "drink it up": [
+      {
+        "id": "suck_em_up_168",
+        "type": "entry",
+        "pidgin": "suck em up"
+      }
+    ],
+    "suk suk": [
+      {
+        "id": "suk_suk_387",
+        "type": "entry",
+        "english": "suck up"
+      }
+    ],
+    "suck up": [
+      {
+        "id": "suk_suk_387",
+        "type": "entry",
+        "pidgin": "suk suk"
+      }
+    ],
+    "kiss ass": [
+      {
+        "id": "suk_suk_387",
+        "type": "entry",
+        "pidgin": "suk suk"
+      }
+    ],
+    "sukebe": [
+      {
+        "id": "sukebe_407",
+        "type": "entry",
+        "english": "dirty old man"
+      }
+    ],
+    "dirty old man": [
+      {
+        "id": "sukebe_407",
+        "type": "entry",
+        "pidgin": "sukebe"
+      }
+    ],
+    "tako": [
+      {
+        "id": "tako_169",
+        "type": "entry",
+        "english": "octopus"
+      }
+    ],
+    "octopus": [
+      {
+        "id": "tako_169",
+        "type": "entry",
+        "pidgin": "tako"
+      }
+    ],
+    "talk stink": [
+      {
+        "id": "talk_stink_170",
+        "type": "entry",
+        "english": "gossip"
+      },
+      {
+        "id": "talk_stink_512",
+        "type": "entry",
+        "english": "gossip"
+      }
+    ],
+    "gossip": [
+      {
+        "id": "talk_stink_170",
+        "type": "entry",
+        "pidgin": "talk stink"
+      },
+      {
+        "id": "talk_stink_512",
+        "type": "entry",
+        "pidgin": "talk stink"
+      }
+    ],
+    "bad mouth": [
+      {
+        "id": "talk_stink_170",
+        "type": "entry",
+        "pidgin": "talk stink"
+      },
+      {
+        "id": "talk_stink_512",
+        "type": "entry",
+        "pidgin": "talk stink"
+      }
+    ],
+    "talk story": [
+      {
+        "id": "talk_story_171",
+        "type": "entry",
+        "english": "chat"
+      }
+    ],
+    "chat": [
+      {
+        "id": "talk_story_171",
+        "type": "entry",
+        "pidgin": "talk story"
+      },
+      {
+        "id": "walaau_187",
+        "type": "entry",
+        "pidgin": "walaau"
+      }
+    ],
+    "converse": [
+      {
+        "id": "talk_story_171",
+        "type": "entry",
+        "pidgin": "talk story"
+      }
+    ],
+    "tanks": [
+      {
+        "id": "tanks_172",
+        "type": "entry",
+        "english": "thanks"
+      }
+    ],
+    "thanks": [
+      {
+        "id": "tanks_172",
+        "type": "entry",
+        "pidgin": "tanks"
+      }
+    ],
+    "tantaran": [
+      {
+        "id": "tantaran_408",
+        "type": "entry",
+        "english": "show-off"
+      }
+    ],
+    "show-off": [
+      {
+        "id": "tantaran_408",
+        "type": "entry",
+        "pidgin": "tantaran"
+      }
+    ],
+    "tropical plant with edible root": [
+      {
+        "id": "taro_173",
+        "type": "entry",
+        "pidgin": "taro"
+      }
+    ],
+    "tita": [
+      {
+        "id": "tita_174",
+        "type": "entry",
+        "english": "tough local girl"
+      }
+    ],
+    "tough local girl": [
+      {
+        "id": "tita_174",
+        "type": "entry",
+        "pidgin": "tita"
+      }
+    ],
+    "toe jam": [
+      {
+        "id": "toe_jam_388",
+        "type": "entry",
+        "english": "gunk between toes"
+      }
+    ],
+    "gunk between toes": [
+      {
+        "id": "toe_jam_388",
+        "type": "entry",
+        "pidgin": "toe jam"
+      }
+    ],
+    "tree": [
+      {
+        "id": "tree_175",
+        "type": "entry",
+        "english": "three"
+      }
+    ],
+    "three": [
+      {
+        "id": "tree_175",
+        "type": "entry",
+        "pidgin": "tree"
+      }
+    ],
+    "trippy": [
+      {
+        "id": "trippy_409",
+        "type": "entry",
+        "english": "cool"
+      }
+    ],
+    "try": [
+      {
+        "id": "try_176",
+        "type": "entry",
+        "english": "please"
+      }
+    ],
+    "please": [
+      {
+        "id": "try_176",
+        "type": "entry",
+        "pidgin": "try"
+      }
+    ],
+    "attempt": [
+      {
+        "id": "try_176",
+        "type": "entry",
+        "pidgin": "try"
+      }
+    ],
+    "try move": [
+      {
+        "id": "try_move_177",
+        "type": "entry",
+        "english": "please move"
+      }
+    ],
+    "please move": [
+      {
+        "id": "try_move_177",
+        "type": "entry",
+        "pidgin": "try move"
+      }
+    ],
+    "try wait": [
+      {
+        "id": "try_wait_178",
+        "type": "entry",
+        "english": "wait a moment"
+      }
+    ],
+    "wait a moment": [
+      {
+        "id": "try_wait_178",
+        "type": "entry",
+        "pidgin": "try wait"
+      }
+    ],
+    "turtles": [
+      {
+        "id": "turtles_410",
+        "type": "entry",
+        "english": "thirty"
+      }
+    ],
+    "thirty": [
+      {
+        "id": "turtles_410",
+        "type": "entry",
+        "pidgin": "turtles"
+      }
+    ],
+    "tutu": [
+      {
+        "id": "tutu_179",
+        "type": "entry",
+        "english": "grandparent"
+      }
+    ],
+    "grandparent": [
+      {
+        "id": "tutu_179",
+        "type": "entry",
+        "pidgin": "tutu"
+      }
+    ],
+    "ujee": [
+      {
+        "id": "ujee_411",
+        "type": "entry",
+        "english": "disgusting"
+      }
+    ],
+    "disgusting": [
+      {
+        "id": "ujee_411",
+        "type": "entry",
+        "pidgin": "ujee"
+      }
+    ],
+    "uku": [
+      {
+        "id": "uku_180",
+        "type": "entry",
+        "english": "lice"
+      }
+    ],
+    "lice": [
+      {
+        "id": "uku_180",
+        "type": "entry",
+        "pidgin": "uku"
+      }
+    ],
+    "ukulele": [
+      {
+        "id": "ukulele_181",
+        "type": "entry",
+        "english": "small four-stringed guitar"
+      }
+    ],
+    "small four-stringed guitar": [
+      {
+        "id": "ukulele_181",
+        "type": "entry",
+        "pidgin": "ukulele"
+      }
+    ],
+    "ulu": [
+      {
+        "id": "ulu_182",
+        "type": "entry",
+        "english": "breadfruit"
+      }
+    ],
+    "breadfruit": [
+      {
+        "id": "ulu_182",
+        "type": "entry",
+        "pidgin": "ulu"
+      }
+    ],
+    "unko": [
+      {
+        "id": "unko_183",
+        "type": "entry",
+        "english": "poop"
+      }
+    ],
+    "unreal": [
+      {
+        "id": "unreal_184",
+        "type": "entry",
+        "english": "amazing"
+      }
+    ],
+    "amazing": [
+      {
+        "id": "unreal_184",
+        "type": "entry",
+        "pidgin": "unreal"
+      }
+    ],
+    "unrealz": [
+      {
+        "id": "unrealz_389",
+        "type": "entry",
+        "english": "unbelievable"
+      }
+    ],
+    "unbelievable": [
+      {
+        "id": "unrealz_389",
+        "type": "entry",
+        "pidgin": "unrealz"
+      }
+    ],
+    "vog": [
+      {
+        "id": "vog_185",
+        "type": "entry",
+        "english": "volcanic smog"
+      }
+    ],
+    "volcanic smog": [
+      {
+        "id": "vog_185",
+        "type": "entry",
+        "pidgin": "vog"
+      }
+    ],
+    "wahine": [
+      {
+        "id": "wahine_186",
+        "type": "entry",
+        "english": "woman"
+      }
+    ],
+    "woman": [
+      {
+        "id": "wahine_186",
+        "type": "entry",
+        "pidgin": "wahine"
+      }
+    ],
+    "wakea": [
+      {
+        "id": "wakea_427",
+        "type": "entry",
+        "english": "Sky Father in mythology"
+      }
+    ],
+    "sky father in mythology": [
+      {
+        "id": "wakea_427",
+        "type": "entry",
+        "pidgin": "wakea"
+      }
+    ],
+    "walaau": [
+      {
+        "id": "walaau_187",
+        "type": "entry",
+        "english": "to talk"
+      }
+    ],
+    "to talk": [
+      {
+        "id": "walaau_187",
+        "type": "entry",
+        "pidgin": "walaau"
+      }
+    ],
+    "walaʻau": [
+      {
+        "id": "walaau_390",
+        "type": "entry",
+        "english": "talk"
+      }
+    ],
+    "talk": [
+      {
+        "id": "walaau_390",
+        "type": "entry",
+        "pidgin": "walaʻau"
+      }
+    ],
+    "speak": [
+      {
+        "id": "walaau_390",
+        "type": "entry",
+        "pidgin": "walaʻau"
+      }
+    ],
+    "wana": [
+      {
+        "id": "wana_188",
+        "type": "entry",
+        "english": "sea urchin"
+      }
+    ],
+    "sea urchin": [
+      {
+        "id": "wana_188",
+        "type": "entry",
+        "pidgin": "wana"
+      }
+    ],
+    "wase time": [
+      {
+        "id": "wase_time_391",
+        "type": "entry",
+        "english": "waste time"
+      }
+    ],
+    "waste time": [
+      {
+        "id": "wase_time_391",
+        "type": "entry",
+        "pidgin": "wase time"
+      }
+    ],
+    "wassamattayou": [
+      {
+        "id": "wassamattayou_189",
+        "type": "entry",
+        "english": "what's wrong with you"
+      }
+    ],
+    "what's wrong with you": [
+      {
+        "id": "wassamattayou_189",
+        "type": "entry",
+        "pidgin": "wassamattayou"
+      }
+    ],
+    "wassup": [
+      {
+        "id": "wassup_190",
+        "type": "entry",
+        "english": "what's up"
+      }
+    ],
+    "what's up": [
+      {
+        "id": "wassup_190",
+        "type": "entry",
+        "pidgin": "wassup"
+      }
+    ],
+    "we go": [
+      {
+        "id": "we_go_191",
+        "type": "entry",
+        "english": "let's go"
+      }
+    ],
+    "let's go": [
+      {
+        "id": "we_go_191",
+        "type": "entry",
+        "pidgin": "we go"
+      }
+    ],
+    "wea": [
+      {
+        "id": "wea_192",
+        "type": "entry",
+        "english": "where"
+      }
+    ],
+    "where": [
+      {
+        "id": "wea_192",
+        "type": "entry",
+        "pidgin": "wea"
+      }
+    ],
+    "wen": [
+      {
+        "id": "wen_193",
+        "type": "entry",
+        "english": "past tense marker"
+      }
+    ],
+    "past tense marker": [
+      {
+        "id": "wen_193",
+        "type": "entry",
+        "pidgin": "wen"
+      }
+    ],
+    "whaddsdascoops": [
+      {
+        "id": "whaddsdascoops_413",
+        "type": "entry",
+        "english": "what's going on"
+      }
+    ],
+    "what's going on": [
+      {
+        "id": "whaddsdascoops_413",
+        "type": "entry",
+        "pidgin": "whaddsdascoops"
+      }
+    ],
+    "whatevahz": [
+      {
+        "id": "whatevahz_194",
+        "type": "entry",
+        "english": "whatever"
+      }
+    ],
+    "whatever": [
+      {
+        "id": "whatevahz_194",
+        "type": "entry",
+        "pidgin": "whatevahz"
+      }
+    ],
+    "white kukui blossom": [
+      {
+        "id": "white_kukui_blossom_412",
+        "type": "entry",
+        "english": "official flower of Molokai"
+      }
+    ],
+    "official flower of molokai": [
+      {
+        "id": "white_kukui_blossom_412",
+        "type": "entry",
+        "pidgin": "white kukui blossom"
+      }
+    ],
+    "who da guy?": [
+      {
+        "id": "who_da_guy_392",
+        "type": "entry",
+        "english": "who is that?"
+      }
+    ],
+    "who is that?": [
+      {
+        "id": "who_da_guy_392",
+        "type": "entry",
+        "pidgin": "who da guy?"
+      }
+    ],
+    "wiki wiki": [
+      {
+        "id": "wiki_wiki_195",
+        "type": "entry",
+        "english": "hurry up"
+      }
+    ],
+    "hurry up": [
+      {
+        "id": "wiki_wiki_195",
+        "type": "entry",
+        "pidgin": "wiki wiki"
+      }
+    ],
+    "wikiwiki": [
+      {
+        "id": "wikiwiki_284",
+        "type": "entry",
+        "english": "quickly"
+      }
+    ],
+    "quickly": [
+      {
+        "id": "wikiwiki_284",
+        "type": "entry",
+        "pidgin": "wikiwiki"
+      }
+    ],
+    "hurry": [
+      {
+        "id": "wikiwiki_284",
+        "type": "entry",
+        "pidgin": "wikiwiki"
+      }
+    ],
+    "winnahz": [
+      {
+        "id": "winnahz_414",
+        "type": "entry",
+        "english": "delicious"
+      }
+    ],
+    "wop yo jaw": [
+      {
+        "id": "wop_yo_jaw_415",
+        "type": "entry",
+        "english": "I told you so"
+      }
+    ],
+    "i told you so": [
+      {
+        "id": "wop_yo_jaw_415",
+        "type": "entry",
+        "pidgin": "wop yo jaw"
+      }
+    ],
+    "yeah": [
+      {
+        "id": "yeah_272",
+        "type": "entry",
+        "english": "yes"
+      }
+    ],
+    "yeah no": [
+      {
+        "id": "yeah_no_274",
+        "type": "entry",
+        "english": "I agree"
+      }
+    ],
+    "i agree": [
+      {
+        "id": "yeah_no_274",
+        "type": "entry",
+        "pidgin": "yeah no"
+      }
+    ],
+    "yeah, no?": [
+      {
+        "id": "yeah_no_394",
+        "type": "entry",
+        "english": "agree, right?"
+      }
+    ],
+    "agree, right?": [
+      {
+        "id": "yeah_no_394",
+        "type": "entry",
+        "pidgin": "yeah, no?"
+      }
+    ],
+    "yeah?": [
+      {
+        "id": "yeah_393",
+        "type": "entry",
+        "english": "right?"
+      }
+    ],
+    "you know?": [
+      {
+        "id": "yeah_393",
+        "type": "entry",
+        "pidgin": "yeah?"
+      }
+    ],
+    "yessah": [
+      {
+        "id": "yessah_273",
+        "type": "entry",
+        "english": "yes sir"
+      }
+    ],
+    "yes sir": [
+      {
+        "id": "yessah_273",
+        "type": "entry",
+        "pidgin": "yessah"
+      }
+    ],
+    "yessah blessah": [
+      {
+        "id": "yessah_blessah_395",
+        "type": "entry",
+        "english": "awesome"
+      }
+    ],
+    "yobo": [
+      {
+        "id": "yobo_275",
+        "type": "entry",
+        "english": "Korean person"
+      }
+    ],
+    "korean person": [
+      {
+        "id": "yobo_275",
+        "type": "entry",
+        "pidgin": "yobo"
+      }
+    ],
+    "you know dat": [
+      {
+        "id": "you_know_dat_276",
+        "type": "entry",
+        "english": "yes definitely"
+      }
+    ],
+    "yes definitely": [
+      {
+        "id": "you_know_dat_276",
+        "type": "entry",
+        "pidgin": "you know dat"
+      }
+    ],
+    "you stay go?": [
+      {
+        "id": "you_stay_go_396",
+        "type": "entry",
+        "english": "are you going?"
+      }
+    ],
+    "are you going?": [
+      {
+        "id": "you_stay_go_396",
+        "type": "entry",
+        "pidgin": "you stay go?"
+      }
+    ],
+    "yups": [
+      {
+        "id": "yups_277",
+        "type": "entry",
+        "english": "yes"
+      }
+    ],
+    "zori": [
+      {
+        "id": "zori_285",
+        "type": "entry",
+        "english": "informal footwear"
+      }
+    ],
+    "informal footwear": [
+      {
+        "id": "zori_285",
+        "type": "entry",
+        "pidgin": "zori"
+      }
+    ],
+    "get'um": [
+      {
+        "id": "getum_501",
+        "type": "entry",
+        "english": "go for it"
+      }
+    ],
+    "seize the opportunity": [
+      {
+        "id": "getum_501",
+        "type": "entry",
+        "pidgin": "get'um"
+      }
+    ],
+    "buss laff": [
+      {
+        "id": "buss_laff_502",
+        "type": "entry",
+        "english": "laugh hard"
+      }
+    ],
+    "laugh hard": [
+      {
+        "id": "buss_laff_502",
+        "type": "entry",
+        "pidgin": "buss laff"
+      }
+    ],
+    "crack up": [
+      {
+        "id": "buss_laff_502",
+        "type": "entry",
+        "pidgin": "buss laff"
+      }
+    ],
+    "burst out laughing": [
+      {
+        "id": "buss_laff_502",
+        "type": "entry",
+        "pidgin": "buss laff"
+      }
+    ],
+    "bust 'em up": [
+      {
+        "id": "bust_em_up_503",
+        "type": "entry",
+        "english": "laugh really hard"
+      }
+    ],
+    "laugh really hard": [
+      {
+        "id": "bust_em_up_503",
+        "type": "entry",
+        "pidgin": "bust 'em up"
+      }
+    ],
+    "crack up completely": [
+      {
+        "id": "bust_em_up_503",
+        "type": "entry",
+        "pidgin": "bust 'em up"
+      }
+    ],
+    "break down laughing": [
+      {
+        "id": "bust_em_up_503",
+        "type": "entry",
+        "pidgin": "bust 'em up"
+      }
+    ],
+    "auwe": [
+      {
+        "id": "auwe_504",
+        "type": "entry",
+        "english": "oh my gosh"
+      }
+    ],
+    "oh my gosh": [
+      {
+        "id": "auwe_504",
+        "type": "entry",
+        "pidgin": "auwe"
+      }
+    ],
+    "expression of shock or dismay": [
+      {
+        "id": "auwe_504",
+        "type": "entry",
+        "pidgin": "auwe"
+      }
+    ],
+    "gueren-tee": [
+      {
+        "id": "guerentee_505",
+        "type": "entry",
+        "english": "definitely"
+      }
+    ],
+    "small kid time": [
+      {
+        "id": "small_kid_time_506",
+        "type": "entry",
+        "english": "when I was a kid"
+      }
+    ],
+    "when i was a kid": [
+      {
+        "id": "small_kid_time_506",
+        "type": "entry",
+        "pidgin": "small kid time"
+      }
+    ],
+    "childhood days": [
+      {
+        "id": "small_kid_time_506",
+        "type": "entry",
+        "pidgin": "small kid time"
+      }
+    ],
+    "ballah head": [
+      {
+        "id": "ballah_head_507",
+        "type": "entry",
+        "english": "bald head"
+      }
+    ],
+    "bald head": [
+      {
+        "id": "ballah_head_507",
+        "type": "entry",
+        "pidgin": "ballah head"
+      }
+    ],
+    "no hair": [
+      {
+        "id": "ballah_head_507",
+        "type": "entry",
+        "pidgin": "ballah head"
+      }
+    ],
+    "yeah you": [
+      {
+        "id": "yeah_you_508",
+        "type": "entry",
+        "english": "you're right"
+      }
+    ],
+    "you're right": [
+      {
+        "id": "yeah_you_508",
+        "type": "entry",
+        "pidgin": "yeah you"
+      }
+    ],
+    "i agree with you": [
+      {
+        "id": "yeah_you_508",
+        "type": "entry",
+        "pidgin": "yeah you"
+      }
+    ],
+    "eh, you stay wit' da kine?": [
+      {
+        "id": "eh_you_stay_wit_da_kine_510",
+        "type": "entry",
+        "english": "hey, are you with that thingamajig?"
+      }
+    ],
+    "hey, are you with that thingamajig?": [
+      {
+        "id": "eh_you_stay_wit_da_kine_510",
+        "type": "entry",
+        "pidgin": "eh, you stay wit' da kine?"
+      }
+    ],
+    "are you with that thing?": [
+      {
+        "id": "eh_you_stay_wit_da_kine_510",
+        "type": "entry",
+        "pidgin": "eh, you stay wit' da kine?"
+      }
+    ],
+    "do you have that thing?": [
+      {
+        "id": "eh_you_stay_wit_da_kine_510",
+        "type": "entry",
+        "pidgin": "eh, you stay wit' da kine?"
+      }
+    ],
+    "shoots, brah!": [
+      {
+        "id": "shoots_brah_511",
+        "type": "entry",
+        "english": "alright, brother!"
+      }
+    ],
+    "alright, brother!": [
+      {
+        "id": "shoots_brah_511",
+        "type": "entry",
+        "pidgin": "shoots, brah!"
+      }
+    ],
+    "okay, dude!": [
+      {
+        "id": "shoots_brah_511",
+        "type": "entry",
+        "pidgin": "shoots, brah!"
+      }
+    ],
+    "sounds good, bro!": [
+      {
+        "id": "shoots_brah_511",
+        "type": "entry",
+        "pidgin": "shoots, brah!"
+      }
+    ],
+    "spread rumors": [
+      {
+        "id": "talk_stink_512",
+        "type": "entry",
+        "pidgin": "talk stink"
+      }
+    ],
+    "da bes'!": [
+      {
+        "id": "da_bes_513",
+        "type": "entry",
+        "english": "the best!"
+      }
+    ],
+    "the best!": [
+      {
+        "id": "da_bes_513",
+        "type": "entry",
+        "pidgin": "da bes'!"
+      }
+    ],
+    "awesome!": [
+      {
+        "id": "da_bes_513",
+        "type": "entry",
+        "pidgin": "da bes'!"
+      }
+    ],
+    "excellent!": [
+      {
+        "id": "da_bes_513",
+        "type": "entry",
+        "pidgin": "da bes'!"
+      }
+    ],
+    "go mo' bettah": [
+      {
+        "id": "go_mo_bettah_514",
+        "type": "entry",
+        "english": "go do it better"
+      }
+    ],
+    "go do it better": [
+      {
+        "id": "go_mo_bettah_514",
+        "type": "entry",
+        "pidgin": "go mo' bettah"
+      }
+    ],
+    "do it better": [
+      {
+        "id": "go_mo_bettah_514",
+        "type": "entry",
+        "pidgin": "go mo' bettah"
+      }
+    ],
+    "you should do better": [
+      {
+        "id": "go_mo_bettah_514",
+        "type": "entry",
+        "pidgin": "go mo' bettah"
+      }
+    ],
+    "bugger": [
+      {
+        "id": "buggah_515",
+        "type": "entry",
+        "pidgin": "buggah"
+      }
+    ],
+    "person": [
+      {
+        "id": "buggah_515",
+        "type": "entry",
+        "pidgin": "buggah"
+      }
+    ],
+    "mahalo, for da hookup!": [
+      {
+        "id": "mahalo_for_da_hookup_516",
+        "type": "entry",
+        "english": "thank you for the connection!"
+      }
+    ],
+    "thank you for the connection!": [
+      {
+        "id": "mahalo_for_da_hookup_516",
+        "type": "entry",
+        "pidgin": "mahalo, for da hookup!"
+      }
+    ],
+    "thanks for the favor!": [
+      {
+        "id": "mahalo_for_da_hookup_516",
+        "type": "entry",
+        "pidgin": "mahalo, for da hookup!"
+      }
+    ],
+    "thank you for hooking me up!": [
+      {
+        "id": "mahalo_for_da_hookup_516",
+        "type": "entry",
+        "pidgin": "mahalo, for da hookup!"
+      }
+    ],
+    "get choke": [
+      {
+        "id": "get_choke_517",
+        "type": "entry",
+        "english": "there's a lot"
+      }
+    ],
+    "there's a lot": [
+      {
+        "id": "get_choke_517",
+        "type": "entry",
+        "pidgin": "get choke"
+      }
+    ],
+    "have plenty": [
+      {
+        "id": "get_choke_517",
+        "type": "entry",
+        "pidgin": "get choke"
+      }
+    ],
+    "lots of": [
+      {
+        "id": "get_choke_517",
+        "type": "entry",
+        "pidgin": "get choke"
+      }
+    ],
+    "make funny": [
+      {
+        "id": "make_funny_518",
+        "type": "entry",
+        "english": "to play a joke on someone"
+      }
+    ],
+    "to play a joke on someone": [
+      {
+        "id": "make_funny_518",
+        "type": "entry",
+        "pidgin": "make funny"
+      }
+    ],
+    "to tease": [
+      {
+        "id": "make_funny_518",
+        "type": "entry",
+        "pidgin": "make funny"
+      }
+    ],
+    "to mess around with": [
+      {
+        "id": "make_funny_518",
+        "type": "entry",
+        "pidgin": "make funny"
+      }
+    ],
+    "howzit, uncle?": [
+      {
+        "id": "howzit_uncle_519",
+        "type": "entry",
+        "english": "how are you, mister?"
+      }
+    ],
+    "how are you, mister?": [
+      {
+        "id": "howzit_uncle_519",
+        "type": "entry",
+        "pidgin": "howzit, uncle?"
+      }
+    ],
+    "how's it going, sir?": [
+      {
+        "id": "howzit_uncle_519",
+        "type": "entry",
+        "pidgin": "howzit, uncle?"
+      }
+    ],
+    "hello, older gentleman": [
+      {
+        "id": "howzit_uncle_519",
+        "type": "entry",
+        "pidgin": "howzit, uncle?"
+      }
+    ],
+    "ho, da bagah's goin' chicken skin!": [
+      {
+        "id": "ho_da_bagah_goin_chicken_skin_520",
+        "type": "entry",
+        "english": "wow, that guy is getting goosebumps!"
+      }
+    ],
+    "wow, that guy is getting goosebumps!": [
+      {
+        "id": "ho_da_bagah_goin_chicken_skin_520",
+        "type": "entry",
+        "pidgin": "ho, da bagah's goin' chicken skin!"
+      }
+    ],
+    "look, he's getting chills!": [
+      {
+        "id": "ho_da_bagah_goin_chicken_skin_520",
+        "type": "entry",
+        "pidgin": "ho, da bagah's goin' chicken skin!"
+      }
+    ],
+    "that person has goosebumps!": [
+      {
+        "id": "ho_da_bagah_goin_chicken_skin_520",
+        "type": "entry",
+        "pidgin": "ho, da bagah's goin' chicken skin!"
+      }
+    ],
+    "you like eat, eh?": [
+      {
+        "id": "you_like_eat_eh_521",
+        "type": "entry",
+        "english": "you want to eat, right?"
+      }
+    ],
+    "you want to eat, right?": [
+      {
+        "id": "you_like_eat_eh_521",
+        "type": "entry",
+        "pidgin": "you like eat, eh?"
+      }
+    ],
+    "do you want to eat?": [
+      {
+        "id": "you_like_eat_eh_521",
+        "type": "entry",
+        "pidgin": "you like eat, eh?"
+      }
+    ],
+    "hungry?": [
+      {
+        "id": "you_like_eat_eh_521",
+        "type": "entry",
+        "pidgin": "you like eat, eh?"
+      }
+    ],
+    "da kine, da whole kine": [
+      {
+        "id": "da_kine_da_whole_kine_522",
+        "type": "entry",
+        "english": "that thing, the whole thing"
+      }
+    ],
+    "that thing, the whole thing": [
+      {
+        "id": "da_kine_da_whole_kine_522",
+        "type": "entry",
+        "pidgin": "da kine, da whole kine"
+      }
+    ],
+    "everything related to that": [
+      {
+        "id": "da_kine_da_whole_kine_522",
+        "type": "entry",
+        "pidgin": "da kine, da whole kine"
+      }
+    ],
+    "all of that stuff": [
+      {
+        "id": "da_kine_da_whole_kine_522",
+        "type": "entry",
+        "pidgin": "da kine, da whole kine"
+      }
+    ],
+    "no can, da buggah stay broke": [
+      {
+        "id": "no_can_da_buggah_stay_broke_523",
+        "type": "entry",
+        "english": "can't, the thing is broken"
+      }
+    ],
+    "can't, the thing is broken": [
+      {
+        "id": "no_can_da_buggah_stay_broke_523",
+        "type": "entry",
+        "pidgin": "no can, da buggah stay broke"
+      }
+    ],
+    "unable to, it's broken": [
+      {
+        "id": "no_can_da_buggah_stay_broke_523",
+        "type": "entry",
+        "pidgin": "no can, da buggah stay broke"
+      }
+    ],
+    "no way, it's not working": [
+      {
+        "id": "no_can_da_buggah_stay_broke_523",
+        "type": "entry",
+        "pidgin": "no can, da buggah stay broke"
+      }
+    ],
+    "relaxing": [
+      {
+        "id": "cruising_524",
+        "type": "entry",
+        "pidgin": "cruising"
+      }
+    ],
+    "hanging out": [
+      {
+        "id": "cruising_524",
+        "type": "entry",
+        "pidgin": "cruising"
+      }
+    ],
+    "taking it easy": [
+      {
+        "id": "cruising_524",
+        "type": "entry",
+        "pidgin": "cruising"
+      }
+    ],
+    "driving around leisurely": [
+      {
+        "id": "cruising_524",
+        "type": "entry",
+        "pidgin": "cruising"
+      }
+    ]
+  }
+}

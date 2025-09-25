@@ -112,13 +112,41 @@ function copyJavaScriptFiles() {
 
 // Copy data files
 function copyDataFiles() {
-    const dataFiles = [
+    // Check if new consolidated structure exists
+    const hasNewStructure = fs.existsSync('data/master/pidgin-master.json');
+
+    if (hasNewStructure) {
+        console.log('📦 Using new consolidated data structure');
+
+        // Copy new structure directories
+        const newDataDirs = ['master', 'views', 'indexes', 'content'];
+        newDataDirs.forEach(dir => {
+            const srcDir = path.join('data', dir);
+            const destDir = path.join('public', 'data', dir);
+
+            if (fs.existsSync(srcDir)) {
+                fs.mkdirSync(destDir, { recursive: true });
+                const files = fs.readdirSync(srcDir);
+                files.forEach(file => {
+                    if (file.endsWith('.json')) {
+                        const srcPath = path.join(srcDir, file);
+                        const destPath = path.join(destDir, file);
+                        fs.copyFileSync(srcPath, destPath);
+                        console.log(`📊 Copied: ${dir}/${file}`);
+                    }
+                });
+            }
+        });
+    }
+
+    // Always copy legacy files for backward compatibility
+    const legacyFiles = [
         { src: 'data/dictionary/pidgin-dictionary.json', dest: 'public/data/dictionary/pidgin-dictionary.json' },
         { src: 'data/phrases/phrases-data.js', dest: 'public/js/data/phrases-data.js' },
         { src: 'data/phrases/stories-data.js', dest: 'public/js/data/stories-data.js' }
     ];
 
-    dataFiles.forEach(({ src, dest }) => {
+    legacyFiles.forEach(({ src, dest }) => {
         if (fs.existsSync(src)) {
             // Ensure destination directory exists
             fs.mkdirSync(path.dirname(dest), { recursive: true });
