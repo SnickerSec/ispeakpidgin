@@ -2,7 +2,7 @@
 class PidginTranslator {
     constructor() {
         // Use both the original translation dict and the comprehensive data
-        this.dict = pidginPhrases.translationDict;
+        this.dict = (typeof pidginPhrases !== 'undefined' && pidginPhrases.translationDict) ? pidginPhrases.translationDict : {};
         this.comprehensiveDict = this.createComprehensiveDict();
         this.reverseDict = this.createReverseDict();
         this.contextPatterns = this.createContextPatterns();
@@ -736,3 +736,9 @@ class PidginTranslator {
 
 // Initialize translator
 const translator = new PidginTranslator();
+
+// Make available as pidginTranslator for consistency
+const pidginTranslator = translator;
+
+// Global exposure for other modules
+window.pidginTranslator = pidginTranslator;
