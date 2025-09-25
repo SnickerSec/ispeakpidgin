@@ -12,8 +12,10 @@ class PidginTranslator {
         // Try to initialize immediately if data is available
         this.tryInitialize();
 
-        // Also listen for data load event
+        // Also listen for data load event and force re-initialization
         window.addEventListener('pidginDataLoaded', () => {
+            console.log('🔄 JSON data loaded, re-initializing translator...');
+            this.initialized = false; // Force re-initialization
             this.tryInitialize();
         });
     }
@@ -21,17 +23,27 @@ class PidginTranslator {
     tryInitialize() {
         if (this.initialized) return;
 
+        console.log('🔄 Translator trying to initialize...', {
+            pidginDataLoader: typeof pidginDataLoader !== 'undefined',
+            dataLoaded: typeof pidginDataLoader !== 'undefined' ? pidginDataLoader.loaded : false,
+            pidginPhrases: typeof pidginPhrases !== 'undefined'
+        });
+
         // Try to use pidginDataLoader if available
         if (typeof pidginDataLoader !== 'undefined' && pidginDataLoader.loaded) {
+            console.log('✅ Using pidginDataLoader (JSON data)');
             this.comprehensiveDict = this.createComprehensiveDictFromLoader();
             this.reverseDict = this.createReverseDict();
             this.initialized = true;
         }
         // Fallback to pidginPhrases if available
         else if (typeof pidginPhrases !== 'undefined') {
+            console.log('⚠️ Falling back to pidginPhrases (old data)');
             this.createDictFromPhrases();
             this.reverseDict = this.createReverseDict();
             this.initialized = true;
+        } else {
+            console.log('❌ No data sources available');
         }
     }
 
