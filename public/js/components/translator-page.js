@@ -527,15 +527,5 @@ if (document.readyState === 'loading') {
     initMobileMenu();
 }
 
-// Text-to-speech function
-function speakText(text, options = {}) {
-    if ('speechSynthesis' in window && typeof pidginSpeech !== 'undefined') {
-        pidginSpeech.speak(text, options).catch(err => {
-            console.error('Speech synthesis failed:', err);
-        });
-    } else if ('speechSynthesis' in window) {
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.rate = 0.9;
-        speechSynthesis.speak(utterance);
-    }
-}
+// Text-to-speech function - use global speakText from main.js
+// (removed duplicate function to prevent dual audio playback)

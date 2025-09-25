@@ -160,15 +160,25 @@ class ElevenLabsSpeech {
         const maxRetries = 2; // Retry failed API calls
         let attempt = 0;
 
-        while (attempt <= maxRetries) {
-            try {
-                // Wait for initialization
-                await this.initializationPromise;
+        // Prevent concurrent speak attempts
+        if (this.currentSpeakPromise) {
+            console.log('Speech already in progress, stopping previous attempt');
+            this.stop();
+            // Wait a bit for cleanup
+            await new Promise(resolve => setTimeout(resolve, 100));
+        }
 
-                // Only stop if we're going to play new audio (not during retries)
-                if (attempt === 0) {
-                    this.stop();
-                }
+        // Store current speak promise to prevent concurrent calls
+        const speakPromise = (async () => {
+            while (attempt <= maxRetries) {
+                try {
+                    // Wait for initialization
+                    await this.initializationPromise;
+
+                    // Only stop if we're going to play new audio (not during retries)
+                    if (attempt === 0) {
+                        this.stop();
+                    }
 
                 // Apply pronunciation corrections for Pidgin words
                 const correctedText = this.applyPronunciationCorrections(text);
@@ -272,6 +282,18 @@ class ElevenLabsSpeech {
                     this.fallbackToWebSpeech(text);
                     return;
                 }
+            }
+        })();
+
+        // Store the promise to prevent concurrent calls
+        this.currentSpeakPromise = speakPromise;
+
+        try {
+            await speakPromise;
+        } finally {
+            // Clear the promise when done
+            if (this.currentSpeakPromise === speakPromise) {
+                this.currentSpeakPromise = null;
             }
         }
     }
