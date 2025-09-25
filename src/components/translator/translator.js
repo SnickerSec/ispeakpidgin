@@ -637,6 +637,52 @@ class PidginTranslator {
         return bestMatch;
     }
 
+    // Check if translation was a successful phrase match
+    wasSuccessfulPhrase(originalText, translatedText, direction) {
+        const originalLower = originalText.toLowerCase().trim();
+        const translatedLower = translatedText.toLowerCase().trim();
+
+        if (direction === 'eng-to-pidgin') {
+            // Common English phrases that successfully translate to Pidgin
+            const successfulPhrases = {
+                'how are you': 'howzit',
+                'hello': 'aloha',
+                'goodbye': 'aloha',
+                'thank you': 'mahalo',
+                'thanks': 'mahalo',
+                'what\'s up': 'howzit',
+                'see you later': 'a hui hou',
+                'take care': 'malama pono',
+                'how\'s it going': 'howzit',
+                'yes': 'yeah',
+                'okay': 'shoots',
+                'all right': 'shoots',
+                'food': 'grindz',
+                'eat': 'grindz',
+                'finished': 'pau',
+                'done': 'pau',
+                'crazy': 'pilau'
+            };
+
+            return successfulPhrases[originalLower] === translatedLower;
+        } else {
+            // Pidgin to English phrase matches
+            const successfulPhrases = {
+                'howzit': 'how are you',
+                'aloha': 'hello',
+                'mahalo': 'thank you',
+                'shoots': 'okay',
+                'grindz': 'food',
+                'pau': 'finished',
+                'pilau': 'crazy',
+                'brah': 'brother',
+                'da kine': 'the thing'
+            };
+
+            return successfulPhrases[originalLower] === translatedLower;
+        }
+    }
+
     // Analyze translation quality and generate suggestions
     analyzeTranslation(originalText, translatedText, direction) {
         const originalWords = originalText.toLowerCase().split(' ');
@@ -646,21 +692,26 @@ class PidginTranslator {
         let totalWords = originalWords.length;
         let suggestions = [];
 
-        // Count how many words were actually translated
-        for (let word of originalWords) {
-            const cleanWord = word.replace(/[.,!?;:]/g, '');
-            if (direction === 'eng-to-pidgin') {
-                if (this.dict[cleanWord] || this.comprehensiveDict[cleanWord]) {
-                    translatedCount++;
-                }
-            } else {
-                if (this.reverseDict[cleanWord]) {
-                    translatedCount++;
+        // Check if this was a successful phrase translation first
+        const isSuccessfulPhrase = this.wasSuccessfulPhrase(originalText, translatedText, direction);
+
+        if (!isSuccessfulPhrase) {
+            // Count how many words were actually translated
+            for (let word of originalWords) {
+                const cleanWord = word.replace(/[.,!?;:]/g, '');
+                if (direction === 'eng-to-pidgin') {
+                    if (this.dict[cleanWord] || this.comprehensiveDict[cleanWord]) {
+                        translatedCount++;
+                    }
+                } else {
+                    if (this.reverseDict[cleanWord]) {
+                        translatedCount++;
+                    }
                 }
             }
         }
 
-        const confidence = totalWords > 0 ? (translatedCount / totalWords) * 100 : 0;
+        const confidence = isSuccessfulPhrase ? 95 : (totalWords > 0 ? (translatedCount / totalWords) * 100 : 0);
 
         // Generate suggestions based on untranslated words
         if (confidence < 80) {
