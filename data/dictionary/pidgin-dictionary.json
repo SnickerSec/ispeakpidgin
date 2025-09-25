@@ -2,7 +2,7 @@
   "metadata": {
     "version": "2.0",
     "lastUpdated": "2025-09-22",
-    "totalEntries": 437,
+    "totalEntries": 438,
     "description": "Comprehensive Hawaiian Pidgin Dictionary",
     "contributors": [
       "ChokePidgin.com"
@@ -9439,6 +9439,35 @@
         "expressions",
         "agreement",
         "conversation"
+      ]
+    },
+    {
+      "id": "shoots_509",
+      "pidgin": "shoots",
+      "english": [
+        "alright",
+        "okay",
+        "sounds good",
+        "goodbye",
+        "see you later",
+        "later"
+      ],
+      "category": "expressions",
+      "pronunciation": "SHOOTS",
+      "examples": [
+        "Shoots, I'll see you tomorrow",
+        "We go beach? Shoots!",
+        "Shoots den, laters"
+      ],
+      "usage": "Can be used both as agreement/acknowledgment and as a casual goodbye",
+      "culturalNote": "Versatile expression that works as both 'okay/sounds good' and 'see you later'",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "greetings",
+        "agreement",
+        "farewell"
       ]
     }
   ]
