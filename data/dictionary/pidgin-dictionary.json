@@ -2,7 +2,7 @@
   "metadata": {
     "version": "2.0",
     "lastUpdated": "2025-09-22",
-    "totalEntries": 438,
+    "totalEntries": 453,
     "description": "Comprehensive Hawaiian Pidgin Dictionary",
     "contributors": [
       "ChokePidgin.com"
@@ -9468,6 +9468,370 @@
         "greetings",
         "agreement",
         "farewell"
+      ]
+    },
+    {
+      "id": "eh_you_stay_wit_da_kine_510",
+      "pidgin": "eh, you stay wit' da kine?",
+      "english": [
+        "hey, are you with that thingamajig?",
+        "are you with that thing?",
+        "do you have that thing?"
+      ],
+      "category": "expressions",
+      "pronunciation": "EH, you STAY wit dah KYNE",
+      "examples": [
+        "Eh, you stay wit' da kine we wen talk about?",
+        "You stay wit' da kine or wat?",
+        "Ho, you still stay wit' da kine from yesterday?"
+      ],
+      "usage": "Used when you can't remember the word for something specific",
+      "culturalNote": "Perfect example of 'da kine' versatility in Pidgin conversation",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "questions",
+        "slang"
+      ]
+    },
+    {
+      "id": "shoots_brah_511",
+      "pidgin": "shoots, brah!",
+      "english": [
+        "alright, brother!",
+        "okay, dude!",
+        "sounds good, bro!"
+      ],
+      "category": "expressions",
+      "pronunciation": "SHOOTS, brah",
+      "examples": [
+        "We go beach today? Shoots, brah!",
+        "Can you help me move? Shoots, brah!",
+        "Thanks for da ride. Shoots, brah!"
+      ],
+      "usage": "Term of agreement or approval between friends",
+      "culturalNote": "Classic combination showing agreement and brotherhood",
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": [
+        "expressions",
+        "agreement",
+        "slang"
+      ]
+    },
+    {
+      "id": "talk_stink_512",
+      "pidgin": "talk stink",
+      "english": [
+        "gossip",
+        "spread rumors",
+        "bad mouth"
+      ],
+      "category": "actions",
+      "pronunciation": "TALK stink",
+      "examples": [
+        "No talk stink about my cousin",
+        "She stay talk stink about everybody",
+        "Why you like talk stink?"
+      ],
+      "usage": "Speaking negatively about someone behind their back",
+      "culturalNote": "Common phrase warning against gossip in local communities",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "actions",
+        "social"
+      ]
+    },
+    {
+      "id": "da_bes_513",
+      "pidgin": "da bes'!",
+      "english": [
+        "the best!",
+        "awesome!",
+        "excellent!"
+      ],
+      "category": "expressions",
+      "pronunciation": "dah BES",
+      "examples": [
+        "Dis grindz is da bes'!",
+        "Your new ride is da bes'!",
+        "Ho, da bes' waves today!"
+      ],
+      "usage": "Expressing that something is the best or excellent",
+      "culturalNote": "Enthusiastic way to praise something",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "praise"
+      ]
+    },
+    {
+      "id": "go_mo_bettah_514",
+      "pidgin": "go mo' bettah",
+      "english": [
+        "go do it better",
+        "do it better",
+        "you should do better"
+      ],
+      "category": "expressions",
+      "pronunciation": "go MOH BET-tah",
+      "examples": [
+        "Dat no good, go mo' bettah",
+        "Try again, go mo' bettah dis time",
+        "You can go mo' bettah than dat"
+      ],
+      "usage": "Encouraging someone to improve or do something better",
+      "culturalNote": "Constructive way to suggest improvement",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "encouragement"
+      ]
+    },
+    {
+      "id": "buggah_515",
+      "pidgin": "buggah",
+      "english": [
+        "bugger",
+        "guy",
+        "person",
+        "thing"
+      ],
+      "category": "people",
+      "pronunciation": "BUG-gah",
+      "examples": [
+        "Dat buggah is crazy",
+        "Which buggah you talking about?",
+        "Da buggah stay broken"
+      ],
+      "usage": "Refers to a person or sometimes a thing",
+      "culturalNote": "Versatile term for referring to people or objects",
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": [
+        "people",
+        "slang"
+      ]
+    },
+    {
+      "id": "mahalo_for_da_hookup_516",
+      "pidgin": "mahalo, for da hookup!",
+      "english": [
+        "thank you for the connection!",
+        "thanks for the favor!",
+        "thank you for hooking me up!"
+      ],
+      "category": "expressions",
+      "pronunciation": "mah-HAH-loh, for dah HOOK-up",
+      "examples": [
+        "Mahalo, for da hookup with da job!",
+        "Mahalo, for da hookup with your cousin",
+        "Ho, mahalo for da hookup with da tickets!"
+      ],
+      "usage": "Thanking someone for a favor, connection, or helping you get something",
+      "culturalNote": "Shows appreciation for someone's help in connecting you to opportunities",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "gratitude"
+      ]
+    },
+    {
+      "id": "get_choke_517",
+      "pidgin": "get choke",
+      "english": [
+        "there's a lot",
+        "have plenty",
+        "lots of"
+      ],
+      "category": "expressions",
+      "pronunciation": "GET choke",
+      "examples": [
+        "Get choke people at da beach today",
+        "Da store get choke selection",
+        "We get choke work fo' do"
+      ],
+      "usage": "Indicating there's a large amount or many of something",
+      "culturalNote": "Pidgin way of saying 'plenty' or 'a lot'",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "quantity"
+      ]
+    },
+    {
+      "id": "make_funny_518",
+      "pidgin": "make funny",
+      "english": [
+        "to play a joke on someone",
+        "to tease",
+        "to mess around with"
+      ],
+      "category": "actions",
+      "pronunciation": "MAKE FUN-ny",
+      "examples": [
+        "No make funny with me",
+        "He stay make funny with his sister",
+        "Stop make funny, I stay serious"
+      ],
+      "usage": "Playing jokes or teasing someone",
+      "culturalNote": "Light-hearted teasing, usually among friends or family",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "actions",
+        "humor"
+      ]
+    },
+    {
+      "id": "howzit_uncle_519",
+      "pidgin": "howzit, uncle?",
+      "english": [
+        "how are you, mister?",
+        "how's it going, sir?",
+        "hello, older gentleman"
+      ],
+      "category": "greetings",
+      "pronunciation": "HOW-zit, UN-kul",
+      "examples": [
+        "Howzit, uncle? You stay good?",
+        "Uncle! Howzit? Long time no see",
+        "Howzit, uncle, you need help?"
+      ],
+      "usage": "Respectful way to greet an older man, not necessarily family",
+      "culturalNote": "Shows respect for elders, 'uncle' is used for any older man in the community",
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": [
+        "greetings",
+        "respect"
+      ]
+    },
+    {
+      "id": "ho_da_bagah_goin_chicken_skin_520",
+      "pidgin": "ho, da bagah's goin' chicken skin!",
+      "english": [
+        "wow, that guy is getting goosebumps!",
+        "look, he's getting chills!",
+        "that person has goosebumps!"
+      ],
+      "category": "expressions",
+      "pronunciation": "HO, dah BAG-ah's goin CHICK-en skin",
+      "examples": [
+        "Ho, da bagah's goin' chicken skin from da scary story",
+        "Look da bagah, goin' chicken skin from da cold",
+        "Da bagah wen go chicken skin when he heard da music"
+      ],
+      "usage": "Observing someone getting goosebumps or chills",
+      "culturalNote": "Combines several Pidgin elements: 'ho' (wow), 'bagah' (person), 'chicken skin' (goosebumps)",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "emotions"
+      ]
+    },
+    {
+      "id": "you_like_eat_eh_521",
+      "pidgin": "you like eat, eh?",
+      "english": [
+        "you want to eat, right?",
+        "do you want to eat?",
+        "hungry?"
+      ],
+      "category": "questions",
+      "pronunciation": "you LIKE eat, EH",
+      "examples": [
+        "You like eat, eh? I going cook",
+        "Stay lunch time, you like eat, eh?",
+        "You like eat, eh? Get choke food"
+      ],
+      "usage": "Asking if someone wants to eat, often offering food",
+      "culturalNote": "Shows hospitality, common way to offer food in local culture",
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": [
+        "questions",
+        "food"
+      ]
+    },
+    {
+      "id": "da_kine_da_whole_kine_522",
+      "pidgin": "da kine, da whole kine",
+      "english": [
+        "that thing, the whole thing",
+        "everything related to that",
+        "all of that stuff"
+      ],
+      "category": "expressions",
+      "pronunciation": "dah KYNE, dah WHOLE kyne",
+      "examples": [
+        "We need da kine, da whole kine for da party",
+        "He brought da kine, da whole kine setup",
+        "Get da kine, da whole kine ready?"
+      ],
+      "usage": "Referring to everything related to something, the complete set",
+      "culturalNote": "Shows how 'da kine' can be expanded for emphasis",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "slang"
+      ]
+    },
+    {
+      "id": "no_can_da_buggah_stay_broke_523",
+      "pidgin": "no can, da buggah stay broke",
+      "english": [
+        "can't, the thing is broken",
+        "unable to, it's broken",
+        "no way, it's not working"
+      ],
+      "category": "expressions",
+      "pronunciation": "NO can, dah BUG-gah stay BROKE",
+      "examples": [
+        "You like use my car? No can, da buggah stay broke",
+        "Can fix da computer? No can, da buggah stay broke",
+        "No can help you, da buggah stay broke"
+      ],
+      "usage": "Explaining that you can't do something because the item/tool is broken",
+      "culturalNote": "Common explanation combining inability with broken equipment",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "inability"
+      ]
+    },
+    {
+      "id": "cruising_524",
+      "pidgin": "cruising",
+      "english": [
+        "relaxing",
+        "hanging out",
+        "taking it easy",
+        "driving around leisurely"
+      ],
+      "category": "actions",
+      "pronunciation": "CRUIS-ing",
+      "examples": [
+        "Just cruising at da beach today",
+        "We stay cruising around town",
+        "No rush, just cruising"
+      ],
+      "usage": "Relaxing or moving at a leisurely pace",
+      "culturalNote": "Embodies the laid-back island lifestyle",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "actions",
+        "relaxation"
       ]
     }
   ]

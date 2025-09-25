@@ -368,6 +368,76 @@ const pidginPhrases = {
             pidgin: "I stay so moe moe after dat meal",
             english: "I'm so sleepy after that meal",
             usage: "Post-meal drowsiness"
+        },
+        {
+            pidgin: "Eh, you stay wit' da kine?",
+            english: "Hey, are you with that thingamajig?",
+            usage: "Used when you can't remember the word for something specific"
+        },
+        {
+            pidgin: "Shoots, brah! Sounds good!",
+            english: "Alright, brother! Sounds good!",
+            usage: "Term of agreement or approval between friends"
+        },
+        {
+            pidgin: "No talk stink about my cousin",
+            english: "Don't gossip about my cousin",
+            usage: "Warning against speaking negatively about someone"
+        },
+        {
+            pidgin: "Dis grindz is da bes'!",
+            english: "This food is the best!",
+            usage: "Expressing that something is excellent"
+        },
+        {
+            pidgin: "Go mo' bettah next time",
+            english: "Do it better next time",
+            usage: "Encouraging someone to improve"
+        },
+        {
+            pidgin: "Which buggah you talking about?",
+            english: "Which person are you talking about?",
+            usage: "Asking for clarification about someone"
+        },
+        {
+            pidgin: "Mahalo, for da hookup with da job!",
+            english: "Thank you for the connection with the job!",
+            usage: "Thanking someone for a favor or connection"
+        },
+        {
+            pidgin: "Get choke people at da beach today",
+            english: "There are a lot of people at the beach today",
+            usage: "Indicating there's a large amount of something"
+        },
+        {
+            pidgin: "No make funny with me, I stay serious",
+            english: "Don't joke with me, I'm being serious",
+            usage: "Telling someone to stop teasing"
+        },
+        {
+            pidgin: "Howzit, uncle? You stay good?",
+            english: "How are you, sir? Are you doing well?",
+            usage: "Respectful greeting for an older man"
+        },
+        {
+            pidgin: "You like eat, eh? I going cook",
+            english: "You want to eat, right? I'm going to cook",
+            usage: "Offering food with local hospitality"
+        },
+        {
+            pidgin: "We need da kine, da whole kine for da party",
+            english: "We need everything, the whole setup for the party",
+            usage: "Referring to everything related to something"
+        },
+        {
+            pidgin: "No can, da buggah stay broke",
+            english: "Can't do it, the thing is broken",
+            usage: "Explaining inability due to broken equipment"
+        },
+        {
+            pidgin: "Just cruising at da beach today",
+            english: "Just relaxing at the beach today",
+            usage: "Describing a laid-back, leisurely day"
         }
     ],
 
@@ -710,7 +780,42 @@ const pidginPhrases = {
         "what's up": "whaddsdascoops",
         "I told you so": "wop yo jaw",
         "see I was right": "wop yo jaw",
-        "told you": "wop yo jaw"
+        "told you": "wop yo jaw",
+
+        // New additions from latest phrases
+        "gossip": "talk stink",
+        "spread rumors": "talk stink",
+        "bad mouth": "talk stink",
+        "the best": "da bes'",
+        "awesome": "da bes'",
+        "excellent": "da bes'",
+        "do better": "go mo' bettah",
+        "improve": "go mo' bettah",
+        "guy": "buggah",
+        "person": "buggah",
+        "bugger": "buggah",
+        "connection": "hookup",
+        "favor": "hookup",
+        "there's a lot": "get choke",
+        "have plenty": "get choke",
+        "lots of": "get choke",
+        "play a joke": "make funny",
+        "tease": "make funny",
+        "mess around": "make funny",
+        "older man": "uncle",
+        "mister": "uncle",
+        "sir": "uncle",
+        "want to eat": "like eat",
+        "hungry": "like eat",
+        "the whole thing": "da whole kine",
+        "everything": "da whole kine",
+        "all of that": "da whole kine",
+        "it's broken": "da buggah stay broke",
+        "not working": "da buggah stay broke",
+        "relaxing": "cruising",
+        "hanging out": "cruising",
+        "taking it easy": "cruising",
+        "driving around": "cruising"
     },
 
     // Greetings and common expressions
