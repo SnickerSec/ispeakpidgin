@@ -109,9 +109,9 @@ npm run rebuild-data         # Consolidate + build
 ```
 
 #### Add New Entries
-1. Edit `data/master/pidgin-master.json`
-2. Run `npm run consolidate-data`
-3. Build and deploy
+1. Edit `data/_legacy_backup/dictionary/pidgin-dictionary.json`
+2. Run `npm run consolidate-data` (regenerates master from backup sources)
+3. Build and deploy with `npm run build`
 
 #### Test Migration
 Open `tools/test-data-migration.html` in browser

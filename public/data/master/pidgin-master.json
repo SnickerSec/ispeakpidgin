@@ -7446,7 +7446,8 @@
       "id": "puinsai_382",
       "pidgin": "puinsai",
       "english": [
-        "annoying child"
+        "annoying child",
+        "having sex"
       ],
       "category": "slang",
       "pronunciation": "poo-IN-sai",
@@ -14092,6 +14093,13 @@
           "id": "puinsai_382"
         }
       ],
+      "having sex": [
+        {
+          "pidgin": "puinsai",
+          "confidence": 1,
+          "id": "puinsai_382"
+        }
+      ],
       "hole": [
         {
           "pidgin": "puka",
@@ -18323,7 +18331,8 @@
         "Hawaiian owl"
       ],
       "puinsai": [
-        "annoying child"
+        "annoying child",
+        "having sex"
       ],
       "puka": [
         "hole",
