@@ -53,9 +53,11 @@ class PidginDataLoader {
 
     // Get entries by letter
     getByLetter(letter) {
-        return this.getAllEntries().filter(entry =>
-            entry.pidgin.charAt(0).toLowerCase() === letter.toLowerCase()
-        );
+        return this.getAllEntries().filter(entry => {
+            // Remove leading apostrophes and special characters, then check first letter
+            const cleanWord = entry.pidgin.replace(/^[''ʻ]+/, '');
+            return cleanWord.charAt(0).toLowerCase() === letter.toLowerCase();
+        });
     }
 
     // Get random entries

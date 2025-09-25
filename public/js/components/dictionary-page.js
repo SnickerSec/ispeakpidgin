@@ -3,26 +3,52 @@ document.addEventListener('DOMContentLoaded', function() {
     initDictionaryPage();
 });
 
-function initDictionaryPage() {
+async function initDictionaryPage() {
     // Initialize all dictionary page components
     setupSearch();
     setupFilters();
     setupBackToTop();
 
-    // Wait for dictionary to initialize before setting up alphabet browser
-    setTimeout(() => {
-        setupAlphabetBrowser();
-        loadInitialEntries();
+    // Wait for dictionary data to be fully loaded
+    await waitForDictionaryLoad();
 
-        const actualCount = pidginDictionary.getTotalCount();
-        console.log('🌺 Dictionary page initialized with', actualCount, 'unique entries');
+    // Now set up alphabet browser with loaded data
+    setupAlphabetBrowser();
+    loadInitialEntries();
 
-        // Update the page header with accurate count
-        const headerText = document.querySelector('.dictionary-search-container p');
-        if (headerText) {
-            headerText.textContent = `Explore over ${actualCount} Hawaiian Pidgin terms with pronunciations, examples, and cultural context`;
-        }
-    }, 500);
+    const actualCount = pidginDictionary.getTotalCount();
+    console.log('🌺 Dictionary page initialized with', actualCount, 'unique entries');
+
+    // Update the page header with accurate count
+    const headerText = document.querySelector('.dictionary-search-container p');
+    if (headerText) {
+        headerText.textContent = `Explore over ${actualCount} Hawaiian Pidgin terms with pronunciations, examples, and cultural context`;
+    }
+}
+
+// Helper function to wait for dictionary to load
+async function waitForDictionaryLoad() {
+    // Check if already loaded
+    if (pidginDictionary && pidginDictionary.dataLoader && pidginDictionary.dataLoader.loaded) {
+        return;
+    }
+
+    // Wait for the pidginDataLoaded event
+    return new Promise((resolve) => {
+        const checkLoaded = () => {
+            if (pidginDictionary && pidginDictionary.dataLoader && pidginDictionary.dataLoader.loaded) {
+                resolve();
+            } else {
+                setTimeout(checkLoaded, 100);
+            }
+        };
+
+        // Also listen for the custom event
+        window.addEventListener('pidginDataLoaded', resolve, { once: true });
+
+        // Start checking
+        checkLoaded();
+    });
 }
 
 // Search functionality
