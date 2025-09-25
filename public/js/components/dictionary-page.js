@@ -7,12 +7,13 @@ function initDictionaryPage() {
     // Initialize all dictionary page components
     setupSearch();
     setupFilters();
-    setupAlphabetBrowser();
     setupBackToTop();
-    loadInitialEntries();
 
-    // Wait for dictionary to initialize and get accurate count
+    // Wait for dictionary to initialize before setting up alphabet browser
     setTimeout(() => {
+        setupAlphabetBrowser();
+        loadInitialEntries();
+
         const actualCount = pidginDictionary.getTotalCount();
         console.log('🌺 Dictionary page initialized with', actualCount, 'unique entries');
 
@@ -21,7 +22,7 @@ function initDictionaryPage() {
         if (headerText) {
             headerText.textContent = `Explore over ${actualCount} Hawaiian Pidgin terms with pronunciations, examples, and cultural context`;
         }
-    }, 1000);
+    }, 500);
 }
 
 // Search functionality
@@ -149,7 +150,7 @@ function setupAlphabetBrowser() {
 
 // Get count of words starting with a letter
 function getLetterCount(letter) {
-    if (pidginDictionary.isNewSystem) {
+    if (pidginDictionary.isNewSystem && pidginDictionary.dataLoader && pidginDictionary.dataLoader.loaded) {
         return pidginDictionary.dataLoader.getByLetter(letter).length;
     }
     return 0;
