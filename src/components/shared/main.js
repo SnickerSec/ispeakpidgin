@@ -118,7 +118,11 @@ function initDailyPhrase() {
 
     if (speakBtn) {
         speakBtn.addEventListener('click', () => {
-            speakText(dailyPhrase.pidgin);
+            if (dailyPhrase && dailyPhrase.pidgin) {
+                speakText(dailyPhrase.pidgin);
+            } else {
+                console.warn('Daily phrase not available for speech');
+            }
         });
     }
 }
