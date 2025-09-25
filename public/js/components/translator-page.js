@@ -20,6 +20,12 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initTranslatorPage() {
+    // Prevent multiple initialization
+    if (window.translatorPageInitialized) {
+        console.log('Translator page already initialized, skipping...');
+        return;
+    }
+
     try {
         // Initialize components
         setupTranslationDirection();
@@ -28,6 +34,9 @@ function initTranslatorPage() {
         setupTranslationHistory();
         setupCharacterCounter();
         setupVoiceInput();
+
+        window.translatorPageInitialized = true;
+        console.log('Translator page initialized successfully');
     } catch (error) {
         console.error('Error initializing translator page:', error);
     }
