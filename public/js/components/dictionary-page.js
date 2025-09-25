@@ -193,11 +193,13 @@ function displayResults(entries) {
 
     if (entries.length === 0) {
         grid.innerHTML = '';
+        grid.classList.add('hidden');
         if (noResults) noResults.classList.remove('hidden');
         return;
     }
 
-    // Hide no results
+    // Show grid and hide no results
+    grid.classList.remove('hidden');
     if (noResults) noResults.classList.add('hidden');
 
     // Sort entries alphabetically
@@ -512,11 +514,10 @@ function updateSearchStats(count, searchTerm = '', category = '') {
 
 // Load initial entries
 function loadInitialEntries() {
-    setTimeout(() => {
-        const allEntries = pidginDictionary.getByCategory('all');
-        displayResults(allEntries);
-        updateSearchStats(allEntries.length);
-    }, 100);
+    // No delay needed - dictionary is already loaded
+    const allEntries = pidginDictionary.getByCategory('all');
+    displayResults(allEntries);
+    updateSearchStats(allEntries.length);
 }
 
 // Back to top functionality
