@@ -291,17 +291,47 @@
         <div class="container mx-auto">
 
             <!-- Daily Phrase Card -->
-            <div class="bg-white rounded-lg shadow-lg p-8 mb-12 max-w-3xl mx-auto">
-                <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-6 text-gray-800 whitespace-nowrap">
-                    🌴 Today's Pidgin Phrase 🌴
-                </h2>
-                <div id="daily-phrase" class="text-center">
-                    <p class="text-4xl font-bold text-blue-600 mb-4" id="phrase-pidgin">Howzit, brah!</p>
-                    <p class="text-2xl text-gray-600 mb-4" id="phrase-english">How are you, friend!</p>
-                    <p class="text-lg text-gray-500 mb-6" id="phrase-usage">A casual greeting used among friends in Hawaii</p>
-                    <button id="speak-phrase" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-semibold">
-                        🔊 Hear it
-                    </button>
+            <div class="relative bg-gradient-to-br from-orange-100 via-yellow-50 to-pink-100 rounded-3xl shadow-2xl p-8 mb-12 max-w-4xl mx-auto border-2 border-orange-200 overflow-hidden">
+                <!-- Decorative tropical background elements -->
+                <div class="absolute inset-0 opacity-10">
+                    <div class="absolute top-4 left-4 text-6xl">🌺</div>
+                    <div class="absolute top-8 right-8 text-4xl">🏄</div>
+                    <div class="absolute bottom-4 left-8 text-5xl">🌊</div>
+                    <div class="absolute bottom-8 right-4 text-4xl">🥥</div>
+                </div>
+
+                <!-- Header with refresh button -->
+                <div class="relative z-10 flex justify-between items-center mb-8">
+                    <div class="flex-1"></div>
+                    <div class="inline-block bg-gradient-to-r from-orange-400 to-pink-400 rounded-full px-8 py-4 shadow-lg">
+                        <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-center text-white drop-shadow-lg whitespace-nowrap">
+                            🌴 Today's Pidgin Phrase 🌴
+                        </h2>
+                    </div>
+                    <div class="flex-1 flex justify-end">
+                        <button id="refresh-phrase" class="bg-white/80 backdrop-blur-sm text-orange-600 px-4 py-2 rounded-full hover:bg-white hover:scale-105 transition-all font-semibold shadow-lg border-2 border-orange-300" title="Get new phrase">
+                            🔄 New Phrase
+                        </button>
+                    </div>
+                </div>
+
+                <div id="daily-phrase" class="text-center relative z-10">
+                    <!-- Main phrase with tropical styling -->
+                    <div class="bg-white/90 backdrop-blur-sm rounded-2xl p-6 mb-6 shadow-xl border-2 border-yellow-300">
+                        <p class="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent mb-4 drop-shadow-sm" id="phrase-pidgin">Howzit, brah!</p>
+                        <p class="text-xl sm:text-2xl text-gray-700 mb-4 font-medium" id="phrase-english">How are you, friend!</p>
+                        <p class="text-base sm:text-lg text-gray-600 italic leading-relaxed" id="phrase-usage">A casual greeting used among friends in Hawaii</p>
+                    </div>
+
+                    <!-- Action buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <button id="speak-phrase" class="bg-gradient-to-r from-blue-500 to-teal-500 text-white px-8 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg border-2 border-blue-300">
+                            🔊 Hear Island Voice
+                        </button>
+                        <button id="favorite-phrase" class="bg-gradient-to-r from-pink-500 to-orange-500 text-white px-8 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg border-2 border-pink-300">
+                            ❤️ Save Phrase
+                        </button>
+                    </div>
                 </div>
             </div>
 

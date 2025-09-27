@@ -101,51 +101,145 @@ async function initDailyPhrase() {
     const phraseEnglish = document.getElementById('phrase-english');
     const phraseUsage = document.getElementById('phrase-usage');
     const speakBtn = document.getElementById('speak-phrase');
+    const refreshBtn = document.getElementById('refresh-phrase');
+    const favoriteBtn = document.getElementById('favorite-phrase');
 
     if (!phrasePidgin || !phraseEnglish || !phraseUsage) {
         console.log('Daily phrase elements not found');
         return;
     }
 
-    // Wait for phrases to load if needed
-    if (typeof getDailyPhrase === 'undefined') {
-        console.log('getDailyPhrase function not available yet, retrying...');
-        setTimeout(() => initDailyPhrase(), 1000);
-        return;
-    }
-
-    let dailyPhrase = getDailyPhrase();
-
-    // If phrases aren't loaded yet, wait for them
-    if (!dailyPhrase && window.phrasesLoadPromise) {
-        console.log('Waiting for phrases to load for daily phrase...');
-        try {
-            await window.phrasesLoadPromise;
-            dailyPhrase = getDailyPhrase();
-        } catch (error) {
-            console.log('Could not load phrases for daily phrase');
+    // Function to load and display a phrase
+    async function loadPhrase(forceNew = false) {
+        // Wait for phrases to load if needed
+        if (typeof getDailyPhrase === 'undefined') {
+            console.log('getDailyPhrase function not available yet, retrying...');
+            setTimeout(() => initDailyPhrase(), 1000);
             return;
         }
+
+        let dailyPhrase = forceNew ? getRandomPhrase() : getDailyPhrase();
+
+        // If phrases aren't loaded yet, wait for them
+        if (!dailyPhrase && window.phrasesLoadPromise) {
+            console.log('Waiting for phrases to load for daily phrase...');
+            try {
+                await window.phrasesLoadPromise;
+                dailyPhrase = forceNew ? getRandomPhrase() : getDailyPhrase();
+            } catch (error) {
+                console.log('Could not load phrases for daily phrase');
+                return;
+            }
+        }
+
+        if (dailyPhrase) {
+            console.log('✅ Setting daily phrase:', dailyPhrase.pidgin);
+
+            // Add animation effect
+            const phraseContainer = document.getElementById('daily-phrase');
+            if (phraseContainer && forceNew) {
+                phraseContainer.style.transform = 'scale(0.95)';
+                phraseContainer.style.opacity = '0.7';
+
+                setTimeout(() => {
+                    phrasePidgin.textContent = dailyPhrase.pidgin;
+                    phraseEnglish.textContent = dailyPhrase.english;
+                    phraseUsage.textContent = dailyPhrase.context || dailyPhrase.usage || '';
+
+                    phraseContainer.style.transform = 'scale(1)';
+                    phraseContainer.style.opacity = '1';
+                }, 200);
+            } else {
+                phrasePidgin.textContent = dailyPhrase.pidgin;
+                phraseEnglish.textContent = dailyPhrase.english;
+                phraseUsage.textContent = dailyPhrase.context || dailyPhrase.usage || '';
+            }
+
+            // Store current phrase for buttons
+            window.currentDailyPhrase = dailyPhrase;
+        } else {
+            console.log('No daily phrase available, keeping default');
+        }
     }
 
-    if (dailyPhrase) {
-        console.log('✅ Setting daily phrase:', dailyPhrase.pidgin);
-        phrasePidgin.textContent = dailyPhrase.pidgin;
-        phraseEnglish.textContent = dailyPhrase.english;
-        phraseUsage.textContent = dailyPhrase.context || dailyPhrase.usage || '';
+    // Initial load
+    await loadPhrase();
 
-        // Set up speak button
-        if (speakBtn) {
-            speakBtn.addEventListener('click', () => {
-                if (dailyPhrase && dailyPhrase.pidgin) {
-                    speakText(dailyPhrase.pidgin);
-                } else {
-                    console.warn('Daily phrase not available for speech');
-                }
+    // Set up speak button
+    if (speakBtn) {
+        speakBtn.addEventListener('click', () => {
+            if (window.currentDailyPhrase && window.currentDailyPhrase.pidgin) {
+                speakText(window.currentDailyPhrase.pidgin);
+            } else {
+                console.warn('Daily phrase not available for speech');
+            }
+        });
+    }
+
+    // Set up refresh button
+    if (refreshBtn) {
+        refreshBtn.addEventListener('click', async () => {
+            refreshBtn.innerHTML = '🔄 Loading...';
+            refreshBtn.disabled = true;
+
+            await loadPhrase(true); // Force new phrase
+
+            setTimeout(() => {
+                refreshBtn.innerHTML = '🔄 New Phrase';
+                refreshBtn.disabled = false;
+            }, 500);
+        });
+    }
+
+    // Set up favorite button
+    if (favoriteBtn) {
+        favoriteBtn.addEventListener('click', () => {
+            if (window.currentDailyPhrase) {
+                saveFavoritePhrase(window.currentDailyPhrase);
+                favoriteBtn.innerHTML = '✅ Saved!';
+                favoriteBtn.style.background = 'linear-gradient(to right, #10b981, #059669)';
+
+                setTimeout(() => {
+                    favoriteBtn.innerHTML = '❤️ Save Phrase';
+                    favoriteBtn.style.background = 'linear-gradient(to right, #ec4899, #f97316)';
+                }, 2000);
+            }
+        });
+    }
+}
+
+// Helper function to get a random phrase (for refresh functionality)
+function getRandomPhrase() {
+    if (typeof window !== 'undefined' && window.pidginPhrases && window.pidginPhrases.length > 0) {
+        const randomIndex = Math.floor(Math.random() * window.pidginPhrases.length);
+        return window.pidginPhrases[randomIndex];
+    }
+    return null;
+}
+
+// Function to save favorite phrases to localStorage
+function saveFavoritePhrase(phrase) {
+    try {
+        let favorites = JSON.parse(localStorage.getItem('favoritePhrases') || '[]');
+
+        // Check if phrase already exists
+        const exists = favorites.some(fav => fav.pidgin === phrase.pidgin);
+        if (!exists) {
+            favorites.unshift({
+                ...phrase,
+                savedAt: new Date().toISOString()
             });
+
+            // Keep only last 20 favorites
+            favorites = favorites.slice(0, 20);
+
+            localStorage.setItem('favoritePhrases', JSON.stringify(favorites));
+            console.log('✅ Phrase saved to favorites');
+        } else {
+            console.log('Phrase already in favorites');
         }
-    } else {
-        console.log('No daily phrase available, keeping default');
+    } catch (error) {
+        console.error('Failed to save favorite phrase:', error);
     }
 }
 
