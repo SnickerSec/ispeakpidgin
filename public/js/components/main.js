@@ -118,14 +118,14 @@ async function initDailyPhrase() {
             return;
         }
 
-        let dailyPhrase = forceNew ? getRandomPhrase() : getDailyPhrase();
+        let dailyPhrase = getDailyPhrase(); // getDailyPhrase already returns random phrases
 
         // If phrases aren't loaded yet, wait for them
         if (!dailyPhrase && window.phrasesLoadPromise) {
             console.log('Waiting for phrases to load for daily phrase...');
             try {
                 await window.phrasesLoadPromise;
-                dailyPhrase = forceNew ? getRandomPhrase() : getDailyPhrase();
+                dailyPhrase = getDailyPhrase();
             } catch (error) {
                 console.log('Could not load phrases for daily phrase');
                 return;
@@ -179,13 +179,13 @@ async function initDailyPhrase() {
     // Set up refresh button
     if (refreshBtn) {
         refreshBtn.addEventListener('click', async () => {
-            refreshBtn.innerHTML = '🔄 Loading...';
+            refreshBtn.innerHTML = '⏳';
             refreshBtn.disabled = true;
 
             await loadPhrase(true); // Force new phrase
 
             setTimeout(() => {
-                refreshBtn.innerHTML = '🔄 New Phrase';
+                refreshBtn.innerHTML = '🔄';
                 refreshBtn.disabled = false;
             }, 500);
         });
