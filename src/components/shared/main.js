@@ -1009,7 +1009,7 @@ function showFullStory(storyId) {
             <!-- Story Content -->
             <div class="p-8">
                 <div class="prose prose-lg max-w-none">
-                    <div class="text-gray-800 leading-relaxed text-lg whitespace-pre-line">${story.content}</div>
+                    <div class="text-gray-800 leading-relaxed text-lg whitespace-pre-line">${story.pidginText}</div>
                 </div>
             </div>
 
@@ -1049,7 +1049,7 @@ function showFullStory(storyId) {
 
     // Listen to story
     listenBtn.addEventListener('click', () => {
-        speakText(story.content);
+        speakText(story.pidginText);
         listenBtn.innerHTML = '🔊 Playing...';
         setTimeout(() => {
             listenBtn.innerHTML = '🔊 Listen to Story';
@@ -1066,7 +1066,7 @@ function showFullStory(storyId) {
             });
         } else {
             // Fallback for browsers without Web Share API
-            navigator.clipboard.writeText(`${story.title}\n\n${story.content}\n\nFrom ChokePidgin.com`).then(() => {
+            navigator.clipboard.writeText(`${story.title}\n\n${story.pidginText}\n\nFrom ChokePidgin.com`).then(() => {
                 shareBtn.innerHTML = '✓ Copied!';
                 setTimeout(() => {
                     shareBtn.innerHTML = '📤 Share Story';
@@ -1230,7 +1230,7 @@ function showStoryModal(story) {
             <!-- Story Content -->
             <div class="p-8">
                 <div class="prose prose-lg max-w-none">
-                    <div class="text-gray-800 leading-relaxed text-lg whitespace-pre-line">${story.content}</div>
+                    <div class="text-gray-800 leading-relaxed text-lg whitespace-pre-line">${story.pidginText}</div>
                 </div>
 
                 <!-- Story Actions -->
@@ -1263,7 +1263,7 @@ function showStoryModal(story) {
     // Speak story functionality
     modal.querySelector('.speak-story').addEventListener('click', () => {
         if (window.speechModule && window.speechModule.speakText) {
-            window.speechModule.speakText(story.content);
+            window.speechModule.speakText(story.pidginText);
         }
     });
 }
