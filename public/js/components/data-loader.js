@@ -7,6 +7,7 @@ class PidginDataLoader {
         this.viewType = null; // dictionary, translator, learning
         this.searchIndex = null;
         this.pronunciationMap = null;
+        this.masterData = null; // Complete master data including stories
 
         // Backward compatibility flags
         this.isNewSystem = false;
@@ -31,6 +32,9 @@ class PidginDataLoader {
 
             // Load indexes for enhanced functionality
             await this.loadIndexes();
+
+            // Load master data (includes stories and complete dataset)
+            await this.loadMasterData();
 
             this.isNewSystem = true;
             console.log('✅ Using new consolidated data structure');
@@ -83,6 +87,25 @@ class PidginDataLoader {
         } catch (error) {
             console.error(`❌ Failed to load ${viewType} view:`, error);
             throw error;
+        }
+    }
+
+    // Load master data including stories and complete dataset
+    async loadMasterData() {
+        try {
+            console.log('📚 Loading complete master data...');
+            const response = await fetch('data/master/pidgin-master.json');
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            this.masterData = await response.json();
+            console.log('✅ Master data loaded with', this.masterData.metadata.totalStories, 'stories');
+            return this.masterData;
+        } catch (error) {
+            console.warn('❌ Master data not loaded:', error);
+            return null;
         }
     }
 
