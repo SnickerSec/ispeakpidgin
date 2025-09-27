@@ -178,15 +178,19 @@ async function initDailyPhrase() {
 
     // Set up refresh button
     if (refreshBtn) {
+        const originalHTML = refreshBtn.innerHTML;
+
         refreshBtn.addEventListener('click', async () => {
-            refreshBtn.innerHTML = '⏳';
+            refreshBtn.innerHTML = '<span class="text-sm">⏳</span>';
             refreshBtn.disabled = true;
+            refreshBtn.style.transform = 'scale(0.9)';
 
             await loadPhrase(true); // Force new phrase
 
             setTimeout(() => {
-                refreshBtn.innerHTML = '🔄';
+                refreshBtn.innerHTML = originalHTML;
                 refreshBtn.disabled = false;
+                refreshBtn.style.transform = 'scale(1)';
             }, 500);
         });
     }
