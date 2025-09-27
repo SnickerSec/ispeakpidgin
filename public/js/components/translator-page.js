@@ -20,12 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initTranslatorPage() {
-    // Prevent multiple initialization
-    if (window.translatorPageInitialized) {
-        console.log('Translator page already initialized, skipping...');
-        return;
-    }
-
     try {
         // Initialize components
         setupTranslationDirection();
@@ -34,9 +28,6 @@ function initTranslatorPage() {
         setupTranslationHistory();
         setupCharacterCounter();
         setupVoiceInput();
-
-        window.translatorPageInitialized = true;
-        console.log('Translator page initialized successfully');
     } catch (error) {
         console.error('Error initializing translator page:', error);
     }
@@ -311,8 +302,10 @@ function setupTranslationHistory() {
 
     // Clear history button
     clearHistoryBtn?.addEventListener('click', () => {
-        localStorage.removeItem('translationHistory');
-        loadHistory();
+        if (confirm('Clear all translation history?')) {
+            localStorage.removeItem('translationHistory');
+            loadHistory();
+        }
     });
 }
 
@@ -320,32 +313,22 @@ function setupTranslationHistory() {
 function addToHistory(original, translation, direction) {
     let history = JSON.parse(localStorage.getItem('translationHistory') || '[]');
 
-    // Check if this exact translation already exists in recent history (prevent duplicates)
-    const isDuplicate = history.some(entry =>
-        entry.original === original &&
-        entry.translation === translation &&
-        entry.direction === direction
-    );
+    // Add new translation to beginning
+    history.unshift({
+        original,
+        translation,
+        direction,
+        timestamp: new Date().toISOString()
+    });
 
-    // Only add if it's not a duplicate
-    if (!isDuplicate) {
-        // Add new translation to beginning
-        history.unshift({
-            original,
-            translation,
-            direction,
-            timestamp: new Date().toISOString()
-        });
+    // Keep only last 10 translations
+    history = history.slice(0, 10);
 
-        // Keep only last 5 translations
-        history = history.slice(0, 5);
+    // Save to localStorage
+    localStorage.setItem('translationHistory', JSON.stringify(history));
 
-        // Save to localStorage
-        localStorage.setItem('translationHistory', JSON.stringify(history));
-
-        // Update display
-        loadHistory();
-    }
+    // Update display
+    loadHistory();
 }
 
 // Load and display history
@@ -536,5 +519,15 @@ if (document.readyState === 'loading') {
     initMobileMenu();
 }
 
-// Text-to-speech function - use global speakText from main.js
-// (removed duplicate function to prevent dual audio playback)
+// Text-to-speech function
+function speakText(text, options = {}) {
+    if ('speechSynthesis' in window && typeof pidginSpeech !== 'undefined') {
+        pidginSpeech.speak(text, options).catch(err => {
+            console.error('Speech synthesis failed:', err);
+        });
+    } else if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 0.9;
+        speechSynthesis.speak(utterance);
+    }
+}

@@ -348,22 +348,20 @@ function initTranslator() {
 
             currentDirection = 'eng-to-pidgin';
 
-            // Update button styles
-            engToPidginBtn.classList.add('bg-green-500', 'text-white');
-            engToPidginBtn.classList.remove('hover:bg-gray-200');
-            pidginToEngBtn.classList.remove('bg-green-500', 'text-white');
-            pidginToEngBtn.classList.add('hover:bg-gray-200');
+            // Update button styles - ensure complete class reset
+            engToPidginBtn.className = 'px-6 py-2 rounded-full bg-green-500 text-white transition';
+            pidginToEngBtn.className = 'px-6 py-2 rounded-full hover:bg-gray-200 transition';
 
             // Update labels and placeholders
-            inputLabel.textContent = 'English';
-            outputLabel.textContent = 'Pidgin';
+            if (inputLabel) inputLabel.textContent = 'English';
+            if (outputLabel) outputLabel.textContent = 'Pidgin';
             translatorInput.placeholder = 'Type English text here...';
-            translateBtn.textContent = 'Translate to Pidgin';
+            if (translateBtn) translateBtn.textContent = 'Translate to Pidgin';
 
             // Clear input field and output
             translatorInput.value = '';
             translatorOutput.textContent = '';
-            speakTranslationBtn.classList.add('hidden');
+            if (speakTranslationBtn) speakTranslationBtn.classList.add('hidden');
 
             // Remove any existing additional elements
             const existingElements = translatorOutput.querySelectorAll('.pronunciation-guide, .confidence-indicator, .suggestions-box');
@@ -376,22 +374,20 @@ function initTranslator() {
 
             currentDirection = 'pidgin-to-eng';
 
-            // Update button styles
-            pidginToEngBtn.classList.add('bg-green-500', 'text-white');
-            pidginToEngBtn.classList.remove('hover:bg-gray-200');
-            engToPidginBtn.classList.remove('bg-green-500', 'text-white');
-            engToPidginBtn.classList.add('hover:bg-gray-200');
+            // Update button styles - ensure complete class reset
+            pidginToEngBtn.className = 'px-6 py-2 rounded-full bg-green-500 text-white transition';
+            engToPidginBtn.className = 'px-6 py-2 rounded-full hover:bg-gray-200 transition';
 
             // Update labels and placeholders
-            inputLabel.textContent = 'Pidgin';
-            outputLabel.textContent = 'English';
+            if (inputLabel) inputLabel.textContent = 'Pidgin';
+            if (outputLabel) outputLabel.textContent = 'English';
             translatorInput.placeholder = 'Type Pidgin text here...';
-            translateBtn.textContent = 'Translate to English';
+            if (translateBtn) translateBtn.textContent = 'Translate to English';
 
             // Clear input field and output
             translatorInput.value = '';
             translatorOutput.textContent = '';
-            speakTranslationBtn.classList.add('hidden');
+            if (speakTranslationBtn) speakTranslationBtn.classList.add('hidden');
 
             // Remove any existing additional elements
             const existingElements = translatorOutput.querySelectorAll('.pronunciation-guide, .confidence-indicator, .suggestions-box');
