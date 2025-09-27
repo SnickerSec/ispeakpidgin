@@ -418,26 +418,33 @@ function initLearningHub() {
         btn.addEventListener('click', () => {
             currentLevel = btn.dataset.level;
 
-            // Update button styles - ensure complete class reset for each level
+            // First reset ALL buttons to inactive state - completely clear className
             levelBtns.forEach(b => {
+                // Start fresh with base classes only
+                b.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl font-semibold transition-all text-sm sm:text-base';
+
+                // Add hover effects based on level
                 const level = b.dataset.level;
                 if (level === 'beginner') {
-                    b.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl hover:bg-gradient-to-r hover:from-green-400 hover:to-emerald-500 hover:text-white font-semibold transition-all text-sm sm:text-base';
+                    b.className += ' hover:bg-gradient-to-r hover:from-green-400 hover:to-emerald-500 hover:text-white';
                 } else if (level === 'intermediate') {
-                    b.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white font-semibold transition-all text-sm sm:text-base';
+                    b.className += ' hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white';
                 } else if (level === 'advanced') {
-                    b.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl hover:bg-gradient-to-r hover:from-red-500 hover:to-pink-500 hover:text-white font-semibold transition-all text-sm sm:text-base';
+                    b.className += ' hover:bg-gradient-to-r hover:from-red-500 hover:to-pink-500 hover:text-white';
                 }
             });
 
-            // Set active button styles based on level
+            // Set active button styles for clicked button
             const level = btn.dataset.level;
+            btn.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl text-white font-bold shadow-lg transform hover:scale-105 transition-all text-sm sm:text-base';
+
+            // Add the appropriate gradient background for active state
             if (level === 'beginner') {
-                btn.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold shadow-lg transform hover:scale-105 transition-all text-sm sm:text-base';
+                btn.className += ' bg-gradient-to-r from-green-500 to-emerald-600';
             } else if (level === 'intermediate') {
-                btn.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold shadow-lg transform hover:scale-105 transition-all text-sm sm:text-base';
+                btn.className += ' bg-gradient-to-r from-orange-500 to-orange-600';
             } else if (level === 'advanced') {
-                btn.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl bg-gradient-to-r from-red-500 to-pink-600 text-white font-bold shadow-lg transform hover:scale-105 transition-all text-sm sm:text-base';
+                btn.className += ' bg-gradient-to-r from-red-500 to-pink-600';
             }
 
             // Load lessons for selected level
