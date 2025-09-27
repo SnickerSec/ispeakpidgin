@@ -1208,6 +1208,17 @@ async function initStoryCorner() {
 function showStoryModal(story) {
     if (!story) return;
 
+    // Debug logging
+    console.log('🔍 Story modal opened for:', story.title);
+    console.log('📚 Story object:', story);
+    console.log('📝 Story pidginText:', story.pidginText);
+    console.log('📝 Story keys:', Object.keys(story));
+
+    // Get the story content with fallbacks
+    const storyContent = story.pidginText || story.content || story.text ||
+                        (story.englishTranslation && `English: ${story.englishTranslation}`) ||
+                        'Story content not available. Please try refreshing the page.';
+
     // Create modal
     const modal = document.createElement('div');
     modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
@@ -1220,7 +1231,7 @@ function showStoryModal(story) {
                 <div class="flex justify-between items-start">
                     <div>
                         <span class="text-4xl mb-2 block">📚</span>
-                        <h2 class="text-3xl font-bold mb-2">${story.title}</h2>
+                        <h2 class="text-3xl font-bold mb-2">${story.title || 'Hawaiian Pidgin Story'}</h2>
                         <p class="text-green-100 text-lg">Pidgin Story Corner</p>
                     </div>
                     <button class="close-modal text-white hover:text-green-200 text-3xl font-bold transition">×</button>
@@ -1230,7 +1241,7 @@ function showStoryModal(story) {
             <!-- Story Content -->
             <div class="p-8">
                 <div class="prose prose-lg max-w-none">
-                    <div class="text-gray-800 leading-relaxed text-lg whitespace-pre-line">${story.pidginText}</div>
+                    <div class="text-gray-800 leading-relaxed text-lg whitespace-pre-line">${storyContent}</div>
                 </div>
 
                 <!-- Story Actions -->
