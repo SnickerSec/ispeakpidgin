@@ -1391,8 +1391,10 @@ function showStoryModal(story) {
 
     // Speak story functionality
     modal.querySelector('.speak-story').addEventListener('click', () => {
-        if (window.speechModule && window.speechModule.speakText) {
-            window.speechModule.speakText(story.pidginText);
+        if (story.pidginText) {
+            speakText(story.pidginText);
+        } else {
+            console.warn('No pidgin text available for story audio');
         }
     });
 }
