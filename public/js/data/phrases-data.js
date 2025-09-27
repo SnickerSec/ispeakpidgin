@@ -8,7 +8,7 @@ async function loadPhrasesFromView() {
         const phrasesData = await response.json();
 
         // Update global variables
-        window.pidginPhrases = phrasesData.pidginPhrases || [];
+        window.pidginPhrases = phrasesData.phrases || [];
         window.phrasesData = phrasesData; // Full structured data
 
         console.log(`✅ Loaded ${phrasesData.metadata.totalPhrases} phrases from consolidated data system`);
