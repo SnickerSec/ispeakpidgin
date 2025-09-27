@@ -415,13 +415,27 @@ function initLearningHub() {
         btn.addEventListener('click', () => {
             currentLevel = btn.dataset.level;
 
-            // Update button styles
+            // Update button styles - ensure complete class reset for each level
             levelBtns.forEach(b => {
-                b.classList.remove('bg-green-500', 'text-white');
-                b.classList.add('hover:bg-gray-100');
+                const level = b.dataset.level;
+                if (level === 'beginner') {
+                    b.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl hover:bg-gradient-to-r hover:from-green-400 hover:to-emerald-500 hover:text-white font-semibold transition-all';
+                } else if (level === 'intermediate') {
+                    b.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white font-semibold transition-all';
+                } else if (level === 'advanced') {
+                    b.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl hover:bg-gradient-to-r hover:from-red-500 hover:to-pink-500 hover:text-white font-semibold transition-all';
+                }
             });
-            btn.classList.add('bg-green-500', 'text-white');
-            btn.classList.remove('hover:bg-gray-100');
+
+            // Set active button styles based on level
+            const level = btn.dataset.level;
+            if (level === 'beginner') {
+                btn.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold shadow-lg transform hover:scale-105 transition-all';
+            } else if (level === 'intermediate') {
+                btn.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold shadow-lg transform hover:scale-105 transition-all';
+            } else if (level === 'advanced') {
+                btn.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl bg-gradient-to-r from-red-500 to-pink-600 text-white font-bold shadow-lg transform hover:scale-105 transition-all';
+            }
 
             // Load lessons for selected level
             loadLessons(currentLevel);
