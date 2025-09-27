@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hawaiian Pidgin Learning Hub - ChokePidgin.com | Learn Island Speak</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" href="/favicon.ico">
+
+    <!-- Meta Tags -->
+    <meta name="description" content="Master Hawaiian Pidgin with structured lessons from beginner to advanced. Interactive exercises, progress tracking, and authentic island expressions.">
+    <meta name="keywords" content="learn Hawaiian Pidgin, Pidgin lessons, Hawaii language course, island speak tutorial, Pidgin learning hub">
+    <meta name="author" content="ChokePidgin.com">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="en">
+    <meta name="geo.region" content="US-HI">
+    <meta name="geo.placename" content="Hawaii">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Hawaiian Pidgin Learning Hub - ChokePidgin.com">
+    <meta property="og:description" content="Master Hawaiian Pidgin with structured lessons and progress tracking">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chokepidgin.com/learning-hub.html">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://chokepidgin.com/learning-hub.html">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/learning-hub.css">
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="/" class="text-2xl font-bold text-purple-600">ChokePidgin</a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="/" class="text-gray-700 hover:text-purple-600 transition">Home</a>
+                    <a href="/dictionary.html" class="text-gray-700 hover:text-purple-600 transition">Dictionary</a>
+                    <a href="/translator.html" class="text-gray-700 hover:text-purple-600 transition">Translator</a>
+                    <a href="/learning-hub.html" class="text-purple-600 font-semibold">Learning Hub</a>
+                    <a href="/ask-local.html" class="text-gray-700 hover:text-purple-600 transition">Ask a Local</a>
+                </div>
+                <button class="md:hidden mobile-menu-button">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="mobile-menu hidden md:hidden">
+            <a href="/" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Home</a>
+            <a href="/dictionary.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Dictionary</a>
+            <a href="/translator.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Translator</a>
+            <a href="/learning-hub.html" class="block px-4 py-2 bg-purple-50 text-purple-600 font-semibold">Learning Hub</a>
+            <a href="/ask-local.html" class="block px-4 py-2 text-gray-700 hover:bg-purple-50">Ask a Local</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="learning-hero bg-gradient-to-r from-purple-600 to-blue-600 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Hawaiian Pidgin Learning Hub</h1>
+            <p class="text-xl mb-8">Master da kine from beginner to advanced with structured lessons</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <div class="bg-white/20 backdrop-blur-md rounded-lg px-4 py-2">
+                    <span class="text-sm">Your Level:</span>
+                    <span class="font-bold ml-2" id="userLevel">Beginner</span>
+                </div>
+                <div class="bg-white/20 backdrop-blur-md rounded-lg px-4 py-2">
+                    <span class="text-sm">Progress:</span>
+                    <span class="font-bold ml-2" id="overallProgress">0%</span>
+                </div>
+                <div class="bg-white/20 backdrop-blur-md rounded-lg px-4 py-2">
+                    <span class="text-sm">Lessons Completed:</span>
+                    <span class="font-bold ml-2" id="lessonsCompleted">0/30</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Overview -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-bold mb-4">Your Learning Journey</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="text-center">
+                    <div class="relative pt-1">
+                        <div class="text-xs text-gray-600 mb-2">Beginner</div>
+                        <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-green-100">
+                            <div id="beginnerProgress" style="width:0%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500 transition-all duration-500"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <div class="relative pt-1">
+                        <div class="text-xs text-gray-600 mb-2">Intermediate</div>
+                        <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-yellow-100">
+                            <div id="intermediateProgress" style="width:0%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-yellow-500 transition-all duration-500"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <div class="relative pt-1">
+                        <div class="text-xs text-gray-600 mb-2">Advanced</div>
+                        <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-purple-100">
+                            <div id="advancedProgress" style="width:0%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-purple-500 transition-all duration-500"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Level Tabs -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-white rounded-lg shadow-lg">
+            <!-- Tab Navigation -->
+            <div class="border-b border-gray-200">
+                <nav class="flex -mb-px">
+                    <button class="level-tab active-tab py-4 px-6 text-center border-b-2 border-green-500 font-medium text-green-600" data-level="beginner">
+                        <span class="block text-lg">Beginner</span>
+                        <span class="text-xs text-gray-500">Start your journey</span>
+                    </button>
+                    <button class="level-tab py-4 px-6 text-center border-b-2 border-transparent font-medium text-gray-600 hover:text-gray-800" data-level="intermediate">
+                        <span class="block text-lg">Intermediate</span>
+                        <span class="text-xs text-gray-500">Build your skills</span>
+                    </button>
+                    <button class="level-tab py-4 px-6 text-center border-b-2 border-transparent font-medium text-gray-600 hover:text-gray-800" data-level="advanced">
+                        <span class="block text-lg">Advanced</span>
+                        <span class="text-xs text-gray-500">Master da kine</span>
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="p-6">
+                <!-- Beginner Lessons -->
+                <div id="beginner-content" class="level-content">
+                    <h3 class="text-2xl font-bold mb-4 text-green-600">Beginner Lessons</h3>
+                    <p class="text-gray-600 mb-6">Start with basic greetings, common phrases, and essential vocabulary</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="beginnerLessons">
+                        <!-- Lessons will be loaded here dynamically -->
+                    </div>
+                </div>
+
+                <!-- Intermediate Lessons -->
+                <div id="intermediate-content" class="level-content hidden">
+                    <h3 class="text-2xl font-bold mb-4 text-yellow-600">Intermediate Lessons</h3>
+                    <p class="text-gray-600 mb-6">Expand your vocabulary and learn more complex expressions</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="intermediateLessons">
+                        <!-- Lessons will be loaded here dynamically -->
+                    </div>
+                </div>
+
+                <!-- Advanced Lessons -->
+                <div id="advanced-content" class="level-content hidden">
+                    <h3 class="text-2xl font-bold mb-4 text-purple-600">Advanced Lessons</h3>
+                    <p class="text-gray-600 mb-6">Master cultural context, slang, and nuanced expressions</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="advancedLessons">
+                        <!-- Lessons will be loaded here dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Practice Section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-bold mb-4">Quick Practice</h2>
+            <div id="practiceArea" class="space-y-4">
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <p class="text-gray-600 mb-2">Today's Challenge:</p>
+                    <p class="text-lg font-semibold mb-4" id="dailyChallenge">Loading...</p>
+                    <button id="startPractice" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">
+                        Start Practice Session
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievement Section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-bold mb-4">Achievements</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="achievements">
+                <div class="text-center p-4 bg-gray-50 rounded-lg">
+                    <div class="text-3xl mb-2">🏝️</div>
+                    <div class="text-sm font-semibold">First Steps</div>
+                    <div class="text-xs text-gray-500">Complete first lesson</div>
+                </div>
+                <div class="text-center p-4 bg-gray-50 rounded-lg opacity-50">
+                    <div class="text-3xl mb-2">🌺</div>
+                    <div class="text-sm font-semibold">Local Speaker</div>
+                    <div class="text-xs text-gray-500">Complete 10 lessons</div>
+                </div>
+                <div class="text-center p-4 bg-gray-50 rounded-lg opacity-50">
+                    <div class="text-3xl mb-2">🤙</div>
+                    <div class="text-sm font-semibold">Da Kine Master</div>
+                    <div class="text-xs text-gray-500">Complete all lessons</div>
+                </div>
+                <div class="text-center p-4 bg-gray-50 rounded-lg opacity-50">
+                    <div class="text-3xl mb-2">🏆</div>
+                    <div class="text-sm font-semibold">Pidgin Pro</div>
+                    <div class="text-xs text-gray-500">Perfect score streak</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center">
+                <p>&copy; 2025 ChokePidgin.com - Learn Hawaiian Pidgin</p>
+                <div class="mt-4 space-x-4">
+                    <a href="/" class="hover:text-purple-400 transition">Home</a>
+                    <a href="/dictionary.html" class="hover:text-purple-400 transition">Dictionary</a>
+                    <a href="/translator.html" class="hover:text-purple-400 transition">Translator</a>
+                    <a href="/learning-hub.html" class="hover:text-purple-400 transition">Learning Hub</a>
+                    <a href="/ask-local.html" class="hover:text-purple-400 transition">Ask a Local</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/components/data-loader.js"></script>
+    <script src="js/components/learning-hub.js"></script>
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-button').addEventListener('click', function() {
+            document.querySelector('.mobile-menu').classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

@@ -30,10 +30,12 @@ const pathMappings = {
     'js/speech.js': 'js/components/speech.js',
     'js/ask-local.js': 'js/components/ask-local.js',
     'js/ask-local-page.js': 'js/components/ask-local-page.js',
+    'js/learning-hub.js': 'js/components/learning-hub.js',
     'js/main.js': 'js/components/main.js',
 
     // CSS files
     'css/style.css': 'css/main.css',
+    'css/learning-hub.css': 'css/learning-hub.css',
 
     // Data files
     'data/pidgin-dictionary.json': 'data/pidgin-dictionary.json'
@@ -64,7 +66,7 @@ function createPublicStructure() {
 
 // Copy and process HTML files
 function processHTMLFiles() {
-    const htmlFiles = ['index.html', 'translator.html', 'dictionary.html', 'ask-local.html'];
+    const htmlFiles = ['index.html', 'translator.html', 'dictionary.html', 'ask-local.html', 'learning-hub.html'];
 
     htmlFiles.forEach(file => {
         const srcPath = path.join('src/pages', file);
@@ -106,6 +108,17 @@ function copyJavaScriptFiles() {
                     console.log(`📦 Copied: ${file}`);
                 }
             });
+        }
+    });
+
+    // Copy individual JS files from src/js
+    const individualJsFiles = ['learning-hub.js'];
+    individualJsFiles.forEach(file => {
+        const srcPath = path.join('src/js', file);
+        if (fs.existsSync(srcPath)) {
+            const destPath = path.join('public/js/components', file);
+            fs.copyFileSync(srcPath, destPath);
+            console.log(`📦 Copied: ${file}`);
         }
     });
 }
@@ -184,6 +197,19 @@ function copyCSSFiles() {
         files.forEach(file => {
             if (file.endsWith('.css')) {
                 const srcPath = path.join('src/styles', file);
+                const destPath = path.join('public/css', file === 'style.css' ? 'main.css' : file);
+                fs.copyFileSync(srcPath, destPath);
+                console.log(`🎨 Copied CSS: ${file}`);
+            }
+        });
+    }
+
+    // Copy individual CSS files from src/css
+    if (fs.existsSync('src/css')) {
+        const files = fs.readdirSync('src/css');
+        files.forEach(file => {
+            if (file.endsWith('.css')) {
+                const srcPath = path.join('src/css', file);
                 const destPath = path.join('public/css', file === 'style.css' ? 'main.css' : file);
                 fs.copyFileSync(srcPath, destPath);
                 console.log(`🎨 Copied CSS: ${file}`);
