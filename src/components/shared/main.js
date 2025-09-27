@@ -101,8 +101,7 @@ async function initDailyPhrase() {
     const phraseEnglish = document.getElementById('phrase-english');
     const phraseUsage = document.getElementById('phrase-usage');
     const speakBtn = document.getElementById('speak-phrase');
-    const refreshBtn = document.getElementById('refresh-phrase');
-    const favoriteBtn = document.getElementById('favorite-phrase');
+    const generateBtn = document.getElementById('generate-phrase');
 
     if (!phrasePidgin || !phraseEnglish || !phraseUsage) {
         console.log('Daily phrase elements not found');
@@ -176,38 +175,22 @@ async function initDailyPhrase() {
         });
     }
 
-    // Set up refresh button
-    if (refreshBtn) {
-        const originalHTML = refreshBtn.innerHTML;
-
-        refreshBtn.addEventListener('click', async () => {
-            refreshBtn.innerHTML = '<span class="text-sm">⏳</span>';
-            refreshBtn.disabled = true;
-            refreshBtn.style.transform = 'scale(0.9)';
+    // Set up generate new phrase button
+    if (generateBtn) {
+        generateBtn.addEventListener('click', async () => {
+            // Show loading state
+            const originalText = generateBtn.innerHTML;
+            generateBtn.innerHTML = '⏳ Generating...';
+            generateBtn.disabled = true;
+            generateBtn.style.transform = 'scale(0.95)';
 
             await loadPhrase(true); // Force new phrase
 
             setTimeout(() => {
-                refreshBtn.innerHTML = originalHTML;
-                refreshBtn.disabled = false;
-                refreshBtn.style.transform = 'scale(1)';
+                generateBtn.innerHTML = originalText;
+                generateBtn.disabled = false;
+                generateBtn.style.transform = 'scale(1)';
             }, 500);
-        });
-    }
-
-    // Set up favorite button
-    if (favoriteBtn) {
-        favoriteBtn.addEventListener('click', () => {
-            if (window.currentDailyPhrase) {
-                saveFavoritePhrase(window.currentDailyPhrase);
-                favoriteBtn.innerHTML = '✅ Saved!';
-                favoriteBtn.style.background = 'linear-gradient(to right, #10b981, #059669)';
-
-                setTimeout(() => {
-                    favoriteBtn.innerHTML = '❤️ Save Phrase';
-                    favoriteBtn.style.background = 'linear-gradient(to right, #ec4899, #f97316)';
-                }, 2000);
-            }
         });
     }
 }
