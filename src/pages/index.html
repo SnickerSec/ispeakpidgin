@@ -313,70 +313,106 @@
             </div>
 
             <!-- Feature Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-6xl mx-auto">
-                <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition">
-                    <div class="mb-4 flex justify-center">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1375/1375510.png" alt="Translator" class="w-12 h-12 filter brightness-0">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 max-w-6xl mx-auto">
+                <div class="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-8 text-center hover:shadow-3xl transition-all transform hover:-translate-y-3 border-2 border-blue-200 relative overflow-hidden">
+                    <!-- Decorative background -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-cyan-50 opacity-70"></div>
+                    <div class="absolute top-2 right-2 text-3xl animate-pulse opacity-20">🏄</div>
+
+                    <div class="mb-6 flex justify-center relative z-10">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center shadow-lg">
+                            <img src="https://cdn-icons-png.flaticon.com/512/1375/1375510.png" alt="Translator" class="w-8 h-8 filter brightness-0 invert">
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold mb-2 text-gray-800">Instant Translation</h3>
-                    <p class="text-gray-600 mb-4">Translate between English and Hawaiian Pidgin with advanced fuzzy matching</p>
-                    <a href="translator.html" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Try Translator</a>
+                    <h3 class="text-2xl font-bold mb-3 text-gray-800 relative z-10">🌊 Instant Translation</h3>
+                    <p class="text-gray-700 mb-6 relative z-10 text-lg">Surf between English and Hawaiian Pidgin with our advanced wave-matching technology</p>
+                    <a href="translator.html" class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-3 rounded-2xl hover:scale-105 transition-transform font-bold shadow-lg relative z-10">🏄 Surf Translator</a>
                 </div>
-                <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition">
-                    <div class="text-4xl mb-4">📚</div>
-                    <h3 class="text-xl font-bold mb-2 text-gray-800">Structured Learning</h3>
-                    <p class="text-gray-600 mb-4">30+ lessons from beginner to advanced with progress tracking</p>
-                    <a href="learning-hub.html" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">Start Learning</a>
+                <div class="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-8 text-center hover:shadow-3xl transition-all transform hover:-translate-y-3 border-2 border-green-200 relative overflow-hidden">
+                    <!-- Decorative background -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-green-50 to-emerald-50 opacity-70"></div>
+                    <div class="absolute top-2 right-2 text-3xl animate-bounce opacity-20">🌴</div>
+
+                    <div class="text-6xl mb-6 relative z-10">🏖️</div>
+                    <h3 class="text-2xl font-bold mb-3 text-gray-800 relative z-10">🌱 Island Learning</h3>
+                    <p class="text-gray-700 mb-6 relative z-10 text-lg">30+ tropical lessons from keiki (beginner) to kahu (advanced) with progress tracking</p>
+                    <a href="learning-hub.html" class="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-8 py-3 rounded-2xl hover:scale-105 transition-transform font-bold shadow-lg relative z-10">🌿 Start Island Journey</a>
                 </div>
-                <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition">
-                    <div class="text-4xl mb-4">📖</div>
-                    <h3 class="text-xl font-bold mb-2 text-gray-800">Comprehensive Dictionary</h3>
-                    <p class="text-gray-600 mb-4">270+ terms with pronunciations and cultural context</p>
-                    <a href="dictionary.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Browse Dictionary</a>
+                <div class="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-8 text-center hover:shadow-3xl transition-all transform hover:-translate-y-3 border-2 border-purple-200 relative overflow-hidden">
+                    <!-- Decorative background -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-purple-50 to-pink-50 opacity-70"></div>
+                    <div class="absolute top-2 right-2 text-3xl animate-pulse opacity-20">🌺</div>
+
+                    <div class="text-6xl mb-6 relative z-10">📚</div>
+                    <h3 class="text-2xl font-bold mb-3 text-gray-800 relative z-10">🌺 Cultural Dictionary</h3>
+                    <p class="text-gray-700 mb-6 relative z-10 text-lg">270+ terms with authentic pronunciations and deep cultural connections to island life</p>
+                    <a href="dictionary.html" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-3 rounded-2xl hover:scale-105 transition-transform font-bold shadow-lg relative z-10">🌺 Explore Dictionary</a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Translator Section -->
-    <section id="translator" class="py-16 px-4 bg-gray-50">
-        <div class="container mx-auto max-w-4xl">
-            <h2 class="text-4xl font-bold text-center mb-2 text-gray-800">
-                🏝️ Pidgin Translator 🌺
-            </h2>
-            <p class="text-center text-gray-600 mb-8">Try our instant translation tool below</p>
+    <section id="translator" class="py-16 px-4 relative overflow-hidden" style="background: linear-gradient(135deg, #f0f9ff 0%, #fef3c7 30%, #fce7f3 60%, #f0f9ff 100%);">
+        <!-- Tropical Elements -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-8 left-8 text-6xl animate-pulse">🏄</div>
+            <div class="absolute top-16 right-16 text-5xl animate-bounce">🥥</div>
+            <div class="absolute bottom-16 left-16 text-6xl animate-pulse">🌺</div>
+            <div class="absolute bottom-8 right-8 text-5xl animate-bounce">🌊</div>
+            <div class="absolute top-1/2 left-8 text-4xl animate-pulse">🌴</div>
+            <div class="absolute top-1/2 right-8 text-4xl animate-pulse">🌿</div>
+        </div>
+
+        <div class="container mx-auto max-w-4xl relative z-10">
+            <div class="text-center mb-8">
+                <div class="inline-block bg-white/40 backdrop-blur-sm rounded-full px-8 py-4 border-2 border-blue-300 shadow-lg">
+                    <h2 class="text-5xl font-bold text-gray-800 drop-shadow-lg">
+                        🏝️ Island Translator 🌺
+                    </h2>
+                </div>
+                <p class="text-center text-gray-700 text-xl mt-4 font-medium drop-shadow-md">Surf the waves of language translation</p>
+            </div>
 
             <!-- Translation Direction Toggle -->
-            <div class="flex justify-center mb-6">
-                <div class="bg-gray-100 rounded-full p-1 flex items-center">
-                    <button id="eng-to-pidgin" class="px-6 py-2 rounded-full bg-green-500 text-white transition">
-                        English → Pidgin
+            <div class="flex justify-center mb-8">
+                <div class="bg-white/70 backdrop-blur-sm rounded-full p-2 flex items-center shadow-xl border-2 border-orange-300">
+                    <button id="eng-to-pidgin" class="px-8 py-3 rounded-full bg-gradient-to-r from-green-500 to-emerald-600 text-white transition-all transform hover:scale-105 font-bold shadow-lg">
+                        🌊 English → Pidgin
                     </button>
-                    <button id="pidgin-to-eng" class="px-6 py-2 rounded-full hover:bg-gray-200 transition">
-                        Pidgin → English
+                    <button id="pidgin-to-eng" class="px-8 py-3 rounded-full hover:bg-gradient-to-r hover:from-orange-500 hover:to-pink-500 hover:text-white transition-all transform hover:scale-105 font-semibold">
+                        🏄 Pidgin → English
                     </button>
                 </div>
             </div>
 
-            <div class="bg-gray-50 rounded-lg p-8 shadow-lg border border-gray-200">
-                <div class="mb-6">
-                    <label id="input-label" class="block text-lg font-semibold mb-2 text-gray-700">English</label>
+            <div class="bg-white/80 backdrop-blur-sm rounded-3xl p-10 shadow-2xl border-2 border-orange-300 relative overflow-hidden">
+                <!-- Decorative elements -->
+                <div class="absolute top-4 right-4 text-3xl animate-pulse opacity-20">🌺</div>
+                <div class="absolute bottom-4 left-4 text-3xl animate-bounce opacity-20">🌴</div>
+
+                <div class="mb-8 relative z-10">
+                    <label id="input-label" class="block text-xl font-bold mb-3 text-gray-800 flex items-center gap-2">
+                        🌊 English
+                    </label>
                     <textarea id="translator-input"
-                              class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-green-500 focus:outline-none"
+                              class="w-full p-6 border-3 border-blue-300 rounded-2xl focus:border-orange-500 focus:outline-none bg-white/90 backdrop-blur-sm text-lg shadow-lg"
                               rows="4"
-                              placeholder="Type English text here..."></textarea>
+                              placeholder="Type your English text here and watch it transform into island Pidgin..."></textarea>
                 </div>
-                <div class="text-center mb-6">
-                    <button id="translate-btn" class="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg hover:bg-blue-700 transition font-semibold">
-                        Translate to Pidgin
+                <div class="text-center mb-8">
+                    <button id="translate-btn" class="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white px-12 py-4 rounded-2xl text-xl hover:scale-105 transition-transform font-bold shadow-2xl">
+                        🏄 Surf to Pidgin
                     </button>
                 </div>
-                <div>
-                    <label id="output-label" class="block text-lg font-semibold mb-2 text-gray-700">Pidgin</label>
-                    <div class="bg-white p-4 border-2 border-green-300 rounded-lg min-h-[100px]">
-                        <p id="translator-output" class="text-lg text-gray-800"></p>
-                        <button id="speak-translation" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition hidden">
-                            🔊 Hear Translation
+                <div class="relative z-10">
+                    <label id="output-label" class="block text-xl font-bold mb-3 text-gray-800 flex items-center gap-2">
+                        🌺 Pidgin
+                    </label>
+                    <div class="bg-gradient-to-br from-green-50 to-blue-50 p-6 border-3 border-green-400 rounded-2xl min-h-[120px] shadow-lg">
+                        <p id="translator-output" class="text-xl text-gray-800 font-medium"></p>
+                        <button id="speak-translation" class="mt-6 bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg hidden">
+                            🔊 Hear Island Voice
                         </button>
                     </div>
                 </div>
@@ -385,55 +421,101 @@
     </section>
 
     <!-- Dictionary Link Section -->
-    <section class="py-16 px-4 bg-white">
-        <div class="container mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-4 text-gray-800">
-                📚 Comprehensive Pidgin Dictionary 🌺
-            </h2>
-            <p class="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
-                Explore over 400 Hawaiian Pidgin terms with pronunciations, examples, and cultural context in our dedicated dictionary experience.
-            </p>
+    <section class="py-16 px-4 relative overflow-hidden" style="background: linear-gradient(135deg, #fef7ed 0%, #fff1f2 25%, #f0f9ff 50%, #fef7ed 75%);">
+        <!-- Tropical Background Pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-12 left-12 text-7xl animate-pulse">📚</div>
+            <div class="absolute top-20 right-20 text-6xl animate-bounce">🌺</div>
+            <div class="absolute bottom-20 left-20 text-6xl animate-pulse">🌴</div>
+            <div class="absolute bottom-12 right-12 text-7xl animate-bounce">🌊</div>
+            <div class="absolute top-1/2 left-1/4 text-5xl animate-pulse">🥥</div>
+            <div class="absolute top-1/3 right-1/3 text-5xl animate-bounce">🏄</div>
+        </div>
+
+        <div class="container mx-auto text-center relative z-10">
+            <div class="mb-12">
+                <div class="inline-block bg-white/50 backdrop-blur-sm rounded-full px-10 py-6 border-2 border-pink-300 shadow-xl">
+                    <h2 class="text-5xl font-bold text-gray-800 drop-shadow-lg">
+                        📚 Island Dictionary Paradise 🌺
+                    </h2>
+                </div>
+                <p class="text-xl text-gray-700 mt-6 max-w-4xl mx-auto font-medium drop-shadow-md">
+                    Dive deep into over 400 Hawaiian Pidgin treasures with authentic pronunciations, real-world examples, and rich cultural stories from the islands.
+                </p>
+            </div>
 
             <!-- Features Preview -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
-                <div class="bg-white rounded-lg p-6 shadow-lg border border-gray-200 hover:shadow-xl transition">
-                    <div class="text-4xl mb-4">🔍</div>
-                    <h3 class="font-bold text-lg mb-2 text-gray-800">Advanced Search</h3>
-                    <p class="text-gray-600">Search by Pidgin or English with real-time results</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-12">
+                <div class="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border-2 border-orange-200 hover:shadow-3xl transition-all transform hover:-translate-y-2 relative overflow-hidden">
+                    <div class="absolute top-2 right-2 text-2xl animate-pulse opacity-30">🏄</div>
+                    <div class="text-6xl mb-6">🔍</div>
+                    <h3 class="font-bold text-xl mb-3 text-gray-800">Treasure Hunt Search</h3>
+                    <p class="text-gray-700 text-lg">Navigate through Pidgin and English like exploring hidden island coves</p>
                 </div>
-                <div class="bg-white rounded-lg p-6 shadow-lg border border-gray-200 hover:shadow-xl transition">
-                    <div class="text-4xl mb-4">🔊</div>
-                    <h3 class="font-bold text-lg mb-2 text-gray-800">Audio Pronunciation</h3>
-                    <p class="text-gray-600">Listen to authentic Pidgin pronunciation</p>
+                <div class="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border-2 border-blue-200 hover:shadow-3xl transition-all transform hover:-translate-y-2 relative overflow-hidden">
+                    <div class="absolute top-2 right-2 text-2xl animate-bounce opacity-30">🌊</div>
+                    <div class="text-6xl mb-6">🔊</div>
+                    <h3 class="font-bold text-xl mb-3 text-gray-800">Island Voice Audio</h3>
+                    <p class="text-gray-700 text-lg">Hear the authentic sounds of Hawaiian Pidgin spoken by locals</p>
                 </div>
-                <div class="bg-white rounded-lg p-6 shadow-lg border border-gray-200 hover:shadow-xl transition">
-                    <div class="text-4xl mb-4">🌺</div>
-                    <h3 class="font-bold text-lg mb-2 text-gray-800">Cultural Context</h3>
-                    <p class="text-gray-600">Learn the origins and proper usage</p>
+                <div class="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border-2 border-pink-200 hover:shadow-3xl transition-all transform hover:-translate-y-2 relative overflow-hidden">
+                    <div class="absolute top-2 right-2 text-2xl animate-pulse opacity-30">🌺</div>
+                    <div class="text-6xl mb-6">🌺</div>
+                    <h3 class="font-bold text-xl mb-3 text-gray-800">Cultural Stories</h3>
+                    <p class="text-gray-700 text-lg">Discover the rich heritage and traditional roots behind each expression</p>
                 </div>
             </div>
 
             <!-- Call to Action -->
-            <a href="dictionary.html" class="inline-block bg-purple-600 text-white text-xl font-semibold px-10 py-4 rounded-lg hover:bg-purple-700 transition shadow-lg">
-                🚀 Explore Full Dictionary
+            <a href="dictionary.html" class="inline-block bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 text-white text-2xl font-bold px-12 py-5 rounded-3xl hover:scale-105 transition-transform shadow-2xl relative overflow-hidden">
+                <span class="relative z-10">🚀 Explore Dictionary Paradise</span>
+                <div class="absolute inset-0 bg-gradient-to-r from-orange-600 via-pink-600 to-purple-600 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
             </a>
         </div>
     </section>
 
     <!-- Learning Hub Section -->
-    <section id="learning" class="py-16 px-4 bg-gray-50">
-        <div class="container mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-2 text-gray-800">
-                🌴 Learning Hub 🌴
-            </h2>
-            <p class="text-center text-gray-600 mb-8">Practice with structured lessons and quizzes</p>
+    <section id="learning" class="py-16 px-4 relative overflow-hidden" style="background: linear-gradient(135deg, #e0f2fe 0%, #fef3c7 25%, #fce7f3 50%, #ecfdf5 75%, #e0f2fe 100%);">
+        <!-- Tropical Background Elements -->
+        <div class="absolute inset-0 opacity-15">
+            <div class="absolute top-10 left-10 text-8xl animate-pulse">🌺</div>
+            <div class="absolute top-20 right-20 text-6xl animate-bounce" style="animation-delay: 0.5s;">🏖️</div>
+            <div class="absolute bottom-20 left-20 text-7xl animate-pulse" style="animation-delay: 1s;">🌴</div>
+            <div class="absolute bottom-10 right-10 text-8xl animate-bounce" style="animation-delay: 1.5s;">🌊</div>
+            <div class="absolute top-1/2 left-1/4 text-5xl animate-pulse" style="animation-delay: 2s;">🦩</div>
+            <div class="absolute top-1/3 right-1/3 text-6xl animate-bounce" style="animation-delay: 2.5s;">🐠</div>
+            <div class="absolute top-3/4 left-1/2 text-4xl animate-pulse" style="animation-delay: 3s;">🏄</div>
+            <div class="absolute bottom-1/3 left-1/6 text-5xl animate-bounce" style="animation-delay: 3.5s;">🌺</div>
+            <div class="absolute top-1/4 right-1/6 text-6xl animate-pulse" style="animation-delay: 4s;">🥥</div>
+        </div>
+
+        <!-- Wave Pattern Overlay -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1440 320\"><path fill=\"%2306b6d4\" fill-opacity=\"0.4\" d=\"M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z\"></path></svg>'); background-size: 1440px 320px; animation: wave-flow 15s ease-in-out infinite;"></div>
+        </div>
+
+        <div class="container mx-auto relative z-10">
+            <div class="text-center mb-8">
+                <div class="inline-block bg-white/30 backdrop-blur-sm rounded-full px-8 py-4 border-2 border-orange-300 shadow-lg">
+                    <h2 class="text-5xl font-bold text-gray-800 drop-shadow-lg">
+                        🏝️ Learning Paradise 🌺
+                    </h2>
+                </div>
+                <p class="text-center text-gray-700 text-xl mt-4 font-medium drop-shadow-md">Dive into Hawaiian Pidgin with our tropical learning experience</p>
+            </div>
 
             <!-- Level Tabs -->
             <div class="flex justify-center mb-8">
-                <div class="bg-white rounded-lg shadow-lg p-1 border border-gray-200">
-                    <button class="level-btn px-6 py-2 rounded-lg bg-green-500 text-white" data-level="beginner">Beginner</button>
-                    <button class="level-btn px-6 py-2 rounded-lg hover:bg-gray-100" data-level="intermediate">Intermediate</button>
-                    <button class="level-btn px-6 py-2 rounded-lg hover:bg-gray-100" data-level="advanced">Advanced</button>
+                <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl p-2 border-2 border-orange-300">
+                    <button class="level-btn px-8 py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold shadow-lg transform hover:scale-105 transition-all" data-level="beginner">
+                        🌱 Beginner
+                    </button>
+                    <button class="level-btn px-8 py-3 rounded-xl hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white font-semibold transition-all" data-level="intermediate">
+                        🌿 Intermediate
+                    </button>
+                    <button class="level-btn px-8 py-3 rounded-xl hover:bg-gradient-to-r hover:from-red-500 hover:to-pink-500 hover:text-white font-semibold transition-all" data-level="advanced">
+                        🌺 Advanced
+                    </button>
                 </div>
             </div>
 
@@ -452,21 +534,32 @@
 
             <!-- Call to Action for Full Learning Hub -->
             <div class="mt-12 text-center">
-                <div class="bg-white/95 backdrop-blur rounded-lg shadow-xl p-8 max-w-md mx-auto border-2 border-orange-300">
-                    <h3 class="text-2xl font-bold mb-4 text-gray-800">Ready for More?</h3>
-                    <p class="text-gray-600 mb-6">Explore our full Learning Hub with 30+ structured lessons, progress tracking, and achievements!</p>
-                    <a href="learning-hub.html" class="inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:scale-105 transition-transform shadow-lg">
-                        🚀 Explore Full Learning Hub
+                <div class="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-10 max-w-lg mx-auto border-3 border-orange-400 relative overflow-hidden">
+                    <!-- Decorative elements -->
+                    <div class="absolute top-4 right-4 text-3xl animate-pulse">🌺</div>
+                    <div class="absolute bottom-4 left-4 text-3xl animate-bounce">🏄</div>
+                    <div class="absolute top-1/2 left-2 text-2xl animate-pulse opacity-30">🌴</div>
+                    <div class="absolute top-1/2 right-2 text-2xl animate-pulse opacity-30">🌊</div>
+
+                    <h3 class="text-3xl font-bold mb-4 text-gray-800 relative z-10">🏖️ Ready for Island Adventures?</h3>
+                    <p class="text-gray-700 mb-6 text-lg relative z-10">Explore our full Learning Paradise with 30+ structured lessons, progress tracking, and achievements in our tropical classroom!</p>
+                    <a href="learning-hub.html" class="inline-block bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-white px-10 py-4 rounded-2xl font-bold hover:scale-105 transition-transform shadow-2xl relative z-10 text-lg">
+                        🚀 Explore Learning Paradise
                     </a>
                 </div>
             </div>
 
             <!-- Pidgin Story Corner -->
-            <div class="mt-12">
-                <h3 class="text-3xl font-bold text-center mb-8 text-gray-800">
-                    📚 Pidgin Story Corner 📚
-                </h3>
-                <div id="story-corner" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div class="mt-16">
+                <div class="text-center mb-12">
+                    <div class="inline-block bg-white/40 backdrop-blur-sm rounded-full px-10 py-5 border-2 border-pink-300 shadow-xl">
+                        <h3 class="text-4xl font-bold text-gray-800 drop-shadow-lg">
+                            🌴 Tropical Story Corner 📚
+                        </h3>
+                    </div>
+                    <p class="text-gray-700 text-lg mt-4 font-medium drop-shadow-md">Listen to island tales in authentic Pidgin</p>
+                </div>
+                <div id="story-corner" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
                     <!-- Stories will be dynamically loaded here -->
                 </div>
             </div>
