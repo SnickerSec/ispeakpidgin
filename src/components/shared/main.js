@@ -117,7 +117,13 @@ async function initDailyPhrase() {
             return;
         }
 
-        let dailyPhrase = getDailyPhrase(); // getDailyPhrase already returns random phrases
+        let dailyPhrase;
+        if (forceNew) {
+            // Force a new phrase that's different from current one
+            dailyPhrase = getNewDifferentPhrase();
+        } else {
+            dailyPhrase = getDailyPhrase(); // getDailyPhrase already returns random phrases
+        }
 
         // If phrases aren't loaded yet, wait for them
         if (!dailyPhrase && window.phrasesLoadPromise) {
@@ -193,6 +199,37 @@ async function initDailyPhrase() {
             }, 500);
         });
     }
+}
+
+// Helper function to get a new phrase that's different from the current one
+function getNewDifferentPhrase() {
+    if (!window.pidginPhrases || window.pidginPhrases.length === 0) {
+        console.log('No phrases available for new phrase generation');
+        return null;
+    }
+
+    // If we only have one phrase, return it
+    if (window.pidginPhrases.length === 1) {
+        return window.pidginPhrases[0];
+    }
+
+    const currentPhrase = window.currentDailyPhrase;
+    let newPhrase;
+    let attempts = 0;
+    const maxAttempts = 10; // Prevent infinite loop
+
+    do {
+        const randomIndex = Math.floor(Math.random() * window.pidginPhrases.length);
+        newPhrase = window.pidginPhrases[randomIndex];
+        attempts++;
+    } while (
+        attempts < maxAttempts &&
+        currentPhrase &&
+        newPhrase.pidgin === currentPhrase.pidgin
+    );
+
+    console.log('🔄 Generated new phrase:', newPhrase.pidgin, 'after', attempts, 'attempts');
+    return newPhrase;
 }
 
 // Helper function to get a random phrase (for refresh functionality)
