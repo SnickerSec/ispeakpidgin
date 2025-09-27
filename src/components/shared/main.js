@@ -408,6 +408,9 @@ function initLearningHub() {
     const lessonsContainer = document.getElementById('lessons-container');
     const quizSection = document.getElementById('quiz-section');
 
+    // Return early if no level buttons found
+    if (!levelBtns.length) return;
+
     let currentLevel = 'beginner';
 
     // Level switching
@@ -466,8 +469,10 @@ function initLearningHub() {
         }
     });
 
-    // Load initial lessons
-    loadLessons(currentLevel);
+    // Load initial lessons (only if lessons container exists)
+    if (lessonsContainer) {
+        loadLessons(currentLevel);
+    }
 
     function loadLessons(level) {
         if (!lessonsContainer) return;
