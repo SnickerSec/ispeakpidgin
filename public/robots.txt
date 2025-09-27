@@ -1,37 +1,77 @@
+# Robots.txt for ChokePidgin.com
+# Hawaiian Pidgin English Learning Platform
+
+# Default: Allow all legitimate crawlers
 User-agent: *
 Allow: /
+Disallow: /debug-test.html
+Disallow: /test-translation.html
 
-# Disallow technical directories and files
-Disallow: /js/
-Disallow: /css/
+# Disallow technical resources (but allow CSS/JS for rendering)
 Disallow: /tools/
 Disallow: /config/
 Disallow: /backup/
 Disallow: /scripts/
-Disallow: /*.js$
-Disallow: /*.css$
 Disallow: /*.json$
 
-# Allow important assets and content
+# Allow important pages explicitly
+Allow: /
+Allow: /index.html
+Allow: /dictionary.html
+Allow: /translator.html
+Allow: /learning-hub.html
+Allow: /ask-local.html
+Allow: /sitemap.xml
 Allow: /favicon.ico
 Allow: /favicon.svg
 Allow: /assets/
-Allow: /dictionary.html
-Allow: /ask-local.html
 
-# Specific bot configurations
+# Search Engine Specific Rules
 User-agent: Googlebot
-Crawl-delay: 1
+Allow: /
+Crawl-delay: 0
 
 User-agent: Bingbot
-Crawl-delay: 2
+Allow: /
+Crawl-delay: 1
 
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Social Media Crawlers
 User-agent: facebookexternalhit
 Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+# Block bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
 
 # Sitemap location
 Sitemap: https://chokepidgin.com/sitemap.xml
 
-# Additional metadata
-# Site: ChokePidgin.com - Hawaiian Pidgin English Learning Platform
+# Contact information
+# Site: ChokePidgin.com - Learn Hawaiian Pidgin English
 # Contact: webmaster@chokepidgin.com
+# Last updated: 2025-09-27
