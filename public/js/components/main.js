@@ -419,27 +419,51 @@ function initLearningHub() {
             levelBtns.forEach(b => {
                 const level = b.dataset.level;
                 if (level === 'beginner') {
-                    b.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl hover:bg-gradient-to-r hover:from-green-400 hover:to-emerald-500 hover:text-white font-semibold transition-all';
+                    b.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl hover:bg-gradient-to-r hover:from-green-400 hover:to-emerald-500 hover:text-white font-semibold transition-all text-sm sm:text-base';
                 } else if (level === 'intermediate') {
-                    b.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white font-semibold transition-all';
+                    b.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white font-semibold transition-all text-sm sm:text-base';
                 } else if (level === 'advanced') {
-                    b.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl hover:bg-gradient-to-r hover:from-red-500 hover:to-pink-500 hover:text-white font-semibold transition-all';
+                    b.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl hover:bg-gradient-to-r hover:from-red-500 hover:to-pink-500 hover:text-white font-semibold transition-all text-sm sm:text-base';
                 }
             });
 
             // Set active button styles based on level
             const level = btn.dataset.level;
             if (level === 'beginner') {
-                btn.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold shadow-lg transform hover:scale-105 transition-all';
+                btn.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold shadow-lg transform hover:scale-105 transition-all text-sm sm:text-base';
             } else if (level === 'intermediate') {
-                btn.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold shadow-lg transform hover:scale-105 transition-all';
+                btn.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold shadow-lg transform hover:scale-105 transition-all text-sm sm:text-base';
             } else if (level === 'advanced') {
-                btn.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl bg-gradient-to-r from-red-500 to-pink-600 text-white font-bold shadow-lg transform hover:scale-105 transition-all';
+                btn.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl bg-gradient-to-r from-red-500 to-pink-600 text-white font-bold shadow-lg transform hover:scale-105 transition-all text-sm sm:text-base';
             }
 
             // Load lessons for selected level
             loadLessons(currentLevel);
         });
+    });
+
+    // Initialize button states on page load
+    levelBtns.forEach(b => {
+        const level = b.dataset.level;
+        if (level === currentLevel) {
+            // Set active state for the current level (beginner by default)
+            if (level === 'beginner') {
+                b.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold shadow-lg transform hover:scale-105 transition-all text-sm sm:text-base';
+            } else if (level === 'intermediate') {
+                b.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold shadow-lg transform hover:scale-105 transition-all text-sm sm:text-base';
+            } else if (level === 'advanced') {
+                b.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl bg-gradient-to-r from-red-500 to-pink-600 text-white font-bold shadow-lg transform hover:scale-105 transition-all text-sm sm:text-base';
+            }
+        } else {
+            // Set inactive state for other buttons
+            if (level === 'beginner') {
+                b.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl hover:bg-gradient-to-r hover:from-green-400 hover:to-emerald-500 hover:text-white font-semibold transition-all text-sm sm:text-base';
+            } else if (level === 'intermediate') {
+                b.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl hover:bg-gradient-to-r hover:from-orange-400 hover:to-orange-500 hover:text-white font-semibold transition-all text-sm sm:text-base';
+            } else if (level === 'advanced') {
+                b.className = 'level-btn px-4 sm:px-8 py-3 rounded-xl hover:bg-gradient-to-r hover:from-red-500 hover:to-pink-500 hover:text-white font-semibold transition-all text-sm sm:text-base';
+            }
+        }
     });
 
     // Load initial lessons
