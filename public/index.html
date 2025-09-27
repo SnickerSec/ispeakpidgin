@@ -213,11 +213,9 @@
         gtag('config', 'G-RB7YYDVDXD');
     </script>
 </head>
-<body class="min-h-screen relative">
-    <!-- Hawaiian Pattern Overlay -->
-    <div class="hawaiian-pattern"></div>
+<body class="min-h-screen bg-gray-50">
     <!-- Navigation -->
-    <nav class="shadow-lg sticky top-0 z-50">
+    <nav class="shadow-lg sticky top-0 z-50 bg-white">
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center">
@@ -261,42 +259,51 @@
         </div>
     </nav>
 
-    <!-- Home Section -->
-    <section id="home" class="py-12 px-4">
-        <div class="container mx-auto">
-            <!-- Hero with Hawaiian styling -->
-            <div class="text-center mb-12 relative">
-                <div class="absolute inset-0 flex justify-center items-center opacity-10">
-                    <span class="text-[200px]">🤙</span>
-                </div>
-                <h1 class="text-5xl font-bold text-white mb-4 drop-shadow-lg relative z-10">
-                    <span class="inline-block animate-pulse">🌺</span>
-                    E Komo Mai!
-                    <span class="inline-block animate-pulse">🌺</span>
+    <!-- Hero Section -->
+    <section id="home" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20 px-4 relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/10"></div>
+        <div class="container mx-auto relative z-10">
+            <div class="text-center max-w-4xl mx-auto">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                    🌺 E Komo Mai! 🌺
                 </h1>
-                <p class="text-2xl text-white drop-shadow-md relative z-10">Learn Hawaiian Pidgin English da easy way, brah! 🏄</p>
+                <p class="text-xl md:text-2xl mb-8 text-blue-100">
+                    Learn Hawaiian Pidgin English da easy way, brah! 🏄
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="translator.html" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition">
+                        🔄 Start Translating
+                    </a>
+                    <a href="learning-hub.html" class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition">
+                        📚 Learn Now
+                    </a>
+                </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Daily Phrase with Aloha Spirit -->
-            <div class="aloha-spirit shadow-xl mb-12 max-w-3xl mx-auto relative overflow-hidden">
-                <div class="absolute top-0 right-0 text-8xl opacity-10">🌈</div>
-                <h2 class="text-3xl font-bold text-center mb-6 bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent whitespace-nowrap">
+    <!-- Main Content -->
+    <section class="py-12 px-4">
+        <div class="container mx-auto">
+
+            <!-- Daily Phrase Card -->
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-12 max-w-3xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-6 text-gray-800">
                     🌴 Today's Pidgin Phrase 🌴
                 </h2>
                 <div id="daily-phrase" class="text-center">
-                    <p class="text-4xl font-bold text-gray-800 mb-4" id="phrase-pidgin">Howzit, brah!</p>
+                    <p class="text-4xl font-bold text-blue-600 mb-4" id="phrase-pidgin">Howzit, brah!</p>
                     <p class="text-2xl text-gray-600 mb-4" id="phrase-english">How are you, friend!</p>
-                    <p class="text-lg text-gray-500" id="phrase-usage">A casual greeting used among friends in Hawaii</p>
-                    <button id="speak-phrase" class="mt-4 bg-green-500 text-white px-6 py-2 rounded-full hover:bg-green-600 transition">
+                    <p class="text-lg text-gray-500 mb-6" id="phrase-usage">A casual greeting used among friends in Hawaii</p>
+                    <button id="speak-phrase" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-semibold">
                         🔊 Hear it
                     </button>
                 </div>
             </div>
 
-            <!-- Featured Greetings with Hawaiian theme -->
+            <!-- Essential Phrases Section -->
             <div class="mb-12">
-                <div class="hawaiian-divider"></div>
-                <h2 class="text-3xl font-bold text-center mb-8 text-white drop-shadow-lg whitespace-nowrap">
+                <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">
                     🌊 Essential Pidgin Phrases 🌊
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto" id="essential-phrases-grid">
@@ -304,29 +311,37 @@
                 </div>
             </div>
 
-            <!-- Quick Access Buttons -->
-            <div class="flex flex-col md:flex-row justify-center items-center gap-4">
-                <a href="translator.html" class="bg-blue-500 text-white px-8 py-4 rounded-full text-xl hover:bg-blue-600 transition flex items-center gap-3">
-                    <img src="https://cdn-icons-png.flaticon.com/512/1375/1375510.png" alt="Translator" class="w-6 h-6 filter brightness-0 invert">
-                    Try the Translator
-                </a>
-                <a href="#learning" class="bg-green-500 text-white px-8 py-4 rounded-full text-xl hover:bg-green-600 transition">
-                    📚 Start Learning
-                </a>
+            <!-- Feature Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-6xl mx-auto">
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition">
+                    <div class="text-4xl mb-4">🔄</div>
+                    <h3 class="text-xl font-bold mb-2 text-gray-800">Instant Translation</h3>
+                    <p class="text-gray-600 mb-4">Translate between English and Hawaiian Pidgin with advanced fuzzy matching</p>
+                    <a href="translator.html" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Try Translator</a>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition">
+                    <div class="text-4xl mb-4">📚</div>
+                    <h3 class="text-xl font-bold mb-2 text-gray-800">Structured Learning</h3>
+                    <p class="text-gray-600 mb-4">30+ lessons from beginner to advanced with progress tracking</p>
+                    <a href="learning-hub.html" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">Start Learning</a>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition">
+                    <div class="text-4xl mb-4">📖</div>
+                    <h3 class="text-xl font-bold mb-2 text-gray-800">Comprehensive Dictionary</h3>
+                    <p class="text-gray-600 mb-4">270+ terms with pronunciations and cultural context</p>
+                    <a href="dictionary.html" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">Browse Dictionary</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Translator Section with Beach Theme -->
-    <section id="translator" class="py-12 px-4 bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50 relative">
-        <div class="absolute inset-0 opacity-5">
-            <div class="absolute top-10 left-10 text-9xl">🏖️</div>
-            <div class="absolute bottom-10 right-10 text-9xl">🌊</div>
-        </div>
-        <div class="container mx-auto max-w-4xl relative z-10">
-            <h2 class="text-4xl font-bold text-center mb-8 text-gray-800">
-                <span class="text-5xl">🏝️</span> Pidgin Translator <span class="text-5xl">🌺</span>
+    <!-- Translator Section -->
+    <section id="translator" class="py-16 px-4 bg-white">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-4xl font-bold text-center mb-2 text-gray-800">
+                🏝️ Pidgin Translator 🌺
             </h2>
+            <p class="text-center text-gray-600 mb-8">Try our instant translation tool below</p>
 
             <!-- Translation Direction Toggle -->
             <div class="flex justify-center mb-6">
@@ -340,7 +355,7 @@
                 </div>
             </div>
 
-            <div class="bg-white/90 backdrop-blur rounded-lg p-8 shadow-2xl border-4 border-orange-200">
+            <div class="bg-gray-50 rounded-lg p-8 shadow-lg border border-gray-200">
                 <div class="mb-6">
                     <label id="input-label" class="block text-lg font-semibold mb-2 text-gray-700">English</label>
                     <textarea id="translator-input"
@@ -349,7 +364,7 @@
                               placeholder="Type English text here..."></textarea>
                 </div>
                 <div class="text-center mb-6">
-                    <button id="translate-btn" class="bg-green-500 text-white px-8 py-3 rounded-full text-lg hover:bg-green-600 transition">
+                    <button id="translate-btn" class="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg hover:bg-blue-700 transition font-semibold">
                         Translate to Pidgin
                     </button>
                 </div>
@@ -406,16 +421,17 @@
         </div>
     </section>
 
-    <!-- Learning Hub Section with Tropical Theme -->
-    <section id="learning" class="py-12 px-4 relative">
-        <div class="container mx-auto relative z-10">
-            <h2 class="text-4xl font-bold text-center mb-8 text-white drop-shadow-lg">
+    <!-- Learning Hub Section -->
+    <section id="learning" class="py-16 px-4 bg-gray-50">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-2 text-gray-800">
                 🌴 Learning Hub 🌴
             </h2>
+            <p class="text-center text-gray-600 mb-8">Practice with structured lessons and quizzes</p>
 
-            <!-- Level Tabs with Hawaiian styling -->
+            <!-- Level Tabs -->
             <div class="flex justify-center mb-8">
-                <div class="bg-white/95 backdrop-blur rounded-lg shadow-2xl p-1 border-2 border-orange-300">
+                <div class="bg-white rounded-lg shadow-lg p-1 border border-gray-200">
                     <button class="level-btn px-6 py-2 rounded-lg bg-green-500 text-white" data-level="beginner">Beginner</button>
                     <button class="level-btn px-6 py-2 rounded-lg hover:bg-gray-100" data-level="intermediate">Intermediate</button>
                     <button class="level-btn px-6 py-2 rounded-lg hover:bg-gray-100" data-level="advanced">Advanced</button>
@@ -458,21 +474,18 @@
         </div>
     </section>
 
-    <!-- Community Section with Ohana Theme -->
-    <section id="community" class="py-12 px-4 bg-gradient-to-br from-yellow-50 via-orange-50 to-red-50 relative">
-        <div class="absolute inset-0 opacity-5">
-            <div class="absolute top-20 left-20 text-9xl">🤝</div>
-            <div class="absolute bottom-20 right-20 text-9xl">🌺</div>
-        </div>
-        <div class="container mx-auto relative z-10">
-            <h2 class="text-4xl font-bold text-center mb-8 text-gray-800">
+    <!-- Community Section -->
+    <section id="community" class="py-16 px-4 bg-white">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-2 text-gray-800">
                 🤙 Ohana Community 🤙
             </h2>
+            <p class="text-center text-gray-600 mb-8">Connect with local speakers and learners</p>
 
             <div class="grid grid-cols-1 gap-8 max-w-6xl mx-auto">
-                <!-- Ask a Local with Island Theme -->
-                <div class="bg-gradient-to-br from-white/90 to-blue-50/90 backdrop-blur rounded-lg p-6 shadow-xl border-2 border-blue-200">
-                    <h3 class="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-teal-500 bg-clip-text text-transparent">
+                <!-- Ask a Local -->
+                <div class="bg-gray-50 rounded-lg p-6 shadow-lg border border-gray-200">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">
                         🏝️ Ask a Local 🏝️
                     </h3>
                     <form id="ask-form" class="mb-6">
