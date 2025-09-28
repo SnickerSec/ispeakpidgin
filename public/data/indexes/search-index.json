@@ -2,7 +2,7 @@
   "metadata": {
     "version": "3.0",
     "viewType": "search",
-    "lastUpdated": "2025-09-25"
+    "lastUpdated": "2025-09-28"
   },
   "terms": {
     "'a'ole": [
@@ -48,6 +48,11 @@
         "id": "minors_402",
         "type": "entry",
         "pidgin": "minors"
+      },
+      {
+        "id": "no_worries_529",
+        "type": "entry",
+        "pidgin": "no worries"
       }
     ],
     "'ae": [
@@ -1422,6 +1427,11 @@
         "id": "brah_023",
         "type": "entry",
         "pidgin": "brah"
+      },
+      {
+        "id": "brah_526",
+        "type": "entry",
+        "pidgin": "brah"
       }
     ],
     "bruddah": [
@@ -1436,6 +1446,11 @@
         "id": "brah_023",
         "type": "entry",
         "english": "brother"
+      },
+      {
+        "id": "brah_526",
+        "type": "entry",
+        "english": "bro"
       }
     ],
     "friend": [
@@ -1453,6 +1468,11 @@
         "id": "sole_164",
         "type": "entry",
         "pidgin": "sole"
+      },
+      {
+        "id": "brah_526",
+        "type": "entry",
+        "pidgin": "brah"
       }
     ],
     "broke da mouth": [
@@ -7643,6 +7663,139 @@
         "id": "cruising_524",
         "type": "entry",
         "pidgin": "cruising"
+      }
+    ],
+    "feel junk": [
+      {
+        "id": "feel_junk_525",
+        "type": "entry",
+        "english": "feel like crap"
+      }
+    ],
+    "feel like crap": [
+      {
+        "id": "feel_junk_525",
+        "type": "entry",
+        "pidgin": "feel junk"
+      }
+    ],
+    "feel like shit": [
+      {
+        "id": "feel_junk_525",
+        "type": "entry",
+        "pidgin": "feel junk"
+      }
+    ],
+    "feel terrible": [
+      {
+        "id": "feel_junk_525",
+        "type": "entry",
+        "pidgin": "feel junk"
+      }
+    ],
+    "feel awful": [
+      {
+        "id": "feel_junk_525",
+        "type": "entry",
+        "pidgin": "feel junk"
+      }
+    ],
+    "bro": [
+      {
+        "id": "brah_526",
+        "type": "entry",
+        "pidgin": "brah"
+      }
+    ],
+    "dude": [
+      {
+        "id": "brah_526",
+        "type": "entry",
+        "pidgin": "brah"
+      }
+    ],
+    "man": [
+      {
+        "id": "brah_526",
+        "type": "entry",
+        "pidgin": "brah"
+      }
+    ],
+    "i like": [
+      {
+        "id": "i_like_527",
+        "type": "entry",
+        "english": "I want"
+      }
+    ],
+    "i want": [
+      {
+        "id": "i_like_527",
+        "type": "entry",
+        "pidgin": "I like"
+      }
+    ],
+    "i would like": [
+      {
+        "id": "i_like_527",
+        "type": "entry",
+        "pidgin": "I like"
+      }
+    ],
+    "i'd like": [
+      {
+        "id": "i_like_527",
+        "type": "entry",
+        "pidgin": "I like"
+      }
+    ],
+    "feel like": [
+      {
+        "id": "feel_like_528",
+        "type": "entry",
+        "english": "seem like"
+      }
+    ],
+    "seem like": [
+      {
+        "id": "feel_like_528",
+        "type": "entry",
+        "pidgin": "feel like"
+      }
+    ],
+    "feels as if": [
+      {
+        "id": "feel_like_528",
+        "type": "entry",
+        "pidgin": "feel like"
+      }
+    ],
+    "feels as though": [
+      {
+        "id": "feel_like_528",
+        "type": "entry",
+        "pidgin": "feel like"
+      }
+    ],
+    "no worries": [
+      {
+        "id": "no_worries_529",
+        "type": "entry",
+        "english": "no problem"
+      }
+    ],
+    "it's okay": [
+      {
+        "id": "no_worries_529",
+        "type": "entry",
+        "pidgin": "no worries"
+      }
+    ],
+    "don't worry about it": [
+      {
+        "id": "no_worries_529",
+        "type": "entry",
+        "pidgin": "no worries"
       }
     ]
   }

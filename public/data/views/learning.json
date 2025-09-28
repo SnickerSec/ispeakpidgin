@@ -2,7 +2,7 @@
   "metadata": {
     "version": "3.0",
     "viewType": "learning",
-    "lastUpdated": "2025-09-25"
+    "lastUpdated": "2025-09-28"
   },
   "phrases": {
     "daily": [],
@@ -2241,6 +2241,29 @@
       "tags": [
         "expressions",
         "inability"
+      ]
+    },
+    {
+      "id": "feel_like_528",
+      "pidgin": "feel like",
+      "english": [
+        "seem like",
+        "feels as if",
+        "feels as though"
+      ],
+      "category": "expressions",
+      "pronunciation": "feel LIKE",
+      "examples": [
+        "Feel like going rain",
+        "Feel like something not right"
+      ],
+      "usage": "Expressing a feeling or intuition about something",
+      "culturalNote": "Used to express sensations or predictions",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "emotions"
       ]
     }
   ],

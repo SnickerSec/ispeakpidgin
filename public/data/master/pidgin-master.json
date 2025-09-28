@@ -1,8 +1,8 @@
 {
   "metadata": {
     "version": "3.0",
-    "lastUpdated": "2025-09-25",
-    "totalEntries": 453,
+    "lastUpdated": "2025-09-28",
+    "totalEntries": 458,
     "totalPhrases": 0,
     "totalStories": 9,
     "description": "Unified Hawaiian Pidgin Master Database",
@@ -9730,6 +9730,129 @@
         "actions",
         "relaxation"
       ]
+    },
+    {
+      "id": "feel_junk_525",
+      "pidgin": "feel junk",
+      "english": [
+        "feel like crap",
+        "feel like shit",
+        "feel terrible",
+        "feel awful"
+      ],
+      "category": "expressions",
+      "pronunciation": "feel JUNK",
+      "examples": [
+        "I feel junk today brah",
+        "Ho, I feel real junk after last night",
+        "You look like you feel junk"
+      ],
+      "usage": "Feeling physically or emotionally terrible",
+      "culturalNote": "Common expression for feeling unwell or upset",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "emotions",
+        "health"
+      ]
+    },
+    {
+      "id": "brah_526",
+      "pidgin": "brah",
+      "english": [
+        "bro",
+        "brother",
+        "friend",
+        "dude",
+        "man"
+      ],
+      "category": "expressions",
+      "pronunciation": "BRAH",
+      "examples": [
+        "Howzit brah?",
+        "Eh brah, come here",
+        "Tanks brah"
+      ],
+      "usage": "Casual way to address a friend or acquaintance",
+      "culturalNote": "Universal term of address in Hawaii, used regardless of actual relationship",
+      "difficulty": "beginner",
+      "frequency": "very high",
+      "tags": [
+        "expressions",
+        "greetings",
+        "social"
+      ]
+    },
+    {
+      "id": "i_like_527",
+      "pidgin": "I like",
+      "english": [
+        "I want",
+        "I would like",
+        "I'd like"
+      ],
+      "category": "expressions",
+      "pronunciation": "I LIKE",
+      "examples": [
+        "I like go beach",
+        "I like eat poke",
+        "I no like do dat"
+      ],
+      "usage": "Expressing desire or preference",
+      "culturalNote": "'Like' is commonly used instead of 'want' in Pidgin",
+      "difficulty": "beginner",
+      "frequency": "very high",
+      "tags": [
+        "expressions",
+        "desires"
+      ]
+    },
+    {
+      "id": "feel_like_528",
+      "pidgin": "feel like",
+      "english": [
+        "seem like",
+        "feels as if",
+        "feels as though"
+      ],
+      "category": "expressions",
+      "pronunciation": "feel LIKE",
+      "examples": [
+        "Feel like going rain",
+        "Feel like something not right"
+      ],
+      "usage": "Expressing a feeling or intuition about something",
+      "culturalNote": "Used to express sensations or predictions",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "emotions"
+      ]
+    },
+    {
+      "id": "no_worries_529",
+      "pidgin": "no worries",
+      "english": [
+        "no problem",
+        "it's okay",
+        "don't worry about it"
+      ],
+      "category": "expressions",
+      "pronunciation": "no WOR-reez",
+      "examples": [
+        "No worries brah",
+        "Eh, no worries about dat"
+      ],
+      "usage": "Casual reassurance or acceptance",
+      "culturalNote": "Very common way to express that everything is fine",
+      "difficulty": "beginner",
+      "frequency": "very high",
+      "tags": [
+        "expressions",
+        "reassurance"
+      ]
     }
   ],
   "phrases": {
@@ -9774,6 +9897,11 @@
           "pidgin": "minors",
           "confidence": 1,
           "id": "minors_402"
+        },
+        {
+          "pidgin": "no worries",
+          "confidence": 1,
+          "id": "no_worries_529"
         }
       ],
       "yes": [
@@ -10653,6 +10781,11 @@
           "pidgin": "brah",
           "confidence": 1,
           "id": "brah_023"
+        },
+        {
+          "pidgin": "brah",
+          "confidence": 1,
+          "id": "brah_526"
         }
       ],
       "friend": [
@@ -10670,6 +10803,11 @@
           "pidgin": "sole",
           "confidence": 1,
           "id": "sole_164"
+        },
+        {
+          "pidgin": "brah",
+          "confidence": 1,
+          "id": "brah_526"
         }
       ],
       "incredibly delicious": [
@@ -14229,6 +14367,111 @@
           "confidence": 1,
           "id": "cruising_524"
         }
+      ],
+      "feel like crap": [
+        {
+          "pidgin": "feel junk",
+          "confidence": 1,
+          "id": "feel_junk_525"
+        }
+      ],
+      "feel like shit": [
+        {
+          "pidgin": "feel junk",
+          "confidence": 1,
+          "id": "feel_junk_525"
+        }
+      ],
+      "feel terrible": [
+        {
+          "pidgin": "feel junk",
+          "confidence": 1,
+          "id": "feel_junk_525"
+        }
+      ],
+      "feel awful": [
+        {
+          "pidgin": "feel junk",
+          "confidence": 1,
+          "id": "feel_junk_525"
+        }
+      ],
+      "bro": [
+        {
+          "pidgin": "brah",
+          "confidence": 1,
+          "id": "brah_526"
+        }
+      ],
+      "dude": [
+        {
+          "pidgin": "brah",
+          "confidence": 1,
+          "id": "brah_526"
+        }
+      ],
+      "man": [
+        {
+          "pidgin": "brah",
+          "confidence": 1,
+          "id": "brah_526"
+        }
+      ],
+      "i want": [
+        {
+          "pidgin": "I like",
+          "confidence": 1,
+          "id": "i_like_527"
+        }
+      ],
+      "i would like": [
+        {
+          "pidgin": "I like",
+          "confidence": 1,
+          "id": "i_like_527"
+        }
+      ],
+      "i'd like": [
+        {
+          "pidgin": "I like",
+          "confidence": 1,
+          "id": "i_like_527"
+        }
+      ],
+      "seem like": [
+        {
+          "pidgin": "feel like",
+          "confidence": 1,
+          "id": "feel_like_528"
+        }
+      ],
+      "feels as if": [
+        {
+          "pidgin": "feel like",
+          "confidence": 1,
+          "id": "feel_like_528"
+        }
+      ],
+      "feels as though": [
+        {
+          "pidgin": "feel like",
+          "confidence": 1,
+          "id": "feel_like_528"
+        }
+      ],
+      "it's okay": [
+        {
+          "pidgin": "no worries",
+          "confidence": 1,
+          "id": "no_worries_529"
+        }
+      ],
+      "don't worry about it": [
+        {
+          "pidgin": "no worries",
+          "confidence": 1,
+          "id": "no_worries_529"
+        }
       ]
     },
     "pidginToEnglish": {
@@ -15787,6 +16030,27 @@
         "hanging out",
         "taking it easy",
         "driving around leisurely"
+      ],
+      "feel junk": [
+        "feel like crap",
+        "feel like shit",
+        "feel terrible",
+        "feel awful"
+      ],
+      "i like": [
+        "I want",
+        "I would like",
+        "I'd like"
+      ],
+      "feel like": [
+        "seem like",
+        "feels as if",
+        "feels as though"
+      ],
+      "no worries": [
+        "no problem",
+        "it's okay",
+        "don't worry about it"
       ]
     }
   },
@@ -16251,7 +16515,7 @@
     "categories": {
       "expressions": {
         "name": "expressions",
-        "count": 185,
+        "count": 190,
         "description": ""
       },
       "food": {
@@ -16364,6 +16628,7 @@
       "conversation",
       "cultural",
       "descriptions",
+      "desires",
       "directions",
       "emotions",
       "emphasis",
@@ -16381,6 +16646,7 @@
       "greeting",
       "greetings",
       "hawaiian",
+      "health",
       "humor",
       "inability",
       "japanese",
@@ -16393,6 +16659,7 @@
       "praise",
       "quantity",
       "questions",
+      "reassurance",
       "relaxation",
       "respect",
       "samoan",

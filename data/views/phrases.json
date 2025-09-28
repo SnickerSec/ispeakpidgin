@@ -2,8 +2,8 @@
   "metadata": {
     "version": "3.0",
     "viewType": "phrases",
-    "lastUpdated": "2025-09-25",
-    "totalPhrases": 931
+    "lastUpdated": "2025-09-28",
+    "totalPhrases": 944
   },
   "phrases": [
     {
@@ -12061,6 +12061,181 @@
         "actions",
         "relaxation"
       ]
+    },
+    {
+      "pidgin": "I feel junk today brah",
+      "english": "feel like crap",
+      "category": "expressions",
+      "context": "Feeling physically or emotionally terrible",
+      "pronunciation": "feel JUNK",
+      "source": "dictionary:feel_junk_525",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "emotions",
+        "health"
+      ]
+    },
+    {
+      "pidgin": "Ho, I feel real junk after last night",
+      "english": "feel like crap",
+      "category": "expressions",
+      "context": "Feeling physically or emotionally terrible",
+      "pronunciation": "feel JUNK",
+      "source": "dictionary:feel_junk_525",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "emotions",
+        "health"
+      ]
+    },
+    {
+      "pidgin": "You look like you feel junk",
+      "english": "feel like crap",
+      "category": "expressions",
+      "context": "Feeling physically or emotionally terrible",
+      "pronunciation": "feel JUNK",
+      "source": "dictionary:feel_junk_525",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "emotions",
+        "health"
+      ]
+    },
+    {
+      "pidgin": "Howzit brah?",
+      "english": "bro",
+      "category": "expressions",
+      "context": "Casual way to address a friend or acquaintance",
+      "pronunciation": "BRAH",
+      "source": "dictionary:brah_526",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "greetings",
+        "social"
+      ]
+    },
+    {
+      "pidgin": "Eh brah, come here",
+      "english": "bro",
+      "category": "expressions",
+      "context": "Casual way to address a friend or acquaintance",
+      "pronunciation": "BRAH",
+      "source": "dictionary:brah_526",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "greetings",
+        "social"
+      ]
+    },
+    {
+      "pidgin": "Tanks brah",
+      "english": "bro",
+      "category": "expressions",
+      "context": "Casual way to address a friend or acquaintance",
+      "pronunciation": "BRAH",
+      "source": "dictionary:brah_526",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "greetings",
+        "social"
+      ]
+    },
+    {
+      "pidgin": "I like go beach",
+      "english": "I want",
+      "category": "expressions",
+      "context": "Expressing desire or preference",
+      "pronunciation": "I LIKE",
+      "source": "dictionary:i_like_527",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "desires"
+      ]
+    },
+    {
+      "pidgin": "I like eat poke",
+      "english": "I want",
+      "category": "expressions",
+      "context": "Expressing desire or preference",
+      "pronunciation": "I LIKE",
+      "source": "dictionary:i_like_527",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "desires"
+      ]
+    },
+    {
+      "pidgin": "I no like do dat",
+      "english": "I want",
+      "category": "expressions",
+      "context": "Expressing desire or preference",
+      "pronunciation": "I LIKE",
+      "source": "dictionary:i_like_527",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "desires"
+      ]
+    },
+    {
+      "pidgin": "Feel like going rain",
+      "english": "seem like",
+      "category": "expressions",
+      "context": "Expressing a feeling or intuition about something",
+      "pronunciation": "feel LIKE",
+      "source": "dictionary:feel_like_528",
+      "difficulty": "intermediate",
+      "tags": [
+        "expressions",
+        "emotions"
+      ]
+    },
+    {
+      "pidgin": "Feel like something not right",
+      "english": "seem like",
+      "category": "expressions",
+      "context": "Expressing a feeling or intuition about something",
+      "pronunciation": "feel LIKE",
+      "source": "dictionary:feel_like_528",
+      "difficulty": "intermediate",
+      "tags": [
+        "expressions",
+        "emotions"
+      ]
+    },
+    {
+      "pidgin": "No worries brah",
+      "english": "no problem",
+      "category": "expressions",
+      "context": "Casual reassurance or acceptance",
+      "pronunciation": "no WOR-reez",
+      "source": "dictionary:no_worries_529",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "reassurance"
+      ]
+    },
+    {
+      "pidgin": "Eh, no worries about dat",
+      "english": "no problem",
+      "category": "expressions",
+      "context": "Casual reassurance or acceptance",
+      "pronunciation": "no WOR-reez",
+      "source": "dictionary:no_worries_529",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "reassurance"
+      ]
     }
   ],
   "categorized": {
@@ -17045,6 +17220,181 @@
         "tags": [
           "expressions",
           "inability"
+        ]
+      },
+      {
+        "pidgin": "I feel junk today brah",
+        "english": "feel like crap",
+        "category": "expressions",
+        "context": "Feeling physically or emotionally terrible",
+        "pronunciation": "feel JUNK",
+        "source": "dictionary:feel_junk_525",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "emotions",
+          "health"
+        ]
+      },
+      {
+        "pidgin": "Ho, I feel real junk after last night",
+        "english": "feel like crap",
+        "category": "expressions",
+        "context": "Feeling physically or emotionally terrible",
+        "pronunciation": "feel JUNK",
+        "source": "dictionary:feel_junk_525",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "emotions",
+          "health"
+        ]
+      },
+      {
+        "pidgin": "You look like you feel junk",
+        "english": "feel like crap",
+        "category": "expressions",
+        "context": "Feeling physically or emotionally terrible",
+        "pronunciation": "feel JUNK",
+        "source": "dictionary:feel_junk_525",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "emotions",
+          "health"
+        ]
+      },
+      {
+        "pidgin": "Howzit brah?",
+        "english": "bro",
+        "category": "expressions",
+        "context": "Casual way to address a friend or acquaintance",
+        "pronunciation": "BRAH",
+        "source": "dictionary:brah_526",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "greetings",
+          "social"
+        ]
+      },
+      {
+        "pidgin": "Eh brah, come here",
+        "english": "bro",
+        "category": "expressions",
+        "context": "Casual way to address a friend or acquaintance",
+        "pronunciation": "BRAH",
+        "source": "dictionary:brah_526",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "greetings",
+          "social"
+        ]
+      },
+      {
+        "pidgin": "Tanks brah",
+        "english": "bro",
+        "category": "expressions",
+        "context": "Casual way to address a friend or acquaintance",
+        "pronunciation": "BRAH",
+        "source": "dictionary:brah_526",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "greetings",
+          "social"
+        ]
+      },
+      {
+        "pidgin": "I like go beach",
+        "english": "I want",
+        "category": "expressions",
+        "context": "Expressing desire or preference",
+        "pronunciation": "I LIKE",
+        "source": "dictionary:i_like_527",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "desires"
+        ]
+      },
+      {
+        "pidgin": "I like eat poke",
+        "english": "I want",
+        "category": "expressions",
+        "context": "Expressing desire or preference",
+        "pronunciation": "I LIKE",
+        "source": "dictionary:i_like_527",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "desires"
+        ]
+      },
+      {
+        "pidgin": "I no like do dat",
+        "english": "I want",
+        "category": "expressions",
+        "context": "Expressing desire or preference",
+        "pronunciation": "I LIKE",
+        "source": "dictionary:i_like_527",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "desires"
+        ]
+      },
+      {
+        "pidgin": "Feel like going rain",
+        "english": "seem like",
+        "category": "expressions",
+        "context": "Expressing a feeling or intuition about something",
+        "pronunciation": "feel LIKE",
+        "source": "dictionary:feel_like_528",
+        "difficulty": "intermediate",
+        "tags": [
+          "expressions",
+          "emotions"
+        ]
+      },
+      {
+        "pidgin": "Feel like something not right",
+        "english": "seem like",
+        "category": "expressions",
+        "context": "Expressing a feeling or intuition about something",
+        "pronunciation": "feel LIKE",
+        "source": "dictionary:feel_like_528",
+        "difficulty": "intermediate",
+        "tags": [
+          "expressions",
+          "emotions"
+        ]
+      },
+      {
+        "pidgin": "No worries brah",
+        "english": "no problem",
+        "category": "expressions",
+        "context": "Casual reassurance or acceptance",
+        "pronunciation": "no WOR-reez",
+        "source": "dictionary:no_worries_529",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "reassurance"
+        ]
+      },
+      {
+        "pidgin": "Eh, no worries about dat",
+        "english": "no problem",
+        "category": "expressions",
+        "context": "Casual reassurance or acceptance",
+        "pronunciation": "no WOR-reez",
+        "source": "dictionary:no_worries_529",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "reassurance"
         ]
       }
     ],
@@ -28816,6 +29166,71 @@
       "pidgin": "No rush, just cruising",
       "english": "relaxing",
       "context": "Relaxing or moving at a leisurely pace"
+    },
+    {
+      "pidgin": "I feel junk today brah",
+      "english": "feel like crap",
+      "context": "Feeling physically or emotionally terrible"
+    },
+    {
+      "pidgin": "Ho, I feel real junk after last night",
+      "english": "feel like crap",
+      "context": "Feeling physically or emotionally terrible"
+    },
+    {
+      "pidgin": "You look like you feel junk",
+      "english": "feel like crap",
+      "context": "Feeling physically or emotionally terrible"
+    },
+    {
+      "pidgin": "Howzit brah?",
+      "english": "bro",
+      "context": "Casual way to address a friend or acquaintance"
+    },
+    {
+      "pidgin": "Eh brah, come here",
+      "english": "bro",
+      "context": "Casual way to address a friend or acquaintance"
+    },
+    {
+      "pidgin": "Tanks brah",
+      "english": "bro",
+      "context": "Casual way to address a friend or acquaintance"
+    },
+    {
+      "pidgin": "I like go beach",
+      "english": "I want",
+      "context": "Expressing desire or preference"
+    },
+    {
+      "pidgin": "I like eat poke",
+      "english": "I want",
+      "context": "Expressing desire or preference"
+    },
+    {
+      "pidgin": "I no like do dat",
+      "english": "I want",
+      "context": "Expressing desire or preference"
+    },
+    {
+      "pidgin": "Feel like going rain",
+      "english": "seem like",
+      "context": "Expressing a feeling or intuition about something"
+    },
+    {
+      "pidgin": "Feel like something not right",
+      "english": "seem like",
+      "context": "Expressing a feeling or intuition about something"
+    },
+    {
+      "pidgin": "No worries brah",
+      "english": "no problem",
+      "context": "Casual reassurance or acceptance"
+    },
+    {
+      "pidgin": "Eh, no worries about dat",
+      "english": "no problem",
+      "context": "Casual reassurance or acceptance"
     }
   ]
 }

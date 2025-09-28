@@ -2,7 +2,7 @@
   "metadata": {
     "version": "3.0",
     "viewType": "translator",
-    "lastUpdated": "2025-09-25"
+    "lastUpdated": "2025-09-28"
   },
   "translations": {
     "englishToPidgin": {
@@ -35,6 +35,11 @@
           "pidgin": "minors",
           "confidence": 1,
           "id": "minors_402"
+        },
+        {
+          "pidgin": "no worries",
+          "confidence": 1,
+          "id": "no_worries_529"
         }
       ],
       "yes": [
@@ -914,6 +919,11 @@
           "pidgin": "brah",
           "confidence": 1,
           "id": "brah_023"
+        },
+        {
+          "pidgin": "brah",
+          "confidence": 1,
+          "id": "brah_526"
         }
       ],
       "friend": [
@@ -931,6 +941,11 @@
           "pidgin": "sole",
           "confidence": 1,
           "id": "sole_164"
+        },
+        {
+          "pidgin": "brah",
+          "confidence": 1,
+          "id": "brah_526"
         }
       ],
       "incredibly delicious": [
@@ -4490,6 +4505,111 @@
           "confidence": 1,
           "id": "cruising_524"
         }
+      ],
+      "feel like crap": [
+        {
+          "pidgin": "feel junk",
+          "confidence": 1,
+          "id": "feel_junk_525"
+        }
+      ],
+      "feel like shit": [
+        {
+          "pidgin": "feel junk",
+          "confidence": 1,
+          "id": "feel_junk_525"
+        }
+      ],
+      "feel terrible": [
+        {
+          "pidgin": "feel junk",
+          "confidence": 1,
+          "id": "feel_junk_525"
+        }
+      ],
+      "feel awful": [
+        {
+          "pidgin": "feel junk",
+          "confidence": 1,
+          "id": "feel_junk_525"
+        }
+      ],
+      "bro": [
+        {
+          "pidgin": "brah",
+          "confidence": 1,
+          "id": "brah_526"
+        }
+      ],
+      "dude": [
+        {
+          "pidgin": "brah",
+          "confidence": 1,
+          "id": "brah_526"
+        }
+      ],
+      "man": [
+        {
+          "pidgin": "brah",
+          "confidence": 1,
+          "id": "brah_526"
+        }
+      ],
+      "i want": [
+        {
+          "pidgin": "I like",
+          "confidence": 1,
+          "id": "i_like_527"
+        }
+      ],
+      "i would like": [
+        {
+          "pidgin": "I like",
+          "confidence": 1,
+          "id": "i_like_527"
+        }
+      ],
+      "i'd like": [
+        {
+          "pidgin": "I like",
+          "confidence": 1,
+          "id": "i_like_527"
+        }
+      ],
+      "seem like": [
+        {
+          "pidgin": "feel like",
+          "confidence": 1,
+          "id": "feel_like_528"
+        }
+      ],
+      "feels as if": [
+        {
+          "pidgin": "feel like",
+          "confidence": 1,
+          "id": "feel_like_528"
+        }
+      ],
+      "feels as though": [
+        {
+          "pidgin": "feel like",
+          "confidence": 1,
+          "id": "feel_like_528"
+        }
+      ],
+      "it's okay": [
+        {
+          "pidgin": "no worries",
+          "confidence": 1,
+          "id": "no_worries_529"
+        }
+      ],
+      "don't worry about it": [
+        {
+          "pidgin": "no worries",
+          "confidence": 1,
+          "id": "no_worries_529"
+        }
       ]
     },
     "pidginToEnglish": {
@@ -6048,6 +6168,27 @@
         "hanging out",
         "taking it easy",
         "driving around leisurely"
+      ],
+      "feel junk": [
+        "feel like crap",
+        "feel like shit",
+        "feel terrible",
+        "feel awful"
+      ],
+      "i like": [
+        "I want",
+        "I would like",
+        "I'd like"
+      ],
+      "feel like": [
+        "seem like",
+        "feels as if",
+        "feels as though"
+      ],
+      "no worries": [
+        "no problem",
+        "it's okay",
+        "don't worry about it"
       ]
     }
   }

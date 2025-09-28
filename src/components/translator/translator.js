@@ -139,7 +139,10 @@ class PidginTranslator {
                 'wen (.+)': 'did $1',
                 'going (.+)': 'will $1',
                 'no can (.+)': 'cannot $1',
-                'like (.+)': 'want to $1',
+                // More specific 'like' patterns
+                'like go (.+)': 'want to go $1',
+                'like eat': 'want to eat',
+                'like do (.+)': 'want to do $1',
                 'gotta (.+)': 'have to $1',
                 'neva (.+)': 'never $1'
             },
@@ -397,9 +400,9 @@ class PidginTranslator {
                 return this.reverseDict[cleanWord] + punctuation;
             }
 
-            // Try fuzzy matching for common misspellings
+            // Try fuzzy matching for common misspellings with higher threshold
             const fuzzyMatch = this.findFuzzyMatch(cleanWord, Object.keys(this.reverseDict));
-            if (fuzzyMatch && this.calculateSimilarity(cleanWord, fuzzyMatch) > 0.7) {
+            if (fuzzyMatch && this.calculateSimilarity(cleanWord, fuzzyMatch) > 0.85) {
                 return this.reverseDict[fuzzyMatch] + punctuation;
             }
 
@@ -482,10 +485,10 @@ class PidginTranslator {
                 return this.dict[cleanWord] + punctuation;
             }
 
-            // Try fuzzy matching
+            // Try fuzzy matching with higher threshold
             const allKeys = [...Object.keys(this.comprehensiveDict), ...Object.keys(this.dict)];
             const fuzzyMatch = this.findFuzzyMatch(cleanWord, allKeys);
-            if (fuzzyMatch && this.calculateSimilarity(cleanWord, fuzzyMatch) > 0.7) {
+            if (fuzzyMatch && this.calculateSimilarity(cleanWord, fuzzyMatch) > 0.85) {
                 return (this.comprehensiveDict[fuzzyMatch] || this.dict[fuzzyMatch]) + punctuation;
             }
 
@@ -566,9 +569,15 @@ class PidginTranslator {
         return text;
     }
 
-    // Detect context of the input text
+    // Detect context of the input text with improved detection
     detectContext(text) {
         const lowerText = text.toLowerCase();
+
+        // Check for specific emotional states first
+        if (lowerText.includes('feel') && (lowerText.includes('shit') || lowerText.includes('crap') ||
+            lowerText.includes('terrible') || lowerText.includes('awful') || lowerText.includes('bad'))) {
+            return 'emotions';
+        }
 
         for (let [contextName, contextData] of Object.entries(this.contextPatterns)) {
             for (let pattern of contextData.patterns) {
@@ -586,8 +595,14 @@ class PidginTranslator {
 
         // Check for emotional content
         if (lowerText.includes('happy') || lowerText.includes('sad') || lowerText.includes('angry') ||
-            lowerText.includes('excited') || lowerText.includes('tired')) {
+            lowerText.includes('excited') || lowerText.includes('tired') || lowerText.includes('feel')) {
             return 'emotions';
+        }
+
+        // Check for food context
+        if (lowerText.includes('eat') || lowerText.includes('food') || lowerText.includes('hungry') ||
+            lowerText.includes('delicious') || lowerText.includes('tasty')) {
+            return 'food';
         }
 
         return 'general';
@@ -647,7 +662,7 @@ class PidginTranslator {
 
         for (let candidate of candidates) {
             const similarity = this.calculateSimilarity(word.toLowerCase(), candidate.toLowerCase());
-            if (similarity > bestSimilarity && similarity > 0.6) {
+            if (similarity > bestSimilarity && similarity > 0.75) {
                 bestSimilarity = similarity;
                 bestMatch = candidate;
             }
