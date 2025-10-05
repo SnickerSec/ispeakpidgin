@@ -34,11 +34,9 @@ function initTranslatorPage() {
         setupTranslationHistory();
         setupCharacterCounter();
         setupVoiceInput();
-        setupKeyboardShortcuts();
-        setupSmoothAnimations();
 
         window.translatorPageInitialized = true;
-        console.log('✅ Translator page initialized with enhancements');
+        console.log('Translator page initialized successfully');
     } catch (error) {
         console.error('Error initializing translator page:', error);
     }
@@ -124,12 +122,6 @@ function setupTranslationControls() {
     let translateTimeout;
     inputField?.addEventListener('input', () => {
         clearTimeout(translateTimeout);
-
-        // Show typing indicator
-        if (inputField.value.trim()) {
-            outputDiv.innerHTML = '<p class="text-gray-400 italic animate-pulse">Translating...</p>';
-        }
-
         translateTimeout = setTimeout(() => {
             if (inputField.value.trim()) {
                 performTranslation();
@@ -542,55 +534,6 @@ if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initMobileMenu);
 } else {
     initMobileMenu();
-}
-
-// Keyboard shortcuts
-function setupKeyboardShortcuts() {
-    document.addEventListener('keydown', (e) => {
-        const inputField = document.getElementById('translator-input');
-        const clearBtn = document.getElementById('clear-input-btn');
-
-        // Ctrl/Cmd + K to focus input
-        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-            e.preventDefault();
-            inputField?.focus();
-        }
-
-        // Ctrl/Cmd + L to clear
-        if ((e.ctrlKey || e.metaKey) && e.key === 'l') {
-            e.preventDefault();
-            clearBtn?.click();
-        }
-
-        // Escape to clear and blur
-        if (e.key === 'Escape' && document.activeElement === inputField) {
-            clearBtn?.click();
-            inputField?.blur();
-        }
-    });
-
-    // Show keyboard shortcut hints
-    console.log('⌨️ Keyboard shortcuts enabled:');
-    console.log('  Ctrl/Cmd + K: Focus input');
-    console.log('  Ctrl/Cmd + L: Clear translation');
-    console.log('  Enter: Translate');
-    console.log('  Escape: Clear and blur');
-}
-
-// Smooth animations for better UX
-function setupSmoothAnimations() {
-    const outputDiv = document.getElementById('translation-output');
-
-    if (outputDiv) {
-        // Add transition for smooth opacity changes
-        outputDiv.style.transition = 'opacity 0.3s ease-in-out';
-    }
-
-    // Add subtle hover effects to buttons
-    const buttons = document.querySelectorAll('button');
-    buttons.forEach(btn => {
-        btn.style.transition = 'all 0.2s ease';
-    });
 }
 
 // Text-to-speech function - use global speakText from main.js
