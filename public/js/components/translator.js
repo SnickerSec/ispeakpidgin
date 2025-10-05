@@ -830,6 +830,14 @@ class PidginTranslator {
     // Capitalize first letter
     capitalizeFirst(str) {
         if (!str) return '';
+        // Handle arrays (from pidginToEnglish dictionary)
+        if (Array.isArray(str)) {
+            return str[0] || '';
+        }
+        // Handle non-strings
+        if (typeof str !== 'string') {
+            return String(str);
+        }
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
