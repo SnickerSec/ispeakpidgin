@@ -2,7 +2,7 @@
   "metadata": {
     "version": "3.0",
     "viewType": "learning",
-    "lastUpdated": "2025-09-28"
+    "lastUpdated": "2025-10-05"
   },
   "phrases": {
     "daily": [],
@@ -799,7 +799,7 @@
         "I don't care"
       ],
       "category": "expressions",
-      "pronunciation": "EYE-no-KEY-ah",
+      "pronunciation": "eye-no-KEH-ah",
       "examples": [
         "You like come? Ainokea to me"
       ],
@@ -864,7 +864,7 @@
         "clever",
         "intelligent"
       ],
-      "category": "slang",
+      "category": "cultural",
       "pronunciation": "ah-kah-MY",
       "examples": [
         "Dat kid stay akamai"
@@ -971,7 +971,7 @@
       "english": [
         "completely blind"
       ],
-      "category": "slang",
+      "category": "descriptions",
       "pronunciation": "all-BLINE",
       "examples": [
         "Without glasses I stay all bline"
@@ -1014,7 +1014,7 @@
         "messed up",
         "crooked"
       ],
-      "category": "slang",
+      "category": "descriptions",
       "pronunciation": "all-JAG",
       "examples": [
         "His haircut stay all jag"
@@ -1036,7 +1036,7 @@
         "perfect",
         "victorious"
       ],
-      "category": "slang",
+      "category": "expressions",
       "pronunciation": "all-KAHT-soo",
       "examples": [
         "Everything stay all katsu"
@@ -1101,7 +1101,7 @@
       "english": [
         "out of control"
       ],
-      "category": "slang",
+      "category": "expressions",
       "pronunciation": "all-RAN-dul",
       "examples": [
         "Da party wen get all randle"
@@ -1122,7 +1122,7 @@
         "angry",
         "bitter"
       ],
-      "category": "slang",
+      "category": "emotions",
       "pronunciation": "all-SAWL-tee",
       "examples": [
         "He stay all salty about losing"
@@ -1189,8 +1189,8 @@
       "english": [
         "casual wear Friday"
       ],
-      "category": "expressions",
-      "pronunciation": "ah-LOH-hah-FRY-day",
+      "category": "cultural",
+      "pronunciation": "ah-LOH-hah FRY-day",
       "examples": [
         "Today stay aloha friday"
       ],
@@ -1552,7 +1552,7 @@
       "english": [
         "no problem"
       ],
-      "category": "expressions",
+      "category": "greetings",
       "pronunciation": "ah-OH-leh pee-lee-KEE-ah",
       "examples": [
         "'A'ole pilikia brah"
@@ -1915,7 +1915,7 @@
         "burst out laughing"
       ],
       "category": "emotions",
-      "pronunciation": "bus LAF",
+      "pronunciation": "BUS-LAF",
       "examples": [
         "We wen talk story and buss laff",
         "His joke made me buss laff",
@@ -2011,7 +2011,7 @@
         "childhood days"
       ],
       "category": "expressions",
-      "pronunciation": "small kid TIME",
+      "pronunciation": "small-KID-time",
       "examples": [
         "Small kid time, I used to play marbles",
         "Small kid time was so fun",
@@ -2084,7 +2084,7 @@
         "bad mouth"
       ],
       "category": "actions",
-      "pronunciation": "TALK stink",
+      "pronunciation": "TALK-stink",
       "examples": [
         "No talk stink about my cousin",
         "She stay talk stink about everybody",
@@ -2108,7 +2108,7 @@
         "you should do better"
       ],
       "category": "expressions",
-      "pronunciation": "go MOH BET-tah",
+      "pronunciation": "go-MOH-BET-tah",
       "examples": [
         "Dat no good, go mo' bettah",
         "Try again, go mo' bettah dis time",
@@ -2131,7 +2131,7 @@
         "thanks for the favor!",
         "thank you for hooking me up!"
       ],
-      "category": "expressions",
+      "category": "greetings",
       "pronunciation": "mah-HAH-loh, for dah HOOK-up",
       "examples": [
         "Mahalo, for da hookup with da job!",
@@ -2156,7 +2156,7 @@
         "lots of"
       ],
       "category": "expressions",
-      "pronunciation": "GET choke",
+      "pronunciation": "GET-choke",
       "examples": [
         "Get choke people at da beach today",
         "Da store get choke selection",
@@ -2180,7 +2180,7 @@
         "to mess around with"
       ],
       "category": "actions",
-      "pronunciation": "MAKE FUN-ny",
+      "pronunciation": "MAKE-FUN-nee",
       "examples": [
         "No make funny with me",
         "He stay make funny with his sister",
@@ -2252,7 +2252,7 @@
         "feels as though"
       ],
       "category": "expressions",
-      "pronunciation": "feel LIKE",
+      "pronunciation": "feel-LIKE",
       "examples": [
         "Feel like going rain",
         "Feel like something not right"
@@ -2275,7 +2275,7 @@
         "doing something on purpose but making it look accidental"
       ],
       "category": "expressions",
-      "pronunciation": "ak-si-DEN-tuh-lee on PUR-pus",
+      "pronunciation": "ak-si-DEN-tal-lee on PUR-pus",
       "examples": [
         "He wen spill his drink accidentally on purpose to get her attention"
       ],
@@ -2421,8 +2421,8 @@
         "excuse me",
         "sorry"
       ],
-      "category": "expressions",
-      "pronunciation": "eh KAH-lah MY",
+      "category": "greetings",
+      "pronunciation": "eh-KAH-lah-MY",
       "examples": [
         "E kala mai, can pass?"
       ],
@@ -2444,7 +2444,7 @@
         "come in"
       ],
       "category": "greetings",
-      "pronunciation": "eh KOH-moh MY",
+      "pronunciation": "eh-KOH-moh-MY",
       "examples": [
         "E komo mai to our hale"
       ],
@@ -2485,8 +2485,8 @@
       "english": [
         "stuck up"
       ],
-      "category": "slang",
-      "pronunciation": "high MAH-kah MAH-kah",
+      "category": "descriptions",
+      "pronunciation": "high-MAH-kah-MAH-kah",
       "examples": [
         "She all high maka maka"
       ],
@@ -2694,8 +2694,8 @@
       "english": [
         "bad breath"
       ],
-      "category": "slang",
-      "pronunciation": "KIM-chee breath",
+      "category": "descriptions",
+      "pronunciation": "kim-CHEE-breath",
       "examples": [
         "He get kim chee breath"
       ],
@@ -2906,7 +2906,7 @@
         "I agree with you"
       ],
       "category": "expressions",
-      "pronunciation": "yeah YOU",
+      "pronunciation": "yeah-YOU",
       "examples": [
         "He wen bust his board, yeah you?",
         "Da traffic was bad, yeah you!",

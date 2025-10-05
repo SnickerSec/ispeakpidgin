@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "3.0",
-    "lastUpdated": "2025-09-28",
+    "lastUpdated": "2025-10-05",
     "totalEntries": 458,
     "totalPhrases": 0,
     "totalStories": 9,
@@ -41,7 +41,7 @@
       "english": [
         "no problem"
       ],
-      "category": "expressions",
+      "category": "greetings",
       "pronunciation": "ah-OH-leh pee-lee-KEE-ah",
       "examples": [
         "'A'ole pilikia brah"
@@ -278,7 +278,7 @@
         "doing something on purpose but making it look accidental"
       ],
       "category": "expressions",
-      "pronunciation": "ak-si-DEN-tuh-lee on PUR-pus",
+      "pronunciation": "ak-si-DEN-tal-lee on PUR-pus",
       "examples": [
         "He wen spill his drink accidentally on purpose to get her attention"
       ],
@@ -385,7 +385,7 @@
         "I don't care"
       ],
       "category": "expressions",
-      "pronunciation": "EYE-no-KEY-ah",
+      "pronunciation": "eye-no-KEH-ah",
       "examples": [
         "You like come? Ainokea to me"
       ],
@@ -450,7 +450,7 @@
         "clever",
         "intelligent"
       ],
-      "category": "slang",
+      "category": "cultural",
       "pronunciation": "ah-kah-MY",
       "examples": [
         "Dat kid stay akamai"
@@ -557,7 +557,7 @@
       "english": [
         "completely blind"
       ],
-      "category": "slang",
+      "category": "descriptions",
       "pronunciation": "all-BLINE",
       "examples": [
         "Without glasses I stay all bline"
@@ -600,7 +600,7 @@
         "messed up",
         "crooked"
       ],
-      "category": "slang",
+      "category": "descriptions",
       "pronunciation": "all-JAG",
       "examples": [
         "His haircut stay all jag"
@@ -644,7 +644,7 @@
         "perfect",
         "victorious"
       ],
-      "category": "slang",
+      "category": "expressions",
       "pronunciation": "all-KAHT-soo",
       "examples": [
         "Everything stay all katsu"
@@ -709,7 +709,7 @@
       "english": [
         "out of control"
       ],
-      "category": "slang",
+      "category": "expressions",
       "pronunciation": "all-RAN-dul",
       "examples": [
         "Da party wen get all randle"
@@ -730,7 +730,7 @@
         "angry",
         "bitter"
       ],
-      "category": "slang",
+      "category": "emotions",
       "pronunciation": "all-SAWL-tee",
       "examples": [
         "He stay all salty about losing"
@@ -797,8 +797,8 @@
       "english": [
         "casual wear Friday"
       ],
-      "category": "expressions",
-      "pronunciation": "ah-LOH-hah-FRY-day",
+      "category": "cultural",
+      "pronunciation": "ah-LOH-hah FRY-day",
       "examples": [
         "Today stay aloha friday"
       ],
@@ -1431,7 +1431,7 @@
       "english": [
         "bald person"
       ],
-      "category": "slang",
+      "category": "descriptions",
       "pronunciation": "BOH-loh-hed",
       "examples": [
         "My uncle one bolo head"
@@ -2051,7 +2051,7 @@
       "english": [
         "goosebumps"
       ],
-      "category": "slang",
+      "category": "descriptions",
       "pronunciation": "CHICK-en-skin",
       "examples": [
         "Da ghost story gave me chicken skin"
@@ -2137,7 +2137,7 @@
         "plenty"
       ],
       "category": "expressions",
-      "pronunciation": "CHOHK",
+      "pronunciation": "CHOKE",
       "examples": [
         "Get choke people"
       ],
@@ -2158,7 +2158,7 @@
         "very many small ones"
       ],
       "category": "expressions",
-      "pronunciation": "CHOHK mah-NEE-nee",
+      "pronunciation": "CHOKE mah-NEE-nee",
       "examples": [
         "Get choke manini fish"
       ],
@@ -2690,8 +2690,8 @@
         "excuse me",
         "sorry"
       ],
-      "category": "expressions",
-      "pronunciation": "eh KAH-lah MY",
+      "category": "greetings",
+      "pronunciation": "eh-KAH-lah-MY",
       "examples": [
         "E kala mai, can pass?"
       ],
@@ -2713,7 +2713,7 @@
         "come in"
       ],
       "category": "greetings",
-      "pronunciation": "eh KOH-moh MY",
+      "pronunciation": "eh-KOH-moh-MY",
       "examples": [
         "E komo mai to our hale"
       ],
@@ -3142,7 +3142,7 @@
         "weird"
       ],
       "category": "expressions",
-      "pronunciation": "FUN-nee KINE",
+      "pronunciation": "FUN-nee-KINE",
       "examples": [
         "Something stay funny kine"
       ],
@@ -3461,7 +3461,7 @@
         "to eat"
       ],
       "category": "actions",
-      "pronunciation": "GRINE",
+      "pronunciation": "GRIND",
       "examples": [
         "Les go grind"
       ],
@@ -3503,7 +3503,7 @@
         "food"
       ],
       "category": "food",
-      "pronunciation": "GRINZ",
+      "pronunciation": "GRINDZ",
       "examples": [
         "Da grindz stay ono"
       ],
@@ -4180,8 +4180,8 @@
       "english": [
         "stuck up"
       ],
-      "category": "slang",
-      "pronunciation": "high MAH-kah MAH-kah",
+      "category": "descriptions",
+      "pronunciation": "high-MAH-kah-MAH-kah",
       "examples": [
         "She all high maka maka"
       ],
@@ -4545,8 +4545,8 @@
         "forward",
         "onward"
       ],
-      "category": "expressions",
-      "pronunciation": "ee MOO-ah",
+      "category": "cultural",
+      "pronunciation": "ee-MOO-ah",
       "examples": [
         "I mua!"
       ],
@@ -5174,8 +5174,8 @@
       "english": [
         "food coma"
       ],
-      "category": "slang",
-      "pronunciation": "kah-NAK ah-TAK",
+      "category": "expressions",
+      "pronunciation": "kah-NAK-ah-TAK",
       "examples": [
         "Get kanak attack"
       ],
@@ -5426,8 +5426,8 @@
       "english": [
         "bad breath"
       ],
-      "category": "slang",
-      "pronunciation": "KIM-chee breath",
+      "category": "descriptions",
+      "pronunciation": "kim-CHEE-breath",
       "examples": [
         "He get kim chee breath"
       ],
@@ -5533,7 +5533,7 @@
         "feces",
         "crap"
       ],
-      "category": "slang",
+      "category": "cultural",
       "pronunciation": "koo-KYE",
       "examples": [
         "Da dog wen make kukae"
@@ -5895,7 +5895,7 @@
         "crazy",
         "stupid"
       ],
-      "category": "slang",
+      "category": "cultural",
       "pronunciation": "LOH-loh",
       "examples": [
         "You lolo"
@@ -6045,7 +6045,7 @@
         "toward the ocean"
       ],
       "category": "directions",
-      "pronunciation": "mah-KYE",
+      "pronunciation": "mah-KAI",
       "examples": [
         "We going makai fo surf"
       ],
@@ -6066,7 +6066,7 @@
         "dead",
         "die"
       ],
-      "category": "slang",
+      "category": "cultural",
       "pronunciation": "MAH-keh",
       "examples": [
         "Da bug stay make"
@@ -6110,7 +6110,7 @@
         "newcomer",
         "tourist"
       ],
-      "category": "slang",
+      "category": "cultural",
       "pronunciation": "mah-lee-HEE-nee",
       "examples": [
         "Can tell he one malihini"
@@ -6175,7 +6175,7 @@
         "food truck vendor"
       ],
       "category": "people",
-      "pronunciation": "mah-nah-POO-ah man",
+      "pronunciation": "mah-nah-POO-ah-man",
       "examples": [
         "Manapua man stay"
       ],
@@ -6304,7 +6304,7 @@
         "glassy unfocused stare"
       ],
       "category": "descriptions",
-      "pronunciation": "mem-PAH-chee eye",
+      "pronunciation": "mem-PAH-chee-eye",
       "examples": [
         "He get mempachi eye"
       ],
@@ -6452,8 +6452,8 @@
       "english": [
         "sleepy"
       ],
-      "category": "descriptions",
-      "pronunciation": "MOH-eh MOH-eh",
+      "category": "actions",
+      "pronunciation": "MOH-eh-MOH-eh",
       "examples": [
         "I stay moe moe"
       ],
@@ -7066,7 +7066,7 @@
       "english": [
         "marijuana"
       ],
-      "category": "slang",
+      "category": "cultural",
       "pronunciation": "pah-kah-LOH-loh",
       "examples": [
         "Dey smoking pakalolo"
@@ -7557,7 +7557,7 @@
         "roger",
         "okay"
       ],
-      "category": "expressions",
+      "category": "greetings",
       "pronunciation": "RAH-jah",
       "examples": [
         "Rajah dat"
@@ -7643,7 +7643,7 @@
         "fight"
       ],
       "category": "actions",
-      "pronunciation": "SKRAP",
+      "pronunciation": "SCRAP",
       "examples": [
         "Like scrap?"
       ],
@@ -7795,7 +7795,7 @@
         "sandals"
       ],
       "category": "clothing",
-      "pronunciation": "SLIP-pahz",
+      "pronunciation": "SLIP-ahz",
       "examples": [
         "Wear slippahs"
       ],
@@ -8326,7 +8326,7 @@
       "english": [
         "grandparent"
       ],
-      "category": "expressions",
+      "category": "family",
       "pronunciation": "TOO-too",
       "examples": [
         "My tutu making lunch"
@@ -8367,7 +8367,7 @@
       "english": [
         "lice"
       ],
-      "category": "slang",
+      "category": "cultural",
       "pronunciation": "OO-koo",
       "examples": [
         "Da kid get ukus"
@@ -9179,7 +9179,7 @@
         "burst out laughing"
       ],
       "category": "emotions",
-      "pronunciation": "bus LAF",
+      "pronunciation": "BUS-LAF",
       "examples": [
         "We wen talk story and buss laff",
         "His joke made me buss laff",
@@ -9275,7 +9275,7 @@
         "childhood days"
       ],
       "category": "expressions",
-      "pronunciation": "small kid TIME",
+      "pronunciation": "small-KID-time",
       "examples": [
         "Small kid time, I used to play marbles",
         "Small kid time was so fun",
@@ -9323,7 +9323,7 @@
         "I agree with you"
       ],
       "category": "expressions",
-      "pronunciation": "yeah YOU",
+      "pronunciation": "yeah-YOU",
       "examples": [
         "He wen bust his board, yeah you?",
         "Da traffic was bad, yeah you!",
@@ -9349,7 +9349,7 @@
         "see you later",
         "later"
       ],
-      "category": "expressions",
+      "category": "greetings",
       "pronunciation": "SHOOTS",
       "examples": [
         "Shoots, I'll see you tomorrow",
@@ -9400,7 +9400,7 @@
         "okay, dude!",
         "sounds good, bro!"
       ],
-      "category": "expressions",
+      "category": "greetings",
       "pronunciation": "SHOOTS, brah",
       "examples": [
         "We go beach today? Shoots, brah!",
@@ -9426,7 +9426,7 @@
         "bad mouth"
       ],
       "category": "actions",
-      "pronunciation": "TALK stink",
+      "pronunciation": "TALK-stink",
       "examples": [
         "No talk stink about my cousin",
         "She stay talk stink about everybody",
@@ -9450,7 +9450,7 @@
         "excellent!"
       ],
       "category": "expressions",
-      "pronunciation": "dah BES",
+      "pronunciation": "dah-BES",
       "examples": [
         "Dis grindz is da bes'!",
         "Your new ride is da bes'!",
@@ -9474,7 +9474,7 @@
         "you should do better"
       ],
       "category": "expressions",
-      "pronunciation": "go MOH BET-tah",
+      "pronunciation": "go-MOH-BET-tah",
       "examples": [
         "Dat no good, go mo' bettah",
         "Try again, go mo' bettah dis time",
@@ -9522,7 +9522,7 @@
         "thanks for the favor!",
         "thank you for hooking me up!"
       ],
-      "category": "expressions",
+      "category": "greetings",
       "pronunciation": "mah-HAH-loh, for dah HOOK-up",
       "examples": [
         "Mahalo, for da hookup with da job!",
@@ -9547,7 +9547,7 @@
         "lots of"
       ],
       "category": "expressions",
-      "pronunciation": "GET choke",
+      "pronunciation": "GET-choke",
       "examples": [
         "Get choke people at da beach today",
         "Da store get choke selection",
@@ -9571,7 +9571,7 @@
         "to mess around with"
       ],
       "category": "actions",
-      "pronunciation": "MAKE FUN-ny",
+      "pronunciation": "MAKE-FUN-nee",
       "examples": [
         "No make funny with me",
         "He stay make funny with his sister",
@@ -9741,7 +9741,7 @@
         "feel awful"
       ],
       "category": "expressions",
-      "pronunciation": "feel JUNK",
+      "pronunciation": "feel-JUNK",
       "examples": [
         "I feel junk today brah",
         "Ho, I feel real junk after last night",
@@ -9817,7 +9817,7 @@
         "feels as though"
       ],
       "category": "expressions",
-      "pronunciation": "feel LIKE",
+      "pronunciation": "feel-LIKE",
       "examples": [
         "Feel like going rain",
         "Feel like something not right"
@@ -9839,8 +9839,8 @@
         "it's okay",
         "don't worry about it"
       ],
-      "category": "expressions",
-      "pronunciation": "no WOR-reez",
+      "category": "greetings",
+      "pronunciation": "no-WOR-reez",
       "examples": [
         "No worries brah",
         "Eh, no worries about dat"
@@ -16515,7 +16515,12 @@
     "categories": {
       "expressions": {
         "name": "expressions",
-        "count": 190,
+        "count": 183,
+        "description": ""
+      },
+      "greetings": {
+        "name": "greetings",
+        "count": 22,
         "description": ""
       },
       "food": {
@@ -16528,29 +16533,29 @@
         "count": 8,
         "description": ""
       },
-      "greetings": {
-        "name": "greetings",
-        "count": 15,
-        "description": ""
-      },
       "actions": {
         "name": "actions",
-        "count": 16,
+        "count": 17,
         "description": ""
       },
       "cultural": {
         "name": "cultural",
-        "count": 15,
+        "count": 24,
         "description": ""
       },
       "descriptions": {
         "name": "descriptions",
-        "count": 12,
+        "count": 17,
         "description": ""
       },
       "slang": {
         "name": "slang",
-        "count": 116,
+        "count": 99,
+        "description": ""
+      },
+      "emotions": {
+        "name": "emotions",
+        "count": 9,
         "description": ""
       },
       "grammar": {
@@ -16561,11 +16566,6 @@
       "people": {
         "name": "people",
         "count": 20,
-        "description": ""
-      },
-      "emotions": {
-        "name": "emotions",
-        "count": 8,
         "description": ""
       },
       "clothing": {
@@ -16585,7 +16585,7 @@
       },
       "family": {
         "name": "family",
-        "count": 2,
+        "count": 3,
         "description": ""
       },
       "concepts": {

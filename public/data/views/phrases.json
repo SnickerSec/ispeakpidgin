@@ -2,7 +2,7 @@
   "metadata": {
     "version": "3.0",
     "viewType": "phrases",
-    "lastUpdated": "2025-09-28",
+    "lastUpdated": "2025-10-05",
     "totalPhrases": 944
   },
   "phrases": [
@@ -35,7 +35,7 @@
     {
       "pidgin": "'A'ole pilikia brah",
       "english": "no problem",
-      "category": "expressions",
+      "category": "greetings",
       "context": "You're welcome",
       "pronunciation": "ah-OH-leh pee-lee-KEE-ah",
       "source": "dictionary:aole_pilikia_308",
@@ -48,7 +48,7 @@
     {
       "pidgin": "'A'ole pilikia",
       "english": "no problem",
-      "category": "expressions",
+      "category": "greetings",
       "context": "You're welcome",
       "pronunciation": "ah-OH-leh pee-lee-KEE-ah",
       "source": "dictionary:aole_pilikia_308:audio",
@@ -327,7 +327,7 @@
       "english": "doing something on purpose but making it look accidental",
       "category": "expressions",
       "context": "Describes intentionally deceptive behavior",
-      "pronunciation": "ak-si-DEN-tuh-lee on PUR-pus",
+      "pronunciation": "ak-si-DEN-tal-lee on PUR-pus",
       "source": "dictionary:accidentally_on_purp_001",
       "difficulty": "advanced",
       "tags": [
@@ -340,7 +340,7 @@
       "english": "doing something on purpose but making it look accidental",
       "category": "expressions",
       "context": "Describes intentionally deceptive behavior",
-      "pronunciation": "ak-si-DEN-tuh-lee on PUR-pus",
+      "pronunciation": "ak-si-DEN-tal-lee on PUR-pus",
       "source": "dictionary:accidentally_on_purp_001:audio",
       "difficulty": "advanced",
       "tags": [
@@ -457,7 +457,7 @@
       "english": "I don't care",
       "category": "expressions",
       "context": "Expression of indifference",
-      "pronunciation": "EYE-no-KEY-ah",
+      "pronunciation": "eye-no-KEH-ah",
       "source": "dictionary:ainokea_278",
       "difficulty": "beginner",
       "tags": [
@@ -470,7 +470,7 @@
       "english": "I don't care",
       "category": "expressions",
       "context": "Expression of indifference",
-      "pronunciation": "EYE-no-KEY-ah",
+      "pronunciation": "eye-no-KEH-ah",
       "source": "dictionary:ainokea_278:audio",
       "difficulty": "beginner",
       "tags": [
@@ -533,7 +533,7 @@
     {
       "pidgin": "Dat kid stay akamai",
       "english": "smart",
-      "category": "slang",
+      "category": "cultural",
       "context": "Complimenting intelligence",
       "pronunciation": "ah-kah-MY",
       "source": "dictionary:akamai_006",
@@ -546,7 +546,7 @@
     {
       "pidgin": "You so akamai, can help me?",
       "english": "smart",
-      "category": "slang",
+      "category": "cultural",
       "context": "Complimenting intelligence",
       "pronunciation": "ah-kah-MY",
       "source": "dictionary:akamai_006:audio",
@@ -663,7 +663,7 @@
     {
       "pidgin": "Without glasses I stay all bline",
       "english": "completely blind",
-      "category": "slang",
+      "category": "descriptions",
       "context": "Poor vision",
       "pronunciation": "all-BLINE",
       "source": "dictionary:all_bline_290",
@@ -676,7 +676,7 @@
     {
       "pidgin": "I stay all bline in da dark",
       "english": "completely blind",
-      "category": "slang",
+      "category": "descriptions",
       "context": "Poor vision",
       "pronunciation": "all-BLINE",
       "source": "dictionary:all_bline_290:audio",
@@ -715,7 +715,7 @@
     {
       "pidgin": "His haircut stay all jag",
       "english": "messed up",
-      "category": "slang",
+      "category": "descriptions",
       "context": "Uneven or messy",
       "pronunciation": "all-JAG",
       "source": "dictionary:all_jag_291",
@@ -728,7 +728,7 @@
     {
       "pidgin": "Da fence stay all jag",
       "english": "messed up",
-      "category": "slang",
+      "category": "descriptions",
       "context": "Uneven or messy",
       "pronunciation": "all-JAG",
       "source": "dictionary:all_jag_291:audio",
@@ -767,7 +767,7 @@
     {
       "pidgin": "Everything stay all katsu",
       "english": "perfect",
-      "category": "slang",
+      "category": "expressions",
       "context": "Everything is great",
       "pronunciation": "all-KAHT-soo",
       "source": "dictionary:all_katsu_292",
@@ -780,7 +780,7 @@
     {
       "pidgin": "We stay all katsu now",
       "english": "perfect",
-      "category": "slang",
+      "category": "expressions",
       "context": "Everything is great",
       "pronunciation": "all-KAHT-soo",
       "source": "dictionary:all_katsu_292:audio",
@@ -845,7 +845,7 @@
     {
       "pidgin": "Da party wen get all randle",
       "english": "out of control",
-      "category": "slang",
+      "category": "expressions",
       "context": "Chaotic situation",
       "pronunciation": "all-RAN-dul",
       "source": "dictionary:all_randle_293",
@@ -857,7 +857,7 @@
     {
       "pidgin": "Things stay all randle",
       "english": "out of control",
-      "category": "slang",
+      "category": "expressions",
       "context": "Chaotic situation",
       "pronunciation": "all-RAN-dul",
       "source": "dictionary:all_randle_293:audio",
@@ -869,7 +869,7 @@
     {
       "pidgin": "He stay all salty about losing",
       "english": "angry",
-      "category": "slang",
+      "category": "emotions",
       "context": "Being upset",
       "pronunciation": "all-SAWL-tee",
       "source": "dictionary:all_salty_294",
@@ -882,7 +882,7 @@
     {
       "pidgin": "Why you all salty?",
       "english": "angry",
-      "category": "slang",
+      "category": "emotions",
       "context": "Being upset",
       "pronunciation": "all-SAWL-tee",
       "source": "dictionary:all_salty_294:audio",
@@ -951,9 +951,9 @@
     {
       "pidgin": "Today stay aloha friday",
       "english": "casual wear Friday",
-      "category": "expressions",
+      "category": "cultural",
       "context": "Dress-down day",
-      "pronunciation": "ah-LOH-hah-FRY-day",
+      "pronunciation": "ah-LOH-hah FRY-day",
       "source": "dictionary:aloha_friday_199",
       "difficulty": "beginner",
       "tags": [
@@ -964,9 +964,9 @@
     {
       "pidgin": "Can wear slippahs fo aloha friday",
       "english": "casual wear Friday",
-      "category": "expressions",
+      "category": "cultural",
       "context": "Dress-down day",
-      "pronunciation": "ah-LOH-hah-FRY-day",
+      "pronunciation": "ah-LOH-hah FRY-day",
       "source": "dictionary:aloha_friday_199:audio",
       "difficulty": "beginner",
       "tags": [
@@ -1719,7 +1719,7 @@
     {
       "pidgin": "My uncle one bolo head",
       "english": "bald person",
-      "category": "slang",
+      "category": "descriptions",
       "context": "Describing baldness (sometimes teasing)",
       "pronunciation": "BOH-loh-hed",
       "source": "dictionary:bolo_head_020",
@@ -1733,7 +1733,7 @@
     {
       "pidgin": "Eh bolo head, wea you going?",
       "english": "bald person",
-      "category": "slang",
+      "category": "descriptions",
       "context": "Describing baldness (sometimes teasing)",
       "pronunciation": "BOH-loh-hed",
       "source": "dictionary:bolo_head_020:audio",
@@ -2471,7 +2471,7 @@
     {
       "pidgin": "Da ghost story gave me chicken skin",
       "english": "goosebumps",
-      "category": "slang",
+      "category": "descriptions",
       "context": "Physical reaction to fear or excitement",
       "pronunciation": "CHICK-en-skin",
       "source": "dictionary:chicken_skin_033",
@@ -2483,7 +2483,7 @@
     {
       "pidgin": "Ho, I get chicken skin!",
       "english": "goosebumps",
-      "category": "slang",
+      "category": "descriptions",
       "context": "Physical reaction to fear or excitement",
       "pronunciation": "CHICK-en-skin",
       "source": "dictionary:chicken_skin_033:audio",
@@ -2575,7 +2575,7 @@
       "english": "a lot",
       "category": "expressions",
       "context": "Large quantity",
-      "pronunciation": "CHOHK",
+      "pronunciation": "CHOKE",
       "source": "dictionary:choke_035",
       "difficulty": "beginner",
       "tags": [
@@ -2588,7 +2588,7 @@
       "english": "a lot",
       "category": "expressions",
       "context": "Large quantity",
-      "pronunciation": "CHOHK",
+      "pronunciation": "CHOKE",
       "source": "dictionary:choke_035:audio",
       "difficulty": "beginner",
       "tags": [
@@ -2601,7 +2601,7 @@
       "english": "very many small ones",
       "category": "expressions",
       "context": "Many small things",
-      "pronunciation": "CHOHK mah-NEE-nee",
+      "pronunciation": "CHOKE mah-NEE-nee",
       "source": "dictionary:choke_manini_324",
       "difficulty": "beginner",
       "tags": [
@@ -2615,7 +2615,7 @@
       "english": "very many small ones",
       "category": "expressions",
       "context": "Many small things",
-      "pronunciation": "CHOHK mah-NEE-nee",
+      "pronunciation": "CHOKE mah-NEE-nee",
       "source": "dictionary:choke_manini_324:audio",
       "difficulty": "beginner",
       "tags": [
@@ -3245,9 +3245,9 @@
     {
       "pidgin": "E kala mai, can pass?",
       "english": "excuse me",
-      "category": "expressions",
+      "category": "greetings",
       "context": "Polite apology",
-      "pronunciation": "eh KAH-lah MY",
+      "pronunciation": "eh-KAH-lah-MY",
       "source": "dictionary:e_kala_mai_327",
       "difficulty": "advanced",
       "tags": [
@@ -3258,9 +3258,9 @@
     {
       "pidgin": "E kala mai please",
       "english": "excuse me",
-      "category": "expressions",
+      "category": "greetings",
       "context": "Polite apology",
-      "pronunciation": "eh KAH-lah MY",
+      "pronunciation": "eh-KAH-lah-MY",
       "source": "dictionary:e_kala_mai_327:audio",
       "difficulty": "advanced",
       "tags": [
@@ -3273,7 +3273,7 @@
       "english": "welcome",
       "category": "greetings",
       "context": "Welcoming greeting",
-      "pronunciation": "eh KOH-moh MY",
+      "pronunciation": "eh-KOH-moh-MY",
       "source": "dictionary:e_komo_mai_328",
       "difficulty": "advanced",
       "tags": [
@@ -3287,7 +3287,7 @@
       "english": "welcome",
       "category": "greetings",
       "context": "Welcoming greeting",
-      "pronunciation": "eh KOH-moh MY",
+      "pronunciation": "eh-KOH-moh-MY",
       "source": "dictionary:e_komo_mai_328:audio",
       "difficulty": "advanced",
       "tags": [
@@ -3791,7 +3791,7 @@
       "english": "strange",
       "category": "expressions",
       "context": "Describing oddness",
-      "pronunciation": "FUN-nee KINE",
+      "pronunciation": "FUN-nee-KINE",
       "source": "dictionary:funny_kine_049",
       "difficulty": "beginner",
       "tags": [
@@ -3804,7 +3804,7 @@
       "english": "strange",
       "category": "expressions",
       "context": "Describing oddness",
-      "pronunciation": "FUN-nee KINE",
+      "pronunciation": "FUN-nee-KINE",
       "source": "dictionary:funny_kine_049:audio",
       "difficulty": "beginner",
       "tags": [
@@ -4173,7 +4173,7 @@
       "english": "to eat",
       "category": "actions",
       "context": "Eating food",
-      "pronunciation": "GRINE",
+      "pronunciation": "GRIND",
       "source": "dictionary:grind_054",
       "difficulty": "beginner",
       "tags": [
@@ -4186,7 +4186,7 @@
       "english": "to eat",
       "category": "actions",
       "context": "Eating food",
-      "pronunciation": "GRINE",
+      "pronunciation": "GRIND",
       "source": "dictionary:grind_054:audio",
       "difficulty": "beginner",
       "tags": [
@@ -4225,7 +4225,7 @@
       "english": "food",
       "category": "food",
       "context": "Referring to food",
-      "pronunciation": "GRINZ",
+      "pronunciation": "GRINDZ",
       "source": "dictionary:grindz_344",
       "difficulty": "beginner",
       "tags": [
@@ -4238,7 +4238,7 @@
       "english": "food",
       "category": "food",
       "context": "Referring to food",
-      "pronunciation": "GRINZ",
+      "pronunciation": "GRINDZ",
       "source": "dictionary:grindz_344:audio",
       "difficulty": "beginner",
       "tags": [
@@ -5045,9 +5045,9 @@
     {
       "pidgin": "She all high maka maka",
       "english": "stuck up",
-      "category": "slang",
+      "category": "descriptions",
       "context": "Snobbish",
-      "pronunciation": "high MAH-kah MAH-kah",
+      "pronunciation": "high-MAH-kah-MAH-kah",
       "source": "dictionary:high_maka_maka_069",
       "difficulty": "advanced",
       "tags": [
@@ -5059,9 +5059,9 @@
     {
       "pidgin": "No be high maka maka",
       "english": "stuck up",
-      "category": "slang",
+      "category": "descriptions",
       "context": "Snobbish",
-      "pronunciation": "high MAH-kah MAH-kah",
+      "pronunciation": "high-MAH-kah-MAH-kah",
       "source": "dictionary:high_maka_maka_069:audio",
       "difficulty": "advanced",
       "tags": [
@@ -5489,9 +5489,9 @@
     {
       "pidgin": "I mua!",
       "english": "forward",
-      "category": "expressions",
+      "category": "cultural",
       "context": "Move forward",
-      "pronunciation": "ee MOO-ah",
+      "pronunciation": "ee-MOO-ah",
       "source": "dictionary:i_mua_355",
       "difficulty": "beginner",
       "tags": [
@@ -5502,9 +5502,9 @@
     {
       "pidgin": "I mua, no look back",
       "english": "forward",
-      "category": "expressions",
+      "category": "cultural",
       "context": "Move forward",
-      "pronunciation": "ee MOO-ah",
+      "pronunciation": "ee-MOO-ah",
       "source": "dictionary:i_mua_355:audio",
       "difficulty": "beginner",
       "tags": [
@@ -6255,9 +6255,9 @@
     {
       "pidgin": "Get kanak attack",
       "english": "food coma",
-      "category": "slang",
+      "category": "expressions",
       "context": "After eating sleepy",
-      "pronunciation": "kah-NAK ah-TAK",
+      "pronunciation": "kah-NAK-ah-TAK",
       "source": "dictionary:kanak_attack_087",
       "difficulty": "beginner",
       "tags": [
@@ -6270,9 +6270,9 @@
     {
       "pidgin": "Kanak attack time",
       "english": "food coma",
-      "category": "slang",
+      "category": "expressions",
       "context": "After eating sleepy",
-      "pronunciation": "kah-NAK ah-TAK",
+      "pronunciation": "kah-NAK-ah-TAK",
       "source": "dictionary:kanak_attack_087:audio",
       "difficulty": "beginner",
       "tags": [
@@ -6565,9 +6565,9 @@
     {
       "pidgin": "He get kim chee breath",
       "english": "bad breath",
-      "category": "slang",
+      "category": "descriptions",
       "context": "Bad breath smell",
-      "pronunciation": "KIM-chee breath",
+      "pronunciation": "kim-CHEE-breath",
       "source": "dictionary:kim_chee_breath_400",
       "difficulty": "advanced",
       "tags": [
@@ -6577,9 +6577,9 @@
     {
       "pidgin": "Brush teeth, kim chee breath!",
       "english": "bad breath",
-      "category": "slang",
+      "category": "descriptions",
       "context": "Bad breath smell",
-      "pronunciation": "KIM-chee breath",
+      "pronunciation": "kim-CHEE-breath",
       "source": "dictionary:kim_chee_breath_400:audio",
       "difficulty": "advanced",
       "tags": [
@@ -6693,7 +6693,7 @@
     {
       "pidgin": "Da dog wen make kukae",
       "english": "feces",
-      "category": "slang",
+      "category": "cultural",
       "context": "Crude term for feces",
       "pronunciation": "koo-KYE",
       "source": "dictionary:kukae_098",
@@ -6706,7 +6706,7 @@
     {
       "pidgin": "Clean up da kukae",
       "english": "feces",
-      "category": "slang",
+      "category": "cultural",
       "context": "Crude term for feces",
       "pronunciation": "koo-KYE",
       "source": "dictionary:kukae_098:audio",
@@ -7139,7 +7139,7 @@
     {
       "pidgin": "You lolo",
       "english": "crazy",
-      "category": "slang",
+      "category": "cultural",
       "context": "Foolish",
       "pronunciation": "LOH-loh",
       "source": "dictionary:lolo_107",
@@ -7152,7 +7152,7 @@
     {
       "pidgin": "No be lolo!",
       "english": "crazy",
-      "category": "slang",
+      "category": "cultural",
       "context": "Foolish",
       "pronunciation": "LOH-loh",
       "source": "dictionary:lolo_107:audio",
@@ -7325,7 +7325,7 @@
       "english": "toward the ocean",
       "category": "directions",
       "context": "Directional term meaning oceanside",
-      "pronunciation": "mah-KYE",
+      "pronunciation": "mah-KAI",
       "source": "dictionary:makai_112",
       "difficulty": "beginner",
       "tags": [
@@ -7338,7 +7338,7 @@
       "english": "toward the ocean",
       "category": "directions",
       "context": "Directional term meaning oceanside",
-      "pronunciation": "mah-KYE",
+      "pronunciation": "mah-KAI",
       "source": "dictionary:makai_112:audio",
       "difficulty": "beginner",
       "tags": [
@@ -7349,7 +7349,7 @@
     {
       "pidgin": "Da bug stay make",
       "english": "dead",
-      "category": "slang",
+      "category": "cultural",
       "context": "Death",
       "pronunciation": "MAH-keh",
       "source": "dictionary:make_111",
@@ -7362,7 +7362,7 @@
     {
       "pidgin": "Almost make!",
       "english": "dead",
-      "category": "slang",
+      "category": "cultural",
       "context": "Death",
       "pronunciation": "MAH-keh",
       "source": "dictionary:make_111:audio",
@@ -7401,7 +7401,7 @@
     {
       "pidgin": "Can tell he one malihini",
       "english": "newcomer",
-      "category": "slang",
+      "category": "cultural",
       "context": "Someone new to Hawaii",
       "pronunciation": "mah-lee-HEE-nee",
       "source": "dictionary:malihini_114",
@@ -7414,7 +7414,7 @@
     {
       "pidgin": "Plenty malihini at Waikiki",
       "english": "newcomer",
-      "category": "slang",
+      "category": "cultural",
       "context": "Someone new to Hawaii",
       "pronunciation": "mah-lee-HEE-nee",
       "source": "dictionary:malihini_114:audio",
@@ -7483,7 +7483,7 @@
       "english": "food truck vendor",
       "category": "people",
       "context": "Mobile vendor",
-      "pronunciation": "mah-nah-POO-ah man",
+      "pronunciation": "mah-nah-POO-ah-man",
       "source": "dictionary:manapua_man_367",
       "difficulty": "beginner",
       "tags": [
@@ -7496,7 +7496,7 @@
       "english": "food truck vendor",
       "category": "people",
       "context": "Mobile vendor",
-      "pronunciation": "mah-nah-POO-ah man",
+      "pronunciation": "mah-nah-POO-ah-man",
       "source": "dictionary:manapua_man_367:audio",
       "difficulty": "beginner",
       "tags": [
@@ -7639,7 +7639,7 @@
       "english": "glassy unfocused stare",
       "category": "descriptions",
       "context": "Blank stare",
-      "pronunciation": "mem-PAH-chee eye",
+      "pronunciation": "mem-PAH-chee-eye",
       "source": "dictionary:mempachi_eye_401",
       "difficulty": "beginner",
       "tags": [
@@ -7652,7 +7652,7 @@
       "english": "glassy unfocused stare",
       "category": "descriptions",
       "context": "Blank stare",
-      "pronunciation": "mem-PAH-chee eye",
+      "pronunciation": "mem-PAH-chee-eye",
       "source": "dictionary:mempachi_eye_401:audio",
       "difficulty": "beginner",
       "tags": [
@@ -7819,9 +7819,9 @@
     {
       "pidgin": "I stay moe moe",
       "english": "sleepy",
-      "category": "descriptions",
+      "category": "actions",
       "context": "Being tired",
-      "pronunciation": "MOH-eh MOH-eh",
+      "pronunciation": "MOH-eh-MOH-eh",
       "source": "dictionary:moe_moe_403",
       "difficulty": "beginner",
       "tags": [
@@ -7832,9 +7832,9 @@
     {
       "pidgin": "So moe moe already",
       "english": "sleepy",
-      "category": "descriptions",
+      "category": "actions",
       "context": "Being tired",
-      "pronunciation": "MOH-eh MOH-eh",
+      "pronunciation": "MOH-eh-MOH-eh",
       "source": "dictionary:moe_moe_403:audio",
       "difficulty": "beginner",
       "tags": [
@@ -8567,7 +8567,7 @@
     {
       "pidgin": "Dey smoking pakalolo",
       "english": "marijuana",
-      "category": "slang",
+      "category": "cultural",
       "context": "Cannabis",
       "pronunciation": "pah-kah-LOH-loh",
       "source": "dictionary:pakalolo_141",
@@ -8580,7 +8580,7 @@
     {
       "pidgin": "No pakalolo hea",
       "english": "marijuana",
-      "category": "slang",
+      "category": "cultural",
       "context": "Cannabis",
       "pronunciation": "pah-kah-LOH-loh",
       "source": "dictionary:pakalolo_141:audio",
@@ -9157,7 +9157,7 @@
     {
       "pidgin": "Rajah dat",
       "english": "roger",
-      "category": "expressions",
+      "category": "greetings",
       "context": "Agreement",
       "pronunciation": "RAH-jah",
       "source": "dictionary:rajah_153",
@@ -9169,7 +9169,7 @@
     {
       "pidgin": "Rajah brah!",
       "english": "roger",
-      "category": "expressions",
+      "category": "greetings",
       "context": "Agreement",
       "pronunciation": "RAH-jah",
       "source": "dictionary:rajah_153:audio",
@@ -9261,7 +9261,7 @@
       "english": "fight",
       "category": "actions",
       "context": "Physical fight",
-      "pronunciation": "SKRAP",
+      "pronunciation": "SCRAP",
       "source": "dictionary:scrap_156",
       "difficulty": "beginner",
       "tags": [
@@ -9274,7 +9274,7 @@
       "english": "fight",
       "category": "actions",
       "context": "Physical fight",
-      "pronunciation": "SKRAP",
+      "pronunciation": "SCRAP",
       "source": "dictionary:scrap_156:audio",
       "difficulty": "beginner",
       "tags": [
@@ -9441,7 +9441,7 @@
       "english": "flip-flops",
       "category": "clothing",
       "context": "Footwear",
-      "pronunciation": "SLIP-pahz",
+      "pronunciation": "SLIP-ahz",
       "source": "dictionary:slippahs_161",
       "difficulty": "beginner",
       "tags": [
@@ -9454,7 +9454,7 @@
       "english": "flip-flops",
       "category": "clothing",
       "context": "Footwear",
-      "pronunciation": "SLIP-pahz",
+      "pronunciation": "SLIP-ahz",
       "source": "dictionary:slippahs_161:audio",
       "difficulty": "beginner",
       "tags": [
@@ -10085,7 +10085,7 @@
     {
       "pidgin": "My tutu making lunch",
       "english": "grandparent",
-      "category": "expressions",
+      "category": "family",
       "context": "Grandmother or grandfather",
       "pronunciation": "TOO-too",
       "source": "dictionary:tutu_179",
@@ -10098,7 +10098,7 @@
     {
       "pidgin": "Going visit tutu",
       "english": "grandparent",
-      "category": "expressions",
+      "category": "family",
       "context": "Grandmother or grandfather",
       "pronunciation": "TOO-too",
       "source": "dictionary:tutu_179:audio",
@@ -10135,7 +10135,7 @@
     {
       "pidgin": "Da kid get ukus",
       "english": "lice",
-      "category": "slang",
+      "category": "cultural",
       "context": "Head lice",
       "pronunciation": "OO-koo",
       "source": "dictionary:uku_180",
@@ -10148,7 +10148,7 @@
     {
       "pidgin": "Check fo ukus",
       "english": "lice",
-      "category": "slang",
+      "category": "cultural",
       "context": "Head lice",
       "pronunciation": "OO-koo",
       "source": "dictionary:uku_180:audio",
@@ -11137,7 +11137,7 @@
       "english": "laugh hard",
       "category": "emotions",
       "context": "",
-      "pronunciation": "bus LAF",
+      "pronunciation": "BUS-LAF",
       "source": "dictionary:buss_laff_502",
       "difficulty": "intermediate",
       "tags": [
@@ -11151,7 +11151,7 @@
       "english": "laugh hard",
       "category": "emotions",
       "context": "",
-      "pronunciation": "bus LAF",
+      "pronunciation": "BUS-LAF",
       "source": "dictionary:buss_laff_502",
       "difficulty": "intermediate",
       "tags": [
@@ -11165,7 +11165,7 @@
       "english": "laugh hard",
       "category": "emotions",
       "context": "",
-      "pronunciation": "bus LAF",
+      "pronunciation": "BUS-LAF",
       "source": "dictionary:buss_laff_502",
       "difficulty": "intermediate",
       "tags": [
@@ -11305,7 +11305,7 @@
       "english": "when I was a kid",
       "category": "expressions",
       "context": "",
-      "pronunciation": "small kid TIME",
+      "pronunciation": "small-KID-time",
       "source": "dictionary:small_kid_time_506",
       "difficulty": "intermediate",
       "tags": [
@@ -11319,7 +11319,7 @@
       "english": "when I was a kid",
       "category": "expressions",
       "context": "",
-      "pronunciation": "small kid TIME",
+      "pronunciation": "small-KID-time",
       "source": "dictionary:small_kid_time_506",
       "difficulty": "intermediate",
       "tags": [
@@ -11333,7 +11333,7 @@
       "english": "when I was a kid",
       "category": "expressions",
       "context": "",
-      "pronunciation": "small kid TIME",
+      "pronunciation": "small-KID-time",
       "source": "dictionary:small_kid_time_506",
       "difficulty": "intermediate",
       "tags": [
@@ -11389,7 +11389,7 @@
       "english": "you're right",
       "category": "expressions",
       "context": "",
-      "pronunciation": "yeah YOU",
+      "pronunciation": "yeah-YOU",
       "source": "dictionary:yeah_you_508",
       "difficulty": "advanced",
       "tags": [
@@ -11403,7 +11403,7 @@
       "english": "you're right",
       "category": "expressions",
       "context": "",
-      "pronunciation": "yeah YOU",
+      "pronunciation": "yeah-YOU",
       "source": "dictionary:yeah_you_508",
       "difficulty": "advanced",
       "tags": [
@@ -11417,7 +11417,7 @@
       "english": "you're right",
       "category": "expressions",
       "context": "",
-      "pronunciation": "yeah YOU",
+      "pronunciation": "yeah-YOU",
       "source": "dictionary:yeah_you_508",
       "difficulty": "advanced",
       "tags": [
@@ -11429,7 +11429,7 @@
     {
       "pidgin": "Shoots, I'll see you tomorrow",
       "english": "alright",
-      "category": "expressions",
+      "category": "greetings",
       "context": "Can be used both as agreement/acknowledgment and as a casual goodbye",
       "pronunciation": "SHOOTS",
       "source": "dictionary:shoots_509",
@@ -11444,7 +11444,7 @@
     {
       "pidgin": "We go beach? Shoots!",
       "english": "alright",
-      "category": "expressions",
+      "category": "greetings",
       "context": "Can be used both as agreement/acknowledgment and as a casual goodbye",
       "pronunciation": "SHOOTS",
       "source": "dictionary:shoots_509",
@@ -11459,7 +11459,7 @@
     {
       "pidgin": "Shoots den, laters",
       "english": "alright",
-      "category": "expressions",
+      "category": "greetings",
       "context": "Can be used both as agreement/acknowledgment and as a casual goodbye",
       "pronunciation": "SHOOTS",
       "source": "dictionary:shoots_509",
@@ -11516,7 +11516,7 @@
     {
       "pidgin": "We go beach today? Shoots, brah!",
       "english": "alright, brother!",
-      "category": "expressions",
+      "category": "greetings",
       "context": "Term of agreement or approval between friends",
       "pronunciation": "SHOOTS, brah",
       "source": "dictionary:shoots_brah_511",
@@ -11530,7 +11530,7 @@
     {
       "pidgin": "Can you help me move? Shoots, brah!",
       "english": "alright, brother!",
-      "category": "expressions",
+      "category": "greetings",
       "context": "Term of agreement or approval between friends",
       "pronunciation": "SHOOTS, brah",
       "source": "dictionary:shoots_brah_511",
@@ -11544,7 +11544,7 @@
     {
       "pidgin": "Thanks for da ride. Shoots, brah!",
       "english": "alright, brother!",
-      "category": "expressions",
+      "category": "greetings",
       "context": "Term of agreement or approval between friends",
       "pronunciation": "SHOOTS, brah",
       "source": "dictionary:shoots_brah_511",
@@ -11560,7 +11560,7 @@
       "english": "gossip",
       "category": "actions",
       "context": "Speaking negatively about someone behind their back",
-      "pronunciation": "TALK stink",
+      "pronunciation": "TALK-stink",
       "source": "dictionary:talk_stink_512",
       "difficulty": "intermediate",
       "tags": [
@@ -11573,7 +11573,7 @@
       "english": "gossip",
       "category": "actions",
       "context": "Speaking negatively about someone behind their back",
-      "pronunciation": "TALK stink",
+      "pronunciation": "TALK-stink",
       "source": "dictionary:talk_stink_512",
       "difficulty": "intermediate",
       "tags": [
@@ -11586,7 +11586,7 @@
       "english": "gossip",
       "category": "actions",
       "context": "Speaking negatively about someone behind their back",
-      "pronunciation": "TALK stink",
+      "pronunciation": "TALK-stink",
       "source": "dictionary:talk_stink_512",
       "difficulty": "intermediate",
       "tags": [
@@ -11599,7 +11599,7 @@
       "english": "the best!",
       "category": "expressions",
       "context": "Expressing that something is the best or excellent",
-      "pronunciation": "dah BES",
+      "pronunciation": "dah-BES",
       "source": "dictionary:da_bes_513",
       "difficulty": "beginner",
       "tags": [
@@ -11612,7 +11612,7 @@
       "english": "the best!",
       "category": "expressions",
       "context": "Expressing that something is the best or excellent",
-      "pronunciation": "dah BES",
+      "pronunciation": "dah-BES",
       "source": "dictionary:da_bes_513",
       "difficulty": "beginner",
       "tags": [
@@ -11625,7 +11625,7 @@
       "english": "the best!",
       "category": "expressions",
       "context": "Expressing that something is the best or excellent",
-      "pronunciation": "dah BES",
+      "pronunciation": "dah-BES",
       "source": "dictionary:da_bes_513",
       "difficulty": "beginner",
       "tags": [
@@ -11638,7 +11638,7 @@
       "english": "go do it better",
       "category": "expressions",
       "context": "Encouraging someone to improve or do something better",
-      "pronunciation": "go MOH BET-tah",
+      "pronunciation": "go-MOH-BET-tah",
       "source": "dictionary:go_mo_bettah_514",
       "difficulty": "intermediate",
       "tags": [
@@ -11651,7 +11651,7 @@
       "english": "go do it better",
       "category": "expressions",
       "context": "Encouraging someone to improve or do something better",
-      "pronunciation": "go MOH BET-tah",
+      "pronunciation": "go-MOH-BET-tah",
       "source": "dictionary:go_mo_bettah_514",
       "difficulty": "intermediate",
       "tags": [
@@ -11664,7 +11664,7 @@
       "english": "go do it better",
       "category": "expressions",
       "context": "Encouraging someone to improve or do something better",
-      "pronunciation": "go MOH BET-tah",
+      "pronunciation": "go-MOH-BET-tah",
       "source": "dictionary:go_mo_bettah_514",
       "difficulty": "intermediate",
       "tags": [
@@ -11714,7 +11714,7 @@
     {
       "pidgin": "Mahalo, for da hookup with da job!",
       "english": "thank you for the connection!",
-      "category": "expressions",
+      "category": "greetings",
       "context": "Thanking someone for a favor, connection, or helping you get something",
       "pronunciation": "mah-HAH-loh, for dah HOOK-up",
       "source": "dictionary:mahalo_for_da_hookup_516",
@@ -11727,7 +11727,7 @@
     {
       "pidgin": "Mahalo, for da hookup with your cousin",
       "english": "thank you for the connection!",
-      "category": "expressions",
+      "category": "greetings",
       "context": "Thanking someone for a favor, connection, or helping you get something",
       "pronunciation": "mah-HAH-loh, for dah HOOK-up",
       "source": "dictionary:mahalo_for_da_hookup_516",
@@ -11740,7 +11740,7 @@
     {
       "pidgin": "Ho, mahalo for da hookup with da tickets!",
       "english": "thank you for the connection!",
-      "category": "expressions",
+      "category": "greetings",
       "context": "Thanking someone for a favor, connection, or helping you get something",
       "pronunciation": "mah-HAH-loh, for dah HOOK-up",
       "source": "dictionary:mahalo_for_da_hookup_516",
@@ -11755,7 +11755,7 @@
       "english": "there's a lot",
       "category": "expressions",
       "context": "Indicating there's a large amount or many of something",
-      "pronunciation": "GET choke",
+      "pronunciation": "GET-choke",
       "source": "dictionary:get_choke_517",
       "difficulty": "intermediate",
       "tags": [
@@ -11768,7 +11768,7 @@
       "english": "there's a lot",
       "category": "expressions",
       "context": "Indicating there's a large amount or many of something",
-      "pronunciation": "GET choke",
+      "pronunciation": "GET-choke",
       "source": "dictionary:get_choke_517",
       "difficulty": "intermediate",
       "tags": [
@@ -11781,7 +11781,7 @@
       "english": "there's a lot",
       "category": "expressions",
       "context": "Indicating there's a large amount or many of something",
-      "pronunciation": "GET choke",
+      "pronunciation": "GET-choke",
       "source": "dictionary:get_choke_517",
       "difficulty": "intermediate",
       "tags": [
@@ -11794,7 +11794,7 @@
       "english": "to play a joke on someone",
       "category": "actions",
       "context": "Playing jokes or teasing someone",
-      "pronunciation": "MAKE FUN-ny",
+      "pronunciation": "MAKE-FUN-nee",
       "source": "dictionary:make_funny_518",
       "difficulty": "intermediate",
       "tags": [
@@ -11807,7 +11807,7 @@
       "english": "to play a joke on someone",
       "category": "actions",
       "context": "Playing jokes or teasing someone",
-      "pronunciation": "MAKE FUN-ny",
+      "pronunciation": "MAKE-FUN-nee",
       "source": "dictionary:make_funny_518",
       "difficulty": "intermediate",
       "tags": [
@@ -11820,7 +11820,7 @@
       "english": "to play a joke on someone",
       "category": "actions",
       "context": "Playing jokes or teasing someone",
-      "pronunciation": "MAKE FUN-ny",
+      "pronunciation": "MAKE-FUN-nee",
       "source": "dictionary:make_funny_518",
       "difficulty": "intermediate",
       "tags": [
@@ -12067,7 +12067,7 @@
       "english": "feel like crap",
       "category": "expressions",
       "context": "Feeling physically or emotionally terrible",
-      "pronunciation": "feel JUNK",
+      "pronunciation": "feel-JUNK",
       "source": "dictionary:feel_junk_525",
       "difficulty": "beginner",
       "tags": [
@@ -12081,7 +12081,7 @@
       "english": "feel like crap",
       "category": "expressions",
       "context": "Feeling physically or emotionally terrible",
-      "pronunciation": "feel JUNK",
+      "pronunciation": "feel-JUNK",
       "source": "dictionary:feel_junk_525",
       "difficulty": "beginner",
       "tags": [
@@ -12095,7 +12095,7 @@
       "english": "feel like crap",
       "category": "expressions",
       "context": "Feeling physically or emotionally terrible",
-      "pronunciation": "feel JUNK",
+      "pronunciation": "feel-JUNK",
       "source": "dictionary:feel_junk_525",
       "difficulty": "beginner",
       "tags": [
@@ -12190,7 +12190,7 @@
       "english": "seem like",
       "category": "expressions",
       "context": "Expressing a feeling or intuition about something",
-      "pronunciation": "feel LIKE",
+      "pronunciation": "feel-LIKE",
       "source": "dictionary:feel_like_528",
       "difficulty": "intermediate",
       "tags": [
@@ -12203,7 +12203,7 @@
       "english": "seem like",
       "category": "expressions",
       "context": "Expressing a feeling or intuition about something",
-      "pronunciation": "feel LIKE",
+      "pronunciation": "feel-LIKE",
       "source": "dictionary:feel_like_528",
       "difficulty": "intermediate",
       "tags": [
@@ -12214,9 +12214,9 @@
     {
       "pidgin": "No worries brah",
       "english": "no problem",
-      "category": "expressions",
+      "category": "greetings",
       "context": "Casual reassurance or acceptance",
-      "pronunciation": "no WOR-reez",
+      "pronunciation": "no-WOR-reez",
       "source": "dictionary:no_worries_529",
       "difficulty": "beginner",
       "tags": [
@@ -12227,9 +12227,9 @@
     {
       "pidgin": "Eh, no worries about dat",
       "english": "no problem",
-      "category": "expressions",
+      "category": "greetings",
       "context": "Casual reassurance or acceptance",
-      "pronunciation": "no WOR-reez",
+      "pronunciation": "no-WOR-reez",
       "source": "dictionary:no_worries_529",
       "difficulty": "beginner",
       "tags": [
@@ -12261,32 +12261,6 @@
         "pronunciation": "ah-OH-leh",
         "source": "dictionary:aole_307:audio",
         "difficulty": "beginner",
-        "tags": [
-          "expressions",
-          "hawaiian"
-        ]
-      },
-      {
-        "pidgin": "'A'ole pilikia brah",
-        "english": "no problem",
-        "category": "expressions",
-        "context": "You're welcome",
-        "pronunciation": "ah-OH-leh pee-lee-KEE-ah",
-        "source": "dictionary:aole_pilikia_308",
-        "difficulty": "intermediate",
-        "tags": [
-          "expressions",
-          "hawaiian"
-        ]
-      },
-      {
-        "pidgin": "'A'ole pilikia",
-        "english": "no problem",
-        "category": "expressions",
-        "context": "You're welcome",
-        "pronunciation": "ah-OH-leh pee-lee-KEE-ah",
-        "source": "dictionary:aole_pilikia_308:audio",
-        "difficulty": "intermediate",
         "tags": [
           "expressions",
           "hawaiian"
@@ -12349,7 +12323,7 @@
         "english": "doing something on purpose but making it look accidental",
         "category": "expressions",
         "context": "Describes intentionally deceptive behavior",
-        "pronunciation": "ak-si-DEN-tuh-lee on PUR-pus",
+        "pronunciation": "ak-si-DEN-tal-lee on PUR-pus",
         "source": "dictionary:accidentally_on_purp_001",
         "difficulty": "advanced",
         "tags": [
@@ -12362,7 +12336,7 @@
         "english": "doing something on purpose but making it look accidental",
         "category": "expressions",
         "context": "Describes intentionally deceptive behavior",
-        "pronunciation": "ak-si-DEN-tuh-lee on PUR-pus",
+        "pronunciation": "ak-si-DEN-tal-lee on PUR-pus",
         "source": "dictionary:accidentally_on_purp_001:audio",
         "difficulty": "advanced",
         "tags": [
@@ -12427,7 +12401,7 @@
         "english": "I don't care",
         "category": "expressions",
         "context": "Expression of indifference",
-        "pronunciation": "EYE-no-KEY-ah",
+        "pronunciation": "eye-no-KEH-ah",
         "source": "dictionary:ainokea_278",
         "difficulty": "beginner",
         "tags": [
@@ -12440,7 +12414,7 @@
         "english": "I don't care",
         "category": "expressions",
         "context": "Expression of indifference",
-        "pronunciation": "EYE-no-KEY-ah",
+        "pronunciation": "eye-no-KEH-ah",
         "source": "dictionary:ainokea_278:audio",
         "difficulty": "beginner",
         "tags": [
@@ -12527,6 +12501,32 @@
         ]
       },
       {
+        "pidgin": "Everything stay all katsu",
+        "english": "perfect",
+        "category": "expressions",
+        "context": "Everything is great",
+        "pronunciation": "all-KAHT-soo",
+        "source": "dictionary:all_katsu_292",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "japanese"
+        ]
+      },
+      {
+        "pidgin": "We stay all katsu now",
+        "english": "perfect",
+        "category": "expressions",
+        "context": "Everything is great",
+        "pronunciation": "all-KAHT-soo",
+        "source": "dictionary:all_katsu_292:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "japanese"
+        ]
+      },
+      {
         "pidgin": "Da food stay all pau already",
         "english": "all finished",
         "category": "expressions",
@@ -12553,29 +12553,27 @@
         ]
       },
       {
-        "pidgin": "Today stay aloha friday",
-        "english": "casual wear Friday",
+        "pidgin": "Da party wen get all randle",
+        "english": "out of control",
         "category": "expressions",
-        "context": "Dress-down day",
-        "pronunciation": "ah-LOH-hah-FRY-day",
-        "source": "dictionary:aloha_friday_199",
+        "context": "Chaotic situation",
+        "pronunciation": "all-RAN-dul",
+        "source": "dictionary:all_randle_293",
         "difficulty": "beginner",
         "tags": [
-          "expressions",
-          "hawaiian"
+          "slang"
         ]
       },
       {
-        "pidgin": "Can wear slippahs fo aloha friday",
-        "english": "casual wear Friday",
+        "pidgin": "Things stay all randle",
+        "english": "out of control",
         "category": "expressions",
-        "context": "Dress-down day",
-        "pronunciation": "ah-LOH-hah-FRY-day",
-        "source": "dictionary:aloha_friday_199:audio",
+        "context": "Chaotic situation",
+        "pronunciation": "all-RAN-dul",
+        "source": "dictionary:all_randle_293:audio",
         "difficulty": "beginner",
         "tags": [
-          "expressions",
-          "hawaiian"
+          "slang"
         ]
       },
       {
@@ -13149,7 +13147,7 @@
         "english": "a lot",
         "category": "expressions",
         "context": "Large quantity",
-        "pronunciation": "CHOHK",
+        "pronunciation": "CHOKE",
         "source": "dictionary:choke_035",
         "difficulty": "beginner",
         "tags": [
@@ -13162,7 +13160,7 @@
         "english": "a lot",
         "category": "expressions",
         "context": "Large quantity",
-        "pronunciation": "CHOHK",
+        "pronunciation": "CHOKE",
         "source": "dictionary:choke_035:audio",
         "difficulty": "beginner",
         "tags": [
@@ -13175,7 +13173,7 @@
         "english": "very many small ones",
         "category": "expressions",
         "context": "Many small things",
-        "pronunciation": "CHOHK mah-NEE-nee",
+        "pronunciation": "CHOKE mah-NEE-nee",
         "source": "dictionary:choke_manini_324",
         "difficulty": "beginner",
         "tags": [
@@ -13189,7 +13187,7 @@
         "english": "very many small ones",
         "category": "expressions",
         "context": "Many small things",
-        "pronunciation": "CHOHK mah-NEE-nee",
+        "pronunciation": "CHOKE mah-NEE-nee",
         "source": "dictionary:choke_manini_324:audio",
         "difficulty": "beginner",
         "tags": [
@@ -13533,32 +13531,6 @@
         ]
       },
       {
-        "pidgin": "E kala mai, can pass?",
-        "english": "excuse me",
-        "category": "expressions",
-        "context": "Polite apology",
-        "pronunciation": "eh KAH-lah MY",
-        "source": "dictionary:e_kala_mai_327",
-        "difficulty": "advanced",
-        "tags": [
-          "expressions",
-          "hawaiian"
-        ]
-      },
-      {
-        "pidgin": "E kala mai please",
-        "english": "excuse me",
-        "category": "expressions",
-        "context": "Polite apology",
-        "pronunciation": "eh KAH-lah MY",
-        "source": "dictionary:e_kala_mai_327:audio",
-        "difficulty": "advanced",
-        "tags": [
-          "expressions",
-          "hawaiian"
-        ]
-      },
-      {
         "pidgin": "Eh, you coming o wat?",
         "english": "hey",
         "category": "expressions",
@@ -13847,7 +13819,7 @@
         "english": "strange",
         "category": "expressions",
         "context": "Describing oddness",
-        "pronunciation": "FUN-nee KINE",
+        "pronunciation": "FUN-nee-KINE",
         "source": "dictionary:funny_kine_049",
         "difficulty": "beginner",
         "tags": [
@@ -13860,7 +13832,7 @@
         "english": "strange",
         "category": "expressions",
         "context": "Describing oddness",
-        "pronunciation": "FUN-nee KINE",
+        "pronunciation": "FUN-nee-KINE",
         "source": "dictionary:funny_kine_049:audio",
         "difficulty": "beginner",
         "tags": [
@@ -14693,32 +14665,6 @@
         ]
       },
       {
-        "pidgin": "I mua!",
-        "english": "forward",
-        "category": "expressions",
-        "context": "Move forward",
-        "pronunciation": "ee MOO-ah",
-        "source": "dictionary:i_mua_355",
-        "difficulty": "beginner",
-        "tags": [
-          "expressions",
-          "hawaiian"
-        ]
-      },
-      {
-        "pidgin": "I mua, no look back",
-        "english": "forward",
-        "category": "expressions",
-        "context": "Move forward",
-        "pronunciation": "ee MOO-ah",
-        "source": "dictionary:i_mua_355:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "expressions",
-          "hawaiian"
-        ]
-      },
-      {
         "pidgin": "I no kid you, was real",
         "english": "I'm serious",
         "category": "expressions",
@@ -15146,6 +15092,36 @@
         "tags": [
           "expressions",
           "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "Get kanak attack",
+        "english": "food coma",
+        "category": "expressions",
+        "context": "After eating sleepy",
+        "pronunciation": "kah-NAK-ah-TAK",
+        "source": "dictionary:kanak_attack_087",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "hawaiian",
+          "english",
+          "food"
+        ]
+      },
+      {
+        "pidgin": "Kanak attack time",
+        "english": "food coma",
+        "category": "expressions",
+        "context": "After eating sleepy",
+        "pronunciation": "kah-NAK-ah-TAK",
+        "source": "dictionary:kanak_attack_087:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "hawaiian",
+          "english",
+          "food"
         ]
       },
       {
@@ -15929,30 +15905,6 @@
         ]
       },
       {
-        "pidgin": "Rajah dat",
-        "english": "roger",
-        "category": "expressions",
-        "context": "Agreement",
-        "pronunciation": "RAH-jah",
-        "source": "dictionary:rajah_153",
-        "difficulty": "beginner",
-        "tags": [
-          "expressions"
-        ]
-      },
-      {
-        "pidgin": "Rajah brah!",
-        "english": "roger",
-        "category": "expressions",
-        "context": "Agreement",
-        "pronunciation": "RAH-jah",
-        "source": "dictionary:rajah_153:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "expressions"
-        ]
-      },
-      {
         "pidgin": "Wea my rubbah slippahs?",
         "english": "flip flops",
         "category": "expressions",
@@ -16210,32 +16162,6 @@
         "tags": [
           "expressions",
           "english"
-        ]
-      },
-      {
-        "pidgin": "My tutu making lunch",
-        "english": "grandparent",
-        "category": "expressions",
-        "context": "Grandmother or grandfather",
-        "pronunciation": "TOO-too",
-        "source": "dictionary:tutu_179",
-        "difficulty": "beginner",
-        "tags": [
-          "expressions",
-          "hawaiian"
-        ]
-      },
-      {
-        "pidgin": "Going visit tutu",
-        "english": "grandparent",
-        "category": "expressions",
-        "context": "Grandmother or grandfather",
-        "pronunciation": "TOO-too",
-        "source": "dictionary:tutu_179:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "expressions",
-          "hawaiian"
         ]
       },
       {
@@ -16741,7 +16667,7 @@
         "english": "when I was a kid",
         "category": "expressions",
         "context": "",
-        "pronunciation": "small kid TIME",
+        "pronunciation": "small-KID-time",
         "source": "dictionary:small_kid_time_506",
         "difficulty": "intermediate",
         "tags": [
@@ -16755,7 +16681,7 @@
         "english": "when I was a kid",
         "category": "expressions",
         "context": "",
-        "pronunciation": "small kid TIME",
+        "pronunciation": "small-KID-time",
         "source": "dictionary:small_kid_time_506",
         "difficulty": "intermediate",
         "tags": [
@@ -16769,7 +16695,7 @@
         "english": "when I was a kid",
         "category": "expressions",
         "context": "",
-        "pronunciation": "small kid TIME",
+        "pronunciation": "small-KID-time",
         "source": "dictionary:small_kid_time_506",
         "difficulty": "intermediate",
         "tags": [
@@ -16783,7 +16709,7 @@
         "english": "you're right",
         "category": "expressions",
         "context": "",
-        "pronunciation": "yeah YOU",
+        "pronunciation": "yeah-YOU",
         "source": "dictionary:yeah_you_508",
         "difficulty": "advanced",
         "tags": [
@@ -16797,7 +16723,7 @@
         "english": "you're right",
         "category": "expressions",
         "context": "",
-        "pronunciation": "yeah YOU",
+        "pronunciation": "yeah-YOU",
         "source": "dictionary:yeah_you_508",
         "difficulty": "advanced",
         "tags": [
@@ -16811,58 +16737,13 @@
         "english": "you're right",
         "category": "expressions",
         "context": "",
-        "pronunciation": "yeah YOU",
+        "pronunciation": "yeah-YOU",
         "source": "dictionary:yeah_you_508",
         "difficulty": "advanced",
         "tags": [
           "expressions",
           "agreement",
           "conversation"
-        ]
-      },
-      {
-        "pidgin": "Shoots, I'll see you tomorrow",
-        "english": "alright",
-        "category": "expressions",
-        "context": "Can be used both as agreement/acknowledgment and as a casual goodbye",
-        "pronunciation": "SHOOTS",
-        "source": "dictionary:shoots_509",
-        "difficulty": "beginner",
-        "tags": [
-          "expressions",
-          "greetings",
-          "agreement",
-          "farewell"
-        ]
-      },
-      {
-        "pidgin": "We go beach? Shoots!",
-        "english": "alright",
-        "category": "expressions",
-        "context": "Can be used both as agreement/acknowledgment and as a casual goodbye",
-        "pronunciation": "SHOOTS",
-        "source": "dictionary:shoots_509",
-        "difficulty": "beginner",
-        "tags": [
-          "expressions",
-          "greetings",
-          "agreement",
-          "farewell"
-        ]
-      },
-      {
-        "pidgin": "Shoots den, laters",
-        "english": "alright",
-        "category": "expressions",
-        "context": "Can be used both as agreement/acknowledgment and as a casual goodbye",
-        "pronunciation": "SHOOTS",
-        "source": "dictionary:shoots_509",
-        "difficulty": "beginner",
-        "tags": [
-          "expressions",
-          "greetings",
-          "agreement",
-          "farewell"
         ]
       },
       {
@@ -16908,53 +16789,11 @@
         ]
       },
       {
-        "pidgin": "We go beach today? Shoots, brah!",
-        "english": "alright, brother!",
-        "category": "expressions",
-        "context": "Term of agreement or approval between friends",
-        "pronunciation": "SHOOTS, brah",
-        "source": "dictionary:shoots_brah_511",
-        "difficulty": "beginner",
-        "tags": [
-          "expressions",
-          "agreement",
-          "slang"
-        ]
-      },
-      {
-        "pidgin": "Can you help me move? Shoots, brah!",
-        "english": "alright, brother!",
-        "category": "expressions",
-        "context": "Term of agreement or approval between friends",
-        "pronunciation": "SHOOTS, brah",
-        "source": "dictionary:shoots_brah_511",
-        "difficulty": "beginner",
-        "tags": [
-          "expressions",
-          "agreement",
-          "slang"
-        ]
-      },
-      {
-        "pidgin": "Thanks for da ride. Shoots, brah!",
-        "english": "alright, brother!",
-        "category": "expressions",
-        "context": "Term of agreement or approval between friends",
-        "pronunciation": "SHOOTS, brah",
-        "source": "dictionary:shoots_brah_511",
-        "difficulty": "beginner",
-        "tags": [
-          "expressions",
-          "agreement",
-          "slang"
-        ]
-      },
-      {
         "pidgin": "Dis grindz is da bes'!",
         "english": "the best!",
         "category": "expressions",
         "context": "Expressing that something is the best or excellent",
-        "pronunciation": "dah BES",
+        "pronunciation": "dah-BES",
         "source": "dictionary:da_bes_513",
         "difficulty": "beginner",
         "tags": [
@@ -16967,7 +16806,7 @@
         "english": "the best!",
         "category": "expressions",
         "context": "Expressing that something is the best or excellent",
-        "pronunciation": "dah BES",
+        "pronunciation": "dah-BES",
         "source": "dictionary:da_bes_513",
         "difficulty": "beginner",
         "tags": [
@@ -16980,7 +16819,7 @@
         "english": "the best!",
         "category": "expressions",
         "context": "Expressing that something is the best or excellent",
-        "pronunciation": "dah BES",
+        "pronunciation": "dah-BES",
         "source": "dictionary:da_bes_513",
         "difficulty": "beginner",
         "tags": [
@@ -16993,7 +16832,7 @@
         "english": "go do it better",
         "category": "expressions",
         "context": "Encouraging someone to improve or do something better",
-        "pronunciation": "go MOH BET-tah",
+        "pronunciation": "go-MOH-BET-tah",
         "source": "dictionary:go_mo_bettah_514",
         "difficulty": "intermediate",
         "tags": [
@@ -17006,7 +16845,7 @@
         "english": "go do it better",
         "category": "expressions",
         "context": "Encouraging someone to improve or do something better",
-        "pronunciation": "go MOH BET-tah",
+        "pronunciation": "go-MOH-BET-tah",
         "source": "dictionary:go_mo_bettah_514",
         "difficulty": "intermediate",
         "tags": [
@@ -17019,7 +16858,7 @@
         "english": "go do it better",
         "category": "expressions",
         "context": "Encouraging someone to improve or do something better",
-        "pronunciation": "go MOH BET-tah",
+        "pronunciation": "go-MOH-BET-tah",
         "source": "dictionary:go_mo_bettah_514",
         "difficulty": "intermediate",
         "tags": [
@@ -17028,50 +16867,11 @@
         ]
       },
       {
-        "pidgin": "Mahalo, for da hookup with da job!",
-        "english": "thank you for the connection!",
-        "category": "expressions",
-        "context": "Thanking someone for a favor, connection, or helping you get something",
-        "pronunciation": "mah-HAH-loh, for dah HOOK-up",
-        "source": "dictionary:mahalo_for_da_hookup_516",
-        "difficulty": "intermediate",
-        "tags": [
-          "expressions",
-          "gratitude"
-        ]
-      },
-      {
-        "pidgin": "Mahalo, for da hookup with your cousin",
-        "english": "thank you for the connection!",
-        "category": "expressions",
-        "context": "Thanking someone for a favor, connection, or helping you get something",
-        "pronunciation": "mah-HAH-loh, for dah HOOK-up",
-        "source": "dictionary:mahalo_for_da_hookup_516",
-        "difficulty": "intermediate",
-        "tags": [
-          "expressions",
-          "gratitude"
-        ]
-      },
-      {
-        "pidgin": "Ho, mahalo for da hookup with da tickets!",
-        "english": "thank you for the connection!",
-        "category": "expressions",
-        "context": "Thanking someone for a favor, connection, or helping you get something",
-        "pronunciation": "mah-HAH-loh, for dah HOOK-up",
-        "source": "dictionary:mahalo_for_da_hookup_516",
-        "difficulty": "intermediate",
-        "tags": [
-          "expressions",
-          "gratitude"
-        ]
-      },
-      {
         "pidgin": "Get choke people at da beach today",
         "english": "there's a lot",
         "category": "expressions",
         "context": "Indicating there's a large amount or many of something",
-        "pronunciation": "GET choke",
+        "pronunciation": "GET-choke",
         "source": "dictionary:get_choke_517",
         "difficulty": "intermediate",
         "tags": [
@@ -17084,7 +16884,7 @@
         "english": "there's a lot",
         "category": "expressions",
         "context": "Indicating there's a large amount or many of something",
-        "pronunciation": "GET choke",
+        "pronunciation": "GET-choke",
         "source": "dictionary:get_choke_517",
         "difficulty": "intermediate",
         "tags": [
@@ -17097,7 +16897,7 @@
         "english": "there's a lot",
         "category": "expressions",
         "context": "Indicating there's a large amount or many of something",
-        "pronunciation": "GET choke",
+        "pronunciation": "GET-choke",
         "source": "dictionary:get_choke_517",
         "difficulty": "intermediate",
         "tags": [
@@ -17227,7 +17027,7 @@
         "english": "feel like crap",
         "category": "expressions",
         "context": "Feeling physically or emotionally terrible",
-        "pronunciation": "feel JUNK",
+        "pronunciation": "feel-JUNK",
         "source": "dictionary:feel_junk_525",
         "difficulty": "beginner",
         "tags": [
@@ -17241,7 +17041,7 @@
         "english": "feel like crap",
         "category": "expressions",
         "context": "Feeling physically or emotionally terrible",
-        "pronunciation": "feel JUNK",
+        "pronunciation": "feel-JUNK",
         "source": "dictionary:feel_junk_525",
         "difficulty": "beginner",
         "tags": [
@@ -17255,7 +17055,7 @@
         "english": "feel like crap",
         "category": "expressions",
         "context": "Feeling physically or emotionally terrible",
-        "pronunciation": "feel JUNK",
+        "pronunciation": "feel-JUNK",
         "source": "dictionary:feel_junk_525",
         "difficulty": "beginner",
         "tags": [
@@ -17350,7 +17150,7 @@
         "english": "seem like",
         "category": "expressions",
         "context": "Expressing a feeling or intuition about something",
-        "pronunciation": "feel LIKE",
+        "pronunciation": "feel-LIKE",
         "source": "dictionary:feel_like_528",
         "difficulty": "intermediate",
         "tags": [
@@ -17363,20 +17163,649 @@
         "english": "seem like",
         "category": "expressions",
         "context": "Expressing a feeling or intuition about something",
-        "pronunciation": "feel LIKE",
+        "pronunciation": "feel-LIKE",
         "source": "dictionary:feel_like_528",
         "difficulty": "intermediate",
         "tags": [
           "expressions",
           "emotions"
         ]
+      }
+    ],
+    "greetings": [
+      {
+        "pidgin": "'A'ole pilikia brah",
+        "english": "no problem",
+        "category": "greetings",
+        "context": "You're welcome",
+        "pronunciation": "ah-OH-leh pee-lee-KEE-ah",
+        "source": "dictionary:aole_pilikia_308",
+        "difficulty": "intermediate",
+        "tags": [
+          "expressions",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "'A'ole pilikia",
+        "english": "no problem",
+        "category": "greetings",
+        "context": "You're welcome",
+        "pronunciation": "ah-OH-leh pee-lee-KEE-ah",
+        "source": "dictionary:aole_pilikia_308:audio",
+        "difficulty": "intermediate",
+        "tags": [
+          "expressions",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "'Ano'ai everyone",
+        "english": "greetings",
+        "category": "greetings",
+        "context": "Formal greeting",
+        "pronunciation": "ah-no-AH-ee",
+        "source": "dictionary:anoai_303",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "hawaiian",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "'Ano'ai friends",
+        "english": "greetings",
+        "category": "greetings",
+        "context": "Formal greeting",
+        "pronunciation": "ah-no-AH-ee",
+        "source": "dictionary:anoai_303:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "hawaiian",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "Aloha, howzit brah!",
+        "english": "hello",
+        "category": "greetings",
+        "context": "Universal Hawaiian greeting showing love and respect",
+        "pronunciation": "ah-LOH-hah",
+        "source": "dictionary:aloha_011",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "hawaiian",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "Aloha bradda, how you stay?",
+        "english": "hello",
+        "category": "greetings",
+        "context": "Universal Hawaiian greeting showing love and respect",
+        "pronunciation": "ah-LOH-hah",
+        "source": "dictionary:aloha_011:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "hawaiian",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "Aloha 'oe my friend",
+        "english": "farewell to you",
+        "category": "greetings",
+        "context": "Famous farewell song",
+        "pronunciation": "ah-LOH-hah OH-eh",
+        "source": "dictionary:aloha_oe_295",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "hawaiian",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "Aloha 'oe until we meet again",
+        "english": "farewell to you",
+        "category": "greetings",
+        "context": "Famous farewell song",
+        "pronunciation": "ah-LOH-hah OH-eh",
+        "source": "dictionary:aloha_oe_295:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "hawaiian",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "E kala mai, can pass?",
+        "english": "excuse me",
+        "category": "greetings",
+        "context": "Polite apology",
+        "pronunciation": "eh-KAH-lah-MY",
+        "source": "dictionary:e_kala_mai_327",
+        "difficulty": "advanced",
+        "tags": [
+          "expressions",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "E kala mai please",
+        "english": "excuse me",
+        "category": "greetings",
+        "context": "Polite apology",
+        "pronunciation": "eh-KAH-lah-MY",
+        "source": "dictionary:e_kala_mai_327:audio",
+        "difficulty": "advanced",
+        "tags": [
+          "expressions",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "E komo mai to our hale",
+        "english": "welcome",
+        "category": "greetings",
+        "context": "Welcoming greeting",
+        "pronunciation": "eh-KOH-moh-MY",
+        "source": "dictionary:e_komo_mai_328",
+        "difficulty": "advanced",
+        "tags": [
+          "greetings",
+          "hawaiian",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "E komo mai friends",
+        "english": "welcome",
+        "category": "greetings",
+        "context": "Welcoming greeting",
+        "pronunciation": "eh-KOH-moh-MY",
+        "source": "dictionary:e_komo_mai_328:audio",
+        "difficulty": "advanced",
+        "tags": [
+          "greetings",
+          "hawaiian",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "Fa'afetai tele lava",
+        "english": "thank you (Samoan)",
+        "category": "greetings",
+        "context": "Samoan thanks",
+        "pronunciation": "fah-ah-feh-TIE",
+        "source": "dictionary:faafetai_330",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "samoan",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "Fa'afetai uso",
+        "english": "thank you (Samoan)",
+        "category": "greetings",
+        "context": "Samoan thanks",
+        "pronunciation": "fah-ah-feh-TIE",
+        "source": "dictionary:faafetai_330:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "samoan",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "Eh, how you stay?",
+        "english": "how are you?",
+        "category": "greetings",
+        "context": "Greeting",
+        "pronunciation": "how-you-STAY",
+        "source": "dictionary:how_you_stay_352",
+        "difficulty": "advanced",
+        "tags": [
+          "greetings",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "How you stay brah?",
+        "english": "how are you?",
+        "category": "greetings",
+        "context": "Greeting",
+        "pronunciation": "how-you-STAY",
+        "source": "dictionary:how_you_stay_352:audio",
+        "difficulty": "advanced",
+        "tags": [
+          "greetings",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "Howzit brah, long time no see!",
+        "english": "how are you",
+        "category": "greetings",
+        "context": "Casual greeting among friends",
+        "pronunciation": "HOW-zit",
+        "source": "dictionary:howzit_072",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "english",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "Eh, howzit going today?",
+        "english": "how are you",
+        "category": "greetings",
+        "context": "Casual greeting among friends",
+        "pronunciation": "HOW-zit",
+        "source": "dictionary:howzit_072:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "english",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "K den, latahs brah!",
+        "english": "see you later",
+        "category": "greetings",
+        "context": "Casual goodbye",
+        "pronunciation": "LAY-tahz",
+        "source": "dictionary:latahs_099",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "english",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "Latahs, take it easy!",
+        "english": "see you later",
+        "category": "greetings",
+        "context": "Casual goodbye",
+        "pronunciation": "LAY-tahz",
+        "source": "dictionary:latahs_099:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "english",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "K-den, latahz",
+        "english": "later",
+        "category": "greetings",
+        "context": "See you later",
+        "pronunciation": "LAH-tahz",
+        "source": "dictionary:latahz_362",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "english",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "Latahz brah!",
+        "english": "later",
+        "category": "greetings",
+        "context": "See you later",
+        "pronunciation": "LAH-tahz",
+        "source": "dictionary:latahz_362:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "english",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "Mahalo nui",
+        "english": "thank you",
+        "category": "greetings",
+        "context": "Thanks",
+        "pronunciation": "mah-HAH-loh",
+        "source": "dictionary:mahalo_109",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "hawaiian",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "Mahalo plenty!",
+        "english": "thank you",
+        "category": "greetings",
+        "context": "Thanks",
+        "pronunciation": "mah-HAH-loh",
+        "source": "dictionary:mahalo_109:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "hawaiian",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "Rajah dat",
+        "english": "roger",
+        "category": "greetings",
+        "context": "Agreement",
+        "pronunciation": "RAH-jah",
+        "source": "dictionary:rajah_153",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions"
+        ]
+      },
+      {
+        "pidgin": "Rajah brah!",
+        "english": "roger",
+        "category": "greetings",
+        "context": "Agreement",
+        "pronunciation": "RAH-jah",
+        "source": "dictionary:rajah_153:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions"
+        ]
+      },
+      {
+        "pidgin": "You coming tomorrow? Shoots!",
+        "english": "okay",
+        "category": "greetings",
+        "context": "Agreement or casual farewell",
+        "pronunciation": "SHOOTS",
+        "source": "dictionary:shoots_159",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "Shoots den, see you later!",
+        "english": "okay",
+        "category": "greetings",
+        "context": "Agreement or casual farewell",
+        "pronunciation": "SHOOTS",
+        "source": "dictionary:shoots_159:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "Tanks eh",
+        "english": "thanks",
+        "category": "greetings",
+        "context": "Gratitude",
+        "pronunciation": "TANKS",
+        "source": "dictionary:tanks_172",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "english",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "Tanks brah!",
+        "english": "thanks",
+        "category": "greetings",
+        "context": "Gratitude",
+        "pronunciation": "TANKS",
+        "source": "dictionary:tanks_172:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "english",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "Wassup brah",
+        "english": "what's up",
+        "category": "greetings",
+        "context": "Greeting",
+        "pronunciation": "wah-SUP",
+        "source": "dictionary:wassup_190",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "english",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "Wassup cuz?",
+        "english": "what's up",
+        "category": "greetings",
+        "context": "Greeting",
+        "pronunciation": "wah-SUP",
+        "source": "dictionary:wassup_190:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "english",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "Eh, whaddsdascoops?",
+        "english": "what's going on",
+        "category": "greetings",
+        "context": "Casual greeting",
+        "pronunciation": "wahts-dah-SKOOPS",
+        "source": "dictionary:whaddsdascoops_413",
+        "difficulty": "intermediate",
+        "tags": [
+          "greetings",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "Whaddsdascoops brah?",
+        "english": "what's going on",
+        "category": "greetings",
+        "context": "Casual greeting",
+        "pronunciation": "wahts-dah-SKOOPS",
+        "source": "dictionary:whaddsdascoops_413:audio",
+        "difficulty": "intermediate",
+        "tags": [
+          "greetings",
+          "greeting"
+        ]
+      },
+      {
+        "pidgin": "Shoots, I'll see you tomorrow",
+        "english": "alright",
+        "category": "greetings",
+        "context": "Can be used both as agreement/acknowledgment and as a casual goodbye",
+        "pronunciation": "SHOOTS",
+        "source": "dictionary:shoots_509",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "greetings",
+          "agreement",
+          "farewell"
+        ]
+      },
+      {
+        "pidgin": "We go beach? Shoots!",
+        "english": "alright",
+        "category": "greetings",
+        "context": "Can be used both as agreement/acknowledgment and as a casual goodbye",
+        "pronunciation": "SHOOTS",
+        "source": "dictionary:shoots_509",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "greetings",
+          "agreement",
+          "farewell"
+        ]
+      },
+      {
+        "pidgin": "Shoots den, laters",
+        "english": "alright",
+        "category": "greetings",
+        "context": "Can be used both as agreement/acknowledgment and as a casual goodbye",
+        "pronunciation": "SHOOTS",
+        "source": "dictionary:shoots_509",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "greetings",
+          "agreement",
+          "farewell"
+        ]
+      },
+      {
+        "pidgin": "We go beach today? Shoots, brah!",
+        "english": "alright, brother!",
+        "category": "greetings",
+        "context": "Term of agreement or approval between friends",
+        "pronunciation": "SHOOTS, brah",
+        "source": "dictionary:shoots_brah_511",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "agreement",
+          "slang"
+        ]
+      },
+      {
+        "pidgin": "Can you help me move? Shoots, brah!",
+        "english": "alright, brother!",
+        "category": "greetings",
+        "context": "Term of agreement or approval between friends",
+        "pronunciation": "SHOOTS, brah",
+        "source": "dictionary:shoots_brah_511",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "agreement",
+          "slang"
+        ]
+      },
+      {
+        "pidgin": "Thanks for da ride. Shoots, brah!",
+        "english": "alright, brother!",
+        "category": "greetings",
+        "context": "Term of agreement or approval between friends",
+        "pronunciation": "SHOOTS, brah",
+        "source": "dictionary:shoots_brah_511",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "agreement",
+          "slang"
+        ]
+      },
+      {
+        "pidgin": "Mahalo, for da hookup with da job!",
+        "english": "thank you for the connection!",
+        "category": "greetings",
+        "context": "Thanking someone for a favor, connection, or helping you get something",
+        "pronunciation": "mah-HAH-loh, for dah HOOK-up",
+        "source": "dictionary:mahalo_for_da_hookup_516",
+        "difficulty": "intermediate",
+        "tags": [
+          "expressions",
+          "gratitude"
+        ]
+      },
+      {
+        "pidgin": "Mahalo, for da hookup with your cousin",
+        "english": "thank you for the connection!",
+        "category": "greetings",
+        "context": "Thanking someone for a favor, connection, or helping you get something",
+        "pronunciation": "mah-HAH-loh, for dah HOOK-up",
+        "source": "dictionary:mahalo_for_da_hookup_516",
+        "difficulty": "intermediate",
+        "tags": [
+          "expressions",
+          "gratitude"
+        ]
+      },
+      {
+        "pidgin": "Ho, mahalo for da hookup with da tickets!",
+        "english": "thank you for the connection!",
+        "category": "greetings",
+        "context": "Thanking someone for a favor, connection, or helping you get something",
+        "pronunciation": "mah-HAH-loh, for dah HOOK-up",
+        "source": "dictionary:mahalo_for_da_hookup_516",
+        "difficulty": "intermediate",
+        "tags": [
+          "expressions",
+          "gratitude"
+        ]
+      },
+      {
+        "pidgin": "Howzit, uncle? You stay good?",
+        "english": "how are you, mister?",
+        "category": "greetings",
+        "context": "Respectful way to greet an older man, not necessarily family",
+        "pronunciation": "HOW-zit, UN-kul",
+        "source": "dictionary:howzit_uncle_519",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "respect"
+        ]
+      },
+      {
+        "pidgin": "Uncle! Howzit? Long time no see",
+        "english": "how are you, mister?",
+        "category": "greetings",
+        "context": "Respectful way to greet an older man, not necessarily family",
+        "pronunciation": "HOW-zit, UN-kul",
+        "source": "dictionary:howzit_uncle_519",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "respect"
+        ]
+      },
+      {
+        "pidgin": "Howzit, uncle, you need help?",
+        "english": "how are you, mister?",
+        "category": "greetings",
+        "context": "Respectful way to greet an older man, not necessarily family",
+        "pronunciation": "HOW-zit, UN-kul",
+        "source": "dictionary:howzit_uncle_519",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "respect"
+        ]
       },
       {
         "pidgin": "No worries brah",
         "english": "no problem",
-        "category": "expressions",
+        "category": "greetings",
         "context": "Casual reassurance or acceptance",
-        "pronunciation": "no WOR-reez",
+        "pronunciation": "no-WOR-reez",
         "source": "dictionary:no_worries_529",
         "difficulty": "beginner",
         "tags": [
@@ -17387,9 +17816,9 @@
       {
         "pidgin": "Eh, no worries about dat",
         "english": "no problem",
-        "category": "expressions",
+        "category": "greetings",
         "context": "Casual reassurance or acceptance",
-        "pronunciation": "no WOR-reez",
+        "pronunciation": "no-WOR-reez",
         "source": "dictionary:no_worries_529",
         "difficulty": "beginner",
         "tags": [
@@ -17558,7 +17987,7 @@
         "english": "food",
         "category": "food",
         "context": "Referring to food",
-        "pronunciation": "GRINZ",
+        "pronunciation": "GRINDZ",
         "source": "dictionary:grindz_344",
         "difficulty": "beginner",
         "tags": [
@@ -17571,7 +18000,7 @@
         "english": "food",
         "category": "food",
         "context": "Referring to food",
-        "pronunciation": "GRINZ",
+        "pronunciation": "GRINDZ",
         "source": "dictionary:grindz_344:audio",
         "difficulty": "beginner",
         "tags": [
@@ -18336,433 +18765,6 @@
         ]
       }
     ],
-    "greetings": [
-      {
-        "pidgin": "'Ano'ai everyone",
-        "english": "greetings",
-        "category": "greetings",
-        "context": "Formal greeting",
-        "pronunciation": "ah-no-AH-ee",
-        "source": "dictionary:anoai_303",
-        "difficulty": "beginner",
-        "tags": [
-          "greetings",
-          "hawaiian",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "'Ano'ai friends",
-        "english": "greetings",
-        "category": "greetings",
-        "context": "Formal greeting",
-        "pronunciation": "ah-no-AH-ee",
-        "source": "dictionary:anoai_303:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "greetings",
-          "hawaiian",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "Aloha, howzit brah!",
-        "english": "hello",
-        "category": "greetings",
-        "context": "Universal Hawaiian greeting showing love and respect",
-        "pronunciation": "ah-LOH-hah",
-        "source": "dictionary:aloha_011",
-        "difficulty": "beginner",
-        "tags": [
-          "greetings",
-          "hawaiian",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "Aloha bradda, how you stay?",
-        "english": "hello",
-        "category": "greetings",
-        "context": "Universal Hawaiian greeting showing love and respect",
-        "pronunciation": "ah-LOH-hah",
-        "source": "dictionary:aloha_011:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "greetings",
-          "hawaiian",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "Aloha 'oe my friend",
-        "english": "farewell to you",
-        "category": "greetings",
-        "context": "Famous farewell song",
-        "pronunciation": "ah-LOH-hah OH-eh",
-        "source": "dictionary:aloha_oe_295",
-        "difficulty": "beginner",
-        "tags": [
-          "greetings",
-          "hawaiian",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "Aloha 'oe until we meet again",
-        "english": "farewell to you",
-        "category": "greetings",
-        "context": "Famous farewell song",
-        "pronunciation": "ah-LOH-hah OH-eh",
-        "source": "dictionary:aloha_oe_295:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "greetings",
-          "hawaiian",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "E komo mai to our hale",
-        "english": "welcome",
-        "category": "greetings",
-        "context": "Welcoming greeting",
-        "pronunciation": "eh KOH-moh MY",
-        "source": "dictionary:e_komo_mai_328",
-        "difficulty": "advanced",
-        "tags": [
-          "greetings",
-          "hawaiian",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "E komo mai friends",
-        "english": "welcome",
-        "category": "greetings",
-        "context": "Welcoming greeting",
-        "pronunciation": "eh KOH-moh MY",
-        "source": "dictionary:e_komo_mai_328:audio",
-        "difficulty": "advanced",
-        "tags": [
-          "greetings",
-          "hawaiian",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "Fa'afetai tele lava",
-        "english": "thank you (Samoan)",
-        "category": "greetings",
-        "context": "Samoan thanks",
-        "pronunciation": "fah-ah-feh-TIE",
-        "source": "dictionary:faafetai_330",
-        "difficulty": "beginner",
-        "tags": [
-          "greetings",
-          "samoan",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "Fa'afetai uso",
-        "english": "thank you (Samoan)",
-        "category": "greetings",
-        "context": "Samoan thanks",
-        "pronunciation": "fah-ah-feh-TIE",
-        "source": "dictionary:faafetai_330:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "greetings",
-          "samoan",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "Eh, how you stay?",
-        "english": "how are you?",
-        "category": "greetings",
-        "context": "Greeting",
-        "pronunciation": "how-you-STAY",
-        "source": "dictionary:how_you_stay_352",
-        "difficulty": "advanced",
-        "tags": [
-          "greetings",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "How you stay brah?",
-        "english": "how are you?",
-        "category": "greetings",
-        "context": "Greeting",
-        "pronunciation": "how-you-STAY",
-        "source": "dictionary:how_you_stay_352:audio",
-        "difficulty": "advanced",
-        "tags": [
-          "greetings",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "Howzit brah, long time no see!",
-        "english": "how are you",
-        "category": "greetings",
-        "context": "Casual greeting among friends",
-        "pronunciation": "HOW-zit",
-        "source": "dictionary:howzit_072",
-        "difficulty": "beginner",
-        "tags": [
-          "greetings",
-          "english",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "Eh, howzit going today?",
-        "english": "how are you",
-        "category": "greetings",
-        "context": "Casual greeting among friends",
-        "pronunciation": "HOW-zit",
-        "source": "dictionary:howzit_072:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "greetings",
-          "english",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "K den, latahs brah!",
-        "english": "see you later",
-        "category": "greetings",
-        "context": "Casual goodbye",
-        "pronunciation": "LAY-tahz",
-        "source": "dictionary:latahs_099",
-        "difficulty": "beginner",
-        "tags": [
-          "greetings",
-          "english",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "Latahs, take it easy!",
-        "english": "see you later",
-        "category": "greetings",
-        "context": "Casual goodbye",
-        "pronunciation": "LAY-tahz",
-        "source": "dictionary:latahs_099:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "greetings",
-          "english",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "K-den, latahz",
-        "english": "later",
-        "category": "greetings",
-        "context": "See you later",
-        "pronunciation": "LAH-tahz",
-        "source": "dictionary:latahz_362",
-        "difficulty": "beginner",
-        "tags": [
-          "greetings",
-          "english",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "Latahz brah!",
-        "english": "later",
-        "category": "greetings",
-        "context": "See you later",
-        "pronunciation": "LAH-tahz",
-        "source": "dictionary:latahz_362:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "greetings",
-          "english",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "Mahalo nui",
-        "english": "thank you",
-        "category": "greetings",
-        "context": "Thanks",
-        "pronunciation": "mah-HAH-loh",
-        "source": "dictionary:mahalo_109",
-        "difficulty": "beginner",
-        "tags": [
-          "greetings",
-          "hawaiian",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "Mahalo plenty!",
-        "english": "thank you",
-        "category": "greetings",
-        "context": "Thanks",
-        "pronunciation": "mah-HAH-loh",
-        "source": "dictionary:mahalo_109:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "greetings",
-          "hawaiian",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "You coming tomorrow? Shoots!",
-        "english": "okay",
-        "category": "greetings",
-        "context": "Agreement or casual farewell",
-        "pronunciation": "SHOOTS",
-        "source": "dictionary:shoots_159",
-        "difficulty": "beginner",
-        "tags": [
-          "greetings",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "Shoots den, see you later!",
-        "english": "okay",
-        "category": "greetings",
-        "context": "Agreement or casual farewell",
-        "pronunciation": "SHOOTS",
-        "source": "dictionary:shoots_159:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "greetings",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "Tanks eh",
-        "english": "thanks",
-        "category": "greetings",
-        "context": "Gratitude",
-        "pronunciation": "TANKS",
-        "source": "dictionary:tanks_172",
-        "difficulty": "beginner",
-        "tags": [
-          "greetings",
-          "english",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "Tanks brah!",
-        "english": "thanks",
-        "category": "greetings",
-        "context": "Gratitude",
-        "pronunciation": "TANKS",
-        "source": "dictionary:tanks_172:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "greetings",
-          "english",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "Wassup brah",
-        "english": "what's up",
-        "category": "greetings",
-        "context": "Greeting",
-        "pronunciation": "wah-SUP",
-        "source": "dictionary:wassup_190",
-        "difficulty": "beginner",
-        "tags": [
-          "greetings",
-          "english",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "Wassup cuz?",
-        "english": "what's up",
-        "category": "greetings",
-        "context": "Greeting",
-        "pronunciation": "wah-SUP",
-        "source": "dictionary:wassup_190:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "greetings",
-          "english",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "Eh, whaddsdascoops?",
-        "english": "what's going on",
-        "category": "greetings",
-        "context": "Casual greeting",
-        "pronunciation": "wahts-dah-SKOOPS",
-        "source": "dictionary:whaddsdascoops_413",
-        "difficulty": "intermediate",
-        "tags": [
-          "greetings",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "Whaddsdascoops brah?",
-        "english": "what's going on",
-        "category": "greetings",
-        "context": "Casual greeting",
-        "pronunciation": "wahts-dah-SKOOPS",
-        "source": "dictionary:whaddsdascoops_413:audio",
-        "difficulty": "intermediate",
-        "tags": [
-          "greetings",
-          "greeting"
-        ]
-      },
-      {
-        "pidgin": "Howzit, uncle? You stay good?",
-        "english": "how are you, mister?",
-        "category": "greetings",
-        "context": "Respectful way to greet an older man, not necessarily family",
-        "pronunciation": "HOW-zit, UN-kul",
-        "source": "dictionary:howzit_uncle_519",
-        "difficulty": "beginner",
-        "tags": [
-          "greetings",
-          "respect"
-        ]
-      },
-      {
-        "pidgin": "Uncle! Howzit? Long time no see",
-        "english": "how are you, mister?",
-        "category": "greetings",
-        "context": "Respectful way to greet an older man, not necessarily family",
-        "pronunciation": "HOW-zit, UN-kul",
-        "source": "dictionary:howzit_uncle_519",
-        "difficulty": "beginner",
-        "tags": [
-          "greetings",
-          "respect"
-        ]
-      },
-      {
-        "pidgin": "Howzit, uncle, you need help?",
-        "english": "how are you, mister?",
-        "category": "greetings",
-        "context": "Respectful way to greet an older man, not necessarily family",
-        "pronunciation": "HOW-zit, UN-kul",
-        "source": "dictionary:howzit_uncle_519",
-        "difficulty": "beginner",
-        "tags": [
-          "greetings",
-          "respect"
-        ]
-      }
-    ],
     "actions": [
       {
         "pidgin": "Go 'au'au",
@@ -18847,7 +18849,7 @@
         "english": "to eat",
         "category": "actions",
         "context": "Eating food",
-        "pronunciation": "GRINE",
+        "pronunciation": "GRIND",
         "source": "dictionary:grind_054",
         "difficulty": "beginner",
         "tags": [
@@ -18860,7 +18862,7 @@
         "english": "to eat",
         "category": "actions",
         "context": "Eating food",
-        "pronunciation": "GRINE",
+        "pronunciation": "GRIND",
         "source": "dictionary:grind_054:audio",
         "difficulty": "beginner",
         "tags": [
@@ -18999,6 +19001,32 @@
         ]
       },
       {
+        "pidgin": "I stay moe moe",
+        "english": "sleepy",
+        "category": "actions",
+        "context": "Being tired",
+        "pronunciation": "MOH-eh-MOH-eh",
+        "source": "dictionary:moe_moe_403",
+        "difficulty": "beginner",
+        "tags": [
+          "descriptions",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "So moe moe already",
+        "english": "sleepy",
+        "category": "actions",
+        "context": "Being tired",
+        "pronunciation": "MOH-eh-MOH-eh",
+        "source": "dictionary:moe_moe_403:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "descriptions",
+          "hawaiian"
+        ]
+      },
+      {
         "pidgin": "Time fo ne ne",
         "english": "to sleep",
         "category": "actions",
@@ -19027,7 +19055,7 @@
         "english": "fight",
         "category": "actions",
         "context": "Physical fight",
-        "pronunciation": "SKRAP",
+        "pronunciation": "SCRAP",
         "source": "dictionary:scrap_156",
         "difficulty": "beginner",
         "tags": [
@@ -19040,7 +19068,7 @@
         "english": "fight",
         "category": "actions",
         "context": "Physical fight",
-        "pronunciation": "SKRAP",
+        "pronunciation": "SCRAP",
         "source": "dictionary:scrap_156:audio",
         "difficulty": "beginner",
         "tags": [
@@ -19121,7 +19149,7 @@
         "english": "gossip",
         "category": "actions",
         "context": "Speaking negatively about someone behind their back",
-        "pronunciation": "TALK stink",
+        "pronunciation": "TALK-stink",
         "source": "dictionary:talk_stink_512",
         "difficulty": "intermediate",
         "tags": [
@@ -19134,7 +19162,7 @@
         "english": "gossip",
         "category": "actions",
         "context": "Speaking negatively about someone behind their back",
-        "pronunciation": "TALK stink",
+        "pronunciation": "TALK-stink",
         "source": "dictionary:talk_stink_512",
         "difficulty": "intermediate",
         "tags": [
@@ -19147,7 +19175,7 @@
         "english": "gossip",
         "category": "actions",
         "context": "Speaking negatively about someone behind their back",
-        "pronunciation": "TALK stink",
+        "pronunciation": "TALK-stink",
         "source": "dictionary:talk_stink_512",
         "difficulty": "intermediate",
         "tags": [
@@ -19160,7 +19188,7 @@
         "english": "to play a joke on someone",
         "category": "actions",
         "context": "Playing jokes or teasing someone",
-        "pronunciation": "MAKE FUN-ny",
+        "pronunciation": "MAKE-FUN-nee",
         "source": "dictionary:make_funny_518",
         "difficulty": "intermediate",
         "tags": [
@@ -19173,7 +19201,7 @@
         "english": "to play a joke on someone",
         "category": "actions",
         "context": "Playing jokes or teasing someone",
-        "pronunciation": "MAKE FUN-ny",
+        "pronunciation": "MAKE-FUN-nee",
         "source": "dictionary:make_funny_518",
         "difficulty": "intermediate",
         "tags": [
@@ -19186,7 +19214,7 @@
         "english": "to play a joke on someone",
         "category": "actions",
         "context": "Playing jokes or teasing someone",
-        "pronunciation": "MAKE FUN-ny",
+        "pronunciation": "MAKE-FUN-nee",
         "source": "dictionary:make_funny_518",
         "difficulty": "intermediate",
         "tags": [
@@ -19290,6 +19318,32 @@
         ]
       },
       {
+        "pidgin": "Dat kid stay akamai",
+        "english": "smart",
+        "category": "cultural",
+        "context": "Complimenting intelligence",
+        "pronunciation": "ah-kah-MY",
+        "source": "dictionary:akamai_006",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "You so akamai, can help me?",
+        "english": "smart",
+        "category": "cultural",
+        "context": "Complimenting intelligence",
+        "pronunciation": "ah-kah-MY",
+        "source": "dictionary:akamai_006:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "hawaiian"
+        ]
+      },
+      {
         "pidgin": "Ke akua stay watching",
         "english": "god",
         "category": "cultural",
@@ -19338,6 +19392,32 @@
         "difficulty": "beginner",
         "tags": [
           "cultural",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "Today stay aloha friday",
+        "english": "casual wear Friday",
+        "category": "cultural",
+        "context": "Dress-down day",
+        "pronunciation": "ah-LOH-hah FRY-day",
+        "source": "dictionary:aloha_friday_199",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "Can wear slippahs fo aloha friday",
+        "english": "casual wear Friday",
+        "category": "cultural",
+        "context": "Dress-down day",
+        "pronunciation": "ah-LOH-hah FRY-day",
+        "source": "dictionary:aloha_friday_199:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
           "hawaiian"
         ]
       },
@@ -19394,6 +19474,32 @@
         ]
       },
       {
+        "pidgin": "I mua!",
+        "english": "forward",
+        "category": "cultural",
+        "context": "Move forward",
+        "pronunciation": "ee-MOO-ah",
+        "source": "dictionary:i_mua_355",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "I mua, no look back",
+        "english": "forward",
+        "category": "cultural",
+        "context": "Move forward",
+        "pronunciation": "ee-MOO-ah",
+        "source": "dictionary:i_mua_355:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "hawaiian"
+        ]
+      },
+      {
         "pidgin": "Come kanikapila",
         "english": "jam session",
         "category": "cultural",
@@ -19446,6 +19552,32 @@
         ]
       },
       {
+        "pidgin": "Da dog wen make kukae",
+        "english": "feces",
+        "category": "cultural",
+        "context": "Crude term for feces",
+        "pronunciation": "koo-KYE",
+        "source": "dictionary:kukae_098",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "Clean up da kukae",
+        "english": "feces",
+        "category": "cultural",
+        "context": "Crude term for feces",
+        "pronunciation": "koo-KYE",
+        "source": "dictionary:kukae_098:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "hawaiian"
+        ]
+      },
+      {
         "pidgin": "Get beautiful lei",
         "english": "garland of flowers",
         "category": "cultural",
@@ -19472,6 +19604,32 @@
         ]
       },
       {
+        "pidgin": "You lolo",
+        "english": "crazy",
+        "category": "cultural",
+        "context": "Foolish",
+        "pronunciation": "LOH-loh",
+        "source": "dictionary:lolo_107",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "No be lolo!",
+        "english": "crazy",
+        "category": "cultural",
+        "context": "Foolish",
+        "pronunciation": "LOH-loh",
+        "source": "dictionary:lolo_107:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "hawaiian"
+        ]
+      },
+      {
         "pidgin": "Going to da big lūʻau",
         "english": "Hawaiian feast",
         "category": "cultural",
@@ -19494,6 +19652,58 @@
         "difficulty": "beginner",
         "tags": [
           "cultural",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "Da bug stay make",
+        "english": "dead",
+        "category": "cultural",
+        "context": "Death",
+        "pronunciation": "MAH-keh",
+        "source": "dictionary:make_111",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "Almost make!",
+        "english": "dead",
+        "category": "cultural",
+        "context": "Death",
+        "pronunciation": "MAH-keh",
+        "source": "dictionary:make_111:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "Can tell he one malihini",
+        "english": "newcomer",
+        "category": "cultural",
+        "context": "Someone new to Hawaii",
+        "pronunciation": "mah-lee-HEE-nee",
+        "source": "dictionary:malihini_114",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "Plenty malihini at Waikiki",
+        "english": "newcomer",
+        "category": "cultural",
+        "context": "Someone new to Hawaii",
+        "pronunciation": "mah-lee-HEE-nee",
+        "source": "dictionary:malihini_114:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
           "hawaiian"
         ]
       },
@@ -19547,6 +19757,58 @@
         "tags": [
           "cultural",
           "japanese"
+        ]
+      },
+      {
+        "pidgin": "Dey smoking pakalolo",
+        "english": "marijuana",
+        "category": "cultural",
+        "context": "Cannabis",
+        "pronunciation": "pah-kah-LOH-loh",
+        "source": "dictionary:pakalolo_141",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "No pakalolo hea",
+        "english": "marijuana",
+        "category": "cultural",
+        "context": "Cannabis",
+        "pronunciation": "pah-kah-LOH-loh",
+        "source": "dictionary:pakalolo_141:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "Da kid get ukus",
+        "english": "lice",
+        "category": "cultural",
+        "context": "Head lice",
+        "pronunciation": "OO-koo",
+        "source": "dictionary:uku_180",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "Check fo ukus",
+        "english": "lice",
+        "category": "cultural",
+        "context": "Head lice",
+        "pronunciation": "OO-koo",
+        "source": "dictionary:uku_180:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "hawaiian"
         ]
       },
       {
@@ -19656,6 +19918,138 @@
         ]
       },
       {
+        "pidgin": "Without glasses I stay all bline",
+        "english": "completely blind",
+        "category": "descriptions",
+        "context": "Poor vision",
+        "pronunciation": "all-BLINE",
+        "source": "dictionary:all_bline_290",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "english"
+        ]
+      },
+      {
+        "pidgin": "I stay all bline in da dark",
+        "english": "completely blind",
+        "category": "descriptions",
+        "context": "Poor vision",
+        "pronunciation": "all-BLINE",
+        "source": "dictionary:all_bline_290:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "english"
+        ]
+      },
+      {
+        "pidgin": "His haircut stay all jag",
+        "english": "messed up",
+        "category": "descriptions",
+        "context": "Uneven or messy",
+        "pronunciation": "all-JAG",
+        "source": "dictionary:all_jag_291",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "english"
+        ]
+      },
+      {
+        "pidgin": "Da fence stay all jag",
+        "english": "messed up",
+        "category": "descriptions",
+        "context": "Uneven or messy",
+        "pronunciation": "all-JAG",
+        "source": "dictionary:all_jag_291:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "english"
+        ]
+      },
+      {
+        "pidgin": "My uncle one bolo head",
+        "english": "bald person",
+        "category": "descriptions",
+        "context": "Describing baldness (sometimes teasing)",
+        "pronunciation": "BOH-loh-hed",
+        "source": "dictionary:bolo_head_020",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "english",
+          "portuguese"
+        ]
+      },
+      {
+        "pidgin": "Eh bolo head, wea you going?",
+        "english": "bald person",
+        "category": "descriptions",
+        "context": "Describing baldness (sometimes teasing)",
+        "pronunciation": "BOH-loh-hed",
+        "source": "dictionary:bolo_head_020:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "english",
+          "portuguese"
+        ]
+      },
+      {
+        "pidgin": "Da ghost story gave me chicken skin",
+        "english": "goosebumps",
+        "category": "descriptions",
+        "context": "Physical reaction to fear or excitement",
+        "pronunciation": "CHICK-en-skin",
+        "source": "dictionary:chicken_skin_033",
+        "difficulty": "beginner",
+        "tags": [
+          "slang"
+        ]
+      },
+      {
+        "pidgin": "Ho, I get chicken skin!",
+        "english": "goosebumps",
+        "category": "descriptions",
+        "context": "Physical reaction to fear or excitement",
+        "pronunciation": "CHICK-en-skin",
+        "source": "dictionary:chicken_skin_033:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "slang"
+        ]
+      },
+      {
+        "pidgin": "She all high maka maka",
+        "english": "stuck up",
+        "category": "descriptions",
+        "context": "Snobbish",
+        "pronunciation": "high-MAH-kah-MAH-kah",
+        "source": "dictionary:high_maka_maka_069",
+        "difficulty": "advanced",
+        "tags": [
+          "slang",
+          "hawaiian",
+          "english"
+        ]
+      },
+      {
+        "pidgin": "No be high maka maka",
+        "english": "stuck up",
+        "category": "descriptions",
+        "context": "Snobbish",
+        "pronunciation": "high-MAH-kah-MAH-kah",
+        "source": "dictionary:high_maka_maka_069:audio",
+        "difficulty": "advanced",
+        "tags": [
+          "slang",
+          "hawaiian",
+          "english"
+        ]
+      },
+      {
         "pidgin": "Stay humbalah",
         "english": "humble",
         "category": "descriptions",
@@ -19705,6 +20099,30 @@
         "tags": [
           "descriptions",
           "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "He get kim chee breath",
+        "english": "bad breath",
+        "category": "descriptions",
+        "context": "Bad breath smell",
+        "pronunciation": "kim-CHEE-breath",
+        "source": "dictionary:kim_chee_breath_400",
+        "difficulty": "advanced",
+        "tags": [
+          "slang"
+        ]
+      },
+      {
+        "pidgin": "Brush teeth, kim chee breath!",
+        "english": "bad breath",
+        "category": "descriptions",
+        "context": "Bad breath smell",
+        "pronunciation": "kim-CHEE-breath",
+        "source": "dictionary:kim_chee_breath_400:audio",
+        "difficulty": "advanced",
+        "tags": [
+          "slang"
         ]
       },
       {
@@ -19764,7 +20182,7 @@
         "english": "glassy unfocused stare",
         "category": "descriptions",
         "context": "Blank stare",
-        "pronunciation": "mem-PAH-chee eye",
+        "pronunciation": "mem-PAH-chee-eye",
         "source": "dictionary:mempachi_eye_401",
         "difficulty": "beginner",
         "tags": [
@@ -19777,38 +20195,12 @@
         "english": "glassy unfocused stare",
         "category": "descriptions",
         "context": "Blank stare",
-        "pronunciation": "mem-PAH-chee eye",
+        "pronunciation": "mem-PAH-chee-eye",
         "source": "dictionary:mempachi_eye_401:audio",
         "difficulty": "beginner",
         "tags": [
           "descriptions",
           "japanese"
-        ]
-      },
-      {
-        "pidgin": "I stay moe moe",
-        "english": "sleepy",
-        "category": "descriptions",
-        "context": "Being tired",
-        "pronunciation": "MOH-eh MOH-eh",
-        "source": "dictionary:moe_moe_403",
-        "difficulty": "beginner",
-        "tags": [
-          "descriptions",
-          "hawaiian"
-        ]
-      },
-      {
-        "pidgin": "So moe moe already",
-        "english": "sleepy",
-        "category": "descriptions",
-        "context": "Being tired",
-        "pronunciation": "MOH-eh MOH-eh",
-        "source": "dictionary:moe_moe_403:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "descriptions",
-          "hawaiian"
         ]
       },
       {
@@ -20010,32 +20402,6 @@
         ]
       },
       {
-        "pidgin": "Dat kid stay akamai",
-        "english": "smart",
-        "category": "slang",
-        "context": "Complimenting intelligence",
-        "pronunciation": "ah-kah-MY",
-        "source": "dictionary:akamai_006",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "hawaiian"
-        ]
-      },
-      {
-        "pidgin": "You so akamai, can help me?",
-        "english": "smart",
-        "category": "slang",
-        "context": "Complimenting intelligence",
-        "pronunciation": "ah-kah-MY",
-        "source": "dictionary:akamai_006:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "hawaiian"
-        ]
-      },
-      {
         "pidgin": "Stay careful wit your alas",
         "english": "testicles",
         "category": "slang",
@@ -20059,32 +20425,6 @@
         "tags": [
           "slang",
           "portuguese"
-        ]
-      },
-      {
-        "pidgin": "Without glasses I stay all bline",
-        "english": "completely blind",
-        "category": "slang",
-        "context": "Poor vision",
-        "pronunciation": "all-BLINE",
-        "source": "dictionary:all_bline_290",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "english"
-        ]
-      },
-      {
-        "pidgin": "I stay all bline in da dark",
-        "english": "completely blind",
-        "category": "slang",
-        "context": "Poor vision",
-        "pronunciation": "all-BLINE",
-        "source": "dictionary:all_bline_290:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "english"
         ]
       },
       {
@@ -20114,58 +20454,6 @@
         ]
       },
       {
-        "pidgin": "His haircut stay all jag",
-        "english": "messed up",
-        "category": "slang",
-        "context": "Uneven or messy",
-        "pronunciation": "all-JAG",
-        "source": "dictionary:all_jag_291",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "english"
-        ]
-      },
-      {
-        "pidgin": "Da fence stay all jag",
-        "english": "messed up",
-        "category": "slang",
-        "context": "Uneven or messy",
-        "pronunciation": "all-JAG",
-        "source": "dictionary:all_jag_291:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "english"
-        ]
-      },
-      {
-        "pidgin": "Everything stay all katsu",
-        "english": "perfect",
-        "category": "slang",
-        "context": "Everything is great",
-        "pronunciation": "all-KAHT-soo",
-        "source": "dictionary:all_katsu_292",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "japanese"
-        ]
-      },
-      {
-        "pidgin": "We stay all katsu now",
-        "english": "perfect",
-        "category": "slang",
-        "context": "Everything is great",
-        "pronunciation": "all-KAHT-soo",
-        "source": "dictionary:all_katsu_292:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "japanese"
-        ]
-      },
-      {
         "pidgin": "Da party was all nuts last night",
         "english": "crazy",
         "category": "slang",
@@ -20185,56 +20473,6 @@
         "context": "Describing chaotic situations",
         "pronunciation": "all-NUTS",
         "source": "dictionary:all_nuts_009:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "english"
-        ]
-      },
-      {
-        "pidgin": "Da party wen get all randle",
-        "english": "out of control",
-        "category": "slang",
-        "context": "Chaotic situation",
-        "pronunciation": "all-RAN-dul",
-        "source": "dictionary:all_randle_293",
-        "difficulty": "beginner",
-        "tags": [
-          "slang"
-        ]
-      },
-      {
-        "pidgin": "Things stay all randle",
-        "english": "out of control",
-        "category": "slang",
-        "context": "Chaotic situation",
-        "pronunciation": "all-RAN-dul",
-        "source": "dictionary:all_randle_293:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "slang"
-        ]
-      },
-      {
-        "pidgin": "He stay all salty about losing",
-        "english": "angry",
-        "category": "slang",
-        "context": "Being upset",
-        "pronunciation": "all-SAWL-tee",
-        "source": "dictionary:all_salty_294",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "english"
-        ]
-      },
-      {
-        "pidgin": "Why you all salty?",
-        "english": "angry",
-        "category": "slang",
-        "context": "Being upset",
-        "pronunciation": "all-SAWL-tee",
-        "source": "dictionary:all_salty_294:audio",
         "difficulty": "beginner",
         "tags": [
           "slang",
@@ -20620,34 +20858,6 @@
         ]
       },
       {
-        "pidgin": "My uncle one bolo head",
-        "english": "bald person",
-        "category": "slang",
-        "context": "Describing baldness (sometimes teasing)",
-        "pronunciation": "BOH-loh-hed",
-        "source": "dictionary:bolo_head_020",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "english",
-          "portuguese"
-        ]
-      },
-      {
-        "pidgin": "Eh bolo head, wea you going?",
-        "english": "bald person",
-        "category": "slang",
-        "context": "Describing baldness (sometimes teasing)",
-        "pronunciation": "BOH-loh-hed",
-        "source": "dictionary:bolo_head_020:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "english",
-          "portuguese"
-        ]
-      },
-      {
         "pidgin": "I stay boro boroz after work",
         "english": "worn out",
         "category": "slang",
@@ -21023,30 +21233,6 @@
         "tags": [
           "slang",
           "english"
-        ]
-      },
-      {
-        "pidgin": "Da ghost story gave me chicken skin",
-        "english": "goosebumps",
-        "category": "slang",
-        "context": "Physical reaction to fear or excitement",
-        "pronunciation": "CHICK-en-skin",
-        "source": "dictionary:chicken_skin_033",
-        "difficulty": "beginner",
-        "tags": [
-          "slang"
-        ]
-      },
-      {
-        "pidgin": "Ho, I get chicken skin!",
-        "english": "goosebumps",
-        "category": "slang",
-        "context": "Physical reaction to fear or excitement",
-        "pronunciation": "CHICK-en-skin",
-        "source": "dictionary:chicken_skin_033:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "slang"
         ]
       },
       {
@@ -21814,34 +22000,6 @@
         ]
       },
       {
-        "pidgin": "She all high maka maka",
-        "english": "stuck up",
-        "category": "slang",
-        "context": "Snobbish",
-        "pronunciation": "high MAH-kah MAH-kah",
-        "source": "dictionary:high_maka_maka_069",
-        "difficulty": "advanced",
-        "tags": [
-          "slang",
-          "hawaiian",
-          "english"
-        ]
-      },
-      {
-        "pidgin": "No be high maka maka",
-        "english": "stuck up",
-        "category": "slang",
-        "context": "Snobbish",
-        "pronunciation": "high MAH-kah MAH-kah",
-        "source": "dictionary:high_maka_maka_069:audio",
-        "difficulty": "advanced",
-        "tags": [
-          "slang",
-          "hawaiian",
-          "english"
-        ]
-      },
-      {
         "pidgin": "She so imelda wit da shoes",
         "english": "having extravagant tastes",
         "category": "slang",
@@ -21996,36 +22154,6 @@
         ]
       },
       {
-        "pidgin": "Get kanak attack",
-        "english": "food coma",
-        "category": "slang",
-        "context": "After eating sleepy",
-        "pronunciation": "kah-NAK ah-TAK",
-        "source": "dictionary:kanak_attack_087",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "hawaiian",
-          "english",
-          "food"
-        ]
-      },
-      {
-        "pidgin": "Kanak attack time",
-        "english": "food coma",
-        "category": "slang",
-        "context": "After eating sleepy",
-        "pronunciation": "kah-NAK ah-TAK",
-        "source": "dictionary:kanak_attack_087:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "hawaiian",
-          "english",
-          "food"
-        ]
-      },
-      {
         "pidgin": "Da TV kaput",
         "english": "broken",
         "category": "slang",
@@ -22126,56 +22254,6 @@
         ]
       },
       {
-        "pidgin": "He get kim chee breath",
-        "english": "bad breath",
-        "category": "slang",
-        "context": "Bad breath smell",
-        "pronunciation": "KIM-chee breath",
-        "source": "dictionary:kim_chee_breath_400",
-        "difficulty": "advanced",
-        "tags": [
-          "slang"
-        ]
-      },
-      {
-        "pidgin": "Brush teeth, kim chee breath!",
-        "english": "bad breath",
-        "category": "slang",
-        "context": "Bad breath smell",
-        "pronunciation": "KIM-chee breath",
-        "source": "dictionary:kim_chee_breath_400:audio",
-        "difficulty": "advanced",
-        "tags": [
-          "slang"
-        ]
-      },
-      {
-        "pidgin": "Da dog wen make kukae",
-        "english": "feces",
-        "category": "slang",
-        "context": "Crude term for feces",
-        "pronunciation": "koo-KYE",
-        "source": "dictionary:kukae_098",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "hawaiian"
-        ]
-      },
-      {
-        "pidgin": "Clean up da kukae",
-        "english": "feces",
-        "category": "slang",
-        "context": "Crude term for feces",
-        "pronunciation": "koo-KYE",
-        "source": "dictionary:kukae_098:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "hawaiian"
-        ]
-      },
-      {
         "pidgin": "Get lickens",
         "english": "beating",
         "category": "slang",
@@ -22199,84 +22277,6 @@
         "tags": [
           "slang",
           "english"
-        ]
-      },
-      {
-        "pidgin": "You lolo",
-        "english": "crazy",
-        "category": "slang",
-        "context": "Foolish",
-        "pronunciation": "LOH-loh",
-        "source": "dictionary:lolo_107",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "hawaiian"
-        ]
-      },
-      {
-        "pidgin": "No be lolo!",
-        "english": "crazy",
-        "category": "slang",
-        "context": "Foolish",
-        "pronunciation": "LOH-loh",
-        "source": "dictionary:lolo_107:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "hawaiian"
-        ]
-      },
-      {
-        "pidgin": "Da bug stay make",
-        "english": "dead",
-        "category": "slang",
-        "context": "Death",
-        "pronunciation": "MAH-keh",
-        "source": "dictionary:make_111",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "hawaiian"
-        ]
-      },
-      {
-        "pidgin": "Almost make!",
-        "english": "dead",
-        "category": "slang",
-        "context": "Death",
-        "pronunciation": "MAH-keh",
-        "source": "dictionary:make_111:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "hawaiian"
-        ]
-      },
-      {
-        "pidgin": "Can tell he one malihini",
-        "english": "newcomer",
-        "category": "slang",
-        "context": "Someone new to Hawaii",
-        "pronunciation": "mah-lee-HEE-nee",
-        "source": "dictionary:malihini_114",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "hawaiian"
-        ]
-      },
-      {
-        "pidgin": "Plenty malihini at Waikiki",
-        "english": "newcomer",
-        "category": "slang",
-        "context": "Someone new to Hawaii",
-        "pronunciation": "mah-lee-HEE-nee",
-        "source": "dictionary:malihini_114:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "hawaiian"
         ]
       },
       {
@@ -22457,32 +22457,6 @@
         "difficulty": "beginner",
         "tags": [
           "slang"
-        ]
-      },
-      {
-        "pidgin": "Dey smoking pakalolo",
-        "english": "marijuana",
-        "category": "slang",
-        "context": "Cannabis",
-        "pronunciation": "pah-kah-LOH-loh",
-        "source": "dictionary:pakalolo_141",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "hawaiian"
-        ]
-      },
-      {
-        "pidgin": "No pakalolo hea",
-        "english": "marijuana",
-        "category": "slang",
-        "context": "Cannabis",
-        "pronunciation": "pah-kah-LOH-loh",
-        "source": "dictionary:pakalolo_141:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "hawaiian"
         ]
       },
       {
@@ -22770,32 +22744,6 @@
         ]
       },
       {
-        "pidgin": "Da kid get ukus",
-        "english": "lice",
-        "category": "slang",
-        "context": "Head lice",
-        "pronunciation": "OO-koo",
-        "source": "dictionary:uku_180",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "hawaiian"
-        ]
-      },
-      {
-        "pidgin": "Check fo ukus",
-        "english": "lice",
-        "category": "slang",
-        "context": "Head lice",
-        "pronunciation": "OO-koo",
-        "source": "dictionary:uku_180:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "slang",
-          "hawaiian"
-        ]
-      },
-      {
         "pidgin": "Make unko",
         "english": "poop",
         "category": "slang",
@@ -22920,6 +22868,272 @@
         "source": "dictionary:yessah_blessah_395:audio",
         "difficulty": "intermediate",
         "tags": [
+          "slang"
+        ]
+      }
+    ],
+    "emotions": [
+      {
+        "pidgin": "He stay all salty about losing",
+        "english": "angry",
+        "category": "emotions",
+        "context": "Being upset",
+        "pronunciation": "all-SAWL-tee",
+        "source": "dictionary:all_salty_294",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "english"
+        ]
+      },
+      {
+        "pidgin": "Why you all salty?",
+        "english": "angry",
+        "category": "emotions",
+        "context": "Being upset",
+        "pronunciation": "all-SAWL-tee",
+        "source": "dictionary:all_salty_294:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "english"
+        ]
+      },
+      {
+        "pidgin": "He stay habut today",
+        "english": "in a bad mood",
+        "category": "emotions",
+        "context": "Grumpy state",
+        "pronunciation": "hah-BUT",
+        "source": "dictionary:habut_243",
+        "difficulty": "beginner",
+        "tags": [
+          "emotions",
+          "japanese"
+        ]
+      },
+      {
+        "pidgin": "Why you so habut?",
+        "english": "in a bad mood",
+        "category": "emotions",
+        "context": "Grumpy state",
+        "pronunciation": "hah-BUT",
+        "source": "dictionary:habut_243:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "emotions",
+          "japanese"
+        ]
+      },
+      {
+        "pidgin": "No make me huhu!",
+        "english": "angry",
+        "category": "emotions",
+        "context": "Expressing anger or frustration",
+        "pronunciation": "HOO-hoo",
+        "source": "dictionary:huhu_073",
+        "difficulty": "beginner",
+        "tags": [
+          "emotions",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "She stay huhu wit me",
+        "english": "angry",
+        "category": "emotions",
+        "context": "Expressing anger or frustration",
+        "pronunciation": "HOO-hoo",
+        "source": "dictionary:huhu_073:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "emotions",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "Ho, I shame!",
+        "english": "embarrassed",
+        "category": "emotions",
+        "context": "Embarrassment",
+        "pronunciation": "eye-SHAME",
+        "source": "dictionary:i_shame_076",
+        "difficulty": "beginner",
+        "tags": [
+          "emotions",
+          "english"
+        ]
+      },
+      {
+        "pidgin": "I so shame!",
+        "english": "embarrassed",
+        "category": "emotions",
+        "context": "Embarrassment",
+        "pronunciation": "eye-SHAME",
+        "source": "dictionary:i_shame_076:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "emotions",
+          "english"
+        ]
+      },
+      {
+        "pidgin": "I stay nerjis",
+        "english": "nervous",
+        "category": "emotions",
+        "context": "Being anxious",
+        "pronunciation": "NER-jis",
+        "source": "dictionary:nerjis_405",
+        "difficulty": "beginner",
+        "tags": [
+          "emotions",
+          "english"
+        ]
+      },
+      {
+        "pidgin": "Why you nerjis?",
+        "english": "nervous",
+        "category": "emotions",
+        "context": "Being anxious",
+        "pronunciation": "NER-jis",
+        "source": "dictionary:nerjis_405:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "emotions",
+          "english"
+        ]
+      },
+      {
+        "pidgin": "Ho, shame dat!",
+        "english": "embarrassed",
+        "category": "emotions",
+        "context": "Feeling embarrassed",
+        "pronunciation": "SHAME",
+        "source": "dictionary:shame_157",
+        "difficulty": "beginner",
+        "tags": [
+          "emotions",
+          "english"
+        ]
+      },
+      {
+        "pidgin": "No need shame, everybody make mistake",
+        "english": "embarrassed",
+        "category": "emotions",
+        "context": "Feeling embarrassed",
+        "pronunciation": "SHAME",
+        "source": "dictionary:shame_157:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "emotions",
+          "english"
+        ]
+      },
+      {
+        "pidgin": "I stay stoked fo da concert!",
+        "english": "excited",
+        "category": "emotions",
+        "context": "Extreme excitement",
+        "pronunciation": "STOKED",
+        "source": "dictionary:stoked_167",
+        "difficulty": "beginner",
+        "tags": [
+          "emotions"
+        ]
+      },
+      {
+        "pidgin": "So stoked you came!",
+        "english": "excited",
+        "category": "emotions",
+        "context": "Extreme excitement",
+        "pronunciation": "STOKED",
+        "source": "dictionary:stoked_167:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "emotions"
+        ]
+      },
+      {
+        "pidgin": "We wen talk story and buss laff",
+        "english": "laugh hard",
+        "category": "emotions",
+        "context": "",
+        "pronunciation": "BUS-LAF",
+        "source": "dictionary:buss_laff_502",
+        "difficulty": "intermediate",
+        "tags": [
+          "emotions",
+          "laughter",
+          "expressions"
+        ]
+      },
+      {
+        "pidgin": "His joke made me buss laff",
+        "english": "laugh hard",
+        "category": "emotions",
+        "context": "",
+        "pronunciation": "BUS-LAF",
+        "source": "dictionary:buss_laff_502",
+        "difficulty": "intermediate",
+        "tags": [
+          "emotions",
+          "laughter",
+          "expressions"
+        ]
+      },
+      {
+        "pidgin": "Da whole class wen buss laff",
+        "english": "laugh hard",
+        "category": "emotions",
+        "context": "",
+        "pronunciation": "BUS-LAF",
+        "source": "dictionary:buss_laff_502",
+        "difficulty": "intermediate",
+        "tags": [
+          "emotions",
+          "laughter",
+          "expressions"
+        ]
+      },
+      {
+        "pidgin": "Dat story made me bust 'em up",
+        "english": "laugh really hard",
+        "category": "emotions",
+        "context": "",
+        "pronunciation": "bust-em-UP",
+        "source": "dictionary:bust_em_up_503",
+        "difficulty": "intermediate",
+        "tags": [
+          "emotions",
+          "laughter",
+          "slang"
+        ]
+      },
+      {
+        "pidgin": "We was busting 'em up all night",
+        "english": "laugh really hard",
+        "category": "emotions",
+        "context": "",
+        "pronunciation": "bust-em-UP",
+        "source": "dictionary:bust_em_up_503",
+        "difficulty": "intermediate",
+        "tags": [
+          "emotions",
+          "laughter",
+          "slang"
+        ]
+      },
+      {
+        "pidgin": "His dancing made everyone bust 'em up",
+        "english": "laugh really hard",
+        "category": "emotions",
+        "context": "",
+        "pronunciation": "bust-em-UP",
+        "source": "dictionary:bust_em_up_503",
+        "difficulty": "intermediate",
+        "tags": [
+          "emotions",
+          "laughter",
           "slang"
         ]
       }
@@ -23282,7 +23496,7 @@
         "english": "food truck vendor",
         "category": "people",
         "context": "Mobile vendor",
-        "pronunciation": "mah-nah-POO-ah man",
+        "pronunciation": "mah-nah-POO-ah-man",
         "source": "dictionary:manapua_man_367",
         "difficulty": "beginner",
         "tags": [
@@ -23295,7 +23509,7 @@
         "english": "food truck vendor",
         "category": "people",
         "context": "Mobile vendor",
-        "pronunciation": "mah-nah-POO-ah man",
+        "pronunciation": "mah-nah-POO-ah-man",
         "source": "dictionary:manapua_man_367:audio",
         "difficulty": "beginner",
         "tags": [
@@ -23643,246 +23857,6 @@
         ]
       }
     ],
-    "emotions": [
-      {
-        "pidgin": "He stay habut today",
-        "english": "in a bad mood",
-        "category": "emotions",
-        "context": "Grumpy state",
-        "pronunciation": "hah-BUT",
-        "source": "dictionary:habut_243",
-        "difficulty": "beginner",
-        "tags": [
-          "emotions",
-          "japanese"
-        ]
-      },
-      {
-        "pidgin": "Why you so habut?",
-        "english": "in a bad mood",
-        "category": "emotions",
-        "context": "Grumpy state",
-        "pronunciation": "hah-BUT",
-        "source": "dictionary:habut_243:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "emotions",
-          "japanese"
-        ]
-      },
-      {
-        "pidgin": "No make me huhu!",
-        "english": "angry",
-        "category": "emotions",
-        "context": "Expressing anger or frustration",
-        "pronunciation": "HOO-hoo",
-        "source": "dictionary:huhu_073",
-        "difficulty": "beginner",
-        "tags": [
-          "emotions",
-          "hawaiian"
-        ]
-      },
-      {
-        "pidgin": "She stay huhu wit me",
-        "english": "angry",
-        "category": "emotions",
-        "context": "Expressing anger or frustration",
-        "pronunciation": "HOO-hoo",
-        "source": "dictionary:huhu_073:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "emotions",
-          "hawaiian"
-        ]
-      },
-      {
-        "pidgin": "Ho, I shame!",
-        "english": "embarrassed",
-        "category": "emotions",
-        "context": "Embarrassment",
-        "pronunciation": "eye-SHAME",
-        "source": "dictionary:i_shame_076",
-        "difficulty": "beginner",
-        "tags": [
-          "emotions",
-          "english"
-        ]
-      },
-      {
-        "pidgin": "I so shame!",
-        "english": "embarrassed",
-        "category": "emotions",
-        "context": "Embarrassment",
-        "pronunciation": "eye-SHAME",
-        "source": "dictionary:i_shame_076:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "emotions",
-          "english"
-        ]
-      },
-      {
-        "pidgin": "I stay nerjis",
-        "english": "nervous",
-        "category": "emotions",
-        "context": "Being anxious",
-        "pronunciation": "NER-jis",
-        "source": "dictionary:nerjis_405",
-        "difficulty": "beginner",
-        "tags": [
-          "emotions",
-          "english"
-        ]
-      },
-      {
-        "pidgin": "Why you nerjis?",
-        "english": "nervous",
-        "category": "emotions",
-        "context": "Being anxious",
-        "pronunciation": "NER-jis",
-        "source": "dictionary:nerjis_405:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "emotions",
-          "english"
-        ]
-      },
-      {
-        "pidgin": "Ho, shame dat!",
-        "english": "embarrassed",
-        "category": "emotions",
-        "context": "Feeling embarrassed",
-        "pronunciation": "SHAME",
-        "source": "dictionary:shame_157",
-        "difficulty": "beginner",
-        "tags": [
-          "emotions",
-          "english"
-        ]
-      },
-      {
-        "pidgin": "No need shame, everybody make mistake",
-        "english": "embarrassed",
-        "category": "emotions",
-        "context": "Feeling embarrassed",
-        "pronunciation": "SHAME",
-        "source": "dictionary:shame_157:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "emotions",
-          "english"
-        ]
-      },
-      {
-        "pidgin": "I stay stoked fo da concert!",
-        "english": "excited",
-        "category": "emotions",
-        "context": "Extreme excitement",
-        "pronunciation": "STOKED",
-        "source": "dictionary:stoked_167",
-        "difficulty": "beginner",
-        "tags": [
-          "emotions"
-        ]
-      },
-      {
-        "pidgin": "So stoked you came!",
-        "english": "excited",
-        "category": "emotions",
-        "context": "Extreme excitement",
-        "pronunciation": "STOKED",
-        "source": "dictionary:stoked_167:audio",
-        "difficulty": "beginner",
-        "tags": [
-          "emotions"
-        ]
-      },
-      {
-        "pidgin": "We wen talk story and buss laff",
-        "english": "laugh hard",
-        "category": "emotions",
-        "context": "",
-        "pronunciation": "bus LAF",
-        "source": "dictionary:buss_laff_502",
-        "difficulty": "intermediate",
-        "tags": [
-          "emotions",
-          "laughter",
-          "expressions"
-        ]
-      },
-      {
-        "pidgin": "His joke made me buss laff",
-        "english": "laugh hard",
-        "category": "emotions",
-        "context": "",
-        "pronunciation": "bus LAF",
-        "source": "dictionary:buss_laff_502",
-        "difficulty": "intermediate",
-        "tags": [
-          "emotions",
-          "laughter",
-          "expressions"
-        ]
-      },
-      {
-        "pidgin": "Da whole class wen buss laff",
-        "english": "laugh hard",
-        "category": "emotions",
-        "context": "",
-        "pronunciation": "bus LAF",
-        "source": "dictionary:buss_laff_502",
-        "difficulty": "intermediate",
-        "tags": [
-          "emotions",
-          "laughter",
-          "expressions"
-        ]
-      },
-      {
-        "pidgin": "Dat story made me bust 'em up",
-        "english": "laugh really hard",
-        "category": "emotions",
-        "context": "",
-        "pronunciation": "bust-em-UP",
-        "source": "dictionary:bust_em_up_503",
-        "difficulty": "intermediate",
-        "tags": [
-          "emotions",
-          "laughter",
-          "slang"
-        ]
-      },
-      {
-        "pidgin": "We was busting 'em up all night",
-        "english": "laugh really hard",
-        "category": "emotions",
-        "context": "",
-        "pronunciation": "bust-em-UP",
-        "source": "dictionary:bust_em_up_503",
-        "difficulty": "intermediate",
-        "tags": [
-          "emotions",
-          "laughter",
-          "slang"
-        ]
-      },
-      {
-        "pidgin": "His dancing made everyone bust 'em up",
-        "english": "laugh really hard",
-        "category": "emotions",
-        "context": "",
-        "pronunciation": "bust-em-UP",
-        "source": "dictionary:bust_em_up_503",
-        "difficulty": "intermediate",
-        "tags": [
-          "emotions",
-          "laughter",
-          "slang"
-        ]
-      }
-    ],
     "clothing": [
       {
         "pidgin": "Wearing high waters",
@@ -23941,7 +23915,7 @@
         "english": "flip-flops",
         "category": "clothing",
         "context": "Footwear",
-        "pronunciation": "SLIP-pahz",
+        "pronunciation": "SLIP-ahz",
         "source": "dictionary:slippahs_161",
         "difficulty": "beginner",
         "tags": [
@@ -23954,7 +23928,7 @@
         "english": "flip-flops",
         "category": "clothing",
         "context": "Footwear",
-        "pronunciation": "SLIP-pahz",
+        "pronunciation": "SLIP-ahz",
         "source": "dictionary:slippahs_161:audio",
         "difficulty": "beginner",
         "tags": [
@@ -24149,6 +24123,32 @@
           "family",
           "hawaiian"
         ]
+      },
+      {
+        "pidgin": "My tutu making lunch",
+        "english": "grandparent",
+        "category": "family",
+        "context": "Grandmother or grandfather",
+        "pronunciation": "TOO-too",
+        "source": "dictionary:tutu_179",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "Going visit tutu",
+        "english": "grandparent",
+        "category": "family",
+        "context": "Grandmother or grandfather",
+        "pronunciation": "TOO-too",
+        "source": "dictionary:tutu_179:audio",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "hawaiian"
+        ]
       }
     ],
     "concepts": [
@@ -24239,7 +24239,7 @@
         "english": "toward the ocean",
         "category": "directions",
         "context": "Directional term meaning oceanside",
-        "pronunciation": "mah-KYE",
+        "pronunciation": "mah-KAI",
         "source": "dictionary:makai_112",
         "difficulty": "beginner",
         "tags": [
@@ -24252,7 +24252,7 @@
         "english": "toward the ocean",
         "category": "directions",
         "context": "Directional term meaning oceanside",
-        "pronunciation": "mah-KYE",
+        "pronunciation": "mah-KAI",
         "source": "dictionary:makai_112:audio",
         "difficulty": "beginner",
         "tags": [
