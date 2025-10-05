@@ -686,6 +686,26 @@
       "audioExample": "Da 'ehu stay nice"
     },
     {
+      "id": "a_hui_hou_600",
+      "pidgin": "a hui hou",
+      "english": [
+        "goodbye"
+      ],
+      "category": "cultural",
+      "pronunciation": "A HUI HOU",
+      "examples": [
+        "a hui hou stay goodbye"
+      ],
+      "usage": "goodbye",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
       "id": "aole_196",
       "pidgin": "a'ole",
       "english": [
@@ -791,6 +811,26 @@
         "hawaiian"
       ],
       "audioExample": "Aikea if you no like"
+    },
+    {
+      "id": "aina_643",
+      "pidgin": "aina",
+      "english": [
+        "the land"
+      ],
+      "category": "cultural",
+      "pronunciation": "EYE-nah",
+      "examples": [
+        "aina stay the land"
+      ],
+      "usage": "the land",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
     },
     {
       "id": "ainokea_278",
@@ -1502,47 +1542,6 @@
         "english"
       ],
       "audioExample": "We should bag now"
-    },
-    {
-      "id": "bahjuju_310",
-      "pidgin": "bahjuju",
-      "english": [
-        "bad vibes"
-      ],
-      "category": "slang",
-      "pronunciation": "bah-JOO-joo",
-      "examples": [
-        "Get bahjuju here"
-      ],
-      "usage": "Bad energy",
-      "origin": "Local slang",
-      "difficulty": "beginner",
-      "frequency": "medium",
-      "tags": [
-        "slang"
-      ],
-      "audioExample": "Feel da bahjuju"
-    },
-    {
-      "id": "bang_311",
-      "pidgin": "bang",
-      "english": [
-        "suddenly"
-      ],
-      "category": "expressions",
-      "pronunciation": "BANG",
-      "examples": [
-        "Bang, he gone"
-      ],
-      "usage": "Immediate action",
-      "origin": "English",
-      "difficulty": "beginner",
-      "frequency": "medium",
-      "tags": [
-        "expressions",
-        "english"
-      ],
-      "audioExample": "Just bang, pau"
     }
   ],
   "intermediateContent": [
@@ -1568,6 +1567,54 @@
       "audioExample": "'A'ole pilikia"
     },
     {
+      "id": "auwe_504",
+      "pidgin": "auwe",
+      "english": [
+        "oh my gosh",
+        "oh dear",
+        "expression of shock or dismay"
+      ],
+      "category": "expressions",
+      "pronunciation": "ow-WEH",
+      "examples": [
+        "Auwe! Look da mess!",
+        "Auwe, I forgot my wallet",
+        "Auwe, so sad!"
+      ],
+      "culturalNote": "Hawaiian exclamation expressing shock, dismay, or sympathy",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "exclamations",
+        "emotions"
+      ]
+    },
+    {
+      "id": "ballah_head_507",
+      "pidgin": "ballah head",
+      "english": [
+        "bald head",
+        "bald person",
+        "no hair"
+      ],
+      "category": "descriptions",
+      "pronunciation": "BAL-lah head",
+      "examples": [
+        "Uncle get ballah head",
+        "He stay ballah head since young time",
+        "My bruddah going ballah head like daddy"
+      ],
+      "culturalNote": "Casual way to describe someone who is bald",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "descriptions",
+        "appearance",
+        "slang"
+      ]
+    },
+    {
       "id": "broke_da_mouth_024",
       "pidgin": "broke da mouth",
       "english": [
@@ -1586,6 +1633,54 @@
         "food"
       ],
       "audioExample": "Da kalua pig broke da mouth!"
+    },
+    {
+      "id": "buss_laff_502",
+      "pidgin": "buss laff",
+      "english": [
+        "laugh hard",
+        "crack up",
+        "burst out laughing"
+      ],
+      "category": "emotions",
+      "pronunciation": "BUS-LAF",
+      "examples": [
+        "We wen talk story and buss laff",
+        "His joke made me buss laff",
+        "Da whole class wen buss laff"
+      ],
+      "culturalNote": "To laugh so hard you might 'bust' from laughter",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "emotions",
+        "laughter",
+        "expressions"
+      ]
+    },
+    {
+      "id": "bust_em_up_503",
+      "pidgin": "bust 'em up",
+      "english": [
+        "laugh really hard",
+        "crack up completely",
+        "break down laughing"
+      ],
+      "category": "emotions",
+      "pronunciation": "bust-em-UP",
+      "examples": [
+        "Dat story made me bust 'em up",
+        "We was busting 'em up all night",
+        "His dancing made everyone bust 'em up"
+      ],
+      "culturalNote": "Even more intense than 'buss laff' - laughing so hard you're broken up",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "emotions",
+        "laughter",
+        "slang"
+      ]
     },
     {
       "id": "chee_hoo_031",
@@ -1631,6 +1726,30 @@
       "audioExample": "You know, da kine we wen use yesterday"
     },
     {
+      "id": "da_kine_da_whole_kine_522",
+      "pidgin": "da kine, da whole kine",
+      "english": [
+        "that thing, the whole thing",
+        "everything related to that",
+        "all of that stuff"
+      ],
+      "category": "expressions",
+      "pronunciation": "dah KYNE, dah WHOLE kyne",
+      "examples": [
+        "We need da kine, da whole kine for da party",
+        "He brought da kine, da whole kine setup",
+        "Get da kine, da whole kine ready?"
+      ],
+      "usage": "Referring to everything related to something, the complete set",
+      "culturalNote": "Shows how 'da kine' can be expanded for emphasis",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "slang"
+      ]
+    },
+    {
       "id": "dirty_lickens_043",
       "pidgin": "dirty lickens",
       "english": [
@@ -1650,6 +1769,150 @@
         "english"
       ],
       "audioExample": "You like dirty lickens?"
+    },
+    {
+      "id": "eh_you_stay_wit_da_kine_510",
+      "pidgin": "eh, you stay wit' da kine?",
+      "english": [
+        "hey, are you with that thingamajig?",
+        "are you with that thing?",
+        "do you have that thing?"
+      ],
+      "category": "expressions",
+      "pronunciation": "EH, you STAY wit dah KYNE",
+      "examples": [
+        "Eh, you stay wit' da kine we wen talk about?",
+        "You stay wit' da kine or wat?",
+        "Ho, you still stay wit' da kine from yesterday?"
+      ],
+      "usage": "Used when you can't remember the word for something specific",
+      "culturalNote": "Perfect example of 'da kine' versatility in Pidgin conversation",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "questions",
+        "slang"
+      ]
+    },
+    {
+      "id": "feel_like_528",
+      "pidgin": "feel like",
+      "english": [
+        "seem like",
+        "feels as if",
+        "feels as though"
+      ],
+      "category": "expressions",
+      "pronunciation": "feel-LIKE",
+      "examples": [
+        "Feel like going rain",
+        "Feel like something not right"
+      ],
+      "usage": "Expressing a feeling or intuition about something",
+      "culturalNote": "Used to express sensations or predictions",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "emotions"
+      ]
+    },
+    {
+      "id": "get_choke_517",
+      "pidgin": "get choke",
+      "english": [
+        "there's a lot",
+        "have plenty",
+        "lots of"
+      ],
+      "category": "expressions",
+      "pronunciation": "GET-choke",
+      "examples": [
+        "Get choke people at da beach today",
+        "Da store get choke selection",
+        "We get choke work fo' do"
+      ],
+      "usage": "Indicating there's a large amount or many of something",
+      "culturalNote": "Pidgin way of saying 'plenty' or 'a lot'",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "quantity"
+      ]
+    },
+    {
+      "id": "getum_501",
+      "pidgin": "get'um",
+      "english": [
+        "go for it",
+        "give it your all",
+        "seize the opportunity"
+      ],
+      "category": "actions",
+      "pronunciation": "get-UM",
+      "examples": [
+        "Ho, he saw da wave and wen get'um!",
+        "You see dat job posting? Get'um!",
+        "Da surf stay good, get'um brah!"
+      ],
+      "culturalNote": "Encouragement to seize an opportunity with full commitment",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "actions",
+        "encouragement",
+        "surfing"
+      ]
+    },
+    {
+      "id": "go_mo_bettah_514",
+      "pidgin": "go mo' bettah",
+      "english": [
+        "go do it better",
+        "do it better",
+        "you should do better"
+      ],
+      "category": "expressions",
+      "pronunciation": "go-MOH-BET-tah",
+      "examples": [
+        "Dat no good, go mo' bettah",
+        "Try again, go mo' bettah dis time",
+        "You can go mo' bettah than dat"
+      ],
+      "usage": "Encouraging someone to improve or do something better",
+      "culturalNote": "Constructive way to suggest improvement",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "encouragement"
+      ]
+    },
+    {
+      "id": "guerentee_505",
+      "pidgin": "gueren-tee",
+      "english": [
+        "definitely",
+        "for sure",
+        "guaranteed"
+      ],
+      "category": "expressions",
+      "pronunciation": "gair-en-TEE",
+      "examples": [
+        "Dat sushi is good, gueren-tee",
+        "He going be late, gueren-tee",
+        "This weather going change, gueren-tee"
+      ],
+      "culturalNote": "Pidgin pronunciation of 'guarantee' used as emphasis",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "emphasis",
+        "certainty"
+      ]
     },
     {
       "id": "gullah_gullahs_345",
@@ -1755,6 +2018,78 @@
       "audioExample": "Jus buckaloose and enjoy"
     },
     {
+      "id": "mahalo_for_da_hookup_516",
+      "pidgin": "mahalo, for da hookup!",
+      "english": [
+        "thank you for the connection!",
+        "thanks for the favor!",
+        "thank you for hooking me up!"
+      ],
+      "category": "greetings",
+      "pronunciation": "mah-HAH-loh, for dah HOOK-up",
+      "examples": [
+        "Mahalo, for da hookup with da job!",
+        "Mahalo, for da hookup with your cousin",
+        "Ho, mahalo for da hookup with da tickets!"
+      ],
+      "usage": "Thanking someone for a favor, connection, or helping you get something",
+      "culturalNote": "Shows appreciation for someone's help in connecting you to opportunities",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "gratitude"
+      ]
+    },
+    {
+      "id": "make_funny_518",
+      "pidgin": "make funny",
+      "english": [
+        "to play a joke on someone",
+        "to tease",
+        "to mess around with"
+      ],
+      "category": "actions",
+      "pronunciation": "MAKE-FUN-nee",
+      "examples": [
+        "No make funny with me",
+        "He stay make funny with his sister",
+        "Stop make funny, I stay serious"
+      ],
+      "usage": "Playing jokes or teasing someone",
+      "culturalNote": "Light-hearted teasing, usually among friends or family",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "actions",
+        "humor"
+      ]
+    },
+    {
+      "id": "no_can_da_buggah_stay_broke_523",
+      "pidgin": "no can, da buggah stay broke",
+      "english": [
+        "can't, the thing is broken",
+        "unable to, it's broken",
+        "no way, it's not working"
+      ],
+      "category": "expressions",
+      "pronunciation": "NO can, dah BUG-gah stay BROKE",
+      "examples": [
+        "You like use my car? No can, da buggah stay broke",
+        "Can fix da computer? No can, da buggah stay broke",
+        "No can help you, da buggah stay broke"
+      ],
+      "usage": "Explaining that you can't do something because the item/tool is broken",
+      "culturalNote": "Common explanation combining inability with broken equipment",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "inability"
+      ]
+    },
+    {
       "id": "pau_hana_144",
       "pidgin": "pau hana",
       "english": [
@@ -1796,6 +2131,54 @@
         "english"
       ],
       "audioExample": "Somebody wen steal my rubbah slippahs"
+    },
+    {
+      "id": "small_kid_time_506",
+      "pidgin": "small kid time",
+      "english": [
+        "when I was a kid",
+        "back in the day",
+        "childhood days"
+      ],
+      "category": "expressions",
+      "pronunciation": "small-KID-time",
+      "examples": [
+        "Small kid time, I used to play marbles",
+        "Small kid time was so fun",
+        "We did dat all da time, small kid time"
+      ],
+      "culturalNote": "Nostalgic phrase referring to one's childhood memories",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "nostalgia",
+        "childhood"
+      ]
+    },
+    {
+      "id": "talk_stink_512",
+      "pidgin": "talk stink",
+      "english": [
+        "gossip",
+        "spread rumors",
+        "bad mouth"
+      ],
+      "category": "actions",
+      "pronunciation": "TALK-stink",
+      "examples": [
+        "No talk stink about my cousin",
+        "She stay talk stink about everybody",
+        "Why you like talk stink?"
+      ],
+      "usage": "Speaking negatively about someone behind their back",
+      "culturalNote": "Common phrase warning against gossip in local communities",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "actions",
+        "social"
+      ]
     },
     {
       "id": "talk_story_171",
@@ -1881,390 +2264,6 @@
         "slang"
       ],
       "audioExample": "Yessah blessah brah!"
-    },
-    {
-      "id": "getum_501",
-      "pidgin": "get'um",
-      "english": [
-        "go for it",
-        "give it your all",
-        "seize the opportunity"
-      ],
-      "category": "actions",
-      "pronunciation": "get-UM",
-      "examples": [
-        "Ho, he saw da wave and wen get'um!",
-        "You see dat job posting? Get'um!",
-        "Da surf stay good, get'um brah!"
-      ],
-      "culturalNote": "Encouragement to seize an opportunity with full commitment",
-      "difficulty": "intermediate",
-      "frequency": "high",
-      "tags": [
-        "actions",
-        "encouragement",
-        "surfing"
-      ]
-    },
-    {
-      "id": "buss_laff_502",
-      "pidgin": "buss laff",
-      "english": [
-        "laugh hard",
-        "crack up",
-        "burst out laughing"
-      ],
-      "category": "emotions",
-      "pronunciation": "BUS-LAF",
-      "examples": [
-        "We wen talk story and buss laff",
-        "His joke made me buss laff",
-        "Da whole class wen buss laff"
-      ],
-      "culturalNote": "To laugh so hard you might 'bust' from laughter",
-      "difficulty": "intermediate",
-      "frequency": "medium",
-      "tags": [
-        "emotions",
-        "laughter",
-        "expressions"
-      ]
-    },
-    {
-      "id": "bust_em_up_503",
-      "pidgin": "bust 'em up",
-      "english": [
-        "laugh really hard",
-        "crack up completely",
-        "break down laughing"
-      ],
-      "category": "emotions",
-      "pronunciation": "bust-em-UP",
-      "examples": [
-        "Dat story made me bust 'em up",
-        "We was busting 'em up all night",
-        "His dancing made everyone bust 'em up"
-      ],
-      "culturalNote": "Even more intense than 'buss laff' - laughing so hard you're broken up",
-      "difficulty": "intermediate",
-      "frequency": "medium",
-      "tags": [
-        "emotions",
-        "laughter",
-        "slang"
-      ]
-    },
-    {
-      "id": "auwe_504",
-      "pidgin": "auwe",
-      "english": [
-        "oh my gosh",
-        "oh dear",
-        "expression of shock or dismay"
-      ],
-      "category": "expressions",
-      "pronunciation": "ow-WEH",
-      "examples": [
-        "Auwe! Look da mess!",
-        "Auwe, I forgot my wallet",
-        "Auwe, so sad!"
-      ],
-      "culturalNote": "Hawaiian exclamation expressing shock, dismay, or sympathy",
-      "difficulty": "intermediate",
-      "frequency": "medium",
-      "tags": [
-        "expressions",
-        "exclamations",
-        "emotions"
-      ]
-    },
-    {
-      "id": "guerentee_505",
-      "pidgin": "gueren-tee",
-      "english": [
-        "definitely",
-        "for sure",
-        "guaranteed"
-      ],
-      "category": "expressions",
-      "pronunciation": "gair-en-TEE",
-      "examples": [
-        "Dat sushi is good, gueren-tee",
-        "He going be late, gueren-tee",
-        "This weather going change, gueren-tee"
-      ],
-      "culturalNote": "Pidgin pronunciation of 'guarantee' used as emphasis",
-      "difficulty": "intermediate",
-      "frequency": "medium",
-      "tags": [
-        "expressions",
-        "emphasis",
-        "certainty"
-      ]
-    },
-    {
-      "id": "small_kid_time_506",
-      "pidgin": "small kid time",
-      "english": [
-        "when I was a kid",
-        "back in the day",
-        "childhood days"
-      ],
-      "category": "expressions",
-      "pronunciation": "small-KID-time",
-      "examples": [
-        "Small kid time, I used to play marbles",
-        "Small kid time was so fun",
-        "We did dat all da time, small kid time"
-      ],
-      "culturalNote": "Nostalgic phrase referring to one's childhood memories",
-      "difficulty": "intermediate",
-      "frequency": "high",
-      "tags": [
-        "expressions",
-        "nostalgia",
-        "childhood"
-      ]
-    },
-    {
-      "id": "ballah_head_507",
-      "pidgin": "ballah head",
-      "english": [
-        "bald head",
-        "bald person",
-        "no hair"
-      ],
-      "category": "descriptions",
-      "pronunciation": "BAL-lah head",
-      "examples": [
-        "Uncle get ballah head",
-        "He stay ballah head since young time",
-        "My bruddah going ballah head like daddy"
-      ],
-      "culturalNote": "Casual way to describe someone who is bald",
-      "difficulty": "intermediate",
-      "frequency": "medium",
-      "tags": [
-        "descriptions",
-        "appearance",
-        "slang"
-      ]
-    },
-    {
-      "id": "eh_you_stay_wit_da_kine_510",
-      "pidgin": "eh, you stay wit' da kine?",
-      "english": [
-        "hey, are you with that thingamajig?",
-        "are you with that thing?",
-        "do you have that thing?"
-      ],
-      "category": "expressions",
-      "pronunciation": "EH, you STAY wit dah KYNE",
-      "examples": [
-        "Eh, you stay wit' da kine we wen talk about?",
-        "You stay wit' da kine or wat?",
-        "Ho, you still stay wit' da kine from yesterday?"
-      ],
-      "usage": "Used when you can't remember the word for something specific",
-      "culturalNote": "Perfect example of 'da kine' versatility in Pidgin conversation",
-      "difficulty": "intermediate",
-      "frequency": "high",
-      "tags": [
-        "expressions",
-        "questions",
-        "slang"
-      ]
-    },
-    {
-      "id": "talk_stink_512",
-      "pidgin": "talk stink",
-      "english": [
-        "gossip",
-        "spread rumors",
-        "bad mouth"
-      ],
-      "category": "actions",
-      "pronunciation": "TALK-stink",
-      "examples": [
-        "No talk stink about my cousin",
-        "She stay talk stink about everybody",
-        "Why you like talk stink?"
-      ],
-      "usage": "Speaking negatively about someone behind their back",
-      "culturalNote": "Common phrase warning against gossip in local communities",
-      "difficulty": "intermediate",
-      "frequency": "high",
-      "tags": [
-        "actions",
-        "social"
-      ]
-    },
-    {
-      "id": "go_mo_bettah_514",
-      "pidgin": "go mo' bettah",
-      "english": [
-        "go do it better",
-        "do it better",
-        "you should do better"
-      ],
-      "category": "expressions",
-      "pronunciation": "go-MOH-BET-tah",
-      "examples": [
-        "Dat no good, go mo' bettah",
-        "Try again, go mo' bettah dis time",
-        "You can go mo' bettah than dat"
-      ],
-      "usage": "Encouraging someone to improve or do something better",
-      "culturalNote": "Constructive way to suggest improvement",
-      "difficulty": "intermediate",
-      "frequency": "medium",
-      "tags": [
-        "expressions",
-        "encouragement"
-      ]
-    },
-    {
-      "id": "mahalo_for_da_hookup_516",
-      "pidgin": "mahalo, for da hookup!",
-      "english": [
-        "thank you for the connection!",
-        "thanks for the favor!",
-        "thank you for hooking me up!"
-      ],
-      "category": "greetings",
-      "pronunciation": "mah-HAH-loh, for dah HOOK-up",
-      "examples": [
-        "Mahalo, for da hookup with da job!",
-        "Mahalo, for da hookup with your cousin",
-        "Ho, mahalo for da hookup with da tickets!"
-      ],
-      "usage": "Thanking someone for a favor, connection, or helping you get something",
-      "culturalNote": "Shows appreciation for someone's help in connecting you to opportunities",
-      "difficulty": "intermediate",
-      "frequency": "high",
-      "tags": [
-        "expressions",
-        "gratitude"
-      ]
-    },
-    {
-      "id": "get_choke_517",
-      "pidgin": "get choke",
-      "english": [
-        "there's a lot",
-        "have plenty",
-        "lots of"
-      ],
-      "category": "expressions",
-      "pronunciation": "GET-choke",
-      "examples": [
-        "Get choke people at da beach today",
-        "Da store get choke selection",
-        "We get choke work fo' do"
-      ],
-      "usage": "Indicating there's a large amount or many of something",
-      "culturalNote": "Pidgin way of saying 'plenty' or 'a lot'",
-      "difficulty": "intermediate",
-      "frequency": "high",
-      "tags": [
-        "expressions",
-        "quantity"
-      ]
-    },
-    {
-      "id": "make_funny_518",
-      "pidgin": "make funny",
-      "english": [
-        "to play a joke on someone",
-        "to tease",
-        "to mess around with"
-      ],
-      "category": "actions",
-      "pronunciation": "MAKE-FUN-nee",
-      "examples": [
-        "No make funny with me",
-        "He stay make funny with his sister",
-        "Stop make funny, I stay serious"
-      ],
-      "usage": "Playing jokes or teasing someone",
-      "culturalNote": "Light-hearted teasing, usually among friends or family",
-      "difficulty": "intermediate",
-      "frequency": "medium",
-      "tags": [
-        "actions",
-        "humor"
-      ]
-    },
-    {
-      "id": "da_kine_da_whole_kine_522",
-      "pidgin": "da kine, da whole kine",
-      "english": [
-        "that thing, the whole thing",
-        "everything related to that",
-        "all of that stuff"
-      ],
-      "category": "expressions",
-      "pronunciation": "dah KYNE, dah WHOLE kyne",
-      "examples": [
-        "We need da kine, da whole kine for da party",
-        "He brought da kine, da whole kine setup",
-        "Get da kine, da whole kine ready?"
-      ],
-      "usage": "Referring to everything related to something, the complete set",
-      "culturalNote": "Shows how 'da kine' can be expanded for emphasis",
-      "difficulty": "intermediate",
-      "frequency": "medium",
-      "tags": [
-        "expressions",
-        "slang"
-      ]
-    },
-    {
-      "id": "no_can_da_buggah_stay_broke_523",
-      "pidgin": "no can, da buggah stay broke",
-      "english": [
-        "can't, the thing is broken",
-        "unable to, it's broken",
-        "no way, it's not working"
-      ],
-      "category": "expressions",
-      "pronunciation": "NO can, dah BUG-gah stay BROKE",
-      "examples": [
-        "You like use my car? No can, da buggah stay broke",
-        "Can fix da computer? No can, da buggah stay broke",
-        "No can help you, da buggah stay broke"
-      ],
-      "usage": "Explaining that you can't do something because the item/tool is broken",
-      "culturalNote": "Common explanation combining inability with broken equipment",
-      "difficulty": "intermediate",
-      "frequency": "high",
-      "tags": [
-        "expressions",
-        "inability"
-      ]
-    },
-    {
-      "id": "feel_like_528",
-      "pidgin": "feel like",
-      "english": [
-        "seem like",
-        "feels as if",
-        "feels as though"
-      ],
-      "category": "expressions",
-      "pronunciation": "feel-LIKE",
-      "examples": [
-        "Feel like going rain",
-        "Feel like something not right"
-      ],
-      "usage": "Expressing a feeling or intuition about something",
-      "culturalNote": "Used to express sensations or predictions",
-      "difficulty": "intermediate",
-      "frequency": "high",
-      "tags": [
-        "expressions",
-        "emotions"
-      ]
     }
   ],
   "advancedContent": [
@@ -2500,6 +2499,30 @@
         "english"
       ],
       "audioExample": "No be high maka maka"
+    },
+    {
+      "id": "ho_da_bagah_goin_chicken_skin_520",
+      "pidgin": "ho, da bagah's goin' chicken skin!",
+      "english": [
+        "wow, that guy is getting goosebumps!",
+        "look, he's getting chills!",
+        "that person has goosebumps!"
+      ],
+      "category": "expressions",
+      "pronunciation": "HO, dah BAG-ah's goin CHICK-en skin",
+      "examples": [
+        "Ho, da bagah's goin' chicken skin from da scary story",
+        "Look da bagah, goin' chicken skin from da cold",
+        "Da bagah wen go chicken skin when he heard da music"
+      ],
+      "usage": "Observing someone getting goosebumps or chills",
+      "culturalNote": "Combines several Pidgin elements: 'ho' (wow), 'bagah' (person), 'chicken skin' (goosebumps)",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "emotions"
+      ]
     },
     {
       "id": "how_you_figgah_254",
@@ -2856,6 +2879,30 @@
       "audioExample": "Wop yo jaw!"
     },
     {
+      "id": "yeah_you_508",
+      "pidgin": "yeah you",
+      "english": [
+        "you're right",
+        "that's right",
+        "I agree with you"
+      ],
+      "category": "expressions",
+      "pronunciation": "yeah-YOU",
+      "examples": [
+        "He wen bust his board, yeah you?",
+        "Da traffic was bad, yeah you!",
+        "Yeah you, dat's exactly what happened"
+      ],
+      "culturalNote": "Way to affirm or seek affirmation, unique Pidgin phrase structure",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "agreement",
+        "conversation"
+      ]
+    },
+    {
       "id": "you_know_dat_276",
       "pidgin": "you know dat",
       "english": [
@@ -2896,54 +2943,6 @@
         "english"
       ],
       "audioExample": "You stay go?"
-    },
-    {
-      "id": "yeah_you_508",
-      "pidgin": "yeah you",
-      "english": [
-        "you're right",
-        "that's right",
-        "I agree with you"
-      ],
-      "category": "expressions",
-      "pronunciation": "yeah-YOU",
-      "examples": [
-        "He wen bust his board, yeah you?",
-        "Da traffic was bad, yeah you!",
-        "Yeah you, dat's exactly what happened"
-      ],
-      "culturalNote": "Way to affirm or seek affirmation, unique Pidgin phrase structure",
-      "difficulty": "advanced",
-      "frequency": "medium",
-      "tags": [
-        "expressions",
-        "agreement",
-        "conversation"
-      ]
-    },
-    {
-      "id": "ho_da_bagah_goin_chicken_skin_520",
-      "pidgin": "ho, da bagah's goin' chicken skin!",
-      "english": [
-        "wow, that guy is getting goosebumps!",
-        "look, he's getting chills!",
-        "that person has goosebumps!"
-      ],
-      "category": "expressions",
-      "pronunciation": "HO, dah BAG-ah's goin CHICK-en skin",
-      "examples": [
-        "Ho, da bagah's goin' chicken skin from da scary story",
-        "Look da bagah, goin' chicken skin from da cold",
-        "Da bagah wen go chicken skin when he heard da music"
-      ],
-      "usage": "Observing someone getting goosebumps or chills",
-      "culturalNote": "Combines several Pidgin elements: 'ho' (wow), 'bagah' (person), 'chicken skin' (goosebumps)",
-      "difficulty": "advanced",
-      "frequency": "medium",
-      "tags": [
-        "expressions",
-        "emotions"
-      ]
     }
   ]
 }

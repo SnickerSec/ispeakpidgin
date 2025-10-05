@@ -136,6 +136,33 @@
           "id": "ehu_329"
         }
       ],
+      "goodbye": [
+        {
+          "pidgin": "a hui hou",
+          "confidence": 1,
+          "id": "a_hui_hou_600"
+        },
+        {
+          "pidgin": "aloha",
+          "confidence": 1,
+          "id": "aloha_011"
+        },
+        {
+          "pidgin": "latahz",
+          "confidence": 1,
+          "id": "latahz_362"
+        },
+        {
+          "pidgin": "shoots",
+          "confidence": 1,
+          "id": "shoots_159"
+        },
+        {
+          "pidgin": "shoots",
+          "confidence": 1,
+          "id": "shoots_509"
+        }
+      ],
       "not at all": [
         {
           "pidgin": "a'ole",
@@ -190,6 +217,13 @@
           "pidgin": "aikea",
           "confidence": 1,
           "id": "aikea_003"
+        }
+      ],
+      "the land": [
+        {
+          "pidgin": "aina",
+          "confidence": 1,
+          "id": "aina_643"
         }
       ],
       "i don't care": [
@@ -435,28 +469,6 @@
           "id": "aloha_011"
         }
       ],
-      "goodbye": [
-        {
-          "pidgin": "aloha",
-          "confidence": 1,
-          "id": "aloha_011"
-        },
-        {
-          "pidgin": "latahz",
-          "confidence": 1,
-          "id": "latahz_362"
-        },
-        {
-          "pidgin": "shoots",
-          "confidence": 1,
-          "id": "shoots_159"
-        },
-        {
-          "pidgin": "shoots",
-          "confidence": 1,
-          "id": "shoots_509"
-        }
-      ],
       "love": [
         {
           "pidgin": "aloha",
@@ -591,14 +603,14 @@
           "id": "aurite_015"
         },
         {
-          "pidgin": "shootz",
-          "confidence": 1,
-          "id": "shootz_283"
-        },
-        {
           "pidgin": "shoots",
           "confidence": 1,
           "id": "shoots_509"
+        },
+        {
+          "pidgin": "shootz",
+          "confidence": 1,
+          "id": "shootz_283"
         }
       ],
       "okay": [
@@ -621,6 +633,20 @@
           "pidgin": "shoots",
           "confidence": 1,
           "id": "shoots_509"
+        }
+      ],
+      "oh my gosh": [
+        {
+          "pidgin": "auwe",
+          "confidence": 1,
+          "id": "auwe_504"
+        }
+      ],
+      "expression of shock or dismay": [
+        {
+          "pidgin": "auwe",
+          "confidence": 1,
+          "id": "auwe_504"
         }
       ],
       "large cockroach": [
@@ -663,6 +689,32 @@
           "pidgin": "bahjuju",
           "confidence": 1,
           "id": "bahjuju_310"
+        }
+      ],
+      "bald head": [
+        {
+          "pidgin": "ballah head",
+          "confidence": 1,
+          "id": "ballah_head_507"
+        }
+      ],
+      "bald person": [
+        {
+          "pidgin": "ballah head",
+          "confidence": 1,
+          "id": "ballah_head_507"
+        },
+        {
+          "pidgin": "bolo head",
+          "confidence": 1,
+          "id": "bolo_head_020"
+        }
+      ],
+      "no hair": [
+        {
+          "pidgin": "ballah head",
+          "confidence": 1,
+          "id": "ballah_head_507"
         }
       ],
       "suddenly": [
@@ -811,18 +863,6 @@
           "id": "bolo_315"
         }
       ],
-      "bald person": [
-        {
-          "pidgin": "bolo head",
-          "confidence": 1,
-          "id": "bolo_head_020"
-        },
-        {
-          "pidgin": "ballah head",
-          "confidence": 1,
-          "id": "ballah_head_507"
-        }
-      ],
       "oh yeah!": [
         {
           "pidgin": "boom kanani",
@@ -911,10 +951,22 @@
           "id": "braddah_318"
         },
         {
+          "pidgin": "brah",
+          "confidence": 1,
+          "id": "brah_023"
+        },
+        {
+          "pidgin": "brah",
+          "confidence": 1,
+          "id": "brah_526"
+        },
+        {
           "pidgin": "bruddah",
           "confidence": 1,
           "id": "bruddah_429"
-        },
+        }
+      ],
+      "friend": [
         {
           "pidgin": "brah",
           "confidence": 1,
@@ -924,13 +976,6 @@
           "pidgin": "brah",
           "confidence": 1,
           "id": "brah_526"
-        }
-      ],
-      "friend": [
-        {
-          "pidgin": "brah",
-          "confidence": 1,
-          "id": "brah_023"
         },
         {
           "pidgin": "cuz",
@@ -941,7 +986,23 @@
           "pidgin": "sole",
           "confidence": 1,
           "id": "sole_164"
-        },
+        }
+      ],
+      "bro": [
+        {
+          "pidgin": "brah",
+          "confidence": 1,
+          "id": "brah_526"
+        }
+      ],
+      "dude": [
+        {
+          "pidgin": "brah",
+          "confidence": 1,
+          "id": "brah_526"
+        }
+      ],
+      "man": [
         {
           "pidgin": "brah",
           "confidence": 1,
@@ -973,6 +1034,20 @@
           "confidence": 1,
           "id": "buggah_025"
         },
+        {
+          "pidgin": "buggah",
+          "confidence": 1,
+          "id": "buggah_515"
+        }
+      ],
+      "bugger": [
+        {
+          "pidgin": "buggah",
+          "confidence": 1,
+          "id": "buggah_515"
+        }
+      ],
+      "person": [
         {
           "pidgin": "buggah",
           "confidence": 1,
@@ -1077,6 +1152,27 @@
           "id": "buss_029"
         }
       ],
+      "laugh hard": [
+        {
+          "pidgin": "buss laff",
+          "confidence": 1,
+          "id": "buss_laff_502"
+        }
+      ],
+      "crack up": [
+        {
+          "pidgin": "buss laff",
+          "confidence": 1,
+          "id": "buss_laff_502"
+        }
+      ],
+      "burst out laughing": [
+        {
+          "pidgin": "buss laff",
+          "confidence": 1,
+          "id": "buss_laff_502"
+        }
+      ],
       "break it out": [
         {
           "pidgin": "buss um out",
@@ -1098,11 +1194,37 @@
           "id": "buss_up_213"
         }
       ],
+      "laugh really hard": [
+        {
+          "pidgin": "bust 'em up",
+          "confidence": 1,
+          "id": "bust_em_up_503"
+        }
+      ],
+      "crack up completely": [
+        {
+          "pidgin": "bust 'em up",
+          "confidence": 1,
+          "id": "bust_em_up_503"
+        }
+      ],
+      "break down laughing": [
+        {
+          "pidgin": "bust 'em up",
+          "confidence": 1,
+          "id": "bust_em_up_503"
+        }
+      ],
       "money": [
         {
           "pidgin": "cabbage",
           "confidence": 1,
           "id": "cabbage_321"
+        },
+        {
+          "pidgin": "kala",
+          "confidence": 1,
+          "id": "kala_611"
         }
       ],
       "forget it": [
@@ -1343,6 +1465,34 @@
           "id": "ne_ne_404"
         }
       ],
+      "relaxing": [
+        {
+          "pidgin": "cruising",
+          "confidence": 1,
+          "id": "cruising_524"
+        }
+      ],
+      "hanging out": [
+        {
+          "pidgin": "cruising",
+          "confidence": 1,
+          "id": "cruising_524"
+        }
+      ],
+      "taking it easy": [
+        {
+          "pidgin": "cruising",
+          "confidence": 1,
+          "id": "cruising_524"
+        }
+      ],
+      "driving around leisurely": [
+        {
+          "pidgin": "cruising",
+          "confidence": 1,
+          "id": "cruising_524"
+        }
+      ],
       "cruising": [
         {
           "pidgin": "cruzin",
@@ -1376,6 +1526,27 @@
           "pidgin": "cuz",
           "confidence": 1,
           "id": "cuz_039"
+        }
+      ],
+      "the best!": [
+        {
+          "pidgin": "da bes'!",
+          "confidence": 1,
+          "id": "da_bes_513"
+        }
+      ],
+      "awesome!": [
+        {
+          "pidgin": "da bes'!",
+          "confidence": 1,
+          "id": "da_bes_513"
+        }
+      ],
+      "excellent!": [
+        {
+          "pidgin": "da bes'!",
+          "confidence": 1,
+          "id": "da_bes_513"
         }
       ],
       "the best": [
@@ -1421,6 +1592,27 @@
           "pidgin": "da kine",
           "confidence": 1,
           "id": "da_kine_040"
+        }
+      ],
+      "that thing, the whole thing": [
+        {
+          "pidgin": "da kine, da whole kine",
+          "confidence": 1,
+          "id": "da_kine_da_whole_kine_522"
+        }
+      ],
+      "everything related to that": [
+        {
+          "pidgin": "da kine, da whole kine",
+          "confidence": 1,
+          "id": "da_kine_da_whole_kine_522"
+        }
+      ],
+      "all of that stuff": [
+        {
+          "pidgin": "da kine, da whole kine",
+          "confidence": 1,
+          "id": "da_kine_da_whole_kine_522"
         }
       ],
       "cellulite": [
@@ -1576,6 +1768,27 @@
           "id": "yeah_393"
         }
       ],
+      "hey, are you with that thingamajig?": [
+        {
+          "pidgin": "eh, you stay wit' da kine?",
+          "confidence": 1,
+          "id": "eh_you_stay_wit_da_kine_510"
+        }
+      ],
+      "are you with that thing?": [
+        {
+          "pidgin": "eh, you stay wit' da kine?",
+          "confidence": 1,
+          "id": "eh_you_stay_wit_da_kine_510"
+        }
+      ],
+      "do you have that thing?": [
+        {
+          "pidgin": "eh, you stay wit' da kine?",
+          "confidence": 1,
+          "id": "eh_you_stay_wit_da_kine_510"
+        }
+      ],
       "irritating": [
         {
           "pidgin": "erking",
@@ -1701,6 +1914,55 @@
           "pidgin": "wiki wiki",
           "confidence": 1,
           "id": "wiki_wiki_195"
+        }
+      ],
+      "feel like crap": [
+        {
+          "pidgin": "feel junk",
+          "confidence": 1,
+          "id": "feel_junk_525"
+        }
+      ],
+      "feel like shit": [
+        {
+          "pidgin": "feel junk",
+          "confidence": 1,
+          "id": "feel_junk_525"
+        }
+      ],
+      "feel terrible": [
+        {
+          "pidgin": "feel junk",
+          "confidence": 1,
+          "id": "feel_junk_525"
+        }
+      ],
+      "feel awful": [
+        {
+          "pidgin": "feel junk",
+          "confidence": 1,
+          "id": "feel_junk_525"
+        }
+      ],
+      "seem like": [
+        {
+          "pidgin": "feel like",
+          "confidence": 1,
+          "id": "feel_like_528"
+        }
+      ],
+      "feels as if": [
+        {
+          "pidgin": "feel like",
+          "confidence": 1,
+          "id": "feel_like_528"
+        }
+      ],
+      "feels as though": [
+        {
+          "pidgin": "feel like",
+          "confidence": 1,
+          "id": "feel_like_528"
         }
       ],
       "filipino": [
@@ -1874,14 +2136,14 @@
           "id": "geev_um_051"
         },
         {
-          "pidgin": "go fo broke",
-          "confidence": 1,
-          "id": "go_fo_broke_053"
-        },
-        {
           "pidgin": "get'um",
           "confidence": 1,
           "id": "getum_501"
+        },
+        {
+          "pidgin": "go fo broke",
+          "confidence": 1,
+          "id": "go_fo_broke_053"
         }
       ],
       "get it": [
@@ -1919,6 +2181,27 @@
           "id": "get_chance_341"
         }
       ],
+      "there's a lot": [
+        {
+          "pidgin": "get choke",
+          "confidence": 1,
+          "id": "get_choke_517"
+        }
+      ],
+      "have plenty": [
+        {
+          "pidgin": "get choke",
+          "confidence": 1,
+          "id": "get_choke_517"
+        }
+      ],
+      "lots of": [
+        {
+          "pidgin": "get choke",
+          "confidence": 1,
+          "id": "get_choke_517"
+        }
+      ],
       "understand?": [
         {
           "pidgin": "get?",
@@ -1933,6 +2216,13 @@
           "id": "get_342"
         }
       ],
+      "seize the opportunity": [
+        {
+          "pidgin": "get'um",
+          "confidence": 1,
+          "id": "getum_501"
+        }
+      ],
       "hair swirl": [
         {
           "pidgin": "giri giri",
@@ -1945,6 +2235,27 @@
           "pidgin": "giri giri",
           "confidence": 1,
           "id": "giri_giri_239"
+        }
+      ],
+      "go do it better": [
+        {
+          "pidgin": "go mo' bettah",
+          "confidence": 1,
+          "id": "go_mo_bettah_514"
+        }
+      ],
+      "do it better": [
+        {
+          "pidgin": "go mo' bettah",
+          "confidence": 1,
+          "id": "go_mo_bettah_514"
+        }
+      ],
+      "you should do better": [
+        {
+          "pidgin": "go mo' bettah",
+          "confidence": 1,
+          "id": "go_mo_bettah_514"
         }
       ],
       "going": [
@@ -2060,6 +2371,13 @@
           "id": "hala_057"
         }
       ],
+      "traditional workshop or school of learning": [
+        {
+          "pidgin": "halau",
+          "confidence": 1,
+          "id": "halau_602"
+        }
+      ],
       "house": [
         {
           "pidgin": "hale",
@@ -2151,6 +2469,13 @@
           "id": "hanai_246"
         }
       ],
+      "to give birth": [
+        {
+          "pidgin": "hanau",
+          "confidence": 1,
+          "id": "hanau_603"
+        }
+      ],
       "under control": [
         {
           "pidgin": "handles",
@@ -2193,6 +2518,13 @@
           "id": "hapai_066"
         }
       ],
+      "smelly": [
+        {
+          "pidgin": "hauna",
+          "confidence": 1,
+          "id": "hauna_604"
+        }
+      ],
       "stinky": [
         {
           "pidgin": "haunas",
@@ -2231,6 +2563,13 @@
           "pidgin": "heiau",
           "confidence": 1,
           "id": "heiau_420"
+        }
+      ],
+      "to go generic": [
+        {
+          "pidgin": "hele",
+          "confidence": 1,
+          "id": "hele_605"
         }
       ],
       "go away": [
@@ -2308,6 +2647,27 @@
           "id": "ho_nah_351"
         }
       ],
+      "wow, that guy is getting goosebumps!": [
+        {
+          "pidgin": "ho, da bagah's goin' chicken skin!",
+          "confidence": 1,
+          "id": "ho_da_bagah_goin_chicken_skin_520"
+        }
+      ],
+      "look, he's getting chills!": [
+        {
+          "pidgin": "ho, da bagah's goin' chicken skin!",
+          "confidence": 1,
+          "id": "ho_da_bagah_goin_chicken_skin_520"
+        }
+      ],
+      "that person has goosebumps!": [
+        {
+          "pidgin": "ho, da bagah's goin' chicken skin!",
+          "confidence": 1,
+          "id": "ho_da_bagah_goin_chicken_skin_520"
+        }
+      ],
       "go cruising": [
         {
           "pidgin": "holoholo",
@@ -2320,6 +2680,13 @@
           "pidgin": "honey girl",
           "confidence": 1,
           "id": "honey_girl_253"
+        }
+      ],
+      "to kiss": [
+        {
+          "pidgin": "honi",
+          "confidence": 1,
+          "id": "honi_606"
         }
       ],
       "sea turtle": [
@@ -2350,6 +2717,34 @@
           "id": "howzit_072"
         }
       ],
+      "how are you, mister?": [
+        {
+          "pidgin": "howzit, uncle?",
+          "confidence": 1,
+          "id": "howzit_uncle_519"
+        }
+      ],
+      "how's it going, sir?": [
+        {
+          "pidgin": "howzit, uncle?",
+          "confidence": 1,
+          "id": "howzit_uncle_519"
+        }
+      ],
+      "hello, older gentleman": [
+        {
+          "pidgin": "howzit, uncle?",
+          "confidence": 1,
+          "id": "howzit_uncle_519"
+        }
+      ],
+      "a call to get someone's attention": [
+        {
+          "pidgin": "hu-i",
+          "confidence": 1,
+          "id": "hu_i_607"
+        }
+      ],
       "upset": [
         {
           "pidgin": "huhu",
@@ -2378,6 +2773,13 @@
           "id": "hukilau_255"
         }
       ],
+      "hula": [
+        {
+          "pidgin": "hula",
+          "confidence": 1,
+          "id": "hula_601"
+        }
+      ],
       "to turn": [
         {
           "pidgin": "huli",
@@ -2390,6 +2792,13 @@
           "pidgin": "huli",
           "confidence": 1,
           "id": "huli_075"
+        }
+      ],
+      "to rotate something, as on a spit": [
+        {
+          "pidgin": "hulihuli",
+          "confidence": 1,
+          "id": "hulihuli_608"
         }
       ],
       "humble": [
@@ -2416,6 +2825,34 @@
           "pidgin": "pilikia",
           "confidence": 1,
           "id": "pilikia_146"
+        }
+      ],
+      "stupid, foolish": [
+        {
+          "pidgin": "hupo",
+          "confidence": 1,
+          "id": "hupo_609"
+        }
+      ],
+      "i want": [
+        {
+          "pidgin": "I like",
+          "confidence": 1,
+          "id": "i_like_527"
+        }
+      ],
+      "i would like": [
+        {
+          "pidgin": "I like",
+          "confidence": 1,
+          "id": "i_like_527"
+        }
+      ],
+      "i'd like": [
+        {
+          "pidgin": "I like",
+          "confidence": 1,
+          "id": "i_like_527"
         }
       ],
       "forward": [
@@ -2615,6 +3052,13 @@
           "id": "kden_357"
         }
       ],
+      "a reverend or priest": [
+        {
+          "pidgin": "kahu",
+          "confidence": 1,
+          "id": "kahu_610"
+        }
+      ],
       "expert": [
         {
           "pidgin": "kahuna",
@@ -2650,6 +3094,13 @@
           "id": "kalo_085"
         }
       ],
+      "to bake in an imu": [
+        {
+          "pidgin": "kalua",
+          "confidence": 1,
+          "id": "kalua_614"
+        }
+      ],
       "local resident": [
         {
           "pidgin": "kamaaina",
@@ -2669,6 +3120,13 @@
           "pidgin": "kanaka",
           "confidence": 1,
           "id": "kanaka_088"
+        }
+      ],
+      "man, male, husband": [
+        {
+          "pidgin": "kane",
+          "confidence": 1,
+          "id": "kane_615"
         }
       ],
       "jam session": [
@@ -2718,6 +3176,13 @@
           "pidgin": "keiki",
           "confidence": 1,
           "id": "keiki_093"
+        }
+      ],
+      "of japanese descent": [
+        {
+          "pidgin": "Kepani",
+          "confidence": 1,
+          "id": "kepani_612"
         }
       ],
       "bad breath": [
@@ -2774,6 +3239,13 @@
           "id": "kukae_098"
         }
       ],
+      "a type of tree": [
+        {
+          "pidgin": "kukui",
+          "confidence": 1,
+          "id": "kukui_616"
+        }
+      ],
       "responsibility": [
         {
           "pidgin": "kuleana",
@@ -2781,11 +3253,32 @@
           "id": "kuleana_097"
         }
       ],
+      "a type of hawaiian dessert": [
+        {
+          "pidgin": "kulolo",
+          "confidence": 1,
+          "id": "kulolo_617"
+        }
+      ],
+      "teacher": [
+        {
+          "pidgin": "kumu",
+          "confidence": 1,
+          "id": "kumu_613"
+        }
+      ],
       "elder": [
         {
           "pidgin": "kupuna",
           "confidence": 1,
           "id": "kupuna_360"
+        }
+      ],
+      "veranda, porch": [
+        {
+          "pidgin": "lanai",
+          "confidence": 1,
+          "id": "lanai_618"
         }
       ],
       "porch or veranda": [
@@ -2821,11 +3314,25 @@
           "id": "laulau_101"
         }
       ],
+      "lehua - a type of blossom": [
+        {
+          "pidgin": "lehua",
+          "confidence": 1,
+          "id": "lehua_619"
+        }
+      ],
       "garland of flowers": [
         {
           "pidgin": "lei",
           "confidence": 1,
           "id": "lei_102"
+        }
+      ],
+      "dirty": [
+        {
+          "pidgin": "lepo",
+          "confidence": 1,
+          "id": "lepo_620"
         }
       ],
       "hit": [
@@ -2891,6 +3398,13 @@
           "id": "limu_428"
         }
       ],
+      "togetherness, unity": [
+        {
+          "pidgin": "lokahi",
+          "confidence": 1,
+          "id": "lokahi_621"
+        }
+      ],
       "stupid": [
         {
           "pidgin": "lolo",
@@ -2905,6 +3419,13 @@
           "id": "lose_money_366"
         }
       ],
+      "toilet, bathroom": [
+        {
+          "pidgin": "lua",
+          "confidence": 1,
+          "id": "lua_623"
+        }
+      ],
       "hawaiian feast": [
         {
           "pidgin": "luau",
@@ -2917,6 +3438,13 @@
           "id": "lau_421"
         }
       ],
+      "the boss, foreman": [
+        {
+          "pidgin": "luna",
+          "confidence": 1,
+          "id": "luna_622"
+        }
+      ],
       "thank you": [
         {
           "pidgin": "mahalo",
@@ -2924,11 +3452,39 @@
           "id": "mahalo_109"
         }
       ],
+      "thank you for the connection!": [
+        {
+          "pidgin": "mahalo, for da hookup!",
+          "confidence": 1,
+          "id": "mahalo_for_da_hookup_516"
+        }
+      ],
+      "thanks for the favor!": [
+        {
+          "pidgin": "mahalo, for da hookup!",
+          "confidence": 1,
+          "id": "mahalo_for_da_hookup_516"
+        }
+      ],
+      "thank you for hooking me up!": [
+        {
+          "pidgin": "mahalo, for da hookup!",
+          "confidence": 1,
+          "id": "mahalo_for_da_hookup_516"
+        }
+      ],
       "dolphin fish": [
         {
           "pidgin": "mahimahi",
           "confidence": 1,
           "id": "mahimahi_416"
+        }
+      ],
+      "homosexual male; crossdresser": [
+        {
+          "pidgin": "mahu",
+          "confidence": 1,
+          "id": "mahu_624"
         }
       ],
       "good": [
@@ -2943,6 +3499,20 @@
           "pidgin": "maika'i",
           "confidence": 1,
           "id": "maikai_110"
+        }
+      ],
+      "a type of vine": [
+        {
+          "pidgin": "maile",
+          "confidence": 1,
+          "id": "maile_625"
+        }
+      ],
+      "sleepy dust": [
+        {
+          "pidgin": "maka piapia",
+          "confidence": 1,
+          "id": "maka_piapia_626"
         }
       ],
       "toward the ocean": [
@@ -2964,6 +3534,27 @@
           "pidgin": "make",
           "confidence": 1,
           "id": "make_111"
+        }
+      ],
+      "to play a joke on someone": [
+        {
+          "pidgin": "make funny",
+          "confidence": 1,
+          "id": "make_funny_518"
+        }
+      ],
+      "to tease": [
+        {
+          "pidgin": "make funny",
+          "confidence": 1,
+          "id": "make_funny_518"
+        }
+      ],
+      "to mess around with": [
+        {
+          "pidgin": "make funny",
+          "confidence": 1,
+          "id": "make_funny_518"
         }
       ],
       "to care for": [
@@ -3119,11 +3710,39 @@
           "id": "moe_moe_403"
         }
       ],
+      "go nighty-night sleep for kids": [
+        {
+          "pidgin": "moemoe",
+          "confidence": 1,
+          "id": "moemoe_627"
+        }
+      ],
       "tough local guy": [
         {
           "pidgin": "moke",
           "confidence": 1,
           "id": "moke_123"
+        }
+      ],
+      "fat, obese": [
+        {
+          "pidgin": "momona",
+          "confidence": 1,
+          "id": "momona_628"
+        }
+      ],
+      "gecko etc.": [
+        {
+          "pidgin": "moo",
+          "confidence": 1,
+          "id": "moo_629"
+        }
+      ],
+      "grandchild, descendant": [
+        {
+          "pidgin": "moopuna",
+          "confidence": 1,
+          "id": "moopuna_630"
         }
       ],
       "loose hawaiian dress": [
@@ -3159,6 +3778,13 @@
           "pidgin": "negz",
           "confidence": 1,
           "id": "negz_372"
+        }
+      ],
+      "the native hawaiian goose": [
+        {
+          "pidgin": "nene",
+          "confidence": 1,
+          "id": "nene_631"
         }
       ],
       "hawaiian goose": [
@@ -3210,6 +3836,27 @@
           "id": "no_can_128"
         }
       ],
+      "can't, the thing is broken": [
+        {
+          "pidgin": "no can, da buggah stay broke",
+          "confidence": 1,
+          "id": "no_can_da_buggah_stay_broke_523"
+        }
+      ],
+      "unable to, it's broken": [
+        {
+          "pidgin": "no can, da buggah stay broke",
+          "confidence": 1,
+          "id": "no_can_da_buggah_stay_broke_523"
+        }
+      ],
+      "no way, it's not working": [
+        {
+          "pidgin": "no can, da buggah stay broke",
+          "confidence": 1,
+          "id": "no_can_da_buggah_stay_broke_523"
+        }
+      ],
       "don't die": [
         {
           "pidgin": "no make",
@@ -3229,6 +3876,20 @@
           "pidgin": "no sked",
           "confidence": 1,
           "id": "no_sked_132"
+        }
+      ],
+      "it's okay": [
+        {
+          "pidgin": "no worries",
+          "confidence": 1,
+          "id": "no_worries_529"
+        }
+      ],
+      "don't worry about it": [
+        {
+          "pidgin": "no worries",
+          "confidence": 1,
+          "id": "no_worries_529"
         }
       ],
       "enough": [
@@ -3271,6 +3932,20 @@
           "pidgin": "ohana",
           "confidence": 1,
           "id": "ohana_135"
+        }
+      ],
+      "human rear end": [
+        {
+          "pidgin": "okole",
+          "confidence": 1,
+          "id": "okole_644"
+        }
+      ],
+      "hawaiian ti root moonshine": [
+        {
+          "pidgin": "okole hao",
+          "confidence": 1,
+          "id": "okole_hao_645"
         }
       ],
       "delicious": [
@@ -3320,6 +3995,13 @@
           "id": "opihi_139"
         }
       ],
+      "stomach, tummy": [
+        {
+          "pidgin": "opu",
+          "confidence": 1,
+          "id": "opu_646"
+        }
+      ],
       "over there": [
         {
           "pidgin": "ova dea",
@@ -3337,6 +4019,13 @@
           "pidgin": "pāhoehoe",
           "confidence": 1,
           "id": "phoehoe_424"
+        }
+      ],
+      "of chinese descent": [
+        {
+          "pidgin": "Pake",
+          "confidence": 1,
+          "id": "pake_632"
         }
       ],
       "cliff or precipice": [
@@ -3388,6 +4077,13 @@
           "id": "pau_hana_144"
         }
       ],
+      "belly-button": [
+        {
+          "pidgin": "piko",
+          "confidence": 1,
+          "id": "piko_633"
+        }
+      ],
       "rotten": [
         {
           "pidgin": "pilau",
@@ -3402,6 +4098,20 @@
           "id": "pilikia_146"
         }
       ],
+      "beef, cow, bull": [
+        {
+          "pidgin": "pipi",
+          "confidence": 1,
+          "id": "pipi_634"
+        }
+      ],
+      "dried beef, similar to beef jerky": [
+        {
+          "pidgin": "pipi kaula",
+          "confidence": 1,
+          "id": "pipi_kaula_635"
+        }
+      ],
       "lots": [
         {
           "pidgin": "planny",
@@ -3414,6 +4124,20 @@
           "pidgin": "plate lunch",
           "confidence": 1,
           "id": "plate_lunch_147"
+        }
+      ],
+      "a rock": [
+        {
+          "pidgin": "pohaku",
+          "confidence": 1,
+          "id": "pohaku_636"
+        }
+      ],
+      "useless, wasteful, wasted": [
+        {
+          "pidgin": "poho",
+          "confidence": 1,
+          "id": "poho_637"
         }
       ],
       "waste": [
@@ -3463,6 +4187,20 @@
           "pidgin": "popo",
           "confidence": 1,
           "id": "popo_381"
+        }
+      ],
+      "a person of african descent": [
+        {
+          "pidgin": "popolo",
+          "confidence": 1,
+          "id": "popolo_638"
+        }
+      ],
+      "pig, pork": [
+        {
+          "pidgin": "puaa",
+          "confidence": 1,
+          "id": "puaa_639"
         }
       ],
       "hawaiian owl": [
@@ -3594,14 +4332,35 @@
           "id": "shoots_159"
         },
         {
-          "pidgin": "shootz",
-          "confidence": 1,
-          "id": "shootz_283"
-        },
-        {
           "pidgin": "shoots",
           "confidence": 1,
           "id": "shoots_509"
+        },
+        {
+          "pidgin": "shootz",
+          "confidence": 1,
+          "id": "shootz_283"
+        }
+      ],
+      "alright, brother!": [
+        {
+          "pidgin": "shoots, brah!",
+          "confidence": 1,
+          "id": "shoots_brah_511"
+        }
+      ],
+      "okay, dude!": [
+        {
+          "pidgin": "shoots, brah!",
+          "confidence": 1,
+          "id": "shoots_brah_511"
+        }
+      ],
+      "sounds good, bro!": [
+        {
+          "pidgin": "shoots, brah!",
+          "confidence": 1,
+          "id": "shoots_brah_511"
         }
       ],
       "sister": [
@@ -3628,6 +4387,20 @@
           "pidgin": "zori",
           "confidence": 1,
           "id": "zori_285"
+        }
+      ],
+      "when i was a kid": [
+        {
+          "pidgin": "small kid time",
+          "confidence": 1,
+          "id": "small_kid_time_506"
+        }
+      ],
+      "childhood days": [
+        {
+          "pidgin": "small kid time",
+          "confidence": 1,
+          "id": "small_kid_time_506"
         }
       ],
       "a little bit": [
@@ -3752,6 +4525,13 @@
           "id": "talk_stink_512"
         }
       ],
+      "spread rumors": [
+        {
+          "pidgin": "talk stink",
+          "confidence": 1,
+          "id": "talk_stink_512"
+        }
+      ],
       "chat": [
         {
           "pidgin": "talk story",
@@ -3790,6 +4570,13 @@
           "pidgin": "taro",
           "confidence": 1,
           "id": "taro_173"
+        }
+      ],
+      "a type of plant": [
+        {
+          "pidgin": "ti",
+          "confidence": 1,
+          "id": "ti_640"
         }
       ],
       "tough local girl": [
@@ -3869,6 +4656,13 @@
           "id": "uku_180"
         }
       ],
+      "to pay off completely": [
+        {
+          "pidgin": "uku pau",
+          "confidence": 1,
+          "id": "uku_pau_641"
+        }
+      ],
       "small four-stringed guitar": [
         {
           "pidgin": "ukulele",
@@ -3902,6 +4696,13 @@
           "pidgin": "vog",
           "confidence": 1,
           "id": "vog_185"
+        }
+      ],
+      "canoe": [
+        {
+          "pidgin": "waa",
+          "confidence": 1,
+          "id": "waa_642"
         }
       ],
       "woman": [
@@ -4051,6 +4852,20 @@
           "id": "yeah_no_274"
         }
       ],
+      "you're right": [
+        {
+          "pidgin": "yeah you",
+          "confidence": 1,
+          "id": "yeah_you_508"
+        }
+      ],
+      "i agree with you": [
+        {
+          "pidgin": "yeah you",
+          "confidence": 1,
+          "id": "yeah_you_508"
+        }
+      ],
       "agree, right?": [
         {
           "pidgin": "yeah, no?",
@@ -4086,335 +4901,6 @@
           "id": "you_know_dat_276"
         }
       ],
-      "are you going?": [
-        {
-          "pidgin": "you stay go?",
-          "confidence": 1,
-          "id": "you_stay_go_396"
-        }
-      ],
-      "informal footwear": [
-        {
-          "pidgin": "zori",
-          "confidence": 1,
-          "id": "zori_285"
-        }
-      ],
-      "seize the opportunity": [
-        {
-          "pidgin": "get'um",
-          "confidence": 1,
-          "id": "getum_501"
-        }
-      ],
-      "laugh hard": [
-        {
-          "pidgin": "buss laff",
-          "confidence": 1,
-          "id": "buss_laff_502"
-        }
-      ],
-      "crack up": [
-        {
-          "pidgin": "buss laff",
-          "confidence": 1,
-          "id": "buss_laff_502"
-        }
-      ],
-      "burst out laughing": [
-        {
-          "pidgin": "buss laff",
-          "confidence": 1,
-          "id": "buss_laff_502"
-        }
-      ],
-      "laugh really hard": [
-        {
-          "pidgin": "bust 'em up",
-          "confidence": 1,
-          "id": "bust_em_up_503"
-        }
-      ],
-      "crack up completely": [
-        {
-          "pidgin": "bust 'em up",
-          "confidence": 1,
-          "id": "bust_em_up_503"
-        }
-      ],
-      "break down laughing": [
-        {
-          "pidgin": "bust 'em up",
-          "confidence": 1,
-          "id": "bust_em_up_503"
-        }
-      ],
-      "oh my gosh": [
-        {
-          "pidgin": "auwe",
-          "confidence": 1,
-          "id": "auwe_504"
-        }
-      ],
-      "expression of shock or dismay": [
-        {
-          "pidgin": "auwe",
-          "confidence": 1,
-          "id": "auwe_504"
-        }
-      ],
-      "when i was a kid": [
-        {
-          "pidgin": "small kid time",
-          "confidence": 1,
-          "id": "small_kid_time_506"
-        }
-      ],
-      "childhood days": [
-        {
-          "pidgin": "small kid time",
-          "confidence": 1,
-          "id": "small_kid_time_506"
-        }
-      ],
-      "bald head": [
-        {
-          "pidgin": "ballah head",
-          "confidence": 1,
-          "id": "ballah_head_507"
-        }
-      ],
-      "no hair": [
-        {
-          "pidgin": "ballah head",
-          "confidence": 1,
-          "id": "ballah_head_507"
-        }
-      ],
-      "you're right": [
-        {
-          "pidgin": "yeah you",
-          "confidence": 1,
-          "id": "yeah_you_508"
-        }
-      ],
-      "i agree with you": [
-        {
-          "pidgin": "yeah you",
-          "confidence": 1,
-          "id": "yeah_you_508"
-        }
-      ],
-      "hey, are you with that thingamajig?": [
-        {
-          "pidgin": "eh, you stay wit' da kine?",
-          "confidence": 1,
-          "id": "eh_you_stay_wit_da_kine_510"
-        }
-      ],
-      "are you with that thing?": [
-        {
-          "pidgin": "eh, you stay wit' da kine?",
-          "confidence": 1,
-          "id": "eh_you_stay_wit_da_kine_510"
-        }
-      ],
-      "do you have that thing?": [
-        {
-          "pidgin": "eh, you stay wit' da kine?",
-          "confidence": 1,
-          "id": "eh_you_stay_wit_da_kine_510"
-        }
-      ],
-      "alright, brother!": [
-        {
-          "pidgin": "shoots, brah!",
-          "confidence": 1,
-          "id": "shoots_brah_511"
-        }
-      ],
-      "okay, dude!": [
-        {
-          "pidgin": "shoots, brah!",
-          "confidence": 1,
-          "id": "shoots_brah_511"
-        }
-      ],
-      "sounds good, bro!": [
-        {
-          "pidgin": "shoots, brah!",
-          "confidence": 1,
-          "id": "shoots_brah_511"
-        }
-      ],
-      "spread rumors": [
-        {
-          "pidgin": "talk stink",
-          "confidence": 1,
-          "id": "talk_stink_512"
-        }
-      ],
-      "the best!": [
-        {
-          "pidgin": "da bes'!",
-          "confidence": 1,
-          "id": "da_bes_513"
-        }
-      ],
-      "awesome!": [
-        {
-          "pidgin": "da bes'!",
-          "confidence": 1,
-          "id": "da_bes_513"
-        }
-      ],
-      "excellent!": [
-        {
-          "pidgin": "da bes'!",
-          "confidence": 1,
-          "id": "da_bes_513"
-        }
-      ],
-      "go do it better": [
-        {
-          "pidgin": "go mo' bettah",
-          "confidence": 1,
-          "id": "go_mo_bettah_514"
-        }
-      ],
-      "do it better": [
-        {
-          "pidgin": "go mo' bettah",
-          "confidence": 1,
-          "id": "go_mo_bettah_514"
-        }
-      ],
-      "you should do better": [
-        {
-          "pidgin": "go mo' bettah",
-          "confidence": 1,
-          "id": "go_mo_bettah_514"
-        }
-      ],
-      "bugger": [
-        {
-          "pidgin": "buggah",
-          "confidence": 1,
-          "id": "buggah_515"
-        }
-      ],
-      "person": [
-        {
-          "pidgin": "buggah",
-          "confidence": 1,
-          "id": "buggah_515"
-        }
-      ],
-      "thank you for the connection!": [
-        {
-          "pidgin": "mahalo, for da hookup!",
-          "confidence": 1,
-          "id": "mahalo_for_da_hookup_516"
-        }
-      ],
-      "thanks for the favor!": [
-        {
-          "pidgin": "mahalo, for da hookup!",
-          "confidence": 1,
-          "id": "mahalo_for_da_hookup_516"
-        }
-      ],
-      "thank you for hooking me up!": [
-        {
-          "pidgin": "mahalo, for da hookup!",
-          "confidence": 1,
-          "id": "mahalo_for_da_hookup_516"
-        }
-      ],
-      "there's a lot": [
-        {
-          "pidgin": "get choke",
-          "confidence": 1,
-          "id": "get_choke_517"
-        }
-      ],
-      "have plenty": [
-        {
-          "pidgin": "get choke",
-          "confidence": 1,
-          "id": "get_choke_517"
-        }
-      ],
-      "lots of": [
-        {
-          "pidgin": "get choke",
-          "confidence": 1,
-          "id": "get_choke_517"
-        }
-      ],
-      "to play a joke on someone": [
-        {
-          "pidgin": "make funny",
-          "confidence": 1,
-          "id": "make_funny_518"
-        }
-      ],
-      "to tease": [
-        {
-          "pidgin": "make funny",
-          "confidence": 1,
-          "id": "make_funny_518"
-        }
-      ],
-      "to mess around with": [
-        {
-          "pidgin": "make funny",
-          "confidence": 1,
-          "id": "make_funny_518"
-        }
-      ],
-      "how are you, mister?": [
-        {
-          "pidgin": "howzit, uncle?",
-          "confidence": 1,
-          "id": "howzit_uncle_519"
-        }
-      ],
-      "how's it going, sir?": [
-        {
-          "pidgin": "howzit, uncle?",
-          "confidence": 1,
-          "id": "howzit_uncle_519"
-        }
-      ],
-      "hello, older gentleman": [
-        {
-          "pidgin": "howzit, uncle?",
-          "confidence": 1,
-          "id": "howzit_uncle_519"
-        }
-      ],
-      "wow, that guy is getting goosebumps!": [
-        {
-          "pidgin": "ho, da bagah's goin' chicken skin!",
-          "confidence": 1,
-          "id": "ho_da_bagah_goin_chicken_skin_520"
-        }
-      ],
-      "look, he's getting chills!": [
-        {
-          "pidgin": "ho, da bagah's goin' chicken skin!",
-          "confidence": 1,
-          "id": "ho_da_bagah_goin_chicken_skin_520"
-        }
-      ],
-      "that person has goosebumps!": [
-        {
-          "pidgin": "ho, da bagah's goin' chicken skin!",
-          "confidence": 1,
-          "id": "ho_da_bagah_goin_chicken_skin_520"
-        }
-      ],
       "you want to eat, right?": [
         {
           "pidgin": "you like eat, eh?",
@@ -4436,179 +4922,18 @@
           "id": "you_like_eat_eh_521"
         }
       ],
-      "that thing, the whole thing": [
+      "are you going?": [
         {
-          "pidgin": "da kine, da whole kine",
+          "pidgin": "you stay go?",
           "confidence": 1,
-          "id": "da_kine_da_whole_kine_522"
+          "id": "you_stay_go_396"
         }
       ],
-      "everything related to that": [
+      "informal footwear": [
         {
-          "pidgin": "da kine, da whole kine",
+          "pidgin": "zori",
           "confidence": 1,
-          "id": "da_kine_da_whole_kine_522"
-        }
-      ],
-      "all of that stuff": [
-        {
-          "pidgin": "da kine, da whole kine",
-          "confidence": 1,
-          "id": "da_kine_da_whole_kine_522"
-        }
-      ],
-      "can't, the thing is broken": [
-        {
-          "pidgin": "no can, da buggah stay broke",
-          "confidence": 1,
-          "id": "no_can_da_buggah_stay_broke_523"
-        }
-      ],
-      "unable to, it's broken": [
-        {
-          "pidgin": "no can, da buggah stay broke",
-          "confidence": 1,
-          "id": "no_can_da_buggah_stay_broke_523"
-        }
-      ],
-      "no way, it's not working": [
-        {
-          "pidgin": "no can, da buggah stay broke",
-          "confidence": 1,
-          "id": "no_can_da_buggah_stay_broke_523"
-        }
-      ],
-      "relaxing": [
-        {
-          "pidgin": "cruising",
-          "confidence": 1,
-          "id": "cruising_524"
-        }
-      ],
-      "hanging out": [
-        {
-          "pidgin": "cruising",
-          "confidence": 1,
-          "id": "cruising_524"
-        }
-      ],
-      "taking it easy": [
-        {
-          "pidgin": "cruising",
-          "confidence": 1,
-          "id": "cruising_524"
-        }
-      ],
-      "driving around leisurely": [
-        {
-          "pidgin": "cruising",
-          "confidence": 1,
-          "id": "cruising_524"
-        }
-      ],
-      "feel like crap": [
-        {
-          "pidgin": "feel junk",
-          "confidence": 1,
-          "id": "feel_junk_525"
-        }
-      ],
-      "feel like shit": [
-        {
-          "pidgin": "feel junk",
-          "confidence": 1,
-          "id": "feel_junk_525"
-        }
-      ],
-      "feel terrible": [
-        {
-          "pidgin": "feel junk",
-          "confidence": 1,
-          "id": "feel_junk_525"
-        }
-      ],
-      "feel awful": [
-        {
-          "pidgin": "feel junk",
-          "confidence": 1,
-          "id": "feel_junk_525"
-        }
-      ],
-      "bro": [
-        {
-          "pidgin": "brah",
-          "confidence": 1,
-          "id": "brah_526"
-        }
-      ],
-      "dude": [
-        {
-          "pidgin": "brah",
-          "confidence": 1,
-          "id": "brah_526"
-        }
-      ],
-      "man": [
-        {
-          "pidgin": "brah",
-          "confidence": 1,
-          "id": "brah_526"
-        }
-      ],
-      "i want": [
-        {
-          "pidgin": "I like",
-          "confidence": 1,
-          "id": "i_like_527"
-        }
-      ],
-      "i would like": [
-        {
-          "pidgin": "I like",
-          "confidence": 1,
-          "id": "i_like_527"
-        }
-      ],
-      "i'd like": [
-        {
-          "pidgin": "I like",
-          "confidence": 1,
-          "id": "i_like_527"
-        }
-      ],
-      "seem like": [
-        {
-          "pidgin": "feel like",
-          "confidence": 1,
-          "id": "feel_like_528"
-        }
-      ],
-      "feels as if": [
-        {
-          "pidgin": "feel like",
-          "confidence": 1,
-          "id": "feel_like_528"
-        }
-      ],
-      "feels as though": [
-        {
-          "pidgin": "feel like",
-          "confidence": 1,
-          "id": "feel_like_528"
-        }
-      ],
-      "it's okay": [
-        {
-          "pidgin": "no worries",
-          "confidence": 1,
-          "id": "no_worries_529"
-        }
-      ],
-      "don't worry about it": [
-        {
-          "pidgin": "no worries",
-          "confidence": 1,
-          "id": "no_worries_529"
+          "id": "zori_285"
         }
       ]
     },
@@ -4650,6 +4975,9 @@
         "reddish hair",
         "spray"
       ],
+      "a hui hou": [
+        "goodbye"
+      ],
       "a'ole": [
         "not at all"
       ],
@@ -4669,6 +4997,9 @@
       ],
       "aikea": [
         "I care (sarcastic)"
+      ],
+      "aina": [
+        "the land"
       ],
       "ainokea": [
         "I don't care"
@@ -4780,6 +5111,11 @@
         "alright",
         "okay"
       ],
+      "auwe": [
+        "oh my gosh",
+        "oh dear",
+        "expression of shock or dismay"
+      ],
       "b-52": [
         "large cockroach"
       ],
@@ -4793,6 +5129,11 @@
       ],
       "bahjuju": [
         "bad vibes"
+      ],
+      "ballah head": [
+        "bald head",
+        "bald person",
+        "no hair"
       ],
       "bang": [
         "suddenly"
@@ -4864,15 +5205,15 @@
       "braddah": [
         "brother"
       ],
-      "bruddah": [
-        "brother"
-      ],
       "brah": [
         "brother",
         "friend"
       ],
       "broke da mouth": [
         "incredibly delicious"
+      ],
+      "bruddah": [
+        "brother"
       ],
       "buggah": [
         "guy",
@@ -4900,6 +5241,11 @@
         "broken",
         "busted"
       ],
+      "buss laff": [
+        "laugh hard",
+        "crack up",
+        "burst out laughing"
+      ],
       "buss um out": [
         "break it out",
         "start"
@@ -4907,6 +5253,11 @@
       "buss up": [
         "broken",
         "beaten up"
+      ],
+      "bust 'em up": [
+        "laugh really hard",
+        "crack up completely",
+        "break down laughing"
       ],
       "cabbage": [
         "money"
@@ -4980,6 +5331,12 @@
       "crash": [
         "to sleep"
       ],
+      "cruising": [
+        "relaxing",
+        "hanging out",
+        "taking it easy",
+        "driving around leisurely"
+      ],
       "cruzin": [
         "cruising",
         "driving around"
@@ -4991,6 +5348,11 @@
       "cuz": [
         "cousin",
         "friend"
+      ],
+      "da bes'!": [
+        "the best!",
+        "awesome!",
+        "excellent!"
       ],
       "da bomb": [
         "excellent",
@@ -5005,6 +5367,11 @@
       "da kine": [
         "the thing",
         "whatchamacallit"
+      ],
+      "da kine, da whole kine": [
+        "that thing, the whole thing",
+        "everything related to that",
+        "all of that stuff"
       ],
       "daikon": [
         "cellulite"
@@ -5056,6 +5423,11 @@
         "hey",
         "right?"
       ],
+      "eh, you stay wit' da kine?": [
+        "hey, are you with that thingamajig?",
+        "are you with that thing?",
+        "do you have that thing?"
+      ],
       "erking": [
         "irritating",
         "annoying"
@@ -5095,6 +5467,17 @@
       ],
       "fast kine": [
         "fast"
+      ],
+      "feel junk": [
+        "feel like crap",
+        "feel like shit",
+        "feel terrible",
+        "feel awful"
+      ],
+      "feel like": [
+        "seem like",
+        "feels as if",
+        "feels as though"
       ],
       "flip": [
         "Filipino"
@@ -5154,9 +5537,19 @@
       "get chance": [
         "have opportunity"
       ],
+      "get choke": [
+        "there's a lot",
+        "have plenty",
+        "lots of"
+      ],
       "get?": [
         "understand?",
         "got it?"
+      ],
+      "get'um": [
+        "go for it",
+        "give it your all",
+        "seize the opportunity"
       ],
       "giri giri": [
         "hair swirl",
@@ -5164,6 +5557,11 @@
       ],
       "go fo broke": [
         "give it your all"
+      ],
+      "go mo' bettah": [
+        "go do it better",
+        "do it better",
+        "you should do better"
       ],
       "goin": [
         "going"
@@ -5184,6 +5582,11 @@
       "guaranz": [
         "no doubt",
         "for sure"
+      ],
+      "gueren-tee": [
+        "definitely",
+        "for sure",
+        "guaranteed"
       ],
       "gullah gullahs": [
         "mixed up",
@@ -5207,6 +5610,9 @@
       ],
       "hala": [
         "pandanus tree"
+      ],
+      "halau": [
+        "traditional workshop or school of learning"
       ],
       "hale": [
         "house",
@@ -5248,6 +5654,9 @@
       "hanai": [
         "to adopt"
       ],
+      "hanau": [
+        "to give birth"
+      ],
       "handles": [
         "under control"
       ],
@@ -5261,6 +5670,9 @@
       ],
       "hapai": [
         "pregnant"
+      ],
+      "hauna": [
+        "smelly"
       ],
       "haunas": [
         "stinky"
@@ -5276,6 +5688,9 @@
       ],
       "heiau": [
         "Hawaiian temple"
+      ],
+      "hele": [
+        "to go generic"
       ],
       "hele on": [
         "go away",
@@ -5302,11 +5717,19 @@
         "wow",
         "really"
       ],
+      "ho, da bagah's goin' chicken skin!": [
+        "wow, that guy is getting goosebumps!",
+        "look, he's getting chills!",
+        "that person has goosebumps!"
+      ],
       "holoholo": [
         "go cruising"
       ],
       "honey girl": [
         "young daughter"
+      ],
+      "honi": [
+        "to kiss"
       ],
       "honu": [
         "sea turtle"
@@ -5320,6 +5743,14 @@
       "howzit": [
         "how are you"
       ],
+      "howzit, uncle?": [
+        "how are you, mister?",
+        "how's it going, sir?",
+        "hello, older gentleman"
+      ],
+      "hu-i": [
+        "a call to get someone's attention"
+      ],
       "huhu": [
         "angry",
         "upset"
@@ -5331,9 +5762,15 @@
       "hukilau": [
         "community net fishing"
       ],
+      "hula": [
+        "hula"
+      ],
       "huli": [
         "to turn",
         "flip"
+      ],
+      "hulihuli": [
+        "to rotate something, as on a spit"
       ],
       "humbalah": [
         "humble"
@@ -5341,6 +5778,14 @@
       "humbug": [
         "a bother",
         "trouble"
+      ],
+      "hupo": [
+        "stupid, foolish"
+      ],
+      "i like": [
+        "I want",
+        "I would like",
+        "I'd like"
       ],
       "i mua": [
         "forward",
@@ -5425,6 +5870,9 @@
       "k-den": [
         "okay then"
       ],
+      "kahu": [
+        "a reverend or priest"
+      ],
       "kahuna": [
         "expert",
         "priest"
@@ -5433,8 +5881,14 @@
         "ocean",
         "sea"
       ],
+      "kala": [
+        "money"
+      ],
       "kalo": [
         "taro"
+      ],
+      "kalua": [
+        "to bake in an imu"
       ],
       "kamaaina": [
         "local resident"
@@ -5444,6 +5898,9 @@
       ],
       "kanaka": [
         "Hawaiian person"
+      ],
+      "kane": [
+        "man, male, husband"
       ],
       "kanikapila": [
         "jam session"
@@ -5473,6 +5930,9 @@
       "keiki": [
         "child"
       ],
+      "kepani": [
+        "of Japanese descent"
+      ],
       "killaz": [
         "awesome"
       ],
@@ -5497,11 +5957,23 @@
         "feces",
         "crap"
       ],
+      "kukui": [
+        "a type of tree"
+      ],
       "kuleana": [
         "responsibility"
       ],
+      "kulolo": [
+        "a type of Hawaiian dessert"
+      ],
+      "kumu": [
+        "teacher"
+      ],
       "kupuna": [
         "elder"
+      ],
+      "lanai": [
+        "veranda, porch"
       ],
       "lānai": [
         "porch or veranda"
@@ -5519,8 +5991,14 @@
       "laulau": [
         "meat wrapped in taro leaves"
       ],
+      "lehua": [
+        "lehua - a type of blossom"
+      ],
       "lei": [
         "garland of flowers"
+      ],
+      "lepo": [
+        "dirty"
       ],
       "lick": [
         "hit",
@@ -5547,6 +6025,9 @@
       "limu": [
         "seaweed"
       ],
+      "lokahi": [
+        "togetherness, unity"
+      ],
       "lolo": [
         "crazy",
         "stupid"
@@ -5554,21 +6035,41 @@
       "lose money": [
         "bad deal"
       ],
+      "lua": [
+        "toilet, bathroom"
+      ],
       "luau": [
         "Hawaiian feast"
       ],
       "lūʻau": [
         "Hawaiian feast"
       ],
+      "luna": [
+        "the boss, foreman"
+      ],
       "mahalo": [
         "thank you"
+      ],
+      "mahalo, for da hookup!": [
+        "thank you for the connection!",
+        "thanks for the favor!",
+        "thank you for hooking me up!"
       ],
       "mahimahi": [
         "dolphin fish"
       ],
+      "mahu": [
+        "homosexual male; crossdresser"
+      ],
       "maika'i": [
         "good",
         "fine"
+      ],
+      "maile": [
+        "a type of vine"
+      ],
+      "maka piapia": [
+        "sleepy dust"
       ],
       "makai": [
         "toward the ocean"
@@ -5576,6 +6077,11 @@
       "make": [
         "dead",
         "die"
+      ],
+      "make funny": [
+        "to play a joke on someone",
+        "to tease",
+        "to mess around with"
       ],
       "malama": [
         "to care for",
@@ -5638,8 +6144,20 @@
       "moe moe": [
         "sleepy"
       ],
+      "moemoe": [
+        "go nighty-night sleep for kids"
+      ],
       "moke": [
         "tough local guy"
+      ],
+      "momona": [
+        "fat, obese"
+      ],
+      "moo": [
+        "gecko etc."
+      ],
+      "moopuna": [
+        "grandchild, descendant"
       ],
       "muʻumuʻu": [
         "loose Hawaiian dress"
@@ -5657,6 +6175,9 @@
       "negz": [
         "negative",
         "no"
+      ],
+      "nene": [
+        "the native Hawaiian goose"
       ],
       "nēnē": [
         "Hawaiian goose"
@@ -5678,6 +6199,11 @@
         "cannot",
         "unable"
       ],
+      "no can, da buggah stay broke": [
+        "can't, the thing is broken",
+        "unable to, it's broken",
+        "no way, it's not working"
+      ],
       "no ka 'oi": [
         "the best"
       ],
@@ -5693,6 +6219,11 @@
       "no sked": [
         "not scared"
       ],
+      "no worries": [
+        "no problem",
+        "it's okay",
+        "don't worry about it"
+      ],
       "nuff": [
         "enough"
       ],
@@ -5706,6 +6237,12 @@
       ],
       "ohana": [
         "family"
+      ],
+      "okole": [
+        "human rear end"
+      ],
+      "okole hao": [
+        "Hawaiian ti root moonshine"
       ],
       "ono": [
         "delicious"
@@ -5721,6 +6258,9 @@
       "opihi": [
         "limpet (shellfish)"
       ],
+      "opu": [
+        "stomach, tummy"
+      ],
       "ova dea": [
         "over there"
       ],
@@ -5732,6 +6272,9 @@
       ],
       "pakalolo": [
         "marijuana"
+      ],
+      "pake": [
+        "of Chinese descent"
       ],
       "pākē": [
         "Chinese person"
@@ -5756,6 +6299,9 @@
       "pau hana": [
         "after work"
       ],
+      "piko": [
+        "belly-button"
+      ],
       "pilau": [
         "stinky",
         "rotten"
@@ -5764,12 +6310,24 @@
         "trouble",
         "problem"
       ],
+      "pipi": [
+        "beef, cow, bull"
+      ],
+      "pipi kaula": [
+        "dried beef, similar to beef jerky"
+      ],
       "planny": [
         "plenty",
         "lots"
       ],
       "plate lunch": [
         "local meal combo"
+      ],
+      "pohaku": [
+        "a rock"
+      ],
+      "poho": [
+        "useless, wasteful, wasted"
       ],
       "pohō": [
         "waste",
@@ -5787,6 +6345,12 @@
       ],
       "popo": [
         "police"
+      ],
+      "popolo": [
+        "a person of African descent"
+      ],
+      "puaa": [
+        "pig, pork"
       ],
       "pueo": [
         "Hawaiian owl"
@@ -5843,6 +6407,11 @@
         "goodbye",
         "sounds good"
       ],
+      "shoots, brah!": [
+        "alright, brother!",
+        "okay, dude!",
+        "sounds good, bro!"
+      ],
       "shootz": [
         "alright",
         "sounds good"
@@ -5854,6 +6423,11 @@
       "slippahs": [
         "flip-flops",
         "sandals"
+      ],
+      "small kid time": [
+        "when I was a kid",
+        "back in the day",
+        "childhood days"
       ],
       "small kine": [
         "a little bit"
@@ -5910,6 +6484,9 @@
       "taro": [
         "tropical plant with edible root"
       ],
+      "ti": [
+        "a type of plant"
+      ],
       "tita": [
         "tough local girl"
       ],
@@ -5945,6 +6522,9 @@
       "uku": [
         "lice"
       ],
+      "uku pau": [
+        "to pay off completely"
+      ],
       "ukulele": [
         "small four-stringed guitar"
       ],
@@ -5964,6 +6544,9 @@
       ],
       "vog": [
         "volcanic smog"
+      ],
+      "waa": [
+        "canoe"
       ],
       "wahine": [
         "woman"
@@ -6033,6 +6616,11 @@
       "yeah no": [
         "I agree"
       ],
+      "yeah you": [
+        "you're right",
+        "that's right",
+        "I agree with you"
+      ],
       "yeah, no?": [
         "agree, right?"
       ],
@@ -6053,6 +6641,11 @@
       "you know dat": [
         "yes definitely"
       ],
+      "you like eat, eh?": [
+        "you want to eat, right?",
+        "do you want to eat?",
+        "hungry?"
+      ],
       "you stay go?": [
         "are you going?"
       ],
@@ -6062,133 +6655,6 @@
       "zori": [
         "informal footwear",
         "flip-flops"
-      ],
-      "get'um": [
-        "go for it",
-        "give it your all",
-        "seize the opportunity"
-      ],
-      "buss laff": [
-        "laugh hard",
-        "crack up",
-        "burst out laughing"
-      ],
-      "bust 'em up": [
-        "laugh really hard",
-        "crack up completely",
-        "break down laughing"
-      ],
-      "auwe": [
-        "oh my gosh",
-        "oh dear",
-        "expression of shock or dismay"
-      ],
-      "gueren-tee": [
-        "definitely",
-        "for sure",
-        "guaranteed"
-      ],
-      "small kid time": [
-        "when I was a kid",
-        "back in the day",
-        "childhood days"
-      ],
-      "ballah head": [
-        "bald head",
-        "bald person",
-        "no hair"
-      ],
-      "yeah you": [
-        "you're right",
-        "that's right",
-        "I agree with you"
-      ],
-      "eh, you stay wit' da kine?": [
-        "hey, are you with that thingamajig?",
-        "are you with that thing?",
-        "do you have that thing?"
-      ],
-      "shoots, brah!": [
-        "alright, brother!",
-        "okay, dude!",
-        "sounds good, bro!"
-      ],
-      "da bes'!": [
-        "the best!",
-        "awesome!",
-        "excellent!"
-      ],
-      "go mo' bettah": [
-        "go do it better",
-        "do it better",
-        "you should do better"
-      ],
-      "mahalo, for da hookup!": [
-        "thank you for the connection!",
-        "thanks for the favor!",
-        "thank you for hooking me up!"
-      ],
-      "get choke": [
-        "there's a lot",
-        "have plenty",
-        "lots of"
-      ],
-      "make funny": [
-        "to play a joke on someone",
-        "to tease",
-        "to mess around with"
-      ],
-      "howzit, uncle?": [
-        "how are you, mister?",
-        "how's it going, sir?",
-        "hello, older gentleman"
-      ],
-      "ho, da bagah's goin' chicken skin!": [
-        "wow, that guy is getting goosebumps!",
-        "look, he's getting chills!",
-        "that person has goosebumps!"
-      ],
-      "you like eat, eh?": [
-        "you want to eat, right?",
-        "do you want to eat?",
-        "hungry?"
-      ],
-      "da kine, da whole kine": [
-        "that thing, the whole thing",
-        "everything related to that",
-        "all of that stuff"
-      ],
-      "no can, da buggah stay broke": [
-        "can't, the thing is broken",
-        "unable to, it's broken",
-        "no way, it's not working"
-      ],
-      "cruising": [
-        "relaxing",
-        "hanging out",
-        "taking it easy",
-        "driving around leisurely"
-      ],
-      "feel junk": [
-        "feel like crap",
-        "feel like shit",
-        "feel terrible",
-        "feel awful"
-      ],
-      "i like": [
-        "I want",
-        "I would like",
-        "I'd like"
-      ],
-      "feel like": [
-        "seem like",
-        "feels as if",
-        "feels as though"
-      ],
-      "no worries": [
-        "no problem",
-        "it's okay",
-        "don't worry about it"
       ]
     }
   }

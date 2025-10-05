@@ -2,7 +2,7 @@
   "metadata": {
     "version": "3.0",
     "lastUpdated": "2025-10-05",
-    "totalEntries": 458,
+    "totalEntries": 505,
     "totalPhrases": 0,
     "totalStories": 9,
     "description": "Unified Hawaiian Pidgin Master Database",
@@ -251,6 +251,26 @@
       "audioExample": "Da 'ehu stay nice"
     },
     {
+      "id": "a_hui_hou_600",
+      "pidgin": "a hui hou",
+      "english": [
+        "goodbye"
+      ],
+      "category": "cultural",
+      "pronunciation": "A HUI HOU",
+      "examples": [
+        "a hui hou stay goodbye"
+      ],
+      "usage": "goodbye",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
       "id": "aole_196",
       "pidgin": "a'ole",
       "english": [
@@ -377,6 +397,26 @@
         "hawaiian"
       ],
       "audioExample": "Aikea if you no like"
+    },
+    {
+      "id": "aina_643",
+      "pidgin": "aina",
+      "english": [
+        "the land"
+      ],
+      "category": "cultural",
+      "pronunciation": "EYE-nah",
+      "examples": [
+        "aina stay the land"
+      ],
+      "usage": "the land",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
     },
     {
       "id": "ainokea_278",
@@ -1048,6 +1088,30 @@
       "audioExample": "Aurite, see you later"
     },
     {
+      "id": "auwe_504",
+      "pidgin": "auwe",
+      "english": [
+        "oh my gosh",
+        "oh dear",
+        "expression of shock or dismay"
+      ],
+      "category": "expressions",
+      "pronunciation": "ow-WEH",
+      "examples": [
+        "Auwe! Look da mess!",
+        "Auwe, I forgot my wallet",
+        "Auwe, so sad!"
+      ],
+      "culturalNote": "Hawaiian exclamation expressing shock, dismay, or sympathy",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "exclamations",
+        "emotions"
+      ]
+    },
+    {
       "id": "b52_203",
       "pidgin": "b-52",
       "english": [
@@ -1130,6 +1194,30 @@
         "slang"
       ],
       "audioExample": "Feel da bahjuju"
+    },
+    {
+      "id": "ballah_head_507",
+      "pidgin": "ballah head",
+      "english": [
+        "bald head",
+        "bald person",
+        "no hair"
+      ],
+      "category": "descriptions",
+      "pronunciation": "BAL-lah head",
+      "examples": [
+        "Uncle get ballah head",
+        "He stay ballah head since young time",
+        "My bruddah going ballah head like daddy"
+      ],
+      "culturalNote": "Casual way to describe someone who is bald",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "descriptions",
+        "appearance",
+        "slang"
+      ]
     },
     {
       "id": "bang_311",
@@ -1574,6 +1662,75 @@
       "notes": "Pronounced with 'brud' sounding like 'bud' but with an 'r', and 'dah' rhyming with 'duh'"
     },
     {
+      "id": "brah_023",
+      "pidgin": "brah",
+      "english": [
+        "brother",
+        "friend"
+      ],
+      "category": "expressions",
+      "pronunciation": "BRAH",
+      "examples": [
+        "Eh brah, wat you doing?"
+      ],
+      "usage": "Casual term for friend (male or female)",
+      "origin": "English \"brother\"",
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audioExample": "Tanks brah, you da best!"
+    },
+    {
+      "id": "brah_526",
+      "pidgin": "brah",
+      "english": [
+        "bro",
+        "brother",
+        "friend",
+        "dude",
+        "man"
+      ],
+      "category": "expressions",
+      "pronunciation": "BRAH",
+      "examples": [
+        "Howzit brah?",
+        "Eh brah, come here",
+        "Tanks brah"
+      ],
+      "usage": "Casual way to address a friend or acquaintance",
+      "culturalNote": "Universal term of address in Hawaii, used regardless of actual relationship",
+      "difficulty": "beginner",
+      "frequency": "very high",
+      "tags": [
+        "expressions",
+        "greetings",
+        "social"
+      ]
+    },
+    {
+      "id": "broke_da_mouth_024",
+      "pidgin": "broke da mouth",
+      "english": [
+        "incredibly delicious"
+      ],
+      "category": "food",
+      "pronunciation": "broke-dah-MOUT",
+      "examples": [
+        "Aunty's laulau broke da mouth!"
+      ],
+      "usage": "Food so good it \"breaks your mouth\"",
+      "origin": "Local expression",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "food"
+      ],
+      "audioExample": "Da kalua pig broke da mouth!"
+    },
+    {
       "id": "bruddah_429",
       "pidgin": "bruddah",
       "english": [
@@ -1598,48 +1755,6 @@
       "notes": "Common alternative spelling. Pronounced with 'brud' sounding like 'bud' but with an 'r', and 'dah' rhyming with 'duh'"
     },
     {
-      "id": "brah_023",
-      "pidgin": "brah",
-      "english": [
-        "brother",
-        "friend"
-      ],
-      "category": "expressions",
-      "pronunciation": "BRAH",
-      "examples": [
-        "Eh brah, wat you doing?"
-      ],
-      "usage": "Casual term for friend (male or female)",
-      "origin": "English \"brother\"",
-      "difficulty": "beginner",
-      "frequency": "very_high",
-      "tags": [
-        "expressions",
-        "english"
-      ],
-      "audioExample": "Tanks brah, you da best!"
-    },
-    {
-      "id": "broke_da_mouth_024",
-      "pidgin": "broke da mouth",
-      "english": [
-        "incredibly delicious"
-      ],
-      "category": "food",
-      "pronunciation": "broke-dah-MOUT",
-      "examples": [
-        "Aunty's laulau broke da mouth!"
-      ],
-      "usage": "Food so good it \"breaks your mouth\"",
-      "origin": "Local expression",
-      "difficulty": "intermediate",
-      "frequency": "medium",
-      "tags": [
-        "food"
-      ],
-      "audioExample": "Da kalua pig broke da mouth!"
-    },
-    {
       "id": "buggah_025",
       "pidgin": "buggah",
       "english": [
@@ -1660,6 +1775,31 @@
         "english"
       ],
       "audioExample": "Dat buggah!"
+    },
+    {
+      "id": "buggah_515",
+      "pidgin": "buggah",
+      "english": [
+        "bugger",
+        "guy",
+        "person",
+        "thing"
+      ],
+      "category": "people",
+      "pronunciation": "BUG-gah",
+      "examples": [
+        "Dat buggah is crazy",
+        "Which buggah you talking about?",
+        "Da buggah stay broken"
+      ],
+      "usage": "Refers to a person or sometimes a thing",
+      "culturalNote": "Versatile term for referring to people or objects",
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": [
+        "people",
+        "slang"
+      ]
     },
     {
       "id": "bulai_026",
@@ -1789,6 +1929,30 @@
       "audioExample": "All buss already"
     },
     {
+      "id": "buss_laff_502",
+      "pidgin": "buss laff",
+      "english": [
+        "laugh hard",
+        "crack up",
+        "burst out laughing"
+      ],
+      "category": "emotions",
+      "pronunciation": "BUS-LAF",
+      "examples": [
+        "We wen talk story and buss laff",
+        "His joke made me buss laff",
+        "Da whole class wen buss laff"
+      ],
+      "culturalNote": "To laugh so hard you might 'bust' from laughter",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "emotions",
+        "laughter",
+        "expressions"
+      ]
+    },
+    {
       "id": "buss_um_out_320",
       "pidgin": "buss um out",
       "english": [
@@ -1831,6 +1995,30 @@
         "english"
       ],
       "audioExample": "His face stay buss up"
+    },
+    {
+      "id": "bust_em_up_503",
+      "pidgin": "bust 'em up",
+      "english": [
+        "laugh really hard",
+        "crack up completely",
+        "break down laughing"
+      ],
+      "category": "emotions",
+      "pronunciation": "bust-em-UP",
+      "examples": [
+        "Dat story made me bust 'em up",
+        "We was busting 'em up all night",
+        "His dancing made everyone bust 'em up"
+      ],
+      "culturalNote": "Even more intense than 'buss laff' - laughing so hard you're broken up",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "emotions",
+        "laughter",
+        "slang"
+      ]
     },
     {
       "id": "cabbage_321",
@@ -2280,6 +2468,31 @@
       "audioExample": "Time fo crash, tired"
     },
     {
+      "id": "cruising_524",
+      "pidgin": "cruising",
+      "english": [
+        "relaxing",
+        "hanging out",
+        "taking it easy",
+        "driving around leisurely"
+      ],
+      "category": "actions",
+      "pronunciation": "CRUIS-ing",
+      "examples": [
+        "Just cruising at da beach today",
+        "We stay cruising around town",
+        "No rush, just cruising"
+      ],
+      "usage": "Relaxing or moving at a leisurely pace",
+      "culturalNote": "Embodies the laid-back island lifestyle",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "actions",
+        "relaxation"
+      ]
+    },
+    {
       "id": "cruzin_038",
       "pidgin": "cruzin",
       "english": [
@@ -2344,6 +2557,30 @@
         "english"
       ],
       "audioExample": "Eh cuz, you get time?"
+    },
+    {
+      "id": "da_bes_513",
+      "pidgin": "da bes'!",
+      "english": [
+        "the best!",
+        "awesome!",
+        "excellent!"
+      ],
+      "category": "expressions",
+      "pronunciation": "dah-BES",
+      "examples": [
+        "Dis grindz is da bes'!",
+        "Your new ride is da bes'!",
+        "Ho, da bes' waves today!"
+      ],
+      "usage": "Expressing that something is the best or excellent",
+      "culturalNote": "Enthusiastic way to praise something",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "praise"
+      ]
     },
     {
       "id": "da_bomb_279",
@@ -2430,6 +2667,30 @@
         "english"
       ],
       "audioExample": "You know, da kine we wen use yesterday"
+    },
+    {
+      "id": "da_kine_da_whole_kine_522",
+      "pidgin": "da kine, da whole kine",
+      "english": [
+        "that thing, the whole thing",
+        "everything related to that",
+        "all of that stuff"
+      ],
+      "category": "expressions",
+      "pronunciation": "dah KYNE, dah WHOLE kyne",
+      "examples": [
+        "We need da kine, da whole kine for da party",
+        "He brought da kine, da whole kine setup",
+        "Get da kine, da whole kine ready?"
+      ],
+      "usage": "Referring to everything related to something, the complete set",
+      "culturalNote": "Shows how 'da kine' can be expanded for emphasis",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "slang"
+      ]
     },
     {
       "id": "daikon_225",
@@ -2750,6 +3011,31 @@
       "audioExample": "Eh brah, nice car eh?"
     },
     {
+      "id": "eh_you_stay_wit_da_kine_510",
+      "pidgin": "eh, you stay wit' da kine?",
+      "english": [
+        "hey, are you with that thingamajig?",
+        "are you with that thing?",
+        "do you have that thing?"
+      ],
+      "category": "expressions",
+      "pronunciation": "EH, you STAY wit dah KYNE",
+      "examples": [
+        "Eh, you stay wit' da kine we wen talk about?",
+        "You stay wit' da kine or wat?",
+        "Ho, you still stay wit' da kine from yesterday?"
+      ],
+      "usage": "Used when you can't remember the word for something specific",
+      "culturalNote": "Perfect example of 'da kine' versatility in Pidgin conversation",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "questions",
+        "slang"
+      ]
+    },
+    {
       "id": "erking_046",
       "pidgin": "erking",
       "english": [
@@ -3004,6 +3290,55 @@
         "english"
       ],
       "audioExample": "Eat fast kine, we late"
+    },
+    {
+      "id": "feel_junk_525",
+      "pidgin": "feel junk",
+      "english": [
+        "feel like crap",
+        "feel like shit",
+        "feel terrible",
+        "feel awful"
+      ],
+      "category": "expressions",
+      "pronunciation": "feel-JUNK",
+      "examples": [
+        "I feel junk today brah",
+        "Ho, I feel real junk after last night",
+        "You look like you feel junk"
+      ],
+      "usage": "Feeling physically or emotionally terrible",
+      "culturalNote": "Common expression for feeling unwell or upset",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "emotions",
+        "health"
+      ]
+    },
+    {
+      "id": "feel_like_528",
+      "pidgin": "feel like",
+      "english": [
+        "seem like",
+        "feels as if",
+        "feels as though"
+      ],
+      "category": "expressions",
+      "pronunciation": "feel-LIKE",
+      "examples": [
+        "Feel like going rain",
+        "Feel like something not right"
+      ],
+      "usage": "Expressing a feeling or intuition about something",
+      "culturalNote": "Used to express sensations or predictions",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "emotions"
+      ]
     },
     {
       "id": "flip_335",
@@ -3348,6 +3683,30 @@
       "audioExample": "I get chance later"
     },
     {
+      "id": "get_choke_517",
+      "pidgin": "get choke",
+      "english": [
+        "there's a lot",
+        "have plenty",
+        "lots of"
+      ],
+      "category": "expressions",
+      "pronunciation": "GET-choke",
+      "examples": [
+        "Get choke people at da beach today",
+        "Da store get choke selection",
+        "We get choke work fo' do"
+      ],
+      "usage": "Indicating there's a large amount or many of something",
+      "culturalNote": "Pidgin way of saying 'plenty' or 'a lot'",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "quantity"
+      ]
+    },
+    {
       "id": "get_342",
       "pidgin": "get?",
       "english": [
@@ -3368,6 +3727,30 @@
         "english"
       ],
       "audioExample": "You get?"
+    },
+    {
+      "id": "getum_501",
+      "pidgin": "get'um",
+      "english": [
+        "go for it",
+        "give it your all",
+        "seize the opportunity"
+      ],
+      "category": "actions",
+      "pronunciation": "get-UM",
+      "examples": [
+        "Ho, he saw da wave and wen get'um!",
+        "You see dat job posting? Get'um!",
+        "Da surf stay good, get'um brah!"
+      ],
+      "culturalNote": "Encouragement to seize an opportunity with full commitment",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "actions",
+        "encouragement",
+        "surfing"
+      ]
     },
     {
       "id": "giri_giri_239",
@@ -3410,6 +3793,30 @@
         "expressions"
       ],
       "audioExample": "Les go fo broke!"
+    },
+    {
+      "id": "go_mo_bettah_514",
+      "pidgin": "go mo' bettah",
+      "english": [
+        "go do it better",
+        "do it better",
+        "you should do better"
+      ],
+      "category": "expressions",
+      "pronunciation": "go-MOH-BET-tah",
+      "examples": [
+        "Dat no good, go mo' bettah",
+        "Try again, go mo' bettah dis time",
+        "You can go mo' bettah than dat"
+      ],
+      "usage": "Encouraging someone to improve or do something better",
+      "culturalNote": "Constructive way to suggest improvement",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "encouragement"
+      ]
     },
     {
       "id": "goin_240",
@@ -3538,6 +3945,30 @@
         "english"
       ],
       "audioExample": "Guaranz you going like it"
+    },
+    {
+      "id": "guerentee_505",
+      "pidgin": "gueren-tee",
+      "english": [
+        "definitely",
+        "for sure",
+        "guaranteed"
+      ],
+      "category": "expressions",
+      "pronunciation": "gair-en-TEE",
+      "examples": [
+        "Dat sushi is good, gueren-tee",
+        "He going be late, gueren-tee",
+        "This weather going change, gueren-tee"
+      ],
+      "culturalNote": "Pidgin pronunciation of 'guarantee' used as emphasis",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "emphasis",
+        "certainty"
+      ]
     },
     {
       "id": "gullah_gullahs_345",
@@ -3685,6 +4116,26 @@
         "hawaiian"
       ],
       "audioExample": "Da hala tree stay by da beach"
+    },
+    {
+      "id": "halau_602",
+      "pidgin": "halau",
+      "english": [
+        "traditional workshop or school of learning"
+      ],
+      "category": "activities",
+      "pronunciation": "hah-LAU",
+      "examples": [
+        "halau stay traditional workshop or school of learning"
+      ],
+      "usage": "traditional workshop or school of learning",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "activities",
+        "hawaiian"
+      ]
     },
     {
       "id": "hale_058",
@@ -3941,6 +4392,26 @@
       "audioExample": "We hanai him like family"
     },
     {
+      "id": "hanau_603",
+      "pidgin": "hanau",
+      "english": [
+        "to give birth"
+      ],
+      "category": "cultural",
+      "pronunciation": "hah-NAU",
+      "examples": [
+        "hanau stay to give birth"
+      ],
+      "usage": "to give birth",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
       "id": "handles_247",
       "pidgin": "handles",
       "english": [
@@ -4025,6 +4496,26 @@
         "hawaiian"
       ],
       "audioExample": "She hapai wit her first baby"
+    },
+    {
+      "id": "hauna_604",
+      "pidgin": "hauna",
+      "english": [
+        "smelly"
+      ],
+      "category": "cultural",
+      "pronunciation": "HAU-nah",
+      "examples": [
+        "hauna stay smelly"
+      ],
+      "usage": "smelly",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
     },
     {
       "id": "haunas_248",
@@ -4129,6 +4620,26 @@
         "hawaiian"
       ],
       "audioExample": "Ancient heiau!"
+    },
+    {
+      "id": "hele_605",
+      "pidgin": "hele",
+      "english": [
+        "to go generic"
+      ],
+      "category": "cultural",
+      "pronunciation": "HEH-leh",
+      "examples": [
+        "hele stay to go generic"
+      ],
+      "usage": "to go generic",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
     },
     {
       "id": "hele_on_068",
@@ -4282,6 +4793,30 @@
       "audioExample": "Ho nah brah!"
     },
     {
+      "id": "ho_da_bagah_goin_chicken_skin_520",
+      "pidgin": "ho, da bagah's goin' chicken skin!",
+      "english": [
+        "wow, that guy is getting goosebumps!",
+        "look, he's getting chills!",
+        "that person has goosebumps!"
+      ],
+      "category": "expressions",
+      "pronunciation": "HO, dah BAG-ah's goin CHICK-en skin",
+      "examples": [
+        "Ho, da bagah's goin' chicken skin from da scary story",
+        "Look da bagah, goin' chicken skin from da cold",
+        "Da bagah wen go chicken skin when he heard da music"
+      ],
+      "usage": "Observing someone getting goosebumps or chills",
+      "culturalNote": "Combines several Pidgin elements: 'ho' (wow), 'bagah' (person), 'chicken skin' (goosebumps)",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "emotions"
+      ]
+    },
+    {
       "id": "holoholo_071",
       "pidgin": "holoholo",
       "english": [
@@ -4322,6 +4857,26 @@
         "english"
       ],
       "audioExample": "Come honey girl, time fo eat"
+    },
+    {
+      "id": "honi_606",
+      "pidgin": "honi",
+      "english": [
+        "to kiss"
+      ],
+      "category": "cultural",
+      "pronunciation": "HOH-nee",
+      "examples": [
+        "honi stay to kiss"
+      ],
+      "usage": "to kiss",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
     },
     {
       "id": "honu_417",
@@ -4409,6 +4964,50 @@
       "audioExample": "Eh, howzit going today?"
     },
     {
+      "id": "howzit_uncle_519",
+      "pidgin": "howzit, uncle?",
+      "english": [
+        "how are you, mister?",
+        "how's it going, sir?",
+        "hello, older gentleman"
+      ],
+      "category": "greetings",
+      "pronunciation": "HOW-zit, UN-kul",
+      "examples": [
+        "Howzit, uncle? You stay good?",
+        "Uncle! Howzit? Long time no see",
+        "Howzit, uncle, you need help?"
+      ],
+      "usage": "Respectful way to greet an older man, not necessarily family",
+      "culturalNote": "Shows respect for elders, 'uncle' is used for any older man in the community",
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": [
+        "greetings",
+        "respect"
+      ]
+    },
+    {
+      "id": "hu_i_607",
+      "pidgin": "hu-i",
+      "english": [
+        "a call to get someone's attention"
+      ],
+      "category": "cultural",
+      "pronunciation": "HOO-ee",
+      "examples": [
+        "hu-i stay a call to get someone's attention"
+      ],
+      "usage": "a call to get someone's attention",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
       "id": "huhu_073",
       "pidgin": "huhu",
       "english": [
@@ -4474,6 +5073,26 @@
       "audioExample": "Hukilau at da beach tomorrow"
     },
     {
+      "id": "hula_601",
+      "pidgin": "hula",
+      "english": [
+        "hula"
+      ],
+      "category": "cultural",
+      "pronunciation": "HOO-lah",
+      "examples": [
+        "hula stay hula"
+      ],
+      "usage": "hula",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
       "id": "huli_075",
       "pidgin": "huli",
       "english": [
@@ -4494,6 +5113,26 @@
         "hawaiian"
       ],
       "audioExample": "Time fo huli da chicken"
+    },
+    {
+      "id": "hulihuli_608",
+      "pidgin": "hulihuli",
+      "english": [
+        "to rotate something, as on a spit"
+      ],
+      "category": "cultural",
+      "pronunciation": "HOO-lee-HOO-lee",
+      "examples": [
+        "hulihuli stay to rotate something, as on a spit"
+      ],
+      "usage": "to rotate something, as on a spit",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
     },
     {
       "id": "humbalah_353",
@@ -4537,6 +5176,50 @@
         "english"
       ],
       "audioExample": "Such a humbug fo fix"
+    },
+    {
+      "id": "hupo_609",
+      "pidgin": "hupo",
+      "english": [
+        "stupid, foolish"
+      ],
+      "category": "cultural",
+      "pronunciation": "HOO-poh",
+      "examples": [
+        "hupo stay stupid, foolish"
+      ],
+      "usage": "stupid, foolish",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
+      "id": "i_like_527",
+      "pidgin": "I like",
+      "english": [
+        "I want",
+        "I would like",
+        "I'd like"
+      ],
+      "category": "expressions",
+      "pronunciation": "I LIKE",
+      "examples": [
+        "I like go beach",
+        "I like eat poke",
+        "I no like do dat"
+      ],
+      "usage": "Expressing desire or preference",
+      "culturalNote": "'Like' is commonly used instead of 'want' in Pidgin",
+      "difficulty": "beginner",
+      "frequency": "very high",
+      "tags": [
+        "expressions",
+        "desires"
+      ]
     },
     {
       "id": "i_mua_355",
@@ -5083,6 +5766,26 @@
       "audioExample": "K-den brah"
     },
     {
+      "id": "kahu_610",
+      "pidgin": "kahu",
+      "english": [
+        "a reverend or priest"
+      ],
+      "category": "cultural",
+      "pronunciation": "KAH-hoo",
+      "examples": [
+        "kahu stay a reverend or priest"
+      ],
+      "usage": "a reverend or priest",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
       "id": "kahuna_083",
       "pidgin": "kahuna",
       "english": [
@@ -5127,6 +5830,26 @@
       "audioExample": "Da kai stay rough"
     },
     {
+      "id": "kala_611",
+      "pidgin": "kala",
+      "english": [
+        "money"
+      ],
+      "category": "cultural",
+      "pronunciation": "KAH-lah",
+      "examples": [
+        "kala stay money"
+      ],
+      "usage": "money",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
       "id": "kalo_085",
       "pidgin": "kalo",
       "english": [
@@ -5146,6 +5869,26 @@
         "hawaiian"
       ],
       "audioExample": "Fresh kalo from da farm"
+    },
+    {
+      "id": "kalua_614",
+      "pidgin": "kalua",
+      "english": [
+        "to bake in an imu"
+      ],
+      "category": "cultural",
+      "pronunciation": "kah-LOO-ah",
+      "examples": [
+        "kalua stay to bake in an imu"
+      ],
+      "usage": "to bake in an imu",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
     },
     {
       "id": "kamaaina_086",
@@ -5211,6 +5954,26 @@
         "hawaiian"
       ],
       "audioExample": "Proud kanaka"
+    },
+    {
+      "id": "kane_615",
+      "pidgin": "kane",
+      "english": [
+        "man, male, husband"
+      ],
+      "category": "cultural",
+      "pronunciation": "KAH-neh",
+      "examples": [
+        "kane stay man, male, husband"
+      ],
+      "usage": "man, male, husband",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
     },
     {
       "id": "kanikapila_089",
@@ -5400,6 +6163,26 @@
       "audioExample": "Watch da keiki"
     },
     {
+      "id": "kepani_612",
+      "pidgin": "Kepani",
+      "english": [
+        "of Japanese descent"
+      ],
+      "category": "cultural",
+      "pronunciation": "keh-PAH-nee",
+      "examples": [
+        "Kepani stay of Japanese descent"
+      ],
+      "usage": "of Japanese descent",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
       "id": "killaz_359",
       "pidgin": "killaz",
       "english": [
@@ -5549,6 +6332,26 @@
       "audioExample": "Clean up da kukae"
     },
     {
+      "id": "kukui_616",
+      "pidgin": "kukui",
+      "english": [
+        "a type of tree"
+      ],
+      "category": "nature",
+      "pronunciation": "koo-KOO-ee",
+      "examples": [
+        "kukui stay a type of tree"
+      ],
+      "usage": "a type of tree",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "nature",
+        "hawaiian"
+      ]
+    },
+    {
       "id": "kuleana_097",
       "pidgin": "kuleana",
       "english": [
@@ -5570,6 +6373,46 @@
       "audioExample": "My kuleana"
     },
     {
+      "id": "kulolo_617",
+      "pidgin": "kulolo",
+      "english": [
+        "a type of Hawaiian dessert"
+      ],
+      "category": "food",
+      "pronunciation": "koo-LOH-loh",
+      "examples": [
+        "kulolo stay a type of Hawaiian dessert"
+      ],
+      "usage": "a type of Hawaiian dessert",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "food",
+        "hawaiian"
+      ]
+    },
+    {
+      "id": "kumu_613",
+      "pidgin": "kumu",
+      "english": [
+        "teacher"
+      ],
+      "category": "cultural",
+      "pronunciation": "KOO-moo",
+      "examples": [
+        "kumu stay teacher"
+      ],
+      "usage": "teacher",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
       "id": "kupuna_360",
       "pidgin": "kupuna",
       "english": [
@@ -5589,6 +6432,26 @@
         "hawaiian"
       ],
       "audioExample": "Listen kupuna"
+    },
+    {
+      "id": "lanai_618",
+      "pidgin": "lanai",
+      "english": [
+        "veranda, porch"
+      ],
+      "category": "places",
+      "pronunciation": "lah-NYE",
+      "examples": [
+        "lanai stay veranda, porch"
+      ],
+      "usage": "veranda, porch",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "places",
+        "hawaiian"
+      ]
     },
     {
       "id": "lnai_422",
@@ -5699,6 +6562,26 @@
       "audioExample": "Tender laulau!"
     },
     {
+      "id": "lehua_619",
+      "pidgin": "lehua",
+      "english": [
+        "lehua - a type of blossom"
+      ],
+      "category": "nature",
+      "pronunciation": "leh-HOO-ah",
+      "examples": [
+        "lehua stay lehua - a type of blossom"
+      ],
+      "usage": "lehua - a type of blossom",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "nature",
+        "hawaiian"
+      ]
+    },
+    {
       "id": "lei_102",
       "pidgin": "lei",
       "english": [
@@ -5718,6 +6601,26 @@
         "hawaiian"
       ],
       "audioExample": "Fragrant lei!"
+    },
+    {
+      "id": "lepo_620",
+      "pidgin": "lepo",
+      "english": [
+        "dirty"
+      ],
+      "category": "cultural",
+      "pronunciation": "LEH-poh",
+      "examples": [
+        "lepo stay dirty"
+      ],
+      "usage": "dirty",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
     },
     {
       "id": "lick_363",
@@ -5889,6 +6792,26 @@
       "audioExample": "Fresh limu!"
     },
     {
+      "id": "lokahi_621",
+      "pidgin": "lokahi",
+      "english": [
+        "togetherness, unity"
+      ],
+      "category": "cultural",
+      "pronunciation": "loh-KAH-hee",
+      "examples": [
+        "lokahi stay togetherness, unity"
+      ],
+      "usage": "togetherness, unity",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
       "id": "lolo_107",
       "pidgin": "lolo",
       "english": [
@@ -5930,6 +6853,26 @@
         "english"
       ],
       "audioExample": "Dat lose money"
+    },
+    {
+      "id": "lua_623",
+      "pidgin": "lua",
+      "english": [
+        "toilet, bathroom"
+      ],
+      "category": "cultural",
+      "pronunciation": "LOO-ah",
+      "examples": [
+        "lua stay toilet, bathroom"
+      ],
+      "usage": "toilet, bathroom",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
     },
     {
       "id": "luau_108",
@@ -5974,6 +6917,26 @@
       "audioExample": "Fun lūʻau tonight!"
     },
     {
+      "id": "luna_622",
+      "pidgin": "luna",
+      "english": [
+        "the boss, foreman"
+      ],
+      "category": "cultural",
+      "pronunciation": "LOO-nah",
+      "examples": [
+        "luna stay the boss, foreman"
+      ],
+      "usage": "the boss, foreman",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
       "id": "mahalo_109",
       "pidgin": "mahalo",
       "english": [
@@ -5994,6 +6957,30 @@
         "greeting"
       ],
       "audioExample": "Mahalo plenty!"
+    },
+    {
+      "id": "mahalo_for_da_hookup_516",
+      "pidgin": "mahalo, for da hookup!",
+      "english": [
+        "thank you for the connection!",
+        "thanks for the favor!",
+        "thank you for hooking me up!"
+      ],
+      "category": "greetings",
+      "pronunciation": "mah-HAH-loh, for dah HOOK-up",
+      "examples": [
+        "Mahalo, for da hookup with da job!",
+        "Mahalo, for da hookup with your cousin",
+        "Ho, mahalo for da hookup with da tickets!"
+      ],
+      "usage": "Thanking someone for a favor, connection, or helping you get something",
+      "culturalNote": "Shows appreciation for someone's help in connecting you to opportunities",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "gratitude"
+      ]
     },
     {
       "id": "mahimahi_416",
@@ -6017,6 +7004,26 @@
       "audioExample": "Ono mahimahi!"
     },
     {
+      "id": "mahu_624",
+      "pidgin": "mahu",
+      "english": [
+        "homosexual male; crossdresser"
+      ],
+      "category": "cultural",
+      "pronunciation": "MAH-hoo",
+      "examples": [
+        "mahu stay homosexual male; crossdresser"
+      ],
+      "usage": "homosexual male; crossdresser",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
       "id": "maikai_110",
       "pidgin": "maika'i",
       "english": [
@@ -6037,6 +7044,46 @@
         "hawaiian"
       ],
       "audioExample": "Das maika'i!"
+    },
+    {
+      "id": "maile_625",
+      "pidgin": "maile",
+      "english": [
+        "a type of vine"
+      ],
+      "category": "nature",
+      "pronunciation": "MY-leh",
+      "examples": [
+        "maile stay a type of vine"
+      ],
+      "usage": "a type of vine",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "nature",
+        "hawaiian"
+      ]
+    },
+    {
+      "id": "maka_piapia_626",
+      "pidgin": "maka piapia",
+      "english": [
+        "sleepy dust"
+      ],
+      "category": "cultural",
+      "pronunciation": "MAKA PIAPIA",
+      "examples": [
+        "maka piapia stay sleepy dust"
+      ],
+      "usage": "sleepy dust",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
     },
     {
       "id": "makai_112",
@@ -6080,6 +7127,30 @@
         "hawaiian"
       ],
       "audioExample": "Almost make!"
+    },
+    {
+      "id": "make_funny_518",
+      "pidgin": "make funny",
+      "english": [
+        "to play a joke on someone",
+        "to tease",
+        "to mess around with"
+      ],
+      "category": "actions",
+      "pronunciation": "MAKE-FUN-nee",
+      "examples": [
+        "No make funny with me",
+        "He stay make funny with his sister",
+        "Stop make funny, I stay serious"
+      ],
+      "usage": "Playing jokes or teasing someone",
+      "culturalNote": "Light-hearted teasing, usually among friends or family",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "actions",
+        "humor"
+      ]
     },
     {
       "id": "malama_113",
@@ -6468,6 +7539,26 @@
       "audioExample": "So moe moe already"
     },
     {
+      "id": "moemoe_627",
+      "pidgin": "moemoe",
+      "english": [
+        "go nighty-night sleep for kids"
+      ],
+      "category": "cultural",
+      "pronunciation": "MOH-eh-MOH-eh",
+      "examples": [
+        "moemoe stay go nighty-night sleep for kids"
+      ],
+      "usage": "go nighty-night sleep for kids",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
       "id": "moke_123",
       "pidgin": "moke",
       "english": [
@@ -6486,6 +7577,66 @@
         "people"
       ],
       "audioExample": "Da moke stay"
+    },
+    {
+      "id": "momona_628",
+      "pidgin": "momona",
+      "english": [
+        "fat, obese"
+      ],
+      "category": "cultural",
+      "pronunciation": "moh-MOH-nah",
+      "examples": [
+        "momona stay fat, obese"
+      ],
+      "usage": "fat, obese",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
+      "id": "moo_629",
+      "pidgin": "moo",
+      "english": [
+        "gecko etc."
+      ],
+      "category": "nature",
+      "pronunciation": "MOH-oh",
+      "examples": [
+        "moo stay gecko etc."
+      ],
+      "usage": "gecko etc.",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "nature",
+        "hawaiian"
+      ]
+    },
+    {
+      "id": "moopuna_630",
+      "pidgin": "moopuna",
+      "english": [
+        "grandchild, descendant"
+      ],
+      "category": "cultural",
+      "pronunciation": "moh-oh-POO-nah",
+      "examples": [
+        "moopuna stay grandchild, descendant"
+      ],
+      "usage": "grandchild, descendant",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
     },
     {
       "id": "muumuu_423",
@@ -6591,6 +7742,26 @@
         "english"
       ],
       "audioExample": "Negz brah"
+    },
+    {
+      "id": "nene_631",
+      "pidgin": "nene",
+      "english": [
+        "the native Hawaiian goose"
+      ],
+      "category": "nature",
+      "pronunciation": "NAY-nay",
+      "examples": [
+        "nene stay the native Hawaiian goose"
+      ],
+      "usage": "the native Hawaiian goose",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "nature",
+        "hawaiian"
+      ]
     },
     {
       "id": "nn_418",
@@ -6721,6 +7892,30 @@
       "audioExample": "No can handle!"
     },
     {
+      "id": "no_can_da_buggah_stay_broke_523",
+      "pidgin": "no can, da buggah stay broke",
+      "english": [
+        "can't, the thing is broken",
+        "unable to, it's broken",
+        "no way, it's not working"
+      ],
+      "category": "expressions",
+      "pronunciation": "NO can, dah BUG-gah stay BROKE",
+      "examples": [
+        "You like use my car? No can, da buggah stay broke",
+        "Can fix da computer? No can, da buggah stay broke",
+        "No can help you, da buggah stay broke"
+      ],
+      "usage": "Explaining that you can't do something because the item/tool is broken",
+      "culturalNote": "Common explanation combining inability with broken equipment",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "inability"
+      ]
+    },
+    {
       "id": "no_ka_oi_373",
       "pidgin": "no ka 'oi",
       "english": [
@@ -6826,6 +8021,29 @@
       "audioExample": "No sked you!"
     },
     {
+      "id": "no_worries_529",
+      "pidgin": "no worries",
+      "english": [
+        "no problem",
+        "it's okay",
+        "don't worry about it"
+      ],
+      "category": "greetings",
+      "pronunciation": "no-WOR-reez",
+      "examples": [
+        "No worries brah",
+        "Eh, no worries about dat"
+      ],
+      "usage": "Casual reassurance or acceptance",
+      "culturalNote": "Very common way to express that everything is fine",
+      "difficulty": "beginner",
+      "frequency": "very high",
+      "tags": [
+        "expressions",
+        "reassurance"
+      ]
+    },
+    {
       "id": "nuff_133",
       "pidgin": "nuff",
       "english": [
@@ -6913,6 +8131,46 @@
       "audioExample": "My ohana stay coming"
     },
     {
+      "id": "okole_644",
+      "pidgin": "okole",
+      "english": [
+        "human rear end"
+      ],
+      "category": "cultural",
+      "pronunciation": "oh-KOH-leh",
+      "examples": [
+        "okole stay human rear end"
+      ],
+      "usage": "human rear end",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
+      "id": "okole_hao_645",
+      "pidgin": "okole hao",
+      "english": [
+        "Hawaiian ti root moonshine"
+      ],
+      "category": "cultural",
+      "pronunciation": "OKOLE HAO",
+      "examples": [
+        "okole hao stay Hawaiian ti root moonshine"
+      ],
+      "usage": "Hawaiian ti root moonshine",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
       "id": "ono_136",
       "pidgin": "ono",
       "english": [
@@ -6998,6 +8256,26 @@
       "audioExample": "Fresh opihi from da rocks"
     },
     {
+      "id": "opu_646",
+      "pidgin": "opu",
+      "english": [
+        "stomach, tummy"
+      ],
+      "category": "cultural",
+      "pronunciation": "OH-poo",
+      "examples": [
+        "opu stay stomach, tummy"
+      ],
+      "usage": "stomach, tummy",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
       "id": "ova_dea_140",
       "pidgin": "ova dea",
       "english": [
@@ -7080,6 +8358,26 @@
         "hawaiian"
       ],
       "audioExample": "No pakalolo hea"
+    },
+    {
+      "id": "pake_632",
+      "pidgin": "Pake",
+      "english": [
+        "of Chinese descent"
+      ],
+      "category": "cultural",
+      "pronunciation": "PAH-keh",
+      "examples": [
+        "Pake stay of Chinese descent"
+      ],
+      "usage": "of Chinese descent",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
     },
     {
       "id": "pk_376",
@@ -7230,6 +8528,26 @@
       "audioExample": "Pau hana drink!"
     },
     {
+      "id": "piko_633",
+      "pidgin": "piko",
+      "english": [
+        "belly-button"
+      ],
+      "category": "cultural",
+      "pronunciation": "PEE-koh",
+      "examples": [
+        "piko stay belly-button"
+      ],
+      "usage": "belly-button",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
       "id": "pilau_145",
       "pidgin": "pilau",
       "english": [
@@ -7274,6 +8592,46 @@
       "audioExample": "Big pilikia!"
     },
     {
+      "id": "pipi_634",
+      "pidgin": "pipi",
+      "english": [
+        "beef, cow, bull"
+      ],
+      "category": "cultural",
+      "pronunciation": "PEE-pee",
+      "examples": [
+        "pipi stay beef, cow, bull"
+      ],
+      "usage": "beef, cow, bull",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
+      "id": "pipi_kaula_635",
+      "pidgin": "pipi kaula",
+      "english": [
+        "dried beef, similar to beef jerky"
+      ],
+      "category": "cultural",
+      "pronunciation": "PIPI KAULA",
+      "examples": [
+        "pipi kaula stay dried beef, similar to beef jerky"
+      ],
+      "usage": "dried beef, similar to beef jerky",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
       "id": "planny_379",
       "pidgin": "planny",
       "english": [
@@ -7314,6 +8672,46 @@
         "food"
       ],
       "audioExample": "Ono plate lunch!"
+    },
+    {
+      "id": "pohaku_636",
+      "pidgin": "pohaku",
+      "english": [
+        "a rock"
+      ],
+      "category": "cultural",
+      "pronunciation": "poh-HAH-koo",
+      "examples": [
+        "pohaku stay a rock"
+      ],
+      "usage": "a rock",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
+      "id": "poho_637",
+      "pidgin": "poho",
+      "english": [
+        "useless, wasteful, wasted"
+      ],
+      "category": "cultural",
+      "pronunciation": "POH-hoh",
+      "examples": [
+        "poho stay useless, wasteful, wasted"
+      ],
+      "usage": "useless, wasteful, wasted",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
     },
     {
       "id": "poh_380",
@@ -7420,6 +8818,46 @@
         "people"
       ],
       "audioExample": "Watch out, popo!"
+    },
+    {
+      "id": "popolo_638",
+      "pidgin": "popolo",
+      "english": [
+        "a person of African descent"
+      ],
+      "category": "cultural",
+      "pronunciation": "poh-POH-loh",
+      "examples": [
+        "popolo stay a person of African descent"
+      ],
+      "usage": "a person of African descent",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
+      "id": "puaa_639",
+      "pidgin": "puaa",
+      "english": [
+        "pig, pork"
+      ],
+      "category": "cultural",
+      "pronunciation": "POO-ah-ah",
+      "examples": [
+        "puaa stay pig, pork"
+      ],
+      "usage": "pig, pork",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
     },
     {
       "id": "pueo_419",
@@ -7744,6 +9182,60 @@
       "audioExample": "Shoots den, see you later!"
     },
     {
+      "id": "shoots_509",
+      "pidgin": "shoots",
+      "english": [
+        "alright",
+        "okay",
+        "sounds good",
+        "goodbye",
+        "see you later",
+        "later"
+      ],
+      "category": "greetings",
+      "pronunciation": "SHOOTS",
+      "examples": [
+        "Shoots, I'll see you tomorrow",
+        "We go beach? Shoots!",
+        "Shoots den, laters"
+      ],
+      "usage": "Can be used both as agreement/acknowledgment and as a casual goodbye",
+      "culturalNote": "Versatile expression that works as both 'okay/sounds good' and 'see you later'",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "greetings",
+        "agreement",
+        "farewell"
+      ]
+    },
+    {
+      "id": "shoots_brah_511",
+      "pidgin": "shoots, brah!",
+      "english": [
+        "alright, brother!",
+        "okay, dude!",
+        "sounds good, bro!"
+      ],
+      "category": "greetings",
+      "pronunciation": "SHOOTS, brah",
+      "examples": [
+        "We go beach today? Shoots, brah!",
+        "Can you help me move? Shoots, brah!",
+        "Thanks for da ride. Shoots, brah!"
+      ],
+      "usage": "Term of agreement or approval between friends",
+      "culturalNote": "Classic combination showing agreement and brotherhood",
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": [
+        "expressions",
+        "agreement",
+        "slang"
+      ]
+    },
+    {
       "id": "shootz_283",
       "pidgin": "shootz",
       "english": [
@@ -7808,6 +9300,30 @@
         "english"
       ],
       "audioExample": "Nice slippahs!"
+    },
+    {
+      "id": "small_kid_time_506",
+      "pidgin": "small kid time",
+      "english": [
+        "when I was a kid",
+        "back in the day",
+        "childhood days"
+      ],
+      "category": "expressions",
+      "pronunciation": "small-KID-time",
+      "examples": [
+        "Small kid time, I used to play marbles",
+        "Small kid time was so fun",
+        "We did dat all da time, small kid time"
+      ],
+      "culturalNote": "Nostalgic phrase referring to one's childhood memories",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "nostalgia",
+        "childhood"
+      ]
     },
     {
       "id": "small_kine_162",
@@ -8067,6 +9583,30 @@
       "audioExample": "She talk stink!"
     },
     {
+      "id": "talk_stink_512",
+      "pidgin": "talk stink",
+      "english": [
+        "gossip",
+        "spread rumors",
+        "bad mouth"
+      ],
+      "category": "actions",
+      "pronunciation": "TALK-stink",
+      "examples": [
+        "No talk stink about my cousin",
+        "She stay talk stink about everybody",
+        "Why you like talk stink?"
+      ],
+      "usage": "Speaking negatively about someone behind their back",
+      "culturalNote": "Common phrase warning against gossip in local communities",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "actions",
+        "social"
+      ]
+    },
+    {
       "id": "talk_story_171",
       "pidgin": "talk story",
       "english": [
@@ -8151,6 +9691,26 @@
         "hawaiian"
       ],
       "audioExample": "Pound taro!"
+    },
+    {
+      "id": "ti_640",
+      "pidgin": "ti",
+      "english": [
+        "a type of plant"
+      ],
+      "category": "nature",
+      "pronunciation": "TEE",
+      "examples": [
+        "ti stay a type of plant"
+      ],
+      "usage": "a type of plant",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "nature",
+        "hawaiian"
+      ]
     },
     {
       "id": "tita_174",
@@ -8383,6 +9943,26 @@
       "audioExample": "Check fo ukus"
     },
     {
+      "id": "uku_pau_641",
+      "pidgin": "uku pau",
+      "english": [
+        "to pay off completely"
+      ],
+      "category": "cultural",
+      "pronunciation": "UKU PAU",
+      "examples": [
+        "uku pau stay to pay off completely"
+      ],
+      "usage": "to pay off completely",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
       "id": "ukulele_181",
       "pidgin": "ukulele",
       "english": [
@@ -8509,6 +10089,26 @@
         "english"
       ],
       "audioExample": "Thick vog!"
+    },
+    {
+      "id": "waa_642",
+      "pidgin": "waa",
+      "english": [
+        "canoe"
+      ],
+      "category": "cultural",
+      "pronunciation": "WAH-ah",
+      "examples": [
+        "waa stay canoe"
+      ],
+      "usage": "canoe",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
     },
     {
       "id": "wahine_186",
@@ -8957,6 +10557,30 @@
       "audioExample": "Yeah no, das exactly wat I mean"
     },
     {
+      "id": "yeah_you_508",
+      "pidgin": "yeah you",
+      "english": [
+        "you're right",
+        "that's right",
+        "I agree with you"
+      ],
+      "category": "expressions",
+      "pronunciation": "yeah-YOU",
+      "examples": [
+        "He wen bust his board, yeah you?",
+        "Da traffic was bad, yeah you!",
+        "Yeah you, dat's exactly what happened"
+      ],
+      "culturalNote": "Way to affirm or seek affirmation, unique Pidgin phrase structure",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "agreement",
+        "conversation"
+      ]
+    },
+    {
       "id": "yeah_no_394",
       "pidgin": "yeah, no?",
       "english": [
@@ -9083,6 +10707,30 @@
       "audioExample": "You know dat right!"
     },
     {
+      "id": "you_like_eat_eh_521",
+      "pidgin": "you like eat, eh?",
+      "english": [
+        "you want to eat, right?",
+        "do you want to eat?",
+        "hungry?"
+      ],
+      "category": "questions",
+      "pronunciation": "you LIKE eat, EH",
+      "examples": [
+        "You like eat, eh? I going cook",
+        "Stay lunch time, you like eat, eh?",
+        "You like eat, eh? Get choke food"
+      ],
+      "usage": "Asking if someone wants to eat, often offering food",
+      "culturalNote": "Shows hospitality, common way to offer food in local culture",
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": [
+        "questions",
+        "food"
+      ]
+    },
+    {
       "id": "you_stay_go_396",
       "pidgin": "you stay go?",
       "english": [
@@ -9145,714 +10793,6 @@
         "japanese"
       ],
       "audioExample": "My zori stay broken"
-    },
-    {
-      "id": "getum_501",
-      "pidgin": "get'um",
-      "english": [
-        "go for it",
-        "give it your all",
-        "seize the opportunity"
-      ],
-      "category": "actions",
-      "pronunciation": "get-UM",
-      "examples": [
-        "Ho, he saw da wave and wen get'um!",
-        "You see dat job posting? Get'um!",
-        "Da surf stay good, get'um brah!"
-      ],
-      "culturalNote": "Encouragement to seize an opportunity with full commitment",
-      "difficulty": "intermediate",
-      "frequency": "high",
-      "tags": [
-        "actions",
-        "encouragement",
-        "surfing"
-      ]
-    },
-    {
-      "id": "buss_laff_502",
-      "pidgin": "buss laff",
-      "english": [
-        "laugh hard",
-        "crack up",
-        "burst out laughing"
-      ],
-      "category": "emotions",
-      "pronunciation": "BUS-LAF",
-      "examples": [
-        "We wen talk story and buss laff",
-        "His joke made me buss laff",
-        "Da whole class wen buss laff"
-      ],
-      "culturalNote": "To laugh so hard you might 'bust' from laughter",
-      "difficulty": "intermediate",
-      "frequency": "medium",
-      "tags": [
-        "emotions",
-        "laughter",
-        "expressions"
-      ]
-    },
-    {
-      "id": "bust_em_up_503",
-      "pidgin": "bust 'em up",
-      "english": [
-        "laugh really hard",
-        "crack up completely",
-        "break down laughing"
-      ],
-      "category": "emotions",
-      "pronunciation": "bust-em-UP",
-      "examples": [
-        "Dat story made me bust 'em up",
-        "We was busting 'em up all night",
-        "His dancing made everyone bust 'em up"
-      ],
-      "culturalNote": "Even more intense than 'buss laff' - laughing so hard you're broken up",
-      "difficulty": "intermediate",
-      "frequency": "medium",
-      "tags": [
-        "emotions",
-        "laughter",
-        "slang"
-      ]
-    },
-    {
-      "id": "auwe_504",
-      "pidgin": "auwe",
-      "english": [
-        "oh my gosh",
-        "oh dear",
-        "expression of shock or dismay"
-      ],
-      "category": "expressions",
-      "pronunciation": "ow-WEH",
-      "examples": [
-        "Auwe! Look da mess!",
-        "Auwe, I forgot my wallet",
-        "Auwe, so sad!"
-      ],
-      "culturalNote": "Hawaiian exclamation expressing shock, dismay, or sympathy",
-      "difficulty": "intermediate",
-      "frequency": "medium",
-      "tags": [
-        "expressions",
-        "exclamations",
-        "emotions"
-      ]
-    },
-    {
-      "id": "guerentee_505",
-      "pidgin": "gueren-tee",
-      "english": [
-        "definitely",
-        "for sure",
-        "guaranteed"
-      ],
-      "category": "expressions",
-      "pronunciation": "gair-en-TEE",
-      "examples": [
-        "Dat sushi is good, gueren-tee",
-        "He going be late, gueren-tee",
-        "This weather going change, gueren-tee"
-      ],
-      "culturalNote": "Pidgin pronunciation of 'guarantee' used as emphasis",
-      "difficulty": "intermediate",
-      "frequency": "medium",
-      "tags": [
-        "expressions",
-        "emphasis",
-        "certainty"
-      ]
-    },
-    {
-      "id": "small_kid_time_506",
-      "pidgin": "small kid time",
-      "english": [
-        "when I was a kid",
-        "back in the day",
-        "childhood days"
-      ],
-      "category": "expressions",
-      "pronunciation": "small-KID-time",
-      "examples": [
-        "Small kid time, I used to play marbles",
-        "Small kid time was so fun",
-        "We did dat all da time, small kid time"
-      ],
-      "culturalNote": "Nostalgic phrase referring to one's childhood memories",
-      "difficulty": "intermediate",
-      "frequency": "high",
-      "tags": [
-        "expressions",
-        "nostalgia",
-        "childhood"
-      ]
-    },
-    {
-      "id": "ballah_head_507",
-      "pidgin": "ballah head",
-      "english": [
-        "bald head",
-        "bald person",
-        "no hair"
-      ],
-      "category": "descriptions",
-      "pronunciation": "BAL-lah head",
-      "examples": [
-        "Uncle get ballah head",
-        "He stay ballah head since young time",
-        "My bruddah going ballah head like daddy"
-      ],
-      "culturalNote": "Casual way to describe someone who is bald",
-      "difficulty": "intermediate",
-      "frequency": "medium",
-      "tags": [
-        "descriptions",
-        "appearance",
-        "slang"
-      ]
-    },
-    {
-      "id": "yeah_you_508",
-      "pidgin": "yeah you",
-      "english": [
-        "you're right",
-        "that's right",
-        "I agree with you"
-      ],
-      "category": "expressions",
-      "pronunciation": "yeah-YOU",
-      "examples": [
-        "He wen bust his board, yeah you?",
-        "Da traffic was bad, yeah you!",
-        "Yeah you, dat's exactly what happened"
-      ],
-      "culturalNote": "Way to affirm or seek affirmation, unique Pidgin phrase structure",
-      "difficulty": "advanced",
-      "frequency": "medium",
-      "tags": [
-        "expressions",
-        "agreement",
-        "conversation"
-      ]
-    },
-    {
-      "id": "shoots_509",
-      "pidgin": "shoots",
-      "english": [
-        "alright",
-        "okay",
-        "sounds good",
-        "goodbye",
-        "see you later",
-        "later"
-      ],
-      "category": "greetings",
-      "pronunciation": "SHOOTS",
-      "examples": [
-        "Shoots, I'll see you tomorrow",
-        "We go beach? Shoots!",
-        "Shoots den, laters"
-      ],
-      "usage": "Can be used both as agreement/acknowledgment and as a casual goodbye",
-      "culturalNote": "Versatile expression that works as both 'okay/sounds good' and 'see you later'",
-      "difficulty": "beginner",
-      "frequency": "high",
-      "tags": [
-        "expressions",
-        "greetings",
-        "agreement",
-        "farewell"
-      ]
-    },
-    {
-      "id": "eh_you_stay_wit_da_kine_510",
-      "pidgin": "eh, you stay wit' da kine?",
-      "english": [
-        "hey, are you with that thingamajig?",
-        "are you with that thing?",
-        "do you have that thing?"
-      ],
-      "category": "expressions",
-      "pronunciation": "EH, you STAY wit dah KYNE",
-      "examples": [
-        "Eh, you stay wit' da kine we wen talk about?",
-        "You stay wit' da kine or wat?",
-        "Ho, you still stay wit' da kine from yesterday?"
-      ],
-      "usage": "Used when you can't remember the word for something specific",
-      "culturalNote": "Perfect example of 'da kine' versatility in Pidgin conversation",
-      "difficulty": "intermediate",
-      "frequency": "high",
-      "tags": [
-        "expressions",
-        "questions",
-        "slang"
-      ]
-    },
-    {
-      "id": "shoots_brah_511",
-      "pidgin": "shoots, brah!",
-      "english": [
-        "alright, brother!",
-        "okay, dude!",
-        "sounds good, bro!"
-      ],
-      "category": "greetings",
-      "pronunciation": "SHOOTS, brah",
-      "examples": [
-        "We go beach today? Shoots, brah!",
-        "Can you help me move? Shoots, brah!",
-        "Thanks for da ride. Shoots, brah!"
-      ],
-      "usage": "Term of agreement or approval between friends",
-      "culturalNote": "Classic combination showing agreement and brotherhood",
-      "difficulty": "beginner",
-      "frequency": "very_high",
-      "tags": [
-        "expressions",
-        "agreement",
-        "slang"
-      ]
-    },
-    {
-      "id": "talk_stink_512",
-      "pidgin": "talk stink",
-      "english": [
-        "gossip",
-        "spread rumors",
-        "bad mouth"
-      ],
-      "category": "actions",
-      "pronunciation": "TALK-stink",
-      "examples": [
-        "No talk stink about my cousin",
-        "She stay talk stink about everybody",
-        "Why you like talk stink?"
-      ],
-      "usage": "Speaking negatively about someone behind their back",
-      "culturalNote": "Common phrase warning against gossip in local communities",
-      "difficulty": "intermediate",
-      "frequency": "high",
-      "tags": [
-        "actions",
-        "social"
-      ]
-    },
-    {
-      "id": "da_bes_513",
-      "pidgin": "da bes'!",
-      "english": [
-        "the best!",
-        "awesome!",
-        "excellent!"
-      ],
-      "category": "expressions",
-      "pronunciation": "dah-BES",
-      "examples": [
-        "Dis grindz is da bes'!",
-        "Your new ride is da bes'!",
-        "Ho, da bes' waves today!"
-      ],
-      "usage": "Expressing that something is the best or excellent",
-      "culturalNote": "Enthusiastic way to praise something",
-      "difficulty": "beginner",
-      "frequency": "high",
-      "tags": [
-        "expressions",
-        "praise"
-      ]
-    },
-    {
-      "id": "go_mo_bettah_514",
-      "pidgin": "go mo' bettah",
-      "english": [
-        "go do it better",
-        "do it better",
-        "you should do better"
-      ],
-      "category": "expressions",
-      "pronunciation": "go-MOH-BET-tah",
-      "examples": [
-        "Dat no good, go mo' bettah",
-        "Try again, go mo' bettah dis time",
-        "You can go mo' bettah than dat"
-      ],
-      "usage": "Encouraging someone to improve or do something better",
-      "culturalNote": "Constructive way to suggest improvement",
-      "difficulty": "intermediate",
-      "frequency": "medium",
-      "tags": [
-        "expressions",
-        "encouragement"
-      ]
-    },
-    {
-      "id": "buggah_515",
-      "pidgin": "buggah",
-      "english": [
-        "bugger",
-        "guy",
-        "person",
-        "thing"
-      ],
-      "category": "people",
-      "pronunciation": "BUG-gah",
-      "examples": [
-        "Dat buggah is crazy",
-        "Which buggah you talking about?",
-        "Da buggah stay broken"
-      ],
-      "usage": "Refers to a person or sometimes a thing",
-      "culturalNote": "Versatile term for referring to people or objects",
-      "difficulty": "beginner",
-      "frequency": "very_high",
-      "tags": [
-        "people",
-        "slang"
-      ]
-    },
-    {
-      "id": "mahalo_for_da_hookup_516",
-      "pidgin": "mahalo, for da hookup!",
-      "english": [
-        "thank you for the connection!",
-        "thanks for the favor!",
-        "thank you for hooking me up!"
-      ],
-      "category": "greetings",
-      "pronunciation": "mah-HAH-loh, for dah HOOK-up",
-      "examples": [
-        "Mahalo, for da hookup with da job!",
-        "Mahalo, for da hookup with your cousin",
-        "Ho, mahalo for da hookup with da tickets!"
-      ],
-      "usage": "Thanking someone for a favor, connection, or helping you get something",
-      "culturalNote": "Shows appreciation for someone's help in connecting you to opportunities",
-      "difficulty": "intermediate",
-      "frequency": "high",
-      "tags": [
-        "expressions",
-        "gratitude"
-      ]
-    },
-    {
-      "id": "get_choke_517",
-      "pidgin": "get choke",
-      "english": [
-        "there's a lot",
-        "have plenty",
-        "lots of"
-      ],
-      "category": "expressions",
-      "pronunciation": "GET-choke",
-      "examples": [
-        "Get choke people at da beach today",
-        "Da store get choke selection",
-        "We get choke work fo' do"
-      ],
-      "usage": "Indicating there's a large amount or many of something",
-      "culturalNote": "Pidgin way of saying 'plenty' or 'a lot'",
-      "difficulty": "intermediate",
-      "frequency": "high",
-      "tags": [
-        "expressions",
-        "quantity"
-      ]
-    },
-    {
-      "id": "make_funny_518",
-      "pidgin": "make funny",
-      "english": [
-        "to play a joke on someone",
-        "to tease",
-        "to mess around with"
-      ],
-      "category": "actions",
-      "pronunciation": "MAKE-FUN-nee",
-      "examples": [
-        "No make funny with me",
-        "He stay make funny with his sister",
-        "Stop make funny, I stay serious"
-      ],
-      "usage": "Playing jokes or teasing someone",
-      "culturalNote": "Light-hearted teasing, usually among friends or family",
-      "difficulty": "intermediate",
-      "frequency": "medium",
-      "tags": [
-        "actions",
-        "humor"
-      ]
-    },
-    {
-      "id": "howzit_uncle_519",
-      "pidgin": "howzit, uncle?",
-      "english": [
-        "how are you, mister?",
-        "how's it going, sir?",
-        "hello, older gentleman"
-      ],
-      "category": "greetings",
-      "pronunciation": "HOW-zit, UN-kul",
-      "examples": [
-        "Howzit, uncle? You stay good?",
-        "Uncle! Howzit? Long time no see",
-        "Howzit, uncle, you need help?"
-      ],
-      "usage": "Respectful way to greet an older man, not necessarily family",
-      "culturalNote": "Shows respect for elders, 'uncle' is used for any older man in the community",
-      "difficulty": "beginner",
-      "frequency": "very_high",
-      "tags": [
-        "greetings",
-        "respect"
-      ]
-    },
-    {
-      "id": "ho_da_bagah_goin_chicken_skin_520",
-      "pidgin": "ho, da bagah's goin' chicken skin!",
-      "english": [
-        "wow, that guy is getting goosebumps!",
-        "look, he's getting chills!",
-        "that person has goosebumps!"
-      ],
-      "category": "expressions",
-      "pronunciation": "HO, dah BAG-ah's goin CHICK-en skin",
-      "examples": [
-        "Ho, da bagah's goin' chicken skin from da scary story",
-        "Look da bagah, goin' chicken skin from da cold",
-        "Da bagah wen go chicken skin when he heard da music"
-      ],
-      "usage": "Observing someone getting goosebumps or chills",
-      "culturalNote": "Combines several Pidgin elements: 'ho' (wow), 'bagah' (person), 'chicken skin' (goosebumps)",
-      "difficulty": "advanced",
-      "frequency": "medium",
-      "tags": [
-        "expressions",
-        "emotions"
-      ]
-    },
-    {
-      "id": "you_like_eat_eh_521",
-      "pidgin": "you like eat, eh?",
-      "english": [
-        "you want to eat, right?",
-        "do you want to eat?",
-        "hungry?"
-      ],
-      "category": "questions",
-      "pronunciation": "you LIKE eat, EH",
-      "examples": [
-        "You like eat, eh? I going cook",
-        "Stay lunch time, you like eat, eh?",
-        "You like eat, eh? Get choke food"
-      ],
-      "usage": "Asking if someone wants to eat, often offering food",
-      "culturalNote": "Shows hospitality, common way to offer food in local culture",
-      "difficulty": "beginner",
-      "frequency": "very_high",
-      "tags": [
-        "questions",
-        "food"
-      ]
-    },
-    {
-      "id": "da_kine_da_whole_kine_522",
-      "pidgin": "da kine, da whole kine",
-      "english": [
-        "that thing, the whole thing",
-        "everything related to that",
-        "all of that stuff"
-      ],
-      "category": "expressions",
-      "pronunciation": "dah KYNE, dah WHOLE kyne",
-      "examples": [
-        "We need da kine, da whole kine for da party",
-        "He brought da kine, da whole kine setup",
-        "Get da kine, da whole kine ready?"
-      ],
-      "usage": "Referring to everything related to something, the complete set",
-      "culturalNote": "Shows how 'da kine' can be expanded for emphasis",
-      "difficulty": "intermediate",
-      "frequency": "medium",
-      "tags": [
-        "expressions",
-        "slang"
-      ]
-    },
-    {
-      "id": "no_can_da_buggah_stay_broke_523",
-      "pidgin": "no can, da buggah stay broke",
-      "english": [
-        "can't, the thing is broken",
-        "unable to, it's broken",
-        "no way, it's not working"
-      ],
-      "category": "expressions",
-      "pronunciation": "NO can, dah BUG-gah stay BROKE",
-      "examples": [
-        "You like use my car? No can, da buggah stay broke",
-        "Can fix da computer? No can, da buggah stay broke",
-        "No can help you, da buggah stay broke"
-      ],
-      "usage": "Explaining that you can't do something because the item/tool is broken",
-      "culturalNote": "Common explanation combining inability with broken equipment",
-      "difficulty": "intermediate",
-      "frequency": "high",
-      "tags": [
-        "expressions",
-        "inability"
-      ]
-    },
-    {
-      "id": "cruising_524",
-      "pidgin": "cruising",
-      "english": [
-        "relaxing",
-        "hanging out",
-        "taking it easy",
-        "driving around leisurely"
-      ],
-      "category": "actions",
-      "pronunciation": "CRUIS-ing",
-      "examples": [
-        "Just cruising at da beach today",
-        "We stay cruising around town",
-        "No rush, just cruising"
-      ],
-      "usage": "Relaxing or moving at a leisurely pace",
-      "culturalNote": "Embodies the laid-back island lifestyle",
-      "difficulty": "beginner",
-      "frequency": "high",
-      "tags": [
-        "actions",
-        "relaxation"
-      ]
-    },
-    {
-      "id": "feel_junk_525",
-      "pidgin": "feel junk",
-      "english": [
-        "feel like crap",
-        "feel like shit",
-        "feel terrible",
-        "feel awful"
-      ],
-      "category": "expressions",
-      "pronunciation": "feel-JUNK",
-      "examples": [
-        "I feel junk today brah",
-        "Ho, I feel real junk after last night",
-        "You look like you feel junk"
-      ],
-      "usage": "Feeling physically or emotionally terrible",
-      "culturalNote": "Common expression for feeling unwell or upset",
-      "difficulty": "beginner",
-      "frequency": "high",
-      "tags": [
-        "expressions",
-        "emotions",
-        "health"
-      ]
-    },
-    {
-      "id": "brah_526",
-      "pidgin": "brah",
-      "english": [
-        "bro",
-        "brother",
-        "friend",
-        "dude",
-        "man"
-      ],
-      "category": "expressions",
-      "pronunciation": "BRAH",
-      "examples": [
-        "Howzit brah?",
-        "Eh brah, come here",
-        "Tanks brah"
-      ],
-      "usage": "Casual way to address a friend or acquaintance",
-      "culturalNote": "Universal term of address in Hawaii, used regardless of actual relationship",
-      "difficulty": "beginner",
-      "frequency": "very high",
-      "tags": [
-        "expressions",
-        "greetings",
-        "social"
-      ]
-    },
-    {
-      "id": "i_like_527",
-      "pidgin": "I like",
-      "english": [
-        "I want",
-        "I would like",
-        "I'd like"
-      ],
-      "category": "expressions",
-      "pronunciation": "I LIKE",
-      "examples": [
-        "I like go beach",
-        "I like eat poke",
-        "I no like do dat"
-      ],
-      "usage": "Expressing desire or preference",
-      "culturalNote": "'Like' is commonly used instead of 'want' in Pidgin",
-      "difficulty": "beginner",
-      "frequency": "very high",
-      "tags": [
-        "expressions",
-        "desires"
-      ]
-    },
-    {
-      "id": "feel_like_528",
-      "pidgin": "feel like",
-      "english": [
-        "seem like",
-        "feels as if",
-        "feels as though"
-      ],
-      "category": "expressions",
-      "pronunciation": "feel-LIKE",
-      "examples": [
-        "Feel like going rain",
-        "Feel like something not right"
-      ],
-      "usage": "Expressing a feeling or intuition about something",
-      "culturalNote": "Used to express sensations or predictions",
-      "difficulty": "intermediate",
-      "frequency": "high",
-      "tags": [
-        "expressions",
-        "emotions"
-      ]
-    },
-    {
-      "id": "no_worries_529",
-      "pidgin": "no worries",
-      "english": [
-        "no problem",
-        "it's okay",
-        "don't worry about it"
-      ],
-      "category": "greetings",
-      "pronunciation": "no-WOR-reez",
-      "examples": [
-        "No worries brah",
-        "Eh, no worries about dat"
-      ],
-      "usage": "Casual reassurance or acceptance",
-      "culturalNote": "Very common way to express that everything is fine",
-      "difficulty": "beginner",
-      "frequency": "very high",
-      "tags": [
-        "expressions",
-        "reassurance"
-      ]
     }
   ],
   "phrases": {
@@ -9998,6 +10938,33 @@
           "id": "ehu_329"
         }
       ],
+      "goodbye": [
+        {
+          "pidgin": "a hui hou",
+          "confidence": 1,
+          "id": "a_hui_hou_600"
+        },
+        {
+          "pidgin": "aloha",
+          "confidence": 1,
+          "id": "aloha_011"
+        },
+        {
+          "pidgin": "latahz",
+          "confidence": 1,
+          "id": "latahz_362"
+        },
+        {
+          "pidgin": "shoots",
+          "confidence": 1,
+          "id": "shoots_159"
+        },
+        {
+          "pidgin": "shoots",
+          "confidence": 1,
+          "id": "shoots_509"
+        }
+      ],
       "not at all": [
         {
           "pidgin": "a'ole",
@@ -10052,6 +11019,13 @@
           "pidgin": "aikea",
           "confidence": 1,
           "id": "aikea_003"
+        }
+      ],
+      "the land": [
+        {
+          "pidgin": "aina",
+          "confidence": 1,
+          "id": "aina_643"
         }
       ],
       "i don't care": [
@@ -10297,28 +11271,6 @@
           "id": "aloha_011"
         }
       ],
-      "goodbye": [
-        {
-          "pidgin": "aloha",
-          "confidence": 1,
-          "id": "aloha_011"
-        },
-        {
-          "pidgin": "latahz",
-          "confidence": 1,
-          "id": "latahz_362"
-        },
-        {
-          "pidgin": "shoots",
-          "confidence": 1,
-          "id": "shoots_159"
-        },
-        {
-          "pidgin": "shoots",
-          "confidence": 1,
-          "id": "shoots_509"
-        }
-      ],
       "love": [
         {
           "pidgin": "aloha",
@@ -10453,14 +11405,14 @@
           "id": "aurite_015"
         },
         {
-          "pidgin": "shootz",
-          "confidence": 1,
-          "id": "shootz_283"
-        },
-        {
           "pidgin": "shoots",
           "confidence": 1,
           "id": "shoots_509"
+        },
+        {
+          "pidgin": "shootz",
+          "confidence": 1,
+          "id": "shootz_283"
         }
       ],
       "okay": [
@@ -10483,6 +11435,20 @@
           "pidgin": "shoots",
           "confidence": 1,
           "id": "shoots_509"
+        }
+      ],
+      "oh my gosh": [
+        {
+          "pidgin": "auwe",
+          "confidence": 1,
+          "id": "auwe_504"
+        }
+      ],
+      "expression of shock or dismay": [
+        {
+          "pidgin": "auwe",
+          "confidence": 1,
+          "id": "auwe_504"
         }
       ],
       "large cockroach": [
@@ -10525,6 +11491,32 @@
           "pidgin": "bahjuju",
           "confidence": 1,
           "id": "bahjuju_310"
+        }
+      ],
+      "bald head": [
+        {
+          "pidgin": "ballah head",
+          "confidence": 1,
+          "id": "ballah_head_507"
+        }
+      ],
+      "bald person": [
+        {
+          "pidgin": "ballah head",
+          "confidence": 1,
+          "id": "ballah_head_507"
+        },
+        {
+          "pidgin": "bolo head",
+          "confidence": 1,
+          "id": "bolo_head_020"
+        }
+      ],
+      "no hair": [
+        {
+          "pidgin": "ballah head",
+          "confidence": 1,
+          "id": "ballah_head_507"
         }
       ],
       "suddenly": [
@@ -10673,18 +11665,6 @@
           "id": "bolo_315"
         }
       ],
-      "bald person": [
-        {
-          "pidgin": "bolo head",
-          "confidence": 1,
-          "id": "bolo_head_020"
-        },
-        {
-          "pidgin": "ballah head",
-          "confidence": 1,
-          "id": "ballah_head_507"
-        }
-      ],
       "oh yeah!": [
         {
           "pidgin": "boom kanani",
@@ -10773,10 +11753,22 @@
           "id": "braddah_318"
         },
         {
+          "pidgin": "brah",
+          "confidence": 1,
+          "id": "brah_023"
+        },
+        {
+          "pidgin": "brah",
+          "confidence": 1,
+          "id": "brah_526"
+        },
+        {
           "pidgin": "bruddah",
           "confidence": 1,
           "id": "bruddah_429"
-        },
+        }
+      ],
+      "friend": [
         {
           "pidgin": "brah",
           "confidence": 1,
@@ -10786,13 +11778,6 @@
           "pidgin": "brah",
           "confidence": 1,
           "id": "brah_526"
-        }
-      ],
-      "friend": [
-        {
-          "pidgin": "brah",
-          "confidence": 1,
-          "id": "brah_023"
         },
         {
           "pidgin": "cuz",
@@ -10803,7 +11788,23 @@
           "pidgin": "sole",
           "confidence": 1,
           "id": "sole_164"
-        },
+        }
+      ],
+      "bro": [
+        {
+          "pidgin": "brah",
+          "confidence": 1,
+          "id": "brah_526"
+        }
+      ],
+      "dude": [
+        {
+          "pidgin": "brah",
+          "confidence": 1,
+          "id": "brah_526"
+        }
+      ],
+      "man": [
         {
           "pidgin": "brah",
           "confidence": 1,
@@ -10835,6 +11836,20 @@
           "confidence": 1,
           "id": "buggah_025"
         },
+        {
+          "pidgin": "buggah",
+          "confidence": 1,
+          "id": "buggah_515"
+        }
+      ],
+      "bugger": [
+        {
+          "pidgin": "buggah",
+          "confidence": 1,
+          "id": "buggah_515"
+        }
+      ],
+      "person": [
         {
           "pidgin": "buggah",
           "confidence": 1,
@@ -10939,6 +11954,27 @@
           "id": "buss_029"
         }
       ],
+      "laugh hard": [
+        {
+          "pidgin": "buss laff",
+          "confidence": 1,
+          "id": "buss_laff_502"
+        }
+      ],
+      "crack up": [
+        {
+          "pidgin": "buss laff",
+          "confidence": 1,
+          "id": "buss_laff_502"
+        }
+      ],
+      "burst out laughing": [
+        {
+          "pidgin": "buss laff",
+          "confidence": 1,
+          "id": "buss_laff_502"
+        }
+      ],
       "break it out": [
         {
           "pidgin": "buss um out",
@@ -10960,11 +11996,37 @@
           "id": "buss_up_213"
         }
       ],
+      "laugh really hard": [
+        {
+          "pidgin": "bust 'em up",
+          "confidence": 1,
+          "id": "bust_em_up_503"
+        }
+      ],
+      "crack up completely": [
+        {
+          "pidgin": "bust 'em up",
+          "confidence": 1,
+          "id": "bust_em_up_503"
+        }
+      ],
+      "break down laughing": [
+        {
+          "pidgin": "bust 'em up",
+          "confidence": 1,
+          "id": "bust_em_up_503"
+        }
+      ],
       "money": [
         {
           "pidgin": "cabbage",
           "confidence": 1,
           "id": "cabbage_321"
+        },
+        {
+          "pidgin": "kala",
+          "confidence": 1,
+          "id": "kala_611"
         }
       ],
       "forget it": [
@@ -11205,6 +12267,34 @@
           "id": "ne_ne_404"
         }
       ],
+      "relaxing": [
+        {
+          "pidgin": "cruising",
+          "confidence": 1,
+          "id": "cruising_524"
+        }
+      ],
+      "hanging out": [
+        {
+          "pidgin": "cruising",
+          "confidence": 1,
+          "id": "cruising_524"
+        }
+      ],
+      "taking it easy": [
+        {
+          "pidgin": "cruising",
+          "confidence": 1,
+          "id": "cruising_524"
+        }
+      ],
+      "driving around leisurely": [
+        {
+          "pidgin": "cruising",
+          "confidence": 1,
+          "id": "cruising_524"
+        }
+      ],
       "cruising": [
         {
           "pidgin": "cruzin",
@@ -11238,6 +12328,27 @@
           "pidgin": "cuz",
           "confidence": 1,
           "id": "cuz_039"
+        }
+      ],
+      "the best!": [
+        {
+          "pidgin": "da bes'!",
+          "confidence": 1,
+          "id": "da_bes_513"
+        }
+      ],
+      "awesome!": [
+        {
+          "pidgin": "da bes'!",
+          "confidence": 1,
+          "id": "da_bes_513"
+        }
+      ],
+      "excellent!": [
+        {
+          "pidgin": "da bes'!",
+          "confidence": 1,
+          "id": "da_bes_513"
         }
       ],
       "the best": [
@@ -11283,6 +12394,27 @@
           "pidgin": "da kine",
           "confidence": 1,
           "id": "da_kine_040"
+        }
+      ],
+      "that thing, the whole thing": [
+        {
+          "pidgin": "da kine, da whole kine",
+          "confidence": 1,
+          "id": "da_kine_da_whole_kine_522"
+        }
+      ],
+      "everything related to that": [
+        {
+          "pidgin": "da kine, da whole kine",
+          "confidence": 1,
+          "id": "da_kine_da_whole_kine_522"
+        }
+      ],
+      "all of that stuff": [
+        {
+          "pidgin": "da kine, da whole kine",
+          "confidence": 1,
+          "id": "da_kine_da_whole_kine_522"
         }
       ],
       "cellulite": [
@@ -11438,6 +12570,27 @@
           "id": "yeah_393"
         }
       ],
+      "hey, are you with that thingamajig?": [
+        {
+          "pidgin": "eh, you stay wit' da kine?",
+          "confidence": 1,
+          "id": "eh_you_stay_wit_da_kine_510"
+        }
+      ],
+      "are you with that thing?": [
+        {
+          "pidgin": "eh, you stay wit' da kine?",
+          "confidence": 1,
+          "id": "eh_you_stay_wit_da_kine_510"
+        }
+      ],
+      "do you have that thing?": [
+        {
+          "pidgin": "eh, you stay wit' da kine?",
+          "confidence": 1,
+          "id": "eh_you_stay_wit_da_kine_510"
+        }
+      ],
       "irritating": [
         {
           "pidgin": "erking",
@@ -11563,6 +12716,55 @@
           "pidgin": "wiki wiki",
           "confidence": 1,
           "id": "wiki_wiki_195"
+        }
+      ],
+      "feel like crap": [
+        {
+          "pidgin": "feel junk",
+          "confidence": 1,
+          "id": "feel_junk_525"
+        }
+      ],
+      "feel like shit": [
+        {
+          "pidgin": "feel junk",
+          "confidence": 1,
+          "id": "feel_junk_525"
+        }
+      ],
+      "feel terrible": [
+        {
+          "pidgin": "feel junk",
+          "confidence": 1,
+          "id": "feel_junk_525"
+        }
+      ],
+      "feel awful": [
+        {
+          "pidgin": "feel junk",
+          "confidence": 1,
+          "id": "feel_junk_525"
+        }
+      ],
+      "seem like": [
+        {
+          "pidgin": "feel like",
+          "confidence": 1,
+          "id": "feel_like_528"
+        }
+      ],
+      "feels as if": [
+        {
+          "pidgin": "feel like",
+          "confidence": 1,
+          "id": "feel_like_528"
+        }
+      ],
+      "feels as though": [
+        {
+          "pidgin": "feel like",
+          "confidence": 1,
+          "id": "feel_like_528"
         }
       ],
       "filipino": [
@@ -11736,14 +12938,14 @@
           "id": "geev_um_051"
         },
         {
-          "pidgin": "go fo broke",
-          "confidence": 1,
-          "id": "go_fo_broke_053"
-        },
-        {
           "pidgin": "get'um",
           "confidence": 1,
           "id": "getum_501"
+        },
+        {
+          "pidgin": "go fo broke",
+          "confidence": 1,
+          "id": "go_fo_broke_053"
         }
       ],
       "get it": [
@@ -11781,6 +12983,27 @@
           "id": "get_chance_341"
         }
       ],
+      "there's a lot": [
+        {
+          "pidgin": "get choke",
+          "confidence": 1,
+          "id": "get_choke_517"
+        }
+      ],
+      "have plenty": [
+        {
+          "pidgin": "get choke",
+          "confidence": 1,
+          "id": "get_choke_517"
+        }
+      ],
+      "lots of": [
+        {
+          "pidgin": "get choke",
+          "confidence": 1,
+          "id": "get_choke_517"
+        }
+      ],
       "understand?": [
         {
           "pidgin": "get?",
@@ -11795,6 +13018,13 @@
           "id": "get_342"
         }
       ],
+      "seize the opportunity": [
+        {
+          "pidgin": "get'um",
+          "confidence": 1,
+          "id": "getum_501"
+        }
+      ],
       "hair swirl": [
         {
           "pidgin": "giri giri",
@@ -11807,6 +13037,27 @@
           "pidgin": "giri giri",
           "confidence": 1,
           "id": "giri_giri_239"
+        }
+      ],
+      "go do it better": [
+        {
+          "pidgin": "go mo' bettah",
+          "confidence": 1,
+          "id": "go_mo_bettah_514"
+        }
+      ],
+      "do it better": [
+        {
+          "pidgin": "go mo' bettah",
+          "confidence": 1,
+          "id": "go_mo_bettah_514"
+        }
+      ],
+      "you should do better": [
+        {
+          "pidgin": "go mo' bettah",
+          "confidence": 1,
+          "id": "go_mo_bettah_514"
         }
       ],
       "going": [
@@ -11922,6 +13173,13 @@
           "id": "hala_057"
         }
       ],
+      "traditional workshop or school of learning": [
+        {
+          "pidgin": "halau",
+          "confidence": 1,
+          "id": "halau_602"
+        }
+      ],
       "house": [
         {
           "pidgin": "hale",
@@ -12013,6 +13271,13 @@
           "id": "hanai_246"
         }
       ],
+      "to give birth": [
+        {
+          "pidgin": "hanau",
+          "confidence": 1,
+          "id": "hanau_603"
+        }
+      ],
       "under control": [
         {
           "pidgin": "handles",
@@ -12055,6 +13320,13 @@
           "id": "hapai_066"
         }
       ],
+      "smelly": [
+        {
+          "pidgin": "hauna",
+          "confidence": 1,
+          "id": "hauna_604"
+        }
+      ],
       "stinky": [
         {
           "pidgin": "haunas",
@@ -12093,6 +13365,13 @@
           "pidgin": "heiau",
           "confidence": 1,
           "id": "heiau_420"
+        }
+      ],
+      "to go generic": [
+        {
+          "pidgin": "hele",
+          "confidence": 1,
+          "id": "hele_605"
         }
       ],
       "go away": [
@@ -12170,6 +13449,27 @@
           "id": "ho_nah_351"
         }
       ],
+      "wow, that guy is getting goosebumps!": [
+        {
+          "pidgin": "ho, da bagah's goin' chicken skin!",
+          "confidence": 1,
+          "id": "ho_da_bagah_goin_chicken_skin_520"
+        }
+      ],
+      "look, he's getting chills!": [
+        {
+          "pidgin": "ho, da bagah's goin' chicken skin!",
+          "confidence": 1,
+          "id": "ho_da_bagah_goin_chicken_skin_520"
+        }
+      ],
+      "that person has goosebumps!": [
+        {
+          "pidgin": "ho, da bagah's goin' chicken skin!",
+          "confidence": 1,
+          "id": "ho_da_bagah_goin_chicken_skin_520"
+        }
+      ],
       "go cruising": [
         {
           "pidgin": "holoholo",
@@ -12182,6 +13482,13 @@
           "pidgin": "honey girl",
           "confidence": 1,
           "id": "honey_girl_253"
+        }
+      ],
+      "to kiss": [
+        {
+          "pidgin": "honi",
+          "confidence": 1,
+          "id": "honi_606"
         }
       ],
       "sea turtle": [
@@ -12212,6 +13519,34 @@
           "id": "howzit_072"
         }
       ],
+      "how are you, mister?": [
+        {
+          "pidgin": "howzit, uncle?",
+          "confidence": 1,
+          "id": "howzit_uncle_519"
+        }
+      ],
+      "how's it going, sir?": [
+        {
+          "pidgin": "howzit, uncle?",
+          "confidence": 1,
+          "id": "howzit_uncle_519"
+        }
+      ],
+      "hello, older gentleman": [
+        {
+          "pidgin": "howzit, uncle?",
+          "confidence": 1,
+          "id": "howzit_uncle_519"
+        }
+      ],
+      "a call to get someone's attention": [
+        {
+          "pidgin": "hu-i",
+          "confidence": 1,
+          "id": "hu_i_607"
+        }
+      ],
       "upset": [
         {
           "pidgin": "huhu",
@@ -12240,6 +13575,13 @@
           "id": "hukilau_255"
         }
       ],
+      "hula": [
+        {
+          "pidgin": "hula",
+          "confidence": 1,
+          "id": "hula_601"
+        }
+      ],
       "to turn": [
         {
           "pidgin": "huli",
@@ -12252,6 +13594,13 @@
           "pidgin": "huli",
           "confidence": 1,
           "id": "huli_075"
+        }
+      ],
+      "to rotate something, as on a spit": [
+        {
+          "pidgin": "hulihuli",
+          "confidence": 1,
+          "id": "hulihuli_608"
         }
       ],
       "humble": [
@@ -12278,6 +13627,34 @@
           "pidgin": "pilikia",
           "confidence": 1,
           "id": "pilikia_146"
+        }
+      ],
+      "stupid, foolish": [
+        {
+          "pidgin": "hupo",
+          "confidence": 1,
+          "id": "hupo_609"
+        }
+      ],
+      "i want": [
+        {
+          "pidgin": "I like",
+          "confidence": 1,
+          "id": "i_like_527"
+        }
+      ],
+      "i would like": [
+        {
+          "pidgin": "I like",
+          "confidence": 1,
+          "id": "i_like_527"
+        }
+      ],
+      "i'd like": [
+        {
+          "pidgin": "I like",
+          "confidence": 1,
+          "id": "i_like_527"
         }
       ],
       "forward": [
@@ -12477,6 +13854,13 @@
           "id": "kden_357"
         }
       ],
+      "a reverend or priest": [
+        {
+          "pidgin": "kahu",
+          "confidence": 1,
+          "id": "kahu_610"
+        }
+      ],
       "expert": [
         {
           "pidgin": "kahuna",
@@ -12512,6 +13896,13 @@
           "id": "kalo_085"
         }
       ],
+      "to bake in an imu": [
+        {
+          "pidgin": "kalua",
+          "confidence": 1,
+          "id": "kalua_614"
+        }
+      ],
       "local resident": [
         {
           "pidgin": "kamaaina",
@@ -12531,6 +13922,13 @@
           "pidgin": "kanaka",
           "confidence": 1,
           "id": "kanaka_088"
+        }
+      ],
+      "man, male, husband": [
+        {
+          "pidgin": "kane",
+          "confidence": 1,
+          "id": "kane_615"
         }
       ],
       "jam session": [
@@ -12580,6 +13978,13 @@
           "pidgin": "keiki",
           "confidence": 1,
           "id": "keiki_093"
+        }
+      ],
+      "of japanese descent": [
+        {
+          "pidgin": "Kepani",
+          "confidence": 1,
+          "id": "kepani_612"
         }
       ],
       "bad breath": [
@@ -12636,6 +14041,13 @@
           "id": "kukae_098"
         }
       ],
+      "a type of tree": [
+        {
+          "pidgin": "kukui",
+          "confidence": 1,
+          "id": "kukui_616"
+        }
+      ],
       "responsibility": [
         {
           "pidgin": "kuleana",
@@ -12643,11 +14055,32 @@
           "id": "kuleana_097"
         }
       ],
+      "a type of hawaiian dessert": [
+        {
+          "pidgin": "kulolo",
+          "confidence": 1,
+          "id": "kulolo_617"
+        }
+      ],
+      "teacher": [
+        {
+          "pidgin": "kumu",
+          "confidence": 1,
+          "id": "kumu_613"
+        }
+      ],
       "elder": [
         {
           "pidgin": "kupuna",
           "confidence": 1,
           "id": "kupuna_360"
+        }
+      ],
+      "veranda, porch": [
+        {
+          "pidgin": "lanai",
+          "confidence": 1,
+          "id": "lanai_618"
         }
       ],
       "porch or veranda": [
@@ -12683,11 +14116,25 @@
           "id": "laulau_101"
         }
       ],
+      "lehua - a type of blossom": [
+        {
+          "pidgin": "lehua",
+          "confidence": 1,
+          "id": "lehua_619"
+        }
+      ],
       "garland of flowers": [
         {
           "pidgin": "lei",
           "confidence": 1,
           "id": "lei_102"
+        }
+      ],
+      "dirty": [
+        {
+          "pidgin": "lepo",
+          "confidence": 1,
+          "id": "lepo_620"
         }
       ],
       "hit": [
@@ -12753,6 +14200,13 @@
           "id": "limu_428"
         }
       ],
+      "togetherness, unity": [
+        {
+          "pidgin": "lokahi",
+          "confidence": 1,
+          "id": "lokahi_621"
+        }
+      ],
       "stupid": [
         {
           "pidgin": "lolo",
@@ -12767,6 +14221,13 @@
           "id": "lose_money_366"
         }
       ],
+      "toilet, bathroom": [
+        {
+          "pidgin": "lua",
+          "confidence": 1,
+          "id": "lua_623"
+        }
+      ],
       "hawaiian feast": [
         {
           "pidgin": "luau",
@@ -12779,6 +14240,13 @@
           "id": "lau_421"
         }
       ],
+      "the boss, foreman": [
+        {
+          "pidgin": "luna",
+          "confidence": 1,
+          "id": "luna_622"
+        }
+      ],
       "thank you": [
         {
           "pidgin": "mahalo",
@@ -12786,11 +14254,39 @@
           "id": "mahalo_109"
         }
       ],
+      "thank you for the connection!": [
+        {
+          "pidgin": "mahalo, for da hookup!",
+          "confidence": 1,
+          "id": "mahalo_for_da_hookup_516"
+        }
+      ],
+      "thanks for the favor!": [
+        {
+          "pidgin": "mahalo, for da hookup!",
+          "confidence": 1,
+          "id": "mahalo_for_da_hookup_516"
+        }
+      ],
+      "thank you for hooking me up!": [
+        {
+          "pidgin": "mahalo, for da hookup!",
+          "confidence": 1,
+          "id": "mahalo_for_da_hookup_516"
+        }
+      ],
       "dolphin fish": [
         {
           "pidgin": "mahimahi",
           "confidence": 1,
           "id": "mahimahi_416"
+        }
+      ],
+      "homosexual male; crossdresser": [
+        {
+          "pidgin": "mahu",
+          "confidence": 1,
+          "id": "mahu_624"
         }
       ],
       "good": [
@@ -12805,6 +14301,20 @@
           "pidgin": "maika'i",
           "confidence": 1,
           "id": "maikai_110"
+        }
+      ],
+      "a type of vine": [
+        {
+          "pidgin": "maile",
+          "confidence": 1,
+          "id": "maile_625"
+        }
+      ],
+      "sleepy dust": [
+        {
+          "pidgin": "maka piapia",
+          "confidence": 1,
+          "id": "maka_piapia_626"
         }
       ],
       "toward the ocean": [
@@ -12826,6 +14336,27 @@
           "pidgin": "make",
           "confidence": 1,
           "id": "make_111"
+        }
+      ],
+      "to play a joke on someone": [
+        {
+          "pidgin": "make funny",
+          "confidence": 1,
+          "id": "make_funny_518"
+        }
+      ],
+      "to tease": [
+        {
+          "pidgin": "make funny",
+          "confidence": 1,
+          "id": "make_funny_518"
+        }
+      ],
+      "to mess around with": [
+        {
+          "pidgin": "make funny",
+          "confidence": 1,
+          "id": "make_funny_518"
         }
       ],
       "to care for": [
@@ -12981,11 +14512,39 @@
           "id": "moe_moe_403"
         }
       ],
+      "go nighty-night sleep for kids": [
+        {
+          "pidgin": "moemoe",
+          "confidence": 1,
+          "id": "moemoe_627"
+        }
+      ],
       "tough local guy": [
         {
           "pidgin": "moke",
           "confidence": 1,
           "id": "moke_123"
+        }
+      ],
+      "fat, obese": [
+        {
+          "pidgin": "momona",
+          "confidence": 1,
+          "id": "momona_628"
+        }
+      ],
+      "gecko etc.": [
+        {
+          "pidgin": "moo",
+          "confidence": 1,
+          "id": "moo_629"
+        }
+      ],
+      "grandchild, descendant": [
+        {
+          "pidgin": "moopuna",
+          "confidence": 1,
+          "id": "moopuna_630"
         }
       ],
       "loose hawaiian dress": [
@@ -13021,6 +14580,13 @@
           "pidgin": "negz",
           "confidence": 1,
           "id": "negz_372"
+        }
+      ],
+      "the native hawaiian goose": [
+        {
+          "pidgin": "nene",
+          "confidence": 1,
+          "id": "nene_631"
         }
       ],
       "hawaiian goose": [
@@ -13072,6 +14638,27 @@
           "id": "no_can_128"
         }
       ],
+      "can't, the thing is broken": [
+        {
+          "pidgin": "no can, da buggah stay broke",
+          "confidence": 1,
+          "id": "no_can_da_buggah_stay_broke_523"
+        }
+      ],
+      "unable to, it's broken": [
+        {
+          "pidgin": "no can, da buggah stay broke",
+          "confidence": 1,
+          "id": "no_can_da_buggah_stay_broke_523"
+        }
+      ],
+      "no way, it's not working": [
+        {
+          "pidgin": "no can, da buggah stay broke",
+          "confidence": 1,
+          "id": "no_can_da_buggah_stay_broke_523"
+        }
+      ],
       "don't die": [
         {
           "pidgin": "no make",
@@ -13091,6 +14678,20 @@
           "pidgin": "no sked",
           "confidence": 1,
           "id": "no_sked_132"
+        }
+      ],
+      "it's okay": [
+        {
+          "pidgin": "no worries",
+          "confidence": 1,
+          "id": "no_worries_529"
+        }
+      ],
+      "don't worry about it": [
+        {
+          "pidgin": "no worries",
+          "confidence": 1,
+          "id": "no_worries_529"
         }
       ],
       "enough": [
@@ -13133,6 +14734,20 @@
           "pidgin": "ohana",
           "confidence": 1,
           "id": "ohana_135"
+        }
+      ],
+      "human rear end": [
+        {
+          "pidgin": "okole",
+          "confidence": 1,
+          "id": "okole_644"
+        }
+      ],
+      "hawaiian ti root moonshine": [
+        {
+          "pidgin": "okole hao",
+          "confidence": 1,
+          "id": "okole_hao_645"
         }
       ],
       "delicious": [
@@ -13182,6 +14797,13 @@
           "id": "opihi_139"
         }
       ],
+      "stomach, tummy": [
+        {
+          "pidgin": "opu",
+          "confidence": 1,
+          "id": "opu_646"
+        }
+      ],
       "over there": [
         {
           "pidgin": "ova dea",
@@ -13199,6 +14821,13 @@
           "pidgin": "pāhoehoe",
           "confidence": 1,
           "id": "phoehoe_424"
+        }
+      ],
+      "of chinese descent": [
+        {
+          "pidgin": "Pake",
+          "confidence": 1,
+          "id": "pake_632"
         }
       ],
       "cliff or precipice": [
@@ -13250,6 +14879,13 @@
           "id": "pau_hana_144"
         }
       ],
+      "belly-button": [
+        {
+          "pidgin": "piko",
+          "confidence": 1,
+          "id": "piko_633"
+        }
+      ],
       "rotten": [
         {
           "pidgin": "pilau",
@@ -13264,6 +14900,20 @@
           "id": "pilikia_146"
         }
       ],
+      "beef, cow, bull": [
+        {
+          "pidgin": "pipi",
+          "confidence": 1,
+          "id": "pipi_634"
+        }
+      ],
+      "dried beef, similar to beef jerky": [
+        {
+          "pidgin": "pipi kaula",
+          "confidence": 1,
+          "id": "pipi_kaula_635"
+        }
+      ],
       "lots": [
         {
           "pidgin": "planny",
@@ -13276,6 +14926,20 @@
           "pidgin": "plate lunch",
           "confidence": 1,
           "id": "plate_lunch_147"
+        }
+      ],
+      "a rock": [
+        {
+          "pidgin": "pohaku",
+          "confidence": 1,
+          "id": "pohaku_636"
+        }
+      ],
+      "useless, wasteful, wasted": [
+        {
+          "pidgin": "poho",
+          "confidence": 1,
+          "id": "poho_637"
         }
       ],
       "waste": [
@@ -13325,6 +14989,20 @@
           "pidgin": "popo",
           "confidence": 1,
           "id": "popo_381"
+        }
+      ],
+      "a person of african descent": [
+        {
+          "pidgin": "popolo",
+          "confidence": 1,
+          "id": "popolo_638"
+        }
+      ],
+      "pig, pork": [
+        {
+          "pidgin": "puaa",
+          "confidence": 1,
+          "id": "puaa_639"
         }
       ],
       "hawaiian owl": [
@@ -13456,14 +15134,35 @@
           "id": "shoots_159"
         },
         {
-          "pidgin": "shootz",
-          "confidence": 1,
-          "id": "shootz_283"
-        },
-        {
           "pidgin": "shoots",
           "confidence": 1,
           "id": "shoots_509"
+        },
+        {
+          "pidgin": "shootz",
+          "confidence": 1,
+          "id": "shootz_283"
+        }
+      ],
+      "alright, brother!": [
+        {
+          "pidgin": "shoots, brah!",
+          "confidence": 1,
+          "id": "shoots_brah_511"
+        }
+      ],
+      "okay, dude!": [
+        {
+          "pidgin": "shoots, brah!",
+          "confidence": 1,
+          "id": "shoots_brah_511"
+        }
+      ],
+      "sounds good, bro!": [
+        {
+          "pidgin": "shoots, brah!",
+          "confidence": 1,
+          "id": "shoots_brah_511"
         }
       ],
       "sister": [
@@ -13490,6 +15189,20 @@
           "pidgin": "zori",
           "confidence": 1,
           "id": "zori_285"
+        }
+      ],
+      "when i was a kid": [
+        {
+          "pidgin": "small kid time",
+          "confidence": 1,
+          "id": "small_kid_time_506"
+        }
+      ],
+      "childhood days": [
+        {
+          "pidgin": "small kid time",
+          "confidence": 1,
+          "id": "small_kid_time_506"
         }
       ],
       "a little bit": [
@@ -13614,6 +15327,13 @@
           "id": "talk_stink_512"
         }
       ],
+      "spread rumors": [
+        {
+          "pidgin": "talk stink",
+          "confidence": 1,
+          "id": "talk_stink_512"
+        }
+      ],
       "chat": [
         {
           "pidgin": "talk story",
@@ -13652,6 +15372,13 @@
           "pidgin": "taro",
           "confidence": 1,
           "id": "taro_173"
+        }
+      ],
+      "a type of plant": [
+        {
+          "pidgin": "ti",
+          "confidence": 1,
+          "id": "ti_640"
         }
       ],
       "tough local girl": [
@@ -13731,6 +15458,13 @@
           "id": "uku_180"
         }
       ],
+      "to pay off completely": [
+        {
+          "pidgin": "uku pau",
+          "confidence": 1,
+          "id": "uku_pau_641"
+        }
+      ],
       "small four-stringed guitar": [
         {
           "pidgin": "ukulele",
@@ -13764,6 +15498,13 @@
           "pidgin": "vog",
           "confidence": 1,
           "id": "vog_185"
+        }
+      ],
+      "canoe": [
+        {
+          "pidgin": "waa",
+          "confidence": 1,
+          "id": "waa_642"
         }
       ],
       "woman": [
@@ -13913,6 +15654,20 @@
           "id": "yeah_no_274"
         }
       ],
+      "you're right": [
+        {
+          "pidgin": "yeah you",
+          "confidence": 1,
+          "id": "yeah_you_508"
+        }
+      ],
+      "i agree with you": [
+        {
+          "pidgin": "yeah you",
+          "confidence": 1,
+          "id": "yeah_you_508"
+        }
+      ],
       "agree, right?": [
         {
           "pidgin": "yeah, no?",
@@ -13948,335 +15703,6 @@
           "id": "you_know_dat_276"
         }
       ],
-      "are you going?": [
-        {
-          "pidgin": "you stay go?",
-          "confidence": 1,
-          "id": "you_stay_go_396"
-        }
-      ],
-      "informal footwear": [
-        {
-          "pidgin": "zori",
-          "confidence": 1,
-          "id": "zori_285"
-        }
-      ],
-      "seize the opportunity": [
-        {
-          "pidgin": "get'um",
-          "confidence": 1,
-          "id": "getum_501"
-        }
-      ],
-      "laugh hard": [
-        {
-          "pidgin": "buss laff",
-          "confidence": 1,
-          "id": "buss_laff_502"
-        }
-      ],
-      "crack up": [
-        {
-          "pidgin": "buss laff",
-          "confidence": 1,
-          "id": "buss_laff_502"
-        }
-      ],
-      "burst out laughing": [
-        {
-          "pidgin": "buss laff",
-          "confidence": 1,
-          "id": "buss_laff_502"
-        }
-      ],
-      "laugh really hard": [
-        {
-          "pidgin": "bust 'em up",
-          "confidence": 1,
-          "id": "bust_em_up_503"
-        }
-      ],
-      "crack up completely": [
-        {
-          "pidgin": "bust 'em up",
-          "confidence": 1,
-          "id": "bust_em_up_503"
-        }
-      ],
-      "break down laughing": [
-        {
-          "pidgin": "bust 'em up",
-          "confidence": 1,
-          "id": "bust_em_up_503"
-        }
-      ],
-      "oh my gosh": [
-        {
-          "pidgin": "auwe",
-          "confidence": 1,
-          "id": "auwe_504"
-        }
-      ],
-      "expression of shock or dismay": [
-        {
-          "pidgin": "auwe",
-          "confidence": 1,
-          "id": "auwe_504"
-        }
-      ],
-      "when i was a kid": [
-        {
-          "pidgin": "small kid time",
-          "confidence": 1,
-          "id": "small_kid_time_506"
-        }
-      ],
-      "childhood days": [
-        {
-          "pidgin": "small kid time",
-          "confidence": 1,
-          "id": "small_kid_time_506"
-        }
-      ],
-      "bald head": [
-        {
-          "pidgin": "ballah head",
-          "confidence": 1,
-          "id": "ballah_head_507"
-        }
-      ],
-      "no hair": [
-        {
-          "pidgin": "ballah head",
-          "confidence": 1,
-          "id": "ballah_head_507"
-        }
-      ],
-      "you're right": [
-        {
-          "pidgin": "yeah you",
-          "confidence": 1,
-          "id": "yeah_you_508"
-        }
-      ],
-      "i agree with you": [
-        {
-          "pidgin": "yeah you",
-          "confidence": 1,
-          "id": "yeah_you_508"
-        }
-      ],
-      "hey, are you with that thingamajig?": [
-        {
-          "pidgin": "eh, you stay wit' da kine?",
-          "confidence": 1,
-          "id": "eh_you_stay_wit_da_kine_510"
-        }
-      ],
-      "are you with that thing?": [
-        {
-          "pidgin": "eh, you stay wit' da kine?",
-          "confidence": 1,
-          "id": "eh_you_stay_wit_da_kine_510"
-        }
-      ],
-      "do you have that thing?": [
-        {
-          "pidgin": "eh, you stay wit' da kine?",
-          "confidence": 1,
-          "id": "eh_you_stay_wit_da_kine_510"
-        }
-      ],
-      "alright, brother!": [
-        {
-          "pidgin": "shoots, brah!",
-          "confidence": 1,
-          "id": "shoots_brah_511"
-        }
-      ],
-      "okay, dude!": [
-        {
-          "pidgin": "shoots, brah!",
-          "confidence": 1,
-          "id": "shoots_brah_511"
-        }
-      ],
-      "sounds good, bro!": [
-        {
-          "pidgin": "shoots, brah!",
-          "confidence": 1,
-          "id": "shoots_brah_511"
-        }
-      ],
-      "spread rumors": [
-        {
-          "pidgin": "talk stink",
-          "confidence": 1,
-          "id": "talk_stink_512"
-        }
-      ],
-      "the best!": [
-        {
-          "pidgin": "da bes'!",
-          "confidence": 1,
-          "id": "da_bes_513"
-        }
-      ],
-      "awesome!": [
-        {
-          "pidgin": "da bes'!",
-          "confidence": 1,
-          "id": "da_bes_513"
-        }
-      ],
-      "excellent!": [
-        {
-          "pidgin": "da bes'!",
-          "confidence": 1,
-          "id": "da_bes_513"
-        }
-      ],
-      "go do it better": [
-        {
-          "pidgin": "go mo' bettah",
-          "confidence": 1,
-          "id": "go_mo_bettah_514"
-        }
-      ],
-      "do it better": [
-        {
-          "pidgin": "go mo' bettah",
-          "confidence": 1,
-          "id": "go_mo_bettah_514"
-        }
-      ],
-      "you should do better": [
-        {
-          "pidgin": "go mo' bettah",
-          "confidence": 1,
-          "id": "go_mo_bettah_514"
-        }
-      ],
-      "bugger": [
-        {
-          "pidgin": "buggah",
-          "confidence": 1,
-          "id": "buggah_515"
-        }
-      ],
-      "person": [
-        {
-          "pidgin": "buggah",
-          "confidence": 1,
-          "id": "buggah_515"
-        }
-      ],
-      "thank you for the connection!": [
-        {
-          "pidgin": "mahalo, for da hookup!",
-          "confidence": 1,
-          "id": "mahalo_for_da_hookup_516"
-        }
-      ],
-      "thanks for the favor!": [
-        {
-          "pidgin": "mahalo, for da hookup!",
-          "confidence": 1,
-          "id": "mahalo_for_da_hookup_516"
-        }
-      ],
-      "thank you for hooking me up!": [
-        {
-          "pidgin": "mahalo, for da hookup!",
-          "confidence": 1,
-          "id": "mahalo_for_da_hookup_516"
-        }
-      ],
-      "there's a lot": [
-        {
-          "pidgin": "get choke",
-          "confidence": 1,
-          "id": "get_choke_517"
-        }
-      ],
-      "have plenty": [
-        {
-          "pidgin": "get choke",
-          "confidence": 1,
-          "id": "get_choke_517"
-        }
-      ],
-      "lots of": [
-        {
-          "pidgin": "get choke",
-          "confidence": 1,
-          "id": "get_choke_517"
-        }
-      ],
-      "to play a joke on someone": [
-        {
-          "pidgin": "make funny",
-          "confidence": 1,
-          "id": "make_funny_518"
-        }
-      ],
-      "to tease": [
-        {
-          "pidgin": "make funny",
-          "confidence": 1,
-          "id": "make_funny_518"
-        }
-      ],
-      "to mess around with": [
-        {
-          "pidgin": "make funny",
-          "confidence": 1,
-          "id": "make_funny_518"
-        }
-      ],
-      "how are you, mister?": [
-        {
-          "pidgin": "howzit, uncle?",
-          "confidence": 1,
-          "id": "howzit_uncle_519"
-        }
-      ],
-      "how's it going, sir?": [
-        {
-          "pidgin": "howzit, uncle?",
-          "confidence": 1,
-          "id": "howzit_uncle_519"
-        }
-      ],
-      "hello, older gentleman": [
-        {
-          "pidgin": "howzit, uncle?",
-          "confidence": 1,
-          "id": "howzit_uncle_519"
-        }
-      ],
-      "wow, that guy is getting goosebumps!": [
-        {
-          "pidgin": "ho, da bagah's goin' chicken skin!",
-          "confidence": 1,
-          "id": "ho_da_bagah_goin_chicken_skin_520"
-        }
-      ],
-      "look, he's getting chills!": [
-        {
-          "pidgin": "ho, da bagah's goin' chicken skin!",
-          "confidence": 1,
-          "id": "ho_da_bagah_goin_chicken_skin_520"
-        }
-      ],
-      "that person has goosebumps!": [
-        {
-          "pidgin": "ho, da bagah's goin' chicken skin!",
-          "confidence": 1,
-          "id": "ho_da_bagah_goin_chicken_skin_520"
-        }
-      ],
       "you want to eat, right?": [
         {
           "pidgin": "you like eat, eh?",
@@ -14298,179 +15724,18 @@
           "id": "you_like_eat_eh_521"
         }
       ],
-      "that thing, the whole thing": [
+      "are you going?": [
         {
-          "pidgin": "da kine, da whole kine",
+          "pidgin": "you stay go?",
           "confidence": 1,
-          "id": "da_kine_da_whole_kine_522"
+          "id": "you_stay_go_396"
         }
       ],
-      "everything related to that": [
+      "informal footwear": [
         {
-          "pidgin": "da kine, da whole kine",
+          "pidgin": "zori",
           "confidence": 1,
-          "id": "da_kine_da_whole_kine_522"
-        }
-      ],
-      "all of that stuff": [
-        {
-          "pidgin": "da kine, da whole kine",
-          "confidence": 1,
-          "id": "da_kine_da_whole_kine_522"
-        }
-      ],
-      "can't, the thing is broken": [
-        {
-          "pidgin": "no can, da buggah stay broke",
-          "confidence": 1,
-          "id": "no_can_da_buggah_stay_broke_523"
-        }
-      ],
-      "unable to, it's broken": [
-        {
-          "pidgin": "no can, da buggah stay broke",
-          "confidence": 1,
-          "id": "no_can_da_buggah_stay_broke_523"
-        }
-      ],
-      "no way, it's not working": [
-        {
-          "pidgin": "no can, da buggah stay broke",
-          "confidence": 1,
-          "id": "no_can_da_buggah_stay_broke_523"
-        }
-      ],
-      "relaxing": [
-        {
-          "pidgin": "cruising",
-          "confidence": 1,
-          "id": "cruising_524"
-        }
-      ],
-      "hanging out": [
-        {
-          "pidgin": "cruising",
-          "confidence": 1,
-          "id": "cruising_524"
-        }
-      ],
-      "taking it easy": [
-        {
-          "pidgin": "cruising",
-          "confidence": 1,
-          "id": "cruising_524"
-        }
-      ],
-      "driving around leisurely": [
-        {
-          "pidgin": "cruising",
-          "confidence": 1,
-          "id": "cruising_524"
-        }
-      ],
-      "feel like crap": [
-        {
-          "pidgin": "feel junk",
-          "confidence": 1,
-          "id": "feel_junk_525"
-        }
-      ],
-      "feel like shit": [
-        {
-          "pidgin": "feel junk",
-          "confidence": 1,
-          "id": "feel_junk_525"
-        }
-      ],
-      "feel terrible": [
-        {
-          "pidgin": "feel junk",
-          "confidence": 1,
-          "id": "feel_junk_525"
-        }
-      ],
-      "feel awful": [
-        {
-          "pidgin": "feel junk",
-          "confidence": 1,
-          "id": "feel_junk_525"
-        }
-      ],
-      "bro": [
-        {
-          "pidgin": "brah",
-          "confidence": 1,
-          "id": "brah_526"
-        }
-      ],
-      "dude": [
-        {
-          "pidgin": "brah",
-          "confidence": 1,
-          "id": "brah_526"
-        }
-      ],
-      "man": [
-        {
-          "pidgin": "brah",
-          "confidence": 1,
-          "id": "brah_526"
-        }
-      ],
-      "i want": [
-        {
-          "pidgin": "I like",
-          "confidence": 1,
-          "id": "i_like_527"
-        }
-      ],
-      "i would like": [
-        {
-          "pidgin": "I like",
-          "confidence": 1,
-          "id": "i_like_527"
-        }
-      ],
-      "i'd like": [
-        {
-          "pidgin": "I like",
-          "confidence": 1,
-          "id": "i_like_527"
-        }
-      ],
-      "seem like": [
-        {
-          "pidgin": "feel like",
-          "confidence": 1,
-          "id": "feel_like_528"
-        }
-      ],
-      "feels as if": [
-        {
-          "pidgin": "feel like",
-          "confidence": 1,
-          "id": "feel_like_528"
-        }
-      ],
-      "feels as though": [
-        {
-          "pidgin": "feel like",
-          "confidence": 1,
-          "id": "feel_like_528"
-        }
-      ],
-      "it's okay": [
-        {
-          "pidgin": "no worries",
-          "confidence": 1,
-          "id": "no_worries_529"
-        }
-      ],
-      "don't worry about it": [
-        {
-          "pidgin": "no worries",
-          "confidence": 1,
-          "id": "no_worries_529"
+          "id": "zori_285"
         }
       ]
     },
@@ -14512,6 +15777,9 @@
         "reddish hair",
         "spray"
       ],
+      "a hui hou": [
+        "goodbye"
+      ],
       "a'ole": [
         "not at all"
       ],
@@ -14531,6 +15799,9 @@
       ],
       "aikea": [
         "I care (sarcastic)"
+      ],
+      "aina": [
+        "the land"
       ],
       "ainokea": [
         "I don't care"
@@ -14642,6 +15913,11 @@
         "alright",
         "okay"
       ],
+      "auwe": [
+        "oh my gosh",
+        "oh dear",
+        "expression of shock or dismay"
+      ],
       "b-52": [
         "large cockroach"
       ],
@@ -14655,6 +15931,11 @@
       ],
       "bahjuju": [
         "bad vibes"
+      ],
+      "ballah head": [
+        "bald head",
+        "bald person",
+        "no hair"
       ],
       "bang": [
         "suddenly"
@@ -14726,15 +16007,15 @@
       "braddah": [
         "brother"
       ],
-      "bruddah": [
-        "brother"
-      ],
       "brah": [
         "brother",
         "friend"
       ],
       "broke da mouth": [
         "incredibly delicious"
+      ],
+      "bruddah": [
+        "brother"
       ],
       "buggah": [
         "guy",
@@ -14762,6 +16043,11 @@
         "broken",
         "busted"
       ],
+      "buss laff": [
+        "laugh hard",
+        "crack up",
+        "burst out laughing"
+      ],
       "buss um out": [
         "break it out",
         "start"
@@ -14769,6 +16055,11 @@
       "buss up": [
         "broken",
         "beaten up"
+      ],
+      "bust 'em up": [
+        "laugh really hard",
+        "crack up completely",
+        "break down laughing"
       ],
       "cabbage": [
         "money"
@@ -14842,6 +16133,12 @@
       "crash": [
         "to sleep"
       ],
+      "cruising": [
+        "relaxing",
+        "hanging out",
+        "taking it easy",
+        "driving around leisurely"
+      ],
       "cruzin": [
         "cruising",
         "driving around"
@@ -14853,6 +16150,11 @@
       "cuz": [
         "cousin",
         "friend"
+      ],
+      "da bes'!": [
+        "the best!",
+        "awesome!",
+        "excellent!"
       ],
       "da bomb": [
         "excellent",
@@ -14867,6 +16169,11 @@
       "da kine": [
         "the thing",
         "whatchamacallit"
+      ],
+      "da kine, da whole kine": [
+        "that thing, the whole thing",
+        "everything related to that",
+        "all of that stuff"
       ],
       "daikon": [
         "cellulite"
@@ -14918,6 +16225,11 @@
         "hey",
         "right?"
       ],
+      "eh, you stay wit' da kine?": [
+        "hey, are you with that thingamajig?",
+        "are you with that thing?",
+        "do you have that thing?"
+      ],
       "erking": [
         "irritating",
         "annoying"
@@ -14957,6 +16269,17 @@
       ],
       "fast kine": [
         "fast"
+      ],
+      "feel junk": [
+        "feel like crap",
+        "feel like shit",
+        "feel terrible",
+        "feel awful"
+      ],
+      "feel like": [
+        "seem like",
+        "feels as if",
+        "feels as though"
       ],
       "flip": [
         "Filipino"
@@ -15016,9 +16339,19 @@
       "get chance": [
         "have opportunity"
       ],
+      "get choke": [
+        "there's a lot",
+        "have plenty",
+        "lots of"
+      ],
       "get?": [
         "understand?",
         "got it?"
+      ],
+      "get'um": [
+        "go for it",
+        "give it your all",
+        "seize the opportunity"
       ],
       "giri giri": [
         "hair swirl",
@@ -15026,6 +16359,11 @@
       ],
       "go fo broke": [
         "give it your all"
+      ],
+      "go mo' bettah": [
+        "go do it better",
+        "do it better",
+        "you should do better"
       ],
       "goin": [
         "going"
@@ -15046,6 +16384,11 @@
       "guaranz": [
         "no doubt",
         "for sure"
+      ],
+      "gueren-tee": [
+        "definitely",
+        "for sure",
+        "guaranteed"
       ],
       "gullah gullahs": [
         "mixed up",
@@ -15069,6 +16412,9 @@
       ],
       "hala": [
         "pandanus tree"
+      ],
+      "halau": [
+        "traditional workshop or school of learning"
       ],
       "hale": [
         "house",
@@ -15110,6 +16456,9 @@
       "hanai": [
         "to adopt"
       ],
+      "hanau": [
+        "to give birth"
+      ],
       "handles": [
         "under control"
       ],
@@ -15123,6 +16472,9 @@
       ],
       "hapai": [
         "pregnant"
+      ],
+      "hauna": [
+        "smelly"
       ],
       "haunas": [
         "stinky"
@@ -15138,6 +16490,9 @@
       ],
       "heiau": [
         "Hawaiian temple"
+      ],
+      "hele": [
+        "to go generic"
       ],
       "hele on": [
         "go away",
@@ -15164,11 +16519,19 @@
         "wow",
         "really"
       ],
+      "ho, da bagah's goin' chicken skin!": [
+        "wow, that guy is getting goosebumps!",
+        "look, he's getting chills!",
+        "that person has goosebumps!"
+      ],
       "holoholo": [
         "go cruising"
       ],
       "honey girl": [
         "young daughter"
+      ],
+      "honi": [
+        "to kiss"
       ],
       "honu": [
         "sea turtle"
@@ -15182,6 +16545,14 @@
       "howzit": [
         "how are you"
       ],
+      "howzit, uncle?": [
+        "how are you, mister?",
+        "how's it going, sir?",
+        "hello, older gentleman"
+      ],
+      "hu-i": [
+        "a call to get someone's attention"
+      ],
       "huhu": [
         "angry",
         "upset"
@@ -15193,9 +16564,15 @@
       "hukilau": [
         "community net fishing"
       ],
+      "hula": [
+        "hula"
+      ],
       "huli": [
         "to turn",
         "flip"
+      ],
+      "hulihuli": [
+        "to rotate something, as on a spit"
       ],
       "humbalah": [
         "humble"
@@ -15203,6 +16580,14 @@
       "humbug": [
         "a bother",
         "trouble"
+      ],
+      "hupo": [
+        "stupid, foolish"
+      ],
+      "i like": [
+        "I want",
+        "I would like",
+        "I'd like"
       ],
       "i mua": [
         "forward",
@@ -15287,6 +16672,9 @@
       "k-den": [
         "okay then"
       ],
+      "kahu": [
+        "a reverend or priest"
+      ],
       "kahuna": [
         "expert",
         "priest"
@@ -15295,8 +16683,14 @@
         "ocean",
         "sea"
       ],
+      "kala": [
+        "money"
+      ],
       "kalo": [
         "taro"
+      ],
+      "kalua": [
+        "to bake in an imu"
       ],
       "kamaaina": [
         "local resident"
@@ -15306,6 +16700,9 @@
       ],
       "kanaka": [
         "Hawaiian person"
+      ],
+      "kane": [
+        "man, male, husband"
       ],
       "kanikapila": [
         "jam session"
@@ -15335,6 +16732,9 @@
       "keiki": [
         "child"
       ],
+      "kepani": [
+        "of Japanese descent"
+      ],
       "killaz": [
         "awesome"
       ],
@@ -15359,11 +16759,23 @@
         "feces",
         "crap"
       ],
+      "kukui": [
+        "a type of tree"
+      ],
       "kuleana": [
         "responsibility"
       ],
+      "kulolo": [
+        "a type of Hawaiian dessert"
+      ],
+      "kumu": [
+        "teacher"
+      ],
       "kupuna": [
         "elder"
+      ],
+      "lanai": [
+        "veranda, porch"
       ],
       "lānai": [
         "porch or veranda"
@@ -15381,8 +16793,14 @@
       "laulau": [
         "meat wrapped in taro leaves"
       ],
+      "lehua": [
+        "lehua - a type of blossom"
+      ],
       "lei": [
         "garland of flowers"
+      ],
+      "lepo": [
+        "dirty"
       ],
       "lick": [
         "hit",
@@ -15409,6 +16827,9 @@
       "limu": [
         "seaweed"
       ],
+      "lokahi": [
+        "togetherness, unity"
+      ],
       "lolo": [
         "crazy",
         "stupid"
@@ -15416,21 +16837,41 @@
       "lose money": [
         "bad deal"
       ],
+      "lua": [
+        "toilet, bathroom"
+      ],
       "luau": [
         "Hawaiian feast"
       ],
       "lūʻau": [
         "Hawaiian feast"
       ],
+      "luna": [
+        "the boss, foreman"
+      ],
       "mahalo": [
         "thank you"
+      ],
+      "mahalo, for da hookup!": [
+        "thank you for the connection!",
+        "thanks for the favor!",
+        "thank you for hooking me up!"
       ],
       "mahimahi": [
         "dolphin fish"
       ],
+      "mahu": [
+        "homosexual male; crossdresser"
+      ],
       "maika'i": [
         "good",
         "fine"
+      ],
+      "maile": [
+        "a type of vine"
+      ],
+      "maka piapia": [
+        "sleepy dust"
       ],
       "makai": [
         "toward the ocean"
@@ -15438,6 +16879,11 @@
       "make": [
         "dead",
         "die"
+      ],
+      "make funny": [
+        "to play a joke on someone",
+        "to tease",
+        "to mess around with"
       ],
       "malama": [
         "to care for",
@@ -15500,8 +16946,20 @@
       "moe moe": [
         "sleepy"
       ],
+      "moemoe": [
+        "go nighty-night sleep for kids"
+      ],
       "moke": [
         "tough local guy"
+      ],
+      "momona": [
+        "fat, obese"
+      ],
+      "moo": [
+        "gecko etc."
+      ],
+      "moopuna": [
+        "grandchild, descendant"
       ],
       "muʻumuʻu": [
         "loose Hawaiian dress"
@@ -15519,6 +16977,9 @@
       "negz": [
         "negative",
         "no"
+      ],
+      "nene": [
+        "the native Hawaiian goose"
       ],
       "nēnē": [
         "Hawaiian goose"
@@ -15540,6 +17001,11 @@
         "cannot",
         "unable"
       ],
+      "no can, da buggah stay broke": [
+        "can't, the thing is broken",
+        "unable to, it's broken",
+        "no way, it's not working"
+      ],
       "no ka 'oi": [
         "the best"
       ],
@@ -15555,6 +17021,11 @@
       "no sked": [
         "not scared"
       ],
+      "no worries": [
+        "no problem",
+        "it's okay",
+        "don't worry about it"
+      ],
       "nuff": [
         "enough"
       ],
@@ -15568,6 +17039,12 @@
       ],
       "ohana": [
         "family"
+      ],
+      "okole": [
+        "human rear end"
+      ],
+      "okole hao": [
+        "Hawaiian ti root moonshine"
       ],
       "ono": [
         "delicious"
@@ -15583,6 +17060,9 @@
       "opihi": [
         "limpet (shellfish)"
       ],
+      "opu": [
+        "stomach, tummy"
+      ],
       "ova dea": [
         "over there"
       ],
@@ -15594,6 +17074,9 @@
       ],
       "pakalolo": [
         "marijuana"
+      ],
+      "pake": [
+        "of Chinese descent"
       ],
       "pākē": [
         "Chinese person"
@@ -15618,6 +17101,9 @@
       "pau hana": [
         "after work"
       ],
+      "piko": [
+        "belly-button"
+      ],
       "pilau": [
         "stinky",
         "rotten"
@@ -15626,12 +17112,24 @@
         "trouble",
         "problem"
       ],
+      "pipi": [
+        "beef, cow, bull"
+      ],
+      "pipi kaula": [
+        "dried beef, similar to beef jerky"
+      ],
       "planny": [
         "plenty",
         "lots"
       ],
       "plate lunch": [
         "local meal combo"
+      ],
+      "pohaku": [
+        "a rock"
+      ],
+      "poho": [
+        "useless, wasteful, wasted"
       ],
       "pohō": [
         "waste",
@@ -15649,6 +17147,12 @@
       ],
       "popo": [
         "police"
+      ],
+      "popolo": [
+        "a person of African descent"
+      ],
+      "puaa": [
+        "pig, pork"
       ],
       "pueo": [
         "Hawaiian owl"
@@ -15705,6 +17209,11 @@
         "goodbye",
         "sounds good"
       ],
+      "shoots, brah!": [
+        "alright, brother!",
+        "okay, dude!",
+        "sounds good, bro!"
+      ],
       "shootz": [
         "alright",
         "sounds good"
@@ -15716,6 +17225,11 @@
       "slippahs": [
         "flip-flops",
         "sandals"
+      ],
+      "small kid time": [
+        "when I was a kid",
+        "back in the day",
+        "childhood days"
       ],
       "small kine": [
         "a little bit"
@@ -15772,6 +17286,9 @@
       "taro": [
         "tropical plant with edible root"
       ],
+      "ti": [
+        "a type of plant"
+      ],
       "tita": [
         "tough local girl"
       ],
@@ -15807,6 +17324,9 @@
       "uku": [
         "lice"
       ],
+      "uku pau": [
+        "to pay off completely"
+      ],
       "ukulele": [
         "small four-stringed guitar"
       ],
@@ -15826,6 +17346,9 @@
       ],
       "vog": [
         "volcanic smog"
+      ],
+      "waa": [
+        "canoe"
       ],
       "wahine": [
         "woman"
@@ -15895,6 +17418,11 @@
       "yeah no": [
         "I agree"
       ],
+      "yeah you": [
+        "you're right",
+        "that's right",
+        "I agree with you"
+      ],
       "yeah, no?": [
         "agree, right?"
       ],
@@ -15915,6 +17443,11 @@
       "you know dat": [
         "yes definitely"
       ],
+      "you like eat, eh?": [
+        "you want to eat, right?",
+        "do you want to eat?",
+        "hungry?"
+      ],
       "you stay go?": [
         "are you going?"
       ],
@@ -15924,133 +17457,6 @@
       "zori": [
         "informal footwear",
         "flip-flops"
-      ],
-      "get'um": [
-        "go for it",
-        "give it your all",
-        "seize the opportunity"
-      ],
-      "buss laff": [
-        "laugh hard",
-        "crack up",
-        "burst out laughing"
-      ],
-      "bust 'em up": [
-        "laugh really hard",
-        "crack up completely",
-        "break down laughing"
-      ],
-      "auwe": [
-        "oh my gosh",
-        "oh dear",
-        "expression of shock or dismay"
-      ],
-      "gueren-tee": [
-        "definitely",
-        "for sure",
-        "guaranteed"
-      ],
-      "small kid time": [
-        "when I was a kid",
-        "back in the day",
-        "childhood days"
-      ],
-      "ballah head": [
-        "bald head",
-        "bald person",
-        "no hair"
-      ],
-      "yeah you": [
-        "you're right",
-        "that's right",
-        "I agree with you"
-      ],
-      "eh, you stay wit' da kine?": [
-        "hey, are you with that thingamajig?",
-        "are you with that thing?",
-        "do you have that thing?"
-      ],
-      "shoots, brah!": [
-        "alright, brother!",
-        "okay, dude!",
-        "sounds good, bro!"
-      ],
-      "da bes'!": [
-        "the best!",
-        "awesome!",
-        "excellent!"
-      ],
-      "go mo' bettah": [
-        "go do it better",
-        "do it better",
-        "you should do better"
-      ],
-      "mahalo, for da hookup!": [
-        "thank you for the connection!",
-        "thanks for the favor!",
-        "thank you for hooking me up!"
-      ],
-      "get choke": [
-        "there's a lot",
-        "have plenty",
-        "lots of"
-      ],
-      "make funny": [
-        "to play a joke on someone",
-        "to tease",
-        "to mess around with"
-      ],
-      "howzit, uncle?": [
-        "how are you, mister?",
-        "how's it going, sir?",
-        "hello, older gentleman"
-      ],
-      "ho, da bagah's goin' chicken skin!": [
-        "wow, that guy is getting goosebumps!",
-        "look, he's getting chills!",
-        "that person has goosebumps!"
-      ],
-      "you like eat, eh?": [
-        "you want to eat, right?",
-        "do you want to eat?",
-        "hungry?"
-      ],
-      "da kine, da whole kine": [
-        "that thing, the whole thing",
-        "everything related to that",
-        "all of that stuff"
-      ],
-      "no can, da buggah stay broke": [
-        "can't, the thing is broken",
-        "unable to, it's broken",
-        "no way, it's not working"
-      ],
-      "cruising": [
-        "relaxing",
-        "hanging out",
-        "taking it easy",
-        "driving around leisurely"
-      ],
-      "feel junk": [
-        "feel like crap",
-        "feel like shit",
-        "feel terrible",
-        "feel awful"
-      ],
-      "i like": [
-        "I want",
-        "I would like",
-        "I'd like"
-      ],
-      "feel like": [
-        "seem like",
-        "feels as if",
-        "feels as though"
-      ],
-      "no worries": [
-        "no problem",
-        "it's okay",
-        "don't worry about it"
       ]
     }
   },
@@ -16525,12 +17931,12 @@
       },
       "food": {
         "name": "food",
-        "count": 28,
+        "count": 29,
         "description": ""
       },
       "nature": {
         "name": "nature",
-        "count": 8,
+        "count": 14,
         "description": ""
       },
       "actions": {
@@ -16540,7 +17946,7 @@
       },
       "cultural": {
         "name": "cultural",
-        "count": 24,
+        "count": 62,
         "description": ""
       },
       "descriptions": {
@@ -16568,6 +17974,11 @@
         "count": 20,
         "description": ""
       },
+      "activities": {
+        "name": "activities",
+        "count": 1,
+        "description": ""
+      },
       "clothing": {
         "name": "clothing",
         "count": 3,
@@ -16593,6 +18004,11 @@
         "count": 2,
         "description": ""
       },
+      "places": {
+        "name": "places",
+        "count": 1,
+        "description": ""
+      },
       "architecture": {
         "name": "architecture",
         "count": 1,
@@ -16616,6 +18032,7 @@
     },
     "tags": [
       "actions",
+      "activities",
       "agreement",
       "animals",
       "appearance",
@@ -16655,6 +18072,7 @@
       "nostalgia",
       "numbers",
       "people",
+      "places",
       "portuguese",
       "praise",
       "quantity",
