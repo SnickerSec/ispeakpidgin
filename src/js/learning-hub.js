@@ -296,19 +296,31 @@ class LearningHub {
     }
 
     updateProgress() {
-        const totalLessons = Object.values(this.lessons).flat().length;
+        // Get all valid lesson IDs
+        const allLessonIds = Object.values(this.lessons).flat().map(l => l.id);
+
+        // Clean up progress - remove any invalid lesson IDs
+        this.progress.completedLessons = this.progress.completedLessons.filter(id =>
+            allLessonIds.includes(id)
+        );
+
+        const totalLessons = allLessonIds.length;
         const completedCount = this.progress.completedLessons.length;
-        const overallPercentage = Math.round((completedCount / totalLessons) * 100);
+        const overallPercentage = Math.min(100, Math.round((completedCount / totalLessons) * 100));
 
         // Update overall progress
-        document.getElementById('overallProgress').textContent = `${overallPercentage}%`;
-        document.getElementById('lessonsCompleted').textContent = `${completedCount}/${totalLessons}`;
+        const progressEl = document.getElementById('overallProgress');
+        const completedEl = document.getElementById('lessonsCompleted');
+        const levelEl = document.getElementById('userLevel');
+
+        if (progressEl) progressEl.textContent = `${overallPercentage}%`;
+        if (completedEl) completedEl.textContent = `${completedCount}/${totalLessons}`;
 
         // Update user level
         let userLevel = 'Beginner';
-        if (completedCount >= 20) userLevel = 'Advanced';
-        else if (completedCount >= 10) userLevel = 'Intermediate';
-        document.getElementById('userLevel').textContent = userLevel;
+        if (completedCount >= 12) userLevel = 'Advanced';
+        else if (completedCount >= 6) userLevel = 'Intermediate';
+        if (levelEl) levelEl.textContent = userLevel;
 
         // Update progress bars for each level
         ['beginner', 'intermediate', 'advanced'].forEach(level => {
@@ -321,6 +333,9 @@ class LearningHub {
                 progressBar.style.width = `${percentage}%`;
             }
         });
+
+        // Save cleaned progress
+        this.saveProgress();
     }
 
     loadDailyChallenge() {
