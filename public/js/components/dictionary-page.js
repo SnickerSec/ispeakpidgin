@@ -164,10 +164,12 @@ function setupAlphabetBrowser() {
                 if (isActive) {
                     alphabetBtns.forEach(b => {
                         b.classList.remove('active');
-                        b.style.background = ''; // Reset to original bg-gray-100
-                        b.style.color = ''; // Reset to original color
-                        b.style.transform = ''; // Reset transform
+                        b.style.removeProperty('background');
+                        b.style.removeProperty('color');
+                        b.style.removeProperty('transform');
                     });
+                    // Force blur to remove hover state
+                    btn.blur();
                     loadInitialEntries(); // Show all entries
                     updateSearchStats(pidginDictionary.getTotalCount(), '', 'All Entries');
                     return;
@@ -176,9 +178,9 @@ function setupAlphabetBrowser() {
                 // Update button styles
                 alphabetBtns.forEach(b => {
                     b.classList.remove('active');
-                    b.style.background = ''; // Reset to original bg-gray-100
-                    b.style.color = ''; // Reset to original color
-                    b.style.transform = ''; // Reset transform
+                    b.style.removeProperty('background');
+                    b.style.removeProperty('color');
+                    b.style.removeProperty('transform');
                 });
                 btn.classList.add('active');
 
