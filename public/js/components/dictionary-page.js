@@ -162,14 +162,24 @@ function setupAlphabetBrowser() {
 
                 // If clicking the same letter again, clear the filter
                 if (isActive) {
-                    alphabetBtns.forEach(b => b.classList.remove('active'));
+                    alphabetBtns.forEach(b => {
+                        b.classList.remove('active');
+                        b.style.background = ''; // Reset to original bg-gray-100
+                        b.style.color = ''; // Reset to original color
+                        b.style.transform = ''; // Reset transform
+                    });
                     loadInitialEntries(); // Show all entries
                     updateSearchStats(pidginDictionary.getTotalCount(), '', 'All Entries');
                     return;
                 }
 
                 // Update button styles
-                alphabetBtns.forEach(b => b.classList.remove('active'));
+                alphabetBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.style.background = ''; // Reset to original bg-gray-100
+                    b.style.color = ''; // Reset to original color
+                    b.style.transform = ''; // Reset transform
+                });
                 btn.classList.add('active');
 
                 const results = pidginDictionary.getByLetter(letter.toLowerCase());
