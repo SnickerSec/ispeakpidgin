@@ -181,6 +181,41 @@ async function initDailyPhrase() {
         });
     }
 
+    // Set up share phrase button
+    const shareBtn = document.getElementById('share-phrase');
+    if (shareBtn) {
+        shareBtn.addEventListener('click', async () => {
+            if (window.currentDailyPhrase) {
+                const shareData = {
+                    title: 'Today\'s Hawaiian Pidgin Phrase',
+                    text: `${window.currentDailyPhrase.pidgin} - ${window.currentDailyPhrase.english}\n\nLearn more Hawaiian Pidgin at ChokePidgin.com 🌴`,
+                    url: window.location.origin
+                };
+
+                try {
+                    if (navigator.share) {
+                        // Use Web Share API if available
+                        await navigator.share(shareData);
+                        console.log('Phrase shared successfully');
+                    } else {
+                        // Fallback to clipboard
+                        const textToShare = `${shareData.title}\n\n${shareData.text}\n${shareData.url}`;
+                        await navigator.clipboard.writeText(textToShare);
+
+                        // Visual feedback
+                        const originalText = shareBtn.innerHTML;
+                        shareBtn.innerHTML = '✓ Copied to Clipboard!';
+                        setTimeout(() => {
+                            shareBtn.innerHTML = originalText;
+                        }, 2000);
+                    }
+                } catch (err) {
+                    console.log('Error sharing:', err);
+                }
+            }
+        });
+    }
+
     // Set up generate new phrase button
     if (generateBtn) {
         generateBtn.addEventListener('click', async () => {
