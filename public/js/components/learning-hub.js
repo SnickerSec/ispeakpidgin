@@ -8,6 +8,38 @@ class LearningHub {
     }
 
     initializeLessons() {
+        // Use lessons data from lessons.js if available
+        if (typeof lessonsData !== 'undefined') {
+            // Map lessonsData structure to match LearningHub format
+            const mapLesson = (lesson, index, level) => {
+                const idPrefix = level === 'beginner' ? 'b' : level === 'intermediate' ? 'i' : 'a';
+                return {
+                    id: lesson.id || `${idPrefix}${index + 1}`,
+                    title: lesson.title,
+                    description: lesson.content?.culturalNote || 'Learn essential Pidgin vocabulary and expressions',
+                    duration: '10-15 min',
+                    points: 10 + (index * 2),
+                    content: lesson.content ? {
+                        vocabulary: lesson.content.vocabulary?.map(v => ({
+                            pidgin: v.pidgin,
+                            english: v.english,
+                            pronunciation: v.pidgin.toUpperCase()
+                        })) || [],
+                        examples: lesson.content.vocabulary?.map(v => v.example).filter(e => e) || [],
+                        culturalNote: lesson.content.culturalNote,
+                        practice: lesson.content.practice
+                    } : null
+                };
+            };
+
+            return {
+                beginner: lessonsData.beginner.map((lesson, i) => mapLesson(lesson, i, 'beginner')),
+                intermediate: lessonsData.intermediate.map((lesson, i) => mapLesson(lesson, i, 'intermediate')),
+                advanced: lessonsData.advanced.map((lesson, i) => mapLesson(lesson, i, 'advanced'))
+            };
+        }
+
+        // Fallback to original hardcoded data if lessonsData is not available
         return {
             beginner: [
                 {
@@ -19,259 +51,14 @@ class LearningHub {
                     content: {
                         vocabulary: [
                             { pidgin: 'Howzit', english: 'Hello/How are you', pronunciation: 'HOW-zit' },
-                            { pidgin: 'Aloha', english: 'Hello/Goodbye/Love', pronunciation: 'ah-LOH-hah' },
-                            { pidgin: 'A hui hou', english: 'See you later', pronunciation: 'ah HOO-ee ho' },
-                            { pidgin: 'Mahalo', english: 'Thank you', pronunciation: 'mah-HAH-loh' },
-                            { pidgin: 'No worries', english: "You're welcome", pronunciation: 'no WOR-eez' }
+                            { pidgin: 'Aloha', english: 'Hello/Goodbye/Love', pronunciation: 'ah-LOH-hah' }
                         ],
-                        examples: [
-                            'Howzit braddah! - Hey brother, how are you!',
-                            'Mahalo plenty - Thank you very much',
-                            'A hui hou, yeah? - See you later, okay?'
-                        ]
+                        examples: ['Howzit braddah! - Hey brother, how are you!']
                     }
-                },
-                {
-                    id: 'b2',
-                    title: 'Common Expressions',
-                    description: 'Essential everyday phrases you\'ll hear in Hawaii',
-                    duration: '15 min',
-                    points: 15,
-                    content: {
-                        vocabulary: [
-                            { pidgin: 'Da kine', english: 'The thing/stuff', pronunciation: 'dah KYNE' },
-                            { pidgin: 'Broke da mouth', english: 'Delicious', pronunciation: 'broke dah mowt' },
-                            { pidgin: 'Pau hana', english: 'After work', pronunciation: 'pow HAH-nah' },
-                            { pidgin: 'Grindz', english: 'Food', pronunciation: 'GRINDZ' },
-                            { pidgin: 'Shoots', english: 'Okay/Sure', pronunciation: 'SHOOTS' }
-                        ]
-                    }
-                },
-                {
-                    id: 'b3',
-                    title: 'Basic Questions',
-                    description: 'How to ask simple questions in Pidgin',
-                    duration: '12 min',
-                    points: 12,
-                    content: {
-                        vocabulary: [
-                            { pidgin: 'Wea you stay?', english: 'Where are you?', pronunciation: 'WAY-ah you stay' },
-                            { pidgin: 'You like?', english: 'Do you want?', pronunciation: 'you LIKE' },
-                            { pidgin: 'How much?', english: 'What\'s the price?', pronunciation: 'how MUCH' },
-                            { pidgin: 'Wat dat?', english: 'What is that?', pronunciation: 'wot DAT' }
-                        ]
-                    }
-                },
-                {
-                    id: 'b4',
-                    title: 'Numbers and Counting',
-                    description: 'Learn to count and use numbers in Pidgin context',
-                    duration: '10 min',
-                    points: 10
-                },
-                {
-                    id: 'b5',
-                    title: 'Family Terms',
-                    description: 'Words for family members and relationships',
-                    duration: '12 min',
-                    points: 12
-                },
-                {
-                    id: 'b6',
-                    title: 'Directions',
-                    description: 'Navigate like a local with mauka and makai',
-                    duration: '15 min',
-                    points: 15
-                },
-                {
-                    id: 'b7',
-                    title: 'Food and Dining',
-                    description: 'Essential vocabulary for eating out',
-                    duration: '15 min',
-                    points: 15
-                },
-                {
-                    id: 'b8',
-                    title: 'Time Expressions',
-                    description: 'Talk about time the local way',
-                    duration: '10 min',
-                    points: 10
-                },
-                {
-                    id: 'b9',
-                    title: 'Basic Emotions',
-                    description: 'Express feelings in Pidgin',
-                    duration: '12 min',
-                    points: 12
-                },
-                {
-                    id: 'b10',
-                    title: 'Weather Talk',
-                    description: 'Discuss the weather island style',
-                    duration: '10 min',
-                    points: 10
                 }
             ],
-            intermediate: [
-                {
-                    id: 'i1',
-                    title: 'Complex Sentences',
-                    description: 'Build longer, more natural sentences',
-                    duration: '20 min',
-                    points: 20,
-                    content: {
-                        vocabulary: [
-                            { pidgin: 'No can', english: 'Cannot/Unable to', pronunciation: 'no CAN' },
-                            { pidgin: 'Bumbye', english: 'Later/Eventually', pronunciation: 'BUM-bye' },
-                            { pidgin: 'Fo real', english: 'Really/Seriously', pronunciation: 'foh REEL' },
-                            { pidgin: 'Planny', english: 'Plenty/A lot', pronunciation: 'PLAN-ee' }
-                        ]
-                    }
-                },
-                {
-                    id: 'i2',
-                    title: 'Local Slang',
-                    description: 'Contemporary slang and youth expressions',
-                    duration: '18 min',
-                    points: 18
-                },
-                {
-                    id: 'i3',
-                    title: 'Storytelling Basics',
-                    description: 'Learn to tell stories Pidgin style',
-                    duration: '25 min',
-                    points: 25
-                },
-                {
-                    id: 'i4',
-                    title: 'Workplace Pidgin',
-                    description: 'Professional contexts and office talk',
-                    duration: '20 min',
-                    points: 20
-                },
-                {
-                    id: 'i5',
-                    title: 'Sports and Activities',
-                    description: 'Talk about surfing, hiking, and island sports',
-                    duration: '18 min',
-                    points: 18
-                },
-                {
-                    id: 'i6',
-                    title: 'Island Geography',
-                    description: 'Place names and locations',
-                    duration: '15 min',
-                    points: 15
-                },
-                {
-                    id: 'i7',
-                    title: 'Cultural Events',
-                    description: 'Vocabulary for luaus, festivals, and gatherings',
-                    duration: '22 min',
-                    points: 22
-                },
-                {
-                    id: 'i8',
-                    title: 'Humor and Jokes',
-                    description: 'Understanding local humor',
-                    duration: '20 min',
-                    points: 20
-                },
-                {
-                    id: 'i9',
-                    title: 'Arguments and Debates',
-                    description: 'Express disagreement respectfully',
-                    duration: '18 min',
-                    points: 18
-                },
-                {
-                    id: 'i10',
-                    title: 'Music and Entertainment',
-                    description: 'Talk about local music and shows',
-                    duration: '15 min',
-                    points: 15
-                }
-            ],
-            advanced: [
-                {
-                    id: 'a1',
-                    title: 'Cultural Nuances',
-                    description: 'Deep dive into cultural context and respect',
-                    duration: '30 min',
-                    points: 30,
-                    content: {
-                        vocabulary: [
-                            { pidgin: 'Kapu', english: 'Forbidden/Sacred', pronunciation: 'KAH-poo' },
-                            { pidgin: 'Kokua', english: 'Help/Cooperation', pronunciation: 'koh-KOO-ah' },
-                            { pidgin: 'Pono', english: 'Righteousness/Balance', pronunciation: 'POH-noh' },
-                            { pidgin: 'Ohana', english: 'Family', pronunciation: 'oh-HAH-nah' }
-                        ]
-                    }
-                },
-                {
-                    id: 'a2',
-                    title: 'Historical Context',
-                    description: 'Evolution of Hawaiian Pidgin',
-                    duration: '35 min',
-                    points: 35
-                },
-                {
-                    id: 'a3',
-                    title: 'Code Switching',
-                    description: 'When to use Pidgin vs Standard English',
-                    duration: '28 min',
-                    points: 28
-                },
-                {
-                    id: 'a4',
-                    title: 'Regional Variations',
-                    description: 'Differences between islands',
-                    duration: '25 min',
-                    points: 25
-                },
-                {
-                    id: 'a5',
-                    title: 'Literary Pidgin',
-                    description: 'Reading and writing in Pidgin',
-                    duration: '32 min',
-                    points: 32
-                },
-                {
-                    id: 'a6',
-                    title: 'Media and Pop Culture',
-                    description: 'Pidgin in movies, music, and social media',
-                    duration: '28 min',
-                    points: 28
-                },
-                {
-                    id: 'a7',
-                    title: 'Business Communication',
-                    description: 'Professional use of Pidgin',
-                    duration: '30 min',
-                    points: 30
-                },
-                {
-                    id: 'a8',
-                    title: 'Teaching Pidgin',
-                    description: 'How to help others learn',
-                    duration: '35 min',
-                    points: 35
-                },
-                {
-                    id: 'a9',
-                    title: 'Language Preservation',
-                    description: 'The future of Hawaiian Pidgin',
-                    duration: '30 min',
-                    points: 30
-                },
-                {
-                    id: 'a10',
-                    title: 'Master Certification',
-                    description: 'Final comprehensive assessment',
-                    duration: '45 min',
-                    points: 50
-                }
-            ]
+            intermediate: [],
+            advanced: []
         };
     }
 
@@ -416,6 +203,20 @@ class LearningHub {
                                     </div>
                                 `).join('')}
                             </div>
+                        </div>
+                    ` : ''}
+
+                    ${content.culturalNote ? `
+                        <div class="mb-6 bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded">
+                            <h3 class="text-sm font-semibold text-yellow-800 mb-1">🌺 Cultural Note</h3>
+                            <p class="text-sm text-yellow-700">${content.culturalNote}</p>
+                        </div>
+                    ` : ''}
+
+                    ${content.practice ? `
+                        <div class="mb-6 bg-green-50 border-l-4 border-green-500 p-4 rounded">
+                            <h3 class="text-sm font-semibold text-green-800 mb-1">✨ Practice Tip</h3>
+                            <p class="text-sm text-green-700">${content.practice}</p>
                         </div>
                     ` : ''}
 
