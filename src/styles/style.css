@@ -783,3 +783,16 @@ button:focus, a:focus, input:focus, textarea:focus {
         font-size: 1.5rem;
     }
 }
+
+/* Fix for gradient text clipping descenders (y, g, p, q, j) */
+.bg-clip-text {
+    line-height: 1.3 !important;
+    padding-bottom: 0.15em !important;
+    display: inline-block !important;
+}
+
+/* Specific fix for phrase display */
+#phrase-pidgin {
+    line-height: 1.3 !important;
+    padding-bottom: 0.2em !important;
+}
