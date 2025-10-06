@@ -157,11 +157,21 @@ function setupAlphabetBrowser() {
         const alphabetBtns = alphabetBrowser.querySelectorAll('.alphabet-btn:not([disabled])');
         alphabetBtns.forEach(btn => {
             btn.addEventListener('click', () => {
+                const letter = btn.dataset.letter;
+                const isActive = btn.classList.contains('active');
+
+                // If clicking the same letter again, clear the filter
+                if (isActive) {
+                    alphabetBtns.forEach(b => b.classList.remove('active'));
+                    loadInitialEntries(); // Show all entries
+                    updateSearchStats(pidginDictionary.getTotalCount(), '', 'All Entries');
+                    return;
+                }
+
                 // Update button styles
                 alphabetBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
 
-                const letter = btn.dataset.letter;
                 const results = pidginDictionary.getByLetter(letter.toLowerCase());
                 displayResults(results);
                 updateSearchStats(results.length, '', `Letter "${letter}"`);
