@@ -291,12 +291,8 @@ class LearningHub {
     }
 
     isLessonLocked(level, index) {
-        // First lesson of each level is always unlocked
-        if (index === 0) return false;
-
-        // Check if previous lesson is completed
-        const previousLesson = this.lessons[level][index - 1];
-        return !this.isLessonCompleted(previousLesson.id);
+        // All lessons are unlocked - users can choose what they want to learn
+        return false;
     }
 
     updateProgress() {
