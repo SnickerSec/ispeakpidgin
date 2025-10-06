@@ -342,63 +342,251 @@ class LearningHub {
     }
 
     startPracticeSession() {
-        // Get random vocabulary from completed lessons
-        const completedVocab = [];
-        this.progress.completedLessons.forEach(lessonId => {
-            Object.values(this.lessons).forEach(levelLessons => {
-                const lesson = levelLessons.find(l => l.id === lessonId);
-                if (lesson && lesson.content && lesson.content.vocabulary) {
-                    completedVocab.push(...lesson.content.vocabulary);
-                }
-            });
-        });
-
-        if (completedVocab.length === 0) {
-            this.showNotification('Complete some lessons first to unlock practice sessions!');
-            return;
-        }
-
-        // Create practice modal
-        const randomWord = completedVocab[Math.floor(Math.random() * completedVocab.length)];
-        this.showPracticeQuestion(randomWord);
-    }
-
-    showPracticeQuestion(word) {
+        // Show level selection modal first
         const modal = document.createElement('div');
         modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
 
         modal.innerHTML = `
             <div class="bg-white rounded-lg max-w-md w-full p-6">
-                <h3 class="text-xl font-bold mb-4">Quick Practice</h3>
-                <p class="mb-4">What does "<span class="font-bold text-purple-600">${word.pidgin}</span>" mean?</p>
+                <h3 class="text-2xl font-bold mb-4">Choose Practice Level</h3>
+                <p class="text-gray-600 mb-6">Select a difficulty level for your 5-question practice session</p>
 
-                <div class="space-y-2 mb-4">
-                    <button class="quiz-option w-full text-left" data-answer="${word.english}">${word.english}</button>
-                    <button class="quiz-option w-full text-left" data-answer="wrong1">Something else</button>
-                    <button class="quiz-option w-full text-left" data-answer="wrong2">Another thing</button>
+                <div class="space-y-3">
+                    <button class="level-btn w-full p-4 bg-green-100 hover:bg-green-200 rounded-lg text-left transition" data-level="beginner">
+                        <div class="font-bold text-green-700">🌱 Beginner</div>
+                        <div class="text-sm text-green-600">Basic greetings, food, and everyday phrases</div>
+                    </button>
+                    <button class="level-btn w-full p-4 bg-yellow-100 hover:bg-yellow-200 rounded-lg text-left transition" data-level="intermediate">
+                        <div class="font-bold text-yellow-700">⭐ Intermediate</div>
+                        <div class="text-sm text-yellow-600">Complex sentences and local slang</div>
+                    </button>
+                    <button class="level-btn w-full p-4 bg-purple-100 hover:bg-purple-200 rounded-lg text-left transition" data-level="advanced">
+                        <div class="font-bold text-purple-700">🏆 Advanced</div>
+                        <div class="text-sm text-purple-600">Cultural nuances and grammar patterns</div>
+                    </button>
                 </div>
 
-                <button class="close-practice w-full px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">Skip</button>
+                <button class="close-practice w-full mt-4 px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">Cancel</button>
             </div>
         `;
 
         document.body.appendChild(modal);
 
-        // Handle answer selection
-        modal.querySelectorAll('.quiz-option').forEach(btn => {
+        // Handle level selection
+        modal.querySelectorAll('.level-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                const isCorrect = e.target.dataset.answer === word.english;
-                e.target.classList.add(isCorrect ? 'correct' : 'incorrect');
-
-                setTimeout(() => {
-                    document.body.removeChild(modal);
-                    this.showNotification(isCorrect ? 'Correct! Well done!' : 'Not quite, keep practicing!');
-                }, 1000);
+                const level = e.currentTarget.dataset.level;
+                document.body.removeChild(modal);
+                this.startQuiz(level);
             });
         });
 
         // Close button
         modal.querySelector('.close-practice').addEventListener('click', () => {
+            document.body.removeChild(modal);
+        });
+    }
+
+    startQuiz(level) {
+        // Get vocabulary from selected level
+        const levelVocab = [];
+        this.lessons[level].forEach(lesson => {
+            if (lesson.content && lesson.content.vocabulary) {
+                levelVocab.push(...lesson.content.vocabulary.map(v => ({
+                    ...v,
+                    level: level
+                })));
+            }
+        });
+
+        if (levelVocab.length < 5) {
+            this.showNotification('Not enough vocabulary for this level. Try another level!');
+            return;
+        }
+
+        // Select 5 random questions
+        const questions = [];
+        const usedIndices = new Set();
+        while (questions.length < 5) {
+            const randomIndex = Math.floor(Math.random() * levelVocab.length);
+            if (!usedIndices.has(randomIndex)) {
+                usedIndices.add(randomIndex);
+                questions.push(levelVocab[randomIndex]);
+            }
+        }
+
+        this.showQuizModal(questions, level);
+    }
+
+    showQuizModal(questions, level) {
+        let currentQuestion = 0;
+        let score = 0;
+        let modal;
+
+        const showQuestion = () => {
+            if (currentQuestion >= questions.length) {
+                this.showQuizResults(score, questions.length, level, modal);
+                return;
+            }
+
+            const word = questions[currentQuestion];
+            const allVocab = Object.values(this.lessons).flat()
+                .filter(l => l.content && l.content.vocabulary)
+                .flatMap(l => l.content.vocabulary);
+
+            // Generate wrong answers
+            const wrongAnswers = [];
+            while (wrongAnswers.length < 3) {
+                const randomVocab = allVocab[Math.floor(Math.random() * allVocab.length)];
+                if (randomVocab.english !== word.english && !wrongAnswers.includes(randomVocab.english)) {
+                    wrongAnswers.push(randomVocab.english);
+                }
+            }
+
+            // Combine and shuffle answers
+            const answers = [word.english, ...wrongAnswers].sort(() => Math.random() - 0.5);
+
+            if (modal) {
+                document.body.removeChild(modal);
+            }
+
+            modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+
+            const levelColors = {
+                beginner: 'green',
+                intermediate: 'yellow',
+                advanced: 'purple'
+            };
+            const color = levelColors[level];
+
+            modal.innerHTML = `
+                <div class="bg-white rounded-lg max-w-md w-full p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-sm font-semibold text-${color}-600 uppercase">${level}</span>
+                        <span class="text-sm text-gray-500">Question ${currentQuestion + 1}/5</span>
+                    </div>
+
+                    <div class="mb-2">
+                        <div class="flex gap-1 mb-4">
+                            ${questions.map((_, i) => `
+                                <div class="flex-1 h-2 rounded ${i < currentQuestion ? 'bg-green-500' : i === currentQuestion ? 'bg-' + color + '-500' : 'bg-gray-200'}"></div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <h3 class="text-xl font-bold mb-2">What does this mean?</h3>
+                    <p class="text-3xl font-bold text-${color}-600 mb-6 text-center py-4">${word.pidgin}</p>
+
+                    <div class="space-y-2 mb-4">
+                        ${answers.map(answer => `
+                            <button class="quiz-option w-full text-left px-4 py-3 border-2 border-gray-200 rounded-lg hover:border-${color}-500 hover:bg-${color}-50 transition" data-answer="${answer}" data-correct="${word.english}">
+                                ${answer}
+                            </button>
+                        `).join('')}
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">Score: ${score}/${currentQuestion}</span>
+                        <button class="close-quiz px-4 py-2 text-gray-500 hover:text-gray-700">Exit Quiz</button>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+
+            // Handle answer selection
+            modal.querySelectorAll('.quiz-option').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const selected = e.target.dataset.answer;
+                    const correct = e.target.dataset.correct;
+                    const isCorrect = selected === correct;
+
+                    if (isCorrect) {
+                        score++;
+                        e.target.classList.add('bg-green-500', 'text-white', 'border-green-500');
+                    } else {
+                        e.target.classList.add('bg-red-500', 'text-white', 'border-red-500');
+                        // Show correct answer
+                        modal.querySelectorAll('.quiz-option').forEach(b => {
+                            if (b.dataset.answer === correct) {
+                                b.classList.add('bg-green-500', 'text-white', 'border-green-500');
+                            }
+                        });
+                    }
+
+                    // Disable all buttons
+                    modal.querySelectorAll('.quiz-option').forEach(b => {
+                        b.disabled = true;
+                        b.classList.add('cursor-not-allowed');
+                    });
+
+                    // Next question after delay
+                    setTimeout(() => {
+                        currentQuestion++;
+                        showQuestion();
+                    }, 1500);
+                });
+            });
+
+            // Close button
+            modal.querySelector('.close-quiz').addEventListener('click', () => {
+                document.body.removeChild(modal);
+            });
+        };
+
+        showQuestion();
+    }
+
+    showQuizResults(score, total, level, quizModal) {
+        if (quizModal) {
+            document.body.removeChild(quizModal);
+        }
+
+        const percentage = Math.round((score / total) * 100);
+        let message = '';
+        let emoji = '';
+
+        if (percentage >= 80) {
+            message = 'Excellent work!';
+            emoji = '🎉';
+        } else if (percentage >= 60) {
+            message = 'Good job!';
+            emoji = '👍';
+        } else {
+            message = 'Keep practicing!';
+            emoji = '💪';
+        }
+
+        const modal = document.createElement('div');
+        modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+
+        modal.innerHTML = `
+            <div class="bg-white rounded-lg max-w-md w-full p-8 text-center">
+                <div class="text-6xl mb-4">${emoji}</div>
+                <h3 class="text-2xl font-bold mb-2">${message}</h3>
+                <p class="text-4xl font-bold text-purple-600 mb-4">${score}/${total}</p>
+                <p class="text-gray-600 mb-6">${percentage}% correct</p>
+
+                <div class="space-y-2">
+                    <button class="retry-quiz w-full px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-semibold">
+                        Practice Again
+                    </button>
+                    <button class="close-results w-full px-6 py-3 bg-gray-200 rounded-lg hover:bg-gray-300">
+                        Close
+                    </button>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        modal.querySelector('.retry-quiz').addEventListener('click', () => {
+            document.body.removeChild(modal);
+            this.startPracticeSession();
+        });
+
+        modal.querySelector('.close-results').addEventListener('click', () => {
             document.body.removeChild(modal);
         });
     }
