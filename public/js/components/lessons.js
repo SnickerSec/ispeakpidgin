@@ -88,19 +88,23 @@ const lessonsData = {
         },
         {
             id: 'numbers-time',
-            title: 'Numbers & Time',
-            icon: '⏰',
+            title: 'Numbers & Counting',
+            icon: '🔢',
             content: {
                 vocabulary: [
                     { pidgin: 'One', english: 'A/An/One', example: 'I like one plate lunch.' },
+                    { pidgin: 'Two', english: 'Two', example: 'Give me two shaka, brah!' },
+                    { pidgin: 'Tree', english: 'Three', example: 'I get tree kids.' },
+                    { pidgin: 'Fo\'', english: 'Four', example: 'We stay fo\' people.' },
+                    { pidgin: 'Five', english: 'Five', example: 'Da movie start at five o\'clock.' },
                     { pidgin: 'Two-two', english: 'Two each', example: 'Give everybody two-two cookies.' },
                     { pidgin: 'Plenny', english: 'A lot/Many', example: 'Get plenny fish in da ocean.' },
                     { pidgin: 'Small kine', english: 'A little bit', example: 'Just put small kine salt.' },
-                    { pidgin: 'Long time', english: 'A long time', example: 'I no see you fo\' long time!' },
-                    { pidgin: 'Right now', english: 'Immediately', example: 'Come here right now!' }
+                    { pidgin: 'Choke', english: 'A lot/Plenty', example: 'Get choke people at da beach!' },
+                    { pidgin: 'How much', english: 'How many/How much', example: 'How much you like?' }
                 ],
-                culturalNote: 'Pidgin uses "one" where English uses "a" or "an". Time expressions are often more relaxed and approximate.',
-                practice: 'Try using "one" instead of "a" when you speak.'
+                culturalNote: 'In Pidgin, "tree" is used for "three" and "fo\'" for "four". Numbers are often simplified or said with local pronunciation. "One" replaces "a/an" in most cases.',
+                practice: 'Count to ten using Pidgin pronunciation: one, two, tree, fo\', five, six, seven, eight, nine, ten!'
             }
         }
     ],
