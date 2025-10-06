@@ -168,10 +168,17 @@ function setupAlphabetBrowser() {
                         b.style.removeProperty('color');
                         b.style.removeProperty('transform');
                     });
-                    // Force reset to original state by adding no-hover class temporarily
+                    // Force reset to original state by adding no-hover class
                     btn.classList.add('no-hover');
                     btn.blur();
-                    setTimeout(() => btn.classList.remove('no-hover'), 300);
+
+                    // Remove no-hover class when mouse leaves the button
+                    const removeNoHover = () => {
+                        btn.classList.remove('no-hover');
+                        btn.removeEventListener('mouseleave', removeNoHover);
+                    };
+                    btn.addEventListener('mouseleave', removeNoHover);
+
                     loadInitialEntries(); // Show all entries
                     updateSearchStats(pidginDictionary.getTotalCount(), '', 'All Entries');
                     return;
