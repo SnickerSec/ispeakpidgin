@@ -786,13 +786,20 @@ button:focus, a:focus, input:focus, textarea:focus {
 
 /* Fix for gradient text clipping descenders (y, g, p, q, j) */
 .bg-clip-text {
-    line-height: 1.3 !important;
-    padding-bottom: 0.15em !important;
+    line-height: 1.4 !important;
+    padding-bottom: 0.25em !important;
     display: inline-block !important;
 }
 
 /* Specific fix for phrase display */
 #phrase-pidgin {
-    line-height: 1.3 !important;
-    padding-bottom: 0.2em !important;
+    line-height: 1.4 !important;
+    padding-bottom: 0.3em !important;
+}
+
+/* Brand font fix for navigation */
+.brand-font {
+    line-height: 1.5 !important;
+    padding-bottom: 0.3em !important;
+    display: inline-block !important;
 }
