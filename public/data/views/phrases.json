@@ -2,8 +2,8 @@
   "metadata": {
     "version": "3.0",
     "viewType": "phrases",
-    "lastUpdated": "2025-10-05",
-    "totalPhrases": 991
+    "lastUpdated": "2025-10-06",
+    "totalPhrases": 1001
   },
   "phrases": [
     {
@@ -12847,6 +12847,138 @@
         "expressions",
         "japanese"
       ]
+    },
+    {
+      "pidgin": "We go grindz at da food truck",
+      "english": "Let's go eat",
+      "category": "food",
+      "context": "Standard invitation for food",
+      "pronunciation": "wee go GRINDZ",
+      "source": "dictionary:we_go_grindz_phrase",
+      "difficulty": "beginner",
+      "tags": [
+        "food",
+        "common",
+        "invitation"
+      ]
+    },
+    {
+      "pidgin": "Dis poke so ono, broke da mouth!",
+      "english": "That's really delicious",
+      "category": "food",
+      "context": "High compliment for food",
+      "pronunciation": "soh OH-no, broke dah mout",
+      "source": "dictionary:so_ono_broke_da_mouth_phrase",
+      "difficulty": "intermediate",
+      "tags": [
+        "food",
+        "compliment"
+      ]
+    },
+    {
+      "pidgin": "I stay pau with dat project",
+      "english": "I'm busy right now",
+      "category": "expressions",
+      "context": "Finished or occupied",
+      "pronunciation": "eye stay POW wit dat",
+      "source": "dictionary:i_stay_pau_phrase",
+      "difficulty": "intermediate",
+      "tags": [
+        "common",
+        "status"
+      ]
+    },
+    {
+      "pidgin": "Eh, chance 'um, no scared!",
+      "english": "You should try it",
+      "category": "expressions",
+      "context": "Friendly encouragement",
+      "pronunciation": "eh, chance um",
+      "source": "dictionary:chance_um_phrase",
+      "difficulty": "intermediate",
+      "tags": [
+        "encouragement",
+        "common"
+      ]
+    },
+    {
+      "pidgin": "Cannot go beach, I get choke work",
+      "english": "I have a lot of work",
+      "category": "expressions",
+      "context": "Expressing large quantity",
+      "pronunciation": "eye get choke work",
+      "source": "dictionary:i_get_choke_work_phrase",
+      "difficulty": "beginner",
+      "tags": [
+        "common",
+        "work"
+      ]
+    },
+    {
+      "pidgin": "I stay tired, I hele to da hale",
+      "english": "I'm going home",
+      "category": "expressions",
+      "context": "Going home",
+      "pronunciation": "eye HEH-leh to dah HAH-leh",
+      "source": "dictionary:i_hele_to_da_hale_phrase",
+      "difficulty": "intermediate",
+      "tags": [
+        "hawaiian",
+        "location"
+      ]
+    },
+    {
+      "pidgin": "Gotta go, I spock you bumbye",
+      "english": "I'll see you later",
+      "category": "greetings",
+      "context": "Friendly goodbye",
+      "pronunciation": "eye spock you BUM-bye",
+      "source": "dictionary:i_spock_you_bumbye_phrase",
+      "difficulty": "intermediate",
+      "tags": [
+        "farewell",
+        "common"
+      ]
+    },
+    {
+      "pidgin": "You like beer? Small kine, eh.",
+      "english": "Just a little bit",
+      "category": "expressions",
+      "context": "Small quantity",
+      "pronunciation": "small kyne, eh",
+      "source": "dictionary:small_kine_eh_phrase",
+      "difficulty": "beginner",
+      "tags": [
+        "common",
+        "quantity"
+      ]
+    },
+    {
+      "pidgin": "You pau with dat plate lunch?",
+      "english": "Are you done with that?",
+      "category": "expressions",
+      "context": "Asking if finished",
+      "pronunciation": "you POW wit dat",
+      "source": "dictionary:you_pau_with_dat_phrase",
+      "difficulty": "beginner",
+      "tags": [
+        "common",
+        "question"
+      ]
+    },
+    {
+      "pidgin": "Eh brah, where da lua stay?",
+      "english": "Where is the restroom?",
+      "category": "expressions",
+      "context": "Asking for bathroom",
+      "pronunciation": "where dah LOO-ah stay",
+      "source": "dictionary:where_da_lua_stay_phrase",
+      "difficulty": "intermediate",
+      "tags": [
+        "question",
+        "location",
+        "hawaiian"
+      ]
     }
   ],
   "categorized": {
@@ -17781,6 +17913,98 @@
           "expressions",
           "japanese"
         ]
+      },
+      {
+        "pidgin": "I stay pau with dat project",
+        "english": "I'm busy right now",
+        "category": "expressions",
+        "context": "Finished or occupied",
+        "pronunciation": "eye stay POW wit dat",
+        "source": "dictionary:i_stay_pau_phrase",
+        "difficulty": "intermediate",
+        "tags": [
+          "common",
+          "status"
+        ]
+      },
+      {
+        "pidgin": "Eh, chance 'um, no scared!",
+        "english": "You should try it",
+        "category": "expressions",
+        "context": "Friendly encouragement",
+        "pronunciation": "eh, chance um",
+        "source": "dictionary:chance_um_phrase",
+        "difficulty": "intermediate",
+        "tags": [
+          "encouragement",
+          "common"
+        ]
+      },
+      {
+        "pidgin": "Cannot go beach, I get choke work",
+        "english": "I have a lot of work",
+        "category": "expressions",
+        "context": "Expressing large quantity",
+        "pronunciation": "eye get choke work",
+        "source": "dictionary:i_get_choke_work_phrase",
+        "difficulty": "beginner",
+        "tags": [
+          "common",
+          "work"
+        ]
+      },
+      {
+        "pidgin": "I stay tired, I hele to da hale",
+        "english": "I'm going home",
+        "category": "expressions",
+        "context": "Going home",
+        "pronunciation": "eye HEH-leh to dah HAH-leh",
+        "source": "dictionary:i_hele_to_da_hale_phrase",
+        "difficulty": "intermediate",
+        "tags": [
+          "hawaiian",
+          "location"
+        ]
+      },
+      {
+        "pidgin": "You like beer? Small kine, eh.",
+        "english": "Just a little bit",
+        "category": "expressions",
+        "context": "Small quantity",
+        "pronunciation": "small kyne, eh",
+        "source": "dictionary:small_kine_eh_phrase",
+        "difficulty": "beginner",
+        "tags": [
+          "common",
+          "quantity"
+        ]
+      },
+      {
+        "pidgin": "You pau with dat plate lunch?",
+        "english": "Are you done with that?",
+        "category": "expressions",
+        "context": "Asking if finished",
+        "pronunciation": "you POW wit dat",
+        "source": "dictionary:you_pau_with_dat_phrase",
+        "difficulty": "beginner",
+        "tags": [
+          "common",
+          "question"
+        ]
+      },
+      {
+        "pidgin": "Eh brah, where da lua stay?",
+        "english": "Where is the restroom?",
+        "category": "expressions",
+        "context": "Asking for bathroom",
+        "pronunciation": "where dah LOO-ah stay",
+        "source": "dictionary:where_da_lua_stay_phrase",
+        "difficulty": "intermediate",
+        "tags": [
+          "question",
+          "location",
+          "hawaiian"
+        ]
       }
     ],
     "greetings": [
@@ -18435,6 +18659,19 @@
         "tags": [
           "greetings",
           "greeting"
+        ]
+      },
+      {
+        "pidgin": "Gotta go, I spock you bumbye",
+        "english": "I'll see you later",
+        "category": "greetings",
+        "context": "Friendly goodbye",
+        "pronunciation": "eye spock you BUM-bye",
+        "source": "dictionary:i_spock_you_bumbye_phrase",
+        "difficulty": "intermediate",
+        "tags": [
+          "farewell",
+          "common"
         ]
       }
     ],
@@ -19176,6 +19413,33 @@
         "tags": [
           "food",
           "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "We go grindz at da food truck",
+        "english": "Let's go eat",
+        "category": "food",
+        "context": "Standard invitation for food",
+        "pronunciation": "wee go GRINDZ",
+        "source": "dictionary:we_go_grindz_phrase",
+        "difficulty": "beginner",
+        "tags": [
+          "food",
+          "common",
+          "invitation"
+        ]
+      },
+      {
+        "pidgin": "Dis poke so ono, broke da mouth!",
+        "english": "That's really delicious",
+        "category": "food",
+        "context": "High compliment for food",
+        "pronunciation": "soh OH-no, broke dah mout",
+        "source": "dictionary:so_ono_broke_da_mouth_phrase",
+        "difficulty": "intermediate",
+        "tags": [
+          "food",
+          "compliment"
         ]
       }
     ],
@@ -30692,6 +30956,56 @@
       "pidgin": "My zori stay broken",
       "english": "informal footwear",
       "context": "Japanese-style sandals"
+    },
+    {
+      "pidgin": "We go grindz at da food truck",
+      "english": "Let's go eat",
+      "context": "Standard invitation for food"
+    },
+    {
+      "pidgin": "Dis poke so ono, broke da mouth!",
+      "english": "That's really delicious",
+      "context": "High compliment for food"
+    },
+    {
+      "pidgin": "I stay pau with dat project",
+      "english": "I'm busy right now",
+      "context": "Finished or occupied"
+    },
+    {
+      "pidgin": "Eh, chance 'um, no scared!",
+      "english": "You should try it",
+      "context": "Friendly encouragement"
+    },
+    {
+      "pidgin": "Cannot go beach, I get choke work",
+      "english": "I have a lot of work",
+      "context": "Expressing large quantity"
+    },
+    {
+      "pidgin": "I stay tired, I hele to da hale",
+      "english": "I'm going home",
+      "context": "Going home"
+    },
+    {
+      "pidgin": "Gotta go, I spock you bumbye",
+      "english": "I'll see you later",
+      "context": "Friendly goodbye"
+    },
+    {
+      "pidgin": "You like beer? Small kine, eh.",
+      "english": "Just a little bit",
+      "context": "Small quantity"
+    },
+    {
+      "pidgin": "You pau with dat plate lunch?",
+      "english": "Are you done with that?",
+      "context": "Asking if finished"
+    },
+    {
+      "pidgin": "Eh brah, where da lua stay?",
+      "english": "Where is the restroom?",
+      "context": "Asking for bathroom"
     }
   ]
 }

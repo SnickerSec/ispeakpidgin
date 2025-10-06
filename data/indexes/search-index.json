@@ -2,7 +2,7 @@
   "metadata": {
     "version": "3.0",
     "viewType": "search",
-    "lastUpdated": "2025-10-05"
+    "lastUpdated": "2025-10-06"
   },
   "terms": {
     "'a'ole": [
@@ -1916,6 +1916,11 @@
         "id": "chance_um_030",
         "type": "entry",
         "pidgin": "chance um"
+      },
+      {
+        "id": "chance_um_phrase",
+        "type": "entry",
+        "pidgin": "Eh, chance 'um"
       }
     ],
     "risk it": [
@@ -5409,6 +5414,11 @@
         "id": "shoots_509",
         "type": "entry",
         "pidgin": "shoots"
+      },
+      {
+        "id": "i_spock_you_bumbye_phrase",
+        "type": "entry",
+        "pidgin": "I spock you bumbye"
       }
     ],
     "latahz": [
@@ -8448,6 +8458,202 @@
         "id": "zori_285",
         "type": "entry",
         "pidgin": "zori"
+      }
+    ],
+    "we go grindz": [
+      {
+        "id": "we_go_grindz_phrase",
+        "type": "entry",
+        "english": "Let's go eat"
+      }
+    ],
+    "let's go eat": [
+      {
+        "id": "we_go_grindz_phrase",
+        "type": "entry",
+        "pidgin": "We go grindz"
+      }
+    ],
+    "let's eat": [
+      {
+        "id": "we_go_grindz_phrase",
+        "type": "entry",
+        "pidgin": "We go grindz"
+      }
+    ],
+    "so ono, broke da mouth": [
+      {
+        "id": "so_ono_broke_da_mouth_phrase",
+        "type": "entry",
+        "english": "That's really delicious"
+      }
+    ],
+    "that's really delicious": [
+      {
+        "id": "so_ono_broke_da_mouth_phrase",
+        "type": "entry",
+        "pidgin": "So ono, broke da mouth"
+      }
+    ],
+    "so delicious": [
+      {
+        "id": "so_ono_broke_da_mouth_phrase",
+        "type": "entry",
+        "pidgin": "So ono, broke da mouth"
+      }
+    ],
+    "i stay pau with dat": [
+      {
+        "id": "i_stay_pau_phrase",
+        "type": "entry",
+        "english": "I'm busy right now"
+      }
+    ],
+    "i'm busy right now": [
+      {
+        "id": "i_stay_pau_phrase",
+        "type": "entry",
+        "pidgin": "I stay pau with dat"
+      }
+    ],
+    "i'm done with that": [
+      {
+        "id": "i_stay_pau_phrase",
+        "type": "entry",
+        "pidgin": "I stay pau with dat"
+      }
+    ],
+    "eh, chance 'um": [
+      {
+        "id": "chance_um_phrase",
+        "type": "entry",
+        "english": "You should try it"
+      }
+    ],
+    "you should try it": [
+      {
+        "id": "chance_um_phrase",
+        "type": "entry",
+        "pidgin": "Eh, chance 'um"
+      }
+    ],
+    "take a chance": [
+      {
+        "id": "chance_um_phrase",
+        "type": "entry",
+        "pidgin": "Eh, chance 'um"
+      }
+    ],
+    "i get choke work": [
+      {
+        "id": "i_get_choke_work_phrase",
+        "type": "entry",
+        "english": "I have a lot of work"
+      }
+    ],
+    "i have a lot of work": [
+      {
+        "id": "i_get_choke_work_phrase",
+        "type": "entry",
+        "pidgin": "I get choke work"
+      }
+    ],
+    "i have lots of work": [
+      {
+        "id": "i_get_choke_work_phrase",
+        "type": "entry",
+        "pidgin": "I get choke work"
+      }
+    ],
+    "i hele to da hale": [
+      {
+        "id": "i_hele_to_da_hale_phrase",
+        "type": "entry",
+        "english": "I'm going home"
+      }
+    ],
+    "i'm going home": [
+      {
+        "id": "i_hele_to_da_hale_phrase",
+        "type": "entry",
+        "pidgin": "I hele to da hale"
+      }
+    ],
+    "i spock you bumbye": [
+      {
+        "id": "i_spock_you_bumbye_phrase",
+        "type": "entry",
+        "english": "I'll see you later"
+      }
+    ],
+    "i'll see you later": [
+      {
+        "id": "i_spock_you_bumbye_phrase",
+        "type": "entry",
+        "pidgin": "I spock you bumbye"
+      }
+    ],
+    "small kine, eh": [
+      {
+        "id": "small_kine_eh_phrase",
+        "type": "entry",
+        "english": "Just a little bit"
+      }
+    ],
+    "just a little bit": [
+      {
+        "id": "small_kine_eh_phrase",
+        "type": "entry",
+        "pidgin": "Small kine, eh"
+      }
+    ],
+    "a little": [
+      {
+        "id": "small_kine_eh_phrase",
+        "type": "entry",
+        "pidgin": "Small kine, eh"
+      }
+    ],
+    "you pau with dat?": [
+      {
+        "id": "you_pau_with_dat_phrase",
+        "type": "entry",
+        "english": "Are you done with that?"
+      }
+    ],
+    "are you done with that?": [
+      {
+        "id": "you_pau_with_dat_phrase",
+        "type": "entry",
+        "pidgin": "You pau with dat?"
+      }
+    ],
+    "you done?": [
+      {
+        "id": "you_pau_with_dat_phrase",
+        "type": "entry",
+        "pidgin": "You pau with dat?"
+      }
+    ],
+    "where da lua stay?": [
+      {
+        "id": "where_da_lua_stay_phrase",
+        "type": "entry",
+        "english": "Where is the restroom?"
+      }
+    ],
+    "where is the restroom?": [
+      {
+        "id": "where_da_lua_stay_phrase",
+        "type": "entry",
+        "pidgin": "Where da lua stay?"
+      }
+    ],
+    "where is the bathroom?": [
+      {
+        "id": "where_da_lua_stay_phrase",
+        "type": "entry",
+        "pidgin": "Where da lua stay?"
       }
     ]
   }

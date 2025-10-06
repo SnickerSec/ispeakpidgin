@@ -2,7 +2,7 @@
   "metadata": {
     "version": "3.0",
     "viewType": "learning",
-    "lastUpdated": "2025-10-05"
+    "lastUpdated": "2025-10-06"
   },
   "phrases": {
     "daily": [],
@@ -2264,6 +2264,127 @@
         "slang"
       ],
       "audioExample": "Yessah blessah brah!"
+    },
+    {
+      "id": "so_ono_broke_da_mouth_phrase",
+      "pidgin": "So ono, broke da mouth",
+      "english": [
+        "That's really delicious",
+        "So delicious"
+      ],
+      "category": "food",
+      "pronunciation": "soh OH-no, broke dah mout",
+      "examples": [
+        "Dis poke so ono, broke da mouth!"
+      ],
+      "usage": "High compliment for food",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "food",
+        "compliment"
+      ]
+    },
+    {
+      "id": "i_stay_pau_phrase",
+      "pidgin": "I stay pau with dat",
+      "english": [
+        "I'm busy right now",
+        "I'm done with that"
+      ],
+      "category": "expressions",
+      "pronunciation": "eye stay POW wit dat",
+      "examples": [
+        "I stay pau with dat project"
+      ],
+      "usage": "Finished or occupied",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "common",
+        "status"
+      ]
+    },
+    {
+      "id": "chance_um_phrase",
+      "pidgin": "Eh, chance 'um",
+      "english": [
+        "You should try it",
+        "Take a chance",
+        "Try it"
+      ],
+      "category": "expressions",
+      "pronunciation": "eh, chance um",
+      "examples": [
+        "Eh, chance 'um, no scared!"
+      ],
+      "usage": "Friendly encouragement",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "encouragement",
+        "common"
+      ]
+    },
+    {
+      "id": "i_hele_to_da_hale_phrase",
+      "pidgin": "I hele to da hale",
+      "english": [
+        "I'm going home"
+      ],
+      "category": "expressions",
+      "pronunciation": "eye HEH-leh to dah HAH-leh",
+      "examples": [
+        "I stay tired, I hele to da hale"
+      ],
+      "usage": "Going home",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "hawaiian",
+        "location"
+      ]
+    },
+    {
+      "id": "i_spock_you_bumbye_phrase",
+      "pidgin": "I spock you bumbye",
+      "english": [
+        "I'll see you later",
+        "See you later"
+      ],
+      "category": "greetings",
+      "pronunciation": "eye spock you BUM-bye",
+      "examples": [
+        "Gotta go, I spock you bumbye"
+      ],
+      "usage": "Friendly goodbye",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "farewell",
+        "common"
+      ]
+    },
+    {
+      "id": "where_da_lua_stay_phrase",
+      "pidgin": "Where da lua stay?",
+      "english": [
+        "Where is the restroom?",
+        "Where is the bathroom?"
+      ],
+      "category": "expressions",
+      "pronunciation": "where dah LOO-ah stay",
+      "examples": [
+        "Eh brah, where da lua stay?"
+      ],
+      "usage": "Asking for bathroom",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "question",
+        "location",
+        "hawaiian"
+      ]
     }
   ],
   "advancedContent": [

@@ -2,7 +2,7 @@
   "metadata": {
     "version": "3.0",
     "viewType": "translator",
-    "lastUpdated": "2025-10-05"
+    "lastUpdated": "2025-10-06"
   },
   "translations": {
     "englishToPidgin": {
@@ -1251,6 +1251,11 @@
           "pidgin": "chance um",
           "confidence": 1,
           "id": "chance_um_030"
+        },
+        {
+          "pidgin": "Eh, chance 'um",
+          "confidence": 1,
+          "id": "chance_um_phrase"
         }
       ],
       "risk it": [
@@ -3298,6 +3303,11 @@
           "pidgin": "shoots",
           "confidence": 1,
           "id": "shoots_509"
+        },
+        {
+          "pidgin": "I spock you bumbye",
+          "confidence": 1,
+          "id": "i_spock_you_bumbye_phrase"
         }
       ],
       "pandanus leaves": [
@@ -4934,6 +4944,132 @@
           "pidgin": "zori",
           "confidence": 1,
           "id": "zori_285"
+        }
+      ],
+      "let's go eat": [
+        {
+          "pidgin": "We go grindz",
+          "confidence": 1,
+          "id": "we_go_grindz_phrase"
+        }
+      ],
+      "let's eat": [
+        {
+          "pidgin": "We go grindz",
+          "confidence": 1,
+          "id": "we_go_grindz_phrase"
+        }
+      ],
+      "that's really delicious": [
+        {
+          "pidgin": "So ono, broke da mouth",
+          "confidence": 1,
+          "id": "so_ono_broke_da_mouth_phrase"
+        }
+      ],
+      "so delicious": [
+        {
+          "pidgin": "So ono, broke da mouth",
+          "confidence": 1,
+          "id": "so_ono_broke_da_mouth_phrase"
+        }
+      ],
+      "i'm busy right now": [
+        {
+          "pidgin": "I stay pau with dat",
+          "confidence": 1,
+          "id": "i_stay_pau_phrase"
+        }
+      ],
+      "i'm done with that": [
+        {
+          "pidgin": "I stay pau with dat",
+          "confidence": 1,
+          "id": "i_stay_pau_phrase"
+        }
+      ],
+      "you should try it": [
+        {
+          "pidgin": "Eh, chance 'um",
+          "confidence": 1,
+          "id": "chance_um_phrase"
+        }
+      ],
+      "take a chance": [
+        {
+          "pidgin": "Eh, chance 'um",
+          "confidence": 1,
+          "id": "chance_um_phrase"
+        }
+      ],
+      "i have a lot of work": [
+        {
+          "pidgin": "I get choke work",
+          "confidence": 1,
+          "id": "i_get_choke_work_phrase"
+        }
+      ],
+      "i have lots of work": [
+        {
+          "pidgin": "I get choke work",
+          "confidence": 1,
+          "id": "i_get_choke_work_phrase"
+        }
+      ],
+      "i'm going home": [
+        {
+          "pidgin": "I hele to da hale",
+          "confidence": 1,
+          "id": "i_hele_to_da_hale_phrase"
+        }
+      ],
+      "i'll see you later": [
+        {
+          "pidgin": "I spock you bumbye",
+          "confidence": 1,
+          "id": "i_spock_you_bumbye_phrase"
+        }
+      ],
+      "just a little bit": [
+        {
+          "pidgin": "Small kine, eh",
+          "confidence": 1,
+          "id": "small_kine_eh_phrase"
+        }
+      ],
+      "a little": [
+        {
+          "pidgin": "Small kine, eh",
+          "confidence": 1,
+          "id": "small_kine_eh_phrase"
+        }
+      ],
+      "are you done with that?": [
+        {
+          "pidgin": "You pau with dat?",
+          "confidence": 1,
+          "id": "you_pau_with_dat_phrase"
+        }
+      ],
+      "you done?": [
+        {
+          "pidgin": "You pau with dat?",
+          "confidence": 1,
+          "id": "you_pau_with_dat_phrase"
+        }
+      ],
+      "where is the restroom?": [
+        {
+          "pidgin": "Where da lua stay?",
+          "confidence": 1,
+          "id": "where_da_lua_stay_phrase"
+        }
+      ],
+      "where is the bathroom?": [
+        {
+          "pidgin": "Where da lua stay?",
+          "confidence": 1,
+          "id": "where_da_lua_stay_phrase"
         }
       ]
     },
@@ -6655,6 +6791,46 @@
       "zori": [
         "informal footwear",
         "flip-flops"
+      ],
+      "we go grindz": [
+        "Let's go eat",
+        "Let's eat"
+      ],
+      "so ono, broke da mouth": [
+        "That's really delicious",
+        "So delicious"
+      ],
+      "i stay pau with dat": [
+        "I'm busy right now",
+        "I'm done with that"
+      ],
+      "eh, chance 'um": [
+        "You should try it",
+        "Take a chance",
+        "Try it"
+      ],
+      "i get choke work": [
+        "I have a lot of work",
+        "I have lots of work"
+      ],
+      "i hele to da hale": [
+        "I'm going home"
+      ],
+      "i spock you bumbye": [
+        "I'll see you later",
+        "See you later"
+      ],
+      "small kine, eh": [
+        "Just a little bit",
+        "A little"
+      ],
+      "you pau with dat?": [
+        "Are you done with that?",
+        "You done?"
+      ],
+      "where da lua stay?": [
+        "Where is the restroom?",
+        "Where is the bathroom?"
       ]
     }
   }
