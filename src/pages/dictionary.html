@@ -70,15 +70,20 @@
             transition: all 0.2s ease;
         }
 
-        .alphabet-browser button:hover {
+        .alphabet-browser button:hover:not(.active):not(.no-hover) {
             transform: scale(1.1);
             background: #fbbf24;
         }
 
         .alphabet-browser button.active {
-            background: #667eea;
+            background: #667eea !important;
             color: white;
             transform: scale(1.1);
+        }
+
+        .alphabet-browser button.no-hover {
+            background: rgb(243 244 246) !important;
+            transform: none !important;
         }
 
         .search-stats {

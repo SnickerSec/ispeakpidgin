@@ -168,8 +168,10 @@ function setupAlphabetBrowser() {
                         b.style.removeProperty('color');
                         b.style.removeProperty('transform');
                     });
-                    // Force blur to remove hover state
+                    // Force reset to original state by adding no-hover class temporarily
+                    btn.classList.add('no-hover');
                     btn.blur();
+                    setTimeout(() => btn.classList.remove('no-hover'), 300);
                     loadInitialEntries(); // Show all entries
                     updateSearchStats(pidginDictionary.getTotalCount(), '', 'All Entries');
                     return;
