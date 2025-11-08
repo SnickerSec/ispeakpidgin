@@ -21,6 +21,7 @@ const pathMappings = {
     'js/phrases-data.js': 'js/data/phrases-data.js',
     'js/comprehensive-pidgin-data.js': 'js/data/comprehensive-pidgin-data.js',
     'js/stories-data.js': 'js/data/stories-data.js',
+    'js/pickup-lines.js': 'js/components/pickup-lines.js',
     'js/translator.js': 'js/components/translator.js',
     'js/translator-page.js': 'js/components/translator-page.js',
     'js/dictionary.js': 'js/components/dictionary.js',
@@ -112,7 +113,7 @@ function copyJavaScriptFiles() {
     });
 
     // Copy individual JS files from src/js
-    const individualJsFiles = ['learning-hub.js'];
+    const individualJsFiles = ['learning-hub.js', 'pickup-lines.js'];
     individualJsFiles.forEach(file => {
         const srcPath = path.join('src/js', file);
         if (fs.existsSync(srcPath)) {
