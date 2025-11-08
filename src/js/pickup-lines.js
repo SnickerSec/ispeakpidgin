@@ -154,7 +154,7 @@ function shuffleArray(array) {
 }
 
 // Function to load random pickup lines on page load
-function loadRandomPickupLines(count = 10) {
+function loadRandomPickupLines(count = 3) {
     const container = document.getElementById('pickup-lines-grid');
     if (!container) return;
 
