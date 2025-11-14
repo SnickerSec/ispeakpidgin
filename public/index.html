@@ -272,7 +272,6 @@
                     <a href="dictionary.html" class="nav-link text-gray-700 hover:text-green-600 transition">Dictionary</a>
                     <a href="learning-hub.html" class="nav-link text-gray-700 hover:text-green-600 transition">Learning Hub</a>
                     <a href="ask-local.html" class="nav-link text-gray-700 hover:text-green-600 transition">Ask a Local</a>
-                    <a href="#community" class="nav-link text-gray-700 hover:text-green-600 transition">Community</a>
                     <button id="voice-settings-btn" class="text-gray-700 hover:text-green-600 transition" title="Voice Settings">
                         🔊
                     </button>
@@ -297,7 +296,6 @@
                 <a href="dictionary.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Dictionary</a>
                 <a href="learning-hub.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Learning Hub</a>
                 <a href="ask-local.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Ask a Local</a>
-                <a href="#community" class="block px-3 py-2 text-gray-700 hover:text-green-600">Community</a>
             </div>
         </div>
     </nav>
@@ -743,117 +741,6 @@
         </div>
     </section>
 
-    <!-- Community Section -->
-    <section id="community" class="py-16 px-4 relative overflow-hidden" style="background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 25%, #ff69b4 50%, #9c27b0 75%, #3f51b5 100%);">
-
-        <div class="container mx-auto relative z-10">
-            <div class="flex justify-center mb-4">
-                <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white drop-shadow-lg whitespace-nowrap brand-font">
-                    🤙 Ohana Community 🤙
-                </h2>
-            </div>
-            <p class="text-center text-white/90 mb-12 text-xl drop-shadow-md">Connect with local speakers and learners in our tropical paradise</p>
-
-            <div class="grid grid-cols-1 gap-8 max-w-6xl mx-auto">
-                <!-- Ask a Local -->
-                <div class="bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-2xl border border-white/30 hover:shadow-3xl transition-all duration-300 hover:bg-white/100">
-                    <h3 class="text-2xl font-bold mb-4 text-gray-800 brand-font">
-                        🏝️ Ask a Local 🏝️
-                    </h3>
-                    <form id="ask-form" class="mb-6">
-                        <div class="mb-4">
-                            <label class="block text-sm font-bold mb-2" for="user-name">Your Name (optional)</label>
-                            <input type="text" id="user-name" class="w-full p-3 border rounded-lg" placeholder="What should we call you?">
-                        </div>
-                        <div class="mb-4">
-                            <label class="block text-sm font-bold mb-2" for="question-text">Your Question</label>
-                            <textarea id="question-text" class="w-full p-3 border rounded-lg" rows="3" placeholder="Ask your question about Pidgin..." required></textarea>
-                        </div>
-
-                        <!-- Simple Math CAPTCHA for Spam Protection -->
-                        <div class="mb-4 bg-yellow-50 p-4 rounded-lg border border-yellow-200">
-                            <label class="block text-sm font-bold mb-2" for="captcha-answer">
-                                🛡️ Spam Protection: What is <span id="captcha-question"></span>?
-                            </label>
-                            <div class="flex items-center gap-3 mb-3">
-                                <input type="number" id="captcha-answer" class="w-24 p-2 border rounded" placeholder="Answer" required>
-                                <button type="button" id="refresh-captcha" class="text-blue-500 hover:text-blue-700 text-sm">🔄 New question</button>
-                                <div class="flex-1"></div>
-                                <button type="submit" id="submit-question-btn" class="bg-green-500 text-white px-6 py-2 rounded-full hover:bg-green-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed">
-                                    🌺 Submit Question
-                                </button>
-                            </div>
-
-                            <div id="submit-feedback" class="text-sm"></div>
-                        </div>
-                    </form>
-                    <div id="recent-questions">
-                        <h4 class="font-bold mb-3">Recent Questions</h4>
-                        <div class="space-y-3">
-                            <div class="bg-white p-3 rounded">
-                                <p class="font-semibold">What's the difference between "stay" and "is"?</p>
-                                <p class="text-sm text-gray-600 mt-1">In Pidgin, "stay" often replaces "is/are"...</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Cultural Insights with Tropical Theme -->
-            <div class="mt-16 max-w-5xl mx-auto">
-                <div class="text-center mb-12">
-                    <div class="inline-block bg-white/20 backdrop-blur-sm rounded-full px-8 py-4 border border-white/30">
-                        <h3 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white drop-shadow-lg whitespace-nowrap brand-font">
-                            🌺 Cultural Insights 🌺
-                        </h3>
-                    </div>
-                    <p class="text-white/80 mt-4 text-lg drop-shadow-md">Discover the rich history and cultural depth of Hawaiian Pidgin</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <article class="bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-2xl border border-white/40 hover:shadow-3xl hover:bg-white/95 transition-all duration-300 transform hover:-translate-y-2">
-                        <div class="flex items-center mb-4">
-                            <div class="text-3xl mr-3">📚</div>
-                            <h4 class="text-2xl font-bold text-gray-800 brand-font">The History of Pidgin</h4>
-                        </div>
-                        <p class="text-gray-700 mb-4 leading-relaxed">Hawaiian Pidgin developed in the 19th century on sugar plantations when workers from Hawaii, China, Japan, Philippines, Portugal, and other countries needed to communicate. It evolved from a simple trade language into a rich creole.</p>
-                        <div class="bg-gradient-to-r from-orange-100 to-pink-100 rounded-lg p-3">
-                            <p class="text-sm text-gray-700 font-medium">Key influences: Hawaiian, English, Portuguese, Chinese, Japanese, Filipino languages</p>
-                        </div>
-                    </article>
-                    <article class="bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-2xl border border-white/40 hover:shadow-3xl hover:bg-white/95 transition-all duration-300 transform hover:-translate-y-2">
-                        <div class="flex items-center mb-4">
-                            <div class="text-3xl mr-3">🏝️</div>
-                            <h4 class="text-2xl font-bold text-gray-800 brand-font">Pidgin in Modern Hawaii</h4>
-                        </div>
-                        <p class="text-gray-700 mb-4 leading-relaxed">Today, Pidgin is spoken by over 600,000 people and is recognized as a legitimate language. It represents the multicultural spirit of Hawaii and is used in literature, music, and everyday conversation.</p>
-                        <div class="bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg p-3">
-                            <p class="text-sm text-gray-700 font-medium">Status: Official recognition as Hawaiian Creole English (HCE)</p>
-                        </div>
-                    </article>
-                    <article class="bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-2xl border border-white/40 hover:shadow-3xl hover:bg-white/95 transition-all duration-300 transform hover:-translate-y-2">
-                        <div class="flex items-center mb-4">
-                            <div class="text-3xl mr-3">🌊</div>
-                            <h4 class="text-2xl font-bold text-gray-800 brand-font">Island Life Expressions</h4>
-                        </div>
-                        <p class="text-gray-700 mb-4 leading-relaxed">"Hawaiian time" reflects the island's relaxed pace, while "talk story" embodies the tradition of community storytelling. "Kanak attack" humorously describes post-meal sleepiness in the warm climate.</p>
-                        <div class="bg-gradient-to-r from-green-100 to-teal-100 rounded-lg p-3">
-                            <p class="text-sm text-gray-700 font-medium">Culture: Reflects laid-back island lifestyle and community values</p>
-                        </div>
-                    </article>
-                    <article class="bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-2xl border border-white/40 hover:shadow-3xl hover:bg-white/95 transition-all duration-300 transform hover:-translate-y-2">
-                        <div class="flex items-center mb-4">
-                            <div class="text-3xl mr-3">🌺</div>
-                            <h4 class="text-2xl font-bold text-gray-800 brand-font">Respect for Hawaiian Culture</h4>
-                        </div>
-                        <p class="text-gray-700 mb-4 leading-relaxed">Words like "kapu" (sacred/forbidden) and "aloha" carry deep spiritual meaning in Hawaiian culture. Learning Pidgin means understanding and respecting these cultural roots.</p>
-                        <div class="bg-gradient-to-r from-pink-100 to-red-100 rounded-lg p-3">
-                            <p class="text-sm text-gray-700 font-medium">Values: Respect for native Hawaiian language and traditions</p>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Voice Settings Modal -->
     <div id="voice-settings-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
