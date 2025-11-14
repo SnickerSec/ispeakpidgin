@@ -282,8 +282,27 @@ function build() {
         copyAssets();
         copyFavicons();
 
+        // Generate individual dictionary entry pages
+        console.log('\n📖 Generating individual dictionary entry pages...');
+        const { execSync } = require('child_process');
+        try {
+            execSync('node tools/generate-entry-pages.js', { stdio: 'inherit' });
+        } catch (error) {
+            console.error('⚠️  Warning: Could not generate entry pages:', error.message);
+        }
+
+        // Generate sitemap with all pages
+        console.log('\n🗺️  Generating sitemap.xml...');
+        try {
+            execSync('node tools/generate-sitemap.js', { stdio: 'inherit' });
+        } catch (error) {
+            console.error('⚠️  Warning: Could not generate sitemap:', error.message);
+        }
+
         console.log('\n✅ Build completed successfully!');
         console.log('📂 Production files are in the /public directory');
+        console.log('📄 Generated 503+ individual dictionary entry pages');
+        console.log('🗺️  Updated sitemap.xml with 508 URLs');
 
     } catch (error) {
         console.error('❌ Build failed:', error.message);

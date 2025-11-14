@@ -1,0 +1,447 @@
+#!/usr/bin/env node
+
+/**
+ * Generate Individual Dictionary Entry Pages
+ * Creates SEO-optimized pages for each dictionary entry
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+// Load master data
+const masterData = JSON.parse(
+    fs.readFileSync(path.join(__dirname, '../data/master/pidgin-master.json'), 'utf8')
+);
+
+// Output directory
+const outputDir = path.join(__dirname, '../public/word');
+
+// Create output directory
+if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true });
+}
+
+// Helper: Create URL-friendly slug
+function createSlug(text) {
+    return text
+        .toLowerCase()
+        .replace(/'/g, '') // Remove apostrophes
+        .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric with hyphens
+        .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
+}
+
+// Helper: Escape HTML
+function escapeHtml(text) {
+    const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    return text.replace(/[&<>"']/g, m => map[m]);
+}
+
+// Helper: Find related terms (same category or similar tags)
+function findRelatedTerms(entry, allEntries, limit = 6) {
+    const related = allEntries
+        .filter(e => e.id !== entry.id)
+        .map(e => {
+            let score = 0;
+            // Same category
+            if (e.category === entry.category) score += 3;
+            // Shared tags
+            const sharedTags = (entry.tags || []).filter(t => (e.tags || []).includes(t));
+            score += sharedTags.length;
+            // Same difficulty
+            if (e.difficulty === entry.difficulty) score += 1;
+            return { entry: e, score };
+        })
+        .filter(r => r.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, limit)
+        .map(r => r.entry);
+
+    return related;
+}
+
+// Generate HTML template for entry page
+function generateEntryPage(entry, relatedTerms) {
+    const slug = createSlug(entry.pidgin);
+    const pageTitle = `${entry.pidgin} - Hawaiian Pidgin Meaning & Usage | ChokePidgin`;
+    const englishMeanings = entry.english.join(', ');
+    const metaDescription = `Learn the meaning of "${entry.pidgin}" in Hawaiian Pidgin. ${englishMeanings}. Includes pronunciation, examples, and cultural context. Free Hawaiian slang dictionary.`;
+
+    // Create schema markup
+    const schema = {
+        "@context": "https://schema.org",
+        "@type": "DefinedTerm",
+        "name": entry.pidgin,
+        "description": entry.usage || englishMeanings,
+        "inDefinedTermSet": {
+            "@type": "DefinedTermSet",
+            "name": "Hawaiian Pidgin Dictionary",
+            "url": "https://chokepidgin.com/dictionary.html"
+        },
+        "termCode": entry.id
+    };
+
+    if (entry.pronunciation) {
+        schema.pronunciation = entry.pronunciation;
+    }
+
+    // Build related terms HTML
+    const relatedHtml = relatedTerms.length > 0 ? `
+        <section class="mt-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 brand-font">🌺 Related Words</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                ${relatedTerms.map(related => `
+                    <a href="/word/${createSlug(related.pidgin)}.html"
+                       class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-4 hover:shadow-lg transition-shadow border-2 border-blue-200">
+                        <h3 class="font-bold text-lg text-purple-600 mb-1">${escapeHtml(related.pidgin)}</h3>
+                        <p class="text-sm text-gray-600">${escapeHtml(related.english.slice(0, 2).join(', '))}</p>
+                    </a>
+                `).join('')}
+            </div>
+        </section>
+    ` : '';
+
+    const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${escapeHtml(pageTitle)}</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="${escapeHtml(metaDescription)}">
+    <meta name="keywords" content="${escapeHtml(entry.pidgin)}, hawaiian pidgin, hawaiian slang, ${escapeHtml(englishMeanings)}, pidgin dictionary, hawaii language">
+    <meta name="author" content="ChokePidgin.com">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="${escapeHtml(pageTitle)}">
+    <meta property="og:description" content="${escapeHtml(metaDescription)}">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://chokepidgin.com/word/${slug}.html">
+    <meta property="og:site_name" content="ChokePidgin.com">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="${escapeHtml(pageTitle)}">
+    <meta name="twitter:description" content="${escapeHtml(metaDescription)}">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://chokepidgin.com/word/${slug}.html">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" href="/favicon.ico">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    ${JSON.stringify(schema, null, 2)}
+    </script>
+
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://chokepidgin.com/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Dictionary",
+                "item": "https://chokepidgin.com/dictionary.html"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "${escapeHtml(entry.pidgin)}",
+                "item": "https://chokepidgin.com/word/${slug}.html"
+            }
+        ]
+    }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/main.css">
+
+    <style>
+        .brand-font {
+            font-family: 'Pacifico', cursive;
+        }
+    </style>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7YYDVDXD"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-RB7YYDVDXD');
+    </script>
+</head>
+<body class="min-h-screen bg-gray-50">
+    <!-- Navigation -->
+    <nav class="shadow-lg sticky top-0 z-50 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <a href="/" class="brand-font text-3xl bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+                        🌴 ChokePidgin 🌊
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-6 items-center">
+                    <a href="/" class="nav-link text-gray-700 hover:text-green-600 transition">Home</a>
+                    <a href="/translator.html" class="nav-link text-gray-700 hover:text-green-600 transition">Translator</a>
+                    <a href="/dictionary.html" class="nav-link text-gray-700 hover:text-green-600 transition">Dictionary</a>
+                    <a href="/learning-hub.html" class="nav-link text-gray-700 hover:text-green-600 transition">Learning Hub</a>
+                    <a href="/ask-local.html" class="nav-link text-gray-700 hover:text-green-600 transition">Ask a Local</a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-700 p-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="/" class="block px-3 py-2 text-gray-700 hover:text-green-600">Home</a>
+                <a href="/translator.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Translator</a>
+                <a href="/dictionary.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Dictionary</a>
+                <a href="/learning-hub.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Learning Hub</a>
+                <a href="/ask-local.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Ask a Local</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="bg-white border-b">
+        <div class="container mx-auto px-4 py-3">
+            <nav class="flex items-center space-x-2 text-sm" aria-label="Breadcrumb">
+                <a href="/" class="text-blue-600 hover:text-blue-800">Home</a>
+                <span class="text-gray-400">›</span>
+                <a href="/dictionary.html" class="text-blue-600 hover:text-blue-800">Dictionary</a>
+                <span class="text-gray-400">›</span>
+                <span class="text-gray-600 font-semibold">${escapeHtml(entry.pidgin)}</span>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Word Header -->
+        <div class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 rounded-3xl p-8 mb-8 shadow-2xl border-2 border-purple-200">
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4 brand-font">${escapeHtml(entry.pidgin)}</h1>
+
+            ${entry.pronunciation ? `
+            <div class="mb-4">
+                <span class="inline-block bg-white/80 rounded-full px-6 py-2 text-lg text-gray-700">
+                    🗣️ <strong>Pronunciation:</strong> ${escapeHtml(entry.pronunciation)}
+                </span>
+            </div>
+            ` : ''}
+
+            <div class="mb-4">
+                <span class="inline-block bg-gradient-to-r from-green-500 to-teal-500 text-white rounded-full px-6 py-2 text-lg font-semibold">
+                    ${escapeHtml(entry.category)}
+                </span>
+                ${entry.difficulty ? `
+                <span class="inline-block bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full px-6 py-2 text-lg font-semibold ml-2">
+                    ${escapeHtml(entry.difficulty)}
+                </span>
+                ` : ''}
+            </div>
+
+            <button id="speak-word" class="bg-gradient-to-r from-blue-500 to-teal-500 text-white px-8 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
+                🔊 Hear Pronunciation
+            </button>
+        </div>
+
+        <!-- Meaning Section -->
+        <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 brand-font">📖 Meaning</h2>
+            <div class="space-y-3">
+                ${entry.english.map(meaning => `
+                    <div class="flex items-start">
+                        <span class="text-green-500 mr-2 text-xl">•</span>
+                        <span class="text-xl text-gray-700">${escapeHtml(meaning)}</span>
+                    </div>
+                `).join('')}
+            </div>
+
+            ${entry.usage ? `
+            <div class="mt-6 bg-blue-50 rounded-xl p-4 border-l-4 border-blue-500">
+                <p class="text-gray-700"><strong>Usage:</strong> ${escapeHtml(entry.usage)}</p>
+            </div>
+            ` : ''}
+        </section>
+
+        <!-- Examples Section -->
+        ${entry.examples && entry.examples.length > 0 ? `
+        <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 brand-font">💬 Examples</h2>
+            <div class="space-y-4">
+                ${entry.examples.map(example => `
+                    <div class="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-4 border-l-4 border-green-500">
+                        <p class="text-lg text-gray-800 italic">"${escapeHtml(example)}"</p>
+                    </div>
+                `).join('')}
+            </div>
+        </section>
+        ` : ''}
+
+        <!-- Origin & Cultural Context -->
+        ${entry.origin ? `
+        <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 brand-font">🌺 Origin & Cultural Context</h2>
+            <div class="bg-gradient-to-r from-orange-50 to-pink-50 rounded-xl p-6">
+                <p class="text-lg text-gray-700 mb-2">
+                    <strong>Origin:</strong> ${escapeHtml(entry.origin)}
+                </p>
+                ${entry.culturalNotes ? `
+                <p class="text-gray-700 mt-4">${escapeHtml(entry.culturalNotes)}</p>
+                ` : ''}
+            </div>
+        </section>
+        ` : ''}
+
+        <!-- Quick Actions -->
+        <section class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-8 mb-8 shadow-xl">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 brand-font">🚀 Quick Actions</h2>
+            <div class="flex flex-wrap gap-4">
+                <a href="/translator.html?text=${encodeURIComponent(entry.pidgin)}"
+                   class="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-6 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
+                    🔄 Translate This Word
+                </a>
+                <a href="/dictionary.html"
+                   class="bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
+                    📚 Browse Dictionary
+                </a>
+                <a href="/learning-hub.html"
+                   class="bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
+                    🎓 Learn More
+                </a>
+            </div>
+        </section>
+
+        ${relatedHtml}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-green-600 to-blue-600 text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-6">
+                <h3 class="brand-font text-3xl mb-2">🌺 ChokePidgin.com</h3>
+                <p class="text-green-100 mb-4">Your gateway to authentic Hawaiian Pidgin language and culture</p>
+            </div>
+            <nav class="flex justify-center gap-2 sm:gap-6 mb-6">
+                <a href="/" class="text-white hover:text-green-200 transition-colors font-medium text-sm sm:text-base">Home</a>
+                <a href="/translator.html" class="text-white hover:text-green-200 transition-colors font-medium text-sm sm:text-base">Translator</a>
+                <a href="/dictionary.html" class="text-white hover:text-green-200 transition-colors font-medium text-sm sm:text-base">Dictionary</a>
+                <a href="/learning-hub.html" class="text-white hover:text-green-200 transition-colors font-medium text-sm sm:text-base">Learning</a>
+                <a href="/ask-local.html" class="text-white hover:text-green-200 transition-colors font-medium text-sm sm:text-base">Ask a Local</a>
+            </nav>
+            <div class="text-center">
+                <p class="text-sm text-green-100 mb-2">© 2025 ChokePidgin.com - Preserving and sharing Hawaiian Pidgin culture</p>
+                <p class="text-sm text-green-200">Made with aloha 🤙 E komo mai - Everyone is welcome here</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/js/components/elevenlabs-speech.js"></script>
+    <script src="/js/components/speech.js"></script>
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Speak word button
+        document.getElementById('speak-word')?.addEventListener('click', async () => {
+            const text = "${entry.pidgin}";
+            if (window.speechManager) {
+                await window.speechManager.speak(text);
+            } else {
+                console.error('Speech manager not initialized');
+            }
+        });
+    </script>
+</body>
+</html>`;
+
+    return html;
+}
+
+// Main execution
+console.log('🏗️  Generating individual dictionary entry pages...\n');
+
+let generatedCount = 0;
+let skippedCount = 0;
+const slugMap = new Map(); // Track slugs to prevent duplicates
+
+masterData.entries.forEach(entry => {
+    try {
+        const slug = createSlug(entry.pidgin);
+
+        // Skip if slug already exists (duplicate handling)
+        if (slugMap.has(slug)) {
+            console.log(`⚠️  Skipping duplicate slug: ${slug} (${entry.pidgin})`);
+            skippedCount++;
+            return;
+        }
+
+        slugMap.set(slug, entry);
+
+        // Find related terms
+        const relatedTerms = findRelatedTerms(entry, masterData.entries);
+
+        // Generate HTML
+        const html = generateEntryPage(entry, relatedTerms);
+
+        // Write file
+        const filename = `${slug}.html`;
+        const filepath = path.join(outputDir, filename);
+        fs.writeFileSync(filepath, html, 'utf8');
+
+        generatedCount++;
+
+        if (generatedCount % 50 === 0) {
+            console.log(`✅ Generated ${generatedCount} pages...`);
+        }
+    } catch (error) {
+        console.error(`❌ Error generating page for "${entry.pidgin}":`, error.message);
+        skippedCount++;
+    }
+});
+
+console.log('\n✨ Generation complete!');
+console.log(`📄 Generated: ${generatedCount} pages`);
+console.log(`⚠️  Skipped: ${skippedCount} entries`);
+console.log(`📂 Output directory: ${outputDir}`);
+console.log(`\n🔗 Example URLs:`);
+console.log(`   - /word/aloha.html`);
+console.log(`   - /word/da-kine.html`);
+console.log(`   - /word/howzit.html`);

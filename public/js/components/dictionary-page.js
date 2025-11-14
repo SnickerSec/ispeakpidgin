@@ -243,11 +243,18 @@ function displayResults(entries) {
         const pronunciationText = entry.pronunciation || '';
         const audioText = entry.audioExample || exampleText;
 
+        // Create slug for individual entry page
+        const slug = entry.pidgin.toLowerCase()
+            .replace(/'/g, '')
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-|-$/g, '');
+        const entryPageUrl = `/word/${slug}.html`;
+
         return `
         <div class="dictionary-entry-card bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer border-l-4 border-transparent"
              data-word="${entry.key}">
             <div class="flex justify-between items-start mb-3">
-                <h3 class="text-xl font-bold text-purple-700">${entry.pidgin}</h3>
+                <a href="${entryPageUrl}" class="text-xl font-bold text-purple-700 hover:text-purple-900 transition">${entry.pidgin}</a>
                 <span class="text-xs px-3 py-1 bg-purple-100 text-purple-600 rounded-full font-medium">
                     ${entry.category}
                 </span>
@@ -273,10 +280,9 @@ function displayResults(entries) {
                         data-text="${audioText}">
                     🔊 Listen
                 </button>
-                <button class="dict-details-btn text-xs px-3 py-2 bg-green-100 hover:bg-green-200 text-green-700 rounded-full transition font-medium"
-                        data-word="${entry.key}">
-                    📖 Details
-                </button>
+                <a href="${entryPageUrl}" class="inline-block text-xs px-3 py-2 bg-green-100 hover:bg-green-200 text-green-700 rounded-full transition font-medium">
+                    📖 Full Page
+                </a>
                 <button class="dict-practice-btn text-xs px-3 py-2 bg-purple-100 hover:bg-purple-200 text-purple-700 rounded-full transition font-medium"
                         data-word="${entry.key}">
                     🎯 Practice
