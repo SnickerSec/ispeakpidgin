@@ -130,7 +130,7 @@ class PidginTranslator {
         };
     }
 
-    // Create enhanced grammar rules
+    // Create enhanced grammar rules (PHASE 2: Expanded Coverage)
     createGrammarRules() {
         return {
             pidginToEnglish: {
@@ -147,17 +147,131 @@ class PidginTranslator {
                 'neva (.+)': 'never $1'
             },
             englishToPidgin: {
-                // English patterns to Pidgin
+                // Present tense - "to be" verbs
+                "I'm (.+)": 'I stay $1',
                 'I am (.+)': 'I stay $1',
+                "you're (.+)": 'you stay $1',
                 'you are (.+)': 'you stay $1',
+                "he's (.+)": 'he stay $1',
                 'he is (.+)': 'he stay $1',
+                "she's (.+)": 'she stay $1',
                 'she is (.+)': 'she stay $1',
-                'they are (.+)': 'dey stay $1',
+                "it's (.+)": 'stay $1',
+                'it is (.+)': 'stay $1',
+                "we're (.+)": 'we stay $1',
                 'we are (.+)': 'we stay $1',
+                "they're (.+)": 'dey stay $1',
+                'they are (.+)': 'dey stay $1',
+
+                // Future tense
+                'I will (.+)': 'I going $1',
+                "I'll (.+)": 'I going $1',
+                'will be (.+)': 'going be $1',
                 'going to (.+)': 'going $1',
+                'gonna (.+)': 'going $1',
+
+                // Past tense
+                'I was (.+)': 'I was $1',
+                'you were (.+)': 'you was $1',
+                'he was (.+)': 'he was $1',
+                'she was (.+)': 'she was $1',
+                'they were (.+)': 'dey was $1',
+                'we were (.+)': 'we was $1',
+
+                // Past perfect / "did" constructions
+                'I went': 'I wen go',
+                'I did (.+)': 'I wen $1',
+                'he went': 'he wen go',
+                'she went': 'she wen go',
+                'they went': 'dey wen go',
+                'we went': 'we wen go',
+
+                // Negations
                 "don't (.+)": 'no $1',
                 "doesn't (.+)": 'no $1',
-                "didn't (.+)": 'neva $1'
+                "didn't (.+)": 'neva $1',
+                "won't (.+)": 'no going $1',
+                "can't (.+)": 'no can $1',
+                "cannot (.+)": 'no can $1',
+
+                // Questions - "Do/Does/Did"
+                'do you (.+)\\?': 'you $1?',
+                'does he (.+)\\?': 'he $1?',
+                'does she (.+)\\?': 'she $1?',
+                'did you (.+)\\?': 'you wen $1?',
+                'did he (.+)\\?': 'he wen $1?',
+                'did she (.+)\\?': 'she wen $1?',
+
+                // Questions - "Are/Is/Was"
+                'are you (.+)\\?': 'you stay $1?',
+                'is he (.+)\\?': 'he stay $1?',
+                'is she (.+)\\?': 'she stay $1?',
+                'is it (.+)\\?': 'stay $1?',
+                'were you (.+)\\?': 'you was $1?',
+
+                // Questions - "Have/Has"
+                'have you (.+)\\?': 'you wen $1?',
+                'has he (.+)\\?': 'he wen $1?',
+                'has she (.+)\\?': 'she wen $1?',
+
+                // Modal verbs
+                'should (.+)': 'should $1',
+                'could (.+)': 'could $1',
+                'would (.+)': 'would $1',
+                'might (.+)': 'might $1',
+                'must (.+)': 'gotta $1',
+                'have to (.+)': 'gotta $1',
+                'need to (.+)': 'gotta $1',
+                'want to (.+)': 'like $1',
+                'would like to (.+)': 'like $1',
+
+                // Articles
+                ' the ': ' da ',
+                '^the ': 'da ',
+                ' a ': ' one ',
+                ' an ': ' one ',
+
+                // Prepositions
+                ' with ': ' wit ',
+                '^with ': 'wit ',
+                ' for ': ' fo ',
+                '^for ': 'fo ',
+                ' about ': ' bout ',
+                '^about ': 'bout ',
+                ' over ': ' ova ',
+                ' after ': ' afta ',
+                ' later': ' latahs',
+
+                // Pronouns
+                ' them ': ' dem ',
+                '^them ': 'dem ',
+                ' they ': ' dey ',
+                '^they ': 'dey ',
+                ' this ': ' dis ',
+                '^this ': 'dis ',
+                ' that ': ' dat ',
+                '^that ': 'dat ',
+
+                // Common contractions and shortenings
+                ' going ': ' goin ',
+                ' doing ': ' doin ',
+                ' something ': ' someting ',
+                ' nothing ': ' notting ',
+                ' everything ': ' everyting ',
+                ' because ': ' cuz ',
+                ' thanks ': ' tanks ',
+                ' yes': ' yeah',
+                ' really ': ' real ',
+                ' very ': ' real ',
+                ' more ': " mo' ",
+                ' already': ' already',
+
+                // Time expressions
+                ' tomorrow': ' bumbye',
+                ' later on': ' bumbai',
+
+                // Cleanup - remove extra spaces
+                '  ': ' '
             }
         };
     }
@@ -340,6 +454,28 @@ class PidginTranslator {
         const wordCount = text.trim().split(/\s+/).length;
         const isPhrase = wordCount > 1;
         const isSentence = wordCount >= 6;
+        const isParagraph = typeof contextTracker !== 'undefined' && contextTracker.isParagraph(text);
+
+        // PRIORITY 0: Check context tracker for paragraphs (multiple sentences)
+        if (isParagraph && typeof contextTracker !== 'undefined') {
+            const paragraphResult = contextTracker.translateParagraph(text, direction);
+
+            if (paragraphResult && paragraphResult.confidence >= 0.6) {
+                return {
+                    text: paragraphResult.translation,
+                    confidence: paragraphResult.confidence,
+                    suggestions: [],
+                    pronunciation: direction === 'eng-to-pidgin' ? this.getPronunciation(paragraphResult.translation) : null,
+                    alternatives: [],
+                    metadata: {
+                        method: paragraphResult.method,
+                        sentenceCount: paragraphResult.sentenceCount,
+                        contextUsed: paragraphResult.contextUsed,
+                        sentences: paragraphResult.sentences
+                    }
+                };
+            }
+        }
 
         // PRIORITY 1: Check sentence chunker for sentences (6+ words)
         if (isSentence && typeof sentenceChunker !== 'undefined' && sentenceChunker.loaded) {
