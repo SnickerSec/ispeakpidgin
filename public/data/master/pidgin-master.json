@@ -2,7 +2,7 @@
   "metadata": {
     "version": "3.0",
     "lastUpdated": "2025-11-15",
-    "totalEntries": 627,
+    "totalEntries": 655,
     "totalPhrases": 0,
     "totalStories": 9,
     "description": "Unified Hawaiian Pidgin Master Database",
@@ -13475,6 +13475,632 @@
         "portuguese",
         "cooking"
       ]
+    },
+    {
+      "id": "gai_7000",
+      "pidgin": "gai",
+      "english": [
+        "chicken"
+      ],
+      "category": "food",
+      "pronunciation": "GAI",
+      "examples": [
+        "Get gai for dinner tonight"
+      ],
+      "usage": "Chicken",
+      "origin": "Chinese",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "food",
+        "chinese",
+        "animals"
+      ]
+    },
+    {
+      "id": "gou_7001",
+      "pidgin": "gou",
+      "english": [
+        "dog"
+      ],
+      "category": "animals",
+      "pronunciation": "GOW",
+      "examples": [
+        "Da gou stay barking all night"
+      ],
+      "usage": "Dog",
+      "origin": "Chinese",
+      "difficulty": "intermediate",
+      "frequency": "low",
+      "tags": [
+        "animals",
+        "chinese"
+      ]
+    },
+    {
+      "id": "lai_see_7002",
+      "pidgin": "lai see",
+      "english": [
+        "money in red envelope",
+        "lucky money",
+        "red envelope gift"
+      ],
+      "category": "cultural",
+      "pronunciation": "LIE SEE",
+      "examples": [
+        "Get lai see for Chinese New Year"
+      ],
+      "usage": "Money given in red envelope for good luck",
+      "origin": "Chinese",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "chinese",
+        "money",
+        "celebrations"
+      ]
+    },
+    {
+      "id": "lychee_7003",
+      "pidgin": "lychee",
+      "english": [
+        "lychee fruit",
+        "litchi"
+      ],
+      "category": "food",
+      "pronunciation": "LIE-chee",
+      "examples": [
+        "Fresh lychee season stay here"
+      ],
+      "usage": "Sweet tropical fruit",
+      "origin": "Chinese",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "food",
+        "chinese",
+        "fruit"
+      ]
+    },
+    {
+      "id": "see_moi_7004",
+      "pidgin": "see-moi",
+      "english": [
+        "salty dried plum",
+        "preserved plum"
+      ],
+      "category": "food",
+      "pronunciation": "SEE-moi",
+      "examples": [
+        "Get see-moi from da crack seed store"
+      ],
+      "usage": "Salty dried plum snack",
+      "origin": "Chinese",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "food",
+        "chinese",
+        "snacks"
+      ]
+    },
+    {
+      "id": "au_7005",
+      "pidgin": "a'u",
+      "english": [
+        "marlin",
+        "blue marlin"
+      ],
+      "category": "food",
+      "pronunciation": "AH-oo",
+      "examples": [
+        "Caught one big a'u today!"
+      ],
+      "usage": "Marlin fish",
+      "origin": "Hawaiian",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "food",
+        "hawaiian",
+        "fish",
+        "ocean"
+      ]
+    },
+    {
+      "id": "bango_7006",
+      "pidgin": "bango",
+      "english": [
+        "caught a big fish!",
+        "got one!",
+        "success catching fish"
+      ],
+      "category": "expressions",
+      "pronunciation": "BANG-go",
+      "examples": [
+        "Bango! Got one big ulua!"
+      ],
+      "usage": "Exclamation when catching a big fish",
+      "origin": "English",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "ocean",
+        "fishing",
+        "exclamations"
+      ]
+    },
+    {
+      "id": "dakine_surf_7007",
+      "pidgin": "dakine surf",
+      "english": [
+        "good surf",
+        "you know the kind surf",
+        "epic waves"
+      ],
+      "category": "expressions",
+      "pronunciation": "dah-KINE SURF",
+      "examples": [
+        "Get dakine surf on da North Shore today"
+      ],
+      "usage": "Good surf conditions",
+      "origin": "English",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "ocean",
+        "surfing"
+      ]
+    },
+    {
+      "id": "glassy_7008",
+      "pidgin": "glassy",
+      "english": [
+        "smooth ocean surface",
+        "no wind",
+        "glass-like water"
+      ],
+      "category": "descriptions",
+      "pronunciation": "GLASS-ee",
+      "examples": [
+        "Da ocean stay so glassy this morning"
+      ],
+      "usage": "When ocean is smooth like glass",
+      "origin": "English",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "descriptions",
+        "ocean",
+        "surfing",
+        "weather"
+      ]
+    },
+    {
+      "id": "moi_7009",
+      "pidgin": "moi",
+      "english": [
+        "Pacific threadfin fish",
+        "royal fish"
+      ],
+      "category": "food",
+      "pronunciation": "MOH-ee",
+      "examples": [
+        "Moi was reserved for ali'i"
+      ],
+      "usage": "Fish once reserved for Hawaiian royalty",
+      "origin": "Hawaiian",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "food",
+        "hawaiian",
+        "fish",
+        "cultural"
+      ]
+    },
+    {
+      "id": "off_da_hook_7010",
+      "pidgin": "off da hook",
+      "english": [
+        "excellent",
+        "amazing",
+        "incredible"
+      ],
+      "category": "expressions",
+      "pronunciation": "off dah HOOK",
+      "examples": [
+        "Da waves stay off da hook today!"
+      ],
+      "usage": "Extremely good or impressive",
+      "origin": "English",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "compliment",
+        "slang"
+      ]
+    },
+    {
+      "id": "on_shore_7011",
+      "pidgin": "on-shore",
+      "english": [
+        "wind blowing from ocean to land",
+        "onshore wind"
+      ],
+      "category": "nature",
+      "pronunciation": "on-SHORE",
+      "examples": [
+        "On-shore winds stay messy for surfing"
+      ],
+      "usage": "Wind direction affecting waves",
+      "origin": "English",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "nature",
+        "ocean",
+        "surfing",
+        "weather"
+      ]
+    },
+    {
+      "id": "off_shore_7012",
+      "pidgin": "off-shore",
+      "english": [
+        "wind blowing from land to ocean",
+        "offshore wind"
+      ],
+      "category": "nature",
+      "pronunciation": "off-SHORE",
+      "examples": [
+        "Off-shore winds stay perfect for barrels"
+      ],
+      "usage": "Wind direction good for surfing",
+      "origin": "English",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "nature",
+        "ocean",
+        "surfing",
+        "weather"
+      ]
+    },
+    {
+      "id": "opihi_7013",
+      "pidgin": "'opihi",
+      "english": [
+        "type of limpet",
+        "Hawaiian limpet"
+      ],
+      "category": "food",
+      "pronunciation": "oh-PEE-hee",
+      "examples": [
+        "Da 'opihi man risk his life picking 'opihi"
+      ],
+      "usage": "Prized limpet, dangerous to harvest",
+      "origin": "Hawaiian",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "food",
+        "hawaiian",
+        "ocean",
+        "cultural"
+      ]
+    },
+    {
+      "id": "ulua_7014",
+      "pidgin": "ulua",
+      "english": [
+        "giant trevally",
+        "prized game fish"
+      ],
+      "category": "food",
+      "pronunciation": "oo-LOO-ah",
+      "examples": [
+        "Caught one monster ulua off da rocks"
+      ],
+      "usage": "Large prized game fish",
+      "origin": "Hawaiian",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "food",
+        "hawaiian",
+        "fish",
+        "ocean"
+      ]
+    },
+    {
+      "id": "gecko_7015",
+      "pidgin": "gecko",
+      "english": [
+        "small lizard",
+        "house gecko"
+      ],
+      "category": "animals",
+      "pronunciation": "GEK-oh",
+      "examples": [
+        "Get one gecko on da wall, dass good luck"
+      ],
+      "usage": "Small lizard considered good luck",
+      "origin": "English",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "animals",
+        "cultural",
+        "local"
+      ]
+    },
+    {
+      "id": "guava_7016",
+      "pidgin": "guava",
+      "english": [
+        "guava fruit",
+        "common local fruit"
+      ],
+      "category": "food",
+      "pronunciation": "GWAH-vah",
+      "examples": [
+        "Get choke guava trees in da mountains"
+      ],
+      "usage": "Common invasive fruit",
+      "origin": "English",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "food",
+        "fruit",
+        "nature"
+      ]
+    },
+    {
+      "id": "haole_rot_7017",
+      "pidgin": "haole rot",
+      "english": [
+        "tinea versicolor",
+        "skin fungus",
+        "white spots on skin"
+      ],
+      "category": "slang",
+      "pronunciation": "HOW-lee ROT",
+      "examples": [
+        "He get haole rot from da beach"
+      ],
+      "usage": "Common skin fungus causing white spots",
+      "origin": "English",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "health"
+      ]
+    },
+    {
+      "id": "ia_7018",
+      "pidgin": "i'a",
+      "english": [
+        "fish"
+      ],
+      "category": "food",
+      "pronunciation": "EE-ah",
+      "examples": [
+        "We going catch i'a today"
+      ],
+      "usage": "Fish (general)",
+      "origin": "Hawaiian",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "food",
+        "hawaiian",
+        "fish"
+      ]
+    },
+    {
+      "id": "mongoose_7019",
+      "pidgin": "mongoose",
+      "english": [
+        "mongoose animal",
+        "small carnivore"
+      ],
+      "category": "animals",
+      "pronunciation": "MON-goose",
+      "examples": [
+        "One mongoose just ran across da road"
+      ],
+      "usage": "Introduced animal, often seen as pest",
+      "origin": "English",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "animals",
+        "local"
+      ]
+    },
+    {
+      "id": "mu_7020",
+      "pidgin": "mu-",
+      "english": [
+        "type of reef fish",
+        "mu fish"
+      ],
+      "category": "food",
+      "pronunciation": "MOO",
+      "examples": [
+        "Caught some mu- for dinner"
+      ],
+      "usage": "Specific reef fish",
+      "origin": "Hawaiian",
+      "difficulty": "advanced",
+      "frequency": "low",
+      "tags": [
+        "food",
+        "hawaiian",
+        "fish"
+      ]
+    },
+    {
+      "id": "ulu_7021",
+      "pidgin": "'ulu",
+      "english": [
+        "breadfruit"
+      ],
+      "category": "food",
+      "pronunciation": "OO-loo",
+      "examples": [
+        "We cooking 'ulu tonight"
+      ],
+      "usage": "Breadfruit",
+      "origin": "Hawaiian",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "food",
+        "hawaiian",
+        "fruit"
+      ]
+    },
+    {
+      "id": "buggah_stay_7022",
+      "pidgin": "buggah stay",
+      "english": [
+        "that thing is",
+        "that person is"
+      ],
+      "category": "expressions",
+      "pronunciation": "BUG-gah STAY",
+      "examples": [
+        "Buggah stay huge!",
+        "Buggah stay sleeping"
+      ],
+      "usage": "Describing state of a thing or person",
+      "origin": "English",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "grammar",
+        "common"
+      ]
+    },
+    {
+      "id": "ho_brah_7023",
+      "pidgin": "ho, brah",
+      "english": [
+        "wow",
+        "hey",
+        "listen",
+        "check this out"
+      ],
+      "category": "expressions",
+      "pronunciation": "HO, BRAH",
+      "examples": [
+        "Ho, brah! You see dat?"
+      ],
+      "usage": "Attention-getting exclamation",
+      "origin": "English",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "exclamations",
+        "common"
+      ]
+    },
+    {
+      "id": "ho_da_hard_7024",
+      "pidgin": "ho, da hard",
+      "english": [
+        "wow, that's difficult",
+        "that's really hard"
+      ],
+      "category": "expressions",
+      "pronunciation": "HO, dah HARD",
+      "examples": [
+        "Ho, da hard fo' learn!"
+      ],
+      "usage": "Expressing that something is difficult",
+      "origin": "English",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "exclamations"
+      ]
+    },
+    {
+      "id": "how_bout_7025",
+      "pidgin": "how 'bout",
+      "english": [
+        "how about it?",
+        "give it to me",
+        "let's do it"
+      ],
+      "category": "expressions",
+      "pronunciation": "how BOUT",
+      "examples": [
+        "How 'bout, we go beach?"
+      ],
+      "usage": "Proposing or requesting something",
+      "origin": "English",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "questions"
+      ]
+    },
+    {
+      "id": "no_act_7026",
+      "pidgin": "no act",
+      "english": [
+        "don't act like that",
+        "stop messing around",
+        "don't pretend"
+      ],
+      "category": "expressions",
+      "pronunciation": "no AKT",
+      "examples": [
+        "No act like you no know!"
+      ],
+      "usage": "Telling someone to stop acting",
+      "origin": "English",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "commands"
+      ]
+    },
+    {
+      "id": "wat_you_jealous_7027",
+      "pidgin": "wat, you jealous?",
+      "english": [
+        "are you jealous?",
+        "you jealous or what?"
+      ],
+      "category": "expressions",
+      "pronunciation": "WAT, you JEL-us",
+      "examples": [
+        "Wat, you jealous I get da last malasada?"
+      ],
+      "usage": "Taunting or asking if jealous",
+      "origin": "English",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "questions",
+        "slang"
+      ]
     }
   ],
   "phrases": {
@@ -14945,6 +15571,11 @@
           "pidgin": "da bomb",
           "confidence": 1,
           "id": "da_bomb_279"
+        },
+        {
+          "pidgin": "off da hook",
+          "confidence": 1,
+          "id": "off_da_hook_7010"
         }
       ],
       "top quality": [
@@ -15348,6 +15979,11 @@
           "pidgin": "eh",
           "confidence": 1,
           "id": "eh_045"
+        },
+        {
+          "pidgin": "ho, brah",
+          "confidence": 1,
+          "id": "ho_brah_7023"
         }
       ],
       "right?": [
@@ -16275,6 +16911,11 @@
           "pidgin": "ho nah",
           "confidence": 1,
           "id": "ho_nah_351"
+        },
+        {
+          "pidgin": "ho, brah",
+          "confidence": 1,
+          "id": "ho_brah_7023"
         }
       ],
       "whoa": [
@@ -18479,6 +19120,11 @@
           "pidgin": "ulu",
           "confidence": 1,
           "id": "ulu_182"
+        },
+        {
+          "pidgin": "'ulu",
+          "confidence": 1,
+          "id": "ulu_7021"
         }
       ],
       "amazing": [
@@ -18486,6 +19132,11 @@
           "pidgin": "unreal",
           "confidence": 1,
           "id": "unreal_184"
+        },
+        {
+          "pidgin": "off da hook",
+          "confidence": 1,
+          "id": "off_da_hook_7010"
         }
       ],
       "unbelievable": [
@@ -19962,6 +20613,11 @@
           "pidgin": "try look",
           "confidence": 1,
           "id": "try_look_5002"
+        },
+        {
+          "pidgin": "ho, brah",
+          "confidence": 1,
+          "id": "ho_brah_7023"
         }
       ],
       "look at this": [
@@ -19983,6 +20639,11 @@
           "pidgin": "how 'bout?",
           "confidence": 1,
           "id": "how_bout_5004"
+        },
+        {
+          "pidgin": "how 'bout",
+          "confidence": 1,
+          "id": "how_bout_7025"
         }
       ],
       "give it to me": [
@@ -19990,6 +20651,11 @@
           "pidgin": "how 'bout?",
           "confidence": 1,
           "id": "how_bout_5004"
+        },
+        {
+          "pidgin": "how 'bout",
+          "confidence": 1,
+          "id": "how_bout_7025"
         }
       ],
       "what do you say?": [
@@ -20242,6 +20908,384 @@
           "pidgin": "vinha d'alhos",
           "confidence": 1,
           "id": "vinha_dalhos_6017"
+        }
+      ],
+      "chicken": [
+        {
+          "pidgin": "gai",
+          "confidence": 1,
+          "id": "gai_7000"
+        }
+      ],
+      "dog": [
+        {
+          "pidgin": "gou",
+          "confidence": 1,
+          "id": "gou_7001"
+        }
+      ],
+      "money in red envelope": [
+        {
+          "pidgin": "lai see",
+          "confidence": 1,
+          "id": "lai_see_7002"
+        }
+      ],
+      "lucky money": [
+        {
+          "pidgin": "lai see",
+          "confidence": 1,
+          "id": "lai_see_7002"
+        }
+      ],
+      "red envelope gift": [
+        {
+          "pidgin": "lai see",
+          "confidence": 1,
+          "id": "lai_see_7002"
+        }
+      ],
+      "lychee fruit": [
+        {
+          "pidgin": "lychee",
+          "confidence": 1,
+          "id": "lychee_7003"
+        }
+      ],
+      "litchi": [
+        {
+          "pidgin": "lychee",
+          "confidence": 1,
+          "id": "lychee_7003"
+        }
+      ],
+      "salty dried plum": [
+        {
+          "pidgin": "see-moi",
+          "confidence": 1,
+          "id": "see_moi_7004"
+        }
+      ],
+      "preserved plum": [
+        {
+          "pidgin": "see-moi",
+          "confidence": 1,
+          "id": "see_moi_7004"
+        }
+      ],
+      "marlin": [
+        {
+          "pidgin": "a'u",
+          "confidence": 1,
+          "id": "au_7005"
+        }
+      ],
+      "blue marlin": [
+        {
+          "pidgin": "a'u",
+          "confidence": 1,
+          "id": "au_7005"
+        }
+      ],
+      "caught a big fish!": [
+        {
+          "pidgin": "bango",
+          "confidence": 1,
+          "id": "bango_7006"
+        }
+      ],
+      "got one!": [
+        {
+          "pidgin": "bango",
+          "confidence": 1,
+          "id": "bango_7006"
+        }
+      ],
+      "success catching fish": [
+        {
+          "pidgin": "bango",
+          "confidence": 1,
+          "id": "bango_7006"
+        }
+      ],
+      "good surf": [
+        {
+          "pidgin": "dakine surf",
+          "confidence": 1,
+          "id": "dakine_surf_7007"
+        }
+      ],
+      "you know the kind surf": [
+        {
+          "pidgin": "dakine surf",
+          "confidence": 1,
+          "id": "dakine_surf_7007"
+        }
+      ],
+      "epic waves": [
+        {
+          "pidgin": "dakine surf",
+          "confidence": 1,
+          "id": "dakine_surf_7007"
+        }
+      ],
+      "smooth ocean surface": [
+        {
+          "pidgin": "glassy",
+          "confidence": 1,
+          "id": "glassy_7008"
+        }
+      ],
+      "no wind": [
+        {
+          "pidgin": "glassy",
+          "confidence": 1,
+          "id": "glassy_7008"
+        }
+      ],
+      "glass-like water": [
+        {
+          "pidgin": "glassy",
+          "confidence": 1,
+          "id": "glassy_7008"
+        }
+      ],
+      "pacific threadfin fish": [
+        {
+          "pidgin": "moi",
+          "confidence": 1,
+          "id": "moi_7009"
+        }
+      ],
+      "royal fish": [
+        {
+          "pidgin": "moi",
+          "confidence": 1,
+          "id": "moi_7009"
+        }
+      ],
+      "incredible": [
+        {
+          "pidgin": "off da hook",
+          "confidence": 1,
+          "id": "off_da_hook_7010"
+        }
+      ],
+      "wind blowing from ocean to land": [
+        {
+          "pidgin": "on-shore",
+          "confidence": 1,
+          "id": "on_shore_7011"
+        }
+      ],
+      "onshore wind": [
+        {
+          "pidgin": "on-shore",
+          "confidence": 1,
+          "id": "on_shore_7011"
+        }
+      ],
+      "wind blowing from land to ocean": [
+        {
+          "pidgin": "off-shore",
+          "confidence": 1,
+          "id": "off_shore_7012"
+        }
+      ],
+      "offshore wind": [
+        {
+          "pidgin": "off-shore",
+          "confidence": 1,
+          "id": "off_shore_7012"
+        }
+      ],
+      "type of limpet": [
+        {
+          "pidgin": "'opihi",
+          "confidence": 1,
+          "id": "opihi_7013"
+        }
+      ],
+      "hawaiian limpet": [
+        {
+          "pidgin": "'opihi",
+          "confidence": 1,
+          "id": "opihi_7013"
+        }
+      ],
+      "giant trevally": [
+        {
+          "pidgin": "ulua",
+          "confidence": 1,
+          "id": "ulua_7014"
+        }
+      ],
+      "prized game fish": [
+        {
+          "pidgin": "ulua",
+          "confidence": 1,
+          "id": "ulua_7014"
+        }
+      ],
+      "small lizard": [
+        {
+          "pidgin": "gecko",
+          "confidence": 1,
+          "id": "gecko_7015"
+        }
+      ],
+      "house gecko": [
+        {
+          "pidgin": "gecko",
+          "confidence": 1,
+          "id": "gecko_7015"
+        }
+      ],
+      "guava fruit": [
+        {
+          "pidgin": "guava",
+          "confidence": 1,
+          "id": "guava_7016"
+        }
+      ],
+      "common local fruit": [
+        {
+          "pidgin": "guava",
+          "confidence": 1,
+          "id": "guava_7016"
+        }
+      ],
+      "tinea versicolor": [
+        {
+          "pidgin": "haole rot",
+          "confidence": 1,
+          "id": "haole_rot_7017"
+        }
+      ],
+      "skin fungus": [
+        {
+          "pidgin": "haole rot",
+          "confidence": 1,
+          "id": "haole_rot_7017"
+        }
+      ],
+      "white spots on skin": [
+        {
+          "pidgin": "haole rot",
+          "confidence": 1,
+          "id": "haole_rot_7017"
+        }
+      ],
+      "fish": [
+        {
+          "pidgin": "i'a",
+          "confidence": 1,
+          "id": "ia_7018"
+        }
+      ],
+      "mongoose animal": [
+        {
+          "pidgin": "mongoose",
+          "confidence": 1,
+          "id": "mongoose_7019"
+        }
+      ],
+      "small carnivore": [
+        {
+          "pidgin": "mongoose",
+          "confidence": 1,
+          "id": "mongoose_7019"
+        }
+      ],
+      "type of reef fish": [
+        {
+          "pidgin": "mu-",
+          "confidence": 1,
+          "id": "mu_7020"
+        }
+      ],
+      "mu fish": [
+        {
+          "pidgin": "mu-",
+          "confidence": 1,
+          "id": "mu_7020"
+        }
+      ],
+      "that thing is": [
+        {
+          "pidgin": "buggah stay",
+          "confidence": 1,
+          "id": "buggah_stay_7022"
+        }
+      ],
+      "that person is": [
+        {
+          "pidgin": "buggah stay",
+          "confidence": 1,
+          "id": "buggah_stay_7022"
+        }
+      ],
+      "listen": [
+        {
+          "pidgin": "ho, brah",
+          "confidence": 1,
+          "id": "ho_brah_7023"
+        }
+      ],
+      "wow, that's difficult": [
+        {
+          "pidgin": "ho, da hard",
+          "confidence": 1,
+          "id": "ho_da_hard_7024"
+        }
+      ],
+      "that's really hard": [
+        {
+          "pidgin": "ho, da hard",
+          "confidence": 1,
+          "id": "ho_da_hard_7024"
+        }
+      ],
+      "let's do it": [
+        {
+          "pidgin": "how 'bout",
+          "confidence": 1,
+          "id": "how_bout_7025"
+        }
+      ],
+      "don't act like that": [
+        {
+          "pidgin": "no act",
+          "confidence": 1,
+          "id": "no_act_7026"
+        }
+      ],
+      "stop messing around": [
+        {
+          "pidgin": "no act",
+          "confidence": 1,
+          "id": "no_act_7026"
+        }
+      ],
+      "don't pretend": [
+        {
+          "pidgin": "no act",
+          "confidence": 1,
+          "id": "no_act_7026"
+        }
+      ],
+      "are you jealous?": [
+        {
+          "pidgin": "wat, you jealous?",
+          "confidence": 1,
+          "id": "wat_you_jealous_7027"
+        }
+      ],
+      "you jealous or what?": [
+        {
+          "pidgin": "wat, you jealous?",
+          "confidence": 1,
+          "id": "wat_you_jealous_7027"
         }
       ]
     },
@@ -22489,6 +23533,124 @@
       "vinha d'alhos": [
         "vinegar and garlic marinade",
         "vinny-ha pork"
+      ],
+      "gai": [
+        "chicken"
+      ],
+      "gou": [
+        "dog"
+      ],
+      "lai see": [
+        "money in red envelope",
+        "lucky money",
+        "red envelope gift"
+      ],
+      "lychee": [
+        "lychee fruit",
+        "litchi"
+      ],
+      "see-moi": [
+        "salty dried plum",
+        "preserved plum"
+      ],
+      "a'u": [
+        "marlin",
+        "blue marlin"
+      ],
+      "bango": [
+        "caught a big fish!",
+        "got one!",
+        "success catching fish"
+      ],
+      "dakine surf": [
+        "good surf",
+        "you know the kind surf",
+        "epic waves"
+      ],
+      "glassy": [
+        "smooth ocean surface",
+        "no wind",
+        "glass-like water"
+      ],
+      "moi": [
+        "Pacific threadfin fish",
+        "royal fish"
+      ],
+      "off da hook": [
+        "excellent",
+        "amazing",
+        "incredible"
+      ],
+      "on-shore": [
+        "wind blowing from ocean to land",
+        "onshore wind"
+      ],
+      "off-shore": [
+        "wind blowing from land to ocean",
+        "offshore wind"
+      ],
+      "'opihi": [
+        "type of limpet",
+        "Hawaiian limpet"
+      ],
+      "ulua": [
+        "giant trevally",
+        "prized game fish"
+      ],
+      "gecko": [
+        "small lizard",
+        "house gecko"
+      ],
+      "guava": [
+        "guava fruit",
+        "common local fruit"
+      ],
+      "haole rot": [
+        "tinea versicolor",
+        "skin fungus",
+        "white spots on skin"
+      ],
+      "i'a": [
+        "fish"
+      ],
+      "mongoose": [
+        "mongoose animal",
+        "small carnivore"
+      ],
+      "mu-": [
+        "type of reef fish",
+        "mu fish"
+      ],
+      "'ulu": [
+        "breadfruit"
+      ],
+      "buggah stay": [
+        "that thing is",
+        "that person is"
+      ],
+      "ho, brah": [
+        "wow",
+        "hey",
+        "listen",
+        "check this out"
+      ],
+      "ho, da hard": [
+        "wow, that's difficult",
+        "that's really hard"
+      ],
+      "how 'bout": [
+        "how about it?",
+        "give it to me",
+        "let's do it"
+      ],
+      "no act": [
+        "don't act like that",
+        "stop messing around",
+        "don't pretend"
+      ],
+      "wat, you jealous?": [
+        "are you jealous?",
+        "you jealous or what?"
       ]
     }
   },
@@ -22953,7 +24115,7 @@
     "categories": {
       "expressions": {
         "name": "expressions",
-        "count": 215,
+        "count": 224,
         "description": ""
       },
       "greetings": {
@@ -22963,12 +24125,12 @@
       },
       "food": {
         "name": "food",
-        "count": 54,
+        "count": 65,
         "description": ""
       },
       "nature": {
         "name": "nature",
-        "count": 25,
+        "count": 27,
         "description": ""
       },
       "actions": {
@@ -22978,17 +24140,17 @@
       },
       "cultural": {
         "name": "cultural",
-        "count": 65,
+        "count": 66,
         "description": ""
       },
       "descriptions": {
         "name": "descriptions",
-        "count": 32,
+        "count": 33,
         "description": ""
       },
       "slang": {
         "name": "slang",
-        "count": 101,
+        "count": 102,
         "description": ""
       },
       "emotions": {
@@ -23018,7 +24180,7 @@
       },
       "animals": {
         "name": "animals",
-        "count": 4,
+        "count": 7,
         "description": ""
       },
       "games": {
@@ -23107,7 +24269,9 @@
       "farewells",
       "filipino",
       "fish",
+      "fishing",
       "food",
+      "fruit",
       "games",
       "gestures",
       "grammar",
@@ -23131,6 +24295,7 @@
       "nostalgia",
       "numbers",
       "objects",
+      "ocean",
       "people",
       "places",
       "portuguese",

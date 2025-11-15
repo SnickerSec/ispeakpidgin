@@ -1461,6 +1461,11 @@
           "pidgin": "da bomb",
           "confidence": 1,
           "id": "da_bomb_279"
+        },
+        {
+          "pidgin": "off da hook",
+          "confidence": 1,
+          "id": "off_da_hook_7010"
         }
       ],
       "top quality": [
@@ -1864,6 +1869,11 @@
           "pidgin": "eh",
           "confidence": 1,
           "id": "eh_045"
+        },
+        {
+          "pidgin": "ho, brah",
+          "confidence": 1,
+          "id": "ho_brah_7023"
         }
       ],
       "right?": [
@@ -2791,6 +2801,11 @@
           "pidgin": "ho nah",
           "confidence": 1,
           "id": "ho_nah_351"
+        },
+        {
+          "pidgin": "ho, brah",
+          "confidence": 1,
+          "id": "ho_brah_7023"
         }
       ],
       "whoa": [
@@ -4995,6 +5010,11 @@
           "pidgin": "ulu",
           "confidence": 1,
           "id": "ulu_182"
+        },
+        {
+          "pidgin": "'ulu",
+          "confidence": 1,
+          "id": "ulu_7021"
         }
       ],
       "amazing": [
@@ -5002,6 +5022,11 @@
           "pidgin": "unreal",
           "confidence": 1,
           "id": "unreal_184"
+        },
+        {
+          "pidgin": "off da hook",
+          "confidence": 1,
+          "id": "off_da_hook_7010"
         }
       ],
       "unbelievable": [
@@ -6478,6 +6503,11 @@
           "pidgin": "try look",
           "confidence": 1,
           "id": "try_look_5002"
+        },
+        {
+          "pidgin": "ho, brah",
+          "confidence": 1,
+          "id": "ho_brah_7023"
         }
       ],
       "look at this": [
@@ -6499,6 +6529,11 @@
           "pidgin": "how 'bout?",
           "confidence": 1,
           "id": "how_bout_5004"
+        },
+        {
+          "pidgin": "how 'bout",
+          "confidence": 1,
+          "id": "how_bout_7025"
         }
       ],
       "give it to me": [
@@ -6506,6 +6541,11 @@
           "pidgin": "how 'bout?",
           "confidence": 1,
           "id": "how_bout_5004"
+        },
+        {
+          "pidgin": "how 'bout",
+          "confidence": 1,
+          "id": "how_bout_7025"
         }
       ],
       "what do you say?": [
@@ -6758,6 +6798,384 @@
           "pidgin": "vinha d'alhos",
           "confidence": 1,
           "id": "vinha_dalhos_6017"
+        }
+      ],
+      "chicken": [
+        {
+          "pidgin": "gai",
+          "confidence": 1,
+          "id": "gai_7000"
+        }
+      ],
+      "dog": [
+        {
+          "pidgin": "gou",
+          "confidence": 1,
+          "id": "gou_7001"
+        }
+      ],
+      "money in red envelope": [
+        {
+          "pidgin": "lai see",
+          "confidence": 1,
+          "id": "lai_see_7002"
+        }
+      ],
+      "lucky money": [
+        {
+          "pidgin": "lai see",
+          "confidence": 1,
+          "id": "lai_see_7002"
+        }
+      ],
+      "red envelope gift": [
+        {
+          "pidgin": "lai see",
+          "confidence": 1,
+          "id": "lai_see_7002"
+        }
+      ],
+      "lychee fruit": [
+        {
+          "pidgin": "lychee",
+          "confidence": 1,
+          "id": "lychee_7003"
+        }
+      ],
+      "litchi": [
+        {
+          "pidgin": "lychee",
+          "confidence": 1,
+          "id": "lychee_7003"
+        }
+      ],
+      "salty dried plum": [
+        {
+          "pidgin": "see-moi",
+          "confidence": 1,
+          "id": "see_moi_7004"
+        }
+      ],
+      "preserved plum": [
+        {
+          "pidgin": "see-moi",
+          "confidence": 1,
+          "id": "see_moi_7004"
+        }
+      ],
+      "marlin": [
+        {
+          "pidgin": "a'u",
+          "confidence": 1,
+          "id": "au_7005"
+        }
+      ],
+      "blue marlin": [
+        {
+          "pidgin": "a'u",
+          "confidence": 1,
+          "id": "au_7005"
+        }
+      ],
+      "caught a big fish!": [
+        {
+          "pidgin": "bango",
+          "confidence": 1,
+          "id": "bango_7006"
+        }
+      ],
+      "got one!": [
+        {
+          "pidgin": "bango",
+          "confidence": 1,
+          "id": "bango_7006"
+        }
+      ],
+      "success catching fish": [
+        {
+          "pidgin": "bango",
+          "confidence": 1,
+          "id": "bango_7006"
+        }
+      ],
+      "good surf": [
+        {
+          "pidgin": "dakine surf",
+          "confidence": 1,
+          "id": "dakine_surf_7007"
+        }
+      ],
+      "you know the kind surf": [
+        {
+          "pidgin": "dakine surf",
+          "confidence": 1,
+          "id": "dakine_surf_7007"
+        }
+      ],
+      "epic waves": [
+        {
+          "pidgin": "dakine surf",
+          "confidence": 1,
+          "id": "dakine_surf_7007"
+        }
+      ],
+      "smooth ocean surface": [
+        {
+          "pidgin": "glassy",
+          "confidence": 1,
+          "id": "glassy_7008"
+        }
+      ],
+      "no wind": [
+        {
+          "pidgin": "glassy",
+          "confidence": 1,
+          "id": "glassy_7008"
+        }
+      ],
+      "glass-like water": [
+        {
+          "pidgin": "glassy",
+          "confidence": 1,
+          "id": "glassy_7008"
+        }
+      ],
+      "pacific threadfin fish": [
+        {
+          "pidgin": "moi",
+          "confidence": 1,
+          "id": "moi_7009"
+        }
+      ],
+      "royal fish": [
+        {
+          "pidgin": "moi",
+          "confidence": 1,
+          "id": "moi_7009"
+        }
+      ],
+      "incredible": [
+        {
+          "pidgin": "off da hook",
+          "confidence": 1,
+          "id": "off_da_hook_7010"
+        }
+      ],
+      "wind blowing from ocean to land": [
+        {
+          "pidgin": "on-shore",
+          "confidence": 1,
+          "id": "on_shore_7011"
+        }
+      ],
+      "onshore wind": [
+        {
+          "pidgin": "on-shore",
+          "confidence": 1,
+          "id": "on_shore_7011"
+        }
+      ],
+      "wind blowing from land to ocean": [
+        {
+          "pidgin": "off-shore",
+          "confidence": 1,
+          "id": "off_shore_7012"
+        }
+      ],
+      "offshore wind": [
+        {
+          "pidgin": "off-shore",
+          "confidence": 1,
+          "id": "off_shore_7012"
+        }
+      ],
+      "type of limpet": [
+        {
+          "pidgin": "'opihi",
+          "confidence": 1,
+          "id": "opihi_7013"
+        }
+      ],
+      "hawaiian limpet": [
+        {
+          "pidgin": "'opihi",
+          "confidence": 1,
+          "id": "opihi_7013"
+        }
+      ],
+      "giant trevally": [
+        {
+          "pidgin": "ulua",
+          "confidence": 1,
+          "id": "ulua_7014"
+        }
+      ],
+      "prized game fish": [
+        {
+          "pidgin": "ulua",
+          "confidence": 1,
+          "id": "ulua_7014"
+        }
+      ],
+      "small lizard": [
+        {
+          "pidgin": "gecko",
+          "confidence": 1,
+          "id": "gecko_7015"
+        }
+      ],
+      "house gecko": [
+        {
+          "pidgin": "gecko",
+          "confidence": 1,
+          "id": "gecko_7015"
+        }
+      ],
+      "guava fruit": [
+        {
+          "pidgin": "guava",
+          "confidence": 1,
+          "id": "guava_7016"
+        }
+      ],
+      "common local fruit": [
+        {
+          "pidgin": "guava",
+          "confidence": 1,
+          "id": "guava_7016"
+        }
+      ],
+      "tinea versicolor": [
+        {
+          "pidgin": "haole rot",
+          "confidence": 1,
+          "id": "haole_rot_7017"
+        }
+      ],
+      "skin fungus": [
+        {
+          "pidgin": "haole rot",
+          "confidence": 1,
+          "id": "haole_rot_7017"
+        }
+      ],
+      "white spots on skin": [
+        {
+          "pidgin": "haole rot",
+          "confidence": 1,
+          "id": "haole_rot_7017"
+        }
+      ],
+      "fish": [
+        {
+          "pidgin": "i'a",
+          "confidence": 1,
+          "id": "ia_7018"
+        }
+      ],
+      "mongoose animal": [
+        {
+          "pidgin": "mongoose",
+          "confidence": 1,
+          "id": "mongoose_7019"
+        }
+      ],
+      "small carnivore": [
+        {
+          "pidgin": "mongoose",
+          "confidence": 1,
+          "id": "mongoose_7019"
+        }
+      ],
+      "type of reef fish": [
+        {
+          "pidgin": "mu-",
+          "confidence": 1,
+          "id": "mu_7020"
+        }
+      ],
+      "mu fish": [
+        {
+          "pidgin": "mu-",
+          "confidence": 1,
+          "id": "mu_7020"
+        }
+      ],
+      "that thing is": [
+        {
+          "pidgin": "buggah stay",
+          "confidence": 1,
+          "id": "buggah_stay_7022"
+        }
+      ],
+      "that person is": [
+        {
+          "pidgin": "buggah stay",
+          "confidence": 1,
+          "id": "buggah_stay_7022"
+        }
+      ],
+      "listen": [
+        {
+          "pidgin": "ho, brah",
+          "confidence": 1,
+          "id": "ho_brah_7023"
+        }
+      ],
+      "wow, that's difficult": [
+        {
+          "pidgin": "ho, da hard",
+          "confidence": 1,
+          "id": "ho_da_hard_7024"
+        }
+      ],
+      "that's really hard": [
+        {
+          "pidgin": "ho, da hard",
+          "confidence": 1,
+          "id": "ho_da_hard_7024"
+        }
+      ],
+      "let's do it": [
+        {
+          "pidgin": "how 'bout",
+          "confidence": 1,
+          "id": "how_bout_7025"
+        }
+      ],
+      "don't act like that": [
+        {
+          "pidgin": "no act",
+          "confidence": 1,
+          "id": "no_act_7026"
+        }
+      ],
+      "stop messing around": [
+        {
+          "pidgin": "no act",
+          "confidence": 1,
+          "id": "no_act_7026"
+        }
+      ],
+      "don't pretend": [
+        {
+          "pidgin": "no act",
+          "confidence": 1,
+          "id": "no_act_7026"
+        }
+      ],
+      "are you jealous?": [
+        {
+          "pidgin": "wat, you jealous?",
+          "confidence": 1,
+          "id": "wat_you_jealous_7027"
+        }
+      ],
+      "you jealous or what?": [
+        {
+          "pidgin": "wat, you jealous?",
+          "confidence": 1,
+          "id": "wat_you_jealous_7027"
         }
       ]
     },
@@ -9005,6 +9423,124 @@
       "vinha d'alhos": [
         "vinegar and garlic marinade",
         "vinny-ha pork"
+      ],
+      "gai": [
+        "chicken"
+      ],
+      "gou": [
+        "dog"
+      ],
+      "lai see": [
+        "money in red envelope",
+        "lucky money",
+        "red envelope gift"
+      ],
+      "lychee": [
+        "lychee fruit",
+        "litchi"
+      ],
+      "see-moi": [
+        "salty dried plum",
+        "preserved plum"
+      ],
+      "a'u": [
+        "marlin",
+        "blue marlin"
+      ],
+      "bango": [
+        "caught a big fish!",
+        "got one!",
+        "success catching fish"
+      ],
+      "dakine surf": [
+        "good surf",
+        "you know the kind surf",
+        "epic waves"
+      ],
+      "glassy": [
+        "smooth ocean surface",
+        "no wind",
+        "glass-like water"
+      ],
+      "moi": [
+        "Pacific threadfin fish",
+        "royal fish"
+      ],
+      "off da hook": [
+        "excellent",
+        "amazing",
+        "incredible"
+      ],
+      "on-shore": [
+        "wind blowing from ocean to land",
+        "onshore wind"
+      ],
+      "off-shore": [
+        "wind blowing from land to ocean",
+        "offshore wind"
+      ],
+      "'opihi": [
+        "type of limpet",
+        "Hawaiian limpet"
+      ],
+      "ulua": [
+        "giant trevally",
+        "prized game fish"
+      ],
+      "gecko": [
+        "small lizard",
+        "house gecko"
+      ],
+      "guava": [
+        "guava fruit",
+        "common local fruit"
+      ],
+      "haole rot": [
+        "tinea versicolor",
+        "skin fungus",
+        "white spots on skin"
+      ],
+      "i'a": [
+        "fish"
+      ],
+      "mongoose": [
+        "mongoose animal",
+        "small carnivore"
+      ],
+      "mu-": [
+        "type of reef fish",
+        "mu fish"
+      ],
+      "'ulu": [
+        "breadfruit"
+      ],
+      "buggah stay": [
+        "that thing is",
+        "that person is"
+      ],
+      "ho, brah": [
+        "wow",
+        "hey",
+        "listen",
+        "check this out"
+      ],
+      "ho, da hard": [
+        "wow, that's difficult",
+        "that's really hard"
+      ],
+      "how 'bout": [
+        "how about it?",
+        "give it to me",
+        "let's do it"
+      ],
+      "no act": [
+        "don't act like that",
+        "stop messing around",
+        "don't pretend"
+      ],
+      "wat, you jealous?": [
+        "are you jealous?",
+        "you jealous or what?"
       ]
     }
   }

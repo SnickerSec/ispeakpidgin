@@ -3436,6 +3436,28 @@
         "portuguese",
         "cooking"
       ]
+    },
+    {
+      "id": "mu_7020",
+      "pidgin": "mu-",
+      "english": [
+        "type of reef fish",
+        "mu fish"
+      ],
+      "category": "food",
+      "pronunciation": "MOO",
+      "examples": [
+        "Caught some mu- for dinner"
+      ],
+      "usage": "Specific reef fish",
+      "origin": "Hawaiian",
+      "difficulty": "advanced",
+      "frequency": "low",
+      "tags": [
+        "food",
+        "hawaiian",
+        "fish"
+      ]
     }
   ]
 }

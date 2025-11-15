@@ -2216,6 +2216,11 @@
         "id": "da_bomb_279",
         "type": "entry",
         "pidgin": "da bomb"
+      },
+      {
+        "id": "off_da_hook_7010",
+        "type": "entry",
+        "pidgin": "off da hook"
       }
     ],
     "top quality": [
@@ -2841,6 +2846,11 @@
         "id": "eh_045",
         "type": "entry",
         "pidgin": "eh"
+      },
+      {
+        "id": "ho_brah_7023",
+        "type": "entry",
+        "pidgin": "ho, brah"
       }
     ],
     "right?": [
@@ -4352,6 +4362,11 @@
         "id": "ho_nah_351",
         "type": "entry",
         "pidgin": "ho nah"
+      },
+      {
+        "id": "ho_brah_7023",
+        "type": "entry",
+        "pidgin": "ho, brah"
       }
     ],
     "whoa": [
@@ -8285,6 +8300,11 @@
         "id": "ulu_182",
         "type": "entry",
         "pidgin": "ulu"
+      },
+      {
+        "id": "ulu_7021",
+        "type": "entry",
+        "pidgin": "'ulu"
       }
     ],
     "unko": [
@@ -8306,6 +8326,11 @@
         "id": "unreal_184",
         "type": "entry",
         "pidgin": "unreal"
+      },
+      {
+        "id": "off_da_hook_7010",
+        "type": "entry",
+        "pidgin": "off da hook"
       }
     ],
     "unrealz": [
@@ -10679,6 +10704,11 @@
         "id": "try_look_5002",
         "type": "entry",
         "pidgin": "try look"
+      },
+      {
+        "id": "ho_brah_7023",
+        "type": "entry",
+        "pidgin": "ho, brah"
       }
     ],
     "look at this": [
@@ -10714,6 +10744,11 @@
         "id": "how_bout_5004",
         "type": "entry",
         "pidgin": "how 'bout?"
+      },
+      {
+        "id": "how_bout_7025",
+        "type": "entry",
+        "pidgin": "how 'bout"
       }
     ],
     "give it to me": [
@@ -10721,6 +10756,11 @@
         "id": "how_bout_5004",
         "type": "entry",
         "pidgin": "how 'bout?"
+      },
+      {
+        "id": "how_bout_7025",
+        "type": "entry",
+        "pidgin": "how 'bout"
       }
     ],
     "what do you say?": [
@@ -11106,6 +11146,580 @@
         "id": "vinha_dalhos_6017",
         "type": "entry",
         "pidgin": "vinha d'alhos"
+      }
+    ],
+    "gai": [
+      {
+        "id": "gai_7000",
+        "type": "entry",
+        "english": "chicken"
+      }
+    ],
+    "chicken": [
+      {
+        "id": "gai_7000",
+        "type": "entry",
+        "pidgin": "gai"
+      }
+    ],
+    "gou": [
+      {
+        "id": "gou_7001",
+        "type": "entry",
+        "english": "dog"
+      }
+    ],
+    "dog": [
+      {
+        "id": "gou_7001",
+        "type": "entry",
+        "pidgin": "gou"
+      }
+    ],
+    "lai see": [
+      {
+        "id": "lai_see_7002",
+        "type": "entry",
+        "english": "money in red envelope"
+      }
+    ],
+    "money in red envelope": [
+      {
+        "id": "lai_see_7002",
+        "type": "entry",
+        "pidgin": "lai see"
+      }
+    ],
+    "lucky money": [
+      {
+        "id": "lai_see_7002",
+        "type": "entry",
+        "pidgin": "lai see"
+      }
+    ],
+    "red envelope gift": [
+      {
+        "id": "lai_see_7002",
+        "type": "entry",
+        "pidgin": "lai see"
+      }
+    ],
+    "lychee": [
+      {
+        "id": "lychee_7003",
+        "type": "entry",
+        "english": "lychee fruit"
+      }
+    ],
+    "lychee fruit": [
+      {
+        "id": "lychee_7003",
+        "type": "entry",
+        "pidgin": "lychee"
+      }
+    ],
+    "litchi": [
+      {
+        "id": "lychee_7003",
+        "type": "entry",
+        "pidgin": "lychee"
+      }
+    ],
+    "see-moi": [
+      {
+        "id": "see_moi_7004",
+        "type": "entry",
+        "english": "salty dried plum"
+      }
+    ],
+    "salty dried plum": [
+      {
+        "id": "see_moi_7004",
+        "type": "entry",
+        "pidgin": "see-moi"
+      }
+    ],
+    "preserved plum": [
+      {
+        "id": "see_moi_7004",
+        "type": "entry",
+        "pidgin": "see-moi"
+      }
+    ],
+    "a'u": [
+      {
+        "id": "au_7005",
+        "type": "entry",
+        "english": "marlin"
+      }
+    ],
+    "marlin": [
+      {
+        "id": "au_7005",
+        "type": "entry",
+        "pidgin": "a'u"
+      }
+    ],
+    "blue marlin": [
+      {
+        "id": "au_7005",
+        "type": "entry",
+        "pidgin": "a'u"
+      }
+    ],
+    "bango": [
+      {
+        "id": "bango_7006",
+        "type": "entry",
+        "english": "caught a big fish!"
+      }
+    ],
+    "caught a big fish!": [
+      {
+        "id": "bango_7006",
+        "type": "entry",
+        "pidgin": "bango"
+      }
+    ],
+    "got one!": [
+      {
+        "id": "bango_7006",
+        "type": "entry",
+        "pidgin": "bango"
+      }
+    ],
+    "success catching fish": [
+      {
+        "id": "bango_7006",
+        "type": "entry",
+        "pidgin": "bango"
+      }
+    ],
+    "dakine surf": [
+      {
+        "id": "dakine_surf_7007",
+        "type": "entry",
+        "english": "good surf"
+      }
+    ],
+    "good surf": [
+      {
+        "id": "dakine_surf_7007",
+        "type": "entry",
+        "pidgin": "dakine surf"
+      }
+    ],
+    "you know the kind surf": [
+      {
+        "id": "dakine_surf_7007",
+        "type": "entry",
+        "pidgin": "dakine surf"
+      }
+    ],
+    "epic waves": [
+      {
+        "id": "dakine_surf_7007",
+        "type": "entry",
+        "pidgin": "dakine surf"
+      }
+    ],
+    "glassy": [
+      {
+        "id": "glassy_7008",
+        "type": "entry",
+        "english": "smooth ocean surface"
+      }
+    ],
+    "smooth ocean surface": [
+      {
+        "id": "glassy_7008",
+        "type": "entry",
+        "pidgin": "glassy"
+      }
+    ],
+    "no wind": [
+      {
+        "id": "glassy_7008",
+        "type": "entry",
+        "pidgin": "glassy"
+      }
+    ],
+    "glass-like water": [
+      {
+        "id": "glassy_7008",
+        "type": "entry",
+        "pidgin": "glassy"
+      }
+    ],
+    "moi": [
+      {
+        "id": "moi_7009",
+        "type": "entry",
+        "english": "Pacific threadfin fish"
+      }
+    ],
+    "pacific threadfin fish": [
+      {
+        "id": "moi_7009",
+        "type": "entry",
+        "pidgin": "moi"
+      }
+    ],
+    "royal fish": [
+      {
+        "id": "moi_7009",
+        "type": "entry",
+        "pidgin": "moi"
+      }
+    ],
+    "off da hook": [
+      {
+        "id": "off_da_hook_7010",
+        "type": "entry",
+        "english": "excellent"
+      }
+    ],
+    "incredible": [
+      {
+        "id": "off_da_hook_7010",
+        "type": "entry",
+        "pidgin": "off da hook"
+      }
+    ],
+    "on-shore": [
+      {
+        "id": "on_shore_7011",
+        "type": "entry",
+        "english": "wind blowing from ocean to land"
+      }
+    ],
+    "wind blowing from ocean to land": [
+      {
+        "id": "on_shore_7011",
+        "type": "entry",
+        "pidgin": "on-shore"
+      }
+    ],
+    "onshore wind": [
+      {
+        "id": "on_shore_7011",
+        "type": "entry",
+        "pidgin": "on-shore"
+      }
+    ],
+    "off-shore": [
+      {
+        "id": "off_shore_7012",
+        "type": "entry",
+        "english": "wind blowing from land to ocean"
+      }
+    ],
+    "wind blowing from land to ocean": [
+      {
+        "id": "off_shore_7012",
+        "type": "entry",
+        "pidgin": "off-shore"
+      }
+    ],
+    "offshore wind": [
+      {
+        "id": "off_shore_7012",
+        "type": "entry",
+        "pidgin": "off-shore"
+      }
+    ],
+    "'opihi": [
+      {
+        "id": "opihi_7013",
+        "type": "entry",
+        "english": "type of limpet"
+      }
+    ],
+    "type of limpet": [
+      {
+        "id": "opihi_7013",
+        "type": "entry",
+        "pidgin": "'opihi"
+      }
+    ],
+    "hawaiian limpet": [
+      {
+        "id": "opihi_7013",
+        "type": "entry",
+        "pidgin": "'opihi"
+      }
+    ],
+    "ulua": [
+      {
+        "id": "ulua_7014",
+        "type": "entry",
+        "english": "giant trevally"
+      }
+    ],
+    "giant trevally": [
+      {
+        "id": "ulua_7014",
+        "type": "entry",
+        "pidgin": "ulua"
+      }
+    ],
+    "prized game fish": [
+      {
+        "id": "ulua_7014",
+        "type": "entry",
+        "pidgin": "ulua"
+      }
+    ],
+    "gecko": [
+      {
+        "id": "gecko_7015",
+        "type": "entry",
+        "english": "small lizard"
+      }
+    ],
+    "small lizard": [
+      {
+        "id": "gecko_7015",
+        "type": "entry",
+        "pidgin": "gecko"
+      }
+    ],
+    "house gecko": [
+      {
+        "id": "gecko_7015",
+        "type": "entry",
+        "pidgin": "gecko"
+      }
+    ],
+    "guava": [
+      {
+        "id": "guava_7016",
+        "type": "entry",
+        "english": "guava fruit"
+      }
+    ],
+    "guava fruit": [
+      {
+        "id": "guava_7016",
+        "type": "entry",
+        "pidgin": "guava"
+      }
+    ],
+    "common local fruit": [
+      {
+        "id": "guava_7016",
+        "type": "entry",
+        "pidgin": "guava"
+      }
+    ],
+    "haole rot": [
+      {
+        "id": "haole_rot_7017",
+        "type": "entry",
+        "english": "tinea versicolor"
+      }
+    ],
+    "tinea versicolor": [
+      {
+        "id": "haole_rot_7017",
+        "type": "entry",
+        "pidgin": "haole rot"
+      }
+    ],
+    "skin fungus": [
+      {
+        "id": "haole_rot_7017",
+        "type": "entry",
+        "pidgin": "haole rot"
+      }
+    ],
+    "white spots on skin": [
+      {
+        "id": "haole_rot_7017",
+        "type": "entry",
+        "pidgin": "haole rot"
+      }
+    ],
+    "i'a": [
+      {
+        "id": "ia_7018",
+        "type": "entry",
+        "english": "fish"
+      }
+    ],
+    "fish": [
+      {
+        "id": "ia_7018",
+        "type": "entry",
+        "pidgin": "i'a"
+      }
+    ],
+    "mongoose": [
+      {
+        "id": "mongoose_7019",
+        "type": "entry",
+        "english": "mongoose animal"
+      }
+    ],
+    "mongoose animal": [
+      {
+        "id": "mongoose_7019",
+        "type": "entry",
+        "pidgin": "mongoose"
+      }
+    ],
+    "small carnivore": [
+      {
+        "id": "mongoose_7019",
+        "type": "entry",
+        "pidgin": "mongoose"
+      }
+    ],
+    "mu-": [
+      {
+        "id": "mu_7020",
+        "type": "entry",
+        "english": "type of reef fish"
+      }
+    ],
+    "type of reef fish": [
+      {
+        "id": "mu_7020",
+        "type": "entry",
+        "pidgin": "mu-"
+      }
+    ],
+    "mu fish": [
+      {
+        "id": "mu_7020",
+        "type": "entry",
+        "pidgin": "mu-"
+      }
+    ],
+    "'ulu": [
+      {
+        "id": "ulu_7021",
+        "type": "entry",
+        "english": "breadfruit"
+      }
+    ],
+    "buggah stay": [
+      {
+        "id": "buggah_stay_7022",
+        "type": "entry",
+        "english": "that thing is"
+      }
+    ],
+    "that thing is": [
+      {
+        "id": "buggah_stay_7022",
+        "type": "entry",
+        "pidgin": "buggah stay"
+      }
+    ],
+    "that person is": [
+      {
+        "id": "buggah_stay_7022",
+        "type": "entry",
+        "pidgin": "buggah stay"
+      }
+    ],
+    "ho, brah": [
+      {
+        "id": "ho_brah_7023",
+        "type": "entry",
+        "english": "wow"
+      }
+    ],
+    "listen": [
+      {
+        "id": "ho_brah_7023",
+        "type": "entry",
+        "pidgin": "ho, brah"
+      }
+    ],
+    "ho, da hard": [
+      {
+        "id": "ho_da_hard_7024",
+        "type": "entry",
+        "english": "wow, that's difficult"
+      }
+    ],
+    "wow, that's difficult": [
+      {
+        "id": "ho_da_hard_7024",
+        "type": "entry",
+        "pidgin": "ho, da hard"
+      }
+    ],
+    "that's really hard": [
+      {
+        "id": "ho_da_hard_7024",
+        "type": "entry",
+        "pidgin": "ho, da hard"
+      }
+    ],
+    "how 'bout": [
+      {
+        "id": "how_bout_7025",
+        "type": "entry",
+        "english": "how about it?"
+      }
+    ],
+    "let's do it": [
+      {
+        "id": "how_bout_7025",
+        "type": "entry",
+        "pidgin": "how 'bout"
+      }
+    ],
+    "no act": [
+      {
+        "id": "no_act_7026",
+        "type": "entry",
+        "english": "don't act like that"
+      }
+    ],
+    "don't act like that": [
+      {
+        "id": "no_act_7026",
+        "type": "entry",
+        "pidgin": "no act"
+      }
+    ],
+    "stop messing around": [
+      {
+        "id": "no_act_7026",
+        "type": "entry",
+        "pidgin": "no act"
+      }
+    ],
+    "don't pretend": [
+      {
+        "id": "no_act_7026",
+        "type": "entry",
+        "pidgin": "no act"
+      }
+    ],
+    "wat, you jealous?": [
+      {
+        "id": "wat_you_jealous_7027",
+        "type": "entry",
+        "english": "are you jealous?"
+      }
+    ],
+    "are you jealous?": [
+      {
+        "id": "wat_you_jealous_7027",
+        "type": "entry",
+        "pidgin": "wat, you jealous?"
+      }
+    ],
+    "you jealous or what?": [
+      {
+        "id": "wat_you_jealous_7027",
+        "type": "entry",
+        "pidgin": "wat, you jealous?"
       }
     ]
   }

@@ -3,7 +3,7 @@
     "version": "3.0",
     "viewType": "phrases",
     "lastUpdated": "2025-11-15",
-    "totalPhrases": 1121
+    "totalPhrases": 1150
   },
   "phrases": [
     {
@@ -14628,6 +14628,415 @@
         "portuguese",
         "cooking"
       ]
+    },
+    {
+      "pidgin": "Get gai for dinner tonight",
+      "english": "chicken",
+      "category": "food",
+      "context": "Chicken",
+      "pronunciation": "GAI",
+      "source": "dictionary:gai_7000",
+      "difficulty": "intermediate",
+      "tags": [
+        "food",
+        "chinese",
+        "animals"
+      ]
+    },
+    {
+      "pidgin": "Da gou stay barking all night",
+      "english": "dog",
+      "category": "animals",
+      "context": "Dog",
+      "pronunciation": "GOW",
+      "source": "dictionary:gou_7001",
+      "difficulty": "intermediate",
+      "tags": [
+        "animals",
+        "chinese"
+      ]
+    },
+    {
+      "pidgin": "Get lai see for Chinese New Year",
+      "english": "money in red envelope",
+      "category": "cultural",
+      "context": "Money given in red envelope for good luck",
+      "pronunciation": "LIE SEE",
+      "source": "dictionary:lai_see_7002",
+      "difficulty": "intermediate",
+      "tags": [
+        "cultural",
+        "chinese",
+        "money",
+        "celebrations"
+      ]
+    },
+    {
+      "pidgin": "Fresh lychee season stay here",
+      "english": "lychee fruit",
+      "category": "food",
+      "context": "Sweet tropical fruit",
+      "pronunciation": "LIE-chee",
+      "source": "dictionary:lychee_7003",
+      "difficulty": "beginner",
+      "tags": [
+        "food",
+        "chinese",
+        "fruit"
+      ]
+    },
+    {
+      "pidgin": "Get see-moi from da crack seed store",
+      "english": "salty dried plum",
+      "category": "food",
+      "context": "Salty dried plum snack",
+      "pronunciation": "SEE-moi",
+      "source": "dictionary:see_moi_7004",
+      "difficulty": "intermediate",
+      "tags": [
+        "food",
+        "chinese",
+        "snacks"
+      ]
+    },
+    {
+      "pidgin": "Caught one big a'u today!",
+      "english": "marlin",
+      "category": "food",
+      "context": "Marlin fish",
+      "pronunciation": "AH-oo",
+      "source": "dictionary:au_7005",
+      "difficulty": "intermediate",
+      "tags": [
+        "food",
+        "hawaiian",
+        "fish",
+        "ocean"
+      ]
+    },
+    {
+      "pidgin": "Bango! Got one big ulua!",
+      "english": "caught a big fish!",
+      "category": "expressions",
+      "context": "Exclamation when catching a big fish",
+      "pronunciation": "BANG-go",
+      "source": "dictionary:bango_7006",
+      "difficulty": "intermediate",
+      "tags": [
+        "expressions",
+        "ocean",
+        "fishing",
+        "exclamations"
+      ]
+    },
+    {
+      "pidgin": "Get dakine surf on da North Shore today",
+      "english": "good surf",
+      "category": "expressions",
+      "context": "Good surf conditions",
+      "pronunciation": "dah-KINE SURF",
+      "source": "dictionary:dakine_surf_7007",
+      "difficulty": "intermediate",
+      "tags": [
+        "expressions",
+        "ocean",
+        "surfing"
+      ]
+    },
+    {
+      "pidgin": "Da ocean stay so glassy this morning",
+      "english": "smooth ocean surface",
+      "category": "descriptions",
+      "context": "When ocean is smooth like glass",
+      "pronunciation": "GLASS-ee",
+      "source": "dictionary:glassy_7008",
+      "difficulty": "beginner",
+      "tags": [
+        "descriptions",
+        "ocean",
+        "surfing",
+        "weather"
+      ]
+    },
+    {
+      "pidgin": "Moi was reserved for ali'i",
+      "english": "Pacific threadfin fish",
+      "category": "food",
+      "context": "Fish once reserved for Hawaiian royalty",
+      "pronunciation": "MOH-ee",
+      "source": "dictionary:moi_7009",
+      "difficulty": "intermediate",
+      "tags": [
+        "food",
+        "hawaiian",
+        "fish",
+        "cultural"
+      ]
+    },
+    {
+      "pidgin": "Da waves stay off da hook today!",
+      "english": "excellent",
+      "category": "expressions",
+      "context": "Extremely good or impressive",
+      "pronunciation": "off dah HOOK",
+      "source": "dictionary:off_da_hook_7010",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "compliment",
+        "slang"
+      ]
+    },
+    {
+      "pidgin": "On-shore winds stay messy for surfing",
+      "english": "wind blowing from ocean to land",
+      "category": "nature",
+      "context": "Wind direction affecting waves",
+      "pronunciation": "on-SHORE",
+      "source": "dictionary:on_shore_7011",
+      "difficulty": "intermediate",
+      "tags": [
+        "nature",
+        "ocean",
+        "surfing",
+        "weather"
+      ]
+    },
+    {
+      "pidgin": "Off-shore winds stay perfect for barrels",
+      "english": "wind blowing from land to ocean",
+      "category": "nature",
+      "context": "Wind direction good for surfing",
+      "pronunciation": "off-SHORE",
+      "source": "dictionary:off_shore_7012",
+      "difficulty": "intermediate",
+      "tags": [
+        "nature",
+        "ocean",
+        "surfing",
+        "weather"
+      ]
+    },
+    {
+      "pidgin": "Da 'opihi man risk his life picking 'opihi",
+      "english": "type of limpet",
+      "category": "food",
+      "context": "Prized limpet, dangerous to harvest",
+      "pronunciation": "oh-PEE-hee",
+      "source": "dictionary:opihi_7013",
+      "difficulty": "intermediate",
+      "tags": [
+        "food",
+        "hawaiian",
+        "ocean",
+        "cultural"
+      ]
+    },
+    {
+      "pidgin": "Caught one monster ulua off da rocks",
+      "english": "giant trevally",
+      "category": "food",
+      "context": "Large prized game fish",
+      "pronunciation": "oo-LOO-ah",
+      "source": "dictionary:ulua_7014",
+      "difficulty": "intermediate",
+      "tags": [
+        "food",
+        "hawaiian",
+        "fish",
+        "ocean"
+      ]
+    },
+    {
+      "pidgin": "Get one gecko on da wall, dass good luck",
+      "english": "small lizard",
+      "category": "animals",
+      "context": "Small lizard considered good luck",
+      "pronunciation": "GEK-oh",
+      "source": "dictionary:gecko_7015",
+      "difficulty": "beginner",
+      "tags": [
+        "animals",
+        "cultural",
+        "local"
+      ]
+    },
+    {
+      "pidgin": "Get choke guava trees in da mountains",
+      "english": "guava fruit",
+      "category": "food",
+      "context": "Common invasive fruit",
+      "pronunciation": "GWAH-vah",
+      "source": "dictionary:guava_7016",
+      "difficulty": "beginner",
+      "tags": [
+        "food",
+        "fruit",
+        "nature"
+      ]
+    },
+    {
+      "pidgin": "He get haole rot from da beach",
+      "english": "tinea versicolor",
+      "category": "slang",
+      "context": "Common skin fungus causing white spots",
+      "pronunciation": "HOW-lee ROT",
+      "source": "dictionary:haole_rot_7017",
+      "difficulty": "intermediate",
+      "tags": [
+        "slang",
+        "health"
+      ]
+    },
+    {
+      "pidgin": "We going catch i'a today",
+      "english": "fish",
+      "category": "food",
+      "context": "Fish (general)",
+      "pronunciation": "EE-ah",
+      "source": "dictionary:ia_7018",
+      "difficulty": "intermediate",
+      "tags": [
+        "food",
+        "hawaiian",
+        "fish"
+      ]
+    },
+    {
+      "pidgin": "One mongoose just ran across da road",
+      "english": "mongoose animal",
+      "category": "animals",
+      "context": "Introduced animal, often seen as pest",
+      "pronunciation": "MON-goose",
+      "source": "dictionary:mongoose_7019",
+      "difficulty": "beginner",
+      "tags": [
+        "animals",
+        "local"
+      ]
+    },
+    {
+      "pidgin": "Caught some mu- for dinner",
+      "english": "type of reef fish",
+      "category": "food",
+      "context": "Specific reef fish",
+      "pronunciation": "MOO",
+      "source": "dictionary:mu_7020",
+      "difficulty": "advanced",
+      "tags": [
+        "food",
+        "hawaiian",
+        "fish"
+      ]
+    },
+    {
+      "pidgin": "We cooking 'ulu tonight",
+      "english": "breadfruit",
+      "category": "food",
+      "context": "Breadfruit",
+      "pronunciation": "OO-loo",
+      "source": "dictionary:ulu_7021",
+      "difficulty": "intermediate",
+      "tags": [
+        "food",
+        "hawaiian",
+        "fruit"
+      ]
+    },
+    {
+      "pidgin": "Buggah stay huge!",
+      "english": "that thing is",
+      "category": "expressions",
+      "context": "Describing state of a thing or person",
+      "pronunciation": "BUG-gah STAY",
+      "source": "dictionary:buggah_stay_7022",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "grammar",
+        "common"
+      ]
+    },
+    {
+      "pidgin": "Buggah stay sleeping",
+      "english": "that thing is",
+      "category": "expressions",
+      "context": "Describing state of a thing or person",
+      "pronunciation": "BUG-gah STAY",
+      "source": "dictionary:buggah_stay_7022",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "grammar",
+        "common"
+      ]
+    },
+    {
+      "pidgin": "Ho, brah! You see dat?",
+      "english": "wow",
+      "category": "expressions",
+      "context": "Attention-getting exclamation",
+      "pronunciation": "HO, BRAH",
+      "source": "dictionary:ho_brah_7023",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "exclamations",
+        "common"
+      ]
+    },
+    {
+      "pidgin": "Ho, da hard fo' learn!",
+      "english": "wow, that's difficult",
+      "category": "expressions",
+      "context": "Expressing that something is difficult",
+      "pronunciation": "HO, dah HARD",
+      "source": "dictionary:ho_da_hard_7024",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "exclamations"
+      ]
+    },
+    {
+      "pidgin": "How 'bout, we go beach?",
+      "english": "how about it?",
+      "category": "expressions",
+      "context": "Proposing or requesting something",
+      "pronunciation": "how BOUT",
+      "source": "dictionary:how_bout_7025",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "questions"
+      ]
+    },
+    {
+      "pidgin": "No act like you no know!",
+      "english": "don't act like that",
+      "category": "expressions",
+      "context": "Telling someone to stop acting",
+      "pronunciation": "no AKT",
+      "source": "dictionary:no_act_7026",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "commands"
+      ]
+    },
+    {
+      "pidgin": "Wat, you jealous I get da last malasada?",
+      "english": "are you jealous?",
+      "category": "expressions",
+      "context": "Taunting or asking if jealous",
+      "pronunciation": "WAT, you JEL-us",
+      "source": "dictionary:wat_you_jealous_7027",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "questions",
+        "slang"
+      ]
     }
   ],
   "categorized": {
@@ -20059,6 +20468,144 @@
           "filipino",
           "questions"
         ]
+      },
+      {
+        "pidgin": "Bango! Got one big ulua!",
+        "english": "caught a big fish!",
+        "category": "expressions",
+        "context": "Exclamation when catching a big fish",
+        "pronunciation": "BANG-go",
+        "source": "dictionary:bango_7006",
+        "difficulty": "intermediate",
+        "tags": [
+          "expressions",
+          "ocean",
+          "fishing",
+          "exclamations"
+        ]
+      },
+      {
+        "pidgin": "Get dakine surf on da North Shore today",
+        "english": "good surf",
+        "category": "expressions",
+        "context": "Good surf conditions",
+        "pronunciation": "dah-KINE SURF",
+        "source": "dictionary:dakine_surf_7007",
+        "difficulty": "intermediate",
+        "tags": [
+          "expressions",
+          "ocean",
+          "surfing"
+        ]
+      },
+      {
+        "pidgin": "Da waves stay off da hook today!",
+        "english": "excellent",
+        "category": "expressions",
+        "context": "Extremely good or impressive",
+        "pronunciation": "off dah HOOK",
+        "source": "dictionary:off_da_hook_7010",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "compliment",
+          "slang"
+        ]
+      },
+      {
+        "pidgin": "Buggah stay huge!",
+        "english": "that thing is",
+        "category": "expressions",
+        "context": "Describing state of a thing or person",
+        "pronunciation": "BUG-gah STAY",
+        "source": "dictionary:buggah_stay_7022",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "grammar",
+          "common"
+        ]
+      },
+      {
+        "pidgin": "Buggah stay sleeping",
+        "english": "that thing is",
+        "category": "expressions",
+        "context": "Describing state of a thing or person",
+        "pronunciation": "BUG-gah STAY",
+        "source": "dictionary:buggah_stay_7022",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "grammar",
+          "common"
+        ]
+      },
+      {
+        "pidgin": "Ho, brah! You see dat?",
+        "english": "wow",
+        "category": "expressions",
+        "context": "Attention-getting exclamation",
+        "pronunciation": "HO, BRAH",
+        "source": "dictionary:ho_brah_7023",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "exclamations",
+          "common"
+        ]
+      },
+      {
+        "pidgin": "Ho, da hard fo' learn!",
+        "english": "wow, that's difficult",
+        "category": "expressions",
+        "context": "Expressing that something is difficult",
+        "pronunciation": "HO, dah HARD",
+        "source": "dictionary:ho_da_hard_7024",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "exclamations"
+        ]
+      },
+      {
+        "pidgin": "How 'bout, we go beach?",
+        "english": "how about it?",
+        "category": "expressions",
+        "context": "Proposing or requesting something",
+        "pronunciation": "how BOUT",
+        "source": "dictionary:how_bout_7025",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "questions"
+        ]
+      },
+      {
+        "pidgin": "No act like you no know!",
+        "english": "don't act like that",
+        "category": "expressions",
+        "context": "Telling someone to stop acting",
+        "pronunciation": "no AKT",
+        "source": "dictionary:no_act_7026",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "commands"
+        ]
+      },
+      {
+        "pidgin": "Wat, you jealous I get da last malasada?",
+        "english": "are you jealous?",
+        "category": "expressions",
+        "context": "Taunting or asking if jealous",
+        "pronunciation": "WAT, you JEL-us",
+        "source": "dictionary:wat_you_jealous_7027",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "questions",
+          "slang"
+        ]
       }
     ],
     "greetings": [
@@ -21885,6 +22432,164 @@
           "portuguese",
           "cooking"
         ]
+      },
+      {
+        "pidgin": "Get gai for dinner tonight",
+        "english": "chicken",
+        "category": "food",
+        "context": "Chicken",
+        "pronunciation": "GAI",
+        "source": "dictionary:gai_7000",
+        "difficulty": "intermediate",
+        "tags": [
+          "food",
+          "chinese",
+          "animals"
+        ]
+      },
+      {
+        "pidgin": "Fresh lychee season stay here",
+        "english": "lychee fruit",
+        "category": "food",
+        "context": "Sweet tropical fruit",
+        "pronunciation": "LIE-chee",
+        "source": "dictionary:lychee_7003",
+        "difficulty": "beginner",
+        "tags": [
+          "food",
+          "chinese",
+          "fruit"
+        ]
+      },
+      {
+        "pidgin": "Get see-moi from da crack seed store",
+        "english": "salty dried plum",
+        "category": "food",
+        "context": "Salty dried plum snack",
+        "pronunciation": "SEE-moi",
+        "source": "dictionary:see_moi_7004",
+        "difficulty": "intermediate",
+        "tags": [
+          "food",
+          "chinese",
+          "snacks"
+        ]
+      },
+      {
+        "pidgin": "Caught one big a'u today!",
+        "english": "marlin",
+        "category": "food",
+        "context": "Marlin fish",
+        "pronunciation": "AH-oo",
+        "source": "dictionary:au_7005",
+        "difficulty": "intermediate",
+        "tags": [
+          "food",
+          "hawaiian",
+          "fish",
+          "ocean"
+        ]
+      },
+      {
+        "pidgin": "Moi was reserved for ali'i",
+        "english": "Pacific threadfin fish",
+        "category": "food",
+        "context": "Fish once reserved for Hawaiian royalty",
+        "pronunciation": "MOH-ee",
+        "source": "dictionary:moi_7009",
+        "difficulty": "intermediate",
+        "tags": [
+          "food",
+          "hawaiian",
+          "fish",
+          "cultural"
+        ]
+      },
+      {
+        "pidgin": "Da 'opihi man risk his life picking 'opihi",
+        "english": "type of limpet",
+        "category": "food",
+        "context": "Prized limpet, dangerous to harvest",
+        "pronunciation": "oh-PEE-hee",
+        "source": "dictionary:opihi_7013",
+        "difficulty": "intermediate",
+        "tags": [
+          "food",
+          "hawaiian",
+          "ocean",
+          "cultural"
+        ]
+      },
+      {
+        "pidgin": "Caught one monster ulua off da rocks",
+        "english": "giant trevally",
+        "category": "food",
+        "context": "Large prized game fish",
+        "pronunciation": "oo-LOO-ah",
+        "source": "dictionary:ulua_7014",
+        "difficulty": "intermediate",
+        "tags": [
+          "food",
+          "hawaiian",
+          "fish",
+          "ocean"
+        ]
+      },
+      {
+        "pidgin": "Get choke guava trees in da mountains",
+        "english": "guava fruit",
+        "category": "food",
+        "context": "Common invasive fruit",
+        "pronunciation": "GWAH-vah",
+        "source": "dictionary:guava_7016",
+        "difficulty": "beginner",
+        "tags": [
+          "food",
+          "fruit",
+          "nature"
+        ]
+      },
+      {
+        "pidgin": "We going catch i'a today",
+        "english": "fish",
+        "category": "food",
+        "context": "Fish (general)",
+        "pronunciation": "EE-ah",
+        "source": "dictionary:ia_7018",
+        "difficulty": "intermediate",
+        "tags": [
+          "food",
+          "hawaiian",
+          "fish"
+        ]
+      },
+      {
+        "pidgin": "Caught some mu- for dinner",
+        "english": "type of reef fish",
+        "category": "food",
+        "context": "Specific reef fish",
+        "pronunciation": "MOO",
+        "source": "dictionary:mu_7020",
+        "difficulty": "advanced",
+        "tags": [
+          "food",
+          "hawaiian",
+          "fish"
+        ]
+      },
+      {
+        "pidgin": "We cooking 'ulu tonight",
+        "english": "breadfruit",
+        "category": "food",
+        "context": "Breadfruit",
+        "pronunciation": "OO-loo",
+        "source": "dictionary:ulu_7021",
+        "difficulty": "intermediate",
+        "tags": [
+          "food",
+          "hawaiian",
+          "fruit"
+        ]
       }
     ],
     "nature": [
@@ -22324,6 +23029,36 @@
         "tags": [
           "nature",
           "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "On-shore winds stay messy for surfing",
+        "english": "wind blowing from ocean to land",
+        "category": "nature",
+        "context": "Wind direction affecting waves",
+        "pronunciation": "on-SHORE",
+        "source": "dictionary:on_shore_7011",
+        "difficulty": "intermediate",
+        "tags": [
+          "nature",
+          "ocean",
+          "surfing",
+          "weather"
+        ]
+      },
+      {
+        "pidgin": "Off-shore winds stay perfect for barrels",
+        "english": "wind blowing from land to ocean",
+        "category": "nature",
+        "context": "Wind direction good for surfing",
+        "pronunciation": "off-SHORE",
+        "source": "dictionary:off_shore_7012",
+        "difficulty": "intermediate",
+        "tags": [
+          "nature",
+          "ocean",
+          "surfing",
+          "weather"
         ]
       }
     ],
@@ -24095,6 +24830,21 @@
           "portuguese",
           "celebrations"
         ]
+      },
+      {
+        "pidgin": "Get lai see for Chinese New Year",
+        "english": "money in red envelope",
+        "category": "cultural",
+        "context": "Money given in red envelope for good luck",
+        "pronunciation": "LIE SEE",
+        "source": "dictionary:lai_see_7002",
+        "difficulty": "intermediate",
+        "tags": [
+          "cultural",
+          "chinese",
+          "money",
+          "celebrations"
+        ]
       }
     ],
     "descriptions": [
@@ -24767,6 +25517,21 @@
           "descriptions",
           "japanese",
           "appearance"
+        ]
+      },
+      {
+        "pidgin": "Da ocean stay so glassy this morning",
+        "english": "smooth ocean surface",
+        "category": "descriptions",
+        "context": "When ocean is smooth like glass",
+        "pronunciation": "GLASS-ee",
+        "source": "dictionary:glassy_7008",
+        "difficulty": "beginner",
+        "tags": [
+          "descriptions",
+          "ocean",
+          "surfing",
+          "weather"
         ]
       }
     ],
@@ -27320,6 +28085,19 @@
           "japanese",
           "places"
         ]
+      },
+      {
+        "pidgin": "He get haole rot from da beach",
+        "english": "tinea versicolor",
+        "category": "slang",
+        "context": "Common skin fungus causing white spots",
+        "pronunciation": "HOW-lee ROT",
+        "source": "dictionary:haole_rot_7017",
+        "difficulty": "intermediate",
+        "tags": [
+          "slang",
+          "health"
+        ]
       }
     ],
     "emotions": [
@@ -28772,6 +29550,46 @@
         "tags": [
           "animals",
           "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "Da gou stay barking all night",
+        "english": "dog",
+        "category": "animals",
+        "context": "Dog",
+        "pronunciation": "GOW",
+        "source": "dictionary:gou_7001",
+        "difficulty": "intermediate",
+        "tags": [
+          "animals",
+          "chinese"
+        ]
+      },
+      {
+        "pidgin": "Get one gecko on da wall, dass good luck",
+        "english": "small lizard",
+        "category": "animals",
+        "context": "Small lizard considered good luck",
+        "pronunciation": "GEK-oh",
+        "source": "dictionary:gecko_7015",
+        "difficulty": "beginner",
+        "tags": [
+          "animals",
+          "cultural",
+          "local"
+        ]
+      },
+      {
+        "pidgin": "One mongoose just ran across da road",
+        "english": "mongoose animal",
+        "category": "animals",
+        "context": "Introduced animal, often seen as pest",
+        "pronunciation": "MON-goose",
+        "source": "dictionary:mongoose_7019",
+        "difficulty": "beginner",
+        "tags": [
+          "animals",
+          "local"
         ]
       }
     ],
@@ -34906,6 +35724,151 @@
       "pidgin": "Da vinha d'alhos pork stay so 'ono",
       "english": "vinegar and garlic marinade",
       "context": "Vinegar and garlic marinade, origin of 'vinny-ha' pork"
+    },
+    {
+      "pidgin": "Get gai for dinner tonight",
+      "english": "chicken",
+      "context": "Chicken"
+    },
+    {
+      "pidgin": "Da gou stay barking all night",
+      "english": "dog",
+      "context": "Dog"
+    },
+    {
+      "pidgin": "Get lai see for Chinese New Year",
+      "english": "money in red envelope",
+      "context": "Money given in red envelope for good luck"
+    },
+    {
+      "pidgin": "Fresh lychee season stay here",
+      "english": "lychee fruit",
+      "context": "Sweet tropical fruit"
+    },
+    {
+      "pidgin": "Get see-moi from da crack seed store",
+      "english": "salty dried plum",
+      "context": "Salty dried plum snack"
+    },
+    {
+      "pidgin": "Caught one big a'u today!",
+      "english": "marlin",
+      "context": "Marlin fish"
+    },
+    {
+      "pidgin": "Bango! Got one big ulua!",
+      "english": "caught a big fish!",
+      "context": "Exclamation when catching a big fish"
+    },
+    {
+      "pidgin": "Get dakine surf on da North Shore today",
+      "english": "good surf",
+      "context": "Good surf conditions"
+    },
+    {
+      "pidgin": "Da ocean stay so glassy this morning",
+      "english": "smooth ocean surface",
+      "context": "When ocean is smooth like glass"
+    },
+    {
+      "pidgin": "Moi was reserved for ali'i",
+      "english": "Pacific threadfin fish",
+      "context": "Fish once reserved for Hawaiian royalty"
+    },
+    {
+      "pidgin": "Da waves stay off da hook today!",
+      "english": "excellent",
+      "context": "Extremely good or impressive"
+    },
+    {
+      "pidgin": "On-shore winds stay messy for surfing",
+      "english": "wind blowing from ocean to land",
+      "context": "Wind direction affecting waves"
+    },
+    {
+      "pidgin": "Off-shore winds stay perfect for barrels",
+      "english": "wind blowing from land to ocean",
+      "context": "Wind direction good for surfing"
+    },
+    {
+      "pidgin": "Da 'opihi man risk his life picking 'opihi",
+      "english": "type of limpet",
+      "context": "Prized limpet, dangerous to harvest"
+    },
+    {
+      "pidgin": "Caught one monster ulua off da rocks",
+      "english": "giant trevally",
+      "context": "Large prized game fish"
+    },
+    {
+      "pidgin": "Get one gecko on da wall, dass good luck",
+      "english": "small lizard",
+      "context": "Small lizard considered good luck"
+    },
+    {
+      "pidgin": "Get choke guava trees in da mountains",
+      "english": "guava fruit",
+      "context": "Common invasive fruit"
+    },
+    {
+      "pidgin": "He get haole rot from da beach",
+      "english": "tinea versicolor",
+      "context": "Common skin fungus causing white spots"
+    },
+    {
+      "pidgin": "We going catch i'a today",
+      "english": "fish",
+      "context": "Fish (general)"
+    },
+    {
+      "pidgin": "One mongoose just ran across da road",
+      "english": "mongoose animal",
+      "context": "Introduced animal, often seen as pest"
+    },
+    {
+      "pidgin": "Caught some mu- for dinner",
+      "english": "type of reef fish",
+      "context": "Specific reef fish"
+    },
+    {
+      "pidgin": "We cooking 'ulu tonight",
+      "english": "breadfruit",
+      "context": "Breadfruit"
+    },
+    {
+      "pidgin": "Buggah stay huge!",
+      "english": "that thing is",
+      "context": "Describing state of a thing or person"
+    },
+    {
+      "pidgin": "Buggah stay sleeping",
+      "english": "that thing is",
+      "context": "Describing state of a thing or person"
+    },
+    {
+      "pidgin": "Ho, brah! You see dat?",
+      "english": "wow",
+      "context": "Attention-getting exclamation"
+    },
+    {
+      "pidgin": "Ho, da hard fo' learn!",
+      "english": "wow, that's difficult",
+      "context": "Expressing that something is difficult"
+    },
+    {
+      "pidgin": "How 'bout, we go beach?",
+      "english": "how about it?",
+      "context": "Proposing or requesting something"
+    },
+    {
+      "pidgin": "No act like you no know!",
+      "english": "don't act like that",
+      "context": "Telling someone to stop acting"
+    },
+    {
+      "pidgin": "Wat, you jealous I get da last malasada?",
+      "english": "are you jealous?",
+      "context": "Taunting or asking if jealous"
     }
   ]
 }
