@@ -94,6 +94,7 @@ function copyJavaScriptFiles() {
         'src/components/dictionary',
         'src/components/translator',
         'src/components/speech',
+        'src/components/bible',
         'src/components/shared',
         'src/components/practice'
     ];

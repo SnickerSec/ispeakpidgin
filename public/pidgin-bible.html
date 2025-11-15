@@ -68,6 +68,24 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
+        .book-nav-item {
+            transition: all 0.2s ease;
+        }
+        .book-nav-item:hover {
+            background: #ede9fe;
+            transform: translateX(5px);
+        }
+        .book-nav-item.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: bold;
+        }
+        .sticky-nav {
+            position: sticky;
+            top: 80px;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+        }
     </style>
 
     <!-- Structured Data - Book -->
@@ -155,290 +173,255 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-gradient py-16 px-4 text-white">
+    <section class="hero-gradient py-12 px-4 text-white">
         <div class="max-w-4xl mx-auto text-center">
             <div class="text-6xl mb-4">📖</div>
-            <h1 class="text-4xl md:text-5xl font-bold mb-6 brand-font">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 brand-font">
                 Da Jesus Book
             </h1>
-            <p class="text-xl md:text-2xl text-white/90 mb-4">
-                Hawaii Pidgin Bible - The New Testament
+            <p class="text-xl md:text-2xl text-white/90 mb-2">
+                Hawaii Pidgin Bible - New Testament
             </p>
-            <p class="text-lg text-white/80 max-w-2xl mx-auto">
-                Experience scripture in the language of Hawaii's people - authentic Hawaiian Pidgin translation of the New Testament
+            <p class="text-lg text-white/80">
+                Read scripture in the language of Hawaii's people
             </p>
         </div>
     </section>
 
+    <!-- Search Bar -->
+    <div class="bg-white shadow-md sticky top-16 z-40">
+        <div class="max-w-6xl mx-auto px-4 py-4">
+            <div class="flex gap-3 items-center">
+                <input
+                    type="text"
+                    id="bible-search"
+                    placeholder="Search for a book, chapter, or verse (e.g., John 3:16)..."
+                    class="flex-1 px-4 py-3 border-2 border-purple-200 rounded-xl focus:outline-none focus:border-purple-500 transition"
+                >
+                <button id="search-btn" class="px-6 py-3 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition font-semibold">
+                    🔍 Search
+                </button>
+            </div>
+            <div class="mt-2 text-sm text-gray-600">
+                Try: "John 3:16", "Matthew 5", "Romans", or "Love"
+            </div>
+        </div>
+    </div>
+
     <!-- Main Content -->
-    <div class="max-w-6xl mx-auto px-4 py-12">
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <div class="grid lg:grid-cols-4 gap-8">
 
-        <!-- Introduction -->
-        <section class="mb-16">
-            <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">
-                    About Da Jesus Book
-                </h2>
-                <div class="prose prose-lg max-w-none">
-                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                        <strong>Da Jesus Book</strong> is the complete New Testament translated into authentic Hawaiian Pidgin (Hawaiian Creole English). This landmark translation project was completed by <strong>Wycliffe Bible Translators</strong> to bring scripture to the hundreds of thousands of people in Hawaii who speak Pidgin as their heart language.
-                    </p>
-                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                        For many locals in Hawaii, reading the Bible in standard English feels distant and formal. Da Jesus Book brings scripture to life in the way people actually talk—making God's word more accessible, relatable, and meaningful to Hawaii's multicultural community.
-                    </p>
-                    <p class="text-lg text-gray-700 leading-relaxed">
-                        This translation demonstrates that Hawaiian Pidgin is a legitimate language worthy of carrying sacred texts, not just casual conversation. It validates the language and culture of Hawaii's local community.
-                    </p>
-                </div>
-            </div>
-        </section>
+            <!-- Bible Books Navigation -->
+            <div class="lg:col-span-1">
+                <div class="sticky-nav bg-white rounded-xl shadow-lg p-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">📚 Books</h2>
 
-        <!-- Sample Verses -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
-                Sample Verses in Pidgin
-            </h2>
-
-            <div class="space-y-6">
-                <!-- John 3:16 -->
-                <div class="scripture-card bible-verse rounded-2xl p-8 shadow-lg">
-                    <h3 class="text-2xl font-bold text-blue-600 mb-4">John 3:16</h3>
-                    <p class="text-xl text-gray-800 leading-relaxed mb-4 italic">
-                        "God get so plenny love an aloha fo da peopo inside da world, dat he wen send me, his one an ony Boy, so dat everybody dat trus me no get cut off from God, but get da kine life dat stay to da max foeva."
-                    </p>
-                    <p class="text-lg text-gray-600">
-                        <strong>Standard English:</strong> "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life."
-                    </p>
-                </div>
-
-                <!-- Matthew 5:3 -->
-                <div class="scripture-card bible-verse rounded-2xl p-8 shadow-lg">
-                    <h3 class="text-2xl font-bold text-blue-600 mb-4">Matthew 5:3 (Beatitudes)</h3>
-                    <p class="text-xl text-gray-800 leading-relaxed mb-4 italic">
-                        "God goin do plenny good tings fo da peopo dat know inside dey need God, cuz God goin be dea King."
-                    </p>
-                    <p class="text-lg text-gray-600">
-                        <strong>Standard English:</strong> "Blessed are the poor in spirit, for theirs is the kingdom of heaven."
-                    </p>
-                </div>
-
-                <!-- Psalm 23:1 -->
-                <div class="scripture-card bible-verse rounded-2xl p-8 shadow-lg">
-                    <h3 class="text-2xl font-bold text-blue-600 mb-4">Psalm 23:1</h3>
-                    <p class="text-xl text-gray-800 leading-relaxed mb-4 italic">
-                        "Da Boss Up Dea, he take care me jalike da sheep farma guy take care his sheeps. I get everyting I need."
-                    </p>
-                    <p class="text-lg text-gray-600">
-                        <strong>Standard English:</strong> "The Lord is my shepherd, I shall not want."
-                    </p>
-                </div>
-
-                <!-- 1 Corinthians 13:4 -->
-                <div class="scripture-card bible-verse rounded-2xl p-8 shadow-lg">
-                    <h3 class="text-2xl font-bold text-blue-600 mb-4">1 Corinthians 13:4 (Love Chapter)</h3>
-                    <p class="text-xl text-gray-800 leading-relaxed mb-4 italic">
-                        "Wen peopo get love an aloha fo odda peopo, dey stay good inside, dey wait. Dey do good tings fo da odda peopo. Dey no stay jealous. Dey no brag. Dey no ack high makamaka."
-                    </p>
-                    <p class="text-lg text-gray-600">
-                        <strong>Standard English:</strong> "Love is patient, love is kind. It does not envy, it does not boast, it is not proud."
-                    </p>
-                </div>
-
-                <!-- The Lord's Prayer -->
-                <div class="scripture-card bible-verse rounded-2xl p-8 shadow-lg">
-                    <h3 class="text-2xl font-bold text-blue-600 mb-4">Matthew 6:9-10 (The Lord's Prayer)</h3>
-                    <p class="text-xl text-gray-800 leading-relaxed mb-4 italic">
-                        "Our Fadda inside da sky, we like all da peopo know fo shua how you stay, an dat you stay good an spesho. We like you come da King fo everybody. We like everybody make jalike you like, ova hea inside da world, jalike da angel guys up inside da sky make jalike you like."
-                    </p>
-                    <p class="text-lg text-gray-600">
-                        <strong>Standard English:</strong> "Our Father in heaven, hallowed be your name, your kingdom come, your will be done, on earth as it is in heaven."
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Why This Matters -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-8">
-                Why This Translation Matters
-            </h2>
-
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 shadow-lg">
-                    <h3 class="text-2xl font-bold text-purple-600 mb-4">🌺 Cultural Validation</h3>
-                    <p class="text-gray-700 leading-relaxed">
-                        For decades, Hawaiian Pidgin was dismissed as "broken English" and discouraged in schools. Da Jesus Book validates Pidgin as a legitimate language worthy of carrying sacred scripture, affirming the cultural identity of hundreds of thousands of local people.
-                    </p>
-                </div>
-
-                <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-8 shadow-lg">
-                    <h3 class="text-2xl font-bold text-blue-600 mb-4">💝 Accessibility</h3>
-                    <p class="text-gray-700 leading-relaxed">
-                        Many locals in Hawaii can read standard English but understand scripture better in their heart language. Reading "God get so plenny love" hits differently than "God so loved"—it's how they naturally express deep emotion and truth.
-                    </p>
-                </div>
-
-                <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 shadow-lg">
-                    <h3 class="text-2xl font-bold text-green-600 mb-4">🤝 Community Connection</h3>
-                    <p class="text-gray-700 leading-relaxed">
-                        Hawaiian Pidgin is the language of solidarity and local identity. When scripture speaks in Pidgin, it speaks directly to the multicultural community that makes Hawaii unique—honoring the plantation workers whose languages created this creole.
-                    </p>
-                </div>
-
-                <div class="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl p-8 shadow-lg">
-                    <h3 class="text-2xl font-bold text-orange-600 mb-4">📚 Linguistic Achievement</h3>
-                    <p class="text-gray-700 leading-relaxed">
-                        This translation required years of careful work by linguists and native speakers to ensure accuracy and authenticity. It demonstrates that Hawaiian Pidgin has the grammatical sophistication to express complex theological concepts.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- How to Access -->
-        <section class="mb-16">
-            <div class="bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-2xl shadow-2xl p-8 md:p-12">
-                <h2 class="text-3xl font-bold mb-6 text-center">
-                    Where to Read Da Jesus Book
-                </h2>
-                <div class="space-y-6">
-                    <div class="bg-white/10 backdrop-blur rounded-xl p-6">
-                        <h3 class="text-2xl font-bold mb-3">📱 Online Bible Apps</h3>
-                        <p class="text-white/90 mb-4">
-                            Da Jesus Book is available on major Bible apps:
-                        </p>
-                        <ul class="space-y-2">
-                            <li class="flex items-start">
-                                <span class="text-2xl mr-3">✓</span>
-                                <span><strong>YouVersion Bible App</strong> - Search for "Hawaii Pidgin" or "Pidgin English"</span>
-                            </li>
-                            <li class="flex items-start">
-                                <span class="text-2xl mr-3">✓</span>
-                                <span><strong>Bible.com</strong> - Available in multiple formats</span>
-                            </li>
-                        </ul>
+                    <!-- New Testament Books -->
+                    <div class="mb-6">
+                        <h3 class="font-bold text-purple-600 mb-3">New Testament</h3>
+                        <div class="space-y-1" id="book-list">
+                            <!-- Generated by JavaScript -->
+                        </div>
                     </div>
 
-                    <div class="bg-white/10 backdrop-blur rounded-xl p-6">
-                        <h3 class="text-2xl font-bold mb-3">🌐 Official Website</h3>
-                        <p class="text-white/90 mb-4">
-                            Read the complete New Testament online at:
-                        </p>
-                        <a href="https://www.pidginbible.org" target="_blank" rel="noopener" class="inline-block bg-white text-purple-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition shadow-lg">
-                            Visit PidginBible.org →
+                    <!-- Quick Links -->
+                    <div class="pt-4 border-t">
+                        <h3 class="font-bold text-gray-700 mb-2">⚡ Quick Access</h3>
+                        <div class="space-y-1 text-sm">
+                            <a href="#samples" class="block text-blue-600 hover:underline">Sample Verses</a>
+                            <a href="#resources" class="block text-blue-600 hover:underline">External Resources</a>
+                            <a href="#about" class="block text-blue-600 hover:underline">About Translation</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Reading Area -->
+            <div class="lg:col-span-3">
+
+                <!-- Welcome Message -->
+                <div id="welcome-section" class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl shadow-lg p-8 mb-8">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">
+                        Welcome to Da Jesus Book
+                    </h2>
+                    <p class="text-lg text-gray-700 mb-4">
+                        Da Jesus Book is the complete New Testament translated into authentic Hawaiian Pidgin.
+                        Choose a book from the left sidebar to start reading, or use the search bar above to find specific verses.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-4 mt-6">
+                        <button onclick="loadBook('john')" class="bg-purple-600 text-white px-6 py-4 rounded-xl hover:bg-purple-700 transition font-semibold">
+                            📖 Start with John
+                        </button>
+                        <a href="#samples" class="bg-blue-600 text-white px-6 py-4 rounded-xl hover:bg-blue-700 transition font-semibold text-center">
+                            ✨ View Sample Verses
                         </a>
                     </div>
-
-                    <div class="bg-white/10 backdrop-blur rounded-xl p-6">
-                        <h3 class="text-2xl font-bold mb-3">📖 Physical Books</h3>
-                        <p class="text-white/90">
-                            Print copies of Da Jesus Book are available through Wycliffe Bible Translators and local Hawaii bookstores.
-                        </p>
-                    </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- Translation Team -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-8">
-                About the Translation
-            </h2>
-            <div class="bg-white rounded-2xl shadow-lg p-8">
-                <div class="prose prose-lg max-w-none">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Wycliffe Bible Translators</h3>
-                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                        Da Jesus Book was translated by <strong>Wycliffe Bible Translators</strong>, an international organization dedicated to making the Bible accessible in every language. The Hawaii Pidgin translation project took over a decade and involved:
-                    </p>
-                    <ul class="list-disc list-inside text-lg text-gray-700 space-y-2 mb-6">
-                        <li><strong>Native Pidgin speakers</strong> who grew up with the language</li>
-                        <li><strong>Biblical scholars</strong> ensuring theological accuracy</li>
-                        <li><strong>Linguists</strong> who understand Hawaiian Creole English structure</li>
-                        <li><strong>Community reviewers</strong> from across all Hawaiian islands</li>
-                    </ul>
-
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4 mt-8">Translation Philosophy</h3>
-                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                        The translation team used a <strong>dynamic equivalence</strong> approach—translating the meaning and impact of scripture, not just word-for-word. This ensures that Pidgin speakers experience the text the same way original audiences did: clear, powerful, and culturally relevant.
-                    </p>
-
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4 mt-8">First Published</h3>
-                    <p class="text-lg text-gray-700 leading-relaxed">
-                        The complete New Testament in Hawaiian Pidgin was published in <strong>2000</strong>, making it one of the few complete Bible translations in a creole language. It represents a significant achievement in both linguistic and cultural preservation.
-                    </p>
+                <!-- Reading Area (populated by JavaScript) -->
+                <div id="reading-area" class="hidden">
+                    <!-- Book/Chapter content goes here -->
                 </div>
+
+                <!-- Sample Verses Section -->
+                <section id="samples" class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6">
+                        ✨ Sample Verses in Pidgin
+                    </h2>
+
+                    <div class="space-y-6">
+                        <!-- John 3:16 -->
+                        <div class="scripture-card bible-verse rounded-2xl p-8 shadow-lg">
+                            <h3 class="text-2xl font-bold text-blue-600 mb-4">John 3:16</h3>
+                            <p class="text-xl text-gray-800 leading-relaxed mb-4 italic">
+                                "God get so plenny love an aloha fo da peopo inside da world, dat he wen send me, his one an ony Boy, so dat everybody dat trus me no get cut off from God, but get da kine life dat stay to da max foeva."
+                            </p>
+                            <p class="text-lg text-gray-600 mb-4">
+                                <strong>Standard English:</strong> "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life."
+                            </p>
+                            <button onclick="searchVerse('John 3:16')" class="text-purple-600 hover:text-purple-800 font-semibold">
+                                📖 Read full chapter →
+                            </button>
+                        </div>
+
+                        <!-- Matthew 5:3 -->
+                        <div class="scripture-card bible-verse rounded-2xl p-8 shadow-lg">
+                            <h3 class="text-2xl font-bold text-blue-600 mb-4">Matthew 5:3 (Beatitudes)</h3>
+                            <p class="text-xl text-gray-800 leading-relaxed mb-4 italic">
+                                "God goin do plenny good tings fo da peopo dat know inside dey need God, cuz God goin be dea King."
+                            </p>
+                            <p class="text-lg text-gray-600 mb-4">
+                                <strong>Standard English:</strong> "Blessed are the poor in spirit, for theirs is the kingdom of heaven."
+                            </p>
+                            <button onclick="searchVerse('Matthew 5:3')" class="text-purple-600 hover:text-purple-800 font-semibold">
+                                📖 Read full chapter →
+                            </button>
+                        </div>
+
+                        <!-- Psalm 23:1 -->
+                        <div class="scripture-card bible-verse rounded-2xl p-8 shadow-lg">
+                            <h3 class="text-2xl font-bold text-blue-600 mb-4">Psalm 23:1</h3>
+                            <p class="text-xl text-gray-800 leading-relaxed mb-4 italic">
+                                "Da Boss Up Dea, he take care me jalike da sheep farma guy take care his sheeps. I get everyting I need."
+                            </p>
+                            <p class="text-lg text-gray-600 mb-4">
+                                <strong>Standard English:</strong> "The Lord is my shepherd, I shall not want."
+                            </p>
+                            <button onclick="searchVerse('Psalm 23:1')" class="text-purple-600 hover:text-purple-800 font-semibold">
+                                📖 Read full chapter →
+                            </button>
+                        </div>
+
+                        <!-- 1 Corinthians 13:4 -->
+                        <div class="scripture-card bible-verse rounded-2xl p-8 shadow-lg">
+                            <h3 class="text-2xl font-bold text-blue-600 mb-4">1 Corinthians 13:4 (Love Chapter)</h3>
+                            <p class="text-xl text-gray-800 leading-relaxed mb-4 italic">
+                                "Wen peopo get love an aloha fo odda peopo, dey stay good inside, dey wait. Dey do good tings fo da odda peopo. Dey no stay jealous. Dey no brag. Dey no ack high makamaka."
+                            </p>
+                            <p class="text-lg text-gray-600 mb-4">
+                                <strong>Standard English:</strong> "Love is patient, love is kind. It does not envy, it does not boast, it is not proud."
+                            </p>
+                            <button onclick="searchVerse('1 Corinthians 13:4')" class="text-purple-600 hover:text-purple-800 font-semibold">
+                                📖 Read full chapter →
+                            </button>
+                        </div>
+
+                        <!-- The Lord's Prayer -->
+                        <div class="scripture-card bible-verse rounded-2xl p-8 shadow-lg">
+                            <h3 class="text-2xl font-bold text-blue-600 mb-4">Matthew 6:9-10 (The Lord's Prayer)</h3>
+                            <p class="text-xl text-gray-800 leading-relaxed mb-4 italic">
+                                "Our Fadda inside da sky, we like all da peopo know fo shua how you stay, an dat you stay good an spesho. We like you come da King fo everybody. We like everybody make jalike you like, ova hea inside da world, jalike da angel guys up inside da sky make jalike you like."
+                            </p>
+                            <p class="text-lg text-gray-600 mb-4">
+                                <strong>Standard English:</strong> "Our Father in heaven, hallowed be your name, your kingdom come, your will be done, on earth as it is in heaven."
+                            </p>
+                            <button onclick="searchVerse('Matthew 6:9-10')" class="text-purple-600 hover:text-purple-800 font-semibold">
+                                📖 Read full chapter →
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- External Resources -->
+                <section id="resources" class="mb-12">
+                    <div class="bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-2xl shadow-2xl p-8">
+                        <h2 class="text-3xl font-bold mb-6 text-center">
+                            📱 Read Da Complete Bible Online
+                        </h2>
+                        <div class="space-y-6">
+                            <div class="bg-white/10 backdrop-blur rounded-xl p-6">
+                                <h3 class="text-2xl font-bold mb-3">📖 Bible.com / YouVersion</h3>
+                                <p class="text-white/90 mb-4">
+                                    Read Da Jesus Book (HPB - Hawaii Pidgin Bible) for free on Bible.com. Available on web and mobile apps.
+                                </p>
+                                <a href="https://www.bible.com/versions/76-hpb-hawaii-pidgin-bible" target="_blank" rel="noopener" class="inline-block bg-white text-purple-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition shadow-lg">
+                                    Read on Bible.com →
+                                </a>
+                            </div>
+
+                            <div class="bg-white/10 backdrop-blur rounded-xl p-6">
+                                <h3 class="text-2xl font-bold mb-3">🌐 Hawaii Pidgin Bible Ministries</h3>
+                                <p class="text-white/90 mb-4">
+                                    Official website with Da Good An Spesho Book (complete Old + New Testament).
+                                </p>
+                                <a href="https://hipidginbible.org/dgasb-online" target="_blank" rel="noopener" class="inline-block bg-white text-purple-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition shadow-lg">
+                                    Visit Official Site →
+                                </a>
+                            </div>
+
+                            <div class="bg-white/10 backdrop-blur rounded-xl p-6">
+                                <h3 class="text-2xl font-bold mb-3">📱 Mobile Apps</h3>
+                                <p class="text-white/90 mb-4">
+                                    Download the Hawaii Pidgin Bible app for offline reading on Android and iOS.
+                                </p>
+                                <div class="flex gap-4 flex-wrap">
+                                    <a href="https://play.google.com/store/apps/details?id=org.fcbh.hwcwyi.n2.n&hl=en_US" target="_blank" rel="noopener" class="inline-block bg-white text-purple-600 px-6 py-3 rounded-xl font-bold hover:bg-gray-100 transition">
+                                        📱 Google Play
+                                    </a>
+                                    <a href="https://www.bible.com/languages/hwc" target="_blank" rel="noopener" class="inline-block bg-white text-purple-600 px-6 py-3 rounded-xl font-bold hover:bg-gray-100 transition">
+                                        📱 App Store
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- About Translation -->
+                <section id="about" class="mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6">
+                        About Da Jesus Book Translation
+                    </h2>
+                    <div class="bg-white rounded-2xl shadow-lg p-8">
+                        <div class="prose prose-lg max-w-none">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4">Wycliffe Bible Translators</h3>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                Da Jesus Book was translated by <strong>Wycliffe Bible Translators</strong>, an international organization dedicated to making the Bible accessible in every language. The Hawaii Pidgin translation project took over a decade and involved:
+                            </p>
+                            <ul class="list-disc list-inside text-lg text-gray-700 space-y-2 mb-6">
+                                <li><strong>Native Pidgin speakers</strong> who grew up with the language</li>
+                                <li><strong>Biblical scholars</strong> ensuring theological accuracy</li>
+                                <li><strong>Linguists</strong> who understand Hawaiian Creole English structure</li>
+                                <li><strong>Community reviewers</strong> from across all Hawaiian islands</li>
+                            </ul>
+
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4 mt-8">Translation Timeline</h3>
+                            <ul class="space-y-2 text-lg text-gray-700">
+                                <li><strong>2000:</strong> Da Jesus Book (New Testament) first published</li>
+                                <li><strong>2020:</strong> Da Good An Spesho Book (complete Bible with Old Testament) published</li>
+                            </ul>
+
+                            <h3 class="text-2xl font-bold text-gray-800 mb-4 mt-8">Why This Matters</h3>
+                            <p class="text-lg text-gray-700 leading-relaxed">
+                                For decades, Hawaiian Pidgin was dismissed as "broken English" and discouraged in schools. Da Jesus Book validates Pidgin as a legitimate language worthy of carrying sacred scripture, affirming the cultural identity of hundreds of thousands of local people.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
             </div>
-        </section>
-
-        <!-- Learning from the Bible -->
-        <section class="mb-16">
-            <div class="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl shadow-lg p-8">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">
-                    Learn Pidgin Through Scripture
-                </h2>
-                <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                    Da Jesus Book is not just a spiritual resource—it's also an excellent tool for learning authentic Hawaiian Pidgin. Because it's a complete translation of the New Testament, you can:
-                </p>
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-white rounded-xl p-6 shadow-md">
-                        <h3 class="font-bold text-gray-800 mb-3">✓ Compare with English</h3>
-                        <p class="text-gray-700">
-                            Read familiar passages side-by-side to see how Pidgin expresses the same ideas
-                        </p>
-                    </div>
-                    <div class="bg-white rounded-xl p-6 shadow-md">
-                        <h3 class="font-bold text-gray-800 mb-3">✓ Learn Grammar Naturally</h3>
-                        <p class="text-gray-700">
-                            See how Pidgin handles tenses, questions, and complex sentences in context
-                        </p>
-                    </div>
-                    <div class="bg-white rounded-xl p-6 shadow-md">
-                        <h3 class="font-bold text-gray-800 mb-3">✓ Expand Vocabulary</h3>
-                        <p class="text-gray-700">
-                            Discover how Pidgin expresses abstract concepts like love, faith, and hope
-                        </p>
-                    </div>
-                    <div class="bg-white rounded-xl p-6 shadow-md">
-                        <h3 class="font-bold text-gray-800 mb-3">✓ Understand Culture</h3>
-                        <p class="text-gray-700">
-                            See how biblical concepts are expressed in ways that resonate with local culture
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Related Resources -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
-                More Pidgin Resources
-            </h2>
-            <div class="grid md:grid-cols-3 gap-6">
-                <a href="dictionary.html" class="block bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition">
-                    <div class="text-4xl mb-3">📚</div>
-                    <h3 class="text-xl font-bold text-purple-600 mb-2">Pidgin Dictionary</h3>
-                    <p class="text-gray-700">
-                        Browse 600+ Hawaiian Pidgin words with pronunciations and examples
-                    </p>
-                </a>
-
-                <a href="translator.html" class="block bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition">
-                    <div class="text-4xl mb-3">🔄</div>
-                    <h3 class="text-xl font-bold text-purple-600 mb-2">Pidgin Translator</h3>
-                    <p class="text-gray-700">
-                        Translate English to Hawaiian Pidgin with our free online tool
-                    </p>
-                </a>
-
-                <a href="pidgin-vs-hawaiian.html" class="block bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition">
-                    <div class="text-4xl mb-3">🌺</div>
-                    <h3 class="text-xl font-bold text-purple-600 mb-2">Pidgin vs. Hawaiian</h3>
-                    <p class="text-gray-700">
-                        Understand the difference between Pidgin and the Hawaiian language
-                    </p>
-                </a>
-            </div>
-        </section>
-
+        </div>
     </div>
 
     <!-- Footer -->
@@ -474,12 +457,13 @@
             </div>
             <div class="border-t border-gray-700 pt-8 text-center text-gray-400">
                 <p>&copy; 2024 ChokePidgin.com. Preserving Hawaiian Pidgin with aloha. 🤙</p>
-                <p class="mt-2 text-sm">Da Jesus Book is translated by Wycliffe Bible Translators. Visit <a href="https://www.pidginbible.org" target="_blank" class="text-blue-400 hover:text-blue-300">PidginBible.org</a> to read online.</p>
+                <p class="mt-2 text-sm">Da Jesus Book © Wycliffe Bible Translators &amp; Hawaii Pidgin Bible Ministry</p>
             </div>
         </div>
     </footer>
 
     <!-- JavaScript -->
+    <script src="js/pidgin-bible.js"></script>
     <script>
         // Mobile menu toggle
         document.getElementById('mobile-menu-btn')?.addEventListener('click', function() {
