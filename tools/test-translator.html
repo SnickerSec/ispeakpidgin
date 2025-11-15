@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translator Validation & Testing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <h1 class="text-4xl font-bold text-gray-900 mb-2">🔍 Translator Validation & Testing</h1>
+        <p class="text-gray-600 mb-8">Test translator accuracy using your own Hawaiian Pidgin data</p>
+
+        <!-- Control Panel -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4">Test Controls</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Test Type</label>
+                    <select id="testType" class="w-full border rounded-lg px-3 py-2">
+                        <option value="all">All Tests</option>
+                        <option value="english-to-pidgin">English → Pidgin</option>
+                        <option value="pidgin-to-english">Pidgin → English</option>
+                        <option value="fuzzy-match">Fuzzy Matching</option>
+                        <option value="examples">Example Sentences</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Sample Size</label>
+                    <select id="sampleSize" class="w-full border rounded-lg px-3 py-2">
+                        <option value="10">10 samples (Quick)</option>
+                        <option value="50">50 samples</option>
+                        <option value="100" selected>100 samples</option>
+                        <option value="500">500 samples (Thorough)</option>
+                        <option value="all">All data (Comprehensive)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Category Filter</label>
+                    <select id="categoryFilter" class="w-full border rounded-lg px-3 py-2">
+                        <option value="all">All Categories</option>
+                        <option value="greetings">Greetings</option>
+                        <option value="food">Food</option>
+                        <option value="expressions">Expressions</option>
+                        <option value="slang">Slang</option>
+                        <option value="emotions">Emotions</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="flex gap-4">
+                <button id="runTests" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold">
+                    🚀 Run Tests
+                </button>
+                <button id="exportResults" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 font-semibold" disabled>
+                    📥 Export Results
+                </button>
+                <button id="clearResults" class="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 font-semibold">
+                    🗑️ Clear
+                </button>
+            </div>
+        </div>
+
+        <!-- Progress -->
+        <div id="progressSection" class="bg-white rounded-lg shadow-lg p-6 mb-8 hidden">
+            <h3 class="text-xl font-bold mb-3">Testing Progress</h3>
+            <div class="w-full bg-gray-200 rounded-full h-4 mb-2">
+                <div id="progressBar" class="bg-blue-600 h-4 rounded-full transition-all" style="width: 0%"></div>
+            </div>
+            <p id="progressText" class="text-sm text-gray-600">Starting tests...</p>
+        </div>
+
+        <!-- Overall Stats -->
+        <div id="statsSection" class="hidden">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div id="totalTests" class="text-3xl font-bold text-blue-600">0</div>
+                    <div class="text-gray-600">Total Tests</div>
+                </div>
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div id="passedTests" class="text-3xl font-bold text-green-600">0</div>
+                    <div class="text-gray-600">Passed</div>
+                </div>
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div id="failedTests" class="text-3xl font-bold text-red-600">0</div>
+                    <div class="text-gray-600">Failed</div>
+                </div>
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div id="accuracy" class="text-3xl font-bold text-purple-600">0%</div>
+                    <div class="text-gray-600">Accuracy</div>
+                </div>
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div id="avgScore" class="text-3xl font-bold text-yellow-600">0%</div>
+                    <div class="text-gray-600">Avg Score</div>
+                </div>
+            </div>
+
+            <!-- Charts and Analysis -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <!-- By Category -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-bold mb-4">📊 Accuracy by Category</h3>
+                    <div id="categoryStats" class="space-y-3"></div>
+                </div>
+
+                <!-- By Type -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-bold mb-4">🎯 Accuracy by Test Type</h3>
+                    <div id="typeStats" class="space-y-3"></div>
+                </div>
+            </div>
+
+            <!-- Improvement Suggestions -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                <h3 class="text-xl font-bold mb-4">💡 Improvement Suggestions</h3>
+                <div id="suggestions" class="space-y-4"></div>
+            </div>
+
+            <!-- Sample Results -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold">📋 Test Results</h3>
+                    <div class="flex gap-2">
+                        <button id="showPassed" class="px-3 py-1 bg-green-100 text-green-700 rounded text-sm font-medium hover:bg-green-200">
+                            Show Passed
+                        </button>
+                        <button id="showFailed" class="px-3 py-1 bg-red-100 text-red-700 rounded text-sm font-medium hover:bg-red-200">
+                            Show Failed
+                        </button>
+                        <button id="showAll" class="px-3 py-1 bg-blue-100 text-blue-700 rounded text-sm font-medium hover:bg-blue-200">
+                            Show All
+                        </button>
+                    </div>
+                </div>
+                <div id="results" class="overflow-x-auto max-h-96 overflow-y-auto"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include translator and data loader -->
+    <script src="../public/js/components/data-loader.js"></script>
+    <script src="../public/js/components/translator.js"></script>
+
+    <script>
+        let testResults = [];
+        let analysis = null;
+
+        // Wait for data to load
+        window.addEventListener('pidginDataLoaded', () => {
+            console.log('✅ Pidgin data loaded and ready for testing');
+        });
+
+        document.getElementById('runTests').addEventListener('click', runTests);
+        document.getElementById('exportResults').addEventListener('click', exportResults);
+        document.getElementById('clearResults').addEventListener('click', clearResults);
+        document.getElementById('showPassed').addEventListener('click', () => filterResults('passed'));
+        document.getElementById('showFailed').addEventListener('click', () => filterResults('failed'));
+        document.getElementById('showAll').addEventListener('click', () => filterResults('all'));
+
+        async function runTests() {
+            // Clear previous results
+            testResults = [];
+
+            // Get test parameters
+            const testType = document.getElementById('testType').value;
+            const sampleSize = document.getElementById('sampleSize').value;
+            const category = document.getElementById('categoryFilter').value;
+
+            // Show progress
+            document.getElementById('progressSection').classList.remove('hidden');
+            document.getElementById('statsSection').classList.add('hidden');
+
+            // Generate test cases
+            const testCases = generateTestCases(testType, sampleSize, category);
+            console.log(`Generated ${testCases.length} test cases`);
+
+            // Run tests
+            for (let i = 0; i < testCases.length; i++) {
+                const testCase = testCases[i];
+                const result = await runSingleTest(testCase);
+                testResults.push(result);
+
+                // Update progress
+                const progress = ((i + 1) / testCases.length * 100).toFixed(1);
+                document.getElementById('progressBar').style.width = progress + '%';
+                document.getElementById('progressText').textContent =
+                    `Testing ${i + 1} of ${testCases.length} (${progress}%)`;
+
+                // Small delay to prevent blocking
+                if (i % 10 === 0) {
+                    await new Promise(resolve => setTimeout(resolve, 10));
+                }
+            }
+
+            // Analyze and display results
+            analyzeResults();
+            displayResults();
+
+            // Hide progress, show stats
+            document.getElementById('progressSection').classList.add('hidden');
+            document.getElementById('statsSection').classList.remove('hidden');
+            document.getElementById('exportResults').disabled = false;
+        }
+
+        function generateTestCases(testType, sampleSize, category) {
+            const testCases = [];
+            const entries = pidginDataLoader.getAllEntries();
+
+            let filteredEntries = entries;
+            if (category !== 'all') {
+                filteredEntries = entries.filter(e => e.category === category);
+            }
+
+            // Sample entries
+            const sample = sampleSize === 'all' ? filteredEntries :
+                filteredEntries.slice(0, parseInt(sampleSize));
+
+            sample.forEach(entry => {
+                // English to Pidgin
+                if (testType === 'all' || testType === 'english-to-pidgin') {
+                    entry.english.forEach(eng => {
+                        testCases.push({
+                            type: 'english-to-pidgin',
+                            input: eng,
+                            expected: entry.pidgin,
+                            category: entry.category,
+                            entryId: entry.id
+                        });
+                    });
+                }
+
+                // Pidgin to English
+                if (testType === 'all' || testType === 'pidgin-to-english') {
+                    testCases.push({
+                        type: 'pidgin-to-english',
+                        input: entry.pidgin,
+                        expected: entry.english,
+                        category: entry.category,
+                        entryId: entry.id
+                    });
+                }
+
+                // Fuzzy matching (typos)
+                if (testType === 'all' || testType === 'fuzzy-match') {
+                    if (entry.pidgin.length > 3) {
+                        const typo = entry.pidgin.slice(0, -1); // Missing last letter
+                        testCases.push({
+                            type: 'fuzzy-match',
+                            input: typo,
+                            expected: entry.pidgin,
+                            category: entry.category,
+                            entryId: entry.id
+                        });
+                    }
+                }
+
+                // Examples
+                if ((testType === 'all' || testType === 'examples') && entry.examples) {
+                    entry.examples.slice(0, 1).forEach(example => {
+                        testCases.push({
+                            type: 'example',
+                            input: example,
+                            expected: entry.pidgin,
+                            category: entry.category,
+                            entryId: entry.id
+                        });
+                    });
+                }
+            });
+
+            return testCases;
+        }
+
+        async function runSingleTest(testCase) {
+            let actualOutput = '';
+            let passed = false;
+            let score = 0;
+            let reason = '';
+
+            try {
+                // Get translation
+                const direction = testCase.type === 'pidgin-to-english' ? 'pidgin-to-eng' : 'eng-to-pidgin';
+                const translationResult = pidginTranslator.translate(testCase.input, direction);
+                actualOutput = translationResult.text;
+
+                // Validate result
+                const validation = validateTranslation(testCase, actualOutput);
+                passed = validation.passed;
+                score = validation.score;
+                reason = validation.reason;
+
+            } catch (error) {
+                reason = `Error: ${error.message}`;
+                score = 0;
+            }
+
+            return {
+                testCase,
+                actualOutput,
+                passed,
+                score,
+                reason
+            };
+        }
+
+        function validateTranslation(testCase, actualOutput) {
+            if (!actualOutput) return { passed: false, score: 0, reason: 'No output' };
+
+            const similarity = calculateSimilarity(
+                actualOutput.toLowerCase(),
+                (Array.isArray(testCase.expected) ? testCase.expected[0] : testCase.expected).toLowerCase()
+            );
+
+            let passed = false;
+            let reason = '';
+
+            if (testCase.type === 'pidgin-to-english') {
+                const expected = Array.isArray(testCase.expected) ? testCase.expected : [testCase.expected];
+                const matches = expected.some(exp =>
+                    actualOutput.toLowerCase().includes(exp.toLowerCase()) ||
+                    exp.toLowerCase().includes(actualOutput.toLowerCase())
+                );
+                passed = matches || similarity >= 0.7;
+                reason = passed ? 'Match found' : `No match (${Math.round(similarity * 100)}% similar)`;
+            } else {
+                passed = similarity >= 0.8;
+                reason = passed ? `${Math.round(similarity * 100)}% similar` : `Too different (${Math.round(similarity * 100)}%)`;
+            }
+
+            return { passed, score: similarity, reason };
+        }
+
+        function calculateSimilarity(str1, str2) {
+            const len1 = str1.length;
+            const len2 = str2.length;
+            const matrix = Array(len1 + 1).fill(null).map(() => Array(len2 + 1).fill(0));
+
+            for (let i = 0; i <= len1; i++) matrix[i][0] = i;
+            for (let j = 0; j <= len2; j++) matrix[0][j] = j;
+
+            for (let i = 1; i <= len1; i++) {
+                for (let j = 1; j <= len2; j++) {
+                    const cost = str1[i - 1] === str2[j - 1] ? 0 : 1;
+                    matrix[i][j] = Math.min(
+                        matrix[i - 1][j] + 1,
+                        matrix[i][j - 1] + 1,
+                        matrix[i - 1][j - 1] + cost
+                    );
+                }
+            }
+
+            const maxLen = Math.max(len1, len2);
+            return maxLen === 0 ? 1 : (maxLen - matrix[len1][len2]) / maxLen;
+        }
+
+        function analyzeResults() {
+            const total = testResults.length;
+            const passed = testResults.filter(r => r.passed).length;
+            const failed = total - passed;
+            const accuracy = total > 0 ? (passed / total * 100).toFixed(1) : 0;
+            const avgScore = total > 0 ? (testResults.reduce((sum, r) => sum + r.score, 0) / total * 100).toFixed(1) : 0;
+
+            // Overall stats
+            document.getElementById('totalTests').textContent = total;
+            document.getElementById('passedTests').textContent = passed;
+            document.getElementById('failedTests').textContent = failed;
+            document.getElementById('accuracy').textContent = accuracy + '%';
+            document.getElementById('avgScore').textContent = avgScore + '%';
+
+            // By category
+            const byCategory = {};
+            testResults.forEach(r => {
+                const cat = r.testCase.category || 'unknown';
+                if (!byCategory[cat]) byCategory[cat] = { total: 0, passed: 0 };
+                byCategory[cat].total++;
+                if (r.passed) byCategory[cat].passed++;
+            });
+
+            const categoryHTML = Object.entries(byCategory)
+                .sort((a, b) => b[1].total - a[1].total)
+                .map(([cat, stats]) => {
+                    const acc = (stats.passed / stats.total * 100).toFixed(1);
+                    const color = acc >= 80 ? 'green' : acc >= 60 ? 'yellow' : 'red';
+                    return `
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700">${cat}</span>
+                            <div class="flex items-center gap-4">
+                                <span class="text-sm text-gray-500">${stats.passed}/${stats.total}</span>
+                                <div class="w-32 bg-gray-200 rounded-full h-2">
+                                    <div class="bg-${color}-500 h-2 rounded-full" style="width: ${acc}%"></div>
+                                </div>
+                                <span class="text-sm font-medium w-12">${acc}%</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            document.getElementById('categoryStats').innerHTML = categoryHTML;
+
+            // By type
+            const byType = {};
+            testResults.forEach(r => {
+                const type = r.testCase.type;
+                if (!byType[type]) byType[type] = { total: 0, passed: 0 };
+                byType[type].total++;
+                if (r.passed) byType[type].passed++;
+            });
+
+            const typeHTML = Object.entries(byType)
+                .map(([type, stats]) => {
+                    const acc = (stats.passed / stats.total * 100).toFixed(1);
+                    const color = acc >= 80 ? 'green' : acc >= 60 ? 'yellow' : 'red';
+                    return `
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700">${type}</span>
+                            <div class="flex items-center gap-4">
+                                <span class="text-sm text-gray-500">${stats.passed}/${stats.total}</span>
+                                <div class="w-32 bg-gray-200 rounded-full h-2">
+                                    <div class="bg-${color}-500 h-2 rounded-full" style="width: ${acc}%"></div>
+                                </div>
+                                <span class="text-sm font-medium w-12">${acc}%</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            document.getElementById('typeStats').innerHTML = typeHTML;
+
+            // Generate suggestions
+            const suggestions = generateSuggestions(byCategory, byType);
+            const suggestionsHTML = suggestions.map(sug => {
+                const priorityColor = sug.priority === 'high' ? 'red' : sug.priority === 'medium' ? 'yellow' : 'blue';
+                return `
+                    <div class="border-l-4 border-${priorityColor}-500 pl-4 py-2">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="px-2 py-1 text-xs rounded bg-${priorityColor}-100 text-${priorityColor}-700">
+                                ${sug.priority.toUpperCase()}
+                            </span>
+                            <span class="font-semibold text-gray-900">${sug.category}</span>
+                        </div>
+                        <div class="text-gray-700 mb-1"><strong>Issue:</strong> ${sug.issue}</div>
+                        <div class="text-gray-700"><strong>Suggestion:</strong> ${sug.suggestion}</div>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('suggestions').innerHTML = suggestionsHTML || '<p class="text-gray-500 italic">No suggestions - translator performing well!</p>';
+        }
+
+        function generateSuggestions(byCategory, byType) {
+            const suggestions = [];
+
+            // Low accuracy categories
+            Object.entries(byCategory).forEach(([cat, stats]) => {
+                const acc = stats.passed / stats.total * 100;
+                if (acc < 70) {
+                    suggestions.push({
+                        priority: 'high',
+                        category: 'Category Coverage',
+                        issue: `Low accuracy in "${cat}" (${acc.toFixed(1)}%)`,
+                        suggestion: `Add more ${cat} translations and examples`
+                    });
+                }
+            });
+
+            // Fuzzy matching issues
+            if (byType['fuzzy-match']) {
+                const acc = byType['fuzzy-match'].passed / byType['fuzzy-match'].total * 100;
+                if (acc < 75) {
+                    suggestions.push({
+                        priority: 'medium',
+                        category: 'Fuzzy Matching',
+                        issue: `Fuzzy matching accuracy is ${acc.toFixed(1)}%`,
+                        suggestion: 'Consider lowering fuzzy match threshold or improving algorithm'
+                    });
+                }
+            }
+
+            return suggestions;
+        }
+
+        function displayResults() {
+            filterResults('all');
+        }
+
+        function filterResults(filter) {
+            let filtered = testResults;
+            if (filter === 'passed') filtered = testResults.filter(r => r.passed);
+            if (filter === 'failed') filtered = testResults.filter(r => !r.passed);
+
+            const html = `
+                <table class="min-w-full text-sm">
+                    <thead class="bg-gray-50 sticky top-0">
+                        <tr>
+                            <th class="text-left p-2 border-b">Type</th>
+                            <th class="text-left p-2 border-b">Input</th>
+                            <th class="text-left p-2 border-b">Expected</th>
+                            <th class="text-left p-2 border-b">Actual</th>
+                            <th class="text-left p-2 border-b">Score</th>
+                            <th class="text-left p-2 border-b">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${filtered.map(r => `
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="p-2"><span class="px-2 py-1 text-xs bg-gray-100 rounded">${r.testCase.type}</span></td>
+                                <td class="p-2">${r.testCase.input}</td>
+                                <td class="p-2">${Array.isArray(r.testCase.expected) ? r.testCase.expected.join(', ') : r.testCase.expected}</td>
+                                <td class="p-2 ${r.passed ? 'text-green-600' : 'text-red-600'}">${r.actualOutput}</td>
+                                <td class="p-2">${Math.round(r.score * 100)}%</td>
+                                <td class="p-2">
+                                    <span class="px-2 py-1 text-xs rounded ${r.passed ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
+                                        ${r.passed ? '✓' : '✗'} ${r.reason}
+                                    </span>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            document.getElementById('results').innerHTML = html;
+        }
+
+        function exportResults() {
+            const data = {
+                timestamp: new Date().toISOString(),
+                summary: {
+                    total: document.getElementById('totalTests').textContent,
+                    passed: document.getElementById('passedTests').textContent,
+                    failed: document.getElementById('failedTests').textContent,
+                    accuracy: document.getElementById('accuracy').textContent
+                },
+                results: testResults
+            };
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `translator-validation-${new Date().toISOString().slice(0,10)}.json`;
+            a.click();
+        }
+
+        function clearResults() {
+            testResults = [];
+            document.getElementById('statsSection').classList.add('hidden');
+            document.getElementById('progressSection').classList.add('hidden');
+            document.getElementById('exportResults').disabled = true;
+        }
+    </script>
+</body>
+</html>
