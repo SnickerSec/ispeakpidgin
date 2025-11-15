@@ -337,6 +337,36 @@ class PidginTranslator {
             };
         }
 
+        // NEW: Check phrase translator first for multi-word input
+        const isPhrase = text.trim().split(/\s+/).length > 1;
+        if (isPhrase && typeof phraseTranslator !== 'undefined' && phraseTranslator.loaded) {
+            let phraseResult = null;
+
+            if (direction === 'pidgin-to-eng') {
+                phraseResult = phraseTranslator.translatePidginToEnglish(text);
+            } else {
+                phraseResult = phraseTranslator.translateEnglishToPidgin(text);
+            }
+
+            // If phrase translator found a good match, use it
+            if (phraseResult && phraseResult.confidence >= 0.75) {
+                return {
+                    text: phraseResult.translation,
+                    confidence: phraseResult.confidence,
+                    suggestions: [],
+                    pronunciation: direction === 'eng-to-pidgin' ? this.getPronunciation(phraseResult.translation) : null,
+                    alternatives: phraseResult.alternatives || [],
+                    metadata: {
+                        source: phraseResult.source,
+                        category: phraseResult.category,
+                        difficulty: phraseResult.difficulty,
+                        note: phraseResult.note
+                    }
+                };
+            }
+        }
+
+        // Fallback to word-by-word translation
         let result;
         let confidence = 0;
         let suggestions = [];
