@@ -12,7 +12,7 @@ PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 
 # Run build from project root
 cd "$PROJECT_ROOT"
-node tools/build/build.js
+node build.js
 
 # Check if build was successful
 if [ $? -eq 0 ]; then

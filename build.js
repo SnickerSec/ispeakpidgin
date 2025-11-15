@@ -98,11 +98,24 @@ function copyJavaScriptFiles() {
         'src/components/practice'
     ];
 
+    // Files to exclude from build
+    const excludePatterns = [
+        /backup/i,
+        /test/i,
+        /debug/i,
+        /-old/i,
+        /\.bak/i
+    ];
+
+    const shouldExclude = (filename) => {
+        return excludePatterns.some(pattern => pattern.test(filename));
+    };
+
     jsSourceDirs.forEach(dir => {
         if (fs.existsSync(dir)) {
             const files = fs.readdirSync(dir);
             files.forEach(file => {
-                if (file.endsWith('.js')) {
+                if (file.endsWith('.js') && !shouldExclude(file)) {
                     const srcPath = path.join(dir, file);
                     const destPath = path.join('public/js/components', file);
                     fs.copyFileSync(srcPath, destPath);
