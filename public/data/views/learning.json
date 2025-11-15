@@ -2,7 +2,7 @@
   "metadata": {
     "version": "3.0",
     "viewType": "learning",
-    "lastUpdated": "2025-10-06"
+    "lastUpdated": "2025-11-15"
   },
   "phrases": {
     "daily": [],
@@ -2385,6 +2385,271 @@
         "location",
         "hawaiian"
       ]
+    },
+    {
+      "id": "halala_901",
+      "pidgin": "halala",
+      "english": [
+        "uh-oh",
+        "expression of trouble"
+      ],
+      "category": "expressions",
+      "pronunciation": "hah-LAH-lah",
+      "examples": [
+        "Halala, I forgot my wallet!"
+      ],
+      "usage": "Expression when something goes wrong",
+      "origin": "Hawaiian",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "exclamations"
+      ]
+    },
+    {
+      "id": "holo_holo_902",
+      "pidgin": "holo holo",
+      "english": [
+        "aimless wandering",
+        "cruise around",
+        "to venture out"
+      ],
+      "category": "actions",
+      "pronunciation": "HO-lo HO-lo",
+      "examples": [
+        "We go holo holo around town"
+      ],
+      "usage": "Going out without a specific destination",
+      "origin": "Hawaiian",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "actions",
+        "hawaiian",
+        "activities"
+      ]
+    },
+    {
+      "id": "li_hing_mui_905",
+      "pidgin": "li hing mui",
+      "english": [
+        "salted dried plum",
+        "salty plum snack"
+      ],
+      "category": "food",
+      "pronunciation": "lee hing MOO-ee",
+      "examples": [
+        "I like li hing mui powder on my mango"
+      ],
+      "usage": "Popular local snack flavoring",
+      "origin": "Chinese",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "food",
+        "chinese",
+        "snacks"
+      ]
+    },
+    {
+      "id": "potagee_908",
+      "pidgin": "potagee",
+      "english": [
+        "Portuguese person"
+      ],
+      "category": "people",
+      "pronunciation": "poh-tah-GEE",
+      "examples": [
+        "My tutu was potagee"
+      ],
+      "usage": "Referring to Portuguese people or heritage",
+      "origin": "Portuguese",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "people",
+        "cultural",
+        "portuguese"
+      ]
+    },
+    {
+      "id": "scosh_909",
+      "pidgin": "scosh",
+      "english": [
+        "small amount",
+        "a little bit"
+      ],
+      "category": "descriptions",
+      "pronunciation": "SKOSH",
+      "examples": [
+        "Give me just a scosh more rice"
+      ],
+      "usage": "Asking for a small quantity",
+      "origin": "Japanese",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "descriptions",
+        "japanese",
+        "amounts"
+      ]
+    },
+    {
+      "id": "kupuna_1008",
+      "pidgin": "kūpuna",
+      "english": [
+        "elder",
+        "grandparent",
+        "ancestor"
+      ],
+      "category": "people",
+      "pronunciation": "koo-POO-nah",
+      "examples": [
+        "Listen to da kūpuna, they get wisdom"
+      ],
+      "usage": "Respected elder",
+      "origin": "Hawaiian",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "people",
+        "hawaiian",
+        "family",
+        "respect"
+      ]
+    },
+    {
+      "id": "kamaaina_1010",
+      "pidgin": "kama'aina",
+      "english": [
+        "local resident",
+        "longtime resident",
+        "native-born"
+      ],
+      "category": "people",
+      "pronunciation": "kah-mah-EYE-nah",
+      "examples": [
+        "Kama'aina rates for locals only"
+      ],
+      "usage": "Referring to local residents vs tourists",
+      "origin": "Hawaiian",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "people",
+        "hawaiian",
+        "cultural"
+      ]
+    },
+    {
+      "id": "broke_da_mout_1012",
+      "pidgin": "broke da mout'",
+      "english": [
+        "extremely delicious",
+        "so good it broke your mouth"
+      ],
+      "category": "food",
+      "pronunciation": "broke dah MOUT",
+      "examples": [
+        "Aunty's laulau broke da mout'!"
+      ],
+      "usage": "Highest praise for food",
+      "origin": "English",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "food",
+        "expressions",
+        "compliment"
+      ]
+    },
+    {
+      "id": "katsu_1017",
+      "pidgin": "katsu",
+      "english": [
+        "perfect",
+        "victorious",
+        "winning"
+      ],
+      "category": "expressions",
+      "pronunciation": "KAT-soo",
+      "examples": [
+        "All katsu now!"
+      ],
+      "usage": "Everything is perfect",
+      "origin": "Japanese",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "japanese",
+        "success"
+      ]
+    },
+    {
+      "id": "aku_1018",
+      "pidgin": "aku",
+      "english": [
+        "skipjack tuna"
+      ],
+      "category": "food",
+      "pronunciation": "AH-koo",
+      "examples": [
+        "Fresh aku for sale"
+      ],
+      "usage": "Type of tuna",
+      "origin": "Hawaiian",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "food",
+        "hawaiian",
+        "fish"
+      ]
+    },
+    {
+      "id": "like_scrap_1024",
+      "pidgin": "like scrap",
+      "english": [
+        "you want to fight?",
+        "do you want to fight?"
+      ],
+      "category": "expressions",
+      "pronunciation": "like SKRAP",
+      "examples": [
+        "What, you like scrap?"
+      ],
+      "usage": "Fighting challenge",
+      "origin": "English",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "confrontation"
+      ]
+    },
+    {
+      "id": "geev_um_1026",
+      "pidgin": "geev 'um",
+      "english": [
+        "give it to them",
+        "go for it",
+        "beat them up"
+      ],
+      "category": "expressions",
+      "pronunciation": "geev UM",
+      "examples": [
+        "Geev 'um, brah!"
+      ],
+      "usage": "Encouragement or aggression",
+      "origin": "English",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "encouragement"
+      ]
     }
   ],
   "advancedContent": [
@@ -3064,6 +3329,47 @@
         "english"
       ],
       "audioExample": "You stay go?"
+    },
+    {
+      "id": "kotonk_903",
+      "pidgin": "kotonk",
+      "english": [
+        "Japanese person born on mainland US"
+      ],
+      "category": "people",
+      "pronunciation": "ko-TONK",
+      "examples": [
+        "He stay one kotonk from California"
+      ],
+      "usage": "Referring to mainland-born Japanese Americans",
+      "origin": "Japanese",
+      "difficulty": "advanced",
+      "frequency": "low",
+      "tags": [
+        "people",
+        "japanese",
+        "cultural"
+      ]
+    },
+    {
+      "id": "kaimana_4001",
+      "pidgin": "kaimana",
+      "english": [
+        "diamond"
+      ],
+      "category": "nature",
+      "pronunciation": "kai-MAH-nah",
+      "examples": [
+        "Diamond Head is Lē'ahi in Hawaiian, but kaimana means diamond"
+      ],
+      "usage": "Diamond or precious gem",
+      "origin": "Hawaiian",
+      "difficulty": "advanced",
+      "frequency": "low",
+      "tags": [
+        "nature",
+        "hawaiian"
+      ]
     }
   ]
 }

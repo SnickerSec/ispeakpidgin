@@ -2,8 +2,8 @@
   "metadata": {
     "version": "3.0",
     "viewType": "phrases",
-    "lastUpdated": "2025-10-06",
-    "totalPhrases": 1001
+    "lastUpdated": "2025-11-15",
+    "totalPhrases": 1100
   },
   "phrases": [
     {
@@ -12979,6 +12979,1362 @@
         "location",
         "hawaiian"
       ]
+    },
+    {
+      "pidgin": "We get green bottles fo' da party",
+      "english": "Heineken beer",
+      "category": "food",
+      "context": "Referring to Heineken beer",
+      "pronunciation": "green BAH-tuls",
+      "source": "dictionary:green_bottles_900",
+      "difficulty": "beginner",
+      "tags": [
+        "food",
+        "slang",
+        "drinks"
+      ]
+    },
+    {
+      "pidgin": "Halala, I forgot my wallet!",
+      "english": "uh-oh",
+      "category": "expressions",
+      "context": "Expression when something goes wrong",
+      "pronunciation": "hah-LAH-lah",
+      "source": "dictionary:halala_901",
+      "difficulty": "intermediate",
+      "tags": [
+        "expressions",
+        "exclamations"
+      ]
+    },
+    {
+      "pidgin": "We go holo holo around town",
+      "english": "aimless wandering",
+      "category": "actions",
+      "context": "Going out without a specific destination",
+      "pronunciation": "HO-lo HO-lo",
+      "source": "dictionary:holo_holo_902",
+      "difficulty": "intermediate",
+      "tags": [
+        "actions",
+        "hawaiian",
+        "activities"
+      ]
+    },
+    {
+      "pidgin": "He stay one kotonk from California",
+      "english": "Japanese person born on mainland US",
+      "category": "people",
+      "context": "Referring to mainland-born Japanese Americans",
+      "pronunciation": "ko-TONK",
+      "source": "dictionary:kotonk_903",
+      "difficulty": "advanced",
+      "tags": [
+        "people",
+        "japanese",
+        "cultural"
+      ]
+    },
+    {
+      "pidgin": "Why you stay acting l'dat?",
+      "english": "like that",
+      "category": "expressions",
+      "context": "Describing something in that manner",
+      "pronunciation": "el-DAT",
+      "source": "dictionary:ldat_904",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "common"
+      ]
+    },
+    {
+      "pidgin": "I like li hing mui powder on my mango",
+      "english": "salted dried plum",
+      "category": "food",
+      "context": "Popular local snack flavoring",
+      "pronunciation": "lee hing MOO-ee",
+      "source": "dictionary:li_hing_mui_905",
+      "difficulty": "intermediate",
+      "tags": [
+        "food",
+        "chinese",
+        "snacks"
+      ]
+    },
+    {
+      "pidgin": "Mele Kalikimaka to you and your ohana!",
+      "english": "Merry Christmas",
+      "category": "greetings",
+      "context": "Hawaiian Christmas greeting",
+      "pronunciation": "MEH-leh kah-lee-kee-MAH-kah",
+      "source": "dictionary:mele_kalikimaka_906",
+      "difficulty": "beginner",
+      "tags": [
+        "greetings",
+        "hawaiian",
+        "holidays"
+      ]
+    },
+    {
+      "pidgin": "I going tell your mom... nah nah nah!",
+      "english": "just joking",
+      "category": "expressions",
+      "context": "Indicating you were just teasing",
+      "pronunciation": "NAH NAH NAH",
+      "source": "dictionary:nah_nah_nah_907",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "humor"
+      ]
+    },
+    {
+      "pidgin": "My tutu was potagee",
+      "english": "Portuguese person",
+      "category": "people",
+      "context": "Referring to Portuguese people or heritage",
+      "pronunciation": "poh-tah-GEE",
+      "source": "dictionary:potagee_908",
+      "difficulty": "intermediate",
+      "tags": [
+        "people",
+        "cultural",
+        "portuguese"
+      ]
+    },
+    {
+      "pidgin": "Give me just a scosh more rice",
+      "english": "small amount",
+      "category": "descriptions",
+      "context": "Asking for a small quantity",
+      "pronunciation": "SKOSH",
+      "source": "dictionary:scosh_909",
+      "difficulty": "intermediate",
+      "tags": [
+        "descriptions",
+        "japanese",
+        "amounts"
+      ]
+    },
+    {
+      "pidgin": "He stay one townie, not country",
+      "english": "city dweller",
+      "category": "people",
+      "context": "Referring to someone from the city vs. countryside",
+      "pronunciation": "TOW-nee",
+      "source": "dictionary:townie_910",
+      "difficulty": "beginner",
+      "tags": [
+        "people",
+        "descriptions"
+      ]
+    },
+    {
+      "pidgin": "That was good, ya?",
+      "english": "right?",
+      "category": "expressions",
+      "context": "Tag question seeking agreement",
+      "pronunciation": "YAH",
+      "source": "dictionary:ya_911",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "common",
+        "agreement"
+      ]
+    },
+    {
+      "pidgin": "Rajah dat, I stay on it",
+      "english": "roger that",
+      "category": "expressions",
+      "context": "Acknowledging understanding",
+      "pronunciation": "RAH-jah DAT",
+      "source": "dictionary:rajah_dat_1000",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "agreement",
+        "common"
+      ]
+    },
+    {
+      "pidgin": "Laters, brah!",
+      "english": "see you later",
+      "category": "greetings",
+      "context": "Casual goodbye",
+      "pronunciation": "LAY-terz",
+      "source": "dictionary:laters_1001",
+      "difficulty": "beginner",
+      "tags": [
+        "greetings",
+        "farewells"
+      ]
+    },
+    {
+      "pidgin": "Thanks! - No problem!",
+      "english": "you're welcome",
+      "category": "greetings",
+      "context": "You're welcome response",
+      "pronunciation": "no PRAH-blem",
+      "source": "dictionary:no_problem_1002",
+      "difficulty": "beginner",
+      "tags": [
+        "greetings",
+        "expressions"
+      ]
+    },
+    {
+      "pidgin": "Shoots den, catch you later",
+      "english": "okay then",
+      "category": "greetings",
+      "context": "Agreement and farewell",
+      "pronunciation": "shoots DEN",
+      "source": "dictionary:shoots_den_1003",
+      "difficulty": "beginner",
+      "tags": [
+        "greetings",
+        "agreement"
+      ]
+    },
+    {
+      "pidgin": "Kay den, we go now",
+      "english": "okay then",
+      "category": "expressions",
+      "context": "Agreement to proceed",
+      "pronunciation": "kay DEN",
+      "source": "dictionary:kay_den_1004",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "agreement"
+      ]
+    },
+    {
+      "pidgin": "Fo' real? That's amazing!",
+      "english": "for real",
+      "category": "expressions",
+      "context": "Expressing surprise or seeking confirmation",
+      "pronunciation": "foh REEL",
+      "source": "dictionary:fo_real_1005",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "questions"
+      ]
+    },
+    {
+      "pidgin": "No lie, I saw one huge wave",
+      "english": "no lie",
+      "category": "expressions",
+      "context": "Emphasizing truthfulness",
+      "pronunciation": "no LIE",
+      "source": "dictionary:no_lie_1006",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "emphasis"
+      ]
+    },
+    {
+      "pidgin": "Uncle Joe stay fixing cars",
+      "english": "any older man you respect",
+      "category": "people",
+      "context": "Respectful term for older men",
+      "pronunciation": "UN-kul",
+      "source": "dictionary:uncle_1007",
+      "difficulty": "beginner",
+      "tags": [
+        "people",
+        "respect",
+        "family"
+      ]
+    },
+    {
+      "pidgin": "Listen to da kūpuna, they get wisdom",
+      "english": "elder",
+      "category": "people",
+      "context": "Respected elder",
+      "pronunciation": "koo-POO-nah",
+      "source": "dictionary:kupuna_1008",
+      "difficulty": "intermediate",
+      "tags": [
+        "people",
+        "hawaiian",
+        "family",
+        "respect"
+      ]
+    },
+    {
+      "pidgin": "My tūtū make da best laulau",
+      "english": "grandmother",
+      "category": "people",
+      "context": "Grandparent term",
+      "pronunciation": "TOO-too",
+      "source": "dictionary:tutu_1009",
+      "difficulty": "beginner",
+      "tags": [
+        "people",
+        "hawaiian",
+        "family"
+      ]
+    },
+    {
+      "pidgin": "Kama'aina rates for locals only",
+      "english": "local resident",
+      "category": "people",
+      "context": "Referring to local residents vs tourists",
+      "pronunciation": "kah-mah-EYE-nah",
+      "source": "dictionary:kamaaina_1010",
+      "difficulty": "intermediate",
+      "tags": [
+        "people",
+        "hawaiian",
+        "cultural"
+      ]
+    },
+    {
+      "pidgin": "This poke stay so 'ono!",
+      "english": "delicious",
+      "category": "food",
+      "context": "Describing delicious food",
+      "pronunciation": "OH-no",
+      "source": "dictionary:ono_1011",
+      "difficulty": "beginner",
+      "tags": [
+        "food",
+        "hawaiian",
+        "descriptions"
+      ]
+    },
+    {
+      "pidgin": "Aunty's laulau broke da mout'!",
+      "english": "extremely delicious",
+      "category": "food",
+      "context": "Highest praise for food",
+      "pronunciation": "broke dah MOUT",
+      "source": "dictionary:broke_da_mout_1012",
+      "difficulty": "intermediate",
+      "tags": [
+        "food",
+        "expressions",
+        "compliment"
+      ]
+    },
+    {
+      "pidgin": "Da sunset stay so nani",
+      "english": "beautiful",
+      "category": "descriptions",
+      "context": "Beautiful or lovely",
+      "pronunciation": "NAH-nee",
+      "source": "dictionary:nani_1013",
+      "difficulty": "beginner",
+      "tags": [
+        "descriptions",
+        "hawaiian",
+        "compliment"
+      ]
+    },
+    {
+      "pidgin": "Get plenny fish in da ocean",
+      "english": "plenty",
+      "category": "descriptions",
+      "context": "Indicating abundance",
+      "pronunciation": "PLEN-nee",
+      "source": "dictionary:plenny_1014",
+      "difficulty": "beginner",
+      "tags": [
+        "descriptions",
+        "amounts"
+      ]
+    },
+    {
+      "pidgin": "Why you stay acting lidat?",
+      "english": "like that",
+      "category": "expressions",
+      "context": "Describing manner or behavior",
+      "pronunciation": "lee-DAT",
+      "source": "dictionary:lidat_1015",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "common"
+      ]
+    },
+    {
+      "pidgin": "That guy stay solid, you can trust him",
+      "english": "good",
+      "category": "descriptions",
+      "context": "Expressing approval or reliability",
+      "pronunciation": "SAH-lid",
+      "source": "dictionary:solid_1016",
+      "difficulty": "beginner",
+      "tags": [
+        "descriptions",
+        "compliment"
+      ]
+    },
+    {
+      "pidgin": "All katsu now!",
+      "english": "perfect",
+      "category": "expressions",
+      "context": "Everything is perfect",
+      "pronunciation": "KAT-soo",
+      "source": "dictionary:katsu_1017",
+      "difficulty": "intermediate",
+      "tags": [
+        "expressions",
+        "japanese",
+        "success"
+      ]
+    },
+    {
+      "pidgin": "Fresh aku for sale",
+      "english": "skipjack tuna",
+      "category": "food",
+      "context": "Type of tuna",
+      "pronunciation": "AH-koo",
+      "source": "dictionary:aku_1018",
+      "difficulty": "intermediate",
+      "tags": [
+        "food",
+        "hawaiian",
+        "fish"
+      ]
+    },
+    {
+      "pidgin": "Going to da lū'au tonight",
+      "english": "Hawaiian feast",
+      "category": "cultural",
+      "context": "Traditional Hawaiian celebration",
+      "pronunciation": "LOO-ow",
+      "source": "dictionary:luau_1019",
+      "difficulty": "beginner",
+      "tags": [
+        "cultural",
+        "hawaiian",
+        "food",
+        "celebrations"
+      ]
+    },
+    {
+      "pidgin": "Let's go get saimin",
+      "english": "local noodle soup",
+      "category": "food",
+      "context": "Popular local dish",
+      "pronunciation": "sigh-MIN",
+      "source": "dictionary:saimin_1020",
+      "difficulty": "beginner",
+      "tags": [
+        "food",
+        "japanese",
+        "local"
+      ]
+    },
+    {
+      "pidgin": "One rainbow shave ice, please",
+      "english": "shaved ice dessert with flavored syrup",
+      "category": "food",
+      "context": "Popular Hawaiian dessert",
+      "pronunciation": "shave ICE",
+      "source": "dictionary:shave_ice_1021",
+      "difficulty": "beginner",
+      "tags": [
+        "food",
+        "desserts",
+        "local"
+      ]
+    },
+    {
+      "pidgin": "Grab one musubi from 7-11",
+      "english": "rice ball",
+      "category": "food",
+      "context": "Popular snack food",
+      "pronunciation": "moo-SOO-bee",
+      "source": "dictionary:musubi_1022",
+      "difficulty": "beginner",
+      "tags": [
+        "food",
+        "japanese",
+        "snacks"
+      ]
+    },
+    {
+      "pidgin": "Pass da shoyu, please",
+      "english": "soy sauce",
+      "category": "food",
+      "context": "Condiment",
+      "pronunciation": "SHOW-yoo",
+      "source": "dictionary:shoyu_1023",
+      "difficulty": "beginner",
+      "tags": [
+        "food",
+        "japanese",
+        "condiments"
+      ]
+    },
+    {
+      "pidgin": "What, you like scrap?",
+      "english": "you want to fight?",
+      "category": "expressions",
+      "context": "Fighting challenge",
+      "pronunciation": "like SKRAP",
+      "source": "dictionary:like_scrap_1024",
+      "difficulty": "intermediate",
+      "tags": [
+        "expressions",
+        "confrontation"
+      ]
+    },
+    {
+      "pidgin": "We go beach",
+      "english": "let's go",
+      "category": "actions",
+      "context": "Going somewhere (verb form)",
+      "pronunciation": "GO",
+      "source": "dictionary:go_1025",
+      "difficulty": "beginner",
+      "tags": [
+        "actions",
+        "common"
+      ]
+    },
+    {
+      "pidgin": "Geev 'um, brah!",
+      "english": "give it to them",
+      "category": "expressions",
+      "context": "Encouragement or aggression",
+      "pronunciation": "geev UM",
+      "source": "dictionary:geev_um_1026",
+      "difficulty": "intermediate",
+      "tags": [
+        "expressions",
+        "encouragement"
+      ]
+    },
+    {
+      "pidgin": "You should chance 'um!",
+      "english": "go for it",
+      "category": "expressions",
+      "context": "Encouraging to take a risk",
+      "pronunciation": "chance UM",
+      "source": "dictionary:chance_um_1027",
+      "difficulty": "intermediate",
+      "tags": [
+        "expressions",
+        "encouragement"
+      ]
+    },
+    {
+      "pidgin": "Let's wala'au story",
+      "english": "to talk",
+      "category": "actions",
+      "context": "Having a conversation",
+      "pronunciation": "wah-LAH-ow",
+      "source": "dictionary:walaau_1028",
+      "difficulty": "intermediate",
+      "tags": [
+        "actions",
+        "hawaiian",
+        "conversation"
+      ]
+    },
+    {
+      "pidgin": "Give 'um da shaka!",
+      "english": "hang loose hand gesture",
+      "category": "cultural",
+      "context": "Iconic Hawaiian hand gesture",
+      "pronunciation": "SHAH-kah",
+      "source": "dictionary:shaka_1029",
+      "difficulty": "beginner",
+      "tags": [
+        "cultural",
+        "gestures",
+        "greetings"
+      ]
+    },
+    {
+      "pidgin": "We holo to da store",
+      "english": "to run",
+      "category": "actions",
+      "context": "Running or moving quickly",
+      "pronunciation": "HO-lo",
+      "source": "dictionary:holo_1030",
+      "difficulty": "intermediate",
+      "tags": [
+        "actions",
+        "hawaiian"
+      ]
+    },
+    {
+      "pidgin": "That's one big kine problem",
+      "english": "a lot",
+      "category": "descriptions",
+      "context": "Emphasizing size or importance",
+      "pronunciation": "big KINE",
+      "source": "dictionary:big_kine_1031",
+      "difficulty": "beginner",
+      "tags": [
+        "descriptions",
+        "amounts"
+      ]
+    },
+    {
+      "pidgin": "This poke is da bes'!",
+      "english": "the best",
+      "category": "expressions",
+      "context": "Highest praise",
+      "pronunciation": "dah BES",
+      "source": "dictionary:da_bes_1032",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "compliment"
+      ]
+    },
+    {
+      "pidgin": "What fo'?",
+      "english": "for",
+      "category": "expressions",
+      "context": "Preposition meaning for or to",
+      "pronunciation": "foh",
+      "source": "dictionary:fo_1033",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "common"
+      ]
+    },
+    {
+      "pidgin": "Going fo' grind",
+      "english": "for",
+      "category": "expressions",
+      "context": "Preposition meaning for or to",
+      "pronunciation": "foh",
+      "source": "dictionary:fo_1033",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "common"
+      ]
+    },
+    {
+      "pidgin": "I going go beach later",
+      "english": "will",
+      "category": "expressions",
+      "context": "Future tense marker",
+      "pronunciation": "GO-ing",
+      "source": "dictionary:going_1034",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "grammar",
+        "common"
+      ]
+    },
+    {
+      "pidgin": "Da beach stay all jam up",
+      "english": "to pack",
+      "category": "actions",
+      "context": "Describing crowded or packed spaces",
+      "pronunciation": "JAM",
+      "source": "dictionary:jam_2000",
+      "difficulty": "beginner",
+      "tags": [
+        "actions",
+        "descriptions"
+      ]
+    },
+    {
+      "pidgin": "Scram before da cops come!",
+      "english": "to leave quickly",
+      "category": "actions",
+      "context": "Telling someone to leave",
+      "pronunciation": "SKRAM",
+      "source": "dictionary:scram_2001",
+      "difficulty": "beginner",
+      "tags": [
+        "actions",
+        "commands"
+      ]
+    },
+    {
+      "pidgin": "No boddah me!",
+      "english": "to bother",
+      "category": "actions",
+      "context": "Expressing annoyance or asking if something bothers",
+      "pronunciation": "BAH-dah",
+      "source": "dictionary:boddah_2002",
+      "difficulty": "beginner",
+      "tags": [
+        "actions",
+        "emotions",
+        "common"
+      ]
+    },
+    {
+      "pidgin": "Boddah you?",
+      "english": "to bother",
+      "category": "actions",
+      "context": "Expressing annoyance or asking if something bothers",
+      "pronunciation": "BAH-dah",
+      "source": "dictionary:boddah_2002",
+      "difficulty": "beginner",
+      "tags": [
+        "actions",
+        "emotions",
+        "common"
+      ]
+    },
+    {
+      "pidgin": "I stay broke til payday",
+      "english": "no money",
+      "category": "descriptions",
+      "context": "Having no money",
+      "pronunciation": "BROKE",
+      "source": "dictionary:broke_2003",
+      "difficulty": "beginner",
+      "tags": [
+        "descriptions",
+        "money"
+      ]
+    },
+    {
+      "pidgin": "Dirty kine weather today",
+      "english": "bad",
+      "category": "descriptions",
+      "context": "Describing something bad or undesirable",
+      "pronunciation": "DER-tee",
+      "source": "dictionary:dirty_2004",
+      "difficulty": "beginner",
+      "tags": [
+        "descriptions",
+        "negative"
+      ]
+    },
+    {
+      "pidgin": "Stay hard fo' do",
+      "english": "difficult",
+      "category": "descriptions",
+      "context": "Describing difficulty",
+      "pronunciation": "HARD",
+      "source": "dictionary:hard_2005",
+      "difficulty": "beginner",
+      "tags": [
+        "descriptions",
+        "difficulty"
+      ]
+    },
+    {
+      "pidgin": "How was da food? Jus' 'kine",
+      "english": "just the kind",
+      "category": "expressions",
+      "context": "Describing something as mediocre or adequate",
+      "pronunciation": "jus KINE",
+      "source": "dictionary:jus_kine_2006",
+      "difficulty": "intermediate",
+      "tags": [
+        "expressions",
+        "descriptions"
+      ]
+    },
+    {
+      "pidgin": "He stay all madt at me",
+      "english": "angry",
+      "category": "descriptions",
+      "context": "Being angry",
+      "pronunciation": "MAD-t",
+      "source": "dictionary:madt_2007",
+      "difficulty": "beginner",
+      "tags": [
+        "descriptions",
+        "emotions"
+      ]
+    },
+    {
+      "pidgin": "She stay miffed about da party",
+      "english": "annoyed",
+      "category": "descriptions",
+      "context": "Being annoyed or upset",
+      "pronunciation": "MIFT",
+      "source": "dictionary:miffed_2008",
+      "difficulty": "intermediate",
+      "tags": [
+        "descriptions",
+        "emotions"
+      ]
+    },
+    {
+      "pidgin": "He stay salty cuz he lost",
+      "english": "angry",
+      "category": "descriptions",
+      "context": "Being bitter or angry",
+      "pronunciation": "SALT-ee",
+      "source": "dictionary:salty_2009",
+      "difficulty": "beginner",
+      "tags": [
+        "descriptions",
+        "emotions",
+        "slang"
+      ]
+    },
+    {
+      "pidgin": "I neva do dat!",
+      "english": "never",
+      "category": "expressions",
+      "context": "Negative past tense",
+      "pronunciation": "NEH-vah",
+      "source": "dictionary:neva_2010",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "grammar",
+        "common"
+      ]
+    },
+    {
+      "pidgin": "He drive f 'n fast!",
+      "english": "extremely fast",
+      "category": "descriptions",
+      "context": "Emphasizing extreme speed",
+      "pronunciation": "EFF-en FAST",
+      "source": "dictionary:f_n_fast_2011",
+      "difficulty": "intermediate",
+      "tags": [
+        "descriptions",
+        "speed",
+        "emphasis"
+      ]
+    },
+    {
+      "pidgin": "Dat buggah stay stout!",
+      "english": "strong",
+      "category": "descriptions",
+      "context": "Describing strength or toughness",
+      "pronunciation": "STOUT",
+      "source": "dictionary:stout_2012",
+      "difficulty": "beginner",
+      "tags": [
+        "descriptions",
+        "strength"
+      ]
+    },
+    {
+      "pidgin": "Let's get chow fun from da Chinese place",
+      "english": "wide flat rice noodles",
+      "category": "food",
+      "context": "Popular Chinese noodle dish",
+      "pronunciation": "chow FUN",
+      "source": "dictionary:chow_fun_3000",
+      "difficulty": "beginner",
+      "tags": [
+        "food",
+        "chinese",
+        "noodles"
+      ]
+    },
+    {
+      "pidgin": "Stop at da crack seed store",
+      "english": "dried preserved fruit snacks",
+      "category": "food",
+      "context": "Popular local snack",
+      "pronunciation": "krak SEED",
+      "source": "dictionary:crack_seed_3001",
+      "difficulty": "beginner",
+      "tags": [
+        "food",
+        "chinese",
+        "snacks",
+        "local"
+      ]
+    },
+    {
+      "pidgin": "We caught one holo-holo today",
+      "english": "red-striped fish",
+      "category": "food",
+      "context": "Type of reef fish",
+      "pronunciation": "HO-lo HO-lo",
+      "source": "dictionary:holo_holo_fish_3002",
+      "difficulty": "intermediate",
+      "tags": [
+        "food",
+        "hawaiian",
+        "fish"
+      ]
+    },
+    {
+      "pidgin": "Time fo' kaukau!",
+      "english": "food",
+      "category": "food",
+      "context": "Food or eating",
+      "pronunciation": "KOW-kow",
+      "source": "dictionary:kaukau_3003",
+      "difficulty": "beginner",
+      "tags": [
+        "food",
+        "chinese",
+        "actions"
+      ]
+    },
+    {
+      "pidgin": "I like one kōkō, please",
+      "english": "hot chocolate",
+      "category": "food",
+      "context": "Hot chocolate drink",
+      "pronunciation": "KO-ko",
+      "source": "dictionary:koko_3004",
+      "difficulty": "beginner",
+      "tags": [
+        "food",
+        "hawaiian",
+        "drinks"
+      ]
+    },
+    {
+      "pidgin": "Aunty make da best kūlolo",
+      "english": "steamed taro and coconut pudding",
+      "category": "food",
+      "context": "Traditional Hawaiian dessert",
+      "pronunciation": "koo-LO-lo",
+      "source": "dictionary:kulolo_3005",
+      "difficulty": "intermediate",
+      "tags": [
+        "food",
+        "hawaiian",
+        "desserts",
+        "cultural"
+      ]
+    },
+    {
+      "pidgin": "Da lū'au get lomi-lomi salmon",
+      "english": "salted salmon tomato and onion salad",
+      "category": "food",
+      "context": "Traditional Hawaiian side dish",
+      "pronunciation": "LO-mee LO-mee SAM-un",
+      "source": "dictionary:lomi_lomi_salmon_3006",
+      "difficulty": "intermediate",
+      "tags": [
+        "food",
+        "hawaiian",
+        "cultural",
+        "fish"
+      ]
+    },
+    {
+      "pidgin": "Wrap da musubi with nori",
+      "english": "dried seaweed",
+      "category": "food",
+      "context": "Seaweed wrapper",
+      "pronunciation": "NOR-ee",
+      "source": "dictionary:nori_3007",
+      "difficulty": "beginner",
+      "tags": [
+        "food",
+        "japanese"
+      ]
+    },
+    {
+      "pidgin": "'Ohana means family",
+      "english": "family",
+      "category": "people",
+      "context": "Family including extended and close friends",
+      "pronunciation": "oh-HAH-nah",
+      "source": "dictionary:ohana_3008",
+      "difficulty": "beginner",
+      "tags": [
+        "people",
+        "hawaiian",
+        "family",
+        "cultural"
+      ]
+    },
+    {
+      "pidgin": "All da kamali'i stay playing outside",
+      "english": "children",
+      "category": "people",
+      "context": "Children (plural)",
+      "pronunciation": "kah-mah-LEE-ee",
+      "source": "dictionary:kamalii_3009",
+      "difficulty": "intermediate",
+      "tags": [
+        "people",
+        "hawaiian",
+        "family"
+      ]
+    },
+    {
+      "pidgin": "Da kāne stay working",
+      "english": "man",
+      "category": "people",
+      "context": "Man or husband",
+      "pronunciation": "KAH-neh",
+      "source": "dictionary:kane_3010",
+      "difficulty": "beginner",
+      "tags": [
+        "people",
+        "hawaiian"
+      ]
+    },
+    {
+      "pidgin": "Kama'āina discount for locals",
+      "english": "local resident",
+      "category": "people",
+      "context": "Local resident vs tourist",
+      "pronunciation": "kah-mah-EYE-nah",
+      "source": "dictionary:kamaaina_3011",
+      "difficulty": "intermediate",
+      "tags": [
+        "people",
+        "hawaiian",
+        "cultural"
+      ]
+    },
+    {
+      "pidgin": "Māhū have important role in Hawaiian culture",
+      "english": "third gender",
+      "category": "people",
+      "context": "Traditional Hawaiian third gender",
+      "pronunciation": "MAH-hoo",
+      "source": "dictionary:mahu_3012",
+      "difficulty": "intermediate",
+      "tags": [
+        "people",
+        "hawaiian",
+        "cultural"
+      ]
+    },
+    {
+      "pidgin": "My tūtū was pāke",
+      "english": "Chinese person",
+      "category": "people",
+      "context": "Person of Chinese descent",
+      "pronunciation": "PAH-keh",
+      "source": "dictionary:pake_3013",
+      "difficulty": "intermediate",
+      "tags": [
+        "people",
+        "hawaiian",
+        "cultural",
+        "chinese"
+      ]
+    },
+    {
+      "pidgin": "Let's go down to da kahakai",
+      "english": "the beach",
+      "category": "nature",
+      "context": "Beach or seashore",
+      "pronunciation": "kah-hah-KAI",
+      "source": "dictionary:kahakai_4000",
+      "difficulty": "intermediate",
+      "tags": [
+        "nature",
+        "hawaiian",
+        "places"
+      ]
+    },
+    {
+      "pidgin": "Diamond Head is Lē'ahi in Hawaiian, but kaimana means diamond",
+      "english": "diamond",
+      "category": "nature",
+      "context": "Diamond or precious gem",
+      "pronunciation": "kai-MAH-nah",
+      "source": "dictionary:kaimana_4001",
+      "difficulty": "advanced",
+      "tags": [
+        "nature",
+        "hawaiian"
+      ]
+    },
+    {
+      "pidgin": "Kona winds stay blowing hot today",
+      "english": "leeward",
+      "category": "nature",
+      "context": "Leeward side or winds from that direction",
+      "pronunciation": "KO-nah",
+      "source": "dictionary:kona_4002",
+      "difficulty": "intermediate",
+      "tags": [
+        "nature",
+        "hawaiian",
+        "weather",
+        "directions"
+      ]
+    },
+    {
+      "pidgin": "Ko'olina side get more rain",
+      "english": "windward",
+      "category": "nature",
+      "context": "Windward or rainy side of island",
+      "pronunciation": "ko-oh-LEE-nah",
+      "source": "dictionary:koolina_4003",
+      "difficulty": "intermediate",
+      "tags": [
+        "nature",
+        "hawaiian",
+        "weather",
+        "directions"
+      ]
+    },
+    {
+      "pidgin": "Da lā stay hot today",
+      "english": "the sun",
+      "category": "nature",
+      "context": "The sun or daytime",
+      "pronunciation": "LAH",
+      "source": "dictionary:la_4004",
+      "difficulty": "intermediate",
+      "tags": [
+        "nature",
+        "hawaiian",
+        "weather"
+      ]
+    },
+    {
+      "pidgin": "Da mahina stay full tonight",
+      "english": "the moon",
+      "category": "nature",
+      "context": "The moon or month",
+      "pronunciation": "mah-HEE-nah",
+      "source": "dictionary:mahina_4005",
+      "difficulty": "intermediate",
+      "tags": [
+        "nature",
+        "hawaiian",
+        "time"
+      ]
+    },
+    {
+      "pidgin": "Get niu trees all around da beach",
+      "english": "coconut",
+      "category": "nature",
+      "context": "Coconut or coconut palm",
+      "pronunciation": "NEE-oo",
+      "source": "dictionary:niu_4006",
+      "difficulty": "intermediate",
+      "tags": [
+        "nature",
+        "hawaiian",
+        "food"
+      ]
+    },
+    {
+      "pidgin": "Watch out for da pōhaku in da water",
+      "english": "rock",
+      "category": "nature",
+      "context": "Rock or stone",
+      "pronunciation": "po-HAH-koo",
+      "source": "dictionary:pohaku_4007",
+      "difficulty": "intermediate",
+      "tags": [
+        "nature",
+        "hawaiian"
+      ]
+    },
+    {
+      "pidgin": "We go swim in da wai",
+      "english": "fresh water",
+      "category": "nature",
+      "context": "Fresh water or stream",
+      "pronunciation": "WAI",
+      "source": "dictionary:wai_4008",
+      "difficulty": "intermediate",
+      "tags": [
+        "nature",
+        "hawaiian"
+      ]
+    },
+    {
+      "pidgin": "Da wailele stay beautiful after da rain",
+      "english": "waterfall",
+      "category": "nature",
+      "context": "Waterfall",
+      "pronunciation": "wai-LEH-leh",
+      "source": "dictionary:wailele_4009",
+      "difficulty": "intermediate",
+      "tags": [
+        "nature",
+        "hawaiian",
+        "places"
+      ]
+    },
+    {
+      "pidgin": "Pick da ti lau for wrap da food",
+      "english": "leaf",
+      "category": "nature",
+      "context": "Leaf or leaves",
+      "pronunciation": "LAU",
+      "source": "dictionary:lau_4010",
+      "difficulty": "intermediate",
+      "tags": [
+        "nature",
+        "hawaiian"
+      ]
+    },
+    {
+      "pidgin": "Sit your 'ōkole down!",
+      "english": "buttocks",
+      "category": "slang",
+      "context": "Buttocks or rear end",
+      "pronunciation": "OH-ko-leh",
+      "source": "dictionary:okole_4011",
+      "difficulty": "beginner",
+      "tags": [
+        "slang",
+        "hawaiian",
+        "body"
+      ]
+    },
+    {
+      "pidgin": "Throw da 'opala away",
+      "english": "trash",
+      "category": "objects",
+      "context": "Trash or garbage",
+      "pronunciation": "oh-PAH-lah",
+      "source": "dictionary:opala_4012",
+      "difficulty": "beginner",
+      "tags": [
+        "objects",
+        "hawaiian"
+      ]
+    },
+    {
+      "pidgin": "She wearing one pretty pa'u",
+      "english": "skirt",
+      "category": "clothing",
+      "context": "Traditional skirt or wrap",
+      "pronunciation": "PAH-oo",
+      "source": "dictionary:pau_4013",
+      "difficulty": "intermediate",
+      "tags": [
+        "clothing",
+        "hawaiian",
+        "cultural"
+      ]
+    },
+    {
+      "pidgin": "I no like dat",
+      "english": "not",
+      "category": "expressions",
+      "context": "Primary negation word",
+      "pronunciation": "NO",
+      "source": "dictionary:no_5000",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "grammar",
+        "common"
+      ]
+    },
+    {
+      "pidgin": "He no stay here",
+      "english": "not",
+      "category": "expressions",
+      "context": "Primary negation word",
+      "pronunciation": "NO",
+      "source": "dictionary:no_5000",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "grammar",
+        "common"
+      ]
+    },
+    {
+      "pidgin": "Da buggah stay big",
+      "english": "the",
+      "category": "expressions",
+      "context": "Article 'the'",
+      "pronunciation": "dah",
+      "source": "dictionary:da_5001",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "grammar",
+        "common"
+      ]
+    },
+    {
+      "pidgin": "Da food stay 'ono",
+      "english": "the",
+      "category": "expressions",
+      "context": "Article 'the'",
+      "pronunciation": "dah",
+      "source": "dictionary:da_5001",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "grammar",
+        "common"
+      ]
+    },
+    {
+      "pidgin": "Try look dis one!",
+      "english": "please look",
+      "category": "expressions",
+      "context": "Asking someone to look at something",
+      "pronunciation": "try LOOK",
+      "source": "dictionary:try_look_5002",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "commands",
+        "common"
+      ]
+    },
+    {
+      "pidgin": "Try look how big!",
+      "english": "please look",
+      "category": "expressions",
+      "context": "Asking someone to look at something",
+      "pronunciation": "try LOOK",
+      "source": "dictionary:try_look_5002",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "commands",
+        "common"
+      ]
+    },
+    {
+      "pidgin": "What, you like beef or what?",
+      "english": "what, you want to fight?",
+      "category": "expressions",
+      "context": "Fighting challenge",
+      "pronunciation": "what, you like BEEF",
+      "source": "dictionary:what_you_like_beef_5003",
+      "difficulty": "intermediate",
+      "tags": [
+        "expressions",
+        "confrontation",
+        "slang"
+      ]
+    },
+    {
+      "pidgin": "How 'bout, can I get some?",
+      "english": "how about it?",
+      "category": "expressions",
+      "context": "Asking for something or proposing",
+      "pronunciation": "how BOUT",
+      "source": "dictionary:how_bout_5004",
+      "difficulty": "beginner",
+      "tags": [
+        "expressions",
+        "questions"
+      ]
+    },
+    {
+      "pidgin": "Give me s'koshi more rice",
+      "english": "a little bit",
+      "category": "descriptions",
+      "context": "Small amount",
+      "pronunciation": "SKOH-shee",
+      "source": "dictionary:skoshi_5005",
+      "difficulty": "intermediate",
+      "tags": [
+        "descriptions",
+        "japanese",
+        "amounts"
+      ]
     }
   ],
   "categorized": {
@@ -18005,6 +19361,369 @@
           "location",
           "hawaiian"
         ]
+      },
+      {
+        "pidgin": "Halala, I forgot my wallet!",
+        "english": "uh-oh",
+        "category": "expressions",
+        "context": "Expression when something goes wrong",
+        "pronunciation": "hah-LAH-lah",
+        "source": "dictionary:halala_901",
+        "difficulty": "intermediate",
+        "tags": [
+          "expressions",
+          "exclamations"
+        ]
+      },
+      {
+        "pidgin": "Why you stay acting l'dat?",
+        "english": "like that",
+        "category": "expressions",
+        "context": "Describing something in that manner",
+        "pronunciation": "el-DAT",
+        "source": "dictionary:ldat_904",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "common"
+        ]
+      },
+      {
+        "pidgin": "I going tell your mom... nah nah nah!",
+        "english": "just joking",
+        "category": "expressions",
+        "context": "Indicating you were just teasing",
+        "pronunciation": "NAH NAH NAH",
+        "source": "dictionary:nah_nah_nah_907",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "humor"
+        ]
+      },
+      {
+        "pidgin": "That was good, ya?",
+        "english": "right?",
+        "category": "expressions",
+        "context": "Tag question seeking agreement",
+        "pronunciation": "YAH",
+        "source": "dictionary:ya_911",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "common",
+          "agreement"
+        ]
+      },
+      {
+        "pidgin": "Rajah dat, I stay on it",
+        "english": "roger that",
+        "category": "expressions",
+        "context": "Acknowledging understanding",
+        "pronunciation": "RAH-jah DAT",
+        "source": "dictionary:rajah_dat_1000",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "agreement",
+          "common"
+        ]
+      },
+      {
+        "pidgin": "Kay den, we go now",
+        "english": "okay then",
+        "category": "expressions",
+        "context": "Agreement to proceed",
+        "pronunciation": "kay DEN",
+        "source": "dictionary:kay_den_1004",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "agreement"
+        ]
+      },
+      {
+        "pidgin": "Fo' real? That's amazing!",
+        "english": "for real",
+        "category": "expressions",
+        "context": "Expressing surprise or seeking confirmation",
+        "pronunciation": "foh REEL",
+        "source": "dictionary:fo_real_1005",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "questions"
+        ]
+      },
+      {
+        "pidgin": "No lie, I saw one huge wave",
+        "english": "no lie",
+        "category": "expressions",
+        "context": "Emphasizing truthfulness",
+        "pronunciation": "no LIE",
+        "source": "dictionary:no_lie_1006",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "emphasis"
+        ]
+      },
+      {
+        "pidgin": "Why you stay acting lidat?",
+        "english": "like that",
+        "category": "expressions",
+        "context": "Describing manner or behavior",
+        "pronunciation": "lee-DAT",
+        "source": "dictionary:lidat_1015",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "common"
+        ]
+      },
+      {
+        "pidgin": "All katsu now!",
+        "english": "perfect",
+        "category": "expressions",
+        "context": "Everything is perfect",
+        "pronunciation": "KAT-soo",
+        "source": "dictionary:katsu_1017",
+        "difficulty": "intermediate",
+        "tags": [
+          "expressions",
+          "japanese",
+          "success"
+        ]
+      },
+      {
+        "pidgin": "What, you like scrap?",
+        "english": "you want to fight?",
+        "category": "expressions",
+        "context": "Fighting challenge",
+        "pronunciation": "like SKRAP",
+        "source": "dictionary:like_scrap_1024",
+        "difficulty": "intermediate",
+        "tags": [
+          "expressions",
+          "confrontation"
+        ]
+      },
+      {
+        "pidgin": "Geev 'um, brah!",
+        "english": "give it to them",
+        "category": "expressions",
+        "context": "Encouragement or aggression",
+        "pronunciation": "geev UM",
+        "source": "dictionary:geev_um_1026",
+        "difficulty": "intermediate",
+        "tags": [
+          "expressions",
+          "encouragement"
+        ]
+      },
+      {
+        "pidgin": "You should chance 'um!",
+        "english": "go for it",
+        "category": "expressions",
+        "context": "Encouraging to take a risk",
+        "pronunciation": "chance UM",
+        "source": "dictionary:chance_um_1027",
+        "difficulty": "intermediate",
+        "tags": [
+          "expressions",
+          "encouragement"
+        ]
+      },
+      {
+        "pidgin": "This poke is da bes'!",
+        "english": "the best",
+        "category": "expressions",
+        "context": "Highest praise",
+        "pronunciation": "dah BES",
+        "source": "dictionary:da_bes_1032",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "compliment"
+        ]
+      },
+      {
+        "pidgin": "What fo'?",
+        "english": "for",
+        "category": "expressions",
+        "context": "Preposition meaning for or to",
+        "pronunciation": "foh",
+        "source": "dictionary:fo_1033",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "common"
+        ]
+      },
+      {
+        "pidgin": "Going fo' grind",
+        "english": "for",
+        "category": "expressions",
+        "context": "Preposition meaning for or to",
+        "pronunciation": "foh",
+        "source": "dictionary:fo_1033",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "common"
+        ]
+      },
+      {
+        "pidgin": "I going go beach later",
+        "english": "will",
+        "category": "expressions",
+        "context": "Future tense marker",
+        "pronunciation": "GO-ing",
+        "source": "dictionary:going_1034",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "grammar",
+          "common"
+        ]
+      },
+      {
+        "pidgin": "How was da food? Jus' 'kine",
+        "english": "just the kind",
+        "category": "expressions",
+        "context": "Describing something as mediocre or adequate",
+        "pronunciation": "jus KINE",
+        "source": "dictionary:jus_kine_2006",
+        "difficulty": "intermediate",
+        "tags": [
+          "expressions",
+          "descriptions"
+        ]
+      },
+      {
+        "pidgin": "I neva do dat!",
+        "english": "never",
+        "category": "expressions",
+        "context": "Negative past tense",
+        "pronunciation": "NEH-vah",
+        "source": "dictionary:neva_2010",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "grammar",
+          "common"
+        ]
+      },
+      {
+        "pidgin": "I no like dat",
+        "english": "not",
+        "category": "expressions",
+        "context": "Primary negation word",
+        "pronunciation": "NO",
+        "source": "dictionary:no_5000",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "grammar",
+          "common"
+        ]
+      },
+      {
+        "pidgin": "He no stay here",
+        "english": "not",
+        "category": "expressions",
+        "context": "Primary negation word",
+        "pronunciation": "NO",
+        "source": "dictionary:no_5000",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "grammar",
+          "common"
+        ]
+      },
+      {
+        "pidgin": "Da buggah stay big",
+        "english": "the",
+        "category": "expressions",
+        "context": "Article 'the'",
+        "pronunciation": "dah",
+        "source": "dictionary:da_5001",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "grammar",
+          "common"
+        ]
+      },
+      {
+        "pidgin": "Da food stay 'ono",
+        "english": "the",
+        "category": "expressions",
+        "context": "Article 'the'",
+        "pronunciation": "dah",
+        "source": "dictionary:da_5001",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "grammar",
+          "common"
+        ]
+      },
+      {
+        "pidgin": "Try look dis one!",
+        "english": "please look",
+        "category": "expressions",
+        "context": "Asking someone to look at something",
+        "pronunciation": "try LOOK",
+        "source": "dictionary:try_look_5002",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "commands",
+          "common"
+        ]
+      },
+      {
+        "pidgin": "Try look how big!",
+        "english": "please look",
+        "category": "expressions",
+        "context": "Asking someone to look at something",
+        "pronunciation": "try LOOK",
+        "source": "dictionary:try_look_5002",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "commands",
+          "common"
+        ]
+      },
+      {
+        "pidgin": "What, you like beef or what?",
+        "english": "what, you want to fight?",
+        "category": "expressions",
+        "context": "Fighting challenge",
+        "pronunciation": "what, you like BEEF",
+        "source": "dictionary:what_you_like_beef_5003",
+        "difficulty": "intermediate",
+        "tags": [
+          "expressions",
+          "confrontation",
+          "slang"
+        ]
+      },
+      {
+        "pidgin": "How 'bout, can I get some?",
+        "english": "how about it?",
+        "category": "expressions",
+        "context": "Asking for something or proposing",
+        "pronunciation": "how BOUT",
+        "source": "dictionary:how_bout_5004",
+        "difficulty": "beginner",
+        "tags": [
+          "expressions",
+          "questions"
+        ]
       }
     ],
     "greetings": [
@@ -18672,6 +20391,59 @@
         "tags": [
           "farewell",
           "common"
+        ]
+      },
+      {
+        "pidgin": "Mele Kalikimaka to you and your ohana!",
+        "english": "Merry Christmas",
+        "category": "greetings",
+        "context": "Hawaiian Christmas greeting",
+        "pronunciation": "MEH-leh kah-lee-kee-MAH-kah",
+        "source": "dictionary:mele_kalikimaka_906",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "hawaiian",
+          "holidays"
+        ]
+      },
+      {
+        "pidgin": "Laters, brah!",
+        "english": "see you later",
+        "category": "greetings",
+        "context": "Casual goodbye",
+        "pronunciation": "LAY-terz",
+        "source": "dictionary:laters_1001",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "farewells"
+        ]
+      },
+      {
+        "pidgin": "Thanks! - No problem!",
+        "english": "you're welcome",
+        "category": "greetings",
+        "context": "You're welcome response",
+        "pronunciation": "no PRAH-blem",
+        "source": "dictionary:no_problem_1002",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "expressions"
+        ]
+      },
+      {
+        "pidgin": "Shoots den, catch you later",
+        "english": "okay then",
+        "category": "greetings",
+        "context": "Agreement and farewell",
+        "pronunciation": "shoots DEN",
+        "source": "dictionary:shoots_den_1003",
+        "difficulty": "beginner",
+        "tags": [
+          "greetings",
+          "agreement"
         ]
       }
     ],
@@ -19441,6 +21213,246 @@
           "food",
           "compliment"
         ]
+      },
+      {
+        "pidgin": "We get green bottles fo' da party",
+        "english": "Heineken beer",
+        "category": "food",
+        "context": "Referring to Heineken beer",
+        "pronunciation": "green BAH-tuls",
+        "source": "dictionary:green_bottles_900",
+        "difficulty": "beginner",
+        "tags": [
+          "food",
+          "slang",
+          "drinks"
+        ]
+      },
+      {
+        "pidgin": "I like li hing mui powder on my mango",
+        "english": "salted dried plum",
+        "category": "food",
+        "context": "Popular local snack flavoring",
+        "pronunciation": "lee hing MOO-ee",
+        "source": "dictionary:li_hing_mui_905",
+        "difficulty": "intermediate",
+        "tags": [
+          "food",
+          "chinese",
+          "snacks"
+        ]
+      },
+      {
+        "pidgin": "This poke stay so 'ono!",
+        "english": "delicious",
+        "category": "food",
+        "context": "Describing delicious food",
+        "pronunciation": "OH-no",
+        "source": "dictionary:ono_1011",
+        "difficulty": "beginner",
+        "tags": [
+          "food",
+          "hawaiian",
+          "descriptions"
+        ]
+      },
+      {
+        "pidgin": "Aunty's laulau broke da mout'!",
+        "english": "extremely delicious",
+        "category": "food",
+        "context": "Highest praise for food",
+        "pronunciation": "broke dah MOUT",
+        "source": "dictionary:broke_da_mout_1012",
+        "difficulty": "intermediate",
+        "tags": [
+          "food",
+          "expressions",
+          "compliment"
+        ]
+      },
+      {
+        "pidgin": "Fresh aku for sale",
+        "english": "skipjack tuna",
+        "category": "food",
+        "context": "Type of tuna",
+        "pronunciation": "AH-koo",
+        "source": "dictionary:aku_1018",
+        "difficulty": "intermediate",
+        "tags": [
+          "food",
+          "hawaiian",
+          "fish"
+        ]
+      },
+      {
+        "pidgin": "Let's go get saimin",
+        "english": "local noodle soup",
+        "category": "food",
+        "context": "Popular local dish",
+        "pronunciation": "sigh-MIN",
+        "source": "dictionary:saimin_1020",
+        "difficulty": "beginner",
+        "tags": [
+          "food",
+          "japanese",
+          "local"
+        ]
+      },
+      {
+        "pidgin": "One rainbow shave ice, please",
+        "english": "shaved ice dessert with flavored syrup",
+        "category": "food",
+        "context": "Popular Hawaiian dessert",
+        "pronunciation": "shave ICE",
+        "source": "dictionary:shave_ice_1021",
+        "difficulty": "beginner",
+        "tags": [
+          "food",
+          "desserts",
+          "local"
+        ]
+      },
+      {
+        "pidgin": "Grab one musubi from 7-11",
+        "english": "rice ball",
+        "category": "food",
+        "context": "Popular snack food",
+        "pronunciation": "moo-SOO-bee",
+        "source": "dictionary:musubi_1022",
+        "difficulty": "beginner",
+        "tags": [
+          "food",
+          "japanese",
+          "snacks"
+        ]
+      },
+      {
+        "pidgin": "Pass da shoyu, please",
+        "english": "soy sauce",
+        "category": "food",
+        "context": "Condiment",
+        "pronunciation": "SHOW-yoo",
+        "source": "dictionary:shoyu_1023",
+        "difficulty": "beginner",
+        "tags": [
+          "food",
+          "japanese",
+          "condiments"
+        ]
+      },
+      {
+        "pidgin": "Let's get chow fun from da Chinese place",
+        "english": "wide flat rice noodles",
+        "category": "food",
+        "context": "Popular Chinese noodle dish",
+        "pronunciation": "chow FUN",
+        "source": "dictionary:chow_fun_3000",
+        "difficulty": "beginner",
+        "tags": [
+          "food",
+          "chinese",
+          "noodles"
+        ]
+      },
+      {
+        "pidgin": "Stop at da crack seed store",
+        "english": "dried preserved fruit snacks",
+        "category": "food",
+        "context": "Popular local snack",
+        "pronunciation": "krak SEED",
+        "source": "dictionary:crack_seed_3001",
+        "difficulty": "beginner",
+        "tags": [
+          "food",
+          "chinese",
+          "snacks",
+          "local"
+        ]
+      },
+      {
+        "pidgin": "We caught one holo-holo today",
+        "english": "red-striped fish",
+        "category": "food",
+        "context": "Type of reef fish",
+        "pronunciation": "HO-lo HO-lo",
+        "source": "dictionary:holo_holo_fish_3002",
+        "difficulty": "intermediate",
+        "tags": [
+          "food",
+          "hawaiian",
+          "fish"
+        ]
+      },
+      {
+        "pidgin": "Time fo' kaukau!",
+        "english": "food",
+        "category": "food",
+        "context": "Food or eating",
+        "pronunciation": "KOW-kow",
+        "source": "dictionary:kaukau_3003",
+        "difficulty": "beginner",
+        "tags": [
+          "food",
+          "chinese",
+          "actions"
+        ]
+      },
+      {
+        "pidgin": "I like one kōkō, please",
+        "english": "hot chocolate",
+        "category": "food",
+        "context": "Hot chocolate drink",
+        "pronunciation": "KO-ko",
+        "source": "dictionary:koko_3004",
+        "difficulty": "beginner",
+        "tags": [
+          "food",
+          "hawaiian",
+          "drinks"
+        ]
+      },
+      {
+        "pidgin": "Aunty make da best kūlolo",
+        "english": "steamed taro and coconut pudding",
+        "category": "food",
+        "context": "Traditional Hawaiian dessert",
+        "pronunciation": "koo-LO-lo",
+        "source": "dictionary:kulolo_3005",
+        "difficulty": "intermediate",
+        "tags": [
+          "food",
+          "hawaiian",
+          "desserts",
+          "cultural"
+        ]
+      },
+      {
+        "pidgin": "Da lū'au get lomi-lomi salmon",
+        "english": "salted salmon tomato and onion salad",
+        "category": "food",
+        "context": "Traditional Hawaiian side dish",
+        "pronunciation": "LO-mee LO-mee SAM-un",
+        "source": "dictionary:lomi_lomi_salmon_3006",
+        "difficulty": "intermediate",
+        "tags": [
+          "food",
+          "hawaiian",
+          "cultural",
+          "fish"
+        ]
+      },
+      {
+        "pidgin": "Wrap da musubi with nori",
+        "english": "dried seaweed",
+        "category": "food",
+        "context": "Seaweed wrapper",
+        "pronunciation": "NOR-ee",
+        "source": "dictionary:nori_3007",
+        "difficulty": "beginner",
+        "tags": [
+          "food",
+          "japanese"
+        ]
       }
     ],
     "nature": [
@@ -19728,6 +21740,158 @@
         "tags": [
           "nature",
           "english"
+        ]
+      },
+      {
+        "pidgin": "Let's go down to da kahakai",
+        "english": "the beach",
+        "category": "nature",
+        "context": "Beach or seashore",
+        "pronunciation": "kah-hah-KAI",
+        "source": "dictionary:kahakai_4000",
+        "difficulty": "intermediate",
+        "tags": [
+          "nature",
+          "hawaiian",
+          "places"
+        ]
+      },
+      {
+        "pidgin": "Diamond Head is Lē'ahi in Hawaiian, but kaimana means diamond",
+        "english": "diamond",
+        "category": "nature",
+        "context": "Diamond or precious gem",
+        "pronunciation": "kai-MAH-nah",
+        "source": "dictionary:kaimana_4001",
+        "difficulty": "advanced",
+        "tags": [
+          "nature",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "Kona winds stay blowing hot today",
+        "english": "leeward",
+        "category": "nature",
+        "context": "Leeward side or winds from that direction",
+        "pronunciation": "KO-nah",
+        "source": "dictionary:kona_4002",
+        "difficulty": "intermediate",
+        "tags": [
+          "nature",
+          "hawaiian",
+          "weather",
+          "directions"
+        ]
+      },
+      {
+        "pidgin": "Ko'olina side get more rain",
+        "english": "windward",
+        "category": "nature",
+        "context": "Windward or rainy side of island",
+        "pronunciation": "ko-oh-LEE-nah",
+        "source": "dictionary:koolina_4003",
+        "difficulty": "intermediate",
+        "tags": [
+          "nature",
+          "hawaiian",
+          "weather",
+          "directions"
+        ]
+      },
+      {
+        "pidgin": "Da lā stay hot today",
+        "english": "the sun",
+        "category": "nature",
+        "context": "The sun or daytime",
+        "pronunciation": "LAH",
+        "source": "dictionary:la_4004",
+        "difficulty": "intermediate",
+        "tags": [
+          "nature",
+          "hawaiian",
+          "weather"
+        ]
+      },
+      {
+        "pidgin": "Da mahina stay full tonight",
+        "english": "the moon",
+        "category": "nature",
+        "context": "The moon or month",
+        "pronunciation": "mah-HEE-nah",
+        "source": "dictionary:mahina_4005",
+        "difficulty": "intermediate",
+        "tags": [
+          "nature",
+          "hawaiian",
+          "time"
+        ]
+      },
+      {
+        "pidgin": "Get niu trees all around da beach",
+        "english": "coconut",
+        "category": "nature",
+        "context": "Coconut or coconut palm",
+        "pronunciation": "NEE-oo",
+        "source": "dictionary:niu_4006",
+        "difficulty": "intermediate",
+        "tags": [
+          "nature",
+          "hawaiian",
+          "food"
+        ]
+      },
+      {
+        "pidgin": "Watch out for da pōhaku in da water",
+        "english": "rock",
+        "category": "nature",
+        "context": "Rock or stone",
+        "pronunciation": "po-HAH-koo",
+        "source": "dictionary:pohaku_4007",
+        "difficulty": "intermediate",
+        "tags": [
+          "nature",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "We go swim in da wai",
+        "english": "fresh water",
+        "category": "nature",
+        "context": "Fresh water or stream",
+        "pronunciation": "WAI",
+        "source": "dictionary:wai_4008",
+        "difficulty": "intermediate",
+        "tags": [
+          "nature",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "Da wailele stay beautiful after da rain",
+        "english": "waterfall",
+        "category": "nature",
+        "context": "Waterfall",
+        "pronunciation": "wai-LEH-leh",
+        "source": "dictionary:wailele_4009",
+        "difficulty": "intermediate",
+        "tags": [
+          "nature",
+          "hawaiian",
+          "places"
+        ]
+      },
+      {
+        "pidgin": "Pick da ti lau for wrap da food",
+        "english": "leaf",
+        "category": "nature",
+        "context": "Leaf or leaves",
+        "pronunciation": "LAU",
+        "source": "dictionary:lau_4010",
+        "difficulty": "intermediate",
+        "tags": [
+          "nature",
+          "hawaiian"
         ]
       }
     ],
@@ -20225,6 +22389,114 @@
         "tags": [
           "actions",
           "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "We go holo holo around town",
+        "english": "aimless wandering",
+        "category": "actions",
+        "context": "Going out without a specific destination",
+        "pronunciation": "HO-lo HO-lo",
+        "source": "dictionary:holo_holo_902",
+        "difficulty": "intermediate",
+        "tags": [
+          "actions",
+          "hawaiian",
+          "activities"
+        ]
+      },
+      {
+        "pidgin": "We go beach",
+        "english": "let's go",
+        "category": "actions",
+        "context": "Going somewhere (verb form)",
+        "pronunciation": "GO",
+        "source": "dictionary:go_1025",
+        "difficulty": "beginner",
+        "tags": [
+          "actions",
+          "common"
+        ]
+      },
+      {
+        "pidgin": "Let's wala'au story",
+        "english": "to talk",
+        "category": "actions",
+        "context": "Having a conversation",
+        "pronunciation": "wah-LAH-ow",
+        "source": "dictionary:walaau_1028",
+        "difficulty": "intermediate",
+        "tags": [
+          "actions",
+          "hawaiian",
+          "conversation"
+        ]
+      },
+      {
+        "pidgin": "We holo to da store",
+        "english": "to run",
+        "category": "actions",
+        "context": "Running or moving quickly",
+        "pronunciation": "HO-lo",
+        "source": "dictionary:holo_1030",
+        "difficulty": "intermediate",
+        "tags": [
+          "actions",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "Da beach stay all jam up",
+        "english": "to pack",
+        "category": "actions",
+        "context": "Describing crowded or packed spaces",
+        "pronunciation": "JAM",
+        "source": "dictionary:jam_2000",
+        "difficulty": "beginner",
+        "tags": [
+          "actions",
+          "descriptions"
+        ]
+      },
+      {
+        "pidgin": "Scram before da cops come!",
+        "english": "to leave quickly",
+        "category": "actions",
+        "context": "Telling someone to leave",
+        "pronunciation": "SKRAM",
+        "source": "dictionary:scram_2001",
+        "difficulty": "beginner",
+        "tags": [
+          "actions",
+          "commands"
+        ]
+      },
+      {
+        "pidgin": "No boddah me!",
+        "english": "to bother",
+        "category": "actions",
+        "context": "Expressing annoyance or asking if something bothers",
+        "pronunciation": "BAH-dah",
+        "source": "dictionary:boddah_2002",
+        "difficulty": "beginner",
+        "tags": [
+          "actions",
+          "emotions",
+          "common"
+        ]
+      },
+      {
+        "pidgin": "Boddah you?",
+        "english": "to bother",
+        "category": "actions",
+        "context": "Expressing annoyance or asking if something bothers",
+        "pronunciation": "BAH-dah",
+        "source": "dictionary:boddah_2002",
+        "difficulty": "beginner",
+        "tags": [
+          "actions",
+          "emotions",
+          "common"
         ]
       }
     ],
@@ -21348,6 +23620,35 @@
           "cultural",
           "hawaiian"
         ]
+      },
+      {
+        "pidgin": "Going to da lū'au tonight",
+        "english": "Hawaiian feast",
+        "category": "cultural",
+        "context": "Traditional Hawaiian celebration",
+        "pronunciation": "LOO-ow",
+        "source": "dictionary:luau_1019",
+        "difficulty": "beginner",
+        "tags": [
+          "cultural",
+          "hawaiian",
+          "food",
+          "celebrations"
+        ]
+      },
+      {
+        "pidgin": "Give 'um da shaka!",
+        "english": "hang loose hand gesture",
+        "category": "cultural",
+        "context": "Iconic Hawaiian hand gesture",
+        "pronunciation": "SHAH-kah",
+        "source": "dictionary:shaka_1029",
+        "difficulty": "beginner",
+        "tags": [
+          "cultural",
+          "gestures",
+          "greetings"
+        ]
       }
     ],
     "descriptions": [
@@ -21805,6 +24106,193 @@
         "difficulty": "beginner",
         "tags": [
           "descriptions"
+        ]
+      },
+      {
+        "pidgin": "Give me just a scosh more rice",
+        "english": "small amount",
+        "category": "descriptions",
+        "context": "Asking for a small quantity",
+        "pronunciation": "SKOSH",
+        "source": "dictionary:scosh_909",
+        "difficulty": "intermediate",
+        "tags": [
+          "descriptions",
+          "japanese",
+          "amounts"
+        ]
+      },
+      {
+        "pidgin": "Da sunset stay so nani",
+        "english": "beautiful",
+        "category": "descriptions",
+        "context": "Beautiful or lovely",
+        "pronunciation": "NAH-nee",
+        "source": "dictionary:nani_1013",
+        "difficulty": "beginner",
+        "tags": [
+          "descriptions",
+          "hawaiian",
+          "compliment"
+        ]
+      },
+      {
+        "pidgin": "Get plenny fish in da ocean",
+        "english": "plenty",
+        "category": "descriptions",
+        "context": "Indicating abundance",
+        "pronunciation": "PLEN-nee",
+        "source": "dictionary:plenny_1014",
+        "difficulty": "beginner",
+        "tags": [
+          "descriptions",
+          "amounts"
+        ]
+      },
+      {
+        "pidgin": "That guy stay solid, you can trust him",
+        "english": "good",
+        "category": "descriptions",
+        "context": "Expressing approval or reliability",
+        "pronunciation": "SAH-lid",
+        "source": "dictionary:solid_1016",
+        "difficulty": "beginner",
+        "tags": [
+          "descriptions",
+          "compliment"
+        ]
+      },
+      {
+        "pidgin": "That's one big kine problem",
+        "english": "a lot",
+        "category": "descriptions",
+        "context": "Emphasizing size or importance",
+        "pronunciation": "big KINE",
+        "source": "dictionary:big_kine_1031",
+        "difficulty": "beginner",
+        "tags": [
+          "descriptions",
+          "amounts"
+        ]
+      },
+      {
+        "pidgin": "I stay broke til payday",
+        "english": "no money",
+        "category": "descriptions",
+        "context": "Having no money",
+        "pronunciation": "BROKE",
+        "source": "dictionary:broke_2003",
+        "difficulty": "beginner",
+        "tags": [
+          "descriptions",
+          "money"
+        ]
+      },
+      {
+        "pidgin": "Dirty kine weather today",
+        "english": "bad",
+        "category": "descriptions",
+        "context": "Describing something bad or undesirable",
+        "pronunciation": "DER-tee",
+        "source": "dictionary:dirty_2004",
+        "difficulty": "beginner",
+        "tags": [
+          "descriptions",
+          "negative"
+        ]
+      },
+      {
+        "pidgin": "Stay hard fo' do",
+        "english": "difficult",
+        "category": "descriptions",
+        "context": "Describing difficulty",
+        "pronunciation": "HARD",
+        "source": "dictionary:hard_2005",
+        "difficulty": "beginner",
+        "tags": [
+          "descriptions",
+          "difficulty"
+        ]
+      },
+      {
+        "pidgin": "He stay all madt at me",
+        "english": "angry",
+        "category": "descriptions",
+        "context": "Being angry",
+        "pronunciation": "MAD-t",
+        "source": "dictionary:madt_2007",
+        "difficulty": "beginner",
+        "tags": [
+          "descriptions",
+          "emotions"
+        ]
+      },
+      {
+        "pidgin": "She stay miffed about da party",
+        "english": "annoyed",
+        "category": "descriptions",
+        "context": "Being annoyed or upset",
+        "pronunciation": "MIFT",
+        "source": "dictionary:miffed_2008",
+        "difficulty": "intermediate",
+        "tags": [
+          "descriptions",
+          "emotions"
+        ]
+      },
+      {
+        "pidgin": "He stay salty cuz he lost",
+        "english": "angry",
+        "category": "descriptions",
+        "context": "Being bitter or angry",
+        "pronunciation": "SALT-ee",
+        "source": "dictionary:salty_2009",
+        "difficulty": "beginner",
+        "tags": [
+          "descriptions",
+          "emotions",
+          "slang"
+        ]
+      },
+      {
+        "pidgin": "He drive f 'n fast!",
+        "english": "extremely fast",
+        "category": "descriptions",
+        "context": "Emphasizing extreme speed",
+        "pronunciation": "EFF-en FAST",
+        "source": "dictionary:f_n_fast_2011",
+        "difficulty": "intermediate",
+        "tags": [
+          "descriptions",
+          "speed",
+          "emphasis"
+        ]
+      },
+      {
+        "pidgin": "Dat buggah stay stout!",
+        "english": "strong",
+        "category": "descriptions",
+        "context": "Describing strength or toughness",
+        "pronunciation": "STOUT",
+        "source": "dictionary:stout_2012",
+        "difficulty": "beginner",
+        "tags": [
+          "descriptions",
+          "strength"
+        ]
+      },
+      {
+        "pidgin": "Give me s'koshi more rice",
+        "english": "a little bit",
+        "category": "descriptions",
+        "context": "Small amount",
+        "pronunciation": "SKOH-shee",
+        "source": "dictionary:skoshi_5005",
+        "difficulty": "intermediate",
+        "tags": [
+          "descriptions",
+          "japanese",
+          "amounts"
         ]
       }
     ],
@@ -24330,6 +26818,20 @@
         "tags": [
           "slang"
         ]
+      },
+      {
+        "pidgin": "Sit your 'ōkole down!",
+        "english": "buttocks",
+        "category": "slang",
+        "context": "Buttocks or rear end",
+        "pronunciation": "OH-ko-leh",
+        "source": "dictionary:okole_4011",
+        "difficulty": "beginner",
+        "tags": [
+          "slang",
+          "hawaiian",
+          "body"
+        ]
       }
     ],
     "emotions": [
@@ -25315,6 +27817,189 @@
         "tags": [
           "people"
         ]
+      },
+      {
+        "pidgin": "He stay one kotonk from California",
+        "english": "Japanese person born on mainland US",
+        "category": "people",
+        "context": "Referring to mainland-born Japanese Americans",
+        "pronunciation": "ko-TONK",
+        "source": "dictionary:kotonk_903",
+        "difficulty": "advanced",
+        "tags": [
+          "people",
+          "japanese",
+          "cultural"
+        ]
+      },
+      {
+        "pidgin": "My tutu was potagee",
+        "english": "Portuguese person",
+        "category": "people",
+        "context": "Referring to Portuguese people or heritage",
+        "pronunciation": "poh-tah-GEE",
+        "source": "dictionary:potagee_908",
+        "difficulty": "intermediate",
+        "tags": [
+          "people",
+          "cultural",
+          "portuguese"
+        ]
+      },
+      {
+        "pidgin": "He stay one townie, not country",
+        "english": "city dweller",
+        "category": "people",
+        "context": "Referring to someone from the city vs. countryside",
+        "pronunciation": "TOW-nee",
+        "source": "dictionary:townie_910",
+        "difficulty": "beginner",
+        "tags": [
+          "people",
+          "descriptions"
+        ]
+      },
+      {
+        "pidgin": "Uncle Joe stay fixing cars",
+        "english": "any older man you respect",
+        "category": "people",
+        "context": "Respectful term for older men",
+        "pronunciation": "UN-kul",
+        "source": "dictionary:uncle_1007",
+        "difficulty": "beginner",
+        "tags": [
+          "people",
+          "respect",
+          "family"
+        ]
+      },
+      {
+        "pidgin": "Listen to da kūpuna, they get wisdom",
+        "english": "elder",
+        "category": "people",
+        "context": "Respected elder",
+        "pronunciation": "koo-POO-nah",
+        "source": "dictionary:kupuna_1008",
+        "difficulty": "intermediate",
+        "tags": [
+          "people",
+          "hawaiian",
+          "family",
+          "respect"
+        ]
+      },
+      {
+        "pidgin": "My tūtū make da best laulau",
+        "english": "grandmother",
+        "category": "people",
+        "context": "Grandparent term",
+        "pronunciation": "TOO-too",
+        "source": "dictionary:tutu_1009",
+        "difficulty": "beginner",
+        "tags": [
+          "people",
+          "hawaiian",
+          "family"
+        ]
+      },
+      {
+        "pidgin": "Kama'aina rates for locals only",
+        "english": "local resident",
+        "category": "people",
+        "context": "Referring to local residents vs tourists",
+        "pronunciation": "kah-mah-EYE-nah",
+        "source": "dictionary:kamaaina_1010",
+        "difficulty": "intermediate",
+        "tags": [
+          "people",
+          "hawaiian",
+          "cultural"
+        ]
+      },
+      {
+        "pidgin": "'Ohana means family",
+        "english": "family",
+        "category": "people",
+        "context": "Family including extended and close friends",
+        "pronunciation": "oh-HAH-nah",
+        "source": "dictionary:ohana_3008",
+        "difficulty": "beginner",
+        "tags": [
+          "people",
+          "hawaiian",
+          "family",
+          "cultural"
+        ]
+      },
+      {
+        "pidgin": "All da kamali'i stay playing outside",
+        "english": "children",
+        "category": "people",
+        "context": "Children (plural)",
+        "pronunciation": "kah-mah-LEE-ee",
+        "source": "dictionary:kamalii_3009",
+        "difficulty": "intermediate",
+        "tags": [
+          "people",
+          "hawaiian",
+          "family"
+        ]
+      },
+      {
+        "pidgin": "Da kāne stay working",
+        "english": "man",
+        "category": "people",
+        "context": "Man or husband",
+        "pronunciation": "KAH-neh",
+        "source": "dictionary:kane_3010",
+        "difficulty": "beginner",
+        "tags": [
+          "people",
+          "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "Kama'āina discount for locals",
+        "english": "local resident",
+        "category": "people",
+        "context": "Local resident vs tourist",
+        "pronunciation": "kah-mah-EYE-nah",
+        "source": "dictionary:kamaaina_3011",
+        "difficulty": "intermediate",
+        "tags": [
+          "people",
+          "hawaiian",
+          "cultural"
+        ]
+      },
+      {
+        "pidgin": "Māhū have important role in Hawaiian culture",
+        "english": "third gender",
+        "category": "people",
+        "context": "Traditional Hawaiian third gender",
+        "pronunciation": "MAH-hoo",
+        "source": "dictionary:mahu_3012",
+        "difficulty": "intermediate",
+        "tags": [
+          "people",
+          "hawaiian",
+          "cultural"
+        ]
+      },
+      {
+        "pidgin": "My tūtū was pāke",
+        "english": "Chinese person",
+        "category": "people",
+        "context": "Person of Chinese descent",
+        "pronunciation": "PAH-keh",
+        "source": "dictionary:pake_3013",
+        "difficulty": "intermediate",
+        "tags": [
+          "people",
+          "hawaiian",
+          "cultural",
+          "chinese"
+        ]
       }
     ],
     "activities": [
@@ -25409,6 +28094,20 @@
         "tags": [
           "clothing",
           "english"
+        ]
+      },
+      {
+        "pidgin": "She wearing one pretty pa'u",
+        "english": "skirt",
+        "category": "clothing",
+        "context": "Traditional skirt or wrap",
+        "pronunciation": "PAH-oo",
+        "source": "dictionary:pau_4013",
+        "difficulty": "intermediate",
+        "tags": [
+          "clothing",
+          "hawaiian",
+          "cultural"
         ]
       }
     ],
@@ -25997,6 +28696,21 @@
         "tags": [
           "questions",
           "english"
+        ]
+      }
+    ],
+    "objects": [
+      {
+        "pidgin": "Throw da 'opala away",
+        "english": "trash",
+        "category": "objects",
+        "context": "Trash or garbage",
+        "pronunciation": "oh-PAH-lah",
+        "source": "dictionary:opala_4012",
+        "difficulty": "beginner",
+        "tags": [
+          "objects",
+          "hawaiian"
         ]
       }
     ]
@@ -31006,6 +33720,501 @@
       "pidgin": "Eh brah, where da lua stay?",
       "english": "Where is the restroom?",
       "context": "Asking for bathroom"
+    },
+    {
+      "pidgin": "We get green bottles fo' da party",
+      "english": "Heineken beer",
+      "context": "Referring to Heineken beer"
+    },
+    {
+      "pidgin": "Halala, I forgot my wallet!",
+      "english": "uh-oh",
+      "context": "Expression when something goes wrong"
+    },
+    {
+      "pidgin": "We go holo holo around town",
+      "english": "aimless wandering",
+      "context": "Going out without a specific destination"
+    },
+    {
+      "pidgin": "He stay one kotonk from California",
+      "english": "Japanese person born on mainland US",
+      "context": "Referring to mainland-born Japanese Americans"
+    },
+    {
+      "pidgin": "Why you stay acting l'dat?",
+      "english": "like that",
+      "context": "Describing something in that manner"
+    },
+    {
+      "pidgin": "I like li hing mui powder on my mango",
+      "english": "salted dried plum",
+      "context": "Popular local snack flavoring"
+    },
+    {
+      "pidgin": "Mele Kalikimaka to you and your ohana!",
+      "english": "Merry Christmas",
+      "context": "Hawaiian Christmas greeting"
+    },
+    {
+      "pidgin": "I going tell your mom... nah nah nah!",
+      "english": "just joking",
+      "context": "Indicating you were just teasing"
+    },
+    {
+      "pidgin": "My tutu was potagee",
+      "english": "Portuguese person",
+      "context": "Referring to Portuguese people or heritage"
+    },
+    {
+      "pidgin": "Give me just a scosh more rice",
+      "english": "small amount",
+      "context": "Asking for a small quantity"
+    },
+    {
+      "pidgin": "He stay one townie, not country",
+      "english": "city dweller",
+      "context": "Referring to someone from the city vs. countryside"
+    },
+    {
+      "pidgin": "That was good, ya?",
+      "english": "right?",
+      "context": "Tag question seeking agreement"
+    },
+    {
+      "pidgin": "Rajah dat, I stay on it",
+      "english": "roger that",
+      "context": "Acknowledging understanding"
+    },
+    {
+      "pidgin": "Laters, brah!",
+      "english": "see you later",
+      "context": "Casual goodbye"
+    },
+    {
+      "pidgin": "Thanks! - No problem!",
+      "english": "you're welcome",
+      "context": "You're welcome response"
+    },
+    {
+      "pidgin": "Shoots den, catch you later",
+      "english": "okay then",
+      "context": "Agreement and farewell"
+    },
+    {
+      "pidgin": "Kay den, we go now",
+      "english": "okay then",
+      "context": "Agreement to proceed"
+    },
+    {
+      "pidgin": "Fo' real? That's amazing!",
+      "english": "for real",
+      "context": "Expressing surprise or seeking confirmation"
+    },
+    {
+      "pidgin": "No lie, I saw one huge wave",
+      "english": "no lie",
+      "context": "Emphasizing truthfulness"
+    },
+    {
+      "pidgin": "Uncle Joe stay fixing cars",
+      "english": "any older man you respect",
+      "context": "Respectful term for older men"
+    },
+    {
+      "pidgin": "Listen to da kūpuna, they get wisdom",
+      "english": "elder",
+      "context": "Respected elder"
+    },
+    {
+      "pidgin": "My tūtū make da best laulau",
+      "english": "grandmother",
+      "context": "Grandparent term"
+    },
+    {
+      "pidgin": "Kama'aina rates for locals only",
+      "english": "local resident",
+      "context": "Referring to local residents vs tourists"
+    },
+    {
+      "pidgin": "This poke stay so 'ono!",
+      "english": "delicious",
+      "context": "Describing delicious food"
+    },
+    {
+      "pidgin": "Aunty's laulau broke da mout'!",
+      "english": "extremely delicious",
+      "context": "Highest praise for food"
+    },
+    {
+      "pidgin": "Da sunset stay so nani",
+      "english": "beautiful",
+      "context": "Beautiful or lovely"
+    },
+    {
+      "pidgin": "Get plenny fish in da ocean",
+      "english": "plenty",
+      "context": "Indicating abundance"
+    },
+    {
+      "pidgin": "Why you stay acting lidat?",
+      "english": "like that",
+      "context": "Describing manner or behavior"
+    },
+    {
+      "pidgin": "That guy stay solid, you can trust him",
+      "english": "good",
+      "context": "Expressing approval or reliability"
+    },
+    {
+      "pidgin": "All katsu now!",
+      "english": "perfect",
+      "context": "Everything is perfect"
+    },
+    {
+      "pidgin": "Fresh aku for sale",
+      "english": "skipjack tuna",
+      "context": "Type of tuna"
+    },
+    {
+      "pidgin": "Going to da lū'au tonight",
+      "english": "Hawaiian feast",
+      "context": "Traditional Hawaiian celebration"
+    },
+    {
+      "pidgin": "Let's go get saimin",
+      "english": "local noodle soup",
+      "context": "Popular local dish"
+    },
+    {
+      "pidgin": "One rainbow shave ice, please",
+      "english": "shaved ice dessert with flavored syrup",
+      "context": "Popular Hawaiian dessert"
+    },
+    {
+      "pidgin": "Grab one musubi from 7-11",
+      "english": "rice ball",
+      "context": "Popular snack food"
+    },
+    {
+      "pidgin": "Pass da shoyu, please",
+      "english": "soy sauce",
+      "context": "Condiment"
+    },
+    {
+      "pidgin": "What, you like scrap?",
+      "english": "you want to fight?",
+      "context": "Fighting challenge"
+    },
+    {
+      "pidgin": "We go beach",
+      "english": "let's go",
+      "context": "Going somewhere (verb form)"
+    },
+    {
+      "pidgin": "Geev 'um, brah!",
+      "english": "give it to them",
+      "context": "Encouragement or aggression"
+    },
+    {
+      "pidgin": "You should chance 'um!",
+      "english": "go for it",
+      "context": "Encouraging to take a risk"
+    },
+    {
+      "pidgin": "Let's wala'au story",
+      "english": "to talk",
+      "context": "Having a conversation"
+    },
+    {
+      "pidgin": "Give 'um da shaka!",
+      "english": "hang loose hand gesture",
+      "context": "Iconic Hawaiian hand gesture"
+    },
+    {
+      "pidgin": "We holo to da store",
+      "english": "to run",
+      "context": "Running or moving quickly"
+    },
+    {
+      "pidgin": "That's one big kine problem",
+      "english": "a lot",
+      "context": "Emphasizing size or importance"
+    },
+    {
+      "pidgin": "This poke is da bes'!",
+      "english": "the best",
+      "context": "Highest praise"
+    },
+    {
+      "pidgin": "What fo'?",
+      "english": "for",
+      "context": "Preposition meaning for or to"
+    },
+    {
+      "pidgin": "Going fo' grind",
+      "english": "for",
+      "context": "Preposition meaning for or to"
+    },
+    {
+      "pidgin": "I going go beach later",
+      "english": "will",
+      "context": "Future tense marker"
+    },
+    {
+      "pidgin": "Da beach stay all jam up",
+      "english": "to pack",
+      "context": "Describing crowded or packed spaces"
+    },
+    {
+      "pidgin": "Scram before da cops come!",
+      "english": "to leave quickly",
+      "context": "Telling someone to leave"
+    },
+    {
+      "pidgin": "No boddah me!",
+      "english": "to bother",
+      "context": "Expressing annoyance or asking if something bothers"
+    },
+    {
+      "pidgin": "Boddah you?",
+      "english": "to bother",
+      "context": "Expressing annoyance or asking if something bothers"
+    },
+    {
+      "pidgin": "I stay broke til payday",
+      "english": "no money",
+      "context": "Having no money"
+    },
+    {
+      "pidgin": "Dirty kine weather today",
+      "english": "bad",
+      "context": "Describing something bad or undesirable"
+    },
+    {
+      "pidgin": "Stay hard fo' do",
+      "english": "difficult",
+      "context": "Describing difficulty"
+    },
+    {
+      "pidgin": "How was da food? Jus' 'kine",
+      "english": "just the kind",
+      "context": "Describing something as mediocre or adequate"
+    },
+    {
+      "pidgin": "He stay all madt at me",
+      "english": "angry",
+      "context": "Being angry"
+    },
+    {
+      "pidgin": "She stay miffed about da party",
+      "english": "annoyed",
+      "context": "Being annoyed or upset"
+    },
+    {
+      "pidgin": "He stay salty cuz he lost",
+      "english": "angry",
+      "context": "Being bitter or angry"
+    },
+    {
+      "pidgin": "I neva do dat!",
+      "english": "never",
+      "context": "Negative past tense"
+    },
+    {
+      "pidgin": "He drive f 'n fast!",
+      "english": "extremely fast",
+      "context": "Emphasizing extreme speed"
+    },
+    {
+      "pidgin": "Dat buggah stay stout!",
+      "english": "strong",
+      "context": "Describing strength or toughness"
+    },
+    {
+      "pidgin": "Let's get chow fun from da Chinese place",
+      "english": "wide flat rice noodles",
+      "context": "Popular Chinese noodle dish"
+    },
+    {
+      "pidgin": "Stop at da crack seed store",
+      "english": "dried preserved fruit snacks",
+      "context": "Popular local snack"
+    },
+    {
+      "pidgin": "We caught one holo-holo today",
+      "english": "red-striped fish",
+      "context": "Type of reef fish"
+    },
+    {
+      "pidgin": "Time fo' kaukau!",
+      "english": "food",
+      "context": "Food or eating"
+    },
+    {
+      "pidgin": "I like one kōkō, please",
+      "english": "hot chocolate",
+      "context": "Hot chocolate drink"
+    },
+    {
+      "pidgin": "Aunty make da best kūlolo",
+      "english": "steamed taro and coconut pudding",
+      "context": "Traditional Hawaiian dessert"
+    },
+    {
+      "pidgin": "Da lū'au get lomi-lomi salmon",
+      "english": "salted salmon tomato and onion salad",
+      "context": "Traditional Hawaiian side dish"
+    },
+    {
+      "pidgin": "Wrap da musubi with nori",
+      "english": "dried seaweed",
+      "context": "Seaweed wrapper"
+    },
+    {
+      "pidgin": "'Ohana means family",
+      "english": "family",
+      "context": "Family including extended and close friends"
+    },
+    {
+      "pidgin": "All da kamali'i stay playing outside",
+      "english": "children",
+      "context": "Children (plural)"
+    },
+    {
+      "pidgin": "Da kāne stay working",
+      "english": "man",
+      "context": "Man or husband"
+    },
+    {
+      "pidgin": "Kama'āina discount for locals",
+      "english": "local resident",
+      "context": "Local resident vs tourist"
+    },
+    {
+      "pidgin": "Māhū have important role in Hawaiian culture",
+      "english": "third gender",
+      "context": "Traditional Hawaiian third gender"
+    },
+    {
+      "pidgin": "My tūtū was pāke",
+      "english": "Chinese person",
+      "context": "Person of Chinese descent"
+    },
+    {
+      "pidgin": "Let's go down to da kahakai",
+      "english": "the beach",
+      "context": "Beach or seashore"
+    },
+    {
+      "pidgin": "Diamond Head is Lē'ahi in Hawaiian, but kaimana means diamond",
+      "english": "diamond",
+      "context": "Diamond or precious gem"
+    },
+    {
+      "pidgin": "Kona winds stay blowing hot today",
+      "english": "leeward",
+      "context": "Leeward side or winds from that direction"
+    },
+    {
+      "pidgin": "Ko'olina side get more rain",
+      "english": "windward",
+      "context": "Windward or rainy side of island"
+    },
+    {
+      "pidgin": "Da lā stay hot today",
+      "english": "the sun",
+      "context": "The sun or daytime"
+    },
+    {
+      "pidgin": "Da mahina stay full tonight",
+      "english": "the moon",
+      "context": "The moon or month"
+    },
+    {
+      "pidgin": "Get niu trees all around da beach",
+      "english": "coconut",
+      "context": "Coconut or coconut palm"
+    },
+    {
+      "pidgin": "Watch out for da pōhaku in da water",
+      "english": "rock",
+      "context": "Rock or stone"
+    },
+    {
+      "pidgin": "We go swim in da wai",
+      "english": "fresh water",
+      "context": "Fresh water or stream"
+    },
+    {
+      "pidgin": "Da wailele stay beautiful after da rain",
+      "english": "waterfall",
+      "context": "Waterfall"
+    },
+    {
+      "pidgin": "Pick da ti lau for wrap da food",
+      "english": "leaf",
+      "context": "Leaf or leaves"
+    },
+    {
+      "pidgin": "Sit your 'ōkole down!",
+      "english": "buttocks",
+      "context": "Buttocks or rear end"
+    },
+    {
+      "pidgin": "Throw da 'opala away",
+      "english": "trash",
+      "context": "Trash or garbage"
+    },
+    {
+      "pidgin": "She wearing one pretty pa'u",
+      "english": "skirt",
+      "context": "Traditional skirt or wrap"
+    },
+    {
+      "pidgin": "I no like dat",
+      "english": "not",
+      "context": "Primary negation word"
+    },
+    {
+      "pidgin": "He no stay here",
+      "english": "not",
+      "context": "Primary negation word"
+    },
+    {
+      "pidgin": "Da buggah stay big",
+      "english": "the",
+      "context": "Article 'the'"
+    },
+    {
+      "pidgin": "Da food stay 'ono",
+      "english": "the",
+      "context": "Article 'the'"
+    },
+    {
+      "pidgin": "Try look dis one!",
+      "english": "please look",
+      "context": "Asking someone to look at something"
+    },
+    {
+      "pidgin": "Try look how big!",
+      "english": "please look",
+      "context": "Asking someone to look at something"
+    },
+    {
+      "pidgin": "What, you like beef or what?",
+      "english": "what, you want to fight?",
+      "context": "Fighting challenge"
+    },
+    {
+      "pidgin": "How 'bout, can I get some?",
+      "english": "how about it?",
+      "context": "Asking for something or proposing"
+    },
+    {
+      "pidgin": "Give me s'koshi more rice",
+      "english": "a little bit",
+      "context": "Small amount"
     }
   ]
 }
