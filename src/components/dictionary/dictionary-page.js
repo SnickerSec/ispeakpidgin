@@ -336,6 +336,15 @@ function addEntryEventListeners() {
         });
     });
 
+    // Full Page links - prevent modal popup on mobile
+    const fullPageLinks = grid.querySelectorAll('a[href^="/word/"]');
+    fullPageLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.stopPropagation();
+            // Let the default link navigation happen
+        });
+    });
+
     // Card click for details
     const entries = grid.querySelectorAll('.dictionary-entry-card');
     entries.forEach(entry => {
