@@ -44,6 +44,22 @@
         <priority>0.8</priority>
     </url>
 
+    <!-- Stories Page - Cultural narratives and learning -->
+    <url>
+        <loc>https://chokepidgin.com/stories.html</loc>
+        <lastmod>2025-11-15</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+    </url>
+
+    <!-- Pickup Lines Page - Fun and engaging content -->
+    <url>
+        <loc>https://chokepidgin.com/pickup-lines.html</loc>
+        <lastmod>2025-11-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.75</priority>
+    </url>
+
     <!-- Individual Dictionary Entry Pages -->
     <url>
         <loc>https://chokepidgin.com/word/aole.html</loc>

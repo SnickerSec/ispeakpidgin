@@ -79,6 +79,22 @@ function generateSitemap() {
         <priority>0.8</priority>
     </url>
 
+    <!-- Stories Page - Cultural narratives and learning -->
+    <url>
+        <loc>${baseUrl}/stories.html</loc>
+        <lastmod>${currentDate}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+    </url>
+
+    <!-- Pickup Lines Page - Fun and engaging content -->
+    <url>
+        <loc>${baseUrl}/pickup-lines.html</loc>
+        <lastmod>${currentDate}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.75</priority>
+    </url>
+
 `;
 
     // Track slugs to prevent duplicates
