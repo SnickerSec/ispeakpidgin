@@ -673,6 +673,11 @@
         "id": "mento_121",
         "type": "entry",
         "pidgin": "mento"
+      },
+      {
+        "id": "kuru_kuru_6005",
+        "type": "entry",
+        "pidgin": "kuru-kuru"
       }
     ],
     "wild": [
@@ -3720,6 +3725,11 @@
         "id": "kaukau_3003",
         "type": "entry",
         "pidgin": "kaukau"
+      },
+      {
+        "id": "gohan_6003",
+        "type": "entry",
+        "pidgin": "gohan"
       }
     ],
     "grindz": [
@@ -5965,6 +5975,11 @@
         "id": "mahalo_109",
         "type": "entry",
         "pidgin": "mahalo"
+      },
+      {
+        "id": "salamat_6012",
+        "type": "entry",
+        "pidgin": "salamat"
       }
     ],
     "mahalo, for da hookup!": [
@@ -6924,6 +6939,11 @@
         "id": "ono_1011",
         "type": "entry",
         "pidgin": "'ono"
+      },
+      {
+        "id": "sarap_6013",
+        "type": "entry",
+        "pidgin": "sarap"
       }
     ],
     "oof": [
@@ -7725,6 +7745,11 @@
         "id": "zori_285",
         "type": "entry",
         "pidgin": "zori"
+      },
+      {
+        "id": "zoris_6006",
+        "type": "entry",
+        "pidgin": "zoris"
       }
     ],
     "small kid time": [
@@ -8014,6 +8039,11 @@
         "id": "tanks_172",
         "type": "entry",
         "pidgin": "tanks"
+      },
+      {
+        "id": "salamat_6012",
+        "type": "entry",
+        "pidgin": "salamat"
       }
     ],
     "tantaran": [
@@ -9378,6 +9408,11 @@
         "id": "ono_1011",
         "type": "entry",
         "pidgin": "'ono"
+      },
+      {
+        "id": "sarap_6013",
+        "type": "entry",
+        "pidgin": "sarap"
       }
     ],
     "broke da mout'": [
@@ -9511,6 +9546,11 @@
         "id": "luau_1019",
         "type": "entry",
         "pidgin": "lū'au"
+      },
+      {
+        "id": "fest_6014",
+        "type": "entry",
+        "pidgin": "fest"
       }
     ],
     "taro leaves": [
@@ -10081,6 +10121,11 @@
         "id": "kaukau_3003",
         "type": "entry",
         "pidgin": "kaukau"
+      },
+      {
+        "id": "gohan_6003",
+        "type": "entry",
+        "pidgin": "gohan"
       }
     ],
     "kōkō": [
@@ -10690,6 +10735,377 @@
         "id": "skoshi_5005",
         "type": "entry",
         "english": "a little bit"
+      }
+    ],
+    "benjo": [
+      {
+        "id": "benjo_6000",
+        "type": "entry",
+        "english": "restroom"
+      }
+    ],
+    "restroom": [
+      {
+        "id": "benjo_6000",
+        "type": "entry",
+        "pidgin": "benjo"
+      }
+    ],
+    "toilet": [
+      {
+        "id": "benjo_6000",
+        "type": "entry",
+        "pidgin": "benjo"
+      }
+    ],
+    "bathroom": [
+      {
+        "id": "benjo_6000",
+        "type": "entry",
+        "pidgin": "benjo"
+      }
+    ],
+    "chawan": [
+      {
+        "id": "chawan_6001",
+        "type": "entry",
+        "english": "rice bowl"
+      }
+    ],
+    "rice bowl": [
+      {
+        "id": "chawan_6001",
+        "type": "entry",
+        "pidgin": "chawan"
+      }
+    ],
+    "bowl": [
+      {
+        "id": "chawan_6001",
+        "type": "entry",
+        "pidgin": "chawan"
+      }
+    ],
+    "geta": [
+      {
+        "id": "geta_6002",
+        "type": "entry",
+        "english": "traditional Japanese wooden sandals"
+      }
+    ],
+    "traditional japanese wooden sandals": [
+      {
+        "id": "geta_6002",
+        "type": "entry",
+        "pidgin": "geta"
+      }
+    ],
+    "wooden slippers": [
+      {
+        "id": "geta_6002",
+        "type": "entry",
+        "pidgin": "geta"
+      }
+    ],
+    "gohan": [
+      {
+        "id": "gohan_6003",
+        "type": "entry",
+        "english": "rice"
+      }
+    ],
+    "rice": [
+      {
+        "id": "gohan_6003",
+        "type": "entry",
+        "pidgin": "gohan"
+      }
+    ],
+    "kimochi": [
+      {
+        "id": "kimochi_6004",
+        "type": "entry",
+        "english": "feeling"
+      }
+    ],
+    "feeling": [
+      {
+        "id": "kimochi_6004",
+        "type": "entry",
+        "pidgin": "kimochi"
+      }
+    ],
+    "vibe": [
+      {
+        "id": "kimochi_6004",
+        "type": "entry",
+        "pidgin": "kimochi"
+      }
+    ],
+    "sensation": [
+      {
+        "id": "kimochi_6004",
+        "type": "entry",
+        "pidgin": "kimochi"
+      }
+    ],
+    "kuru-kuru": [
+      {
+        "id": "kuru_kuru_6005",
+        "type": "entry",
+        "english": "curly"
+      }
+    ],
+    "curly": [
+      {
+        "id": "kuru_kuru_6005",
+        "type": "entry",
+        "pidgin": "kuru-kuru"
+      }
+    ],
+    "spinning": [
+      {
+        "id": "kuru_kuru_6005",
+        "type": "entry",
+        "pidgin": "kuru-kuru"
+      }
+    ],
+    "going in circles": [
+      {
+        "id": "kuru_kuru_6005",
+        "type": "entry",
+        "pidgin": "kuru-kuru"
+      }
+    ],
+    "zoris": [
+      {
+        "id": "zoris_6006",
+        "type": "entry",
+        "english": "flat-soled sandals"
+      }
+    ],
+    "flat-soled sandals": [
+      {
+        "id": "zoris_6006",
+        "type": "entry",
+        "pidgin": "zoris"
+      }
+    ],
+    "slippers": [
+      {
+        "id": "zoris_6006",
+        "type": "entry",
+        "pidgin": "zoris"
+      }
+    ],
+    "bagoong": [
+      {
+        "id": "bagoong_6007",
+        "type": "entry",
+        "english": "fermented shrimp paste"
+      }
+    ],
+    "fermented shrimp paste": [
+      {
+        "id": "bagoong_6007",
+        "type": "entry",
+        "pidgin": "bagoong"
+      }
+    ],
+    "fermented fish paste": [
+      {
+        "id": "bagoong_6007",
+        "type": "entry",
+        "pidgin": "bagoong"
+      }
+    ],
+    "brah, you naman?": [
+      {
+        "id": "brah_you_naman_6008",
+        "type": "entry",
+        "english": "brah, it's your turn again?"
+      }
+    ],
+    "brah, it's your turn again?": [
+      {
+        "id": "brah_you_naman_6008",
+        "type": "entry",
+        "pidgin": "brah, you naman?"
+      }
+    ],
+    "your turn again": [
+      {
+        "id": "brah_you_naman_6008",
+        "type": "entry",
+        "pidgin": "brah, you naman?"
+      }
+    ],
+    "manong": [
+      {
+        "id": "manong_6009",
+        "type": "entry",
+        "english": "older Filipino man"
+      }
+    ],
+    "older filipino man": [
+      {
+        "id": "manong_6009",
+        "type": "entry",
+        "pidgin": "manong"
+      }
+    ],
+    "older brother": [
+      {
+        "id": "manong_6009",
+        "type": "entry",
+        "pidgin": "manong"
+      }
+    ],
+    "respectful term for filipino elder": [
+      {
+        "id": "manong_6009",
+        "type": "entry",
+        "pidgin": "manong"
+      }
+    ],
+    "pinay": [
+      {
+        "id": "pinay_6010",
+        "type": "entry",
+        "english": "woman of Filipino descent"
+      }
+    ],
+    "woman of filipino descent": [
+      {
+        "id": "pinay_6010",
+        "type": "entry",
+        "pidgin": "pinay"
+      }
+    ],
+    "filipina woman": [
+      {
+        "id": "pinay_6010",
+        "type": "entry",
+        "pidgin": "pinay"
+      }
+    ],
+    "pinoy": [
+      {
+        "id": "pinoy_6011",
+        "type": "entry",
+        "english": "man of Filipino descent"
+      }
+    ],
+    "man of filipino descent": [
+      {
+        "id": "pinoy_6011",
+        "type": "entry",
+        "pidgin": "pinoy"
+      }
+    ],
+    "filipino man": [
+      {
+        "id": "pinoy_6011",
+        "type": "entry",
+        "pidgin": "pinoy"
+      }
+    ],
+    "salamat": [
+      {
+        "id": "salamat_6012",
+        "type": "entry",
+        "english": "thank you"
+      }
+    ],
+    "sarap": [
+      {
+        "id": "sarap_6013",
+        "type": "entry",
+        "english": "delicious"
+      }
+    ],
+    "so good": [
+      {
+        "id": "sarap_6013",
+        "type": "entry",
+        "pidgin": "sarap"
+      }
+    ],
+    "fest": [
+      {
+        "id": "fest_6014",
+        "type": "entry",
+        "english": "party"
+      }
+    ],
+    "festival": [
+      {
+        "id": "fest_6014",
+        "type": "entry",
+        "pidgin": "fest"
+      }
+    ],
+    "large celebration": [
+      {
+        "id": "fest_6014",
+        "type": "entry",
+        "pidgin": "fest"
+      }
+    ],
+    "malasada": [
+      {
+        "id": "malasada_6015",
+        "type": "entry",
+        "english": "Portuguese doughnut"
+      }
+    ],
+    "portuguese doughnut": [
+      {
+        "id": "malasada_6015",
+        "type": "entry",
+        "pidgin": "malasada"
+      }
+    ],
+    "hole-less deep-fried dough": [
+      {
+        "id": "malasada_6015",
+        "type": "entry",
+        "pidgin": "malasada"
+      }
+    ],
+    "pão doce": [
+      {
+        "id": "pao_doce_6016",
+        "type": "entry",
+        "english": "Portuguese sweet bread"
+      }
+    ],
+    "portuguese sweet bread": [
+      {
+        "id": "pao_doce_6016",
+        "type": "entry",
+        "pidgin": "pão doce"
+      }
+    ],
+    "vinha d'alhos": [
+      {
+        "id": "vinha_dalhos_6017",
+        "type": "entry",
+        "english": "vinegar and garlic marinade"
+      }
+    ],
+    "vinegar and garlic marinade": [
+      {
+        "id": "vinha_dalhos_6017",
+        "type": "entry",
+        "pidgin": "vinha d'alhos"
+      }
+    ],
+    "vinny-ha pork": [
+      {
+        "id": "vinha_dalhos_6017",
+        "type": "entry",
+        "pidgin": "vinha d'alhos"
       }
     ]
   }

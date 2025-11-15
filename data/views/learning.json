@@ -3370,6 +3370,72 @@
         "nature",
         "hawaiian"
       ]
+    },
+    {
+      "id": "geta_6002",
+      "pidgin": "geta",
+      "english": [
+        "traditional Japanese wooden sandals",
+        "wooden slippers"
+      ],
+      "category": "clothing",
+      "pronunciation": "GEH-tah",
+      "examples": [
+        "She wearing geta fo' da festival"
+      ],
+      "usage": "Traditional Japanese wooden sandals",
+      "origin": "Japanese",
+      "difficulty": "advanced",
+      "frequency": "low",
+      "tags": [
+        "clothing",
+        "japanese",
+        "cultural"
+      ]
+    },
+    {
+      "id": "brah_you_naman_6008",
+      "pidgin": "brah, you naman?",
+      "english": [
+        "brah, it's your turn again?",
+        "your turn again"
+      ],
+      "category": "expressions",
+      "pronunciation": "brah, you nah-MAHN",
+      "examples": [
+        "Brah, you naman? Let someone else try!"
+      ],
+      "usage": "Asking if it's someone's turn again",
+      "origin": "Filipino",
+      "difficulty": "advanced",
+      "frequency": "low",
+      "tags": [
+        "expressions",
+        "filipino",
+        "questions"
+      ]
+    },
+    {
+      "id": "vinha_dalhos_6017",
+      "pidgin": "vinha d'alhos",
+      "english": [
+        "vinegar and garlic marinade",
+        "vinny-ha pork"
+      ],
+      "category": "food",
+      "pronunciation": "VEE-nyah DAH-lyoosh",
+      "examples": [
+        "Da vinha d'alhos pork stay so 'ono"
+      ],
+      "usage": "Vinegar and garlic marinade, origin of 'vinny-ha' pork",
+      "origin": "Portuguese",
+      "difficulty": "advanced",
+      "frequency": "low",
+      "tags": [
+        "food",
+        "portuguese",
+        "cooking"
+      ]
     }
   ]
 }

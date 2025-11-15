@@ -428,6 +428,11 @@
           "pidgin": "mento",
           "confidence": 1,
           "id": "mento_121"
+        },
+        {
+          "pidgin": "kuru-kuru",
+          "confidence": 1,
+          "id": "kuru_kuru_6005"
         }
       ],
       "wild": [
@@ -2446,6 +2451,11 @@
           "pidgin": "kaukau",
           "confidence": 1,
           "id": "kaukau_3003"
+        },
+        {
+          "pidgin": "gohan",
+          "confidence": 1,
+          "id": "gohan_6003"
         }
       ],
       "no doubt": [
@@ -3675,6 +3685,11 @@
           "pidgin": "mahalo",
           "confidence": 1,
           "id": "mahalo_109"
+        },
+        {
+          "pidgin": "salamat",
+          "confidence": 1,
+          "id": "salamat_6012"
         }
       ],
       "thank you for the connection!": [
@@ -4218,6 +4233,11 @@
           "pidgin": "'ono",
           "confidence": 1,
           "id": "ono_1011"
+        },
+        {
+          "pidgin": "sarap",
+          "confidence": 1,
+          "id": "sarap_6013"
         }
       ],
       "sex": [
@@ -4657,6 +4677,11 @@
           "pidgin": "zori",
           "confidence": 1,
           "id": "zori_285"
+        },
+        {
+          "pidgin": "zoris",
+          "confidence": 1,
+          "id": "zoris_6006"
         }
       ],
       "when i was a kid": [
@@ -4836,6 +4861,11 @@
           "pidgin": "tanks",
           "confidence": 1,
           "id": "tanks_172"
+        },
+        {
+          "pidgin": "salamat",
+          "confidence": 1,
+          "id": "salamat_6012"
         }
       ],
       "show-off": [
@@ -5611,6 +5641,11 @@
           "pidgin": "'ono",
           "confidence": 1,
           "id": "ono_1011"
+        },
+        {
+          "pidgin": "sarap",
+          "confidence": 1,
+          "id": "sarap_6013"
         }
       ],
       "extremely delicious": [
@@ -5688,6 +5723,11 @@
           "pidgin": "lū'au",
           "confidence": 1,
           "id": "luau_1019"
+        },
+        {
+          "pidgin": "fest",
+          "confidence": 1,
+          "id": "fest_6014"
         }
       ],
       "taro leaves": [
@@ -6062,6 +6102,11 @@
           "pidgin": "kaukau",
           "confidence": 1,
           "id": "kaukau_3003"
+        },
+        {
+          "pidgin": "gohan",
+          "confidence": 1,
+          "id": "gohan_6003"
         }
       ],
       "hot chocolate": [
@@ -6468,6 +6513,251 @@
           "pidgin": "how 'bout?",
           "confidence": 1,
           "id": "how_bout_5004"
+        }
+      ],
+      "restroom": [
+        {
+          "pidgin": "benjo",
+          "confidence": 1,
+          "id": "benjo_6000"
+        }
+      ],
+      "toilet": [
+        {
+          "pidgin": "benjo",
+          "confidence": 1,
+          "id": "benjo_6000"
+        }
+      ],
+      "bathroom": [
+        {
+          "pidgin": "benjo",
+          "confidence": 1,
+          "id": "benjo_6000"
+        }
+      ],
+      "rice bowl": [
+        {
+          "pidgin": "chawan",
+          "confidence": 1,
+          "id": "chawan_6001"
+        }
+      ],
+      "bowl": [
+        {
+          "pidgin": "chawan",
+          "confidence": 1,
+          "id": "chawan_6001"
+        }
+      ],
+      "traditional japanese wooden sandals": [
+        {
+          "pidgin": "geta",
+          "confidence": 1,
+          "id": "geta_6002"
+        }
+      ],
+      "wooden slippers": [
+        {
+          "pidgin": "geta",
+          "confidence": 1,
+          "id": "geta_6002"
+        }
+      ],
+      "rice": [
+        {
+          "pidgin": "gohan",
+          "confidence": 1,
+          "id": "gohan_6003"
+        }
+      ],
+      "feeling": [
+        {
+          "pidgin": "kimochi",
+          "confidence": 1,
+          "id": "kimochi_6004"
+        }
+      ],
+      "vibe": [
+        {
+          "pidgin": "kimochi",
+          "confidence": 1,
+          "id": "kimochi_6004"
+        }
+      ],
+      "sensation": [
+        {
+          "pidgin": "kimochi",
+          "confidence": 1,
+          "id": "kimochi_6004"
+        }
+      ],
+      "curly": [
+        {
+          "pidgin": "kuru-kuru",
+          "confidence": 1,
+          "id": "kuru_kuru_6005"
+        }
+      ],
+      "spinning": [
+        {
+          "pidgin": "kuru-kuru",
+          "confidence": 1,
+          "id": "kuru_kuru_6005"
+        }
+      ],
+      "going in circles": [
+        {
+          "pidgin": "kuru-kuru",
+          "confidence": 1,
+          "id": "kuru_kuru_6005"
+        }
+      ],
+      "flat-soled sandals": [
+        {
+          "pidgin": "zoris",
+          "confidence": 1,
+          "id": "zoris_6006"
+        }
+      ],
+      "slippers": [
+        {
+          "pidgin": "zoris",
+          "confidence": 1,
+          "id": "zoris_6006"
+        }
+      ],
+      "fermented shrimp paste": [
+        {
+          "pidgin": "bagoong",
+          "confidence": 1,
+          "id": "bagoong_6007"
+        }
+      ],
+      "fermented fish paste": [
+        {
+          "pidgin": "bagoong",
+          "confidence": 1,
+          "id": "bagoong_6007"
+        }
+      ],
+      "brah, it's your turn again?": [
+        {
+          "pidgin": "brah, you naman?",
+          "confidence": 1,
+          "id": "brah_you_naman_6008"
+        }
+      ],
+      "your turn again": [
+        {
+          "pidgin": "brah, you naman?",
+          "confidence": 1,
+          "id": "brah_you_naman_6008"
+        }
+      ],
+      "older filipino man": [
+        {
+          "pidgin": "manong",
+          "confidence": 1,
+          "id": "manong_6009"
+        }
+      ],
+      "older brother": [
+        {
+          "pidgin": "manong",
+          "confidence": 1,
+          "id": "manong_6009"
+        }
+      ],
+      "respectful term for filipino elder": [
+        {
+          "pidgin": "manong",
+          "confidence": 1,
+          "id": "manong_6009"
+        }
+      ],
+      "woman of filipino descent": [
+        {
+          "pidgin": "pinay",
+          "confidence": 1,
+          "id": "pinay_6010"
+        }
+      ],
+      "filipina woman": [
+        {
+          "pidgin": "pinay",
+          "confidence": 1,
+          "id": "pinay_6010"
+        }
+      ],
+      "man of filipino descent": [
+        {
+          "pidgin": "pinoy",
+          "confidence": 1,
+          "id": "pinoy_6011"
+        }
+      ],
+      "filipino man": [
+        {
+          "pidgin": "pinoy",
+          "confidence": 1,
+          "id": "pinoy_6011"
+        }
+      ],
+      "so good": [
+        {
+          "pidgin": "sarap",
+          "confidence": 1,
+          "id": "sarap_6013"
+        }
+      ],
+      "festival": [
+        {
+          "pidgin": "fest",
+          "confidence": 1,
+          "id": "fest_6014"
+        }
+      ],
+      "large celebration": [
+        {
+          "pidgin": "fest",
+          "confidence": 1,
+          "id": "fest_6014"
+        }
+      ],
+      "portuguese doughnut": [
+        {
+          "pidgin": "malasada",
+          "confidence": 1,
+          "id": "malasada_6015"
+        }
+      ],
+      "hole-less deep-fried dough": [
+        {
+          "pidgin": "malasada",
+          "confidence": 1,
+          "id": "malasada_6015"
+        }
+      ],
+      "portuguese sweet bread": [
+        {
+          "pidgin": "pão doce",
+          "confidence": 1,
+          "id": "pao_doce_6016"
+        }
+      ],
+      "vinegar and garlic marinade": [
+        {
+          "pidgin": "vinha d'alhos",
+          "confidence": 1,
+          "id": "vinha_dalhos_6017"
+        }
+      ],
+      "vinny-ha pork": [
+        {
+          "pidgin": "vinha d'alhos",
+          "confidence": 1,
+          "id": "vinha_dalhos_6017"
         }
       ]
     },
@@ -8635,6 +8925,86 @@
       "s'koshi": [
         "a little bit",
         "small amount"
+      ],
+      "benjo": [
+        "restroom",
+        "toilet",
+        "bathroom"
+      ],
+      "chawan": [
+        "rice bowl",
+        "bowl"
+      ],
+      "geta": [
+        "traditional Japanese wooden sandals",
+        "wooden slippers"
+      ],
+      "gohan": [
+        "rice",
+        "food",
+        "meal"
+      ],
+      "kimochi": [
+        "feeling",
+        "vibe",
+        "sensation"
+      ],
+      "kuru-kuru": [
+        "curly",
+        "spinning",
+        "crazy",
+        "going in circles"
+      ],
+      "zoris": [
+        "flat-soled sandals",
+        "slippers",
+        "flip-flops"
+      ],
+      "bagoong": [
+        "fermented shrimp paste",
+        "fermented fish paste"
+      ],
+      "brah, you naman?": [
+        "brah, it's your turn again?",
+        "your turn again"
+      ],
+      "manong": [
+        "older Filipino man",
+        "older brother",
+        "respectful term for Filipino elder"
+      ],
+      "pinay": [
+        "woman of Filipino descent",
+        "Filipina woman"
+      ],
+      "pinoy": [
+        "man of Filipino descent",
+        "Filipino man"
+      ],
+      "salamat": [
+        "thank you",
+        "thanks"
+      ],
+      "sarap": [
+        "delicious",
+        "tasty",
+        "so good"
+      ],
+      "fest": [
+        "party",
+        "festival",
+        "large celebration"
+      ],
+      "malasada": [
+        "Portuguese doughnut",
+        "hole-less deep-fried dough"
+      ],
+      "pão doce": [
+        "Portuguese sweet bread"
+      ],
+      "vinha d'alhos": [
+        "vinegar and garlic marinade",
+        "vinny-ha pork"
       ]
     }
   }

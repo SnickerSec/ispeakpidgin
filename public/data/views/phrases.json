@@ -3,7 +3,7 @@
     "version": "3.0",
     "viewType": "phrases",
     "lastUpdated": "2025-11-15",
-    "totalPhrases": 1100
+    "totalPhrases": 1121
   },
   "phrases": [
     {
@@ -14335,6 +14335,299 @@
         "japanese",
         "amounts"
       ]
+    },
+    {
+      "pidgin": "Where da benjo stay?",
+      "english": "restroom",
+      "category": "slang",
+      "context": "Bathroom or restroom",
+      "pronunciation": "BEN-jo",
+      "source": "dictionary:benjo_6000",
+      "difficulty": "intermediate",
+      "tags": [
+        "slang",
+        "japanese",
+        "places"
+      ]
+    },
+    {
+      "pidgin": "Pass da chawan",
+      "english": "rice bowl",
+      "category": "objects",
+      "context": "Rice bowl, also used in 'chawan cut' for bowl haircut",
+      "pronunciation": "CHAH-wahn",
+      "source": "dictionary:chawan_6001",
+      "difficulty": "intermediate",
+      "tags": [
+        "objects",
+        "japanese",
+        "food"
+      ]
+    },
+    {
+      "pidgin": "He get one chawan cut",
+      "english": "rice bowl",
+      "category": "objects",
+      "context": "Rice bowl, also used in 'chawan cut' for bowl haircut",
+      "pronunciation": "CHAH-wahn",
+      "source": "dictionary:chawan_6001",
+      "difficulty": "intermediate",
+      "tags": [
+        "objects",
+        "japanese",
+        "food"
+      ]
+    },
+    {
+      "pidgin": "She wearing geta fo' da festival",
+      "english": "traditional Japanese wooden sandals",
+      "category": "clothing",
+      "context": "Traditional Japanese wooden sandals",
+      "pronunciation": "GEH-tah",
+      "source": "dictionary:geta_6002",
+      "difficulty": "advanced",
+      "tags": [
+        "clothing",
+        "japanese",
+        "cultural"
+      ]
+    },
+    {
+      "pidgin": "Time fo' gohan!",
+      "english": "rice",
+      "category": "food",
+      "context": "Rice or meal",
+      "pronunciation": "GO-hahn",
+      "source": "dictionary:gohan_6003",
+      "difficulty": "intermediate",
+      "tags": [
+        "food",
+        "japanese"
+      ]
+    },
+    {
+      "pidgin": "Good kimochi!",
+      "english": "feeling",
+      "category": "expressions",
+      "context": "Feeling or vibe",
+      "pronunciation": "kee-MO-chee",
+      "source": "dictionary:kimochi_6004",
+      "difficulty": "intermediate",
+      "tags": [
+        "expressions",
+        "japanese",
+        "emotions"
+      ]
+    },
+    {
+      "pidgin": "Da kimochi stay nice",
+      "english": "feeling",
+      "category": "expressions",
+      "context": "Feeling or vibe",
+      "pronunciation": "kee-MO-chee",
+      "source": "dictionary:kimochi_6004",
+      "difficulty": "intermediate",
+      "tags": [
+        "expressions",
+        "japanese",
+        "emotions"
+      ]
+    },
+    {
+      "pidgin": "His hair stay all kuru-kuru",
+      "english": "curly",
+      "category": "descriptions",
+      "context": "Curly, spinning, or acting crazy",
+      "pronunciation": "KOO-roo KOO-roo",
+      "source": "dictionary:kuru_kuru_6005",
+      "difficulty": "intermediate",
+      "tags": [
+        "descriptions",
+        "japanese",
+        "appearance"
+      ]
+    },
+    {
+      "pidgin": "Stop going kuru-kuru!",
+      "english": "curly",
+      "category": "descriptions",
+      "context": "Curly, spinning, or acting crazy",
+      "pronunciation": "KOO-roo KOO-roo",
+      "source": "dictionary:kuru_kuru_6005",
+      "difficulty": "intermediate",
+      "tags": [
+        "descriptions",
+        "japanese",
+        "appearance"
+      ]
+    },
+    {
+      "pidgin": "Grab your zoris, we going beach",
+      "english": "flat-soled sandals",
+      "category": "clothing",
+      "context": "Flat sandals or slippers",
+      "pronunciation": "ZOR-eez",
+      "source": "dictionary:zoris_6006",
+      "difficulty": "intermediate",
+      "tags": [
+        "clothing",
+        "japanese"
+      ]
+    },
+    {
+      "pidgin": "Da pinakbet get bagoong inside",
+      "english": "fermented shrimp paste",
+      "category": "food",
+      "context": "Fermented shrimp or fish paste condiment",
+      "pronunciation": "bah-GO-ong",
+      "source": "dictionary:bagoong_6007",
+      "difficulty": "intermediate",
+      "tags": [
+        "food",
+        "filipino",
+        "condiments"
+      ]
+    },
+    {
+      "pidgin": "Brah, you naman? Let someone else try!",
+      "english": "brah, it's your turn again?",
+      "category": "expressions",
+      "context": "Asking if it's someone's turn again",
+      "pronunciation": "brah, you nah-MAHN",
+      "source": "dictionary:brah_you_naman_6008",
+      "difficulty": "advanced",
+      "tags": [
+        "expressions",
+        "filipino",
+        "questions"
+      ]
+    },
+    {
+      "pidgin": "Ask Manong if he need help",
+      "english": "older Filipino man",
+      "category": "people",
+      "context": "Respectful term for older Filipino man",
+      "pronunciation": "mah-NONG",
+      "source": "dictionary:manong_6009",
+      "difficulty": "intermediate",
+      "tags": [
+        "people",
+        "filipino",
+        "respect",
+        "family"
+      ]
+    },
+    {
+      "pidgin": "She one proud Pinay",
+      "english": "woman of Filipino descent",
+      "category": "people",
+      "context": "Filipina woman",
+      "pronunciation": "pee-NAI",
+      "source": "dictionary:pinay_6010",
+      "difficulty": "beginner",
+      "tags": [
+        "people",
+        "filipino",
+        "cultural"
+      ]
+    },
+    {
+      "pidgin": "He one Pinoy from da Big Island",
+      "english": "man of Filipino descent",
+      "category": "people",
+      "context": "Filipino man",
+      "pronunciation": "pee-NOI",
+      "source": "dictionary:pinoy_6011",
+      "difficulty": "beginner",
+      "tags": [
+        "people",
+        "filipino",
+        "cultural"
+      ]
+    },
+    {
+      "pidgin": "Salamat for da kaukau!",
+      "english": "thank you",
+      "category": "greetings",
+      "context": "Filipino thank you",
+      "pronunciation": "sah-LAH-mat",
+      "source": "dictionary:salamat_6012",
+      "difficulty": "intermediate",
+      "tags": [
+        "greetings",
+        "filipino"
+      ]
+    },
+    {
+      "pidgin": "Sarap! This lumpia stay 'ono!",
+      "english": "delicious",
+      "category": "food",
+      "context": "Delicious or tasty",
+      "pronunciation": "SAH-rap",
+      "source": "dictionary:sarap_6013",
+      "difficulty": "intermediate",
+      "tags": [
+        "food",
+        "filipino",
+        "descriptions"
+      ]
+    },
+    {
+      "pidgin": "We going to da Holy Ghost fest",
+      "english": "party",
+      "category": "cultural",
+      "context": "Party or festival",
+      "pronunciation": "FEST",
+      "source": "dictionary:fest_6014",
+      "difficulty": "beginner",
+      "tags": [
+        "cultural",
+        "portuguese",
+        "celebrations"
+      ]
+    },
+    {
+      "pidgin": "Leonard's get da best malasadas",
+      "english": "Portuguese doughnut",
+      "category": "food",
+      "context": "Famous Portuguese doughnut",
+      "pronunciation": "mah-lah-SAH-dah",
+      "source": "dictionary:malasada_6015",
+      "difficulty": "beginner",
+      "tags": [
+        "food",
+        "portuguese",
+        "desserts",
+        "local"
+      ]
+    },
+    {
+      "pidgin": "Get pão doce from da bakery",
+      "english": "Portuguese sweet bread",
+      "category": "food",
+      "context": "Portuguese sweet bread",
+      "pronunciation": "pow DOH-see",
+      "source": "dictionary:pao_doce_6016",
+      "difficulty": "intermediate",
+      "tags": [
+        "food",
+        "portuguese",
+        "local"
+      ]
+    },
+    {
+      "pidgin": "Da vinha d'alhos pork stay so 'ono",
+      "english": "vinegar and garlic marinade",
+      "category": "food",
+      "context": "Vinegar and garlic marinade, origin of 'vinny-ha' pork",
+      "pronunciation": "VEE-nyah DAH-lyoosh",
+      "source": "dictionary:vinha_dalhos_6017",
+      "difficulty": "advanced",
+      "tags": [
+        "food",
+        "portuguese",
+        "cooking"
+      ]
     }
   ],
   "categorized": {
@@ -19724,6 +20017,48 @@
           "expressions",
           "questions"
         ]
+      },
+      {
+        "pidgin": "Good kimochi!",
+        "english": "feeling",
+        "category": "expressions",
+        "context": "Feeling or vibe",
+        "pronunciation": "kee-MO-chee",
+        "source": "dictionary:kimochi_6004",
+        "difficulty": "intermediate",
+        "tags": [
+          "expressions",
+          "japanese",
+          "emotions"
+        ]
+      },
+      {
+        "pidgin": "Da kimochi stay nice",
+        "english": "feeling",
+        "category": "expressions",
+        "context": "Feeling or vibe",
+        "pronunciation": "kee-MO-chee",
+        "source": "dictionary:kimochi_6004",
+        "difficulty": "intermediate",
+        "tags": [
+          "expressions",
+          "japanese",
+          "emotions"
+        ]
+      },
+      {
+        "pidgin": "Brah, you naman? Let someone else try!",
+        "english": "brah, it's your turn again?",
+        "category": "expressions",
+        "context": "Asking if it's someone's turn again",
+        "pronunciation": "brah, you nah-MAHN",
+        "source": "dictionary:brah_you_naman_6008",
+        "difficulty": "advanced",
+        "tags": [
+          "expressions",
+          "filipino",
+          "questions"
+        ]
       }
     ],
     "greetings": [
@@ -20444,6 +20779,19 @@
         "tags": [
           "greetings",
           "agreement"
+        ]
+      },
+      {
+        "pidgin": "Salamat for da kaukau!",
+        "english": "thank you",
+        "category": "greetings",
+        "context": "Filipino thank you",
+        "pronunciation": "sah-LAH-mat",
+        "source": "dictionary:salamat_6012",
+        "difficulty": "intermediate",
+        "tags": [
+          "greetings",
+          "filipino"
         ]
       }
     ],
@@ -21452,6 +21800,90 @@
         "tags": [
           "food",
           "japanese"
+        ]
+      },
+      {
+        "pidgin": "Time fo' gohan!",
+        "english": "rice",
+        "category": "food",
+        "context": "Rice or meal",
+        "pronunciation": "GO-hahn",
+        "source": "dictionary:gohan_6003",
+        "difficulty": "intermediate",
+        "tags": [
+          "food",
+          "japanese"
+        ]
+      },
+      {
+        "pidgin": "Da pinakbet get bagoong inside",
+        "english": "fermented shrimp paste",
+        "category": "food",
+        "context": "Fermented shrimp or fish paste condiment",
+        "pronunciation": "bah-GO-ong",
+        "source": "dictionary:bagoong_6007",
+        "difficulty": "intermediate",
+        "tags": [
+          "food",
+          "filipino",
+          "condiments"
+        ]
+      },
+      {
+        "pidgin": "Sarap! This lumpia stay 'ono!",
+        "english": "delicious",
+        "category": "food",
+        "context": "Delicious or tasty",
+        "pronunciation": "SAH-rap",
+        "source": "dictionary:sarap_6013",
+        "difficulty": "intermediate",
+        "tags": [
+          "food",
+          "filipino",
+          "descriptions"
+        ]
+      },
+      {
+        "pidgin": "Leonard's get da best malasadas",
+        "english": "Portuguese doughnut",
+        "category": "food",
+        "context": "Famous Portuguese doughnut",
+        "pronunciation": "mah-lah-SAH-dah",
+        "source": "dictionary:malasada_6015",
+        "difficulty": "beginner",
+        "tags": [
+          "food",
+          "portuguese",
+          "desserts",
+          "local"
+        ]
+      },
+      {
+        "pidgin": "Get pão doce from da bakery",
+        "english": "Portuguese sweet bread",
+        "category": "food",
+        "context": "Portuguese sweet bread",
+        "pronunciation": "pow DOH-see",
+        "source": "dictionary:pao_doce_6016",
+        "difficulty": "intermediate",
+        "tags": [
+          "food",
+          "portuguese",
+          "local"
+        ]
+      },
+      {
+        "pidgin": "Da vinha d'alhos pork stay so 'ono",
+        "english": "vinegar and garlic marinade",
+        "category": "food",
+        "context": "Vinegar and garlic marinade, origin of 'vinny-ha' pork",
+        "pronunciation": "VEE-nyah DAH-lyoosh",
+        "source": "dictionary:vinha_dalhos_6017",
+        "difficulty": "advanced",
+        "tags": [
+          "food",
+          "portuguese",
+          "cooking"
         ]
       }
     ],
@@ -23649,6 +24081,20 @@
           "gestures",
           "greetings"
         ]
+      },
+      {
+        "pidgin": "We going to da Holy Ghost fest",
+        "english": "party",
+        "category": "cultural",
+        "context": "Party or festival",
+        "pronunciation": "FEST",
+        "source": "dictionary:fest_6014",
+        "difficulty": "beginner",
+        "tags": [
+          "cultural",
+          "portuguese",
+          "celebrations"
+        ]
       }
     ],
     "descriptions": [
@@ -24293,6 +24739,34 @@
           "descriptions",
           "japanese",
           "amounts"
+        ]
+      },
+      {
+        "pidgin": "His hair stay all kuru-kuru",
+        "english": "curly",
+        "category": "descriptions",
+        "context": "Curly, spinning, or acting crazy",
+        "pronunciation": "KOO-roo KOO-roo",
+        "source": "dictionary:kuru_kuru_6005",
+        "difficulty": "intermediate",
+        "tags": [
+          "descriptions",
+          "japanese",
+          "appearance"
+        ]
+      },
+      {
+        "pidgin": "Stop going kuru-kuru!",
+        "english": "curly",
+        "category": "descriptions",
+        "context": "Curly, spinning, or acting crazy",
+        "pronunciation": "KOO-roo KOO-roo",
+        "source": "dictionary:kuru_kuru_6005",
+        "difficulty": "intermediate",
+        "tags": [
+          "descriptions",
+          "japanese",
+          "appearance"
         ]
       }
     ],
@@ -26832,6 +27306,20 @@
           "hawaiian",
           "body"
         ]
+      },
+      {
+        "pidgin": "Where da benjo stay?",
+        "english": "restroom",
+        "category": "slang",
+        "context": "Bathroom or restroom",
+        "pronunciation": "BEN-jo",
+        "source": "dictionary:benjo_6000",
+        "difficulty": "intermediate",
+        "tags": [
+          "slang",
+          "japanese",
+          "places"
+        ]
       }
     ],
     "emotions": [
@@ -28000,6 +28488,49 @@
           "cultural",
           "chinese"
         ]
+      },
+      {
+        "pidgin": "Ask Manong if he need help",
+        "english": "older Filipino man",
+        "category": "people",
+        "context": "Respectful term for older Filipino man",
+        "pronunciation": "mah-NONG",
+        "source": "dictionary:manong_6009",
+        "difficulty": "intermediate",
+        "tags": [
+          "people",
+          "filipino",
+          "respect",
+          "family"
+        ]
+      },
+      {
+        "pidgin": "She one proud Pinay",
+        "english": "woman of Filipino descent",
+        "category": "people",
+        "context": "Filipina woman",
+        "pronunciation": "pee-NAI",
+        "source": "dictionary:pinay_6010",
+        "difficulty": "beginner",
+        "tags": [
+          "people",
+          "filipino",
+          "cultural"
+        ]
+      },
+      {
+        "pidgin": "He one Pinoy from da Big Island",
+        "english": "man of Filipino descent",
+        "category": "people",
+        "context": "Filipino man",
+        "pronunciation": "pee-NOI",
+        "source": "dictionary:pinoy_6011",
+        "difficulty": "beginner",
+        "tags": [
+          "people",
+          "filipino",
+          "cultural"
+        ]
       }
     ],
     "activities": [
@@ -28108,6 +28639,33 @@
           "clothing",
           "hawaiian",
           "cultural"
+        ]
+      },
+      {
+        "pidgin": "She wearing geta fo' da festival",
+        "english": "traditional Japanese wooden sandals",
+        "category": "clothing",
+        "context": "Traditional Japanese wooden sandals",
+        "pronunciation": "GEH-tah",
+        "source": "dictionary:geta_6002",
+        "difficulty": "advanced",
+        "tags": [
+          "clothing",
+          "japanese",
+          "cultural"
+        ]
+      },
+      {
+        "pidgin": "Grab your zoris, we going beach",
+        "english": "flat-soled sandals",
+        "category": "clothing",
+        "context": "Flat sandals or slippers",
+        "pronunciation": "ZOR-eez",
+        "source": "dictionary:zoris_6006",
+        "difficulty": "intermediate",
+        "tags": [
+          "clothing",
+          "japanese"
         ]
       }
     ],
@@ -28711,6 +29269,34 @@
         "tags": [
           "objects",
           "hawaiian"
+        ]
+      },
+      {
+        "pidgin": "Pass da chawan",
+        "english": "rice bowl",
+        "category": "objects",
+        "context": "Rice bowl, also used in 'chawan cut' for bowl haircut",
+        "pronunciation": "CHAH-wahn",
+        "source": "dictionary:chawan_6001",
+        "difficulty": "intermediate",
+        "tags": [
+          "objects",
+          "japanese",
+          "food"
+        ]
+      },
+      {
+        "pidgin": "He get one chawan cut",
+        "english": "rice bowl",
+        "category": "objects",
+        "context": "Rice bowl, also used in 'chawan cut' for bowl haircut",
+        "pronunciation": "CHAH-wahn",
+        "source": "dictionary:chawan_6001",
+        "difficulty": "intermediate",
+        "tags": [
+          "objects",
+          "japanese",
+          "food"
         ]
       }
     ]
@@ -34215,6 +34801,111 @@
       "pidgin": "Give me s'koshi more rice",
       "english": "a little bit",
       "context": "Small amount"
+    },
+    {
+      "pidgin": "Where da benjo stay?",
+      "english": "restroom",
+      "context": "Bathroom or restroom"
+    },
+    {
+      "pidgin": "Pass da chawan",
+      "english": "rice bowl",
+      "context": "Rice bowl, also used in 'chawan cut' for bowl haircut"
+    },
+    {
+      "pidgin": "He get one chawan cut",
+      "english": "rice bowl",
+      "context": "Rice bowl, also used in 'chawan cut' for bowl haircut"
+    },
+    {
+      "pidgin": "She wearing geta fo' da festival",
+      "english": "traditional Japanese wooden sandals",
+      "context": "Traditional Japanese wooden sandals"
+    },
+    {
+      "pidgin": "Time fo' gohan!",
+      "english": "rice",
+      "context": "Rice or meal"
+    },
+    {
+      "pidgin": "Good kimochi!",
+      "english": "feeling",
+      "context": "Feeling or vibe"
+    },
+    {
+      "pidgin": "Da kimochi stay nice",
+      "english": "feeling",
+      "context": "Feeling or vibe"
+    },
+    {
+      "pidgin": "His hair stay all kuru-kuru",
+      "english": "curly",
+      "context": "Curly, spinning, or acting crazy"
+    },
+    {
+      "pidgin": "Stop going kuru-kuru!",
+      "english": "curly",
+      "context": "Curly, spinning, or acting crazy"
+    },
+    {
+      "pidgin": "Grab your zoris, we going beach",
+      "english": "flat-soled sandals",
+      "context": "Flat sandals or slippers"
+    },
+    {
+      "pidgin": "Da pinakbet get bagoong inside",
+      "english": "fermented shrimp paste",
+      "context": "Fermented shrimp or fish paste condiment"
+    },
+    {
+      "pidgin": "Brah, you naman? Let someone else try!",
+      "english": "brah, it's your turn again?",
+      "context": "Asking if it's someone's turn again"
+    },
+    {
+      "pidgin": "Ask Manong if he need help",
+      "english": "older Filipino man",
+      "context": "Respectful term for older Filipino man"
+    },
+    {
+      "pidgin": "She one proud Pinay",
+      "english": "woman of Filipino descent",
+      "context": "Filipina woman"
+    },
+    {
+      "pidgin": "He one Pinoy from da Big Island",
+      "english": "man of Filipino descent",
+      "context": "Filipino man"
+    },
+    {
+      "pidgin": "Salamat for da kaukau!",
+      "english": "thank you",
+      "context": "Filipino thank you"
+    },
+    {
+      "pidgin": "Sarap! This lumpia stay 'ono!",
+      "english": "delicious",
+      "context": "Delicious or tasty"
+    },
+    {
+      "pidgin": "We going to da Holy Ghost fest",
+      "english": "party",
+      "context": "Party or festival"
+    },
+    {
+      "pidgin": "Leonard's get da best malasadas",
+      "english": "Portuguese doughnut",
+      "context": "Famous Portuguese doughnut"
+    },
+    {
+      "pidgin": "Get pão doce from da bakery",
+      "english": "Portuguese sweet bread",
+      "context": "Portuguese sweet bread"
+    },
+    {
+      "pidgin": "Da vinha d'alhos pork stay so 'ono",
+      "english": "vinegar and garlic marinade",
+      "context": "Vinegar and garlic marinade, origin of 'vinny-ha' pork"
     }
   ]
 }
