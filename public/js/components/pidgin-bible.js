@@ -36,6 +36,7 @@ const bibleBooks = [
 const bibleResources = {
     biblecom: 'https://www.bible.com/bible/76/', // HPB version ID
     hipidginbible: 'https://hipidginbible.org/dgasb-online',
+    ebible: 'https://ebible.org/hwc/', // eBible.org Hawaii Pidgin
     bibleis: 'https://live.bible.is/bible/HWCWYIN2ET' // Hawaii Pidgin Bible.is
 };
 
@@ -190,11 +191,15 @@ function loadBook(slug) {
                 <div class="flex gap-4 flex-wrap">
                     <a href="${getBibleComBookUrl(book)}" target="_blank" rel="noopener"
                        class="inline-block bg-purple-600 text-white px-6 py-3 rounded-xl hover:bg-purple-700 transition font-semibold">
-                        Read on Bible.com →
+                        Bible.com →
                     </a>
                     <a href="${bibleResources.hipidginbible}" target="_blank" rel="noopener"
-                       class="inline-block bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition font-semibold">
-                        Read on Official Site →
+                       class="inline-block bg-green-600 text-white px-6 py-3 rounded-xl hover:bg-green-700 transition font-semibold">
+                        Official Site →
+                    </a>
+                    <a href="${bibleResources.ebible}" target="_blank" rel="noopener"
+                       class="inline-block bg-orange-600 text-white px-6 py-3 rounded-xl hover:bg-orange-700 transition font-semibold">
+                        eBible.org →
                     </a>
                 </div>
             </div>
@@ -246,6 +251,17 @@ function showChapterModal(book, chapter) {
                         <div>
                             <h3 class="text-xl font-bold mb-2">🌐 Hawaii Pidgin Bible Ministries</h3>
                             <p class="text-white/90">Official translation website</p>
+                        </div>
+                        <span class="text-3xl">→</span>
+                    </div>
+                </a>
+
+                <a href="${bibleResources.ebible}" target="_blank" rel="noopener"
+                   class="block bg-gradient-to-r from-orange-600 to-red-600 text-white p-6 rounded-xl hover:from-orange-700 hover:to-red-700 transition shadow-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">📚 eBible.org</h3>
+                            <p class="text-white/90">Free downloads (PDF, HTML, ePub, etc.)</p>
                         </div>
                         <span class="text-3xl">→</span>
                     </div>
