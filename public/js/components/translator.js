@@ -337,8 +337,33 @@ class PidginTranslator {
             };
         }
 
-        // NEW: Check phrase translator first for multi-word input
-        const isPhrase = text.trim().split(/\s+/).length > 1;
+        const wordCount = text.trim().split(/\s+/).length;
+        const isPhrase = wordCount > 1;
+        const isSentence = wordCount >= 6;
+
+        // PRIORITY 1: Check sentence chunker for sentences (6+ words)
+        if (isSentence && typeof sentenceChunker !== 'undefined' && sentenceChunker.loaded) {
+            const sentenceResult = sentenceChunker.translateSentence(text, direction);
+
+            if (sentenceResult && sentenceResult.confidence >= 0.7) {
+                return {
+                    text: sentenceResult.translation,
+                    confidence: sentenceResult.confidence,
+                    suggestions: [],
+                    pronunciation: direction === 'eng-to-pidgin' ? this.getPronunciation(sentenceResult.translation) : null,
+                    alternatives: sentenceResult.alternatives || [],
+                    metadata: {
+                        method: sentenceResult.method,
+                        category: sentenceResult.category,
+                        difficulty: sentenceResult.difficulty,
+                        phraseMatches: sentenceResult.phraseMatches,
+                        wordFills: sentenceResult.wordFills
+                    }
+                };
+            }
+        }
+
+        // PRIORITY 2: Check phrase translator for phrases (2-5 words)
         if (isPhrase && typeof phraseTranslator !== 'undefined' && phraseTranslator.loaded) {
             let phraseResult = null;
 
@@ -366,7 +391,7 @@ class PidginTranslator {
             }
         }
 
-        // Fallback to word-by-word translation
+        // PRIORITY 3: Fallback to word-by-word translation
         let result;
         let confidence = 0;
         let suggestions = [];
