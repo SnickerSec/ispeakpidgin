@@ -328,17 +328,31 @@ class PidginTranslator {
     // Enhanced main translation function with confidence scoring
     translate(text, direction = 'eng-to-pidgin') {
         if (!text || text.trim() === '') {
-            return { text: '', confidence: 0, suggestions: [] };
+            return {
+                text: '',
+                confidence: 0,
+                suggestions: [],
+                alternatives: [],
+                metadata: null
+            };
         }
 
         let result;
         let confidence = 0;
         let suggestions = [];
+        let alternatives = [];
+        let metadata = null;
 
         if (direction === 'pidgin-to-eng') {
-            result = this.translatePidginToEnglish(text);
+            const pidginResult = this.translatePidginToEnglishEnhanced(text);
+            result = pidginResult.text;
+            alternatives = pidginResult.alternatives || [];
+            metadata = pidginResult.metadata;
         } else {
-            result = this.translateEnglishToPidgin(text);
+            const englishResult = this.translateEnglishToPidginEnhanced(text);
+            result = englishResult.text;
+            alternatives = englishResult.alternatives || [];
+            metadata = englishResult.metadata;
         }
 
         // Calculate confidence and generate suggestions
@@ -350,7 +364,9 @@ class PidginTranslator {
             text: result,
             confidence: confidence,
             suggestions: suggestions,
-            pronunciation: direction === 'eng-to-pidgin' ? this.getPronunciation(result) : null
+            pronunciation: direction === 'eng-to-pidgin' ? this.getPronunciation(result) : null,
+            alternatives: alternatives,
+            metadata: metadata
         };
     }
 
@@ -508,6 +524,120 @@ class PidginTranslator {
         return this.capitalizeFirst(result);
     }
 
+    // Enhanced translation with alternatives and metadata
+    translateEnglishToPidginEnhanced(englishText) {
+        const basicTranslation = this.translateEnglishToPidgin(englishText);
+        const alternatives = this.getAlternativeTranslations(englishText, 'eng-to-pidgin');
+        const metadata = this.getTranslationMetadata(englishText, basicTranslation, 'eng-to-pidgin');
+
+        return {
+            text: basicTranslation,
+            alternatives: alternatives,
+            metadata: metadata
+        };
+    }
+
+    translatePidginToEnglishEnhanced(pidginText) {
+        const basicTranslation = this.translatePidginToEnglish(pidginText);
+        const alternatives = this.getAlternativeTranslations(pidginText, 'pidgin-to-eng');
+        const metadata = this.getTranslationMetadata(pidginText, basicTranslation, 'pidgin-to-eng');
+
+        return {
+            text: basicTranslation,
+            alternatives: alternatives,
+            metadata: metadata
+        };
+    }
+
+    // Get alternative translations for a word/phrase
+    getAlternativeTranslations(text, direction) {
+        const alternatives = [];
+        const cleanText = text.toLowerCase().trim();
+
+        if (direction === 'eng-to-pidgin') {
+            // Check if pidginDataLoader has alternative translations
+            if (typeof pidginDataLoader !== 'undefined' && pidginDataLoader.loaded) {
+                const translations = pidginDataLoader.getTranslations();
+                if (translations && translations.englishToPidgin[cleanText]) {
+                    const options = translations.englishToPidgin[cleanText];
+                    // Skip the first one as it's the primary translation
+                    for (let i = 1; i < Math.min(options.length, 4); i++) {
+                        const alt = options[i];
+                        alternatives.push({
+                            text: alt.pidgin,
+                            confidence: alt.confidence || 0.9,
+                            note: this.getUsageNote(alt.pidgin)
+                        });
+                    }
+                }
+            }
+        } else {
+            // For pidgin-to-eng, check reverse dictionary
+            if (this.reverseDict[cleanText] && Array.isArray(this.reverseDict[cleanText])) {
+                this.reverseDict[cleanText].slice(1, 4).forEach(alt => {
+                    alternatives.push({
+                        text: alt,
+                        confidence: 0.9,
+                        note: 'Alternative meaning'
+                    });
+                });
+            }
+        }
+
+        return alternatives;
+    }
+
+    // Get rich metadata for translation
+    getTranslationMetadata(sourceText, translatedText, direction) {
+        const metadata = {
+            examples: [],
+            usage: null,
+            difficulty: null,
+            category: null,
+            culturalNotes: null
+        };
+
+        // Try to get metadata from pidginDataLoader
+        if (typeof pidginDataLoader !== 'undefined' && pidginDataLoader.loaded) {
+            const entries = pidginDataLoader.getAllEntries();
+            const searchText = direction === 'eng-to-pidgin' ? translatedText : sourceText;
+
+            for (let entry of entries) {
+                if (entry.pidgin.toLowerCase() === searchText.toLowerCase()) {
+                    metadata.examples = entry.examples || [];
+                    metadata.usage = entry.usage || null;
+                    metadata.difficulty = entry.difficulty || null;
+                    metadata.category = entry.category || null;
+
+                    // Add cultural notes if available
+                    if (entry.origin || entry.tags) {
+                        metadata.culturalNotes = entry.origin || `Tags: ${entry.tags?.join(', ')}`;
+                    }
+                    break;
+                }
+            }
+        }
+
+        return metadata;
+    }
+
+    // Get usage note for a pidgin word
+    getUsageNote(pidginWord) {
+        const usageNotes = {
+            'grindz': 'casual, most common',
+            'kau kau': 'traditional, formal',
+            'mea ai': 'very formal',
+            'brah': 'very casual, friendly',
+            'bruddah': 'respectful, friendly',
+            'shoots': 'casual confirmation',
+            'rajah': 'formal agreement',
+            'howzit': 'casual greeting',
+            'aloha': 'formal greeting'
+        };
+
+        return usageNotes[pidginWord.toLowerCase()] || 'common usage';
+    }
+
     // Apply English grammar corrections when translating from Pidgin
     applyEnglishGrammar(text) {
         // Fix common patterns
@@ -659,12 +789,35 @@ class PidginTranslator {
     findFuzzyMatch(word, candidates) {
         let bestMatch = null;
         let bestSimilarity = 0;
+        const wordLower = word.toLowerCase();
+        const wordLength = wordLower.length;
 
-        for (let candidate of candidates) {
-            const similarity = this.calculateSimilarity(word.toLowerCase(), candidate.toLowerCase());
+        // Pre-filter candidates by length difference (optimization)
+        const lengthThreshold = 3;
+        const filtered = candidates.filter(c =>
+            Math.abs(c.length - wordLength) <= lengthThreshold
+        );
+
+        // If no candidates after filtering, try with full list
+        const searchCandidates = filtered.length > 0 ? filtered : candidates;
+
+        for (let candidate of searchCandidates) {
+            const candidateLower = candidate.toLowerCase();
+
+            // Early termination: calculate max possible similarity
+            const maxPossible = 1 - (Math.abs(candidateLower.length - wordLength) /
+                Math.max(candidateLower.length, wordLength));
+
+            // Skip if can't beat current best
+            if (maxPossible <= bestSimilarity) continue;
+
+            const similarity = this.calculateSimilarity(wordLower, candidateLower);
             if (similarity > bestSimilarity && similarity > 0.75) {
                 bestSimilarity = similarity;
                 bestMatch = candidate;
+
+                // Early exit if we found a near-perfect match
+                if (similarity >= 0.95) break;
             }
         }
 

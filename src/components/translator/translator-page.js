@@ -231,7 +231,7 @@ function performTranslation() {
         if (results && results.length > 0) {
             // Display the best translation
             const bestMatch = results[0];
-            outputDiv.innerHTML = `<p class="text-gray-800">${bestMatch.translation}</p>`;
+            let outputHTML = `<p class="text-2xl font-semibold text-gray-800 mb-3">${bestMatch.translation}</p>`;
 
             // Show confidence
             const confidence = Math.round(bestMatch.confidence * 100);
@@ -253,16 +253,74 @@ function performTranslation() {
                 confidenceText.className = 'text-sm font-medium confidence-low';
             }
 
+            // Show pronunciation with audio button
+            if (bestMatch.pronunciation) {
+                outputHTML += `<div class="mt-3 p-3 bg-yellow-50 rounded-lg flex items-center justify-between">
+                    <div>
+                        <span class="text-xs text-yellow-800 font-semibold">Pronunciation:</span>
+                        <span class="text-sm text-yellow-700 ml-2">${bestMatch.pronunciation}</span>
+                    </div>
+                    <button onclick="speakPronunciation('${bestMatch.translation}')"
+                            class="px-3 py-1 bg-yellow-500 text-white rounded-full hover:bg-yellow-600 transition text-sm">
+                        🔊 Listen
+                    </button>
+                </div>`;
+            }
+
             // Show alternative translations if available
             if (results.length > 1) {
-                outputDiv.innerHTML += '<div class="mt-4 pt-4 border-t border-gray-200">';
-                outputDiv.innerHTML += '<p class="text-sm text-gray-600 mb-2">Alternative translations:</p>';
-                outputDiv.innerHTML += '<div class="space-y-1">';
+                outputHTML += '<div class="mt-4 pt-4 border-t border-gray-200">';
+                outputHTML += '<p class="text-sm font-semibold text-gray-700 mb-3">📚 Alternative Translations:</p>';
+                outputHTML += '<div class="space-y-2">';
                 for (let i = 1; i < Math.min(results.length, 3); i++) {
-                    outputDiv.innerHTML += `<p class="text-sm text-gray-700">• ${results[i].translation}</p>`;
+                    const altConf = Math.round(results[i].confidence * 100);
+                    outputHTML += `<div class="flex items-center justify-between p-2 bg-gray-50 rounded">
+                        <span class="text-gray-700">${results[i].translation}</span>
+                        <span class="text-xs text-gray-500">${altConf}%</span>
+                    </div>`;
                 }
-                outputDiv.innerHTML += '</div></div>';
+                outputHTML += '</div></div>';
             }
+
+            // Show metadata if available (examples, usage, etc.)
+            if (bestMatch.metadata) {
+                const meta = bestMatch.metadata;
+                if (meta.usage || meta.examples?.length > 0 || meta.difficulty) {
+                    outputHTML += '<div class="mt-4 pt-4 border-t border-gray-200">';
+
+                    if (meta.usage) {
+                        outputHTML += `<div class="mb-3">
+                            <span class="text-xs font-semibold text-blue-800">💡 Usage:</span>
+                            <span class="text-sm text-gray-700 ml-2">${meta.usage}</span>
+                        </div>`;
+                    }
+
+                    if (meta.difficulty) {
+                        const difficultyColors = {
+                            'beginner': 'bg-green-100 text-green-700',
+                            'intermediate': 'bg-yellow-100 text-yellow-700',
+                            'advanced': 'bg-red-100 text-red-700'
+                        };
+                        const colorClass = difficultyColors[meta.difficulty] || 'bg-gray-100 text-gray-700';
+                        outputHTML += `<span class="inline-block px-2 py-1 ${colorClass} rounded text-xs font-medium mb-3">
+                            Level: ${meta.difficulty}
+                        </span>`;
+                    }
+
+                    if (meta.examples && meta.examples.length > 0) {
+                        outputHTML += '<div class="mt-3">';
+                        outputHTML += '<p class="text-xs font-semibold text-purple-800 mb-2">📝 Examples:</p>';
+                        meta.examples.slice(0, 2).forEach(example => {
+                            outputHTML += `<p class="text-sm italic text-gray-600 mb-1">"${example}"</p>`;
+                        });
+                        outputHTML += '</div>';
+                    }
+
+                    outputHTML += '</div>';
+                }
+            }
+
+            outputDiv.innerHTML = outputHTML;
 
             // Show buttons
             copyBtn?.classList.remove('hidden');
@@ -592,6 +650,19 @@ function setupSmoothAnimations() {
         btn.style.transition = 'all 0.2s ease';
     });
 }
+
+// Pronunciation audio using ElevenLabs integration
+function speakPronunciation(text) {
+    // Use global speakText function from main.js which handles ElevenLabs integration
+    if (typeof speakText === 'function') {
+        speakText(text);
+    } else {
+        console.warn('Speech synthesis not available');
+    }
+}
+
+// Make function globally available for inline onclick handlers
+window.speakPronunciation = speakPronunciation;
 
 // Text-to-speech function - use global speakText from main.js
 // (removed duplicate function to prevent dual audio playback)
