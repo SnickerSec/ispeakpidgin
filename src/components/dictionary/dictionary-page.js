@@ -19,11 +19,7 @@ async function initDictionaryPage() {
     const actualCount = pidginDictionary.getTotalCount();
     console.log('🌺 Dictionary page initialized with', actualCount, 'unique entries');
 
-    // Update the page header with accurate count
-    const headerText = document.querySelector('.dictionary-search-container p');
-    if (headerText) {
-        headerText.textContent = `Explore over ${actualCount} Hawaiian Pidgin terms with pronunciations, examples, and cultural context`;
-    }
+    // Text update removed per user request
 }
 
 // Helper function to wait for dictionary to load
