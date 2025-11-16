@@ -55,7 +55,7 @@ const lessonsData = {
         {
             id: 'family',
             title: 'Family & People',
-            icon: '👨‍👩‍👧‍👦',
+            icon: '🏠',
             content: {
                 vocabulary: [
                     { pidgin: 'Ohana', english: 'Family', example: 'My ohana stay coming fo\' dinner.' },
