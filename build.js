@@ -79,7 +79,13 @@ function processHTMLFiles() {
         'what-does-ono-grindz-mean.html',
         'what-does-shoots-mean.html',
         'what-does-brah-mean.html',
-        'what-does-shaka-mean.html'
+        'what-does-shaka-mean.html',
+        'what-does-grindz-mean.html',
+        'what-does-pau-mean.html',
+        'what-does-choke-mean.html',
+        'what-does-talk-story-mean.html',
+        'what-does-mahalo-mean.html',
+        'what-does-no-worry-mean.html'
     ];
 
     htmlFiles.forEach(file => {
