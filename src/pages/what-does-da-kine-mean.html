@@ -706,9 +706,9 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="js/elevenlabs-speech.js"></script>
-    <script src="js/speech.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/components/elevenlabs-speech.js"></script>
+    <script src="js/components/speech.js"></script>
+    <script src="js/components/main.js"></script>
     <script>
         // Mobile menu toggle
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -732,15 +732,28 @@
             }
         });
 
-        // Pronounce "Da Kine" button
+        // Pronounce "Da Kine" button with ElevenLabs integration
         const pronounceBtn = document.getElementById('pronounce-da-kine');
-        pronounceBtn?.addEventListener('click', () => {
-            // Use speech synthesis to pronounce "da kine"
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance('dah kyne');
-                utterance.rate = 0.8;
-                utterance.pitch = 1.0;
-                window.speechSynthesis.speak(utterance);
+        pronounceBtn?.addEventListener('click', async () => {
+            try {
+                // Use pidginSpeech which automatically tries ElevenLabs first, then falls back to browser TTS
+                await pidginSpeech.speak('da kine', {
+                    onStart: () => {
+                        // Visual feedback - button is being clicked
+                        pronounceBtn.style.opacity = '0.7';
+                    },
+                    onSuccess: () => {
+                        // Reset button appearance
+                        pronounceBtn.style.opacity = '1';
+                    },
+                    onError: (error) => {
+                        console.error('Pronunciation error:', error);
+                        pronounceBtn.style.opacity = '1';
+                    }
+                });
+            } catch (error) {
+                console.error('Failed to pronounce:', error);
+                pronounceBtn.style.opacity = '1';
             }
         });
     </script>
