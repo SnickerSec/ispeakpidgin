@@ -332,3 +332,8 @@ function resetView() {
         item.classList.remove('active');
     });
 }
+
+// Expose functions to global scope for inline onclick handlers
+window.loadBook = loadBook;
+window.openChapter = openChapter;
+window.resetView = resetView;
