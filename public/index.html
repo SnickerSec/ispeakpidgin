@@ -520,57 +520,60 @@
         </div>
     </section>
 
-    <!-- Translator Section -->
-    <section id="translator" class="py-16 px-4 relative overflow-hidden" style="background: linear-gradient(135deg, #f0f9ff 0%, #fef3c7 30%, #fce7f3 60%, #f0f9ff 100%);">
-
-        <div class="container mx-auto max-w-4xl relative z-10">
-            <div class="text-center mb-8">
-                <div class="inline-block bg-white/40 backdrop-blur-sm rounded-full px-8 py-4 border-2 border-blue-300 shadow-lg">
-                    <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 drop-shadow-lg whitespace-nowrap brand-font">
-                        🏝️ Island Translator 🌺
-                    </h2>
-                </div>
-                <p class="text-center text-gray-700 text-xl mt-4 font-medium drop-shadow-md">Surf the waves of language translation</p>
+    <!-- Translator CTA Section -->
+    <section class="py-16 px-4 relative overflow-hidden" style="background: linear-gradient(135deg, #f0f9ff 0%, #fef3c7 30%, #fce7f3 60%, #f0f9ff 100%);">
+        <div class="container mx-auto max-w-4xl relative z-10 text-center">
+            <div class="inline-block bg-white/40 backdrop-blur-sm rounded-full px-8 py-4 border-2 border-blue-300 shadow-lg mb-6">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 drop-shadow-lg whitespace-nowrap brand-font">
+                    🏝️ Island Translator 🌺
+                </h2>
             </div>
+            <p class="text-xl md:text-2xl text-gray-700 mb-8 font-medium drop-shadow-md">
+                Instantly translate between English and Hawaiian Pidgin
+            </p>
 
-            <!-- Translation Direction Toggle -->
-            <div class="flex justify-center mb-8">
-                <div class="bg-white/70 backdrop-blur-sm rounded-full p-2 flex items-center shadow-xl border-2 border-orange-300">
-                    <button id="eng-to-pidgin" class="px-6 py-2 rounded-full bg-green-500 text-white transition">
-                        🌊 English → Pidgin
-                    </button>
-                    <button id="pidgin-to-eng" class="px-6 py-2 rounded-full hover:bg-gray-200 transition">
-                        🏄 Pidgin → English
-                    </button>
-                </div>
-            </div>
-
-            <div class="bg-white/80 backdrop-blur-sm rounded-3xl p-10 shadow-2xl border-2 border-orange-300 relative overflow-hidden">
-
-                <div class="mb-8 relative z-10">
-                    <label id="input-label" class="block text-xl font-bold mb-3 text-gray-800 flex items-center gap-2">
-                        🌊 English
-                    </label>
-                    <textarea id="translator-input"
-                              class="w-full p-6 border-3 border-blue-300 rounded-2xl focus:border-orange-500 focus:outline-none bg-white/90 backdrop-blur-sm text-lg shadow-lg"
-                              rows="4"
-                              placeholder="Type your English text here and watch it transform into island Pidgin..."></textarea>
-                </div>
-                <div class="text-center mb-8">
-                    <button id="translate-btn" class="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white px-12 py-4 rounded-2xl text-xl hover:scale-105 transition-transform font-bold shadow-2xl">
-                        🏄 Surf to Pidgin
-                    </button>
-                </div>
-                <div class="relative z-10">
-                    <label id="output-label" class="block text-xl font-bold mb-3 text-gray-800 flex items-center gap-2">
-                        🌺 Pidgin
-                    </label>
-                    <div class="bg-gradient-to-br from-green-50 to-blue-50 p-6 border-3 border-green-400 rounded-2xl min-h-[120px] shadow-lg">
-                        <p id="translator-output" class="text-xl text-gray-800 font-medium"></p>
-                        <button id="speak-translation" class="mt-6 bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg hidden">
-                            🔊 Hear Island Voice
-                        </button>
+            <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-10 shadow-2xl border-2 border-blue-300 mb-8">
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="text-center">
+                        <div class="text-5xl mb-3">⚡</div>
+                        <h3 class="font-bold text-lg mb-2">Instant Translation</h3>
+                        <p class="text-gray-600">Translates as you type with real-time results</p>
                     </div>
+                    <div class="text-center">
+                        <div class="text-5xl mb-3">🎯</div>
+                        <h3 class="font-bold text-lg mb-2">Fuzzy Matching</h3>
+                        <p class="text-gray-600">Handles typos and spelling variations</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-5xl mb-3">🔊</div>
+                        <h3 class="font-bold text-lg mb-2">Audio Pronunciation</h3>
+                        <p class="text-gray-600">Hear authentic Hawaiian Pidgin speech</p>
+                    </div>
+                </div>
+
+                <a href="translator.html" class="inline-block bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white px-12 py-5 rounded-2xl text-xl hover:scale-105 transition-transform font-bold shadow-2xl">
+                    🏄 Launch Full Translator
+                </a>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 text-left">
+                <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
+                    <h3 class="font-bold text-lg mb-3 text-blue-700">📝 Example Translations:</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><strong>English:</strong> How are you?<br><strong>Pidgin:</strong> Howzit?</li>
+                        <li><strong>English:</strong> The food is delicious<br><strong>Pidgin:</strong> Da grindz stay ono</li>
+                        <li><strong>English:</strong> I'm finished<br><strong>Pidgin:</strong> I stay pau</li>
+                    </ul>
+                </div>
+                <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
+                    <h3 class="font-bold text-lg mb-3 text-purple-700">✨ Features:</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>✅ Bidirectional translation (English ↔ Pidgin)</li>
+                        <li>✅ 600+ dictionary entries</li>
+                        <li>✅ Confidence scoring</li>
+                        <li>✅ Translation history</li>
+                        <li>✅ Example phrases library</li>
+                    </ul>
                 </div>
             </div>
         </div>
