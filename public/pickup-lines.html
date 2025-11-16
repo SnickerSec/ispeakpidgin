@@ -269,9 +269,6 @@
                 <button id="shuffle-btn" class="shuffle-btn px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full font-semibold hover:from-purple-700 hover:to-pink-700 shadow-lg flex items-center gap-2">
                     🔀 Shuffle Pickup Lines
                 </button>
-                <button id="show-all-btn" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-teal-600 text-white rounded-full font-semibold hover:from-blue-700 hover:to-teal-700 shadow-lg flex items-center gap-2">
-                    📖 Show All Lines
-                </button>
                 <button id="show-favorites-btn" class="px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white rounded-full font-semibold hover:from-red-700 hover:to-pink-700 shadow-lg flex items-center gap-2">
                     ❤️ My Favorites (<span id="favorites-count">0</span>)
                 </button>
@@ -426,10 +423,6 @@
         document.getElementById('shuffle-btn')?.addEventListener('click', () => {
             const shuffled = shuffleArray(pickupLines);
             displayPickupLines(shuffled);
-        });
-
-        document.getElementById('show-all-btn')?.addEventListener('click', () => {
-            displayPickupLines(pickupLines);
         });
 
         function showFavorites() {
