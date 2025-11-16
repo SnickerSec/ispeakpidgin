@@ -363,7 +363,11 @@
                 noFavorites.classList.add('hidden');
             }
 
-            container.innerHTML = lines.map((line, originalIndex) => {
+            container.innerHTML = lines.map((line) => {
+                // Find the original index in the full pickupLines array
+                const originalIndex = pickupLines.findIndex(pl =>
+                    pl.pidgin === line.pidgin && pl.english === line.english
+                );
                 const isFav = isFavorite(originalIndex);
                 return `
                     <div class="pickup-card card-${line.color} rounded-2xl shadow-xl p-6">
