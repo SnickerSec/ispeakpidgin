@@ -1346,7 +1346,7 @@ async function initStoryCorner() {
     refreshButton.className = 'col-span-full text-center mt-6';
     refreshButton.innerHTML = `
         <button id="refresh-stories" class="bg-green-500 text-white px-6 py-3 rounded-full hover:bg-green-600 transition font-semibold shadow-lg">
-            🔄 Show Different Stories
+            🎲 Show Different Stories
         </button>
     `;
     storyCorner.appendChild(refreshButton);
