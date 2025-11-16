@@ -191,7 +191,8 @@ function copyDataFiles() {
     if (fs.existsSync(srcDataDir)) {
         const srcDataFiles = [
             { src: `${srcDataDir}/phrases-data.js`, dest: 'public/js/data/phrases-data.js' },
-            { src: `${srcDataDir}/stories-data.js`, dest: 'public/js/data/stories-data.js' }
+            { src: `${srcDataDir}/stories-data.js`, dest: 'public/js/data/stories-data.js' },
+            { src: `${srcDataDir}/pickup-lines-data.js`, dest: 'public/js/data/pickup-lines-data.js' }
         ];
 
         srcDataFiles.forEach(({ src, dest }) => {
