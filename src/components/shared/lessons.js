@@ -89,7 +89,7 @@ const lessonsData = {
         {
             id: 'numbers-time',
             title: 'Numbers & Counting',
-            icon: '🔢',
+            icon: '🧮',
             content: {
                 vocabulary: [
                     { pidgin: 'One', english: 'A/An/One', example: 'I like one plate lunch.' },
