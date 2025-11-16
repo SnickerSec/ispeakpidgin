@@ -174,7 +174,7 @@ function loadRandomPickupLines(count = 3) {
             <div class="flex items-start mb-3">
                 <span class="text-3xl mr-3">${line.emoji}</span>
                 <div class="flex-1">
-                    <p class="text-xl font-bold text-${line.color}-600 mb-2 brand-font">"${line.pidgin}"</p>
+                    <p class="text-xl font-bold text-${line.color}-600 mb-2">"${line.pidgin}"</p>
                     <p class="text-gray-600 italic text-sm mb-2">${line.pronunciation}</p>
                     <p class="text-gray-700">${line.english}</p>
                 </div>
