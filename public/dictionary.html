@@ -123,8 +123,9 @@
             display: none;  /* Chrome, Safari, Opera */
         }
 
-        /* Ensure letters don't shrink on mobile */
-        .alphabet-browser button {
+        /* Ensure letters and category buttons don't shrink on mobile */
+        .alphabet-browser button,
+        .category-filter {
             flex-shrink: 0;
         }
 
@@ -262,7 +263,7 @@
         <div class="max-w-7xl mx-auto px-4 py-4">
             <!-- Categories -->
             <div class="mb-4">
-                <div class="flex flex-wrap gap-2 justify-center">
+                <div class="flex md:flex-wrap gap-2 md:justify-center overflow-x-auto pb-2 scrollbar-hide">
                     <button class="dict-category category-filter active px-4 py-2 rounded-full border transition" data-category="all">
                         All Categories
                     </button>
