@@ -67,7 +67,20 @@ function createPublicStructure() {
 
 // Copy and process HTML files
 function processHTMLFiles() {
-    const htmlFiles = ['index.html', 'translator.html', 'dictionary.html', 'ask-local.html', 'learning-hub.html', 'stories.html', 'pickup-lines.html', 'pidgin-bible.html', 'about.html', 'pidgin-vs-hawaiian.html', 'what-does-da-kine-mean.html', 'what-does-howzit-mean.html'];
+    const htmlFiles = [
+        'index.html', 'translator.html', 'dictionary.html', 'ask-local.html',
+        'learning-hub.html', 'stories.html', 'pickup-lines.html', 'pidgin-bible.html',
+        'about.html', 'pidgin-vs-hawaiian.html',
+        // SEO Pages
+        'what-does-da-kine-mean.html',
+        'what-does-howzit-mean.html',
+        'what-does-broke-da-mouth-mean.html',
+        'what-does-pau-hana-mean.html',
+        'what-does-ono-grindz-mean.html',
+        'what-does-shoots-mean.html',
+        'what-does-brah-mean.html',
+        'what-does-shaka-mean.html'
+    ];
 
     htmlFiles.forEach(file => {
         const srcPath = path.join('src/pages', file);
