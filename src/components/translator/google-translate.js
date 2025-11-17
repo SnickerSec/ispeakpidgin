@@ -1,11 +1,11 @@
-// Google Translate API Integration Module
+// LLM Translation Service via Kilo Gateway (Gemini Flash)
 class GoogleTranslateService {
     constructor() {
-        this.apiEndpoint = '/api/translate';
+        this.apiEndpoint = '/api/translate-llm';
         this.initialized = true;
     }
 
-    // Translate English to Pidgin using Google Translate
+    // Translate English to Pidgin using LLM
     async englishToPidgin(text) {
         try {
             const response = await fetch(this.apiEndpoint, {
@@ -15,8 +15,7 @@ class GoogleTranslateService {
                 },
                 body: JSON.stringify({
                     text: text,
-                    sourceLanguage: 'en',
-                    targetLanguage: 'haw' // Hawaiian - closest to Pidgin
+                    direction: 'eng-to-pidgin'
                 })
             });
 
@@ -44,7 +43,7 @@ class GoogleTranslateService {
         }
     }
 
-    // Translate Pidgin to English using Google Translate
+    // Translate Pidgin to English using LLM
     async pidginToEnglish(text) {
         try {
             const response = await fetch(this.apiEndpoint, {
@@ -54,8 +53,7 @@ class GoogleTranslateService {
                 },
                 body: JSON.stringify({
                     text: text,
-                    sourceLanguage: 'haw', // Hawaiian - closest to Pidgin
-                    targetLanguage: 'en'
+                    direction: 'pidgin-to-eng'
                 })
             });
 

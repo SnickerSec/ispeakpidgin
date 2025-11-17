@@ -133,6 +133,76 @@ app.post('/api/text-to-speech', async (req, res) => {
     }
 });
 
+// Kilo Gateway LLM Translation endpoint (Gemini Flash)
+app.post('/api/translate-llm', async (req, res) => {
+    try {
+        const { text, direction } = req.body;
+
+        if (!text) {
+            return res.status(400).json({ error: 'Text is required' });
+        }
+
+        const apiKey = process.env.KILO_API_KEY;
+        const apiUrl = process.env.KILO_API_URL || 'https://kilocode.ai/api/openrouter';
+
+        if (!apiKey) {
+            return res.status(500).json({ error: 'Kilo API key not configured' });
+        }
+
+        // Create the prompt based on direction
+        const systemPrompt = direction === 'eng-to-pidgin'
+            ? `You are an expert Hawaiian Pidgin translator. Translate the following English text into authentic Hawaiian Pidgin (Hawaii Creole English). Use real Pidgin words and grammar patterns like: "stay" for "is/am/are", "wen" for past tense, "going" for future, "da" for "the", "brah/bruddah" for friend, "grindz" for food, etc. Keep it natural and authentic to how locals speak in Hawaii. Only respond with the Pidgin translation, nothing else.`
+            : `You are an expert Hawaiian Pidgin translator. Translate the following Hawaiian Pidgin text into standard English. Hawaiian Pidgin uses patterns like "stay" for is/am/are, "wen" for past tense, "da" for "the", etc. Only respond with the English translation, nothing else.`;
+
+        const response = await fetch(`${apiUrl}/chat/completions`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({
+                model: 'google/gemini-flash-1.5',
+                messages: [
+                    { role: 'system', content: systemPrompt },
+                    { role: 'user', content: text }
+                ],
+                temperature: 0.3,
+                max_tokens: 500
+            })
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Kilo API error:', response.status, errorText);
+            return res.status(response.status).json({
+                error: `Kilo API error: ${response.status}`,
+                details: errorText
+            });
+        }
+
+        const data = await response.json();
+        const translation = data.choices?.[0]?.message?.content?.trim();
+
+        if (!translation) {
+            return res.status(500).json({ error: 'No translation received from LLM' });
+        }
+
+        res.json({
+            originalText: text,
+            translatedText: translation,
+            direction: direction,
+            model: 'gemini-flash-1.5'
+        });
+
+    } catch (error) {
+        console.error('LLM Translation error:', error);
+        res.status(500).json({
+            error: 'Translation service error',
+            message: error.message
+        });
+    }
+});
+
 // Google Translate API endpoint
 app.post('/api/translate', async (req, res) => {
     try {

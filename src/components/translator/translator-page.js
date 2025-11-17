@@ -262,10 +262,10 @@ async function performTranslation() {
     let results;
 
     try {
-        // Use Google Translate or local translator based on selection
+        // Use LLM AI or local translator based on selection
         if (currentTranslationEngine === 'google' && typeof googleTranslateService !== 'undefined') {
             // Show loading indicator
-            outputDiv.innerHTML = '<p class="text-gray-400 italic animate-pulse">Translating with Google...</p>';
+            outputDiv.innerHTML = '<p class="text-gray-400 italic animate-pulse">Translating with AI...</p>';
 
             // Call Google Translate API
             if (direction === 'en-to-pid') {
