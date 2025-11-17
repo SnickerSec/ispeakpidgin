@@ -326,14 +326,6 @@ async function performTranslation() {
                 confidenceText.className = 'text-sm font-medium confidence-low';
             }
 
-            // Show pronunciation (audio via speaker icon in top-right)
-            if (bestMatch.pronunciation) {
-                outputHTML += `<div class="mt-3 p-3 bg-yellow-50 rounded-lg">
-                    <span class="text-xs text-yellow-800 font-semibold">Pronunciation:</span>
-                    <span class="text-sm text-yellow-700 ml-2">${bestMatch.pronunciation}</span>
-                </div>`;
-            }
-
             // Show alternative translations if available
             if (results.length > 1) {
                 outputHTML += '<div class="mt-4 pt-4 border-t border-gray-200">';
