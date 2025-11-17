@@ -173,7 +173,7 @@ Be authentic to how locals in Hawaii actually speak. Only respond with the Pidgi
                 'Authorization': `Bearer ${apiKey}`
             },
             body: JSON.stringify({
-                model: 'google/gemini-2.0-flash-exp:free',
+                model: 'google/gemini-flash-1.5',
                 messages: [
                     { role: 'system', content: systemPrompt },
                     { role: 'user', content: text }
@@ -203,7 +203,7 @@ Be authentic to how locals in Hawaii actually speak. Only respond with the Pidgi
             originalText: text,
             translatedText: translation,
             direction: direction,
-            model: 'gemini-2.0-flash-exp'
+            model: 'gemini-flash-1.5'
         });
 
     } catch (error) {
