@@ -158,17 +158,9 @@ function setupTranslationControls() {
     confidenceBar = document.getElementById('confidence-bar');
     confidenceText = document.getElementById('confidence-text');
 
-    // Add translate button listener (manual translation to save API costs)
+    // Add translate button listener (manual translation only to save API costs)
     const translateBtn = document.getElementById('translate-btn');
     translateBtn?.addEventListener('click', performTranslation);
-
-    // Keep Enter key to force re-translate if needed
-    inputField?.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            performTranslation();
-        }
-    });
 
     // Clear output when input is empty (manual translation only to save API costs)
     inputField?.addEventListener('input', () => {
@@ -190,13 +182,12 @@ function setupTranslationControls() {
         updateCharacterCount();
     });
 
-    // Paste button
+    // Paste button (manual translation only)
     pasteBtn?.addEventListener('click', async () => {
         try {
             const text = await navigator.clipboard.readText();
             inputField.value = text;
             updateCharacterCount();
-            performTranslation();
         } catch (err) {
             console.error('Failed to read clipboard:', err);
             alert('Please allow clipboard access to use this feature');
@@ -527,10 +518,9 @@ function loadHistory() {
                     document.getElementById('pidgin-to-english-btn')?.click();
                 }
 
-                // Set text and translate
+                // Set text (manual translation only)
                 inputField.value = original;
                 updateCharacterCount();
-                performTranslation();
 
                 // Scroll to translation
                 inputField.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -611,7 +601,6 @@ function setupVoiceInput() {
         if (finalTranscript) {
             inputField.value = finalTranscript.trim();
             updateCharacterCount();
-            performTranslation();
         } else if (interimTranscript) {
             inputField.value = interimTranscript;
             updateCharacterCount();
