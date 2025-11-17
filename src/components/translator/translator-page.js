@@ -159,7 +159,6 @@ function setupTranslationControls() {
     confidenceText = document.getElementById('confidence-text');
 
     // Add translate button listener (manual translation only to save API costs)
-    const translateBtn = document.getElementById('translate-btn');
     console.log('🔍 Translate button found:', translateBtn);
     translateBtn?.addEventListener('click', () => {
         console.log('🎯 Translate button clicked!');
