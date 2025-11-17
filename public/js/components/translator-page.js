@@ -160,7 +160,11 @@ function setupTranslationControls() {
 
     // Add translate button listener (manual translation only to save API costs)
     const translateBtn = document.getElementById('translate-btn');
-    translateBtn?.addEventListener('click', performTranslation);
+    console.log('🔍 Translate button found:', translateBtn);
+    translateBtn?.addEventListener('click', () => {
+        console.log('🎯 Translate button clicked!');
+        performTranslation();
+    });
 
     // Clear output when input is empty (manual translation only to save API costs)
     inputField?.addEventListener('input', () => {
@@ -225,6 +229,8 @@ function setupTranslationControls() {
 
 // Perform translation
 async function performTranslation() {
+    console.log('🚀 performTranslation called');
+
     // Use global references instead of querying DOM again
     if (!inputField || !outputDiv) {
         console.error('Translation elements not found');
@@ -232,7 +238,11 @@ async function performTranslation() {
     }
 
     const text = inputField.value.trim();
-    if (!text) return;
+    console.log('📝 Input text:', text);
+    if (!text) {
+        console.log('⚠️ No text to translate');
+        return;
+    }
 
     // Determine direction
     const direction = localStorage.getItem('translatorDirection') || 'en-to-pid';
