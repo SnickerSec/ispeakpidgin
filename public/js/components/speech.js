@@ -545,5 +545,6 @@ class PidginSpeech {
     }
 }
 
-// Initialize the Pidgin speech synthesizer
+// Initialize the Pidgin speech synthesizer and make it globally accessible
 const pidginSpeech = new PidginSpeech();
+window.pidginSpeech = pidginSpeech;
