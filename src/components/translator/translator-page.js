@@ -293,7 +293,7 @@ async function performTranslation() {
         return;
     }
 
-        if (results && results.length > 0) {
+    if (results && results.length > 0) {
             // Display the best translation
             const bestMatch = results[0];
             let outputHTML = `<p class="text-2xl font-semibold text-gray-800 mb-3">${bestMatch.translation}</p>`;
