@@ -326,17 +326,11 @@ async function performTranslation() {
                 confidenceText.className = 'text-sm font-medium confidence-low';
             }
 
-            // Show pronunciation with audio button
+            // Show pronunciation (audio via speaker icon in top-right)
             if (bestMatch.pronunciation) {
-                outputHTML += `<div class="mt-3 p-3 bg-yellow-50 rounded-lg flex items-center justify-between">
-                    <div>
-                        <span class="text-xs text-yellow-800 font-semibold">Pronunciation:</span>
-                        <span class="text-sm text-yellow-700 ml-2">${bestMatch.pronunciation}</span>
-                    </div>
-                    <button onclick="speakPronunciation('${bestMatch.translation}')"
-                            class="px-3 py-1 bg-yellow-500 text-white rounded-full hover:bg-yellow-600 transition text-sm">
-                        🔊 Listen
-                    </button>
+                outputHTML += `<div class="mt-3 p-3 bg-yellow-50 rounded-lg">
+                    <span class="text-xs text-yellow-800 font-semibold">Pronunciation:</span>
+                    <span class="text-sm text-yellow-700 ml-2">${bestMatch.pronunciation}</span>
                 </div>`;
             }
 
