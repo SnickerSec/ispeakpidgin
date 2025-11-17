@@ -393,14 +393,11 @@ async function performTranslation() {
 
             // Add to history
             addToHistory(text, bestMatch.translation, direction);
-        } else {
-            outputDiv.innerHTML = '<p class="text-gray-500 italic">No translation found. Try different words or check spelling.</p>';
-            confidenceIndicator?.classList.add('hidden');
-            copyBtn?.classList.add('hidden');
-            speakBtn?.classList.add('hidden');
-        }
     } else {
-        outputDiv.innerHTML = '<p class="text-red-500 italic">Translation service is loading. Please try again.</p>';
+        outputDiv.innerHTML = '<p class="text-gray-500 italic">No translation found. Try different words or check spelling.</p>';
+        confidenceIndicator?.classList.add('hidden');
+        copyBtn?.classList.add('hidden');
+        speakBtn?.classList.add('hidden');
     }
 }
 
