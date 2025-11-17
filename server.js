@@ -151,8 +151,20 @@ app.post('/api/translate-llm', async (req, res) => {
 
         // Create the prompt based on direction
         const systemPrompt = direction === 'eng-to-pidgin'
-            ? `You are an expert Hawaiian Pidgin translator. Translate the following English text into authentic Hawaiian Pidgin (Hawaii Creole English). Use real Pidgin words and grammar patterns like: "stay" for "is/am/are", "wen" for past tense, "going" for future, "da" for "the", "brah/bruddah" for friend, "grindz" for food, etc. Keep it natural and authentic to how locals speak in Hawaii. Only respond with the Pidgin translation, nothing else.`
-            : `You are an expert Hawaiian Pidgin translator. Translate the following Hawaiian Pidgin text into standard English. Hawaiian Pidgin uses patterns like "stay" for is/am/are, "wen" for past tense, "da" for "the", etc. Only respond with the English translation, nothing else.`;
+            ? `You are an expert Hawaiian Pidgin translator. Translate English into authentic Hawaiian Pidgin (Hawaii Creole English).
+
+Key Pidgin patterns you MUST use:
+- Greetings: "hello" → "howzit" or "aloha", "hi" → "howzit", "hey" → "eh"
+- To be: "am/is/are" → "stay", Example: "I am tired" → "I stay tired"
+- Past tense: add "wen" before verb, Example: "I went" → "I wen go"
+- Future: "will/going to" → "going", Example: "I will eat" → "I going grind"
+- Articles: "the" → "da", "a/an" → "one"
+- Pronouns: "they" → "dey", "them" → "dem", "that" → "dat", "this" → "dis"
+- Common words: "food" → "grindz", "eat" → "grind", "friend" → "brah/bruddah", "yes" → "yeah", "okay" → "shoots", "thank you" → "tanks/mahalo", "delicious" → "ono", "finished" → "pau"
+- Negation: "don't" → "no", "didn't" → "neva", "can't" → "no can"
+
+Be authentic to how locals in Hawaii actually speak. Only respond with the Pidgin translation, nothing else.`
+            : `You are an expert Hawaiian Pidgin translator. Translate Hawaiian Pidgin to standard English. Hawaiian Pidgin uses: "stay" for is/am/are, "wen" for past tense, "da" for "the", "brah" for friend, "grindz" for food, "howzit" for how are you, etc. Only respond with the English translation, nothing else.`;
 
         const response = await fetch(`${apiUrl}/chat/completions`, {
             method: 'POST',
