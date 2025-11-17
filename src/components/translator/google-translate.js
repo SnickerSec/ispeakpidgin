@@ -83,8 +83,8 @@ class GoogleTranslateService {
 
     // Generate basic pronunciation guide (placeholder)
     generatePronunciation(text) {
-        // This is a simple placeholder - you can enhance it later
-        return `Pronunciation: ${text}`;
+        // Return just the pronunciation text without label (label added in UI)
+        return text;
     }
 
     // Method to translate using the enhanced translate() format
