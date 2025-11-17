@@ -30,8 +30,7 @@ function initTranslatorPage() {
     }
 
     try {
-        // Initialize components
-        setupTranslationEngine();
+        // Initialize components (AI engine is always default now)
         setupTranslationDirection();
         setupTranslationControls();
         setupExamplePhrases();
