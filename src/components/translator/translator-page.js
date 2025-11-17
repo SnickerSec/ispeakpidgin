@@ -1,4 +1,7 @@
 // Translator Page Specific JavaScript
+// Global translation engine selector
+let currentTranslationEngine = 'local'; // 'local' or 'google'
+
 document.addEventListener('DOMContentLoaded', function() {
     // Wait for translator to be available before initializing
     const initWhenReady = () => {
@@ -28,6 +31,7 @@ function initTranslatorPage() {
 
     try {
         // Initialize components
+        setupTranslationEngine();
         setupTranslationDirection();
         setupTranslationControls();
         setupExamplePhrases();
@@ -41,6 +45,52 @@ function initTranslatorPage() {
         console.log('✅ Translator page initialized with enhancements');
     } catch (error) {
         console.error('Error initializing translator page:', error);
+    }
+}
+
+// Translation engine toggle (Local vs Google)
+function setupTranslationEngine() {
+    const localEngineBtn = document.getElementById('local-engine-btn');
+    const googleEngineBtn = document.getElementById('google-engine-btn');
+
+    localEngineBtn?.addEventListener('click', () => {
+        currentTranslationEngine = 'local';
+        localEngineBtn.classList.add('bg-green-600', 'text-white');
+        localEngineBtn.classList.remove('text-gray-600');
+        googleEngineBtn.classList.remove('bg-green-600', 'text-white');
+        googleEngineBtn.classList.add('text-gray-600');
+
+        // Store engine preference
+        localStorage.setItem('translationEngine', 'local');
+
+        // Re-translate if there's text
+        const inputField = document.getElementById('translator-input');
+        if (inputField && inputField.value.trim()) {
+            performTranslation();
+        }
+    });
+
+    googleEngineBtn?.addEventListener('click', () => {
+        currentTranslationEngine = 'google';
+        googleEngineBtn.classList.add('bg-green-600', 'text-white');
+        googleEngineBtn.classList.remove('text-gray-600');
+        localEngineBtn.classList.remove('bg-green-600', 'text-white');
+        localEngineBtn.classList.add('text-gray-600');
+
+        // Store engine preference
+        localStorage.setItem('translationEngine', 'google');
+
+        // Re-translate if there's text
+        const inputField = document.getElementById('translator-input');
+        if (inputField && inputField.value.trim()) {
+            performTranslation();
+        }
+    });
+
+    // Restore saved engine preference
+    const savedEngine = localStorage.getItem('translationEngine');
+    if (savedEngine === 'google') {
+        googleEngineBtn?.click();
     }
 }
 
@@ -196,7 +246,7 @@ function setupTranslationControls() {
 }
 
 // Perform translation
-function performTranslation() {
+async function performTranslation() {
     // Use global references instead of querying DOM again
     if (!inputField || !outputDiv) {
         console.error('Translation elements not found');
@@ -209,24 +259,39 @@ function performTranslation() {
     // Determine direction
     const direction = localStorage.getItem('translatorDirection') || 'en-to-pid';
 
-    // Use the translator module - wait for it to be available
-    if (typeof pidginTranslator !== 'undefined' && pidginTranslator) {
-        if (!pidginTranslator.initialized) {
-            pidginTranslator.tryInitialize();
-        }
+    let results;
 
-        let results;
-        try {
+    try {
+        // Use Google Translate or local translator based on selection
+        if (currentTranslationEngine === 'google' && typeof googleTranslateService !== 'undefined') {
+            // Show loading indicator
+            outputDiv.innerHTML = '<p class="text-gray-400 italic animate-pulse">Translating with Google...</p>';
+
+            // Call Google Translate API
             if (direction === 'en-to-pid') {
-                results = pidginTranslator.englishToPidgin(text);
+                results = await googleTranslateService.englishToPidgin(text);
             } else {
-                results = pidginTranslator.pidginToEnglish(text);
+                results = await googleTranslateService.pidginToEnglish(text);
             }
-        } catch (error) {
-            console.error('Translation error:', error);
-            outputDiv.innerHTML = '<p class="text-red-500 italic">Translation error. Please try again.</p>';
-            return;
+        } else {
+            // Use local translator
+            if (typeof pidginTranslator !== 'undefined' && pidginTranslator) {
+                if (!pidginTranslator.initialized) {
+                    pidginTranslator.tryInitialize();
+                }
+
+                if (direction === 'en-to-pid') {
+                    results = pidginTranslator.englishToPidgin(text);
+                } else {
+                    results = pidginTranslator.pidginToEnglish(text);
+                }
+            }
         }
+    } catch (error) {
+        console.error('Translation error:', error);
+        outputDiv.innerHTML = '<p class="text-red-500 italic">Translation error. Please try again.</p>';
+        return;
+    }
 
         if (results && results.length > 0) {
             // Display the best translation

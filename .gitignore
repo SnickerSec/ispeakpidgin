@@ -11,6 +11,10 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 
+# Google Cloud credentials
+google-credentials.json
+*-credentials.json
+
 # IDE
 .vscode/
 .idea/

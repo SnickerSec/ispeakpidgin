@@ -235,6 +235,18 @@
     <div class="max-w-6xl mx-auto px-4 py-4 md:py-12">
         <!-- Translation Interface -->
         <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+            <!-- Translation Engine Toggle -->
+            <div class="flex justify-center mb-4">
+                <div class="bg-gray-100 rounded-full p-1 flex items-center">
+                    <button id="local-engine-btn" class="px-6 py-3 rounded-full bg-green-600 text-white font-semibold transition text-sm">
+                        🏝️ Local Dictionary
+                    </button>
+                    <button id="google-engine-btn" class="px-6 py-3 rounded-full text-gray-600 hover:text-gray-800 font-semibold transition text-sm">
+                        🌐 Google Translate
+                    </button>
+                </div>
+            </div>
+
             <!-- Direction Toggle -->
             <div class="flex justify-center mb-8">
                 <div class="bg-gray-100 rounded-full p-1 flex items-center">
@@ -435,6 +447,7 @@
     <script src="js/sentence-chunker.js"></script>
     <script src="js/context-tracker.js"></script>
     <script src="js/translator.js"></script>
+    <script src="js/google-translate.js"></script>
     <script src="js/translator-page.js"></script>
     <script src="js/elevenlabs-speech.js"></script>
     <script src="js/speech.js"></script>

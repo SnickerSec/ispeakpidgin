@@ -3,7 +3,13 @@ const path = require('path');
 const compression = require('compression');
 const helmet = require('helmet');
 const fetch = require('node-fetch');
+const { Translate } = require('@google-cloud/translate').v2;
 require('dotenv').config();
+
+// Initialize Google Translate client
+const translate = new Translate({
+    keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS || './google-credentials.json'
+});
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -106,6 +112,41 @@ app.post('/api/text-to-speech', async (req, res) => {
     } catch (error) {
         console.error('TTS API error:', error);
         res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Google Translate API endpoint
+app.post('/api/translate', async (req, res) => {
+    try {
+        const { text, targetLanguage, sourceLanguage } = req.body;
+
+        if (!text) {
+            return res.status(400).json({ error: 'Text is required' });
+        }
+
+        // Default to English if not specified
+        const target = targetLanguage || 'en';
+        const source = sourceLanguage || 'en';
+
+        // Perform translation
+        const [translation] = await translate.translate(text, {
+            from: source,
+            to: target
+        });
+
+        res.json({
+            originalText: text,
+            translatedText: translation,
+            sourceLanguage: source,
+            targetLanguage: target
+        });
+
+    } catch (error) {
+        console.error('Google Translate API error:', error);
+        res.status(500).json({
+            error: 'Translation service error',
+            message: error.message
+        });
     }
 });
 
