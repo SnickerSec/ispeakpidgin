@@ -24,6 +24,7 @@ const pathMappings = {
     'js/pickup-lines.js': 'js/components/pickup-lines.js',
     'js/translator.js': 'js/components/translator.js',
     'js/translator-page.js': 'js/components/translator-page.js',
+    'js/google-translate.js': 'js/components/google-translate.js',
     'js/dictionary.js': 'js/components/dictionary.js',
     'js/dictionary-page.js': 'js/components/dictionary-page.js',
     'js/lessons.js': 'js/components/lessons.js',
