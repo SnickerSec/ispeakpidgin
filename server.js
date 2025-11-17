@@ -161,7 +161,7 @@ app.post('/api/translate-llm', async (req, res) => {
                 'Authorization': `Bearer ${apiKey}`
             },
             body: JSON.stringify({
-                model: 'google/gemini-flash-1.5',
+                model: 'google/gemini-2.0-flash-exp:free',
                 messages: [
                     { role: 'system', content: systemPrompt },
                     { role: 'user', content: text }
@@ -191,7 +191,7 @@ app.post('/api/translate-llm', async (req, res) => {
             originalText: text,
             translatedText: translation,
             direction: direction,
-            model: 'gemini-flash-1.5'
+            model: 'gemini-2.0-flash-exp'
         });
 
     } catch (error) {
