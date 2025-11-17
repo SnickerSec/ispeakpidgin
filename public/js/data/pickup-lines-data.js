@@ -142,4 +142,3 @@ const pickupLines = [
         color: "purple"
     }
 ];
-
