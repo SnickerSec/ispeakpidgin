@@ -165,16 +165,28 @@ function loadRandomPickupLines(count = 3) {
     // Clear existing content
     container.innerHTML = '';
 
+    // Load favorites from localStorage
+    const favorites = JSON.parse(localStorage.getItem('favoritePickupLines') || '[]');
+
     // Create and append cards for each line
     selectedLines.forEach((line, index) => {
         const card = document.createElement('div');
         card.className = `bg-white rounded-2xl shadow-xl p-6 hover:shadow-2xl transition-all transform hover:-translate-y-2 border-2 border-${line.color}-200`;
 
+        // Check if this line is favorited
+        const isFavorited = favorites.some(fav => fav.pidgin === line.pidgin);
+        const heartIcon = isFavorited ? '❤️' : '🤍';
+
         card.innerHTML = `
             <div class="flex items-start mb-3">
                 <span class="text-3xl mr-3">${line.emoji}</span>
                 <div class="flex-1">
-                    <p class="text-xl font-bold text-${line.color}-600 mb-2">"${line.pidgin}"</p>
+                    <div class="flex justify-between items-start">
+                        <p class="text-xl font-bold text-${line.color}-600 mb-2">"${line.pidgin}"</p>
+                        <button class="favorite-btn text-2xl hover:scale-110 transition-transform" data-line='${JSON.stringify(line)}' title="Add to favorites">
+                            ${heartIcon}
+                        </button>
+                    </div>
                     <p class="text-gray-600 italic text-sm mb-2">${line.pronunciation}</p>
                     <p class="text-gray-700">${line.english}</p>
                 </div>
@@ -183,6 +195,43 @@ function loadRandomPickupLines(count = 3) {
 
         container.appendChild(card);
     });
+
+    // Add click handlers to favorite buttons
+    const favoriteButtons = container.querySelectorAll('.favorite-btn');
+    favoriteButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleFavorite(this);
+        });
+    });
+}
+
+// Toggle favorite status
+function toggleFavorite(button) {
+    const line = JSON.parse(button.dataset.line);
+    let favorites = JSON.parse(localStorage.getItem('favoritePickupLines') || '[]');
+
+    // Check if already favorited
+    const index = favorites.findIndex(fav => fav.pidgin === line.pidgin);
+
+    if (index > -1) {
+        // Remove from favorites
+        favorites.splice(index, 1);
+        button.textContent = '🤍';
+    } else {
+        // Add to favorites
+        favorites.push(line);
+        button.textContent = '❤️';
+    }
+
+    // Save to localStorage
+    localStorage.setItem('favoritePickupLines', JSON.stringify(favorites));
+
+    // Visual feedback
+    button.classList.add('animate-pulse');
+    setTimeout(() => {
+        button.classList.remove('animate-pulse');
+    }, 300);
 }
 
 // Load pickup lines when DOM is ready
