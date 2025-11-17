@@ -133,7 +133,7 @@ app.post('/api/text-to-speech', async (req, res) => {
     }
 });
 
-// Kilo Gateway LLM Translation endpoint (Gemini Flash)
+// Google Gemini LLM Translation endpoint
 app.post('/api/translate-llm', async (req, res) => {
     try {
         const { text, direction } = req.body;
@@ -142,11 +142,10 @@ app.post('/api/translate-llm', async (req, res) => {
             return res.status(400).json({ error: 'Text is required' });
         }
 
-        const apiKey = process.env.KILO_API_KEY;
-        const apiUrl = process.env.KILO_API_URL || 'https://kilocode.ai/api/openrouter';
+        const apiKey = process.env.GEMINI_API_KEY;
 
         if (!apiKey) {
-            return res.status(500).json({ error: 'Kilo API key not configured' });
+            return res.status(500).json({ error: 'Gemini API key not configured' });
         }
 
         // Create the prompt based on direction
@@ -166,34 +165,38 @@ Key Pidgin patterns you MUST use:
 Be authentic to how locals in Hawaii actually speak. Only respond with the Pidgin translation, nothing else.`
             : `You are an expert Hawaiian Pidgin translator. Translate Hawaiian Pidgin to standard English. Hawaiian Pidgin uses: "stay" for is/am/are, "wen" for past tense, "da" for "the", "brah" for friend, "grindz" for food, "howzit" for how are you, etc. Only respond with the English translation, nothing else.`;
 
-        const response = await fetch(`${apiUrl}/chat/completions`, {
+        // Google Gemini API endpoint
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`;
+
+        const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${apiKey}`
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                model: 'google/gemini-2.5-flash',
-                messages: [
-                    { role: 'system', content: systemPrompt },
-                    { role: 'user', content: text }
-                ],
-                temperature: 0.3,
-                max_tokens: 500
+                contents: [{
+                    parts: [{
+                        text: `${systemPrompt}\n\nTranslate: ${text}`
+                    }]
+                }],
+                generationConfig: {
+                    temperature: 0.3,
+                    maxOutputTokens: 500
+                }
             })
         });
 
         if (!response.ok) {
             const errorText = await response.text();
-            console.error('Kilo API error:', response.status, errorText);
+            console.error('Gemini API error:', response.status, errorText);
             return res.status(response.status).json({
-                error: `Kilo API error: ${response.status}`,
+                error: `Gemini API error: ${response.status}`,
                 details: errorText
             });
         }
 
         const data = await response.json();
-        const translation = data.choices?.[0]?.message?.content?.trim();
+        const translation = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
 
         if (!translation) {
             return res.status(500).json({ error: 'No translation received from LLM' });
@@ -203,11 +206,11 @@ Be authentic to how locals in Hawaii actually speak. Only respond with the Pidgi
             originalText: text,
             translatedText: translation,
             direction: direction,
-            model: 'gemini-2.5-flash'
+            model: 'gemini-2.0-flash-exp'
         });
 
     } catch (error) {
-        console.error('LLM Translation error:', error);
+        console.error('Gemini Translation error:', error);
         res.status(500).json({
             error: 'Translation service error',
             message: error.message
