@@ -1,6 +1,6 @@
 // Translator Page Specific JavaScript
-// Global translation engine selector
-let currentTranslationEngine = 'local'; // 'local' or 'google'
+// Global translation engine selector - AI (Gemini) is default
+let currentTranslationEngine = 'google'; // 'local' or 'google' (AI fallback to local)
 
 document.addEventListener('DOMContentLoaded', function() {
     // Wait for translator to be available before initializing
@@ -159,8 +159,9 @@ function setupTranslationControls() {
     confidenceBar = document.getElementById('confidence-bar');
     confidenceText = document.getElementById('confidence-text');
 
-    // Remove translate button listener since it's gone
-    // translateBtn?.addEventListener('click', performTranslation);
+    // Add translate button listener (manual translation to save API costs)
+    const translateBtn = document.getElementById('translate-btn');
+    translateBtn?.addEventListener('click', performTranslation);
 
     // Keep Enter key to force re-translate if needed
     inputField?.addEventListener('keypress', (e) => {
@@ -170,27 +171,14 @@ function setupTranslationControls() {
         }
     });
 
-    // Auto-translate on input (with debounce)
-    let translateTimeout;
+    // Clear output when input is empty (manual translation only to save API costs)
     inputField?.addEventListener('input', () => {
-        clearTimeout(translateTimeout);
-
-        // Show typing indicator
-        if (inputField.value.trim()) {
-            outputDiv.innerHTML = '<p class="text-gray-400 italic animate-pulse">Translating...</p>';
+        if (!inputField.value.trim()) {
+            outputDiv.innerHTML = '<p class="text-gray-400 italic">Translation will appear here...</p>';
+            confidenceIndicator?.classList.add('hidden');
+            copyBtn?.classList.add('hidden');
+            speakBtn?.classList.add('hidden');
         }
-
-        translateTimeout = setTimeout(() => {
-            if (inputField.value.trim()) {
-                performTranslation();
-            } else {
-                // Clear output when input is empty
-                outputDiv.innerHTML = '<p class="text-gray-400 italic">Translation will appear here...</p>';
-                confidenceIndicator?.classList.add('hidden');
-                copyBtn?.classList.add('hidden');
-                speakBtn?.classList.add('hidden');
-            }
-        }, 300); // Reduced from 500ms to 300ms for faster response
     });
 
     // Clear button
@@ -262,16 +250,37 @@ async function performTranslation() {
     let results;
 
     try {
-        // Use LLM AI or local translator based on selection
+        // Use AI (Gemini) by default, fallback to local if AI fails
         if (currentTranslationEngine === 'google' && typeof googleTranslateService !== 'undefined') {
             // Show loading indicator
             outputDiv.innerHTML = '<p class="text-gray-400 italic animate-pulse">Translating with AI...</p>';
 
-            // Call Google Translate API
-            if (direction === 'en-to-pid') {
-                results = await googleTranslateService.englishToPidgin(text);
-            } else {
-                results = await googleTranslateService.pidginToEnglish(text);
+            try {
+                // Call Gemini API
+                if (direction === 'en-to-pid') {
+                    results = await googleTranslateService.englishToPidgin(text);
+                } else {
+                    results = await googleTranslateService.pidginToEnglish(text);
+                }
+
+                // Check if AI returned valid results
+                if (!results || results.length === 0 || results[0].error) {
+                    throw new Error('AI translation failed, falling back to local');
+                }
+            } catch (aiError) {
+                console.warn('AI translation failed, falling back to local dictionary:', aiError);
+                // Fallback to local translator
+                if (typeof pidginTranslator !== 'undefined' && pidginTranslator) {
+                    if (!pidginTranslator.initialized) {
+                        pidginTranslator.tryInitialize();
+                    }
+
+                    if (direction === 'en-to-pid') {
+                        results = pidginTranslator.englishToPidgin(text);
+                    } else {
+                        results = pidginTranslator.pidginToEnglish(text);
+                    }
+                }
             }
         } else {
             // Use local translator

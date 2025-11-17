@@ -165,8 +165,8 @@ Key Pidgin patterns you MUST use:
 Be authentic to how locals in Hawaii actually speak. Only respond with the Pidgin translation, nothing else.`
             : `You are an expert Hawaiian Pidgin translator. Translate Hawaiian Pidgin to standard English. Hawaiian Pidgin uses: "stay" for is/am/are, "wen" for past tense, "da" for "the", "brah" for friend, "grindz" for food, "howzit" for how are you, etc. Only respond with the English translation, nothing else.`;
 
-        // Google Gemini API endpoint
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`;
+        // Google Gemini API endpoint - using Gemini 2.5 Flash Lite for cost efficiency
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
 
         const response = await fetch(apiUrl, {
             method: 'POST',
@@ -206,7 +206,7 @@ Be authentic to how locals in Hawaii actually speak. Only respond with the Pidgi
             originalText: text,
             translatedText: translation,
             direction: direction,
-            model: 'gemini-2.0-flash-exp'
+            model: 'gemini-2.5-flash-lite'
         });
 
     } catch (error) {
