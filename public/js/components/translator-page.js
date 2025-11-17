@@ -417,10 +417,9 @@ function setupExamplePhrases() {
                 document.getElementById('pidgin-to-english-btn')?.click();
             }
 
-            // Set text and translate
+            // Set text (manual translation only)
             inputField.value = text;
             updateCharacterCount();
-            performTranslation();
 
             // Scroll to translation
             inputField.scrollIntoView({ behavior: 'smooth', block: 'center' });
