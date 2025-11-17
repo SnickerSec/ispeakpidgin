@@ -3,12 +3,30 @@ const path = require('path');
 const compression = require('compression');
 const helmet = require('helmet');
 const fetch = require('node-fetch');
+const fs = require('fs');
 const { Translate } = require('@google-cloud/translate').v2;
 require('dotenv').config();
 
+// Handle Google Cloud credentials
+let credentialsPath = './google-credentials.json';
+
+// If base64 credentials are provided via environment variable (for Railway deployment)
+if (process.env.GOOGLE_CREDENTIALS_BASE64) {
+    try {
+        const credentialsJson = Buffer.from(process.env.GOOGLE_CREDENTIALS_BASE64, 'base64').toString('utf-8');
+        credentialsPath = '/tmp/google-credentials.json';
+        fs.writeFileSync(credentialsPath, credentialsJson);
+        console.log('✅ Google Cloud credentials loaded from environment variable');
+    } catch (error) {
+        console.error('❌ Error loading credentials from environment:', error);
+    }
+} else if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+    credentialsPath = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+}
+
 // Initialize Google Translate client
 const translate = new Translate({
-    keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS || './google-credentials.json'
+    keyFilename: credentialsPath
 });
 
 const app = express();
