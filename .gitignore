@@ -26,6 +26,13 @@ google-credentials.json
 # Build outputs
 dist/
 build/
+public/
+!public/robots.txt
+!public/sitemap.xml
+!public/.gitkeep
+
+# Training data (development only)
+data/training/
 
 # Logs
 logs/

@@ -7,11 +7,14 @@
     "start": "node server.js",
     "dev": "./scripts/dev-server.sh",
     "build": "node build.js",
-    "build-sh": "./scripts/build.sh",
     "deploy": "./scripts/deploy.sh",
-    "serve": "node server.js",
-    "consolidate-data": "node tools/consolidate-data.js",
-    "rebuild-data": "npm run consolidate-data && npm run build"
+    "data:consolidate": "node tools/data/consolidate-data.js",
+    "data:rebuild": "npm run data:consolidate && npm run build",
+    "test": "node tools/testing/run-validation.js",
+    "test:translator": "node tools/testing/validate-phase-2-3.js",
+    "generate:sitemap": "node tools/generators/generate-sitemap.js",
+    "generate:pages": "node tools/generators/generate-entry-pages.js",
+    "validate": "npm run test"
   },
   "keywords": [
     "pidgin",
