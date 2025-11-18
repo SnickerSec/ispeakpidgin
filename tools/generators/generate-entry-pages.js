@@ -10,11 +10,11 @@ const path = require('path');
 
 // Load master data
 const masterData = JSON.parse(
-    fs.readFileSync(path.join(__dirname, '../data/master/pidgin-master.json'), 'utf8')
+    fs.readFileSync(path.join(__dirname, '../../data/master/pidgin-master.json'), 'utf8')
 );
 
 // Output directory
-const outputDir = path.join(__dirname, '../public/word');
+const outputDir = path.join(__dirname, '../../public/word');
 
 // Create output directory
 if (!fs.existsSync(outputDir)) {
@@ -381,10 +381,10 @@ function generateEntryPage(entry, relatedTerms) {
         // Speak word button
         document.getElementById('speak-word')?.addEventListener('click', async () => {
             const text = "${entry.pidgin}";
-            if (window.speechManager) {
-                await window.speechManager.speak(text);
+            if (window.pidginSpeech) {
+                await window.pidginSpeech.speak(text);
             } else {
-                console.error('Speech manager not initialized');
+                console.error('Pidgin speech not initialized');
             }
         });
     </script>

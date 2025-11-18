@@ -326,10 +326,10 @@
         // Speak word button
         document.getElementById('speak-word')?.addEventListener('click', async () => {
             const text = "lūʻau";
-            if (window.speechManager) {
-                await window.speechManager.speak(text);
+            if (window.pidginSpeech) {
+                await window.pidginSpeech.speak(text);
             } else {
-                console.error('Speech manager not initialized');
+                console.error('Pidgin speech not initialized');
             }
         });
     </script>
