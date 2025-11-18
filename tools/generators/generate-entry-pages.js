@@ -93,7 +93,7 @@ function generateEntryPage(entry, relatedTerms) {
     // Build related terms HTML
     const relatedHtml = relatedTerms.length > 0 ? `
         <section class="mt-12">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6 brand-font">🌺 Related Words</h2>
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">🌺 Related Words</h2>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                 ${relatedTerms.map(related => `
                     <a href="/word/${createSlug(related.pidgin)}.html"
@@ -174,15 +174,21 @@ function generateEntryPage(entry, relatedTerms) {
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/css/main.css">
 
     <style>
+        /* Pacifico - LOGO ONLY (Use sparingly for branding) */
         .brand-font {
             font-family: 'Pacifico', cursive;
+        }
+
+        /* Inter - All body text and headings for maximum readability */
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
     </style>
 
@@ -251,7 +257,7 @@ function generateEntryPage(entry, relatedTerms) {
     <main class="container mx-auto px-4 py-8 max-w-4xl">
         <!-- Word Header -->
         <div class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 rounded-3xl p-8 mb-8 shadow-2xl border-2 border-purple-200">
-            <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4 brand-font">${escapeHtml(entry.pidgin)}</h1>
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4">${escapeHtml(entry.pidgin)}</h1>
 
             ${entry.pronunciation ? `
             <div class="mb-4">
@@ -279,7 +285,7 @@ function generateEntryPage(entry, relatedTerms) {
 
         <!-- Meaning Section -->
         <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4 brand-font">📖 Meaning</h2>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">📖 Meaning</h2>
             <div class="space-y-3">
                 ${entry.english.map(meaning => `
                     <div class="flex items-start">
@@ -299,7 +305,7 @@ function generateEntryPage(entry, relatedTerms) {
         <!-- Examples Section -->
         ${entry.examples && entry.examples.length > 0 ? `
         <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4 brand-font">💬 Examples</h2>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">💬 Examples</h2>
             <div class="space-y-4">
                 ${entry.examples.map(example => `
                     <div class="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-4 border-l-4 border-green-500">
@@ -313,7 +319,7 @@ function generateEntryPage(entry, relatedTerms) {
         <!-- Origin & Cultural Context -->
         ${entry.origin ? `
         <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4 brand-font">🌺 Origin & Cultural Context</h2>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">🌺 Origin & Cultural Context</h2>
             <div class="bg-gradient-to-r from-orange-50 to-pink-50 rounded-xl p-6">
                 <p class="text-lg text-gray-700 mb-2">
                     <strong>Origin:</strong> ${escapeHtml(entry.origin)}
@@ -327,7 +333,7 @@ function generateEntryPage(entry, relatedTerms) {
 
         <!-- Quick Actions -->
         <section class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4 brand-font">🚀 Quick Actions</h2>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">🚀 Quick Actions</h2>
             <div class="flex flex-wrap gap-4">
                 <a href="/translator.html?text=${encodeURIComponent(entry.pidgin)}"
                    class="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-6 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
