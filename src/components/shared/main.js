@@ -1267,11 +1267,19 @@ function showAllStories() {
     const backToTopDiv = document.createElement('div');
     backToTopDiv.className = 'text-center mt-6';
     backToTopDiv.innerHTML = `
-        <button class="bg-orange-400 text-white px-6 py-3 rounded-full hover:bg-orange-500 transition font-semibold" onclick="document.getElementById('community').scrollIntoView({behavior: 'smooth'})">
+        <button id="back-to-top-btn" class="bg-orange-400 text-white px-6 py-3 rounded-full hover:bg-orange-500 transition font-semibold">
             ⬆️ Back to Top
         </button>
     `;
     storiesContainer.appendChild(backToTopDiv);
+
+    // Add event listener for back to top button
+    const backToTopBtn = document.getElementById('back-to-top-btn');
+    if (backToTopBtn) {
+        backToTopBtn.addEventListener('click', () => {
+            document.getElementById('community').scrollIntoView({behavior: 'smooth'});
+        });
+    }
 }
 
 // Initialize Story Corner with randomized stories
