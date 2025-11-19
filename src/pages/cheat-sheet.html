@@ -163,6 +163,38 @@
         </div>
     </div>
 
+    <!-- Email Capture Modal -->
+    <div id="email-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden no-print">
+        <div class="bg-white rounded-2xl p-8 max-w-md mx-4 shadow-2xl">
+            <div class="text-center mb-6">
+                <div class="text-5xl mb-3">📧</div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">Get Your Free PDF!</h3>
+                <p class="text-gray-600">Enter your email to receive the Hawaiian Pidgin Cheat Sheet PDF instantly, plus exclusive language tips!</p>
+            </div>
+
+            <form id="email-form" class="mb-4">
+                <input type="email" id="email-input" placeholder="your@email.com" required
+                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg mb-4 focus:border-green-500 focus:outline-none text-lg">
+                <button type="submit" class="w-full bg-gradient-to-r from-green-600 to-teal-600 text-white px-6 py-3 rounded-lg font-bold hover:from-green-700 hover:to-teal-700 transition shadow-lg mb-2">
+                    📥 Email Me the PDF
+                </button>
+            </form>
+
+            <div class="text-center">
+                <button onclick="skipEmailCapture()" class="text-gray-500 hover:text-gray-700 underline text-sm">
+                    Skip and download directly
+                </button>
+                <button onclick="closeEmailModal()" class="block mx-auto mt-3 text-gray-400 hover:text-gray-600 text-sm">
+                    ✕ Close
+                </button>
+            </div>
+
+            <p class="text-xs text-gray-500 text-center mt-4">
+                We respect your privacy. Unsubscribe anytime. No spam, we promise! 🤙
+            </p>
+        </div>
+    </div>
+
     <!-- Cheat Sheet Content -->
     <div class="max-w-6xl mx-auto px-4 py-8">
         <div class="cheat-sheet rounded-3xl p-8">
@@ -575,19 +607,65 @@
         });
 
         function downloadPDF() {
-            // Track PDF download attempt
+            // Track PDF download button click
             if (typeof gtag === 'function') {
-                gtag('event', 'download_pdf', {
+                gtag('event', 'click_download_pdf', {
                     event_category: 'engagement',
-                    event_label: 'Hawaiian Pidgin Cheat Sheet PDF',
-                    value: 1
+                    event_label: 'Download PDF Button'
                 });
             }
 
+            // Show email capture modal
+            document.getElementById('email-modal').classList.remove('hidden');
+        }
+
+        function closeEmailModal() {
+            document.getElementById('email-modal').classList.add('hidden');
+        }
+
+        function skipEmailCapture() {
+            // Track skip action
+            if (typeof gtag === 'function') {
+                gtag('event', 'skip_email_capture', {
+                    event_category: 'engagement',
+                    event_label: 'Direct PDF Download'
+                });
+            }
+
+            closeEmailModal();
             // Show helpful message then trigger print dialog
-            alert('💡 Tip: In the print dialog, select "Save as PDF" as your destination to download the cheat sheet as a PDF file!');
+            alert('💡 Tip: In the print dialog, select "Save as PDF" as your destination to download the cheat sheet!');
             window.print();
         }
+
+        // Handle email form submission
+        document.getElementById('email-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email-input').value;
+
+            // Track email submission
+            if (typeof gtag === 'function') {
+                gtag('event', 'submit_email', {
+                    event_category: 'lead_generation',
+                    event_label: 'Cheat Sheet PDF Email Capture'
+                });
+            }
+
+            // In a real implementation, you would send this to your email service provider
+            // For now, we'll just log it and proceed to download
+            console.log('Email submitted:', email);
+
+            // TODO: Integrate with email service provider (e.g., Mailchimp, ConvertKit, SendGrid)
+            // Example: await fetch('/api/subscribe', { method: 'POST', body: JSON.stringify({ email }) });
+
+            // Close modal and show success message
+            closeEmailModal();
+            alert('🎉 Thanks! Check your email for the PDF. Meanwhile, here\'s a direct download option:');
+            window.print();
+
+            // Reset form
+            document.getElementById('email-form').reset();
+        });
 
         function shareCheatSheet() {
             // Track share attempt
