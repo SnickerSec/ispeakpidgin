@@ -411,10 +411,13 @@
                 <p class="text-lg text-blue-100 mb-8">
                     Master authentic Hawaiian slang, island expressions, and local Pidgin spoken by real locals
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <div class="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
                     <a href="translator.html" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition flex items-center gap-2 justify-center">
                         <img src="https://cdn-icons-png.flaticon.com/512/1375/1375510.png" alt="Translator" class="w-5 h-5 filter brightness-0">
                         Start Translating
+                    </a>
+                    <a href="cheat-sheet.html" class="bg-yellow-400 text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-yellow-300 transition animate-pulse">
+                        📋 Free Cheat Sheet
                     </a>
                     <a href="dictionary.html" class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition">
                         📖 Dictionary
@@ -474,6 +477,41 @@
                             🎲 Generate New Phrase
                         </button>
                     </div>
+                </div>
+            </div>
+
+            <!-- Cheat Sheet Callout -->
+            <div class="bg-gradient-to-r from-green-500 via-teal-500 to-blue-500 rounded-3xl shadow-2xl p-8 mb-12 max-w-4xl mx-auto text-white relative overflow-hidden">
+                <div class="absolute inset-0 opacity-20">
+                    <div class="absolute top-4 right-4 text-6xl">📋</div>
+                    <div class="absolute bottom-4 left-4 text-5xl">🖨️</div>
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-9xl opacity-10">📄</div>
+                </div>
+
+                <div class="relative z-10 text-center">
+                    <div class="inline-block bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 mb-4">
+                        <span class="text-sm font-bold uppercase tracking-wide">🎯 Free Download</span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-black mb-4">
+                        Hawaiian Pidgin Cheat Sheet
+                    </h2>
+                    <p class="text-xl md:text-2xl mb-2 font-semibold">
+                        75+ Essential Phrases • Grammar Rules • Example Conversations
+                    </p>
+                    <p class="text-lg mb-6 text-white/90">
+                        One-page quick reference guide - Perfect for printing or saving to your phone!
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="cheat-sheet.html" class="bg-white text-teal-600 px-8 py-4 rounded-full font-bold hover:bg-blue-50 transition shadow-xl hover:scale-105 transform text-lg">
+                            📋 View Cheat Sheet
+                        </a>
+                        <button onclick="window.open('cheat-sheet.html'); setTimeout(() => window.print(), 500)" class="bg-yellow-400 text-gray-900 px-8 py-4 rounded-full font-bold hover:bg-yellow-300 transition shadow-xl hover:scale-105 transform text-lg">
+                            🖨️ Print Now
+                        </button>
+                    </div>
+                    <p class="text-sm mt-4 text-white/80">
+                        ✓ Print-friendly design  ✓ Share on social media  ✓ 100% Free
+                    </p>
                 </div>
             </div>
 
