@@ -22,6 +22,9 @@ const pathMappings = {
     'js/comprehensive-pidgin-data.js': 'js/data/comprehensive-pidgin-data.js',
     'js/stories-data.js': 'js/data/stories-data.js',
     'js/pickup-lines.js': 'js/components/pickup-lines.js',
+    'js/pickup-line-generator.js': 'js/components/pickup-line-generator.js',
+    'js/pickup-line-generator-page.js': 'js/components/pickup-line-generator-page.js',
+    'js/data/pickup-line-generator-data.js': 'js/data/pickup-line-generator-data.js',
     'js/translator.js': 'js/components/translator.js',
     'js/translator-page.js': 'js/components/translator-page.js',
     'js/google-translate.js': 'js/components/google-translate.js',
@@ -73,7 +76,7 @@ function createPublicStructure() {
 function processHTMLFiles() {
     const htmlFiles = [
         'index.html', 'translator.html', 'dictionary.html', 'ask-local.html',
-        'learning-hub.html', 'stories.html', 'pickup-lines.html', 'pidgin-bible.html',
+        'learning-hub.html', 'stories.html', 'pickup-lines.html', 'pickup-line-generator.html', 'pidgin-bible.html',
         'about.html', 'pidgin-vs-hawaiian.html', 'cheat-sheet.html',
         // SEO Pages
         'what-does-da-kine-mean.html',
@@ -150,7 +153,7 @@ function copyJavaScriptFiles() {
     });
 
     // Copy individual JS files from src/js
-    const individualJsFiles = ['learning-hub.js', 'pickup-lines.js'];
+    const individualJsFiles = ['learning-hub.js', 'pickup-lines.js', 'pickup-line-generator.js', 'pickup-line-generator-page.js'];
     individualJsFiles.forEach(file => {
         const srcPath = path.join('src/js', file);
         if (fs.existsSync(srcPath)) {
@@ -224,6 +227,23 @@ function copyDataFiles() {
                 fs.mkdirSync(path.dirname(dest), { recursive: true });
                 fs.copyFileSync(src, dest);
                 console.log(`📊 Copied src data: ${path.basename(dest)}`);
+            }
+        });
+    }
+
+    // Copy generator data files from src/js/data/ directory
+    const srcJsDataDir = 'src/js/data';
+    if (fs.existsSync(srcJsDataDir)) {
+        const srcJsDataFiles = [
+            { src: `${srcJsDataDir}/pickup-line-generator-data.js`, dest: 'public/js/data/pickup-line-generator-data.js' }
+        ];
+
+        srcJsDataFiles.forEach(({ src, dest }) => {
+            if (fs.existsSync(src)) {
+                // Ensure destination directory exists
+                fs.mkdirSync(path.dirname(dest), { recursive: true });
+                fs.copyFileSync(src, dest);
+                console.log(`📊 Copied generator data: ${path.basename(dest)}`);
             }
         });
     }

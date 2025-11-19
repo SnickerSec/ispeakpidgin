@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hawaiian Pidgin Pickup Line Generator - Create Custom Lines | ChokePidgin.com</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Generate unique Hawaiian Pidgin pickup lines instantly! AI-powered generator creates romantic, funny, and authentic island-style pickup lines with pronunciations.">
+    <meta name="keywords" content="pickup line generator, Hawaiian Pidgin generator, AI pickup lines, custom pickup lines, Hawaiian romance, pidgin flirting">
+    <meta name="author" content="ChokePidgin.com">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Hawaiian Pidgin Pickup Line Generator | ChokePidgin.com">
+    <meta property="og:description" content="Generate custom Hawaiian Pidgin pickup lines with AI! Romantic, funny, sweet - create unlimited unique lines.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chokepidgin.com/pickup-line-generator.html">
+    <meta property="og:site_name" content="ChokePidgin.com">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://chokepidgin.com/pickup-line-generator.html">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" href="/favicon.ico">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7YYDVDXD"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-RB7YYDVDXD');
+    </script>
+
+    <style>
+        .brand-font {
+            font-family: 'Pacifico', cursive;
+        }
+
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .generator-card {
+            background: linear-gradient(135deg, #fff5f7 0%, #fff1f3 100%);
+            border: 3px solid #f9a8d4;
+            box-shadow: 0 10px 40px rgba(249, 168, 212, 0.3);
+        }
+
+        .result-card {
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+        }
+
+        .result-card.show {
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .generate-btn {
+            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+            transition: all 0.3s ease;
+        }
+
+        .generate-btn:hover:not(:disabled) {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
+        }
+
+        .generate-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .context-btn {
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .context-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .context-btn.active {
+            border-color: #ec4899;
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+        }
+
+        .spinner {
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid #ec4899;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .emoji-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .share-btn {
+            transition: all 0.2s ease;
+        }
+
+        .share-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-ai {
+            background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+            color: white;
+        }
+
+        .badge-random {
+            background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-gradient-to-b from-pink-50 via-purple-50 to-blue-50">
+    <!-- Navigation -->
+    <nav class="shadow-lg sticky top-0 z-50 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <a href="index.html">
+                        <span class="brand-font text-3xl bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+                            🌴 ChokePidgin 🌊
+                        </span>
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-6 items-center">
+                    <a href="index.html" class="nav-link text-gray-700 hover:text-green-600 transition">Home</a>
+                    <a href="translator.html" class="nav-link text-gray-700 hover:text-green-600 transition">Translator</a>
+                    <a href="dictionary.html" class="nav-link text-gray-700 hover:text-green-600 transition">Dictionary</a>
+                    <a href="learning-hub.html" class="nav-link text-gray-700 hover:text-green-600 transition">Learning Hub</a>
+                    <a href="stories.html" class="nav-link text-gray-700 hover:text-green-600 transition">Stories</a>
+                    <a href="pickup-lines.html" class="nav-link text-gray-700 hover:text-green-600 transition">Pickup Lines</a>
+                    <a href="pickup-line-generator.html" class="nav-link text-green-600 font-semibold">Generator</a>
+                    <a href="pidgin-bible.html" class="nav-link text-gray-700 hover:text-green-600 transition">Pidgin Bible</a>
+                    <a href="ask-local.html" class="nav-link text-gray-700 hover:text-green-600 transition">Ask a Local</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-700 p-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Home</a>
+                <a href="translator.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Translator</a>
+                <a href="dictionary.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Dictionary</a>
+                <a href="learning-hub.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Learning Hub</a>
+                <a href="stories.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Stories</a>
+                <a href="pickup-lines.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Pickup Lines</a>
+                <a href="pickup-line-generator.html" class="block px-3 py-2 text-green-600 font-semibold">Generator</a>
+                <a href="pidgin-bible.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Pidgin Bible</a>
+                <a href="ask-local.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Ask a Local</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="py-12 px-4 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-10 left-10 text-6xl emoji-float">✨</div>
+            <div class="absolute top-20 right-20 text-5xl emoji-float" style="animation-delay: 0.5s">💝</div>
+            <div class="absolute bottom-20 left-20 text-5xl emoji-float" style="animation-delay: 1s">🌺</div>
+            <div class="absolute bottom-10 right-10 text-4xl emoji-float" style="animation-delay: 1.5s">🤖</div>
+        </div>
+
+        <div class="container mx-auto max-w-6xl text-center relative z-10">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                ✨ Pidgin Pickup Line Generator 🤖
+            </h1>
+            <p class="text-xl md:text-2xl mb-2">
+                AI-Powered Custom Pickup Line Creation
+            </p>
+            <p class="text-lg opacity-90">
+                Generate unique lines instantly • Thousands of combinations • AI-enhanced
+            </p>
+        </div>
+    </header>
+
+    <!-- Generator Section -->
+    <section class="py-12 px-4">
+        <div class="container mx-auto max-w-4xl">
+            <!-- Generator Card -->
+            <div class="generator-card rounded-3xl p-8 mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">
+                    🎲 Create Your Pickup Line
+                </h2>
+
+                <!-- Context Selection -->
+                <div class="mb-6">
+                    <label class="block text-sm font-semibold text-gray-700 mb-3">Choose Your Style:</label>
+                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                        <button class="context-btn active px-4 py-3 rounded-xl bg-white" data-context="romantic">
+                            💕 Romantic
+                        </button>
+                        <button class="context-btn px-4 py-3 rounded-xl bg-white" data-context="funny">
+                            😄 Funny
+                        </button>
+                        <button class="context-btn px-4 py-3 rounded-xl bg-white" data-context="sweet">
+                            🍯 Sweet
+                        </button>
+                        <button class="context-btn px-4 py-3 rounded-xl bg-white" data-context="bold">
+                            🔥 Bold
+                        </button>
+                        <button class="context-btn px-4 py-3 rounded-xl bg-white" data-context="classic">
+                            ✨ Classic
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Generation Mode -->
+                <div class="mb-6">
+                    <label class="block text-sm font-semibold text-gray-700 mb-3">Generation Mode:</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <button id="mode-random" class="context-btn active px-6 py-4 rounded-xl bg-white text-left">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <div class="font-bold">🎲 Random Mix</div>
+                                    <div class="text-xs text-gray-600">Fast • Component-based</div>
+                                </div>
+                            </div>
+                        </button>
+                        <button id="mode-ai" class="context-btn px-6 py-4 rounded-xl bg-white text-left">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <div class="font-bold">🤖 AI Generated</div>
+                                    <div class="text-xs text-gray-600">Creative • Unique • Slower</div>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Generate Button -->
+                <button id="generate-btn" class="generate-btn w-full py-4 rounded-2xl text-white text-xl font-bold shadow-lg">
+                    ✨ Generate Pickup Line
+                </button>
+
+                <p class="text-center text-sm text-gray-600 mt-4">
+                    Click to generate a unique Hawaiian Pidgin pickup line!
+                </p>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loading-state" class="hidden text-center py-8">
+                <div class="spinner mx-auto mb-4"></div>
+                <p class="text-gray-600 font-semibold">Generating your pickup line...</p>
+                <p class="text-sm text-gray-500">This may take a few seconds</p>
+            </div>
+
+            <!-- Result Card -->
+            <div id="result-container" class="hidden">
+                <div class="result-card bg-white rounded-3xl shadow-2xl p-8 border-4 border-pink-300">
+                    <div class="flex items-start justify-between mb-4">
+                        <span id="result-badge" class="badge badge-random">🎲 Random Mix</span>
+                        <button id="share-btn" class="share-btn bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
+                            🔗 Share
+                        </button>
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-3" id="result-pidgin">
+                            <!-- Pidgin line here -->
+                        </h3>
+                        <p class="text-gray-600 italic mb-4" id="result-pronunciation">
+                            <!-- Pronunciation here -->
+                        </p>
+                        <p class="text-gray-700 text-lg" id="result-english">
+                            <!-- English translation here -->
+                        </p>
+                    </div>
+
+                    <div id="cultural-note" class="hidden bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg mb-4">
+                        <p class="text-sm text-blue-900">
+                            <strong>💡 Cultural Note:</strong> <span id="cultural-note-text"></span>
+                        </p>
+                    </div>
+
+                    <div class="flex gap-3 flex-wrap">
+                        <button id="regenerate-btn" class="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:shadow-lg transition">
+                            🔄 Generate Another
+                        </button>
+                        <button id="copy-btn" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-xl font-semibold transition">
+                            📋 Copy Text
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="mt-8 text-center">
+                <p class="text-sm text-gray-600">
+                    Lines generated this session: <strong id="generation-count">0</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="py-12 px-4 bg-white">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-3xl font-bold text-center mb-8">How It Works 🤔</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-6 border-2 border-pink-200">
+                    <h3 class="text-xl font-bold mb-3">🎲 Random Mix Mode</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>✓ Combines authentic Pidgin components</li>
+                        <li>✓ Thousands of unique combinations</li>
+                        <li>✓ Instant generation</li>
+                        <li>✓ Culturally accurate</li>
+                    </ul>
+                </div>
+                <div class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-6 border-2 border-purple-200">
+                    <h3 class="text-xl font-bold mb-3">🤖 AI Generated Mode</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>✓ Powered by Google Gemini AI</li>
+                        <li>✓ Completely original lines</li>
+                        <li>✓ Contextual creativity</li>
+                        <li>✓ Cultural notes included</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-purple-900 to-blue-900 text-white py-8 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p class="brand-font text-xl mb-2">🌴 ChokePidgin.com 🌊</p>
+            <p class="text-sm opacity-80">Preserving and sharing Hawaiian Pidgin culture</p>
+            <p class="text-xs opacity-60 mt-4">&copy; 2025 ChokePidgin.com - All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/data/pickup-line-generator-data.js"></script>
+    <script src="js/pickup-line-generator.js"></script>
+    <script src="js/pickup-line-generator-page.js"></script>
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn?.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

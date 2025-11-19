@@ -356,6 +356,225 @@ app.post('/api/translate',
         }
     });
 
+// Hawaiian Pidgin Pickup Line Generator API - AI Enhanced
+app.post('/api/generate-pickup-line',
+    translationLimiter,
+    [
+        body('context')
+            .optional()
+            .isIn(['romantic', 'funny', 'sweet', 'bold', 'classic'])
+            .withMessage('Invalid context')
+    ],
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        try {
+            const { context = 'romantic' } = req.body;
+            const apiKey = process.env.GEMINI_API_KEY;
+
+            if (!apiKey) {
+                return res.status(500).json({ error: 'Gemini API key not configured' });
+            }
+
+            // Contextual prompts for different styles
+            const contextPrompts = {
+                romantic: 'romantic and sweet',
+                funny: 'funny and playful',
+                sweet: 'genuinely sweet and heartfelt',
+                bold: 'bold and confident',
+                classic: 'classic and charming'
+            };
+
+            const systemPrompt = `You are a Hawaiian Pidgin expert and creative writer. Generate an original, ${contextPrompts[context]} Hawaiian Pidgin pickup line.
+
+REQUIREMENTS:
+1. Use authentic Hawaiian Pidgin grammar and vocabulary
+2. Include cultural references (food, places, lifestyle)
+3. Be ${context} but respectful
+4. Use common Pidgin words like: da kine, choke, ono, pau, grindz, brah, sistah, stay, wen
+
+RESPONSE FORMAT (JSON only):
+{
+  "pidgin": "the pickup line in Hawaiian Pidgin",
+  "pronunciation": "phonetic guide (e.g., 'EH, you dah KYNE')",
+  "english": "English translation",
+  "cultural_note": "brief explanation of any cultural references"
+}
+
+Examples of good Pidgin pickup lines:
+- "Eh, you da only kine wave I wanna catch"
+- "Ho, if you was one musubi, you'd be da special kine"
+- "You stay shine brighter den da tiki torches"
+
+Generate ONE original pickup line now.`;
+
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{
+                            text: systemPrompt
+                        }]
+                    }],
+                    generationConfig: {
+                        temperature: 0.9, // Higher creativity
+                        maxOutputTokens: 300
+                    }
+                })
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('Gemini API error:', response.status, errorText);
+                return res.status(response.status).json({
+                    error: `Gemini API error: ${response.status}`
+                });
+            }
+
+            const data = await response.json();
+            let aiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+
+            if (!aiResponse) {
+                return res.status(500).json({ error: 'No response from AI' });
+            }
+
+            // Extract JSON from response (might be wrapped in markdown)
+            const jsonMatch = aiResponse.match(/\{[\s\S]*\}/);
+            if (jsonMatch) {
+                aiResponse = jsonMatch[0];
+            }
+
+            const pickupLine = JSON.parse(aiResponse);
+
+            res.json({
+                pidgin: pickupLine.pidgin,
+                pronunciation: pickupLine.pronunciation || pickupLine.pidgin,
+                english: pickupLine.english,
+                culturalNote: pickupLine.cultural_note,
+                context: context,
+                aiGenerated: true
+            });
+
+        } catch (error) {
+            console.error('Pickup line generation error:', error);
+            res.status(500).json({
+                error: 'Generation service error',
+                message: error.message
+            });
+        }
+    });
+
+// Enhance existing pickup line with AI suggestions
+app.post('/api/enhance-pickup-line',
+    translationLimiter,
+    [
+        body('pidgin')
+            .trim()
+            .notEmpty().withMessage('Pidgin text is required')
+            .isLength({ max: 200 }).withMessage('Text too long'),
+        body('english')
+            .optional()
+            .trim()
+            .isLength({ max: 200 })
+    ],
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        try {
+            const { pidgin, english } = req.body;
+            const apiKey = process.env.GEMINI_API_KEY;
+
+            if (!apiKey) {
+                return res.status(500).json({ error: 'Gemini API key not configured' });
+            }
+
+            const systemPrompt = `You are a Hawaiian Pidgin expert. Given this pickup line, provide 3 enhanced variations that are more creative, culturally rich, or impactful.
+
+Original line:
+Pidgin: "${pidgin}"
+${english ? `English: "${english}"` : ''}
+
+Provide 3 variations in JSON format:
+{
+  "variations": [
+    {
+      "pidgin": "enhanced version 1",
+      "pronunciation": "phonetic guide",
+      "english": "English translation",
+      "improvement": "what makes this better"
+    },
+    // ... 2 more variations
+  ]
+}`;
+
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{
+                            text: systemPrompt
+                        }]
+                    }],
+                    generationConfig: {
+                        temperature: 0.8,
+                        maxOutputTokens: 500
+                    }
+                })
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('Gemini API error:', response.status, errorText);
+                return res.status(response.status).json({
+                    error: `Gemini API error: ${response.status}`
+                });
+            }
+
+            const data = await response.json();
+            let aiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+
+            if (!aiResponse) {
+                return res.status(500).json({ error: 'No response from AI' });
+            }
+
+            // Extract JSON
+            const jsonMatch = aiResponse.match(/\{[\s\S]*\}/);
+            if (jsonMatch) {
+                aiResponse = jsonMatch[0];
+            }
+
+            const enhanced = JSON.parse(aiResponse);
+
+            res.json({
+                original: { pidgin, english },
+                variations: enhanced.variations || []
+            });
+
+        } catch (error) {
+            console.error('Enhancement error:', error);
+            res.status(500).json({
+                error: 'Enhancement service error',
+                message: error.message
+            });
+        }
+    });
+
 // Serve static files from public directory
 app.use(express.static(path.join(__dirname, 'public'), {
     maxAge: '1d', // Cache static files for 1 day
