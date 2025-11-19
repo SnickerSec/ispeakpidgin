@@ -551,11 +551,40 @@
 
     <script src="js/main.js"></script>
     <script>
+        // Track cheat sheet views
+        if (typeof gtag === 'function') {
+            gtag('event', 'page_view', {
+                page_title: 'Hawaiian Pidgin Cheat Sheet',
+                page_location: window.location.href,
+                page_path: '/cheat-sheet.html'
+            });
+        }
+
+        // Track print action
+        window.addEventListener('beforeprint', function() {
+            if (typeof gtag === 'function') {
+                gtag('event', 'print_cheat_sheet', {
+                    event_category: 'engagement',
+                    event_label: 'Hawaiian Pidgin Cheat Sheet',
+                    value: 1
+                });
+            }
+        });
+
         function shareCheatSheet() {
+            // Track share attempt
+            if (typeof gtag === 'function') {
+                gtag('event', 'share', {
+                    method: navigator.share ? 'native_share' : 'clipboard',
+                    content_type: 'cheat_sheet',
+                    item_id: 'pidgin_cheat_sheet'
+                });
+            }
+
             if (navigator.share) {
                 navigator.share({
                     title: 'Hawaiian Pidgin Cheat Sheet - ChokePidgin.com',
-                    text: 'Check out this awesome Hawaiian Pidgin quick reference guide!',
+                    text: 'Check out this awesome Hawaiian Pidgin quick reference guide! 75+ phrases, grammar rules, and examples on one page. Perfect for learning island speak! 🌺🤙',
                     url: window.location.href
                 }).catch(err => console.log('Error sharing:', err));
             } else {
@@ -564,6 +593,25 @@
                 alert('Link copied to clipboard! Share it with your friends 🤙');
             }
         }
+
+        // Track which sections get most attention (scroll depth)
+        let scrollTracked = {25: false, 50: false, 75: false, 100: false};
+        window.addEventListener('scroll', function() {
+            const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+
+            Object.keys(scrollTracked).forEach(function(threshold) {
+                if (scrollPercent >= threshold && !scrollTracked[threshold]) {
+                    scrollTracked[threshold] = true;
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'scroll', {
+                            event_category: 'engagement',
+                            event_label: 'Cheat Sheet Scroll Depth',
+                            value: parseInt(threshold)
+                        });
+                    }
+                }
+            });
+        });
     </script>
 </body>
 </html>
