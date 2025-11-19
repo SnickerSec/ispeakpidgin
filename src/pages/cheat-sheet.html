@@ -205,13 +205,13 @@
     <!-- Action Bar -->
     <div class="bg-white shadow-md py-4 px-4 no-print">
         <div class="max-w-6xl mx-auto flex flex-wrap justify-center gap-4">
-            <button onclick="downloadPDF()" class="bg-gradient-to-r from-red-600 to-pink-600 text-white px-6 py-3 rounded-lg font-bold hover:from-red-700 hover:to-pink-700 transition shadow-lg">
+            <button id="download-pdf-btn" class="bg-gradient-to-r from-red-600 to-pink-600 text-white px-6 py-3 rounded-lg font-bold hover:from-red-700 hover:to-pink-700 transition shadow-lg">
                 📥 Download PDF
             </button>
-            <button onclick="window.print()" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-bold hover:from-blue-700 hover:to-purple-700 transition shadow-lg">
+            <button id="print-btn" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-bold hover:from-blue-700 hover:to-purple-700 transition shadow-lg">
                 🖨️ Print
             </button>
-            <button onclick="shareCheatSheet()" class="bg-gradient-to-r from-green-600 to-teal-600 text-white px-6 py-3 rounded-lg font-bold hover:from-green-700 hover:to-teal-700 transition shadow-lg">
+            <button id="share-btn" class="bg-gradient-to-r from-green-600 to-teal-600 text-white px-6 py-3 rounded-lg font-bold hover:from-green-700 hover:to-teal-700 transition shadow-lg">
                 📤 Share
             </button>
             <a href="dictionary.html" class="bg-gradient-to-r from-orange-600 to-red-600 text-white px-6 py-3 rounded-lg font-bold hover:from-orange-700 hover:to-red-700 transition shadow-lg">
@@ -238,10 +238,10 @@
             </form>
 
             <div class="text-center">
-                <button onclick="skipEmailCapture()" class="text-gray-500 hover:text-gray-700 underline text-sm">
+                <button id="skip-email-btn" class="text-gray-500 hover:text-gray-700 underline text-sm">
                     Skip and download directly
                 </button>
-                <button onclick="closeEmailModal()" class="block mx-auto mt-3 text-gray-400 hover:text-gray-600 text-sm">
+                <button id="close-modal-btn" class="block mx-auto mt-3 text-gray-400 hover:text-gray-600 text-sm">
                     ✕ Close
                 </button>
             </div>
@@ -650,6 +650,35 @@
                 mobileMenuBtn.addEventListener('click', function() {
                     document.getElementById('mobile-menu').classList.toggle('hidden');
                 });
+            }
+
+            // Action bar buttons
+            const downloadPdfBtn = document.getElementById('download-pdf-btn');
+            if (downloadPdfBtn) {
+                downloadPdfBtn.addEventListener('click', window.downloadPDF);
+            }
+
+            const printBtn = document.getElementById('print-btn');
+            if (printBtn) {
+                printBtn.addEventListener('click', function() {
+                    window.print();
+                });
+            }
+
+            const shareBtn = document.getElementById('share-btn');
+            if (shareBtn) {
+                shareBtn.addEventListener('click', window.shareCheatSheet);
+            }
+
+            // Modal buttons
+            const skipEmailBtn = document.getElementById('skip-email-btn');
+            if (skipEmailBtn) {
+                skipEmailBtn.addEventListener('click', window.skipEmailCapture);
+            }
+
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener('click', window.closeEmailModal);
             }
 
             // Handle email form submission
