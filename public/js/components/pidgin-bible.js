@@ -54,11 +54,19 @@ function initializeBibleNav() {
     bookList.innerHTML = bibleBooks.map(book => `
         <button
             class="book-nav-item block w-full text-left px-3 py-2 rounded-lg text-sm hover:bg-purple-50 transition"
-            onclick="loadBook('${book.slug}')"
             data-book="${book.slug}">
             ${book.name}
         </button>
     `).join('');
+
+    // Add event delegation for book navigation
+    bookList.addEventListener('click', (e) => {
+        const bookBtn = e.target.closest('.book-nav-item');
+        if (bookBtn) {
+            const bookSlug = bookBtn.getAttribute('data-book');
+            loadBook(bookSlug);
+        }
+    });
 }
 
 // Initialize search functionality
@@ -167,7 +175,7 @@ function loadBook(slug) {
         <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-3xl font-bold text-gray-800">${book.name}</h2>
-                <button onclick="resetView()" class="text-purple-600 hover:text-purple-800 font-semibold">
+                <button id="reset-view-btn" class="text-purple-600 hover:text-purple-800 font-semibold">
                     ← Back to Home
                 </button>
             </div>
@@ -176,10 +184,11 @@ function loadBook(slug) {
                 Select a chapter to read on Bible.com or Hawaii Pidgin Bible Ministries:
             </p>
 
-            <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-3 mb-8">
+            <div id="chapters-grid" class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-3 mb-8">
                 ${chapters.map(ch => `
                     <button
-                        onclick="openChapter('${book.name}', ${ch})"
+                        data-book-name="${book.name}"
+                        data-chapter="${ch}"
                         class="chapter-btn bg-purple-100 hover:bg-purple-600 hover:text-white text-purple-800 font-bold py-3 px-4 rounded-lg transition text-center">
                         ${ch}
                     </button>
@@ -205,6 +214,24 @@ function loadBook(slug) {
             </div>
         </div>
     `;
+
+    // Add event listeners after innerHTML is set
+    const resetBtn = document.getElementById('reset-view-btn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', resetView);
+    }
+
+    const chaptersGrid = document.getElementById('chapters-grid');
+    if (chaptersGrid) {
+        chaptersGrid.addEventListener('click', (e) => {
+            const chapterBtn = e.target.closest('.chapter-btn');
+            if (chapterBtn) {
+                const bookName = chapterBtn.getAttribute('data-book-name');
+                const chapter = parseInt(chapterBtn.getAttribute('data-chapter'));
+                openChapter(bookName, chapter);
+            }
+        });
+    }
 }
 
 // Open a specific chapter
@@ -268,7 +295,7 @@ function showChapterModal(book, chapter) {
                 </a>
             </div>
 
-            <button onclick="this.closest('.fixed').remove()"
+            <button id="modal-cancel-btn"
                     class="mt-6 w-full bg-gray-200 text-gray-800 px-6 py-3 rounded-xl hover:bg-gray-300 transition font-semibold">
                 Cancel
             </button>
@@ -276,6 +303,14 @@ function showChapterModal(book, chapter) {
     `;
 
     document.body.appendChild(modal);
+
+    // Add cancel button event listener
+    const cancelBtn = modal.querySelector('#modal-cancel-btn');
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', () => {
+            document.body.removeChild(modal);
+        });
+    }
 }
 
 // Get Bible.com book URL
@@ -333,7 +368,8 @@ function resetView() {
     });
 }
 
-// Expose functions to global scope for inline onclick handlers
+// Expose functions to global scope for external access
 window.loadBook = loadBook;
 window.openChapter = openChapter;
 window.resetView = resetView;
+window.searchVerse = searchVerse;
