@@ -292,6 +292,65 @@
             mobileMenu.classList.toggle('hidden');
         });
 
+        // Text-to-speech function for audio playback
+        let currentUtterance = null;
+        function playAudio(text, button) {
+            // Stop any currently playing audio
+            if (currentUtterance) {
+                window.speechSynthesis.cancel();
+            }
+
+            // Check if already playing this audio
+            if (button.textContent === '⏸ Stop') {
+                window.speechSynthesis.cancel();
+                button.textContent = '▶ Play';
+                button.classList.remove('bg-gray-600');
+                button.classList.add('bg-red-600');
+                currentUtterance = null;
+                return;
+            }
+
+            // Reset all other play buttons
+            document.querySelectorAll('button[onclick^="playAudio"]').forEach(btn => {
+                btn.textContent = '▶ Play';
+                btn.classList.remove('bg-gray-600');
+                btn.classList.add('bg-red-600');
+            });
+
+            // Create and configure speech synthesis
+            currentUtterance = new SpeechSynthesisUtterance(text);
+            currentUtterance.rate = 0.9; // Slightly slower for clarity
+            currentUtterance.pitch = 1.0;
+            currentUtterance.volume = 1.0;
+
+            // Update button when speech starts
+            currentUtterance.onstart = function() {
+                button.textContent = '⏸ Stop';
+                button.classList.remove('bg-red-600');
+                button.classList.add('bg-gray-600');
+            };
+
+            // Reset button when speech ends
+            currentUtterance.onend = function() {
+                button.textContent = '▶ Play';
+                button.classList.remove('bg-gray-600');
+                button.classList.add('bg-red-600');
+                currentUtterance = null;
+            };
+
+            // Handle errors
+            currentUtterance.onerror = function(event) {
+                console.error('Speech synthesis error:', event);
+                button.textContent = '▶ Play';
+                button.classList.remove('bg-gray-600');
+                button.classList.add('bg-red-600');
+                currentUtterance = null;
+            };
+
+            // Play the audio
+            window.speechSynthesis.speak(currentUtterance);
+        }
+
         // Load and display stories
         function displayStories(filter = 'all') {
             const container = document.getElementById('stories-container');
@@ -398,9 +457,17 @@
 
                                 <!-- Audio Example -->
                                 <div class="p-4 bg-gradient-to-r from-pink-50 to-red-50 rounded-xl">
-                                    <h3 class="text-lg font-bold text-red-700 mb-2">
-                                        🔊 Listen & Learn
-                                    </h3>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <h3 class="text-lg font-bold text-red-700">
+                                            🔊 Listen & Learn
+                                        </h3>
+                                        <button
+                                            onclick="playAudio('${story.audioExample.replace(/'/g, "\\'")}', this)"
+                                            class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-semibold text-sm shadow-md hover:shadow-lg"
+                                        >
+                                            ▶ Play
+                                        </button>
+                                    </div>
                                     <p class="text-gray-800 text-base italic">
                                         "${story.audioExample}"
                                     </p>
