@@ -74,7 +74,7 @@ function processHTMLFiles() {
     const htmlFiles = [
         'index.html', 'translator.html', 'dictionary.html', 'ask-local.html',
         'learning-hub.html', 'stories.html', 'pickup-lines.html', 'pidgin-bible.html',
-        'about.html', 'pidgin-vs-hawaiian.html',
+        'about.html', 'pidgin-vs-hawaiian.html', 'cheat-sheet.html',
         // SEO Pages
         'what-does-da-kine-mean.html',
         'what-does-howzit-mean.html',
