@@ -5,6 +5,9 @@ const helmet = require('helmet');
 const fetch = require('node-fetch');
 const fs = require('fs');
 const { Translate } = require('@google-cloud/translate').v2;
+const rateLimit = require('express-rate-limit');
+const cors = require('cors');
+const { body, validationResult } = require('express-validator');
 require('dotenv').config();
 
 // Handle Google Cloud credentials
@@ -31,6 +34,52 @@ const translate = new Translate({
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Rate limiting configuration
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per windowMs
+    message: 'Too many requests from this IP, please try again later.',
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
+
+// Stricter rate limit for translation endpoints
+const translationLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 50, // Limit each IP to 50 translation requests per windowMs
+    message: 'Too many translation requests, please try again later.',
+});
+
+// CORS configuration
+const corsOptions = {
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+
+        const allowedOrigins = [
+            'https://chokepidgin.com',
+            'https://www.chokepidgin.com',
+            'http://localhost:3000',
+            'http://localhost:8080'
+        ];
+
+        // In development, allow all origins
+        if (process.env.NODE_ENV === 'development') {
+            return callback(null, true);
+        }
+
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
+    optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 
 // Security middleware
 app.use(helmet({
@@ -70,17 +119,40 @@ app.use(helmet({
 // Compression middleware
 app.use(compression());
 
-// JSON body parser for API endpoints
-app.use(express.json());
+// JSON body parser for API endpoints with size limits
+app.use(express.json({
+    limit: '10kb', // Limit request body size to 10kb
+    strict: true // Only accept arrays and objects
+}));
 
-// ElevenLabs TTS API endpoint
-app.post('/api/text-to-speech', async (req, res) => {
-    try {
-        const { text } = req.body;
+// URL-encoded body parser with size limits
+app.use(express.urlencoded({
+    extended: true,
+    limit: '10kb'
+}));
 
-        if (!text) {
-            return res.status(400).json({ error: 'Text is required' });
+// Apply general rate limiting to all API routes
+app.use('/api/', apiLimiter);
+
+// ElevenLabs TTS API endpoint with validation
+app.post('/api/text-to-speech',
+    translationLimiter,
+    [
+        body('text')
+            .trim()
+            .notEmpty().withMessage('Text is required')
+            .isLength({ min: 1, max: 500 }).withMessage('Text must be between 1 and 500 characters')
+            .escape() // Sanitize HTML entities
+    ],
+    async (req, res) => {
+        // Check validation results
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
         }
+
+        try {
+            const { text } = req.body;
 
         const apiKey = process.env.ELEVENLABS_API_KEY;
         if (!apiKey) {
@@ -127,20 +199,34 @@ app.post('/api/text-to-speech', async (req, res) => {
 
         res.send(Buffer.from(audioBuffer));
 
-    } catch (error) {
-        console.error('TTS API error:', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-});
-
-// Google Gemini LLM Translation endpoint
-app.post('/api/translate-llm', async (req, res) => {
-    try {
-        const { text, direction } = req.body;
-
-        if (!text) {
-            return res.status(400).json({ error: 'Text is required' });
+        } catch (error) {
+            console.error('TTS API error:', error);
+            res.status(500).json({ error: 'Internal server error' });
         }
+    });
+
+// Google Gemini LLM Translation endpoint with validation
+app.post('/api/translate-llm',
+    translationLimiter,
+    [
+        body('text')
+            .trim()
+            .notEmpty().withMessage('Text is required')
+            .isLength({ min: 1, max: 1000 }).withMessage('Text must be between 1 and 1000 characters')
+            .escape(),
+        body('direction')
+            .optional()
+            .isIn(['eng-to-pidgin', 'pidgin-to-eng']).withMessage('Invalid direction')
+    ],
+    async (req, res) => {
+        // Check validation results
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        try {
+            const { text, direction } = req.body;
 
         const apiKey = process.env.GEMINI_API_KEY;
 
@@ -209,23 +295,40 @@ Be authentic to how locals in Hawaii actually speak. Only respond with the Pidgi
             model: 'gemini-2.5-flash-lite'
         });
 
-    } catch (error) {
-        console.error('Gemini Translation error:', error);
-        res.status(500).json({
-            error: 'Translation service error',
-            message: error.message
-        });
-    }
-});
-
-// Google Translate API endpoint
-app.post('/api/translate', async (req, res) => {
-    try {
-        const { text, targetLanguage, sourceLanguage } = req.body;
-
-        if (!text) {
-            return res.status(400).json({ error: 'Text is required' });
+        } catch (error) {
+            console.error('Gemini Translation error:', error);
+            res.status(500).json({
+                error: 'Translation service error',
+                message: error.message
+            });
         }
+    });
+
+// Google Translate API endpoint with validation
+app.post('/api/translate',
+    translationLimiter,
+    [
+        body('text')
+            .trim()
+            .notEmpty().withMessage('Text is required')
+            .isLength({ min: 1, max: 1000 }).withMessage('Text must be between 1 and 1000 characters')
+            .escape(),
+        body('targetLanguage')
+            .optional()
+            .isLength({ min: 2, max: 5 }).withMessage('Invalid language code'),
+        body('sourceLanguage')
+            .optional()
+            .isLength({ min: 2, max: 5 }).withMessage('Invalid language code')
+    ],
+    async (req, res) => {
+        // Check validation results
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        try {
+            const { text, targetLanguage, sourceLanguage } = req.body;
 
         // Default to English if not specified
         const target = targetLanguage || 'en';
@@ -244,14 +347,14 @@ app.post('/api/translate', async (req, res) => {
             targetLanguage: target
         });
 
-    } catch (error) {
-        console.error('Google Translate API error:', error);
-        res.status(500).json({
-            error: 'Translation service error',
-            message: error.message
-        });
-    }
-});
+        } catch (error) {
+            console.error('Google Translate API error:', error);
+            res.status(500).json({
+                error: 'Translation service error',
+                message: error.message
+            });
+        }
+    });
 
 // Serve static files from public directory
 app.use(express.static(path.join(__dirname, 'public'), {
