@@ -255,7 +255,7 @@
                         Choose a book from the left sidebar to start reading, or use the search bar above to find specific verses.
                     </p>
                     <div class="grid md:grid-cols-2 gap-4 mt-6">
-                        <button onclick="loadBook('john')" class="bg-purple-600 text-white px-6 py-4 rounded-xl hover:bg-purple-700 transition font-semibold">
+                        <button data-book="john" class="load-book-btn bg-purple-600 text-white px-6 py-4 rounded-xl hover:bg-purple-700 transition font-semibold">
                             📖 Start with John
                         </button>
                         <a href="#samples" class="bg-blue-600 text-white px-6 py-4 rounded-xl hover:bg-blue-700 transition font-semibold text-center">
@@ -285,7 +285,7 @@
                             <p class="text-lg text-gray-600 mb-4">
                                 <strong>Standard English:</strong> "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life."
                             </p>
-                            <button onclick="searchVerse('John 3:16')" class="text-purple-600 hover:text-purple-800 font-semibold">
+                            <button data-verse="John 3:16" class="search-verse-btn text-purple-600 hover:text-purple-800 font-semibold">
                                 📖 Read full chapter →
                             </button>
                         </div>
@@ -299,7 +299,7 @@
                             <p class="text-lg text-gray-600 mb-4">
                                 <strong>Standard English:</strong> "Blessed are the poor in spirit, for theirs is the kingdom of heaven."
                             </p>
-                            <button onclick="searchVerse('Matthew 5:3')" class="text-purple-600 hover:text-purple-800 font-semibold">
+                            <button data-verse="Matthew 5:3" class="search-verse-btn text-purple-600 hover:text-purple-800 font-semibold">
                                 📖 Read full chapter →
                             </button>
                         </div>
@@ -313,7 +313,7 @@
                             <p class="text-lg text-gray-600 mb-4">
                                 <strong>Standard English:</strong> "The Lord is my shepherd, I shall not want."
                             </p>
-                            <button onclick="searchVerse('Psalm 23:1')" class="text-purple-600 hover:text-purple-800 font-semibold">
+                            <button data-verse="Psalm 23:1" class="search-verse-btn text-purple-600 hover:text-purple-800 font-semibold">
                                 📖 Read full chapter →
                             </button>
                         </div>
@@ -327,7 +327,7 @@
                             <p class="text-lg text-gray-600 mb-4">
                                 <strong>Standard English:</strong> "Love is patient, love is kind. It does not envy, it does not boast, it is not proud."
                             </p>
-                            <button onclick="searchVerse('1 Corinthians 13:4')" class="text-purple-600 hover:text-purple-800 font-semibold">
+                            <button data-verse="1 Corinthians 13:4" class="search-verse-btn text-purple-600 hover:text-purple-800 font-semibold">
                                 📖 Read full chapter →
                             </button>
                         </div>
@@ -341,7 +341,7 @@
                             <p class="text-lg text-gray-600 mb-4">
                                 <strong>Standard English:</strong> "Our Father in heaven, hallowed be your name, your kingdom come, your will be done, on earth as it is in heaven."
                             </p>
-                            <button onclick="searchVerse('Matthew 6:9-10')" class="text-purple-600 hover:text-purple-800 font-semibold">
+                            <button data-verse="Matthew 6:9-10" class="search-verse-btn text-purple-600 hover:text-purple-800 font-semibold">
                                 📖 Read full chapter →
                             </button>
                         </div>
@@ -470,6 +470,31 @@
         document.getElementById('mobile-menu-btn')?.addEventListener('click', function() {
             const mobileMenu = document.getElementById('mobile-menu');
             mobileMenu.classList.toggle('hidden');
+        });
+
+        // Load book button event listener
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load book button
+            const loadBookBtn = document.querySelector('.load-book-btn');
+            if (loadBookBtn) {
+                loadBookBtn.addEventListener('click', function() {
+                    const book = this.getAttribute('data-book');
+                    if (typeof loadBook === 'function') {
+                        loadBook(book);
+                    }
+                });
+            }
+
+            // Search verse buttons
+            const searchVerseBtns = document.querySelectorAll('.search-verse-btn');
+            searchVerseBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const verse = this.getAttribute('data-verse');
+                    if (typeof searchVerse === 'function') {
+                        searchVerse(verse);
+                    }
+                });
+            });
         });
     </script>
 </body>
