@@ -215,23 +215,25 @@ function loadBook(slug) {
         </div>
     `;
 
-    // Add event listeners after innerHTML is set
-    const resetBtn = document.getElementById('reset-view-btn');
-    if (resetBtn) {
-        resetBtn.addEventListener('click', resetView);
-    }
+    // Add event listeners after innerHTML is set - use setTimeout to ensure DOM is ready
+    setTimeout(() => {
+        const resetBtn = document.getElementById('reset-view-btn');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', resetView);
+        }
 
-    const chaptersGrid = document.getElementById('chapters-grid');
-    if (chaptersGrid) {
-        chaptersGrid.addEventListener('click', (e) => {
-            const chapterBtn = e.target.closest('.chapter-btn');
-            if (chapterBtn) {
-                const bookName = chapterBtn.getAttribute('data-book-name');
-                const chapter = parseInt(chapterBtn.getAttribute('data-chapter'));
-                openChapter(bookName, chapter);
-            }
-        });
-    }
+        const chaptersGrid = document.getElementById('chapters-grid');
+        if (chaptersGrid) {
+            chaptersGrid.addEventListener('click', (e) => {
+                const chapterBtn = e.target.closest('.chapter-btn');
+                if (chapterBtn) {
+                    const bookName = chapterBtn.getAttribute('data-book-name');
+                    const chapter = parseInt(chapterBtn.getAttribute('data-chapter'));
+                    openChapter(bookName, chapter);
+                }
+            });
+        }
+    }, 0);
 }
 
 // Open a specific chapter
