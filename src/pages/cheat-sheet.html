@@ -642,9 +642,43 @@
     </footer>
 
     <script>
-        // Mobile menu toggle
-        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    document.getElementById('mobile-menu').classList.toggle('hidden');
+                });
+            }
+
+            // Handle email form submission
+            const emailForm = document.getElementById('email-form');
+            if (emailForm) {
+                emailForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = document.getElementById('email-input').value;
+
+                    // Track email submission
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'submit_email', {
+                            event_category: 'lead_generation',
+                            event_label: 'Cheat Sheet PDF Email Capture'
+                        });
+                    }
+
+                    // In a real implementation, you would send this to your email service provider
+                    console.log('Email submitted:', email);
+
+                    // Close modal and show success message
+                    closeEmailModal();
+                    alert('🎉 Thanks! Check your email for the PDF. Meanwhile, here\'s a direct download option:');
+                    window.print();
+
+                    // Reset form
+                    emailForm.reset();
+                });
+            }
         });
 
         // Track cheat sheet views
@@ -698,35 +732,6 @@
             alert('💡 Tip: In the print dialog, select "Save as PDF" as your destination to download the cheat sheet!');
             window.print();
         }
-
-        // Handle email form submission
-        document.getElementById('email-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = document.getElementById('email-input').value;
-
-            // Track email submission
-            if (typeof gtag === 'function') {
-                gtag('event', 'submit_email', {
-                    event_category: 'lead_generation',
-                    event_label: 'Cheat Sheet PDF Email Capture'
-                });
-            }
-
-            // In a real implementation, you would send this to your email service provider
-            // For now, we'll just log it and proceed to download
-            console.log('Email submitted:', email);
-
-            // TODO: Integrate with email service provider (e.g., Mailchimp, ConvertKit, SendGrid)
-            // Example: await fetch('/api/subscribe', { method: 'POST', body: JSON.stringify({ email }) });
-
-            // Close modal and show success message
-            closeEmailModal();
-            alert('🎉 Thanks! Check your email for the PDF. Meanwhile, here\'s a direct download option:');
-            window.print();
-
-            // Reset form
-            document.getElementById('email-form').reset();
-        });
 
         function shareCheatSheet() {
             // Track share attempt
