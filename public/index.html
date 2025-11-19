@@ -501,13 +501,10 @@
                     <p class="text-lg mb-6 text-white/90">
                         One-page quick reference guide - Perfect for printing or saving to your phone!
                     </p>
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <div class="flex justify-center">
                         <a href="cheat-sheet.html" class="bg-white text-teal-600 px-8 py-4 rounded-full font-bold hover:bg-blue-50 transition shadow-xl hover:scale-105 transform text-lg">
                             📋 View Cheat Sheet
                         </a>
-                        <button id="print-cheat-sheet-btn" class="bg-yellow-400 text-gray-900 px-8 py-4 rounded-full font-bold hover:bg-yellow-300 transition shadow-xl hover:scale-105 transform text-lg">
-                            🖨️ Print Now
-                        </button>
                     </div>
                     <p class="text-sm mt-4 text-white/80">
                         ✓ Print-friendly design  ✓ Share on social media  ✓ 100% Free
@@ -1060,17 +1057,6 @@
     <script src="js/components/speech.js"></script>
     <script src="js/components/ask-local.js"></script>
     <script src="js/components/main.js"></script>
-    <script>
-        // Print cheat sheet button handler
-        document.addEventListener('DOMContentLoaded', function() {
-            const printBtn = document.getElementById('print-cheat-sheet-btn');
-            if (printBtn) {
-                printBtn.addEventListener('click', function() {
-                    window.open('cheat-sheet.html', '_blank');
-                });
-            }
-        });
-    </script>
     <!-- Footer -->
     <footer class="bg-gradient-to-r from-green-600 to-blue-600 text-white py-8 mt-12">
         <div class="container mx-auto px-4">
