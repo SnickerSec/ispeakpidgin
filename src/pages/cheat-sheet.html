@@ -701,7 +701,8 @@
             }
         });
 
-        function downloadPDF() {
+        // Make functions globally accessible
+        window.downloadPDF = function() {
             // Track PDF download button click
             if (typeof gtag === 'function') {
                 gtag('event', 'click_download_pdf', {
@@ -712,13 +713,13 @@
 
             // Show email capture modal
             document.getElementById('email-modal').classList.remove('hidden');
-        }
+        };
 
-        function closeEmailModal() {
+        window.closeEmailModal = function() {
             document.getElementById('email-modal').classList.add('hidden');
-        }
+        };
 
-        function skipEmailCapture() {
+        window.skipEmailCapture = function() {
             // Track skip action
             if (typeof gtag === 'function') {
                 gtag('event', 'skip_email_capture', {
@@ -731,9 +732,9 @@
             // Show helpful message then trigger print dialog
             alert('💡 Tip: In the print dialog, select "Save as PDF" as your destination to download the cheat sheet!');
             window.print();
-        }
+        };
 
-        function shareCheatSheet() {
+        window.shareCheatSheet = function() {
             // Track share attempt
             if (typeof gtag === 'function') {
                 gtag('event', 'share', {
@@ -754,7 +755,7 @@
                 navigator.clipboard.writeText(window.location.href);
                 alert('Link copied to clipboard! Share it with your friends 🤙');
             }
-        }
+        };
 
         // Track which sections get most attention (scroll depth)
         let scrollTracked = {25: false, 50: false, 75: false, 100: false};
