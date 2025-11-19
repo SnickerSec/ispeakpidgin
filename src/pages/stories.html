@@ -311,7 +311,7 @@
             }
 
             // Reset all other play buttons
-            document.querySelectorAll('button[onclick^="playAudio"]').forEach(btn => {
+            document.querySelectorAll('.play-audio-btn').forEach(btn => {
                 btn.textContent = '▶ Play';
                 btn.classList.remove('bg-gray-600');
                 btn.classList.add('bg-red-600');
@@ -462,8 +462,8 @@
                                             🔊 Listen & Learn
                                         </h3>
                                         <button
-                                            onclick="playAudio('${story.audioExample.replace(/'/g, "\\'")}', this)"
-                                            class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-semibold text-sm shadow-md hover:shadow-lg"
+                                            class="play-audio-btn px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-semibold text-sm shadow-md hover:shadow-lg"
+                                            data-audio-text="${story.audioExample.replace(/"/g, '&quot;')}"
                                         >
                                             ▶ Play
                                         </button>
@@ -506,6 +506,14 @@
                             block: 'start'
                         });
                     }
+                });
+            });
+
+            // Add event listeners for play audio buttons
+            document.querySelectorAll('.play-audio-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const text = this.getAttribute('data-audio-text');
+                    playAudio(text, this);
                 });
             });
         }
