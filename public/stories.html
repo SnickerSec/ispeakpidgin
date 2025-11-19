@@ -283,6 +283,7 @@
 
     <!-- Scripts -->
     <script src="js/data/stories-data.js"></script>
+    <script src="js/components/elevenlabs-speech.js"></script>
     <script>
         // Mobile menu toggle
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -292,22 +293,42 @@
             mobileMenu.classList.toggle('hidden');
         });
 
-        // Text-to-speech function for audio playback
-        let currentUtterance = null;
-        function playAudio(text, button) {
-            // Stop any currently playing audio
-            if (currentUtterance) {
-                window.speechSynthesis.cancel();
+        // Initialize ElevenLabs speech system
+        let elevenLabsInstance = null;
+        let currentButton = null;
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof ElevenLabsSpeech !== 'undefined') {
+                elevenLabsInstance = new ElevenLabsSpeech();
+            }
+        });
+
+        // Text-to-speech function for audio playback using ElevenLabs
+        async function playAudio(text, button) {
+            // Check if ElevenLabs is available
+            if (!elevenLabsInstance) {
+                console.error('ElevenLabs TTS not available');
+                alert('Text-to-speech service is not available');
+                return;
             }
 
             // Check if already playing this audio
             if (button.textContent === '⏸ Stop') {
-                window.speechSynthesis.cancel();
+                elevenLabsInstance.stop();
                 button.textContent = '▶ Play';
                 button.classList.remove('bg-gray-600');
                 button.classList.add('bg-red-600');
-                currentUtterance = null;
+                currentButton = null;
                 return;
+            }
+
+            // Stop any currently playing audio
+            if (currentButton) {
+                elevenLabsInstance.stop();
+                currentButton.textContent = '▶ Play';
+                currentButton.classList.remove('bg-gray-600');
+                currentButton.classList.add('bg-red-600');
             }
 
             // Reset all other play buttons
@@ -317,38 +338,40 @@
                 btn.classList.add('bg-red-600');
             });
 
-            // Create and configure speech synthesis
-            currentUtterance = new SpeechSynthesisUtterance(text);
-            currentUtterance.rate = 0.9; // Slightly slower for clarity
-            currentUtterance.pitch = 1.0;
-            currentUtterance.volume = 1.0;
+            // Update current button
+            currentButton = button;
 
-            // Update button when speech starts
-            currentUtterance.onstart = function() {
-                button.textContent = '⏸ Stop';
-                button.classList.remove('bg-red-600');
-                button.classList.add('bg-gray-600');
-            };
-
-            // Reset button when speech ends
-            currentUtterance.onend = function() {
+            try {
+                // Play using ElevenLabs API with callbacks
+                await elevenLabsInstance.speak(text, {
+                    onStart: () => {
+                        button.textContent = '⏸ Stop';
+                        button.classList.remove('bg-red-600');
+                        button.classList.add('bg-gray-600');
+                    },
+                    onSuccess: () => {
+                        button.textContent = '▶ Play';
+                        button.classList.remove('bg-gray-600');
+                        button.classList.add('bg-red-600');
+                        currentButton = null;
+                    },
+                    onError: (error) => {
+                        console.error('TTS error:', error);
+                        button.textContent = '▶ Play';
+                        button.classList.remove('bg-gray-600');
+                        button.classList.add('bg-red-600');
+                        currentButton = null;
+                        alert('Failed to play audio. Please try again.');
+                    }
+                });
+            } catch (error) {
+                console.error('TTS error:', error);
                 button.textContent = '▶ Play';
                 button.classList.remove('bg-gray-600');
                 button.classList.add('bg-red-600');
-                currentUtterance = null;
-            };
-
-            // Handle errors
-            currentUtterance.onerror = function(event) {
-                console.error('Speech synthesis error:', event);
-                button.textContent = '▶ Play';
-                button.classList.remove('bg-gray-600');
-                button.classList.add('bg-red-600');
-                currentUtterance = null;
-            };
-
-            // Play the audio
-            window.speechSynthesis.speak(currentUtterance);
+                currentButton = null;
+                alert('Failed to play audio. Please try again.');
+            }
         }
 
         // Load and display stories
