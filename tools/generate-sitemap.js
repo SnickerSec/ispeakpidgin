@@ -36,6 +36,7 @@ const pages = [
     { url: '/beach-surf-pidgin-slang.html', priority: 0.8, changefreq: 'monthly' },
     { url: '/understanding-time-in-pidgin.html', priority: 0.8, changefreq: 'monthly' },
     { url: '/funny-insulting-pidgin-phrases.html', priority: 0.7, changefreq: 'monthly' },
+    { url: '/oahu-local-eats.html', priority: 0.9, changefreq: 'monthly' },
 
     // SEO pages - phrase explanations
     { url: '/what-does-da-kine-mean.html', priority: 0.6, changefreq: 'monthly' },

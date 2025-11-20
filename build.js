@@ -85,6 +85,7 @@ function processHTMLFiles() {
         'beach-surf-pidgin-slang.html',
         'understanding-time-in-pidgin.html',
         'funny-insulting-pidgin-phrases.html',
+        'oahu-local-eats.html',
         // SEO Pages
         'what-does-da-kine-mean.html',
         'what-does-howzit-mean.html',
