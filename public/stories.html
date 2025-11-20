@@ -173,15 +173,42 @@
                         </span>
                     </a>
                 </div>
-                <div class="hidden md:flex space-x-6 items-center">
+                                <div class="hidden md:flex space-x-6 items-center">
                     <a href="index.html" class="nav-link text-gray-700 hover:text-green-600 transition">Home</a>
                     <a href="translator.html" class="nav-link text-gray-700 hover:text-green-600 transition">Translator</a>
                     <a href="dictionary.html" class="nav-link text-gray-700 hover:text-green-600 transition">Dictionary</a>
                     <a href="learning-hub.html" class="nav-link text-gray-700 hover:text-green-600 transition">Learning Hub</a>
-                    <a href="stories.html" class="nav-link text-green-600 font-semibold">Stories</a>
-                    <a href="pickup-lines.html" class="nav-link text-gray-700 hover:text-green-600 transition">Pickup Lines</a>
+
+                    <!-- Community Dropdown -->
+                    <div class="nav-dropdown relative">
+                        <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
+                            Community
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
+                            <a href="stories.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Stories</a>
+                            <a href="ask-local.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Ask a Local</a>
+                        </div>
+                    </div>
+
+                    <!-- Pickup Lines Dropdown -->
+                    <div class="nav-dropdown relative">
+                        <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
+                            Pickup Lines
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
+                            <a href="pickup-lines.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Browse Lines</a>
+                            <a href="pickup-line-generator.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">AI Generator</a>
+                            <a href="how-to-use-hawaiian-pidgin-pickup-lines.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">How-To Guide</a>
+                        </div>
+                    </div>
+
                     <a href="pidgin-bible.html" class="nav-link text-gray-700 hover:text-green-600 transition">Pidgin Bible</a>
-                    <a href="ask-local.html" class="nav-link text-gray-700 hover:text-green-600 transition">Ask a Local</a>
                 </div>
 
                 <!-- Mobile menu button -->
@@ -202,13 +229,39 @@
                 <a href="translator.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Translator</a>
                 <a href="dictionary.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Dictionary</a>
                 <a href="learning-hub.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Learning Hub</a>
-                <a href="stories.html" class="block px-3 py-2 text-green-600 font-semibold">Stories</a>
-                <a href="pickup-lines.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Pickup Lines</a>
+
+                <!-- Community Submenu -->
+                <div class="mobile-dropdown">
+                    <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
+                        Community
+                        <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="mobile-dropdown-content hidden pl-6 space-y-1">
+                        <a href="stories.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Stories</a>
+                        <a href="ask-local.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Ask a Local</a>
+                    </div>
+                </div>
+
+                <!-- Pickup Lines Submenu -->
+                <div class="mobile-dropdown">
+                    <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
+                        Pickup Lines
+                        <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="mobile-dropdown-content hidden pl-6 space-y-1">
+                        <a href="pickup-lines.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Browse Lines</a>
+                        <a href="pickup-line-generator.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">AI Generator</a>
+                        <a href="how-to-use-hawaiian-pidgin-pickup-lines.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">How-To Guide</a>
+                    </div>
+                </div>
+
                 <a href="pidgin-bible.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Pidgin Bible</a>
-                <a href="ask-local.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Ask a Local</a>
             </div>
-        </div>
-    </nav>
+        </div></nav>
 
     <!-- Header -->
     <header class="py-12 px-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
@@ -561,5 +614,77 @@
             displayStories();
         }
     </script>
+
+    <script>
+        // Desktop dropdown functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const desktopDropdowns = document.querySelectorAll('.nav-dropdown');
+
+            desktopDropdowns.forEach(dropdown => {
+                const button = dropdown.querySelector('button');
+                const menu = dropdown.querySelector('.dropdown-menu');
+
+                if (button && menu) {
+                    // Toggle on click
+                    button.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        // Close other dropdowns
+                        desktopDropdowns.forEach(other => {
+                            if (other !== dropdown) {
+                                const otherMenu = other.querySelector('.dropdown-menu');
+                                if (otherMenu) {
+                                    otherMenu.classList.remove('show');
+                                }
+                            }
+                        });
+
+                        // Toggle this dropdown
+                        menu.classList.toggle('show');
+                    });
+                }
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.nav-dropdown')) {
+                    desktopDropdowns.forEach(dropdown => {
+                        const menu = dropdown.querySelector('.dropdown-menu');
+                        if (menu) {
+                            menu.classList.remove('show');
+                        }
+                    });
+                }
+            });
+
+            // Mobile menu and dropdown functionality
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+
+                // Mobile dropdown functionality
+                mobileMenu.addEventListener('click', (e) => {
+                    const btn = e.target.closest('.mobile-dropdown-btn');
+                    if (btn) {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        const dropdown = btn.closest('.mobile-dropdown');
+                        const content = dropdown.querySelector('.mobile-dropdown-content');
+                        const icon = btn.querySelector('svg');
+
+                        content.classList.toggle('hidden');
+                        if (icon) icon.classList.toggle('rotate-180');
+                    }
+                });
+            }
+        });
+    </script>
+    <script src="js/components/main.js"></script>
 </body>
 </html>

@@ -110,6 +110,46 @@ function initNavigation() {
             }
         });
     }
+
+    // Desktop dropdown functionality - click to toggle (for touch devices)
+    const desktopDropdowns = document.querySelectorAll('.nav-dropdown');
+    desktopDropdowns.forEach(dropdown => {
+        const button = dropdown.querySelector('button');
+        const menu = dropdown.querySelector('.dropdown-menu');
+
+        if (button && menu) {
+            // Toggle on click
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                // Close other dropdowns
+                desktopDropdowns.forEach(other => {
+                    if (other !== dropdown) {
+                        const otherMenu = other.querySelector('.dropdown-menu');
+                        if (otherMenu) {
+                            otherMenu.classList.remove('show');
+                        }
+                    }
+                });
+
+                // Toggle this dropdown
+                menu.classList.toggle('show');
+            });
+        }
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-dropdown')) {
+            desktopDropdowns.forEach(dropdown => {
+                const menu = dropdown.querySelector('.dropdown-menu');
+                if (menu) {
+                    menu.classList.remove('show');
+                }
+            });
+        }
+    });
 }
 
 // Daily phrase functionality

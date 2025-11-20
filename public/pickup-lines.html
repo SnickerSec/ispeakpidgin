@@ -201,7 +201,7 @@
                         </span>
                     </a>
                 </div>
-                                <div class="hidden md:flex space-x-6 items-center">
+                                                <div class="hidden md:flex space-x-6 items-center">
                     <a href="index.html" class="nav-link text-gray-700 hover:text-green-600 transition">Home</a>
                     <a href="translator.html" class="nav-link text-gray-700 hover:text-green-600 transition">Translator</a>
                     <a href="dictionary.html" class="nav-link text-gray-700 hover:text-green-600 transition">Dictionary</a>
@@ -237,6 +237,7 @@
                     </div>
 
                     <a href="pidgin-bible.html" class="nav-link text-gray-700 hover:text-green-600 transition">Pidgin Bible</a>
+                </div>
 
                 <!-- Mobile menu button -->
                 <div class="md:hidden">
@@ -249,7 +250,7 @@
             </div>
         </div>
 
-                <!-- Mobile Navigation -->
+        <!-- Mobile Navigation -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
             <div class="px-2 pt-2 pb-3 space-y-1">
                 <a href="index.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Home</a>
@@ -511,5 +512,77 @@
             console.error('Pickup lines data not loaded');
         }
     </script>
+
+    <script>
+        // Desktop dropdown functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const desktopDropdowns = document.querySelectorAll('.nav-dropdown');
+
+            desktopDropdowns.forEach(dropdown => {
+                const button = dropdown.querySelector('button');
+                const menu = dropdown.querySelector('.dropdown-menu');
+
+                if (button && menu) {
+                    // Toggle on click
+                    button.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        // Close other dropdowns
+                        desktopDropdowns.forEach(other => {
+                            if (other !== dropdown) {
+                                const otherMenu = other.querySelector('.dropdown-menu');
+                                if (otherMenu) {
+                                    otherMenu.classList.remove('show');
+                                }
+                            }
+                        });
+
+                        // Toggle this dropdown
+                        menu.classList.toggle('show');
+                    });
+                }
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.nav-dropdown')) {
+                    desktopDropdowns.forEach(dropdown => {
+                        const menu = dropdown.querySelector('.dropdown-menu');
+                        if (menu) {
+                            menu.classList.remove('show');
+                        }
+                    });
+                }
+            });
+
+            // Mobile menu and dropdown functionality
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+
+                // Mobile dropdown functionality
+                mobileMenu.addEventListener('click', (e) => {
+                    const btn = e.target.closest('.mobile-dropdown-btn');
+                    if (btn) {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        const dropdown = btn.closest('.mobile-dropdown');
+                        const content = dropdown.querySelector('.mobile-dropdown-content');
+                        const icon = btn.querySelector('svg');
+
+                        content.classList.toggle('hidden');
+                        if (icon) icon.classList.toggle('rotate-180');
+                    }
+                });
+            }
+        });
+    </script>
+    <script src="js/components/main.js"></script>
 </body>
 </html>
