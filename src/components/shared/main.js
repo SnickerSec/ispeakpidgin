@@ -92,6 +92,20 @@ function initNavigation() {
                 mobileMenu.classList.add('hidden');
             });
         });
+
+        // Mobile dropdown functionality
+        const mobileDropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
+        mobileDropdownBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const dropdown = btn.closest('.mobile-dropdown');
+                const content = dropdown.querySelector('.mobile-dropdown-content');
+                const icon = btn.querySelector('svg');
+
+                // Toggle dropdown
+                content.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            });
+        });
     }
 }
 
