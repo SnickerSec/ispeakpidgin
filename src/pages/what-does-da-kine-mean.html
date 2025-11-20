@@ -744,53 +744,6 @@
     <script src="js/components/elevenlabs-speech.js"></script>
     <script src="js/components/speech.js"></script>
     <script src="js/components/main.js"></script>
-    <script>
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        mobileMenuBtn?.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Show more examples toggle
-        const showMoreBtn = document.getElementById('show-more-examples');
-        const moreExamples = document.getElementById('more-examples');
-
-        showMoreBtn?.addEventListener('click', () => {
-            if (moreExamples.classList.contains('hidden')) {
-                moreExamples.classList.remove('hidden');
-                showMoreBtn.textContent = 'Show Fewer Examples';
-            } else {
-                moreExamples.classList.add('hidden');
-                showMoreBtn.textContent = 'Show More Examples';
-            }
-        });
-
-        // Pronounce "Da Kine" button with ElevenLabs integration
-        const pronounceBtn = document.getElementById('pronounce-da-kine');
-        pronounceBtn?.addEventListener('click', async () => {
-            try {
-                // Use pidginSpeech which automatically tries ElevenLabs first, then falls back to browser TTS
-                await pidginSpeech.speak('da kine', {
-                    onStart: () => {
-                        // Visual feedback - button is being clicked
-                        pronounceBtn.style.opacity = '0.7';
-                    },
-                    onSuccess: () => {
-                        // Reset button appearance
-                        pronounceBtn.style.opacity = '1';
-                    },
-                    onError: (error) => {
-                        console.error('Pronunciation error:', error);
-                        pronounceBtn.style.opacity = '1';
-                    }
-                });
-            } catch (error) {
-                console.error('Failed to pronounce:', error);
-                pronounceBtn.style.opacity = '1';
-            }
-        });
-    </script>
+    <script src="js/main.js"></script>
 </body>
 </html>
