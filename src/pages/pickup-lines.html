@@ -173,58 +173,18 @@
 
         .share-btn {
             transition: all 0.2s ease;
-            border-radius: 0.5rem;
-            padding: 0.5rem;
             position: relative;
             z-index: 10;
             cursor: pointer;
-            border: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         .share-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         .share-btn:active {
             transform: scale(0.95);
-        }
-
-        /* Color-specific share button backgrounds */
-        .share-btn-pink {
-            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
-        }
-
-        .share-btn-red {
-            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
-        }
-
-        .share-btn-orange {
-            background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%);
-        }
-
-        .share-btn-purple {
-            background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
-        }
-
-        .share-btn-green {
-            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
-        }
-
-        .share-btn-blue {
-            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-        }
-
-        .share-btn-teal {
-            background: linear-gradient(135deg, #ccfbf1 0%, #99f6e4 100%);
-        }
-
-        .share-btn-indigo {
-            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
-        }
-
-        .share-btn-yellow {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
         }
     </style>
 </head>
@@ -437,13 +397,13 @@
                         <div class="flex items-start justify-between mb-3">
                             <span class="text-4xl emoji-float">${line.emoji}</span>
                             <button
-                                class="share-btn share-btn-${line.color} text-xl"
+                                class="share-btn bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold"
                                 data-pidgin="${line.pidgin.replace(/"/g, '&quot;')}"
                                 data-english="${line.english.replace(/"/g, '&quot;')}"
                                 data-pronunciation="${line.pronunciation.replace(/"/g, '&quot;')}"
                                 title="Share this pickup line"
                             >
-                                🔗
+                                🔗 Share
                             </button>
                         </div>
                         <div>
