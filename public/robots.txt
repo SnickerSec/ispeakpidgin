@@ -20,7 +20,12 @@ Allow: /index.html
 Allow: /dictionary.html
 Allow: /translator.html
 Allow: /learning-hub.html
+Allow: /stories.html
+Allow: /pickup-lines.html
+Allow: /pickup-line-generator.html
+Allow: /pidgin-bible.html
 Allow: /ask-local.html
+Allow: /about.html
 Allow: /sitemap.xml
 Allow: /favicon.ico
 Allow: /favicon.svg

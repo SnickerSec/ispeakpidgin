@@ -78,6 +78,7 @@ function processHTMLFiles() {
         'index.html', 'translator.html', 'dictionary.html', 'ask-local.html',
         'learning-hub.html', 'stories.html', 'pickup-lines.html', 'pickup-line-generator.html', 'pidgin-bible.html',
         'about.html', 'pidgin-vs-hawaiian.html', 'cheat-sheet.html',
+        'how-to-use-hawaiian-pidgin-pickup-lines.html',
         // SEO Pages
         'what-does-da-kine-mean.html',
         'what-does-howzit-mean.html',
