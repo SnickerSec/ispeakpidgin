@@ -79,6 +79,12 @@ function processHTMLFiles() {
         'learning-hub.html', 'stories.html', 'pickup-lines.html', 'pickup-line-generator.html', 'pidgin-bible.html',
         'about.html', 'pidgin-vs-hawaiian.html', 'cheat-sheet.html',
         'how-to-use-hawaiian-pidgin-pickup-lines.html',
+        // SEO Listicles
+        '15-essential-pidgin-phrases-ordering-plate-lunch.html',
+        'brah-sistah-pidgin-dictionary.html',
+        'beach-surf-pidgin-slang.html',
+        'understanding-time-in-pidgin.html',
+        'funny-insulting-pidgin-phrases.html',
         // SEO Pages
         'what-does-da-kine-mean.html',
         'what-does-howzit-mean.html',

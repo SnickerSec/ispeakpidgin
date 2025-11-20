@@ -30,6 +30,13 @@ const pages = [
     { url: '/cheat-sheet.html', priority: 0.7, changefreq: 'monthly' },
     { url: '/how-to-use-hawaiian-pidgin-pickup-lines.html', priority: 0.8, changefreq: 'monthly' },
 
+    // SEO Listicles - high-value content pages
+    { url: '/15-essential-pidgin-phrases-ordering-plate-lunch.html', priority: 0.8, changefreq: 'monthly' },
+    { url: '/brah-sistah-pidgin-dictionary.html', priority: 0.8, changefreq: 'monthly' },
+    { url: '/beach-surf-pidgin-slang.html', priority: 0.8, changefreq: 'monthly' },
+    { url: '/understanding-time-in-pidgin.html', priority: 0.8, changefreq: 'monthly' },
+    { url: '/funny-insulting-pidgin-phrases.html', priority: 0.7, changefreq: 'monthly' },
+
     // SEO pages - phrase explanations
     { url: '/what-does-da-kine-mean.html', priority: 0.6, changefreq: 'monthly' },
     { url: '/what-does-howzit-mean.html', priority: 0.6, changefreq: 'monthly' },
