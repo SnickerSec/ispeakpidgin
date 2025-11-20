@@ -823,9 +823,10 @@ button:focus, a:focus, input:focus, textarea:focus {
     z-index: 50;
 }
 
+/* Show dropdown on hover (desktop) or when .show class is added (click/touch) */
 .nav-dropdown:hover .dropdown-menu,
 .nav-dropdown .dropdown-menu.show {
-    display: block;
+    display: block !important;
 }
 
 .nav-dropdown .dropdown-menu a {
@@ -838,4 +839,14 @@ button:focus, a:focus, input:focus, textarea:focus {
 .nav-dropdown .dropdown-menu a:hover {
     background-color: #f0fdf4;
     color: #16a34a;
+}
+
+.nav-dropdown .dropdown-menu a:first-child {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+.nav-dropdown .dropdown-menu a:last-child {
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
 }

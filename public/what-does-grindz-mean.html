@@ -377,37 +377,6 @@
     <!-- Scripts -->
     <script src="js/components/elevenlabs-speech.js"></script>
     <script src="js/components/speech.js"></script>
-    <script>
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        mobileMenuBtn?.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Pronounce "Grindz" button with ElevenLabs integration
-        const pronounceBtn = document.getElementById('pronounce-grindz');
-        pronounceBtn?.addEventListener('click', async () => {
-            try {
-                await pidginSpeech.speak('grindz', {
-                    onStart: () => {
-                        pronounceBtn.style.opacity = '0.7';
-                    },
-                    onSuccess: () => {
-                        pronounceBtn.style.opacity = '1';
-                    },
-                    onError: (error) => {
-                        console.error('Pronunciation error:', error);
-                        pronounceBtn.style.opacity = '1';
-                    }
-                });
-            } catch (error) {
-                console.error('Failed to pronounce:', error);
-                pronounceBtn.style.opacity = '1';
-            }
-        });
-    </script>
     <script src="js/components/main.js"></script>
 </body>
 </html>
