@@ -43,7 +43,17 @@ const desktopNav = `                <div class="hidden md:flex space-x-6 items-c
                         </div>
                     </div>
 
-                    <a href="pidgin-bible.html" class="nav-link text-gray-700 hover:text-green-600 transition">Pidgin Bible</a>`;
+                    <a href="pidgin-bible.html" class="nav-link text-gray-700 hover:text-green-600 transition">Pidgin Bible</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-700 p-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>`;
 
 // Mobile navigation template with Community dropdown
 const mobileNav = `        <!-- Mobile Navigation -->
@@ -92,9 +102,9 @@ function updatePage(filePath) {
     let content = fs.readFileSync(filePath, 'utf8');
     let updated = false;
 
-    // Update desktop navigation
-    // Pattern: match from opening <div class="hidden md:flex..."> to the closing </div> before Mobile menu button
-    const desktopNavPattern = /<div class="hidden md:flex[^>]*>[\s\S]*?(?=\s*<!--\s*Mobile menu button\s*-->)/;
+    // Update desktop navigation including mobile menu button
+    // Pattern: match from opening <div class="hidden md:flex..."> through the mobile menu button
+    const desktopNavPattern = /<div class="hidden md:flex[^>]*>[\s\S]*?<\/div>\s*(?=\s*<\/div>\s*<\/div>\s*(?:<!--\s*Mobile Navigation\s*-->|<div id="mobile-menu"))/;
 
     if (desktopNavPattern.test(content)) {
         content = content.replace(desktopNavPattern, desktopNav);
@@ -127,8 +137,6 @@ console.log('🔄 Updating navigation across all pages...\n');
 
 const files = fs.readdirSync(PAGES_DIR)
     .filter(f => f.endsWith('.html'))
-    .filter(f => !f.startsWith('index')) // Skip index, already updated
-    .filter(f => !f.startsWith('stories')) // Skip stories, already updated
     .map(f => path.join(PAGES_DIR, f));
 
 let updatedCount = 0;
