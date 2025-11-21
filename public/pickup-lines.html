@@ -365,5 +365,131 @@
     <script src="js/data/pickup-lines-data.js"></script>
     <script src="js/components/pickup-lines.js"></script>
     <script src="js/components/main.js"></script>
+    <script>
+        // Favorites management
+        let favorites = JSON.parse(localStorage.getItem('favoritePickupLines') || '[]');
+
+        function updateFavoritesCount() {
+            const countEl = document.getElementById('favorites-count');
+            if (countEl) {
+                countEl.textContent = favorites.length;
+            }
+        }
+
+        function toggleFavorite(index) {
+            const idx = favorites.indexOf(index);
+            if (idx > -1) {
+                favorites.splice(idx, 1);
+            } else {
+                favorites.push(index);
+            }
+            localStorage.setItem('favoritePickupLines', JSON.stringify(favorites));
+            updateFavoritesCount();
+        }
+
+        function isFavorite(index) {
+            return favorites.includes(index);
+        }
+
+        // Display pickup lines
+        function displayPickupLines(lines, showingFavorites = false) {
+            const container = document.getElementById('pickup-lines-grid');
+            const noFavorites = document.getElementById('no-favorites');
+
+            if (showingFavorites && lines.length === 0) {
+                container.innerHTML = '';
+                if (noFavorites) noFavorites.classList.remove('hidden');
+                return;
+            } else {
+                if (noFavorites) noFavorites.classList.add('hidden');
+            }
+
+            container.innerHTML = lines.map((line, originalIndex) => {
+                const isFav = isFavorite(originalIndex);
+                return `
+                    <div class="pickup-card card-${line.color} rounded-2xl shadow-xl p-6">
+                        <div class="flex items-start justify-between mb-3">
+                            <span class="text-4xl emoji-float">${line.emoji}</span>
+                            <button
+                                class="favorite-btn text-2xl ${isFav ? 'active' : ''}"
+                                data-index="${originalIndex}"
+                                title="${isFav ? 'Remove from favorites' : 'Add to favorites'}"
+                            >
+                                ${isFav ? '❤️' : '🤍'}
+                            </button>
+                        </div>
+                        <div>
+                            <p class="text-xl font-bold text-gray-800 mb-2 brand-font">
+                                "${line.pidgin}"
+                            </p>
+                            <p class="text-gray-600 italic text-sm mb-3">
+                                ${line.pronunciation}
+                            </p>
+                            <p class="text-gray-700 font-medium">
+                                ${line.english}
+                            </p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Add favorite button listeners
+            document.querySelectorAll('.favorite-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    toggleFavorite(index);
+
+                    // Re-render if showing favorites
+                    if (showingFavorites) {
+                        showFavorites();
+                    } else {
+                        // Just update the button
+                        const isFav = isFavorite(index);
+                        this.textContent = isFav ? '❤️' : '🤍';
+                        this.classList.toggle('active', isFav);
+                    }
+                });
+            });
+        }
+
+        // Shuffle function
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        // Button handlers
+        document.getElementById('shuffle-btn')?.addEventListener('click', () => {
+            const shuffled = shuffleArray(pickupLines);
+            displayPickupLines(shuffled);
+        });
+
+        document.getElementById('show-all-btn')?.addEventListener('click', () => {
+            displayPickupLines(pickupLines);
+        });
+
+        function showFavorites() {
+            if (favorites.length === 0) {
+                displayPickupLines([], true);
+                return;
+            }
+            const favoriteLines = favorites.map(idx => pickupLines[idx]).filter(line => line);
+            displayPickupLines(favoriteLines, true);
+        }
+
+        document.getElementById('show-favorites-btn')?.addEventListener('click', showFavorites);
+
+        // Initial load
+        if (typeof pickupLines !== 'undefined') {
+            displayPickupLines(pickupLines);
+            updateFavoritesCount();
+        } else {
+            console.error('Pickup lines data not loaded');
+        }
+    </script>
 </body>
 </html>
