@@ -477,7 +477,7 @@ app.post('/api/generate-808-pickup-line',
     translationLimiter,
     [
         body('gender').optional().isIn(['wahine', 'kane']),
-        body('style').optional().isIn(['romantic', 'funny', 'sweet', 'bold', 'classic']),
+        body('style').optional().isIn(['romantic', 'funny', 'sweet', 'bold', 'classic', 'cringe']),
         body('grindz').optional().trim().isLength({ max: 100 }),
         body('landmark').optional().trim().isLength({ max: 100 }),
         body('trail').optional().trim().isLength({ max: 100 }),
@@ -521,7 +521,8 @@ app.post('/api/generate-808-pickup-line',
                 funny: "Make it humorous, playful, and witty. Use clever wordplay and light-hearted humor.",
                 sweet: "Make it charming, gentle, and endearing. Keep it warm and friendly.",
                 bold: "Make it confident, direct, and assertive. Show strength while staying respectful.",
-                classic: "Make it timeless, smooth, and traditional. Use tried-and-true charm."
+                classic: "Make it timeless, smooth, and traditional. Use tried-and-true charm.",
+                cringe: "Make it MAXIMUM CRINGE! Use the absolute corniest, cheesiest, most awkward puns and wordplay possible. Think terrible dad jokes meets desperate pickup attempts. The more eye-roll inducing, the better!"
             };
 
             const genderLabel = gender === 'wahine' ? 'Wahine (Female)' : 'Kāne (Male)';
@@ -531,7 +532,7 @@ app.post('/api/generate-808-pickup-line',
 
 STYLE: ${styleGuide}
 
-TONE: Make it extra corny, cheesy, and intentionally awkward! Mix genuine Pidgin with over-the-top romantic setups. Think dad jokes meets island vibes. The corniness is the charm!
+TONE: Make it SUPER DUPER CORNY, ULTRA CHEESY, and gloriously awkward! Mix genuine Pidgin with the most over-the-top, eye-rolling romantic setups you can imagine. Think the worst dad jokes crossed with desperate rom-com lines, Hawaiian edition. The more cringe-worthy, the better! We want people to laugh AND groan at the same time!
 
 REQUIREMENTS:
 1. Start with a Pidgin greeting (Howzit, Ho Brah, Hey Sistah, etc.) or a corny question
@@ -543,11 +544,15 @@ REQUIREMENTS:
 7. End with a question, suggestion, or cheesy punchline
 8. Keep it ${style}, respectful, intentionally corny, and fun!
 
-EXAMPLES OF THE CORNY VIBE:
-- "Is your name Kama'āina? Because you just moved into my heart and I wanna stay here forever."
-- "My love for you is like a broken ukulele—it's hammajang, but it still makes sweet music."
-- "You must be the secret ingredient in my pūpū platter, because you're the only thing I wanna snack on tonight."
-- "I thought I needed to go up to Mauna Kea for a good view, but now that I've seen you, try look! You're the highest point of beauty in Hawaii."
+EXAMPLES OF THE SUPER CORNY VIBE:
+- "Is your name Kama'āina? Because you just moved into my heart and I wanna stay here forever, rent-free!"
+- "My love for you is like a broken ukulele—it's hammajang, but it still makes sweet music. Wanna tune me up?"
+- "You must be the secret ingredient in my pūpū platter, because you're the only thing I wanna snack on tonight. Can I get extra you on da side?"
+- "I thought I needed to go up to Mauna Kea for a good view, but now that I've seen you, try look! You're the highest point of beauty in Hawaii. And I'm not just saying that because the altitude makes me dizzy!"
+- "Are you Hawaiian Electric? Because you just lit up my whole island! And unlike them, you nevah go out during storms."
+- "Is your dad a fisherman? Because you da biggest catch I evah seen, and I'm ready to get hooked!"
+- "You must be from Foodland, because you got all da ingredients for my perfect recipe of love. Aisle 3, my heart!"
+- "Are you Zippy's chili? Because you stay making me all warm inside and I can nevah get enough!"
 
 Return ONLY a JSON object with this exact format:
 {

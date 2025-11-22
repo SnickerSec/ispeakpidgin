@@ -171,7 +171,17 @@ const pickupLineComponents = {
         { name: "Yama's Fish Market", description: "Local poke and plate lunch", pidgin: "Yama's poke" },
         { name: "Foodland Poke Bar", description: "Supermarket poke counter", pidgin: "Foodland poke" },
         { name: "Alicia's Market", description: "Family-run Filipino market", pidgin: "Alicia's pork adobo" },
-        { name: "Palace Saimin", description: "Old-school saimin shop", pidgin: "Palace's saimin" }
+        { name: "Palace Saimin", description: "Old-school saimin shop", pidgin: "Palace's saimin" },
+        { name: "Kono's Northshore", description: "Breakfast kalua pork wrap", pidgin: "Kono's kalua wrap" },
+        { name: "Boots & Kimo's", description: "Macadamia nut pancakes", pidgin: "Boots & Kimo's pancakes" },
+        { name: "Pipeline Bakeshop", description: "Ehukai cream puffs", pidgin: "Pipeline's cream puff" },
+        { name: "Tanaka Saimin", description: "Old-school Okinawan saimin", pidgin: "Tanaka's saimin" },
+        { name: "Forty Niner", description: "Local diner breakfast", pidgin: "Forty Niner's pancakes" },
+        { name: "Cholo's Homestyle", description: "Mexican-Hawaiian fusion", pidgin: "Cholo's burrito" },
+        { name: "Kailua Town Pub", description: "Burgers and local grinds", pidgin: "Kailua Pub's burger" },
+        { name: "Liliha Bakery Nimitz", description: "Ox tail soup legend", pidgin: "Liliha's ox tail soup" },
+        { name: "Hale Vietnam", description: "Vietnamese pho spot", pidgin: "Hale Vietnam's pho" },
+        { name: "Waipahu Eatery", description: "Filipino breakfast spot", pidgin: "Waipahu's tapa" }
     ],
 
     landmarks: [
@@ -209,7 +219,17 @@ const pickupLineComponents = {
         { name: "Pearlridge Center", description: "Large shopping mall", pidgin: "Pearlridge" },
         { name: "Ward Village", description: "Kaka'ako development", pidgin: "Ward" },
         { name: "Chinatown", description: "Historic downtown district", pidgin: "Chinatown" },
-        { name: "Kapiolani Park", description: "Large Waikiki park", pidgin: "Kapi'o Park" }
+        { name: "Kapiolani Park", description: "Large Waikiki park", pidgin: "Kapi'o Park" },
+        { name: "Kualoa Ranch", description: "Historic ranch and movie site", pidgin: "Kualoa Ranch" },
+        { name: "Byodo-In Temple", description: "Valley of the Temples shrine", pidgin: "Byodo-In Temple" },
+        { name: "Dole Plantation", description: "Pineapple tourist attraction", pidgin: "Dole Plantation" },
+        { name: "Polynesian Cultural Center", description: "Laie cultural experience", pidgin: "da PCC" },
+        { name: "Magic Island", description: "Ala Moana lagoon peninsula", pidgin: "Magic Island" },
+        { name: "Makaha Beach", description: "West side surf spot", pidgin: "Makaha" },
+        { name: "Kahuku Town", description: "North Shore shrimp capital", pidgin: "Kahuku" },
+        { name: "Manoa Valley", description: "Lush residential valley", pidgin: "Manoa" },
+        { name: "Salt Lake", description: "Central Oahu neighborhood", pidgin: "Salt Lake" },
+        { name: "Bishop Museum", description: "Hawaiian history museum", pidgin: "Bishop Museum" }
     ],
 
     hikingTrails: [
@@ -247,7 +267,17 @@ const pickupLineComponents = {
         { name: "Kawai Nui Marsh", description: "Kailua wetland walk", pidgin: "Kawai Nui" },
         { name: "Hoʻomaluhia Loop", description: "Botanical garden trail", pidgin: "Hoʻomaluhia" },
         { name: "Peacock Flats", description: "Mokuleia forest trail", pidgin: "Peacock Flats" },
-        { name: "Pink Pillbox", description: "Maili sunset hike", pidgin: "Pink Pillbox" }
+        { name: "Pink Pillbox", description: "Maili sunset hike", pidgin: "Pink Pillbox" },
+        { name: "Laie Falls", description: "Sacred waterfall hike", pidgin: "Laie Falls" },
+        { name: "Kuli'ou'ou Valley", description: "Alternative valley route", pidgin: "Kuli'ou'ou Valley" },
+        { name: "Waahila Ridge", description: "St. Louis Heights panoramic", pidgin: "Waahila" },
+        { name: "Mokuleia Beach Walk", description: "Remote coastal trail", pidgin: "Mokuleia Beach" },
+        { name: "Kahana Bay", description: "Windward valley hike", pidgin: "Kahana Bay" },
+        { name: "Dupont Trail", description: "Historic military road", pidgin: "Dupont Trail" },
+        { name: "Kolowalu Trail", description: "Makakilo ridge hike", pidgin: "Kolowalu" },
+        { name: "Dead Man's Catwalk", description: "Advanced ridge scramble", pidgin: "Dead Man's Catwalk" },
+        { name: "Sacred Falls", description: "Closed but legendary hike", pidgin: "Sacred Falls" },
+        { name: "Kuli'ou'ou Summit", description: "Ko'olau ridgeline peak", pidgin: "Kuli'ou'ou Summit" }
     ],
 
     genderTargets: [
