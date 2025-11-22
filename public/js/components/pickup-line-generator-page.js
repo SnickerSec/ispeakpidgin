@@ -146,8 +146,29 @@
             return;
         }
 
-        // Store data on the input element for easy access
-        input.dataset.options = JSON.stringify(dataArray);
+        // Function to render dropdown results
+        function renderResults(items) {
+            if (items.length === 0) {
+                resultsContainer.innerHTML = '<div class="px-4 py-2 text-gray-500 text-sm">No results found</div>';
+            } else {
+                resultsContainer.innerHTML = items.map(item => `
+                    <div class="dropdown-item px-4 py-2 hover:bg-orange-50 cursor-pointer border-b border-orange-100 last:border-b-0" data-value="${item.name}">
+                        <div class="font-semibold text-gray-800">${item.name}</div>
+                        <div class="text-xs text-gray-600">${item.description}</div>
+                    </div>
+                `).join('');
+            }
+            resultsContainer.classList.remove('hidden');
+        }
+
+        // Handle clicks on dropdown items using event delegation
+        resultsContainer.addEventListener('click', function(e) {
+            const item = e.target.closest('.dropdown-item');
+            if (item && item.dataset.value) {
+                input.value = item.dataset.value;
+                resultsContainer.classList.add('hidden');
+            }
+        });
 
         // Search on input
         input.addEventListener('input', function() {
@@ -165,59 +186,19 @@
                 return nameMatch || descMatch;
             });
 
-            // Display results
-            if (filtered.length > 0) {
-                resultsContainer.innerHTML = filtered.map(item => `
-                    <div class="px-4 py-2 hover:bg-orange-50 cursor-pointer border-b border-orange-100 last:border-b-0" data-value="${item.name}">
-                        <div class="font-semibold text-gray-800">${item.name}</div>
-                        <div class="text-xs text-gray-600">${item.description}</div>
-                    </div>
-                `).join('');
-                resultsContainer.classList.remove('hidden');
-
-                // Add click handlers to results
-                resultsContainer.querySelectorAll('[data-value]').forEach(elem => {
-                    elem.addEventListener('click', function() {
-                        input.value = this.dataset.value;
-                        resultsContainer.classList.add('hidden');
-                    });
-                });
-            } else {
-                resultsContainer.innerHTML = '<div class="px-4 py-2 text-gray-500 text-sm">No results found</div>';
-                resultsContainer.classList.remove('hidden');
-            }
-        });
-
-        // Hide results when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!input.contains(e.target) && !resultsContainer.contains(e.target)) {
-                resultsContainer.classList.add('hidden');
-            }
+            renderResults(filtered);
         });
 
         // Show all options on focus
         input.addEventListener('focus', function() {
-            if (this.value.trim().length === 0) {
-                resultsContainer.innerHTML = dataArray.map(item => `
-                    <div class="px-4 py-2 hover:bg-orange-50 cursor-pointer border-b border-orange-100 last:border-b-0" data-value="${item.name}">
-                        <div class="font-semibold text-gray-800">${item.name}</div>
-                        <div class="text-xs text-gray-600">${item.description}</div>
-                    </div>
-                `).join('');
-                resultsContainer.classList.remove('hidden');
-
-                // Add click handlers
-                resultsContainer.querySelectorAll('[data-value]').forEach(elem => {
-                    elem.addEventListener('click', function() {
-                        input.value = this.dataset.value;
-                        resultsContainer.classList.add('hidden');
-                    });
-                });
-            }
+            renderResults(dataArray);
         });
 
         // Random button handler
-        randomBtn.addEventListener('click', function() {
+        randomBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
             const randomItem = dataArray[Math.floor(Math.random() * dataArray.length)];
             input.value = randomItem.name;
             resultsContainer.classList.add('hidden');
@@ -227,6 +208,15 @@
             setTimeout(() => {
                 this.innerHTML = '🎲';
             }, 500);
+        });
+
+        // Hide results when clicking outside (but not on the random button)
+        document.addEventListener('click', function(e) {
+            if (!input.contains(e.target) &&
+                !resultsContainer.contains(e.target) &&
+                !randomBtn.contains(e.target)) {
+                resultsContainer.classList.add('hidden');
+            }
         });
 
         console.log(`✅ Setup searchable dropdown: ${inputId} with ${dataArray.length} options`);
