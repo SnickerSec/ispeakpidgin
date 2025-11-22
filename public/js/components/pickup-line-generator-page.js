@@ -206,14 +206,15 @@
 
     // Build prompt for Gemini API
     function buildHowzitPrompt(gender, grindz, landmark, trail, prettyPhrase) {
-        const genderLabel = gender === 'wahine' ? 'woman' : 'man';
+        const genderLabel = gender === 'wahine' ? 'Wahine (Female)' : 'Kāne (Male)';
+        const genderTerm = gender === 'wahine' ? 'wahine' : 'kāne';
         const contexts = [];
 
         if (grindz) contexts.push(`food spot: ${grindz}`);
         if (landmark) contexts.push(`landmark: ${landmark}`);
         if (trail) contexts.push(`hiking trail: ${trail}`);
 
-        return `You are a Hawaiian Pidgin pickup line generator. Create one funny, complimentary pickup line for a ${genderLabel} (${gender}) using authentic Hawaiian Pidgin.
+        return `You are a Hawaiian Pidgin pickup line generator. Create one funny, complimentary pickup line to say TO a ${genderLabel} using authentic Hawaiian Pidgin.
 
 REQUIREMENTS:
 1. Start with a Pidgin greeting (Howzit, Ho Brah, Hey Sistah, etc.)
@@ -230,11 +231,18 @@ Return ONLY a JSON object with this exact format:
   "english": "English translation"
 }
 
-Example format:
+Example for a Wahine (Female):
 {
   "pidgin": "Howzit wahine! You so pretty, you make dis garlic shrimp look junk. Like go holo holo down Pali Highway and grab one coconut? Shoots!",
   "pronunciation": "HOW-zit wah-HEE-neh! You so PRET-tee, you make DIS GAR-lic shrimp look JUNK. Like go HO-lo HO-lo down PAH-lee HIGH-way and grab one CO-co-nut? SHOOTS!",
   "english": "Hey woman! You're so pretty, you make this garlic shrimp look bad. Want to drive down Pali Highway and get a coconut? Okay!"
+}
+
+Example for a Kāne (Male):
+{
+  "pidgin": "Ho brah! You so handsome, even after climbing Koko Head you still look mo' bettah than da view. Like go get some broke da mouth grindz?",
+  "pronunciation": "HO BRAH! You so HAND-sum, even AF-tah CLIMB-ing KO-ko HEAD you still look MO BET-tah than dah VIEW. Like go get some BROKE dah MOUTH GRINDZ?",
+  "english": "Wow man! You're so handsome, even after climbing Koko Head stairs you still look better than the view. Want to get some delicious food?"
 }`;
     }
 
