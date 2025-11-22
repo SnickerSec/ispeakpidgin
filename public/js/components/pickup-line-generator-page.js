@@ -66,6 +66,9 @@
 
         // Share button
         document.getElementById('share-btn')?.addEventListener('click', sharePickupLine);
+
+        // Speak button
+        document.getElementById('speak-btn')?.addEventListener('click', speakPickupLine);
     }
 
     function setGenerationMode(mode) {
@@ -95,59 +98,62 @@
         }
     }
 
-    // Populate 808 Mode dropdowns
+    // Populate 808 Mode searchable dropdowns
     function populateHowzitDropdowns() {
         if (typeof pickupLineComponents === 'undefined') {
             console.error('❌ pickupLineComponents not loaded');
             return;
         }
 
-        const grindzSelect = document.getElementById('grindz-select');
-        const landmarkSelect = document.getElementById('landmark-select');
-        const trailSelect = document.getElementById('trail-select');
+        const grindzList = document.getElementById('grindz-list');
+        const landmarkList = document.getElementById('landmark-list');
+        const trailList = document.getElementById('trail-list');
 
-        console.log('📍 Populating 808 Mode dropdowns...');
+        console.log('📍 Populating 808 Mode searchable dropdowns...');
         console.log('Places to eat:', pickupLineComponents.placesToEat?.length);
         console.log('Landmarks:', pickupLineComponents.landmarks?.length);
         console.log('Trails:', pickupLineComponents.hikingTrails?.length);
 
-        // Populate places to eat
-        if (grindzSelect && pickupLineComponents.placesToEat) {
+        // Populate places to eat datalist
+        if (grindzList && pickupLineComponents.placesToEat) {
             pickupLineComponents.placesToEat.forEach(place => {
                 const option = document.createElement('option');
                 option.value = place.name;
                 option.textContent = `${place.name} - ${place.description}`;
-                grindzSelect.appendChild(option);
+                option.setAttribute('data-description', place.description);
+                grindzList.appendChild(option);
             });
-            console.log('✅ Populated grindz dropdown with', pickupLineComponents.placesToEat.length, 'options');
+            console.log('✅ Populated grindz datalist with', pickupLineComponents.placesToEat.length, 'options');
         } else {
-            console.error('❌ Could not populate grindz dropdown');
+            console.error('❌ Could not populate grindz datalist');
         }
 
-        // Populate landmarks
-        if (landmarkSelect && pickupLineComponents.landmarks) {
+        // Populate landmarks datalist
+        if (landmarkList && pickupLineComponents.landmarks) {
             pickupLineComponents.landmarks.forEach(landmark => {
                 const option = document.createElement('option');
                 option.value = landmark.name;
                 option.textContent = `${landmark.name} - ${landmark.description}`;
-                landmarkSelect.appendChild(option);
+                option.setAttribute('data-description', landmark.description);
+                landmarkList.appendChild(option);
             });
-            console.log('✅ Populated landmarks dropdown with', pickupLineComponents.landmarks.length, 'options');
+            console.log('✅ Populated landmarks datalist with', pickupLineComponents.landmarks.length, 'options');
         } else {
-            console.error('❌ Could not populate landmarks dropdown');
+            console.error('❌ Could not populate landmarks datalist');
         }
 
-        // Populate trails
-        if (trailSelect && pickupLineComponents.hikingTrails) {
+        // Populate trails datalist
+        if (trailList && pickupLineComponents.hikingTrails) {
             pickupLineComponents.hikingTrails.forEach(trail => {
                 const option = document.createElement('option');
                 option.value = trail.name;
                 option.textContent = `${trail.name} - ${trail.description}`;
-                trailSelect.appendChild(option);
+                option.setAttribute('data-description', trail.description);
+                trailList.appendChild(option);
             });
-            console.log('✅ Populated trails dropdown with', pickupLineComponents.hikingTrails.length, 'options');
+            console.log('✅ Populated trails datalist with', pickupLineComponents.hikingTrails.length, 'options');
         } else {
-            console.error('❌ Could not populate trails dropdown');
+            console.error('❌ Could not populate trails datalist');
         }
     }
 
@@ -193,9 +199,9 @@
     // Generate 808 Mode pickup line using Gemini API
     async function generateHowzitGrindz() {
         const gender = document.getElementById('gender-select')?.value || 'wahine';
-        const grindz = document.getElementById('grindz-select')?.value;
-        const landmark = document.getElementById('landmark-select')?.value;
-        const trail = document.getElementById('trail-select')?.value;
+        const grindz = document.getElementById('grindz-input')?.value;
+        const landmark = document.getElementById('landmark-input')?.value;
+        const trail = document.getElementById('trail-input')?.value;
 
         // Validate selections
         if (!grindz && !landmark && !trail) {
@@ -399,6 +405,48 @@
         } else {
             // Fallback: copy to clipboard
             copyToClipboard();
+        }
+    }
+
+    async function speakPickupLine() {
+        if (!currentLine) return;
+
+        const speakBtn = document.getElementById('speak-btn');
+
+        try {
+            // Update button to show loading state
+            if (speakBtn) {
+                speakBtn.disabled = true;
+                speakBtn.innerHTML = '⏸️ Playing...';
+            }
+
+            // Use ElevenLabs speech if available, otherwise fallback to browser TTS
+            if (typeof elevenLabsSpeech !== 'undefined' && elevenLabsSpeech.isSupported()) {
+                await elevenLabsSpeech.speak(currentLine.pidgin, {
+                    onSuccess: () => {
+                        console.log('✅ Pickup line spoken successfully');
+                    },
+                    onError: (error) => {
+                        console.error('Speech error:', error);
+                        showNotification('Speech failed. Try again.', 'error');
+                    }
+                });
+            } else if (typeof pidginSpeech !== 'undefined') {
+                // Fallback to browser speech
+                await pidginSpeech.speak(currentLine.pidgin);
+            } else {
+                showNotification('Speech not available', 'error');
+            }
+
+        } catch (error) {
+            console.error('Error speaking pickup line:', error);
+            showNotification('Failed to play audio', 'error');
+        } finally {
+            // Reset button
+            if (speakBtn) {
+                speakBtn.disabled = false;
+                speakBtn.innerHTML = '🔊 Listen';
+            }
         }
     }
 
