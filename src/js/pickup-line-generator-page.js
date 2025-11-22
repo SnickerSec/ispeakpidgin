@@ -206,8 +206,8 @@
         const prettyPhrases = pickupLineComponents.prettyPhrases[gender];
         const randomPretty = prettyPhrases[Math.floor(Math.random() * prettyPhrases.length)];
 
-        // Build the prompt for Gemini
-        const prompt = buildHowzitPrompt(gender, grindz, landmark, trail, randomPretty);
+        // Build the prompt for Gemini (now includes style)
+        const prompt = buildHowzitPrompt(gender, grindz, landmark, trail, randomPretty, selectedContext);
 
         // Call Gemini API (placeholder - needs implementation)
         const geminiResponse = await callGeminiAPI(prompt);
@@ -222,7 +222,7 @@
     }
 
     // Build prompt for Gemini API
-    function buildHowzitPrompt(gender, grindz, landmark, trail, prettyPhrase) {
+    function buildHowzitPrompt(gender, grindz, landmark, trail, prettyPhrase, style) {
         const genderLabel = gender === 'wahine' ? 'Wahine (Female)' : 'Kāne (Male)';
         const genderTerm = gender === 'wahine' ? 'wahine' : 'kāne';
         const contexts = [];
@@ -231,7 +231,20 @@
         if (landmark) contexts.push(`landmark: ${landmark}`);
         if (trail) contexts.push(`hiking trail: ${trail}`);
 
-        return `You are a Hawaiian Pidgin pickup line generator. Create one funny, complimentary pickup line to say TO a ${genderLabel} using authentic Hawaiian Pidgin.
+        // Style descriptions for the AI
+        const styleGuides = {
+            romantic: "Make it sweet, heartfelt, and sincere. Focus on genuine affection and connection.",
+            funny: "Make it humorous, playful, and witty. Use clever wordplay and light-hearted humor.",
+            sweet: "Make it charming, gentle, and endearing. Keep it warm and friendly.",
+            bold: "Make it confident, direct, and assertive. Show strength while staying respectful.",
+            classic: "Make it timeless, smooth, and traditional. Use tried-and-true charm."
+        };
+
+        const styleGuide = styleGuides[style] || styleGuides.romantic;
+
+        return `You are a Hawaiian Pidgin pickup line generator. Create one ${style} pickup line to say TO a ${genderLabel} using authentic Hawaiian Pidgin.
+
+STYLE: ${styleGuide}
 
 REQUIREMENTS:
 1. Start with a Pidgin greeting (Howzit, Ho Brah, Hey Sistah, etc.)
@@ -239,7 +252,7 @@ REQUIREMENTS:
 3. Incorporate these contexts naturally: ${contexts.join(', ')}
 4. Use Hawaiian Pidgin words like: 'ono (delicious), pau (finished), akamai (smart), choke (a lot), mo' bettah (better), shoots (okay), bumbai (later), grindz (food), holo holo (cruise around)
 5. End with a question or suggestion (the "ask")
-6. Keep it fun, respectful, and culturally authentic
+6. Keep it ${style}, respectful, and culturally authentic
 
 Return ONLY a JSON object with this exact format:
 {
@@ -268,24 +281,57 @@ Example for a Kāne (Male):
         console.log('📝 Gemini API Prompt:', prompt);
 
         // TODO: Implement actual Gemini API call
-        // For now, return a sample response
-        const samples = [
-            {
-                pidgin: "Howzit wahine! You so pretty, you make Zippy's chili look bland. Like go holo holo to Diamond Head and watch da sunset? Shoots!",
-                pronunciation: "HOW-zit wah-HEE-neh! You so PRET-tee, you make ZIP-pee's CHILI look BLAND. Like go HO-lo HO-lo to DYE-mond HEAD and watch dah SUN-set? SHOOTS!",
-                english: "Hey woman! You're so beautiful, you make Zippy's chili look bland. Want to drive to Diamond Head and watch the sunset? Okay!"
-            },
-            {
-                pidgin: "Ho brah! You look akamai and fine kine. Even after climbing Koko Head, you still look mo' bettah than da view. Like go get some broke da mouth grindz?",
-                pronunciation: "HO BRAH! You look ah-kah-MY and FINE KYNE. Even AF-tah CLIMB-ing KO-ko HEAD, you still look MO BET-tah than dah VIEW. Like go get some BROKE dah MOUTH GRINDZ?",
-                english: "Wow man! You look smart and good. Even after climbing Koko Head stairs, you still look better than the view. Want to get some delicious food?"
-            }
-        ];
+        // For now, return a sample response based on style
+        const samples = {
+            romantic: [
+                {
+                    pidgin: "Howzit wahine! You so pretty, you make da sunset at Lanikai look dull. My heart stay racing mo' fast den climbing Diamond Head. Can I holo holo wit you?",
+                    pronunciation: "HOW-zit wah-HEE-neh! You so PRET-tee, you make dah SUN-set at lah-nee-KAI look DULL. My HEART stay RAY-sing MO fast den CLIMB-ing DYE-mond HEAD. Can I HO-lo HO-lo wit you?",
+                    english: "Hey woman! You're so beautiful, you make the sunset at Lanikai look dull. My heart is racing faster than climbing Diamond Head. Can I spend time with you?"
+                }
+            ],
+            funny: [
+                {
+                    pidgin: "Ho brah! You so handsome, even Koko Head Stairs stay jealous of your steps! You make Leonard's malasadas look junk. Shoots, like go get one shave ice?",
+                    pronunciation: "HO BRAH! You so HAND-sum, even KO-ko HEAD STAIRS stay JEH-lus of your STEPS! You make LEH-nards mah-lah-SAH-das look JUNK. SHOOTS, like go get one SHAVE ICE?",
+                    english: "Wow man! You're so handsome, even Koko Head Stairs is jealous of your steps! You make Leonard's malasadas look bad. Okay, want to get shave ice?"
+                }
+            ],
+            sweet: [
+                {
+                    pidgin: "Sistah, you stay shine bright like da lights at Ala Moana. You mo' sweet den Ted's haupia pie. Can take you holo holo to Waikiki bumbye?",
+                    pronunciation: "SIS-tah, you stay SHINE bright like dah LIGHTS at AH-la moh-AH-nah. You MO sweet den TEDS how-PEE-ah PIE. Can take you HO-lo HO-lo to why-kee-KEE BUM-bye?",
+                    english: "Sister, you shine bright like the lights at Ala Moana. You're sweeter than Ted's haupia pie. Can I take you to Waikiki later?"
+                }
+            ],
+            bold: [
+                {
+                    pidgin: "Eh wahine! You da kine beautiful. I wen climb Olomana just fo impress you. Like go grind at Giovanni's den cruise da North Shore? I know you worth it.",
+                    pronunciation: "EH wah-HEE-neh! You dah KYNE byoo-tee-FUL. I wen CLIMB oh-loh-MAH-nah just fo im-PRESS you. Like go GRIND at jee-oh-VAH-nees den CRUISE dah NORTH SHORE? I know you WORTH it.",
+                    english: "Hey woman! You're the most beautiful. I climbed Olomana just to impress you. Want to eat at Giovanni's then cruise the North Shore? I know you're worth it."
+                }
+            ],
+            classic: [
+                {
+                    pidgin: "Howzit beautiful! You get da kine smile dat stay mo' pretty den Manoa Falls. Like go grab some grindz at Rainbow Drive-In an talk story? Shoots, I buy.",
+                    pronunciation: "HOW-zit BYOO-tee-ful! You get dah KYNE smile dat stay MO PRET-tee den mah-NOH-ah FALLS. Like go grab some GRINDZ at RAIN-bow DRIVE-in an TALK STOR-ee? SHOOTS, I BUY.",
+                    english: "Hey beautiful! You have the kind of smile that's prettier than Manoa Falls. Want to grab food at Rainbow Drive-In and chat? Okay, I'll pay."
+                }
+            ]
+        };
 
         // Simulate API delay
         await new Promise(resolve => setTimeout(resolve, 2000));
 
-        return samples[Math.floor(Math.random() * samples.length)];
+        // Try to determine style from prompt
+        let style = 'romantic';
+        if (prompt.includes('funny')) style = 'funny';
+        else if (prompt.includes('sweet')) style = 'sweet';
+        else if (prompt.includes('bold')) style = 'bold';
+        else if (prompt.includes('classic')) style = 'classic';
+
+        const styleSamples = samples[style] || samples.romantic;
+        return styleSamples[Math.floor(Math.random() * styleSamples.length)];
     }
 
     function displayResult(line) {
