@@ -140,7 +140,7 @@ const pickupLineComponents = {
         }
     ],
 
-    // Howzit Grindz Generator - Contextual Options
+    // 808 Mode Generator - Contextual Options
     placesToEat: [
         { name: "Zippy's", description: "Local favorite restaurant", pidgin: "Zippy's chili bowl" },
         { name: "Leonard's Bakery", description: "Famous malasadas", pidgin: "Leonard's hot malasada" },

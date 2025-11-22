@@ -52,7 +52,7 @@
             setGenerationMode('ai');
         });
 
-        // Populate Howzit Grindz dropdowns
+        // Populate 808 Mode dropdowns
         populateHowzitDropdowns();
 
         // Generate button
@@ -95,7 +95,7 @@
         }
     }
 
-    // Populate Howzit Grindz dropdowns
+    // Populate 808 Mode dropdowns
     function populateHowzitDropdowns() {
         if (typeof pickupLineComponents === 'undefined') return;
 
@@ -148,7 +148,7 @@
             let line;
 
             if (generationMode === 'howzit') {
-                // Howzit Grindz - Gemini AI generation with context
+                // 808 Mode - Gemini AI generation with context
                 line = await generateHowzitGrindz();
             } else if (generationMode === 'ai') {
                 // AI generation
@@ -173,7 +173,7 @@
         }
     }
 
-    // Generate Howzit Grindz pickup line using Gemini API
+    // Generate 808 Mode pickup line using Gemini API
     async function generateHowzitGrindz() {
         const gender = document.getElementById('gender-select')?.value || 'wahine';
         const grindz = document.getElementById('grindz-select')?.value;
@@ -288,7 +288,7 @@ Example for a Kāne (Male):
         // Set badge
         if (resultBadge) {
             if (line.type === 'howzit-grindz') {
-                resultBadge.textContent = '🍔 Howzit Grindz';
+                resultBadge.textContent = '📍 808 Mode';
                 resultBadge.className = 'badge badge-ai';
             } else if (line.aiGenerated || line.type === 'ai-generated') {
                 resultBadge.textContent = '🤖 AI Generated';
