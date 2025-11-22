@@ -206,11 +206,8 @@
         const prettyPhrases = pickupLineComponents.prettyPhrases[gender];
         const randomPretty = prettyPhrases[Math.floor(Math.random() * prettyPhrases.length)];
 
-        // Build the prompt for Gemini (now includes style)
-        const prompt = buildHowzitPrompt(gender, grindz, landmark, trail, randomPretty, selectedContext);
-
-        // Call Gemini API (placeholder - needs implementation)
-        const geminiResponse = await callGeminiAPI(prompt);
+        // Call 808 Mode API endpoint
+        const geminiResponse = await callGeminiAPI(gender, grindz, landmark, trail, randomPretty, selectedContext);
 
         return {
             pidgin: geminiResponse.pidgin,
@@ -221,67 +218,49 @@
         };
     }
 
-    // Build prompt for Gemini API
-    function buildHowzitPrompt(gender, grindz, landmark, trail, prettyPhrase, style) {
-        const genderLabel = gender === 'wahine' ? 'Wahine (Female)' : 'Kāne (Male)';
-        const genderTerm = gender === 'wahine' ? 'wahine' : 'kāne';
-        const contexts = [];
+    // Call 808 Mode API endpoint (uses Gemini 2.5 Flash Lite server-side)
+    async function callGeminiAPI(gender, grindz, landmark, trail, prettyPhrase, style) {
+        console.log('📍 Calling 808 Mode API...');
 
-        if (grindz) contexts.push(`food spot: ${grindz}`);
-        if (landmark) contexts.push(`landmark: ${landmark}`);
-        if (trail) contexts.push(`hiking trail: ${trail}`);
+        try {
+            const response = await fetch('/api/generate-808-pickup-line', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    gender,
+                    style,
+                    grindz,
+                    landmark,
+                    trail,
+                    prettyPhrase
+                })
+            });
 
-        // Style descriptions for the AI
-        const styleGuides = {
-            romantic: "Make it sweet, heartfelt, and sincere. Focus on genuine affection and connection.",
-            funny: "Make it humorous, playful, and witty. Use clever wordplay and light-hearted humor.",
-            sweet: "Make it charming, gentle, and endearing. Keep it warm and friendly.",
-            bold: "Make it confident, direct, and assertive. Show strength while staying respectful.",
-            classic: "Make it timeless, smooth, and traditional. Use tried-and-true charm."
-        };
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || `API error: ${response.status}`);
+            }
 
-        const styleGuide = styleGuides[style] || styleGuides.romantic;
+            const data = await response.json();
+            console.log('✅ 808 Mode API Response:', data);
 
-        return `You are a Hawaiian Pidgin pickup line generator. Create one ${style} pickup line to say TO a ${genderLabel} using authentic Hawaiian Pidgin.
+            return {
+                pidgin: data.pidgin,
+                pronunciation: data.pronunciation,
+                english: data.english
+            };
 
-STYLE: ${styleGuide}
-
-REQUIREMENTS:
-1. Start with a Pidgin greeting (Howzit, Ho Brah, Hey Sistah, etc.)
-2. Include this compliment: "${prettyPhrase}"
-3. Incorporate these contexts naturally: ${contexts.join(', ')}
-4. Use Hawaiian Pidgin words like: 'ono (delicious), pau (finished), akamai (smart), choke (a lot), mo' bettah (better), shoots (okay), bumbai (later), grindz (food), holo holo (cruise around)
-5. End with a question or suggestion (the "ask")
-6. Keep it ${style}, respectful, and culturally authentic
-
-Return ONLY a JSON object with this exact format:
-{
-  "pidgin": "the pickup line in Hawaiian Pidgin",
-  "pronunciation": "how to pronounce it (use caps for stressed syllables)",
-  "english": "English translation"
-}
-
-Example for a Wahine (Female):
-{
-  "pidgin": "Howzit wahine! You so pretty, you make dis garlic shrimp look junk. Like go holo holo down Pali Highway and grab one coconut? Shoots!",
-  "pronunciation": "HOW-zit wah-HEE-neh! You so PRET-tee, you make DIS GAR-lic shrimp look JUNK. Like go HO-lo HO-lo down PAH-lee HIGH-way and grab one CO-co-nut? SHOOTS!",
-  "english": "Hey woman! You're so pretty, you make this garlic shrimp look bad. Want to drive down Pali Highway and get a coconut? Okay!"
-}
-
-Example for a Kāne (Male):
-{
-  "pidgin": "Ho brah! You so handsome, even after climbing Koko Head you still look mo' bettah than da view. Like go get some broke da mouth grindz?",
-  "pronunciation": "HO BRAH! You so HAND-sum, even AF-tah CLIMB-ing KO-ko HEAD you still look MO BET-tah than dah VIEW. Like go get some BROKE dah MOUTH GRINDZ?",
-  "english": "Wow man! You're so handsome, even after climbing Koko Head stairs you still look better than the view. Want to get some delicious food?"
-}`;
+        } catch (error) {
+            console.error('❌ 808 Mode API Error:', error);
+            console.warn('⚠️ Falling back to sample responses');
+            return getFallbackSample(style);
+        }
     }
 
-    // Call Gemini API (placeholder - needs actual API implementation)
-    async function callGeminiAPI(prompt) {
-        console.log('📝 Gemini API Prompt:', prompt);
-
-        // TODO: Implement actual Gemini API call
-        // For now, return a sample response based on style
+    // Fallback samples when API is unavailable
+    function getFallbackSample(prompt) {
         const samples = {
             romantic: [
                 {
@@ -319,9 +298,6 @@ Example for a Kāne (Male):
                 }
             ]
         };
-
-        // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 2000));
 
         // Try to determine style from prompt
         let style = 'romantic';

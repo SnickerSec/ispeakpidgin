@@ -472,6 +472,159 @@ Generate ONE original pickup line now.`;
         }
     });
 
+// 808 Mode - Contextual Pickup Line Generator with Local Spots
+app.post('/api/generate-808-pickup-line',
+    translationLimiter,
+    [
+        body('gender').optional().isIn(['wahine', 'kane']),
+        body('style').optional().isIn(['romantic', 'funny', 'sweet', 'bold', 'classic']),
+        body('grindz').optional().trim().isLength({ max: 100 }),
+        body('landmark').optional().trim().isLength({ max: 100 }),
+        body('trail').optional().trim().isLength({ max: 100 }),
+        body('prettyPhrase').optional().trim().isLength({ max: 100 })
+    ],
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        try {
+            const {
+                gender = 'wahine',
+                style = 'romantic',
+                grindz,
+                landmark,
+                trail,
+                prettyPhrase = 'You so pretty'
+            } = req.body;
+
+            const apiKey = process.env.GEMINI_API_KEY;
+
+            if (!apiKey) {
+                return res.status(500).json({ error: 'Gemini API key not configured' });
+            }
+
+            // Build context list
+            const contexts = [];
+            if (grindz) contexts.push(`food spot: ${grindz}`);
+            if (landmark) contexts.push(`landmark: ${landmark}`);
+            if (trail) contexts.push(`hiking trail: ${trail}`);
+
+            if (contexts.length === 0) {
+                return res.status(400).json({ error: 'At least one context (grindz, landmark, or trail) is required' });
+            }
+
+            // Style descriptions
+            const styleGuides = {
+                romantic: "Make it sweet, heartfelt, and sincere. Focus on genuine affection and connection.",
+                funny: "Make it humorous, playful, and witty. Use clever wordplay and light-hearted humor.",
+                sweet: "Make it charming, gentle, and endearing. Keep it warm and friendly.",
+                bold: "Make it confident, direct, and assertive. Show strength while staying respectful.",
+                classic: "Make it timeless, smooth, and traditional. Use tried-and-true charm."
+            };
+
+            const genderLabel = gender === 'wahine' ? 'Wahine (Female)' : 'Kāne (Male)';
+            const styleGuide = styleGuides[style] || styleGuides.romantic;
+
+            const systemPrompt = `You are a Hawaiian Pidgin pickup line generator. Create one ${style} pickup line to say TO a ${genderLabel} using authentic Hawaiian Pidgin.
+
+STYLE: ${styleGuide}
+
+REQUIREMENTS:
+1. Start with a Pidgin greeting (Howzit, Ho Brah, Hey Sistah, etc.)
+2. Include this compliment: "${prettyPhrase}"
+3. Incorporate these contexts naturally: ${contexts.join(', ')}
+4. Use Hawaiian Pidgin words like: 'ono (delicious), pau (finished), akamai (smart), choke (a lot), mo' bettah (better), shoots (okay), bumbai (later), grindz (food), holo holo (cruise around)
+5. End with a question or suggestion (the "ask")
+6. Keep it ${style}, respectful, and culturally authentic
+
+Return ONLY a JSON object with this exact format:
+{
+  "pidgin": "the pickup line in Hawaiian Pidgin",
+  "pronunciation": "how to pronounce it (use caps for stressed syllables)",
+  "english": "English translation"
+}
+
+Example for a Wahine (Female):
+{
+  "pidgin": "Howzit wahine! You so pretty, you make dis garlic shrimp look junk. Like go holo holo down Pali Highway and grab one coconut? Shoots!",
+  "pronunciation": "HOW-zit wah-HEE-neh! You so PRET-tee, you make DIS GAR-lic shrimp look JUNK. Like go HO-lo HO-lo down PAH-lee HIGH-way and grab one CO-co-nut? SHOOTS!",
+  "english": "Hey woman! You're so pretty, you make this garlic shrimp look bad. Want to drive down Pali Highway and get a coconut? Okay!"
+}
+
+Example for a Kāne (Male):
+{
+  "pidgin": "Ho brah! You so handsome, even after climbing Koko Head you still look mo' bettah than da view. Like go get some broke da mouth grindz?",
+  "pronunciation": "HO BRAH! You so HAND-sum, even AF-tah CLIMB-ing KO-ko HEAD you still look MO BET-tah than dah VIEW. Like go get some BROKE dah MOUTH GRINDZ?",
+  "english": "Wow man! You're so handsome, even after climbing Koko Head stairs you still look better than the view. Want to get some delicious food?"
+}`;
+
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{
+                            text: systemPrompt
+                        }]
+                    }],
+                    generationConfig: {
+                        temperature: 0.9,
+                        topK: 40,
+                        topP: 0.95,
+                        maxOutputTokens: 1024
+                    }
+                })
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('Gemini API error:', response.status, errorText);
+                return res.status(response.status).json({
+                    error: `Gemini API error: ${response.status}`
+                });
+            }
+
+            const data = await response.json();
+            let aiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+
+            if (!aiResponse) {
+                return res.status(500).json({ error: 'No response from AI' });
+            }
+
+            // Extract JSON from response
+            const jsonMatch = aiResponse.match(/\{[\s\S]*\}/);
+            if (jsonMatch) {
+                aiResponse = jsonMatch[0];
+            }
+
+            const pickupLine = JSON.parse(aiResponse);
+
+            res.json({
+                pidgin: pickupLine.pidgin,
+                pronunciation: pickupLine.pronunciation || pickupLine.pidgin,
+                english: pickupLine.english,
+                type: '808-mode',
+                aiGenerated: true,
+                contexts: { grindz, landmark, trail },
+                style: style,
+                gender: gender
+            });
+
+        } catch (error) {
+            console.error('808 Mode generation error:', error);
+            res.status(500).json({
+                error: 'Generation service error',
+                message: error.message
+            });
+        }
+    });
+
 // Enhance existing pickup line with AI suggestions
 app.post('/api/enhance-pickup-line',
     translationLimiter,
