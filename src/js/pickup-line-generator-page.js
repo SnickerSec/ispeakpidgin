@@ -98,63 +98,138 @@
         }
     }
 
-    // Populate 808 Mode searchable dropdowns
+    // Populate 808 Mode searchable dropdowns with custom search
     function populateHowzitDropdowns() {
         if (typeof pickupLineComponents === 'undefined') {
             console.error('❌ pickupLineComponents not loaded');
             return;
         }
 
-        const grindzList = document.getElementById('grindz-list');
-        const landmarkList = document.getElementById('landmark-list');
-        const trailList = document.getElementById('trail-list');
-
-        console.log('📍 Populating 808 Mode searchable dropdowns...');
+        console.log('📍 Setting up 808 Mode searchable dropdowns...');
         console.log('Places to eat:', pickupLineComponents.placesToEat?.length);
         console.log('Landmarks:', pickupLineComponents.landmarks?.length);
         console.log('Trails:', pickupLineComponents.hikingTrails?.length);
 
-        // Populate places to eat datalist
-        if (grindzList && pickupLineComponents.placesToEat) {
-            pickupLineComponents.placesToEat.forEach(place => {
-                const option = document.createElement('option');
-                option.value = place.name;
-                option.textContent = `${place.name} - ${place.description}`;
-                option.setAttribute('data-description', place.description);
-                grindzList.appendChild(option);
-            });
-            console.log('✅ Populated grindz datalist with', pickupLineComponents.placesToEat.length, 'options');
-        } else {
-            console.error('❌ Could not populate grindz datalist');
+        // Setup grindz dropdown
+        setupSearchableDropdown(
+            'grindz-input',
+            'grindz-results',
+            'grindz-random',
+            pickupLineComponents.placesToEat
+        );
+
+        // Setup landmarks dropdown
+        setupSearchableDropdown(
+            'landmark-input',
+            'landmark-results',
+            'landmark-random',
+            pickupLineComponents.landmarks
+        );
+
+        // Setup trails dropdown
+        setupSearchableDropdown(
+            'trail-input',
+            'trail-results',
+            'trail-random',
+            pickupLineComponents.hikingTrails
+        );
+    }
+
+    // Setup individual searchable dropdown with fuzzy search
+    function setupSearchableDropdown(inputId, resultsId, randomBtnId, dataArray) {
+        const input = document.getElementById(inputId);
+        const resultsContainer = document.getElementById(resultsId);
+        const randomBtn = document.getElementById(randomBtnId);
+
+        if (!input || !resultsContainer || !randomBtn || !dataArray) {
+            console.error(`❌ Could not setup dropdown: ${inputId}`);
+            return;
         }
 
-        // Populate landmarks datalist
-        if (landmarkList && pickupLineComponents.landmarks) {
-            pickupLineComponents.landmarks.forEach(landmark => {
-                const option = document.createElement('option');
-                option.value = landmark.name;
-                option.textContent = `${landmark.name} - ${landmark.description}`;
-                option.setAttribute('data-description', landmark.description);
-                landmarkList.appendChild(option);
-            });
-            console.log('✅ Populated landmarks datalist with', pickupLineComponents.landmarks.length, 'options');
-        } else {
-            console.error('❌ Could not populate landmarks datalist');
-        }
+        // Store data on the input element for easy access
+        input.dataset.options = JSON.stringify(dataArray);
 
-        // Populate trails datalist
-        if (trailList && pickupLineComponents.hikingTrails) {
-            pickupLineComponents.hikingTrails.forEach(trail => {
-                const option = document.createElement('option');
-                option.value = trail.name;
-                option.textContent = `${trail.name} - ${trail.description}`;
-                option.setAttribute('data-description', trail.description);
-                trailList.appendChild(option);
+        // Search on input
+        input.addEventListener('input', function() {
+            const query = this.value.trim().toLowerCase();
+
+            if (query.length === 0) {
+                resultsContainer.classList.add('hidden');
+                return;
+            }
+
+            // Filter results
+            const filtered = dataArray.filter(item => {
+                const nameMatch = item.name.toLowerCase().includes(query);
+                const descMatch = item.description.toLowerCase().includes(query);
+                return nameMatch || descMatch;
             });
-            console.log('✅ Populated trails datalist with', pickupLineComponents.hikingTrails.length, 'options');
-        } else {
-            console.error('❌ Could not populate trails datalist');
-        }
+
+            // Display results
+            if (filtered.length > 0) {
+                resultsContainer.innerHTML = filtered.map(item => `
+                    <div class="px-4 py-2 hover:bg-orange-50 cursor-pointer border-b border-orange-100 last:border-b-0" data-value="${item.name}">
+                        <div class="font-semibold text-gray-800">${item.name}</div>
+                        <div class="text-xs text-gray-600">${item.description}</div>
+                    </div>
+                `).join('');
+                resultsContainer.classList.remove('hidden');
+
+                // Add click handlers to results
+                resultsContainer.querySelectorAll('[data-value]').forEach(elem => {
+                    elem.addEventListener('click', function() {
+                        input.value = this.dataset.value;
+                        resultsContainer.classList.add('hidden');
+                    });
+                });
+            } else {
+                resultsContainer.innerHTML = '<div class="px-4 py-2 text-gray-500 text-sm">No results found</div>';
+                resultsContainer.classList.remove('hidden');
+            }
+        });
+
+        // Hide results when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!input.contains(e.target) && !resultsContainer.contains(e.target)) {
+                resultsContainer.classList.add('hidden');
+            }
+        });
+
+        // Show all options on focus
+        input.addEventListener('focus', function() {
+            if (this.value.trim().length === 0) {
+                resultsContainer.innerHTML = dataArray.map(item => `
+                    <div class="px-4 py-2 hover:bg-orange-50 cursor-pointer border-b border-orange-100 last:border-b-0" data-value="${item.name}">
+                        <div class="font-semibold text-gray-800">${item.name}</div>
+                        <div class="text-xs text-gray-600">${item.description}</div>
+                    </div>
+                `).join('');
+                resultsContainer.classList.remove('hidden');
+
+                // Add click handlers
+                resultsContainer.querySelectorAll('[data-value]').forEach(elem => {
+                    elem.addEventListener('click', function() {
+                        input.value = this.dataset.value;
+                        resultsContainer.classList.add('hidden');
+                    });
+                });
+            }
+        });
+
+        // Random button handler
+        randomBtn.addEventListener('click', function() {
+            const randomItem = dataArray[Math.floor(Math.random() * dataArray.length)];
+            input.value = randomItem.name;
+            resultsContainer.classList.add('hidden');
+
+            // Visual feedback
+            this.innerHTML = '✨';
+            setTimeout(() => {
+                this.innerHTML = '🎲';
+            }, 500);
+        });
+
+        console.log(`✅ Setup searchable dropdown: ${inputId} with ${dataArray.length} options`);
     }
 
     async function generatePickupLine() {
