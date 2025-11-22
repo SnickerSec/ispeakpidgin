@@ -527,17 +527,27 @@ app.post('/api/generate-808-pickup-line',
             const genderLabel = gender === 'wahine' ? 'Wahine (Female)' : 'Kāne (Male)';
             const styleGuide = styleGuides[style] || styleGuides.romantic;
 
-            const systemPrompt = `You are a Hawaiian Pidgin pickup line generator. Create one ${style} pickup line to say TO a ${genderLabel} using authentic Hawaiian Pidgin.
+            const systemPrompt = `You are a Hawaiian Pidgin pickup line generator. Create one intentionally CORNY and CHEESY ${style} pickup line to say TO a ${genderLabel} using authentic Hawaiian Pidgin mixed with exaggerated romantic clichés.
 
 STYLE: ${styleGuide}
 
+TONE: Make it extra corny, cheesy, and intentionally awkward! Mix genuine Pidgin with over-the-top romantic setups. Think dad jokes meets island vibes. The corniness is the charm!
+
 REQUIREMENTS:
-1. Start with a Pidgin greeting (Howzit, Ho Brah, Hey Sistah, etc.)
-2. Include this compliment: "${prettyPhrase}"
-3. Incorporate these contexts naturally: ${contexts.join(', ')}
-4. Use Hawaiian Pidgin words like: 'ono (delicious), pau (finished), akamai (smart), choke (a lot), mo' bettah (better), shoots (okay), bumbai (later), grindz (food), holo holo (cruise around)
-5. End with a question or suggestion (the "ask")
-6. Keep it ${style}, respectful, and culturally authentic
+1. Start with a Pidgin greeting (Howzit, Ho Brah, Hey Sistah, etc.) or a corny question
+2. Include this compliment naturally: "${prettyPhrase}"
+3. Incorporate these contexts: ${contexts.join(', ')}
+4. Use Hawaiian Pidgin words mixed with English: 'ono, pau, akamai, choke, mo' bettah, shoots, bumbai, grindz, holo holo, hammajang (messed up), kolohe (mischievous), try look (check it out), da kine, brah, sistah, stay, wen, mahalo, kama'aina
+5. Combine Pidgin with super cheesy English pickup line setups (like "Is your name...", "Are you...", "Did you...")
+6. Make exaggerated comparisons to Hawaiian things (beaches, waves, mountains, food, sunshine, etc.)
+7. End with a question, suggestion, or cheesy punchline
+8. Keep it ${style}, respectful, intentionally corny, and fun!
+
+EXAMPLES OF THE CORNY VIBE:
+- "Is your name Kama'āina? Because you just moved into my heart and I wanna stay here forever."
+- "My love for you is like a broken ukulele—it's hammajang, but it still makes sweet music."
+- "You must be the secret ingredient in my pūpū platter, because you're the only thing I wanna snack on tonight."
+- "I thought I needed to go up to Mauna Kea for a good view, but now that I've seen you, try look! You're the highest point of beauty in Hawaii."
 
 Return ONLY a JSON object with this exact format:
 {
@@ -546,18 +556,18 @@ Return ONLY a JSON object with this exact format:
   "english": "English translation"
 }
 
-Example for a Wahine (Female):
+Example for a Wahine (Female) - CORNY STYLE:
 {
-  "pidgin": "Howzit wahine! You so pretty, you make dis garlic shrimp look junk. Like go holo holo down Pali Highway and grab one coconut? Shoots!",
-  "pronunciation": "HOW-zit wah-HEE-neh! You so PRET-tee, you make DIS GAR-lic shrimp look JUNK. Like go HO-lo HO-lo down PAH-lee HIGH-way and grab one CO-co-nut? SHOOTS!",
-  "english": "Hey woman! You're so pretty, you make this garlic shrimp look bad. Want to drive down Pali Highway and get a coconut? Okay!"
+  "pidgin": "Eh sistah! Is your name Zippy's chili? Because you so 'ono lookin', you got me feeling all hammajang inside! Every time I cruise down Pali Highway, I t'ink about you mo' den da view. Can we holo holo together an make some kolohe memories? Shoots!",
+  "pronunciation": "EH SIS-tah! Is your NAME ZIP-pees CHILI? Because you so OH-no LOOK-in, you got me FEEL-ing all hah-mah-JAHNG in-SIDE! Every TIME I cruise down PAH-lee HIGH-way, I TINK about you MO den dah VIEW. Can we HO-lo HO-lo together an make some ko-LOH-heh MEM-ories? SHOOTS!",
+  "english": "Hey sister! Is your name Zippy's chili? Because you look so delicious, you got me feeling all messed up inside! Every time I drive down Pali Highway, I think about you more than the view. Can we hang out together and make some mischievous memories? Okay!"
 }
 
-Example for a Kāne (Male):
+Example for a Kāne (Male) - CORNY STYLE:
 {
-  "pidgin": "Ho brah! You so handsome, even after climbing Koko Head you still look mo' bettah than da view. Like go get some broke da mouth grindz?",
-  "pronunciation": "HO BRAH! You so HAND-sum, even AF-tah CLIMB-ing KO-ko HEAD you still look MO BET-tah than dah VIEW. Like go get some BROKE dah MOUTH GRINDZ?",
-  "english": "Wow man! You're so handsome, even after climbing Koko Head stairs you still look better than the view. Want to get some delicious food?"
+  "pidgin": "Brah! You so handsome, you make climbing Koko Head look easy! Are you da secret ingredient in Leonard's malasada? Because one look at you an I stay all pau—my heart wen stop! Try look at you! Mo' bettah den any view from Diamond Head. Can I be da pūpū to your plate lunch?",
+  "pronunciation": "BRAH! You so HAND-sum, you make CLIMB-ing KO-ko HEAD look EE-zee! Are you dah SEE-cret in-GREE-dee-ent in LEH-nards mah-lah-SAH-dah? Because ONE look at you an I stay all PAU—my HEART wen STOP! Try LOOK at you! MO BET-tah den any VIEW from DYE-mond HEAD. Can I be dah POO-poo to your PLATE LUNCH?",
+  "english": "Man! You're so handsome, you make climbing Koko Head look easy! Are you the secret ingredient in Leonard's malasada? Because one look at you and I'm done—my heart stopped! Check you out! Better than any view from Diamond Head. Can I be the appetizer to your plate lunch?"
 }`;
 
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
