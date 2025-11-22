@@ -97,11 +97,19 @@
 
     // Populate 808 Mode dropdowns
     function populateHowzitDropdowns() {
-        if (typeof pickupLineComponents === 'undefined') return;
+        if (typeof pickupLineComponents === 'undefined') {
+            console.error('❌ pickupLineComponents not loaded');
+            return;
+        }
 
         const grindzSelect = document.getElementById('grindz-select');
         const landmarkSelect = document.getElementById('landmark-select');
         const trailSelect = document.getElementById('trail-select');
+
+        console.log('📍 Populating 808 Mode dropdowns...');
+        console.log('Places to eat:', pickupLineComponents.placesToEat?.length);
+        console.log('Landmarks:', pickupLineComponents.landmarks?.length);
+        console.log('Trails:', pickupLineComponents.hikingTrails?.length);
 
         // Populate places to eat
         if (grindzSelect && pickupLineComponents.placesToEat) {
@@ -111,6 +119,9 @@
                 option.textContent = `${place.name} - ${place.description}`;
                 grindzSelect.appendChild(option);
             });
+            console.log('✅ Populated grindz dropdown with', pickupLineComponents.placesToEat.length, 'options');
+        } else {
+            console.error('❌ Could not populate grindz dropdown');
         }
 
         // Populate landmarks
@@ -121,6 +132,9 @@
                 option.textContent = `${landmark.name} - ${landmark.description}`;
                 landmarkSelect.appendChild(option);
             });
+            console.log('✅ Populated landmarks dropdown with', pickupLineComponents.landmarks.length, 'options');
+        } else {
+            console.error('❌ Could not populate landmarks dropdown');
         }
 
         // Populate trails
@@ -131,6 +145,9 @@
                 option.textContent = `${trail.name} - ${trail.description}`;
                 trailSelect.appendChild(option);
             });
+            console.log('✅ Populated trails dropdown with', pickupLineComponents.hikingTrails.length, 'options');
+        } else {
+            console.error('❌ Could not populate trails dropdown');
         }
     }
 
