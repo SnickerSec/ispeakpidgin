@@ -232,9 +232,16 @@ document.addEventListener('DOMContentLoaded', function() {
         newMobileMenuBtn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            mobileMenu.classList.toggle('mobile-menu-closed');
-            mobileMenu.classList.toggle('mobile-menu-open');
-            console.log('Mobile menu toggled, closed:', mobileMenu.classList.contains('mobile-menu-closed'));
+
+            if (mobileMenu.classList.contains('mobile-menu-closed')) {
+                mobileMenu.classList.remove('mobile-menu-closed');
+                mobileMenu.classList.add('mobile-menu-open');
+            } else {
+                mobileMenu.classList.remove('mobile-menu-open');
+                mobileMenu.classList.add('mobile-menu-closed');
+            }
+
+            console.log('Mobile menu toggled, is open:', mobileMenu.classList.contains('mobile-menu-open'));
         });
     } else {
         console.warn('Mobile menu elements not found:', { mobileMenuBtn, mobileMenu });
@@ -280,10 +287,19 @@ document.addEventListener('DOMContentLoaded', function() {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                content.classList.toggle('mobile-menu-closed');
-                content.classList.toggle('mobile-menu-open');
-                if (arrow) {
-                    arrow.classList.toggle('rotate-180');
+
+                if (content.classList.contains('mobile-menu-closed')) {
+                    content.classList.remove('mobile-menu-closed');
+                    content.classList.add('mobile-menu-open');
+                    if (arrow) {
+                        arrow.classList.add('rotate-180');
+                    }
+                } else {
+                    content.classList.remove('mobile-menu-open');
+                    content.classList.add('mobile-menu-closed');
+                    if (arrow) {
+                        arrow.classList.remove('rotate-180');
+                    }
                 }
             });
         }
