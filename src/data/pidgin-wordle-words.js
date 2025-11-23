@@ -6,55 +6,33 @@ const pidginWordleData = {
     // Launch date for calculating daily word index
     launchDate: new Date('2025-01-01'),
 
-    // Solutions List - 5-letter Pidgin words from dictionary (daily answers)
+    // Solutions List - 96 authentic 5-letter Pidgin words from dictionary
     solutions: [
-        'ALOHA', 'GRIND', 'CHOKE', 'AUNTY', 'HAOLE',
-        'SHAKA', 'WAHINE', 'KEIKI', 'BENTO', 'CRASH',
-        'AMPED', 'BROKE', 'LOLO', 'DAKINE', 'SHOOTS',
-        'BACHI', 'GANJA', 'HABUT', 'HANAI', 'HANAU',
-        'AUANA', 'AKULE', 'BOCHA', 'BOROT', 'BULAI',
-        'CHANG', 'DABES', 'FOWAT', 'FOSHO', 'GETUM',
-        'HAKAK', 'HALAU', 'AIYAH', 'AIKEA', 'AISUS',
-        'ANDEN', 'ANOAI', 'HANAS', 'HAPPA', 'HAPAI',
-        'HAUPU', 'HAUNA', 'HEKKA', 'HIKIT', 'HOGUE',
-        'HOKEY', 'HOLOH', 'HOOLE', 'HUAKA', 'HUILA',
-        'HULIH', 'HULIS', 'HULIT', 'HUNKY', 'HURRY',
-        'JALIK', 'JUNKA', 'KABUL', 'KAKAI', 'KAKIO',
-        'KAKON', 'KALUA', 'KANAK', 'KAPAK', 'KAPUT',
-        'KAUKAU', 'KIAWE', 'KINDA', 'KUKUI', 'LANAI',
-        'LIDAT', 'LIVIN', 'LOCAL', 'LUMPY', 'LUNGS',
-        'MAHUS', 'MANIN', 'MOKES', 'MUSUB', 'NENES',
-        'NIELE', 'OHANA', 'OKOLE', 'ONOLI', 'OOLOO',
-        'PAKAI', 'PAKAL', 'PAKIK', 'PAKES', 'PALAU',
-        'PANIO', 'PAPAA', 'PAPAY', 'PAPUL', 'PASOL',
-        'PIKAI', 'PILIK', 'PILAU', 'PIPIS', 'POPOL',
-        'PUAKA', 'PUKIK', 'PUPUS', 'RAMOS'
+        'ANOAI', 'AUANA', 'AIYAH', 'AIKEA', 'AISUS', 'AKULE', 'ALOHA', 'AMPED', 'ANDEN', 'AUNTY',
+        'BACHI', 'BENTO', 'BOCHA', 'BOROT', 'BULAI', 'CHANG', 'CHOKE', 'CRASH', 'DABES', 'FOWAT',
+        'FOSHO', 'GANJA', 'GETUM', 'GRIND', 'HABUT', 'HAKAK', 'HALAU', 'HANAI', 'HANAU', 'HAOLE',
+        'HAPAI', 'HAUNA', 'HEIAU', 'HONAH', 'ILIKE', 'IRRAZ', 'IYKYK', 'JAMUP', 'JOOSE', 'JUNKS',
+        'KALUA', 'KAPUT', 'KEIKI', 'KOKUA', 'KUKAE', 'KUKUI', 'LANAI', 'LEHUA', 'MAILE', 'MAKAI',
+        'MAUKA', 'MAUNA', 'MENTO', 'NAILS', 'NIELE', 'NOACK', 'NOCAN', 'OBAKE', 'OHANA', 'OKOLE',
+        'OPALA', 'OPIHI', 'PANTY', 'PILAU', 'RAJAH', 'SCRAP', 'SHAME', 'TANKS', 'WAKEA', 'SCOSH',
+        'NOLIE', 'UNCLE', 'KPUNA', 'LIDAT', 'SOLID', 'KATSU', 'SHOYU', 'SHAKA', 'GOING', 'SCRAM',
+        'BROKE', 'DIRTY', 'SALTY', 'STOUT', 'KLOLO', 'PHAKU', 'BENJO', 'GOHAN', 'ZORIS', 'PINAY',
+        'PINOY', 'SARAP', 'BANGO', 'GECKO', 'GUAVA', 'NOACT'
     ],
 
     // Valid Guesses List - All acceptable guesses (includes solutions + common English words)
     validGuesses: [
-        // All solutions are valid
-        'ALOHA', 'GRIND', 'CHOKE', 'AUNTY', 'HAOLE',
-        'SHAKA', 'WAHINE', 'KEIKI', 'BENTO', 'CRASH',
-        'AMPED', 'BROKE', 'LOLO', 'DAKINE', 'SHOOTS',
-        'BACHI', 'GANJA', 'HABUT', 'HANAI', 'HANAU',
-        'AUANA', 'AKULE', 'BOCHA', 'BOROT', 'BULAI',
-        'CHANG', 'DABES', 'FOWAT', 'FOSHO', 'GETUM',
-        'HAKAK', 'HALAU', 'AIYAH', 'AIKEA', 'AISUS',
-        'ANDEN', 'ANOAI', 'HANAS', 'HAPPA', 'HAPAI',
-        'HAUPU', 'HAUNA', 'HEKKA', 'HIKIT', 'HOGUE',
-        'HOKEY', 'HOLOH', 'HOOLE', 'HUAKA', 'HUILA',
-        'HULIH', 'HULIS', 'HULIT', 'HUNKY', 'HURRY',
-        'JALIK', 'JUNKA', 'KABUL', 'KAKAI', 'KAKIO',
-        'KAKON', 'KALUA', 'KANAK', 'KAPAK', 'KAPUT',
-        'KAUKAU', 'KIAWE', 'KINDA', 'KUKUI', 'LANAI',
-        'LIDAT', 'LIVIN', 'LOCAL', 'LUMPY', 'LUNGS',
-        'MAHUS', 'MANIN', 'MOKES', 'MUSUB', 'NENES',
-        'NIELE', 'OHANA', 'OKOLE', 'ONOLI', 'OOLOO',
-        'PAKAI', 'PAKAL', 'PAKIK', 'PAKES', 'PALAU',
-        'PANIO', 'PAPAA', 'PAPAY', 'PAPUL', 'PASOL',
-        'PIKAI', 'PILIK', 'PILAU', 'PIPIS', 'POPOL',
-        'PUAKA', 'PUKIK', 'PUPUS', 'RAMOS',
+        // All 96 authentic Pidgin solutions
+        'ANOAI', 'AUANA', 'AIYAH', 'AIKEA', 'AISUS', 'AKULE', 'ALOHA', 'AMPED', 'ANDEN', 'AUNTY',
+        'BACHI', 'BENTO', 'BOCHA', 'BOROT', 'BULAI', 'CHANG', 'CHOKE', 'CRASH', 'DABES', 'FOWAT',
+        'FOSHO', 'GANJA', 'GETUM', 'GRIND', 'HABUT', 'HAKAK', 'HALAU', 'HANAI', 'HANAU', 'HAOLE',
+        'HAPAI', 'HAUNA', 'HEIAU', 'HONAH', 'ILIKE', 'IRRAZ', 'IYKYK', 'JAMUP', 'JOOSE', 'JUNKS',
+        'KALUA', 'KAPUT', 'KEIKI', 'KOKUA', 'KUKAE', 'KUKUI', 'LANAI', 'LEHUA', 'MAILE', 'MAKAI',
+        'MAUKA', 'MAUNA', 'MENTO', 'NAILS', 'NIELE', 'NOACK', 'NOCAN', 'OBAKE', 'OHANA', 'OKOLE',
+        'OPALA', 'OPIHI', 'PANTY', 'PILAU', 'RAJAH', 'SCRAP', 'SHAME', 'TANKS', 'WAKEA', 'SCOSH',
+        'NOLIE', 'UNCLE', 'KPUNA', 'LIDAT', 'SOLID', 'KATSU', 'SHOYU', 'SHAKA', 'GOING', 'SCRAM',
+        'BROKE', 'DIRTY', 'SALTY', 'STOUT', 'KLOLO', 'PHAKU', 'BENJO', 'GOHAN', 'ZORIS', 'PINAY',
+        'PINOY', 'SARAP', 'BANGO', 'GECKO', 'GUAVA', 'NOACT',
 
         // Common English words that locals use
         'ABOUT', 'ABOVE', 'AFTER', 'AGAIN', 'ALONG',
