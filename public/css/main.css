@@ -351,13 +351,17 @@ footer::after {
 
 /* Mobile menu animation */
 #mobile-menu {
-    transition: all 0.3s ease;
+    transition: max-height 0.3s ease;
+}
+
+#mobile-menu.hidden {
     max-height: 0;
     overflow: hidden;
 }
 
 #mobile-menu:not(.hidden) {
-    max-height: 500px;
+    max-height: 800px;
+    overflow: visible;
 }
 
 /* Smooth scrolling */
