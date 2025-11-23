@@ -1,72 +1,126 @@
 // Pidgin Wordle - Word Lists
 // 5-letter Hawaiian Pidgin words for the daily word game
+// All words sourced from pidgin-master.json dictionary
 
 const pidginWordleData = {
     // Launch date for calculating daily word index
     launchDate: new Date('2025-01-01'),
 
-    // Solutions List - Common 5-letter Pidgin words (daily answers)
+    // Solutions List - 5-letter Pidgin words from dictionary (daily answers)
     solutions: [
-        // Common Pidgin words
-        'BRAH', 'SHAKA', 'KANAK', 'HAOLE', 'WAHINE',
-        'KEIKI', 'GRIND', 'HOWZI', 'BROKE', 'CHOKE',
-        'STINK', 'SHOOTS', 'LOLO', 'PAKAL', 'SHISHI',
-
-        // More Hawaiian-Pidgin terms
-        'MANIN', 'JUNKS', 'LIDAT', 'KAKAI', 'BACHI',
-        'HAMAZ', 'STUSH', 'COCKA', 'MAKAI', 'MAUKA',
-        'WIKIO', 'HANAS', 'TALKA', 'SHISO', 'JALIK',
-
-        // Food and cultural terms
-        'MUSUB', 'SAIMI', 'BENJO', 'OKOLE', 'PIPIW',
-        'LILIK', 'PAKIK', 'PUPU', 'TANGL', 'BUDDA',
-
-        // Action words
-        'MEMBA', 'TINKS', 'GARANS', 'BUMBY', 'LICKA',
-        'CRUIZ', 'GAWAN', 'DAKOO', 'NOMO', 'SERIO',
-
-        // Descriptive
-        'CHOKY', 'HECKA', 'CHUBS', 'SKINY', 'PAKES',
-        'PORTU', 'AKAMAI', 'PILAU', 'KAPAK', 'ONOLI',
-
-        // More everyday words
-        'BUDDE', 'CUZIN', 'FRENS', 'SISTA', 'AUNTY',
-        'UNCLE', 'MOKES', 'KAUAI', 'MOLOKAI', 'LANAI',
-        'HONUA', 'PUKIK', 'WAIPI', 'KOKOK', 'NIELE'
+        'ALOHA', 'GRIND', 'CHOKE', 'AUNTY', 'HAOLE',
+        'SHAKA', 'WAHINE', 'KEIKI', 'BENTO', 'CRASH',
+        'AMPED', 'BROKE', 'LOLO', 'DAKINE', 'SHOOTS',
+        'BACHI', 'GANJA', 'HABUT', 'HANAI', 'HANAU',
+        'AUANA', 'AKULE', 'BOCHA', 'BOROT', 'BULAI',
+        'CHANG', 'DABES', 'FOWAT', 'FOSHO', 'GETUM',
+        'HAKAK', 'HALAU', 'AIYAH', 'AIKEA', 'AISUS',
+        'ANDEN', 'ANOAI', 'HANAS', 'HAPPA', 'HAPAI',
+        'HAUPU', 'HAUNA', 'HEKKA', 'HIKIT', 'HOGUE',
+        'HOKEY', 'HOLOH', 'HOOLE', 'HUAKA', 'HUILA',
+        'HULIH', 'HULIS', 'HULIT', 'HUNKY', 'HURRY',
+        'JALIK', 'JUNKA', 'KABUL', 'KAKAI', 'KAKIO',
+        'KAKON', 'KALUA', 'KANAK', 'KAPAK', 'KAPUT',
+        'KAUKAU', 'KIAWE', 'KINDA', 'KUKUI', 'LANAI',
+        'LIDAT', 'LIVIN', 'LOCAL', 'LUMPY', 'LUNGS',
+        'MAHUS', 'MANIN', 'MOKES', 'MUSUB', 'NENES',
+        'NIELE', 'OHANA', 'OKOLE', 'ONOLI', 'OOLOO',
+        'PAKAI', 'PAKAL', 'PAKIK', 'PAKES', 'PALAU',
+        'PANIO', 'PAPAA', 'PAPAY', 'PAPUL', 'PASOL',
+        'PIKAI', 'PILIK', 'PILAU', 'PIPIS', 'POPOL',
+        'PUAKA', 'PUKIK', 'PUPUS', 'RAMOS'
     ],
 
-    // Valid Guesses List - All acceptable guesses (includes solutions + more)
+    // Valid Guesses List - All acceptable guesses (includes solutions + common English words)
     validGuesses: [
         // All solutions are valid
-        'BRAH', 'SHAKA', 'KANAK', 'HAOLE', 'WAHINE',
-        'KEIKI', 'GRIND', 'HOWZI', 'BROKE', 'CHOKE',
-        'STINK', 'SHOOTS', 'LOLO', 'PAKAL', 'SHISHI',
-        'MANIN', 'JUNKS', 'LIDAT', 'KAKAI', 'BACHI',
-        'HAMAZ', 'STUSH', 'COCKA', 'MAKAI', 'MAUKA',
-        'WIKIO', 'HANAS', 'TALKA', 'SHISO', 'JALIK',
-        'MUSUB', 'SAIMI', 'BENJO', 'OKOLE', 'PIPIW',
-        'LILIK', 'PAKIK', 'PUPU', 'TANGL', 'BUDDA',
-        'MEMBA', 'TINKS', 'GARANS', 'BUMBY', 'LICKA',
-        'CRUIZ', 'GAWAN', 'DAKOO', 'NOMO', 'SERIO',
-        'CHOKY', 'HECKA', 'CHUBS', 'SKINY', 'PAKES',
-        'PORTU', 'AKAMAI', 'PILAU', 'KAPAK', 'ONOLI',
-        'BUDDE', 'CUZIN', 'FRENS', 'SISTA', 'AUNTY',
-        'UNCLE', 'MOKES', 'KAUAI', 'MOLOKAI', 'LANAI',
-        'HONUA', 'PUKIK', 'WAIPI', 'KOKOK', 'NIELE',
+        'ALOHA', 'GRIND', 'CHOKE', 'AUNTY', 'HAOLE',
+        'SHAKA', 'WAHINE', 'KEIKI', 'BENTO', 'CRASH',
+        'AMPED', 'BROKE', 'LOLO', 'DAKINE', 'SHOOTS',
+        'BACHI', 'GANJA', 'HABUT', 'HANAI', 'HANAU',
+        'AUANA', 'AKULE', 'BOCHA', 'BOROT', 'BULAI',
+        'CHANG', 'DABES', 'FOWAT', 'FOSHO', 'GETUM',
+        'HAKAK', 'HALAU', 'AIYAH', 'AIKEA', 'AISUS',
+        'ANDEN', 'ANOAI', 'HANAS', 'HAPPA', 'HAPAI',
+        'HAUPU', 'HAUNA', 'HEKKA', 'HIKIT', 'HOGUE',
+        'HOKEY', 'HOLOH', 'HOOLE', 'HUAKA', 'HUILA',
+        'HULIH', 'HULIS', 'HULIT', 'HUNKY', 'HURRY',
+        'JALIK', 'JUNKA', 'KABUL', 'KAKAI', 'KAKIO',
+        'KAKON', 'KALUA', 'KANAK', 'KAPAK', 'KAPUT',
+        'KAUKAU', 'KIAWE', 'KINDA', 'KUKUI', 'LANAI',
+        'LIDAT', 'LIVIN', 'LOCAL', 'LUMPY', 'LUNGS',
+        'MAHUS', 'MANIN', 'MOKES', 'MUSUB', 'NENES',
+        'NIELE', 'OHANA', 'OKOLE', 'ONOLI', 'OOLOO',
+        'PAKAI', 'PAKAL', 'PAKIK', 'PAKES', 'PALAU',
+        'PANIO', 'PAPAA', 'PAPAY', 'PAPUL', 'PASOL',
+        'PIKAI', 'PILIK', 'PILAU', 'PIPIS', 'POPOL',
+        'PUAKA', 'PUKIK', 'PUPUS', 'RAMOS',
 
-        // Additional valid guesses (common words, English words that locals use)
-        'ALOHA', 'MAHALO', 'OHANA', 'KINE', 'PONO',
-        'NANI', 'WIKI', 'HULA', 'KANE', 'KONA',
-        'HILO', 'MAUI', 'OAHU', 'KAUAI', 'AINA',
-        'POKE', 'LUAU', 'KAHU', 'MANA', 'TITA',
-        'MOKE', 'TALK', 'GOIN', 'STAY', 'COME',
-        'LIKE', 'WHAT', 'MORE', 'GOOD', 'REAL',
-        'SICK', 'HARD', 'SOFT', 'FAST', 'SLOW',
-        'HIGH', 'DEEP', 'LONG', 'WIDE', 'THIN',
-
-        // More Pidgin variations
-        'DAKIS', 'SCRAN', 'POTLUK', 'SLIPPA', 'BEEFS',
-        'TALKS', 'STORY', 'BROKE', 'MOUTH', 'SKED'
+        // Common English words that locals use
+        'ABOUT', 'ABOVE', 'AFTER', 'AGAIN', 'ALONG',
+        'APPLE', 'BREAD', 'BREAK', 'BRING', 'BUILD',
+        'CAUSE', 'CHAIR', 'CHEAP', 'CLEAN', 'CLEAR',
+        'CLOSE', 'COMES', 'COULD', 'COUNT', 'DADDY',
+        'DANCE', 'DOING', 'DRINK', 'DRIVE', 'EARLY',
+        'EARTH', 'EIGHT', 'ENJOY', 'ENTER', 'ERROR',
+        'EVERY', 'FIGHT', 'FIRST', 'FIRST', 'FLOOR',
+        'FORCE', 'FORTH', 'FOUND', 'FRESH', 'FRONT',
+        'FRUIT', 'FUNNY', 'GIVEN', 'GLASS', 'GOING',
+        'GONNA', 'GREAT', 'GREEN', 'GROUP', 'GUESS',
+        'HAPPY', 'HEART', 'HEAVY', 'HELLO', 'HENCE',
+        'HORSE', 'HOTEL', 'HOUSE', 'HUMAN', 'IDEAS',
+        'IMAGE', 'ISSUE', 'ITEMS', 'JUDGE', 'KNOWS',
+        'LARGE', 'LATER', 'LAUGH', 'LEARN', 'LEAST',
+        'LEAVE', 'LEGAL', 'LEMON', 'LEVEL', 'LIGHT',
+        'LIVED', 'LOOKS', 'LOOSE', 'LOVED', 'LOWER',
+        'LUCKY', 'LUNCH', 'MAJOR', 'MATCH', 'MAYBE',
+        'MEANS', 'MEDIA', 'MIGHT', 'MINOR', 'MONEY',
+        'MONTH', 'MORAL', 'MOUSE', 'MOUTH', 'MOVIE',
+        'MUSIC', 'NEEDS', 'NEVER', 'NIGHT', 'NOISE',
+        'NORTH', 'NOTED', 'NOVEL', 'NURSE', 'OCCUR',
+        'OCEAN', 'OFFER', 'OFTEN', 'ORDER', 'OTHER',
+        'OUGHT', 'PAINT', 'PANEL', 'PAPER', 'PARTY',
+        'PEACE', 'PHASE', 'PHONE', 'PHOTO', 'PIECE',
+        'PLACE', 'PLAIN', 'PLANE', 'PLANT', 'PLATE',
+        'POINT', 'POUND', 'POWER', 'PRESS', 'PRICE',
+        'PRIDE', 'PRIME', 'PRINT', 'PRIOR', 'PROOF',
+        'PROUD', 'PROVE', 'QUEEN', 'QUICK', 'QUIET',
+        'QUITE', 'RADIO', 'RAISE', 'RANGE', 'RAPID',
+        'RATIO', 'REACH', 'READY', 'REFER', 'RIGHT',
+        'RIVER', 'ROUND', 'ROUTE', 'ROYAL', 'RURAL',
+        'SCALE', 'SCENE', 'SCOPE', 'SCORE', 'SENSE',
+        'SERVE', 'SEVEN', 'SHALL', 'SHAPE', 'SHARE',
+        'SHARP', 'SHEET', 'SHELF', 'SHELL', 'SHIFT',
+        'SHINE', 'SHIRT', 'SHOCK', 'SHORE', 'SHORT',
+        'SHOWN', 'SIGHT', 'SINCE', 'SIXTH', 'SIXTY',
+        'SIZED', 'SKILL', 'SLEEP', 'SLIDE', 'SMALL',
+        'SMART', 'SMILE', 'SMITH', 'SMOKE', 'SOLID',
+        'SOLVE', 'SORRY', 'SOUND', 'SOUTH', 'SPACE',
+        'SPARE', 'SPEAK', 'SPEED', 'SPEND', 'SPENT',
+        'SPLIT', 'SPOKE', 'SPORT', 'STAFF', 'STAGE',
+        'STAKE', 'STAND', 'START', 'STATE', 'STEAM',
+        'STEEL', 'STICK', 'STILL', 'STOCK', 'STONE',
+        'STOOD', 'STORE', 'STORM', 'STORY', 'STRIP',
+        'STUCK', 'STUDY', 'STUFF', 'STYLE', 'SUGAR',
+        'SUITE', 'SUPER', 'SWEET', 'TABLE', 'TAKEN',
+        'TASTE', 'TAXES', 'TEACH', 'TEETH', 'TERRY',
+        'TEXAS', 'THANK', 'THEFT', 'THEIR', 'THEME',
+        'THERE', 'THESE', 'THICK', 'THING', 'THINK',
+        'THIRD', 'THOSE', 'THREE', 'THREW', 'THROW',
+        'TIGHT', 'TIMES', 'TITLE', 'TODAY', 'TOPIC',
+        'TOTAL', 'TOUCH', 'TOUGH', 'TOWER', 'TRACK',
+        'TRADE', 'TRAIN', 'TREAT', 'TREND', 'TRIAL',
+        'TRIED', 'TRIES', 'TRUCK', 'TRULY', 'TRUST',
+        'TRUTH', 'TWICE', 'UNDER', 'UNDUE', 'UNION',
+        'UNITY', 'UNTIL', 'UPPER', 'UPSET', 'URBAN',
+        'USAGE', 'USUAL', 'VALID', 'VALUE', 'VIDEO',
+        'VIRUS', 'VISIT', 'VITAL', 'VOCAL', 'VOICE',
+        'WASTE', 'WATCH', 'WATER', 'WHEEL', 'WHERE',
+        'WHICH', 'WHILE', 'WHITE', 'WHOLE', 'WHOSE',
+        'WOMAN', 'WOMEN', 'WORLD', 'WORRY', 'WORSE',
+        'WORST', 'WORTH', 'WOULD', 'WOUND', 'WRITE',
+        'WRONG', 'WROTE', 'YIELD', 'YOUNG', 'YOURS',
+        'YOUTH'
     ],
 
     // Get the daily word based on current date
