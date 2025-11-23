@@ -166,3 +166,4 @@ When adding new components, update the `pathMappings` object in `build.js`.
 - **Automatic indexing**: Search indexes generated automatically
 - **Performance**: 35-68% reduction in data transfer per page
 - **Scalability**: Ready for 10,000+ entries
+- commit and push after making changes
