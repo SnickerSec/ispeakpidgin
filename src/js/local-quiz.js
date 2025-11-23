@@ -5,11 +5,18 @@ class LocalQuiz {
         this.currentQuestionIndex = 0;
         this.score = 0;
         this.selectedAnswers = [];
-        this.questions = localQuizData.questions;
+        this.allQuestions = localQuizData.questions;
+        this.questions = this.selectRandomQuestions(5); // Select 5 random questions
         this.totalQuestions = this.questions.length;
 
         this.initElements();
         this.attachEventListeners();
+    }
+
+    // Randomly select N questions from the pool
+    selectRandomQuestions(count) {
+        const shuffled = [...this.allQuestions].sort(() => Math.random() - 0.5);
+        return shuffled.slice(0, count);
     }
 
     initElements() {
@@ -58,6 +65,10 @@ class LocalQuiz {
         this.currentQuestionIndex = 0;
         this.score = 0;
         this.selectedAnswers = [];
+
+        // Select new random questions each time
+        this.questions = this.selectRandomQuestions(5);
+        this.totalQuestions = this.questions.length;
 
         this.startScreen.classList.add('hidden');
         this.quizScreen.classList.remove('hidden');
@@ -213,7 +224,8 @@ class LocalQuiz {
 
     shareResults() {
         const result = this.getResultLevel(this.score);
-        const shareText = `I just took the "How Local You Stay?" quiz on ChokePidgin.com!\n\nMy result: ${result.level} - ${result.title}\nScore: ${this.score}/120 points\n\n🤙 Think you're more local than me? Take the quiz!`;
+        const maxScore = this.totalQuestions * 10; // 10 points per question
+        const shareText = `I just took the "How Local You Stay?" quiz on ChokePidgin.com!\n\nMy result: ${result.level} - ${result.title}\nScore: ${this.score}/${maxScore} points\n\n🤙 Think you're more local than me? Take the quiz!`;
         const shareUrl = window.location.href;
 
         // Try native share API first (mobile)

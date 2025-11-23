@@ -149,14 +149,158 @@ const localQuizData = {
                 { text: "Take a different route", points: 5, feedback: "Good idea, but sometimes no mo' choice!" },
                 { text: "Call in sick", points: 3, feedback: "Haha! But nah, just deal wit 'em!" }
             ]
+        },
+        {
+            id: 13,
+            question: "What's the hand sign for 'hang loose'?",
+            image: "✋",
+            description: "Island hand gesture",
+            options: [
+                { text: "Thumbs up", points: 0, feedback: "Nah brah, das mainland!" },
+                { text: "Peace sign", points: 0, feedback: "Wrong decade!" },
+                { text: "Shaka (thumb and pinky out)", points: 10, feedback: "Chee hoo! Das da one!" },
+                { text: "Wave", points: 2, feedback: "Close, but not quite!" }
+            ]
+        },
+        {
+            id: 14,
+            question: "Someone says 'Shoots den'. What they mean?",
+            image: "💬",
+            description: "Common response",
+            options: [
+                { text: "They're shooting something", points: 0, feedback: "Brah, no be literal!" },
+                { text: "Okay, sounds good, let's do it", points: 10, feedback: "Rajah! You get 'em!" },
+                { text: "They're angry", points: 0, feedback: "Nah, opposite actually!" },
+                { text: "Goodbye", points: 3, feedback: "Can mean dat too, but not quite!" }
+            ]
+        },
+        {
+            id: 15,
+            question: "What's 'broke da mouth'?",
+            image: "😋",
+            description: "Food description",
+            options: [
+                { text: "Food that's too hard to chew", points: 0, feedback: "Nah brah!" },
+                { text: "Really delicious food", points: 10, feedback: "Das right! So ono!" },
+                { text: "Spicy food", points: 2, feedback: "Not quite!" },
+                { text: "Expensive food", points: 0, feedback: "Nothing to do wit' price!" }
+            ]
+        },
+        {
+            id: 16,
+            question: "Where you go for chicken katsu?",
+            image: "🍗",
+            description: "Local favorite",
+            options: [
+                { text: "KFC", points: 0, feedback: "Auwe! Das not even close!" },
+                { text: "L&L or local plate lunch place", points: 10, feedback: "Now we talking! Das da spot!" },
+                { text: "Fancy Japanese restaurant", points: 3, feedback: "Can, but local style mo' bettah!" },
+                { text: "Make 'em at home", points: 5, feedback: "Can do, but lunch wagon mo' easy!" }
+            ]
+        },
+        {
+            id: 17,
+            question: "What does 'talk story' mean?",
+            image: "🗣️",
+            description: "Social activity",
+            options: [
+                { text: "Tell a fictional story", points: 0, feedback: "Nah, das not it!" },
+                { text: "Chat, hang out, shoot the breeze", points: 10, feedback: "Exactly! Just talking wit' friends!" },
+                { text: "Gossip", points: 3, feedback: "Can be, but usually just casual talk!" },
+                { text: "Give a speech", points: 0, feedback: "Too formal brah!" }
+            ]
+        },
+        {
+            id: 18,
+            question: "What's a 'calabash cousin'?",
+            image: "👨‍👩‍👧‍👦",
+            description: "Ohana concept",
+            options: [
+                { text: "Someone who likes calabash", points: 0, feedback: "Nah, nothing to do wit' da food!" },
+                { text: "Close family friend, like family", points: 10, feedback: "Das right! Ohana!" },
+                { text: "Your actual cousin", points: 3, feedback: "Can be, but usually not blood!" },
+                { text: "A type of calabash", points: 0, feedback: "Brah, das people not food!" }
+            ]
+        },
+        {
+            id: 19,
+            question: "Someone says 'Chee hoo!' What's happening?",
+            image: "🎉",
+            description: "Expression of emotion",
+            options: [
+                { text: "They're confused", points: 0, feedback: "Nope!" },
+                { text: "They're excited/stoked!", points: 10, feedback: "Chee hoo! You got 'em!" },
+                { text: "They're calling someone", points: 0, feedback: "Nah brah!" },
+                { text: "They sneezed", points: 0, feedback: "Das 'achoo' not 'chee hoo'!" }
+            ]
+        },
+        {
+            id: 20,
+            question: "What you bring to a potluck?",
+            image: "🍲",
+            description: "Local gathering",
+            options: [
+                { text: "Store-bought cookies", points: 2, feedback: "Can, but kinda weak!" },
+                { text: "Your best dish, made with love", points: 10, feedback: "Das how! Sharing da aloha!" },
+                { text: "Nothing, just show up", points: 0, feedback: "Brah! Das not how we do!" },
+                { text: "Just drinks", points: 3, feedback: "Need food too brah!" }
+            ]
+        },
+        {
+            id: 21,
+            question: "What's 'ono kine grindz'?",
+            image: "🤤",
+            description: "Food terminology",
+            options: [
+                { text: "Expensive food", points: 0, feedback: "Nah, nothing to do wit' price!" },
+                { text: "Delicious food", points: 10, feedback: "Rajah! Broke da mouth!" },
+                { text: "Spicy food", points: 0, feedback: "Not about da spice!" },
+                { text: "Healthy food", points: 0, feedback: "Local food not always healthy brah!" }
+            ]
+        },
+        {
+            id: 22,
+            question: "Someone cuts you off in traffic. What you do?",
+            image: "🚙",
+            description: "Road rage test",
+            options: [
+                { text: "Give shaka and let 'em go", points: 10, feedback: "Das da aloha way! No stress!" },
+                { text: "Honk and yell", points: 0, feedback: "Nah brah, calm down!" },
+                { text: "Chase them down", points: 0, feedback: "Auwe! Too much road rage!" },
+                { text: "Post about it online", points: 0, feedback: "Nah, just let it go!" }
+            ]
+        },
+        {
+            id: 23,
+            question: "What's 'mauka' and 'makai'?",
+            image: "🏔️",
+            description: "Directional terms",
+            options: [
+                { text: "Types of fish", points: 0, feedback: "Nah brah, das directions!" },
+                { text: "Towards mountain and towards ocean", points: 10, feedback: "Das it! Local directions!" },
+                { text: "North and South", points: 0, feedback: "We no use dat here!" },
+                { text: "Left and Right", points: 0, feedback: "Too mainland kine!" }
+            ]
+        },
+        {
+            id: 24,
+            question: "What time is 'Hawaiian time'?",
+            image: "⏰",
+            description: "Island scheduling",
+            options: [
+                { text: "Exactly on time", points: 0, feedback: "Nah brah, too rigid!" },
+                { text: "15-30 minutes late is normal", points: 10, feedback: "Now you get it! No stress!" },
+                { text: "Always early", points: 0, feedback: "Too eager brah!" },
+                { text: "Whatever time you feel like", points: 5, feedback: "Close, but still kinda rude!" }
+            ]
         }
     ],
 
-    // Results based on total score
+    // Results based on total score (5 questions, max 50 points)
     results: [
         {
             minScore: 0,
-            maxScore: 30,
+            maxScore: 15,
             level: "Fresh Off da Boat",
             emoji: "✈️",
             title: "You Tourist or What?!",
@@ -168,8 +312,8 @@ const localQuizData = {
             ]
         },
         {
-            minScore: 31,
-            maxScore: 60,
+            minScore: 16,
+            maxScore: 30,
             level: "Transplant Trying",
             emoji: "🌴",
             title: "You Getting There!",
@@ -181,8 +325,8 @@ const localQuizData = {
             ]
         },
         {
-            minScore: 61,
-            maxScore: 90,
+            minScore: 31,
+            maxScore: 42,
             level: "Local Kine",
             emoji: "🤙",
             title: "Shoots, You Pretty Local!",
@@ -194,8 +338,8 @@ const localQuizData = {
             ]
         },
         {
-            minScore: 91,
-            maxScore: 120,
+            minScore: 43,
+            maxScore: 50,
             level: "Born and Raised",
             emoji: "🌺",
             title: "100% Island Kine!",
