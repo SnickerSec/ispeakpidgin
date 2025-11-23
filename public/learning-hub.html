@@ -128,7 +128,7 @@
     </div>
 
     <!-- Mobile Navigation -->
-    <div id="mobile-menu" class="mobile-menu-closed md:hidden bg-white border-t">
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
         <div class="px-2 pt-2 pb-3 space-y-1">
             <a href="index.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Home</a>
             <a href="translator.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Translator</a>
@@ -142,7 +142,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div class="mobile-dropdown-content mobile-menu-closed pl-6 space-y-1">
+                <div class="mobile-dropdown-content hidden pl-6 space-y-1">
                     <a href="learning-hub.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Lessons</a>
                     <a href="how-local-you-stay.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">🤙 Local Quiz</a>
                     <a href="pidgin-wordle.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">🎯 Pidgin Wordle</a>
@@ -158,7 +158,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div class="mobile-dropdown-content mobile-menu-closed pl-6 space-y-1">
+                <div class="mobile-dropdown-content hidden pl-6 space-y-1">
                     <a href="stories.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Stories</a>
                     <a href="ask-local.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Ask a Local</a>
                 </div>
@@ -172,7 +172,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div class="mobile-dropdown-content mobile-menu-closed pl-6 space-y-1">
+                <div class="mobile-dropdown-content hidden pl-6 space-y-1">
                     <a href="pickup-lines.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Browse Lines</a>
                     <a href="pickup-line-generator.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">AI Generator</a>
                     <a href="how-to-use-hawaiian-pidgin-pickup-lines.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">How-To Guide</a>
@@ -197,19 +197,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const newMobileMenuBtn = mobileMenuBtn.cloneNode(true);
         mobileMenuBtn.parentNode.replaceChild(newMobileMenuBtn, mobileMenuBtn);
 
-        newMobileMenuBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            if (mobileMenu.classList.contains('mobile-menu-closed')) {
-                mobileMenu.classList.remove('mobile-menu-closed');
-                mobileMenu.classList.add('mobile-menu-open');
-            } else {
-                mobileMenu.classList.remove('mobile-menu-open');
-                mobileMenu.classList.add('mobile-menu-closed');
-            }
-
-            console.log('Mobile menu toggled, is open:', mobileMenu.classList.contains('mobile-menu-open'));
+        newMobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
         });
     } else {
         console.warn('Mobile menu elements not found:', { mobileMenuBtn, mobileMenu });
@@ -254,20 +243,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (button && content) {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
-                e.stopPropagation();
-
-                if (content.classList.contains('mobile-menu-closed')) {
-                    content.classList.remove('mobile-menu-closed');
-                    content.classList.add('mobile-menu-open');
-                    if (arrow) {
-                        arrow.classList.add('rotate-180');
-                    }
-                } else {
-                    content.classList.remove('mobile-menu-open');
-                    content.classList.add('mobile-menu-closed');
-                    if (arrow) {
-                        arrow.classList.remove('rotate-180');
-                    }
+                content.classList.toggle('hidden');
+                if (arrow) {
+                    arrow.classList.toggle('rotate-180');
                 }
             });
         }
