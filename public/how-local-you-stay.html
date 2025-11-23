@@ -269,15 +269,25 @@
 
 <!-- Navigation JavaScript - automatically included on all pages -->
 <script>
-(function() {
+// Use DOMContentLoaded to ensure all elements are available
+document.addEventListener('DOMContentLoaded', function() {
     // Mobile menu toggle
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
 
     if (mobileMenuBtn && mobileMenu) {
-        mobileMenuBtn.addEventListener('click', function() {
+        // Remove any existing listeners by cloning and replacing
+        const newMobileMenuBtn = mobileMenuBtn.cloneNode(true);
+        mobileMenuBtn.parentNode.replaceChild(newMobileMenuBtn, mobileMenuBtn);
+
+        newMobileMenuBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
             mobileMenu.classList.toggle('hidden');
+            console.log('Mobile menu toggled, hidden:', mobileMenu.classList.contains('hidden'));
         });
+    } else {
+        console.warn('Mobile menu elements not found:', { mobileMenuBtn, mobileMenu });
     }
 
     // Desktop dropdown menus
@@ -326,7 +336,7 @@
             });
         }
     });
-})();
+});
 </script>
 
 
