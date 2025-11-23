@@ -431,6 +431,68 @@
     </div>
 </nav>
 
+<!-- Navigation JavaScript - automatically included on all pages -->
+<script>
+(function() {
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+    }
+
+    // Desktop dropdown menus
+    const dropdowns = document.querySelectorAll('.nav-dropdown');
+    dropdowns.forEach(dropdown => {
+        const button = dropdown.querySelector('button');
+        const menu = dropdown.querySelector('.dropdown-menu');
+
+        if (button && menu) {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Close other dropdowns
+                dropdowns.forEach(otherDropdown => {
+                    if (otherDropdown !== dropdown) {
+                        const otherMenu = otherDropdown.querySelector('.dropdown-menu');
+                        if (otherMenu) otherMenu.classList.add('hidden');
+                    }
+                });
+                // Toggle this dropdown
+                menu.classList.toggle('hidden');
+            });
+
+            // Close on outside click
+            document.addEventListener('click', function(e) {
+                if (!dropdown.contains(e.target)) {
+                    menu.classList.add('hidden');
+                }
+            });
+        }
+    });
+
+    // Mobile dropdown menus
+    const mobileDropdowns = document.querySelectorAll('.mobile-dropdown');
+    mobileDropdowns.forEach(dropdown => {
+        const button = dropdown.querySelector('.mobile-dropdown-btn');
+        const content = dropdown.querySelector('.mobile-dropdown-content');
+        const arrow = button ? button.querySelector('svg') : null;
+
+        if (button && content) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                content.classList.toggle('hidden');
+                if (arrow) {
+                    arrow.classList.toggle('rotate-180');
+                }
+            });
+        }
+    });
+})();
+</script>
+
 
     <!-- Header -->
     <header class="py-12 px-4 bg-gradient-to-r from-green-600 via-blue-600 to-purple-600 text-white relative overflow-hidden">
