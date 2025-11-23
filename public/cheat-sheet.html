@@ -345,11 +345,16 @@ document.addEventListener('DOMContentLoaded', function() {
         if (button && content) {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
+                e.stopPropagation();
+                console.log('Mobile dropdown clicked, toggling hidden class');
                 content.classList.toggle('hidden');
+                console.log('Content hidden after toggle:', content.classList.contains('hidden'));
                 if (arrow) {
                     arrow.classList.toggle('rotate-180');
                 }
             });
+        } else {
+            console.warn('Mobile dropdown elements not found:', { button, content });
         }
     });
 });
