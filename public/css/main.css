@@ -349,19 +349,18 @@ footer::after {
     }
 }
 
-/* Mobile menu animation */
+/* Mobile menu animation - using custom classes to avoid Tailwind .hidden conflict */
 #mobile-menu {
-    transition: max-height 0.3s ease;
-}
-
-#mobile-menu.hidden {
-    max-height: 0;
+    transition: max-height 0.3s ease-in-out;
     overflow: hidden;
 }
 
-#mobile-menu:not(.hidden) {
-    max-height: 800px;
-    overflow: visible;
+#mobile-menu.mobile-menu-closed {
+    max-height: 0;
+}
+
+#mobile-menu.mobile-menu-open {
+    max-height: 1000px;
 }
 
 /* Smooth scrolling */
