@@ -78,7 +78,7 @@ function processHTMLFiles() {
         'index.html', 'translator.html', 'dictionary.html', 'ask-local.html',
         'learning-hub.html', 'stories.html', 'pickup-lines.html', 'pickup-line-generator.html', 'pidgin-bible.html',
         'about.html', 'pidgin-vs-hawaiian.html', 'cheat-sheet.html',
-        'how-to-use-hawaiian-pidgin-pickup-lines.html',
+        'how-to-use-hawaiian-pidgin-pickup-lines.html', 'how-local-you-stay.html',
         // SEO Listicles
         '15-essential-pidgin-phrases-ordering-plate-lunch.html',
         'brah-sistah-pidgin-dictionary.html',
@@ -103,12 +103,34 @@ function processHTMLFiles() {
         'what-does-no-worry-mean.html'
     ];
 
+    // Load shared navigation and footer templates
+    const navigationPath = path.join('src/components/shared', 'navigation.html');
+    const footerPath = path.join('src/components/shared', 'footer.html');
+
+    let navigationTemplate = '';
+    let footerTemplate = '';
+
+    if (fs.existsSync(navigationPath)) {
+        navigationTemplate = fs.readFileSync(navigationPath, 'utf8');
+    }
+    if (fs.existsSync(footerPath)) {
+        footerTemplate = fs.readFileSync(footerPath, 'utf8');
+    }
+
     htmlFiles.forEach(file => {
         const srcPath = path.join('src/pages', file);
         const destPath = path.join('public', file);
 
         if (fs.existsSync(srcPath)) {
             let content = fs.readFileSync(srcPath, 'utf8');
+
+            // Inject navigation and footer templates if placeholders exist
+            if (navigationTemplate && content.includes('<!-- NAVIGATION_PLACEHOLDER -->')) {
+                content = content.replace('<!-- NAVIGATION_PLACEHOLDER -->', navigationTemplate);
+            }
+            if (footerTemplate && content.includes('<!-- FOOTER_PLACEHOLDER -->')) {
+                content = content.replace('<!-- FOOTER_PLACEHOLDER -->', footerTemplate);
+            }
 
             // Update script and link paths
             Object.entries(pathMappings).forEach(([oldPath, newPath]) => {

@@ -73,8 +73,17 @@ src/components/
 ├── dictionary/     # Dictionary functionality
 ├── translator/     # Translation engine with fuzzy matching
 ├── speech/         # ElevenLabs TTS + Web Speech API fallback
-└── shared/         # Common utilities (data-loader, main logic)
+└── shared/         # Common utilities (data-loader, main logic, navigation, footer)
+    ├── navigation.html  # Shared navigation component
+    └── footer.html      # Shared footer component
 ```
+
+### Template Component System
+The site uses a **build-time component injection system** for consistent navigation and footer:
+- **Shared Components**: Navigation and footer templates in `src/components/shared/`
+- **Placeholder Injection**: Build system replaces `<!-- NAVIGATION_PLACEHOLDER -->` and `<!-- FOOTER_PLACEHOLDER -->` in HTML files
+- **Single Source of Truth**: Edit once in component files, updates everywhere
+- **Documentation**: See `COMPONENT-SYSTEM.md` for full details
 
 ### Build System Details
 - **Entry point**: `build.js` (root level, Railway compatible)
@@ -110,6 +119,12 @@ src/components/
 - **Edit source**: `src/` directory only
 - **Build required**: Run `npm run build` after changes
 - **Server restart**: Required after `server.js` changes
+
+### Navigation and Footer Updates
+- **Shared components**: Edit `src/components/shared/navigation.html` or `footer.html`
+- **Single source**: Changes automatically apply to ALL pages after build
+- **Don't edit**: Never edit navigation/footer in individual page files
+- **Build required**: Run `npm run build` to apply changes across all pages
 
 ### Data Updates
 - **Dictionary entries**: Edit `data/master/pidgin-master.json` directly
