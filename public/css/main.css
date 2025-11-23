@@ -349,33 +349,7 @@ footer::after {
     }
 }
 
-/* Mobile menu animation - using custom classes to avoid Tailwind .hidden conflict */
-#mobile-menu {
-    transition: max-height 0.3s ease-in-out;
-    overflow: hidden;
-}
-
-#mobile-menu.mobile-menu-closed {
-    max-height: 0 !important;
-}
-
-#mobile-menu.mobile-menu-open {
-    max-height: 1000px !important;
-}
-
-/* Mobile dropdown submenus */
-.mobile-dropdown-content {
-    transition: max-height 0.3s ease-in-out;
-    overflow: hidden;
-}
-
-.mobile-dropdown-content.mobile-menu-closed {
-    max-height: 0 !important;
-}
-
-.mobile-dropdown-content.mobile-menu-open {
-    max-height: 500px !important;
-}
+/* Mobile menu - using Tailwind .hidden class for simple toggle */
 
 /* Smooth scrolling */
 html {
