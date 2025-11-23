@@ -78,12 +78,42 @@ src/components/
     └── footer.html      # Shared footer component
 ```
 
-### Template Component System
-The site uses a **build-time component injection system** for consistent navigation and footer:
-- **Shared Components**: Navigation and footer templates in `src/components/shared/`
-- **Placeholder Injection**: Build system replaces `<!-- NAVIGATION_PLACEHOLDER -->` and `<!-- FOOTER_PLACEHOLDER -->` in HTML files
-- **Single Source of Truth**: Edit once in component files, updates everywhere
-- **Documentation**: See `COMPONENT-SYSTEM.md` for full details
+### Template Component System ⚠️ CRITICAL
+The site uses a **build-time component injection system** for consistent navigation and footer across ALL pages:
+
+**ALWAYS USE TEMPLATES - NEVER HARDCODE:**
+- **Navigation**: `<!-- NAVIGATION_PLACEHOLDER -->` in every HTML page
+- **Footer**: `<!-- FOOTER_PLACEHOLDER -->` in every HTML page
+- **Shared Components**: Located in `src/components/shared/`
+  - `navigation.html` - Site-wide navigation with mobile menu
+  - `footer.html` - Site-wide footer
+
+**Critical Rules:**
+1. **NEVER hardcode navigation or footer HTML** directly in page files
+2. **ALWAYS use placeholders** in `src/pages/*.html` files
+3. **NEVER add duplicate JavaScript** for navigation/footer functionality
+4. **Edit shared components** to change navigation/footer site-wide
+5. **Build system auto-injects** templates during build process
+
+**Why This Matters:**
+- Single source of truth ensures consistency across all pages
+- Bug fixes and updates apply to all pages automatically
+- No duplicate code or conflicting implementations
+- Mobile menu, dropdowns, and footer work identically everywhere
+
+**Example Page Structure:**
+```html
+<body>
+    <!-- NAVIGATION_PLACEHOLDER -->
+
+    <!-- Your page content here -->
+
+    <!-- FOOTER_PLACEHOLDER -->
+    <script src="js/components/main.js"></script>
+</body>
+```
+
+**Documentation**: See `CODEBASE_ORGANIZATION.md` for component details
 
 ### Build System Details
 - **Entry point**: `build.js` (root level, Railway compatible)
@@ -114,6 +144,18 @@ The site uses a **build-time component injection system** for consistent navigat
 - **Technical SEO**: Enhanced robots.txt and sitemap.xml
 
 ## Critical Development Notes
+
+### ⚠️ TEMPLATE SYSTEM - MUST FOLLOW
+**NEVER hardcode navigation, footer, or other shared components in individual pages!**
+
+When creating or editing pages:
+1. **ALWAYS use placeholders**: `<!-- NAVIGATION_PLACEHOLDER -->` and `<!-- FOOTER_PLACEHOLDER -->`
+2. **NEVER copy/paste** navigation or footer HTML into page files
+3. **NEVER add duplicate JavaScript** for mobile menu or shared functionality
+4. **Edit shared components** (`src/components/shared/navigation.html`, `footer.html`) to update ALL pages
+5. **Build after component changes** to apply across all pages
+
+**Why:** Ensures consistency, prevents duplicate code conflicts, single source of truth for all pages.
 
 ### File Editing Rules
 - **Edit source**: `src/` directory only
