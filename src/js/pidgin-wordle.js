@@ -255,7 +255,7 @@ class PidginWordle {
     handleWin() {
         const messages = [
             'Chee hoo! 🌺',
-            'Rajah! You got \'em! 🤙',
+            'Rajah! You got em! 🤙',
             'Das it! You da champion! 🏆',
             'Broke da mouth! 💯',
             'You stay local! 🌴'
