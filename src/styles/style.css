@@ -356,11 +356,11 @@ footer::after {
 }
 
 #mobile-menu.mobile-menu-closed {
-    max-height: 0;
+    max-height: 0 !important;
 }
 
 #mobile-menu.mobile-menu-open {
-    max-height: 1000px;
+    max-height: 1000px !important;
 }
 
 /* Smooth scrolling */
