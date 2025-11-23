@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pidgin Wordle - Daily Hawaiian Pidgin Word Game | ChokePidgin.com</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Play Pidgin Wordle! Daily Hawaiian Pidgin word puzzle game. Guess the 5-letter Pidgin word in 6 tries. New word every day!">
+    <meta name="keywords" content="pidgin wordle, hawaiian wordle, pidgin word game, hawaii puzzle, wordle hawaii, pidgin game">
+    <meta name="author" content="ChokePidgin.com">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Pidgin Wordle - Daily Hawaiian Pidgin Word Game">
+    <meta property="og:description" content="Play the daily Pidgin word puzzle! Guess the 5-letter Hawaiian Pidgin word in 6 tries.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chokepidgin.com/pidgin-wordle.html">
+    <meta property="og:site_name" content="ChokePidgin.com">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://chokepidgin.com/pidgin-wordle.html">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" href="/favicon.ico">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7YYDVDXD"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-RB7YYDVDXD');
+    </script>
+
+    <style>
+        .brand-font {
+            font-family: 'Pacifico', cursive;
+        }
+
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        /* Game Grid Styles */
+        .wordle-grid {
+            display: grid;
+            grid-template-rows: repeat(6, 1fr);
+            gap: 5px;
+            padding: 10px;
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        .wordle-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+        }
+
+        .wordle-tile {
+            width: 100%;
+            aspect-ratio: 1;
+            border: 2px solid #d3d6da;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #000;
+            background: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .wordle-tile.filled {
+            border-color: #878a8c;
+            animation: pop 0.1s ease;
+        }
+
+        .wordle-tile.correct {
+            background: #6aaa64;
+            border-color: #6aaa64;
+            color: #fff;
+            animation: flip 0.5s ease;
+        }
+
+        .wordle-tile.present {
+            background: #c9b458;
+            border-color: #c9b458;
+            color: #fff;
+            animation: flip 0.5s ease;
+        }
+
+        .wordle-tile.absent {
+            background: #787c7e;
+            border-color: #787c7e;
+            color: #fff;
+            animation: flip 0.5s ease;
+        }
+
+        /* Keyboard Styles */
+        .keyboard {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        .keyboard-row {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 8px;
+            justify-content: center;
+        }
+
+        .key {
+            min-width: 40px;
+            height: 58px;
+            border-radius: 4px;
+            background: #d3d6da;
+            color: #000;
+            font-weight: bold;
+            font-size: 0.875rem;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.1s ease;
+            user-select: none;
+        }
+
+        .key:hover {
+            opacity: 0.8;
+        }
+
+        .key:active {
+            transform: scale(0.95);
+        }
+
+        .key.wide {
+            min-width: 65px;
+        }
+
+        .key.correct {
+            background: #6aaa64;
+            color: #fff;
+        }
+
+        .key.present {
+            background: #c9b458;
+            color: #fff;
+        }
+
+        .key.absent {
+            background: #787c7e;
+            color: #fff;
+        }
+
+        /* Animations */
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes flip {
+            0% { transform: rotateX(0); }
+            50% { transform: rotateX(90deg); }
+            100% { transform: rotateX(0); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        .shake {
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .bounce {
+            animation: bounce 1s ease infinite;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #787c7e;
+        }
+
+        .close-modal:hover {
+            color: #000;
+        }
+
+        /* Stats */
+        .stat-box {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #10b981;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #787c7e;
+            text-transform: uppercase;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000;
+            color: #fff;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: bold;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 640px) {
+            .wordle-tile {
+                font-size: 1.5rem;
+            }
+
+            .key {
+                min-width: 32px;
+                height: 50px;
+                font-size: 0.75rem;
+            }
+
+            .key.wide {
+                min-width: 55px;
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-gradient-to-b from-blue-50 via-green-50 to-yellow-50">
+    <!-- Navigation -->
+<nav class="shadow-lg sticky top-0 z-50 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center py-4">
+            <div class="flex items-center">
+                <a href="index.html">
+                    <span class="brand-font text-3xl bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+                        🌴 ChokePidgin 🌊
+                    </span>
+                </a>
+            </div>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="index.html" class="nav-link text-gray-700 hover:text-green-600 transition">Home</a>
+                <a href="translator.html" class="nav-link text-gray-700 hover:text-green-600 transition">Translator</a>
+                <a href="dictionary.html" class="nav-link text-gray-700 hover:text-green-600 transition">Dictionary</a>
+
+                <!-- Learning Hub Dropdown -->
+                <div class="nav-dropdown relative">
+                    <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
+                        Learning Hub
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
+                        <a href="learning-hub.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Lessons</a>
+                        <a href="how-local-you-stay.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">🤙 Local Quiz</a>
+                        <a href="pidgin-wordle.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">🎯 Pidgin Wordle</a>
+                    </div>
+                </div>
+
+                <!-- Community Dropdown -->
+                <div class="nav-dropdown relative">
+                    <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
+                        Community
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
+                        <a href="stories.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Stories</a>
+                        <a href="ask-local.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Ask a Local</a>
+                    </div>
+                </div>
+
+                <!-- Pickup Lines Dropdown -->
+                <div class="nav-dropdown relative">
+                    <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
+                        Pickup Lines
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
+                        <a href="pickup-lines.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Browse Lines</a>
+                        <a href="pickup-line-generator.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">AI Generator</a>
+                        <a href="how-to-use-hawaiian-pidgin-pickup-lines.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">How-To Guide</a>
+                    </div>
+                </div>
+
+                <a href="pidgin-bible.html" class="nav-link text-gray-700 hover:text-green-600 transition">Pidgin Bible</a>
+            </div>
+
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-btn" class="text-gray-700 p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+        <div class="px-2 pt-2 pb-3 space-y-1">
+            <a href="index.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Home</a>
+            <a href="translator.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Translator</a>
+            <a href="dictionary.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Dictionary</a>
+
+            <!-- Learning Hub Submenu -->
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
+                    Learning Hub
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="mobile-dropdown-content hidden pl-6 space-y-1">
+                    <a href="learning-hub.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Lessons</a>
+                    <a href="how-local-you-stay.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">🤙 Local Quiz</a>
+                    <a href="pidgin-wordle.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">🎯 Pidgin Wordle</a>
+                </div>
+            </div>
+
+            <!-- Community Submenu -->
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
+                    Community
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="mobile-dropdown-content hidden pl-6 space-y-1">
+                    <a href="stories.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Stories</a>
+                    <a href="ask-local.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Ask a Local</a>
+                </div>
+            </div>
+
+            <!-- Pickup Lines Submenu -->
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
+                    Pickup Lines
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="mobile-dropdown-content hidden pl-6 space-y-1">
+                    <a href="pickup-lines.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Browse Lines</a>
+                    <a href="pickup-line-generator.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">AI Generator</a>
+                    <a href="how-to-use-hawaiian-pidgin-pickup-lines.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">How-To Guide</a>
+                </div>
+            </div>
+
+            <a href="pidgin-bible.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Pidgin Bible</a>
+        </div>
+    </div>
+</nav>
+
+
+    <!-- Header -->
+    <header class="py-12 px-4 bg-gradient-to-r from-green-600 via-blue-600 to-purple-600 text-white relative overflow-hidden">
+        <div class="container mx-auto max-w-4xl text-center relative z-10">
+            <h1 class="text-3xl md:text-5xl font-black mb-4">
+                🎯 Pidgin Wordle 🌺
+            </h1>
+            <p class="text-lg md:text-xl mb-2">
+                Daily Hawaiian Pidgin Word Puzzle
+            </p>
+            <p class="text-sm md:text-base opacity-90" id="game-subtitle">
+                Guess the 5-letter Pidgin word in 6 tries • New word every day!
+            </p>
+        </div>
+    </header>
+
+    <!-- Game Container -->
+    <div class="container mx-auto max-w-2xl px-4 py-8">
+        <!-- Game Controls -->
+        <div class="flex justify-between items-center mb-6">
+            <button id="help-btn" class="px-4 py-2 bg-white border-2 border-gray-300 rounded-lg font-bold hover:bg-gray-50 transition">
+                ❓ How to Play
+            </button>
+            <div class="text-center">
+                <p class="text-sm text-gray-600">Day <span id="day-number">1</span></p>
+            </div>
+            <button id="stats-btn" class="px-4 py-2 bg-white border-2 border-gray-300 rounded-lg font-bold hover:bg-gray-50 transition">
+                📊 Stats
+            </button>
+        </div>
+
+        <!-- Game Grid -->
+        <div class="wordle-grid" id="game-grid">
+            <!-- Row 1 -->
+            <div class="wordle-row">
+                <div class="wordle-tile" data-row="0" data-col="0"></div>
+                <div class="wordle-tile" data-row="0" data-col="1"></div>
+                <div class="wordle-tile" data-row="0" data-col="2"></div>
+                <div class="wordle-tile" data-row="0" data-col="3"></div>
+                <div class="wordle-tile" data-row="0" data-col="4"></div>
+            </div>
+            <!-- Row 2 -->
+            <div class="wordle-row">
+                <div class="wordle-tile" data-row="1" data-col="0"></div>
+                <div class="wordle-tile" data-row="1" data-col="1"></div>
+                <div class="wordle-tile" data-row="1" data-col="2"></div>
+                <div class="wordle-tile" data-row="1" data-col="3"></div>
+                <div class="wordle-tile" data-row="1" data-col="4"></div>
+            </div>
+            <!-- Row 3 -->
+            <div class="wordle-row">
+                <div class="wordle-tile" data-row="2" data-col="0"></div>
+                <div class="wordle-tile" data-row="2" data-col="1"></div>
+                <div class="wordle-tile" data-row="2" data-col="2"></div>
+                <div class="wordle-tile" data-row="2" data-col="3"></div>
+                <div class="wordle-tile" data-row="2" data-col="4"></div>
+            </div>
+            <!-- Row 4 -->
+            <div class="wordle-row">
+                <div class="wordle-tile" data-row="3" data-col="0"></div>
+                <div class="wordle-tile" data-row="3" data-col="1"></div>
+                <div class="wordle-tile" data-row="3" data-col="2"></div>
+                <div class="wordle-tile" data-row="3" data-col="3"></div>
+                <div class="wordle-tile" data-row="3" data-col="4"></div>
+            </div>
+            <!-- Row 5 -->
+            <div class="wordle-row">
+                <div class="wordle-tile" data-row="4" data-col="0"></div>
+                <div class="wordle-tile" data-row="4" data-col="1"></div>
+                <div class="wordle-tile" data-row="4" data-col="2"></div>
+                <div class="wordle-tile" data-row="4" data-col="3"></div>
+                <div class="wordle-tile" data-row="4" data-col="4"></div>
+            </div>
+            <!-- Row 6 -->
+            <div class="wordle-row">
+                <div class="wordle-tile" data-row="5" data-col="0"></div>
+                <div class="wordle-tile" data-row="5" data-col="1"></div>
+                <div class="wordle-tile" data-row="5" data-col="2"></div>
+                <div class="wordle-tile" data-row="5" data-col="3"></div>
+                <div class="wordle-tile" data-row="5" data-col="4"></div>
+            </div>
+        </div>
+
+        <!-- On-Screen Keyboard -->
+        <div class="keyboard mt-8" id="keyboard">
+            <div class="keyboard-row">
+                <button class="key" data-key="Q">Q</button>
+                <button class="key" data-key="W">W</button>
+                <button class="key" data-key="E">E</button>
+                <button class="key" data-key="R">R</button>
+                <button class="key" data-key="T">T</button>
+                <button class="key" data-key="Y">Y</button>
+                <button class="key" data-key="U">U</button>
+                <button class="key" data-key="I">I</button>
+                <button class="key" data-key="O">O</button>
+                <button class="key" data-key="P">P</button>
+            </div>
+            <div class="keyboard-row">
+                <button class="key" data-key="A">A</button>
+                <button class="key" data-key="S">S</button>
+                <button class="key" data-key="D">D</button>
+                <button class="key" data-key="F">F</button>
+                <button class="key" data-key="G">G</button>
+                <button class="key" data-key="H">H</button>
+                <button class="key" data-key="J">J</button>
+                <button class="key" data-key="K">K</button>
+                <button class="key" data-key="L">L</button>
+            </div>
+            <div class="keyboard-row">
+                <button class="key wide" data-key="ENTER">ENTER</button>
+                <button class="key" data-key="Z">Z</button>
+                <button class="key" data-key="X">X</button>
+                <button class="key" data-key="C">C</button>
+                <button class="key" data-key="V">V</button>
+                <button class="key" data-key="B">B</button>
+                <button class="key" data-key="N">N</button>
+                <button class="key" data-key="M">M</button>
+                <button class="key wide" data-key="BACKSPACE">⌫</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="help-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" data-modal="help-modal">&times;</button>
+            <h2 class="text-2xl font-bold mb-4">🎯 How fo' Play</h2>
+
+            <p class="mb-4 text-gray-700">
+                Guess da <strong>PIDGIN WORD</strong> in 6 tries!
+            </p>
+
+            <ul class="space-y-2 mb-6 text-gray-700">
+                <li>• Each guess gotta be one valid 5-letter Pidgin word</li>
+                <li>• Hit da ENTER button fo' submit your guess</li>
+                <li>• Afta each guess, da tile colors going change fo' show how close you stay</li>
+            </ul>
+
+            <div class="mb-6">
+                <h3 class="font-bold mb-2">Examples:</h3>
+
+                <div class="mb-4">
+                    <div class="flex gap-2 mb-2">
+                        <div class="wordle-tile correct">B</div>
+                        <div class="wordle-tile">R</div>
+                        <div class="wordle-tile">A</div>
+                        <div class="wordle-tile">H</div>
+                        <div class="wordle-tile"></div>
+                    </div>
+                    <p class="text-sm text-gray-600">
+                        <strong>B</strong> stay in da word and in da correct spot (GREEN)
+                    </p>
+                </div>
+
+                <div class="mb-4">
+                    <div class="flex gap-2 mb-2">
+                        <div class="wordle-tile">S</div>
+                        <div class="wordle-tile present">H</div>
+                        <div class="wordle-tile">A</div>
+                        <div class="wordle-tile">K</div>
+                        <div class="wordle-tile">A</div>
+                    </div>
+                    <p class="text-sm text-gray-600">
+                        <strong>H</strong> stay in da word but in da wrong spot (YELLOW)
+                    </p>
+                </div>
+
+                <div class="mb-4">
+                    <div class="flex gap-2 mb-2">
+                        <div class="wordle-tile">G</div>
+                        <div class="wordle-tile">R</div>
+                        <div class="wordle-tile absent">I</div>
+                        <div class="wordle-tile">N</div>
+                        <div class="wordle-tile">D</div>
+                    </div>
+                    <p class="text-sm text-gray-600">
+                        <strong>I</strong> not in da word at all (GRAY)
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
+                <p class="text-sm text-blue-900">
+                    <strong>🌺 New word every day!</strong> Errybody get da same word fo' da same day, so you can challenge your friends!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Modal -->
+    <div id="stats-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" data-modal="stats-modal">&times;</button>
+            <h2 class="text-2xl font-bold mb-6 text-center">📊 Your Stats</h2>
+
+            <div class="grid grid-cols-4 gap-4 mb-6">
+                <div class="stat-box">
+                    <div class="stat-number" id="stat-played">0</div>
+                    <div class="stat-label">Played</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="stat-win-rate">0</div>
+                    <div class="stat-label">Win %</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="stat-streak">0</div>
+                    <div class="stat-label">Streak</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="stat-max-streak">0</div>
+                    <div class="stat-label">Max</div>
+                </div>
+            </div>
+
+            <div id="share-section" class="hidden">
+                <h3 class="font-bold mb-3">Share Your Results</h3>
+                <button id="share-btn" class="w-full px-6 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition">
+                    📱 Share Results
+                </button>
+            </div>
+
+            <div id="next-word-section" class="mt-6 text-center">
+                <p class="text-sm text-gray-600 mb-2">Next Pidgin Wordle</p>
+                <p class="text-2xl font-bold" id="countdown-timer">--:--:--</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Footer -->
+<footer class="bg-gradient-to-r from-purple-900 to-blue-900 text-white py-8 mt-12">
+    <div class="container mx-auto px-4 text-center">
+        <p class="brand-font text-xl mb-2">🌴 ChokePidgin.com 🌊</p>
+        <p class="text-sm opacity-80">Preserving and sharing Hawaiian Pidgin culture</p>
+        <p class="text-xs opacity-60 mt-4">&copy; 2025 ChokePidgin.com - All Rights Reserved</p>
+    </div>
+</footer>
+
+
+    <!-- Scripts -->
+    <script src="data/pidgin-wordle-words.js"></script>
+    <script src="js/pidgin-wordle.js"></script>
+    <script src="js/components/main.js"></script>
+</body>
+</html>
