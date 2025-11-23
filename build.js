@@ -41,6 +41,14 @@ const pathMappings = {
     'js/learning-hub.js': 'js/components/learning-hub.js',
     'js/main.js': 'js/components/main.js',
 
+    // Game components (new organized structure)
+    'js/pidgin-wordle.js': 'js/components/games/pidgin-wordle.js',
+    'data/pidgin-wordle-words.js': 'js/components/games/wordle-data.js',
+    'js/pidgin-crossword.js': 'js/components/games/pidgin-crossword.js',
+    'data/crossword-puzzles.js': 'js/components/games/crossword-data.js',
+    'js/local-quiz.js': 'js/components/games/local-quiz.js',
+    'js/data/local-quiz-data.js': 'js/components/games/quiz-data.js',
+
     // CSS files
     'css/style.css': 'css/main.css',
     'css/learning-hub.css': 'css/learning-hub.css',
@@ -182,6 +190,28 @@ function copyJavaScriptFiles() {
         }
     });
 
+    // Copy game components (new organized structure)
+    const gameSourceDirs = [
+        { src: 'src/components/games/wordle', dest: 'public/js/components/games' },
+        { src: 'src/components/games/crossword', dest: 'public/js/components/games' },
+        { src: 'src/components/games/quiz', dest: 'public/js/components/games' }
+    ];
+
+    gameSourceDirs.forEach(({ src, dest }) => {
+        if (fs.existsSync(src)) {
+            fs.mkdirSync(dest, { recursive: true });
+            const files = fs.readdirSync(src);
+            files.forEach(file => {
+                if (file.endsWith('.js') && !shouldExclude(file)) {
+                    const srcPath = path.join(src, file);
+                    const destPath = path.join(dest, file);
+                    fs.copyFileSync(srcPath, destPath);
+                    console.log(`🎮 Copied game: ${file}`);
+                }
+            });
+        }
+    });
+
     // Copy individual JS files from src/js
     const individualJsFiles = ['learning-hub.js', 'pickup-lines.js', 'pickup-line-generator.js', 'pickup-line-generator-page.js'];
     individualJsFiles.forEach(file => {
@@ -203,7 +233,7 @@ function copyDataFiles() {
         console.log('📦 Using new consolidated data structure');
 
         // Copy new structure directories
-        const newDataDirs = ['master', 'views', 'indexes', 'content'];
+        const newDataDirs = ['master', 'views', 'indexes', 'content', 'games'];
         newDataDirs.forEach(dir => {
             const srcDir = path.join('data', dir);
             const destDir = path.join('public', 'data', dir);
@@ -242,21 +272,21 @@ function copyDataFiles() {
         });
     }
 
-    // Copy data files from src/data/ directory
-    const srcDataDir = 'src/data';
-    if (fs.existsSync(srcDataDir)) {
-        const srcDataFiles = [
-            { src: `${srcDataDir}/phrases-data.js`, dest: 'public/js/data/phrases-data.js' },
-            { src: `${srcDataDir}/stories-data.js`, dest: 'public/js/data/stories-data.js' },
-            { src: `${srcDataDir}/pickup-lines-data.js`, dest: 'public/js/data/pickup-lines-data.js' }
+    // Copy data files from data/content/ directory (new organized structure)
+    const contentDataDir = 'data/content';
+    if (fs.existsSync(contentDataDir)) {
+        const contentDataFiles = [
+            { src: `${contentDataDir}/phrases-data.js`, dest: 'public/js/data/phrases-data.js' },
+            { src: `${contentDataDir}/stories-data.js`, dest: 'public/js/data/stories-data.js' },
+            { src: `${contentDataDir}/pickup-lines-data.js`, dest: 'public/js/data/pickup-lines-data.js' }
         ];
 
-        srcDataFiles.forEach(({ src, dest }) => {
+        contentDataFiles.forEach(({ src, dest }) => {
             if (fs.existsSync(src)) {
                 // Ensure destination directory exists
                 fs.mkdirSync(path.dirname(dest), { recursive: true });
                 fs.copyFileSync(src, dest);
-                console.log(`📊 Copied src data: ${path.basename(dest)}`);
+                console.log(`📊 Copied content data: ${path.basename(dest)}`);
             }
         });
     }
