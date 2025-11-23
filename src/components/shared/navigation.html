@@ -139,11 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileMenu = document.getElementById('mobile-menu');
 
     if (mobileMenuBtn && mobileMenu) {
-        // Remove any existing listeners by cloning and replacing
-        const newMobileMenuBtn = mobileMenuBtn.cloneNode(true);
-        mobileMenuBtn.parentNode.replaceChild(newMobileMenuBtn, mobileMenuBtn);
-
-        newMobileMenuBtn.addEventListener('click', function() {
+        mobileMenuBtn.addEventListener('click', function() {
             mobileMenu.classList.toggle('hidden');
         });
     } else {
