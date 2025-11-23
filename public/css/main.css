@@ -363,6 +363,20 @@ footer::after {
     max-height: 1000px !important;
 }
 
+/* Mobile dropdown submenus */
+.mobile-dropdown-content {
+    transition: max-height 0.3s ease-in-out;
+    overflow: hidden;
+}
+
+.mobile-dropdown-content.mobile-menu-closed {
+    max-height: 0 !important;
+}
+
+.mobile-dropdown-content.mobile-menu-open {
+    max-height: 500px !important;
+}
+
 /* Smooth scrolling */
 html {
     scroll-behavior: smooth;
