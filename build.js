@@ -324,10 +324,11 @@ function copyCSSFiles() {
     }
 
     // Copy individual CSS files from src/css
+    // Note: tailwind.css is compiled by npm run build:css, so we skip it here
     if (fs.existsSync('src/css')) {
         const files = fs.readdirSync('src/css');
         files.forEach(file => {
-            if (file.endsWith('.css')) {
+            if (file.endsWith('.css') && file !== 'tailwind.css') {
                 const srcPath = path.join('src/css', file);
                 const destPath = path.join('public/css', file === 'style.css' ? 'main.css' : file);
                 fs.copyFileSync(srcPath, destPath);
