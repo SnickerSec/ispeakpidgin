@@ -56,3 +56,10 @@ coverage/
 .railway/tailwindcss
 DEBUGGING_WITH_CHROME_MCP.md
 
+# Tailwind standalone binary
+tailwindcss
+
+# Vite
+index-vite.html
+public/css/index-vite.html
+
