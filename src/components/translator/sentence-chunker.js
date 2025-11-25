@@ -20,13 +20,42 @@ class SentenceChunker {
 
     async loadData() {
         try {
-            // Load sentence lookup
-            const sentenceResponse = await fetch('/data/sentence-lookup.json');
-            this.sentenceLookup = await sentenceResponse.json();
+            // Load translator view data
+            const dataResponse = await fetch('/data/views/translator.json');
+            const translatorData = await dataResponse.json();
 
-            // Load phrase lookup (already exists)
-            const phraseResponse = await fetch('/data/phrase-lookup.json');
-            this.phraseLookup = await phraseResponse.json();
+            // Build sentence and phrase lookups from translator data
+            this.sentenceLookup = {
+                englishToPidgin: {},
+                pidginToEnglish: {}
+            };
+            this.phraseLookup = {};
+
+            (translatorData.entries || []).forEach(entry => {
+                if (entry.english && entry.pidgin) {
+                    entry.english.forEach(eng => {
+                        const normalized = eng.toLowerCase().trim();
+
+                        // Add to phrase lookup
+                        if (!this.phraseLookup[normalized]) {
+                            this.phraseLookup[normalized] = [];
+                        }
+                        this.phraseLookup[normalized].push({
+                            pidgin: entry.pidgin,
+                            english: eng
+                        });
+
+                        // Add to sentence lookup (for full sentence matches)
+                        this.sentenceLookup.englishToPidgin[normalized] = entry.pidgin;
+                    });
+
+                    // Reverse lookup for pidgin to English
+                    const pidginNorm = entry.pidgin.toLowerCase().trim();
+                    if (!this.sentenceLookup.pidginToEnglish[pidginNorm]) {
+                        this.sentenceLookup.pidginToEnglish[pidginNorm] = entry.english[0];
+                    }
+                }
+            });
 
             this.loaded = true;
             console.log(`✅ Sentence chunker loaded: ${Object.keys(this.sentenceLookup.englishToPidgin).length} sentences, ${Object.keys(this.phraseLookup).length} phrases`);

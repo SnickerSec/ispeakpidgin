@@ -19,13 +19,34 @@ class PhraseTranslator {
 
     async loadPhraseData() {
         try {
-            // Load phrase lookup map
-            const lookupResponse = await fetch('/data/phrase-lookup.json');
-            this.phraseLookup = await lookupResponse.json();
+            // Load translator view data (contains all needed translation data)
+            const dataResponse = await fetch('/data/views/translator.json');
+            const translatorData = await dataResponse.json();
 
-            // Load full phrase training data
-            const dataResponse = await fetch('/data/phrase-training-data.json');
-            this.phraseData = await dataResponse.json();
+            // Build phrase lookup from translator data
+            this.phraseLookup = {};
+            this.phraseData = {
+                metadata: {
+                    totalPhrases: translatorData.entries ? translatorData.entries.length : 0
+                },
+                phrases: translatorData.entries || []
+            };
+
+            // Create lookup index for faster phrase matching
+            (translatorData.entries || []).forEach(entry => {
+                if (entry.english) {
+                    entry.english.forEach(eng => {
+                        const normalized = eng.toLowerCase().trim();
+                        if (!this.phraseLookup[normalized]) {
+                            this.phraseLookup[normalized] = [];
+                        }
+                        this.phraseLookup[normalized].push({
+                            pidgin: entry.pidgin,
+                            english: eng
+                        });
+                    });
+                }
+            });
 
             this.loaded = true;
             console.log(`✅ Loaded ${this.phraseData.metadata.totalPhrases} phrase translations`);
