@@ -53,4 +53,5 @@ coverage/
 .parcel-cache/
 
 # Railway
-.railway/
+.railway/tailwindcss
+DEBUGGING_WITH_CHROME_MCP.md

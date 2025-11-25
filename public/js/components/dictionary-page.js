@@ -8,6 +8,7 @@ async function initDictionaryPage() {
     setupSearch();
     setupFilters();
     setupBackToTop();
+    setupResponsivePlaceholder();
 
     // Wait for dictionary data to be fully loaded
     await waitForDictionaryLoad();
@@ -657,4 +658,25 @@ function speakText(text, options = {}) {
         utterance.rate = 0.9;
         speechSynthesis.speak(utterance);
     }
+}
+
+// Responsive placeholder for search input
+function setupResponsivePlaceholder() {
+    const searchInput = document.getElementById('dictionary-search');
+    if (!searchInput) return;
+
+    function updatePlaceholder() {
+        // Check if screen is mobile (< 640px, Tailwind's sm breakpoint)
+        if (window.innerWidth < 640) {
+            searchInput.placeholder = 'Search pidgin or English...';
+        } else {
+            searchInput.placeholder = 'Search for any pidgin word or English meaning...';
+        }
+    }
+
+    // Set initial placeholder
+    updatePlaceholder();
+
+    // Update on resize
+    window.addEventListener('resize', updatePlaceholder);
 }

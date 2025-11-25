@@ -20,7 +20,7 @@ window.addEventListener('unhandledrejection', function(event) {
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all modules
-    initNavigation();
+    // Note: Navigation is handled by navigation.html component
     initDailyPhrase();
     initEssentialPhrases();
     initTranslator();
@@ -73,83 +73,6 @@ async function preloadCommonPhrases() {
         }
         */
     }
-}
-
-// Navigation functionality
-function initNavigation() {
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    if (mobileMenuBtn && mobileMenu) {
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Close mobile menu when clicking a link
-        const mobileLinks = mobileMenu.querySelectorAll('a');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
-
-        // Mobile dropdown functionality - using event delegation
-        mobileMenu.addEventListener('click', (e) => {
-            const btn = e.target.closest('.mobile-dropdown-btn');
-            if (btn) {
-                e.preventDefault();
-                e.stopPropagation();
-
-                const dropdown = btn.closest('.mobile-dropdown');
-                const content = dropdown.querySelector('.mobile-dropdown-content');
-                const icon = btn.querySelector('svg');
-
-                // Toggle dropdown
-                content.classList.toggle('hidden');
-                icon.classList.toggle('rotate-180');
-            }
-        });
-    }
-
-    // Desktop dropdown functionality - click to toggle (for touch devices)
-    const desktopDropdowns = document.querySelectorAll('.nav-dropdown');
-    desktopDropdowns.forEach(dropdown => {
-        const button = dropdown.querySelector('button');
-        const menu = dropdown.querySelector('.dropdown-menu');
-
-        if (button && menu) {
-            // Toggle on click
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-
-                // Close other dropdowns
-                desktopDropdowns.forEach(other => {
-                    if (other !== dropdown) {
-                        const otherMenu = other.querySelector('.dropdown-menu');
-                        if (otherMenu) {
-                            otherMenu.classList.remove('show');
-                        }
-                    }
-                });
-
-                // Toggle this dropdown
-                menu.classList.toggle('show');
-            });
-        }
-    });
-
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.nav-dropdown')) {
-            desktopDropdowns.forEach(dropdown => {
-                const menu = dropdown.querySelector('.dropdown-menu');
-                if (menu) {
-                    menu.classList.remove('show');
-                }
-            });
-        }
-    });
 }
 
 // Daily phrase functionality
