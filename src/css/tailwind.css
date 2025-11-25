@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+/* Global overrides to maintain CDN behavior */
+button,
+a,
+input,
+select,
+textarea,
+.nav-link,
+.mobile-dropdown-btn {
+  text-transform: none !important;
+  font-weight: inherit;
+}
