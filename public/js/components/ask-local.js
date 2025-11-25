@@ -8,8 +8,13 @@ class AskLocalManager {
         this.lastSubmissionTime = 0;
         this.minTimeBetweenSubmissions = 30000; // 30 seconds between submissions
 
-        this.initializeCaptcha();
-        this.initializeEventListeners();
+        // Check if we're on the ask-local page before initializing
+        const captchaElement = document.getElementById('captcha-question');
+        if (captchaElement) {
+            this.initializeCaptcha();
+            this.initializeEventListeners();
+        }
+
         this.loadSampleQuestions();
     }
 
@@ -18,6 +23,13 @@ class AskLocalManager {
     }
 
     generateNewCaptcha() {
+        const captchaQuestion = document.getElementById('captcha-question');
+        const captchaAnswer = document.getElementById('captcha-answer');
+
+        if (!captchaQuestion || !captchaAnswer) {
+            return; // Exit if elements don't exist
+        }
+
         const num1 = Math.floor(Math.random() * 20) + 1;
         const num2 = Math.floor(Math.random() * 20) + 1;
         const operations = ['+', '-'];
@@ -37,26 +49,34 @@ class AskLocalManager {
         }
 
         this.correctAnswer = answer;
-        document.getElementById('captcha-question').textContent = question;
-        document.getElementById('captcha-answer').value = '';
+        captchaQuestion.textContent = question;
+        captchaAnswer.value = '';
     }
 
     initializeEventListeners() {
-        // Form submission
-        document.getElementById('ask-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.handleFormSubmission();
-        });
+        const askForm = document.getElementById('ask-form');
+        const refreshCaptcha = document.getElementById('refresh-captcha');
+        const captchaAnswer = document.getElementById('captcha-answer');
 
-        // Refresh captcha
-        document.getElementById('refresh-captcha').addEventListener('click', () => {
-            this.generateNewCaptcha();
-        });
+        // Only attach listeners if elements exist
+        if (askForm) {
+            askForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleFormSubmission();
+            });
+        }
 
-        // Real-time validation feedback
-        document.getElementById('captcha-answer').addEventListener('input', () => {
-            this.validateCaptcha();
-        });
+        if (refreshCaptcha) {
+            refreshCaptcha.addEventListener('click', () => {
+                this.generateNewCaptcha();
+            });
+        }
+
+        if (captchaAnswer) {
+            captchaAnswer.addEventListener('input', () => {
+                this.validateCaptcha();
+            });
+        }
     }
 
     validateCaptcha() {
@@ -216,6 +236,11 @@ class AskLocalManager {
     displayRecentQuestions() {
         const questions = JSON.parse(localStorage.getItem('askLocalQuestions') || '[]');
         const container = document.querySelector('#recent-questions .space-y-3');
+
+        // Check if container exists (it only exists on ask-local page)
+        if (!container) {
+            return;
+        }
 
         if (questions.length === 0) {
             container.innerHTML = `
