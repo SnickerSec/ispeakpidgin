@@ -289,10 +289,10 @@ class AskLocalPageManager {
                             <div class="flex-1">
                                 <h3 class="font-bold text-lg text-gray-800 mb-2">${this.escapeHtml(q.questionText)}</h3>
                                 <div class="flex items-center gap-3 text-sm text-gray-500">
-                                    <span>👤 ${this.escapeHtml(q.userName)}</span>
-                                    <span>•</span>
-                                    <span>📅 ${this.formatDate(q.timestamp)}</span>
-                                    <span class="${statusClass} px-3 py-1 rounded-full font-medium">${statusText}</span>
+                                    <span class="whitespace-nowrap">👤 ${this.escapeHtml(q.userName)}</span>
+                                    <span class="whitespace-nowrap">•</span>
+                                    <span class="whitespace-nowrap">📅 ${this.formatDate(q.timestamp)}</span>
+                                    <span class="${statusClass} px-3 py-1 rounded-full font-medium whitespace-nowrap">${statusText}</span>
                                 </div>
                             </div>
                         </div>
@@ -352,10 +352,10 @@ class AskLocalPageManager {
                         <div class="bg-white p-4 rounded border-l-4 border-green-400">
                             <p class="text-gray-800 mb-2">${this.escapeHtml(r.responseText)}</p>
                             <div class="flex items-center gap-3 text-sm text-gray-500">
-                                <span>👨‍🏫 ${this.escapeHtml(r.responderName || 'Local Helper')}</span>
-                                <span>•</span>
-                                <span>📅 ${this.formatDate(r.timestamp)}</span>
-                                <button class="helpful-btn text-green-600 hover:text-green-800 ml-2" data-response-id="${r.id}">
+                                <span class="whitespace-nowrap">👨‍🏫 ${this.escapeHtml(r.responderName || 'Local Helper')}</span>
+                                <span class="whitespace-nowrap">•</span>
+                                <span class="whitespace-nowrap">📅 ${this.formatDate(r.timestamp)}</span>
+                                <button class="helpful-btn text-green-600 hover:text-green-800 ml-2 whitespace-nowrap" data-response-id="${r.id}">
                                     👍 Helpful (${r.helpfulCount || 0})
                                 </button>
                             </div>
