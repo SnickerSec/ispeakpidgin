@@ -190,106 +190,7 @@
 </head>
 
 <body class="min-h-screen bg-gradient-to-b from-pink-50 via-purple-50 to-blue-50">
-    <!-- Navigation -->
-    <nav class="shadow-lg sticky top-0 z-50 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center py-4">
-                <div class="flex items-center">
-                    <a href="index.html">
-                        <span class="brand-font text-3xl bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
-                            🌴 ChokePidgin 🌊
-                        </span>
-                    </a>
-                </div>
-                                                <div class="hidden md:flex space-x-6 items-center">
-                    <a href="index.html" class="nav-link text-gray-700 hover:text-green-600 transition">Home</a>
-                    <a href="translator.html" class="nav-link text-gray-700 hover:text-green-600 transition">Translator</a>
-                    <a href="dictionary.html" class="nav-link text-gray-700 hover:text-green-600 transition">Dictionary</a>
-                    <a href="learning-hub.html" class="nav-link text-gray-700 hover:text-green-600 transition">Learning Hub</a>
-
-                    <!-- Community Dropdown -->
-                    <div class="nav-dropdown relative">
-                        <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
-                            Community
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </button>
-                        <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
-                            <a href="stories.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Stories</a>
-                            <a href="ask-local.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Ask a Local</a>
-                        </div>
-                    </div>
-
-                    <!-- Pickup Lines Dropdown -->
-                    <div class="nav-dropdown relative">
-                        <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
-                            Pickup Lines
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </button>
-                        <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
-                            <a href="pickup-lines.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Browse Lines</a>
-                            <a href="pickup-line-generator.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">AI Generator</a>
-                            <a href="how-to-use-hawaiian-pidgin-pickup-lines.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">How-To Guide</a>
-                        </div>
-                    </div>
-
-                    <a href="pidgin-bible.html" class="nav-link text-gray-700 hover:text-green-600 transition">Pidgin Bible</a>
-                </div>
-
-                <!-- Mobile menu button -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-btn" class="text-gray-700 p-2">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile Navigation -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
-            <div class="px-2 pt-2 pb-3 space-y-1">
-                <a href="index.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Home</a>
-                <a href="translator.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Translator</a>
-                <a href="dictionary.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Dictionary</a>
-                <a href="learning-hub.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Learning Hub</a>
-
-                <!-- Community Submenu -->
-                <div class="mobile-dropdown">
-                    <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
-                        Community
-                        <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </button>
-                    <div class="mobile-dropdown-content hidden pl-6 space-y-1">
-                        <a href="stories.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Stories</a>
-                        <a href="ask-local.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Ask a Local</a>
-                    </div>
-                </div>
-
-                <!-- Pickup Lines Submenu -->
-                <div class="mobile-dropdown">
-                    <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
-                        Pickup Lines
-                        <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </button>
-                    <div class="mobile-dropdown-content hidden pl-6 space-y-1">
-                        <a href="pickup-lines.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Browse Lines</a>
-                        <a href="pickup-line-generator.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">AI Generator</a>
-                        <a href="how-to-use-hawaiian-pidgin-pickup-lines.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">How-To Guide</a>
-                    </div>
-                </div>
-
-                <a href="pidgin-bible.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Pidgin Bible</a>
-            </div>
-        </div></nav>
+    <!-- NAVIGATION_PLACEHOLDER -->
 
     <!-- Header -->
     <header class="py-12 px-4 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 text-white relative overflow-hidden">
@@ -301,7 +202,7 @@
         </div>
 
         <div class="container mx-auto max-w-6xl text-center relative z-10">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4">
+            <h1 class="text-3xl md:text-5xl font-bold mb-4">
                 💕 Hawaiian Pidgin Pickup Lines 🌺
             </h1>
             <p class="text-xl md:text-2xl mb-2">
@@ -352,18 +253,137 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-gradient-to-r from-purple-900 to-blue-900 text-white py-8 mt-12">
-        <div class="container mx-auto px-4 text-center">
-            <p class="brand-font text-xl mb-2">🌴 ChokePidgin.com 🌊</p>
-            <p class="text-sm opacity-80">Preserving and sharing Hawaiian Pidgin culture</p>
-            <p class="text-xs opacity-60 mt-4">&copy; 2025 ChokePidgin.com - All Rights Reserved</p>
-        </div>
-    </footer>
+    <!-- FOOTER_PLACEHOLDER -->
 
     <!-- Scripts -->
     <script src="js/data/pickup-lines-data.js"></script>
     <script src="js/pickup-lines.js"></script>
     <script src="js/main.js"></script>
+    <script>
+        // Favorites management
+        let favorites = JSON.parse(localStorage.getItem('favoritePickupLines') || '[]');
+
+        function updateFavoritesCount() {
+            const countEl = document.getElementById('favorites-count');
+            if (countEl) {
+                countEl.textContent = favorites.length;
+            }
+        }
+
+        function toggleFavorite(index) {
+            const idx = favorites.indexOf(index);
+            if (idx > -1) {
+                favorites.splice(idx, 1);
+            } else {
+                favorites.push(index);
+            }
+            localStorage.setItem('favoritePickupLines', JSON.stringify(favorites));
+            updateFavoritesCount();
+        }
+
+        function isFavorite(index) {
+            return favorites.includes(index);
+        }
+
+        // Display pickup lines
+        function displayPickupLines(lines, showingFavorites = false) {
+            const container = document.getElementById('pickup-lines-grid');
+            const noFavorites = document.getElementById('no-favorites');
+
+            if (showingFavorites && lines.length === 0) {
+                container.innerHTML = '';
+                if (noFavorites) noFavorites.classList.remove('hidden');
+                return;
+            } else {
+                if (noFavorites) noFavorites.classList.add('hidden');
+            }
+
+            container.innerHTML = lines.map((line, originalIndex) => {
+                const isFav = isFavorite(originalIndex);
+                return `
+                    <div class="pickup-card card-${line.color} rounded-2xl shadow-xl p-6">
+                        <div class="flex items-start justify-between mb-3">
+                            <span class="text-4xl emoji-float">${line.emoji}</span>
+                            <button
+                                class="favorite-btn text-2xl ${isFav ? 'active' : ''}"
+                                data-index="${originalIndex}"
+                                title="${isFav ? 'Remove from favorites' : 'Add to favorites'}"
+                            >
+                                ${isFav ? '❤️' : '🤍'}
+                            </button>
+                        </div>
+                        <div>
+                            <p class="text-xl font-bold text-gray-800 mb-2">
+                                "${line.pidgin}"
+                            </p>
+                            <p class="text-gray-600 italic text-sm mb-3">
+                                ${line.pronunciation}
+                            </p>
+                            <p class="text-gray-700 font-medium">
+                                ${line.english}
+                            </p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Add favorite button listeners
+            document.querySelectorAll('.favorite-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    toggleFavorite(index);
+
+                    // Re-render if showing favorites
+                    if (showingFavorites) {
+                        showFavorites();
+                    } else {
+                        // Just update the button
+                        const isFav = isFavorite(index);
+                        this.textContent = isFav ? '❤️' : '🤍';
+                        this.classList.toggle('active', isFav);
+                    }
+                });
+            });
+        }
+
+        // Shuffle function
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        // Button handlers
+        document.getElementById('shuffle-btn')?.addEventListener('click', () => {
+            const shuffled = shuffleArray(pickupLines);
+            displayPickupLines(shuffled);
+        });
+
+        document.getElementById('show-all-btn')?.addEventListener('click', () => {
+            displayPickupLines(pickupLines);
+        });
+
+        function showFavorites() {
+            if (favorites.length === 0) {
+                displayPickupLines([], true);
+                return;
+            }
+            const favoriteLines = favorites.map(idx => pickupLines[idx]).filter(line => line);
+            displayPickupLines(favoriteLines, true);
+        }
+
+        document.getElementById('show-favorites-btn')?.addEventListener('click', showFavorites);
+
+        // Initial load
+        if (typeof pickupLines !== 'undefined') {
+            displayPickupLines(pickupLines);
+            updateFavoritesCount();
+        } else {
+            console.error('Pickup lines data not loaded');
+        }
+    </script>
 </body>
 </html>

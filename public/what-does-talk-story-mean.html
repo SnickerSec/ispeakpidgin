@@ -67,36 +67,207 @@
 </head>
 <body class="bg-gray-50">
     <!-- Navigation -->
-    <nav class="shadow-lg sticky top-0 z-50 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center py-4">
-                <div class="flex items-center">
-                    <a href="index.html">
-                        <span class="brand-font text-3xl bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
-                            🌴 ChokePidgin 🌊
-                        </span>
-                    </a>
+<nav class="shadow-lg sticky top-0 z-50 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center py-4">
+            <div class="flex items-center">
+                <a href="index.html">
+                    <span class="brand-font text-3xl bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+                        🌴 ChokePidgin 🌊
+                    </span>
+                </a>
+            </div>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="index.html" class="nav-link text-gray-700 hover:text-green-600 transition">Home</a>
+                <a href="translator.html" class="nav-link text-gray-700 hover:text-green-600 transition">Translator</a>
+                <a href="dictionary.html" class="nav-link text-gray-700 hover:text-green-600 transition">Dictionary</a>
+
+                <!-- Learning Hub Dropdown -->
+                <div class="nav-dropdown relative">
+                    <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
+                        Learning Hub
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
+                        <a href="learning-hub.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Lessons</a>
+                        <a href="how-local-you-stay.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">🤙 Local Quiz</a>
+                        <a href="pidgin-wordle.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">🎯 Pidgin Wordle</a>
+                        <a href="pidgin-crossword.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">🧩 Crossword</a>
+                    </div>
                 </div>
-                <div class="hidden md:flex space-x-6 items-center">
-                    <a href="index.html" class="nav-link text-gray-700 hover:text-green-600 transition">Home</a>
-                    <a href="translator.html" class="nav-link text-gray-700 hover:text-green-600 transition">Translator</a>
-                    <a href="dictionary.html" class="nav-link text-gray-700 hover:text-green-600 transition">Dictionary</a>
-                    <a href="learning-hub.html" class="nav-link text-gray-700 hover:text-green-600 transition">Learning Hub</a>
+
+                <!-- Community Dropdown -->
+                <div class="nav-dropdown relative">
+                    <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
+                        Community
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
+                        <a href="stories.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Stories</a>
+                        <a href="ask-local.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Ask a Local</a>
+                    </div>
                 </div>
-                <button id="mobile-menu-btn" class="md:hidden text-gray-700">
+
+                <!-- Pickup Lines Dropdown -->
+                <div class="nav-dropdown relative">
+                    <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
+                        Pickup Lines
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
+                        <a href="pickup-lines.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Browse Lines</a>
+                        <a href="pickup-line-generator.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">AI Generator</a>
+                        <a href="how-to-use-hawaiian-pidgin-pickup-lines.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">How-To Guide</a>
+                    </div>
+                </div>
+
+                <a href="pidgin-bible.html" class="nav-link text-gray-700 hover:text-green-600 transition">Pidgin Bible</a>
+            </div>
+
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-btn" class="text-gray-700 p-2">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
                 </button>
             </div>
-            <div id="mobile-menu" class="hidden md:hidden pb-4">
-                <a href="index.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Home</a>
-                <a href="translator.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Translator</a>
-                <a href="dictionary.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Dictionary</a>
-                <a href="learning-hub.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Learning Hub</a>
-            </div>
         </div>
-    </nav>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+        <div class="px-2 pt-2 pb-3 space-y-1">
+            <a href="index.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Home</a>
+            <a href="translator.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Translator</a>
+            <a href="dictionary.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Dictionary</a>
+
+            <!-- Learning Hub Submenu -->
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
+                    Learning Hub
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="mobile-dropdown-content hidden pl-6 space-y-1">
+                    <a href="learning-hub.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Lessons</a>
+                    <a href="how-local-you-stay.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">🤙 Local Quiz</a>
+                    <a href="pidgin-wordle.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">🎯 Pidgin Wordle</a>
+                    <a href="pidgin-crossword.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">🧩 Crossword</a>
+                </div>
+            </div>
+
+            <!-- Community Submenu -->
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
+                    Community
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="mobile-dropdown-content hidden pl-6 space-y-1">
+                    <a href="stories.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Stories</a>
+                    <a href="ask-local.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Ask a Local</a>
+                </div>
+            </div>
+
+            <!-- Pickup Lines Submenu -->
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
+                    Pickup Lines
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="mobile-dropdown-content hidden pl-6 space-y-1">
+                    <a href="pickup-lines.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Browse Lines</a>
+                    <a href="pickup-line-generator.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">AI Generator</a>
+                    <a href="how-to-use-hawaiian-pidgin-pickup-lines.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">How-To Guide</a>
+                </div>
+            </div>
+
+            <a href="pidgin-bible.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Pidgin Bible</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Navigation JavaScript - automatically included on all pages -->
+<script>
+// Use DOMContentLoaded to ensure all elements are available
+document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+    } else {
+        console.warn('Mobile menu elements not found:', { mobileMenuBtn, mobileMenu });
+    }
+
+    // Desktop dropdown menus
+    const dropdowns = document.querySelectorAll('.nav-dropdown');
+    dropdowns.forEach(dropdown => {
+        const button = dropdown.querySelector('button');
+        const menu = dropdown.querySelector('.dropdown-menu');
+
+        if (button && menu) {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Close other dropdowns
+                dropdowns.forEach(otherDropdown => {
+                    if (otherDropdown !== dropdown) {
+                        const otherMenu = otherDropdown.querySelector('.dropdown-menu');
+                        if (otherMenu) otherMenu.classList.add('hidden');
+                    }
+                });
+                // Toggle this dropdown
+                menu.classList.toggle('hidden');
+            });
+
+            // Close on outside click
+            document.addEventListener('click', function(e) {
+                if (!dropdown.contains(e.target)) {
+                    menu.classList.add('hidden');
+                }
+            });
+        }
+    });
+
+    // Mobile dropdown menus
+    const mobileDropdowns = document.querySelectorAll('.mobile-dropdown');
+    mobileDropdowns.forEach(dropdown => {
+        const button = dropdown.querySelector('.mobile-dropdown-btn');
+        const content = dropdown.querySelector('.mobile-dropdown-content');
+        const arrow = button ? button.querySelector('svg') : null;
+
+        if (button && content) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Mobile dropdown clicked, toggling hidden class');
+                content.classList.toggle('hidden');
+                console.log('Content hidden after toggle:', content.classList.contains('hidden'));
+                if (arrow) {
+                    arrow.classList.toggle('rotate-180');
+                }
+            });
+        } else {
+            console.warn('Mobile dropdown elements not found:', { button, content });
+        }
+    });
+});
+</script>
+
 
     <!-- Hero Section -->
     <section class="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-16 px-4">
@@ -367,13 +538,14 @@
     </article>
 
     <!-- Footer -->
-    <footer class="bg-gradient-to-r from-purple-900 to-blue-900 text-white py-8 mt-12">
-        <div class="container mx-auto px-4 text-center">
-            <p class="brand-font text-xl mb-2">🌴 ChokePidgin.com 🌊</p>
-            <p class="text-sm opacity-80">Preserving and sharing Hawaiian Pidgin culture</p>
-            <p class="text-xs opacity-60 mt-4">&copy; 2025 ChokePidgin.com - All Rights Reserved</p>
-        </div>
-    </footer>
+<footer class="bg-gradient-to-r from-purple-900 to-blue-900 text-white py-8 mt-12">
+    <div class="container mx-auto px-4 text-center">
+        <p class="brand-font text-xl mb-2">🌴 ChokePidgin.com 🌊</p>
+        <p class="text-sm opacity-80">Preserving and sharing Hawaiian Pidgin culture</p>
+        <p class="text-xs opacity-60 mt-4">&copy; 2025 ChokePidgin.com - All Rights Reserved</p>
+    </div>
+</footer>
+
 
     <!-- Scripts -->
     <script src="js/components/elevenlabs-speech.js"></script>

@@ -349,16 +349,7 @@ footer::after {
     }
 }
 
-/* Mobile menu animation */
-#mobile-menu {
-    transition: all 0.3s ease;
-    max-height: 0;
-    overflow: hidden;
-}
-
-#mobile-menu:not(.hidden) {
-    max-height: 500px;
-}
+/* Mobile menu - using Tailwind .hidden class for simple toggle */
 
 /* Smooth scrolling */
 html {

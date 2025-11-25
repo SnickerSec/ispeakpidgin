@@ -472,6 +472,174 @@ Generate ONE original pickup line now.`;
         }
     });
 
+// 808 Mode - Contextual Pickup Line Generator with Local Spots
+app.post('/api/generate-808-pickup-line',
+    translationLimiter,
+    [
+        body('gender').optional().isIn(['wahine', 'kane']),
+        body('style').optional().isIn(['romantic', 'funny', 'sweet', 'bold', 'classic', 'cringe']),
+        body('grindz').optional().trim().isLength({ max: 100 }),
+        body('landmark').optional().trim().isLength({ max: 100 }),
+        body('trail').optional().trim().isLength({ max: 100 }),
+        body('prettyPhrase').optional().trim().isLength({ max: 100 })
+    ],
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        try {
+            const {
+                gender = 'wahine',
+                style = 'romantic',
+                grindz,
+                landmark,
+                trail,
+                prettyPhrase = 'You so pretty'
+            } = req.body;
+
+            const apiKey = process.env.GEMINI_API_KEY;
+
+            if (!apiKey) {
+                return res.status(500).json({ error: 'Gemini API key not configured' });
+            }
+
+            // Build context list
+            const contexts = [];
+            if (grindz) contexts.push(`food spot: ${grindz}`);
+            if (landmark) contexts.push(`landmark: ${landmark}`);
+            if (trail) contexts.push(`hiking trail: ${trail}`);
+
+            if (contexts.length === 0) {
+                return res.status(400).json({ error: 'At least one context (grindz, landmark, or trail) is required' });
+            }
+
+            // Style descriptions
+            const styleGuides = {
+                romantic: "Make it sweet, heartfelt, and sincere. Focus on genuine affection and connection.",
+                funny: "Make it humorous, playful, and witty. Use clever wordplay and light-hearted humor.",
+                sweet: "Make it charming, gentle, and endearing. Keep it warm and friendly.",
+                bold: "Make it confident, direct, and assertive. Show strength while staying respectful.",
+                classic: "Make it timeless, smooth, and traditional. Use tried-and-true charm.",
+                cringe: "Make it MAXIMUM CRINGE! Use the absolute corniest, cheesiest, most awkward puns and wordplay possible. Think terrible dad jokes meets desperate pickup attempts. The more eye-roll inducing, the better!"
+            };
+
+            const genderLabel = gender === 'wahine' ? 'Wahine (Female)' : 'Kāne (Male)';
+            const styleGuide = styleGuides[style] || styleGuides.romantic;
+
+            const systemPrompt = `You are a Hawaiian Pidgin pickup line generator. Create one intentionally CORNY and CHEESY ${style} pickup line to say TO a ${genderLabel} using authentic Hawaiian Pidgin mixed with exaggerated romantic clichés.
+
+STYLE: ${styleGuide}
+
+TONE: Make it SUPER DUPER CORNY, ULTRA CHEESY, and gloriously awkward! Mix genuine Pidgin with the most over-the-top, eye-rolling romantic setups you can imagine. Think the worst dad jokes crossed with desperate rom-com lines, Hawaiian edition. The more cringe-worthy, the better! We want people to laugh AND groan at the same time!
+
+REQUIREMENTS:
+1. Start with a Pidgin greeting (Howzit, Ho Brah, Hey Sistah, etc.) or a corny question
+2. Include this compliment naturally: "${prettyPhrase}"
+3. Incorporate these contexts: ${contexts.join(', ')}
+4. Use Hawaiian Pidgin words mixed with English: 'ono, pau, akamai, choke, mo' bettah, shoots, bumbai, grindz, holo holo, hammajang (messed up), kolohe (mischievous), try look (check it out), da kine, brah, sistah, stay, wen, mahalo, kama'aina
+5. Combine Pidgin with super cheesy English pickup line setups (like "Is your name...", "Are you...", "Did you...")
+6. Make exaggerated comparisons to Hawaiian things (beaches, waves, mountains, food, sunshine, etc.)
+7. End with a question, suggestion, or cheesy punchline
+8. Keep it ${style}, respectful, intentionally corny, and fun!
+
+EXAMPLES OF THE SUPER CORNY VIBE:
+- "Is your name Kama'āina? Because you just moved into my heart and I wanna stay here forever, rent-free!"
+- "My love for you is like a broken ukulele—it's hammajang, but it still makes sweet music. Wanna tune me up?"
+- "You must be the secret ingredient in my pūpū platter, because you're the only thing I wanna snack on tonight. Can I get extra you on da side?"
+- "I thought I needed to go up to Mauna Kea for a good view, but now that I've seen you, try look! You're the highest point of beauty in Hawaii. And I'm not just saying that because the altitude makes me dizzy!"
+- "Are you Hawaiian Electric? Because you just lit up my whole island! And unlike them, you nevah go out during storms."
+- "Is your dad a fisherman? Because you da biggest catch I evah seen, and I'm ready to get hooked!"
+- "You must be from Foodland, because you got all da ingredients for my perfect recipe of love. Aisle 3, my heart!"
+- "Are you Zippy's chili? Because you stay making me all warm inside and I can nevah get enough!"
+
+Return ONLY a JSON object with this exact format:
+{
+  "pidgin": "the pickup line in Hawaiian Pidgin",
+  "pronunciation": "how to pronounce it (use caps for stressed syllables)",
+  "english": "English translation"
+}
+
+Example for a Wahine (Female) - CORNY STYLE:
+{
+  "pidgin": "Eh sistah! Is your name Zippy's chili? Because you so 'ono lookin', you got me feeling all hammajang inside! Every time I cruise down Pali Highway, I t'ink about you mo' den da view. Can we holo holo together an make some kolohe memories? Shoots!",
+  "pronunciation": "EH SIS-tah! Is your NAME ZIP-pees CHILI? Because you so OH-no LOOK-in, you got me FEEL-ing all hah-mah-JAHNG in-SIDE! Every TIME I cruise down PAH-lee HIGH-way, I TINK about you MO den dah VIEW. Can we HO-lo HO-lo together an make some ko-LOH-heh MEM-ories? SHOOTS!",
+  "english": "Hey sister! Is your name Zippy's chili? Because you look so delicious, you got me feeling all messed up inside! Every time I drive down Pali Highway, I think about you more than the view. Can we hang out together and make some mischievous memories? Okay!"
+}
+
+Example for a Kāne (Male) - CORNY STYLE:
+{
+  "pidgin": "Brah! You so handsome, you make climbing Koko Head look easy! Are you da secret ingredient in Leonard's malasada? Because one look at you an I stay all pau—my heart wen stop! Try look at you! Mo' bettah den any view from Diamond Head. Can I be da pūpū to your plate lunch?",
+  "pronunciation": "BRAH! You so HAND-sum, you make CLIMB-ing KO-ko HEAD look EE-zee! Are you dah SEE-cret in-GREE-dee-ent in LEH-nards mah-lah-SAH-dah? Because ONE look at you an I stay all PAU—my HEART wen STOP! Try LOOK at you! MO BET-tah den any VIEW from DYE-mond HEAD. Can I be dah POO-poo to your PLATE LUNCH?",
+  "english": "Man! You're so handsome, you make climbing Koko Head look easy! Are you the secret ingredient in Leonard's malasada? Because one look at you and I'm done—my heart stopped! Check you out! Better than any view from Diamond Head. Can I be the appetizer to your plate lunch?"
+}`;
+
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{
+                            text: systemPrompt
+                        }]
+                    }],
+                    generationConfig: {
+                        temperature: 0.9,
+                        topK: 40,
+                        topP: 0.95,
+                        maxOutputTokens: 1024
+                    }
+                })
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('Gemini API error:', response.status, errorText);
+                return res.status(response.status).json({
+                    error: `Gemini API error: ${response.status}`
+                });
+            }
+
+            const data = await response.json();
+            let aiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+
+            if (!aiResponse) {
+                return res.status(500).json({ error: 'No response from AI' });
+            }
+
+            // Extract JSON from response
+            const jsonMatch = aiResponse.match(/\{[\s\S]*\}/);
+            if (jsonMatch) {
+                aiResponse = jsonMatch[0];
+            }
+
+            const pickupLine = JSON.parse(aiResponse);
+
+            res.json({
+                pidgin: pickupLine.pidgin,
+                pronunciation: pickupLine.pronunciation || pickupLine.pidgin,
+                english: pickupLine.english,
+                type: '808-mode',
+                aiGenerated: true,
+                contexts: { grindz, landmark, trail },
+                style: style,
+                gender: gender
+            });
+
+        } catch (error) {
+            console.error('808 Mode generation error:', error);
+            res.status(500).json({
+                error: 'Generation service error',
+                message: error.message
+            });
+        }
+    });
+
 // Enhance existing pickup line with AI suggestions
 app.post('/api/enhance-pickup-line',
     translationLimiter,

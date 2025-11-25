@@ -73,8 +73,47 @@ src/components/
 ├── dictionary/     # Dictionary functionality
 ├── translator/     # Translation engine with fuzzy matching
 ├── speech/         # ElevenLabs TTS + Web Speech API fallback
-└── shared/         # Common utilities (data-loader, main logic)
+└── shared/         # Common utilities (data-loader, main logic, navigation, footer)
+    ├── navigation.html  # Shared navigation component
+    └── footer.html      # Shared footer component
 ```
+
+### Template Component System ⚠️ CRITICAL
+The site uses a **build-time component injection system** for consistent navigation and footer across ALL pages:
+
+**ALWAYS USE TEMPLATES - NEVER HARDCODE:**
+- **Navigation**: `<!-- NAVIGATION_PLACEHOLDER -->` in every HTML page
+- **Footer**: `<!-- FOOTER_PLACEHOLDER -->` in every HTML page
+- **Shared Components**: Located in `src/components/shared/`
+  - `navigation.html` - Site-wide navigation with mobile menu
+  - `footer.html` - Site-wide footer
+
+**Critical Rules:**
+1. **NEVER hardcode navigation or footer HTML** directly in page files
+2. **ALWAYS use placeholders** in `src/pages/*.html` files
+3. **NEVER add duplicate JavaScript** for navigation/footer functionality
+4. **Edit shared components** to change navigation/footer site-wide
+5. **Build system auto-injects** templates during build process
+
+**Why This Matters:**
+- Single source of truth ensures consistency across all pages
+- Bug fixes and updates apply to all pages automatically
+- No duplicate code or conflicting implementations
+- Mobile menu, dropdowns, and footer work identically everywhere
+
+**Example Page Structure:**
+```html
+<body>
+    <!-- NAVIGATION_PLACEHOLDER -->
+
+    <!-- Your page content here -->
+
+    <!-- FOOTER_PLACEHOLDER -->
+    <script src="js/components/main.js"></script>
+</body>
+```
+
+**Documentation**: See `CODEBASE_ORGANIZATION.md` for component details
 
 ### Build System Details
 - **Entry point**: `build.js` (root level, Railway compatible)
@@ -106,10 +145,28 @@ src/components/
 
 ## Critical Development Notes
 
+### ⚠️ TEMPLATE SYSTEM - MUST FOLLOW
+**NEVER hardcode navigation, footer, or other shared components in individual pages!**
+
+When creating or editing pages:
+1. **ALWAYS use placeholders**: `<!-- NAVIGATION_PLACEHOLDER -->` and `<!-- FOOTER_PLACEHOLDER -->`
+2. **NEVER copy/paste** navigation or footer HTML into page files
+3. **NEVER add duplicate JavaScript** for mobile menu or shared functionality
+4. **Edit shared components** (`src/components/shared/navigation.html`, `footer.html`) to update ALL pages
+5. **Build after component changes** to apply across all pages
+
+**Why:** Ensures consistency, prevents duplicate code conflicts, single source of truth for all pages.
+
 ### File Editing Rules
 - **Edit source**: `src/` directory only
 - **Build required**: Run `npm run build` after changes
 - **Server restart**: Required after `server.js` changes
+
+### Navigation and Footer Updates
+- **Shared components**: Edit `src/components/shared/navigation.html` or `footer.html`
+- **Single source**: Changes automatically apply to ALL pages after build
+- **Don't edit**: Never edit navigation/footer in individual page files
+- **Build required**: Run `npm run build` to apply changes across all pages
 
 ### Data Updates
 - **Dictionary entries**: Edit `data/master/pidgin-master.json` directly
@@ -166,3 +223,4 @@ When adding new components, update the `pathMappings` object in `build.js`.
 - **Automatic indexing**: Search indexes generated automatically
 - **Performance**: 35-68% reduction in data transfer per page
 - **Scalability**: Ready for 10,000+ entries
+- commit and push after making changes

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Local You Stay? Quiz - Test Your Hawaiian Knowledge | ChokePidgin.com</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Take the 'How Local You Stay?' quiz! Test your knowledge of Hawaiian Pidgin, local culture, and island life. Are you a true local or fresh off da boat?">
+    <meta name="keywords" content="Hawaiian quiz, local quiz, Hawaii culture test, pidgin quiz, how local are you, Hawaiian knowledge test">
+    <meta name="author" content="ChokePidgin.com">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="How Local You Stay? Quiz | ChokePidgin.com">
+    <meta property="og:description" content="Test your knowledge of Hawaiian culture and pidgin! Take this fun quiz to find out if you're a true local.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chokepidgin.com/how-local-you-stay.html">
+    <meta property="og:site_name" content="ChokePidgin.com">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://chokepidgin.com/how-local-you-stay.html">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" href="/favicon.ico">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7YYDVDXD"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-RB7YYDVDXD');
+    </script>
+
+    <style>
+        .brand-font {
+            font-family: 'Pacifico', cursive;
+        }
+
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .quiz-option {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .quiz-option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .quiz-option.selected {
+            border-color: #10b981;
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+        }
+
+        .quiz-option.correct {
+            border-color: #10b981;
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            animation: correctPulse 0.6s ease;
+        }
+
+        .quiz-option.incorrect {
+            border-color: #ef4444;
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes correctPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .progress-bar {
+            transition: width 0.5s ease;
+        }
+
+        .question-card {
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-card {
+            animation: zoomIn 0.6s ease;
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .emoji-bounce {
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-gradient-to-b from-blue-50 via-green-50 to-yellow-50">
+    <!-- NAVIGATION_PLACEHOLDER -->
+
+    <!-- Header -->
+    <header class="py-16 px-4 bg-gradient-to-r from-blue-600 via-green-600 to-yellow-600 text-white relative overflow-hidden">
+        <div class="container mx-auto max-w-4xl text-center relative z-10">
+            <h1 class="text-3xl md:text-6xl font-black mb-4">
+                🤙 How Local You Stay? 🌺
+            </h1>
+            <p class="text-xl md:text-2xl mb-2">
+                Test Your Hawaiian Knowledge!
+            </p>
+            <p class="text-lg opacity-90">
+                5 random questions • Find out if you're a true local or fresh off da boat
+            </p>
+        </div>
+    </header>
+
+    <!-- Quiz Container -->
+    <div class="container mx-auto max-w-4xl px-4 py-12">
+        <!-- Start Screen -->
+        <div id="start-screen" class="text-center">
+            <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border-4 border-green-400">
+                <p class="text-lg text-gray-600 mb-8">
+                    Take this BuzzFeed-style quiz to test your knowledge of Hawaiian culture, pidgin, and island life.
+                    Answer 5 random questions and get your "local level" ranking!
+                </p>
+                <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg mb-8 text-left">
+                    <p class="text-sm text-blue-900">
+                        <strong>💡 How it works:</strong> Each question has 4 options. Pick the most local answer!
+                        Your score determines if you're "Fresh Off da Boat" or "Born and Raised"!
+                    </p>
+                </div>
+                <button id="start-quiz-btn" class="px-12 py-4 bg-gradient-to-r from-green-600 to-blue-600 text-white text-xl font-bold rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition">
+                    🚀 Start Da Quiz!
+                </button>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden">
+            <!-- Progress Bar -->
+            <div class="mb-8">
+                <div class="flex justify-between text-sm text-gray-600 mb-2">
+                    <span>Question <span id="current-question">1</span> of <span id="total-questions">12</span></span>
+                    <span><span id="current-score">0</span> points</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-3">
+                    <div id="progress-bar" class="progress-bar bg-gradient-to-r from-green-600 to-blue-600 h-3 rounded-full" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div id="question-container" class="question-card bg-white rounded-3xl shadow-2xl p-8 md:p-12 border-4 border-green-400 mb-6">
+                <div class="text-center mb-8">
+                    <div class="text-7xl mb-4" id="question-emoji">🍧</div>
+                    <h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2" id="question-text">
+                        What you call this?
+                    </h3>
+                    <p class="text-gray-600" id="question-description">A popular Hawaiian treat</p>
+                </div>
+
+                <!-- Options -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="options-container">
+                    <!-- Options will be inserted here -->
+                </div>
+
+                <!-- Feedback -->
+                <div id="feedback-container" class="hidden mt-6 p-4 rounded-lg">
+                    <p id="feedback-text" class="text-lg font-semibold"></p>
+                </div>
+            </div>
+
+            <!-- Next Button -->
+            <div class="text-center">
+                <button id="next-btn" class="hidden px-8 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white text-lg font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition">
+                    Next Question →
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden">
+            <div class="result-card bg-white rounded-3xl shadow-2xl p-8 md:p-12 border-4 border-yellow-400">
+                <div class="text-center mb-8">
+                    <div class="text-8xl mb-4" id="result-emoji">🌺</div>
+                    <h2 class="text-3xl md:text-4xl font-black text-gray-800 mb-2" id="result-level">
+                        Born and Raised
+                    </h2>
+                    <h3 class="text-2xl md:text-3xl font-bold text-gray-700 mb-4" id="result-title">
+                        100% Island Kine!
+                    </h3>
+                    <div class="text-5xl font-black text-green-600 mb-4">
+                        <span id="final-score">50</span> / 50 points
+                    </div>
+                    <p class="text-lg text-gray-600 mb-6" id="result-description">
+                        Brah! You DA LOCAL! Born and raised, yeah?
+                    </p>
+                </div>
+
+                <div class="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-lg mb-8">
+                    <h4 class="font-bold text-gray-800 mb-3">💡 Tips fo' You:</h4>
+                    <ul class="space-y-2" id="result-tips">
+                        <!-- Tips will be inserted here -->
+                    </ul>
+                </div>
+
+                <!-- Share Buttons -->
+                <div class="flex flex-col md:flex-row gap-4 justify-center mb-6">
+                    <button id="share-results-btn" class="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-lg font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition">
+                        📱 Share Your Results
+                    </button>
+                    <button id="retake-quiz-btn" class="px-8 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white text-lg font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition">
+                        🔄 Retake Quiz
+                    </button>
+                </div>
+
+                <!-- Social Share -->
+                <div class="text-center text-sm text-gray-600">
+                    <p>Share on social media and challenge your friends!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER_PLACEHOLDER -->
+
+    <!-- Scripts -->
+    <script src="js/data/local-quiz-data.js"></script>
+    <script src="js/local-quiz.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

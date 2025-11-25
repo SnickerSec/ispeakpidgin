@@ -66,7 +66,7 @@
         }
 
         body {
-            font-family: system-ui, -apple-system, sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
         }
 
         .story-card {
@@ -162,106 +162,7 @@
 </head>
 
 <body class="min-h-screen bg-gradient-to-b from-blue-50 to-purple-50">
-    <!-- Navigation -->
-    <nav class="shadow-lg sticky top-0 z-50 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center py-4">
-                <div class="flex items-center">
-                    <a href="index.html">
-                        <span class="brand-font text-3xl bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
-                            🌴 ChokePidgin 🌊
-                        </span>
-                    </a>
-                </div>
-                                <div class="hidden md:flex space-x-6 items-center">
-                    <a href="index.html" class="nav-link text-gray-700 hover:text-green-600 transition">Home</a>
-                    <a href="translator.html" class="nav-link text-gray-700 hover:text-green-600 transition">Translator</a>
-                    <a href="dictionary.html" class="nav-link text-gray-700 hover:text-green-600 transition">Dictionary</a>
-                    <a href="learning-hub.html" class="nav-link text-gray-700 hover:text-green-600 transition">Learning Hub</a>
-
-                    <!-- Community Dropdown -->
-                    <div class="nav-dropdown relative">
-                        <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
-                            Community
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </button>
-                        <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
-                            <a href="stories.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Stories</a>
-                            <a href="ask-local.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Ask a Local</a>
-                        </div>
-                    </div>
-
-                    <!-- Pickup Lines Dropdown -->
-                    <div class="nav-dropdown relative">
-                        <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
-                            Pickup Lines
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </button>
-                        <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
-                            <a href="pickup-lines.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Browse Lines</a>
-                            <a href="pickup-line-generator.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">AI Generator</a>
-                            <a href="how-to-use-hawaiian-pidgin-pickup-lines.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">How-To Guide</a>
-                        </div>
-                    </div>
-
-                    <a href="pidgin-bible.html" class="nav-link text-gray-700 hover:text-green-600 transition">Pidgin Bible</a>
-                </div>
-
-                <!-- Mobile menu button -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-btn" class="text-gray-700 p-2">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile Navigation -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
-            <div class="px-2 pt-2 pb-3 space-y-1">
-                <a href="index.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Home</a>
-                <a href="translator.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Translator</a>
-                <a href="dictionary.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Dictionary</a>
-                <a href="learning-hub.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Learning Hub</a>
-
-                <!-- Community Submenu -->
-                <div class="mobile-dropdown">
-                    <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
-                        Community
-                        <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </button>
-                    <div class="mobile-dropdown-content hidden pl-6 space-y-1">
-                        <a href="stories.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Stories</a>
-                        <a href="ask-local.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Ask a Local</a>
-                    </div>
-                </div>
-
-                <!-- Pickup Lines Submenu -->
-                <div class="mobile-dropdown">
-                    <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
-                        Pickup Lines
-                        <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </button>
-                    <div class="mobile-dropdown-content hidden pl-6 space-y-1">
-                        <a href="pickup-lines.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Browse Lines</a>
-                        <a href="pickup-line-generator.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">AI Generator</a>
-                        <a href="how-to-use-hawaiian-pidgin-pickup-lines.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">How-To Guide</a>
-                    </div>
-                </div>
-
-                <a href="pidgin-bible.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Pidgin Bible</a>
-            </div>
-        </div></nav>
+    <!-- NAVIGATION_PLACEHOLDER -->
 
     <!-- Header -->
     <header class="py-12 px-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
@@ -325,18 +226,183 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-gradient-to-r from-purple-900 to-blue-900 text-white py-8 mt-12">
-        <div class="container mx-auto px-4 text-center">
-            <p class="brand-font text-xl mb-2">🌴 ChokePidgin.com 🌊</p>
-            <p class="text-sm opacity-80">Preserving and sharing Hawaiian Pidgin culture</p>
-            <p class="text-xs opacity-60 mt-4">&copy; 2025 ChokePidgin.com - All Rights Reserved</p>
-        </div>
-    </footer>
+    <!-- FOOTER_PLACEHOLDER -->
 
     <!-- Scripts -->
     <script src="js/data/stories-data.js"></script>
     <script src="js/elevenlabs-speech.js"></script>
     <script src="js/main.js"></script>
+    <script>
+        // Load and display stories
+        function displayStories(filter = 'all') {
+            const container = document.getElementById('stories-container');
+            const noResults = document.getElementById('no-results');
+
+            if (!container || !pidginStories || !pidginStories.stories) {
+                console.error('Stories data not loaded');
+                return;
+            }
+
+            let filteredStories = pidginStories.stories;
+
+            // Apply filters
+            if (filter !== 'all') {
+                filteredStories = pidginStories.stories.filter(story => {
+                    if (filter === 'beginner' || filter === 'intermediate' || filter === 'advanced') {
+                        return story.difficulty === filter;
+                    } else {
+                        return story.tags && story.tags.includes(filter);
+                    }
+                });
+            }
+
+            // Show/hide no results message
+            if (filteredStories.length === 0) {
+                container.innerHTML = '';
+                noResults.classList.remove('hidden');
+                return;
+            } else {
+                noResults.classList.add('hidden');
+            }
+
+            // Render stories
+            container.innerHTML = filteredStories.map(story => `
+                <div class="story-card bg-white rounded-2xl shadow-xl overflow-hidden" data-story-id="${story.id}">
+                    <div class="p-6 md:p-8">
+                        <!-- Header -->
+                        <div class="flex justify-between items-start mb-4">
+                            <h2 class="text-2xl md:text-3xl font-bold text-gray-800 flex-1">
+                                ${story.title}
+                            </h2>
+                            <span class="difficulty-badge difficulty-${story.difficulty} ml-4">
+                                ${story.difficulty}
+                            </span>
+                        </div>
+
+                        <!-- Tags -->
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            ${story.tags.map(tag => `
+                                <span class="text-xs px-3 py-1 bg-purple-100 text-purple-700 rounded-full">
+                                    ${tag}
+                                </span>
+                            `).join('')}
+                        </div>
+
+                        <!-- Story Content (Collapsible) -->
+                        <div class="story-content-wrapper">
+                            <div class="story-content collapsed mb-4" id="content-${story.id}">
+                                <!-- Pidgin Text -->
+                                <div class="mb-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl">
+                                    <h3 class="text-lg font-bold text-purple-700 mb-2">
+                                        📖 Pidgin Story
+                                    </h3>
+                                    <p class="text-gray-800 text-base leading-relaxed">
+                                        ${story.pidginText}
+                                    </p>
+                                </div>
+
+                                <!-- English Translation -->
+                                <div class="mb-6 p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-xl">
+                                    <h3 class="text-lg font-bold text-green-700 mb-2">
+                                        📝 English Translation
+                                    </h3>
+                                    <p class="text-gray-700 text-base leading-relaxed">
+                                        ${story.englishTranslation}
+                                    </p>
+                                </div>
+
+                                <!-- Cultural Notes -->
+                                <div class="mb-6 p-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl">
+                                    <h3 class="text-lg font-bold text-orange-700 mb-2">
+                                        🌺 Cultural Context
+                                    </h3>
+                                    <p class="text-gray-700 text-base leading-relaxed">
+                                        ${story.culturalNotes}
+                                    </p>
+                                </div>
+
+                                <!-- Vocabulary -->
+                                <div class="mb-4">
+                                    <h3 class="text-lg font-bold text-gray-800 mb-3">
+                                        📚 Key Vocabulary
+                                    </h3>
+                                    <div class="flex flex-wrap gap-2">
+                                        ${story.vocabulary.map(word => `
+                                            <div class="vocab-item">
+                                                <strong class="text-purple-700">${word.pidgin}</strong>
+                                                <span class="text-gray-600"> (${word.pronunciation})</span>
+                                                <span class="text-gray-800"> - ${word.english}</span>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+
+                                <!-- Audio Example -->
+                                <div class="p-4 bg-gradient-to-r from-pink-50 to-red-50 rounded-xl">
+                                    <h3 class="text-lg font-bold text-red-700 mb-2">
+                                        🔊 Listen & Learn
+                                    </h3>
+                                    <p class="text-gray-800 text-base italic">
+                                        "${story.audioExample}"
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Read More Button -->
+                            <button
+                                class="read-more-btn w-full mt-4 px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:from-purple-700 hover:to-blue-700 transition shadow-lg"
+                                data-story-id="${story.id}"
+                            >
+                                📖 Read Full Story
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Add event listeners for read more buttons
+            document.querySelectorAll('.read-more-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const storyId = this.getAttribute('data-story-id');
+                    const content = document.getElementById(`content-${storyId}`);
+
+                    if (content.classList.contains('collapsed')) {
+                        content.classList.remove('collapsed');
+                        content.classList.add('expanded');
+                        this.textContent = '📕 Show Less';
+                    } else {
+                        content.classList.remove('expanded');
+                        content.classList.add('collapsed');
+                        this.textContent = '📖 Read Full Story';
+                        // Scroll to top of card
+                        document.querySelector(`[data-story-id="${storyId}"]`).scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Update active state
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                // Apply filter
+                const filter = this.getAttribute('data-filter');
+                displayStories(filter);
+            });
+        });
+
+        // Initial load
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => displayStories());
+        } else {
+            displayStories();
+        }
+    </script>
 </body>
 </html>

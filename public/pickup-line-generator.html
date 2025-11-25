@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hawaiian Pidgin Pickup Line Generator - Create Custom Lines | ChokePidgin.com</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Generate unique Hawaiian Pidgin pickup lines instantly! AI-powered generator creates romantic, funny, and authentic island-style pickup lines with pronunciations.">
+    <meta name="keywords" content="pickup line generator, Hawaiian Pidgin generator, AI pickup lines, custom pickup lines, Hawaiian romance, pidgin flirting">
+    <meta name="author" content="ChokePidgin.com">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Hawaiian Pidgin Pickup Line Generator | ChokePidgin.com">
+    <meta property="og:description" content="Generate custom Hawaiian Pidgin pickup lines with AI! Romantic, funny, sweet - create unlimited unique lines.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chokepidgin.com/pickup-line-generator.html">
+    <meta property="og:site_name" content="ChokePidgin.com">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://chokepidgin.com/pickup-line-generator.html">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" href="/favicon.ico">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Structured Data - WebApplication Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Hawaiian Pidgin Pickup Line Generator",
+        "description": "AI-powered generator creates unique Hawaiian Pidgin pickup lines instantly. Choose from romantic, funny, sweet, bold, or classic styles with authentic pronunciations.",
+        "url": "https://chokepidgin.com/pickup-line-generator.html",
+        "applicationCategory": "EntertainmentApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "featureList": [
+            "AI-powered pickup line generation",
+            "Component-based random combinations",
+            "5 contextual styles (romantic, funny, sweet, bold, classic)",
+            "Authentic Hawaiian Pidgin pronunciation guides",
+            "Instant generation",
+            "Share functionality"
+        ],
+        "inLanguage": ["en-US", "hwc"],
+        "about": {
+            "@type": "Language",
+            "name": "Hawaiian Pidgin",
+            "alternateName": "Hawaiian Creole English",
+            "iso6393Code": "hwc"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "ChokePidgin.com",
+            "url": "https://chokepidgin.com"
+        }
+    }
+    </script>
+
+    <!-- Structured Data - BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://chokepidgin.com/"
+        },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Pickup Lines",
+            "item": "https://chokepidgin.com/pickup-lines.html"
+        },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Generator",
+            "item": "https://chokepidgin.com/pickup-line-generator.html"
+        }]
+    }
+    </script>
+
+    <!-- Structured Data - HowTo -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to Generate Hawaiian Pidgin Pickup Lines",
+        "description": "Learn how to create custom Hawaiian Pidgin pickup lines using our AI-powered generator",
+        "step": [{
+            "@type": "HowToStep",
+            "name": "Choose Your Style",
+            "text": "Select from romantic, funny, sweet, bold, or classic styles to match your personality",
+            "position": 1
+        },{
+            "@type": "HowToStep",
+            "name": "Select Generation Mode",
+            "text": "Choose between Random Mix (fast, component-based) or AI Generated (creative, unique)",
+            "position": 2
+        },{
+            "@type": "HowToStep",
+            "name": "Generate",
+            "text": "Click the generate button to create your custom Hawaiian Pidgin pickup line instantly",
+            "position": 3
+        },{
+            "@type": "HowToStep",
+            "name": "Share",
+            "text": "Use the share button to send your pickup line via social media or copy to clipboard",
+            "position": 4
+        }]
+    }
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7YYDVDXD"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-RB7YYDVDXD');
+    </script>
+
+    <style>
+        .brand-font {
+            font-family: 'Pacifico', cursive;
+        }
+
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .generator-card {
+            background: linear-gradient(135deg, #fff5f7 0%, #fff1f3 100%);
+            border: 3px solid #f9a8d4;
+            box-shadow: 0 10px 40px rgba(249, 168, 212, 0.3);
+        }
+
+        .result-card {
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+        }
+
+        .result-card.show {
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .generate-btn {
+            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+            transition: all 0.3s ease;
+        }
+
+        .generate-btn:hover:not(:disabled) {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
+        }
+
+        .generate-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .context-btn {
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .context-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .context-btn.active {
+            border-color: #ec4899;
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+        }
+
+        .spinner {
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid #ec4899;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .emoji-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .share-btn {
+            transition: all 0.2s ease;
+        }
+
+        .share-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-ai {
+            background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+            color: white;
+        }
+
+        .badge-random {
+            background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-gradient-to-b from-pink-50 via-purple-50 to-blue-50">
+    <!-- Navigation -->
+<nav class="shadow-lg sticky top-0 z-50 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center py-4">
+            <div class="flex items-center">
+                <a href="index.html">
+                    <span class="brand-font text-3xl bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+                        🌴 ChokePidgin 🌊
+                    </span>
+                </a>
+            </div>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="index.html" class="nav-link text-gray-700 hover:text-green-600 transition">Home</a>
+                <a href="translator.html" class="nav-link text-gray-700 hover:text-green-600 transition">Translator</a>
+                <a href="dictionary.html" class="nav-link text-gray-700 hover:text-green-600 transition">Dictionary</a>
+
+                <!-- Learning Hub Dropdown -->
+                <div class="nav-dropdown relative">
+                    <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
+                        Learning Hub
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
+                        <a href="learning-hub.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Lessons</a>
+                        <a href="how-local-you-stay.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">🤙 Local Quiz</a>
+                        <a href="pidgin-wordle.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">🎯 Pidgin Wordle</a>
+                        <a href="pidgin-crossword.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">🧩 Crossword</a>
+                    </div>
+                </div>
+
+                <!-- Community Dropdown -->
+                <div class="nav-dropdown relative">
+                    <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
+                        Community
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
+                        <a href="stories.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Stories</a>
+                        <a href="ask-local.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Ask a Local</a>
+                    </div>
+                </div>
+
+                <!-- Pickup Lines Dropdown -->
+                <div class="nav-dropdown relative">
+                    <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
+                        Pickup Lines
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
+                        <a href="pickup-lines.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Browse Lines</a>
+                        <a href="pickup-line-generator.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">AI Generator</a>
+                        <a href="how-to-use-hawaiian-pidgin-pickup-lines.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">How-To Guide</a>
+                    </div>
+                </div>
+
+                <a href="pidgin-bible.html" class="nav-link text-gray-700 hover:text-green-600 transition">Pidgin Bible</a>
+            </div>
+
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-btn" class="text-gray-700 p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+        <div class="px-2 pt-2 pb-3 space-y-1">
+            <a href="index.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Home</a>
+            <a href="translator.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Translator</a>
+            <a href="dictionary.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Dictionary</a>
+
+            <!-- Learning Hub Submenu -->
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
+                    Learning Hub
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="mobile-dropdown-content hidden pl-6 space-y-1">
+                    <a href="learning-hub.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Lessons</a>
+                    <a href="how-local-you-stay.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">🤙 Local Quiz</a>
+                    <a href="pidgin-wordle.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">🎯 Pidgin Wordle</a>
+                    <a href="pidgin-crossword.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">🧩 Crossword</a>
+                </div>
+            </div>
+
+            <!-- Community Submenu -->
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
+                    Community
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="mobile-dropdown-content hidden pl-6 space-y-1">
+                    <a href="stories.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Stories</a>
+                    <a href="ask-local.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Ask a Local</a>
+                </div>
+            </div>
+
+            <!-- Pickup Lines Submenu -->
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
+                    Pickup Lines
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="mobile-dropdown-content hidden pl-6 space-y-1">
+                    <a href="pickup-lines.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Browse Lines</a>
+                    <a href="pickup-line-generator.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">AI Generator</a>
+                    <a href="how-to-use-hawaiian-pidgin-pickup-lines.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">How-To Guide</a>
+                </div>
+            </div>
+
+            <a href="pidgin-bible.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Pidgin Bible</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Navigation JavaScript - automatically included on all pages -->
+<script>
+// Use DOMContentLoaded to ensure all elements are available
+document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+    } else {
+        console.warn('Mobile menu elements not found:', { mobileMenuBtn, mobileMenu });
+    }
+
+    // Desktop dropdown menus
+    const dropdowns = document.querySelectorAll('.nav-dropdown');
+    dropdowns.forEach(dropdown => {
+        const button = dropdown.querySelector('button');
+        const menu = dropdown.querySelector('.dropdown-menu');
+
+        if (button && menu) {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Close other dropdowns
+                dropdowns.forEach(otherDropdown => {
+                    if (otherDropdown !== dropdown) {
+                        const otherMenu = otherDropdown.querySelector('.dropdown-menu');
+                        if (otherMenu) otherMenu.classList.add('hidden');
+                    }
+                });
+                // Toggle this dropdown
+                menu.classList.toggle('hidden');
+            });
+
+            // Close on outside click
+            document.addEventListener('click', function(e) {
+                if (!dropdown.contains(e.target)) {
+                    menu.classList.add('hidden');
+                }
+            });
+        }
+    });
+
+    // Mobile dropdown menus
+    const mobileDropdowns = document.querySelectorAll('.mobile-dropdown');
+    mobileDropdowns.forEach(dropdown => {
+        const button = dropdown.querySelector('.mobile-dropdown-btn');
+        const content = dropdown.querySelector('.mobile-dropdown-content');
+        const arrow = button ? button.querySelector('svg') : null;
+
+        if (button && content) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Mobile dropdown clicked, toggling hidden class');
+                content.classList.toggle('hidden');
+                console.log('Content hidden after toggle:', content.classList.contains('hidden'));
+                if (arrow) {
+                    arrow.classList.toggle('rotate-180');
+                }
+            });
+        } else {
+            console.warn('Mobile dropdown elements not found:', { button, content });
+        }
+    });
+});
+</script>
+
+
+    <!-- Header -->
+    <header class="py-12 px-4 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-10 left-10 text-6xl emoji-float">✨</div>
+            <div class="absolute top-20 right-20 text-5xl emoji-float" style="animation-delay: 0.5s">💝</div>
+            <div class="absolute bottom-20 left-20 text-5xl emoji-float" style="animation-delay: 1s">🌺</div>
+            <div class="absolute bottom-10 right-10 text-4xl emoji-float" style="animation-delay: 1.5s">🤖</div>
+        </div>
+
+        <div class="container mx-auto max-w-6xl text-center relative z-10">
+            <h1 class="text-2xl md:text-5xl font-bold mb-4">
+                ✨ Pidgin Pickup Line Generator 🤖
+            </h1>
+            <p class="text-xl md:text-2xl mb-2">
+                AI-Powered Custom Pickup Line Creation
+            </p>
+            <p class="text-lg opacity-90">
+                Generate unique lines instantly • Thousands of combinations • AI-enhanced
+            </p>
+        </div>
+    </header>
+
+    <!-- Generator Section -->
+    <section class="py-12 px-4">
+        <div class="container mx-auto max-w-4xl">
+            <!-- Generator Card -->
+            <div class="generator-card rounded-3xl p-8 mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">
+                    🎲 Create Your Pickup Line
+                </h2>
+
+                <!-- Context Selection -->
+                <div class="mb-6">
+                    <label class="block text-sm font-semibold text-gray-700 mb-3">Choose Your Style:</label>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                        <button class="context-btn active px-4 py-3 rounded-xl bg-white" data-context="romantic">
+                            💕 Romantic
+                        </button>
+                        <button class="context-btn px-4 py-3 rounded-xl bg-white" data-context="funny">
+                            😄 Funny
+                        </button>
+                        <button class="context-btn px-4 py-3 rounded-xl bg-white" data-context="sweet">
+                            🍯 Sweet
+                        </button>
+                        <button class="context-btn px-4 py-3 rounded-xl bg-white" data-context="bold">
+                            🔥 Bold
+                        </button>
+                        <button class="context-btn px-4 py-3 rounded-xl bg-white" data-context="classic">
+                            ✨ Classic
+                        </button>
+                        <button class="context-btn px-4 py-3 rounded-xl bg-white" data-context="cringe">
+                            😬 Cringe
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Generation Mode -->
+                <div class="mb-6">
+                    <label class="block text-sm font-semibold text-gray-700 mb-3">Generation Mode:</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <button id="mode-random" class="context-btn active px-6 py-4 rounded-xl bg-white text-left">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <div class="font-bold">🎲 Random Mix</div>
+                                    <div class="text-xs text-gray-600">Fast • Component-based</div>
+                                </div>
+                            </div>
+                        </button>
+                        <button id="mode-howzit" class="context-btn px-6 py-4 rounded-xl bg-white text-left">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <div class="font-bold">📍 808 Mode</div>
+                                    <div class="text-xs text-gray-600">Contextual • Gemini AI</div>
+                                </div>
+                            </div>
+                        </button>
+                        <button id="mode-ai" class="context-btn px-6 py-4 rounded-xl bg-white text-left">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <div class="font-bold">🤖 AI Generated</div>
+                                    <div class="text-xs text-gray-600">Creative • Unique • Slower</div>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 808 Mode Options (Hidden by default) -->
+                <div id="howzit-options" class="hidden mb-6 p-6 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-2xl border-2 border-orange-200">
+                    <h3 class="text-lg font-bold text-orange-900 mb-4">📍 808 Mode - Customize Your Pickup Line</h3>
+
+                    <!-- Gender Target -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Target Gender:</label>
+                        <select id="gender-select" class="w-full px-4 py-3 rounded-xl border-2 border-orange-200 focus:border-orange-400 focus:outline-none">
+                            <option value="wahine">Wahine (Female)</option>
+                            <option value="kane">Kāne (Male)</option>
+                        </select>
+                    </div>
+
+                    <!-- Place to Eat -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">🍔 Place to Eat (Grindz):</label>
+                        <div class="flex gap-2">
+                            <div class="flex-1 relative">
+                                <input
+                                    type="text"
+                                    id="grindz-input"
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-orange-200 focus:border-orange-400 focus:outline-none"
+                                    placeholder="Type to search..."
+                                    autocomplete="off"
+                                />
+                                <!-- Dropdown results -->
+                                <div id="grindz-results" class="absolute z-10 w-full mt-1 bg-white border-2 border-orange-200 rounded-xl shadow-lg max-h-60 overflow-y-auto hidden">
+                                    <!-- Results will be populated here -->
+                                </div>
+                            </div>
+                            <button
+                                type="button"
+                                id="grindz-random"
+                                class="px-4 py-3 bg-gradient-to-r from-orange-400 to-red-400 text-white rounded-xl font-bold hover:shadow-lg transition"
+                                title="Random selection"
+                            >
+                                🎲
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Landmark/Road -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">🗺️ Landmark or Road:</label>
+                        <div class="flex gap-2">
+                            <div class="flex-1 relative">
+                                <input
+                                    type="text"
+                                    id="landmark-input"
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-orange-200 focus:border-orange-400 focus:outline-none"
+                                    placeholder="Type to search..."
+                                    autocomplete="off"
+                                />
+                                <!-- Dropdown results -->
+                                <div id="landmark-results" class="absolute z-10 w-full mt-1 bg-white border-2 border-orange-200 rounded-xl shadow-lg max-h-60 overflow-y-auto hidden">
+                                    <!-- Results will be populated here -->
+                                </div>
+                            </div>
+                            <button
+                                type="button"
+                                id="landmark-random"
+                                class="px-4 py-3 bg-gradient-to-r from-orange-400 to-red-400 text-white rounded-xl font-bold hover:shadow-lg transition"
+                                title="Random selection"
+                            >
+                                🎲
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Hiking Trail -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">⛰️ Hiking Trail:</label>
+                        <div class="flex gap-2">
+                            <div class="flex-1 relative">
+                                <input
+                                    type="text"
+                                    id="trail-input"
+                                    class="w-full px-4 py-3 rounded-xl border-2 border-orange-200 focus:border-orange-400 focus:outline-none"
+                                    placeholder="Type to search..."
+                                    autocomplete="off"
+                                />
+                                <!-- Dropdown results -->
+                                <div id="trail-results" class="absolute z-10 w-full mt-1 bg-white border-2 border-orange-200 rounded-xl shadow-lg max-h-60 overflow-y-auto hidden">
+                                    <!-- Results will be populated here -->
+                                </div>
+                            </div>
+                            <button
+                                type="button"
+                                id="trail-random"
+                                class="px-4 py-3 bg-gradient-to-r from-orange-400 to-red-400 text-white rounded-xl font-bold hover:shadow-lg transition"
+                                title="Random selection"
+                            >
+                                🎲
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-3 rounded-lg border border-orange-300">
+                        <p class="text-xs text-gray-600">
+                            💡 <strong>How it works:</strong> Select your preferences above, and our Gemini AI will generate a unique, contextual pickup line incorporating your choices with authentic Hawaiian Pidgin flavor!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Generate Button -->
+                <button id="generate-btn" class="generate-btn w-full py-4 rounded-2xl text-white text-xl font-bold shadow-lg">
+                    ✨ Generate Pickup Line
+                </button>
+
+                <p class="text-center text-sm text-gray-600 mt-4">
+                    Click to generate a unique Hawaiian Pidgin pickup line!
+                </p>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loading-state" class="hidden text-center py-8">
+                <div class="spinner mx-auto mb-4"></div>
+                <p class="text-gray-600 font-semibold">Generating your pickup line...</p>
+                <p class="text-sm text-gray-500">This may take a few seconds</p>
+            </div>
+
+            <!-- Result Card -->
+            <div id="result-container" class="hidden">
+                <div class="result-card bg-white rounded-3xl shadow-2xl p-8 border-4 border-pink-300">
+                    <div class="flex items-start justify-between mb-4">
+                        <span id="result-badge" class="badge badge-random">🎲 Random Mix</span>
+                        <div class="flex gap-2">
+                            <button id="speak-btn" class="share-btn bg-gradient-to-r from-green-500 to-teal-500 text-white px-4 py-2 rounded-full text-sm font-semibold" title="Listen to pronunciation">
+                                🔊 Listen
+                            </button>
+                            <button id="share-btn" class="share-btn bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
+                                🔗 Share
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-3" id="result-pidgin">
+                            <!-- Pidgin line here -->
+                        </h3>
+                        <p class="text-gray-600 italic mb-4" id="result-pronunciation">
+                            <!-- Pronunciation here -->
+                        </p>
+                        <p class="text-gray-700 text-lg" id="result-english">
+                            <!-- English translation here -->
+                        </p>
+                    </div>
+
+                    <div id="cultural-note" class="hidden bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg mb-4">
+                        <p class="text-sm text-blue-900">
+                            <strong>💡 Cultural Note:</strong> <span id="cultural-note-text"></span>
+                        </p>
+                    </div>
+
+                    <div class="flex gap-3 flex-wrap">
+                        <button id="regenerate-btn" class="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:shadow-lg transition">
+                            🎲 Generate Another
+                        </button>
+                        <button id="copy-btn" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-xl font-semibold transition">
+                            📋 Copy Text
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="mt-8 text-center">
+                <p class="text-sm text-gray-600">
+                    Lines generated this session: <strong id="generation-count">0</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="py-12 px-4 bg-white">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-3xl font-bold text-center mb-8">How It Works 🤔</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-6 border-2 border-pink-200">
+                    <h3 class="text-xl font-bold mb-3">🎲 Random Mix Mode</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>✓ Combines authentic Pidgin components</li>
+                        <li>✓ Thousands of unique combinations</li>
+                        <li>✓ Instant generation</li>
+                        <li>✓ Culturally accurate</li>
+                    </ul>
+                </div>
+                <div class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-6 border-2 border-purple-200">
+                    <h3 class="text-xl font-bold mb-3">🤖 AI Generated Mode</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>✓ Powered by Google Gemini AI</li>
+                        <li>✓ Completely original lines</li>
+                        <li>✓ Contextual creativity</li>
+                        <li>✓ Cultural notes included</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+<footer class="bg-gradient-to-r from-purple-900 to-blue-900 text-white py-8 mt-12">
+    <div class="container mx-auto px-4 text-center">
+        <p class="brand-font text-xl mb-2">🌴 ChokePidgin.com 🌊</p>
+        <p class="text-sm opacity-80">Preserving and sharing Hawaiian Pidgin culture</p>
+        <p class="text-xs opacity-60 mt-4">&copy; 2025 ChokePidgin.com - All Rights Reserved</p>
+    </div>
+</footer>
+
+
+    <!-- Scripts -->
+    <!-- Speech components for TTS functionality -->
+    <script src="js/components/elevenlabs-speech.js"></script>
+    <script src="js/components/speech.js"></script>
+
+    <!-- Pickup line generator components -->
+    <script src="js/data/pickup-line-generator-data.js"></script>
+    <script src="js/components/pickup-line-generator.js"></script>
+    <script src="js/components/pickup-line-generator-page.js"></script>
+    <script src="js/components/main.js"></script>
+</body>
+</html>
