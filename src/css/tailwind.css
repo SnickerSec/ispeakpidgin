@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+/* Import Pacifico font for brand consistency */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+/* Brand font class */
+.brand-font {
+  font-family: 'Pacifico', cursive;
+}
+
 /* Global overrides to maintain CDN behavior */
 button,
 a,
