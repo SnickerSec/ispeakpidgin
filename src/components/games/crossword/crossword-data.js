@@ -234,6 +234,232 @@ const crosswordPuzzles = {
         }
     },
 
+    // Puzzle 11: Beginner - Weather & Nature
+    puzzle11: {
+        id: 11,
+        theme: 'nature',
+        difficulty: 'beginner',
+        size: { rows: 6, cols: 6 },
+        title: 'Island Weather',
+        description: 'Weather and nature terms',
+        grid: null,
+        words: {
+            across: [
+                { number: 1, row: 0, col: 0, word: 'RAIN', clue: 'Water from the sky', answer: 'RAIN' },
+                { number: 3, row: 2, col: 0, word: 'SUN', clue: 'Bright and hot', answer: 'SUN' },
+                { number: 5, row: 4, col: 0, word: 'WIND', clue: 'Air movement', answer: 'WIND' }
+            ],
+            down: [
+                { number: 1, row: 0, col: 0, word: 'RAINBOW', clue: 'Colorful arc after rain', answer: 'RAINBOW' },
+                { number: 2, row: 0, col: 3, word: 'IWAS', clue: 'Nine-O (milkfish)', answer: 'IWAS' }
+            ]
+        }
+    },
+
+    // Puzzle 12: Beginner - Time & Days
+    puzzle12: {
+        id: 12,
+        theme: 'time',
+        difficulty: 'beginner',
+        size: { rows: 6, cols: 6 },
+        title: 'Island Time',
+        description: 'Time-related pidgin',
+        grid: null,
+        words: {
+            across: [
+                { number: 1, row: 0, col: 0, word: 'BUMBYE', clue: 'Later, by and by', answer: 'BUMBYE' },
+                { number: 3, row: 2, col: 0, word: 'NOW', clue: 'Right now, immediately', answer: 'NOW' },
+                { number: 5, row: 4, col: 0, word: 'EARLY', clue: 'Before the usual time', answer: 'EARLY' }
+            ],
+            down: [
+                { number: 1, row: 0, col: 0, word: 'BEFORE', clue: 'Earlier than', answer: 'BEFORE' },
+                { number: 2, row: 0, col: 4, word: 'YET', clue: 'Still, already', answer: 'YET' }
+            ]
+        }
+    },
+
+    // Puzzle 13: Intermediate - Emotions & Feelings
+    puzzle13: {
+        id: 13,
+        theme: 'emotions',
+        difficulty: 'intermediate',
+        size: { rows: 7, cols: 7 },
+        title: 'How You Feel',
+        description: 'Emotions and feelings',
+        grid: null,
+        words: {
+            across: [
+                { number: 1, row: 0, col: 0, word: 'HAPPY', clue: 'Feeling good, joyful', answer: 'HAPPY' },
+                { number: 3, row: 2, col: 0, word: 'BODDAH', clue: 'Bother, annoy', answer: 'BODDAH' },
+                { number: 5, row: 4, col: 0, word: 'SHAME', clue: 'Embarrassed, shy', answer: 'SHAME' },
+                { number: 7, row: 6, col: 0, word: 'SKED', clue: 'Scared, afraid', answer: 'SKED' }
+            ],
+            down: [
+                { number: 1, row: 0, col: 0, word: 'HUHU', clue: 'Angry, upset', answer: 'HUHU' },
+                { number: 2, row: 0, col: 3, word: 'PAU', clue: 'Finished, done', answer: 'PAU' }
+            ]
+        }
+    },
+
+    // Puzzle 14: Intermediate - Transportation
+    puzzle14: {
+        id: 14,
+        theme: 'transportation',
+        difficulty: 'intermediate',
+        size: { rows: 6, cols: 6 },
+        title: 'Get Around',
+        description: 'Getting from here to there',
+        grid: null,
+        words: {
+            across: [
+                { number: 1, row: 0, col: 0, word: 'BUS', clue: 'Public transportation', answer: 'BUS' },
+                { number: 3, row: 2, col: 0, word: 'RIDE', clue: 'Transportation, lift', answer: 'RIDE' },
+                { number: 5, row: 4, col: 0, word: 'CRUISE', clue: 'Drive around, hang out', answer: 'CRUISE' }
+            ],
+            down: [
+                { number: 1, row: 0, col: 0, word: 'BROKE', clue: '__ da mouth (delicious)', answer: 'BROKE' },
+                { number: 2, row: 0, col: 2, word: 'SHISHI', clue: 'Pee, urinate', answer: 'SHISHI' }
+            ]
+        }
+    },
+
+    // Puzzle 15: Intermediate - Animals & Creatures
+    puzzle15: {
+        id: 15,
+        theme: 'animals',
+        difficulty: 'intermediate',
+        size: { rows: 6, cols: 6 },
+        title: 'Island Creatures',
+        description: 'Animals and bugs',
+        grid: null,
+        words: {
+            across: [
+                { number: 1, row: 0, col: 0, word: 'GECKO', clue: 'Small lizard in house', answer: 'GECKO' },
+                { number: 3, row: 2, col: 0, word: 'HONU', clue: 'Sea turtle', answer: 'HONU' },
+                { number: 5, row: 4, col: 0, word: 'MANO', clue: 'Shark', answer: 'MANO' }
+            ],
+            down: [
+                { number: 1, row: 0, col: 0, word: 'GRINDS', clue: 'Food', answer: 'GRINDS' },
+                { number: 2, row: 0, col: 3, word: 'KIKI', clue: 'Titi, auntie (casual)', answer: 'KIKI' }
+            ]
+        }
+    },
+
+    // Puzzle 16: Advanced - Business & Work
+    puzzle16: {
+        id: 16,
+        theme: 'work',
+        difficulty: 'advanced',
+        size: { rows: 7, cols: 7 },
+        title: 'Work Talk',
+        description: 'Business and work terms',
+        grid: null,
+        words: {
+            across: [
+                { number: 1, row: 0, col: 0, word: 'HANA', clue: 'Work, job', answer: 'HANA' },
+                { number: 3, row: 2, col: 0, word: 'KULEANA', clue: 'Responsibility, duty', answer: 'KULEANA' },
+                { number: 5, row: 4, col: 0, word: 'KOKUA', clue: 'Help, assistance', answer: 'KOKUA' },
+                { number: 7, row: 6, col: 0, word: 'BOSS', clue: 'Manager, person in charge', answer: 'BOSS' }
+            ],
+            down: [
+                { number: 1, row: 0, col: 0, word: 'HARD', clue: '__ time (difficult)', answer: 'HARD' },
+                { number: 2, row: 0, col: 3, word: 'AUDIT', clue: 'Check, review', answer: 'AUDIT' }
+            ]
+        }
+    },
+
+    // Puzzle 17: Advanced - Sports & Games
+    puzzle17: {
+        id: 17,
+        theme: 'sports',
+        difficulty: 'advanced',
+        size: { rows: 7, cols: 7 },
+        title: 'Play Ball',
+        description: 'Sports and games',
+        grid: null,
+        words: {
+            across: [
+                { number: 1, row: 0, col: 0, word: 'SURF', clue: 'Ride waves', answer: 'SURF' },
+                { number: 3, row: 2, col: 0, word: 'VOLLEYBALL', clue: 'Beach game with net', answer: 'VOLLEYBALL' },
+                { number: 5, row: 4, col: 0, word: 'DIVE', clue: 'Jump into water', answer: 'DIVE' },
+                { number: 7, row: 6, col: 0, word: 'FISH', clue: 'Catch seafood', answer: 'FISH' }
+            ],
+            down: [
+                { number: 1, row: 0, col: 0, word: 'SCORE', clue: 'Points in game', answer: 'SCORE' },
+                { number: 2, row: 0, col: 3, word: 'REEF', clue: 'Coral formation', answer: 'REEF' }
+            ]
+        }
+    },
+
+    // Puzzle 18: Advanced - Directions & Navigation
+    puzzle18: {
+        id: 18,
+        theme: 'directions',
+        difficulty: 'advanced',
+        size: { rows: 7, cols: 7 },
+        title: 'Find Your Way',
+        description: 'Getting around the island',
+        grid: null,
+        words: {
+            across: [
+                { number: 1, row: 0, col: 0, word: 'MAKAI', clue: 'Toward the ocean', answer: 'MAKAI' },
+                { number: 3, row: 2, col: 0, word: 'MAUKA', clue: 'Toward the mountains', answer: 'MAUKA' },
+                { number: 5, row: 4, col: 0, word: 'EWA', clue: 'Westward direction', answer: 'EWA' },
+                { number: 7, row: 6, col: 0, word: 'KOKO', clue: 'Eastward (__ Head)', answer: 'KOKO' }
+            ],
+            down: [
+                { number: 1, row: 0, col: 0, word: 'MAIN', clue: '__ street, downtown', answer: 'MAIN' },
+                { number: 2, row: 0, col: 3, word: 'KANE', clue: 'Man, male', answer: 'KANE' }
+            ]
+        }
+    },
+
+    // Puzzle 19: Advanced - Party & Celebration
+    puzzle19: {
+        id: 19,
+        theme: 'celebration',
+        difficulty: 'advanced',
+        size: { rows: 8, cols: 8 },
+        title: 'Party Time',
+        description: 'Celebration and fun',
+        grid: null,
+        words: {
+            across: [
+                { number: 1, row: 0, col: 0, word: 'LUAU', clue: 'Hawaiian party, feast', answer: 'LUAU' },
+                { number: 3, row: 2, col: 0, word: 'BACHANAL', clue: 'Wild party, celebration', answer: 'BACHANAL' },
+                { number: 5, row: 4, col: 0, word: 'JAMMING', clue: 'Playing music together', answer: 'JAMMING' },
+                { number: 7, row: 6, col: 0, word: 'DRINK', clue: 'Beverage, alcohol', answer: 'DRINK' }
+            ],
+            down: [
+                { number: 1, row: 0, col: 0, word: 'LOLO', clue: 'Crazy, silly', answer: 'LOLO' },
+                { number: 2, row: 0, col: 4, word: 'AINA', clue: 'Land', answer: 'AINA' }
+            ]
+        }
+    },
+
+    // Puzzle 20: Advanced - Respect & Manners
+    puzzle20: {
+        id: 20,
+        theme: 'respect',
+        difficulty: 'advanced',
+        size: { rows: 8, cols: 8 },
+        title: 'Show Respect',
+        description: 'Manners and respect',
+        grid: null,
+        words: {
+            across: [
+                { number: 1, row: 0, col: 0, word: 'MAHALO', clue: 'Thank you', answer: 'MAHALO' },
+                { number: 3, row: 2, col: 0, word: 'RESPECT', clue: 'Honor, regard', answer: 'RESPECT' },
+                { number: 5, row: 4, col: 0, word: 'AKAMAI', clue: 'Smart, clever', answer: 'AKAMAI' },
+                { number: 7, row: 6, col: 0, word: 'PONO', clue: 'Righteous, proper', answer: 'PONO' }
+            ],
+            down: [
+                { number: 1, row: 0, col: 0, word: 'MANNERS', clue: 'Proper behavior', answer: 'MANNERS' },
+                { number: 2, row: 0, col: 5, word: 'OHANA', clue: 'Family', answer: 'OHANA' }
+            ]
+        }
+    },
+
     // Get puzzle by ID
     getPuzzle(id) {
         return this[`puzzle${id}`] || this.puzzle1;
@@ -241,7 +467,7 @@ const crosswordPuzzles = {
 
     // Get random puzzle
     getRandomPuzzle() {
-        const puzzleCount = 10; // Updated with 10 puzzles
+        const puzzleCount = 20; // Updated with 20 puzzles
         const randomId = Math.floor(Math.random() * puzzleCount) + 1;
         return this.getPuzzle(randomId);
     },
@@ -250,7 +476,7 @@ const crosswordPuzzles = {
     getDailyPuzzle(date = new Date()) {
         const startDate = new Date('2025-01-23');
         const daysDiff = Math.floor((date - startDate) / (1000 * 60 * 60 * 24));
-        const puzzleCount = 10; // Updated with 10 puzzles
+        const puzzleCount = 20; // Updated with 20 puzzles
         const puzzleId = (daysDiff % puzzleCount) + 1;
 
         return {
