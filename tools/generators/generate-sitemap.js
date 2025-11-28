@@ -95,6 +95,42 @@ function generateSitemap() {
         <priority>0.75</priority>
     </url>
 
+    <!-- Blog Section -->
+    <url>
+        <loc>${baseUrl}/blog/</loc>
+        <lastmod>${currentDate}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+    </url>
+
+    <url>
+        <loc>${baseUrl}/blog/hawaiian-pidgin-beginners-guide.html</loc>
+        <lastmod>${currentDate}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>${baseUrl}/blog/10-essential-pidgin-phrases-visitors.html</loc>
+        <lastmod>${currentDate}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>${baseUrl}/blog/pidgin-vs-hawaiian-language.html</loc>
+        <lastmod>${currentDate}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>${baseUrl}/blog/history-of-hawaiian-pidgin.html</loc>
+        <lastmod>${currentDate}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
 `;
 
     // Track slugs to prevent duplicates
@@ -151,7 +187,7 @@ const outputPath = path.join(__dirname, '../public/sitemap.xml');
 fs.writeFileSync(outputPath, xml, 'utf8');
 
 console.log('✅ Sitemap generated successfully!');
-console.log(`📄 Total URLs: ${entryCount + 5} (5 main pages + ${entryCount} dictionary entries)`);
+console.log(`📄 Total URLs: ${entryCount + 12} (7 main pages + 5 blog pages + ${entryCount} dictionary entries)`);
 console.log(`📂 Output: ${outputPath}`);
 console.log(`\n🔗 Submit to search engines:`);
 console.log(`   - Google: https://search.google.com/search-console`);

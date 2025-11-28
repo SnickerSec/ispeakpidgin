@@ -38,6 +38,18 @@ const pages = [
     { url: '/funny-insulting-pidgin-phrases.html', priority: 0.7, changefreq: 'monthly' },
     { url: '/oahu-local-eats.html', priority: 0.9, changefreq: 'monthly' },
 
+    // Games
+    { url: '/how-local-you-stay.html', priority: 0.7, changefreq: 'monthly' },
+    { url: '/pidgin-wordle.html', priority: 0.7, changefreq: 'monthly' },
+    { url: '/pidgin-crossword.html', priority: 0.7, changefreq: 'monthly' },
+
+    // Blog section
+    { url: '/blog/', priority: 0.85, changefreq: 'weekly' },
+    { url: '/blog/hawaiian-pidgin-beginners-guide.html', priority: 0.8, changefreq: 'monthly' },
+    { url: '/blog/10-essential-pidgin-phrases-visitors.html', priority: 0.8, changefreq: 'monthly' },
+    { url: '/blog/pidgin-vs-hawaiian-language.html', priority: 0.8, changefreq: 'monthly' },
+    { url: '/blog/history-of-hawaiian-pidgin.html', priority: 0.8, changefreq: 'monthly' },
+
     // SEO pages - phrase explanations
     { url: '/what-does-da-kine-mean.html', priority: 0.6, changefreq: 'monthly' },
     { url: '/what-does-howzit-mean.html', priority: 0.6, changefreq: 'monthly' },
