@@ -69,7 +69,8 @@ function createPublicStructure() {
         'public/assets',
         'public/assets/images',
         'public/assets/icons',
-        'public/assets/audio'
+        'public/assets/audio',
+        'public/blog'
     ];
 
     dirs.forEach(dir => {
@@ -150,6 +151,52 @@ function processHTMLFiles() {
             console.log(`📄 Processed: ${file}`);
         }
     });
+
+    // Process blog subdirectory
+    const blogDir = 'src/pages/blog';
+    if (fs.existsSync(blogDir)) {
+        const blogFiles = fs.readdirSync(blogDir).filter(f => f.endsWith('.html'));
+        blogFiles.forEach(file => {
+            const srcPath = path.join(blogDir, file);
+            const destPath = path.join('public/blog', file);
+
+            let content = fs.readFileSync(srcPath, 'utf8');
+
+            // For blog pages, we need to adjust navigation paths (add ../ prefix)
+            let blogNavigation = navigationTemplate;
+            let blogFooter = footerTemplate;
+
+            // Adjust all relative paths in navigation for blog subdirectory
+            blogNavigation = blogNavigation.replace(/href="(?!http|\/|#)([^"]+)"/g, 'href="../$1"');
+            blogNavigation = blogNavigation.replace(/src="(?!http|\/|#)([^"]+)"/g, 'src="../$1"');
+            blogFooter = blogFooter.replace(/href="(?!http|\/|#)([^"]+)"/g, 'href="../$1"');
+            blogFooter = blogFooter.replace(/src="(?!http|\/|#)([^"]+)"/g, 'src="../$1"');
+
+            // Inject adjusted navigation and footer
+            if (blogNavigation && content.includes('<!-- NAVIGATION_PLACEHOLDER -->')) {
+                content = content.replace('<!-- NAVIGATION_PLACEHOLDER -->', blogNavigation);
+            }
+            if (blogFooter && content.includes('<!-- FOOTER_PLACEHOLDER -->')) {
+                content = content.replace('<!-- FOOTER_PLACEHOLDER -->', blogFooter);
+            }
+
+            // Update script and link paths for blog pages
+            // First apply standard mappings with ../ prefix for root-relative paths
+            Object.entries(pathMappings).forEach(([oldPath, newPath]) => {
+                content = content.replace(new RegExp(`src="${oldPath}"`, 'g'), `src="../${newPath}"`);
+                content = content.replace(new RegExp(`href="${oldPath}"`, 'g'), `href="../${newPath}"`);
+            });
+
+            // Also handle paths that already have ../ prefix (from blog source files)
+            Object.entries(pathMappings).forEach(([oldPath, newPath]) => {
+                content = content.replace(new RegExp(`src="\\.\\./${oldPath}"`, 'g'), `src="../${newPath}"`);
+                content = content.replace(new RegExp(`href="\\.\\./${oldPath}"`, 'g'), `href="../${newPath}"`);
+            });
+
+            fs.writeFileSync(destPath, content);
+            console.log(`📝 Processed blog: ${file}`);
+        });
+    }
 }
 
 // Copy JavaScript components
