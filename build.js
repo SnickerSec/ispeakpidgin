@@ -18,6 +18,7 @@ const config = {
 const pathMappings = {
     // JavaScript components
     'js/data-loader.js': 'js/components/data-loader.js',
+    'js/supabase-data-loader.js': 'js/components/supabase-data-loader.js',
     'js/phrases-data.js': 'js/data/phrases-data.js',
     'js/comprehensive-pidgin-data.js': 'js/data/comprehensive-pidgin-data.js',
     'js/stories-data.js': 'js/data/stories-data.js',
