@@ -8,7 +8,14 @@ const { Translate } = require('@google-cloud/translate').v2;
 const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const { body, validationResult } = require('express-validator');
+const { createClient } = require('@supabase/supabase-js');
 require('dotenv').config();
+
+// Initialize Supabase client
+const supabaseUrl = process.env.SUPABASE_URL || 'https://jfzgzjgdptowfbtljvyp.supabase.co';
+const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impmemd6amdkcHRvd2ZidGxqdnlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzNzk0OTMsImV4cCI6MjA3OTk1NTQ5M30.xPubHKR0PFEic52CffEBVCwmfPz-AiqbwFk39ulwydM';
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
+console.log('✅ Supabase client initialized');
 
 // Handle Google Cloud credentials
 let credentialsPath = './google-credentials.json';
@@ -107,7 +114,8 @@ app.use(helmet({
                 "https://api.elevenlabs.io",
                 "https://www.google-analytics.com",
                 "https://analytics.google.com",
-                "https://stats.g.doubleclick.net"
+                "https://stats.g.doubleclick.net",
+                "https://jfzgzjgdptowfbtljvyp.supabase.co"
             ],
             mediaSrc: ["'self'", "blob:", "data:", "https:"],
             objectSrc: ["'none'"],
@@ -740,6 +748,305 @@ Provide 3 variations in JSON format:
                 error: 'Enhancement service error',
                 message: error.message
             });
+        }
+    });
+
+// ============================================
+// SUPABASE DICTIONARY API ENDPOINTS
+// ============================================
+
+// Rate limiter for dictionary endpoints (more generous than translation)
+const dictionaryLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 200, // 200 requests per 15 minutes
+    message: 'Too many dictionary requests, please try again later.',
+});
+
+// GET /api/dictionary - Get all dictionary entries with pagination
+app.get('/api/dictionary',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const {
+                page = 1,
+                limit = 50,
+                category,
+                difficulty,
+                sort = 'pidgin',
+                order = 'asc'
+            } = req.query;
+
+            const offset = (parseInt(page) - 1) * parseInt(limit);
+            const validOrders = ['asc', 'desc'];
+            const sortOrder = validOrders.includes(order) ? order === 'asc' : true;
+
+            let query = supabase
+                .from('dictionary_entries')
+                .select('*', { count: 'exact' });
+
+            // Apply filters
+            if (category) {
+                query = query.eq('category', category);
+            }
+            if (difficulty) {
+                query = query.eq('difficulty', difficulty);
+            }
+
+            // Apply sorting and pagination
+            query = query
+                .order(sort, { ascending: sortOrder })
+                .range(offset, offset + parseInt(limit) - 1);
+
+            const { data, error, count } = await query;
+
+            if (error) {
+                console.error('Supabase query error:', error);
+                return res.status(500).json({ error: 'Database query failed', details: error.message });
+            }
+
+            res.json({
+                entries: data,
+                pagination: {
+                    page: parseInt(page),
+                    limit: parseInt(limit),
+                    total: count,
+                    totalPages: Math.ceil(count / parseInt(limit))
+                }
+            });
+
+        } catch (error) {
+            console.error('Dictionary API error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+// GET /api/dictionary/search - Full-text search
+app.get('/api/dictionary/search',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const { q, limit = 20 } = req.query;
+
+            if (!q || q.trim().length < 2) {
+                return res.status(400).json({ error: 'Search query must be at least 2 characters' });
+            }
+
+            const searchTerm = q.trim().toLowerCase();
+
+            // Use Supabase full-text search
+            const { data, error } = await supabase
+                .from('dictionary_entries')
+                .select('*')
+                .or(`pidgin.ilike.%${searchTerm}%,english.cs.{${searchTerm}}`)
+                .limit(parseInt(limit));
+
+            if (error) {
+                console.error('Supabase search error:', error);
+                return res.status(500).json({ error: 'Search failed', details: error.message });
+            }
+
+            res.json({
+                query: q,
+                results: data,
+                count: data.length
+            });
+
+        } catch (error) {
+            console.error('Search API error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+// GET /api/dictionary/categories - Get all unique categories
+app.get('/api/dictionary/categories',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const { data, error } = await supabase
+                .from('dictionary_entries')
+                .select('category')
+                .not('category', 'is', null);
+
+            if (error) {
+                console.error('Supabase categories error:', error);
+                return res.status(500).json({ error: 'Failed to fetch categories' });
+            }
+
+            // Get unique categories with counts
+            const categoryCounts = data.reduce((acc, item) => {
+                if (item.category) {
+                    acc[item.category] = (acc[item.category] || 0) + 1;
+                }
+                return acc;
+            }, {});
+
+            res.json({
+                categories: Object.entries(categoryCounts).map(([name, count]) => ({
+                    name,
+                    count
+                })).sort((a, b) => a.name.localeCompare(b.name))
+            });
+
+        } catch (error) {
+            console.error('Categories API error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+// GET /api/dictionary/random - Get random entries
+app.get('/api/dictionary/random',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const { count = 5, difficulty } = req.query;
+            const limit = Math.min(parseInt(count), 20); // Cap at 20
+
+            // Get total count first
+            let countQuery = supabase
+                .from('dictionary_entries')
+                .select('*', { count: 'exact', head: true });
+
+            if (difficulty) {
+                countQuery = countQuery.eq('difficulty', difficulty);
+            }
+
+            const { count: total } = await countQuery;
+
+            // Generate random offset
+            const maxOffset = Math.max(0, total - limit);
+            const randomOffset = Math.floor(Math.random() * maxOffset);
+
+            let query = supabase
+                .from('dictionary_entries')
+                .select('*')
+                .range(randomOffset, randomOffset + limit - 1);
+
+            if (difficulty) {
+                query = query.eq('difficulty', difficulty);
+            }
+
+            const { data, error } = await query;
+
+            if (error) {
+                console.error('Supabase random error:', error);
+                return res.status(500).json({ error: 'Failed to fetch random entries' });
+            }
+
+            // Shuffle the results for more randomness
+            const shuffled = data.sort(() => Math.random() - 0.5);
+
+            res.json({
+                entries: shuffled,
+                count: shuffled.length
+            });
+
+        } catch (error) {
+            console.error('Random API error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+// GET /api/dictionary/stats - Get dictionary statistics (must be before :id route)
+app.get('/api/dictionary/stats',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            // Get total count
+            const { count: totalCount } = await supabase
+                .from('dictionary_entries')
+                .select('*', { count: 'exact', head: true });
+
+            // Get difficulty counts
+            const { data: difficultyData } = await supabase
+                .from('dictionary_entries')
+                .select('difficulty');
+
+            const difficultyCounts = difficultyData.reduce((acc, item) => {
+                const diff = item.difficulty || 'unspecified';
+                acc[diff] = (acc[diff] || 0) + 1;
+                return acc;
+            }, {});
+
+            // Get category counts
+            const { data: categoryData } = await supabase
+                .from('dictionary_entries')
+                .select('category');
+
+            const categoryCounts = categoryData.reduce((acc, item) => {
+                const cat = item.category || 'uncategorized';
+                acc[cat] = (acc[cat] || 0) + 1;
+                return acc;
+            }, {});
+
+            res.json({
+                totalEntries: totalCount,
+                byDifficulty: difficultyCounts,
+                byCategory: categoryCounts,
+                lastUpdated: new Date().toISOString()
+            });
+
+        } catch (error) {
+            console.error('Stats API error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+// GET /api/dictionary/word/:pidgin - Get entry by Pidgin word (must be before :id route)
+app.get('/api/dictionary/word/:pidgin',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const { pidgin } = req.params;
+
+            const { data, error } = await supabase
+                .from('dictionary_entries')
+                .select('*')
+                .ilike('pidgin', pidgin)
+                .limit(1)
+                .single();
+
+            if (error) {
+                if (error.code === 'PGRST116') {
+                    return res.status(404).json({ error: 'Word not found' });
+                }
+                console.error('Supabase word lookup error:', error);
+                return res.status(500).json({ error: 'Failed to fetch word' });
+            }
+
+            res.json(data);
+
+        } catch (error) {
+            console.error('Word lookup API error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+// GET /api/dictionary/:id - Get single entry by ID (must be last due to wildcard)
+app.get('/api/dictionary/:id',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const { id } = req.params;
+
+            const { data, error } = await supabase
+                .from('dictionary_entries')
+                .select('*')
+                .eq('id', id)
+                .single();
+
+            if (error) {
+                if (error.code === 'PGRST116') {
+                    return res.status(404).json({ error: 'Entry not found' });
+                }
+                console.error('Supabase get error:', error);
+                return res.status(500).json({ error: 'Failed to fetch entry' });
+            }
+
+            res.json(data);
+
+        } catch (error) {
+            console.error('Get entry API error:', error);
+            res.status(500).json({ error: 'Internal server error' });
         }
     });
 

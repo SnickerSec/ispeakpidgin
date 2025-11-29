@@ -16,7 +16,8 @@
     "test:translator": "node tools/testing/validate-phase-2-3.js",
     "generate:sitemap": "node tools/generators/generate-sitemap.js",
     "generate:pages": "node tools/generators/generate-entry-pages.js",
-    "validate": "npm run test"
+    "validate": "npm run test",
+    "migrate:supabase": "node tools/migrate-to-supabase.js"
   },
   "keywords": [
     "pidgin",
@@ -29,6 +30,7 @@
   "license": "MIT",
   "dependencies": {
     "@google-cloud/translate": "^9.3.0",
+    "@supabase/supabase-js": "^2.86.0",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
