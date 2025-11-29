@@ -1,0 +1,3463 @@
+{
+  "metadata": {
+    "version": "3.0",
+    "viewType": "learning",
+    "lastUpdated": "2025-11-15"
+  },
+  "phrases": {
+    "daily": [],
+    "greetings": [],
+    "food": [],
+    "emotions": [],
+    "expressions": [],
+    "directions": [],
+    "slang": [],
+    "questions": [],
+    "culture": []
+  },
+  "stories": [
+    {
+      "id": "aunty_leis_kitchen",
+      "title": "Aunty Lei's Kitchen",
+      "pidginText": "Every Sunday, all da keiki come ovah Aunty Lei's house fo' grind. She stay cooking dat ono kine food - kalua pig, poi, haupia cake. 'Eh, you guys hungry or what?' she call out. 'Come, come! No be shy!' All da cousins rush inside, da smell stay so good. 'Wot you wen make today, Aunty?' ask little Keoni. 'Same same every week,' she laugh. 'But you nevah get tired, yeah?' Dis da kine tradition dat keep da ohana together.",
+      "englishTranslation": "Every Sunday, all the children come over to Aunty Lei's house to eat. She's cooking that delicious kind of food - kalua pig, poi, haupia cake. 'Hey, are you guys hungry or what?' she calls out. 'Come, come! Don't be shy!' All the cousins rush inside, the smell is so good. 'What did you make today, Aunty?' asks little Keoni. 'Same thing every week,' she laughs. 'But you never get tired, right?' This is the kind of tradition that keeps the family together.",
+      "culturalNotes": "Hawaiian families often gather on Sundays for large meals. Kalua pig is traditional Hawaiian barbecue, poi is a staple made from taro root, and haupia is coconut pudding cake. The concept of 'ohana' (family) extends beyond blood relations.",
+      "vocabulary": [
+        {
+          "pidgin": "keiki",
+          "english": "children",
+          "pronunciation": "KAY-key"
+        },
+        {
+          "pidgin": "grind",
+          "english": "eat",
+          "pronunciation": "grind"
+        },
+        {
+          "pidgin": "ono",
+          "english": "delicious",
+          "pronunciation": "OH-no"
+        },
+        {
+          "pidgin": "kine",
+          "english": "kind/type",
+          "pronunciation": "kine"
+        },
+        {
+          "pidgin": "wot",
+          "english": "what",
+          "pronunciation": "wot"
+        },
+        {
+          "pidgin": "wen",
+          "english": "did",
+          "pronunciation": "wen"
+        },
+        {
+          "pidgin": "ohana",
+          "english": "family",
+          "pronunciation": "oh-HAH-nah"
+        }
+      ],
+      "audioExample": "Every Sunday, all da keiki come ovah fo' grind some ono food!",
+      "tags": [
+        "family",
+        "food",
+        "tradition",
+        "sunday",
+        "culture"
+      ],
+      "difficulty": "intermediate",
+      "source": "stories-data.js"
+    },
+    {
+      "id": "big_wave_surfing",
+      "title": "Big Wave Surfing at Pipeline",
+      "pidginText": "Brah, you see dat set coming in? Dose waves stay HUGE! Kawika grab his board real quick. 'Eh, I going charge 'em!' he tell his friends. 'You stay crazy or what?' they say. But Kawika, he one local boy, been surfing Pipeline since small kid time. He paddle out, wait fo' da perfect wave. Boom! One monster wave come. He drop in, ride 'em all da way. 'Ho, dat was sick!' everybody stay cheering from da beach.",
+      "englishTranslation": "Bro, do you see that set of waves coming in? Those waves are HUGE! Kawika grabs his board really quickly. 'Hey, I'm going to charge them!' he tells his friends. 'Are you crazy or what?' they say. But Kawika, he's a local boy, has been surfing Pipeline since he was a little kid. He paddles out, waits for the perfect wave. Boom! A monster wave comes. He drops in, rides it all the way. 'Wow, that was amazing!' everyone is cheering from the beach.",
+      "culturalNotes": "Pipeline on Oahu's North Shore is one of the world's most dangerous and famous surf breaks. Local surfers like Kawika grow up with deep respect for the ocean and often start surfing as young children.",
+      "vocabulary": [
+        {
+          "pidgin": "brah",
+          "english": "brother/friend",
+          "pronunciation": "brah"
+        },
+        {
+          "pidgin": "stay",
+          "english": "are/is",
+          "pronunciation": "stay"
+        },
+        {
+          "pidgin": "charge",
+          "english": "attack/go for it",
+          "pronunciation": "charge"
+        },
+        {
+          "pidgin": "small kid time",
+          "english": "childhood",
+          "pronunciation": "small kid time"
+        },
+        {
+          "pidgin": "ho",
+          "english": "wow/expression of amazement",
+          "pronunciation": "ho"
+        },
+        {
+          "pidgin": "sick",
+          "english": "awesome/cool",
+          "pronunciation": "sick"
+        }
+      ],
+      "audioExample": "Brah, you see dat big wave? Ho, dat stay sick!",
+      "tags": [
+        "surfing",
+        "ocean",
+        "adventure",
+        "local",
+        "courage"
+      ],
+      "difficulty": "intermediate",
+      "source": "stories-data.js"
+    },
+    {
+      "id": "tutu_kane_fishing",
+      "title": "Tutu Kane's Fishing Wisdom",
+      "pidginText": "Old Tutu Kane wake up 4 o'clock every morning fo' go fishing. 'Eh grandson,' he tell young Makoa, 'you like come wit' me today?' Makoa stay sleepy but he know dis one special ting. Down at da pier, Tutu Kane teach him how fo' tie da hooks, wot kine bait fo' use. 'Da fish, they smart yeah? You gotta be patient, wait fo' da right moment.' All day they stay quiet, just enjoying da ocean breeze. When they catch one big mahi-mahi, Tutu Kane smile. 'Dis da kine memories dat stay wit' you forever, boy.'",
+      "englishTranslation": "Old Grandfather wakes up at 4 o'clock every morning to go fishing. 'Hey grandson,' he tells young Makoa, 'do you want to come with me today?' Makoa is sleepy but he knows this is a special thing. Down at the pier, Grandfather teaches him how to tie the hooks, what kind of bait to use. 'The fish, they're smart you know? You have to be patient, wait for the right moment.' All day they stay quiet, just enjoying the ocean breeze. When they catch a big mahi-mahi, Grandfather smiles. 'These are the kind of memories that stay with you forever, boy.'",
+      "culturalNotes": "Tutu Kane means grandfather in Hawaiian. Fishing is deeply ingrained in Hawaiian culture, representing both sustenance and spiritual connection to the ocean. The practice of kupuna (elders) teaching keiki (children) traditional skills is central to cultural preservation.",
+      "vocabulary": [
+        {
+          "pidgin": "tutu kane",
+          "english": "grandfather",
+          "pronunciation": "TOO-too KAH-nay"
+        },
+        {
+          "pidgin": "wit'",
+          "english": "with",
+          "pronunciation": "wit"
+        },
+        {
+          "pidgin": "dis",
+          "english": "this",
+          "pronunciation": "dis"
+        },
+        {
+          "pidgin": "wot kine",
+          "english": "what kind",
+          "pronunciation": "wot kine"
+        },
+        {
+          "pidgin": "da kine",
+          "english": "the kind/type",
+          "pronunciation": "da kine"
+        }
+      ],
+      "audioExample": "Tutu Kane wake up early fo' go fishing every morning!",
+      "tags": [
+        "fishing",
+        "family",
+        "wisdom",
+        "tradition",
+        "ocean"
+      ],
+      "difficulty": "beginner",
+      "source": "stories-data.js"
+    },
+    {
+      "id": "chinatown_market",
+      "title": "Shopping at Chinatown Market",
+      "pidginText": "Saturday morning, Mama and little Leilani go Chinatown fo' buy groceries. 'Eh, how much dis dragon fruit?' Mama ask da vendor. 'For you, special price - five dollah!' he say wit' one big smile. Leilani stay looking at all da colorful fruits - lychee, rambutan, star fruit. 'Mama, wot dis red ting?' she ask, pointing at one exotic fruit. 'Dat's dragon fruit, baby. Very sweet inside.' They fill up their bag wit' all kine local produce. 'Dis market get da freshest kine food on da island,' Mama tell her daughter.",
+      "englishTranslation": "Saturday morning, Mom and little Leilani go to Chinatown to buy groceries. 'Hey, how much is this dragon fruit?' Mom asks the vendor. 'For you, special price - five dollars!' he says with a big smile. Leilani is looking at all the colorful fruits - lychee, rambutan, star fruit. 'Mom, what is this red thing?' she asks, pointing at an exotic fruit. 'That's dragon fruit, baby. Very sweet inside.' They fill up their bag with all kinds of local produce. 'This market has the freshest kind of food on the island,' Mom tells her daughter.",
+      "culturalNotes": "Honolulu's Chinatown is a vibrant cultural district where many locals shop for fresh produce, especially Asian fruits and vegetables. The multicultural aspect of Hawaii is reflected in the diverse food offerings.",
+      "vocabulary": [
+        {
+          "pidgin": "dis",
+          "english": "this",
+          "pronunciation": "dis"
+        },
+        {
+          "pidgin": "dollah",
+          "english": "dollar",
+          "pronunciation": "dollah"
+        },
+        {
+          "pidgin": "ting",
+          "english": "thing",
+          "pronunciation": "ting"
+        },
+        {
+          "pidgin": "dat",
+          "english": "that",
+          "pronunciation": "dat"
+        },
+        {
+          "pidgin": "wit'",
+          "english": "with",
+          "pronunciation": "wit"
+        },
+        {
+          "pidgin": "all kine",
+          "english": "all kinds",
+          "pronunciation": "all kine"
+        },
+        {
+          "pidgin": "get",
+          "english": "has",
+          "pronunciation": "get"
+        }
+      ],
+      "audioExample": "How much dis dragon fruit? Five dollah fo' you!",
+      "tags": [
+        "shopping",
+        "market",
+        "family",
+        "food",
+        "chinatown"
+      ],
+      "difficulty": "beginner",
+      "source": "stories-data.js"
+    },
+    {
+      "id": "beach_cleanup_day",
+      "title": "Community Beach Cleanup",
+      "pidginText": "Every first Saturday, da whole neighborhood come together fo' clean up Lanikai Beach. 'Eh everybody, grab your gloves and trash bags!' shout Uncle Kimo. All da families stay working hard - da parents picking up rubbish, da keiki collecting cans and bottles. 'Ho brah, look how much plastic we wen find!' say one teenager, showing his full bag. After two hours, da beach look so clean and beautiful. 'Dis is why we do 'em,' explain Aunty Pua. 'We gotta take care our 'aina fo' da next generation.' Everybody feel good about helping their community.",
+      "englishTranslation": "Every first Saturday, the whole neighborhood comes together to clean up Lanikai Beach. 'Hey everybody, grab your gloves and trash bags!' shouts Uncle Kimo. All the families are working hard - the parents picking up rubbish, the children collecting cans and bottles. 'Wow bro, look how much plastic we found!' says a teenager, showing his full bag. After two hours, the beach looks so clean and beautiful. 'This is why we do it,' explains Aunty Pua. 'We have to take care of our land for the next generation.' Everybody feels good about helping their community.",
+      "culturalNotes": "Community beach cleanups are common in Hawaii as residents take pride in maintaining their beautiful natural environment. 'Aina means land in Hawaiian and represents the deep connection locals have with their environment.",
+      "vocabulary": [
+        {
+          "pidgin": "da whole",
+          "english": "the whole",
+          "pronunciation": "da whole"
+        },
+        {
+          "pidgin": "rubbish",
+          "english": "trash/garbage",
+          "pronunciation": "rubbish"
+        },
+        {
+          "pidgin": "ho brah",
+          "english": "wow brother",
+          "pronunciation": "ho brah"
+        },
+        {
+          "pidgin": "wen",
+          "english": "did",
+          "pronunciation": "wen"
+        },
+        {
+          "pidgin": "dis",
+          "english": "this",
+          "pronunciation": "dis"
+        },
+        {
+          "pidgin": "'aina",
+          "english": "land",
+          "pronunciation": "AH-ee-nah"
+        },
+        {
+          "pidgin": "fo'",
+          "english": "for",
+          "pronunciation": "fo"
+        }
+      ],
+      "audioExample": "Every Saturday we clean da beach fo' take care our 'aina!",
+      "tags": [
+        "community",
+        "environment",
+        "beach",
+        "volunteering",
+        "aina"
+      ],
+      "difficulty": "intermediate",
+      "source": "stories-data.js"
+    },
+    {
+      "id": "taro_farming_tradition",
+      "title": "Learning to Farm Taro",
+      "pidginText": "Young Ikaika stay learning how fo' farm taro from his Tutu Wahine. 'Dis plant very important fo' Hawaiian people,' she explain while they work in da lo'i. 'You gotta keep da water flowing just right, not too much, not too little.' Ikaika stay fascinated watching his grandmother's hands work da soil. 'How long before we can harvest, Tutu?' he ask. 'Maybe six months, keiki. But first, you learn how fo' take care da plant wit' respect.' She show him how fo' remove da weeds, how fo' check da water level. 'Farming taro not just about growing food. It's about connecting wit' our culture.'",
+      "englishTranslation": "Young Ikaika is learning how to farm taro from his Grandmother. 'This plant is very important for Hawaiian people,' she explains while they work in the taro field. 'You have to keep the water flowing just right, not too much, not too little.' Ikaika is fascinated watching his grandmother's hands work the soil. 'How long before we can harvest, Grandmother?' he asks. 'Maybe six months, child. But first, you learn how to take care of the plant with respect.' She shows him how to remove the weeds, how to check the water level. 'Farming taro isn't just about growing food. It's about connecting with our culture.'",
+      "culturalNotes": "Taro (kalo in Hawaiian) is the most important traditional Hawaiian food crop, used to make poi. Lo'i are traditional taro fields that require careful water management. This agricultural practice connects Hawaiians to their ancestors and cultural identity.",
+      "vocabulary": [
+        {
+          "pidgin": "tutu wahine",
+          "english": "grandmother",
+          "pronunciation": "TOO-too wah-HEE-nay"
+        },
+        {
+          "pidgin": "lo'i",
+          "english": "taro field",
+          "pronunciation": "LO-ee"
+        },
+        {
+          "pidgin": "keiki",
+          "english": "child",
+          "pronunciation": "KAY-key"
+        },
+        {
+          "pidgin": "wit'",
+          "english": "with",
+          "pronunciation": "wit"
+        },
+        {
+          "pidgin": "da",
+          "english": "the",
+          "pronunciation": "da"
+        },
+        {
+          "pidgin": "fo'",
+          "english": "to",
+          "pronunciation": "fo"
+        }
+      ],
+      "audioExample": "You gotta learn how fo' take care da taro wit' respect!",
+      "tags": [
+        "agriculture",
+        "taro",
+        "tradition",
+        "culture",
+        "farming"
+      ],
+      "difficulty": "advanced",
+      "source": "stories-data.js"
+    },
+    {
+      "id": "rainy_day_talk_story",
+      "title": "Rainy Day Talk Story",
+      "pidginText": "When da big rain start falling, all da neighbors gather under Uncle Bob's covered garage fo' talk story. 'Eh, anybody remember dat time when Hurricane Iniki wen hit?' ask Aunty Rose. 'Ho, dat was one scary time!' everybody agree. Da rain stay pounding on da roof while they share stories about da old days. 'My father used to tell me about his plantation days,' say Uncle Sam. 'He work so hard in dose sugar cane fields.' Da keiki stay listening quietly, learning about their family history. 'Dis kine rain good fo' da island,' explain one old-timer. 'Make everything green and beautiful.'",
+      "englishTranslation": "When the heavy rain starts falling, all the neighbors gather under Uncle Bob's covered garage to chat and share stories. 'Hey, does anybody remember that time when Hurricane Iniki hit?' asks Aunty Rose. 'Wow, that was a scary time!' everybody agrees. The rain is pounding on the roof while they share stories about the old days. 'My father used to tell me about his plantation days,' says Uncle Sam. 'He worked so hard in those sugar cane fields.' The children are listening quietly, learning about their family history. 'This kind of rain is good for the island,' explains an old-timer. 'Makes everything green and beautiful.'",
+      "culturalNotes": "'Talk story' is a Hawaiian tradition of informal conversation and storytelling that builds community bonds. Hurricane Iniki hit Hawaii in 1992 and remains a significant shared memory. Sugar plantations were a major part of Hawaii's history, employing many immigrant workers.",
+      "vocabulary": [
+        {
+          "pidgin": "talk story",
+          "english": "chat/tell stories",
+          "pronunciation": "talk story"
+        },
+        {
+          "pidgin": "wen hit",
+          "english": "hit/struck",
+          "pronunciation": "wen hit"
+        },
+        {
+          "pidgin": "ho",
+          "english": "wow",
+          "pronunciation": "ho"
+        },
+        {
+          "pidgin": "dose",
+          "english": "those",
+          "pronunciation": "dose"
+        },
+        {
+          "pidgin": "dis kine",
+          "english": "this kind",
+          "pronunciation": "dis kine"
+        },
+        {
+          "pidgin": "old-timer",
+          "english": "elderly person",
+          "pronunciation": "old-timer"
+        }
+      ],
+      "audioExample": "Come under da garage, we going talk story about da old days!",
+      "tags": [
+        "rain",
+        "community",
+        "stories",
+        "history",
+        "weather"
+      ],
+      "difficulty": "intermediate",
+      "source": "stories-data.js"
+    },
+    {
+      "id": "hula_practice_session",
+      "title": "Hula Practice with Kumu",
+      "pidginText": "Every Thursday evening, da hula halau meet at da community center. 'Remember girls, hula is not just dancing,' explain Kumu Leilani. 'Each movement tell one story.' Little Nalani stay struggling wit' da hand motions. 'Eh Nalani, no worry,' her Kumu say gently. 'Just feel da music in your heart.' Da older dancers help da young ones learn da traditional steps. 'When you dance hula, you connecting wit' your ancestors,' Kumu continue. 'Dis is how we keep our culture alive.' By da end of practice, all da wahine feel proud of what they accomplished.",
+      "englishTranslation": "Every Thursday evening, the hula school meets at the community center. 'Remember girls, hula is not just dancing,' explains Teacher Leilani. 'Each movement tells a story.' Little Nalani is struggling with the hand motions. 'Hey Nalani, don't worry,' her teacher says gently. 'Just feel the music in your heart.' The older dancers help the young ones learn the traditional steps. 'When you dance hula, you're connecting with your ancestors,' Teacher continues. 'This is how we keep our culture alive.' By the end of practice, all the women feel proud of what they accomplished.",
+      "culturalNotes": "Hula is the traditional Hawaiian dance that tells stories through graceful movements. A halau is a hula school, and Kumu means teacher. Hula is considered a sacred art form that connects practitioners to Hawaiian culture and spirituality.",
+      "vocabulary": [
+        {
+          "pidgin": "halau",
+          "english": "hula school",
+          "pronunciation": "hah-LAU"
+        },
+        {
+          "pidgin": "kumu",
+          "english": "teacher",
+          "pronunciation": "KOO-moo"
+        },
+        {
+          "pidgin": "wit'",
+          "english": "with",
+          "pronunciation": "wit"
+        },
+        {
+          "pidgin": "no worry",
+          "english": "don't worry",
+          "pronunciation": "no worry"
+        },
+        {
+          "pidgin": "wahine",
+          "english": "women",
+          "pronunciation": "wah-HEE-nay"
+        },
+        {
+          "pidgin": "dis",
+          "english": "this",
+          "pronunciation": "dis"
+        }
+      ],
+      "audioExample": "Remember, when you dance hula, you connecting wit' your ancestors!",
+      "tags": [
+        "hula",
+        "dance",
+        "culture",
+        "tradition",
+        "teaching"
+      ],
+      "difficulty": "intermediate",
+      "source": "stories-data.js"
+    },
+    {
+      "id": "school_pidgin_english",
+      "title": "Code-Switching at School",
+      "pidginText": "At school, Keola gotta speak standard English fo' his teachers, but at recess wit' his friends, he switch back to pidgin. 'Eh brah, you going surf after school?' he ask his friend Marcus. 'Yeah man, da waves stay firing today!' Marcus reply. When da teacher come near, they change their tone. 'Good afternoon, Mrs. Johnson. How are you today?' Keola say politely. After she walk away, Marcus whisper, 'Brah, why we gotta talk different at school?' Keola shrug, 'I dunno, but dass just how stay. At home I talk pidgin, at school I talk haole English.'",
+      "englishTranslation": "At school, Keola has to speak standard English for his teachers, but at recess with his friends, he switches back to pidgin. 'Hey bro, are you going to surf after school?' he asks his friend Marcus. 'Yeah man, the waves are great today!' Marcus replies. When the teacher comes near, they change their tone. 'Good afternoon, Mrs. Johnson. How are you today?' Keola says politely. After she walks away, Marcus whispers, 'Bro, why do we have to talk differently at school?' Keola shrugs, 'I don't know, but that's just how it is. At home I talk pidgin, at school I talk white English.'",
+      "culturalNotes": "Code-switching between Hawaiian Pidgin and Standard English is common among local students. This reflects the complex relationship between local identity and formal education, where pidgin is often discouraged in academic settings despite being an important part of cultural identity.",
+      "vocabulary": [
+        {
+          "pidgin": "fo'",
+          "english": "for",
+          "pronunciation": "fo"
+        },
+        {
+          "pidgin": "wit'",
+          "english": "with",
+          "pronunciation": "wit"
+        },
+        {
+          "pidgin": "stay firing",
+          "english": "are great/excellent",
+          "pronunciation": "stay firing"
+        },
+        {
+          "pidgin": "dass",
+          "english": "that's",
+          "pronunciation": "dass"
+        },
+        {
+          "pidgin": "how stay",
+          "english": "how it is",
+          "pronunciation": "how stay"
+        },
+        {
+          "pidgin": "haole",
+          "english": "white/foreign",
+          "pronunciation": "HOW-lee"
+        }
+      ],
+      "audioExample": "At home I talk pidgin, at school I gotta talk English!",
+      "tags": [
+        "school",
+        "language",
+        "code-switching",
+        "identity",
+        "education"
+      ],
+      "difficulty": "advanced",
+      "source": "stories-data.js"
+    }
+  ],
+  "beginnerContent": [
+    {
+      "id": "aole_307",
+      "pidgin": "'a'ole",
+      "english": [
+        "no",
+        "not"
+      ],
+      "category": "expressions",
+      "pronunciation": "ah-OH-leh",
+      "examples": [
+        "'A'ole, cannot"
+      ],
+      "usage": "Hawaiian no",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "hawaiian"
+      ],
+      "audioExample": "'A'ole good"
+    },
+    {
+      "id": "ae_300",
+      "pidgin": "'ae",
+      "english": [
+        "yes"
+      ],
+      "category": "expressions",
+      "pronunciation": "AY-eh",
+      "examples": [
+        "'Ae, correct"
+      ],
+      "usage": "Hawaiian yes",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "hawaiian"
+      ],
+      "audioExample": "'Ae, dass right"
+    },
+    {
+      "id": "ahi_301",
+      "pidgin": "'ahi",
+      "english": [
+        "yellowfin tuna"
+      ],
+      "category": "food",
+      "pronunciation": "AH-hee",
+      "examples": [
+        "Fresh 'ahi poke"
+      ],
+      "usage": "Popular fish",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "food",
+        "hawaiian"
+      ],
+      "audioExample": "Da 'ahi stay ono"
+    },
+    {
+      "id": "ina_309",
+      "pidgin": "'āina",
+      "english": [
+        "land",
+        "earth"
+      ],
+      "category": "nature",
+      "pronunciation": "AH-ee-nah",
+      "examples": [
+        "Malama da 'āina"
+      ],
+      "usage": "The land",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "nature",
+        "hawaiian"
+      ],
+      "audioExample": "Love da 'āina"
+    },
+    {
+      "id": "amaama_302",
+      "pidgin": "'ama'ama",
+      "english": [
+        "mullet fish"
+      ],
+      "category": "food",
+      "pronunciation": "ah-mah-AH-mah",
+      "examples": [
+        "Catch 'ama'ama"
+      ],
+      "usage": "Traditional fish",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "food",
+        "hawaiian"
+      ],
+      "audioExample": "Da 'ama'ama stay good"
+    },
+    {
+      "id": "anoai_303",
+      "pidgin": "'ano'ai",
+      "english": [
+        "greetings"
+      ],
+      "category": "greetings",
+      "pronunciation": "ah-no-AH-ee",
+      "examples": [
+        "'Ano'ai everyone"
+      ],
+      "usage": "Formal greeting",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "greetings",
+        "hawaiian",
+        "greeting"
+      ],
+      "audioExample": "'Ano'ai friends"
+    },
+    {
+      "id": "auau_306",
+      "pidgin": "'au'au",
+      "english": [
+        "bathe",
+        "swim"
+      ],
+      "category": "actions",
+      "pronunciation": "OW-ow",
+      "examples": [
+        "Go 'au'au"
+      ],
+      "usage": "Swimming/bathing",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "actions",
+        "hawaiian"
+      ],
+      "audioExample": "Time fo 'au'au"
+    },
+    {
+      "id": "auana_304",
+      "pidgin": "'auana",
+      "english": [
+        "modern hula"
+      ],
+      "category": "cultural",
+      "pronunciation": "ah-WAH-nah",
+      "examples": [
+        "Hula 'auana style"
+      ],
+      "usage": "Contemporary hula",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ],
+      "audioExample": "Dancing 'auana"
+    },
+    {
+      "id": "aumakua_305",
+      "pidgin": "'aumakua",
+      "english": [
+        "family guardian"
+      ],
+      "category": "cultural",
+      "pronunciation": "OW-mah-koo-ah",
+      "examples": [
+        "Our 'aumakua protects"
+      ],
+      "usage": "Ancestral spirit",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian",
+        "family"
+      ],
+      "audioExample": "Respect 'aumakua"
+    },
+    {
+      "id": "ehu_329",
+      "pidgin": "'ehu",
+      "english": [
+        "reddish hair",
+        "spray"
+      ],
+      "category": "descriptions",
+      "pronunciation": "EH-hoo",
+      "examples": [
+        "Get 'ehu hair"
+      ],
+      "usage": "Hair with red tint",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "descriptions",
+        "hawaiian"
+      ],
+      "audioExample": "Da 'ehu stay nice"
+    },
+    {
+      "id": "a_hui_hou_600",
+      "pidgin": "a hui hou",
+      "english": [
+        "goodbye"
+      ],
+      "category": "cultural",
+      "pronunciation": "A HUI HOU",
+      "examples": [
+        "a hui hou stay goodbye"
+      ],
+      "usage": "goodbye",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
+      "id": "aole_196",
+      "pidgin": "a'ole",
+      "english": [
+        "not at all"
+      ],
+      "category": "expressions",
+      "pronunciation": "ah-OH-leh",
+      "examples": [
+        "A'ole, I no like dat"
+      ],
+      "usage": "Strong negation",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "hawaiian"
+      ],
+      "audioExample": "A'ole way I going do dat!"
+    },
+    {
+      "id": "ack_002",
+      "pidgin": "ack",
+      "english": [
+        "to act",
+        "behave"
+      ],
+      "category": "slang",
+      "pronunciation": "AK",
+      "examples": [
+        "No ack lidat in front aunty"
+      ],
+      "usage": "Telling someone about their behavior",
+      "origin": "English \"act\"",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "english"
+      ],
+      "audioExample": "Why you ack so lolo?"
+    },
+    {
+      "id": "ackshun_286",
+      "pidgin": "ackshun",
+      "english": [
+        "action",
+        "activity"
+      ],
+      "category": "slang",
+      "pronunciation": "AK-shun",
+      "examples": [
+        "Get plenny ackshun at da beach"
+      ],
+      "usage": "Excitement or activity",
+      "origin": "English \"action\"",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "english"
+      ],
+      "audioExample": "Where da ackshun stay?"
+    },
+    {
+      "id": "ai_yah_197",
+      "pidgin": "ai yah",
+      "english": [
+        "oops"
+      ],
+      "category": "expressions",
+      "pronunciation": "AYE-yah",
+      "examples": [
+        "Ai yah, I wen forget!"
+      ],
+      "usage": "Expressing mistake",
+      "origin": "Chinese influence",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "chinese"
+      ],
+      "audioExample": "Ai yah, dropped my phone!"
+    },
+    {
+      "id": "aikea_003",
+      "pidgin": "aikea",
+      "english": [
+        "I care (sarcastic)"
+      ],
+      "category": "expressions",
+      "pronunciation": "eye-KEH-ah",
+      "examples": [
+        "Oh aikea, so wat?"
+      ],
+      "usage": "Sarcastic caring",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "hawaiian"
+      ],
+      "audioExample": "Aikea if you no like"
+    },
+    {
+      "id": "aina_643",
+      "pidgin": "aina",
+      "english": [
+        "the land"
+      ],
+      "category": "cultural",
+      "pronunciation": "EYE-nah",
+      "examples": [
+        "aina stay the land"
+      ],
+      "usage": "the land",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ]
+    },
+    {
+      "id": "ainokea_278",
+      "pidgin": "ainokea",
+      "english": [
+        "I don't care"
+      ],
+      "category": "expressions",
+      "pronunciation": "eye-no-KEH-ah",
+      "examples": [
+        "You like come? Ainokea to me"
+      ],
+      "usage": "Expression of indifference",
+      "origin": "English \"I no care\"",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audioExample": "Ainokea what you do"
+    },
+    {
+      "id": "aisus_004",
+      "pidgin": "aisus",
+      "english": [
+        "darn"
+      ],
+      "category": "expressions",
+      "pronunciation": "AY-sus",
+      "examples": [
+        "Aisus, forgot my keys!"
+      ],
+      "usage": "Mild frustration",
+      "origin": "Portuguese \"Jesus\"",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "portuguese"
+      ],
+      "audioExample": "Aisus, not again!"
+    },
+    {
+      "id": "aiyah_005",
+      "pidgin": "aiyah",
+      "english": [
+        "expression of frustration",
+        "surprise"
+      ],
+      "category": "expressions",
+      "pronunciation": "AY-yah",
+      "examples": [
+        "Aiyah! I forgot my keys again"
+      ],
+      "usage": "Common exclamation",
+      "origin": "Chinese/Asian influence",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "chinese"
+      ],
+      "audioExample": "Aiyah, why you neva tell me?"
+    },
+    {
+      "id": "akamai_006",
+      "pidgin": "akamai",
+      "english": [
+        "smart",
+        "clever",
+        "intelligent"
+      ],
+      "category": "cultural",
+      "pronunciation": "ah-kah-MY",
+      "examples": [
+        "Dat kid stay akamai"
+      ],
+      "usage": "Complimenting intelligence",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "hawaiian"
+      ],
+      "audioExample": "You so akamai, can help me?"
+    },
+    {
+      "id": "akua_287",
+      "pidgin": "akua",
+      "english": [
+        "god",
+        "deity"
+      ],
+      "category": "cultural",
+      "pronunciation": "ah-KOO-ah",
+      "examples": [
+        "Ke akua stay watching"
+      ],
+      "usage": "Religious reference",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ],
+      "audioExample": "Mahalo ke akua"
+    },
+    {
+      "id": "akule_288",
+      "pidgin": "akule",
+      "english": [
+        "big-eyed scad fish"
+      ],
+      "category": "food",
+      "pronunciation": "ah-KOO-leh",
+      "examples": [
+        "Catch plenny akule today"
+      ],
+      "usage": "Popular schooling fish",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "food",
+        "hawaiian"
+      ],
+      "audioExample": "Da akule stay running"
+    },
+    {
+      "id": "alas_198",
+      "pidgin": "alas",
+      "english": [
+        "testicles"
+      ],
+      "category": "slang",
+      "pronunciation": "AH-las",
+      "examples": [
+        "Stay careful wit your alas"
+      ],
+      "usage": "Crude anatomical reference",
+      "origin": "Portuguese",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "portuguese"
+      ],
+      "audioExample": "Ouch, my alas!"
+    },
+    {
+      "id": "alii_289",
+      "pidgin": "ali'i",
+      "english": [
+        "chief",
+        "royalty"
+      ],
+      "category": "cultural",
+      "pronunciation": "ah-LEE-ee",
+      "examples": [
+        "Da ali'i used to rule"
+      ],
+      "usage": "Hawaiian nobility",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ],
+      "audioExample": "Respect da ali'i"
+    },
+    {
+      "id": "all_bline_290",
+      "pidgin": "all bline",
+      "english": [
+        "completely blind"
+      ],
+      "category": "descriptions",
+      "pronunciation": "all-BLINE",
+      "examples": [
+        "Without glasses I stay all bline"
+      ],
+      "usage": "Poor vision",
+      "origin": "English \"blind\"",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "english"
+      ],
+      "audioExample": "I stay all bline in da dark"
+    },
+    {
+      "id": "all_buss_007",
+      "pidgin": "all buss",
+      "english": [
+        "very drunk"
+      ],
+      "category": "slang",
+      "pronunciation": "all-BUS",
+      "examples": [
+        "He stay all buss from da party"
+      ],
+      "usage": "Extreme intoxication",
+      "origin": "English \"bust\"",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "english"
+      ],
+      "audioExample": "I was all buss last night"
+    },
+    {
+      "id": "all_jag_291",
+      "pidgin": "all jag",
+      "english": [
+        "messed up",
+        "crooked"
+      ],
+      "category": "descriptions",
+      "pronunciation": "all-JAG",
+      "examples": [
+        "His haircut stay all jag"
+      ],
+      "usage": "Uneven or messy",
+      "origin": "English \"jagged\"",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "english"
+      ],
+      "audioExample": "Da fence stay all jag"
+    },
+    {
+      "id": "all_katsu_292",
+      "pidgin": "all katsu",
+      "english": [
+        "perfect",
+        "victorious"
+      ],
+      "category": "expressions",
+      "pronunciation": "all-KAHT-soo",
+      "examples": [
+        "Everything stay all katsu"
+      ],
+      "usage": "Everything is great",
+      "origin": "Japanese katsu",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "japanese"
+      ],
+      "audioExample": "We stay all katsu now"
+    },
+    {
+      "id": "all_nuts_009",
+      "pidgin": "all nuts",
+      "english": [
+        "crazy",
+        "wild"
+      ],
+      "category": "slang",
+      "pronunciation": "all-NUTS",
+      "examples": [
+        "Da party was all nuts last night"
+      ],
+      "usage": "Describing chaotic situations",
+      "origin": "English",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "english"
+      ],
+      "audioExample": "You all nuts o wat?"
+    },
+    {
+      "id": "all_pau_010",
+      "pidgin": "all pau",
+      "english": [
+        "all finished",
+        "done"
+      ],
+      "category": "expressions",
+      "pronunciation": "all-POW",
+      "examples": [
+        "Da food stay all pau already"
+      ],
+      "usage": "Completion of something",
+      "origin": "Hawaiian \"pau\" (finished)",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "hawaiian"
+      ],
+      "audioExample": "We stay all pau wit da work"
+    },
+    {
+      "id": "all_randle_293",
+      "pidgin": "all randle",
+      "english": [
+        "out of control"
+      ],
+      "category": "expressions",
+      "pronunciation": "all-RAN-dul",
+      "examples": [
+        "Da party wen get all randle"
+      ],
+      "usage": "Chaotic situation",
+      "origin": "Local slang",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang"
+      ],
+      "audioExample": "Things stay all randle"
+    },
+    {
+      "id": "all_salty_294",
+      "pidgin": "all salty",
+      "english": [
+        "angry",
+        "bitter"
+      ],
+      "category": "emotions",
+      "pronunciation": "all-SAWL-tee",
+      "examples": [
+        "He stay all salty about losing"
+      ],
+      "usage": "Being upset",
+      "origin": "English slang",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "english"
+      ],
+      "audioExample": "Why you all salty?"
+    },
+    {
+      "id": "aloha_011",
+      "pidgin": "aloha",
+      "english": [
+        "hello",
+        "goodbye",
+        "love"
+      ],
+      "category": "greetings",
+      "pronunciation": "ah-LOH-hah",
+      "examples": [
+        "Aloha, howzit brah!"
+      ],
+      "usage": "Universal Hawaiian greeting showing love and respect",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": [
+        "greetings",
+        "hawaiian",
+        "greeting"
+      ],
+      "audioExample": "Aloha bradda, how you stay?"
+    },
+    {
+      "id": "aloha_oe_295",
+      "pidgin": "aloha 'oe",
+      "english": [
+        "farewell to you"
+      ],
+      "category": "greetings",
+      "pronunciation": "ah-LOH-hah OH-eh",
+      "examples": [
+        "Aloha 'oe my friend"
+      ],
+      "usage": "Famous farewell song",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "greetings",
+        "hawaiian",
+        "greeting"
+      ],
+      "audioExample": "Aloha 'oe until we meet again"
+    },
+    {
+      "id": "aloha_friday_199",
+      "pidgin": "aloha friday",
+      "english": [
+        "casual wear Friday"
+      ],
+      "category": "cultural",
+      "pronunciation": "ah-LOH-hah FRY-day",
+      "examples": [
+        "Today stay aloha friday"
+      ],
+      "usage": "Dress-down day",
+      "origin": "Hawaiian business culture",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "hawaiian"
+      ],
+      "audioExample": "Can wear slippahs fo aloha friday"
+    },
+    {
+      "id": "amped_296",
+      "pidgin": "amped",
+      "english": [
+        "excited",
+        "energized"
+      ],
+      "category": "slang",
+      "pronunciation": "AMPT",
+      "examples": [
+        "I stay so amped"
+      ],
+      "usage": "High energy",
+      "origin": "English",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "english"
+      ],
+      "audioExample": "You stay amped up!"
+    },
+    {
+      "id": "amping_297",
+      "pidgin": "amping",
+      "english": [
+        "getting excited"
+      ],
+      "category": "slang",
+      "pronunciation": "AMP-ing",
+      "examples": [
+        "Stop amping already"
+      ],
+      "usage": "Getting hyped",
+      "origin": "English",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "english"
+      ],
+      "audioExample": "They stay amping"
+    },
+    {
+      "id": "and_then_200",
+      "pidgin": "and then",
+      "english": [
+        "who cares",
+        "so what"
+      ],
+      "category": "expressions",
+      "pronunciation": "an-DEN",
+      "examples": [
+        "You no like? And then?"
+      ],
+      "usage": "Dismissive challenge",
+      "origin": "English",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audioExample": "And then wat you going do?"
+    },
+    {
+      "id": "anden_012",
+      "pidgin": "anden",
+      "english": [
+        "and then what?"
+      ],
+      "category": "expressions",
+      "pronunciation": "AN-den",
+      "examples": [
+        "So wat, anden?"
+      ],
+      "usage": "Challenging or questioning",
+      "origin": "English \"and then\"",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audioExample": "You like beef? Anden?"
+    },
+    {
+      "id": "animal_298",
+      "pidgin": "animal",
+      "english": [
+        "wild person"
+      ],
+      "category": "slang",
+      "pronunciation": "AN-uh-mul",
+      "examples": [
+        "He one animal"
+      ],
+      "usage": "Wild behavior",
+      "origin": "English",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "english"
+      ],
+      "audioExample": "You one animal brah!"
+    },
+    {
+      "id": "any_kine_201",
+      "pidgin": "any kine",
+      "english": [
+        "anything goes"
+      ],
+      "category": "expressions",
+      "pronunciation": "EH-nee-kyne",
+      "examples": [
+        "We get any kine food"
+      ],
+      "usage": "Variety available",
+      "origin": "English",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audioExample": "Any kine music stay good"
+    },
+    {
+      "id": "ass_right_013",
+      "pidgin": "ass right",
+      "english": [
+        "that's right"
+      ],
+      "category": "expressions",
+      "pronunciation": "ass-RIGHT",
+      "examples": [
+        "Ass right, das how we do um"
+      ],
+      "usage": "Strong agreement",
+      "origin": "English",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audioExample": "Ass right brah, you know!"
+    },
+    {
+      "id": "ass_why_202",
+      "pidgin": "ass why",
+      "english": [
+        "that's why"
+      ],
+      "category": "expressions",
+      "pronunciation": "ass-WHY",
+      "examples": [
+        "Ass why I wen tell you"
+      ],
+      "usage": "Explanation",
+      "origin": "English",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audioExample": "Ass why hard fo understand"
+    },
+    {
+      "id": "au_299",
+      "pidgin": "auē",
+      "english": [
+        "oh dear",
+        "alas"
+      ],
+      "category": "expressions",
+      "pronunciation": "ah-WEH",
+      "examples": [
+        "Auē, I forgot"
+      ],
+      "usage": "Expression of dismay",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "hawaiian"
+      ],
+      "audioExample": "Auē, what now?"
+    },
+    {
+      "id": "aunty_014",
+      "pidgin": "aunty",
+      "english": [
+        "respectful term for older woman"
+      ],
+      "category": "expressions",
+      "pronunciation": "AUN-tee",
+      "examples": [
+        "Tank you, Aunty"
+      ],
+      "usage": "Showing respect to elders",
+      "origin": "English with cultural adaptation",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audioExample": "Aunty, can help me?"
+    },
+    {
+      "id": "aurite_015",
+      "pidgin": "aurite",
+      "english": [
+        "alright",
+        "okay"
+      ],
+      "category": "expressions",
+      "pronunciation": "AW-right",
+      "examples": [
+        "Aurite, let's go"
+      ],
+      "usage": "Agreement or acknowledgment",
+      "origin": "English \"alright\"",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audioExample": "Aurite, see you later"
+    },
+    {
+      "id": "b52_203",
+      "pidgin": "b-52",
+      "english": [
+        "large cockroach"
+      ],
+      "category": "slang",
+      "pronunciation": "BEE-fif-tee-too",
+      "examples": [
+        "One big B-52 in da kitchen!"
+      ],
+      "usage": "Describing large roaches",
+      "origin": "Military bomber reference",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang"
+      ],
+      "audioExample": "Kill dat B-52!"
+    },
+    {
+      "id": "bachi_016",
+      "pidgin": "bachi",
+      "english": [
+        "bad luck",
+        "curse"
+      ],
+      "category": "slang",
+      "pronunciation": "BAH-chee",
+      "examples": [
+        "No do dat, going bring bachi"
+      ],
+      "usage": "Warning about bad karma",
+      "origin": "Japanese",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "japanese"
+      ],
+      "audioExample": "You going get bachi fo dat!"
+    },
+    {
+      "id": "bag_204",
+      "pidgin": "bag",
+      "english": [
+        "to leave",
+        "depart"
+      ],
+      "category": "slang",
+      "pronunciation": "BAG",
+      "examples": [
+        "Time fo bag, pau hana"
+      ],
+      "usage": "Going home",
+      "origin": "English",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "english"
+      ],
+      "audioExample": "We should bag now"
+    }
+  ],
+  "intermediateContent": [
+    {
+      "id": "aole_pilikia_308",
+      "pidgin": "'a'ole pilikia",
+      "english": [
+        "no problem"
+      ],
+      "category": "greetings",
+      "pronunciation": "ah-OH-leh pee-lee-KEE-ah",
+      "examples": [
+        "'A'ole pilikia brah"
+      ],
+      "usage": "You're welcome",
+      "origin": "Hawaiian",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "hawaiian"
+      ],
+      "audioExample": "'A'ole pilikia"
+    },
+    {
+      "id": "auwe_504",
+      "pidgin": "auwe",
+      "english": [
+        "oh my gosh",
+        "oh dear",
+        "expression of shock or dismay"
+      ],
+      "category": "expressions",
+      "pronunciation": "ow-WEH",
+      "examples": [
+        "Auwe! Look da mess!",
+        "Auwe, I forgot my wallet",
+        "Auwe, so sad!"
+      ],
+      "culturalNote": "Hawaiian exclamation expressing shock, dismay, or sympathy",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "exclamations",
+        "emotions"
+      ]
+    },
+    {
+      "id": "ballah_head_507",
+      "pidgin": "ballah head",
+      "english": [
+        "bald head",
+        "bald person",
+        "no hair"
+      ],
+      "category": "descriptions",
+      "pronunciation": "BAL-lah head",
+      "examples": [
+        "Uncle get ballah head",
+        "He stay ballah head since young time",
+        "My bruddah going ballah head like daddy"
+      ],
+      "culturalNote": "Casual way to describe someone who is bald",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "descriptions",
+        "appearance",
+        "slang"
+      ]
+    },
+    {
+      "id": "broke_da_mouth_024",
+      "pidgin": "broke da mouth",
+      "english": [
+        "incredibly delicious"
+      ],
+      "category": "food",
+      "pronunciation": "broke-dah-MOUT",
+      "examples": [
+        "Aunty's laulau broke da mouth!"
+      ],
+      "usage": "Food so good it \"breaks your mouth\"",
+      "origin": "Local expression",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "food"
+      ],
+      "audioExample": "Da kalua pig broke da mouth!"
+    },
+    {
+      "id": "buss_laff_502",
+      "pidgin": "buss laff",
+      "english": [
+        "laugh hard",
+        "crack up",
+        "burst out laughing"
+      ],
+      "category": "emotions",
+      "pronunciation": "BUS-LAF",
+      "examples": [
+        "We wen talk story and buss laff",
+        "His joke made me buss laff",
+        "Da whole class wen buss laff"
+      ],
+      "culturalNote": "To laugh so hard you might 'bust' from laughter",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "emotions",
+        "laughter",
+        "expressions"
+      ]
+    },
+    {
+      "id": "bust_em_up_503",
+      "pidgin": "bust 'em up",
+      "english": [
+        "laugh really hard",
+        "crack up completely",
+        "break down laughing"
+      ],
+      "category": "emotions",
+      "pronunciation": "bust-em-UP",
+      "examples": [
+        "Dat story made me bust 'em up",
+        "We was busting 'em up all night",
+        "His dancing made everyone bust 'em up"
+      ],
+      "culturalNote": "Even more intense than 'buss laff' - laughing so hard you're broken up",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "emotions",
+        "laughter",
+        "slang"
+      ]
+    },
+    {
+      "id": "chee_hoo_031",
+      "pidgin": "chee hoo",
+      "english": [
+        "expression of joy",
+        "excitement"
+      ],
+      "category": "expressions",
+      "pronunciation": "CHEE-hoo",
+      "examples": [
+        "Chee hoo! We going Vegas!"
+      ],
+      "usage": "Celebrating or cheering",
+      "origin": "Local expression",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions"
+      ],
+      "audioExample": "Chee hoo, da waves stay pumping!"
+    },
+    {
+      "id": "da_kine_040",
+      "pidgin": "da kine",
+      "english": [
+        "the thing",
+        "whatchamacallit"
+      ],
+      "category": "expressions",
+      "pronunciation": "dah-KYNE",
+      "examples": [
+        "Pass me da kine ova dea"
+      ],
+      "usage": "Universal placeholder for any noun",
+      "origin": "English \"the kind\"",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audioExample": "You know, da kine we wen use yesterday"
+    },
+    {
+      "id": "da_kine_da_whole_kine_522",
+      "pidgin": "da kine, da whole kine",
+      "english": [
+        "that thing, the whole thing",
+        "everything related to that",
+        "all of that stuff"
+      ],
+      "category": "expressions",
+      "pronunciation": "dah KYNE, dah WHOLE kyne",
+      "examples": [
+        "We need da kine, da whole kine for da party",
+        "He brought da kine, da whole kine setup",
+        "Get da kine, da whole kine ready?"
+      ],
+      "usage": "Referring to everything related to something, the complete set",
+      "culturalNote": "Shows how 'da kine' can be expanded for emphasis",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "slang"
+      ]
+    },
+    {
+      "id": "dirty_lickens_043",
+      "pidgin": "dirty lickens",
+      "english": [
+        "severe beating"
+      ],
+      "category": "slang",
+      "pronunciation": "DUR-tee LIK-enz",
+      "examples": [
+        "Going get dirty lickens"
+      ],
+      "usage": "Threat of punishment",
+      "origin": "English",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "english"
+      ],
+      "audioExample": "You like dirty lickens?"
+    },
+    {
+      "id": "eh_you_stay_wit_da_kine_510",
+      "pidgin": "eh, you stay wit' da kine?",
+      "english": [
+        "hey, are you with that thingamajig?",
+        "are you with that thing?",
+        "do you have that thing?"
+      ],
+      "category": "expressions",
+      "pronunciation": "EH, you STAY wit dah KYNE",
+      "examples": [
+        "Eh, you stay wit' da kine we wen talk about?",
+        "You stay wit' da kine or wat?",
+        "Ho, you still stay wit' da kine from yesterday?"
+      ],
+      "usage": "Used when you can't remember the word for something specific",
+      "culturalNote": "Perfect example of 'da kine' versatility in Pidgin conversation",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "questions",
+        "slang"
+      ]
+    },
+    {
+      "id": "feel_like_528",
+      "pidgin": "feel like",
+      "english": [
+        "seem like",
+        "feels as if",
+        "feels as though"
+      ],
+      "category": "expressions",
+      "pronunciation": "feel-LIKE",
+      "examples": [
+        "Feel like going rain",
+        "Feel like something not right"
+      ],
+      "usage": "Expressing a feeling or intuition about something",
+      "culturalNote": "Used to express sensations or predictions",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "emotions"
+      ]
+    },
+    {
+      "id": "get_choke_517",
+      "pidgin": "get choke",
+      "english": [
+        "there's a lot",
+        "have plenty",
+        "lots of"
+      ],
+      "category": "expressions",
+      "pronunciation": "GET-choke",
+      "examples": [
+        "Get choke people at da beach today",
+        "Da store get choke selection",
+        "We get choke work fo' do"
+      ],
+      "usage": "Indicating there's a large amount or many of something",
+      "culturalNote": "Pidgin way of saying 'plenty' or 'a lot'",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "quantity"
+      ]
+    },
+    {
+      "id": "getum_501",
+      "pidgin": "get'um",
+      "english": [
+        "go for it",
+        "give it your all",
+        "seize the opportunity"
+      ],
+      "category": "actions",
+      "pronunciation": "get-UM",
+      "examples": [
+        "Ho, he saw da wave and wen get'um!",
+        "You see dat job posting? Get'um!",
+        "Da surf stay good, get'um brah!"
+      ],
+      "culturalNote": "Encouragement to seize an opportunity with full commitment",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "actions",
+        "encouragement",
+        "surfing"
+      ]
+    },
+    {
+      "id": "go_mo_bettah_514",
+      "pidgin": "go mo' bettah",
+      "english": [
+        "go do it better",
+        "do it better",
+        "you should do better"
+      ],
+      "category": "expressions",
+      "pronunciation": "go-MOH-BET-tah",
+      "examples": [
+        "Dat no good, go mo' bettah",
+        "Try again, go mo' bettah dis time",
+        "You can go mo' bettah than dat"
+      ],
+      "usage": "Encouraging someone to improve or do something better",
+      "culturalNote": "Constructive way to suggest improvement",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "encouragement"
+      ]
+    },
+    {
+      "id": "guerentee_505",
+      "pidgin": "gueren-tee",
+      "english": [
+        "definitely",
+        "for sure",
+        "guaranteed"
+      ],
+      "category": "expressions",
+      "pronunciation": "gair-en-TEE",
+      "examples": [
+        "Dat sushi is good, gueren-tee",
+        "He going be late, gueren-tee",
+        "This weather going change, gueren-tee"
+      ],
+      "culturalNote": "Pidgin pronunciation of 'guarantee' used as emphasis",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "emphasis",
+        "certainty"
+      ]
+    },
+    {
+      "id": "gullah_gullahs_345",
+      "pidgin": "gullah gullahs",
+      "english": [
+        "mixed up",
+        "confused"
+      ],
+      "category": "slang",
+      "pronunciation": "GUL-lah GUL-lahs",
+      "examples": [
+        "Everything stay gullah gullahs"
+      ],
+      "usage": "Confusion or disorder",
+      "origin": "Unknown",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "slang"
+      ],
+      "audioExample": "All gullah gullahs"
+    },
+    {
+      "id": "hana_hou_062",
+      "pidgin": "hana hou",
+      "english": [
+        "do it again",
+        "encore"
+      ],
+      "category": "expressions",
+      "pronunciation": "HAH-nah-HO",
+      "examples": [
+        "Hana hou! One more time!"
+      ],
+      "usage": "Requesting repetition",
+      "origin": "Hawaiian",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "hawaiian"
+      ],
+      "audioExample": "Da crowd yelling hana hou!"
+    },
+    {
+      "id": "hanabada_days_349",
+      "pidgin": "hanabada days",
+      "english": [
+        "childhood"
+      ],
+      "category": "expressions",
+      "pronunciation": "hah-nah-BAH-dah days",
+      "examples": [
+        "Back in hanabada days"
+      ],
+      "usage": "When young",
+      "origin": "Local",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions"
+      ],
+      "audioExample": "Remember hanabada days?"
+    },
+    {
+      "id": "hawaiian_time_249",
+      "pidgin": "hawaiian time",
+      "english": [
+        "running late"
+      ],
+      "category": "expressions",
+      "pronunciation": "hah-WHY-an-time",
+      "examples": [
+        "He stay on Hawaiian time"
+      ],
+      "usage": "Relaxed attitude toward punctuality",
+      "origin": "Local culture",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions"
+      ],
+      "audioExample": "Party starts at 7, Hawaiian time"
+    },
+    {
+      "id": "jus_buckaloose_270",
+      "pidgin": "jus buckaloose",
+      "english": [
+        "just relax"
+      ],
+      "category": "expressions",
+      "pronunciation": "jus-buk-ah-LOOS",
+      "examples": [
+        "Jus buckaloose, no stress"
+      ],
+      "usage": "Calming advice",
+      "origin": "Local expression",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions"
+      ],
+      "audioExample": "Jus buckaloose and enjoy"
+    },
+    {
+      "id": "mahalo_for_da_hookup_516",
+      "pidgin": "mahalo, for da hookup!",
+      "english": [
+        "thank you for the connection!",
+        "thanks for the favor!",
+        "thank you for hooking me up!"
+      ],
+      "category": "greetings",
+      "pronunciation": "mah-HAH-loh, for dah HOOK-up",
+      "examples": [
+        "Mahalo, for da hookup with da job!",
+        "Mahalo, for da hookup with your cousin",
+        "Ho, mahalo for da hookup with da tickets!"
+      ],
+      "usage": "Thanking someone for a favor, connection, or helping you get something",
+      "culturalNote": "Shows appreciation for someone's help in connecting you to opportunities",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "gratitude"
+      ]
+    },
+    {
+      "id": "make_funny_518",
+      "pidgin": "make funny",
+      "english": [
+        "to play a joke on someone",
+        "to tease",
+        "to mess around with"
+      ],
+      "category": "actions",
+      "pronunciation": "MAKE-FUN-nee",
+      "examples": [
+        "No make funny with me",
+        "He stay make funny with his sister",
+        "Stop make funny, I stay serious"
+      ],
+      "usage": "Playing jokes or teasing someone",
+      "culturalNote": "Light-hearted teasing, usually among friends or family",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "actions",
+        "humor"
+      ]
+    },
+    {
+      "id": "no_can_da_buggah_stay_broke_523",
+      "pidgin": "no can, da buggah stay broke",
+      "english": [
+        "can't, the thing is broken",
+        "unable to, it's broken",
+        "no way, it's not working"
+      ],
+      "category": "expressions",
+      "pronunciation": "NO can, dah BUG-gah stay BROKE",
+      "examples": [
+        "You like use my car? No can, da buggah stay broke",
+        "Can fix da computer? No can, da buggah stay broke",
+        "No can help you, da buggah stay broke"
+      ],
+      "usage": "Explaining that you can't do something because the item/tool is broken",
+      "culturalNote": "Common explanation combining inability with broken equipment",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "inability"
+      ]
+    },
+    {
+      "id": "pau_hana_144",
+      "pidgin": "pau hana",
+      "english": [
+        "after work"
+      ],
+      "category": "expressions",
+      "pronunciation": "pow-HAH-nah",
+      "examples": [
+        "Pau hana time"
+      ],
+      "usage": "Work finished",
+      "origin": "Hawaiian",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "hawaiian"
+      ],
+      "audioExample": "Pau hana drink!"
+    },
+    {
+      "id": "rubbah_slippahs_155",
+      "pidgin": "rubbah slippahs",
+      "english": [
+        "flip flops",
+        "sandals"
+      ],
+      "category": "expressions",
+      "pronunciation": "RUB-bah-SLIP-pahz",
+      "examples": [
+        "Wea my rubbah slippahs?"
+      ],
+      "usage": "Standard Hawaiian footwear",
+      "origin": "English",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audioExample": "Somebody wen steal my rubbah slippahs"
+    },
+    {
+      "id": "small_kid_time_506",
+      "pidgin": "small kid time",
+      "english": [
+        "when I was a kid",
+        "back in the day",
+        "childhood days"
+      ],
+      "category": "expressions",
+      "pronunciation": "small-KID-time",
+      "examples": [
+        "Small kid time, I used to play marbles",
+        "Small kid time was so fun",
+        "We did dat all da time, small kid time"
+      ],
+      "culturalNote": "Nostalgic phrase referring to one's childhood memories",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "nostalgia",
+        "childhood"
+      ]
+    },
+    {
+      "id": "talk_stink_512",
+      "pidgin": "talk stink",
+      "english": [
+        "gossip",
+        "spread rumors",
+        "bad mouth"
+      ],
+      "category": "actions",
+      "pronunciation": "TALK-stink",
+      "examples": [
+        "No talk stink about my cousin",
+        "She stay talk stink about everybody",
+        "Why you like talk stink?"
+      ],
+      "usage": "Speaking negatively about someone behind their back",
+      "culturalNote": "Common phrase warning against gossip in local communities",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "actions",
+        "social"
+      ]
+    },
+    {
+      "id": "talk_story_171",
+      "pidgin": "talk story",
+      "english": [
+        "chat",
+        "converse"
+      ],
+      "category": "expressions",
+      "pronunciation": "tawk-STOH-ree",
+      "examples": [
+        "Come talk story"
+      ],
+      "usage": "Conversation",
+      "origin": "English",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audioExample": "Les talk story!"
+    },
+    {
+      "id": "wassamattayou_189",
+      "pidgin": "wassamattayou",
+      "english": [
+        "what's wrong with you"
+      ],
+      "category": "expressions",
+      "pronunciation": "WAH-sah-MAH-tah-you",
+      "examples": [
+        "Wassamattayou?"
+      ],
+      "usage": "Questioning",
+      "origin": "English",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audioExample": "Eh, wassamattayou?"
+    },
+    {
+      "id": "whaddsdascoops_413",
+      "pidgin": "whaddsdascoops",
+      "english": [
+        "what's going on"
+      ],
+      "category": "greetings",
+      "pronunciation": "wahts-dah-SKOOPS",
+      "examples": [
+        "Eh, whaddsdascoops?"
+      ],
+      "usage": "Casual greeting",
+      "origin": "Local slang",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "greetings",
+        "greeting"
+      ],
+      "audioExample": "Whaddsdascoops brah?"
+    },
+    {
+      "id": "yessah_blessah_395",
+      "pidgin": "yessah blessah",
+      "english": [
+        "awesome",
+        "great"
+      ],
+      "category": "slang",
+      "pronunciation": "YES-sah BLESS-ah",
+      "examples": [
+        "Yessah blessah!"
+      ],
+      "usage": "Excitement",
+      "origin": "Local slang",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "slang"
+      ],
+      "audioExample": "Yessah blessah brah!"
+    },
+    {
+      "id": "so_ono_broke_da_mouth_phrase",
+      "pidgin": "So ono, broke da mouth",
+      "english": [
+        "That's really delicious",
+        "So delicious"
+      ],
+      "category": "food",
+      "pronunciation": "soh OH-no, broke dah mout",
+      "examples": [
+        "Dis poke so ono, broke da mouth!"
+      ],
+      "usage": "High compliment for food",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "food",
+        "compliment"
+      ]
+    },
+    {
+      "id": "i_stay_pau_phrase",
+      "pidgin": "I stay pau with dat",
+      "english": [
+        "I'm busy right now",
+        "I'm done with that"
+      ],
+      "category": "expressions",
+      "pronunciation": "eye stay POW wit dat",
+      "examples": [
+        "I stay pau with dat project"
+      ],
+      "usage": "Finished or occupied",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "common",
+        "status"
+      ]
+    },
+    {
+      "id": "chance_um_phrase",
+      "pidgin": "Eh, chance 'um",
+      "english": [
+        "You should try it",
+        "Take a chance",
+        "Try it"
+      ],
+      "category": "expressions",
+      "pronunciation": "eh, chance um",
+      "examples": [
+        "Eh, chance 'um, no scared!"
+      ],
+      "usage": "Friendly encouragement",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "encouragement",
+        "common"
+      ]
+    },
+    {
+      "id": "i_hele_to_da_hale_phrase",
+      "pidgin": "I hele to da hale",
+      "english": [
+        "I'm going home"
+      ],
+      "category": "expressions",
+      "pronunciation": "eye HEH-leh to dah HAH-leh",
+      "examples": [
+        "I stay tired, I hele to da hale"
+      ],
+      "usage": "Going home",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "hawaiian",
+        "location"
+      ]
+    },
+    {
+      "id": "i_spock_you_bumbye_phrase",
+      "pidgin": "I spock you bumbye",
+      "english": [
+        "I'll see you later",
+        "See you later"
+      ],
+      "category": "greetings",
+      "pronunciation": "eye spock you BUM-bye",
+      "examples": [
+        "Gotta go, I spock you bumbye"
+      ],
+      "usage": "Friendly goodbye",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "farewell",
+        "common"
+      ]
+    },
+    {
+      "id": "where_da_lua_stay_phrase",
+      "pidgin": "Where da lua stay?",
+      "english": [
+        "Where is the restroom?",
+        "Where is the bathroom?"
+      ],
+      "category": "expressions",
+      "pronunciation": "where dah LOO-ah stay",
+      "examples": [
+        "Eh brah, where da lua stay?"
+      ],
+      "usage": "Asking for bathroom",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "question",
+        "location",
+        "hawaiian"
+      ]
+    },
+    {
+      "id": "halala_901",
+      "pidgin": "halala",
+      "english": [
+        "uh-oh",
+        "expression of trouble"
+      ],
+      "category": "expressions",
+      "pronunciation": "hah-LAH-lah",
+      "examples": [
+        "Halala, I forgot my wallet!"
+      ],
+      "usage": "Expression when something goes wrong",
+      "origin": "Hawaiian",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "exclamations"
+      ]
+    },
+    {
+      "id": "holo_holo_902",
+      "pidgin": "holo holo",
+      "english": [
+        "aimless wandering",
+        "cruise around",
+        "to venture out"
+      ],
+      "category": "actions",
+      "pronunciation": "HO-lo HO-lo",
+      "examples": [
+        "We go holo holo around town"
+      ],
+      "usage": "Going out without a specific destination",
+      "origin": "Hawaiian",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "actions",
+        "hawaiian",
+        "activities"
+      ]
+    },
+    {
+      "id": "li_hing_mui_905",
+      "pidgin": "li hing mui",
+      "english": [
+        "salted dried plum",
+        "salty plum snack"
+      ],
+      "category": "food",
+      "pronunciation": "lee hing MOO-ee",
+      "examples": [
+        "I like li hing mui powder on my mango"
+      ],
+      "usage": "Popular local snack flavoring",
+      "origin": "Chinese",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "food",
+        "chinese",
+        "snacks"
+      ]
+    },
+    {
+      "id": "potagee_908",
+      "pidgin": "potagee",
+      "english": [
+        "Portuguese person"
+      ],
+      "category": "people",
+      "pronunciation": "poh-tah-GEE",
+      "examples": [
+        "My tutu was potagee"
+      ],
+      "usage": "Referring to Portuguese people or heritage",
+      "origin": "Portuguese",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "people",
+        "cultural",
+        "portuguese"
+      ]
+    },
+    {
+      "id": "scosh_909",
+      "pidgin": "scosh",
+      "english": [
+        "small amount",
+        "a little bit"
+      ],
+      "category": "descriptions",
+      "pronunciation": "SKOSH",
+      "examples": [
+        "Give me just a scosh more rice"
+      ],
+      "usage": "Asking for a small quantity",
+      "origin": "Japanese",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "descriptions",
+        "japanese",
+        "amounts"
+      ]
+    },
+    {
+      "id": "kupuna_1008",
+      "pidgin": "kūpuna",
+      "english": [
+        "elder",
+        "grandparent",
+        "ancestor"
+      ],
+      "category": "people",
+      "pronunciation": "koo-POO-nah",
+      "examples": [
+        "Listen to da kūpuna, they get wisdom"
+      ],
+      "usage": "Respected elder",
+      "origin": "Hawaiian",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "people",
+        "hawaiian",
+        "family",
+        "respect"
+      ]
+    },
+    {
+      "id": "kamaaina_1010",
+      "pidgin": "kama'aina",
+      "english": [
+        "local resident",
+        "longtime resident",
+        "native-born"
+      ],
+      "category": "people",
+      "pronunciation": "kah-mah-EYE-nah",
+      "examples": [
+        "Kama'aina rates for locals only"
+      ],
+      "usage": "Referring to local residents vs tourists",
+      "origin": "Hawaiian",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "people",
+        "hawaiian",
+        "cultural"
+      ]
+    },
+    {
+      "id": "broke_da_mout_1012",
+      "pidgin": "broke da mout'",
+      "english": [
+        "extremely delicious",
+        "so good it broke your mouth"
+      ],
+      "category": "food",
+      "pronunciation": "broke dah MOUT",
+      "examples": [
+        "Aunty's laulau broke da mout'!"
+      ],
+      "usage": "Highest praise for food",
+      "origin": "English",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "food",
+        "expressions",
+        "compliment"
+      ]
+    },
+    {
+      "id": "katsu_1017",
+      "pidgin": "katsu",
+      "english": [
+        "perfect",
+        "victorious",
+        "winning"
+      ],
+      "category": "expressions",
+      "pronunciation": "KAT-soo",
+      "examples": [
+        "All katsu now!"
+      ],
+      "usage": "Everything is perfect",
+      "origin": "Japanese",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "japanese",
+        "success"
+      ]
+    },
+    {
+      "id": "aku_1018",
+      "pidgin": "aku",
+      "english": [
+        "skipjack tuna"
+      ],
+      "category": "food",
+      "pronunciation": "AH-koo",
+      "examples": [
+        "Fresh aku for sale"
+      ],
+      "usage": "Type of tuna",
+      "origin": "Hawaiian",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "food",
+        "hawaiian",
+        "fish"
+      ]
+    },
+    {
+      "id": "like_scrap_1024",
+      "pidgin": "like scrap",
+      "english": [
+        "you want to fight?",
+        "do you want to fight?"
+      ],
+      "category": "expressions",
+      "pronunciation": "like SKRAP",
+      "examples": [
+        "What, you like scrap?"
+      ],
+      "usage": "Fighting challenge",
+      "origin": "English",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "confrontation"
+      ]
+    },
+    {
+      "id": "geev_um_1026",
+      "pidgin": "geev 'um",
+      "english": [
+        "give it to them",
+        "go for it",
+        "beat them up"
+      ],
+      "category": "expressions",
+      "pronunciation": "geev UM",
+      "examples": [
+        "Geev 'um, brah!"
+      ],
+      "usage": "Encouragement or aggression",
+      "origin": "English",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "encouragement"
+      ]
+    }
+  ],
+  "advancedContent": [
+    {
+      "id": "accidentally_on_purp_001",
+      "pidgin": "accidentally on purpose",
+      "english": [
+        "doing something on purpose but making it look accidental"
+      ],
+      "category": "expressions",
+      "pronunciation": "ak-si-DEN-tal-lee on PUR-pus",
+      "examples": [
+        "He wen spill his drink accidentally on purpose to get her attention"
+      ],
+      "usage": "Describes intentionally deceptive behavior",
+      "origin": "English idiom",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audioExample": "He wen do dat accidentally on purpose, I know!"
+    },
+    {
+      "id": "all_jam_up_008",
+      "pidgin": "all jam up",
+      "english": [
+        "crowded",
+        "congested"
+      ],
+      "category": "expressions",
+      "pronunciation": "all-JAM-up",
+      "examples": [
+        "Da road stay all jam up"
+      ],
+      "usage": "Describing traffic or crowds",
+      "origin": "English",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audioExample": "Town stay all jam up today"
+    },
+    {
+      "id": "beer_in_my_ear_205",
+      "pidgin": "beer in my ear",
+      "english": [
+        "deaf"
+      ],
+      "category": "slang",
+      "pronunciation": "beer-in-my-EAR",
+      "examples": [
+        "I get beer in my ear, no can hear"
+      ],
+      "usage": "Can't hear well",
+      "origin": "Local expression",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "slang"
+      ],
+      "audioExample": "Talk louder, I get beer in my ear"
+    },
+    {
+      "id": "buss_um_out_320",
+      "pidgin": "buss um out",
+      "english": [
+        "break it out",
+        "start"
+      ],
+      "category": "expressions",
+      "pronunciation": "BUS-um-out",
+      "examples": [
+        "Buss um out, les go"
+      ],
+      "usage": "Start something",
+      "origin": "English",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audioExample": "Buss um out now!"
+    },
+    {
+      "id": "cho_cho_lips_219",
+      "pidgin": "cho cho lips",
+      "english": [
+        "thick lips"
+      ],
+      "category": "slang",
+      "pronunciation": "CHOH-choh-lips",
+      "examples": [
+        "He get cho cho lips"
+      ],
+      "usage": "Describing lip size",
+      "origin": "Local expression",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "slang"
+      ],
+      "audioExample": "Look at dose cho cho lips"
+    },
+    {
+      "id": "choke_your_neck_220",
+      "pidgin": "choke your neck",
+      "english": [
+        "in trouble"
+      ],
+      "category": "slang",
+      "pronunciation": "choke-your-NEK",
+      "examples": [
+        "You going choke your neck wit mom"
+      ],
+      "usage": "Warning about consequences",
+      "origin": "Local expression",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "slang"
+      ],
+      "audioExample": "Going choke your neck if you late"
+    },
+    {
+      "id": "das_why_hard_226",
+      "pidgin": "das why hard",
+      "english": [
+        "that's why it's difficult"
+      ],
+      "category": "expressions",
+      "pronunciation": "das-why-HARD",
+      "examples": [
+        "Das why hard fo understand"
+      ],
+      "usage": "Explaining difficulty",
+      "origin": "English",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audioExample": "Das why hard fo learn pidgin"
+    },
+    {
+      "id": "e_kala_mai_327",
+      "pidgin": "e kala mai",
+      "english": [
+        "excuse me",
+        "sorry"
+      ],
+      "category": "greetings",
+      "pronunciation": "eh-KAH-lah-MY",
+      "examples": [
+        "E kala mai, can pass?"
+      ],
+      "usage": "Polite apology",
+      "origin": "Hawaiian",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "hawaiian"
+      ],
+      "audioExample": "E kala mai please"
+    },
+    {
+      "id": "e_komo_mai_328",
+      "pidgin": "e komo mai",
+      "english": [
+        "welcome",
+        "come in"
+      ],
+      "category": "greetings",
+      "pronunciation": "eh-KOH-moh-MY",
+      "examples": [
+        "E komo mai to our hale"
+      ],
+      "usage": "Welcoming greeting",
+      "origin": "Hawaiian",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "greetings",
+        "hawaiian",
+        "greeting"
+      ],
+      "audioExample": "E komo mai friends"
+    },
+    {
+      "id": "go_fo_broke_053",
+      "pidgin": "go fo broke",
+      "english": [
+        "give it your all"
+      ],
+      "category": "expressions",
+      "pronunciation": "go-foh-BROKE",
+      "examples": [
+        "Go fo broke brah"
+      ],
+      "usage": "Maximum effort",
+      "origin": "442nd Regiment motto",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "expressions"
+      ],
+      "audioExample": "Les go fo broke!"
+    },
+    {
+      "id": "high_maka_maka_069",
+      "pidgin": "high maka maka",
+      "english": [
+        "stuck up"
+      ],
+      "category": "descriptions",
+      "pronunciation": "high-MAH-kah-MAH-kah",
+      "examples": [
+        "She all high maka maka"
+      ],
+      "usage": "Snobbish",
+      "origin": "Hawaiian + English",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "hawaiian",
+        "english"
+      ],
+      "audioExample": "No be high maka maka"
+    },
+    {
+      "id": "ho_da_bagah_goin_chicken_skin_520",
+      "pidgin": "ho, da bagah's goin' chicken skin!",
+      "english": [
+        "wow, that guy is getting goosebumps!",
+        "look, he's getting chills!",
+        "that person has goosebumps!"
+      ],
+      "category": "expressions",
+      "pronunciation": "HO, dah BAG-ah's goin CHICK-en skin",
+      "examples": [
+        "Ho, da bagah's goin' chicken skin from da scary story",
+        "Look da bagah, goin' chicken skin from da cold",
+        "Da bagah wen go chicken skin when he heard da music"
+      ],
+      "usage": "Observing someone getting goosebumps or chills",
+      "culturalNote": "Combines several Pidgin elements: 'ho' (wow), 'bagah' (person), 'chicken skin' (goosebumps)",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "emotions"
+      ]
+    },
+    {
+      "id": "how_you_figgah_254",
+      "pidgin": "how you figgah",
+      "english": [
+        "how is that possible"
+      ],
+      "category": "expressions",
+      "pronunciation": "how-you-FIG-gah",
+      "examples": [
+        "How you figgah he did dat?"
+      ],
+      "usage": "Questioning logic",
+      "origin": "English \"figure\"",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audioExample": "How you figgah going work?"
+    },
+    {
+      "id": "how_you_stay_352",
+      "pidgin": "how you stay?",
+      "english": [
+        "how are you?"
+      ],
+      "category": "greetings",
+      "pronunciation": "how-you-STAY",
+      "examples": [
+        "Eh, how you stay?"
+      ],
+      "usage": "Greeting",
+      "origin": "Pidgin",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "greetings",
+        "greeting"
+      ],
+      "audioExample": "How you stay brah?"
+    },
+    {
+      "id": "i_no_kid_you_257",
+      "pidgin": "i no kid you",
+      "english": [
+        "I'm serious"
+      ],
+      "category": "expressions",
+      "pronunciation": "eye-no-KID-you",
+      "examples": [
+        "I no kid you, was real"
+      ],
+      "usage": "Emphasizing truth",
+      "origin": "English",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audioExample": "I no kid you, he stay lolo"
+    },
+    {
+      "id": "i_tink_so_258",
+      "pidgin": "i tink so",
+      "english": [
+        "I think so",
+        "yeah right"
+      ],
+      "category": "expressions",
+      "pronunciation": "eye-TINK-so",
+      "examples": [
+        "You coming? I tink so..."
+      ],
+      "usage": "Sarcastic agreement",
+      "origin": "English \"think\"",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audioExample": "I tink so... maybe not"
+    },
+    {
+      "id": "if_can_can_if_no_can_077",
+      "pidgin": "if can can if no can no can",
+      "english": [
+        "do it if possible"
+      ],
+      "category": "expressions",
+      "pronunciation": "if-can-CAN-if-no-can-NO-can",
+      "examples": [
+        "Help me out - if can can, if no can no can"
+      ],
+      "usage": "Flexible request",
+      "origin": "Local expression",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "expressions"
+      ],
+      "audioExample": "Try come - if can can, if no can no can"
+    },
+    {
+      "id": "if_can_can_356",
+      "pidgin": "if can, can",
+      "english": [
+        "if possible"
+      ],
+      "category": "expressions",
+      "pronunciation": "if-CAN-can",
+      "examples": [
+        "Help me, if can, can"
+      ],
+      "usage": "Flexible request",
+      "origin": "Pidgin",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "expressions"
+      ],
+      "audioExample": "If can, can"
+    },
+    {
+      "id": "in_oddah_words_261",
+      "pidgin": "in oddah words",
+      "english": [
+        "in other words"
+      ],
+      "category": "expressions",
+      "pronunciation": "in-OH-dah-werdz",
+      "examples": [
+        "In oddah words, you no like"
+      ],
+      "usage": "Clarifying meaning",
+      "origin": "English",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audioExample": "In oddah words, we broke"
+    },
+    {
+      "id": "jan_ken_po_080",
+      "pidgin": "jan ken po",
+      "english": [
+        "rock paper scissors"
+      ],
+      "category": "games",
+      "pronunciation": "jahn-ken-POH",
+      "examples": [
+        "Play jan ken po"
+      ],
+      "usage": "Decision game",
+      "origin": "Japanese",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "games",
+        "japanese"
+      ],
+      "audioExample": "Jan ken po!"
+    },
+    {
+      "id": "karang_yo_alas_397",
+      "pidgin": "karang yo alas",
+      "english": [
+        "to cause harm to testicles"
+      ],
+      "category": "slang",
+      "pronunciation": "kah-RANG yo ah-LAHS",
+      "examples": [
+        "No karang yo alas!"
+      ],
+      "usage": "Warning about harm",
+      "origin": "Local pidgin",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "slang"
+      ],
+      "audioExample": "Watch out, karang yo alas!"
+    },
+    {
+      "id": "kim_chee_breath_400",
+      "pidgin": "kim chee breath",
+      "english": [
+        "bad breath"
+      ],
+      "category": "descriptions",
+      "pronunciation": "kim-CHEE-breath",
+      "examples": [
+        "He get kim chee breath"
+      ],
+      "usage": "Bad breath smell",
+      "origin": "Korean food reference",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "slang"
+      ],
+      "audioExample": "Brush teeth, kim chee breath!"
+    },
+    {
+      "id": "no_ka_oi_373",
+      "pidgin": "no ka 'oi",
+      "english": [
+        "the best"
+      ],
+      "category": "expressions",
+      "pronunciation": "noh-kah-OY",
+      "examples": [
+        "Maui no ka 'oi"
+      ],
+      "usage": "Excellence",
+      "origin": "Hawaiian",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "hawaiian"
+      ],
+      "audioExample": "No ka 'oi!"
+    },
+    {
+      "id": "no_ka_oi_129",
+      "pidgin": "no ka oi",
+      "english": [
+        "the best"
+      ],
+      "category": "expressions",
+      "pronunciation": "noh-kah-OY",
+      "examples": [
+        "Maui no ka oi"
+      ],
+      "usage": "Superlative expression",
+      "origin": "Hawaiian",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "hawaiian"
+      ],
+      "audioExample": "Dis beach no ka oi!"
+    },
+    {
+      "id": "oh_wow_ladat_374",
+      "pidgin": "oh wow ladat",
+      "english": [
+        "like that?",
+        "really?"
+      ],
+      "category": "expressions",
+      "pronunciation": "oh-wow-lah-DAT",
+      "examples": [
+        "Oh wow ladat?"
+      ],
+      "usage": "Surprise",
+      "origin": "English",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audioExample": "Oh wow ladat!?"
+    },
+    {
+      "id": "suck_em_up_168",
+      "pidgin": "suck em up",
+      "english": [
+        "drink it up"
+      ],
+      "category": "slang",
+      "pronunciation": "SUK-em-up",
+      "examples": [
+        "Suck em up, da beer!"
+      ],
+      "usage": "Drinking quickly",
+      "origin": "English",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "english"
+      ],
+      "audioExample": "Suck em up before we go"
+    },
+    {
+      "id": "white_kukui_blossom_412",
+      "pidgin": "white kukui blossom",
+      "english": [
+        "official flower of Molokai"
+      ],
+      "category": "cultural",
+      "pronunciation": "white koo-KOO-ee BLAH-sum",
+      "examples": [
+        "Da white kukui blossom stay beautiful"
+      ],
+      "usage": "Island flower",
+      "origin": "Hawaiian",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ],
+      "audioExample": "Pick white kukui blossom"
+    },
+    {
+      "id": "who_da_guy_392",
+      "pidgin": "who da guy?",
+      "english": [
+        "who is that?"
+      ],
+      "category": "questions",
+      "pronunciation": "hoo-dah-GUY",
+      "examples": [
+        "Who da guy?"
+      ],
+      "usage": "Identification",
+      "origin": "English",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "questions",
+        "english"
+      ],
+      "audioExample": "Eh, who da guy?"
+    },
+    {
+      "id": "wop_yo_jaw_415",
+      "pidgin": "wop yo jaw",
+      "english": [
+        "I told you so"
+      ],
+      "category": "expressions",
+      "pronunciation": "wop-yo-JAW",
+      "examples": [
+        "Wop yo jaw, I said so!"
+      ],
+      "usage": "Being right",
+      "origin": "Local slang",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "expressions"
+      ],
+      "audioExample": "Wop yo jaw!"
+    },
+    {
+      "id": "yeah_you_508",
+      "pidgin": "yeah you",
+      "english": [
+        "you're right",
+        "that's right",
+        "I agree with you"
+      ],
+      "category": "expressions",
+      "pronunciation": "yeah-YOU",
+      "examples": [
+        "He wen bust his board, yeah you?",
+        "Da traffic was bad, yeah you!",
+        "Yeah you, dat's exactly what happened"
+      ],
+      "culturalNote": "Way to affirm or seek affirmation, unique Pidgin phrase structure",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "agreement",
+        "conversation"
+      ]
+    },
+    {
+      "id": "you_know_dat_276",
+      "pidgin": "you know dat",
+      "english": [
+        "yes definitely"
+      ],
+      "category": "expressions",
+      "pronunciation": "you-know-DAT",
+      "examples": [
+        "Good food? You know dat!"
+      ],
+      "usage": "Strong agreement",
+      "origin": "English",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audioExample": "You know dat right!"
+    },
+    {
+      "id": "you_stay_go_396",
+      "pidgin": "you stay go?",
+      "english": [
+        "are you going?"
+      ],
+      "category": "questions",
+      "pronunciation": "you-stay-GO",
+      "examples": [
+        "You stay go o wat?"
+      ],
+      "usage": "Asking plans",
+      "origin": "English pidgin",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "questions",
+        "english"
+      ],
+      "audioExample": "You stay go?"
+    },
+    {
+      "id": "kotonk_903",
+      "pidgin": "kotonk",
+      "english": [
+        "Japanese person born on mainland US"
+      ],
+      "category": "people",
+      "pronunciation": "ko-TONK",
+      "examples": [
+        "He stay one kotonk from California"
+      ],
+      "usage": "Referring to mainland-born Japanese Americans",
+      "origin": "Japanese",
+      "difficulty": "advanced",
+      "frequency": "low",
+      "tags": [
+        "people",
+        "japanese",
+        "cultural"
+      ]
+    },
+    {
+      "id": "kaimana_4001",
+      "pidgin": "kaimana",
+      "english": [
+        "diamond"
+      ],
+      "category": "nature",
+      "pronunciation": "kai-MAH-nah",
+      "examples": [
+        "Diamond Head is Lē'ahi in Hawaiian, but kaimana means diamond"
+      ],
+      "usage": "Diamond or precious gem",
+      "origin": "Hawaiian",
+      "difficulty": "advanced",
+      "frequency": "low",
+      "tags": [
+        "nature",
+        "hawaiian"
+      ]
+    },
+    {
+      "id": "geta_6002",
+      "pidgin": "geta",
+      "english": [
+        "traditional Japanese wooden sandals",
+        "wooden slippers"
+      ],
+      "category": "clothing",
+      "pronunciation": "GEH-tah",
+      "examples": [
+        "She wearing geta fo' da festival"
+      ],
+      "usage": "Traditional Japanese wooden sandals",
+      "origin": "Japanese",
+      "difficulty": "advanced",
+      "frequency": "low",
+      "tags": [
+        "clothing",
+        "japanese",
+        "cultural"
+      ]
+    },
+    {
+      "id": "brah_you_naman_6008",
+      "pidgin": "brah, you naman?",
+      "english": [
+        "brah, it's your turn again?",
+        "your turn again"
+      ],
+      "category": "expressions",
+      "pronunciation": "brah, you nah-MAHN",
+      "examples": [
+        "Brah, you naman? Let someone else try!"
+      ],
+      "usage": "Asking if it's someone's turn again",
+      "origin": "Filipino",
+      "difficulty": "advanced",
+      "frequency": "low",
+      "tags": [
+        "expressions",
+        "filipino",
+        "questions"
+      ]
+    },
+    {
+      "id": "vinha_dalhos_6017",
+      "pidgin": "vinha d'alhos",
+      "english": [
+        "vinegar and garlic marinade",
+        "vinny-ha pork"
+      ],
+      "category": "food",
+      "pronunciation": "VEE-nyah DAH-lyoosh",
+      "examples": [
+        "Da vinha d'alhos pork stay so 'ono"
+      ],
+      "usage": "Vinegar and garlic marinade, origin of 'vinny-ha' pork",
+      "origin": "Portuguese",
+      "difficulty": "advanced",
+      "frequency": "low",
+      "tags": [
+        "food",
+        "portuguese",
+        "cooking"
+      ]
+    },
+    {
+      "id": "mu_7020",
+      "pidgin": "mu-",
+      "english": [
+        "type of reef fish",
+        "mu fish"
+      ],
+      "category": "food",
+      "pronunciation": "MOO",
+      "examples": [
+        "Caught some mu- for dinner"
+      ],
+      "usage": "Specific reef fish",
+      "origin": "Hawaiian",
+      "difficulty": "advanced",
+      "frequency": "low",
+      "tags": [
+        "food",
+        "hawaiian",
+        "fish"
+      ]
+    }
+  ]
+}

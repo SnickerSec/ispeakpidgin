@@ -1,0 +1,415 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "created": "2025-11-15T13:01:18.014Z",
+    "totalSentences": 45,
+    "description": "Individual sentences extracted from story examples"
+  },
+  "sentences": [
+    {
+      "english": "Yesterday I went to the beach with my friends",
+      "pidgin": "Yesterday I went beach wit my friends",
+      "category": "activities",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "beach_day_1",
+      "storyTitle": "Going to the Beach"
+    },
+    {
+      "english": "The waves were huge and the sun was shining bright",
+      "pidgin": "Da waves was choke and da sun was shining bright",
+      "category": "activities",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "beach_day_1",
+      "storyTitle": "Going to the Beach"
+    },
+    {
+      "english": "We had a great time surfing",
+      "pidgin": "We had one real good time surfing",
+      "category": "activities",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "beach_day_1",
+      "storyTitle": "Going to the Beach"
+    },
+    {
+      "english": "Then we ate some delicious food at a food truck",
+      "pidgin": "Den we ate some ono grindz at one food truck",
+      "category": "activities",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "beach_day_1",
+      "storyTitle": "Going to the Beach"
+    },
+    {
+      "english": "It was the best day ever",
+      "pidgin": "Was da best day eva",
+      "category": "activities",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "beach_day_1",
+      "storyTitle": "Going to the Beach"
+    },
+    {
+      "english": "I'm done with work now",
+      "pidgin": "I pau hana already",
+      "category": "work",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "pau_hana_1",
+      "storyTitle": "After Work"
+    },
+    {
+      "english": "I'm so tired from working all day",
+      "pidgin": "I stay so tired from working all day",
+      "category": "work",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "pau_hana_1",
+      "storyTitle": "After Work"
+    },
+    {
+      "english": "I think I'm going to go home and rest for a bit",
+      "pidgin": "I tink I going go home and rest for one bit",
+      "category": "work",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "pau_hana_1",
+      "storyTitle": "After Work"
+    },
+    {
+      "english": "Maybe later I'll meet up with my friends",
+      "pidgin": "Maybe latahs I going meet up wit my friends",
+      "category": "work",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "pau_hana_1",
+      "storyTitle": "After Work"
+    },
+    {
+      "english": "My family had a big party last weekend",
+      "pidgin": "My ohana had one big party last weekend",
+      "category": "family",
+      "difficulty": "advanced",
+      "source": "story_example",
+      "storyId": "family_gathering_1",
+      "storyTitle": "Family Party"
+    },
+    {
+      "english": "My grandmother made her famous kalua pig",
+      "pidgin": "My tutu made her famous kalua pig",
+      "category": "family",
+      "difficulty": "advanced",
+      "source": "story_example",
+      "storyId": "family_gathering_1",
+      "storyTitle": "Family Party"
+    },
+    {
+      "english": "Everyone was eating and talking story",
+      "pidgin": "Everybody was eating and talking story",
+      "category": "family",
+      "difficulty": "advanced",
+      "source": "story_example",
+      "storyId": "family_gathering_1",
+      "storyTitle": "Family Party"
+    },
+    {
+      "english": "It was so much fun",
+      "pidgin": "Was so much fun",
+      "category": "family",
+      "difficulty": "advanced",
+      "source": "story_example",
+      "storyId": "family_gathering_1",
+      "storyTitle": "Family Party"
+    },
+    {
+      "english": "I can't wait for the next party",
+      "pidgin": "I no can wait fo da next party",
+      "category": "family",
+      "difficulty": "advanced",
+      "source": "story_example",
+      "storyId": "family_gathering_1",
+      "storyTitle": "Family Party"
+    },
+    {
+      "english": "My uncle always tells the funniest stories",
+      "pidgin": "My uncle always talk da most funny stories",
+      "category": "activities",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "fishing_story_1",
+      "storyTitle": "Fishing Trip"
+    },
+    {
+      "english": "He tells stories about when he was young",
+      "pidgin": "He talk stories about when he was young",
+      "category": "activities",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "fishing_story_1",
+      "storyTitle": "Fishing Trip"
+    },
+    {
+      "english": "He grew up on the Big Island",
+      "pidgin": "He grew up on Big Island",
+      "category": "activities",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "fishing_story_1",
+      "storyTitle": "Fishing Trip"
+    },
+    {
+      "english": "He used to go fishing every morning before school",
+      "pidgin": "He used to go fishing every morning before school",
+      "category": "activities",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "fishing_story_1",
+      "storyTitle": "Fishing Trip"
+    },
+    {
+      "english": "He says those were the good old days",
+      "pidgin": "He say dose was da good old days",
+      "category": "activities",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "fishing_story_1",
+      "storyTitle": "Fishing Trip"
+    },
+    {
+      "english": "I'm really hungry right now",
+      "pidgin": "I stay real hungry right now",
+      "category": "food",
+      "difficulty": "beginner",
+      "source": "story_example",
+      "storyId": "food_truck_1",
+      "storyTitle": "Food Truck Lunch"
+    },
+    {
+      "english": "There's a food truck down the street",
+      "pidgin": "Get one food truck down da street",
+      "category": "food",
+      "difficulty": "beginner",
+      "source": "story_example",
+      "storyId": "food_truck_1",
+      "storyTitle": "Food Truck Lunch"
+    },
+    {
+      "english": "It has really good plate lunch",
+      "pidgin": "Get real good plate lunch",
+      "category": "food",
+      "difficulty": "beginner",
+      "source": "story_example",
+      "storyId": "food_truck_1",
+      "storyTitle": "Food Truck Lunch"
+    },
+    {
+      "english": "Do you want to go with me?",
+      "pidgin": "You like go wit me?",
+      "category": "food",
+      "difficulty": "beginner",
+      "source": "story_example",
+      "storyId": "food_truck_1",
+      "storyTitle": "Food Truck Lunch"
+    },
+    {
+      "english": "We can eat there and then go back to work",
+      "pidgin": "We can eat dea and den go back to work",
+      "category": "food",
+      "difficulty": "beginner",
+      "source": "story_example",
+      "storyId": "food_truck_1",
+      "storyTitle": "Food Truck Lunch"
+    },
+    {
+      "english": "What are you doing this weekend?",
+      "pidgin": "What you doing dis weekend?",
+      "category": "conversation",
+      "difficulty": "beginner",
+      "source": "story_example",
+      "storyId": "weekend_plans_1",
+      "storyTitle": "Weekend Plans"
+    },
+    {
+      "english": "I'm thinking about going to the beach on Saturday",
+      "pidgin": "I stay tinking about going beach on Saturday",
+      "category": "conversation",
+      "difficulty": "beginner",
+      "source": "story_example",
+      "storyId": "weekend_plans_1",
+      "storyTitle": "Weekend Plans"
+    },
+    {
+      "english": "Maybe we can meet up and have a barbecue",
+      "pidgin": "Maybe we can meet up and have one BBQ",
+      "category": "conversation",
+      "difficulty": "beginner",
+      "source": "story_example",
+      "storyId": "weekend_plans_1",
+      "storyTitle": "Weekend Plans"
+    },
+    {
+      "english": "Let me know if you want to come",
+      "pidgin": "Let me know if you like come",
+      "category": "conversation",
+      "difficulty": "beginner",
+      "source": "story_example",
+      "storyId": "weekend_plans_1",
+      "storyTitle": "Weekend Plans"
+    },
+    {
+      "english": "The traffic was so bad this morning",
+      "pidgin": "Da traffic was so bad dis morning",
+      "category": "daily_life",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "traffic_story_1",
+      "storyTitle": "Traffic Complaint"
+    },
+    {
+      "english": "I was stuck on the H1 for over an hour",
+      "pidgin": "I was stuck on da H1 fo ova one hour",
+      "category": "daily_life",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "traffic_story_1",
+      "storyTitle": "Traffic Complaint"
+    },
+    {
+      "english": "I'm going to be late to work again",
+      "pidgin": "I going be late to work again",
+      "category": "daily_life",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "traffic_story_1",
+      "storyTitle": "Traffic Complaint"
+    },
+    {
+      "english": "My boss is not going to be happy about this",
+      "pidgin": "My boss no going be happy bout dis",
+      "category": "daily_life",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "traffic_story_1",
+      "storyTitle": "Traffic Complaint"
+    },
+    {
+      "english": "The surf is going to be really good tomorrow",
+      "pidgin": "Da surf going be real good tomorrow",
+      "category": "activities",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "surf_report_1",
+      "storyTitle": "Surf Conditions"
+    },
+    {
+      "english": "The waves should be about six to eight feet",
+      "pidgin": "Da waves should be about six to eight feet",
+      "category": "activities",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "surf_report_1",
+      "storyTitle": "Surf Conditions"
+    },
+    {
+      "english": "I'm planning to go out early in the morning",
+      "pidgin": "I stay planning fo go out early in da morning",
+      "category": "activities",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "surf_report_1",
+      "storyTitle": "Surf Conditions"
+    },
+    {
+      "english": "You should come with me if you can",
+      "pidgin": "You should come wit me if you can",
+      "category": "activities",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "surf_report_1",
+      "storyTitle": "Surf Conditions"
+    },
+    {
+      "english": "It's been raining all day today",
+      "pidgin": "Stay raining all day today",
+      "category": "weather",
+      "difficulty": "beginner",
+      "source": "story_example",
+      "storyId": "rainy_day_1",
+      "storyTitle": "Rainy Weather"
+    },
+    {
+      "english": "The weather is really bad",
+      "pidgin": "Da weather stay real bad",
+      "category": "weather",
+      "difficulty": "beginner",
+      "source": "story_example",
+      "storyId": "rainy_day_1",
+      "storyTitle": "Rainy Weather"
+    },
+    {
+      "english": "I don't think we can go to the beach",
+      "pidgin": "I no tink we can go beach",
+      "category": "weather",
+      "difficulty": "beginner",
+      "source": "story_example",
+      "storyId": "rainy_day_1",
+      "storyTitle": "Rainy Weather"
+    },
+    {
+      "english": "Maybe we should just stay home and watch a movie",
+      "pidgin": "Maybe we should jus stay home and watch one movie",
+      "category": "weather",
+      "difficulty": "beginner",
+      "source": "story_example",
+      "storyId": "rainy_day_1",
+      "storyTitle": "Rainy Weather"
+    },
+    {
+      "english": "Have you tried the poke from that new place?",
+      "pidgin": "You wen try da poke from dat new place?",
+      "category": "food",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "local_food_1",
+      "storyTitle": "Trying Local Food"
+    },
+    {
+      "english": "It's so fresh and delicious",
+      "pidgin": "Stay so fresh and ono",
+      "category": "food",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "local_food_1",
+      "storyTitle": "Trying Local Food"
+    },
+    {
+      "english": "They also have really good manapua",
+      "pidgin": "Dey also get real good manapua",
+      "category": "food",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "local_food_1",
+      "storyTitle": "Trying Local Food"
+    },
+    {
+      "english": "You need to go there and try it",
+      "pidgin": "You gotta go dea and try um",
+      "category": "food",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "local_food_1",
+      "storyTitle": "Trying Local Food"
+    },
+    {
+      "english": "Trust me, you won't be disappointed",
+      "pidgin": "Trust me, you no going be disappointed",
+      "category": "food",
+      "difficulty": "intermediate",
+      "source": "story_example",
+      "storyId": "local_food_1",
+      "storyTitle": "Trying Local Food"
+    }
+  ]
+}
