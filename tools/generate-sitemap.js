@@ -67,27 +67,25 @@ const pages = [
     { url: '/what-does-no-worry-mean.html', priority: 0.6, changefreq: 'monthly' }
 ];
 
-// Get dictionary entries if available
-function getDictionaryEntries() {
+// Get word pages from the actual /word/ directory
+function getWordPages() {
     const entries = [];
-    const dictionaryPath = 'data/master/pidgin-master.json';
+    const wordDir = 'public/word';
 
-    if (fs.existsSync(dictionaryPath)) {
+    if (fs.existsSync(wordDir)) {
         try {
-            const data = JSON.parse(fs.readFileSync(dictionaryPath, 'utf8'));
-            if (data.entries && Array.isArray(data.entries)) {
-                data.entries.forEach(entry => {
-                    if (entry.id) {
-                        entries.push({
-                            url: `/dictionary/${entry.id}.html`,
-                            priority: 0.5,
-                            changefreq: 'yearly'
-                        });
-                    }
-                });
-            }
+            const files = fs.readdirSync(wordDir);
+            files.forEach(file => {
+                if (file.endsWith('.html')) {
+                    entries.push({
+                        url: `/word/${file}`,
+                        priority: 0.5,
+                        changefreq: 'monthly'
+                    });
+                }
+            });
         } catch (error) {
-            console.error('Error reading dictionary entries:', error.message);
+            console.error('Error reading word pages:', error.message);
         }
     }
 
@@ -98,13 +96,13 @@ function getDictionaryEntries() {
 function generateSitemap() {
     const now = new Date().toISOString().split('T')[0];
 
-    // Combine static pages with dictionary entries
+    // Combine static pages with word pages
     const allPages = [...pages];
 
-    // Add dictionary entries (limit to prevent huge sitemap)
-    const dictionaryEntries = getDictionaryEntries();
-    console.log(`📖 Found ${dictionaryEntries.length} dictionary entries`);
-    allPages.push(...dictionaryEntries.slice(0, 500)); // Limit to 500 entries
+    // Add word pages from /word/ directory
+    const wordPages = getWordPages();
+    console.log(`📖 Found ${wordPages.length} word pages`);
+    allPages.push(...wordPages);
 
     let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
     xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
