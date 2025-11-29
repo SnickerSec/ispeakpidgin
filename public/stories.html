@@ -205,6 +205,7 @@
                     <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
                         <a href="stories.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Stories</a>
                         <a href="ask-local.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Ask a Local</a>
+                        <a href="blog/" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Blog</a>
                     </div>
                 </div>
 
@@ -271,6 +272,7 @@
                 <div class="mobile-dropdown-content hidden pl-6 space-y-1">
                     <a href="stories.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Stories</a>
                     <a href="ask-local.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Ask a Local</a>
+                    <a href="blog/" class="block px-3 py-2 text-gray-600 hover:text-green-600">Blog</a>
                 </div>
             </div>
 
@@ -438,25 +440,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     <!-- Scripts -->
+    <script src="js/components/supabase-api-loader.js"></script>
     <script src="js/data/stories-data.js"></script>
     <script src="js/components/elevenlabs-speech.js"></script>
     <script src="js/components/main.js"></script>
     <script>
+        // Global stories data
+        let storiesData = { stories: [] };
+
         // Load and display stories
         function displayStories(filter = 'all') {
             const container = document.getElementById('stories-container');
             const noResults = document.getElementById('no-results');
 
-            if (!container || !pidginStories || !pidginStories.stories) {
+            if (!container || !storiesData.stories || storiesData.stories.length === 0) {
                 console.error('Stories data not loaded');
                 return;
             }
 
-            let filteredStories = pidginStories.stories;
+            let filteredStories = storiesData.stories;
 
             // Apply filters
             if (filter !== 'all') {
-                filteredStories = pidginStories.stories.filter(story => {
+                filteredStories = storiesData.stories.filter(story => {
                     if (filter === 'beginner' || filter === 'intermediate' || filter === 'advanced') {
                         return story.difficulty === filter;
                     } else {
@@ -606,11 +612,38 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Initial load
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => displayStories());
-        } else {
+        // Initial load - try API first, fallback to local data
+        async function initStories() {
+            console.log('Loading stories...');
+
+            try {
+                // Try Supabase API first
+                if (window.supabaseAPI) {
+                    console.log('Attempting to load stories from Supabase API...');
+                    storiesData = await window.supabaseAPI.loadStories();
+                    console.log(`Loaded ${storiesData.stories.length} stories from API`);
+                } else {
+                    throw new Error('Supabase API loader not available');
+                }
+            } catch (error) {
+                console.warn('API load failed, using local data:', error.message);
+                // Fallback to local pidginStories
+                if (typeof pidginStories !== 'undefined') {
+                    storiesData = {
+                        stories: pidginStories.stories || pidginStories,
+                        metadata: pidginStories.metadata
+                    };
+                    console.log(`Loaded ${storiesData.stories.length} stories from local data`);
+                }
+            }
+
             displayStories();
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initStories);
+        } else {
+            initStories();
         }
     </script>
 </body>

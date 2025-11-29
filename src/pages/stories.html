@@ -229,25 +229,29 @@
     <!-- FOOTER_PLACEHOLDER -->
 
     <!-- Scripts -->
+    <script src="js/components/supabase-api-loader.js"></script>
     <script src="js/data/stories-data.js"></script>
     <script src="js/elevenlabs-speech.js"></script>
     <script src="js/main.js"></script>
     <script>
+        // Global stories data
+        let storiesData = { stories: [] };
+
         // Load and display stories
         function displayStories(filter = 'all') {
             const container = document.getElementById('stories-container');
             const noResults = document.getElementById('no-results');
 
-            if (!container || !pidginStories || !pidginStories.stories) {
+            if (!container || !storiesData.stories || storiesData.stories.length === 0) {
                 console.error('Stories data not loaded');
                 return;
             }
 
-            let filteredStories = pidginStories.stories;
+            let filteredStories = storiesData.stories;
 
             // Apply filters
             if (filter !== 'all') {
-                filteredStories = pidginStories.stories.filter(story => {
+                filteredStories = storiesData.stories.filter(story => {
                     if (filter === 'beginner' || filter === 'intermediate' || filter === 'advanced') {
                         return story.difficulty === filter;
                     } else {
@@ -397,11 +401,38 @@
             });
         });
 
-        // Initial load
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => displayStories());
-        } else {
+        // Initial load - try API first, fallback to local data
+        async function initStories() {
+            console.log('Loading stories...');
+
+            try {
+                // Try Supabase API first
+                if (window.supabaseAPI) {
+                    console.log('Attempting to load stories from Supabase API...');
+                    storiesData = await window.supabaseAPI.loadStories();
+                    console.log(`Loaded ${storiesData.stories.length} stories from API`);
+                } else {
+                    throw new Error('Supabase API loader not available');
+                }
+            } catch (error) {
+                console.warn('API load failed, using local data:', error.message);
+                // Fallback to local pidginStories
+                if (typeof pidginStories !== 'undefined') {
+                    storiesData = {
+                        stories: pidginStories.stories || pidginStories,
+                        metadata: pidginStories.metadata
+                    };
+                    console.log(`Loaded ${storiesData.stories.length} stories from local data`);
+                }
+            }
+
             displayStories();
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initStories);
+        } else {
+            initStories();
         }
     </script>
 </body>
