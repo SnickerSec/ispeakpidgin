@@ -1050,6 +1050,258 @@ app.get('/api/dictionary/:id',
         }
     });
 
+// ============================================
+// PHRASES API ENDPOINTS
+// ============================================
+
+// GET /api/phrases - Get phrases with pagination and filters
+app.get('/api/phrases',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const { page = 1, limit = 50, category, difficulty } = req.query;
+            const offset = (parseInt(page) - 1) * parseInt(limit);
+
+            let query = supabase
+                .from('phrases')
+                .select('*', { count: 'exact' });
+
+            if (category) query = query.eq('category', category);
+            if (difficulty) query = query.eq('difficulty', difficulty);
+
+            query = query.range(offset, offset + parseInt(limit) - 1);
+
+            const { data, error, count } = await query;
+
+            if (error) {
+                return res.status(500).json({ error: 'Database query failed' });
+            }
+
+            res.json({
+                phrases: data,
+                pagination: {
+                    page: parseInt(page),
+                    limit: parseInt(limit),
+                    total: count,
+                    totalPages: Math.ceil(count / parseInt(limit))
+                }
+            });
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+// GET /api/phrases/random - Get random phrases
+app.get('/api/phrases/random',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const { count = 5, category } = req.query;
+            const limit = Math.min(parseInt(count), 20);
+
+            let query = supabase.from('phrases').select('*');
+            if (category) query = query.eq('category', category);
+
+            const { data, error } = await query;
+
+            if (error) {
+                return res.status(500).json({ error: 'Failed to fetch phrases' });
+            }
+
+            // Shuffle and take requested count
+            const shuffled = data.sort(() => Math.random() - 0.5).slice(0, limit);
+            res.json({ phrases: shuffled, count: shuffled.length });
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+// ============================================
+// STORIES API ENDPOINTS
+// ============================================
+
+// GET /api/stories - Get all stories
+app.get('/api/stories',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const { difficulty } = req.query;
+
+            let query = supabase.from('stories').select('*');
+            if (difficulty) query = query.eq('difficulty', difficulty);
+
+            const { data, error } = await query;
+
+            if (error) {
+                return res.status(500).json({ error: 'Failed to fetch stories' });
+            }
+
+            res.json({ stories: data, count: data.length });
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+// GET /api/stories/:id - Get single story
+app.get('/api/stories/:id',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const { id } = req.params;
+
+            const { data, error } = await supabase
+                .from('stories')
+                .select('*')
+                .eq('id', id)
+                .single();
+
+            if (error) {
+                if (error.code === 'PGRST116') {
+                    return res.status(404).json({ error: 'Story not found' });
+                }
+                return res.status(500).json({ error: 'Failed to fetch story' });
+            }
+
+            res.json(data);
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+// ============================================
+// CROSSWORD API ENDPOINTS
+// ============================================
+
+// GET /api/crossword/words - Get crossword words
+app.get('/api/crossword/words',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const { category, difficulty, minLength, maxLength } = req.query;
+
+            let query = supabase.from('crossword_words').select('*');
+
+            if (category) query = query.eq('category', category);
+            if (difficulty) query = query.eq('difficulty', difficulty);
+            if (minLength) query = query.gte('length', parseInt(minLength));
+            if (maxLength) query = query.lte('length', parseInt(maxLength));
+
+            const { data, error } = await query;
+
+            if (error) {
+                return res.status(500).json({ error: 'Failed to fetch crossword words' });
+            }
+
+            res.json({ words: data, count: data.length });
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+// GET /api/crossword/random - Get random crossword words for puzzle generation
+app.get('/api/crossword/random',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const { count = 20, difficulty } = req.query;
+
+            let query = supabase.from('crossword_words').select('*');
+            if (difficulty) query = query.eq('difficulty', difficulty);
+
+            const { data, error } = await query;
+
+            if (error) {
+                return res.status(500).json({ error: 'Failed to fetch words' });
+            }
+
+            const shuffled = data.sort(() => Math.random() - 0.5).slice(0, parseInt(count));
+            res.json({ words: shuffled, count: shuffled.length });
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+// ============================================
+// PICKUP LINES API ENDPOINTS
+// ============================================
+
+// GET /api/pickup-lines - Get pickup lines
+app.get('/api/pickup-lines',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const { category, maxSpiciness } = req.query;
+
+            let query = supabase.from('pickup_lines').select('*');
+
+            if (category) query = query.eq('category', category);
+            if (maxSpiciness) query = query.lte('spiciness', parseInt(maxSpiciness));
+
+            const { data, error } = await query;
+
+            if (error) {
+                return res.status(500).json({ error: 'Failed to fetch pickup lines' });
+            }
+
+            res.json({ lines: data, count: data.length });
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+// GET /api/pickup-lines/random - Get random pickup line
+app.get('/api/pickup-lines/random',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const { maxSpiciness = 5 } = req.query;
+
+            const { data, error } = await supabase
+                .from('pickup_lines')
+                .select('*')
+                .lte('spiciness', parseInt(maxSpiciness));
+
+            if (error) {
+                return res.status(500).json({ error: 'Failed to fetch pickup line' });
+            }
+
+            const randomLine = data[Math.floor(Math.random() * data.length)];
+            res.json(randomLine);
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+// ============================================
+// QUIZ API ENDPOINTS
+// ============================================
+
+// GET /api/quiz/questions - Get quiz questions
+app.get('/api/quiz/questions',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const { category, difficulty, count = 10 } = req.query;
+
+            let query = supabase.from('quiz_questions').select('*');
+
+            if (category) query = query.eq('category', category);
+            if (difficulty) query = query.eq('difficulty', difficulty);
+
+            const { data, error } = await query;
+
+            if (error) {
+                return res.status(500).json({ error: 'Failed to fetch questions' });
+            }
+
+            // Shuffle and limit
+            const shuffled = data.sort(() => Math.random() - 0.5).slice(0, parseInt(count));
+            res.json({ questions: shuffled, count: shuffled.length });
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
 // Serve static files from public directory
 app.use(express.static(path.join(__dirname, 'public'), {
     maxAge: '1d', // Cache static files for 1 day
