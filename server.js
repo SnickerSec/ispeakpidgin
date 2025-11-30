@@ -1302,6 +1302,322 @@ app.get('/api/quiz/questions',
         }
     });
 
+// ============================================
+// WORDLE API ENDPOINTS
+// ============================================
+
+// GET /api/wordle/daily - Get daily wordle word
+app.get('/api/wordle/daily',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            // Get today's date in Hawaii timezone
+            const today = new Date().toLocaleDateString('en-CA', { timeZone: 'Pacific/Honolulu' });
+
+            // First check if there's a word already assigned for today
+            const { data: usedWord, error: usedError } = await supabase
+                .from('wordle_words')
+                .select('*')
+                .eq('used_on', today)
+                .single();
+
+            if (usedWord && !usedError) {
+                return res.json({
+                    word: usedWord.word,
+                    meaning: usedWord.meaning,
+                    pronunciation: usedWord.pronunciation,
+                    difficulty: usedWord.difficulty,
+                    date: today
+                });
+            }
+
+            // If no word for today, get a random unused solution word
+            const { data: availableWords, error } = await supabase
+                .from('wordle_words')
+                .select('*')
+                .eq('is_solution', true)
+                .is('used_on', null);
+
+            if (error || !availableWords || availableWords.length === 0) {
+                // Fallback: get any solution word if all have been used
+                const { data: anyWord } = await supabase
+                    .from('wordle_words')
+                    .select('*')
+                    .eq('is_solution', true)
+                    .limit(1)
+                    .single();
+
+                if (anyWord) {
+                    return res.json({
+                        word: anyWord.word,
+                        meaning: anyWord.meaning,
+                        pronunciation: anyWord.pronunciation,
+                        difficulty: anyWord.difficulty,
+                        date: today,
+                        recycled: true
+                    });
+                }
+                return res.status(500).json({ error: 'No wordle words available' });
+            }
+
+            // Pick a random word from available
+            const randomWord = availableWords[Math.floor(Math.random() * availableWords.length)];
+
+            // Mark it as used (optional - comment out if you don't want to track usage)
+            // await supabase.from('wordle_words').update({ used_on: today }).eq('id', randomWord.id);
+
+            res.json({
+                word: randomWord.word,
+                meaning: randomWord.meaning,
+                pronunciation: randomWord.pronunciation,
+                difficulty: randomWord.difficulty,
+                date: today
+            });
+        } catch (error) {
+            console.error('Wordle daily API error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+// GET /api/wordle/validate - Check if a word is valid for guessing
+app.get('/api/wordle/validate/:word',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const { word } = req.params;
+
+            if (!word || word.length !== 5) {
+                return res.json({ valid: false, reason: 'Word must be exactly 5 letters' });
+            }
+
+            const { data, error } = await supabase
+                .from('wordle_words')
+                .select('word, is_valid_guess')
+                .ilike('word', word.toLowerCase())
+                .single();
+
+            if (error || !data) {
+                return res.json({ valid: false, reason: 'Word not in dictionary' });
+            }
+
+            res.json({
+                valid: data.is_valid_guess,
+                word: data.word
+            });
+        } catch (error) {
+            console.error('Wordle validate API error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+// GET /api/wordle/words - Get all wordle words (for debugging/admin)
+app.get('/api/wordle/words',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const { solutions_only, valid_guesses_only, difficulty } = req.query;
+
+            let query = supabase.from('wordle_words').select('word, is_solution, is_valid_guess, difficulty');
+
+            if (solutions_only === 'true') query = query.eq('is_solution', true);
+            if (valid_guesses_only === 'true') query = query.eq('is_valid_guess', true);
+            if (difficulty) query = query.eq('difficulty', difficulty);
+
+            const { data, error } = await query;
+
+            if (error) {
+                return res.status(500).json({ error: 'Failed to fetch wordle words' });
+            }
+
+            res.json({
+                words: data.map(w => w.word),
+                count: data.length,
+                solutions: data.filter(w => w.is_solution).length,
+                validGuesses: data.filter(w => w.is_valid_guess).length
+            });
+        } catch (error) {
+            console.error('Wordle words API error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+// ============================================
+// CROSSWORD PUZZLES API ENDPOINTS
+// ============================================
+
+// GET /api/crossword/puzzles - Get all crossword puzzles
+app.get('/api/crossword/puzzles',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const { difficulty, theme } = req.query;
+
+            let query = supabase.from('crossword_puzzles').select('*');
+
+            if (difficulty) query = query.eq('difficulty', difficulty);
+            if (theme) query = query.ilike('theme', `%${theme}%`);
+
+            query = query.order('puzzle_id', { ascending: true });
+
+            const { data, error } = await query;
+
+            if (error) {
+                return res.status(500).json({ error: 'Failed to fetch crossword puzzles' });
+            }
+
+            res.json({ puzzles: data, count: data.length });
+        } catch (error) {
+            console.error('Crossword puzzles API error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+// GET /api/crossword/puzzles/:id - Get single crossword puzzle by puzzle_id
+app.get('/api/crossword/puzzles/:puzzleId',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const { puzzleId } = req.params;
+
+            const { data, error } = await supabase
+                .from('crossword_puzzles')
+                .select('*')
+                .eq('puzzle_id', puzzleId)
+                .single();
+
+            if (error) {
+                if (error.code === 'PGRST116') {
+                    return res.status(404).json({ error: 'Puzzle not found' });
+                }
+                return res.status(500).json({ error: 'Failed to fetch puzzle' });
+            }
+
+            res.json(data);
+        } catch (error) {
+            console.error('Crossword puzzle API error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+// GET /api/crossword/daily - Get daily crossword puzzle
+app.get('/api/crossword/daily',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            // Get today's date in Hawaii timezone
+            const today = new Date().toLocaleDateString('en-CA', { timeZone: 'Pacific/Honolulu' });
+
+            // Check if there's a puzzle assigned for today
+            const { data: todayPuzzle, error: todayError } = await supabase
+                .from('crossword_puzzles')
+                .select('*')
+                .eq('used_on', today)
+                .single();
+
+            if (todayPuzzle && !todayError) {
+                return res.json(todayPuzzle);
+            }
+
+            // Otherwise, rotate through puzzles based on day of year
+            const { data: allPuzzles, error } = await supabase
+                .from('crossword_puzzles')
+                .select('*')
+                .order('puzzle_id', { ascending: true });
+
+            if (error || !allPuzzles || allPuzzles.length === 0) {
+                return res.status(500).json({ error: 'No crossword puzzles available' });
+            }
+
+            // Use day of year to pick a puzzle (rotates through all puzzles)
+            const startOfYear = new Date(new Date().getFullYear(), 0, 0);
+            const diff = new Date() - startOfYear;
+            const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const puzzleIndex = dayOfYear % allPuzzles.length;
+
+            res.json({
+                ...allPuzzles[puzzleIndex],
+                date: today
+            });
+        } catch (error) {
+            console.error('Crossword daily API error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+// ============================================
+// PICKUP LINE COMPONENTS API ENDPOINTS
+// ============================================
+
+// GET /api/pickup-components - Get pickup line components
+app.get('/api/pickup-components',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const { type, category } = req.query;
+
+            let query = supabase.from('pickup_line_components').select('*');
+
+            if (type) query = query.eq('component_type', type);
+            if (category) query = query.eq('category', category);
+
+            const { data, error } = await query;
+
+            if (error) {
+                return res.status(500).json({ error: 'Failed to fetch pickup line components' });
+            }
+
+            // Group by component type for easier use
+            const grouped = data.reduce((acc, item) => {
+                const type = item.component_type;
+                if (!acc[type]) acc[type] = [];
+                acc[type].push(item);
+                return acc;
+            }, {});
+
+            res.json({
+                components: data,
+                grouped: grouped,
+                count: data.length
+            });
+        } catch (error) {
+            console.error('Pickup components API error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+// GET /api/pickup-components/random - Get random components for generator
+app.get('/api/pickup-components/random',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const { data, error } = await supabase
+                .from('pickup_line_components')
+                .select('*');
+
+            if (error) {
+                return res.status(500).json({ error: 'Failed to fetch components' });
+            }
+
+            // Group and pick one random from each type
+            const byType = data.reduce((acc, item) => {
+                const type = item.component_type;
+                if (!acc[type]) acc[type] = [];
+                acc[type].push(item);
+                return acc;
+            }, {});
+
+            const randomPick = {};
+            for (const [type, items] of Object.entries(byType)) {
+                randomPick[type] = items[Math.floor(Math.random() * items.length)];
+            }
+
+            res.json(randomPick);
+        } catch (error) {
+            console.error('Pickup components random API error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
 // Serve static files from public directory
 app.use(express.static(path.join(__dirname, 'public'), {
     maxAge: '1d', // Cache static files for 1 day
