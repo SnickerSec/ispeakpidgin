@@ -54,11 +54,14 @@ coverage/
 
 # Railway
 .railway/tailwindcss
-DEBUGGING_WITH_CHROME_MCP.md
 
 # Tailwind standalone binary
 tailwindcss
 
-# Vite
-public/css/index-vite.html
+# Archive directory
+archive/
+
+# Server and test directories (legacy, removed)
+server/
+tests/
 

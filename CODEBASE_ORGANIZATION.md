@@ -1,6 +1,6 @@
 # Codebase Organization
 
-This document explains the organized structure of the ChokePidgin codebase (updated Nov 2025).
+This document explains the organized structure of the ChokePidgin codebase (updated Dec 2025).
 
 ## Directory Structure Overview
 
@@ -8,7 +8,7 @@ This document explains the organized structure of the ChokePidgin codebase (upda
 ispeakpidgin/
 ├── src/                    # Source files (edit these)
 │   ├── components/        # Reusable components
-│   │   ├── games/        # Game components (NEW)
+│   │   ├── games/        # Game components
 │   │   │   ├── wordle/
 │   │   │   ├── crossword/
 │   │   │   └── quiz/
@@ -28,28 +28,54 @@ ispeakpidgin/
 │   ├── master/           # Single source of truth
 │   ├── views/            # Optimized data views
 │   ├── indexes/          # Search indexes
-│   ├── games/            # Game data (NEW)
-│   └── content/          # Content data (NEW)
+│   ├── games/            # Game data
+│   └── content/          # Content data
 │
 ├── public/               # Built production files (auto-generated)
 │   └── [mirrors src structure]
 │
-└── tools/                # Build and utility scripts
+├── tools/                # Build and utility scripts
+│   ├── audio/            # Audio generation tools
+│   ├── data/             # Data consolidation scripts
+│   ├── generators/       # Content and sitemap generators
+│   ├── migration/        # Migration scripts (legacy)
+│   ├── seo/              # SEO tools
+│   ├── testing/          # Test scripts
+│   └── training/         # Training data extraction
+│
+├── scripts/              # Shell scripts
+│   ├── build.sh          # Build script
+│   ├── deploy.sh         # Deployment script
+│   ├── dev-server.sh     # Development server
+│   └── migrate-to-components.js
+│
+├── config/               # Configuration files
+│   ├── ga-config.js      # Google Analytics
+│   └── railway.json      # Railway deployment
+│
+├── docs/                 # Documentation and reports
+├── backup/               # Data backups
+├── archive/              # Archived experimental files
+└── audio/                # Audio assets
 ```
 
-## New Game Organization (v2.0)
+## Root Directory Files
 
-### Before (Scattered)
-```
-src/js/pidgin-wordle.js
-src/js/pidgin-crossword.js
-src/js/local-quiz.js
-src/data/pidgin-wordle-words.js
-src/data/crossword-puzzles.js
-src/data/local-quiz-data.js
-```
+### Key Files
+- **build.js** - Main build script (Railway compatible)
+- **server.js** - Express server for production
+- **tailwind.config.js** - Tailwind CSS configuration
+- **package.json** - Dependencies and scripts
 
-### After (Organized)
+### Documentation
+- **README.md** - Project overview
+- **CLAUDE.md** - Instructions for Claude Code
+- **CODEBASE_ORGANIZATION.md** - This file
+- **COMPONENT-SYSTEM.md** - Component system documentation
+
+## Game Organization
+
+### Organized Structure
 ```
 src/components/games/
 ├── wordle/
@@ -87,13 +113,34 @@ data/games/
   - `crossword-words.json` - Crossword-suitable words extracted from dictionary
 - **Purpose**: Game-specific data files
 
+## Tools Directory Organization
+
+The `tools/` directory contains organized utility scripts:
+
+### Subdirectories
+- **audio/** - Audio generation and caching tools
+- **data/** - Data consolidation and improvement scripts
+- **generators/** - Sitemap, entry pages, and crossword generators
+- **migration/** - Legacy migration scripts (navigation, dropdowns)
+- **seo/** - SEO tag generation tools
+- **testing/** - Validation and test scripts
+- **training/** - Training data extraction for AI models
+
+### Usage
+Most tools can be run directly:
+```bash
+node tools/data/consolidate-data.js
+node tools/generators/generate-sitemap.js
+```
+
 ## Build System
 
-The build system automatically handles the new structure:
+The build system automatically handles the codebase structure:
 
-1. **Game Components**: Copies from `src/components/games/` to `public/js/components/games/`
+1. **Component Processing**: Copies from `src/components/` to `public/js/components/`
 2. **Path Mappings**: Auto-updates script paths in HTML files
 3. **Data Files**: Copies from organized data directories
+4. **Template Injection**: Injects navigation and footer into all pages
 
 ### Path Mappings
 ```javascript
@@ -146,10 +193,28 @@ Each game has its own directory with:
 4. Create HTML page in `src/pages/`
 5. Build and test
 
+## Cleanup and Maintenance (Dec 2025)
+
+### Recent Cleanup
+- **Removed duplicate build.js** from `tools/build/` (outdated version)
+- **Removed empty directories**: `css/`, `js/`, `server/`, `tests/`
+- **Organized tools**: Moved scripts to appropriate subdirectories
+  - Navigation migration scripts → `tools/migration/`
+  - Crossword generator → `tools/generators/`
+  - Sitemap generator duplicate removed
+- **Archived experimental files**: `index-vite.html`, `vite.config.mjs`, debugging docs → `archive/`
+- **Updated .gitignore**: Added `archive/`, legacy directory patterns
+
+### Current State
+- Clean root directory with only essential files
+- Well-organized `tools/` directory with clear subdirectories
+- No duplicate files or outdated scripts
+- Clear separation between source, build, and utility files
+
 ## Migration Notes
 
-- All game files have been moved to new structure
-- Build system updated to handle new paths
-- Old `src/data/` and scattered game files removed
-- Path mappings ensure HTML pages reference correct locations
+- All game files moved to organized component structure (v2.0)
+- Data consolidated into master file with optimized views (v3.0)
+- Build system handles all path mappings automatically
+- Template system ensures consistent navigation/footer across all pages
 - No breaking changes to production site
