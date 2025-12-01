@@ -4,7 +4,59 @@
 -- ============================================
 
 -- ============================================
--- 1. PHRASES TABLE
+-- 1. DICTIONARY ENTRIES TABLE (Main Dictionary)
+-- ============================================
+CREATE TABLE IF NOT EXISTS dictionary_entries (
+    id TEXT PRIMARY KEY,
+    pidgin TEXT NOT NULL,
+    english TEXT[] DEFAULT '{}',
+    category TEXT,
+    pronunciation TEXT,
+    examples TEXT[] DEFAULT '{}',
+    usage TEXT,
+    origin TEXT,
+    difficulty TEXT CHECK (difficulty IN ('beginner', 'intermediate', 'advanced')),
+    frequency TEXT CHECK (frequency IN ('very_low', 'low', 'medium', 'high', 'very_high')),
+    tags TEXT[] DEFAULT '{}',
+    audio_example TEXT,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Indexes for faster searches
+CREATE INDEX IF NOT EXISTS idx_dictionary_pidgin ON dictionary_entries(pidgin);
+CREATE INDEX IF NOT EXISTS idx_dictionary_category ON dictionary_entries(category);
+CREATE INDEX IF NOT EXISTS idx_dictionary_difficulty ON dictionary_entries(difficulty);
+CREATE INDEX IF NOT EXISTS idx_dictionary_frequency ON dictionary_entries(frequency);
+
+-- Full-text search index
+CREATE INDEX IF NOT EXISTS idx_dictionary_search ON dictionary_entries
+USING GIN (to_tsvector('english', pidgin || ' ' || array_to_string(english, ' ')));
+
+-- Enable RLS
+ALTER TABLE dictionary_entries ENABLE ROW LEVEL SECURITY;
+
+-- Public read access
+CREATE POLICY "Public dictionary entries are viewable by everyone"
+ON dictionary_entries FOR SELECT
+USING (true);
+
+-- Update trigger
+CREATE OR REPLACE FUNCTION update_updated_at()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = NOW();
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_dictionary_updated_at
+    BEFORE UPDATE ON dictionary_entries
+    FOR EACH ROW
+    EXECUTE FUNCTION update_updated_at();
+
+-- ============================================
+-- 2. PHRASES TABLE
 -- ============================================
 CREATE TABLE IF NOT EXISTS phrases (
     id SERIAL PRIMARY KEY,
