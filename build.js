@@ -453,7 +453,7 @@ function build() {
         console.log('\n📖 Generating individual dictionary entry pages...');
         const { execSync } = require('child_process');
         try {
-            execSync('node tools/generate-entry-pages.js', { stdio: 'inherit' });
+            execSync('node tools/generators/generate-entry-pages.js', { stdio: 'inherit' });
         } catch (error) {
             console.error('⚠️  Warning: Could not generate entry pages:', error.message);
         }
@@ -461,7 +461,7 @@ function build() {
         // Generate sitemap with all pages
         console.log('\n🗺️  Generating sitemap.xml...');
         try {
-            execSync('node tools/generate-sitemap.js', { stdio: 'inherit' });
+            execSync('node tools/generators/generate-sitemap.js', { stdio: 'inherit' });
         } catch (error) {
             console.error('⚠️  Warning: Could not generate sitemap:', error.message);
         }

@@ -10,7 +10,7 @@ const path = require('path');
 
 // Load master data
 const masterData = JSON.parse(
-    fs.readFileSync(path.join(__dirname, '../data/master/pidgin-master.json'), 'utf8')
+    fs.readFileSync(path.join(__dirname, '../../data/master/pidgin-master.json'), 'utf8')
 );
 
 // Helper: Create URL-friendly slug
@@ -183,7 +183,7 @@ console.log('🗺️  Generating sitemap.xml...\n');
 const { xml, entryCount } = generateSitemap();
 
 // Write sitemap
-const outputPath = path.join(__dirname, '../public/sitemap.xml');
+const outputPath = path.join(__dirname, '../../public/sitemap.xml');
 fs.writeFileSync(outputPath, xml, 'utf8');
 
 console.log('✅ Sitemap generated successfully!');
