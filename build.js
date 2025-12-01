@@ -321,12 +321,15 @@ function copyDataFiles() {
     }
 
     // Copy data files from data/content/ directory (new organized structure)
+    // NOTE: Most content data has been migrated to Supabase and archived
+    // Only copy files that still exist (not migrated yet)
     const contentDataDir = 'data/content';
     if (fs.existsSync(contentDataDir)) {
         const contentDataFiles = [
-            { src: `${contentDataDir}/phrases-data.js`, dest: 'public/js/data/phrases-data.js' },
-            { src: `${contentDataDir}/stories-data.js`, dest: 'public/js/data/stories-data.js' },
-            { src: `${contentDataDir}/pickup-lines-data.js`, dest: 'public/js/data/pickup-lines-data.js' }
+            // These files moved to archive/data-migrated-to-supabase/ - using Supabase API now
+            // { src: `${contentDataDir}/phrases-data.js`, dest: 'public/js/data/phrases-data.js' },
+            // { src: `${contentDataDir}/stories-data.js`, dest: 'public/js/data/stories-data.js' },
+            // { src: `${contentDataDir}/pickup-lines-data.js`, dest: 'public/js/data/pickup-lines-data.js' }
         ];
 
         contentDataFiles.forEach(({ src, dest }) => {
@@ -340,10 +343,11 @@ function copyDataFiles() {
     }
 
     // Copy generator data files from src/js/data/ directory
+    // NOTE: pickup-line-generator-data.js migrated to Supabase and archived
     const srcJsDataDir = 'src/js/data';
     if (fs.existsSync(srcJsDataDir)) {
         const srcJsDataFiles = [
-            { src: `${srcJsDataDir}/pickup-line-generator-data.js`, dest: 'public/js/data/pickup-line-generator-data.js' }
+            // { src: `${srcJsDataDir}/pickup-line-generator-data.js`, dest: 'public/js/data/pickup-line-generator-data.js' }
         ];
 
         srcJsDataFiles.forEach(({ src, dest }) => {
