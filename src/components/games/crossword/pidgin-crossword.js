@@ -11,7 +11,11 @@ class PidginCrossword {
         this.completedWords = new Set();
 
         this.initElements();
-        this.loadPuzzle();
+        this.init();
+    }
+
+    async init() {
+        await this.loadPuzzle();
         this.attachEventListeners();
         this.loadProgress();
     }
@@ -41,17 +45,34 @@ class PidginCrossword {
         this.completionModal = document.getElementById('completion-modal');
     }
 
-    loadPuzzle() {
-        // Get daily puzzle
-        this.puzzle = crosswordPuzzles.getDailyPuzzle();
+    async loadPuzzle() {
+        try {
+            // Get daily puzzle from Supabase API
+            this.puzzle = await window.supabaseAPI.getDailyCrosswordPuzzle();
 
-        // Update UI
-        this.puzzleTitle.textContent = this.puzzle.title;
-        this.puzzleDescription.textContent = this.puzzle.description;
+            if (!this.puzzle) {
+                throw new Error('No puzzle available');
+            }
 
-        // Build grid
-        this.buildGrid();
-        this.buildClues();
+            // Update UI
+            this.puzzleTitle.textContent = this.puzzle.title;
+            this.puzzleDescription.textContent = this.puzzle.description;
+
+            // Build grid
+            this.buildGrid();
+            this.buildClues();
+        } catch (error) {
+            console.error('Error loading puzzle:', error);
+            this.showError('Failed to load puzzle. Please refresh the page.');
+        }
+    }
+
+    showError(message) {
+        this.container.innerHTML = `
+            <div class="bg-red-100 border-l-4 border-red-500 p-4 rounded-r-lg">
+                <p class="text-red-800">${message}</p>
+            </div>
+        `;
     }
 
     buildGrid() {

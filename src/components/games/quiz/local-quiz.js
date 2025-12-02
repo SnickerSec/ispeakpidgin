@@ -5,12 +5,47 @@ class LocalQuiz {
         this.currentQuestionIndex = 0;
         this.score = 0;
         this.selectedAnswers = [];
-        this.allQuestions = localQuizData.questions;
-        this.questions = this.selectRandomQuestions(5); // Select 5 random questions
-        this.totalQuestions = this.questions.length;
+        this.allQuestions = [];
+        this.questions = [];
+        this.totalQuestions = 0;
 
         this.initElements();
+        this.init();
+    }
+
+    async init() {
+        await this.loadQuestions();
         this.attachEventListeners();
+    }
+
+    async loadQuestions() {
+        try {
+            // Load questions from Supabase API
+            const data = await window.supabaseAPI.loadQuizQuestions();
+            this.allQuestions = data.questions || [];
+
+            if (this.allQuestions.length === 0) {
+                throw new Error('No questions available');
+            }
+
+            // Select 5 random questions
+            this.questions = this.selectRandomQuestions(5);
+            this.totalQuestions = this.questions.length;
+        } catch (error) {
+            console.error('Error loading quiz questions:', error);
+            this.showError('Failed to load quiz questions. Please refresh the page.');
+        }
+    }
+
+    showError(message) {
+        const startScreen = document.getElementById('start-screen');
+        if (startScreen) {
+            startScreen.innerHTML = `
+                <div class="bg-red-100 border-l-4 border-red-500 p-4 rounded-r-lg">
+                    <p class="text-red-800">${message}</p>
+                </div>
+            `;
+        }
     }
 
     // Randomly select N questions from the pool
@@ -204,8 +239,63 @@ class LocalQuiz {
     }
 
     getResultLevel(score) {
-        const maxPossibleScore = 120; // 12 questions × 10 points each
-        const results = localQuizData.results;
+        const maxPossibleScore = this.totalQuestions * 10; // N questions × 10 points each
+
+        // Define result levels
+        const results = [
+            {
+                level: "Fresh Off Da Boat",
+                title: "Malihini Status",
+                emoji: "✈️",
+                minScore: 0,
+                maxScore: 20,
+                description: "Ho brah, you stay need learn more about da local kine! No worry, everybody gotta start somewhere.",
+                tips: [
+                    "Check out da dictionary fo learn more pidgin words",
+                    "Read some local stories fo get da feel",
+                    "Practice wit friends who know pidgin"
+                ]
+            },
+            {
+                level: "Tourist",
+                title: "Learning Da Kine",
+                emoji: "🌺",
+                minScore: 21,
+                maxScore: 30,
+                description: "Not bad! You know some tings, but still get plenny fo learn bout da islands.",
+                tips: [
+                    "Keep practicing everyday pidgin phrases",
+                    "Watch local movies and shows",
+                    "Talk story wit locals when you can"
+                ]
+            },
+            {
+                level: "Part-Time Local",
+                title: "Getting There!",
+                emoji: "🤙",
+                minScore: 31,
+                maxScore: 40,
+                description: "Eh, you stay catch on! You know nuff fo get by at da beach and grindz spots.",
+                tips: [
+                    "Learn more about Hawaiian culture and history",
+                    "Try cook some local food",
+                    "Explore different areas and their unique pidgin"
+                ]
+            },
+            {
+                level: "Born and Raised",
+                title: "100% Island Kine!",
+                emoji: "🌴",
+                minScore: 41,
+                maxScore: 50,
+                description: "Chee hoo! You DA LOCAL! Born and raised, yeah? You know your grindz, your slippahs, and your pidgin!",
+                tips: [
+                    "Share your knowledge wit da malihinis",
+                    "Keep da culture alive by teaching others",
+                    "Stay proud of where you from!"
+                ]
+            }
+        ];
 
         for (let result of results) {
             if (score >= result.minScore && score <= result.maxScore) {

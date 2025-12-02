@@ -10,19 +10,33 @@
     let currentLine = null;
 
     // Initialize generator when DOM is loaded
-    document.addEventListener('DOMContentLoaded', () => {
-        // Initialize the generator
-        if (typeof PickupLineGenerator !== 'undefined' && typeof pickupLineComponents !== 'undefined') {
-            generator = new PickupLineGenerator(pickupLineComponents);
-            console.log('✅ Pickup Line Generator initialized');
-        } else {
-            console.error('❌ Generator dependencies not loaded');
-            showError('Failed to load generator. Please refresh the page.');
-            return;
-        }
+    document.addEventListener('DOMContentLoaded', async () => {
+        try {
+            // Load pickup line components from Supabase API
+            const data = await window.supabaseAPI.loadPickupLineComponents();
+            const components = data.components;
 
-        // Setup event listeners
-        setupEventListeners();
+            if (!components) {
+                throw new Error('No components available');
+            }
+
+            // Store components globally for other functions
+            window.pickupLineComponents = components;
+
+            // Initialize the generator
+            if (typeof PickupLineGenerator !== 'undefined') {
+                generator = new PickupLineGenerator(components);
+                console.log('✅ Pickup Line Generator initialized with Supabase data');
+            } else {
+                throw new Error('PickupLineGenerator class not loaded');
+            }
+
+            // Setup event listeners
+            setupEventListeners();
+        } catch (error) {
+            console.error('❌ Generator initialization error:', error);
+            showError('Failed to load generator. Please refresh the page.');
+        }
     });
 
     function setupEventListeners() {

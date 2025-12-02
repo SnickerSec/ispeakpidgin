@@ -288,11 +288,14 @@ class SupabaseAPILoader {
 
     transformQuizResponse(data) {
         const questions = (data.questions || data).map(q => ({
+            id: q.id,
             question: q.question,
             questionType: q.question_type || q.questionType || 'multiple_choice',
             options: q.options || [],
             correctAnswer: q.correct_answer || q.correctAnswer,
             explanation: q.explanation,
+            description: q.explanation, // Alias for compatibility
+            image: q.image || '❓', // Default emoji
             category: q.category || 'general',
             difficulty: q.difficulty || 'beginner',
             points: q.points || 10,
@@ -309,6 +312,167 @@ class SupabaseAPILoader {
             return { questions: window.localQuizQuestions };
         }
         return { questions: [] };
+    }
+
+    // ============================================
+    // CROSSWORD PUZZLES API
+    // ============================================
+
+    async loadCrosswordPuzzles(options = {}) {
+        try {
+            const data = await this.fetchWithCache('/crossword/puzzles', { params: options });
+            return this.transformCrosswordPuzzlesResponse(data);
+        } catch (error) {
+            console.warn('Falling back to local crossword puzzles');
+            return this.getLocalCrosswordPuzzles();
+        }
+    }
+
+    async getDailyCrosswordPuzzle() {
+        try {
+            const data = await this.fetchWithCache('/crossword/daily');
+            return this.transformCrosswordPuzzle(data.puzzle || data);
+        } catch (error) {
+            console.warn('Falling back to local daily puzzle');
+            const local = this.getLocalCrosswordPuzzles();
+            return this.getDailyPuzzleFromLocal(local.puzzles || []);
+        }
+    }
+
+    transformCrosswordPuzzlesResponse(data) {
+        const puzzles = (data.puzzles || data).map(p => this.transformCrosswordPuzzle(p));
+        return { puzzles, metadata: data.metadata };
+    }
+
+    transformCrosswordPuzzle(p) {
+        return {
+            id: p.puzzle_id || p.id,
+            title: p.title,
+            description: p.description,
+            theme: p.theme,
+            difficulty: p.difficulty || 'beginner',
+            size: p.grid_size || p.size || 10,
+            grid: p.grid || [],
+            words: {
+                across: p.words_across || p.words?.across || [],
+                down: p.words_down || p.words?.down || []
+            },
+            usedOn: p.used_on || p.usedOn
+        };
+    }
+
+    getLocalCrosswordPuzzles() {
+        if (typeof crosswordPuzzles !== 'undefined') {
+            return { puzzles: crosswordPuzzles };
+        }
+        if (typeof window !== 'undefined' && window.crosswordPuzzles) {
+            return { puzzles: window.crosswordPuzzles };
+        }
+        return { puzzles: [] };
+    }
+
+    getDailyPuzzleFromLocal(puzzles) {
+        if (puzzles.length === 0) return null;
+        const today = new Date();
+        const daysSinceEpoch = Math.floor(today.getTime() / (1000 * 60 * 60 * 24));
+        const puzzleIndex = daysSinceEpoch % puzzles.length;
+        return puzzles[puzzleIndex];
+    }
+
+    // ============================================
+    // PICKUP LINE COMPONENTS API
+    // ============================================
+
+    async loadPickupLineComponents(options = {}) {
+        try {
+            const data = await this.fetchWithCache('/pickup-components', { params: options });
+            return this.transformPickupComponentsResponse(data);
+        } catch (error) {
+            console.warn('Falling back to local pickup line components');
+            return this.getLocalPickupLineComponents();
+        }
+    }
+
+    async getRandomPickupLineComponents(options = {}) {
+        try {
+            const data = await this.fetchWithCache('/pickup-components/random', { params: options });
+            return this.transformPickupComponentsResponse(data);
+        } catch (error) {
+            console.warn('Falling back to local random components');
+            return this.getLocalPickupLineComponents();
+        }
+    }
+
+    transformPickupComponentsResponse(data) {
+        // Check if data has pre-grouped components (from API)
+        if (data.grouped) {
+            return {
+                components: {
+                    openers: data.grouped.opener || [],
+                    compliments: data.grouped.compliment || [],
+                    actions: data.grouped.action || [],
+                    completedLines: data.grouped.complete || [],
+                    prettyPhrases: data.grouped.flavor || {},
+                    placesToEat: data.grouped.places_to_eat || [],
+                    landmarks: data.grouped.landmark || [],
+                    hikingTrails: data.grouped.hiking_trail || []
+                },
+                metadata: data.metadata || { count: data.count }
+            };
+        }
+
+        // Fallback: transform array of components
+        const components = data.components || data;
+        const grouped = {
+            openers: [],
+            compliments: [],
+            actions: [],
+            completedLines: [],
+            prettyPhrases: {},
+            placesToEat: [],
+            landmarks: [],
+            hikingTrails: []
+        };
+
+        if (Array.isArray(components)) {
+            components.forEach(c => {
+                const item = {
+                    pidgin: c.pidgin || c.pidgin_text,
+                    english: c.english || c.english_translation,
+                    pronunciation: c.pronunciation,
+                    category: c.category,
+                    tags: c.tags || []
+                };
+
+                const type = c.component_type || c.componentType;
+                if (type === 'opener') grouped.openers.push(item);
+                else if (type === 'compliment') grouped.compliments.push(item);
+                else if (type === 'action') grouped.actions.push(item);
+                else if (type === 'complete_line' || type === 'complete') grouped.completedLines.push(item);
+            });
+        } else {
+            // Already grouped (local fallback)
+            grouped.openers = components.openers || [];
+            grouped.compliments = components.compliments || [];
+            grouped.actions = components.actions || [];
+            grouped.completedLines = components.completedLines || components.complete_lines || [];
+            grouped.prettyPhrases = components.prettyPhrases || {};
+            grouped.placesToEat = components.placesToEat || [];
+            grouped.landmarks = components.landmarks || [];
+            grouped.hikingTrails = components.hikingTrails || [];
+        }
+
+        return { components: grouped, metadata: data.metadata };
+    }
+
+    getLocalPickupLineComponents() {
+        if (typeof pickupLineComponents !== 'undefined') {
+            return { components: pickupLineComponents };
+        }
+        if (typeof window !== 'undefined' && window.pickupLineComponents) {
+            return { components: window.pickupLineComponents };
+        }
+        return { components: { openers: [], compliments: [], actions: [], completedLines: [] } };
     }
 
     // ============================================
