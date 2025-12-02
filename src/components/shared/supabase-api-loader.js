@@ -315,6 +315,88 @@ class SupabaseAPILoader {
     }
 
     // ============================================
+    // WORDLE API
+    // ============================================
+
+    async loadWordleWords(options = {}) {
+        try {
+            const data = await this.fetchWithCache('/wordle/words', { params: options });
+            return this.transformWordleWordsResponse(data);
+        } catch (error) {
+            console.warn('Falling back to local wordle words');
+            return this.getLocalWordleWords();
+        }
+    }
+
+    async getDailyWordleWord() {
+        try {
+            const data = await this.fetchWithCache('/wordle/daily');
+            return {
+                word: data.word,
+                meaning: data.meaning,
+                pronunciation: data.pronunciation,
+                difficulty: data.difficulty,
+                date: data.date,
+                dayNumber: this.calculateDayNumber(data.date)
+            };
+        } catch (error) {
+            console.warn('Falling back to local daily wordle word');
+            const local = this.getLocalWordleWords();
+            return this.getDailyWordFromLocal(local.words || []);
+        }
+    }
+
+    async validateWordleWord(word) {
+        try {
+            const data = await this.fetchWithCache(`/wordle/validate/${word.toUpperCase()}`);
+            return data.valid || false;
+        } catch (error) {
+            console.warn('Falling back to local word validation');
+            const local = this.getLocalWordleWords();
+            return (local.words || []).some(w => w.toUpperCase() === word.toUpperCase());
+        }
+    }
+
+    transformWordleWordsResponse(data) {
+        const words = data.words || data;
+        return {
+            words: Array.isArray(words) ? words : [],
+            metadata: data.metadata
+        };
+    }
+
+    getLocalWordleWords() {
+        if (typeof pidginWordleData !== 'undefined' && pidginWordleData.words) {
+            return { words: pidginWordleData.words };
+        }
+        if (typeof window !== 'undefined' && window.pidginWordleData?.words) {
+            return { words: window.pidginWordleData.words };
+        }
+        return { words: [] };
+    }
+
+    getDailyWordFromLocal(words) {
+        if (words.length === 0) return null;
+        const today = new Date();
+        const dayNumber = this.calculateDayNumber();
+        const wordIndex = dayNumber % words.length;
+        return {
+            word: words[wordIndex],
+            dayNumber: dayNumber,
+            date: today.toISOString().split('T')[0]
+        };
+    }
+
+    calculateDayNumber(dateString) {
+        // Calculate day number from epoch (Jan 1, 2024 as day 1)
+        const epoch = new Date('2024-01-01');
+        const targetDate = dateString ? new Date(dateString) : new Date();
+        const diffTime = targetDate.getTime() - epoch.getTime();
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays + 1;
+    }
+
+    // ============================================
     // CROSSWORD PUZZLES API
     // ============================================
 

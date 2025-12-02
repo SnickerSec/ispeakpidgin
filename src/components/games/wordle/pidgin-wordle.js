@@ -8,29 +8,88 @@ class PidginWordle {
         this.guesses = [];
         this.gameOver = false;
         this.dailyWord = null;
+        this.wordData = null; // Store full word data including dayNumber
         this.keyStates = {}; // Track keyboard key states
 
-        this.initGame();
+        this.init();
+    }
+
+    async init() {
+        await this.initGame();
         this.initElements();
         this.attachEventListeners();
         this.loadGameState();
         this.startCountdown();
     }
 
-    initGame() {
-        // Get today's daily word
-        const wordData = pidginWordleData.getDailyWord();
-        this.dailyWord = wordData.word;
+    async initGame() {
+        try {
+            // Get today's daily word from Supabase API
+            this.wordData = await window.supabaseAPI.getDailyWordleWord();
 
-        // Update UI with day number
-        const dayNumberEl = document.getElementById('day-number');
-        if (dayNumberEl) {
-            dayNumberEl.textContent = wordData.dayNumber;
+            if (!this.wordData || !this.wordData.word) {
+                throw new Error('No daily word available');
+            }
+
+            this.dailyWord = this.wordData.word;
+
+            // Update UI with day number
+            const dayNumberEl = document.getElementById('day-number');
+            if (dayNumberEl) {
+                dayNumberEl.textContent = this.wordData.dayNumber;
+            }
+
+            console.log('Game initialized. Day:', this.wordData.dayNumber);
+            // Don't log the word in production!
+            // console.log('Today\'s word:', this.dailyWord);
+        } catch (error) {
+            console.error('Error loading daily word:', error);
+            this.showError('Failed to load today\'s puzzle. Please refresh the page.');
         }
+    }
 
-        console.log('Game initialized. Day:', wordData.dayNumber);
-        // Don't log the word in production!
-        // console.log('Today\'s word:', this.dailyWord);
+    showError(message) {
+        this.showToast(message, 3000);
+    }
+
+    async isValidGuess(word) {
+        // Use Supabase API to validate word
+        return await window.supabaseAPI.validateWordleWord(word);
+    }
+
+    checkGuess(guess, solution) {
+        // Check each letter in the guess against the solution
+        const result = [];
+        const solutionLetters = solution.split('');
+        const guessLetters = guess.split('');
+        const letterCounts = {};
+
+        // Count letters in solution
+        solutionLetters.forEach(letter => {
+            letterCounts[letter] = (letterCounts[letter] || 0) + 1;
+        });
+
+        // First pass: mark correct letters (green)
+        guessLetters.forEach((letter, i) => {
+            if (letter === solutionLetters[i]) {
+                result[i] = 'correct';
+                letterCounts[letter]--;
+            }
+        });
+
+        // Second pass: mark present letters (yellow) and absent (gray)
+        guessLetters.forEach((letter, i) => {
+            if (result[i] === 'correct') return; // Already marked correct
+
+            if (solutionLetters.includes(letter) && letterCounts[letter] > 0) {
+                result[i] = 'present';
+                letterCounts[letter]--;
+            } else {
+                result[i] = 'absent';
+            }
+        });
+
+        return result;
     }
 
     initElements() {
@@ -165,14 +224,15 @@ class PidginWordle {
         }
 
         // Check if guess is valid
-        if (!pidginWordleData.isValidGuess(this.currentGuess)) {
+        const isValid = await this.isValidGuess(this.currentGuess);
+        if (!isValid) {
             this.showToast('Not in word list!');
             this.shakeRow(this.currentRow);
             return;
         }
 
         // Check the guess against the solution
-        const result = pidginWordleData.checkGuess(this.currentGuess, this.dailyWord);
+        const result = this.checkGuess(this.currentGuess, this.dailyWord);
 
         // Animate and color the tiles
         await this.revealTiles(result);
@@ -360,9 +420,8 @@ class PidginWordle {
 
     // Stats and Storage
     saveGameState() {
-        const wordData = pidginWordleData.getDailyWord();
         const gameState = {
-            dayNumber: wordData.dayNumber,
+            dayNumber: this.wordData.dayNumber,
             guesses: this.guesses,
             currentRow: this.currentRow,
             gameOver: this.gameOver,
@@ -377,10 +436,9 @@ class PidginWordle {
         if (!saved) return;
 
         const gameState = JSON.parse(saved);
-        const wordData = pidginWordleData.getDailyWord();
 
         // Check if it's the same day
-        if (gameState.dayNumber !== wordData.dayNumber) {
+        if (gameState.dayNumber !== this.wordData.dayNumber) {
             // New day, start fresh
             localStorage.removeItem('pidginWordleGame');
             return;
@@ -459,7 +517,6 @@ class PidginWordle {
     }
 
     shareResults() {
-        const wordData = pidginWordleData.getDailyWord();
         const guessCount = this.guesses.length;
         const won = this.gameOver && this.guesses[this.guesses.length - 1].word === this.dailyWord;
 
@@ -479,7 +536,7 @@ class PidginWordle {
         });
 
         const resultText = won ? `${guessCount}/6` : 'X/6';
-        const shareText = `Pidgin Wordle #${wordData.dayNumber} ${resultText}\n\n${emojiGrid}\nPlay at ChokePidgin.com! 🌺`;
+        const shareText = `Pidgin Wordle #${this.wordData.dayNumber} ${resultText}\n\n${emojiGrid}\nPlay at ChokePidgin.com! 🌺`;
 
         // Try native share API first (mobile)
         if (navigator.share) {

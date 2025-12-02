@@ -21,17 +21,32 @@ These pages need to be updated to use Supabase API loaders instead of local data
 4. Test each game works with Supabase data
 
 ### Files to Update
-- [ ] src/pages/pidgin-crossword.html
-- [ ] src/pages/how-local-you-stay.html
-- [ ] src/pages/pidgin-wordle.html
-- [ ] src/pages/pickup-line-generator.html
+- [x] src/pages/pidgin-crossword.html - ✅ COMPLETED
+- [x] src/pages/how-local-you-stay.html - ✅ COMPLETED
+- [x] src/pages/pidgin-wordle.html - ✅ COMPLETED
+- [x] src/pages/pickup-line-generator.html - ✅ COMPLETED
 
-### Next Steps
-1. Update pages to use supabase-api-loader.js
-2. Modify game JavaScript to fetch data from API
-3. Test all games work correctly
-4. Remove old data file references
-5. Rebuild and verify
+### Completed Steps
+1. ✅ Updated all 4 pages to use supabase-api-loader.js
+2. ✅ Modified all game JavaScript to fetch from Supabase API
+3. ✅ Added Wordle API methods to supabase-api-loader.js:
+   - `loadWordleWords()` - Load all Wordle words
+   - `getDailyWordleWord()` - Get today's daily word
+   - `validateWordleWord()` - Validate user guesses
+4. ✅ Updated pidgin-wordle.js with async/await pattern
+5. ✅ Implemented checkGuess() logic directly in game class
+6. ✅ Tested all games work correctly with Supabase API
+7. ✅ Removed all old data file references
+8. ✅ Rebuilt and verified
 
 ## Status
-**IN PROGRESS** - Testing phase identified these issues
+**✅ COMPLETE** - All 4 games successfully migrated to Supabase API!
+
+### Migration Complete
+All game pages now use Supabase as the primary data source:
+- ✅ Crossword puzzle - Uses `/api/crossword/daily`
+- ✅ Quiz - Uses `/api/quiz/questions`
+- ✅ Pickup line generator - Uses `/api/pickup-components`
+- ✅ Wordle - Uses `/api/wordle/daily` and `/api/wordle/validate/:word`
+
+Archived data files serve only as historical reference and fallback.
