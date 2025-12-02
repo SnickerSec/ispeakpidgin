@@ -558,6 +558,160 @@ class SupabaseAPILoader {
     }
 
     // ============================================
+    // DICTIONARY API
+    // ============================================
+
+    async loadDictionaryEntries(options = {}) {
+        try {
+            const data = await this.fetchWithCache('/dictionary', { params: options });
+            return this.transformDictionaryResponse(data);
+        } catch (error) {
+            console.warn('Falling back to local dictionary data');
+            return this.getLocalDictionary();
+        }
+    }
+
+    async searchDictionary(query, options = {}) {
+        try {
+            const params = { q: query, ...options };
+            const data = await this.fetchWithCache('/dictionary/search', { params });
+            return data.results || data;
+        } catch (error) {
+            console.warn('Falling back to local search');
+            return this.localSearch(query);
+        }
+    }
+
+    async getDictionaryWord(pidginWord) {
+        try {
+            const data = await this.fetchWithCache(`/dictionary/word/${encodeURIComponent(pidginWord)}`);
+            return this.transformDictionaryEntry(data);
+        } catch (error) {
+            console.warn('Falling back to local word lookup');
+            const local = this.getLocalDictionary();
+            return local.entries.find(e => e.pidgin.toLowerCase() === pidginWord.toLowerCase());
+        }
+    }
+
+    async getDictionaryStats() {
+        try {
+            return await this.fetchWithCache('/dictionary/stats');
+        } catch (error) {
+            console.warn('Falling back to local stats');
+            const local = this.getLocalDictionary();
+            return {
+                totalEntries: local.entries.length,
+                lastUpdated: new Date().toISOString()
+            };
+        }
+    }
+
+    async getRandomDictionaryWords(count = 5, difficulty = null) {
+        try {
+            const params = { count };
+            if (difficulty) params.difficulty = difficulty;
+            const data = await this.fetchWithCache('/dictionary/random', { params });
+            return (data.entries || data).map(e => this.transformDictionaryEntry(e));
+        } catch (error) {
+            console.warn('Falling back to local random words');
+            const local = this.getLocalDictionary();
+            const pool = difficulty
+                ? local.entries.filter(e => e.difficulty === difficulty)
+                : local.entries;
+            return this.shuffleArray(pool).slice(0, count);
+        }
+    }
+
+    transformDictionaryResponse(data) {
+        const entries = (data.entries || data).map(e => this.transformDictionaryEntry(e));
+        return {
+            entries,
+            metadata: data.metadata || {
+                totalEntries: entries.length,
+                lastUpdated: new Date().toISOString()
+            }
+        };
+    }
+
+    transformDictionaryEntry(e) {
+        return {
+            id: e.id,
+            pidgin: e.pidgin,
+            english: e.english,
+            pronunciation: e.pronunciation,
+            category: e.category,
+            examples: e.examples || [],
+            usage: e.usage,
+            origin: e.origin,
+            difficulty: e.difficulty || 'beginner',
+            frequency: e.frequency || 'medium',
+            tags: e.tags || [],
+            audioExample: e.audio_example || e.audioExample
+        };
+    }
+
+    getLocalDictionary() {
+        if (typeof window.pidginData !== 'undefined') {
+            return { entries: window.pidginData.entries || window.pidginData };
+        }
+        return { entries: [] };
+    }
+
+    localSearch(query) {
+        const local = this.getLocalDictionary();
+        const q = query.toLowerCase();
+        return local.entries.filter(e =>
+            e.pidgin.toLowerCase().includes(q) ||
+            (e.english && e.english.some(eng => eng.toLowerCase().includes(q)))
+        );
+    }
+
+    // ============================================
+    // TRANSLATION API (For Translator Page)
+    // ============================================
+
+    async translate(text, direction = 'english-to-pidgin') {
+        try {
+            const endpoint = '/translate';
+            const response = await fetch(this.apiBase + endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text, direction })
+            });
+            if (!response.ok) throw new Error(`API error: ${response.status}`);
+            return await response.json();
+        } catch (error) {
+            console.warn('Translation API failed, using local fallback');
+            return this.localTranslate(text, direction);
+        }
+    }
+
+    localTranslate(text, direction) {
+        // Simple local fallback - search for matching words
+        const local = this.getLocalDictionary();
+        const words = text.toLowerCase().split(/\s+/);
+        const translations = [];
+
+        words.forEach(word => {
+            if (direction === 'english-to-pidgin') {
+                const match = local.entries.find(e =>
+                    e.english && e.english.some(eng => eng.toLowerCase() === word)
+                );
+                if (match) translations.push(match.pidgin);
+            } else {
+                const match = local.entries.find(e => e.pidgin.toLowerCase() === word);
+                if (match && match.english) translations.push(match.english[0]);
+            }
+        });
+
+        return {
+            translation: translations.join(' '),
+            confidence: translations.length / words.length,
+            matches: translations.length
+        };
+    }
+
+    // ============================================
     // UTILITY METHODS
     // ============================================
 
