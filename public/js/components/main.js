@@ -1,5 +1,13 @@
 // Main JavaScript file for Pidgin Pal
 
+// Performance: Pause animations when tab is hidden (saves battery/CPU)
+document.addEventListener('visibilitychange', function() {
+    const isPaused = document.hidden;
+    document.body.style.animationPlayState = isPaused ? 'paused' : 'running';
+    // Also pause the ::before pseudo-element via CSS variable
+    document.documentElement.style.setProperty('--animation-play-state', isPaused ? 'paused' : 'running');
+});
+
 // Handle browser extension errors gracefully
 window.addEventListener('error', function(event) {
     // Suppress browser extension errors that don't affect our app

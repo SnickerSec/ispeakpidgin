@@ -1,5 +1,10 @@
 /* Custom styles for Pidgin Pal - Hawaiian Theme */
 
+/* Performance: CSS variable for animation play state (controlled by JS visibility API) */
+:root {
+    --animation-play-state: running;
+}
+
 /* Daily phrase animations and transitions */
 #daily-phrase {
     transition: all 0.3s ease-in-out;
@@ -57,6 +62,7 @@ body::before {
     background-position: top, bottom;
     background-repeat: repeat-x;
     animation: waves 10s linear infinite;
+    animation-play-state: var(--animation-play-state);
     pointer-events: none;
     z-index: 1;
 }
