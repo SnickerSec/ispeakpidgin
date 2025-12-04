@@ -123,7 +123,15 @@ function processHTMLFiles() {
         'what-does-buss-up-mean.html',
         'what-does-mayjah-mean.html',
         'what-does-poho-mean.html',
-        'what-does-faka-mean.html'
+        'what-does-faka-mean.html',
+        // Additional SEO Pages - Round 3
+        'what-does-small-kine-mean.html',
+        'what-does-pake-mean.html',
+        'what-does-buggah-mean.html',
+        'what-does-rajah-mean.html',
+        'what-does-lolo-mean.html',
+        'what-does-hamajang-mean.html',
+        'what-does-humbug-mean.html'
     ];
 
     // Load shared navigation and footer templates
