@@ -552,7 +552,8 @@ document.addEventListener('DOMContentLoaded', function() {
                                     </div>
                                 </div>
 
-                                <!-- Audio Example -->
+                                <!-- Audio Example (only show if exists) -->
+                                ${story.audioExample ? `
                                 <div class="p-4 bg-gradient-to-r from-pink-50 to-red-50 rounded-xl">
                                     <h3 class="text-lg font-bold text-red-700 mb-2">
                                         🔊 Listen & Learn
@@ -561,6 +562,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                         "${story.audioExample}"
                                     </p>
                                 </div>
+                                ` : ''}
                             </div>
 
                             <!-- Read More Button -->
