@@ -3,15 +3,15 @@
 /**
  * Generate Sitemap with All Dictionary Entry Pages
  * Creates comprehensive sitemap.xml for SEO
+ * Fetches data from Supabase API
  */
 
 const fs = require('fs');
 const path = require('path');
 
-// Load master data
-const masterData = JSON.parse(
-    fs.readFileSync(path.join(__dirname, '../../data/master/pidgin-master.json'), 'utf8')
-);
+// Supabase configuration
+const SUPABASE_URL = 'https://jfzgzjgdptowfbtljvyp.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impmemd6amdkcHRvd2ZidGxqdnlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzNzk0OTMsImV4cCI6MjA3OTk1NTQ5M30.xPubHKR0PFEic52CffEBVCwmfPz-AiqbwFk39ulwydM';
 
 // Helper: Create URL-friendly slug
 function createSlug(text) {
@@ -28,8 +28,49 @@ function getCurrentDate() {
     return now.toISOString().split('T')[0];
 }
 
+// Fetch all dictionary entries from Supabase
+async function fetchDictionaryEntries() {
+    console.log('🔄 Fetching dictionary entries from Supabase...');
+
+    const allEntries = [];
+    const pageSize = 1000;
+    let offset = 0;
+    let hasMore = true;
+
+    while (hasMore) {
+        const url = `${SUPABASE_URL}/rest/v1/dictionary_entries?select=pidgin,frequency,difficulty&order=pidgin.asc&offset=${offset}&limit=${pageSize}`;
+
+        const response = await fetch(url, {
+            headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Supabase API error: ${response.status} ${response.statusText}`);
+        }
+
+        const entries = await response.json();
+
+        if (entries.length === 0) {
+            hasMore = false;
+        } else {
+            allEntries.push(...entries);
+            offset += pageSize;
+
+            if (entries.length < pageSize) {
+                hasMore = false;
+            }
+        }
+    }
+
+    console.log(`✅ Fetched ${allEntries.length} entries from Supabase\n`);
+    return allEntries;
+}
+
 // Generate sitemap XML
-function generateSitemap() {
+function generateSitemap(entries) {
     const baseUrl = 'https://chokepidgin.com';
     const currentDate = getCurrentDate();
 
@@ -140,7 +181,7 @@ function generateSitemap() {
     // Add individual dictionary entry pages
     xml += `    <!-- Individual Dictionary Entry Pages -->\n`;
 
-    masterData.entries.forEach(entry => {
+    entries.forEach(entry => {
         const slug = createSlug(entry.pidgin);
 
         // Skip duplicates
@@ -178,18 +219,34 @@ function generateSitemap() {
 }
 
 // Main execution
-console.log('🗺️  Generating sitemap.xml...\n');
+async function main() {
+    console.log('🗺️  Generating sitemap.xml...\n');
 
-const { xml, entryCount } = generateSitemap();
+    try {
+        const entries = await fetchDictionaryEntries();
 
-// Write sitemap
-const outputPath = path.join(__dirname, '../../public/sitemap.xml');
-fs.writeFileSync(outputPath, xml, 'utf8');
+        if (entries.length === 0) {
+            throw new Error('No dictionary entries found in Supabase');
+        }
 
-console.log('✅ Sitemap generated successfully!');
-console.log(`📄 Total URLs: ${entryCount + 12} (7 main pages + 5 blog pages + ${entryCount} dictionary entries)`);
-console.log(`📂 Output: ${outputPath}`);
-console.log(`\n🔗 Submit to search engines:`);
-console.log(`   - Google: https://search.google.com/search-console`);
-console.log(`   - Bing: https://www.bing.com/webmasters`);
-console.log(`   - Sitemap URL: https://chokepidgin.com/sitemap.xml`);
+        const { xml, entryCount } = generateSitemap(entries);
+
+        // Write sitemap
+        const outputPath = path.join(__dirname, '../../public/sitemap.xml');
+        fs.writeFileSync(outputPath, xml, 'utf8');
+
+        console.log('✅ Sitemap generated successfully!');
+        console.log(`📄 Total URLs: ${entryCount + 12} (7 main pages + 5 blog pages + ${entryCount} dictionary entries)`);
+        console.log(`📂 Output: ${outputPath}`);
+        console.log(`\n🔗 Submit to search engines:`);
+        console.log(`   - Google: https://search.google.com/search-console`);
+        console.log(`   - Bing: https://www.bing.com/webmasters`);
+        console.log(`   - Sitemap URL: https://chokepidgin.com/sitemap.xml`);
+
+    } catch (error) {
+        console.error('❌ Fatal error:', error.message);
+        process.exit(1);
+    }
+}
+
+main();

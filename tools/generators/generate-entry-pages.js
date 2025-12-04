@@ -3,15 +3,15 @@
 /**
  * Generate Individual Dictionary Entry Pages
  * Creates SEO-optimized pages for each dictionary entry
+ * Fetches data from Supabase API
  */
 
 const fs = require('fs');
 const path = require('path');
 
-// Load master data
-const masterData = JSON.parse(
-    fs.readFileSync(path.join(__dirname, '../../data/master/pidgin-master.json'), 'utf8')
-);
+// Supabase configuration
+const SUPABASE_URL = 'https://jfzgzjgdptowfbtljvyp.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impmemd6amdkcHRvd2ZidGxqdnlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzNzk0OTMsImV4cCI6MjA3OTk1NTQ5M30.xPubHKR0PFEic52CffEBVCwmfPz-AiqbwFk39ulwydM';
 
 // Output directory
 const outputDir = path.join(__dirname, '../../public/word');
@@ -32,6 +32,7 @@ function createSlug(text) {
 
 // Helper: Escape HTML
 function escapeHtml(text) {
+    if (!text) return '';
     const map = {
         '&': '&amp;',
         '<': '&lt;',
@@ -39,7 +40,49 @@ function escapeHtml(text) {
         '"': '&quot;',
         "'": '&#039;'
     };
-    return text.replace(/[&<>"']/g, m => map[m]);
+    return String(text).replace(/[&<>"']/g, m => map[m]);
+}
+
+// Fetch all dictionary entries from Supabase
+async function fetchDictionaryEntries() {
+    console.log('🔄 Fetching dictionary entries from Supabase...');
+
+    const allEntries = [];
+    const pageSize = 1000;
+    let offset = 0;
+    let hasMore = true;
+
+    while (hasMore) {
+        const url = `${SUPABASE_URL}/rest/v1/dictionary_entries?select=*&order=pidgin.asc&offset=${offset}&limit=${pageSize}`;
+
+        const response = await fetch(url, {
+            headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Supabase API error: ${response.status} ${response.statusText}`);
+        }
+
+        const entries = await response.json();
+
+        if (entries.length === 0) {
+            hasMore = false;
+        } else {
+            allEntries.push(...entries);
+            offset += pageSize;
+            console.log(`   Fetched ${allEntries.length} entries...`);
+
+            if (entries.length < pageSize) {
+                hasMore = false;
+            }
+        }
+    }
+
+    console.log(`✅ Fetched ${allEntries.length} total entries from Supabase\n`);
+    return allEntries;
 }
 
 // Helper: Find related terms (same category or similar tags)
@@ -51,7 +94,9 @@ function findRelatedTerms(entry, allEntries, limit = 6) {
             // Same category
             if (e.category === entry.category) score += 3;
             // Shared tags
-            const sharedTags = (entry.tags || []).filter(t => (e.tags || []).includes(t));
+            const entryTags = entry.tags || [];
+            const eTags = e.tags || [];
+            const sharedTags = entryTags.filter(t => eTags.includes(t));
             score += sharedTags.length;
             // Same difficulty
             if (e.difficulty === entry.difficulty) score += 1;
@@ -69,7 +114,8 @@ function findRelatedTerms(entry, allEntries, limit = 6) {
 function generateEntryPage(entry, relatedTerms) {
     const slug = createSlug(entry.pidgin);
     const pageTitle = `${entry.pidgin} - Hawaiian Pidgin Meaning & Usage | ChokePidgin`;
-    const englishMeanings = entry.english.join(', ');
+    const englishArray = Array.isArray(entry.english) ? entry.english : [entry.english];
+    const englishMeanings = englishArray.join(', ');
     const metaDescription = `Learn the meaning of "${entry.pidgin}" in Hawaiian Pidgin. ${englishMeanings}. Includes pronunciation, examples, and cultural context. Free Hawaiian slang dictionary.`;
 
     // Create schema markup
@@ -95,16 +141,20 @@ function generateEntryPage(entry, relatedTerms) {
         <section class="mt-12">
             <h2 class="text-2xl font-bold text-gray-800 mb-6">🌺 Related Words</h2>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                ${relatedTerms.map(related => `
+                ${relatedTerms.map(related => {
+                    const relatedEnglish = Array.isArray(related.english) ? related.english : [related.english];
+                    return `
                     <a href="/word/${createSlug(related.pidgin)}.html"
                        class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-4 hover:shadow-lg transition-shadow border-2 border-blue-200">
                         <h3 class="font-bold text-lg text-purple-600 mb-1">${escapeHtml(related.pidgin)}</h3>
-                        <p class="text-sm text-gray-600">${escapeHtml(related.english.slice(0, 2).join(', '))}</p>
+                        <p class="text-sm text-gray-600">${escapeHtml(relatedEnglish.slice(0, 2).join(', '))}</p>
                     </a>
-                `).join('')}
+                `}).join('')}
             </div>
         </section>
     ` : '';
+
+    const examplesArray = Array.isArray(entry.examples) ? entry.examples : (entry.examples ? [entry.examples] : []);
 
     const html = `<!DOCTYPE html>
 <html lang="en">
@@ -269,7 +319,7 @@ function generateEntryPage(entry, relatedTerms) {
 
             <div class="mb-4">
                 <span class="inline-block bg-gradient-to-r from-green-500 to-teal-500 text-white rounded-full px-6 py-2 text-lg font-semibold">
-                    ${escapeHtml(entry.category)}
+                    ${escapeHtml(entry.category || 'general')}
                 </span>
                 ${entry.difficulty ? `
                 <span class="inline-block bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full px-6 py-2 text-lg font-semibold ml-2">
@@ -287,7 +337,7 @@ function generateEntryPage(entry, relatedTerms) {
         <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
             <h2 class="text-2xl font-bold text-gray-800 mb-4">📖 Meaning</h2>
             <div class="space-y-3">
-                ${entry.english.map(meaning => `
+                ${englishArray.map(meaning => `
                     <div class="flex items-start">
                         <span class="text-green-500 mr-2 text-xl">•</span>
                         <span class="text-xl text-gray-700">${escapeHtml(meaning)}</span>
@@ -303,11 +353,11 @@ function generateEntryPage(entry, relatedTerms) {
         </section>
 
         <!-- Examples Section -->
-        ${entry.examples && entry.examples.length > 0 ? `
+        ${examplesArray.length > 0 ? `
         <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
             <h2 class="text-2xl font-bold text-gray-800 mb-4">💬 Examples</h2>
             <div class="space-y-4">
-                ${entry.examples.map(example => `
+                ${examplesArray.map(example => `
                     <div class="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-4 border-l-4 border-green-500">
                         <p class="text-lg text-gray-800 italic">"${escapeHtml(example)}"</p>
                     </div>
@@ -324,8 +374,8 @@ function generateEntryPage(entry, relatedTerms) {
                 <p class="text-lg text-gray-700 mb-2">
                     <strong>Origin:</strong> ${escapeHtml(entry.origin)}
                 </p>
-                ${entry.culturalNotes ? `
-                <p class="text-gray-700 mt-4">${escapeHtml(entry.culturalNotes)}</p>
+                ${entry.cultural_notes ? `
+                <p class="text-gray-700 mt-4">${escapeHtml(entry.cultural_notes)}</p>
                 ` : ''}
             </div>
         </section>
@@ -386,7 +436,7 @@ function generateEntryPage(entry, relatedTerms) {
 
         // Speak word button
         document.getElementById('speak-word')?.addEventListener('click', async () => {
-            const text = "${entry.pidgin}";
+            const text = "${entry.pidgin.replace(/"/g, '\\"')}";
             if (window.pidginSpeech) {
                 await window.pidginSpeech.speak(text);
             } else {
@@ -401,52 +451,69 @@ function generateEntryPage(entry, relatedTerms) {
 }
 
 // Main execution
-console.log('🏗️  Generating individual dictionary entry pages...\n');
+async function main() {
+    console.log('🏗️  Generating individual dictionary entry pages...\n');
 
-let generatedCount = 0;
-let skippedCount = 0;
-const slugMap = new Map(); // Track slugs to prevent duplicates
-
-masterData.entries.forEach(entry => {
     try {
-        const slug = createSlug(entry.pidgin);
+        // Fetch entries from Supabase
+        const entries = await fetchDictionaryEntries();
 
-        // Skip if slug already exists (duplicate handling)
-        if (slugMap.has(slug)) {
-            console.log(`⚠️  Skipping duplicate slug: ${slug} (${entry.pidgin})`);
-            skippedCount++;
-            return;
+        if (entries.length === 0) {
+            throw new Error('No dictionary entries found in Supabase');
         }
 
-        slugMap.set(slug, entry);
+        let generatedCount = 0;
+        let skippedCount = 0;
+        const slugMap = new Map(); // Track slugs to prevent duplicates
 
-        // Find related terms
-        const relatedTerms = findRelatedTerms(entry, masterData.entries);
+        for (const entry of entries) {
+            try {
+                const slug = createSlug(entry.pidgin);
 
-        // Generate HTML
-        const html = generateEntryPage(entry, relatedTerms);
+                // Skip if slug already exists (duplicate handling)
+                if (slugMap.has(slug)) {
+                    console.log(`⚠️  Skipping duplicate slug: ${slug} (${entry.pidgin})`);
+                    skippedCount++;
+                    continue;
+                }
 
-        // Write file
-        const filename = `${slug}.html`;
-        const filepath = path.join(outputDir, filename);
-        fs.writeFileSync(filepath, html, 'utf8');
+                slugMap.set(slug, entry);
 
-        generatedCount++;
+                // Find related terms
+                const relatedTerms = findRelatedTerms(entry, entries);
 
-        if (generatedCount % 50 === 0) {
-            console.log(`✅ Generated ${generatedCount} pages...`);
+                // Generate HTML
+                const html = generateEntryPage(entry, relatedTerms);
+
+                // Write file
+                const filename = `${slug}.html`;
+                const filepath = path.join(outputDir, filename);
+                fs.writeFileSync(filepath, html, 'utf8');
+
+                generatedCount++;
+
+                if (generatedCount % 50 === 0) {
+                    console.log(`✅ Generated ${generatedCount} pages...`);
+                }
+            } catch (error) {
+                console.error(`❌ Error generating page for "${entry.pidgin}":`, error.message);
+                skippedCount++;
+            }
         }
+
+        console.log('\n✨ Generation complete!');
+        console.log(`📄 Generated: ${generatedCount} pages`);
+        console.log(`⚠️  Skipped: ${skippedCount} entries`);
+        console.log(`📂 Output directory: ${outputDir}`);
+        console.log(`\n🔗 Example URLs:`);
+        console.log(`   - /word/aloha.html`);
+        console.log(`   - /word/da-kine.html`);
+        console.log(`   - /word/howzit.html`);
+
     } catch (error) {
-        console.error(`❌ Error generating page for "${entry.pidgin}":`, error.message);
-        skippedCount++;
+        console.error('❌ Fatal error:', error.message);
+        process.exit(1);
     }
-});
+}
 
-console.log('\n✨ Generation complete!');
-console.log(`📄 Generated: ${generatedCount} pages`);
-console.log(`⚠️  Skipped: ${skippedCount} entries`);
-console.log(`📂 Output directory: ${outputDir}`);
-console.log(`\n🔗 Example URLs:`);
-console.log(`   - /word/aloha.html`);
-console.log(`   - /word/da-kine.html`);
-console.log(`   - /word/howzit.html`);
+main();
