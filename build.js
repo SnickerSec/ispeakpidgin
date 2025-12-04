@@ -118,7 +118,12 @@ function processHTMLFiles() {
         'what-does-niele-mean.html',
         'what-does-pilau-mean.html',
         'what-does-sistah-mean.html',
-        'what-does-moopuna-mean.html'
+        'what-does-moopuna-mean.html',
+        // Additional SEO Pages - Round 2
+        'what-does-buss-up-mean.html',
+        'what-does-mayjah-mean.html',
+        'what-does-poho-mean.html',
+        'what-does-faka-mean.html'
     ];
 
     // Load shared navigation and footer templates
