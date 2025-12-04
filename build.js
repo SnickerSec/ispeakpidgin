@@ -339,10 +339,12 @@ function copyDataFiles() {
 
 // Copy CSS files
 function copyCSSFiles() {
+    // Copy from src/styles, but skip tailwind.css (compiled by vite)
     if (fs.existsSync('src/styles')) {
         const files = fs.readdirSync('src/styles');
         files.forEach(file => {
-            if (file.endsWith('.css')) {
+            // Skip tailwind.css - it's compiled by npm run build:css (vite)
+            if (file.endsWith('.css') && file !== 'tailwind.css') {
                 const srcPath = path.join('src/styles', file);
                 const destPath = path.join('public/css', file === 'style.css' ? 'main.css' : file);
                 fs.copyFileSync(srcPath, destPath);
