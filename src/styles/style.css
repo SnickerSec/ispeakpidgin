@@ -208,8 +208,8 @@ nav {
     box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
-/* Hawaiian styled buttons */
-button {
+/* Hawaiian styled buttons - exclude nav dropdown buttons */
+button:not(.nav-link):not(.mobile-dropdown-btn) {
     position: relative;
     overflow: hidden;
     font-weight: 600;
@@ -227,7 +227,7 @@ button {
     box-shadow: 0 4px 15px rgba(30, 107, 168, 0.3);
 }
 
-button::after {
+button:not(.nav-link):not(.mobile-dropdown-btn)::after {
     content: '';
     position: absolute;
     top: 50%;
@@ -240,7 +240,7 @@ button::after {
     transition: width 0.6s, height 0.6s;
 }
 
-button::before {
+button:not(.nav-link):not(.mobile-dropdown-btn)::before {
     content: '🌊';
     position: absolute;
     font-size: 150px;
@@ -252,12 +252,12 @@ button::before {
     pointer-events: none;
 }
 
-button:active::after {
+button:not(.nav-link):not(.mobile-dropdown-btn):active::after {
     width: 400px;
     height: 400px;
 }
 
-button:hover::before {
+button:not(.nav-link):not(.mobile-dropdown-btn):hover::before {
     opacity: 0.1;
     transform: translate(-50%, -50%) scale(1);
 }
