@@ -44,6 +44,7 @@ const bibleResources = {
 document.addEventListener('DOMContentLoaded', function() {
     initializeBibleNav();
     initializeSearch();
+    initializeMobileToggle();
 });
 
 // Generate book navigation
@@ -65,6 +66,31 @@ function initializeBibleNav() {
         if (bookBtn) {
             const bookSlug = bookBtn.getAttribute('data-book');
             loadBook(bookSlug);
+        }
+    });
+}
+
+// Initialize mobile dropdown toggle for New Testament books
+function initializeMobileToggle() {
+    const toggle = document.getElementById('nt-toggle');
+    const bookList = document.getElementById('book-list');
+    const chevron = document.getElementById('nt-chevron');
+
+    if (!toggle || !bookList) return;
+
+    toggle.addEventListener('click', () => {
+        const isHidden = bookList.classList.contains('hidden');
+
+        if (isHidden) {
+            // Show the list
+            bookList.classList.remove('hidden');
+            bookList.classList.add('block');
+            if (chevron) chevron.classList.add('rotate-180');
+        } else {
+            // Hide the list
+            bookList.classList.add('hidden');
+            bookList.classList.remove('block');
+            if (chevron) chevron.classList.remove('rotate-180');
         }
     });
 }
