@@ -19,21 +19,6 @@ npm start
 npm run dev
 # OR
 ./scripts/dev-server.sh
-
-# Alternative build with full output
-./scripts/build.sh
-```
-
-### Data Management
-```bash
-# Regenerate optimized views from master data
-npm run consolidate-data
-
-# Full rebuild (consolidate + build)
-npm run rebuild-data
-
-# Test data migration
-open tools/test-data-migration.html
 ```
 
 ### Testing and Deployment
@@ -55,30 +40,53 @@ This project supports **two server environments**:
 - **Build process**: `build.js` processes source files and outputs to `public/`
 - **Never edit `public/` directly** - changes will be overwritten
 
-### Data Architecture
-The project uses a **consolidated data system** (v3.0):
-- **Master File**: Single source of truth in `data/master/pidgin-master.json` (453 entries)
-- **Optimized Views**: Generated views for different use cases in `data/views/`
-  - `dictionary.json` - Optimized for browsing (221KB)
-  - `translator.json` - Lightweight for translation (168KB)
-  - `learning.json` - Organized by difficulty (82KB)
-- **Search Indexes**: Pre-built indexes in `data/indexes/`
-  - `search-index.json` - Fast search lookup (136KB)
-  - `pronunciation-map.json` - Quick pronunciation access (12KB)
-- **Data Loader**: Auto-detects page context and loads appropriate view
+### Data Architecture (Supabase)
+**All data is stored in Supabase** - no local JSON files are used.
+
+#### Supabase Tables
+| Table | Description |
+|-------|-------------|
+| `dictionary_entries` | 655 Pidgin words with definitions, examples |
+| `stories` | 14 Pidgin stories with translations |
+| `phrases` | 1,000 common phrases |
+| `pickup_lines` | 20 pickup lines |
+| `pickup_line_components` | 48 components for generator |
+| `quiz_questions` | 66 quiz questions |
+| `wordle_words` | 409 words for Pidgin Wordle |
+| `crossword_words` | 624 words for crosswords |
+| `crossword_puzzles` | 30 pre-built puzzles |
+
+#### API Endpoints
+Data is accessed via the Express server API:
+- `/api/dictionary` - Dictionary entries
+- `/api/stories` - Stories
+- `/api/phrases` - Phrases
+- `/api/pickup-lines` - Pickup lines
+- `/api/pickup-components` - Pickup line components
+- `/api/quiz/questions` - Quiz questions
+- `/api/wordle/*` - Wordle words
+- `/api/crossword/*` - Crossword data
 
 ### Component Structure
 ```
 src/components/
+├── games/          # Game components (wordle, crossword, quiz)
 ├── dictionary/     # Dictionary functionality
 ├── translator/     # Translation engine with fuzzy matching
 ├── speech/         # ElevenLabs TTS + Web Speech API fallback
-└── shared/         # Common utilities (data-loader, main logic, navigation, footer)
-    ├── navigation.html  # Shared navigation component
-    └── footer.html      # Shared footer component
+├── pickup/         # Pickup line generator
+├── learning/       # Learning hub
+├── bible/          # Pidgin Bible
+├── practice/       # Practice exercises
+└── shared/         # Common utilities
+    ├── supabase-api-loader.js   # API loader for stories, phrases, games
+    ├── supabase-data-loader.js  # Dictionary data loader
+    ├── navigation.html          # Shared navigation component
+    ├── footer.html              # Shared footer component
+    └── main.js                  # Main application logic
 ```
 
-### Template Component System ⚠️ CRITICAL
+### Template Component System - CRITICAL
 The site uses a **build-time component injection system** for consistent navigation and footer across ALL pages:
 
 **ALWAYS USE TEMPLATES - NEVER HARDCODE:**
@@ -117,16 +125,8 @@ The site uses a **build-time component injection system** for consistent navigat
 
 ### Build System Details
 - **Entry point**: `build.js` (root level, Railway compatible)
-- **Alternative**: `tools/build/build.js` (original, used by shell scripts)
 - **Path mapping**: Automatically updates import paths during build
-- **Asset copying**: Handles JS, CSS, data files, and static assets
-
-### Key Data Flow
-1. **Master Data**: Single source with 453+ entries, 855 English→Pidgin mappings, 537 reverse mappings
-2. **View Generation**: Consolidation script generates optimized views from master
-3. **Auto-Loading**: Data loader detects page type and loads appropriate view
-4. **Performance**: 50% faster page loads, pre-built search indexes
-5. **Fuzzy Search**: Advanced translation with confidence scoring and typo tolerance
+- **Asset copying**: Handles JS, CSS, and static assets
 
 ### Railway Deployment Specifics
 - **Build command**: `npm run build` (calls `node build.js`)
@@ -135,6 +135,8 @@ The site uses a **build-time component injection system** for consistent navigat
 - **Static serving**: Express serves `public/` directory with compression and security headers
 
 ### Environment Variables
+- **SUPABASE_URL**: Supabase project URL
+- **SUPABASE_ANON_KEY**: Supabase anonymous key
 - **ELEVENLABS_API_KEY**: Required for TTS functionality
 - **PORT**: Automatically set by Railway (defaults to 3000 locally)
 
@@ -145,7 +147,7 @@ The site uses a **build-time component injection system** for consistent navigat
 
 ## Critical Development Notes
 
-### ⚠️ TEMPLATE SYSTEM - MUST FOLLOW
+### TEMPLATE SYSTEM - MUST FOLLOW
 **NEVER hardcode navigation, footer, or other shared components in individual pages!**
 
 When creating or editing pages:
@@ -169,24 +171,17 @@ When creating or editing pages:
 - **Build required**: Run `npm run build` to apply changes across all pages
 
 ### Data Updates
-- **Dictionary entries**: Edit `data/master/pidgin-master.json` directly
-- **Regenerate views**: Run `npm run consolidate-data` after changes
-- **Build and deploy**: Run `npm run build` to update public files
-- **No manual metadata updates**: Counts are auto-calculated during consolidation
+All data is in Supabase. To update:
+1. Use Supabase dashboard or SQL to modify data
+2. API endpoints serve data automatically
+3. Build scripts fetch from Supabase for static page generation
 
 ### Development Workflow
 1. **Source changes**: Edit files in `src/`
-2. **Data changes**: Edit `data/master/pidgin-master.json`
-3. **Consolidate data**: Run `npm run consolidate-data` (if data changed)
-4. **Build**: Run `npm run build`
-5. **Test**: Start server with `npm run dev` → http://localhost:8080
-6. **Production test**: `npm start` → http://localhost:3000
-
-### Data Management System
-- **Test suite**: `tools/test-data-migration.html`
-- **Consolidation script**: `tools/consolidate-data.js`
-- **View-based loading**: System loads optimized views based on page context
-- **Performance monitoring**: Built-in metrics and timing analysis
+2. **Build**: Run `npm run build`
+3. **Test**: Start server with `npm run dev` → http://localhost:8080
+4. **Production test**: `npm start` → http://localhost:3000
+5. **Commit and push** after making changes
 
 ### Build System Path Mappings
 The build system automatically updates these paths:
@@ -195,32 +190,3 @@ The build system automatically updates these paths:
 - And other component relocations
 
 When adding new components, update the `pathMappings` object in `build.js`.
-
-## Data Management Best Practices
-
-### Adding New Dictionary Entries
-1. Edit `data/master/pidgin-master.json`
-2. Add to the `entries` array with proper structure:
-   ```json
-   {
-     "id": "unique_id_123",
-     "pidgin": "da kine",
-     "english": ["the thing", "that thing"],
-     "pronunciation": "dah KYNE",
-     "category": "expressions",
-     "examples": ["Wea da kine stay?"],
-     "difficulty": "beginner",
-     "frequency": "high",
-     "tags": ["common", "versatile"]
-   }
-   ```
-3. Run `npm run consolidate-data`
-4. Run `npm run build`
-
-### Data Architecture Benefits
-- **Single source of truth**: All edits go to master file
-- **Optimized loading**: Pages load only needed data
-- **Automatic indexing**: Search indexes generated automatically
-- **Performance**: 35-68% reduction in data transfer per page
-- **Scalability**: Ready for 10,000+ entries
-- commit and push after making changes
