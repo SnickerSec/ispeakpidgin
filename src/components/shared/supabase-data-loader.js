@@ -122,15 +122,27 @@ class SupabaseDataLoader {
         this.loaded = true;
     }
 
-    // Load data from Supabase API - SINGLE REQUEST
+    // Load data from Supabase API - SINGLE REQUEST with fallback
     async loadFromSupabase() {
-        // Use new bulk endpoint for single-request loading
-        const response = await fetch(`${this.apiBaseUrl}/all`);
-        if (!response.ok) {
-            throw new Error(`API error: ${response.status} ${response.statusText}`);
+        let data;
+
+        // Try new bulk endpoint first
+        try {
+            const response = await fetch(`${this.apiBaseUrl}/all`);
+            if (response.ok) {
+                data = await response.json();
+                console.log('✅ Loaded from /all endpoint');
+            } else {
+                throw new Error(`Bulk endpoint returned ${response.status}`);
+            }
+        } catch (bulkError) {
+            console.warn('⚠️ Bulk endpoint failed, falling back to paginated:', bulkError.message);
+            data = await this._loadPaginated();
         }
 
-        const data = await response.json();
+        if (!data || !data.entries || data.entries.length === 0) {
+            throw new Error('Failed to load dictionary data');
+        }
 
         // Save to cache before processing
         this._saveToCache(data);
@@ -161,6 +173,39 @@ class SupabaseDataLoader {
 
         console.log(`📊 Loaded ${this.entries.length} entries from Supabase`);
         return this.data;
+    }
+
+    // Fallback: Load data using paginated endpoint
+    async _loadPaginated() {
+        console.log('🔄 Loading with paginated fallback...');
+
+        // First get stats to know total count
+        const statsResponse = await fetch(`${this.apiBaseUrl}/stats`);
+        if (!statsResponse.ok) throw new Error('Stats endpoint failed');
+        const stats = await statsResponse.json();
+
+        // Load all entries (paginated)
+        const allEntries = [];
+        const pageSize = 100;
+        const totalPages = Math.ceil(stats.totalEntries / pageSize);
+
+        for (let page = 1; page <= totalPages; page++) {
+            const response = await fetch(`${this.apiBaseUrl}?page=${page}&limit=${pageSize}`);
+            if (!response.ok) throw new Error(`Failed to fetch page ${page}`);
+            const pageData = await response.json();
+            allEntries.push(...pageData.entries);
+        }
+
+        console.log(`✅ Loaded ${allEntries.length} entries via pagination`);
+
+        return {
+            entries: allEntries,
+            stats: {
+                totalEntries: stats.totalEntries,
+                byCategory: stats.byCategory,
+                lastUpdated: stats.lastUpdated || new Date().toISOString()
+            }
+        };
     }
 
     // Search using local data (faster than API for already-loaded data)
