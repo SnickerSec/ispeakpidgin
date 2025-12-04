@@ -274,18 +274,27 @@ function copyJavaScriptFiles() {
 
     // Copy JS data files from src/js/data
     const jsDataDir = 'src/js/data';
+    const destDataDir = 'public/js/data';
+    fs.mkdirSync(destDataDir, { recursive: true });
+
     if (fs.existsSync(jsDataDir)) {
-        const destDir = 'public/js/data';
-        fs.mkdirSync(destDir, { recursive: true });
         const files = fs.readdirSync(jsDataDir);
         files.forEach(file => {
             if (file.endsWith('.js')) {
                 const srcPath = path.join(jsDataDir, file);
-                const destPath = path.join(destDir, file);
+                const destPath = path.join(destDataDir, file);
                 fs.copyFileSync(srcPath, destPath);
                 console.log(`📦 Copied data loader: ${file}`);
             }
         });
+    }
+
+    // Copy phrases-loader.js from shared components to js/data (where HTML expects it)
+    const phrasesLoaderSrc = 'src/components/shared/phrases-loader.js';
+    if (fs.existsSync(phrasesLoaderSrc)) {
+        const destPath = path.join(destDataDir, 'phrases-loader.js');
+        fs.copyFileSync(phrasesLoaderSrc, destPath);
+        console.log(`📦 Copied: phrases-loader.js to js/data/`);
     }
 }
 
