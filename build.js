@@ -97,7 +97,7 @@ function processHTMLFiles() {
         'understanding-time-in-pidgin.html',
         'funny-insulting-pidgin-phrases.html',
         'oahu-local-eats.html',
-        // SEO Pages
+        // SEO Pages - What Does X Mean
         'what-does-da-kine-mean.html',
         'what-does-howzit-mean.html',
         'what-does-broke-da-mouth-mean.html',
@@ -111,7 +111,14 @@ function processHTMLFiles() {
         'what-does-choke-mean.html',
         'what-does-talk-story-mean.html',
         'what-does-mahalo-mean.html',
-        'what-does-no-worry-mean.html'
+        'what-does-no-worry-mean.html',
+        // New SEO Pages based on Search Console data
+        'what-does-ainokea-mean.html',
+        'what-does-kanak-attack-mean.html',
+        'what-does-niele-mean.html',
+        'what-does-pilau-mean.html',
+        'what-does-sistah-mean.html',
+        'what-does-moopuna-mean.html'
     ];
 
     // Load shared navigation and footer templates
