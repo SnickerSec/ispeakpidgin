@@ -4,7 +4,8 @@
 // Function to load phrases from API
 async function loadPhrasesFromAPI() {
     try {
-        const response = await fetch('/api/phrases');
+        // Fetch a large batch of phrases for daily phrase rotation
+        const response = await fetch('/api/phrases?limit=500');
         if (!response.ok) {
             throw new Error(`API error: ${response.status}`);
         }

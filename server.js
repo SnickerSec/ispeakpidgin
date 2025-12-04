@@ -1118,12 +1118,38 @@ app.get('/api/dictionary/:id',
 // ============================================
 
 // GET /api/phrases - Get phrases with pagination and filters
+// Cache for phrases (refreshes every 10 minutes)
+let phrasesCache = {
+    data: null,
+    timestamp: 0,
+    ttl: 10 * 60 * 1000
+};
+
 app.get('/api/phrases',
     dictionaryLimiter,
     async (req, res) => {
         try {
             const { page = 1, limit = 50, category, difficulty } = req.query;
-            const offset = (parseInt(page) - 1) * parseInt(limit);
+            const requestedLimit = Math.min(parseInt(limit), 1000); // Cap at 1000
+            const offset = (parseInt(page) - 1) * requestedLimit;
+
+            // Use cache for large requests without filters
+            const now = Date.now();
+            if (!category && !difficulty && requestedLimit >= 100 && offset === 0) {
+                if (phrasesCache.data && (now - phrasesCache.timestamp) < phrasesCache.ttl) {
+                    const cachedPhrases = phrasesCache.data.slice(0, requestedLimit);
+                    res.set('X-Cache', 'HIT');
+                    return res.json({
+                        phrases: cachedPhrases,
+                        pagination: {
+                            page: 1,
+                            limit: requestedLimit,
+                            total: phrasesCache.data.length,
+                            totalPages: Math.ceil(phrasesCache.data.length / requestedLimit)
+                        }
+                    });
+                }
+            }
 
             let query = supabase
                 .from('phrases')
@@ -1132,7 +1158,7 @@ app.get('/api/phrases',
             if (category) query = query.eq('category', category);
             if (difficulty) query = query.eq('difficulty', difficulty);
 
-            query = query.range(offset, offset + parseInt(limit) - 1);
+            query = query.range(offset, offset + requestedLimit - 1);
 
             const { data, error, count } = await query;
 
@@ -1140,13 +1166,20 @@ app.get('/api/phrases',
                 return res.status(500).json({ error: 'Database query failed' });
             }
 
+            // Update cache if this was a large unfiltered request
+            if (!category && !difficulty && requestedLimit >= 100 && offset === 0) {
+                phrasesCache.data = data;
+                phrasesCache.timestamp = now;
+            }
+
+            res.set('X-Cache', 'MISS');
             res.json({
                 phrases: data,
                 pagination: {
                     page: parseInt(page),
-                    limit: parseInt(limit),
+                    limit: requestedLimit,
                     total: count,
-                    totalPages: Math.ceil(count / parseInt(limit))
+                    totalPages: Math.ceil(count / requestedLimit)
                 }
             });
         } catch (error) {
