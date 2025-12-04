@@ -7,8 +7,8 @@
     "start": "node server.js",
     "dev": "./scripts/dev-server.sh",
     "build": "npm run build:css && node build.js",
-    "build:css": "vite build",
-    "watch:css": "vite build --watch",
+    "build:css": "npx @tailwindcss/cli -i src/styles/tailwind.css -o public/css/tailwind.css --minify",
+    "watch:css": "npx @tailwindcss/cli -i src/styles/tailwind.css -o public/css/tailwind.css --watch",
     "deploy": "./scripts/deploy.sh",
     "data:consolidate": "node tools/data/consolidate-data.js",
     "data:rebuild": "npm run data:consolidate && npm run build",
@@ -44,8 +44,7 @@
     "node": ">=20.19.0"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.1.17",
-    "tailwindcss": "^4.1.17",
-    "vite": "^7.2.4"
+    "@tailwindcss/cli": "^4.1.17",
+    "tailwindcss": "^4.1.17"
   }
 }
