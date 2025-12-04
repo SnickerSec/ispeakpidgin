@@ -1,82 +1,37 @@
-# Data Directory Structure
+# Data Directory
 
-This directory contains all data files for the ChokePidgin application.
+All data for ChokePidgin is now stored in **Supabase**.
 
-## Directory Organization
+## Supabase Tables
 
-### `/master/`
-**Source of Truth** - Manual edits go here
-- `pidgin-master.json` (528KB) - Complete dictionary with 453+ entries
+| Table | Description |
+|-------|-------------|
+| `dictionary_entries` | 655 Pidgin words with definitions, examples, pronunciation |
+| `stories` | 14 Pidgin stories with translations |
+| `phrases` | 1,000 common phrases |
+| `pickup_lines` | 20 pickup lines |
+| `pickup_line_components` | 48 components for generator |
+| `quiz_questions` | 66 quiz questions |
+| `wordle_words` | 409 words for Pidgin Wordle |
+| `crossword_words` | 624 words for crosswords |
+| `crossword_puzzles` | 30 pre-built puzzles |
 
-### `/views/`
-**Optimized Views** - Auto-generated from master data
-- `dictionary.json` (221KB) - Optimized for browsing
-- `translator.json` (168KB) - Lightweight for translation
-- `learning.json` (82KB) - Organized by difficulty
-- `phrases.json` - Common phrase translations
+## API Endpoints
 
-### `/indexes/`
-**Search Indexes** - Pre-built for fast lookups
-- `search-index.json` (136KB) - Fast search lookup
-- `pronunciation-map.json` (12KB) - Quick pronunciation access
+All data is accessed via the Express server API:
+- `/api/dictionary` - Dictionary entries
+- `/api/stories` - Stories
+- `/api/phrases` - Phrases
+- `/api/pickup-lines` - Pickup lines
+- `/api/pickup-components` - Pickup line components
+- `/api/quiz/questions` - Quiz questions
+- `/api/wordle/*` - Wordle words
+- `/api/crossword/*` - Crossword data
 
-### `/training/`
-**Machine Learning Training Data** - For development/research only
-- `phrase-lookup.json` (265KB) - Phrase lookup tables
-- `phrase-training-data.json` (345KB) - Phrase training examples
-- `sentence-lookup.json` (288KB) - Sentence lookup tables
-- `sentence-training-data.json` (233KB) - Sentence training examples
-- `story-examples.json` (12KB) - Story-based examples
-- `story-sentences.json` (14KB) - Extracted sentences
+## Build Process
 
-## Data Flow
+The build process (`npm run build`) fetches data directly from Supabase to generate:
+- Individual dictionary entry pages (`/word/*.html`)
+- Sitemap (`sitemap.xml`)
 
-```
-pidgin-master.json (MANUAL EDITS)
-       ↓
-   consolidate-data.js (npm run data:consolidate)
-       ↓
-   ├─→ views/*.json (optimized)
-   └─→ indexes/*.json (search indexes)
-```
-
-## Update Procedures
-
-### Adding/Editing Dictionary Entries
-
-1. Edit `master/pidgin-master.json` directly
-2. Run `npm run data:consolidate` to regenerate views
-3. Run `npm run build` to update public files
-4. Test changes locally
-
-### Regenerating Training Data
-
-Training data is generated from master data using tools in `/tools/training/`:
-- `create-story-examples.js`
-- `extract-phrase-training-data.js`
-- `extract-sentence-examples.js`
-
-**Note:** Training data is for development only and not deployed to production.
-
-## Data Schema
-
-See individual JSON files for schema. Key structure:
-
-```json
-{
-  "id": "unique_id",
-  "pidgin": "da kine",
-  "english": ["the thing", "that thing"],
-  "pronunciation": "dah KYNE",
-  "category": "expressions",
-  "difficulty": "beginner",
-  "frequency": "high"
-}
-```
-
-## File Sizes
-
-- **Master data:** ~528KB
-- **Views (total):** ~471KB
-- **Indexes (total):** ~148KB
-- **Training (total):** ~1.1MB (not in production)
+No local data files are used at runtime or build time.
