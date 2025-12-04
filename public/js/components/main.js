@@ -1267,29 +1267,52 @@ async function initStoryCorner() {
     const storyCorner = document.getElementById('story-corner');
     if (!storyCorner) return;
 
-    // Try to get stories from various sources (prioritize consolidated data)
+    // Try to get stories from various sources
     let stories = [];
 
-    // First try from pidginDataLoader (consolidated data system)
-    if (typeof pidginDataLoader !== 'undefined' && pidginDataLoader.masterData && pidginDataLoader.masterData.content && pidginDataLoader.masterData.content.stories) {
+    // First try from Supabase API
+    try {
+        console.log('🔄 Fetching stories from API...');
+        const response = await fetch('/api/stories');
+        if (response.ok) {
+            const data = await response.json();
+            if (data.stories && data.stories.length > 0) {
+                // Transform API response to match expected format
+                stories = data.stories.map(s => ({
+                    id: s.id,
+                    title: s.title,
+                    pidginText: s.pidgin_text || s.pidginText,
+                    englishTranslation: s.english_translation || s.englishTranslation,
+                    culturalNotes: s.cultural_notes || s.culturalNotes,
+                    vocabulary: s.vocabulary || [],
+                    difficulty: s.difficulty || 'intermediate'
+                }));
+                console.log(`✅ Loaded ${stories.length} stories from Supabase API`);
+            }
+        }
+    } catch (error) {
+        console.warn('⚠️ API fetch failed, trying fallback sources...', error.message);
+    }
+
+    // Fallback: try from pidginDataLoader (consolidated data system)
+    if (stories.length === 0 && typeof pidginDataLoader !== 'undefined' && pidginDataLoader.masterData && pidginDataLoader.masterData.content && pidginDataLoader.masterData.content.stories) {
         stories = pidginDataLoader.masterData.content.stories;
         console.log('✅ Using stories from consolidated data system');
     }
-    // Then try from window.pidginStories (array from stories-data.js)
-    else if (typeof window !== 'undefined' && window.pidginStories && Array.isArray(window.pidginStories)) {
+    // Fallback: try from window.pidginStories (array from stories-data.js)
+    if (stories.length === 0 && typeof window !== 'undefined' && window.pidginStories && Array.isArray(window.pidginStories)) {
         stories = window.pidginStories;
         console.log('✅ Using stories from stories-data.js');
     }
-    // Also check the global storiesData
-    else if (typeof window !== 'undefined' && window.storiesData && window.storiesData.stories) {
+    // Fallback: check the global storiesData
+    if (stories.length === 0 && typeof window !== 'undefined' && window.storiesData && window.storiesData.stories) {
         stories = window.storiesData.stories;
         console.log('✅ Using stories from storiesData');
     }
 
     if (!stories || stories.length === 0) {
-        storyCorner.innerHTML = '<p class="text-gray-500 text-center col-span-full">Stories are loading...</p>';
-        console.log('No stories found, will retry in 2 seconds...');
-        setTimeout(() => initStoryCorner(), 2000);
+        storyCorner.innerHTML = '<p class="text-gray-500 text-center col-span-full">No stories available at this time.</p>';
+        console.log('❌ No stories found from any source');
         return;
     }
 
