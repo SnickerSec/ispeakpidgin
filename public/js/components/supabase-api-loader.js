@@ -1,13 +1,12 @@
 // Supabase API Data Loader
 // Unified loader for all Supabase data (stories, phrases, crossword, pickup lines)
-// Falls back to local JSON/JS data if API is unavailable
+// All data is fetched from Supabase API - no local fallbacks
 
 class SupabaseAPILoader {
     constructor() {
         this.apiBase = '/api';
         this.cache = new Map();
         this.cacheExpiry = 5 * 60 * 1000; // 5 minutes
-        this.useAPI = true;
     }
 
     // Generic fetch with caching
@@ -19,26 +18,21 @@ class SupabaseAPILoader {
             return cached.data;
         }
 
-        try {
-            const url = new URL(this.apiBase + endpoint, window.location.origin);
-            if (options.params) {
-                Object.entries(options.params).forEach(([key, value]) => {
-                    if (value !== undefined && value !== null) {
-                        url.searchParams.append(key, value);
-                    }
-                });
-            }
-
-            const response = await fetch(url);
-            if (!response.ok) throw new Error(`API error: ${response.status}`);
-
-            const data = await response.json();
-            this.cache.set(cacheKey, { data, timestamp: Date.now() });
-            return data;
-        } catch (error) {
-            console.warn(`API fetch failed for ${endpoint}:`, error.message);
-            throw error;
+        const url = new URL(this.apiBase + endpoint, window.location.origin);
+        if (options.params) {
+            Object.entries(options.params).forEach(([key, value]) => {
+                if (value !== undefined && value !== null) {
+                    url.searchParams.append(key, value);
+                }
+            });
         }
+
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`API error: ${response.status}`);
+
+        const data = await response.json();
+        this.cache.set(cacheKey, { data, timestamp: Date.now() });
+        return data;
     }
 
     // ============================================
@@ -46,24 +40,13 @@ class SupabaseAPILoader {
     // ============================================
 
     async loadStories(options = {}) {
-        try {
-            const data = await this.fetchWithCache('/stories', { params: options });
-            return this.transformStoriesResponse(data);
-        } catch (error) {
-            console.warn('Falling back to local stories data');
-            return this.getLocalStories();
-        }
+        const data = await this.fetchWithCache('/stories', { params: options });
+        return this.transformStoriesResponse(data);
     }
 
     async getStory(id) {
-        try {
-            const data = await this.fetchWithCache(`/stories/${id}`);
-            return this.transformStory(data);
-        } catch (error) {
-            console.warn('Falling back to local story');
-            const local = this.getLocalStories();
-            return local.stories.find(s => s.id === id);
-        }
+        const data = await this.fetchWithCache(`/stories/${id}`);
+        return this.transformStory(data);
     }
 
     transformStoriesResponse(data) {
@@ -91,45 +74,20 @@ class SupabaseAPILoader {
         };
     }
 
-    getLocalStories() {
-        if (typeof pidginStories !== 'undefined') {
-            return { stories: pidginStories.stories || pidginStories, metadata: pidginStories.metadata };
-        }
-        if (typeof window !== 'undefined' && window.pidginStories) {
-            const stories = window.pidginStories.stories || window.pidginStories;
-            return { stories, metadata: window.pidginStories.metadata };
-        }
-        return { stories: [], metadata: {} };
-    }
-
     // ============================================
     // PHRASES API
     // ============================================
 
     async loadPhrases(options = {}) {
-        try {
-            const data = await this.fetchWithCache('/phrases', { params: options });
-            return this.transformPhrasesResponse(data);
-        } catch (error) {
-            console.warn('Falling back to local phrases data');
-            return this.getLocalPhrases();
-        }
+        const data = await this.fetchWithCache('/phrases', { params: options });
+        return this.transformPhrasesResponse(data);
     }
 
     async getRandomPhrases(count = 5, category = null) {
-        try {
-            const params = { count };
-            if (category) params.category = category;
-            const data = await this.fetchWithCache('/phrases/random', { params });
-            return data.phrases || data;
-        } catch (error) {
-            console.warn('Falling back to local random phrases');
-            const local = this.getLocalPhrases();
-            const pool = category
-                ? local.phrases.filter(p => p.category === category)
-                : local.phrases;
-            return this.shuffleArray(pool).slice(0, count);
-        }
+        const params = { count };
+        if (category) params.category = category;
+        const data = await this.fetchWithCache('/phrases/random', { params });
+        return data.phrases || data;
     }
 
     transformPhrasesResponse(data) {
@@ -146,50 +104,19 @@ class SupabaseAPILoader {
         return { phrases, metadata: data.metadata };
     }
 
-    getLocalPhrases() {
-        if (typeof pidginPhrases !== 'undefined') {
-            return { phrases: pidginPhrases };
-        }
-        if (typeof window !== 'undefined' && window.pidginPhrases) {
-            return { phrases: window.pidginPhrases };
-        }
-        return { phrases: [] };
-    }
-
     // ============================================
     // CROSSWORD API
     // ============================================
 
     async loadCrosswordWords(options = {}) {
-        try {
-            const data = await this.fetchWithCache('/crossword/words', { params: options });
-            return this.transformCrosswordResponse(data);
-        } catch (error) {
-            console.warn('Falling back to local crossword data');
-            return this.getLocalCrosswordWords();
-        }
+        const data = await this.fetchWithCache('/crossword/words', { params: options });
+        return this.transformCrosswordResponse(data);
     }
 
     async getRandomCrosswordWords(count = 10, options = {}) {
-        try {
-            const params = { count, ...options };
-            const data = await this.fetchWithCache('/crossword/random', { params });
-            return data.words || data;
-        } catch (error) {
-            console.warn('Falling back to local random crossword words');
-            const local = this.getLocalCrosswordWords();
-            let pool = local.words || [];
-            if (options.difficulty) {
-                pool = pool.filter(w => w.difficulty === options.difficulty);
-            }
-            if (options.minLength) {
-                pool = pool.filter(w => (w.length || w.word.length) >= options.minLength);
-            }
-            if (options.maxLength) {
-                pool = pool.filter(w => (w.length || w.word.length) <= options.maxLength);
-            }
-            return this.shuffleArray(pool).slice(0, count);
-        }
+        const params = { count, ...options };
+        const data = await this.fetchWithCache('/crossword/random', { params });
+        return data.words || data;
     }
 
     transformCrosswordResponse(data) {
@@ -207,47 +134,19 @@ class SupabaseAPILoader {
         return { words, metadata: data.metadata };
     }
 
-    getLocalCrosswordWords() {
-        if (typeof crosswordWords !== 'undefined') {
-            return { words: crosswordWords };
-        }
-        if (typeof window !== 'undefined' && window.crosswordWords) {
-            return { words: window.crosswordWords };
-        }
-        return { words: [] };
-    }
-
     // ============================================
     // PICKUP LINES API
     // ============================================
 
     async loadPickupLines(options = {}) {
-        try {
-            const data = await this.fetchWithCache('/pickup-lines', { params: options });
-            return this.transformPickupLinesResponse(data);
-        } catch (error) {
-            console.warn('Falling back to local pickup lines data');
-            return this.getLocalPickupLines();
-        }
+        const data = await this.fetchWithCache('/pickup-lines', { params: options });
+        return this.transformPickupLinesResponse(data);
     }
 
     async getRandomPickupLines(count = 1, options = {}) {
-        try {
-            const params = { count, ...options };
-            const data = await this.fetchWithCache('/pickup-lines/random', { params });
-            return data.lines || data;
-        } catch (error) {
-            console.warn('Falling back to local random pickup lines');
-            const local = this.getLocalPickupLines();
-            let pool = local.lines || [];
-            if (options.category) {
-                pool = pool.filter(l => l.category === options.category);
-            }
-            if (options.spiciness) {
-                pool = pool.filter(l => l.spiciness === options.spiciness);
-            }
-            return this.shuffleArray(pool).slice(0, count);
-        }
+        const params = { count, ...options };
+        const data = await this.fetchWithCache('/pickup-lines/random', { params });
+        return data.lines || data;
     }
 
     transformPickupLinesResponse(data) {
@@ -262,28 +161,13 @@ class SupabaseAPILoader {
         return { lines, metadata: data.metadata };
     }
 
-    getLocalPickupLines() {
-        if (typeof pickupLines !== 'undefined') {
-            return { lines: pickupLines };
-        }
-        if (typeof window !== 'undefined' && window.pickupLines) {
-            return { lines: window.pickupLines };
-        }
-        return { lines: [] };
-    }
-
     // ============================================
     // QUIZ API
     // ============================================
 
     async loadQuizQuestions(options = {}) {
-        try {
-            const data = await this.fetchWithCache('/quiz/questions', { params: options });
-            return this.transformQuizResponse(data);
-        } catch (error) {
-            console.warn('Falling back to local quiz data');
-            return this.getLocalQuizQuestions();
-        }
+        const data = await this.fetchWithCache('/quiz/questions', { params: options });
+        return this.transformQuizResponse(data);
     }
 
     transformQuizResponse(data) {
@@ -294,8 +178,8 @@ class SupabaseAPILoader {
             options: q.options || [],
             correctAnswer: q.correct_answer || q.correctAnswer,
             explanation: q.explanation,
-            description: q.explanation, // Alias for compatibility
-            image: q.image || '❓', // Default emoji
+            description: q.explanation,
+            image: q.image || '❓',
             category: q.category || 'general',
             difficulty: q.difficulty || 'beginner',
             points: q.points || 10,
@@ -304,57 +188,30 @@ class SupabaseAPILoader {
         return { questions, metadata: data.metadata };
     }
 
-    getLocalQuizQuestions() {
-        if (typeof localQuizQuestions !== 'undefined') {
-            return { questions: localQuizQuestions };
-        }
-        if (typeof window !== 'undefined' && window.localQuizQuestions) {
-            return { questions: window.localQuizQuestions };
-        }
-        return { questions: [] };
-    }
-
     // ============================================
     // WORDLE API
     // ============================================
 
     async loadWordleWords(options = {}) {
-        try {
-            const data = await this.fetchWithCache('/wordle/words', { params: options });
-            return this.transformWordleWordsResponse(data);
-        } catch (error) {
-            console.warn('Falling back to local wordle words');
-            return this.getLocalWordleWords();
-        }
+        const data = await this.fetchWithCache('/wordle/words', { params: options });
+        return this.transformWordleWordsResponse(data);
     }
 
     async getDailyWordleWord() {
-        try {
-            const data = await this.fetchWithCache('/wordle/daily');
-            return {
-                word: data.word,
-                meaning: data.meaning,
-                pronunciation: data.pronunciation,
-                difficulty: data.difficulty,
-                date: data.date,
-                dayNumber: this.calculateDayNumber(data.date)
-            };
-        } catch (error) {
-            console.warn('Falling back to local daily wordle word');
-            const local = this.getLocalWordleWords();
-            return this.getDailyWordFromLocal(local.words || []);
-        }
+        const data = await this.fetchWithCache('/wordle/daily');
+        return {
+            word: data.word,
+            meaning: data.meaning,
+            pronunciation: data.pronunciation,
+            difficulty: data.difficulty,
+            date: data.date,
+            dayNumber: this.calculateDayNumber(data.date)
+        };
     }
 
     async validateWordleWord(word) {
-        try {
-            const data = await this.fetchWithCache(`/wordle/validate/${word.toUpperCase()}`);
-            return data.valid || false;
-        } catch (error) {
-            console.warn('Falling back to local word validation');
-            const local = this.getLocalWordleWords();
-            return (local.words || []).some(w => w.toUpperCase() === word.toUpperCase());
-        }
+        const data = await this.fetchWithCache(`/wordle/validate/${word.toUpperCase()}`);
+        return data.valid || false;
     }
 
     transformWordleWordsResponse(data) {
@@ -365,30 +222,7 @@ class SupabaseAPILoader {
         };
     }
 
-    getLocalWordleWords() {
-        if (typeof pidginWordleData !== 'undefined' && pidginWordleData.words) {
-            return { words: pidginWordleData.words };
-        }
-        if (typeof window !== 'undefined' && window.pidginWordleData?.words) {
-            return { words: window.pidginWordleData.words };
-        }
-        return { words: [] };
-    }
-
-    getDailyWordFromLocal(words) {
-        if (words.length === 0) return null;
-        const today = new Date();
-        const dayNumber = this.calculateDayNumber();
-        const wordIndex = dayNumber % words.length;
-        return {
-            word: words[wordIndex],
-            dayNumber: dayNumber,
-            date: today.toISOString().split('T')[0]
-        };
-    }
-
     calculateDayNumber(dateString) {
-        // Calculate day number from epoch (Jan 1, 2024 as day 1)
         const epoch = new Date('2024-01-01');
         const targetDate = dateString ? new Date(dateString) : new Date();
         const diffTime = targetDate.getTime() - epoch.getTime();
@@ -401,24 +235,13 @@ class SupabaseAPILoader {
     // ============================================
 
     async loadCrosswordPuzzles(options = {}) {
-        try {
-            const data = await this.fetchWithCache('/crossword/puzzles', { params: options });
-            return this.transformCrosswordPuzzlesResponse(data);
-        } catch (error) {
-            console.warn('Falling back to local crossword puzzles');
-            return this.getLocalCrosswordPuzzles();
-        }
+        const data = await this.fetchWithCache('/crossword/puzzles', { params: options });
+        return this.transformCrosswordPuzzlesResponse(data);
     }
 
     async getDailyCrosswordPuzzle() {
-        try {
-            const data = await this.fetchWithCache('/crossword/daily');
-            return this.transformCrosswordPuzzle(data.puzzle || data);
-        } catch (error) {
-            console.warn('Falling back to local daily puzzle');
-            const local = this.getLocalCrosswordPuzzles();
-            return this.getDailyPuzzleFromLocal(local.puzzles || []);
-        }
+        const data = await this.fetchWithCache('/crossword/daily');
+        return this.transformCrosswordPuzzle(data.puzzle || data);
     }
 
     transformCrosswordPuzzlesResponse(data) {
@@ -443,50 +266,21 @@ class SupabaseAPILoader {
         };
     }
 
-    getLocalCrosswordPuzzles() {
-        if (typeof crosswordPuzzles !== 'undefined') {
-            return { puzzles: crosswordPuzzles };
-        }
-        if (typeof window !== 'undefined' && window.crosswordPuzzles) {
-            return { puzzles: window.crosswordPuzzles };
-        }
-        return { puzzles: [] };
-    }
-
-    getDailyPuzzleFromLocal(puzzles) {
-        if (puzzles.length === 0) return null;
-        const today = new Date();
-        const daysSinceEpoch = Math.floor(today.getTime() / (1000 * 60 * 60 * 24));
-        const puzzleIndex = daysSinceEpoch % puzzles.length;
-        return puzzles[puzzleIndex];
-    }
-
     // ============================================
     // PICKUP LINE COMPONENTS API
     // ============================================
 
     async loadPickupLineComponents(options = {}) {
-        try {
-            const data = await this.fetchWithCache('/pickup-components', { params: options });
-            return this.transformPickupComponentsResponse(data);
-        } catch (error) {
-            console.warn('Falling back to local pickup line components');
-            return this.getLocalPickupLineComponents();
-        }
+        const data = await this.fetchWithCache('/pickup-components', { params: options });
+        return this.transformPickupComponentsResponse(data);
     }
 
     async getRandomPickupLineComponents(options = {}) {
-        try {
-            const data = await this.fetchWithCache('/pickup-components/random', { params: options });
-            return this.transformPickupComponentsResponse(data);
-        } catch (error) {
-            console.warn('Falling back to local random components');
-            return this.getLocalPickupLineComponents();
-        }
+        const data = await this.fetchWithCache('/pickup-components/random', { params: options });
+        return this.transformPickupComponentsResponse(data);
     }
 
     transformPickupComponentsResponse(data) {
-        // Check if data has pre-grouped components (from API)
         if (data.grouped) {
             return {
                 components: {
@@ -503,7 +297,6 @@ class SupabaseAPILoader {
             };
         }
 
-        // Fallback: transform array of components
         const components = data.components || data;
         const grouped = {
             openers: [],
@@ -532,29 +325,9 @@ class SupabaseAPILoader {
                 else if (type === 'action') grouped.actions.push(item);
                 else if (type === 'complete_line' || type === 'complete') grouped.completedLines.push(item);
             });
-        } else {
-            // Already grouped (local fallback)
-            grouped.openers = components.openers || [];
-            grouped.compliments = components.compliments || [];
-            grouped.actions = components.actions || [];
-            grouped.completedLines = components.completedLines || components.complete_lines || [];
-            grouped.prettyPhrases = components.prettyPhrases || {};
-            grouped.placesToEat = components.placesToEat || [];
-            grouped.landmarks = components.landmarks || [];
-            grouped.hikingTrails = components.hikingTrails || [];
         }
 
         return { components: grouped, metadata: data.metadata };
-    }
-
-    getLocalPickupLineComponents() {
-        if (typeof pickupLineComponents !== 'undefined') {
-            return { components: pickupLineComponents };
-        }
-        if (typeof window !== 'undefined' && window.pickupLineComponents) {
-            return { components: window.pickupLineComponents };
-        }
-        return { components: { openers: [], compliments: [], actions: [], completedLines: [] } };
     }
 
     // ============================================
@@ -562,64 +335,30 @@ class SupabaseAPILoader {
     // ============================================
 
     async loadDictionaryEntries(options = {}) {
-        try {
-            const data = await this.fetchWithCache('/dictionary', { params: options });
-            return this.transformDictionaryResponse(data);
-        } catch (error) {
-            console.warn('Falling back to local dictionary data');
-            return this.getLocalDictionary();
-        }
+        const data = await this.fetchWithCache('/dictionary', { params: options });
+        return this.transformDictionaryResponse(data);
     }
 
     async searchDictionary(query, options = {}) {
-        try {
-            const params = { q: query, ...options };
-            const data = await this.fetchWithCache('/dictionary/search', { params });
-            return data.results || data;
-        } catch (error) {
-            console.warn('Falling back to local search');
-            return this.localSearch(query);
-        }
+        const params = { q: query, ...options };
+        const data = await this.fetchWithCache('/dictionary/search', { params });
+        return data.results || data;
     }
 
     async getDictionaryWord(pidginWord) {
-        try {
-            const data = await this.fetchWithCache(`/dictionary/word/${encodeURIComponent(pidginWord)}`);
-            return this.transformDictionaryEntry(data);
-        } catch (error) {
-            console.warn('Falling back to local word lookup');
-            const local = this.getLocalDictionary();
-            return local.entries.find(e => e.pidgin.toLowerCase() === pidginWord.toLowerCase());
-        }
+        const data = await this.fetchWithCache(`/dictionary/word/${encodeURIComponent(pidginWord)}`);
+        return this.transformDictionaryEntry(data);
     }
 
     async getDictionaryStats() {
-        try {
-            return await this.fetchWithCache('/dictionary/stats');
-        } catch (error) {
-            console.warn('Falling back to local stats');
-            const local = this.getLocalDictionary();
-            return {
-                totalEntries: local.entries.length,
-                lastUpdated: new Date().toISOString()
-            };
-        }
+        return await this.fetchWithCache('/dictionary/stats');
     }
 
     async getRandomDictionaryWords(count = 5, difficulty = null) {
-        try {
-            const params = { count };
-            if (difficulty) params.difficulty = difficulty;
-            const data = await this.fetchWithCache('/dictionary/random', { params });
-            return (data.entries || data).map(e => this.transformDictionaryEntry(e));
-        } catch (error) {
-            console.warn('Falling back to local random words');
-            const local = this.getLocalDictionary();
-            const pool = difficulty
-                ? local.entries.filter(e => e.difficulty === difficulty)
-                : local.entries;
-            return this.shuffleArray(pool).slice(0, count);
-        }
+        const params = { count };
+        if (difficulty) params.difficulty = difficulty;
+        const data = await this.fetchWithCache('/dictionary/random', { params });
+        return (data.entries || data).map(e => this.transformDictionaryEntry(e));
     }
 
     transformDictionaryResponse(data) {
@@ -647,67 +386,6 @@ class SupabaseAPILoader {
             frequency: e.frequency || 'medium',
             tags: e.tags || [],
             audioExample: e.audio_example || e.audioExample
-        };
-    }
-
-    getLocalDictionary() {
-        if (typeof window.pidginData !== 'undefined') {
-            return { entries: window.pidginData.entries || window.pidginData };
-        }
-        return { entries: [] };
-    }
-
-    localSearch(query) {
-        const local = this.getLocalDictionary();
-        const q = query.toLowerCase();
-        return local.entries.filter(e =>
-            e.pidgin.toLowerCase().includes(q) ||
-            (e.english && e.english.some(eng => eng.toLowerCase().includes(q)))
-        );
-    }
-
-    // ============================================
-    // TRANSLATION API (For Translator Page)
-    // ============================================
-
-    async translate(text, direction = 'english-to-pidgin') {
-        try {
-            const endpoint = '/translate';
-            const response = await fetch(this.apiBase + endpoint, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text, direction })
-            });
-            if (!response.ok) throw new Error(`API error: ${response.status}`);
-            return await response.json();
-        } catch (error) {
-            console.warn('Translation API failed, using local fallback');
-            return this.localTranslate(text, direction);
-        }
-    }
-
-    localTranslate(text, direction) {
-        // Simple local fallback - search for matching words
-        const local = this.getLocalDictionary();
-        const words = text.toLowerCase().split(/\s+/);
-        const translations = [];
-
-        words.forEach(word => {
-            if (direction === 'english-to-pidgin') {
-                const match = local.entries.find(e =>
-                    e.english && e.english.some(eng => eng.toLowerCase() === word)
-                );
-                if (match) translations.push(match.pidgin);
-            } else {
-                const match = local.entries.find(e => e.pidgin.toLowerCase() === word);
-                if (match && match.english) translations.push(match.english[0]);
-            }
-        });
-
-        return {
-            translation: translations.join(' '),
-            confidence: translations.length / words.length,
-            matches: translations.length
         };
     }
 

@@ -20,6 +20,7 @@ const pathMappings = {
     'js/data-loader.js': 'js/components/data-loader.js',
     'js/supabase-data-loader.js': 'js/components/supabase-data-loader.js',
     'js/phrases-data.js': 'js/data/phrases-data.js',
+    'js/data/phrases-loader.js': 'js/data/phrases-loader.js',
     'js/comprehensive-pidgin-data.js': 'js/data/comprehensive-pidgin-data.js',
     'js/stories-data.js': 'js/data/stories-data.js',
     'js/pickup-lines.js': 'js/components/pickup-lines.js',
@@ -270,55 +271,30 @@ function copyJavaScriptFiles() {
             console.log(`📦 Copied: ${file}`);
         }
     });
+
+    // Copy JS data files from src/js/data
+    const jsDataDir = 'src/js/data';
+    if (fs.existsSync(jsDataDir)) {
+        const destDir = 'public/js/data';
+        fs.mkdirSync(destDir, { recursive: true });
+        const files = fs.readdirSync(jsDataDir);
+        files.forEach(file => {
+            if (file.endsWith('.js')) {
+                const srcPath = path.join(jsDataDir, file);
+                const destPath = path.join(destDir, file);
+                fs.copyFileSync(srcPath, destPath);
+                console.log(`📦 Copied data loader: ${file}`);
+            }
+        });
+    }
 }
 
 // Copy data files
 function copyDataFiles() {
-    // Check if new consolidated structure exists
-    const hasNewStructure = fs.existsSync('data/master/pidgin-master.json');
-
-    if (hasNewStructure) {
-        console.log('📦 Using new consolidated data structure');
-
-        // Copy new structure directories
-        const newDataDirs = ['master', 'views', 'indexes', 'content', 'games'];
-        newDataDirs.forEach(dir => {
-            const srcDir = path.join('data', dir);
-            const destDir = path.join('public', 'data', dir);
-
-            if (fs.existsSync(srcDir)) {
-                fs.mkdirSync(destDir, { recursive: true });
-                const files = fs.readdirSync(srcDir);
-                files.forEach(file => {
-                    if (file.endsWith('.json')) {
-                        const srcPath = path.join(srcDir, file);
-                        const destPath = path.join(destDir, file);
-                        fs.copyFileSync(srcPath, destPath);
-                        console.log(`📊 Copied: ${dir}/${file}`);
-                    }
-                });
-            }
-        });
-    }
-
-    // Copy legacy files from backup if they exist (for backward compatibility during transition)
-    const legacyBackupDir = 'data/_legacy_backup';
-    if (fs.existsSync(legacyBackupDir)) {
-        const legacyFiles = [
-            { src: `${legacyBackupDir}/dictionary/pidgin-dictionary.json`, dest: 'public/data/dictionary/pidgin-dictionary.json' },
-            { src: `${legacyBackupDir}/phrases/phrases-data.js`, dest: 'public/js/data/phrases-data.js' },
-            { src: `${legacyBackupDir}/phrases/stories-data.js`, dest: 'public/js/data/stories-data.js' }
-        ];
-
-        legacyFiles.forEach(({ src, dest }) => {
-            if (fs.existsSync(src)) {
-                // Ensure destination directory exists
-                fs.mkdirSync(path.dirname(dest), { recursive: true });
-                fs.copyFileSync(src, dest);
-                console.log(`📊 Copied legacy data (from backup): ${path.basename(dest)}`);
-            }
-        });
-    }
+    // All data is now loaded from Supabase API
+    // No local JSON data files are copied to public/
+    // The master data in data/master/ is only used at build time for generating dictionary pages
+    console.log('📦 Using Supabase API for all data - no local data files copied');
 
     // Copy data files from data/content/ directory (new organized structure)
     // NOTE: Most content data has been migrated to Supabase and archived

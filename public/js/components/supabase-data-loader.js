@@ -1,5 +1,5 @@
-// Supabase-Enhanced Data Loader
-// Fetches dictionary data from Supabase API with JSON fallback
+// Supabase Data Loader
+// Fetches dictionary data from Supabase API (no local fallback)
 class SupabaseDataLoader {
     constructor() {
         this.data = null;
@@ -17,19 +17,12 @@ class SupabaseDataLoader {
         this.viewType = 'dictionary';
     }
 
-    // Main initialization - tries Supabase first, falls back to JSON
+    // Main initialization - loads from Supabase API
     async autoLoad() {
-        try {
-            // Try Supabase API first
-            console.log('🔄 Attempting to load from Supabase API...');
-            await this.loadFromSupabase();
-            console.log('✅ Loaded from Supabase API');
-            return this.data;
-        } catch (error) {
-            console.warn('⚠️ Supabase API unavailable, falling back to JSON...', error.message);
-            this.useSupabase = false;
-            return await this.loadFromJSON();
-        }
+        console.log('🔄 Loading from Supabase API...');
+        await this.loadFromSupabase();
+        console.log('✅ Loaded from Supabase API');
+        return this.data;
     }
 
     // Load data from Supabase API
@@ -77,63 +70,23 @@ class SupabaseDataLoader {
         return this.data;
     }
 
-    // Fallback: Load from JSON files
-    async loadFromJSON() {
-        try {
-            console.log('📚 Loading from JSON files...');
-            const response = await fetch('data/views/dictionary.json');
 
-            if (!response.ok) throw new Error('JSON load failed');
-
-            this.data = await response.json();
-            this.entries = this.data.entries.map(entry => ({
-                ...entry,
-                key: entry.id,
-                example: entry.examples?.[0] || '',
-                audioExample: entry.audioExample || entry.examples?.[0] || entry.pidgin
-            }));
-
-            this.loaded = true;
-            console.log(`✅ Loaded ${this.entries.length} entries from JSON`);
-            return this.data;
-        } catch (error) {
-            console.error('❌ Failed to load from JSON:', error);
-            throw error;
-        }
-    }
-
-    // Search using API or local
+    // Search using API
     async search(term) {
         if (!term || term.length < 2) {
             return this.getAllEntries();
         }
 
-        const searchTerm = term.toLowerCase();
+        const response = await fetch(`${this.apiBaseUrl}/search?q=${encodeURIComponent(term)}&limit=50`);
+        if (!response.ok) throw new Error(`Search API error: ${response.status}`);
 
-        // Try API search first if Supabase is available
-        if (this.useSupabase) {
-            try {
-                const response = await fetch(`${this.apiBaseUrl}/search?q=${encodeURIComponent(term)}&limit=50`);
-                if (response.ok) {
-                    const data = await response.json();
-                    return data.results.map(entry => ({
-                        ...entry,
-                        key: entry.id,
-                        example: entry.examples?.[0] || '',
-                        audioExample: entry.audio_example || entry.examples?.[0] || entry.pidgin
-                    }));
-                }
-            } catch (error) {
-                console.warn('API search failed, using local search');
-            }
-        }
-
-        // Local search fallback
-        return this.entries.filter(entry =>
-            entry.pidgin.toLowerCase().includes(searchTerm) ||
-            (Array.isArray(entry.english) && entry.english.some(eng => eng.toLowerCase().includes(searchTerm))) ||
-            (entry.examples && entry.examples.some(ex => ex.toLowerCase().includes(searchTerm)))
-        );
+        const data = await response.json();
+        return data.results.map(entry => ({
+            ...entry,
+            key: entry.id,
+            example: entry.examples?.[0] || '',
+            audioExample: entry.audio_example || entry.examples?.[0] || entry.pidgin
+        }));
     }
 
     // Get all entries
@@ -162,35 +115,19 @@ class SupabaseDataLoader {
 
     // Get random entries
     async getRandomEntries(count = 5, difficulty = null) {
-        // Try API first
-        if (this.useSupabase) {
-            try {
-                let url = `${this.apiBaseUrl}/random?count=${count}`;
-                if (difficulty) url += `&difficulty=${difficulty}`;
+        let url = `${this.apiBaseUrl}/random?count=${count}`;
+        if (difficulty) url += `&difficulty=${difficulty}`;
 
-                const response = await fetch(url);
-                if (response.ok) {
-                    const data = await response.json();
-                    return data.entries.map(entry => ({
-                        ...entry,
-                        key: entry.id,
-                        example: entry.examples?.[0] || '',
-                        audioExample: entry.audio_example || entry.examples?.[0] || entry.pidgin
-                    }));
-                }
-            } catch (error) {
-                console.warn('API random failed, using local');
-            }
-        }
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Random API error: ${response.status}`);
 
-        // Local fallback
-        let pool = this.entries;
-        if (difficulty) {
-            pool = pool.filter(e => e.difficulty === difficulty);
-        }
-
-        const shuffled = [...pool].sort(() => Math.random() - 0.5);
-        return shuffled.slice(0, count);
+        const data = await response.json();
+        return data.entries.map(entry => ({
+            ...entry,
+            key: entry.id,
+            example: entry.examples?.[0] || '',
+            audioExample: entry.audio_example || entry.examples?.[0] || entry.pidgin
+        }));
     }
 
     // Get single random entry
