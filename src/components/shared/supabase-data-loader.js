@@ -1,15 +1,22 @@
-// Supabase Data Loader
-// Fetches dictionary data from Supabase API (no local fallback)
+// Supabase Data Loader - Optimized Version
+// Single-request loading with client-side caching
 class SupabaseDataLoader {
     constructor() {
         this.data = null;
         this.entries = [];
         this.loaded = false;
+        this.loading = false;
+        this.loadPromise = null;
         this.cache = new Map();
         this.apiBaseUrl = '/api/dictionary';
         this.useSupabase = true;
         this.stats = null;
         this.categories = [];
+
+        // Cache configuration
+        this.cacheKey = 'pidgin_dictionary_cache';
+        this.cacheVersion = 'v2';
+        this.cacheTTL = 5 * 60 * 1000; // 5 minutes client-side cache
 
         // Backward compatibility
         this.isNewSystem = true;
@@ -17,76 +24,153 @@ class SupabaseDataLoader {
         this.viewType = 'dictionary';
     }
 
-    // Main initialization - loads from Supabase API
+    // Main initialization - loads from cache or API
     async autoLoad() {
+        // If already loaded, return immediately
+        if (this.loaded) {
+            return this.data;
+        }
+
+        // If currently loading, wait for that promise
+        if (this.loading && this.loadPromise) {
+            return this.loadPromise;
+        }
+
+        this.loading = true;
+        this.loadPromise = this._doLoad();
+
+        try {
+            const result = await this.loadPromise;
+            return result;
+        } finally {
+            this.loading = false;
+        }
+    }
+
+    async _doLoad() {
+        const startTime = performance.now();
+
+        // Try to load from sessionStorage cache first
+        const cached = this._getFromCache();
+        if (cached) {
+            this._hydrateFromCache(cached);
+            console.log(`⚡ Loaded ${this.entries.length} entries from cache in ${(performance.now() - startTime).toFixed(0)}ms`);
+            return this.data;
+        }
+
+        // Load from API (single request)
         console.log('🔄 Loading from Supabase API...');
         await this.loadFromSupabase();
-        console.log('✅ Loaded from Supabase API');
+        console.log(`✅ Loaded ${this.entries.length} entries from API in ${(performance.now() - startTime).toFixed(0)}ms`);
         return this.data;
     }
 
-    // Load data from Supabase API
-    async loadFromSupabase() {
-        // First, get stats to know total count
-        const statsResponse = await fetch(`${this.apiBaseUrl}/stats`);
-        if (!statsResponse.ok) throw new Error('Stats endpoint failed');
-        this.stats = await statsResponse.json();
+    // Check sessionStorage cache
+    _getFromCache() {
+        try {
+            const cacheData = sessionStorage.getItem(this.cacheKey);
+            if (!cacheData) return null;
 
-        // Load all entries (paginated)
-        const allEntries = [];
-        const pageSize = 100;
-        const totalPages = Math.ceil(this.stats.totalEntries / pageSize);
+            const parsed = JSON.parse(cacheData);
 
-        for (let page = 1; page <= totalPages; page++) {
-            const response = await fetch(`${this.apiBaseUrl}?page=${page}&limit=${pageSize}`);
-            if (!response.ok) throw new Error(`Failed to fetch page ${page}`);
-            const data = await response.json();
-            allEntries.push(...data.entries);
+            // Check version and TTL
+            if (parsed.version !== this.cacheVersion) return null;
+            if (Date.now() - parsed.timestamp > this.cacheTTL) return null;
+
+            return parsed.data;
+        } catch (e) {
+            console.warn('Cache read error:', e);
+            return null;
         }
+    }
 
-        // Transform to match expected format
-        this.entries = allEntries.map(entry => ({
+    // Save to sessionStorage cache
+    _saveToCache(data) {
+        try {
+            const cacheData = {
+                version: this.cacheVersion,
+                timestamp: Date.now(),
+                data: data
+            };
+            sessionStorage.setItem(this.cacheKey, JSON.stringify(cacheData));
+        } catch (e) {
+            console.warn('Cache write error:', e);
+        }
+    }
+
+    // Hydrate loader state from cached data
+    _hydrateFromCache(cached) {
+        this.entries = cached.entries.map(entry => ({
             ...entry,
-            key: entry.id, // Add key for backward compatibility
+            key: entry.id,
             example: entry.examples?.[0] || '',
             audioExample: entry.audio_example || entry.examples?.[0] || entry.pidgin
         }));
+
+        this.stats = cached.stats;
+        this.data = {
+            entries: this.entries,
+            metadata: {
+                totalEntries: cached.stats.totalEntries,
+                source: 'cache',
+                lastUpdated: cached.stats.lastUpdated
+            },
+            categories: cached.stats.byCategory
+        };
+
+        this.categories = Object.keys(cached.stats.byCategory || {});
+        this.loaded = true;
+    }
+
+    // Load data from Supabase API - SINGLE REQUEST
+    async loadFromSupabase() {
+        // Use new bulk endpoint for single-request loading
+        const response = await fetch(`${this.apiBaseUrl}/all`);
+        if (!response.ok) {
+            throw new Error(`API error: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+
+        // Save to cache before processing
+        this._saveToCache(data);
+
+        // Transform entries
+        this.entries = data.entries.map(entry => ({
+            ...entry,
+            key: entry.id,
+            example: entry.examples?.[0] || '',
+            audioExample: entry.audio_example || entry.examples?.[0] || entry.pidgin
+        }));
+
+        this.stats = data.stats;
 
         // Build data structure for compatibility
         this.data = {
             entries: this.entries,
             metadata: {
-                totalEntries: this.stats.totalEntries,
+                totalEntries: data.stats.totalEntries,
                 source: 'supabase',
-                lastUpdated: this.stats.lastUpdated
+                lastUpdated: data.stats.lastUpdated
             },
-            categories: this.stats.byCategory
+            categories: data.stats.byCategory
         };
 
-        this.categories = Object.keys(this.stats.byCategory);
+        this.categories = Object.keys(data.stats.byCategory || {});
         this.loaded = true;
 
         console.log(`📊 Loaded ${this.entries.length} entries from Supabase`);
         return this.data;
     }
 
-
-    // Search using API
+    // Search using local data (faster than API for already-loaded data)
     async search(term) {
         if (!term || term.length < 2) {
             return this.getAllEntries();
         }
 
-        const response = await fetch(`${this.apiBaseUrl}/search?q=${encodeURIComponent(term)}&limit=50`);
-        if (!response.ok) throw new Error(`Search API error: ${response.status}`);
-
-        const data = await response.json();
-        return data.results.map(entry => ({
-            ...entry,
-            key: entry.id,
-            example: entry.examples?.[0] || '',
-            audioExample: entry.audio_example || entry.examples?.[0] || entry.pidgin
-        }));
+        // Use local fuzzy search for instant results
+        return this.fuzzySearch(term);
     }
 
     // Get all entries
@@ -113,21 +197,16 @@ class SupabaseDataLoader {
         return this.entries.find(entry => entry.id === id || entry.key === id);
     }
 
-    // Get random entries
+    // Get random entries (local)
     async getRandomEntries(count = 5, difficulty = null) {
-        let url = `${this.apiBaseUrl}/random?count=${count}`;
-        if (difficulty) url += `&difficulty=${difficulty}`;
+        let pool = this.entries;
+        if (difficulty) {
+            pool = pool.filter(e => e.difficulty === difficulty);
+        }
 
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`Random API error: ${response.status}`);
-
-        const data = await response.json();
-        return data.entries.map(entry => ({
-            ...entry,
-            key: entry.id,
-            example: entry.examples?.[0] || '',
-            audioExample: entry.audio_example || entry.examples?.[0] || entry.pidgin
-        }));
+        // Shuffle and take count
+        const shuffled = [...pool].sort(() => Math.random() - 0.5);
+        return shuffled.slice(0, count);
     }
 
     // Get single random entry
@@ -180,36 +259,50 @@ class SupabaseDataLoader {
         return this.entries.length;
     }
 
-    // Fuzzy search with scoring
+    // Fuzzy search with scoring (optimized)
     fuzzySearch(term, threshold = 0.3) {
         const searchTerm = term.toLowerCase();
         const results = [];
 
-        this.entries.forEach(entry => {
+        for (const entry of this.entries) {
             let score = 0;
+            const pidginLower = entry.pidgin.toLowerCase();
 
-            if (entry.pidgin.toLowerCase() === searchTerm) {
+            // Exact match on pidgin
+            if (pidginLower === searchTerm) {
                 score = 1.0;
-            } else if (entry.pidgin.toLowerCase().includes(searchTerm)) {
+            }
+            // Starts with (high priority)
+            else if (pidginLower.startsWith(searchTerm)) {
+                score = 0.85;
+            }
+            // Contains in pidgin
+            else if (pidginLower.includes(searchTerm)) {
                 score = 0.7;
             }
 
+            // Check English translations
             if (Array.isArray(entry.english)) {
-                entry.english.forEach(eng => {
-                    if (eng.toLowerCase() === searchTerm) {
+                for (const eng of entry.english) {
+                    const engLower = eng.toLowerCase();
+                    if (engLower === searchTerm) {
                         score = Math.max(score, 0.9);
-                    } else if (eng.toLowerCase().includes(searchTerm)) {
+                    } else if (engLower.startsWith(searchTerm)) {
+                        score = Math.max(score, 0.75);
+                    } else if (engLower.includes(searchTerm)) {
                         score = Math.max(score, 0.6);
                     }
-                });
+                }
             }
 
             if (score >= threshold) {
                 results.push({ entry, score });
             }
-        });
+        }
 
-        return results.sort((a, b) => b.score - a.score).map(r => r.entry);
+        // Sort by score descending
+        results.sort((a, b) => b.score - a.score);
+        return results.map(r => r.entry);
     }
 
     // Get translations (for translator compatibility)
@@ -240,9 +333,21 @@ class SupabaseDataLoader {
         return translations;
     }
 
-    // Clear cache
+    // Clear all caches
     clearCache() {
         this.cache.clear();
+        try {
+            sessionStorage.removeItem(this.cacheKey);
+        } catch (e) {
+            // Ignore
+        }
+    }
+
+    // Force refresh from API
+    async refresh() {
+        this.clearCache();
+        this.loaded = false;
+        return this.autoLoad();
     }
 }
 

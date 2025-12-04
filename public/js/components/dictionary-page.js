@@ -210,8 +210,14 @@ function getLetterCount(letter) {
     return 0;
 }
 
-// Display search results
-function displayResults(entries) {
+// Pagination state
+let currentPage = 1;
+const ENTRIES_PER_PAGE = 48; // 4 columns x 12 rows = nice grid
+let currentEntries = [];
+let isLoadingMore = false;
+
+// Display search results with pagination
+function displayResults(entries, append = false) {
     const grid = document.getElementById('dictionary-grid');
     const loadingState = document.getElementById('loading-state');
     const noResults = document.getElementById('no-results');
@@ -223,17 +229,27 @@ function displayResults(entries) {
         grid.innerHTML = '';
         grid.style.display = 'none';
         if (noResults) noResults.classList.remove('hidden');
+        removeLoadMoreButton();
         return;
     }
 
     // Show grid and hide no results
-    grid.style.display = ''; // Remove inline display: none
+    grid.style.display = '';
     if (noResults) noResults.classList.add('hidden');
 
-    // Sort entries alphabetically
-    entries.sort((a, b) => a.pidgin.localeCompare(b.pidgin));
+    // Sort entries alphabetically (only on new search, not append)
+    if (!append) {
+        entries.sort((a, b) => a.pidgin.localeCompare(b.pidgin));
+        currentEntries = entries;
+        currentPage = 1;
+    }
 
-    grid.innerHTML = entries.map(entry => {
+    // Calculate which entries to show
+    const startIdx = append ? (currentPage - 1) * ENTRIES_PER_PAGE : 0;
+    const endIdx = currentPage * ENTRIES_PER_PAGE;
+    const entriesToRender = currentEntries.slice(startIdx, endIdx);
+
+    const html = entriesToRender.map(entry => {
         // Handle both new and legacy data formats
         const englishText = Array.isArray(entry.english) ? entry.english.join(', ') : entry.english;
         const exampleText = Array.isArray(entry.examples) ? entry.examples[0] || entry.example || '' : entry.example || '';
@@ -289,8 +305,53 @@ function displayResults(entries) {
         `;
     }).join('');
 
-    // Add event listeners
+    // Append or replace content
+    if (append) {
+        grid.insertAdjacentHTML('beforeend', html);
+    } else {
+        grid.innerHTML = html;
+    }
+
+    // Add event listeners to new entries
     addEntryEventListeners();
+
+    // Show/hide load more button
+    if (endIdx < currentEntries.length) {
+        showLoadMoreButton(currentEntries.length - endIdx);
+    } else {
+        removeLoadMoreButton();
+    }
+
+    isLoadingMore = false;
+}
+
+// Load more entries button
+function showLoadMoreButton(remaining) {
+    let btn = document.getElementById('load-more-btn');
+    if (!btn) {
+        btn = document.createElement('button');
+        btn.id = 'load-more-btn';
+        btn.className = 'w-full py-4 bg-purple-100 hover:bg-purple-200 text-purple-700 font-semibold rounded-xl transition mt-6';
+        btn.addEventListener('click', loadMoreEntries);
+
+        const grid = document.getElementById('dictionary-grid');
+        grid.parentNode.insertBefore(btn, grid.nextSibling);
+    }
+    btn.textContent = `Load More (${remaining} remaining)`;
+    btn.style.display = 'block';
+}
+
+function removeLoadMoreButton() {
+    const btn = document.getElementById('load-more-btn');
+    if (btn) btn.style.display = 'none';
+}
+
+function loadMoreEntries() {
+    if (isLoadingMore) return;
+    isLoadingMore = true;
+
+    currentPage++;
+    displayResults(currentEntries, true);
 }
 
 // Add event listeners to dictionary entries

@@ -762,6 +762,69 @@ const dictionaryLimiter = rateLimit({
     message: 'Too many dictionary requests, please try again later.',
 });
 
+// In-memory cache for dictionary bulk endpoint (refreshes every 5 minutes)
+let dictionaryCache = {
+    data: null,
+    timestamp: 0,
+    ttl: 5 * 60 * 1000 // 5 minutes
+};
+
+// GET /api/dictionary/all - Get ALL dictionary entries in single request (optimized for initial load)
+app.get('/api/dictionary/all',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const now = Date.now();
+
+            // Check cache
+            if (dictionaryCache.data && (now - dictionaryCache.timestamp) < dictionaryCache.ttl) {
+                res.set('X-Cache', 'HIT');
+                res.set('Cache-Control', 'public, max-age=300'); // Browser cache 5 min
+                return res.json(dictionaryCache.data);
+            }
+
+            // Fetch all entries in single query (Supabase allows up to 1000 per request)
+            const { data, error, count } = await supabase
+                .from('dictionary_entries')
+                .select('*', { count: 'exact' })
+                .order('pidgin', { ascending: true })
+                .limit(1000);
+
+            if (error) {
+                console.error('Supabase bulk query error:', error);
+                return res.status(500).json({ error: 'Database query failed', details: error.message });
+            }
+
+            // Get category counts for stats
+            const categoryCounts = data.reduce((acc, item) => {
+                const cat = item.category || 'uncategorized';
+                acc[cat] = (acc[cat] || 0) + 1;
+                return acc;
+            }, {});
+
+            const response = {
+                entries: data,
+                stats: {
+                    totalEntries: count || data.length,
+                    byCategory: categoryCounts,
+                    lastUpdated: new Date().toISOString()
+                }
+            };
+
+            // Update cache
+            dictionaryCache.data = response;
+            dictionaryCache.timestamp = now;
+
+            res.set('X-Cache', 'MISS');
+            res.set('Cache-Control', 'public, max-age=300');
+            res.json(response);
+
+        } catch (error) {
+            console.error('Dictionary bulk API error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
 // GET /api/dictionary - Get all dictionary entries with pagination
 app.get('/api/dictionary',
     dictionaryLimiter,
