@@ -78,18 +78,21 @@ function initializeMobileToggle() {
 
     if (!toggle || !bookList) return;
 
-    toggle.addEventListener('click', () => {
-        const isHidden = bookList.classList.contains('hidden');
+    // Track open state
+    let isOpen = false;
 
-        if (isHidden) {
-            // Show the list
-            bookList.classList.remove('hidden');
+    toggle.addEventListener('click', () => {
+        isOpen = !isOpen;
+
+        if (isOpen) {
+            // Show the list - remove hidden and lg:block, add block
+            bookList.classList.remove('hidden', 'lg:block');
             bookList.classList.add('block');
             if (chevron) chevron.classList.add('rotate-180');
         } else {
-            // Hide the list
-            bookList.classList.add('hidden');
+            // Hide the list - restore original classes
             bookList.classList.remove('block');
+            bookList.classList.add('hidden', 'lg:block');
             if (chevron) chevron.classList.remove('rotate-180');
         }
     });
