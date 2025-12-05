@@ -134,7 +134,8 @@ function processHTMLFiles() {
         'what-does-hamajang-mean.html',
         'what-does-humbug-mean.html',
         // Interactive Features
-        'pronunciation-practice.html'
+        'pronunciation-practice.html',
+        'pidgin-heads-up.html'
     ];
 
     // Load shared navigation and footer templates

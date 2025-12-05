@@ -120,6 +120,14 @@ function generateSitemap(entries) {
         <priority>0.85</priority>
     </url>
 
+    <!-- Pidgin Heads Up Game - Party game -->
+    <url>
+        <loc>${baseUrl}/pidgin-heads-up.html</loc>
+        <lastmod>${currentDate}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
     <!-- Ask a Local Page - Community feature -->
     <url>
         <loc>${baseUrl}/ask-local.html</loc>

@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Pidgin Heads Up! - Hawaiian Pidgin Party Game | ChokePidgin</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Play Pidgin Heads Up! Hold your phone to your forehead while friends give you clues to guess Hawaiian Pidgin words. Perfect party game for learning Pidgin!">
+    <meta name="keywords" content="hawaiian pidgin game, heads up pidgin, pidgin party game, hawaii word game, learn pidgin fun">
+    <meta name="author" content="ChokePidgin.com">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Pidgin Heads Up! - Hawaiian Pidgin Party Game">
+    <meta property="og:description" content="Hold your phone to your forehead and guess Pidgin words from your friends' clues!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chokepidgin.com/pidgin-heads-up.html">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://chokepidgin.com/pidgin-heads-up.html">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" href="/favicon.ico">
+
+    <!-- Tailwind CSS -->
+    <link href="css/tailwind.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        .brand-font { font-family: 'Pacifico', cursive; }
+        body, h1, h2, h3, h4, h5, h6 { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+
+        /* Lock screen orientation hint */
+        .rotate-phone {
+            display: none;
+        }
+
+        /* Game screen styles */
+        .game-screen {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .word-display {
+            font-size: clamp(3rem, 12vw, 6rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            line-height: 1.1;
+            transform: rotate(180deg); /* Upside down for forehead viewing */
+        }
+
+        .hint-display {
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            transform: rotate(180deg);
+            opacity: 0.9;
+        }
+
+        /* Tilt detection feedback */
+        .tilt-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .tilt-indicator.correct {
+            background: rgba(34, 197, 94, 0.95);
+            opacity: 1;
+        }
+
+        .tilt-indicator.skip {
+            background: rgba(239, 68, 68, 0.95);
+            opacity: 1;
+        }
+
+        .tilt-indicator span {
+            font-size: 4rem;
+            color: white;
+            font-weight: bold;
+            transform: rotate(180deg);
+        }
+
+        /* Timer bar */
+        .timer-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 4px;
+            overflow: hidden;
+            transform: rotate(180deg);
+        }
+
+        .timer-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #22c55e, #eab308, #ef4444);
+            transition: width 0.1s linear;
+        }
+
+        /* Category cards */
+        .category-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+        }
+        .category-card.selected {
+            ring: 4px;
+            ring-color: #22c55e;
+            transform: scale(1.02);
+        }
+
+        /* Fullscreen game mode */
+        .fullscreen-game {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+        }
+
+        /* Score animation */
+        @keyframes score-pop {
+            0% { transform: scale(1) rotate(180deg); }
+            50% { transform: scale(1.2) rotate(180deg); }
+            100% { transform: scale(1) rotate(180deg); }
+        }
+        .score-pop {
+            animation: score-pop 0.3s ease;
+        }
+
+        /* Countdown */
+        @keyframes countdown-pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.8; }
+        }
+        .countdown-number {
+            animation: countdown-pulse 1s ease infinite;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-orange-50 to-yellow-50 min-h-screen">
+    <!-- NAVIGATION_PLACEHOLDER -->
+
+    <!-- Main Menu Screen -->
+    <main id="menu-screen" class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                <span class="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+                    🤙 Pidgin Heads Up!
+                </span>
+            </h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Hold da phone to your forehead! Your friends give clues, you guess da Pidgin word.
+                Tilt down fo' correct, tilt up fo' skip!
+            </p>
+        </div>
+
+        <!-- How to Play -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">📖 How fo' Play</h2>
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="text-center p-4">
+                    <div class="text-4xl mb-2">📱</div>
+                    <h3 class="font-bold text-gray-800">1. Hold to Forehead</h3>
+                    <p class="text-gray-600 text-sm">Put da phone on your forehead so others can see da word</p>
+                </div>
+                <div class="text-center p-4">
+                    <div class="text-4xl mb-2">🗣️</div>
+                    <h3 class="font-bold text-gray-800">2. Friends Give Clues</h3>
+                    <p class="text-gray-600 text-sm">They describe da word without saying um</p>
+                </div>
+                <div class="text-center p-4">
+                    <div class="text-4xl mb-2">📲</div>
+                    <h3 class="font-bold text-gray-800">3. Tilt to Answer</h3>
+                    <p class="text-gray-600 text-sm">Tilt DOWN = correct ✅<br>Tilt UP = skip ❌</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Selection -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">🎯 Choose Category</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4" id="category-grid">
+                <div class="category-card bg-gradient-to-br from-green-400 to-green-600 text-white rounded-xl p-6 text-center selected" data-category="all">
+                    <div class="text-3xl mb-2">🌴</div>
+                    <h3 class="font-bold text-lg">All Words</h3>
+                    <p class="text-sm opacity-80">Everything mixed up</p>
+                </div>
+                <div class="category-card bg-gradient-to-br from-blue-400 to-blue-600 text-white rounded-xl p-6 text-center" data-category="greetings">
+                    <div class="text-3xl mb-2">🤙</div>
+                    <h3 class="font-bold text-lg">Greetings</h3>
+                    <p class="text-sm opacity-80">Howzit, Aloha, Mahalo</p>
+                </div>
+                <div class="category-card bg-gradient-to-br from-orange-400 to-orange-600 text-white rounded-xl p-6 text-center" data-category="food">
+                    <div class="text-3xl mb-2">🍱</div>
+                    <h3 class="font-bold text-lg">Food & Drink</h3>
+                    <p class="text-sm opacity-80">Grindz, Poke, Loco Moco</p>
+                </div>
+                <div class="category-card bg-gradient-to-br from-purple-400 to-purple-600 text-white rounded-xl p-6 text-center" data-category="slang">
+                    <div class="text-3xl mb-2">💬</div>
+                    <h3 class="font-bold text-lg">Local Slang</h3>
+                    <p class="text-sm opacity-80">Da kine, Shoots, Rajah</p>
+                </div>
+                <div class="category-card bg-gradient-to-br from-pink-400 to-pink-600 text-white rounded-xl p-6 text-center" data-category="people">
+                    <div class="text-3xl mb-2">👨‍👩‍👧‍👦</div>
+                    <h3 class="font-bold text-lg">People & Family</h3>
+                    <p class="text-sm opacity-80">Ohana, Keiki, Tutu</p>
+                </div>
+                <div class="category-card bg-gradient-to-br from-teal-400 to-teal-600 text-white rounded-xl p-6 text-center" data-category="places">
+                    <div class="text-3xl mb-2">🏝️</div>
+                    <h3 class="font-bold text-lg">Places & Nature</h3>
+                    <p class="text-sm opacity-80">Mauka, Makai, Lanai</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Settings -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">⚙️ Settings</h2>
+            <div class="flex flex-wrap gap-6 justify-center">
+                <div>
+                    <label class="block text-gray-700 font-medium mb-2">⏱️ Round Time</label>
+                    <select id="round-time" class="px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-green-500 focus:outline-none">
+                        <option value="30">30 seconds</option>
+                        <option value="60" selected>60 seconds</option>
+                        <option value="90">90 seconds</option>
+                        <option value="120">2 minutes</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium mb-2">🎚️ Difficulty</label>
+                    <select id="difficulty" class="px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-green-500 focus:outline-none">
+                        <option value="easy">Easy (Common words)</option>
+                        <option value="medium" selected>Medium (Mixed)</option>
+                        <option value="hard">Hard (Advanced)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Start Button -->
+        <div class="text-center">
+            <button id="start-game-btn" class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white text-2xl font-bold py-4 px-12 rounded-full shadow-lg transform hover:scale-105 transition">
+                🎮 Start Game!
+            </button>
+            <p class="text-gray-500 mt-4 text-sm">Make sure to allow motion sensors when prompted</p>
+        </div>
+    </main>
+
+    <!-- Countdown Screen -->
+    <div id="countdown-screen" class="fullscreen-game bg-gradient-to-br from-purple-600 to-pink-600 hidden">
+        <div class="game-screen text-white">
+            <div class="text-2xl mb-4" style="transform: rotate(180deg);">Get Ready!</div>
+            <div id="countdown-number" class="text-9xl font-bold countdown-number" style="transform: rotate(180deg);">3</div>
+            <div class="text-xl mt-4" style="transform: rotate(180deg);">Hold phone to forehead 📱</div>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="fullscreen-game hidden">
+        <div class="game-screen" id="game-bg">
+            <!-- Timer -->
+            <div class="w-full max-w-md mb-8" style="transform: rotate(180deg);">
+                <div class="flex justify-between text-white text-xl font-bold mb-2">
+                    <span>⏱️ <span id="time-left">60</span>s</span>
+                    <span>✅ <span id="score">0</span></span>
+                </div>
+                <div class="timer-bar w-full">
+                    <div id="timer-progress" class="timer-progress" style="width: 100%;"></div>
+                </div>
+            </div>
+
+            <!-- Word Display -->
+            <div class="flex-1 flex flex-col justify-center items-center">
+                <div id="current-word" class="word-display text-white mb-4">HOWZIT</div>
+                <div id="current-hint" class="hint-display text-white/80"></div>
+            </div>
+
+            <!-- Tilt Indicators -->
+            <div id="tilt-correct" class="tilt-indicator correct">
+                <span>✅ CORRECT!</span>
+            </div>
+            <div id="tilt-skip" class="tilt-indicator skip">
+                <span>❌ SKIP!</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="results-screen" class="fullscreen-game bg-gradient-to-br from-blue-600 to-purple-600 hidden">
+        <div class="game-screen text-white p-8">
+            <h2 class="text-4xl font-bold mb-2">🎉 Pau! Time's Up!</h2>
+
+            <div class="bg-white/20 rounded-2xl p-8 my-8 max-w-md w-full">
+                <div class="text-6xl font-bold mb-2" id="final-score">0</div>
+                <div class="text-2xl opacity-80">Words Correct</div>
+            </div>
+
+            <div class="bg-white/10 rounded-xl p-4 mb-8 max-w-md w-full max-h-64 overflow-y-auto">
+                <h3 class="font-bold mb-3 text-xl">Words This Round:</h3>
+                <div id="words-list" class="text-left space-y-2">
+                    <!-- Filled dynamically -->
+                </div>
+            </div>
+
+            <div class="flex flex-wrap gap-4 justify-center">
+                <button id="play-again-btn" class="bg-white text-purple-600 font-bold py-3 px-8 rounded-full hover:bg-gray-100 transition">
+                    🔄 Play Again
+                </button>
+                <button id="back-to-menu-btn" class="bg-white/20 text-white font-bold py-3 px-8 rounded-full hover:bg-white/30 transition">
+                    📋 Change Category
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER_PLACEHOLDER -->
+
+    <script>
+        // Game Data - Pidgin words organized by category
+        const gameWords = {
+            greetings: [
+                { word: "Howzit", hint: "Hawaiian hello", english: "How's it going?" },
+                { word: "Aloha", hint: "Love, hello, goodbye", english: "Hello/Goodbye/Love" },
+                { word: "Mahalo", hint: "Gratitude", english: "Thank you" },
+                { word: "Shoots", hint: "Agreement", english: "Okay/Sounds good" },
+                { word: "A hui hou", hint: "Farewell", english: "Until we meet again" },
+                { word: "Shaka", hint: "Hand gesture", english: "Hang loose" },
+                { word: "Wassup", hint: "Casual greeting", english: "What's up" },
+                { word: "Howz it?", hint: "Quick check-in", english: "How are you?" },
+                { word: "Rajah dat", hint: "Military style", english: "Roger that" },
+                { word: "Laters", hint: "Goodbye casual", english: "See you later" }
+            ],
+            food: [
+                { word: "Grindz", hint: "What you eat", english: "Food" },
+                { word: "Ono", hint: "Tastes amazing", english: "Delicious" },
+                { word: "Poke", hint: "Raw fish dish", english: "Cubed raw fish" },
+                { word: "Loco Moco", hint: "Rice, burger, egg", english: "Local comfort food" },
+                { word: "Musubi", hint: "Spam on rice", english: "Rice ball with spam" },
+                { word: "Plate Lunch", hint: "Two scoops rice", english: "Local lunch combo" },
+                { word: "Shave Ice", hint: "Not shaved ice", english: "Hawaiian snow cone" },
+                { word: "Malasada", hint: "Portuguese treat", english: "Fried doughnut" },
+                { word: "Poi", hint: "Purple paste", english: "Taro paste" },
+                { word: "Kalua Pig", hint: "Underground cooked", english: "Roasted pork" },
+                { word: "Lau Lau", hint: "Wrapped in leaves", english: "Steamed pork in taro leaves" },
+                { word: "Pupu", hint: "Before main course", english: "Appetizers" },
+                { word: "Broke Da Mouth", hint: "So good it hurts", english: "Extremely delicious" },
+                { word: "Ono Grindz", hint: "Best kind food", english: "Delicious food" },
+                { word: "Kanak Attack", hint: "After big meal", english: "Food coma" },
+                { word: "Luau", hint: "Hawaiian party", english: "Feast/celebration" },
+                { word: "Lilikoi", hint: "Yellow fruit", english: "Passion fruit" },
+                { word: "Haupia", hint: "Coconut dessert", english: "Coconut pudding" }
+            ],
+            slang: [
+                { word: "Da Kine", hint: "Universal word", english: "The thing/whatchamacallit" },
+                { word: "Brah", hint: "Male friend", english: "Brother/dude" },
+                { word: "Pau", hint: "All done", english: "Finished" },
+                { word: "Choke", hint: "Lots and lots", english: "A lot/plenty" },
+                { word: "Mo Bettah", hint: "Superior", english: "Much better" },
+                { word: "Small Kine", hint: "Just a little", english: "A little bit" },
+                { word: "Lidat", hint: "Similar way", english: "Like that" },
+                { word: "Bumbye", hint: "Eventually", english: "Later/by and by" },
+                { word: "Fo Real", hint: "Seriously?", english: "For real" },
+                { word: "No Can", hint: "Impossible", english: "Cannot" },
+                { word: "Geev Um", hint: "Go hard", english: "Give it/go for it" },
+                { word: "Stink Eye", hint: "Mean look", english: "Dirty look" },
+                { word: "Talk Stink", hint: "Gossip bad", english: "Talk bad about someone" },
+                { word: "Hamajang", hint: "All mixed up", english: "Messed up" },
+                { word: "Pupule", hint: "Lost your mind", english: "Crazy" },
+                { word: "Lolo", hint: "Not smart", english: "Stupid/crazy" },
+                { word: "Ainokea", hint: "Don't care", english: "I don't care" },
+                { word: "Chicken Skin", hint: "Spooky feeling", english: "Goosebumps" },
+                { word: "Talk Story", hint: "Chat session", english: "Have a conversation" },
+                { word: "Hang Loose", hint: "Relax brah", english: "Take it easy" },
+                { word: "No Worry Beef Curry", hint: "Don't stress", english: "Don't worry about it" },
+                { word: "Wiki Wiki", hint: "Fast fast", english: "Quick/hurry" }
+            ],
+            people: [
+                { word: "Ohana", hint: "Blood or not", english: "Family" },
+                { word: "Keiki", hint: "Little ones", english: "Child/children" },
+                { word: "Wahine", hint: "Female person", english: "Woman" },
+                { word: "Kane", hint: "Male person", english: "Man" },
+                { word: "Tutu", hint: "Elder relative", english: "Grandparent" },
+                { word: "Braddah", hint: "Close male", english: "Brother/friend" },
+                { word: "Sistah", hint: "Close female", english: "Sister/friend" },
+                { word: "Haole", hint: "Not from here", english: "Caucasian/outsider" },
+                { word: "Kamaaina", hint: "Been here long", english: "Local resident" },
+                { word: "Malihini", hint: "Just arrived", english: "Newcomer/visitor" },
+                { word: "Kupuna", hint: "Wise elder", english: "Elder/ancestor" },
+                { word: "Tita", hint: "Tough woman", english: "Tough local woman" },
+                { word: "Moke", hint: "Tough guy", english: "Tough local man" },
+                { word: "Aunty", hint: "Respect for elder woman", english: "Older woman (respectful)" },
+                { word: "Uncle", hint: "Respect for elder man", english: "Older man (respectful)" },
+                { word: "Calabash Cousin", hint: "Not blood related", english: "Close family friend" }
+            ],
+            places: [
+                { word: "Mauka", hint: "Mountain direction", english: "Toward the mountain" },
+                { word: "Makai", hint: "Ocean direction", english: "Toward the sea" },
+                { word: "Lanai", hint: "Outside sitting", english: "Porch/balcony" },
+                { word: "Hale", hint: "Where you live", english: "House/home" },
+                { word: "Heiau", hint: "Sacred place", english: "Ancient temple" },
+                { word: "Pau Hana", hint: "After work spot", english: "Happy hour" },
+                { word: "Da Beach", hint: "Sandy shores", english: "The beach" },
+                { word: "Town", hint: "Honolulu", english: "Downtown Honolulu" },
+                { word: "Country", hint: "North Shore side", english: "Rural areas" },
+                { word: "Da Mainland", hint: "Not Hawaii", english: "Continental US" },
+                { word: "Slippahs", hint: "Footwear everywhere", english: "Flip flops" },
+                { word: "Puka", hint: "Opening", english: "Hole" }
+            ]
+        };
+
+        // Game State
+        let selectedCategory = 'all';
+        let roundTime = 60;
+        let difficulty = 'medium';
+        let currentWords = [];
+        let currentWordIndex = 0;
+        let score = 0;
+        let timeLeft = 60;
+        let gameTimer = null;
+        let roundResults = [];
+        let lastTiltAction = 0;
+        let canTilt = true;
+
+        // DOM Elements
+        const menuScreen = document.getElementById('menu-screen');
+        const countdownScreen = document.getElementById('countdown-screen');
+        const gameScreen = document.getElementById('game-screen');
+        const resultsScreen = document.getElementById('results-screen');
+
+        // Category Selection
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', () => {
+                document.querySelectorAll('.category-card').forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                selectedCategory = card.dataset.category;
+            });
+        });
+
+        // Start Game Button
+        document.getElementById('start-game-btn').addEventListener('click', () => {
+            roundTime = parseInt(document.getElementById('round-time').value);
+            difficulty = document.getElementById('difficulty').value;
+            startCountdown();
+        });
+
+        // Play Again
+        document.getElementById('play-again-btn').addEventListener('click', () => {
+            startCountdown();
+        });
+
+        // Back to Menu
+        document.getElementById('back-to-menu-btn').addEventListener('click', () => {
+            showScreen('menu');
+        });
+
+        function showScreen(screen) {
+            menuScreen.classList.add('hidden');
+            countdownScreen.classList.add('hidden');
+            gameScreen.classList.add('hidden');
+            resultsScreen.classList.add('hidden');
+
+            switch(screen) {
+                case 'menu': menuScreen.classList.remove('hidden'); break;
+                case 'countdown': countdownScreen.classList.remove('hidden'); break;
+                case 'game': gameScreen.classList.remove('hidden'); break;
+                case 'results': resultsScreen.classList.remove('hidden'); break;
+            }
+        }
+
+        function startCountdown() {
+            showScreen('countdown');
+            let count = 3;
+            const countdownEl = document.getElementById('countdown-number');
+            countdownEl.textContent = count;
+
+            const countInterval = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    countdownEl.textContent = count;
+                } else if (count === 0) {
+                    countdownEl.textContent = 'GO!';
+                } else {
+                    clearInterval(countInterval);
+                    startGame();
+                }
+            }, 1000);
+        }
+
+        function getWordsForGame() {
+            let words = [];
+
+            if (selectedCategory === 'all') {
+                // Combine all categories
+                Object.values(gameWords).forEach(categoryWords => {
+                    words = words.concat(categoryWords);
+                });
+            } else {
+                words = gameWords[selectedCategory] || [];
+            }
+
+            // Filter by difficulty
+            if (difficulty === 'easy') {
+                words = words.slice(0, Math.ceil(words.length * 0.5));
+            } else if (difficulty === 'hard') {
+                words = words.slice(Math.floor(words.length * 0.3));
+            }
+
+            // Shuffle
+            return words.sort(() => Math.random() - 0.5);
+        }
+
+        function startGame() {
+            // Request motion permission for iOS
+            if (typeof DeviceOrientationEvent !== 'undefined' &&
+                typeof DeviceOrientationEvent.requestPermission === 'function') {
+                DeviceOrientationEvent.requestPermission()
+                    .then(response => {
+                        if (response === 'granted') {
+                            initGame();
+                        } else {
+                            alert('Motion permission needed for tilt controls. Using tap instead.');
+                            initGame();
+                        }
+                    })
+                    .catch(() => initGame());
+            } else {
+                initGame();
+            }
+        }
+
+        function initGame() {
+            showScreen('game');
+
+            // Reset state
+            currentWords = getWordsForGame();
+            currentWordIndex = 0;
+            score = 0;
+            timeLeft = roundTime;
+            roundResults = [];
+            canTilt = true;
+
+            // Set colors based on category
+            const colors = {
+                all: 'from-green-500 to-teal-600',
+                greetings: 'from-blue-500 to-blue-700',
+                food: 'from-orange-500 to-red-600',
+                slang: 'from-purple-500 to-purple-700',
+                people: 'from-pink-500 to-pink-700',
+                places: 'from-teal-500 to-cyan-600'
+            };
+            document.getElementById('game-bg').className = `game-screen bg-gradient-to-br ${colors[selectedCategory] || colors.all}`;
+
+            // Update display
+            updateDisplay();
+            updateTimer();
+
+            // Start timer
+            gameTimer = setInterval(() => {
+                timeLeft--;
+                updateTimer();
+                if (timeLeft <= 0) {
+                    endGame();
+                }
+            }, 1000);
+
+            // Set up tilt detection
+            setupTiltDetection();
+        }
+
+        function updateDisplay() {
+            if (currentWordIndex < currentWords.length) {
+                const word = currentWords[currentWordIndex];
+                document.getElementById('current-word').textContent = word.word;
+                document.getElementById('current-hint').textContent = word.hint;
+            } else {
+                // Reshuffle if we run out
+                currentWords = getWordsForGame();
+                currentWordIndex = 0;
+                updateDisplay();
+            }
+            document.getElementById('score').textContent = score;
+        }
+
+        function updateTimer() {
+            document.getElementById('time-left').textContent = timeLeft;
+            const progress = (timeLeft / roundTime) * 100;
+            document.getElementById('timer-progress').style.width = `${progress}%`;
+        }
+
+        function setupTiltDetection() {
+            let lastBeta = 0;
+
+            window.addEventListener('deviceorientation', (event) => {
+                if (!canTilt) return;
+
+                const beta = event.beta; // Front-back tilt (-180 to 180)
+
+                // Tilt forward (down) = correct (beta increases significantly)
+                if (beta > 50 && lastBeta < 30) {
+                    handleCorrect();
+                }
+                // Tilt backward (up) = skip (beta decreases significantly)
+                else if (beta < -20 && lastBeta > 0) {
+                    handleSkip();
+                }
+
+                lastBeta = beta;
+            });
+
+            // Fallback: tap controls for desktop
+            document.getElementById('game-screen').addEventListener('click', (e) => {
+                const rect = gameScreen.getBoundingClientRect();
+                const y = e.clientY - rect.top;
+
+                if (y < rect.height / 2) {
+                    handleSkip(); // Top half = skip
+                } else {
+                    handleCorrect(); // Bottom half = correct
+                }
+            });
+        }
+
+        function handleCorrect() {
+            if (!canTilt || Date.now() - lastTiltAction < 800) return;
+            lastTiltAction = Date.now();
+            canTilt = false;
+
+            score++;
+            roundResults.push({ word: currentWords[currentWordIndex], correct: true });
+
+            // Show feedback
+            const indicator = document.getElementById('tilt-correct');
+            indicator.style.opacity = '1';
+            document.getElementById('score').classList.add('score-pop');
+
+            setTimeout(() => {
+                indicator.style.opacity = '0';
+                document.getElementById('score').classList.remove('score-pop');
+                nextWord();
+                canTilt = true;
+            }, 600);
+        }
+
+        function handleSkip() {
+            if (!canTilt || Date.now() - lastTiltAction < 800) return;
+            lastTiltAction = Date.now();
+            canTilt = false;
+
+            roundResults.push({ word: currentWords[currentWordIndex], correct: false });
+
+            // Show feedback
+            const indicator = document.getElementById('tilt-skip');
+            indicator.style.opacity = '1';
+
+            setTimeout(() => {
+                indicator.style.opacity = '0';
+                nextWord();
+                canTilt = true;
+            }, 600);
+        }
+
+        function nextWord() {
+            currentWordIndex++;
+            updateDisplay();
+        }
+
+        function endGame() {
+            clearInterval(gameTimer);
+            showScreen('results');
+
+            document.getElementById('final-score').textContent = score;
+
+            // Show words list
+            const wordsList = document.getElementById('words-list');
+            wordsList.innerHTML = roundResults.map(result => `
+                <div class="flex items-center gap-2">
+                    <span>${result.correct ? '✅' : '❌'}</span>
+                    <span class="font-bold">${result.word.word}</span>
+                    <span class="opacity-60">- ${result.word.english}</span>
+                </div>
+            `).join('');
+        }
+    </script>
+
+    <script src="js/components/main.js"></script>
+</body>
+</html>
