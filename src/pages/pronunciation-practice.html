@@ -323,28 +323,78 @@
                 micStatus.textContent = 'Speech recognition not supported';
             }
 
-            // Sample practice words (will be loaded from API)
+            // Practice words organized by difficulty
             const practiceWords = [
+                // Beginner - Common greetings and basic words
                 { pidgin: "Howzit", pronunciation: "HOW-zit", english: "How is it? / Hello", difficulty: "beginner" },
                 { pidgin: "Shoots", pronunciation: "shoots", english: "Okay / Sounds good", difficulty: "beginner" },
                 { pidgin: "Brah", pronunciation: "brah", english: "Brother / Friend", difficulty: "beginner" },
-                { pidgin: "Da kine", pronunciation: "dah KYNE", english: "The thing / Whatchamacallit", difficulty: "beginner" },
+                { pidgin: "Mahalo", pronunciation: "mah-HAH-lo", english: "Thank you", difficulty: "beginner" },
+                { pidgin: "Aloha", pronunciation: "ah-LO-hah", english: "Hello / Love / Goodbye", difficulty: "beginner" },
                 { pidgin: "Pau", pronunciation: "pow", english: "Finished / Done", difficulty: "beginner" },
                 { pidgin: "Ono", pronunciation: "OH-no", english: "Delicious", difficulty: "beginner" },
-                { pidgin: "Mahalo", pronunciation: "mah-HAH-lo", english: "Thank you", difficulty: "beginner" },
                 { pidgin: "Grindz", pronunciation: "grindz", english: "Food", difficulty: "beginner" },
-                { pidgin: "Pau hana", pronunciation: "pow HAH-nah", english: "After work", difficulty: "intermediate" },
+                { pidgin: "Shaka", pronunciation: "SHAH-kah", english: "Hang loose / Cool", difficulty: "beginner" },
+                { pidgin: "Da kine", pronunciation: "dah KYNE", english: "The thing / Whatchamacallit", difficulty: "beginner" },
+                { pidgin: "Keiki", pronunciation: "KAY-kee", english: "Child / Children", difficulty: "beginner" },
+                { pidgin: "Ohana", pronunciation: "oh-HAH-nah", english: "Family", difficulty: "beginner" },
+                { pidgin: "Haole", pronunciation: "HOW-lee", english: "Foreigner / White person", difficulty: "beginner" },
+                { pidgin: "Wahine", pronunciation: "wah-HEE-nay", english: "Woman", difficulty: "beginner" },
+                { pidgin: "Kane", pronunciation: "KAH-nay", english: "Man", difficulty: "beginner" },
+                { pidgin: "Tutu", pronunciation: "TOO-too", english: "Grandma / Grandpa", difficulty: "beginner" },
+                { pidgin: "Poke", pronunciation: "POH-kay", english: "Raw fish dish", difficulty: "beginner" },
+                { pidgin: "Lei", pronunciation: "lay", english: "Flower necklace", difficulty: "beginner" },
+                { pidgin: "Hula", pronunciation: "HOO-lah", english: "Hawaiian dance", difficulty: "beginner" },
+                { pidgin: "Luau", pronunciation: "LOO-ow", english: "Hawaiian feast", difficulty: "beginner" },
+
+                // Intermediate - Common phrases and expressions
+                { pidgin: "Pau hana", pronunciation: "pow HAH-nah", english: "After work / Happy hour", difficulty: "intermediate" },
                 { pidgin: "Talk story", pronunciation: "talk STORE-ee", english: "Chat / Converse", difficulty: "intermediate" },
-                { pidgin: "Broke da mouth", pronunciation: "broke da MOWTH", english: "Extremely delicious", difficulty: "intermediate" },
-                { pidgin: "No worry beef curry", pronunciation: "no worry beef curry", english: "Don't worry about it", difficulty: "intermediate" },
-                { pidgin: "Chicken skin", pronunciation: "CHIK-en skin", english: "Goosebumps", difficulty: "intermediate" },
                 { pidgin: "Mo bettah", pronunciation: "mo BET-tah", english: "Better / Much better", difficulty: "intermediate" },
                 { pidgin: "Small kine", pronunciation: "small KYNE", english: "A little bit", difficulty: "intermediate" },
+                { pidgin: "Chicken skin", pronunciation: "CHIK-en skin", english: "Goosebumps", difficulty: "intermediate" },
+                { pidgin: "Broke da mouth", pronunciation: "broke da MOWTH", english: "Extremely delicious", difficulty: "intermediate" },
+                { pidgin: "Ono grindz", pronunciation: "OH-no grindz", english: "Delicious food", difficulty: "intermediate" },
+                { pidgin: "Rajah dat", pronunciation: "RAH-jah dat", english: "Roger that / Got it", difficulty: "intermediate" },
+                { pidgin: "No worry", pronunciation: "no WUH-ree", english: "Don't worry", difficulty: "intermediate" },
+                { pidgin: "Choke", pronunciation: "choke", english: "A lot / Plenty", difficulty: "intermediate" },
+                { pidgin: "Mauka", pronunciation: "MOW-kah", english: "Toward the mountain", difficulty: "intermediate" },
+                { pidgin: "Makai", pronunciation: "mah-KAI", english: "Toward the ocean", difficulty: "intermediate" },
+                { pidgin: "Lidat", pronunciation: "lee-DAT", english: "Like that", difficulty: "intermediate" },
+                { pidgin: "Bumbye", pronunciation: "bum-BYE", english: "Later / Eventually", difficulty: "intermediate" },
+                { pidgin: "Stink eye", pronunciation: "stink EYE", english: "Dirty look", difficulty: "intermediate" },
+                { pidgin: "Talk stink", pronunciation: "talk STINK", english: "Talk bad about someone", difficulty: "intermediate" },
+                { pidgin: "Hang loose", pronunciation: "hang LOOSE", english: "Relax / Take it easy", difficulty: "intermediate" },
+                { pidgin: "Slippahs", pronunciation: "SLIP-ahz", english: "Flip flops / Sandals", difficulty: "intermediate" },
+                { pidgin: "Shave ice", pronunciation: "shave ICE", english: "Shaved ice treat", difficulty: "intermediate" },
+                { pidgin: "Pupu", pronunciation: "POO-poo", english: "Appetizers / Snacks", difficulty: "intermediate" },
+                { pidgin: "Puka", pronunciation: "POO-kah", english: "Hole", difficulty: "intermediate" },
+                { pidgin: "Wiki wiki", pronunciation: "WEE-kee WEE-kee", english: "Quick / Hurry", difficulty: "intermediate" },
+                { pidgin: "Lanai", pronunciation: "lah-NAI", english: "Porch / Balcony", difficulty: "intermediate" },
+                { pidgin: "Kamaaina", pronunciation: "kah-mah-EYE-nah", english: "Local resident", difficulty: "intermediate" },
+                { pidgin: "Malihini", pronunciation: "mah-lee-HEE-nee", english: "Newcomer / Visitor", difficulty: "intermediate" },
+
+                // Advanced - Complex phrases and expressions
                 { pidgin: "Hamajang", pronunciation: "hah-mah-JANG", english: "Messed up / Disorganized", difficulty: "advanced" },
                 { pidgin: "Ainokea", pronunciation: "eye-no-KAY-ah", english: "I don't care", difficulty: "advanced" },
                 { pidgin: "Kanak attack", pronunciation: "kah-NAK attack", english: "Food coma", difficulty: "advanced" },
                 { pidgin: "Lolo", pronunciation: "LO-lo", english: "Crazy / Stupid", difficulty: "advanced" },
-                { pidgin: "Rajah dat", pronunciation: "RAH-jah dat", english: "Roger that / Got it", difficulty: "intermediate" }
+                { pidgin: "Pupule", pronunciation: "poo-POO-lay", english: "Crazy", difficulty: "advanced" },
+                { pidgin: "No worry beef curry", pronunciation: "no worry beef curry", english: "Don't worry about it", difficulty: "advanced" },
+                { pidgin: "Geev um", pronunciation: "geev UM", english: "Give it / Go for it", difficulty: "advanced" },
+                { pidgin: "Braddah", pronunciation: "BRAH-dah", english: "Brother / Friend", difficulty: "advanced" },
+                { pidgin: "Sistah", pronunciation: "SIS-tah", english: "Sister / Female friend", difficulty: "advanced" },
+                { pidgin: "Da bes", pronunciation: "da BEST", english: "The best", difficulty: "advanced" },
+                { pidgin: "Fo real", pronunciation: "fo REAL", english: "For real / Seriously", difficulty: "advanced" },
+                { pidgin: "No can", pronunciation: "no CAN", english: "Cannot / Unable to", difficulty: "advanced" },
+                { pidgin: "Rubbah slippahs", pronunciation: "RUB-bah SLIP-ahz", english: "Rubber flip flops", difficulty: "advanced" },
+                { pidgin: "Malasada", pronunciation: "mah-lah-SAH-dah", english: "Portuguese donut", difficulty: "advanced" },
+                { pidgin: "Poi", pronunciation: "poy", english: "Taro paste", difficulty: "advanced" },
+                { pidgin: "Lau lau", pronunciation: "LOW-low", english: "Wrapped pork dish", difficulty: "advanced" },
+                { pidgin: "Kalua pig", pronunciation: "kah-LOO-ah pig", english: "Roasted pig", difficulty: "advanced" },
+                { pidgin: "Musubi", pronunciation: "moo-SOO-bee", english: "Rice ball with spam", difficulty: "advanced" },
+                { pidgin: "Plate lunch", pronunciation: "plate LUNCH", english: "Local lunch combo", difficulty: "advanced" },
+                { pidgin: "Loco moco", pronunciation: "LO-ko MO-ko", english: "Rice, burger, egg, gravy", difficulty: "advanced" }
             ];
 
             // Initialize
