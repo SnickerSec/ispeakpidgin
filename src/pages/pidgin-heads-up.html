@@ -699,8 +699,9 @@
         }
 
         function setupTiltDetection() {
-            let lastTilt = null;
+            let baselineTilt = null;
             let calibrated = false;
+            let readingCount = 0;
 
             window.addEventListener('deviceorientation', (event) => {
                 if (!canTilt) return;
@@ -711,32 +712,32 @@
                 // Tilt backward (screen faces up) = beta decreases toward 0
                 const beta = event.beta;
 
-                // First reading: calibrate to current position
-                if (lastTilt === null) {
-                    lastTilt = beta;
-                    return;
-                }
-
-                // Wait a moment before allowing tilt detection
+                // Calibrate over first few readings
                 if (!calibrated) {
-                    // Only start detecting after position stabilizes
-                    if (Math.abs(beta - lastTilt) < 5) {
+                    readingCount++;
+                    if (baselineTilt === null) {
+                        baselineTilt = beta;
+                    } else {
+                        // Average the readings
+                        baselineTilt = (baselineTilt + beta) / 2;
+                    }
+                    // Calibrate after 10 stable readings
+                    if (readingCount > 10) {
                         calibrated = true;
                     }
-                    lastTilt = beta;
                     return;
                 }
 
-                // Detect significant tilt from upright position (~90 degrees)
-                // Tilt forward (beta > 110) = correct
-                // Tilt backward (beta < 70) = skip
-                if (beta > 110 && lastTilt < 95) {
+                // Detect significant tilt from baseline position
+                // Tilt forward (beta > baseline + 25) = correct
+                // Tilt backward (beta < baseline - 25) = skip
+                const tiltDelta = beta - baselineTilt;
+
+                if (tiltDelta > 25) {
                     handleCorrect();
-                } else if (beta < 70 && lastTilt > 85) {
+                } else if (tiltDelta < -25) {
                     handleSkip();
                 }
-
-                lastTilt = beta;
             });
 
             // Fallback: tap controls for desktop
