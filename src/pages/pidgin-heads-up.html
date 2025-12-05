@@ -65,13 +65,6 @@
             opacity: 0.9;
         }
 
-        /* Flip for forehead mode */
-        .forehead-mode .word-display,
-        .forehead-mode .hint-display,
-        .forehead-mode .timer-container,
-        .forehead-mode .tilt-indicator span {
-            transform: rotate(180deg);
-        }
 
         /* Tilt detection feedback */
         .tilt-indicator {
@@ -113,9 +106,6 @@
             overflow: hidden;
         }
 
-        .forehead-mode .timer-bar {
-            transform: rotate(180deg);
-        }
 
         .timer-progress {
             height: 100%;
@@ -150,9 +140,9 @@
 
         /* Score animation */
         @keyframes score-pop {
-            0% { transform: scale(1) rotate(180deg); }
-            50% { transform: scale(1.2) rotate(180deg); }
-            100% { transform: scale(1) rotate(180deg); }
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
         }
         .score-pop {
             animation: score-pop 0.3s ease;
@@ -269,19 +259,6 @@
             </div>
         </div>
 
-        <!-- Forehead Mode Toggle -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h3 class="font-bold text-gray-800">📱 Forehead Mode</h3>
-                    <p class="text-gray-600 text-sm">Flip text for holding phone to forehead</p>
-                </div>
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" id="forehead-toggle" class="sr-only peer" checked>
-                    <div class="w-14 h-8 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-green-500"></div>
-                </label>
-            </div>
-        </div>
 
         <!-- Start Button -->
         <div class="text-center">
@@ -295,9 +272,9 @@
     <!-- Countdown Screen -->
     <div id="countdown-screen" class="fullscreen-game bg-gradient-to-br from-purple-600 to-pink-600 hidden">
         <div class="game-screen text-white">
-            <div class="text-2xl mb-4" style="transform: rotate(180deg);">Get Ready!</div>
-            <div id="countdown-number" class="text-9xl font-bold countdown-number" style="transform: rotate(180deg);">3</div>
-            <div class="text-xl mt-4" style="transform: rotate(180deg);">Hold phone to forehead 📱</div>
+            <div class="text-2xl mb-4">Get Ready!</div>
+            <div id="countdown-number" class="text-9xl font-bold countdown-number">3</div>
+            <div class="text-xl mt-4">Hold phone to forehead 📱</div>
         </div>
     </div>
 
@@ -458,7 +435,6 @@
         let selectedCategory = 'all';
         let roundTime = 60;
         let difficulty = 'medium';
-        let foreheadMode = true;
         let currentWords = [];
         let currentWordIndex = 0;
         let score = 0;
@@ -483,16 +459,10 @@
             });
         });
 
-        // Forehead mode toggle
-        document.getElementById('forehead-toggle').addEventListener('change', (e) => {
-            foreheadMode = e.target.checked;
-        });
-
         // Start Game Button
         document.getElementById('start-game-btn').addEventListener('click', () => {
             roundTime = parseInt(document.getElementById('round-time').value);
             difficulty = document.getElementById('difficulty').value;
-            foreheadMode = document.getElementById('forehead-toggle').checked;
             startCountdown();
         });
 
@@ -522,6 +492,7 @@
 
         function startCountdown() {
             showScreen('countdown');
+
             let count = 3;
             const countdownEl = document.getElementById('countdown-number');
             countdownEl.textContent = count;
@@ -591,14 +562,6 @@
             timeLeft = roundTime;
             roundResults = [];
             canTilt = true;
-
-            // Apply forehead mode
-            const gameBg = document.getElementById('game-bg');
-            if (foreheadMode) {
-                gameBg.classList.add('forehead-mode');
-            } else {
-                gameBg.classList.remove('forehead-mode');
-            }
 
             // Set colors based on category
             const colors = {
