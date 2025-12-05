@@ -705,45 +705,38 @@
             window.addEventListener('deviceorientation', (event) => {
                 if (!canTilt) return;
 
-                // In landscape mode, use gamma (left-right becomes forward-back)
-                // In portrait mode, use beta
-                const tilt = isLandscape() ? event.gamma : event.beta;
+                // Beta is forward/back tilt in both orientations
+                // When upright (screen facing you), beta is around 90
+                // Tilt forward (screen faces down) = beta increases toward 180
+                // Tilt backward (screen faces up) = beta decreases toward 0
+                const beta = event.beta;
 
                 // First reading: calibrate to current position
                 if (lastTilt === null) {
-                    lastTilt = tilt;
+                    lastTilt = beta;
                     return;
                 }
 
                 // Wait a moment before allowing tilt detection
                 if (!calibrated) {
                     // Only start detecting after position stabilizes
-                    if (Math.abs(tilt - lastTilt) < 5) {
+                    if (Math.abs(beta - lastTilt) < 5) {
                         calibrated = true;
                     }
-                    lastTilt = tilt;
+                    lastTilt = beta;
                     return;
                 }
 
-                // Detect significant tilt changes
-                // Tilt forward = correct, tilt backward = skip
-                if (isLandscape()) {
-                    // Landscape: gamma positive when tilting forward (screen facing down)
-                    if (tilt > 30 && lastTilt < 10) {
-                        handleCorrect();
-                    } else if (tilt < -30 && lastTilt > -10) {
-                        handleSkip();
-                    }
-                } else {
-                    // Portrait: beta increases when tilting forward
-                    if (tilt > 50 && lastTilt < 30) {
-                        handleCorrect();
-                    } else if (tilt < -20 && lastTilt > 0) {
-                        handleSkip();
-                    }
+                // Detect significant tilt from upright position (~90 degrees)
+                // Tilt forward (beta > 120) = correct
+                // Tilt backward (beta < 60) = skip
+                if (beta > 120 && lastTilt < 100) {
+                    handleCorrect();
+                } else if (beta < 60 && lastTilt > 80) {
+                    handleSkip();
                 }
 
-                lastTilt = tilt;
+                lastTilt = beta;
             });
 
             // Fallback: tap controls for desktop
