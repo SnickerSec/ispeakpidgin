@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pronunciation Practice - Learn to Speak Hawaiian Pidgin | ChokePidgin</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Practice speaking Hawaiian Pidgin with instant feedback! Record yourself, compare to native pronunciation, and improve your island accent with our AI-powered speech trainer.">
+    <meta name="keywords" content="hawaiian pidgin pronunciation, learn pidgin speech, speak pidgin, pidgin accent practice, hawaii language learning">
+    <meta name="author" content="ChokePidgin.com">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Pronunciation Practice - Learn to Speak Pidgin">
+    <meta property="og:description" content="Practice speaking Hawaiian Pidgin with instant AI feedback on your pronunciation!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chokepidgin.com/pronunciation-practice.html">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://chokepidgin.com/pronunciation-practice.html">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" href="/favicon.ico">
+
+    <!-- Tailwind CSS -->
+    <link href="css/tailwind.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        .brand-font {
+            font-family: 'Pacifico', cursive;
+        }
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        /* Microphone animation */
+        @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        .listening .mic-ring {
+            animation: pulse-ring 1s ease-out infinite;
+        }
+
+        .mic-button {
+            transition: all 0.3s ease;
+        }
+
+        .mic-button:hover:not(:disabled) {
+            transform: scale(1.05);
+        }
+
+        .mic-button.listening {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            50% { box-shadow: 0 0 0 20px rgba(239, 68, 68, 0); }
+        }
+
+        /* Star rating */
+        .star { color: #d1d5db; transition: color 0.2s; }
+        .star.filled { color: #fbbf24; }
+
+        /* Score animation */
+        @keyframes score-pop {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .score-display {
+            animation: score-pop 0.5s ease-out;
+        }
+
+        /* Waveform visualization */
+        .waveform-bar {
+            transition: height 0.1s ease;
+        }
+
+        /* Card hover */
+        .word-card {
+            transition: all 0.3s ease;
+        }
+        .word-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- NAVIGATION_PLACEHOLDER -->
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-purple-600 via-pink-600 to-red-500 text-white py-12 px-4">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h1 class="text-3xl md:text-5xl font-bold mb-4">
+                🎤 Pronunciation Practice
+            </h1>
+            <p class="text-lg md:text-xl opacity-90 mb-6">
+                Speak like a local! Practice your Pidgin and get instant feedback.
+            </p>
+
+            <!-- Browser Support Warning -->
+            <div id="browser-warning" class="hidden bg-yellow-500/20 backdrop-blur rounded-lg p-4 max-w-md mx-auto">
+                <p class="text-sm">⚠️ Speech recognition works best in Chrome or Edge browsers.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Practice Area -->
+    <main class="container mx-auto max-w-4xl px-4 py-8">
+
+        <!-- Current Word Card -->
+        <div id="practice-card" class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+            <!-- Word Display -->
+            <div class="text-center mb-8">
+                <div class="text-sm text-gray-500 mb-2">Practice this word:</div>
+                <h2 id="current-word" class="text-4xl md:text-5xl font-bold text-purple-700 mb-3">
+                    Howzit
+                </h2>
+                <p id="current-pronunciation" class="text-xl text-gray-600 mb-2">
+                    HOW-zit
+                </p>
+                <p id="current-english" class="text-lg text-gray-500">
+                    "How is it?" / "Hello"
+                </p>
+            </div>
+
+            <!-- Listen Button -->
+            <div class="flex justify-center gap-4 mb-8">
+                <button id="listen-btn" class="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full font-semibold transition shadow-lg">
+                    <span class="text-xl">🔊</span>
+                    <span>Hear Native</span>
+                </button>
+            </div>
+
+            <!-- Microphone Button -->
+            <div class="flex flex-col items-center mb-8">
+                <div class="relative">
+                    <!-- Pulse ring -->
+                    <div class="mic-ring absolute inset-0 bg-red-400 rounded-full opacity-0"></div>
+
+                    <!-- Main button -->
+                    <button id="mic-btn" class="mic-button relative w-24 h-24 bg-gradient-to-br from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white rounded-full shadow-xl flex items-center justify-center text-4xl disabled:opacity-50 disabled:cursor-not-allowed">
+                        🎤
+                    </button>
+                </div>
+                <p id="mic-status" class="mt-4 text-gray-600 font-medium">
+                    Tap to record yourself
+                </p>
+
+                <!-- Waveform visualization -->
+                <div id="waveform" class="hidden flex items-end justify-center gap-1 h-12 mt-4">
+                    <div class="waveform-bar w-1 bg-red-400 rounded-full" style="height: 20%"></div>
+                    <div class="waveform-bar w-1 bg-red-500 rounded-full" style="height: 40%"></div>
+                    <div class="waveform-bar w-1 bg-red-400 rounded-full" style="height: 60%"></div>
+                    <div class="waveform-bar w-1 bg-red-500 rounded-full" style="height: 80%"></div>
+                    <div class="waveform-bar w-1 bg-red-400 rounded-full" style="height: 100%"></div>
+                    <div class="waveform-bar w-1 bg-red-500 rounded-full" style="height: 80%"></div>
+                    <div class="waveform-bar w-1 bg-red-400 rounded-full" style="height: 60%"></div>
+                    <div class="waveform-bar w-1 bg-red-500 rounded-full" style="height: 40%"></div>
+                    <div class="waveform-bar w-1 bg-red-400 rounded-full" style="height: 20%"></div>
+                </div>
+            </div>
+
+            <!-- Results Section (hidden by default) -->
+            <div id="results-section" class="hidden">
+                <hr class="my-6">
+
+                <!-- Score Display -->
+                <div class="text-center mb-6">
+                    <div class="score-display inline-block bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl p-6">
+                        <div class="text-6xl font-bold text-purple-700 mb-2">
+                            <span id="score-number">85</span><span class="text-3xl">%</span>
+                        </div>
+
+                        <!-- Stars -->
+                        <div id="star-rating" class="flex justify-center gap-1 text-3xl mb-3">
+                            <span class="star filled">★</span>
+                            <span class="star filled">★</span>
+                            <span class="star filled">★</span>
+                            <span class="star filled">★</span>
+                            <span class="star">★</span>
+                        </div>
+
+                        <!-- What they said -->
+                        <div class="text-gray-600">
+                            You said: "<span id="user-spoken" class="font-medium text-gray-800">howzit</span>"
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feedback -->
+                <div id="feedback-list" class="space-y-3 mb-6">
+                    <!-- Feedback items inserted here -->
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button id="try-again-btn" class="flex items-center gap-2 bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-full font-semibold transition">
+                        🔄 Try Again
+                    </button>
+                    <button id="next-word-btn" class="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full font-semibold transition">
+                        Next Word ➡️
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Word Selection -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">Choose What to Practice</h3>
+
+            <!-- Difficulty Filter -->
+            <div class="flex flex-wrap gap-2 mb-6">
+                <button class="difficulty-btn active px-4 py-2 rounded-full bg-green-500 text-white font-medium transition" data-difficulty="beginner">
+                    🌱 Beginner
+                </button>
+                <button class="difficulty-btn px-4 py-2 rounded-full bg-gray-200 text-gray-700 font-medium transition hover:bg-gray-300" data-difficulty="intermediate">
+                    🌿 Intermediate
+                </button>
+                <button class="difficulty-btn px-4 py-2 rounded-full bg-gray-200 text-gray-700 font-medium transition hover:bg-gray-300" data-difficulty="advanced">
+                    🌳 Advanced
+                </button>
+                <button class="difficulty-btn px-4 py-2 rounded-full bg-gray-200 text-gray-700 font-medium transition hover:bg-gray-300" data-difficulty="all">
+                    📚 All
+                </button>
+            </div>
+
+            <!-- Word Grid -->
+            <div id="word-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                <!-- Words loaded dynamically -->
+            </div>
+
+            <!-- Load More -->
+            <div class="text-center mt-6">
+                <button id="load-more-btn" class="text-purple-600 hover:text-purple-700 font-medium">
+                    Load more words...
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl shadow-lg p-6 text-white">
+            <h3 class="text-xl font-bold mb-4">📊 Your Progress</h3>
+            <div class="grid grid-cols-3 gap-4 text-center">
+                <div>
+                    <div id="stat-attempts" class="text-3xl font-bold">0</div>
+                    <div class="text-sm opacity-80">Attempts</div>
+                </div>
+                <div>
+                    <div id="stat-average" class="text-3xl font-bold">0%</div>
+                    <div class="text-sm opacity-80">Avg Score</div>
+                </div>
+                <div>
+                    <div id="stat-best" class="text-3xl font-bold">0%</div>
+                    <div class="text-sm opacity-80">Best Score</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips Section -->
+        <div class="mt-8 bg-yellow-50 border-l-4 border-yellow-400 rounded-r-lg p-6">
+            <h3 class="text-lg font-bold text-yellow-800 mb-3">💡 Tips for Better Pronunciation</h3>
+            <ul class="space-y-2 text-yellow-700">
+                <li>• <strong>Listen first</strong> - Hear the native pronunciation before trying</li>
+                <li>• <strong>Speak clearly</strong> - Don't rush, enunciate each syllable</li>
+                <li>• <strong>Use headphones</strong> - Better microphone pickup</li>
+                <li>• <strong>Quiet environment</strong> - Background noise affects recognition</li>
+                <li>• <strong>Relax</strong> - Pidgin is casual, don't overthink it!</li>
+            </ul>
+        </div>
+    </main>
+
+    <!-- FOOTER_PLACEHOLDER -->
+
+    <!-- Scripts -->
+    <script src="js/components/supabase-api-loader.js"></script>
+    <script src="js/components/elevenlabs-speech.js"></script>
+    <script src="js/components/speech.js"></script>
+    <script src="js/components/pronunciation-practice.js"></script>
+    <script src="js/components/main.js"></script>
+
+    <script>
+        // Practice page controller
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const micBtn = document.getElementById('mic-btn');
+            const micStatus = document.getElementById('mic-status');
+            const listenBtn = document.getElementById('listen-btn');
+            const resultsSection = document.getElementById('results-section');
+            const scoreNumber = document.getElementById('score-number');
+            const starRating = document.getElementById('star-rating');
+            const userSpoken = document.getElementById('user-spoken');
+            const feedbackList = document.getElementById('feedback-list');
+            const tryAgainBtn = document.getElementById('try-again-btn');
+            const nextWordBtn = document.getElementById('next-word-btn');
+            const wordGrid = document.getElementById('word-grid');
+            const waveform = document.getElementById('waveform');
+            const browserWarning = document.getElementById('browser-warning');
+
+            // State
+            let currentWord = null;
+            let words = [];
+            let currentDifficulty = 'beginner';
+            let displayedCount = 12;
+
+            // Check browser support
+            if (!pronunciationPractice.isSupported()) {
+                browserWarning.classList.remove('hidden');
+                micBtn.disabled = true;
+                micStatus.textContent = 'Speech recognition not supported';
+            }
+
+            // Sample practice words (will be loaded from API)
+            const practiceWords = [
+                { pidgin: "Howzit", pronunciation: "HOW-zit", english: "How is it? / Hello", difficulty: "beginner" },
+                { pidgin: "Shoots", pronunciation: "shoots", english: "Okay / Sounds good", difficulty: "beginner" },
+                { pidgin: "Brah", pronunciation: "brah", english: "Brother / Friend", difficulty: "beginner" },
+                { pidgin: "Da kine", pronunciation: "dah KYNE", english: "The thing / Whatchamacallit", difficulty: "beginner" },
+                { pidgin: "Pau", pronunciation: "pow", english: "Finished / Done", difficulty: "beginner" },
+                { pidgin: "Ono", pronunciation: "OH-no", english: "Delicious", difficulty: "beginner" },
+                { pidgin: "Mahalo", pronunciation: "mah-HAH-lo", english: "Thank you", difficulty: "beginner" },
+                { pidgin: "Grindz", pronunciation: "grindz", english: "Food", difficulty: "beginner" },
+                { pidgin: "Pau hana", pronunciation: "pow HAH-nah", english: "After work", difficulty: "intermediate" },
+                { pidgin: "Talk story", pronunciation: "talk STORE-ee", english: "Chat / Converse", difficulty: "intermediate" },
+                { pidgin: "Broke da mouth", pronunciation: "broke da MOWTH", english: "Extremely delicious", difficulty: "intermediate" },
+                { pidgin: "No worry beef curry", pronunciation: "no worry beef curry", english: "Don't worry about it", difficulty: "intermediate" },
+                { pidgin: "Chicken skin", pronunciation: "CHIK-en skin", english: "Goosebumps", difficulty: "intermediate" },
+                { pidgin: "Mo bettah", pronunciation: "mo BET-tah", english: "Better / Much better", difficulty: "intermediate" },
+                { pidgin: "Small kine", pronunciation: "small KYNE", english: "A little bit", difficulty: "intermediate" },
+                { pidgin: "Hamajang", pronunciation: "hah-mah-JANG", english: "Messed up / Disorganized", difficulty: "advanced" },
+                { pidgin: "Ainokea", pronunciation: "eye-no-KAY-ah", english: "I don't care", difficulty: "advanced" },
+                { pidgin: "Kanak attack", pronunciation: "kah-NAK attack", english: "Food coma", difficulty: "advanced" },
+                { pidgin: "Lolo", pronunciation: "LO-lo", english: "Crazy / Stupid", difficulty: "advanced" },
+                { pidgin: "Rajah dat", pronunciation: "RAH-jah dat", english: "Roger that / Got it", difficulty: "intermediate" }
+            ];
+
+            // Initialize
+            words = practiceWords;
+            loadWord(words[0]);
+            renderWordGrid();
+
+            // Load word into practice area
+            function loadWord(word) {
+                currentWord = word;
+                document.getElementById('current-word').textContent = word.pidgin;
+                document.getElementById('current-pronunciation').textContent = word.pronunciation;
+                document.getElementById('current-english').textContent = word.english;
+                resultsSection.classList.add('hidden');
+            }
+
+            // Render word selection grid
+            function renderWordGrid() {
+                const filtered = currentDifficulty === 'all'
+                    ? words
+                    : words.filter(w => w.difficulty === currentDifficulty);
+
+                const toShow = filtered.slice(0, displayedCount);
+
+                wordGrid.innerHTML = toShow.map(word => `
+                    <button class="word-card p-3 bg-gray-50 hover:bg-purple-50 rounded-lg text-left border-2 border-transparent hover:border-purple-300 transition"
+                            data-word="${encodeURIComponent(JSON.stringify(word))}">
+                        <div class="font-bold text-purple-700">${word.pidgin}</div>
+                        <div class="text-xs text-gray-500 truncate">${word.english}</div>
+                    </button>
+                `).join('');
+
+                // Add click handlers
+                wordGrid.querySelectorAll('.word-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        const word = JSON.parse(decodeURIComponent(card.dataset.word));
+                        loadWord(word);
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    });
+                });
+
+                // Show/hide load more
+                document.getElementById('load-more-btn').style.display =
+                    toShow.length < filtered.length ? 'block' : 'none';
+            }
+
+            // Difficulty filter
+            document.querySelectorAll('.difficulty-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.difficulty-btn').forEach(b => {
+                        b.classList.remove('active', 'bg-green-500', 'text-white');
+                        b.classList.add('bg-gray-200', 'text-gray-700');
+                    });
+                    btn.classList.add('active', 'bg-green-500', 'text-white');
+                    btn.classList.remove('bg-gray-200', 'text-gray-700');
+
+                    currentDifficulty = btn.dataset.difficulty;
+                    displayedCount = 12;
+                    renderWordGrid();
+                });
+            });
+
+            // Load more
+            document.getElementById('load-more-btn').addEventListener('click', () => {
+                displayedCount += 12;
+                renderWordGrid();
+            });
+
+            // Listen to native pronunciation
+            listenBtn.addEventListener('click', async () => {
+                if (!currentWord) return;
+
+                listenBtn.disabled = true;
+                listenBtn.innerHTML = '<span class="text-xl">🔊</span> <span>Playing...</span>';
+
+                try {
+                    // Use pidginSpeech if available, otherwise fallback
+                    if (typeof pidginSpeech !== 'undefined') {
+                        await pidginSpeech.speak(currentWord.pidgin);
+                    } else if ('speechSynthesis' in window) {
+                        const utterance = new SpeechSynthesisUtterance(currentWord.pidgin);
+                        utterance.rate = 0.8;
+                        speechSynthesis.speak(utterance);
+                    }
+                } catch (error) {
+                    console.error('Speech error:', error);
+                }
+
+                setTimeout(() => {
+                    listenBtn.disabled = false;
+                    listenBtn.innerHTML = '<span class="text-xl">🔊</span> <span>Hear Native</span>';
+                }, 1500);
+            });
+
+            // Microphone button
+            micBtn.addEventListener('click', () => {
+                if (pronunciationPractice.isListening) {
+                    pronunciationPractice.stopListening();
+                } else {
+                    pronunciationPractice.startListening(currentWord);
+                }
+            });
+
+            // Speech recognition callbacks
+            pronunciationPractice.onStart(() => {
+                micBtn.classList.add('listening');
+                micStatus.textContent = 'Listening... Speak now!';
+                waveform.classList.remove('hidden');
+                resultsSection.classList.add('hidden');
+                animateWaveform();
+            });
+
+            pronunciationPractice.onEnd(() => {
+                micBtn.classList.remove('listening');
+                micStatus.textContent = 'Tap to record yourself';
+                waveform.classList.add('hidden');
+            });
+
+            pronunciationPractice.onResult((score) => {
+                showResults(score);
+                updateStats();
+            });
+
+            pronunciationPractice.onError((error) => {
+                micStatus.textContent = getErrorMessage(error);
+                setTimeout(() => {
+                    micStatus.textContent = 'Tap to record yourself';
+                }, 3000);
+            });
+
+            // Show results
+            function showResults(score) {
+                resultsSection.classList.remove('hidden');
+
+                // Score
+                scoreNumber.textContent = score.overall;
+
+                // Stars
+                const stars = [];
+                for (let i = 0; i < 5; i++) {
+                    stars.push(`<span class="star ${i < score.stars ? 'filled' : ''}">★</span>`);
+                }
+                starRating.innerHTML = stars.join('');
+
+                // What user said
+                userSpoken.textContent = score.spoken || '(not recognized)';
+
+                // Feedback
+                feedbackList.innerHTML = score.feedback.map(fb => {
+                    const colors = {
+                        success: 'bg-green-50 border-green-400 text-green-800',
+                        good: 'bg-blue-50 border-blue-400 text-blue-800',
+                        ok: 'bg-yellow-50 border-yellow-400 text-yellow-800',
+                        needs_work: 'bg-orange-50 border-orange-400 text-orange-800',
+                        tip: 'bg-purple-50 border-purple-400 text-purple-800'
+                    };
+                    return `
+                        <div class="border-l-4 ${colors[fb.type] || colors.tip} p-4 rounded-r-lg">
+                            ${fb.message}
+                        </div>
+                    `;
+                }).join('');
+
+                // Scroll to results
+                resultsSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+
+            // Update stats display
+            function updateStats() {
+                const stats = pronunciationPractice.getStats();
+                document.getElementById('stat-attempts').textContent = stats.totalAttempts;
+                document.getElementById('stat-average').textContent = stats.averageScore + '%';
+                document.getElementById('stat-best').textContent = stats.bestScore + '%';
+            }
+
+            // Try again
+            tryAgainBtn.addEventListener('click', () => {
+                resultsSection.classList.add('hidden');
+                pronunciationPractice.startListening(currentWord);
+            });
+
+            // Next word
+            nextWordBtn.addEventListener('click', () => {
+                const filtered = currentDifficulty === 'all'
+                    ? words
+                    : words.filter(w => w.difficulty === currentDifficulty);
+
+                const currentIndex = filtered.findIndex(w => w.pidgin === currentWord.pidgin);
+                const nextIndex = (currentIndex + 1) % filtered.length;
+                loadWord(filtered[nextIndex]);
+            });
+
+            // Error messages
+            function getErrorMessage(error) {
+                const messages = {
+                    'no-speech': 'No speech detected. Try again?',
+                    'audio-capture': 'Microphone not found. Check permissions.',
+                    'not-allowed': 'Microphone access denied. Please allow access.',
+                    'network': 'Network error. Check your connection.',
+                    'aborted': 'Recording cancelled.'
+                };
+                return messages[error] || 'Error occurred. Try again.';
+            }
+
+            // Animate waveform while listening
+            function animateWaveform() {
+                if (!pronunciationPractice.isListening) return;
+
+                const bars = waveform.querySelectorAll('.waveform-bar');
+                bars.forEach(bar => {
+                    const height = 20 + Math.random() * 80;
+                    bar.style.height = height + '%';
+                });
+
+                requestAnimationFrame(() => {
+                    setTimeout(animateWaveform, 100);
+                });
+            }
+
+            // Try to load more words from API
+            async function loadWordsFromAPI() {
+                try {
+                    const response = await fetch('/api/dictionary/all');
+                    if (response.ok) {
+                        const data = await response.json();
+                        // Filter to words with pronunciation and map to practice format
+                        const apiWords = data
+                            .filter(entry => entry.pronunciation && entry.pidgin.split(' ').length <= 3)
+                            .slice(0, 50)
+                            .map(entry => ({
+                                pidgin: entry.pidgin,
+                                pronunciation: entry.pronunciation,
+                                english: Array.isArray(entry.english) ? entry.english[0] : entry.english,
+                                difficulty: entry.difficulty || 'intermediate'
+                            }));
+
+                        if (apiWords.length > 0) {
+                            words = [...practiceWords, ...apiWords];
+                            renderWordGrid();
+                        }
+                    }
+                } catch (error) {
+                    console.log('Using default practice words');
+                }
+            }
+
+            // Load additional words
+            loadWordsFromAPI();
+        });
+    </script>
+</body>
+</html>

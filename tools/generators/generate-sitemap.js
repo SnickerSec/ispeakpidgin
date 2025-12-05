@@ -112,6 +112,14 @@ function generateSitemap(entries) {
         <priority>0.9</priority>
     </url>
 
+    <!-- Pronunciation Practice Page - Interactive speech training -->
+    <url>
+        <loc>${baseUrl}/pronunciation-practice.html</loc>
+        <lastmod>${currentDate}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+    </url>
+
     <!-- Ask a Local Page - Community feature -->
     <url>
         <loc>${baseUrl}/ask-local.html</loc>

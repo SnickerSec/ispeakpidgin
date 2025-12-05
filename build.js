@@ -38,6 +38,7 @@ const pathMappings = {
     'js/lessons.js': 'js/components/lessons.js',
     'js/elevenlabs-speech.js': 'js/components/elevenlabs-speech.js',
     'js/speech.js': 'js/components/speech.js',
+    'js/pronunciation-practice.js': 'js/components/pronunciation-practice.js',
     'js/ask-local.js': 'js/components/ask-local.js',
     'js/ask-local-page.js': 'js/components/ask-local-page.js',
     'js/learning-hub.js': 'js/components/learning-hub.js',
@@ -131,7 +132,9 @@ function processHTMLFiles() {
         'what-does-rajah-mean.html',
         'what-does-lolo-mean.html',
         'what-does-hamajang-mean.html',
-        'what-does-humbug-mean.html'
+        'what-does-humbug-mean.html',
+        // Interactive Features
+        'pronunciation-practice.html'
     ];
 
     // Load shared navigation and footer templates
