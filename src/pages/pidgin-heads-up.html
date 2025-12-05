@@ -728,11 +728,11 @@
                 }
 
                 // Detect significant tilt from upright position (~90 degrees)
-                // Tilt forward (beta > 120) = correct
-                // Tilt backward (beta < 60) = skip
-                if (beta > 120 && lastTilt < 100) {
+                // Tilt forward (beta > 110) = correct
+                // Tilt backward (beta < 70) = skip
+                if (beta > 110 && lastTilt < 95) {
                     handleCorrect();
-                } else if (beta < 60 && lastTilt > 80) {
+                } else if (beta < 70 && lastTilt > 85) {
                     handleSkip();
                 }
 
