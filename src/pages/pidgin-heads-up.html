@@ -84,11 +84,13 @@
 
         .tilt-indicator.correct {
             background: rgba(34, 197, 94, 0.95);
-            opacity: 1;
         }
 
         .tilt-indicator.skip {
             background: rgba(239, 68, 68, 0.95);
+        }
+
+        .tilt-indicator.show {
             opacity: 1;
         }
 
@@ -654,11 +656,11 @@
 
             // Show feedback
             const indicator = document.getElementById('tilt-correct');
-            indicator.style.opacity = '1';
+            indicator.classList.add('show');
             document.getElementById('score').classList.add('score-pop');
 
             setTimeout(() => {
-                indicator.style.opacity = '0';
+                indicator.classList.remove('show');
                 document.getElementById('score').classList.remove('score-pop');
                 nextWord();
                 canTilt = true;
@@ -674,10 +676,10 @@
 
             // Show feedback
             const indicator = document.getElementById('tilt-skip');
-            indicator.style.opacity = '1';
+            indicator.classList.add('show');
 
             setTimeout(() => {
-                indicator.style.opacity = '0';
+                indicator.classList.remove('show');
                 nextWord();
                 canTilt = true;
             }, 600);
