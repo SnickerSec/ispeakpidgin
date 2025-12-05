@@ -489,8 +489,16 @@
                 }
                 starRating.innerHTML = stars.join('');
 
-                // What user said
-                userSpoken.textContent = score.spoken || '(not recognized)';
+                // What user said - show both raw and normalized if different
+                const rawSpoken = score.spoken || '(not recognized)';
+                const normalized = score.spokenNormalized || rawSpoken;
+
+                if (normalized !== rawSpoken.toLowerCase().trim() && score.isKnownEquivalent) {
+                    // Show both: raw English → normalized Pidgin
+                    userSpoken.innerHTML = `'${rawSpoken}' <span class="text-green-600">→ "${normalized}"</span>`;
+                } else {
+                    userSpoken.textContent = rawSpoken;
+                }
 
                 // Feedback
                 feedbackList.innerHTML = score.feedback.map(fb => {

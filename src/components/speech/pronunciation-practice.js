@@ -39,8 +39,8 @@ class PronunciationPractice {
         this.recognition.lang = 'en-US';          // Use English (closest to Pidgin)
         this.recognition.maxAlternatives = 3;     // Get multiple interpretations
 
-        // Try to set up grammar list (progressive enhancement - may not work in all browsers)
-        this.setupGrammar();
+        // Note: SpeechGrammarList is deprecated and unreliable
+        // We use post-processing normalization instead (English → Pidgin mapping)
 
         // Event handlers
         this.recognition.onstart = () => {
@@ -69,84 +69,6 @@ class PronunciationPractice {
     }
 
     /**
-     * Set up JSGF grammar for better Pidgin word recognition
-     * Note: Browser support is limited, but this is a progressive enhancement
-     */
-    setupGrammar() {
-        const SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList;
-
-        if (!SpeechGrammarList) {
-            console.log('SpeechGrammarList not supported - using fallback matching');
-            return;
-        }
-
-        try {
-            this.grammarList = new SpeechGrammarList();
-            this.grammarLoaded = false;
-            console.log('SpeechGrammarList initialized - will load words from Supabase');
-        } catch (error) {
-            console.warn('Failed to create SpeechGrammarList:', error);
-        }
-    }
-
-    /**
-     * Load Pidgin words from Supabase and add to grammar
-     */
-    async loadGrammarFromSupabase() {
-        if (!this.grammarList || this.grammarLoaded) {
-            return;
-        }
-
-        try {
-            // Fetch all pidgin words from Supabase
-            const response = await fetch(
-                'https://jfzgzjgdptowfbtljvyp.supabase.co/rest/v1/dictionary_entries?select=pidgin,pronunciation',
-                {
-                    headers: {
-                        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impmemd6amdkcHRvd2ZidGxqdnlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzNzk0OTMsImV4cCI6MjA3OTk1NTQ5M30.xPubHKR0PFEic52CffEBVCwmfPz-AiqbwFk39ulwydM'
-                    }
-                }
-            );
-
-            if (!response.ok) {
-                throw new Error(`Supabase error: ${response.status}`);
-            }
-
-            const entries = await response.json();
-
-            // Build JSGF grammar with all Pidgin words
-            // Also include common English equivalents for better recognition
-            const words = new Set();
-
-            entries.forEach(entry => {
-                // Add the pidgin word
-                words.add(entry.pidgin.toLowerCase());
-
-                // Add known English equivalents from our map
-                const equivalents = this.pidginToEnglishMap[entry.pidgin.toLowerCase()];
-                if (equivalents) {
-                    equivalents.forEach(equiv => words.add(equiv.toLowerCase()));
-                }
-            });
-
-            // Create JSGF grammar string
-            const wordList = Array.from(words).join(' | ');
-            const grammar = `#JSGF V1.0; grammar pidgin; public <pidgin> = ${wordList};`;
-
-            // Add grammar with high weight (1.0 = highest priority)
-            this.grammarList.addFromString(grammar, 1.0);
-            this.recognition.grammars = this.grammarList;
-
-            this.grammarLoaded = true;
-            console.log(`✅ Loaded ${words.size} words into speech grammar`);
-
-        } catch (error) {
-            console.warn('Failed to load grammar from Supabase:', error);
-            // Continue without grammar - fallback matching will still work
-        }
-    }
-
-    /**
      * Check if speech recognition is supported
      */
     isSupported() {
@@ -157,7 +79,7 @@ class PronunciationPractice {
      * Start listening for user speech
      * @param {Object} wordData - The word to practice { pidgin, pronunciation, english }
      */
-    async startListening(wordData) {
+    startListening(wordData) {
         if (!this.supported) {
             console.error('Speech recognition not supported');
             return false;
@@ -168,9 +90,6 @@ class PronunciationPractice {
         }
 
         this.currentWord = wordData;
-
-        // Load grammar from Supabase on first use (progressive enhancement)
-        await this.loadGrammarFromSupabase();
 
         try {
             this.recognition.start();
@@ -230,8 +149,84 @@ class PronunciationPractice {
     }
 
     /**
+     * English-to-Pidgin normalization map
+     * Maps common English transcriptions BACK to correct Pidgin spelling
+     * This is the key to accurate scoring - we normalize the English output first
+     */
+    englishToPidginMap = {
+        // Common word-level substitutions
+        "how's it": "howzit",
+        "how is it": "howzit",
+        "hows it": "howzit",
+        "how sit": "howzit",
+        "the kind": "da kine",
+        "the kine": "da kine",
+        "da kind": "da kine",
+        "ducane": "da kine",
+        "bra": "brah",
+        "bruh": "brah",
+        "bro": "brah",
+        "brother": "brah",
+        "shoot": "shoots",
+        "suits": "shoots",
+        "chutes": "shoots",
+        "pow": "pau",
+        "pal": "pau",
+        "paul": "pau",
+        "pao": "pau",
+        "oh no": "ono",
+        "oh know": "ono",
+        "grinds": "grindz",
+        "grins": "grindz",
+        "grands": "grindz",
+        "my hello": "mahalo",
+        "ma hello": "mahalo",
+        "pow hana": "pau hana",
+        "pow hannah": "pau hana",
+        "pal hana": "pau hana",
+        "talk stories": "talk story",
+        "talkstory": "talk story",
+        "broke the mouth": "broke da mouth",
+        "broken mouth": "broke da mouth",
+        "more better": "mo bettah",
+        "more beta": "mo bettah",
+        "mo better": "mo bettah",
+        "small kind": "small kine",
+        "small can": "small kine",
+        "chickenskin": "chicken skin",
+        "don't worry beef curry": "no worry beef curry",
+        "hama jang": "hamajang",
+        "have a junk": "hamajang",
+        "how much on": "hamajang",
+        "i don't care": "ainokea",
+        "i no care": "ainokea",
+        "eye no care": "ainokea",
+        "low low": "lolo",
+        "lo lo": "lolo",
+        "roger that": "rajah dat",
+        "roger dad": "rajah dat",
+        "poopoolay": "pupule",
+        "poo poo lay": "pupule",
+        "poopoo": "pupule",
+        // Common single-word substitutions (applied after phrase matching)
+        "the": "da",
+        "for": "fo",
+        "going": "goin",
+        "nothing": "notting",
+        "something": "someting",
+        "everything": "everyting",
+        "with": "wit",
+        "brother": "braddah",
+        "sister": "sistah",
+        "water": "waddah",
+        "better": "bettah",
+        "later": "latah",
+        "already": "awready"
+    };
+
+    /**
      * Known Pidgin words and their likely English speech recognition equivalents
-     * These should count as correct/near-correct pronunciations
+     * Used for quick lookup to detect if transcription is a known equivalent
      */
     pidginToEnglishMap = {
         'howzit': ["how's it", "how is it", "hows it", "how sit", "howzit"],
@@ -253,11 +248,55 @@ class PronunciationPractice {
         'ainokea': ["i don't care", "i no care", "eye no care"],
         'lolo': ["lolo", "low low", "lo lo"],
         'rajah dat': ["roger that", "rajah dat", "roger dad"],
-        'pupule': ["poopoolay", "poo poo lay", "pupule", "poopoo"]
+        'pupule': ["poopoolay", "poo poo lay", "pupule", "poopoo"],
+        'fo': ["for", "fo", "four"],
+        'da': ["the", "da", "duh"],
+        'wit': ["with", "wit"],
+        'bettah': ["better", "bettah"],
+        'braddah': ["brother", "braddah", "brada"],
+        'sistah': ["sister", "sistah", "sista"],
+        'waddah': ["water", "waddah", "wadda"],
+        'lidat': ["like that", "lidat", "like dat"],
+        'bumbye': ["by and by", "bumbye", "bum bye", "bomb by"],
+        'choke': ["choke", "a lot", "plenty"],
+        'shaka': ["shaka", "shock a", "shocker"]
     };
 
     /**
+     * Normalize English transcription back to Pidgin spelling
+     * This is the KEY to accurate scoring - convert "how's it" → "howzit"
+     * @param {string} englishText - Raw transcription from speech API
+     * @returns {string} Normalized Pidgin text
+     */
+    normalizeEnglishToPidgin(englishText) {
+        let normalized = englishText.toLowerCase().trim();
+
+        // First, apply multi-word phrase replacements (longer phrases first)
+        const phraseKeys = Object.keys(this.englishToPidginMap)
+            .filter(k => k.includes(' '))
+            .sort((a, b) => b.length - a.length);
+
+        for (const phrase of phraseKeys) {
+            const pidgin = this.englishToPidginMap[phrase];
+            normalized = normalized.replace(new RegExp(phrase, 'gi'), pidgin);
+        }
+
+        // Then apply single-word replacements
+        const wordKeys = Object.keys(this.englishToPidginMap)
+            .filter(k => !k.includes(' '));
+
+        for (const word of wordKeys) {
+            const pidgin = this.englishToPidginMap[word];
+            // Use word boundaries to avoid partial replacements
+            normalized = normalized.replace(new RegExp(`\\b${word}\\b`, 'gi'), pidgin);
+        }
+
+        return normalized;
+    }
+
+    /**
      * Score the pronunciation attempt
+     * Strategy: Normalize English output → Pidgin, then compare to target
      * @param {Array} alternatives - Speech recognition alternatives
      * @returns {Object} Score object with details
      */
@@ -268,9 +307,17 @@ class PronunciationPractice {
 
         const expected = this.normalizeText(this.currentWord.pidgin);
         const spoken = alternatives[0].transcript;
-        const spokenNormalized = this.normalizeText(spoken);
+        const confidence = alternatives[0].confidence || 0.8; // API confidence score
 
-        // Check if this is a known Pidgin word with expected English equivalents
+        // STEP 1: Normalize the English transcription back to Pidgin
+        const spokenNormalized = this.normalizeText(spoken);
+        const spokenAsPidgin = this.normalizeEnglishToPidgin(spokenNormalized);
+
+        console.log(`🎯 Expected: "${expected}"`);
+        console.log(`🎤 Raw transcription: "${spoken}"`);
+        console.log(`🔄 Normalized to Pidgin: "${spokenAsPidgin}"`);
+
+        // STEP 2: Check if raw transcription matches a known English equivalent
         const knownEquivalents = this.pidginToEnglishMap[expected] ||
                                   this.pidginToEnglishMap[this.currentWord.pidgin.toLowerCase()];
 
@@ -296,21 +343,20 @@ class PronunciationPractice {
             }
         }
 
-        // Calculate various similarity scores
-        const exactMatch = spokenNormalized === expected || isKnownEquivalent;
-        const levenshteinScore = this.calculateLevenshteinScore(expected, spokenNormalized);
-        const phoneticScore = this.calculatePhoneticScore(expected, spokenNormalized);
-        const wordMatchScore = this.calculateWordMatchScore(expected, spokenNormalized);
+        // STEP 3: Calculate Word Accuracy (WER-based) using normalized Pidgin
+        const wordAccuracy = this.calculateWordAccuracy(expected, spokenAsPidgin);
 
-        // Boost score significantly if it's a known equivalent
-        const equivalentBonus = isKnownEquivalent ? 40 : 0;
+        // STEP 4: Calculate similarity scores (both raw and normalized)
+        const exactMatch = spokenAsPidgin === expected || spokenNormalized === expected || isKnownEquivalent;
+        const levenshteinScore = this.calculateLevenshteinScore(expected, spokenAsPidgin);
+        const phoneticScore = this.calculatePhoneticScore(expected, spokenAsPidgin);
 
-        // Check alternatives for better matches
+        // Check alternatives for better matches (also normalize them)
         let bestAlternativeScore = levenshteinScore;
         let bestAlternative = spoken;
 
         for (const alt of alternatives) {
-            const altNormalized = this.normalizeText(alt.transcript);
+            const altNormalized = this.normalizeEnglishToPidgin(this.normalizeText(alt.transcript));
             const altScore = this.calculateLevenshteinScore(expected, altNormalized);
             if (altScore > bestAlternativeScore) {
                 bestAlternativeScore = altScore;
@@ -318,31 +364,77 @@ class PronunciationPractice {
             }
         }
 
-        // Weighted overall score with bonus for known equivalents
-        const overall = Math.round(
-            (bestAlternativeScore * 0.4) +
-            (phoneticScore * 0.35) +
-            (wordMatchScore * 0.25) +
-            equivalentBonus
-        );
+        // STEP 5: Calculate final score using the formula:
+        // Rating = (0.7 × Word Accuracy) + (0.3 × Confidence Score)
+        // Plus bonus for exact/known equivalent matches
+        const baseScore = (wordAccuracy * 0.7) + (confidence * 100 * 0.3);
+        const equivalentBonus = (exactMatch || isKnownEquivalent) ? 15 : 0;
+        const overall = Math.round(Math.min(100, baseScore + equivalentBonus));
 
         // Generate feedback
         const finalScore = Math.min(100, Math.max(0, overall));
-        const feedback = this.generateFeedback(expected, spokenNormalized, finalScore, isKnownEquivalent);
+        const feedback = this.generateFeedback(expected, spokenAsPidgin, finalScore, isKnownEquivalent);
 
         return {
             overall: finalScore,
             exact: exactMatch,
             spoken: spoken,
+            spokenNormalized: spokenAsPidgin, // Show the Pidgin-normalized version
             expected: this.currentWord.pidgin,
+            confidence: Math.round(confidence * 100),
+            wordAccuracy: Math.round(wordAccuracy),
             levenshtein: Math.round(levenshteinScore),
             phonetic: Math.round(phoneticScore),
-            wordMatch: Math.round(wordMatchScore),
             feedback: feedback,
             stars: this.getStarRating(finalScore),
             alternatives: alternatives.map(a => a.transcript),
             isKnownEquivalent: isKnownEquivalent
         };
+    }
+
+    /**
+     * Calculate Word Accuracy (WER-inspired)
+     * Compares word-by-word match percentage
+     * @param {string} expected - Target Pidgin phrase
+     * @param {string} spoken - Normalized spoken text
+     * @returns {number} Accuracy percentage (0-100)
+     */
+    calculateWordAccuracy(expected, spoken) {
+        const expectedWords = expected.split(/\s+/).filter(w => w.length > 0);
+        const spokenWords = spoken.split(/\s+/).filter(w => w.length > 0);
+
+        if (expectedWords.length === 0) return 0;
+
+        // For single-word comparisons, use character-level accuracy
+        if (expectedWords.length === 1 && spokenWords.length === 1) {
+            const similarity = this.calculateLevenshteinScore(expectedWords[0], spokenWords[0]);
+            return similarity;
+        }
+
+        let matches = 0;
+        let partialMatches = 0;
+
+        for (const expWord of expectedWords) {
+            // Check for exact match
+            if (spokenWords.includes(expWord)) {
+                matches++;
+            } else {
+                // Check for close match (Levenshtein > 80%)
+                for (const spkWord of spokenWords) {
+                    const similarity = this.calculateLevenshteinScore(expWord, spkWord);
+                    if (similarity >= 80) {
+                        partialMatches += similarity / 100;
+                        break;
+                    } else if (similarity >= 60) {
+                        partialMatches += (similarity / 100) * 0.5;
+                        break;
+                    }
+                }
+            }
+        }
+
+        const totalScore = matches + partialMatches;
+        return (totalScore / expectedWords.length) * 100;
     }
 
     /**
