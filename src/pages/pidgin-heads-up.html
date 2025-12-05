@@ -614,12 +614,29 @@
         }
 
         function setupTiltDetection() {
-            let lastBeta = 0;
+            let lastBeta = null;
+            let calibrated = false;
 
             window.addEventListener('deviceorientation', (event) => {
                 if (!canTilt) return;
 
                 const beta = event.beta; // Front-back tilt (-180 to 180)
+
+                // First reading: calibrate to current position
+                if (lastBeta === null) {
+                    lastBeta = beta;
+                    return;
+                }
+
+                // Wait a moment before allowing tilt detection
+                if (!calibrated) {
+                    // Only start detecting after position stabilizes
+                    if (Math.abs(beta - lastBeta) < 5) {
+                        calibrated = true;
+                    }
+                    lastBeta = beta;
+                    return;
+                }
 
                 // Tilt forward (down) = correct (beta increases significantly)
                 if (beta > 50 && lastBeta < 30) {
