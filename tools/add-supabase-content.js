@@ -6,7 +6,14 @@
  */
 
 const SUPABASE_URL = 'https://jfzgzjgdptowfbtljvyp.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impmemd6amdkcHRvd2ZidGxqdnlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzNzk0OTMsImV4cCI6MjA3OTk1NTQ5M30.xPubHKR0PFEic52CffEBVCwmfPz-AiqbwFk39ulwydM';
+// Use service role key to bypass RLS (set via environment variable)
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY;
+
+if (!SUPABASE_KEY) {
+    console.error('❌ Error: SUPABASE_SERVICE_KEY environment variable not set');
+    console.log('Usage: SUPABASE_SERVICE_KEY=your_key node add-supabase-content.js');
+    process.exit(1);
+}
 
 // New stories to add
 const newStories = [
@@ -339,8 +346,8 @@ async function addStories() {
             const response = await fetch(`${SUPABASE_URL}/rest/v1/stories`, {
                 method: 'POST',
                 headers: {
-                    'apikey': SUPABASE_ANON_KEY,
-                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                    'apikey': SUPABASE_KEY,
+                    'Authorization': `Bearer ${SUPABASE_KEY}`,
                     'Content-Type': 'application/json',
                     'Prefer': 'return=minimal'
                 },
@@ -377,8 +384,8 @@ async function addPickupLines() {
             const response = await fetch(`${SUPABASE_URL}/rest/v1/pickup_lines`, {
                 method: 'POST',
                 headers: {
-                    'apikey': SUPABASE_ANON_KEY,
-                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                    'apikey': SUPABASE_KEY,
+                    'Authorization': `Bearer ${SUPABASE_KEY}`,
                     'Content-Type': 'application/json',
                     'Prefer': 'return=minimal'
                 },
