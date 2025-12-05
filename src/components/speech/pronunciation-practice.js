@@ -572,16 +572,12 @@ class PronunciationPractice {
         if (score >= 90) {
             feedback.push({
                 type: 'success',
-                message: isKnownEquivalent
-                    ? "Ho, you sound like one local! Da speech system heard English but you said um right! 🤙"
-                    : "Ho, you sound like one local! Perfect! 🤙"
+                message: "Ho, you sound like one local! Perfect! 🤙"
             });
         } else if (score >= 75) {
             feedback.push({
                 type: 'good',
-                message: isKnownEquivalent
-                    ? "Solid! We recognized your Pidgin! 🌺"
-                    : "Solid! Getting da hang of it! 🌺"
+                message: "Solid! Getting da hang of it! 🌺"
             });
         } else if (score >= 50) {
             feedback.push({
