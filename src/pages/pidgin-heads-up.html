@@ -36,9 +36,36 @@
         .brand-font { font-family: 'Pacifico', cursive; }
         body, h1, h2, h3, h4, h5, h6 { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
 
-        /* Lock screen orientation hint */
-        .rotate-phone {
+        /* Rotate phone prompt - shown in portrait during game */
+        .rotate-prompt {
             display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #1e3a5f 0%, #0d1b2a 100%);
+            z-index: 2000;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .rotate-prompt.show {
+            display: flex;
+        }
+
+        .rotate-icon {
+            font-size: 5rem;
+            animation: rotate-hint 1.5s ease-in-out infinite;
+        }
+
+        @keyframes rotate-hint {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(90deg); }
         }
 
         /* Game screen styles */
@@ -173,29 +200,34 @@
                 </span>
             </h1>
             <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                Hold da phone to your forehead! Your friends give clues, you guess da Pidgin word.
-                Tilt down fo' correct, tilt up fo' skip!
+                Rotate phone sideways, hold to your forehead! Your friends give clues, you guess da Pidgin word.
+                Tilt forward fo' correct, tilt back fo' skip!
             </p>
         </div>
 
         <!-- How to Play -->
         <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
             <h2 class="text-2xl font-bold text-gray-800 mb-4">📖 How fo' Play</h2>
-            <div class="grid md:grid-cols-3 gap-4">
+            <div class="grid md:grid-cols-4 gap-4">
+                <div class="text-center p-4">
+                    <div class="text-4xl mb-2">🔄</div>
+                    <h3 class="font-bold text-gray-800">1. Rotate Phone</h3>
+                    <p class="text-gray-600 text-sm">Turn your phone sideways (landscape mode)</p>
+                </div>
                 <div class="text-center p-4">
                     <div class="text-4xl mb-2">📱</div>
-                    <h3 class="font-bold text-gray-800">1. Hold to Forehead</h3>
+                    <h3 class="font-bold text-gray-800">2. Hold to Forehead</h3>
                     <p class="text-gray-600 text-sm">Put da phone on your forehead so others can see da word</p>
                 </div>
                 <div class="text-center p-4">
                     <div class="text-4xl mb-2">🗣️</div>
-                    <h3 class="font-bold text-gray-800">2. Friends Give Clues</h3>
+                    <h3 class="font-bold text-gray-800">3. Friends Give Clues</h3>
                     <p class="text-gray-600 text-sm">They describe da word without saying um</p>
                 </div>
                 <div class="text-center p-4">
                     <div class="text-4xl mb-2">📲</div>
-                    <h3 class="font-bold text-gray-800">3. Tilt to Answer</h3>
-                    <p class="text-gray-600 text-sm">Tilt DOWN = correct ✅<br>Tilt UP = skip ❌</p>
+                    <h3 class="font-bold text-gray-800">4. Tilt to Answer</h3>
+                    <p class="text-gray-600 text-sm">Tilt FORWARD = correct ✅<br>Tilt BACK = skip ❌</p>
                 </div>
             </div>
         </div>
@@ -271,12 +303,19 @@
         </div>
     </main>
 
+    <!-- Rotate Phone Prompt -->
+    <div id="rotate-prompt" class="rotate-prompt">
+        <div class="rotate-icon">📱</div>
+        <h2 class="text-3xl font-bold mt-6 mb-4">Rotate Your Phone!</h2>
+        <p class="text-xl opacity-80">Turn sideways for the best experience</p>
+    </div>
+
     <!-- Countdown Screen -->
     <div id="countdown-screen" class="fullscreen-game bg-gradient-to-br from-purple-600 to-pink-600 hidden">
         <div class="game-screen text-white">
             <div class="text-2xl mb-4">Get Ready!</div>
             <div id="countdown-number" class="text-9xl font-bold countdown-number">3</div>
-            <div class="text-xl mt-4">Hold phone to forehead 📱</div>
+            <div class="text-xl mt-4">Hold phone to forehead (sideways) 📱</div>
         </div>
     </div>
 
@@ -445,12 +484,52 @@
         let roundResults = [];
         let lastTiltAction = 0;
         let canTilt = true;
+        let gameActive = false;
 
         // DOM Elements
         const menuScreen = document.getElementById('menu-screen');
         const countdownScreen = document.getElementById('countdown-screen');
         const gameScreen = document.getElementById('game-screen');
         const resultsScreen = document.getElementById('results-screen');
+        const rotatePrompt = document.getElementById('rotate-prompt');
+
+        // Fullscreen and orientation handling
+        function requestFullscreen() {
+            const elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen().catch(() => {});
+            } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen();
+            }
+        }
+
+        function exitFullscreen() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen().catch(() => {});
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            }
+        }
+
+        function isLandscape() {
+            return window.innerWidth > window.innerHeight;
+        }
+
+        function checkOrientation() {
+            if (gameActive) {
+                if (isLandscape()) {
+                    rotatePrompt.classList.remove('show');
+                } else {
+                    rotatePrompt.classList.add('show');
+                }
+            }
+        }
+
+        // Listen for orientation changes
+        window.addEventListener('resize', checkOrientation);
+        window.addEventListener('orientationchange', checkOrientation);
 
         // Category Selection
         document.querySelectorAll('.category-card').forEach(card => {
@@ -475,6 +554,9 @@
 
         // Back to Menu
         document.getElementById('back-to-menu-btn').addEventListener('click', () => {
+            gameActive = false;
+            rotatePrompt.classList.remove('show');
+            exitFullscreen();
             showScreen('menu');
         });
 
@@ -493,6 +575,9 @@
         }
 
         function startCountdown() {
+            gameActive = true;
+            requestFullscreen();
+            checkOrientation();
             showScreen('countdown');
 
             let count = 3;
@@ -614,51 +699,63 @@
         }
 
         function setupTiltDetection() {
-            let lastBeta = null;
+            let lastTilt = null;
             let calibrated = false;
 
             window.addEventListener('deviceorientation', (event) => {
                 if (!canTilt) return;
 
-                const beta = event.beta; // Front-back tilt (-180 to 180)
+                // In landscape mode, use gamma (left-right becomes forward-back)
+                // In portrait mode, use beta
+                const tilt = isLandscape() ? event.gamma : event.beta;
 
                 // First reading: calibrate to current position
-                if (lastBeta === null) {
-                    lastBeta = beta;
+                if (lastTilt === null) {
+                    lastTilt = tilt;
                     return;
                 }
 
                 // Wait a moment before allowing tilt detection
                 if (!calibrated) {
                     // Only start detecting after position stabilizes
-                    if (Math.abs(beta - lastBeta) < 5) {
+                    if (Math.abs(tilt - lastTilt) < 5) {
                         calibrated = true;
                     }
-                    lastBeta = beta;
+                    lastTilt = tilt;
                     return;
                 }
 
-                // Tilt forward (down) = correct (beta increases significantly)
-                if (beta > 50 && lastBeta < 30) {
-                    handleCorrect();
-                }
-                // Tilt backward (up) = skip (beta decreases significantly)
-                else if (beta < -20 && lastBeta > 0) {
-                    handleSkip();
+                // Detect significant tilt changes
+                // Tilt forward = correct, tilt backward = skip
+                if (isLandscape()) {
+                    // Landscape: gamma goes negative when tilting forward (screen facing down)
+                    if (tilt < -30 && lastTilt > -10) {
+                        handleCorrect();
+                    } else if (tilt > 30 && lastTilt < 10) {
+                        handleSkip();
+                    }
+                } else {
+                    // Portrait: beta increases when tilting forward
+                    if (tilt > 50 && lastTilt < 30) {
+                        handleCorrect();
+                    } else if (tilt < -20 && lastTilt > 0) {
+                        handleSkip();
+                    }
                 }
 
-                lastBeta = beta;
+                lastTilt = tilt;
             });
 
             // Fallback: tap controls for desktop
             document.getElementById('game-screen').addEventListener('click', (e) => {
                 const rect = gameScreen.getBoundingClientRect();
-                const y = e.clientY - rect.top;
+                const clickPos = isLandscape() ? (e.clientX - rect.left) : (e.clientY - rect.top);
+                const size = isLandscape() ? rect.width : rect.height;
 
-                if (y < rect.height / 2) {
-                    handleSkip(); // Top half = skip
+                if (clickPos < size / 2) {
+                    handleSkip(); // Left/top half = skip
                 } else {
-                    handleCorrect(); // Bottom half = correct
+                    handleCorrect(); // Right/bottom half = correct
                 }
             });
         }
