@@ -728,10 +728,10 @@
                 // Detect significant tilt changes
                 // Tilt forward = correct, tilt backward = skip
                 if (isLandscape()) {
-                    // Landscape: gamma goes negative when tilting forward (screen facing down)
-                    if (tilt < -30 && lastTilt > -10) {
+                    // Landscape: gamma positive when tilting forward (screen facing down)
+                    if (tilt > 30 && lastTilt < 10) {
                         handleCorrect();
-                    } else if (tilt > 30 && lastTilt < 10) {
+                    } else if (tilt < -30 && lastTilt > -10) {
                         handleSkip();
                     }
                 } else {
