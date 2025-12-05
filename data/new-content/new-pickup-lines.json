@@ -1,0 +1,177 @@
+[
+    {
+        "pidgin": "If you was one wave, I would ride you all day long.",
+        "english": "If you were a wave, I'd ride you all day long.",
+        "category": "beach",
+        "spiciness": 3,
+        "tags": ["surfing", "beach", "flirty"]
+    },
+    {
+        "pidgin": "You stay so hot, you making da trade winds jealous.",
+        "english": "You're so hot, you're making the trade winds jealous.",
+        "category": "romantic",
+        "spiciness": 2,
+        "tags": ["weather", "compliment"]
+    },
+    {
+        "pidgin": "I not one lifeguard, but I save you one spot in my heart.",
+        "english": "I'm not a lifeguard, but I saved you a spot in my heart.",
+        "category": "beach",
+        "spiciness": 1,
+        "tags": ["beach", "sweet", "cute"]
+    },
+    {
+        "pidgin": "Brah, you must be da sunset cuz you stay taking my breath away.",
+        "english": "Man, you must be the sunset because you're taking my breath away.",
+        "category": "romantic",
+        "spiciness": 1,
+        "tags": ["sunset", "romantic", "classic"]
+    },
+    {
+        "pidgin": "Is your name Aloha? Cuz you stay greeting me with love.",
+        "english": "Is your name Aloha? Because you're greeting me with love.",
+        "category": "romantic",
+        "spiciness": 1,
+        "tags": ["aloha", "sweet", "clever"]
+    },
+    {
+        "pidgin": "You like grab some shave ice? Cuz you stay making me melt.",
+        "english": "Want to get some shave ice? Because you're making me melt.",
+        "category": "food",
+        "spiciness": 1,
+        "tags": ["shave ice", "food", "date"]
+    },
+    {
+        "pidgin": "My heart stay pounding harder than da waves at Pipeline.",
+        "english": "My heart is pounding harder than the waves at Pipeline.",
+        "category": "beach",
+        "spiciness": 2,
+        "tags": ["surfing", "pipeline", "intense"]
+    },
+    {
+        "pidgin": "You must be da North Shore cuz you stay looking dangerous and beautiful.",
+        "english": "You must be the North Shore because you look dangerous and beautiful.",
+        "category": "beach",
+        "spiciness": 2,
+        "tags": ["north shore", "compliment", "clever"]
+    },
+    {
+        "pidgin": "Fo' real kine, you stay mo' stunning than Diamond Head at sunrise.",
+        "english": "For real, you're more stunning than Diamond Head at sunrise.",
+        "category": "romantic",
+        "spiciness": 1,
+        "tags": ["diamond head", "romantic", "scenic"]
+    },
+    {
+        "pidgin": "I like be your spam and you be my rice - we go bettah together.",
+        "english": "I want to be your spam and you be my rice - we go better together.",
+        "category": "food",
+        "spiciness": 1,
+        "tags": ["spam musubi", "food", "cute"]
+    },
+    {
+        "pidgin": "You get me feeling all chicken skin, and I like um.",
+        "english": "You're giving me goosebumps, and I like it.",
+        "category": "romantic",
+        "spiciness": 2,
+        "tags": ["chicken skin", "feeling", "attraction"]
+    },
+    {
+        "pidgin": "Are you one malasada? Cuz you stay sweet and I no can resist.",
+        "english": "Are you a malasada? Because you're sweet and I can't resist.",
+        "category": "food",
+        "spiciness": 1,
+        "tags": ["malasada", "food", "sweet"]
+    },
+    {
+        "pidgin": "Wea you been all my life? I been looking since small kid time.",
+        "english": "Where have you been all my life? I've been looking since childhood.",
+        "category": "romantic",
+        "spiciness": 1,
+        "tags": ["classic", "romantic", "searching"]
+    },
+    {
+        "pidgin": "You must be from Maui cuz you stay no ka oi - da best.",
+        "english": "You must be from Maui because you're the best.",
+        "category": "romantic",
+        "spiciness": 1,
+        "tags": ["maui", "compliment", "best"]
+    },
+    {
+        "pidgin": "I not trying fo' be mayjah, but you stay da most beautiful ting I evah seen.",
+        "english": "I'm not trying to be dramatic, but you're the most beautiful thing I've ever seen.",
+        "category": "romantic",
+        "spiciness": 2,
+        "tags": ["compliment", "sincere", "beautiful"]
+    },
+    {
+        "pidgin": "You like talk story? I get all night fo' listen to you.",
+        "english": "Want to chat? I have all night to listen to you.",
+        "category": "romantic",
+        "spiciness": 1,
+        "tags": ["talk story", "conversation", "interest"]
+    },
+    {
+        "pidgin": "My love fo' you stay deeper than da Pacific Ocean.",
+        "english": "My love for you is deeper than the Pacific Ocean.",
+        "category": "romantic",
+        "spiciness": 2,
+        "tags": ["ocean", "deep", "love"]
+    },
+    {
+        "pidgin": "You stay hotter than lava from Kilauea.",
+        "english": "You're hotter than lava from Kilauea.",
+        "category": "spicy",
+        "spiciness": 3,
+        "tags": ["volcano", "hot", "intense"]
+    },
+    {
+        "pidgin": "Let's make like da tide and come together.",
+        "english": "Let's be like the tide and come together.",
+        "category": "beach",
+        "spiciness": 2,
+        "tags": ["ocean", "together", "romantic"]
+    },
+    {
+        "pidgin": "I would swim through sharks fo' get your numba.",
+        "english": "I would swim through sharks to get your number.",
+        "category": "beach",
+        "spiciness": 2,
+        "tags": ["sharks", "brave", "dedication"]
+    },
+    {
+        "pidgin": "You stay making me feel like I wen win da lottery.",
+        "english": "You're making me feel like I won the lottery.",
+        "category": "romantic",
+        "spiciness": 1,
+        "tags": ["lucky", "winner", "feeling"]
+    },
+    {
+        "pidgin": "I no need GPS, my heart stay always pointing to you.",
+        "english": "I don't need GPS, my heart always points to you.",
+        "category": "romantic",
+        "spiciness": 1,
+        "tags": ["direction", "heart", "sweet"]
+    },
+    {
+        "pidgin": "You like be my plus one fo' every beach day?",
+        "english": "Want to be my plus one for every beach day?",
+        "category": "beach",
+        "spiciness": 1,
+        "tags": ["beach", "dating", "future"]
+    },
+    {
+        "pidgin": "Fo' you, I would share my last piece poke.",
+        "english": "For you, I would share my last piece of poke.",
+        "category": "food",
+        "spiciness": 2,
+        "tags": ["poke", "sharing", "sacrifice"]
+    },
+    {
+        "pidgin": "You stay da rainbow afta my rainy day.",
+        "english": "You're the rainbow after my rainy day.",
+        "category": "romantic",
+        "spiciness": 1,
+        "tags": ["rainbow", "hope", "romantic"]
+    }
+]
