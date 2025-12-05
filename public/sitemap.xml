@@ -36,6 +36,14 @@
         <priority>0.9</priority>
     </url>
 
+    <!-- Pronunciation Practice Page - Interactive speech training -->
+    <url>
+        <loc>https://chokepidgin.com/pronunciation-practice.html</loc>
+        <lastmod>2025-12-05</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+    </url>
+
     <!-- Ask a Local Page - Community feature -->
     <url>
         <loc>https://chokepidgin.com/ask-local.html</loc>
