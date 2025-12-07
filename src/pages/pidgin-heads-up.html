@@ -699,57 +699,92 @@
         }
 
         function setupTiltDetection() {
-            let baselineTilt = null;
-            let calibrated = false;
-            let readingCount = 0;
+            // Tilt detection for phone held to forehead in landscape mode
+            //
+            // ORIENTATION UNDERSTANDING:
+            // When phone is in landscape on forehead (screen facing away):
+            // - Phone is roughly vertical with screen perpendicular to ground
+            // - Beta will be around +/- 90 (depending on landscape-left vs landscape-right)
+            // - Gamma will be close to 0 when head is level
+            //
+            // HEAD MOVEMENTS:
+            // - Tilt head DOWN (nod forward) = CORRECT
+            // - Tilt head UP (look at ceiling) = SKIP
+            //
+            // In landscape orientation, GAMMA is the axis that changes when nodding
+            // - In landscape-left (home button on right): gamma INCREASES when tilting down
+            // - In landscape-right (home button on left): gamma DECREASES when tilting down
 
-            window.addEventListener('deviceorientation', (event) => {
+            let baselineGamma = null;
+            let calibrated = false;
+            let calibrationReadings = [];
+            const CALIBRATION_COUNT = 20;
+            const TILT_THRESHOLD = 18; // Degrees - lower = more sensitive
+
+            // Detect landscape orientation direction based on screen.orientation or beta sign
+            let landscapeDirection = 1; // 1 for left, -1 for right
+
+            const handleOrientation = (event) => {
                 if (!canTilt) return;
 
-                // Beta is forward/back tilt in both orientations
-                // When upright (screen facing you), beta is around 90
-                // Tilt forward (screen faces down) = beta increases toward 180
-                // Tilt backward (screen faces up) = beta decreases toward 0
-                const beta = event.beta;
+                const beta = event.beta;   // -180 to 180
+                const gamma = event.gamma; // -90 to 90
 
-                // Calibrate over first few readings
+                // Skip invalid readings
+                if (gamma === null || beta === null) return;
+
+                // Calibration phase
                 if (!calibrated) {
-                    readingCount++;
-                    if (baselineTilt === null) {
-                        baselineTilt = beta;
-                    } else {
-                        // Average the readings
-                        baselineTilt = (baselineTilt + beta) / 2;
-                    }
-                    // Calibrate after 10 stable readings
-                    if (readingCount > 10) {
+                    calibrationReadings.push({ beta, gamma });
+
+                    if (calibrationReadings.length >= CALIBRATION_COUNT) {
+                        // Use median for stability
+                        const sortedGamma = calibrationReadings.map(r => r.gamma).sort((a, b) => a - b);
+                        const sortedBeta = calibrationReadings.map(r => r.beta).sort((a, b) => a - b);
+
+                        baselineGamma = sortedGamma[Math.floor(CALIBRATION_COUNT / 2)];
+                        const medianBeta = sortedBeta[Math.floor(CALIBRATION_COUNT / 2)];
+
+                        // Detect orientation: if beta is positive, phone rotated one way; negative = other way
+                        // This helps us know which direction gamma changes mean
+                        landscapeDirection = medianBeta >= 0 ? 1 : -1;
+
                         calibrated = true;
+                        console.log('Tilt calibrated:', { baselineGamma, medianBeta, landscapeDirection });
                     }
                     return;
                 }
 
-                // Detect significant tilt from baseline position
-                // Tilt forward (beta > baseline + 25) = correct
-                // Tilt backward (beta < baseline - 25) = skip
-                const tiltDelta = beta - baselineTilt;
+                // Calculate gamma delta from baseline
+                const gammaDelta = gamma - baselineGamma;
 
-                if (tiltDelta > 25) {
+                // Apply landscape direction correction
+                // When landscapeDirection is -1, we flip the interpretation
+                const correctedDelta = gammaDelta * landscapeDirection;
+
+                // Detect tilt:
+                // Positive corrected delta = tilt forward (head nod down) = CORRECT
+                // Negative corrected delta = tilt backward (look up) = SKIP
+                if (correctedDelta > TILT_THRESHOLD) {
                     handleCorrect();
-                } else if (tiltDelta < -25) {
+                } else if (correctedDelta < -TILT_THRESHOLD) {
                     handleSkip();
                 }
-            });
+            };
 
-            // Fallback: tap controls for desktop
+            window.addEventListener('deviceorientation', handleOrientation);
+
+            // Fallback: tap controls for desktop or devices without motion sensors
             document.getElementById('game-screen').addEventListener('click', (e) => {
                 const rect = gameScreen.getBoundingClientRect();
-                const clickPos = isLandscape() ? (e.clientX - rect.left) : (e.clientY - rect.top);
-                const size = isLandscape() ? rect.width : rect.height;
+                const clickY = e.clientY - rect.top;
+                const height = rect.height;
 
-                if (clickPos < size / 2) {
-                    handleSkip(); // Left/top half = skip
+                // Top half = skip, bottom half = correct
+                if (clickY < height / 2) {
+                    handleSkip();
                 } else {
-                    handleCorrect(); // Right/bottom half = correct
+                    handleCorrect();
                 }
             });
         }
