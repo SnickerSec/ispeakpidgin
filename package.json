@@ -22,7 +22,16 @@
     "seo:pages": "node tools/seo/search-console.js pages",
     "seo:optimize": "node tools/seo/search-console.js optimize",
     "seo:report": "node tools/seo/search-console.js report",
-    "seo:api": "node tools/seo/search-console.js api-server"
+    "seo:api": "node tools/seo/search-console.js api-server",
+    "ga:top-pages": "node tools/seo/google-analytics.js top-pages",
+    "ga:traffic": "node tools/seo/google-analytics.js traffic",
+    "ga:devices": "node tools/seo/google-analytics.js devices",
+    "ga:engagement": "node tools/seo/google-analytics.js engagement",
+    "ga:low-engagement": "node tools/seo/google-analytics.js low-engagement",
+    "ga:events": "node tools/seo/google-analytics.js events",
+    "ga:realtime": "node tools/seo/google-analytics.js realtime",
+    "ga:report": "node tools/seo/google-analytics.js report",
+    "ga:insights": "node tools/seo/google-analytics.js insights --format claude"
   },
   "keywords": [
     "pidgin",
@@ -34,6 +43,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@google-analytics/data": "^5.2.1",
     "@google-cloud/translate": "^9.3.0",
     "@supabase/supabase-js": "^2.86.0",
     "compression": "^1.7.4",
