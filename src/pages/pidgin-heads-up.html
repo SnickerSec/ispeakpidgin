@@ -699,63 +699,63 @@
         }
 
         function setupTiltDetection() {
-            // Tilt detection for phone held to forehead in landscape mode
+            // Tilt detection for phone held to forehead in LANDSCAPE mode
+            // Phone is sideways, screen facing AWAY from user (toward friends)
             //
             // HEAD MOVEMENTS:
             // - Tilt head DOWN (nod forward) = CORRECT
             // - Tilt head UP (look at ceiling) = SKIP
             //
-            // We use BETA axis which measures front-to-back tilt
-            // When phone is on forehead in landscape:
-            // - Neutral position: beta around 90 or -90
-            // - Tilt forward: beta moves toward 180 (or -180)
-            // - Tilt backward: beta moves toward 0
+            // In this orientation, we need to use ALPHA (compass) axis
+            // because the phone's rotation axes have been remapped by landscape orientation
+            // Alpha measures rotation around the Z-axis (perpendicular to screen)
+            // When phone is vertical in landscape on forehead:
+            // - Nodding forward/back rotates around the axis running left-right through phone
+            // - This maps to alpha changes
 
-            let baselineBeta = null;
+            let baselineAlpha = null;
             let calibrated = false;
             let calibrationReadings = [];
             const CALIBRATION_COUNT = 20;
-            const TILT_THRESHOLD = 20; // Degrees needed to trigger
+            const TILT_THRESHOLD = 15; // Degrees needed to trigger
 
             const handleOrientation = (event) => {
                 if (!canTilt) return;
 
-                let beta = event.beta;   // -180 to 180
+                const alpha = event.alpha; // 0 to 360 (compass direction)
+                const beta = event.beta;   // -180 to 180
+                const gamma = event.gamma; // -90 to 90
 
                 // Skip invalid readings
-                if (beta === null) return;
-
-                // Normalize beta to handle the -180/180 wraparound
-                // Convert to 0-360 range for easier math
-                if (beta < 0) beta += 360;
+                if (alpha === null) return;
 
                 // Calibration phase
                 if (!calibrated) {
-                    calibrationReadings.push(beta);
+                    calibrationReadings.push({ alpha, beta, gamma });
 
                     if (calibrationReadings.length >= CALIBRATION_COUNT) {
                         // Use median for stability
-                        const sorted = [...calibrationReadings].sort((a, b) => a - b);
-                        baselineBeta = sorted[Math.floor(CALIBRATION_COUNT / 2)];
+                        const sortedAlpha = calibrationReadings.map(r => r.alpha).sort((a, b) => a - b);
+                        baselineAlpha = sortedAlpha[Math.floor(CALIBRATION_COUNT / 2)];
                         calibrated = true;
-                        console.log('Tilt calibrated - baseline beta:', baselineBeta);
+                        console.log('Tilt calibrated - baseline alpha:', baselineAlpha);
                     }
                     return;
                 }
 
-                // Calculate delta from baseline
-                let betaDelta = beta - baselineBeta;
+                // Calculate alpha delta from baseline
+                let alphaDelta = alpha - baselineAlpha;
 
-                // Handle wraparound (e.g., going from 350 to 10)
-                if (betaDelta > 180) betaDelta -= 360;
-                if (betaDelta < -180) betaDelta += 360;
+                // Handle wraparound (alpha goes 0-360)
+                if (alphaDelta > 180) alphaDelta -= 360;
+                if (alphaDelta < -180) alphaDelta += 360;
 
-                // Detect tilt:
-                // Tilt forward (nod down) = beta increases = positive delta = CORRECT
-                // Tilt backward (look up) = beta decreases = negative delta = SKIP
-                if (betaDelta > TILT_THRESHOLD) {
+                // Detect tilt based on alpha changes:
+                // Tilt forward (nod down) = CORRECT
+                // Tilt backward (look up) = SKIP
+                if (alphaDelta > TILT_THRESHOLD) {
                     handleCorrect();
-                } else if (betaDelta < -TILT_THRESHOLD) {
+                } else if (alphaDelta < -TILT_THRESHOLD) {
                     handleSkip();
                 }
             };
