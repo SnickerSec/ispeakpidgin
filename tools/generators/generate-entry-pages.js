@@ -113,10 +113,16 @@ function findRelatedTerms(entry, allEntries, limit = 6) {
 // Generate HTML template for entry page
 function generateEntryPage(entry, relatedTerms) {
     const slug = createSlug(entry.pidgin);
-    const pageTitle = `${entry.pidgin} - Hawaiian Pidgin Meaning & Usage | ChokePidgin`;
     const englishArray = Array.isArray(entry.english) ? entry.english : [entry.english];
     const englishMeanings = englishArray.join(', ');
-    const metaDescription = `Learn the meaning of "${entry.pidgin}" in Hawaiian Pidgin. ${englishMeanings}. Includes pronunciation, examples, and cultural context. Free Hawaiian slang dictionary.`;
+    const primaryMeaning = englishArray[0] || '';
+
+    // SEO-optimized title: Include "meaning" keyword since that's what people search for
+    // Format: "Word Meaning - Definition in Hawaiian Pidgin | ChokePidgin"
+    const pageTitle = `${entry.pidgin} Meaning - ${primaryMeaning} | Hawaiian Pidgin Dictionary`;
+
+    // SEO-optimized meta description targeting "X meaning" searches
+    const metaDescription = `What does "${entry.pidgin}" mean? ${entry.pidgin} means "${primaryMeaning}" in Hawaiian Pidgin.${entry.usage ? ' ' + entry.usage + '.' : ''} Pronunciation, examples & cultural context.`;
 
     // Create schema markup
     const schema = {
@@ -170,7 +176,7 @@ function generateEntryPage(entry, relatedTerms) {
     <meta name="robots" content="index, follow">
 
     <!-- Open Graph Tags -->
-    <meta property="og:title" content="${escapeHtml(pageTitle)}">
+    <meta property="og:title" content="What Does ${escapeHtml(entry.pidgin)} Mean? | Hawaiian Pidgin">
     <meta property="og:description" content="${escapeHtml(metaDescription)}">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://chokepidgin.com/word/${slug}.html">
@@ -178,7 +184,7 @@ function generateEntryPage(entry, relatedTerms) {
 
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="${escapeHtml(pageTitle)}">
+    <meta name="twitter:title" content="What Does ${escapeHtml(entry.pidgin)} Mean? | Hawaiian Pidgin">
     <meta name="twitter:description" content="${escapeHtml(metaDescription)}">
 
     <!-- Canonical URL -->
@@ -307,7 +313,8 @@ function generateEntryPage(entry, relatedTerms) {
     <main class="container mx-auto px-4 py-8 max-w-4xl">
         <!-- Word Header -->
         <div class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 rounded-3xl p-8 mb-8 shadow-2xl border-2 border-purple-200">
-            <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4">${escapeHtml(entry.pidgin)}</h1>
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-2">${escapeHtml(entry.pidgin)}</h1>
+            <p class="text-xl text-gray-600 mb-4">Meaning: <span class="font-semibold text-purple-700">${escapeHtml(primaryMeaning)}</span></p>
 
             ${entry.pronunciation ? `
             <div class="mb-4">
