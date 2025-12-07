@@ -58,6 +58,15 @@ const translationLimiter = rateLimit({
     message: 'Too many translation requests, please try again later.',
 });
 
+// Rate limiter for general page requests (more permissive than API)
+const pageLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 300, // Limit each IP to 300 page requests per windowMs
+    message: 'Too many requests from this IP, please try again later.',
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
 // CORS configuration
 const corsOptions = {
     origin: function (origin, callback) {
@@ -1721,7 +1730,7 @@ app.use(express.static(path.join(__dirname, 'public'), {
 }));
 
 // Handle SPA routing - serve index.html for any non-file requests
-app.get('*', (req, res) => {
+app.get('*', pageLimiter, (req, res) => {
     // If request is for a file extension, return 404
     if (path.extname(req.path)) {
         return res.status(404).send('File not found');

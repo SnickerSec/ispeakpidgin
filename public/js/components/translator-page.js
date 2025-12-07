@@ -480,14 +480,16 @@ function loadHistory() {
         historyDiv.innerHTML = history.map(item => {
             const direction = item.direction === 'en-to-pid' ? 'EN → PID' : 'PID → EN';
             const time = new Date(item.timestamp).toLocaleTimeString();
+            const escapedOriginal = escapeHtml(item.original);
+            const escapedTranslation = escapeHtml(item.translation);
 
             return `
                 <div class="border-l-4 border-purple-400 pl-4 py-2 hover:bg-gray-50 transition cursor-pointer history-item"
-                     data-original="${item.original}" data-translation="${item.translation}" data-direction="${item.direction}">
+                     data-original="${escapedOriginal}" data-translation="${escapedTranslation}" data-direction="${escapeHtml(item.direction)}">
                     <div class="flex justify-between items-start">
                         <div class="flex-1">
-                            <p class="text-gray-700">${item.original}</p>
-                            <p class="text-purple-600 font-medium">→ ${item.translation}</p>
+                            <p class="text-gray-700">${escapedOriginal}</p>
+                            <p class="text-purple-600 font-medium">→ ${escapedTranslation}</p>
                         </div>
                         <div class="text-xs text-gray-500 ml-4">
                             <div>${direction}</div>
@@ -719,3 +721,11 @@ window.speakPronunciation = speakPronunciation;
 
 // Text-to-speech function - use global speakText from main.js
 // (removed duplicate function to prevent dual audio playback)
+
+// Helper function to escape HTML entities to prevent XSS
+function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}

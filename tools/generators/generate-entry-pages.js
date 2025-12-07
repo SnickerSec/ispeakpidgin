@@ -436,7 +436,7 @@ function generateEntryPage(entry, relatedTerms) {
 
         // Speak word button
         document.getElementById('speak-word')?.addEventListener('click', async () => {
-            const text = "${entry.pidgin.replace(/"/g, '\\"')}";
+            const text = "${entry.pidgin.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}";
             if (window.pidginSpeech) {
                 await window.pidginSpeech.speak(text);
             } else {

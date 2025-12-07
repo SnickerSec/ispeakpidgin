@@ -281,6 +281,7 @@ class AskLocalPageManager {
             const statusClass = hasResponses ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800';
             const statusText = hasResponses ? '✅ Answered' : '⏳ Pending Response';
             const cardClass = hasResponses ? 'answered-card' : 'pending-card';
+            const safeId = this.escapeAttr(q.id);
 
             return `
                 <div class="question-card ${cardClass} bg-white border rounded-lg overflow-hidden shadow-lg">
@@ -300,39 +301,39 @@ class AskLocalPageManager {
                         ${hasResponses ? this.renderResponses(q.responses) : ''}
 
                         <div class="mt-4 pt-4 border-t border-gray-100">
-                            <button class="respond-btn text-blue-600 hover:text-blue-800 font-medium" data-question-id="${q.id}">
+                            <button class="respond-btn text-blue-600 hover:text-blue-800 font-medium" data-question-id="${safeId}">
                                 💬 ${hasResponses ? 'Add Another Response' : 'Respond to Question'}
                             </button>
                         </div>
 
                         <!-- Response Form (initially hidden) -->
-                        <div id="response-form-${q.id}" class="hidden mt-4 p-4 bg-blue-50 rounded-lg border-2 border-blue-200">
+                        <div id="response-form-${safeId}" class="hidden mt-4 p-4 bg-blue-50 rounded-lg border-2 border-blue-200">
                             <h4 class="font-semibold mb-3 text-blue-800">🌺 Share Your Local Knowledge</h4>
                             <div class="mb-3">
-                                <input type="text" id="responder-name-${q.id}" class="w-full p-2 border rounded" placeholder="Your name (optional)" maxlength="50">
+                                <input type="text" id="responder-name-${safeId}" class="w-full p-2 border rounded" placeholder="Your name (optional)" maxlength="50">
                             </div>
                             <div class="mb-3">
-                                <textarea id="response-text-${q.id}" class="w-full p-2 border rounded" rows="3" placeholder="Share your local knowledge..." required maxlength="500"></textarea>
+                                <textarea id="response-text-${safeId}" class="w-full p-2 border rounded" rows="3" placeholder="Share your local knowledge..." required maxlength="500"></textarea>
                                 <div class="text-xs text-gray-500 mt-1">Maximum 500 characters</div>
                             </div>
 
                             <!-- Mini CAPTCHA for responses -->
                             <div class="mb-3 bg-yellow-50 p-3 rounded border">
                                 <label class="block text-sm font-medium mb-1">
-                                    🔒 Quick check: <span id="response-captcha-${q.id}"></span> = ?
+                                    🔒 Quick check: <span id="response-captcha-${safeId}"></span> = ?
                                 </label>
-                                <input type="number" id="response-captcha-answer-${q.id}" class="w-20 p-1 border rounded text-sm" required>
+                                <input type="number" id="response-captcha-answer-${safeId}" class="w-20 p-1 border rounded text-sm" required>
                             </div>
 
                             <div class="flex gap-2">
-                                <button class="submit-response-btn bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition text-sm" data-question-id="${q.id}">
+                                <button class="submit-response-btn bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition text-sm" data-question-id="${safeId}">
                                     🌺 Submit Response
                                 </button>
-                                <button class="cancel-response-btn text-gray-600 hover:text-gray-800 px-3 py-2 text-sm" data-question-id="${q.id}">
+                                <button class="cancel-response-btn text-gray-600 hover:text-gray-800 px-3 py-2 text-sm" data-question-id="${safeId}">
                                     Cancel
                                 </button>
                             </div>
-                            <div id="response-feedback-${q.id}" class="mt-2 text-sm"></div>
+                            <div id="response-feedback-${safeId}" class="mt-2 text-sm"></div>
                         </div>
                     </div>
                 </div>
@@ -348,19 +349,22 @@ class AskLocalPageManager {
             <div class="bg-green-50 rounded-lg p-4 mt-4 border border-green-200">
                 <h4 class="font-semibold text-green-800 mb-3">🌺 Local Responses:</h4>
                 <div class="space-y-3">
-                    ${responses.map(r => `
+                    ${responses.map(r => {
+                        const safeResponseId = this.escapeAttr(r.id);
+                        const helpfulCount = parseInt(r.helpfulCount, 10) || 0;
+                        return `
                         <div class="bg-white p-4 rounded border-l-4 border-green-400">
                             <p class="text-gray-800 mb-2">${this.escapeHtml(r.responseText)}</p>
                             <div class="flex items-center gap-3 text-sm text-gray-500">
                                 <span class="whitespace-nowrap">👨‍🏫 ${this.escapeHtml(r.responderName || 'Local Helper')}</span>
                                 <span class="whitespace-nowrap">•</span>
                                 <span class="whitespace-nowrap">📅 ${this.formatDate(r.timestamp)}</span>
-                                <button class="helpful-btn text-green-600 hover:text-green-800 ml-2 whitespace-nowrap" data-response-id="${r.id}">
-                                    👍 Helpful (${r.helpfulCount || 0})
+                                <button class="helpful-btn text-green-600 hover:text-green-800 ml-2 whitespace-nowrap" data-response-id="${safeResponseId}">
+                                    👍 Helpful (${helpfulCount})
                                 </button>
                             </div>
                         </div>
-                    `).join('')}
+                    `}).join('')}
                 </div>
             </div>
         `;
@@ -570,6 +574,18 @@ class AskLocalPageManager {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+    }
+
+    // Escape for safe use in HTML attributes (data-*, id, etc.)
+    escapeAttr(text) {
+        if (text === null || text === undefined) return '';
+        return String(text).replace(/[&"'<>]/g, char => ({
+            '&': '&amp;',
+            '"': '&quot;',
+            "'": '&#39;',
+            '<': '&lt;',
+            '>': '&gt;'
+        }[char]));
     }
 
     formatDate(isoString) {
