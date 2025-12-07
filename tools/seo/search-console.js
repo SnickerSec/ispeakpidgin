@@ -26,7 +26,8 @@ const path = require('path');
 require('dotenv').config();
 
 // Configuration
-const SITE_URL = process.env.SITE_URL || 'https://chokepidgin.com';
+// Use domain property format (sc-domain:) or URL prefix format (https://)
+const SITE_URL = process.env.SITE_URL || 'sc-domain:chokepidgin.com';
 const KEY_PATH = process.env.GOOGLE_SEARCH_CONSOLE_KEY_PATH || './google-search-console-key.json';
 
 // Parse command line arguments
