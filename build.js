@@ -47,6 +47,7 @@ const pathMappings = {
     // Game components (new organized structure)
     'js/pidgin-wordle.js': 'js/components/games/pidgin-wordle.js',
     'data/pidgin-wordle-words.js': 'js/components/games/wordle-data.js',
+    'js/pidgin-hangman.js': 'js/components/games/pidgin-hangman.js',
     'js/pidgin-crossword.js': 'js/components/games/pidgin-crossword.js',
     'data/crossword-puzzles.js': 'js/components/games/crossword-data.js',
     'js/local-quiz.js': 'js/components/games/local-quiz.js',
@@ -90,7 +91,7 @@ function processHTMLFiles() {
         'index.html', 'translator.html', 'dictionary.html', 'ask-local.html',
         'learning-hub.html', 'stories.html', 'pickup-lines.html', 'pickup-line-generator.html', 'pidgin-bible.html',
         'about.html', 'pidgin-vs-hawaiian.html', 'cheat-sheet.html',
-        'how-to-use-hawaiian-pidgin-pickup-lines.html', 'how-local-you-stay.html', 'pidgin-wordle.html', 'pidgin-crossword.html',
+        'how-to-use-hawaiian-pidgin-pickup-lines.html', 'how-local-you-stay.html', 'pidgin-wordle.html', 'pidgin-hangman.html', 'pidgin-crossword.html',
         // SEO Listicles
         '15-essential-pidgin-phrases-ordering-plate-lunch.html',
         'brah-sistah-pidgin-dictionary.html',
@@ -266,6 +267,7 @@ function copyJavaScriptFiles() {
     // Copy game components (new organized structure)
     const gameSourceDirs = [
         { src: 'src/components/games/wordle', dest: 'public/js/components/games' },
+        { src: 'src/components/games/hangman', dest: 'public/js/components/games' },
         { src: 'src/components/games/crossword', dest: 'public/js/components/games' },
         { src: 'src/components/games/quiz', dest: 'public/js/components/games' }
     ];
