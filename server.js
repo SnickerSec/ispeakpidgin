@@ -1723,6 +1723,50 @@ app.get('/api/pickup-components/random',
         }
     });
 
+// ============================================
+// 808 MODE LOCATIONS API ENDPOINTS
+// ============================================
+
+// GET /api/locations-808 - Get all 808 Mode locations (places, landmarks, trails)
+app.get('/api/locations-808',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const { type } = req.query;
+
+            let query = supabase.from('locations_808').select('*');
+
+            if (type) query = query.eq('location_type', type);
+
+            const { data, error } = await query;
+
+            if (error) {
+                return res.status(500).json({ error: 'Failed to fetch 808 locations' });
+            }
+
+            // Group by location type for easier use
+            const grouped = data.reduce((acc, item) => {
+                const locType = item.location_type;
+                if (!acc[locType]) acc[locType] = [];
+                acc[locType].push({
+                    name: item.name,
+                    description: item.description,
+                    pronunciation: item.pronunciation
+                });
+                return acc;
+            }, {});
+
+            res.json({
+                locations: data,
+                grouped: grouped,
+                count: data.length
+            });
+        } catch (error) {
+            console.error('808 locations API error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
 // Serve static files from public directory
 app.use(express.static(path.join(__dirname, 'public'), {
     maxAge: '1d', // Cache static files for 1 day

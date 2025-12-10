@@ -271,33 +271,20 @@ class SupabaseAPILoader {
     // ============================================
 
     async loadPickupLineComponents(options = {}) {
-        const data = await this.fetchWithCache('/pickup-components', { params: options });
-        return this.transformPickupComponentsResponse(data);
+        // Load both pickup components and 808 locations in parallel
+        const [componentsData, locationsData] = await Promise.all([
+            this.fetchWithCache('/pickup-components', { params: options }),
+            this.fetchWithCache('/locations-808', { params: {} })
+        ]);
+        return this.transformPickupComponentsResponse(componentsData, locationsData);
     }
 
     async getRandomPickupLineComponents(options = {}) {
         const data = await this.fetchWithCache('/pickup-components/random', { params: options });
-        return this.transformPickupComponentsResponse(data);
+        return this.transformPickupComponentsResponse(data, null);
     }
 
-    transformPickupComponentsResponse(data) {
-        if (data.grouped) {
-            return {
-                components: {
-                    openers: data.grouped.opener || [],
-                    compliments: data.grouped.compliment || [],
-                    actions: data.grouped.action || [],
-                    completedLines: data.grouped.complete || [],
-                    prettyPhrases: data.grouped.flavor || {},
-                    placesToEat: data.grouped.places_to_eat || [],
-                    landmarks: data.grouped.landmark || [],
-                    hikingTrails: data.grouped.hiking_trail || []
-                },
-                metadata: data.metadata || { count: data.count }
-            };
-        }
-
-        const components = data.components || data;
+    transformPickupComponentsResponse(data, locationsData) {
         const grouped = {
             openers: [],
             compliments: [],
@@ -309,7 +296,15 @@ class SupabaseAPILoader {
             hikingTrails: []
         };
 
-        if (Array.isArray(components)) {
+        // Process pickup components
+        if (data.grouped) {
+            grouped.openers = data.grouped.opener || [];
+            grouped.compliments = data.grouped.compliment || [];
+            grouped.actions = data.grouped.action || [];
+            grouped.completedLines = data.grouped.complete || [];
+            grouped.prettyPhrases = this.transformFlavorToPretyPhrases(data.grouped.flavor || []);
+        } else if (Array.isArray(data.components || data)) {
+            const components = data.components || data;
             components.forEach(c => {
                 const item = {
                     pidgin: c.pidgin || c.pidgin_text,
@@ -327,7 +322,48 @@ class SupabaseAPILoader {
             });
         }
 
-        return { components: grouped, metadata: data.metadata };
+        // Process 808 locations from separate table
+        if (locationsData && locationsData.grouped) {
+            grouped.placesToEat = locationsData.grouped.places_to_eat || [];
+            grouped.landmarks = locationsData.grouped.landmark || [];
+            grouped.hikingTrails = locationsData.grouped.hiking_trail || [];
+        }
+
+        return { components: grouped, metadata: data.metadata || { count: data.count } };
+    }
+
+    // Transform flavor components to prettyPhrases grouped by gender
+    transformFlavorToPretyPhrases(flavorItems) {
+        const prettyPhrases = {
+            wahine: [],
+            kane: []
+        };
+
+        if (Array.isArray(flavorItems)) {
+            flavorItems.forEach(item => {
+                const phrase = item.pidgin || item;
+                // Add to both genders for now (can be refined based on category)
+                if (item.category === 'kane') {
+                    prettyPhrases.kane.push(phrase);
+                } else if (item.category === 'wahine') {
+                    prettyPhrases.wahine.push(phrase);
+                } else {
+                    // Default: add to both
+                    prettyPhrases.wahine.push(phrase);
+                    prettyPhrases.kane.push(phrase);
+                }
+            });
+        }
+
+        // Add defaults if empty
+        if (prettyPhrases.wahine.length === 0) {
+            prettyPhrases.wahine = ['You so pretty', 'You stay beautiful', 'You da kine gorgeous'];
+        }
+        if (prettyPhrases.kane.length === 0) {
+            prettyPhrases.kane = ['You so handsome', 'You stay looking sharp', 'You da kine good looking'];
+        }
+
+        return prettyPhrases;
     }
 
     // ============================================
