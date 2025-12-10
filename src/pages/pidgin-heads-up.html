@@ -487,6 +487,8 @@
         let gameActive = false;
 
         // Tilt calibration - set once at end of countdown
+        // Phone held against forehead in landscape, screen facing outward/down
+        // Beta starts around +90° in this position
         let baselineBeta = null;
         let tiltCalibrated = false;
         const TILT_THRESHOLD = 40; // Degrees from baseline to trigger action
@@ -579,10 +581,24 @@
             }
         }
 
-        function startCountdown() {
+        async function startCountdown() {
             gameActive = true;
             tiltCalibrated = false;
             baselineBeta = null;
+
+            // Request motion permission FIRST on iOS before countdown
+            if (typeof DeviceOrientationEvent !== 'undefined' &&
+                typeof DeviceOrientationEvent.requestPermission === 'function') {
+                try {
+                    const response = await DeviceOrientationEvent.requestPermission();
+                    if (response !== 'granted') {
+                        alert('Motion permission needed for tilt controls. Using tap instead.');
+                    }
+                } catch (e) {
+                    console.log('Motion permission error:', e);
+                }
+            }
+
             requestFullscreen();
             checkOrientation();
             showScreen('countdown');
@@ -592,6 +608,9 @@
             countdownEl.textContent = count;
 
             // Start listening for orientation to capture baseline at end of countdown
+            // Phone held against forehead in landscape mode:
+            // - Beta measures front-to-back tilt
+            // - Starting position (phone against forehead, screen out/down) ≈ +90°
             let lastBetaReading = null;
             const calibrationHandler = (event) => {
                 if (event.beta !== null) {
@@ -611,6 +630,8 @@
                         baselineBeta = lastBetaReading;
                         tiltCalibrated = true;
                         console.log('Tilt calibrated - baseline beta:', baselineBeta);
+                    } else {
+                        console.log('WARNING: No beta reading available for calibration');
                     }
                     window.removeEventListener('deviceorientation', calibrationHandler);
                 } else {
@@ -644,22 +665,8 @@
         }
 
         function startGame() {
-            // Request motion permission for iOS
-            if (typeof DeviceOrientationEvent !== 'undefined' &&
-                typeof DeviceOrientationEvent.requestPermission === 'function') {
-                DeviceOrientationEvent.requestPermission()
-                    .then(response => {
-                        if (response === 'granted') {
-                            initGame();
-                        } else {
-                            alert('Motion permission needed for tilt controls. Using tap instead.');
-                            initGame();
-                        }
-                    })
-                    .catch(() => initGame());
-            } else {
-                initGame();
-            }
+            // Permission already requested in startCountdown
+            initGame();
         }
 
         function initGame() {
@@ -725,17 +732,19 @@
             // Tilt detection for phone held to forehead in LANDSCAPE mode
             // Phone is sideways, screen facing AWAY from user (toward friends)
             //
-            // ORIENTATION:
-            // - Phone in landscape, held vertically against forehead
-            // - Screen faces other players who see the word
+            // PHYSICAL SETUP:
+            // - Phone held flat against forehead in landscape
+            // - Screen faces outward and slightly down toward other players
+            // - Starting beta angle ≈ +90° (screen facing forward/down)
             //
-            // HEAD MOVEMENTS using BETA axis:
-            // - Tilt forward (nod down, screen faces ground) = beta INCREASES = CORRECT
-            // - Tilt backward (look up, screen faces ceiling) = beta DECREASES = SKIP
+            // BETA ANGLE REFERENCE:
+            // - 0°: Screen facing straight up (like on a table)
+            // - +90°: Screen facing forward (perpendicular to ground)
+            // - +180°/-180°: Screen facing straight down
             //
-            // Beta measures rotation around the device's X-axis (left-right through device)
-            // Range: -180 to 180 degrees
-            // When phone is vertical: beta ≈ 0 or ±90 depending on orientation
+            // TILT ACTIONS:
+            // - Tilt DOWN (nod toward chest): beta increases toward +150°/+180° = CORRECT
+            // - Tilt UP (look at ceiling): beta decreases toward +40°/0° = SKIP
 
             const handleOrientation = (event) => {
                 if (!canTilt || !tiltCalibrated) return;
@@ -748,8 +757,11 @@
                 // Calculate how much we've tilted from the baseline
                 const tiltDelta = beta - baselineBeta;
 
-                // Tilt forward (screen toward ground) = positive delta = CORRECT
-                // Tilt backward (screen toward ceiling) = negative delta = SKIP
+                // Debug logging
+                // console.log('beta:', beta.toFixed(1), 'baseline:', baselineBeta.toFixed(1), 'delta:', tiltDelta.toFixed(1));
+
+                // Tilt DOWN toward chest (beta increases) = CORRECT
+                // Tilt UP toward ceiling (beta decreases) = SKIP
                 if (tiltDelta > TILT_THRESHOLD) {
                     handleCorrect();
                 } else if (tiltDelta < -TILT_THRESHOLD) {
