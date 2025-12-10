@@ -234,7 +234,8 @@ function copyJavaScriptFiles() {
         'src/components/speech',
         'src/components/bible',
         'src/components/shared',
-        'src/components/practice'
+        'src/components/practice',
+        'src/components/pickup'
     ];
 
     // Files to exclude from build
