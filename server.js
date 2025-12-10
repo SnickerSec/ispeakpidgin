@@ -1724,7 +1724,7 @@ app.get('/api/pickup-components/random',
     });
 
 // ============================================
-// 808 MODE LOCATIONS API ENDPOINTS
+// 808 MODE LOCATIONS API ENDPOINTS (Legacy)
 // ============================================
 
 // GET /api/locations-808 - Get all 808 Mode locations (places, landmarks, trails)
@@ -1763,6 +1763,110 @@ app.get('/api/locations-808',
             });
         } catch (error) {
             console.error('808 locations API error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+// ============================================
+// 808 CRINGE GENERATOR API ENDPOINTS
+// ============================================
+
+// GET /api/cringe/activities - Get all activities with their locations
+app.get('/api/cringe/activities',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const { data, error } = await supabase
+                .from('cringe_activities')
+                .select(`
+                    id,
+                    activity_key,
+                    activity_name,
+                    emoji,
+                    locations:cringe_locations(id, location_key, location_name)
+                `);
+
+            if (error) {
+                return res.status(500).json({ error: 'Failed to fetch activities' });
+            }
+
+            res.json({ activities: data });
+        } catch (error) {
+            console.error('Cringe activities API error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+// GET /api/cringe/generate - Generate a cringe pickup line
+app.get('/api/cringe/generate',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const { gender, location_key } = req.query;
+
+            if (!gender || !location_key) {
+                return res.status(400).json({ error: 'gender and location_key are required' });
+            }
+
+            // Get random greeting for gender
+            const { data: greetings, error: greetingError } = await supabase
+                .from('cringe_greetings')
+                .select('greeting')
+                .eq('gender', gender);
+
+            if (greetingError || !greetings?.length) {
+                return res.status(500).json({ error: 'Failed to fetch greetings' });
+            }
+
+            // Get location ID and name
+            const { data: location, error: locationError } = await supabase
+                .from('cringe_locations')
+                .select('id, location_name')
+                .eq('location_key', location_key)
+                .single();
+
+            if (locationError || !location) {
+                return res.status(400).json({ error: 'Invalid location_key' });
+            }
+
+            // Get random metaphor for location
+            const { data: metaphors, error: metaphorError } = await supabase
+                .from('cringe_metaphors')
+                .select('metaphor')
+                .eq('location_id', location.id);
+
+            if (metaphorError || !metaphors?.length) {
+                return res.status(500).json({ error: 'Failed to fetch metaphors' });
+            }
+
+            // Get random payoff
+            const { data: payoffs, error: payoffError } = await supabase
+                .from('cringe_payoffs')
+                .select('payoff');
+
+            if (payoffError || !payoffs?.length) {
+                return res.status(500).json({ error: 'Failed to fetch payoffs' });
+            }
+
+            // Select random items
+            const greeting = greetings[Math.floor(Math.random() * greetings.length)].greeting;
+            const metaphor = metaphors[Math.floor(Math.random() * metaphors.length)].metaphor;
+            const payoff = payoffs[Math.floor(Math.random() * payoffs.length)].payoff;
+
+            // Assemble the pickup line
+            const pickupLine = `${greeting}, ${metaphor}. ${payoff}`;
+
+            res.json({
+                pickup_line: pickupLine,
+                components: {
+                    greeting,
+                    metaphor,
+                    payoff,
+                    location: location.location_name
+                }
+            });
+        } catch (error) {
+            console.error('Cringe generate API error:', error);
             res.status(500).json({ error: 'Internal server error' });
         }
     });

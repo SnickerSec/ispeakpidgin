@@ -61,6 +61,7 @@
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.17",
+    "supabase": "^2.65.7",
     "tailwindcss": "^4.1.17"
   }
 }

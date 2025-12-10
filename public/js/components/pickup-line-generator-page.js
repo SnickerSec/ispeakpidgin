@@ -112,128 +112,71 @@
         }
     }
 
-    // Populate 808 Mode searchable dropdowns with custom search
-    function populateHowzitDropdowns() {
-        if (typeof pickupLineComponents === 'undefined') {
-            console.error('❌ pickupLineComponents not loaded');
-            return;
+    // Store cringe activities data
+    let cringeActivities = [];
+
+    // Populate 808 Mode Cringe Generator dropdowns
+    async function populateHowzitDropdowns() {
+        console.log('📍 Setting up 808 Mode Cringe Generator...');
+
+        try {
+            // Fetch activities from the new cringe API
+            const response = await fetch('/api/cringe/activities');
+            if (!response.ok) throw new Error('Failed to load activities');
+            const data = await response.json();
+            cringeActivities = data.activities || [];
+
+            console.log('✅ Loaded cringe activities:', cringeActivities.length);
+
+            // Populate activity dropdown
+            const activitySelect = document.getElementById('activity-select');
+            if (activitySelect && cringeActivities.length > 0) {
+                activitySelect.innerHTML = '<option value="">Choose one activity...</option>' +
+                    cringeActivities.map(a =>
+                        `<option value="${a.activity_key}" data-emoji="${a.emoji}">${a.emoji} ${a.activity_name}</option>`
+                    ).join('');
+
+                // Add change listener to populate locations
+                activitySelect.addEventListener('change', updateLocationOptions);
+            }
+        } catch (error) {
+            console.error('❌ Failed to load cringe activities:', error);
+            const activitySelect = document.getElementById('activity-select');
+            if (activitySelect) {
+                activitySelect.innerHTML = '<option value="">Failed to load activities</option>';
+            }
         }
-
-        console.log('📍 Setting up 808 Mode searchable dropdowns...');
-        console.log('Places to eat:', pickupLineComponents.placesToEat?.length);
-        console.log('Landmarks:', pickupLineComponents.landmarks?.length);
-        console.log('Trails:', pickupLineComponents.hikingTrails?.length);
-
-        // Setup grindz dropdown
-        setupSearchableDropdown(
-            'grindz-input',
-            'grindz-results',
-            'grindz-random',
-            pickupLineComponents.placesToEat
-        );
-
-        // Setup landmarks dropdown
-        setupSearchableDropdown(
-            'landmark-input',
-            'landmark-results',
-            'landmark-random',
-            pickupLineComponents.landmarks
-        );
-
-        // Setup trails dropdown
-        setupSearchableDropdown(
-            'trail-input',
-            'trail-results',
-            'trail-random',
-            pickupLineComponents.hikingTrails
-        );
     }
 
-    // Setup individual searchable dropdown with fuzzy search
-    function setupSearchableDropdown(inputId, resultsId, randomBtnId, dataArray) {
-        const input = document.getElementById(inputId);
-        const resultsContainer = document.getElementById(resultsId);
-        const randomBtn = document.getElementById(randomBtnId);
+    // Update location dropdown when activity changes
+    function updateLocationOptions() {
+        const activitySelect = document.getElementById('activity-select');
+        const locationSelect = document.getElementById('location-select');
 
-        if (!input || !resultsContainer || !randomBtn || !dataArray) {
-            console.error(`❌ Could not setup dropdown: ${inputId}`);
+        if (!activitySelect || !locationSelect) return;
+
+        const selectedKey = activitySelect.value;
+
+        if (!selectedKey) {
+            locationSelect.innerHTML = '<option value="">Select activity first...</option>';
+            locationSelect.disabled = true;
             return;
         }
 
-        // Function to render dropdown results
-        function renderResults(items) {
-            if (items.length === 0) {
-                resultsContainer.innerHTML = '<div class="px-4 py-2 text-gray-500 text-sm">No results found</div>';
-            } else {
-                resultsContainer.innerHTML = items.map(item => `
-                    <div class="dropdown-item px-4 py-2 hover:bg-orange-50 cursor-pointer border-b border-orange-100 last:border-b-0" data-value="${item.name}">
-                        <div class="font-semibold text-gray-800">${item.name}</div>
-                        <div class="text-xs text-gray-600">${item.description}</div>
-                    </div>
-                `).join('');
-            }
-            resultsContainer.classList.remove('hidden');
+        // Find the selected activity
+        const activity = cringeActivities.find(a => a.activity_key === selectedKey);
+
+        if (activity && activity.locations && activity.locations.length > 0) {
+            locationSelect.innerHTML = '<option value="">Choose one spot...</option>' +
+                activity.locations.map(loc =>
+                    `<option value="${loc.location_key}">${loc.location_name}</option>`
+                ).join('');
+            locationSelect.disabled = false;
+            console.log(`✅ Loaded ${activity.locations.length} locations for ${selectedKey}`);
+        } else {
+            locationSelect.innerHTML = '<option value="">No locations found</option>';
+            locationSelect.disabled = true;
         }
-
-        // Handle clicks on dropdown items using event delegation
-        resultsContainer.addEventListener('click', function(e) {
-            const item = e.target.closest('.dropdown-item');
-            if (item && item.dataset.value) {
-                input.value = item.dataset.value;
-                resultsContainer.classList.add('hidden');
-            }
-        });
-
-        // Search on input
-        input.addEventListener('input', function() {
-            const query = this.value.trim().toLowerCase();
-
-            if (query.length === 0) {
-                resultsContainer.classList.add('hidden');
-                return;
-            }
-
-            // Filter results
-            const filtered = dataArray.filter(item => {
-                const nameMatch = item.name.toLowerCase().includes(query);
-                const descMatch = item.description.toLowerCase().includes(query);
-                return nameMatch || descMatch;
-            });
-
-            renderResults(filtered);
-        });
-
-        // Show all options on focus
-        input.addEventListener('focus', function() {
-            renderResults(dataArray);
-        });
-
-        // Random button handler
-        randomBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            const randomItem = dataArray[Math.floor(Math.random() * dataArray.length)];
-            input.value = randomItem.name;
-            resultsContainer.classList.add('hidden');
-
-            // Visual feedback
-            this.innerHTML = '✨';
-            setTimeout(() => {
-                this.innerHTML = '🎲';
-            }, 500);
-        });
-
-        // Hide results when clicking outside (but not on the random button)
-        document.addEventListener('click', function(e) {
-            if (!input.contains(e.target) &&
-                !resultsContainer.contains(e.target) &&
-                !randomBtn.contains(e.target)) {
-                resultsContainer.classList.add('hidden');
-            }
-        });
-
-        console.log(`✅ Setup searchable dropdown: ${inputId} with ${dataArray.length} options`);
     }
 
     async function generatePickupLine() {
@@ -275,124 +218,41 @@
         }
     }
 
-    // Generate 808 Mode pickup line using Gemini API
+    // Generate 808 Mode Cringe pickup line using database-driven API
     async function generateHowzitGrindz() {
         const gender = document.getElementById('gender-select')?.value || 'wahine';
-        const grindz = document.getElementById('grindz-input')?.value;
-        const landmark = document.getElementById('landmark-input')?.value;
-        const trail = document.getElementById('trail-input')?.value;
+        const locationKey = document.getElementById('location-select')?.value;
 
         // Validate selections
-        if (!grindz && !landmark && !trail) {
-            throw new Error('Please select at least one option (grindz, landmark, or trail)');
+        if (!locationKey) {
+            throw new Error('Please select an activity and location');
         }
 
-        // Get the pretty phrase for this gender
-        const prettyPhrases = pickupLineComponents.prettyPhrases[gender];
-        const randomPretty = prettyPhrases[Math.floor(Math.random() * prettyPhrases.length)];
+        console.log('📍 Generating cringe line for:', { gender, locationKey });
 
-        // Call 808 Mode API endpoint
-        const geminiResponse = await callGeminiAPI(gender, grindz, landmark, trail, randomPretty, selectedContext);
+        // Call the cringe generator API
+        const response = await fetch(`/api/cringe/generate?gender=${gender}&location_key=${locationKey}`);
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || `API error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('✅ Cringe line generated:', data);
+
+        // The API returns pickup_line and components
+        const fullLine = data.pickup_line;
+        const components = data.components;
 
         return {
-            pidgin: geminiResponse.pidgin,
-            pronunciation: geminiResponse.pronunciation || geminiResponse.pidgin,
-            english: geminiResponse.english,
-            aiGenerated: true,
-            type: 'howzit-grindz'
+            pidgin: fullLine,
+            pronunciation: fullLine, // Could add pronunciation later
+            english: `A cringey local pickup line about ${components.location}`,
+            aiGenerated: false,
+            type: 'howzit-grindz',
+            culturalNote: `This line references ${components.location}, a beloved local spot in Hawaii.`
         };
-    }
-
-    // Call 808 Mode API endpoint (uses Gemini 2.5 Flash Lite server-side)
-    async function callGeminiAPI(gender, grindz, landmark, trail, prettyPhrase, style) {
-        console.log('📍 Calling 808 Mode API...');
-
-        try {
-            const response = await fetch('/api/generate-808-pickup-line', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    gender,
-                    style,
-                    grindz,
-                    landmark,
-                    trail,
-                    prettyPhrase
-                })
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || `API error: ${response.status}`);
-            }
-
-            const data = await response.json();
-            console.log('✅ 808 Mode API Response:', data);
-
-            return {
-                pidgin: data.pidgin,
-                pronunciation: data.pronunciation,
-                english: data.english
-            };
-
-        } catch (error) {
-            console.error('❌ 808 Mode API Error:', error);
-            console.warn('⚠️ Falling back to sample responses');
-            return getFallbackSample(style);
-        }
-    }
-
-    // Fallback samples when API is unavailable
-    function getFallbackSample(prompt) {
-        const samples = {
-            romantic: [
-                {
-                    pidgin: "Howzit wahine! You so pretty, you make da sunset at Lanikai look dull. My heart stay racing mo' fast den climbing Diamond Head. Can I holo holo wit you?",
-                    pronunciation: "HOW-zit wah-HEE-neh! You so PRET-tee, you make dah SUN-set at lah-nee-KAI look DULL. My HEART stay RAY-sing MO fast den CLIMB-ing DYE-mond HEAD. Can I HO-lo HO-lo wit you?",
-                    english: "Hey woman! You're so beautiful, you make the sunset at Lanikai look dull. My heart is racing faster than climbing Diamond Head. Can I spend time with you?"
-                }
-            ],
-            funny: [
-                {
-                    pidgin: "Ho brah! You so handsome, even Koko Head Stairs stay jealous of your steps! You make Leonard's malasadas look junk. Shoots, like go get one shave ice?",
-                    pronunciation: "HO BRAH! You so HAND-sum, even KO-ko HEAD STAIRS stay JEH-lus of your STEPS! You make LEH-nards mah-lah-SAH-das look JUNK. SHOOTS, like go get one SHAVE ICE?",
-                    english: "Wow man! You're so handsome, even Koko Head Stairs is jealous of your steps! You make Leonard's malasadas look bad. Okay, want to get shave ice?"
-                }
-            ],
-            sweet: [
-                {
-                    pidgin: "Sistah, you stay shine bright like da lights at Ala Moana. You mo' sweet den Ted's haupia pie. Can take you holo holo to Waikiki bumbye?",
-                    pronunciation: "SIS-tah, you stay SHINE bright like dah LIGHTS at AH-la moh-AH-nah. You MO sweet den TEDS how-PEE-ah PIE. Can take you HO-lo HO-lo to why-kee-KEE BUM-bye?",
-                    english: "Sister, you shine bright like the lights at Ala Moana. You're sweeter than Ted's haupia pie. Can I take you to Waikiki later?"
-                }
-            ],
-            bold: [
-                {
-                    pidgin: "Eh wahine! You da kine beautiful. I wen climb Olomana just fo impress you. Like go grind at Giovanni's den cruise da North Shore? I know you worth it.",
-                    pronunciation: "EH wah-HEE-neh! You dah KYNE byoo-tee-FUL. I wen CLIMB oh-loh-MAH-nah just fo im-PRESS you. Like go GRIND at jee-oh-VAH-nees den CRUISE dah NORTH SHORE? I know you WORTH it.",
-                    english: "Hey woman! You're the most beautiful. I climbed Olomana just to impress you. Want to eat at Giovanni's then cruise the North Shore? I know you're worth it."
-                }
-            ],
-            classic: [
-                {
-                    pidgin: "Howzit beautiful! You get da kine smile dat stay mo' pretty den Manoa Falls. Like go grab some grindz at Rainbow Drive-In an talk story? Shoots, I buy.",
-                    pronunciation: "HOW-zit BYOO-tee-ful! You get dah KYNE smile dat stay MO PRET-tee den mah-NOH-ah FALLS. Like go grab some GRINDZ at RAIN-bow DRIVE-in an TALK STOR-ee? SHOOTS, I BUY.",
-                    english: "Hey beautiful! You have the kind of smile that's prettier than Manoa Falls. Want to grab food at Rainbow Drive-In and chat? Okay, I'll pay."
-                }
-            ]
-        };
-
-        // Try to determine style from prompt
-        let style = 'romantic';
-        if (prompt.includes('funny')) style = 'funny';
-        else if (prompt.includes('sweet')) style = 'sweet';
-        else if (prompt.includes('bold')) style = 'bold';
-        else if (prompt.includes('classic')) style = 'classic';
-
-        const styleSamples = samples[style] || samples.romantic;
-        return styleSamples[Math.floor(Math.random() * styleSamples.length)];
     }
 
     function displayResult(line) {
