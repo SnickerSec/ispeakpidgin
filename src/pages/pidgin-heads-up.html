@@ -486,6 +486,11 @@
         let canTilt = true;
         let gameActive = false;
 
+        // Tilt calibration - set once at end of countdown
+        let baselineBeta = null;
+        let tiltCalibrated = false;
+        const TILT_THRESHOLD = 40; // Degrees from baseline to trigger action
+
         // DOM Elements
         const menuScreen = document.getElementById('menu-screen');
         const countdownScreen = document.getElementById('countdown-screen');
@@ -576,6 +581,8 @@
 
         function startCountdown() {
             gameActive = true;
+            tiltCalibrated = false;
+            baselineBeta = null;
             requestFullscreen();
             checkOrientation();
             showScreen('countdown');
@@ -584,12 +591,28 @@
             const countdownEl = document.getElementById('countdown-number');
             countdownEl.textContent = count;
 
+            // Start listening for orientation to capture baseline at end of countdown
+            let lastBetaReading = null;
+            const calibrationHandler = (event) => {
+                if (event.beta !== null) {
+                    lastBetaReading = event.beta;
+                }
+            };
+            window.addEventListener('deviceorientation', calibrationHandler);
+
             const countInterval = setInterval(() => {
                 count--;
                 if (count > 0) {
                     countdownEl.textContent = count;
                 } else if (count === 0) {
                     countdownEl.textContent = 'GO!';
+                    // Capture baseline at the moment countdown ends
+                    if (lastBetaReading !== null) {
+                        baselineBeta = lastBetaReading;
+                        tiltCalibrated = true;
+                        console.log('Tilt calibrated - baseline beta:', baselineBeta);
+                    }
+                    window.removeEventListener('deviceorientation', calibrationHandler);
                 } else {
                     clearInterval(countInterval);
                     startGame();
@@ -702,65 +725,42 @@
             // Tilt detection for phone held to forehead in LANDSCAPE mode
             // Phone is sideways, screen facing AWAY from user (toward friends)
             //
-            // HEAD MOVEMENTS:
-            // - Tilt head DOWN (nod forward) = CORRECT
-            // - Tilt head UP (look at ceiling) = SKIP
+            // ORIENTATION:
+            // - Phone in landscape, held vertically against forehead
+            // - Screen faces other players who see the word
             //
-            // In this orientation, we need to use ALPHA (compass) axis
-            // because the phone's rotation axes have been remapped by landscape orientation
-            // Alpha measures rotation around the Z-axis (perpendicular to screen)
-            // When phone is vertical in landscape on forehead:
-            // - Nodding forward/back rotates around the axis running left-right through phone
-            // - This maps to alpha changes
-
-            let baselineAlpha = null;
-            let calibrated = false;
-            let calibrationReadings = [];
-            const CALIBRATION_COUNT = 20;
-            const TILT_THRESHOLD = 15; // Degrees needed to trigger
+            // HEAD MOVEMENTS using BETA axis:
+            // - Tilt forward (nod down, screen faces ground) = beta INCREASES = CORRECT
+            // - Tilt backward (look up, screen faces ceiling) = beta DECREASES = SKIP
+            //
+            // Beta measures rotation around the device's X-axis (left-right through device)
+            // Range: -180 to 180 degrees
+            // When phone is vertical: beta ≈ 0 or ±90 depending on orientation
 
             const handleOrientation = (event) => {
-                if (!canTilt) return;
+                if (!canTilt || !tiltCalibrated) return;
 
-                const alpha = event.alpha; // 0 to 360 (compass direction)
-                const beta = event.beta;   // -180 to 180
-                const gamma = event.gamma; // -90 to 90
+                const beta = event.beta; // -180 to 180
 
                 // Skip invalid readings
-                if (alpha === null) return;
+                if (beta === null || baselineBeta === null) return;
 
-                // Calibration phase
-                if (!calibrated) {
-                    calibrationReadings.push({ alpha, beta, gamma });
+                // Calculate how much we've tilted from the baseline
+                const tiltDelta = beta - baselineBeta;
 
-                    if (calibrationReadings.length >= CALIBRATION_COUNT) {
-                        // Use median for stability
-                        const sortedAlpha = calibrationReadings.map(r => r.alpha).sort((a, b) => a - b);
-                        baselineAlpha = sortedAlpha[Math.floor(CALIBRATION_COUNT / 2)];
-                        calibrated = true;
-                        console.log('Tilt calibrated - baseline alpha:', baselineAlpha);
-                    }
-                    return;
-                }
-
-                // Calculate alpha delta from baseline
-                let alphaDelta = alpha - baselineAlpha;
-
-                // Handle wraparound (alpha goes 0-360)
-                if (alphaDelta > 180) alphaDelta -= 360;
-                if (alphaDelta < -180) alphaDelta += 360;
-
-                // Detect tilt based on alpha changes:
-                // Tilt forward (nod down) = CORRECT
-                // Tilt backward (look up) = SKIP
-                if (alphaDelta > TILT_THRESHOLD) {
+                // Tilt forward (screen toward ground) = positive delta = CORRECT
+                // Tilt backward (screen toward ceiling) = negative delta = SKIP
+                if (tiltDelta > TILT_THRESHOLD) {
                     handleCorrect();
-                } else if (alphaDelta < -TILT_THRESHOLD) {
+                } else if (tiltDelta < -TILT_THRESHOLD) {
                     handleSkip();
                 }
             };
 
             window.addEventListener('deviceorientation', handleOrientation);
+
+            // Store reference to remove later if needed
+            window.currentOrientationHandler = handleOrientation;
 
             // Fallback: tap controls for desktop or devices without motion sensors
             document.getElementById('game-screen').addEventListener('click', (e) => {
