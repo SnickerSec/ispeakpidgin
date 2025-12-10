@@ -339,6 +339,15 @@
                 <div id="current-hint" class="hint-display text-white/80"></div>
             </div>
 
+            <!-- Debug Display -->
+            <div id="debug-display" class="fixed bottom-4 left-4 bg-black/70 text-white text-sm font-mono p-3 rounded-lg">
+                <div>α (alpha): <span id="debug-alpha">--</span>°</div>
+                <div>β (beta): <span id="debug-beta">--</span>°</div>
+                <div>γ (gamma): <span id="debug-gamma">--</span>°</div>
+                <div class="mt-2 text-yellow-300">CORRECT: β &gt; 130°</div>
+                <div class="text-yellow-300">SKIP: β &lt; 50°</div>
+            </div>
+
             <!-- Tilt Indicators -->
             <div id="tilt-correct" class="tilt-indicator correct">
                 <span>✅ CORRECT!</span>
@@ -735,9 +744,19 @@
             }, 500);
 
             const handleOrientation = (event) => {
-                if (!canTilt || !tiltEnabled) return;
+                const alpha = event.alpha;
+                const beta = event.beta;
+                const gamma = event.gamma;
 
-                const beta = event.beta; // -180 to 180
+                // Update debug display
+                const debugAlpha = document.getElementById('debug-alpha');
+                const debugBeta = document.getElementById('debug-beta');
+                const debugGamma = document.getElementById('debug-gamma');
+                if (debugAlpha) debugAlpha.textContent = alpha !== null ? alpha.toFixed(1) : '--';
+                if (debugBeta) debugBeta.textContent = beta !== null ? beta.toFixed(1) : '--';
+                if (debugGamma) debugGamma.textContent = gamma !== null ? gamma.toFixed(1) : '--';
+
+                if (!canTilt || !tiltEnabled) return;
 
                 // Skip invalid readings
                 if (beta === null) return;
@@ -746,9 +765,6 @@
                 // Phone against forehead ≈ 90°
                 // Tilt down (correct) = beta > 130°
                 // Tilt up (skip) = beta < 50°
-
-                // Debug logging
-                // console.log('beta:', beta.toFixed(1));
 
                 if (beta > 130) {
                     handleCorrect();
