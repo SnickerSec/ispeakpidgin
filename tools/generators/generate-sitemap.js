@@ -104,6 +104,14 @@ function generateSitemap(entries) {
         <priority>0.9</priority>
     </url>
 
+    <!-- Phrases Page - Common Hawaiian Pidgin phrases -->
+    <url>
+        <loc>${baseUrl}/phrases.html</loc>
+        <lastmod>${currentDate}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
     <!-- Learning Hub Page - Structured lessons and progress tracking -->
     <url>
         <loc>${baseUrl}/learning-hub.html</loc>
