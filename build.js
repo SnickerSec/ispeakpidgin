@@ -90,7 +90,7 @@ function processHTMLFiles() {
     const htmlFiles = [
         'index.html', 'translator.html', 'dictionary.html', 'ask-local.html',
         'learning-hub.html', 'stories.html', 'pickup-lines.html', 'pickup-line-generator.html', 'pidgin-bible.html',
-        'about.html', 'pidgin-vs-hawaiian.html', 'cheat-sheet.html', 'phrases.html',
+        'about.html', 'pidgin-vs-hawaiian.html', 'cheat-sheet.html', 'phrases.html', 'games.html',
         'how-to-use-hawaiian-pidgin-pickup-lines.html', 'how-local-you-stay.html', 'pidgin-wordle.html', 'pidgin-hangman.html', 'pidgin-crossword.html',
         // SEO Listicles
         '15-essential-pidgin-phrases-ordering-plate-lunch.html',

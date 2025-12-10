@@ -112,6 +112,14 @@ function generateSitemap(entries) {
         <priority>0.9</priority>
     </url>
 
+    <!-- Games Page - Hawaiian Pidgin word games -->
+    <url>
+        <loc>${baseUrl}/games.html</loc>
+        <lastmod>${currentDate}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
     <!-- Learning Hub Page - Structured lessons and progress tracking -->
     <url>
         <loc>${baseUrl}/learning-hub.html</loc>
