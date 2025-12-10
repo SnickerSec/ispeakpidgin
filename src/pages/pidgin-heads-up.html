@@ -766,11 +766,12 @@
                 // Tilt down (correct) = beta > 130°
                 // Tilt up (skip) = beta < 50°
 
-                if (beta > 130) {
-                    handleCorrect();
-                } else if (beta < 50) {
-                    handleSkip();
-                }
+                // DISABLED FOR DEBUGGING - tilt detection turned off
+                // if (beta > 130) {
+                //     handleCorrect();
+                // } else if (beta < 50) {
+                //     handleSkip();
+                // }
             };
 
             window.addEventListener('deviceorientation', handleOrientation);
