@@ -117,16 +117,15 @@ function generateEntryPage(entry, relatedTerms) {
     const englishMeanings = englishArray.join(', ');
     const primaryMeaning = englishArray[0] || '';
 
-    // SEO-optimized title: Include "meaning" keyword since that's what people search for
-    // Format: "Word Meaning - Definition in Hawaiian Pidgin | ChokePidgin"
-    const pageTitle = `${entry.pidgin} Meaning - ${primaryMeaning} | Hawaiian Pidgin Dictionary`;
+    // SEO-optimized title: Match exact search query "X meaning" with compelling format
+    // Capitalize the word properly for display
+    const capitalizedWord = entry.pidgin.charAt(0).toUpperCase() + entry.pidgin.slice(1);
+    const pageTitle = `${capitalizedWord} Meaning: "${primaryMeaning}" - Hawaiian Pidgin Slang`;
 
     // Create a more compelling, action-oriented meta description
-    // Include a call-to-action and hint at the value (audio, examples, etc.)
-    const examplePreview = Array.isArray(entry.examples) && entry.examples.length > 0
-        ? ` Example: "${entry.examples[0].substring(0, 40)}${entry.examples[0].length > 40 ? '...' : ''}"`
-        : '';
-    const metaDescription = `"${entry.pidgin}" means "${primaryMeaning}" in Hawaiian Pidgin.${examplePreview} Learn pronunciation, see real examples & practice with fun games. 🤙`;
+    // Start with a direct answer, add value props, keep under 155 chars
+    const shortMeaning = primaryMeaning.length > 30 ? primaryMeaning.substring(0, 30) + '...' : primaryMeaning;
+    const metaDescription = `${capitalizedWord} means "${shortMeaning}" in Hawaiian Pidgin. Hear the pronunciation, see examples, and learn how locals really use this word! 🤙`;
 
     // Create schema markup
     const schema = {
@@ -214,7 +213,7 @@ function generateEntryPage(entry, relatedTerms) {
     <meta name="robots" content="index, follow">
 
     <!-- Open Graph Tags -->
-    <meta property="og:title" content="What Does ${escapeHtml(entry.pidgin)} Mean? | Hawaiian Pidgin">
+    <meta property="og:title" content="${escapeHtml(capitalizedWord)} Meaning: ${escapeHtml(shortMeaning)} | Hawaiian Pidgin">
     <meta property="og:description" content="${escapeHtml(metaDescription)}">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://chokepidgin.com/word/${slug}.html">
@@ -222,7 +221,7 @@ function generateEntryPage(entry, relatedTerms) {
 
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="What Does ${escapeHtml(entry.pidgin)} Mean? | Hawaiian Pidgin">
+    <meta name="twitter:title" content="${escapeHtml(capitalizedWord)} Meaning: ${escapeHtml(shortMeaning)} | Hawaiian Pidgin">
     <meta name="twitter:description" content="${escapeHtml(metaDescription)}">
 
     <!-- Canonical URL -->
