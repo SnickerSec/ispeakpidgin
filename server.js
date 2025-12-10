@@ -1878,22 +1878,26 @@ app.get('/api/cringe/generate',
 
             const activityContext = activityContexts[activityKey] || activityContexts.grindz;
 
-            const prompt = `Generate ONE super cringey, cheesy, and hilarious Hawaiian Pidgin pickup line for a ${genderLabel} that references "${locationName}" (${activityName}).
+            const prompt = `Generate ONE SHORT, punchy Hawaiian Pidgin pickup line for a ${genderLabel} about "${locationName}".
+
+CRITICAL: Keep it SHORT - maximum 15-20 words total. One or two sentences max.
+
+STRUCTURE (pick one):
+- Greeting + short comparison + question: "Eh sistah, you mo' sweet than malasadas. Like go out?"
+- Direct corny line: "Ho, I tink I wen' pau. Can I borrow your digits?"
+- Simple metaphor + payoff: "You stay hot like Leonard's fryer. Shoots, gimme your numba?"
+
+EXAMPLES OF GOOD LENGTH:
+- "Eh, you mo' ono than ${locationName} grindz. We go cruise?"
+- "Ho sistah, you stay gorgeous like ${locationName} sunset. Like holo holo?"
+- "Brah, I'd wait in line fo' you longer than ${locationName}. What you say?"
+
+USE PIDGIN: da kine, stay, mo', fo', wen, shoots, bumbye, holo holo, grindz, brah/sistah, ono, pau
 
 ${activityContext}
 
-REQUIREMENTS:
-1. Start with a local-style greeting appropriate for ${genderLabel} (examples: ${sampleGreetings})
-2. Include a cheesy metaphor or comparison about ${locationName} that's specific to what makes it special
-3. End with a flirty question or invitation (examples: ${samplePayoffs})
-4. Use authentic Hawaiian Pidgin: da kine, stay, brah/sistah, mo', fo', wen, choke, shoots, bumbye, holo holo, grindz
-5. Make it MAXIMUM CRINGE - the corniest, cheesiest, most eye-roll inducing line possible
-6. Keep it fun and respectful, not crude
-
-EXAMPLE METAPHORS FOR INSPIRATION (adapt, don't copy exactly): ${sampleMetaphors}
-
-OUTPUT FORMAT (JSON only, no markdown):
-{"pidgin": "the full pickup line in pidgin", "english": "translation to standard English"}`;
+OUTPUT FORMAT (JSON only, no markdown, no explanation):
+{"pidgin": "short pickup line here", "english": "brief translation"}`;
 
             // Call Gemini API
             const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${apiKey}`;
@@ -1904,8 +1908,8 @@ OUTPUT FORMAT (JSON only, no markdown):
                 body: JSON.stringify({
                     contents: [{ parts: [{ text: prompt }] }],
                     generationConfig: {
-                        temperature: 0.9,
-                        maxOutputTokens: 300
+                        temperature: 0.85,
+                        maxOutputTokens: 150
                     }
                 })
             });
