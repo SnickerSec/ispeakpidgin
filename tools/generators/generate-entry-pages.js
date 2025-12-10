@@ -121,8 +121,12 @@ function generateEntryPage(entry, relatedTerms) {
     // Format: "Word Meaning - Definition in Hawaiian Pidgin | ChokePidgin"
     const pageTitle = `${entry.pidgin} Meaning - ${primaryMeaning} | Hawaiian Pidgin Dictionary`;
 
-    // SEO-optimized meta description targeting "X meaning" searches
-    const metaDescription = `What does "${entry.pidgin}" mean? ${entry.pidgin} means "${primaryMeaning}" in Hawaiian Pidgin.${entry.usage ? ' ' + entry.usage + '.' : ''} Pronunciation, examples & cultural context.`;
+    // Create a more compelling, action-oriented meta description
+    // Include a call-to-action and hint at the value (audio, examples, etc.)
+    const examplePreview = Array.isArray(entry.examples) && entry.examples.length > 0
+        ? ` Example: "${entry.examples[0].substring(0, 40)}${entry.examples[0].length > 40 ? '...' : ''}"`
+        : '';
+    const metaDescription = `"${entry.pidgin}" means "${primaryMeaning}" in Hawaiian Pidgin.${examplePreview} Learn pronunciation, see real examples & practice with fun games. 🤙`;
 
     // Create schema markup
     const schema = {
@@ -141,6 +145,40 @@ function generateEntryPage(entry, relatedTerms) {
     if (entry.pronunciation) {
         schema.pronunciation = entry.pronunciation;
     }
+
+    // Create FAQ schema for rich snippets (improves CTR significantly)
+    const faqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": `What does "${entry.pidgin}" mean in Hawaiian Pidgin?`,
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": `"${entry.pidgin}" means "${primaryMeaning}" in Hawaiian Pidgin.${entry.usage ? ' ' + entry.usage + '.' : ''}`
+                }
+            },
+            {
+                "@type": "Question",
+                "name": `How do you pronounce "${entry.pidgin}"?`,
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": entry.pronunciation ? `"${entry.pidgin}" is pronounced "${entry.pronunciation}".` : `"${entry.pidgin}" is pronounced phonetically as it appears.`
+                }
+            },
+            {
+                "@type": "Question",
+                "name": `How do you use "${entry.pidgin}" in a sentence?`,
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": Array.isArray(entry.examples) && entry.examples.length > 0
+                        ? `Example: "${entry.examples[0]}"`
+                        : `"${entry.pidgin}" is commonly used in casual Hawaiian conversation.`
+                }
+            }
+        ]
+    };
 
     // Build related terms HTML
     const relatedHtml = relatedTerms.length > 0 ? `
@@ -197,6 +235,11 @@ function generateEntryPage(entry, relatedTerms) {
     <!-- Structured Data -->
     <script type="application/ld+json">
     ${JSON.stringify(schema, null, 2)}
+    </script>
+
+    <!-- FAQ Schema for Rich Snippets -->
+    <script type="application/ld+json">
+    ${JSON.stringify(faqSchema, null, 2)}
     </script>
 
     <!-- Breadcrumb Schema -->
@@ -387,6 +430,25 @@ function generateEntryPage(entry, relatedTerms) {
             </div>
         </section>
         ` : ''}
+
+        <!-- FAQ Section for Engagement -->
+        <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">❓ Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-5 border-l-4 border-blue-500">
+                    <h3 class="font-bold text-lg text-gray-800 mb-2">What does "${escapeHtml(entry.pidgin)}" mean in Hawaiian Pidgin?</h3>
+                    <p class="text-gray-700">"${escapeHtml(entry.pidgin)}" means "${escapeHtml(primaryMeaning)}" in Hawaiian Pidgin.${entry.usage ? ' ' + escapeHtml(entry.usage) + '.' : ''}</p>
+                </div>
+                <div class="bg-gradient-to-r from-green-50 to-teal-50 rounded-xl p-5 border-l-4 border-green-500">
+                    <h3 class="font-bold text-lg text-gray-800 mb-2">How do you pronounce "${escapeHtml(entry.pidgin)}"?</h3>
+                    <p class="text-gray-700">${entry.pronunciation ? `"${escapeHtml(entry.pidgin)}" is pronounced "${escapeHtml(entry.pronunciation)}". Click the "Hear Pronunciation" button above to listen!` : `"${escapeHtml(entry.pidgin)}" is pronounced phonetically as it appears. Click the "Hear Pronunciation" button above to listen!`}</p>
+                </div>
+                <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-5 border-l-4 border-purple-500">
+                    <h3 class="font-bold text-lg text-gray-800 mb-2">How do you use "${escapeHtml(entry.pidgin)}" in a sentence?</h3>
+                    <p class="text-gray-700">${examplesArray.length > 0 ? `Example: "${escapeHtml(examplesArray[0])}"` : `"${escapeHtml(entry.pidgin)}" is commonly used in casual Hawaiian conversation.`}</p>
+                </div>
+            </div>
+        </section>
 
         <!-- Quick Actions -->
         <section class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-8 mb-8 shadow-xl">
