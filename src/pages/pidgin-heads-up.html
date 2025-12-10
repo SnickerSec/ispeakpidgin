@@ -344,8 +344,8 @@
                 <div>α (alpha): <span id="debug-alpha">--</span>°</div>
                 <div>β (beta): <span id="debug-beta">--</span>°</div>
                 <div>γ (gamma): <span id="debug-gamma">--</span>°</div>
-                <div class="mt-2 text-yellow-300">CORRECT: β &gt; 130°</div>
-                <div class="text-yellow-300">SKIP: β &lt; 50°</div>
+                <div class="mt-2 text-yellow-300">CORRECT: γ 40° to 60° (tilt fwd)</div>
+                <div class="text-yellow-300">SKIP: γ -60° to -40° (tilt back)</div>
             </div>
 
             <!-- Tilt Indicators -->
@@ -759,19 +759,22 @@
                 if (!canTilt || !tiltEnabled) return;
 
                 // Skip invalid readings
-                if (beta === null) return;
+                if (gamma === null) return;
 
-                // Use absolute thresholds based on expected phone position
-                // Phone against forehead ≈ 90°
-                // Tilt down (correct) = beta > 130°
-                // Tilt up (skip) = beta < 50°
+                // GAMMA-BASED TILT DETECTION
+                // Phone held to forehead in landscape, gamma starts at ~90°
+                // Tilt forward (correct): gamma decreases from 90 → 60 → 40
+                // Tilt back (skip): gamma wraps from 90 → -89 → -60 → -40
+                //
+                // Thresholds:
+                // - CORRECT: gamma between 40 and 60 (tilted forward)
+                // - SKIP: gamma between -60 and -40 (tilted back)
 
-                // DISABLED FOR DEBUGGING - tilt detection turned off
-                // if (beta > 130) {
-                //     handleCorrect();
-                // } else if (beta < 50) {
-                //     handleSkip();
-                // }
+                if (gamma >= 40 && gamma <= 60) {
+                    handleCorrect();
+                } else if (gamma >= -60 && gamma <= -40) {
+                    handleSkip();
+                }
             };
 
             window.addEventListener('deviceorientation', handleOrientation);
