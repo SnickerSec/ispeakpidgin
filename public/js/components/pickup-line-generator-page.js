@@ -241,17 +241,17 @@
         const data = await response.json();
         console.log('✅ Cringe line generated:', data);
 
-        // The API returns pickup_line and components
+        // The API returns pickup_line, english translation, and components
         const fullLine = data.pickup_line;
-        const components = data.components;
+        const locationName = data.components?.location || 'a local spot';
 
         return {
             pidgin: fullLine,
             pronunciation: fullLine, // Could add pronunciation later
-            english: `A cringey local pickup line about ${components.location}`,
-            aiGenerated: false,
+            english: data.english || `A cringey local pickup line about ${locationName}`,
+            aiGenerated: data.source === 'gemini',
             type: 'howzit-grindz',
-            culturalNote: `This line references ${components.location}, a beloved local spot in Hawaii.`
+            culturalNote: `This line references ${locationName}, a beloved local spot in Hawaii.`
         };
     }
 

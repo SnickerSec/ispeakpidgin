@@ -1797,74 +1797,160 @@ app.get('/api/cringe/activities',
         }
     });
 
-// GET /api/cringe/generate - Generate a cringe pickup line
+// GET /api/cringe/generate - Generate a cringe pickup line using Gemini AI
 app.get('/api/cringe/generate',
-    dictionaryLimiter,
+    translationLimiter,
     async (req, res) => {
         try {
-            const { gender, location_key } = req.query;
+            const { gender, location_key, activity } = req.query;
 
             if (!gender || !location_key) {
                 return res.status(400).json({ error: 'gender and location_key are required' });
             }
 
-            // Get random greeting for gender
-            const { data: greetings, error: greetingError } = await supabase
+            // Get location info
+            const { data: locationData, error: locationError } = await supabase
+                .from('cringe_locations')
+                .select(`
+                    id,
+                    location_name,
+                    activity:cringe_activities(activity_name, activity_key)
+                `)
+                .eq('location_key', location_key)
+                .single();
+
+            if (locationError || !locationData) {
+                return res.status(400).json({ error: 'Invalid location_key' });
+            }
+
+            const locationName = locationData.location_name;
+            const activityName = locationData.activity?.activity_name || activity || 'local spot';
+            const activityKey = locationData.activity?.activity_key || 'grindz';
+
+            // Get sample metaphors for this location for context
+            const { data: metaphors } = await supabase
+                .from('cringe_metaphors')
+                .select('metaphor')
+                .eq('location_id', locationData.id)
+                .limit(3);
+
+            const sampleMetaphors = metaphors?.map(m => m.metaphor).join('; ') || '';
+
+            // Get sample greetings for this gender
+            const { data: greetings } = await supabase
                 .from('cringe_greetings')
                 .select('greeting')
                 .eq('gender', gender);
 
-            if (greetingError || !greetings?.length) {
-                return res.status(500).json({ error: 'Failed to fetch greetings' });
-            }
+            const sampleGreetings = greetings?.map(g => g.greeting).join(', ') || 'Howzit';
 
-            // Get location ID and name
-            const { data: location, error: locationError } = await supabase
-                .from('cringe_locations')
-                .select('id, location_name')
-                .eq('location_key', location_key)
-                .single();
-
-            if (locationError || !location) {
-                return res.status(400).json({ error: 'Invalid location_key' });
-            }
-
-            // Get random metaphor for location
-            const { data: metaphors, error: metaphorError } = await supabase
-                .from('cringe_metaphors')
-                .select('metaphor')
-                .eq('location_id', location.id);
-
-            if (metaphorError || !metaphors?.length) {
-                return res.status(500).json({ error: 'Failed to fetch metaphors' });
-            }
-
-            // Get random payoff
-            const { data: payoffs, error: payoffError } = await supabase
+            // Get sample payoffs
+            const { data: payoffs } = await supabase
                 .from('cringe_payoffs')
-                .select('payoff');
+                .select('payoff')
+                .limit(5);
 
-            if (payoffError || !payoffs?.length) {
-                return res.status(500).json({ error: 'Failed to fetch payoffs' });
+            const samplePayoffs = payoffs?.map(p => p.payoff).join('; ') || '';
+
+            const apiKey = process.env.GEMINI_API_KEY;
+
+            if (!apiKey) {
+                // Fallback to database-assembled line if no API key
+                const greeting = greetings?.[Math.floor(Math.random() * greetings.length)]?.greeting || 'Howzit';
+                const metaphor = metaphors?.[Math.floor(Math.random() * metaphors.length)]?.metaphor || `you stay beautiful like ${locationName}`;
+                const payoff = payoffs?.[Math.floor(Math.random() * payoffs.length)]?.payoff || 'Like go out wit me?';
+
+                return res.json({
+                    pickup_line: `${greeting}, ${metaphor}. ${payoff}`,
+                    components: { greeting, metaphor, payoff, location: locationName },
+                    source: 'database'
+                });
             }
 
-            // Select random items
-            const greeting = greetings[Math.floor(Math.random() * greetings.length)].greeting;
-            const metaphor = metaphors[Math.floor(Math.random() * metaphors.length)].metaphor;
-            const payoff = payoffs[Math.floor(Math.random() * payoffs.length)].payoff;
+            const genderLabel = gender === 'wahine' ? 'wahine (woman)' : 'kane (man)';
 
-            // Assemble the pickup line
-            const pickupLine = `${greeting}, ${metaphor}. ${payoff}`;
+            // Activity-specific context
+            const activityContexts = {
+                grindz: `This is a famous food spot. Reference the food, atmosphere, or experience of eating there.`,
+                beach: `This is a beach/surf spot. Reference the waves, sand, water, surfing, swimming, or beach vibes.`,
+                hiking: `This is a hiking trail/nature spot. Reference the views, the climb, the nature, or the adventure.`
+            };
+
+            const activityContext = activityContexts[activityKey] || activityContexts.grindz;
+
+            const prompt = `Generate ONE super cringey, cheesy, and hilarious Hawaiian Pidgin pickup line for a ${genderLabel} that references "${locationName}" (${activityName}).
+
+${activityContext}
+
+REQUIREMENTS:
+1. Start with a local-style greeting appropriate for ${genderLabel} (examples: ${sampleGreetings})
+2. Include a cheesy metaphor or comparison about ${locationName} that's specific to what makes it special
+3. End with a flirty question or invitation (examples: ${samplePayoffs})
+4. Use authentic Hawaiian Pidgin: da kine, stay, brah/sistah, mo', fo', wen, choke, shoots, bumbye, holo holo, grindz
+5. Make it MAXIMUM CRINGE - the corniest, cheesiest, most eye-roll inducing line possible
+6. Keep it fun and respectful, not crude
+
+EXAMPLE METAPHORS FOR INSPIRATION (adapt, don't copy exactly): ${sampleMetaphors}
+
+OUTPUT FORMAT (JSON only, no markdown):
+{"pidgin": "the full pickup line in pidgin", "english": "translation to standard English"}`;
+
+            // Call Gemini API
+            const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${apiKey}`;
+
+            const geminiResponse = await fetch(geminiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: prompt }] }],
+                    generationConfig: {
+                        temperature: 0.9,
+                        maxOutputTokens: 300
+                    }
+                })
+            });
+
+            if (!geminiResponse.ok) {
+                throw new Error(`Gemini API error: ${geminiResponse.status}`);
+            }
+
+            const geminiData = await geminiResponse.json();
+            const responseText = geminiData.candidates?.[0]?.content?.parts?.[0]?.text || '';
+
+            // Parse the JSON response
+            let parsed;
+            try {
+                // Try to extract JSON from the response
+                const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+                if (jsonMatch) {
+                    parsed = JSON.parse(jsonMatch[0]);
+                } else {
+                    throw new Error('No JSON found in response');
+                }
+            } catch (parseError) {
+                console.error('Failed to parse Gemini response:', responseText);
+                // Fallback to database
+                const greeting = greetings?.[Math.floor(Math.random() * greetings.length)]?.greeting || 'Howzit';
+                const metaphor = metaphors?.[Math.floor(Math.random() * metaphors.length)]?.metaphor || `you stay beautiful like ${locationName}`;
+                const payoff = payoffs?.[Math.floor(Math.random() * payoffs.length)]?.payoff || 'Like go out wit me?';
+
+                return res.json({
+                    pickup_line: `${greeting}, ${metaphor}. ${payoff}`,
+                    components: { greeting, metaphor, payoff, location: locationName },
+                    source: 'database-fallback'
+                });
+            }
 
             res.json({
-                pickup_line: pickupLine,
+                pickup_line: parsed.pidgin,
+                english: parsed.english,
                 components: {
-                    greeting,
-                    metaphor,
-                    payoff,
-                    location: location.location_name
-                }
+                    location: locationName,
+                    activity: activityName
+                },
+                source: 'gemini'
             });
+
         } catch (error) {
             console.error('Cringe generate API error:', error);
             res.status(500).json({ error: 'Internal server error' });
