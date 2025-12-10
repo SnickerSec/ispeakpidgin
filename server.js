@@ -1961,6 +1961,73 @@ OUTPUT FORMAT (JSON only, no markdown, no explanation):
         }
     });
 
+// ============================================
+// SEO: Spelling Variant Redirects
+// Redirects common misspellings to correct word pages
+// ============================================
+const spellingRedirects = {
+    // Chee hoo variants (21+ impressions)
+    'chee-woo': 'chee-hoo',
+    'cheewoo': 'chee-hoo',
+    'che-hu': 'chee-hoo',
+    'chehu': 'chee-hoo',
+    'chee-hu': 'chee-hoo',
+    'cheehu': 'chee-hoo',
+    'chee-huh': 'chee-hoo',
+    'cheehuh': 'chee-hoo',
+    'cheehoo': 'chee-hoo',
+    'cheehuuu': 'chee-hoo',
+
+    // Buss up variants (72+ impressions)
+    'bus-up': 'buss-up',
+    'busup': 'buss-up',
+    'bussup': 'buss-up',
+
+    // Ainokea variants
+    'ai-no-kea': 'ainokea',
+    'ainokea': 'ainokea',
+
+    // A hui hou variants (9+ impressions)
+    'a-hui-ho': 'a-hui-hou',
+    'a-hoi-hou': 'a-hui-hou',
+    'a-hui-hoa': 'a-hui-hou',
+    'a-hui-hoi': 'a-hui-hou',
+    'ahuihou': 'a-hui-hou',
+
+    // Aole pilikia variants (11+ impressions)
+    'a-ole-pilikia': 'aole-pilikia',
+    'aole-pilikia': 'aole-pilikia',
+
+    // Bumbai variants
+    'bumbye': 'bumbai',
+
+    // Da kine variants
+    'dakine': 'da-kine',
+
+    // Bumboocha variants
+    'bombucha': 'bumboocha',
+    'bumbucha': 'bumboocha',
+
+    // Ackshun variant
+    'acshun': 'ackshun',
+
+    // Chocho lips variant
+    'cholips': 'cho-cho-lips',
+    'chocholips': 'cho-cho-lips'
+};
+
+// Redirect middleware for spelling variants
+app.use('/word/:slug', (req, res, next) => {
+    const slug = req.params.slug.replace('.html', '').toLowerCase();
+    const correctSlug = spellingRedirects[slug];
+
+    if (correctSlug && correctSlug !== slug) {
+        // 301 permanent redirect for SEO
+        return res.redirect(301, `/word/${correctSlug}.html`);
+    }
+    next();
+});
+
 // Serve static files from public directory
 app.use(express.static(path.join(__dirname, 'public'), {
     maxAge: '1d', // Cache static files for 1 day
