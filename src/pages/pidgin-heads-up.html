@@ -724,28 +724,35 @@
             // - +180°/-180°: Screen facing straight down
             //
             // TILT ACTIONS:
-            // - Tilt DOWN (nod toward chest): beta increases toward +150°/+180° = CORRECT
-            // - Tilt UP (look at ceiling): beta decreases toward +40°/0° = SKIP
+            // - Tilt DOWN (nod toward chest): beta > 130° = CORRECT
+            // - Tilt UP (look at ceiling): beta < 50° = SKIP
+
+            // Delay tilt detection briefly to let player get ready
+            let tiltEnabled = false;
+            setTimeout(() => {
+                tiltEnabled = true;
+                console.log('Tilt detection enabled');
+            }, 500);
 
             const handleOrientation = (event) => {
-                if (!canTilt || !tiltCalibrated) return;
+                if (!canTilt || !tiltEnabled) return;
 
                 const beta = event.beta; // -180 to 180
 
                 // Skip invalid readings
-                if (beta === null || baselineBeta === null) return;
+                if (beta === null) return;
 
-                // Calculate how much we've tilted from the baseline
-                const tiltDelta = beta - baselineBeta;
+                // Use absolute thresholds based on expected phone position
+                // Phone against forehead ≈ 90°
+                // Tilt down (correct) = beta > 130°
+                // Tilt up (skip) = beta < 50°
 
                 // Debug logging
-                // console.log('beta:', beta.toFixed(1), 'baseline:', baselineBeta.toFixed(1), 'delta:', tiltDelta.toFixed(1));
+                // console.log('beta:', beta.toFixed(1));
 
-                // Tilt DOWN toward chest (beta increases) = CORRECT
-                // Tilt UP toward ceiling (beta decreases) = SKIP
-                if (tiltDelta > TILT_THRESHOLD) {
+                if (beta > 130) {
                     handleCorrect();
-                } else if (tiltDelta < -TILT_THRESHOLD) {
+                } else if (beta < 50) {
                     handleSkip();
                 }
             };
