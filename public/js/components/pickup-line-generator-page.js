@@ -148,18 +148,28 @@
         }
     }
 
+    // Store current locations for the selected activity
+    let currentLocations = [];
+
     // Update location dropdown when activity changes
     function updateLocationOptions() {
         const activitySelect = document.getElementById('activity-select');
+        const locationSearch = document.getElementById('location-search');
         const locationSelect = document.getElementById('location-select');
+        const locationResults = document.getElementById('location-results');
+        const locationRandom = document.getElementById('location-random');
 
-        if (!activitySelect || !locationSelect) return;
+        if (!activitySelect || !locationSearch || !locationSelect) return;
 
         const selectedKey = activitySelect.value;
 
         if (!selectedKey) {
-            locationSelect.innerHTML = '<option value="">Select activity first...</option>';
-            locationSelect.disabled = true;
+            locationSearch.placeholder = 'Select activity first...';
+            locationSearch.disabled = true;
+            locationSearch.value = '';
+            locationSelect.value = '';
+            locationRandom.disabled = true;
+            currentLocations = [];
             return;
         }
 
@@ -167,16 +177,120 @@
         const activity = cringeActivities.find(a => a.activity_key === selectedKey);
 
         if (activity && activity.locations && activity.locations.length > 0) {
-            locationSelect.innerHTML = '<option value="">Choose one spot...</option>' +
-                activity.locations.map(loc =>
-                    `<option value="${loc.location_key}">${loc.location_name}</option>`
-                ).join('');
-            locationSelect.disabled = false;
+            currentLocations = activity.locations;
+            locationSearch.placeholder = 'Type to search or click to see all...';
+            locationSearch.disabled = false;
+            locationSearch.value = '';
+            locationSelect.value = '';
+            locationRandom.disabled = false;
             console.log(`✅ Loaded ${activity.locations.length} locations for ${selectedKey}`);
+
+            // Setup the searchable dropdown
+            setupLocationSearch();
         } else {
-            locationSelect.innerHTML = '<option value="">No locations found</option>';
-            locationSelect.disabled = true;
+            locationSearch.placeholder = 'No locations found';
+            locationSearch.disabled = true;
+            locationRandom.disabled = true;
+            currentLocations = [];
         }
+    }
+
+    // Setup searchable location dropdown
+    function setupLocationSearch() {
+        const locationSearch = document.getElementById('location-search');
+        const locationSelect = document.getElementById('location-select');
+        const locationResults = document.getElementById('location-results');
+        const locationRandom = document.getElementById('location-random');
+
+        if (!locationSearch || !locationResults || !locationRandom) return;
+
+        // Remove previous listeners by cloning
+        const newSearch = locationSearch.cloneNode(true);
+        locationSearch.parentNode.replaceChild(newSearch, locationSearch);
+
+        const newRandom = locationRandom.cloneNode(true);
+        locationRandom.parentNode.replaceChild(newRandom, locationRandom);
+
+        // Get fresh references
+        const searchInput = document.getElementById('location-search');
+        const randomBtn = document.getElementById('location-random');
+
+        // Render dropdown results
+        function renderResults(items) {
+            if (items.length === 0) {
+                locationResults.innerHTML = '<div class="px-4 py-2 text-gray-500 text-sm">No results found</div>';
+            } else {
+                locationResults.innerHTML = items.map(loc => `
+                    <div class="location-item px-4 py-2 hover:bg-orange-50 cursor-pointer border-b border-orange-100 last:border-b-0"
+                         data-key="${loc.location_key}" data-name="${loc.location_name}">
+                        <div class="font-semibold text-gray-800">${loc.location_name}</div>
+                    </div>
+                `).join('');
+            }
+            locationResults.classList.remove('hidden');
+        }
+
+        // Handle clicks on dropdown items
+        locationResults.addEventListener('click', function(e) {
+            const item = e.target.closest('.location-item');
+            if (item) {
+                searchInput.value = item.dataset.name;
+                locationSelect.value = item.dataset.key;
+                locationResults.classList.add('hidden');
+            }
+        });
+
+        // Search on input
+        searchInput.addEventListener('input', function() {
+            const query = this.value.trim().toLowerCase();
+
+            if (query.length === 0) {
+                renderResults(currentLocations);
+                return;
+            }
+
+            // Filter results
+            const filtered = currentLocations.filter(loc =>
+                loc.location_name.toLowerCase().includes(query)
+            );
+
+            renderResults(filtered);
+        });
+
+        // Show all options on focus
+        searchInput.addEventListener('focus', function() {
+            if (currentLocations.length > 0) {
+                renderResults(currentLocations);
+            }
+        });
+
+        // Random button handler
+        randomBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            if (currentLocations.length === 0) return;
+
+            const randomLoc = currentLocations[Math.floor(Math.random() * currentLocations.length)];
+            searchInput.value = randomLoc.location_name;
+            locationSelect.value = randomLoc.location_key;
+            locationResults.classList.add('hidden');
+
+            // Visual feedback
+            this.innerHTML = '✨';
+            setTimeout(() => {
+                this.innerHTML = '🎲';
+            }, 500);
+        });
+
+        // Hide results when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!searchInput.contains(e.target) &&
+                !locationResults.contains(e.target) &&
+                !randomBtn.contains(e.target)) {
+                locationResults.classList.add('hidden');
+            }
+        });
     }
 
     async function generatePickupLine() {
