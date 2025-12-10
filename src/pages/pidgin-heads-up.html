@@ -583,8 +583,10 @@
 
         async function startCountdown() {
             gameActive = true;
-            tiltCalibrated = false;
-            baselineBeta = null;
+
+            // Fixed baseline: phone held against forehead in landscape = 90°
+            baselineBeta = 90;
+            tiltCalibrated = true;
 
             // Request motion permission FIRST on iOS before countdown
             if (typeof DeviceOrientationEvent !== 'undefined' &&
@@ -607,33 +609,12 @@
             const countdownEl = document.getElementById('countdown-number');
             countdownEl.textContent = count;
 
-            // Start listening for orientation to capture baseline at end of countdown
-            // Phone held against forehead in landscape mode:
-            // - Beta measures front-to-back tilt
-            // - Starting position (phone against forehead, screen out/down) ≈ +90°
-            let lastBetaReading = null;
-            const calibrationHandler = (event) => {
-                if (event.beta !== null) {
-                    lastBetaReading = event.beta;
-                }
-            };
-            window.addEventListener('deviceorientation', calibrationHandler);
-
             const countInterval = setInterval(() => {
                 count--;
                 if (count > 0) {
                     countdownEl.textContent = count;
                 } else if (count === 0) {
                     countdownEl.textContent = 'GO!';
-                    // Capture baseline at the moment countdown ends
-                    if (lastBetaReading !== null) {
-                        baselineBeta = lastBetaReading;
-                        tiltCalibrated = true;
-                        console.log('Tilt calibrated - baseline beta:', baselineBeta);
-                    } else {
-                        console.log('WARNING: No beta reading available for calibration');
-                    }
-                    window.removeEventListener('deviceorientation', calibrationHandler);
                 } else {
                     clearInterval(countInterval);
                     startGame();
