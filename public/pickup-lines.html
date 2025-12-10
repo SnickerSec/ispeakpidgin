@@ -499,10 +499,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     <!-- Scripts -->
-    <script src="js/data/pickup-lines-data.js"></script>
-    <script src="js/components/pickup-lines.js"></script>
+    <script src="js/components/supabase-api-loader.js"></script>
     <script src="js/components/main.js"></script>
     <script>
+        // Pickup lines data loaded from Supabase
+        let pickupLines = [];
+
+        // Category colors and emojis
+        const categoryStyles = {
+            romantic: { color: 'pink', emoji: '💕' },
+            food: { color: 'orange', emoji: '🍜' },
+            funny: { color: 'yellow', emoji: '😂' },
+            bold: { color: 'red', emoji: '🔥' },
+            sweet: { color: 'purple', emoji: '🌺' },
+            classic: { color: 'green', emoji: '🌴' },
+            default: { color: 'blue', emoji: '🤙' }
+        };
+
         // Favorites management
         let favorites = JSON.parse(localStorage.getItem('favoritePickupLines') || '[]');
 
@@ -513,19 +526,19 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        function toggleFavorite(index) {
-            const idx = favorites.indexOf(index);
+        function toggleFavorite(id) {
+            const idx = favorites.indexOf(id);
             if (idx > -1) {
                 favorites.splice(idx, 1);
             } else {
-                favorites.push(index);
+                favorites.push(id);
             }
             localStorage.setItem('favoritePickupLines', JSON.stringify(favorites));
             updateFavoritesCount();
         }
 
-        function isFavorite(index) {
-            return favorites.includes(index);
+        function isFavorite(id) {
+            return favorites.includes(id);
         }
 
         // Display pickup lines
@@ -541,15 +554,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (noFavorites) noFavorites.classList.add('hidden');
             }
 
-            container.innerHTML = lines.map((line, originalIndex) => {
-                const isFav = isFavorite(originalIndex);
+            container.innerHTML = lines.map((line) => {
+                const style = categoryStyles[line.category] || categoryStyles.default;
+                const isFav = isFavorite(line.id);
                 return `
-                    <div class="pickup-card card-${line.color} rounded-2xl shadow-xl p-6">
+                    <div class="pickup-card card-${style.color} rounded-2xl shadow-xl p-6">
                         <div class="flex items-start justify-between mb-3">
-                            <span class="text-4xl emoji-float">${line.emoji}</span>
+                            <span class="text-4xl emoji-float">${style.emoji}</span>
                             <button
                                 class="favorite-btn text-2xl ${isFav ? 'active' : ''}"
-                                data-index="${originalIndex}"
+                                data-id="${line.id}"
                                 title="${isFav ? 'Remove from favorites' : 'Add to favorites'}"
                             >
                                 ${isFav ? '❤️' : '🤍'}
@@ -560,7 +574,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 "${line.pidgin}"
                             </p>
                             <p class="text-gray-600 italic text-sm mb-3">
-                                ${line.pronunciation}
+                                ${line.pronunciation || ''}
                             </p>
                             <p class="text-gray-700 font-medium">
                                 ${line.english}
@@ -573,15 +587,15 @@ document.addEventListener('DOMContentLoaded', function() {
             // Add favorite button listeners
             document.querySelectorAll('.favorite-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    const index = parseInt(this.getAttribute('data-index'));
-                    toggleFavorite(index);
+                    const id = parseInt(this.getAttribute('data-id'));
+                    toggleFavorite(id);
 
                     // Re-render if showing favorites
                     if (showingFavorites) {
                         showFavorites();
                     } else {
                         // Just update the button
-                        const isFav = isFavorite(index);
+                        const isFav = isFavorite(id);
                         this.textContent = isFav ? '❤️' : '🤍';
                         this.classList.toggle('active', isFav);
                     }
@@ -614,19 +628,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 displayPickupLines([], true);
                 return;
             }
-            const favoriteLines = favorites.map(idx => pickupLines[idx]).filter(line => line);
+            const favoriteLines = pickupLines.filter(line => favorites.includes(line.id));
             displayPickupLines(favoriteLines, true);
         }
 
         document.getElementById('show-favorites-btn')?.addEventListener('click', showFavorites);
 
-        // Initial load
-        if (typeof pickupLines !== 'undefined') {
-            displayPickupLines(pickupLines);
-            updateFavoritesCount();
-        } else {
-            console.error('Pickup lines data not loaded');
+        // Load data from Supabase API
+        async function loadPickupLines() {
+            try {
+                const response = await fetch('/api/pickup-lines');
+                if (!response.ok) throw new Error('Failed to fetch pickup lines');
+                const data = await response.json();
+                pickupLines = data.lines || data;
+                displayPickupLines(pickupLines);
+                updateFavoritesCount();
+                console.log(`✅ Loaded ${pickupLines.length} pickup lines from Supabase`);
+            } catch (error) {
+                console.error('❌ Failed to load pickup lines:', error);
+                document.getElementById('pickup-lines-grid').innerHTML = `
+                    <div class="col-span-full text-center py-8 text-red-600">
+                        Failed to load pickup lines. Please refresh the page.
+                    </div>
+                `;
+            }
         }
+
+        // Initialize on DOM load
+        document.addEventListener('DOMContentLoaded', loadPickupLines);
     </script>
 </body>
 </html>
