@@ -41,15 +41,17 @@ This project supports **two server environments**:
 - **Never edit `public/` directly** - changes will be overwritten
 
 ### Data Architecture (Supabase)
-**All data is stored in Supabase** - no local JSON files are used.
+**All data is stored in Supabase** - no local JSON data files.
+
+**IMPORTANT: Never create local JSON data files.** All content data must go directly into Supabase. Config files (like `railway.json`) are the only exception.
 
 #### Supabase Tables
 | Table | Description |
 |-------|-------------|
 | `dictionary_entries` | 655 Pidgin words with definitions, examples |
-| `stories` | 14 Pidgin stories with translations |
+| `stories` | 22 Pidgin stories with translations |
 | `phrases` | 1,000 common phrases |
-| `pickup_lines` | 20 pickup lines |
+| `pickup_lines` | 95 pickup lines |
 | `pickup_line_components` | 48 components for generator |
 | `quiz_questions` | 66 quiz questions |
 | `wordle_words` | 409 words for Pidgin Wordle |
