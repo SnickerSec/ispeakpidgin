@@ -134,6 +134,17 @@ function processHTMLFiles() {
         'what-does-lolo-mean.html',
         'what-does-hamajang-mean.html',
         'what-does-humbug-mean.html',
+        // SEO Pages - Round 4 (from keyword research)
+        'what-does-aloha-mean.html',
+        'what-does-ohana-mean.html',
+        'what-does-haole-mean.html',
+        'what-does-keiki-mean.html',
+        'what-does-ono-mean.html',
+        'what-does-kamaaina-mean.html',
+        'what-does-wahine-mean.html',
+        'what-does-stink-eye-mean.html',
+        'what-does-chicken-skin-mean.html',
+        'what-does-mauka-makai-mean.html',
         // Interactive Features
         'pronunciation-practice.html',
         'pidgin-heads-up.html'
