@@ -1,7 +1,7 @@
-@import "tailwindcss";
-
-/* Import Pacifico font for brand consistency */
+/* Import Pacifico font for brand consistency - must be before @import "tailwindcss" */
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+@import "tailwindcss";
 
 /* Brand font class */
 .brand-font {
