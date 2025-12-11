@@ -794,3 +794,127 @@ button:focus, a:focus, input:focus, textarea:focus {
     border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
 }
+
+/* ==================== */
+/* Mobile UX Improvements */
+/* ==================== */
+
+/* Minimum touch target size (48x48px recommended by Google) */
+@media (max-width: 768px) {
+    /* Mobile navigation links - larger touch targets */
+    #mobile-menu a,
+    .mobile-dropdown-btn,
+    .mobile-dropdown-content a {
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+    }
+
+    /* Buttons need adequate touch targets */
+    button, .btn, [role="button"] {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* Game cards - easier to tap */
+    .game-card, article.bg-gray-50, .phrase-card {
+        padding: 1rem;
+    }
+
+    /* Form inputs - larger on mobile */
+    input[type="text"],
+    input[type="search"],
+    input[type="email"],
+    textarea,
+    select {
+        font-size: 16px; /* Prevents iOS zoom on focus */
+        min-height: 48px;
+        padding: 0.75rem 1rem;
+    }
+
+    /* Footer links - larger touch targets */
+    footer a {
+        display: inline-block;
+        padding: 0.5rem;
+        min-height: 44px;
+    }
+
+    /* Prevent horizontal scroll */
+    body {
+        overflow-x: hidden;
+    }
+
+    /* Better tap highlighting */
+    a, button {
+        -webkit-tap-highlight-color: rgba(255, 107, 107, 0.2);
+    }
+
+    /* Improve readability */
+    p, li {
+        line-height: 1.6;
+    }
+
+    /* Game buttons - larger on mobile */
+    .game-btn {
+        padding: 1rem 1.5rem;
+        font-size: 1.1rem;
+    }
+}
+
+/* Smooth scrolling for all users */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Better focus states for keyboard navigation */
+@media (max-width: 768px) {
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    select:focus-visible {
+        outline: 3px solid #ff6b6b;
+        outline-offset: 2px;
+    }
+}
+
+/* Safe area insets for notched phones */
+@supports (padding: max(0px)) {
+    body {
+        padding-left: max(0px, env(safe-area-inset-left));
+        padding-right: max(0px, env(safe-area-inset-right));
+    }
+
+    footer {
+        padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    }
+}
+
+/* Sticky header improvements for mobile */
+@media (max-width: 768px) {
+    nav.sticky {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+    }
+}
+
+/* Improve text selection on mobile */
+::selection {
+    background: rgba(255, 107, 107, 0.3);
+    color: inherit;
+}
