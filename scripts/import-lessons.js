@@ -7,10 +7,11 @@
 require('dotenv').config();
 const { createClient } = require('@supabase/supabase-js');
 
-const supabase = createClient(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_ANON_KEY
-);
+// Use same defaults as server.js
+const supabaseUrl = process.env.SUPABASE_URL || 'https://jfzgzjgdptowfbtljvyp.supabase.co';
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impmemd6amdkcHRvd2ZidGxqdnlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzNzk0OTMsImV4cCI6MjA3OTk1NTQ5M30.xPubHKR0PFEic52CffEBVCwmfPz-AiqbwFk39ulwydM';
+
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Lessons data
 const lessonsData = {
@@ -365,28 +366,23 @@ async function importLessons() {
             lessonCount++;
             console.log(`  ✅ ${lesson.title}`);
 
-            // Insert vocabulary
-            for (let j = 0; j < lesson.content.vocabulary.length; j++) {
-                const vocab = lesson.content.vocabulary[j];
+            // Insert vocabulary (use insert, not upsert)
+            const vocabItems = lesson.content.vocabulary.map((vocab, j) => ({
+                lesson_id: lessonData.id,
+                pidgin: vocab.pidgin,
+                english: vocab.english,
+                example: vocab.example,
+                sort_order: j
+            }));
 
-                const { error: vocabError } = await supabase
-                    .from('lesson_vocabulary')
-                    .upsert({
-                        lesson_id: lessonData.id,
-                        pidgin: vocab.pidgin,
-                        english: vocab.english,
-                        example: vocab.example,
-                        sort_order: j
-                    }, {
-                        onConflict: 'lesson_id,pidgin',
-                        ignoreDuplicates: true
-                    });
+            const { error: vocabError } = await supabase
+                .from('lesson_vocabulary')
+                .insert(vocabItems);
 
-                if (vocabError && !vocabError.message.includes('duplicate')) {
-                    console.error(`    ❌ Error inserting vocab ${vocab.pidgin}:`, vocabError.message);
-                } else {
-                    vocabCount++;
-                }
+            if (vocabError) {
+                console.error(`    ❌ Error inserting vocabulary:`, vocabError.message);
+            } else {
+                vocabCount += vocabItems.length;
             }
         }
     }
