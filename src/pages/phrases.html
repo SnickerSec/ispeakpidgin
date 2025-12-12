@@ -329,7 +329,7 @@
                 <div class="phrase-card bg-white rounded-xl p-5 shadow-md border border-gray-100">
                     <div class="flex justify-between items-start mb-2">
                         <h3 class="text-xl font-bold text-purple-700">${phrase.pidgin}</h3>
-                        <button onclick="speakPhrase('${phrase.pidgin.replace(/'/g, "\\'")}')"
+                        <button onclick="speakPhrase('${phrase.pidgin.replace(/\\/g, "\\\\").replace(/'/g, "\\'")}')"
                                 class="text-blue-500 hover:text-blue-700 p-1" title="Hear pronunciation">
                             🔊
                         </button>

@@ -1802,10 +1802,10 @@ app.get('/api/cringe/generate',
     translationLimiter,
     async (req, res) => {
         try {
-            const { gender, location_key, activity } = req.query;
+            const { target_style, location_key, activity } = req.query;
 
-            if (!gender || !location_key) {
-                return res.status(400).json({ error: 'gender and location_key are required' });
+            if (!target_style || !location_key) {
+                return res.status(400).json({ error: 'target_style and location_key are required' });
             }
 
             // Get location info
@@ -1836,11 +1836,11 @@ app.get('/api/cringe/generate',
 
             const sampleMetaphors = metaphors?.map(m => m.metaphor).join('; ') || '';
 
-            // Get sample greetings for this gender
+            // Get sample greetings for this target style
             const { data: greetings } = await supabase
                 .from('cringe_greetings')
                 .select('greeting')
-                .eq('gender', gender);
+                .eq('gender', target_style);
 
             const sampleGreetings = greetings?.map(g => g.greeting).join(', ') || 'Howzit';
 
@@ -1867,7 +1867,7 @@ app.get('/api/cringe/generate',
                 });
             }
 
-            const genderLabel = gender === 'wahine' ? 'wahine (woman)' : 'kane (man)';
+            const styleLabel = target_style === 'wahine' ? 'wahine (woman)' : 'kane (man)';
 
             // Activity-specific context
             const activityContexts = {
@@ -1878,7 +1878,7 @@ app.get('/api/cringe/generate',
 
             const activityContext = activityContexts[activityKey] || activityContexts.grindz;
 
-            const prompt = `Generate ONE SHORT, punchy Hawaiian Pidgin pickup line for a ${genderLabel} about "${locationName}".
+            const prompt = `Generate ONE SHORT, punchy Hawaiian Pidgin pickup line for a ${styleLabel} about "${locationName}".
 
 CRITICAL: Keep it SHORT - maximum 15-20 words total. One or two sentences max.
 

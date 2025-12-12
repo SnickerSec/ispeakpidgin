@@ -345,7 +345,7 @@
         console.log('📍 Generating cringe line for:', { gender, locationKey });
 
         // Call the cringe generator API
-        const response = await fetch(`/api/cringe/generate?gender=${gender}&location_key=${locationKey}`);
+        const response = await fetch(`/api/cringe/generate?target_style=${gender}&location_key=${locationKey}`);
 
         if (!response.ok) {
             const errorData = await response.json();
