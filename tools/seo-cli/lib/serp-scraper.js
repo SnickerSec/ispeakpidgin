@@ -121,8 +121,15 @@ function findOurPosition(results) {
   if (!results || !Array.isArray(results)) return null;
 
   for (let i = 0; i < results.length; i++) {
-    if (results[i].url && results[i].url.includes('chokepidgin.com')) {
-      return i + 1;
+    if (results[i].url) {
+      try {
+        const parsedUrl = new URL(results[i].url);
+        if (parsedUrl.hostname === 'chokepidgin.com' || parsedUrl.hostname.endsWith('.chokepidgin.com')) {
+          return i + 1;
+        }
+      } catch (e) {
+        // Invalid URL, skip
+      }
     }
   }
   return null;
