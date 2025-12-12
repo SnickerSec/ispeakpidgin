@@ -151,6 +151,7 @@ app.use('/api/crossword', staticDataCache);
 app.use('/api/pickup-lines', staticDataCache);
 app.use('/api/pickup-components', staticDataCache);
 app.use('/api/wordle/words', staticDataCache);
+app.use('/api/lessons', staticDataCache);
 
 // JSON body parser for API endpoints with size limits
 app.use(express.json({
@@ -1419,6 +1420,153 @@ app.get('/api/quiz/questions',
             const shuffled = data.sort(() => Math.random() - 0.5).slice(0, parseInt(count));
             res.json({ questions: shuffled, count: shuffled.length });
         } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+// ============================================
+// LESSONS API ENDPOINTS
+// ============================================
+
+// In-memory cache for lessons
+const lessonsCache = { data: null, timestamp: 0, ttl: 300000 }; // 5 min cache
+
+// GET /api/lessons - Get all lessons organized by level
+app.get('/api/lessons',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const { level } = req.query;
+            const now = Date.now();
+
+            // Check cache for full lessons request
+            if (!level && lessonsCache.data && (now - lessonsCache.timestamp) < lessonsCache.ttl) {
+                res.set('X-Cache', 'HIT');
+                return res.json(lessonsCache.data);
+            }
+
+            // Build query
+            let query = supabase
+                .from('lessons')
+                .select(`
+                    id,
+                    lesson_key,
+                    level,
+                    title,
+                    icon,
+                    cultural_note,
+                    practice,
+                    sort_order,
+                    lesson_vocabulary (
+                        pidgin,
+                        english,
+                        example,
+                        sort_order
+                    )
+                `)
+                .order('sort_order', { ascending: true });
+
+            if (level) {
+                query = query.eq('level', level);
+            }
+
+            const { data, error } = await query;
+
+            if (error) {
+                console.error('Lessons fetch error:', error);
+                return res.status(500).json({ error: 'Failed to fetch lessons' });
+            }
+
+            // Transform data to match frontend expected format
+            const lessonsByLevel = { beginner: [], intermediate: [], advanced: [] };
+
+            data.forEach(lesson => {
+                const formattedLesson = {
+                    id: lesson.lesson_key,
+                    title: lesson.title,
+                    icon: lesson.icon,
+                    content: {
+                        vocabulary: (lesson.lesson_vocabulary || [])
+                            .sort((a, b) => a.sort_order - b.sort_order)
+                            .map(v => ({
+                                pidgin: v.pidgin,
+                                english: v.english,
+                                example: v.example
+                            })),
+                        culturalNote: lesson.cultural_note,
+                        practice: lesson.practice
+                    }
+                };
+                lessonsByLevel[lesson.level].push(formattedLesson);
+            });
+
+            const result = level ? { [level]: lessonsByLevel[level] } : lessonsByLevel;
+
+            // Cache full response
+            if (!level) {
+                lessonsCache.data = result;
+                lessonsCache.timestamp = now;
+            }
+
+            res.json(result);
+        } catch (error) {
+            console.error('Lessons API error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+// GET /api/lessons/:lessonKey - Get a specific lesson by key
+app.get('/api/lessons/:lessonKey',
+    dictionaryLimiter,
+    async (req, res) => {
+        try {
+            const { lessonKey } = req.params;
+
+            const { data, error } = await supabase
+                .from('lessons')
+                .select(`
+                    id,
+                    lesson_key,
+                    level,
+                    title,
+                    icon,
+                    cultural_note,
+                    practice,
+                    lesson_vocabulary (
+                        pidgin,
+                        english,
+                        example,
+                        sort_order
+                    )
+                `)
+                .eq('lesson_key', lessonKey)
+                .single();
+
+            if (error || !data) {
+                return res.status(404).json({ error: 'Lesson not found' });
+            }
+
+            const formattedLesson = {
+                id: data.lesson_key,
+                level: data.level,
+                title: data.title,
+                icon: data.icon,
+                content: {
+                    vocabulary: (data.lesson_vocabulary || [])
+                        .sort((a, b) => a.sort_order - b.sort_order)
+                        .map(v => ({
+                            pidgin: v.pidgin,
+                            english: v.english,
+                            example: v.example
+                        })),
+                    culturalNote: data.cultural_note,
+                    practice: data.practice
+                }
+            };
+
+            res.json(formattedLesson);
+        } catch (error) {
+            console.error('Lesson fetch error:', error);
             res.status(500).json({ error: 'Internal server error' });
         }
     });

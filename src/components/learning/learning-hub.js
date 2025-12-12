@@ -68,6 +68,12 @@ class LearningHub {
         this.updateProgress();
         this.loadDailyChallenge();
         this.updateAchievements();
+
+        // Listen for API lessons data
+        window.addEventListener('lessonsLoaded', (e) => {
+            this.lessons = this.initializeLessons();
+            this.loadLessons();
+        });
     }
 
     setupEventListeners() {
