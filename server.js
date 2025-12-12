@@ -136,6 +136,22 @@ app.use(helmet({
 // Compression middleware
 app.use(compression());
 
+// Cache headers for static API data (1 hour for data that rarely changes)
+const staticDataCache = (req, res, next) => {
+    res.set('Cache-Control', 'public, max-age=3600, stale-while-revalidate=86400');
+    next();
+};
+
+// Apply caching to static data endpoints
+app.use('/api/dictionary', staticDataCache);
+app.use('/api/phrases', staticDataCache);
+app.use('/api/stories', staticDataCache);
+app.use('/api/quiz', staticDataCache);
+app.use('/api/crossword', staticDataCache);
+app.use('/api/pickup-lines', staticDataCache);
+app.use('/api/pickup-components', staticDataCache);
+app.use('/api/wordle/words', staticDataCache);
+
 // JSON body parser for API endpoints with size limits
 app.use(express.json({
     limit: '10kb', // Limit request body size to 10kb

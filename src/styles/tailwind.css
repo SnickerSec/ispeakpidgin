@@ -1,7 +1,9 @@
-/* Import Pacifico font for brand consistency - must be before @import "tailwindcss" */
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-
 @import "tailwindcss";
+
+/* Content sources for purging unused classes */
+@source "../pages/**/*.html";
+@source "../components/**/*.js";
+@source "../blog/**/*.html";
 
 /* Brand font class */
 .brand-font {
