@@ -128,9 +128,15 @@ app.use(helmet({
             ],
             mediaSrc: ["'self'", "blob:", "data:", "https:"],
             objectSrc: ["'none'"],
-            frameSrc: ["'none'"]
+            frameSrc: ["'none'"],
+            frameAncestors: ["'none'"],
+            baseUri: ["'self'"],
+            formAction: ["'self'"],
+            upgradeInsecureRequests: []
         }
-    }
+    },
+    crossOriginEmbedderPolicy: false,
+    crossOriginOpenerPolicy: { policy: "same-origin-allow-popups" }
 }));
 
 // Compression middleware
@@ -1221,18 +1227,17 @@ app.get('/api/phrases/random',
             const { count = 5, category } = req.query;
             const limit = Math.min(parseInt(count), 20);
 
-            let query = supabase.from('phrases').select('*');
-            if (category) query = query.eq('category', category);
-
-            const { data, error } = await query;
+            // Use database function for efficient random selection
+            const { data, error } = await supabase.rpc('get_random_phrases', {
+                p_count: limit,
+                p_category: category || null
+            });
 
             if (error) {
                 return res.status(500).json({ error: 'Failed to fetch phrases' });
             }
 
-            // Shuffle and take requested count
-            const shuffled = data.sort(() => Math.random() - 0.5).slice(0, limit);
-            res.json({ phrases: shuffled, count: shuffled.length });
+            res.json({ phrases: data, count: data.length });
         } catch (error) {
             res.status(500).json({ error: 'Internal server error' });
         }
