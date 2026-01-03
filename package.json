@@ -53,8 +53,7 @@
     "express-rate-limit": "^8.2.1",
     "express-validator": "^7.3.0",
     "googleapis": "^167.0.0",
-    "helmet": "^7.0.0",
-    "node-fetch": "^2.7.0"
+    "helmet": "^7.0.0"
   },
   "engines": {
     "node": ">=20.19.0"

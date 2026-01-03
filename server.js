@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 const compression = require('compression');
 const helmet = require('helmet');
-const fetch = require('node-fetch');
 const fs = require('fs');
 const { Translate } = require('@google-cloud/translate').v2;
 const rateLimit = require('express-rate-limit');
