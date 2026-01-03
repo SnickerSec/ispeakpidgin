@@ -2204,7 +2204,7 @@ app.use(express.static(path.join(__dirname, 'public'), {
 }));
 
 // Handle SPA routing - serve index.html for any non-file requests
-app.get('*', pageLimiter, (req, res) => {
+app.get('/{*splat}', pageLimiter, (req, res) => {
     // If request is for a file extension, return 404
     if (path.extname(req.path)) {
         return res.status(404).send('File not found');
