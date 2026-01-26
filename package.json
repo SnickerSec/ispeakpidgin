@@ -61,7 +61,10 @@
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.17",
     "sharp": "^0.34.5",
-    "supabase": "^2.70.5",
+    "supabase": "^2.72.8",
     "tailwindcss": "^4.1.17"
+  },
+  "overrides": {
+    "tar": "^7.5.6"
   }
 }
