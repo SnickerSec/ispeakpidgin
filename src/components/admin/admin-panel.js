@@ -27,6 +27,7 @@
 
     async function init() {
         setupEventListeners();
+        setupEventDelegation();
 
         if (authToken) {
             try {
@@ -58,6 +59,42 @@
 
         // Save all settings
         document.getElementById('saveAllSettingsBtn')?.addEventListener('click', saveAllSettings);
+    }
+
+    // Event delegation for dynamically created elements
+    function setupEventDelegation() {
+        // API Keys container - handle toggle visibility, test, and save buttons
+        document.getElementById('apiKeysContainer')?.addEventListener('click', function(e) {
+            const target = e.target.closest('button');
+            if (!target) return;
+
+            const action = target.dataset.action;
+            const key = target.dataset.key;
+
+            if (action === 'toggle-visibility') {
+                togglePasswordVisibility(key);
+            } else if (action === 'test') {
+                testApiKey(key);
+            } else if (action === 'save') {
+                saveApiKey(key);
+            }
+        });
+
+        // Features container - handle toggle switches
+        document.getElementById('featuresContainer')?.addEventListener('change', function(e) {
+            const target = e.target;
+            if (target.type === 'checkbox' && target.dataset.key) {
+                toggleFeature(target.dataset.key, target.checked);
+            }
+        });
+
+        // Toast container - handle close buttons
+        toastContainer?.addEventListener('click', function(e) {
+            const closeBtn = e.target.closest('[data-action="close-toast"]');
+            if (closeBtn) {
+                closeBtn.closest('.toast').remove();
+            }
+        });
     }
 
     // Authentication
@@ -319,18 +356,18 @@
                         <input type="${isSecret ? 'password' : 'text'}" id="${inputId}" data-key="${setting.key}"
                                value="${maskedValue || ''}" placeholder="${isSecret ? '********' : ''}"
                                class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm font-mono masked-input">
-                        <button type="button" onclick="togglePasswordVisibility('${inputId}')"
+                        <button type="button" data-action="toggle-visibility" data-key="${inputId}"
                                 class="text-gray-500 hover:text-gray-700 p-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                             </svg>
                         </button>
-                        <button type="button" onclick="testApiKey('${setting.key}')"
+                        <button type="button" data-action="test" data-key="${setting.key}"
                                 class="bg-gray-100 text-gray-700 px-3 py-2 rounded-lg hover:bg-gray-200 transition-colors text-sm">
                             Test
                         </button>
-                        <button type="button" onclick="saveApiKey('${setting.key}')"
+                        <button type="button" data-action="save" data-key="${setting.key}"
                                 class="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm">
                             Save
                         </button>
@@ -367,7 +404,6 @@
                     <p class="text-sm text-gray-500 mb-3">${setting.description || ''}</p>
                     <label class="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" data-key="${setting.key}" ${enabled ? 'checked' : ''}
-                               onchange="toggleFeature('${setting.key}', this.checked)"
                                class="sr-only peer">
                         <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
                     </label>
@@ -498,7 +534,7 @@
         toast.className = `toast ${colors[type]} text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-2`;
         toast.innerHTML = `
             <span>${message}</span>
-            <button onclick="this.parentElement.remove()" class="text-white/80 hover:text-white">
+            <button data-action="close-toast" class="text-white/80 hover:text-white">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
@@ -532,13 +568,15 @@
         return date.toLocaleString();
     }
 
-    // Global functions for onclick handlers
-    window.togglePasswordVisibility = function(inputId) {
+    // Action handlers (called via event delegation)
+    function togglePasswordVisibility(inputId) {
         const input = document.getElementById(inputId);
-        input.type = input.type === 'password' ? 'text' : 'password';
-    };
+        if (input) {
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+    }
 
-    window.testApiKey = async function(key) {
+    async function testApiKey(key) {
         const input = document.querySelector(`[data-key="${key}"]`);
         const value = input.value;
 
@@ -577,9 +615,9 @@
         } catch (error) {
             showToast('Failed to test API key: ' + error.message, 'error');
         }
-    };
+    }
 
-    window.saveApiKey = async function(key) {
+    async function saveApiKey(key) {
         const input = document.querySelector(`[data-key="${key}"]`);
         const value = input.value;
 
@@ -608,9 +646,9 @@
         } catch (error) {
             showToast('Failed to save API key: ' + error.message, 'error');
         }
-    };
+    }
 
-    window.toggleFeature = async function(key, enabled) {
+    async function toggleFeature(key, enabled) {
         try {
             const response = await fetch('/api/admin/settings', {
                 method: 'PUT',
@@ -634,5 +672,5 @@
             const checkbox = document.querySelector(`[data-key="${key}"]`);
             if (checkbox) checkbox.checked = !enabled;
         }
-    };
+    }
 })();
