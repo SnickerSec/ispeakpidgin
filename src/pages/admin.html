@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin Panel - ChokePidgin</title>
+    <link rel="icon" href="assets/icons/favicon.ico">
+    <link rel="stylesheet" href="css/tailwind.css">
+    <style>
+        /* Custom admin panel styles */
+        .tab-button { transition: all 0.2s; }
+        .tab-button.active { background-color: #2563eb; color: white; }
+        .tab-button:not(.active):hover { background-color: #e5e7eb; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .setting-row { transition: background-color 0.2s; }
+        .setting-row:hover { background-color: #f9fafb; }
+        .toast { animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .spinner {
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #3498db;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .masked-input::placeholder { letter-spacing: 0.2em; }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Login Form -->
+    <div id="loginSection" class="min-h-screen flex items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full mx-4">
+            <div class="text-center mb-6">
+                <h1 class="text-2xl font-bold text-gray-800">Admin Panel</h1>
+                <p class="text-gray-600 text-sm mt-1">ChokePidgin Administration</p>
+            </div>
+
+            <form id="loginForm" class="space-y-4">
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                    <input type="text" id="username" name="username" required autocomplete="username"
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input type="password" id="password" name="password" required autocomplete="current-password"
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+
+                <div id="loginError" class="hidden text-red-600 text-sm py-2 px-3 bg-red-50 rounded-lg"></div>
+
+                <button type="submit" id="loginButton"
+                        class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                    Sign In
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="dashboardSection" class="hidden">
+        <!-- Header -->
+        <header class="bg-white shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+                <div>
+                    <h1 class="text-xl font-bold text-gray-800">Admin Dashboard</h1>
+                    <p class="text-sm text-gray-500">Logged in as <span id="currentUser" class="font-medium"></span></p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button id="refreshSettingsBtn" class="text-gray-600 hover:text-blue-600 transition-colors" title="Refresh Settings">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
+                    </button>
+                    <button id="logoutButton" class="text-gray-600 hover:text-red-600 transition-colors flex items-center gap-1">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                        </svg>
+                        <span class="text-sm">Logout</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Tab Navigation -->
+        <div class="bg-white border-b">
+            <div class="max-w-7xl mx-auto px-4">
+                <nav class="flex space-x-1 py-2" role="tablist">
+                    <button class="tab-button active px-4 py-2 rounded-lg text-sm font-medium" data-tab="settings">
+                        Settings
+                    </button>
+                    <button class="tab-button px-4 py-2 rounded-lg text-sm font-medium" data-tab="api-keys">
+                        API Keys
+                    </button>
+                    <button class="tab-button px-4 py-2 rounded-lg text-sm font-medium" data-tab="features">
+                        Features
+                    </button>
+                    <button class="tab-button px-4 py-2 rounded-lg text-sm font-medium" data-tab="audit-log">
+                        Audit Log
+                    </button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Tab Content -->
+        <main class="max-w-7xl mx-auto px-4 py-6">
+            <!-- Settings Tab -->
+            <div id="tab-settings" class="tab-content active">
+                <div class="bg-white rounded-lg shadow">
+                    <div class="p-4 border-b flex justify-between items-center">
+                        <h2 class="text-lg font-semibold">Site Settings</h2>
+                        <button id="saveAllSettingsBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium">
+                            Save All Changes
+                        </button>
+                    </div>
+
+                    <!-- Settings Categories -->
+                    <div id="settingsContainer" class="divide-y">
+                        <!-- Populated by JavaScript -->
+                        <div class="p-8 text-center text-gray-500">
+                            <div class="spinner mx-auto mb-2"></div>
+                            Loading settings...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- API Keys Tab -->
+            <div id="tab-api-keys" class="tab-content">
+                <div class="bg-white rounded-lg shadow">
+                    <div class="p-4 border-b">
+                        <h2 class="text-lg font-semibold">API Keys</h2>
+                        <p class="text-sm text-gray-500 mt-1">Manage external service API keys. Keys are masked for security.</p>
+                    </div>
+
+                    <div id="apiKeysContainer" class="divide-y">
+                        <!-- Populated by JavaScript -->
+                        <div class="p-8 text-center text-gray-500">
+                            <div class="spinner mx-auto mb-2"></div>
+                            Loading API keys...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Tab -->
+            <div id="tab-features" class="tab-content">
+                <div class="bg-white rounded-lg shadow">
+                    <div class="p-4 border-b">
+                        <h2 class="text-lg font-semibold">Feature Toggles</h2>
+                        <p class="text-sm text-gray-500 mt-1">Enable or disable site features.</p>
+                    </div>
+
+                    <div id="featuresContainer" class="divide-y">
+                        <!-- Populated by JavaScript -->
+                        <div class="p-8 text-center text-gray-500">
+                            <div class="spinner mx-auto mb-2"></div>
+                            Loading features...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audit Log Tab -->
+            <div id="tab-audit-log" class="tab-content">
+                <div class="bg-white rounded-lg shadow">
+                    <div class="p-4 border-b flex justify-between items-center">
+                        <div>
+                            <h2 class="text-lg font-semibold">Audit Log</h2>
+                            <p class="text-sm text-gray-500 mt-1">Recent admin actions</p>
+                        </div>
+                        <button id="refreshAuditLogBtn" class="text-gray-600 hover:text-blue-600 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div id="auditLogContainer" class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Time</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">User</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Action</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Resource</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">IP</th>
+                                </tr>
+                            </thead>
+                            <tbody id="auditLogBody" class="divide-y">
+                                <tr>
+                                    <td colspan="5" class="px-4 py-8 text-center text-gray-500">
+                                        <div class="spinner mx-auto mb-2"></div>
+                                        Loading audit log...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="fixed bottom-4 right-4 space-y-2 z-50"></div>
+
+    <script src="js/components/admin/admin-panel.js"></script>
+</body>
+</html>

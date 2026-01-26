@@ -235,6 +235,23 @@ function processHTMLFiles() {
             console.log(`📝 Processed blog: ${file}`);
         });
     }
+
+    // Process admin page (standalone - no navigation/footer placeholders)
+    const adminSrcPath = path.join('src/pages', 'admin.html');
+    const adminDestPath = path.join('public', 'admin.html');
+
+    if (fs.existsSync(adminSrcPath)) {
+        let content = fs.readFileSync(adminSrcPath, 'utf8');
+
+        // Update script and link paths (no template injection for admin page)
+        Object.entries(pathMappings).forEach(([oldPath, newPath]) => {
+            content = content.replace(new RegExp(`src="${oldPath}"`, 'g'), `src="${newPath}"`);
+            content = content.replace(new RegExp(`href="${oldPath}"`, 'g'), `href="${newPath}"`);
+        });
+
+        fs.writeFileSync(adminDestPath, content);
+        console.log(`🔐 Processed: admin.html (standalone)`);
+    }
 }
 
 // Copy JavaScript components
@@ -333,6 +350,23 @@ function copyJavaScriptFiles() {
         const destPath = path.join(destDataDir, 'phrases-loader.js');
         fs.copyFileSync(phrasesLoaderSrc, destPath);
         console.log(`📦 Copied: phrases-loader.js to js/data/`);
+    }
+
+    // Copy admin components
+    const adminSrcDir = 'src/components/admin';
+    const adminDestDir = 'public/js/components/admin';
+
+    if (fs.existsSync(adminSrcDir)) {
+        fs.mkdirSync(adminDestDir, { recursive: true });
+        const files = fs.readdirSync(adminSrcDir);
+        files.forEach(file => {
+            if (file.endsWith('.js') && !shouldExclude(file)) {
+                const srcPath = path.join(adminSrcDir, file);
+                const destPath = path.join(adminDestDir, file);
+                fs.copyFileSync(srcPath, destPath);
+                console.log(`🔐 Copied admin: ${file}`);
+            }
+        });
     }
 }
 

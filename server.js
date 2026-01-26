@@ -10,11 +10,26 @@ const { body, validationResult } = require('express-validator');
 const { createClient } = require('@supabase/supabase-js');
 require('dotenv').config();
 
+// Admin panel imports
+const settingsManager = require('./services/settings-manager');
+const adminAuth = require('./middleware/admin-auth');
+
 // Initialize Supabase client
 const supabaseUrl = process.env.SUPABASE_URL || 'https://jfzgzjgdptowfbtljvyp.supabase.co';
 const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impmemd6amdkcHRvd2ZidGxqdnlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzNzk0OTMsImV4cCI6MjA3OTk1NTQ5M30.xPubHKR0PFEic52CffEBVCwmfPz-AiqbwFk39ulwydM';
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 console.log('✅ Supabase client initialized');
+
+// Initialize Supabase admin client (service role) for admin operations
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
+let supabaseAdmin = null;
+if (supabaseServiceKey) {
+    supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
+    adminAuth.initializeAuth(supabaseAdmin);
+    console.log('✅ Supabase admin client initialized');
+} else {
+    console.warn('⚠️ SUPABASE_SERVICE_KEY not set - admin features disabled');
+}
 
 // Handle Google Cloud credentials
 let credentialsPath = './google-credentials.json';
@@ -2195,6 +2210,374 @@ app.use('/word/:slug', (req, res, next) => {
     }
     next();
 });
+
+// ============================================
+// ADMIN PANEL API ENDPOINTS
+// ============================================
+
+// Admin rate limiter (strict for login attempts)
+const adminLoginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5, // Limit each IP to 5 login attempts per window
+    message: 'Too many login attempts, please try again later.',
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
+// POST /api/admin/login - Authenticate admin user
+app.post('/api/admin/login',
+    adminLoginLimiter,
+    [
+        body('username').trim().notEmpty().isLength({ min: 3, max: 50 }),
+        body('password').notEmpty().isLength({ min: 8, max: 128 })
+    ],
+    async (req, res) => {
+        if (!supabaseAdmin) {
+            return res.status(503).json({ error: 'Admin features not available' });
+        }
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        try {
+            const { username, password } = req.body;
+
+            // Get user
+            const user = await adminAuth.getUserByUsername(username);
+            if (!user) {
+                return res.status(401).json({ error: 'Invalid credentials' });
+            }
+
+            // Check if account is locked
+            if (adminAuth.isAccountLocked(user)) {
+                const lockRemaining = Math.ceil((new Date(user.locked_until) - new Date()) / 60000);
+                return res.status(423).json({
+                    error: `Account locked. Try again in ${lockRemaining} minutes.`
+                });
+            }
+
+            // Verify password
+            const validPassword = await adminAuth.verifyPassword(password, user.password_hash);
+            if (!validPassword) {
+                await adminAuth.incrementFailedAttempts(user.id);
+                return res.status(401).json({ error: 'Invalid credentials' });
+            }
+
+            // Reset failed attempts and generate token
+            await adminAuth.resetFailedAttempts(user.id);
+            const token = adminAuth.generateToken(user);
+            await adminAuth.createSession(user.id, token, req);
+
+            // Log the login
+            await adminAuth.logAuditAction({
+                userId: user.id,
+                username: user.username,
+                action: 'LOGIN',
+                req
+            });
+
+            res.json({
+                token,
+                user: {
+                    id: user.id,
+                    username: user.username,
+                    role: user.role
+                }
+            });
+
+        } catch (error) {
+            console.error('Admin login error:', error);
+            res.status(500).json({ error: 'Login failed' });
+        }
+    });
+
+// POST /api/admin/logout - Revoke admin session
+app.post('/api/admin/logout',
+    adminAuth.requireAdminAuth,
+    async (req, res) => {
+        try {
+            await adminAuth.revokeSession(req.adminToken);
+
+            await adminAuth.logAuditAction({
+                userId: req.adminUser.id,
+                username: req.adminUser.username,
+                action: 'LOGOUT',
+                req
+            });
+
+            res.json({ success: true });
+        } catch (error) {
+            console.error('Admin logout error:', error);
+            res.status(500).json({ error: 'Logout failed' });
+        }
+    });
+
+// POST /api/admin/users/setup - Create first admin user (one-time setup)
+app.post('/api/admin/users/setup',
+    adminLoginLimiter,
+    [
+        body('username').trim().notEmpty().isLength({ min: 3, max: 50 }),
+        body('password').notEmpty().isLength({ min: 8, max: 128 }),
+        body('setupSecret').notEmpty()
+    ],
+    async (req, res) => {
+        if (!supabaseAdmin) {
+            return res.status(503).json({ error: 'Admin features not available' });
+        }
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        try {
+            const { username, password, setupSecret } = req.body;
+
+            // Verify setup secret
+            const expectedSecret = process.env.ADMIN_SETUP_SECRET;
+            if (!expectedSecret || setupSecret !== expectedSecret) {
+                return res.status(403).json({ error: 'Invalid setup secret' });
+            }
+
+            // Check if admin users already exist
+            const hasAdmins = await adminAuth.hasAdminUsers();
+            if (hasAdmins) {
+                return res.status(400).json({ error: 'Admin user already exists. Use login instead.' });
+            }
+
+            // Create the first admin user as super_admin
+            const user = await adminAuth.createAdminUser(username, password, 'super_admin');
+
+            // Log the creation
+            await adminAuth.logAuditAction({
+                username: username,
+                action: 'ADMIN_SETUP',
+                details: { created_user: username },
+                req
+            });
+
+            res.json({
+                success: true,
+                message: 'Admin user created successfully',
+                user: {
+                    id: user.id,
+                    username: user.username,
+                    role: user.role
+                }
+            });
+
+        } catch (error) {
+            console.error('Admin setup error:', error);
+            res.status(500).json({ error: 'Setup failed: ' + error.message });
+        }
+    });
+
+// GET /api/admin/settings - Get all settings grouped by category
+app.get('/api/admin/settings',
+    adminAuth.requireAdminAuth,
+    async (req, res) => {
+        try {
+            // Ensure settings are loaded
+            if (!settingsManager.isInitialized() && supabaseAdmin) {
+                await settingsManager.initialize(supabaseAdmin);
+            }
+
+            const settings = settingsManager.getAllGrouped(true); // Mask secrets
+            res.json(settings);
+        } catch (error) {
+            console.error('Get settings error:', error);
+            res.status(500).json({ error: 'Failed to get settings' });
+        }
+    });
+
+// PUT /api/admin/settings - Update a single setting
+app.put('/api/admin/settings',
+    adminAuth.requireAdminAuth,
+    [
+        body('key').trim().notEmpty(),
+        body('value').exists()
+    ],
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        try {
+            const { key, value } = req.body;
+            const updated = await settingsManager.set(key, String(value));
+
+            await adminAuth.logAuditAction({
+                userId: req.adminUser.id,
+                username: req.adminUser.username,
+                action: 'UPDATE_SETTING',
+                resource: key,
+                details: { new_value: value.toString().substring(0, 50) },
+                req
+            });
+
+            res.json({ success: true, setting: updated });
+        } catch (error) {
+            console.error('Update setting error:', error);
+            res.status(500).json({ error: 'Failed to update setting' });
+        }
+    });
+
+// PUT /api/admin/settings/bulk - Update multiple settings at once
+app.put('/api/admin/settings/bulk',
+    adminAuth.requireAdminAuth,
+    async (req, res) => {
+        try {
+            const updates = req.body;
+
+            if (!updates || typeof updates !== 'object') {
+                return res.status(400).json({ error: 'Invalid updates object' });
+            }
+
+            const count = await settingsManager.setBulk(updates);
+
+            await adminAuth.logAuditAction({
+                userId: req.adminUser.id,
+                username: req.adminUser.username,
+                action: 'BULK_UPDATE_SETTINGS',
+                details: { count, keys: Object.keys(updates) },
+                req
+            });
+
+            res.json({ success: true, updated: count });
+        } catch (error) {
+            console.error('Bulk update error:', error);
+            res.status(500).json({ error: 'Failed to update settings' });
+        }
+    });
+
+// POST /api/admin/settings/refresh - Force reload settings from database
+app.post('/api/admin/settings/refresh',
+    adminAuth.requireAdminAuth,
+    async (req, res) => {
+        try {
+            await settingsManager.refresh();
+
+            await adminAuth.logAuditAction({
+                userId: req.adminUser.id,
+                username: req.adminUser.username,
+                action: 'REFRESH_SETTINGS',
+                req
+            });
+
+            res.json({ success: true, message: 'Settings refreshed' });
+        } catch (error) {
+            console.error('Refresh settings error:', error);
+            res.status(500).json({ error: 'Failed to refresh settings' });
+        }
+    });
+
+// GET /api/admin/audit-log - Get audit log entries
+app.get('/api/admin/audit-log',
+    adminAuth.requireAdminAuth,
+    async (req, res) => {
+        if (!supabaseAdmin) {
+            return res.status(503).json({ error: 'Admin features not available' });
+        }
+
+        try {
+            const { limit = 50, offset = 0 } = req.query;
+
+            const { data, error } = await supabaseAdmin
+                .from('admin_audit_log')
+                .select('*')
+                .order('created_at', { ascending: false })
+                .range(parseInt(offset), parseInt(offset) + parseInt(limit) - 1);
+
+            if (error) throw error;
+
+            res.json({ logs: data });
+        } catch (error) {
+            console.error('Get audit log error:', error);
+            res.status(500).json({ error: 'Failed to get audit log' });
+        }
+    });
+
+// POST /api/admin/test/elevenlabs - Test ElevenLabs API key
+app.post('/api/admin/test/elevenlabs',
+    adminAuth.requireAdminAuth,
+    [body('apiKey').notEmpty()],
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        try {
+            const { apiKey } = req.body;
+
+            // Test the API key by getting user info
+            const response = await fetch('https://api.elevenlabs.io/v1/user', {
+                headers: { 'xi-api-key': apiKey }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                res.json({
+                    success: true,
+                    message: `Connected as ${data.subscription?.tier || 'user'}`,
+                    charactersRemaining: data.subscription?.character_count
+                });
+            } else {
+                res.json({ success: false, error: 'Invalid API key' });
+            }
+        } catch (error) {
+            console.error('ElevenLabs test error:', error);
+            res.json({ success: false, error: error.message });
+        }
+    });
+
+// POST /api/admin/test/gemini - Test Gemini API key
+app.post('/api/admin/test/gemini',
+    adminAuth.requireAdminAuth,
+    [body('apiKey').notEmpty()],
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        try {
+            const { apiKey } = req.body;
+
+            // Test the API key with a simple request
+            const response = await fetch(
+                `https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`
+            );
+
+            if (response.ok) {
+                const data = await response.json();
+                res.json({
+                    success: true,
+                    message: `API key valid. ${data.models?.length || 0} models available.`
+                });
+            } else {
+                const error = await response.json();
+                res.json({ success: false, error: error.error?.message || 'Invalid API key' });
+            }
+        } catch (error) {
+            console.error('Gemini test error:', error);
+            res.json({ success: false, error: error.message });
+        }
+    });
+
+// Initialize settings manager at startup
+(async () => {
+    if (supabaseAdmin) {
+        try {
+            await settingsManager.initialize(supabaseAdmin);
+        } catch (error) {
+            console.error('Failed to initialize settings manager:', error.message);
+        }
+    }
+})();
 
 // Serve static files from public directory
 app.use(express.static(path.join(__dirname, 'public'), {

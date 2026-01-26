@@ -46,6 +46,7 @@
     "@google-analytics/data": "^5.2.1",
     "@google-cloud/translate": "^9.3.0",
     "@supabase/supabase-js": "^2.89.0",
+    "bcrypt": "^5.1.1",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
@@ -53,7 +54,8 @@
     "express-rate-limit": "^8.2.1",
     "express-validator": "^7.3.0",
     "googleapis": "^169.0.0",
-    "helmet": "^8.1.0"
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2"
   },
   "engines": {
     "node": ">=20.19.0"
