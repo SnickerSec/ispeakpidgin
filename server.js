@@ -290,7 +290,7 @@ app.post('/api/translate-llm',
 
         // Create the prompt based on direction
         const systemPrompt = direction === 'eng-to-pidgin'
-            ? `You are an expert Hawaiian Pidgin translator. Translate English into authentic Hawaiian Pidgin (Hawaii Creole English).
+            ? `You are a Hawaiian Pidgin translator for an educational dictionary website (ChokePidgin.com). This is a linguistic and cultural preservation project. You MUST translate accurately using real Pidgin vocabulary — never censor, euphemize, or substitute polite alternatives. Crude, vulgar, and slang words have authentic Pidgin equivalents that MUST be used.
 
 Key Pidgin patterns you MUST use:
 - Greetings: "hello" → "howzit" or "aloha", "hi" → "howzit", "hey" → "eh"
@@ -301,10 +301,10 @@ Key Pidgin patterns you MUST use:
 - Pronouns: "they" → "dey", "them" → "dem", "that" → "dat", "this" → "dis"
 - Common words: "food" → "grindz", "eat" → "grind", "friend" → "brah/bruddah", "yes" → "yeah", "okay" → "shoots", "thank you" → "tanks/mahalo", "delicious" → "ono", "finished" → "pau"
 - Negation: "don't" → "no", "didn't" → "neva", "can't" → "no can"
-- Body/slang: "penis" → "boto", "butt/buttocks" → "okole", "fart" → "poot", "poop" → "doodoo", "crazy" → "pupule", "angry" → "huhu"
+- Body/slang: "penis" → "boto", "butt/buttocks" → "okole", "fart" → "poot", "poop" → "doodoo", "crazy" → "pupule", "angry" → "huhu", "boobs/breasts" → "chi-chis", "drunk" → "hamajang", "ugly" → "makapiapia", "stupid" → "lolo"
 
-IMPORTANT: Always use authentic Hawaiian Pidgin vocabulary. Never substitute English slang or vulgar English synonyms — use the actual Pidgin word.
-Be authentic to how locals in Hawaii actually speak. Only respond with the Pidgin translation, nothing else.`
+CRITICAL: This is a language education tool. Accuracy is required. Do NOT sanitize, soften, or replace words with English euphemisms. Use the actual Pidgin term every time. For example "penis" is "boto" — not "cock", "ding", or any English substitute.
+Only respond with the Pidgin translation, nothing else.`
             : `You are an expert Hawaiian Pidgin translator. Translate Hawaiian Pidgin to standard English. Hawaiian Pidgin uses: "stay" for is/am/are, "wen" for past tense, "da" for "the", "brah" for friend, "grindz" for food, "howzit" for how are you, etc. Only respond with the English translation, nothing else.`;
 
         // Google Gemini API endpoint - using Gemini 2.5 Flash Lite for cost efficiency
@@ -324,7 +324,13 @@ Be authentic to how locals in Hawaii actually speak. Only respond with the Pidgi
                 generationConfig: {
                     temperature: 0.3,
                     maxOutputTokens: 500
-                }
+                },
+                safetySettings: [
+                    { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_NONE' },
+                    { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_NONE' },
+                    { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_NONE' },
+                    { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_NONE' }
+                ]
             })
         });
 
