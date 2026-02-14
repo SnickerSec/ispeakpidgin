@@ -209,7 +209,7 @@ class SupabaseDataLoader {
     }
 
     // Search using local data (faster than API for already-loaded data)
-    async search(term) {
+    search(term) {
         if (!term || term.length < 2) {
             return this.getAllEntries();
         }
@@ -243,7 +243,7 @@ class SupabaseDataLoader {
     }
 
     // Get random entries (local)
-    async getRandomEntries(count = 5, difficulty = null) {
+    getRandomEntries(count = 5, difficulty = null) {
         let pool = this.entries;
         if (difficulty) {
             pool = pool.filter(e => e.difficulty === difficulty);
