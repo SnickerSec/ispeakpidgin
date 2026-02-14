@@ -249,6 +249,25 @@ async function performTranslation() {
     let results;
 
     try {
+        // Layer 1: Dictionary-first for 1-2 word inputs with high confidence
+        const wordCount = text.trim().split(/\s+/).length;
+        let usedLocalDictionary = false;
+
+        if (wordCount <= 2 && typeof pidginTranslator !== 'undefined' && pidginTranslator && pidginTranslator.initialized) {
+            const localResult = pidginTranslator.translate(text, direction === 'en-to-pid' ? 'eng-to-pidgin' : 'pidgin-to-eng');
+            if (localResult && localResult.confidence >= 90 && localResult.text && localResult.text !== text) {
+                console.log(`📖 Dictionary match (${localResult.confidence}% confidence): "${text}" → "${localResult.text}"`);
+                results = [{
+                    translation: localResult.text,
+                    confidence: localResult.confidence / 100,
+                    pronunciation: localResult.pronunciation || null,
+                    metadata: localResult.metadata || null
+                }];
+                usedLocalDictionary = true;
+            }
+        }
+
+        if (!usedLocalDictionary) {
         // Use AI (Gemini) by default, fallback to local if AI fails
         if (currentTranslationEngine === 'google' && typeof googleTranslateService !== 'undefined') {
             // Show loading indicator
@@ -295,6 +314,7 @@ async function performTranslation() {
                 }
             }
         }
+        } // end !usedLocalDictionary
     } catch (error) {
         console.error('Translation error:', error);
         outputDiv.innerHTML = '<p class="text-red-500 italic">Translation error. Please try again.</p>';

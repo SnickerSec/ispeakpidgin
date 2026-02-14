@@ -5,6 +5,31 @@ class GoogleTranslateService {
         this.initialized = true;
     }
 
+    // Post-LLM validation: check translated output against local dictionary
+    // If the LLM left an English word untranslated that has a known Pidgin equivalent, substitute it
+    validateTranslation(originalText, translatedText, direction) {
+        if (direction !== 'eng-to-pidgin') return translatedText;
+        if (typeof pidginTranslator === 'undefined' || !pidginTranslator || !pidginTranslator.comprehensiveDict) return translatedText;
+
+        const dict = pidginTranslator.comprehensiveDict;
+        const inputWords = originalText.toLowerCase().replace(/[.,!?;:'"()\-]/g, ' ').split(/\s+/).filter(w => w.length > 1);
+        let result = translatedText;
+
+        for (const word of inputWords) {
+            const pidginEquivalent = dict[word];
+            if (!pidginEquivalent) continue;
+
+            // Check if the LLM output still contains this English word (untranslated)
+            const wordRegex = new RegExp(`\\b${word}\\b`, 'gi');
+            if (wordRegex.test(result)) {
+                result = result.replace(wordRegex, pidginEquivalent);
+                console.log(`🔧 Post-LLM fix: "${word}" → "${pidginEquivalent}"`);
+            }
+        }
+
+        return result;
+    }
+
     // Translate English to Pidgin using LLM
     async englishToPidgin(text) {
         try {
@@ -25,11 +50,14 @@ class GoogleTranslateService {
 
             const data = await response.json();
 
+            // Layer 3: Post-LLM validation against local dictionary
+            const validatedText = this.validateTranslation(text, data.translatedText, 'eng-to-pidgin');
+
             // Return in format compatible with existing translator
             return [{
-                translation: data.translatedText,
-                confidence: 0.95, // Google Translate has high confidence
-                pronunciation: this.generatePronunciation(data.translatedText)
+                translation: validatedText,
+                confidence: 0.95,
+                pronunciation: this.generatePronunciation(validatedText)
             }];
 
         } catch (error) {

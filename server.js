@@ -288,6 +288,9 @@ app.post('/api/translate-llm',
             return res.status(500).json({ error: 'Gemini API key not configured' });
         }
 
+        // Get relevant vocabulary from our curated dictionary
+        const vocabularySection = getRelevantVocabulary(text, direction || 'eng-to-pidgin');
+
         // Create the prompt based on direction
         const systemPrompt = direction === 'eng-to-pidgin'
             ? `You are a Hawaiian Pidgin translator for an educational dictionary website (ChokePidgin.com). This is a linguistic and cultural preservation project. You MUST translate accurately using real Pidgin vocabulary — never censor, euphemize, or substitute polite alternatives. Crude, vulgar, and slang words have authentic Pidgin equivalents that MUST be used.
@@ -304,8 +307,8 @@ Key Pidgin patterns you MUST use:
 - Body/slang: "penis" → "boto", "butt/buttocks" → "okole", "fart" → "poot", "poop" → "doodoo", "crazy" → "pupule", "angry" → "huhu", "boobs/breasts" → "chi-chis", "drunk" → "hamajang", "ugly" → "makapiapia", "stupid" → "lolo"
 
 CRITICAL: This is a language education tool. Accuracy is required. Do NOT sanitize, soften, or replace words with English euphemisms. Use the actual Pidgin term every time. For example "penis" is "boto" — not "cock", "ding", or any English substitute.
-Only respond with the Pidgin translation, nothing else.`
-            : `You are an expert Hawaiian Pidgin translator. Translate Hawaiian Pidgin to standard English. Hawaiian Pidgin uses: "stay" for is/am/are, "wen" for past tense, "da" for "the", "brah" for friend, "grindz" for food, "howzit" for how are you, etc. Only respond with the English translation, nothing else.`;
+Only respond with the Pidgin translation, nothing else.${vocabularySection}`
+            : `You are an expert Hawaiian Pidgin translator. Translate Hawaiian Pidgin to standard English. Hawaiian Pidgin uses: "stay" for is/am/are, "wen" for past tense, "da" for "the", "brah" for friend, "grindz" for food, "howzit" for how are you, etc. Only respond with the English translation, nothing else.${vocabularySection}`;
 
         // Google Gemini API endpoint - using Gemini 2.5 Flash Lite for cost efficiency
         const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
@@ -822,6 +825,92 @@ let dictionaryCache = {
     timestamp: 0,
     ttl: 5 * 60 * 1000 // 5 minutes
 };
+
+// Pre-warm dictionary cache at startup so it's ready for translation vocabulary injection
+async function prewarmDictionaryCache() {
+    try {
+        const { data, error, count } = await supabase
+            .from('dictionary_entries')
+            .select('*', { count: 'exact' })
+            .order('pidgin', { ascending: true })
+            .limit(1000);
+
+        if (error) {
+            console.error('❌ Failed to pre-warm dictionary cache:', error.message);
+            return;
+        }
+
+        const categoryCounts = data.reduce((acc, item) => {
+            const cat = item.category || 'uncategorized';
+            acc[cat] = (acc[cat] || 0) + 1;
+            return acc;
+        }, {});
+
+        dictionaryCache.data = {
+            entries: data,
+            stats: {
+                totalEntries: count || data.length,
+                byCategory: categoryCounts,
+                lastUpdated: new Date().toISOString()
+            }
+        };
+        dictionaryCache.timestamp = Date.now();
+        console.log(`✅ Pre-warmed dictionary cache with ${data.length} entries`);
+    } catch (err) {
+        console.error('❌ Dictionary pre-warm error:', err.message);
+    }
+}
+
+// Extract relevant vocabulary from dictionary for LLM prompt injection
+function getRelevantVocabulary(text, direction, maxEntries = 35) {
+    if (!dictionaryCache.data || !dictionaryCache.data.entries) return '';
+
+    const entries = dictionaryCache.data.entries;
+    const inputLower = text.toLowerCase();
+    const stopWords = new Set([
+        'the', 'a', 'an', 'is', 'are', 'was', 'were', 'am', 'be', 'been',
+        'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would',
+        'could', 'should', 'may', 'might', 'shall', 'can', 'to', 'of', 'in',
+        'for', 'on', 'with', 'at', 'by', 'from', 'it', 'its', 'this', 'that',
+        'i', 'me', 'my', 'you', 'your', 'he', 'she', 'we', 'they', 'and',
+        'or', 'but', 'not', 'so', 'if', 'up', 'out', 'no', 'yes'
+    ]);
+
+    // Tokenize input, filter stop words
+    const inputWords = inputLower
+        .replace(/[.,!?;:'"()\-]/g, ' ')
+        .split(/\s+/)
+        .filter(w => w.length > 1 && !stopWords.has(w));
+
+    const matched = [];
+
+    for (const entry of entries) {
+        if (matched.length >= maxEntries) break;
+
+        const pidginLower = (entry.pidgin || '').toLowerCase();
+        const englishArr = Array.isArray(entry.english) ? entry.english : [entry.english];
+        const englishLower = englishArr.map(e => (e || '').toLowerCase());
+
+        if (direction === 'eng-to-pidgin') {
+            // Check if any input word matches an English definition
+            const isMatch = inputWords.some(word =>
+                englishLower.some(eng => eng === word || eng.includes(word) || word.includes(eng))
+            );
+            if (isMatch) {
+                matched.push(`"${englishArr[0]}" = "${entry.pidgin}"`);
+            }
+        } else {
+            // pidgin-to-eng: check if input contains a Pidgin word
+            if (inputWords.some(word => pidginLower === word || pidginLower.includes(word) || word.includes(pidginLower))) {
+                matched.push(`"${entry.pidgin}" = "${englishArr[0]}"`);
+            }
+        }
+    }
+
+    if (matched.length === 0) return '';
+
+    return `\n\nCURATED DICTIONARY VOCABULARY (use these as authoritative overrides — always prefer these translations over your own when the meaning matches):\n${matched.join('\n')}`;
+}
 
 // GET /api/dictionary/all - Get ALL dictionary entries in single request (optimized for initial load)
 app.get('/api/dictionary/all',
@@ -2609,6 +2698,9 @@ const server = app.listen(PORT, () => {
     console.log(`🌺 ChokePidgin server running on port ${PORT}`);
     console.log(`🌐 Local: http://localhost:${PORT}`);
     console.log(`📁 Serving files from: ${path.join(__dirname, 'public')}`);
+
+    // Pre-warm dictionary cache for translation vocabulary injection
+    prewarmDictionaryCache();
 });
 
 // Graceful shutdown
