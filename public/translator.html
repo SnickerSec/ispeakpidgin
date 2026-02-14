@@ -148,10 +148,10 @@
     <!-- Navigation -->
 <nav class="shadow-lg sticky top-0 z-50" style="background: linear-gradient(to right, rgba(255, 255, 255, 0.95), rgba(255, 251, 235, 0.95)); backdrop-filter: blur(10px); border-bottom: 3px solid #ff6b6b;">
     <div class="container mx-auto px-4">
-        <div class="flex justify-between items-center py-4">
+        <div class="flex justify-between items-center py-2">
             <div class="flex items-center">
                 <a href="index.html">
-                    <span class="brand-font text-3xl bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+                    <span class="brand-font text-2xl bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
                         🌴 ChokePidgin 🌊
                     </span>
                 </a>
@@ -645,45 +645,6 @@ document.addEventListener('DOMContentLoaded', function() {
     <script defer src="js/components/speech.js"></script>
     <script defer src="js/components/main.js"></script>
 
-    <!-- Fallback mobile menu initialization -->
-    <script>
-        // Ensure mobile menu works even if other scripts fail
-        (function() {
-            function initMobileMenu() {
-                const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-                const mobileMenu = document.getElementById('mobile-menu');
-
-                if (mobileMenuBtn && mobileMenu) {
-                    mobileMenuBtn.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        mobileMenu.classList.toggle('hidden');
-                    });
-
-                    // Close menu when clicking outside
-                    document.addEventListener('click', function(e) {
-                        if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
-                            mobileMenu.classList.add('hidden');
-                        }
-                    });
-
-                    // Close menu when clicking a link
-                    const links = mobileMenu.querySelectorAll('a');
-                    links.forEach(function(link) {
-                        link.addEventListener('click', function() {
-                            mobileMenu.classList.add('hidden');
-                        });
-                    });
-                }
-            }
-
-            // Try to initialize immediately and on DOM ready
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', initMobileMenu);
-            } else {
-                initMobileMenu();
-            }
-        })();
-    </script>
+    <!-- Mobile menu is handled by the shared navigation component -->
 </body>
 </html>
