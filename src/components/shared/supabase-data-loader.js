@@ -54,14 +54,14 @@ class SupabaseDataLoader {
         const cached = this._getFromCache();
         if (cached) {
             this._hydrateFromCache(cached);
-            console.log(`⚡ Loaded ${this.entries.length} entries from cache in ${(performance.now() - startTime).toFixed(0)}ms`);
+            console.log(`<i class="ti ti-bolt"></i> Loaded ${this.entries.length} entries from cache in ${(performance.now() - startTime).toFixed(0)}ms`);
             return this.data;
         }
 
         // Load from API (single request)
-        console.log('🔄 Loading from Supabase API...');
+        console.log('<i class="ti ti-refresh"></i> Loading from Supabase API...');
         await this.loadFromSupabase();
-        console.log(`✅ Loaded ${this.entries.length} entries from API in ${(performance.now() - startTime).toFixed(0)}ms`);
+        console.log(`<i class="ti ti-circle-check"></i> Loaded ${this.entries.length} entries from API in ${(performance.now() - startTime).toFixed(0)}ms`);
         return this.data;
     }
 
@@ -131,12 +131,12 @@ class SupabaseDataLoader {
             const response = await fetch(`${this.apiBaseUrl}/all`);
             if (response.ok) {
                 data = await response.json();
-                console.log('✅ Loaded from /all endpoint');
+                console.log('<i class="ti ti-circle-check"></i> Loaded from /all endpoint');
             } else {
                 throw new Error(`Bulk endpoint returned ${response.status}`);
             }
         } catch (bulkError) {
-            console.warn('⚠️ Bulk endpoint failed, falling back to paginated:', bulkError.message);
+            console.warn('<i class="ti ti-alert-triangle"></i> Bulk endpoint failed, falling back to paginated:', bulkError.message);
             data = await this._loadPaginated();
         }
 
@@ -171,13 +171,13 @@ class SupabaseDataLoader {
         this.categories = Object.keys(data.stats.byCategory || {});
         this.loaded = true;
 
-        console.log(`📊 Loaded ${this.entries.length} entries from Supabase`);
+        console.log(`<i class="ti ti-chart-bar"></i> Loaded ${this.entries.length} entries from Supabase`);
         return this.data;
     }
 
     // Fallback: Load data using paginated endpoint
     async _loadPaginated() {
-        console.log('🔄 Loading with paginated fallback...');
+        console.log('<i class="ti ti-refresh"></i> Loading with paginated fallback...');
 
         // First get stats to know total count
         const statsResponse = await fetch(`${this.apiBaseUrl}/stats`);
@@ -196,7 +196,7 @@ class SupabaseDataLoader {
             allEntries.push(...pageData.entries);
         }
 
-        console.log(`✅ Loaded ${allEntries.length} entries via pagination`);
+        console.log(`<i class="ti ti-circle-check"></i> Loaded ${allEntries.length} entries via pagination`);
 
         return {
             entries: allEntries,

@@ -116,7 +116,7 @@ app.use(helmet({
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
-            styleSrc: ["'self'", "'unsafe-inline'", "https://cdn.tailwindcss.com", "https://fonts.googleapis.com"],
+            styleSrc: ["'self'", "'unsafe-inline'", "https://cdn.tailwindcss.com", "https://fonts.googleapis.com", "https://cdn.jsdelivr.net"],
             scriptSrc: [
                 "'self'",
                 "'unsafe-inline'",
@@ -131,7 +131,7 @@ app.use(helmet({
                 "https://www.google-analytics.com",
                 "https://www.googletagmanager.com"
             ],
-            fontSrc: ["'self'", "https://fonts.gstatic.com"],
+            fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdn.jsdelivr.net"],
             connectSrc: [
                 "'self'",
                 "https://api.elevenlabs.io",

@@ -144,13 +144,13 @@ class LearningHub {
                             ${isCompleted ?
                                 '<span class="text-green-500 text-2xl">✓</span>' :
                                 isLocked ?
-                                '<span class="text-gray-400 text-2xl">🔒</span>' :
+                                '<span class="text-gray-400 text-2xl"><i class="ti ti-lock"></i></span>' :
                                 '<span class="text-gray-400 text-2xl">○</span>'
                             }
                         </div>
                     </div>
                     <div class="flex justify-between items-center text-sm">
-                        <span class="text-gray-500">⏱ ${lesson.duration}</span>
+                        <span class="text-gray-500"><i class="ti ti-stopwatch"></i> ${lesson.duration}</span>
                         <span class="text-gray-500">+${lesson.points} points</span>
                     </div>
                 `;
@@ -214,14 +214,14 @@ class LearningHub {
 
                     ${content.culturalNote ? `
                         <div class="mb-6 bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded">
-                            <h3 class="text-sm font-semibold text-yellow-800 mb-1">🌺 Cultural Note</h3>
+                            <h3 class="text-sm font-semibold text-yellow-800 mb-1"><i class="ti ti-flower"></i> Cultural Note</h3>
                             <p class="text-sm text-yellow-700">${content.culturalNote}</p>
                         </div>
                     ` : ''}
 
                     ${content.practice ? `
                         <div class="mb-6 bg-green-50 border-l-4 border-green-500 p-4 rounded">
-                            <h3 class="text-sm font-semibold text-green-800 mb-1">✨ Practice Tip</h3>
+                            <h3 class="text-sm font-semibold text-green-800 mb-1"><i class="ti ti-sparkles"></i> Practice Tip</h3>
                             <p class="text-sm text-green-700">${content.practice}</p>
                         </div>
                     ` : ''}
@@ -374,15 +374,15 @@ class LearningHub {
 
                 <div class="space-y-3">
                     <button class="level-btn w-full p-4 bg-green-100 hover:bg-green-200 rounded-lg text-left transition" data-level="beginner">
-                        <div class="font-bold text-green-700">🌱 Beginner</div>
+                        <div class="font-bold text-green-700"><i class="ti ti-plant"></i> Beginner</div>
                         <div class="text-sm text-green-600">Basic greetings, food, and everyday phrases</div>
                     </button>
                     <button class="level-btn w-full p-4 bg-yellow-100 hover:bg-yellow-200 rounded-lg text-left transition" data-level="intermediate">
-                        <div class="font-bold text-yellow-700">⭐ Intermediate</div>
+                        <div class="font-bold text-yellow-700"><i class="ti ti-star"></i> Intermediate</div>
                         <div class="text-sm text-yellow-600">Complex sentences and local slang</div>
                     </button>
                     <button class="level-btn w-full p-4 bg-purple-100 hover:bg-purple-200 rounded-lg text-left transition" data-level="advanced">
-                        <div class="font-bold text-purple-700">🏆 Advanced</div>
+                        <div class="font-bold text-purple-700"><i class="ti ti-trophy"></i> Advanced</div>
                         <div class="text-sm text-purple-600">Cultural nuances and grammar patterns</div>
                     </button>
                 </div>
@@ -570,13 +570,13 @@ class LearningHub {
 
         if (percentage >= 80) {
             message = 'Excellent work!';
-            emoji = '🎉';
+            emoji = '<i class="ti ti-confetti"></i>';
         } else if (percentage >= 60) {
             message = 'Good job!';
-            emoji = '👍';
+            emoji = '<i class="ti ti-thumb-up"></i>';
         } else {
             message = 'Keep practicing!';
-            emoji = '💪';
+            emoji = '<i class="ti ti-barbell"></i>';
         }
 
         const modal = document.createElement('div');

@@ -291,14 +291,14 @@ function displayResults(entries, append = false) {
             <div class="flex gap-2 flex-wrap">
                 <button class="dict-speak-btn text-xs px-3 py-2 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-full transition font-medium"
                         data-text="${audioText}">
-                    🔊 Listen
+                    <i class="ti ti-volume"></i> Listen
                 </button>
                 <a href="${entryPageUrl}" class="inline-block text-xs px-3 py-2 bg-green-100 hover:bg-green-200 text-green-700 rounded-full transition font-medium">
-                    📖 Full Page
+                    <i class="ti ti-book"></i> Full Page
                 </a>
                 <button class="dict-practice-btn text-xs px-3 py-2 bg-purple-100 hover:bg-purple-200 text-purple-700 rounded-full transition font-medium"
                         data-word="${entry.key}">
-                    🎯 Practice
+                    <i class="ti ti-target"></i> Practice
                 </button>
             </div>
         </div>
@@ -367,9 +367,9 @@ function addEntryEventListeners() {
             speakText(text);
 
             // Visual feedback
-            btn.innerHTML = '🔊 Playing...';
+            btn.innerHTML = '<i class="ti ti-volume"></i> Playing...';
             setTimeout(() => {
-                btn.innerHTML = '🔊 Listen';
+                btn.innerHTML = '<i class="ti ti-volume"></i> Listen';
             }, 2000);
         });
     });
@@ -459,11 +459,11 @@ function showWordDetails(wordKey) {
                 <!-- Pronunciation -->
                 <div class="bg-purple-50 rounded-xl p-6">
                     <h3 class="font-bold text-purple-800 mb-3 text-lg flex items-center">
-                        🗣️ Pronunciation
+                        <i class="ti ti-speakerphone"></i> Pronunciation
                     </h3>
                     <p class="text-2xl text-purple-700 font-mono">${displayEntry.pronunciation}</p>
                     <button class="mt-3 px-6 py-3 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition speak-word">
-                        🔊 Hear Pronunciation
+                        <i class="ti ti-volume"></i> Hear Pronunciation
                     </button>
                 </div>
                 ` : ''}
@@ -472,13 +472,13 @@ function showWordDetails(wordKey) {
                 <!-- Examples -->
                 <div class="bg-blue-50 rounded-xl p-6">
                     <h3 class="font-bold text-blue-800 mb-3 text-lg flex items-center">
-                        💬 Examples
+                        <i class="ti ti-message"></i> Examples
                     </h3>
                     ${displayEntry.examples.filter(ex => ex).map(example => `
                         <p class="text-xl italic text-blue-700 mb-3">"${example}"</p>
                     `).join('')}
                     <button class="px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition speak-example">
-                        🔊 Listen to Example
+                        <i class="ti ti-volume"></i> Listen to Example
                     </button>
                 </div>
                 ` : ''}
@@ -487,7 +487,7 @@ function showWordDetails(wordKey) {
                 <!-- Usage & Context -->
                 <div class="bg-green-50 rounded-xl p-6">
                     <h3 class="font-bold text-green-800 mb-3 text-lg flex items-center">
-                        📚 Usage & Context
+                        <i class="ti ti-books"></i> Usage & Context
                     </h3>
                     <p class="text-green-700 text-lg">${displayEntry.usage}</p>
                 </div>
@@ -497,7 +497,7 @@ function showWordDetails(wordKey) {
                 <!-- Cultural Origin -->
                 <div class="bg-yellow-50 rounded-xl p-6">
                     <h3 class="font-bold text-yellow-800 mb-3 text-lg flex items-center">
-                        🌺 Cultural Origin
+                        <i class="ti ti-flower"></i> Cultural Origin
                     </h3>
                     <p class="text-yellow-700 text-lg">${displayEntry.origin}</p>
                 </div>
@@ -506,7 +506,7 @@ function showWordDetails(wordKey) {
                 <!-- Category -->
                 <div class="bg-gray-50 rounded-xl p-6">
                     <h3 class="font-bold text-gray-800 mb-3 text-lg flex items-center">
-                        🏷️ Category
+                        <i class="ti ti-tag"></i> Category
                     </h3>
                     <span class="inline-block px-4 py-2 bg-purple-200 text-purple-800 rounded-full font-medium">
                         ${displayEntry.category}
@@ -518,10 +518,10 @@ function showWordDetails(wordKey) {
             <div class="p-8 border-t bg-gray-50 rounded-b-2xl">
                 <div class="flex gap-4 justify-center flex-wrap">
                     <button class="px-8 py-4 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition font-semibold practice-word">
-                        🎯 Practice This Word
+                        <i class="ti ti-target"></i> Practice This Word
                     </button>
                     <button class="px-8 py-4 bg-green-500 text-white rounded-full hover:bg-green-600 transition font-semibold translate-word">
-                        🔄 Use in Translator
+                        <i class="ti ti-refresh"></i> Use in Translator
                     </button>
                     <button class="px-8 py-4 bg-gray-500 text-white rounded-full hover:bg-gray-600 transition font-semibold close-btn">
                         ✓ Got It!

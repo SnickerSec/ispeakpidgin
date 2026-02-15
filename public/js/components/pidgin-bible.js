@@ -225,7 +225,7 @@ function loadBook(slug) {
             </div>
 
             <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6">
-                <h3 class="font-bold text-gray-800 mb-4">📖 Read Full Book</h3>
+                <h3 class="font-bold text-gray-800 mb-4"><i class="ti ti-book"></i> Read Full Book</h3>
                 <div class="flex gap-4 flex-wrap">
                     <a href="${getBibleComBookUrl(book)}" target="_blank" rel="noopener"
                        class="inline-block bg-purple-600 text-white px-6 py-3 rounded-xl hover:bg-purple-700 transition font-semibold">
@@ -296,7 +296,7 @@ function showChapterModal(book, chapter) {
                    class="block bg-gradient-to-r from-purple-600 to-blue-600 text-white p-6 rounded-xl hover:from-purple-700 hover:to-blue-700 transition shadow-lg">
                     <div class="flex items-center justify-between">
                         <div>
-                            <h3 class="text-xl font-bold mb-2">📖 Bible.com / YouVersion</h3>
+                            <h3 class="text-xl font-bold mb-2"><i class="ti ti-book"></i> Bible.com / YouVersion</h3>
                             <p class="text-white/90">Read on the world's #1 Bible app</p>
                         </div>
                         <span class="text-3xl">→</span>
@@ -307,7 +307,7 @@ function showChapterModal(book, chapter) {
                    class="block bg-gradient-to-r from-green-600 to-teal-600 text-white p-6 rounded-xl hover:from-green-700 hover:to-teal-700 transition shadow-lg">
                     <div class="flex items-center justify-between">
                         <div>
-                            <h3 class="text-xl font-bold mb-2">🌐 Hawaii Pidgin Bible Ministries</h3>
+                            <h3 class="text-xl font-bold mb-2"><i class="ti ti-world"></i> Hawaii Pidgin Bible Ministries</h3>
                             <p class="text-white/90">Official translation website</p>
                         </div>
                         <span class="text-3xl">→</span>
@@ -318,7 +318,7 @@ function showChapterModal(book, chapter) {
                    class="block bg-gradient-to-r from-orange-600 to-red-600 text-white p-6 rounded-xl hover:from-orange-700 hover:to-red-700 transition shadow-lg">
                     <div class="flex items-center justify-between">
                         <div>
-                            <h3 class="text-xl font-bold mb-2">📚 eBible.org</h3>
+                            <h3 class="text-xl font-bold mb-2"><i class="ti ti-books"></i> eBible.org</h3>
                             <p class="text-white/90">Free downloads (PDF, HTML, ePub, etc.)</p>
                         </div>
                         <span class="text-3xl">→</span>

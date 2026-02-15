@@ -221,7 +221,7 @@ class PidginHangman {
         const resultMeaning = document.getElementById('result-meaning');
         const resultLink = document.getElementById('result-link');
 
-        resultTitle.textContent = won ? '🎉 You Got It!' : '😢 Game Over';
+        resultTitle.innerHTML = won ? '<i class="ti ti-confetti"></i> You Got It!' : '<i class="ti ti-mood-sad"></i> Game Over';
         resultTitle.className = `text-2xl font-bold mb-2 ${won ? 'text-green-600' : 'text-red-600'}`;
 
         resultWord.textContent = this.currentWordData.pidgin;

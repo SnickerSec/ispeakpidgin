@@ -137,13 +137,13 @@
                 </p>
                 <div class="flex flex-wrap gap-4">
                     <a href="/dictionary.html" class="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-full hover:bg-purple-200 transition">
-                        <span>📚</span> Browse Dictionary
+                        <span><i class="ti ti-books"></i></span> Browse Dictionary
                     </a>
                     <a href="/translator.html" class="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full hover:bg-blue-200 transition">
-                        <span>🔄</span> Translator
+                        <span><i class="ti ti-refresh"></i></span> Translator
                     </a>
                     <a href="/cheat-sheet.html" class="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-700 rounded-full hover:bg-green-200 transition">
-                        <span>📋</span> Cheat Sheet
+                        <span><i class="ti ti-clipboard"></i></span> Cheat Sheet
                     </a>
                 </div>
             </div>
@@ -248,13 +248,13 @@
             <p class="text-gray-600 mb-6">Explore our complete dictionary or practice with fun games!</p>
             <div class="flex flex-wrap justify-center gap-4">
                 <a href="/dictionary.html" class="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-full font-bold hover:scale-105 transition shadow-lg">
-                    📚 Browse Full Dictionary
+                    <i class="ti ti-books"></i> Browse Full Dictionary
                 </a>
                 <a href="/pidgin-wordle.html" class="px-8 py-4 bg-gradient-to-r from-green-500 to-teal-500 text-white rounded-full font-bold hover:scale-105 transition shadow-lg flex items-center gap-2">
                     <img src="assets/images/wordle-icon.png" alt="Wordle" loading="lazy" class="w-6 h-6"> Play Pidgin Wordle
                 </a>
                 <a href="/how-local-you-stay.html" class="px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full font-bold hover:scale-105 transition shadow-lg">
-                    🤙 Take the Quiz
+                    <i class="ti ti-hand-love-you"></i> Take the Quiz
                 </a>
             </div>
         </section>
@@ -331,11 +331,11 @@
                         <h3 class="text-xl font-bold text-purple-700">${phrase.pidgin}</h3>
                         <button onclick="speakPhrase('${phrase.pidgin.replace(/\\/g, "\\\\").replace(/'/g, "\\'")}')"
                                 class="text-blue-500 hover:text-blue-700 p-1" title="Hear pronunciation">
-                            🔊
+                            <i class="ti ti-volume"></i>
                         </button>
                     </div>
                     <p class="text-gray-800 font-medium mb-1">${phrase.english}</p>
-                    <p class="text-sm text-gray-500">🗣️ ${phrase.pronunciation}</p>
+                    <p class="text-sm text-gray-500"><i class="ti ti-speakerphone"></i> ${phrase.pronunciation}</p>
                 </div>
             `;
         }

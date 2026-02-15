@@ -168,7 +168,7 @@
     <header class="py-12 px-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
         <div class="container mx-auto max-w-6xl text-center">
             <h1 class="text-3xl md:text-5xl font-bold mb-4 whitespace-nowrap">
-                🌴 Tropical Story Corner 📚
+                <i class="ti ti-palm-tree"></i> Tropical Story Corner <i class="ti ti-books"></i>
             </h1>
             <p class="text-xl md:text-2xl mb-2">
                 Authentic Hawaiian Pidgin Stories from Island Life
@@ -199,13 +199,13 @@
                     🏠 Family
                 </button>
                 <button class="filter-btn px-4 py-2 rounded-full border-2 border-gray-300" data-filter="ocean">
-                    🌊 Ocean
+                    <i class="ti ti-ripple"></i> Ocean
                 </button>
                 <button class="filter-btn px-4 py-2 rounded-full border-2 border-gray-300" data-filter="food">
-                    🍱 Food
+                    <i class="ti ti-tools-kitchen-2"></i> Food
                 </button>
                 <button class="filter-btn px-4 py-2 rounded-full border-2 border-gray-300" data-filter="culture">
-                    🌺 Culture
+                    <i class="ti ti-flower"></i> Culture
                 </button>
             </div>
         </div>
@@ -220,7 +220,7 @@
 
             <!-- No Results Message -->
             <div id="no-results" class="hidden text-center py-12">
-                <p class="text-2xl text-gray-600 mb-4">🔍 No stories found</p>
+                <p class="text-2xl text-gray-600 mb-4"><i class="ti ti-search"></i> No stories found</p>
                 <p class="text-gray-500">Try selecting a different filter</p>
             </div>
         </div>
@@ -298,7 +298,7 @@
                                 <!-- Pidgin Text -->
                                 <div class="mb-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl">
                                     <h3 class="text-lg font-bold text-purple-700 mb-2">
-                                        📖 Pidgin Story
+                                        <i class="ti ti-book"></i> Pidgin Story
                                     </h3>
                                     <p class="text-gray-800 text-base leading-relaxed">
                                         ${story.pidginText}
@@ -308,7 +308,7 @@
                                 <!-- English Translation -->
                                 <div class="mb-6 p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-xl">
                                     <h3 class="text-lg font-bold text-green-700 mb-2">
-                                        📝 English Translation
+                                        <i class="ti ti-note"></i> English Translation
                                     </h3>
                                     <p class="text-gray-700 text-base leading-relaxed">
                                         ${story.englishTranslation}
@@ -318,7 +318,7 @@
                                 <!-- Cultural Notes -->
                                 <div class="mb-6 p-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl">
                                     <h3 class="text-lg font-bold text-orange-700 mb-2">
-                                        🌺 Cultural Context
+                                        <i class="ti ti-flower"></i> Cultural Context
                                     </h3>
                                     <p class="text-gray-700 text-base leading-relaxed">
                                         ${story.culturalNotes}
@@ -328,7 +328,7 @@
                                 <!-- Vocabulary -->
                                 <div class="mb-4">
                                     <h3 class="text-lg font-bold text-gray-800 mb-3">
-                                        📚 Key Vocabulary
+                                        <i class="ti ti-books"></i> Key Vocabulary
                                     </h3>
                                     <div class="flex flex-wrap gap-2">
                                         ${story.vocabulary.map(word => `
@@ -345,7 +345,7 @@
                                 ${story.audioExample ? `
                                 <div class="p-4 bg-gradient-to-r from-pink-50 to-red-50 rounded-xl">
                                     <h3 class="text-lg font-bold text-red-700 mb-2">
-                                        🔊 Listen & Learn
+                                        <i class="ti ti-volume"></i> Listen & Learn
                                     </h3>
                                     <p class="text-gray-800 text-base italic">
                                         "${story.audioExample}"
@@ -359,7 +359,7 @@
                                 class="read-more-btn w-full mt-4 px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:from-purple-700 hover:to-blue-700 transition shadow-lg"
                                 data-story-id="${story.id}"
                             >
-                                📖 Read Full Story
+                                <i class="ti ti-book"></i> Read Full Story
                             </button>
                         </div>
                     </div>
@@ -379,7 +379,7 @@
                     } else {
                         content.classList.remove('expanded');
                         content.classList.add('collapsed');
-                        this.textContent = '📖 Read Full Story';
+                        this.textContent = '<i class="ti ti-book"></i> Read Full Story';
                         // Scroll to top of card
                         document.querySelector(`[data-story-id="${storyId}"]`).scrollIntoView({
                             behavior: 'smooth',

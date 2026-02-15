@@ -277,9 +277,9 @@
             locationResults.classList.add('hidden');
 
             // Visual feedback
-            this.innerHTML = '✨';
+            this.innerHTML = '<i class="ti ti-sparkles"></i>';
             setTimeout(() => {
-                this.innerHTML = '🎲';
+                this.innerHTML = '<i class="ti ti-dice"></i>';
             }, 500);
         });
 
@@ -386,13 +386,13 @@
         // Set badge
         if (resultBadge) {
             if (line.type === 'howzit-grindz') {
-                resultBadge.textContent = '📍 808 Mode';
+                resultBadge.innerHTML = '<i class="ti ti-map-pin"></i> 808 Mode';
                 resultBadge.className = 'badge badge-ai';
             } else if (line.aiGenerated || line.type === 'ai-generated') {
-                resultBadge.textContent = '🤖 AI Generated';
+                resultBadge.innerHTML = '<i class="ti ti-robot"></i> AI Generated';
                 resultBadge.className = 'badge badge-ai';
             } else {
-                resultBadge.textContent = '🎲 Random Mix';
+                resultBadge.innerHTML = '<i class="ti ti-dice"></i> Random Mix';
                 resultBadge.className = 'badge badge-random';
             }
         }
@@ -470,7 +470,7 @@
             // Update button to show loading state
             if (speakBtn) {
                 speakBtn.disabled = true;
-                speakBtn.innerHTML = '⏸️ Playing...';
+                speakBtn.innerHTML = '<i class="ti ti-player-pause"></i> Playing...';
             }
 
             // Use ElevenLabs speech if available, otherwise fallback to browser TTS
@@ -498,7 +498,7 @@
             // Reset button
             if (speakBtn) {
                 speakBtn.disabled = false;
-                speakBtn.innerHTML = '🔊 Listen';
+                speakBtn.innerHTML = '<i class="ti ti-volume"></i> Listen';
             }
         }
     }
@@ -540,7 +540,7 @@
         if (resultContainer) {
             resultContainer.innerHTML = `
                 <div class="bg-red-50 border-2 border-red-300 rounded-2xl p-6 text-center">
-                    <p class="text-red-700 text-lg font-semibold mb-2">⚠️ Oops!</p>
+                    <p class="text-red-700 text-lg font-semibold mb-2"><i class="ti ti-alert-triangle"></i> Oops!</p>
                     <p class="text-red-600">${message}</p>
                 </div>
             `;

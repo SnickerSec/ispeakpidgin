@@ -19,9 +19,9 @@ class PhraseTranslator {
 
     async loadPhraseData() {
         try {
-            // Load translator view data (contains all needed translation data)
-            const dataResponse = await fetch('/data/views/translator.json');
-            const translatorData = await dataResponse.json();
+            // Wait for the shared data loader to be ready
+            await this._waitForDataLoader();
+            const translatorData = { entries: pidginDataLoader.getAllEntries() };
 
             // Build phrase lookup from translator data
             this.phraseLookup = {};
@@ -49,7 +49,7 @@ class PhraseTranslator {
             });
 
             this.loaded = true;
-            console.log(`✅ Loaded ${this.phraseData.metadata.totalPhrases} phrase translations`);
+            console.log(`<i class="ti ti-circle-check"></i> Loaded ${this.phraseData.metadata.totalPhrases} phrase translations`);
 
             // Dispatch event for initialization tracking
             window.dispatchEvent(new CustomEvent('phraseTranslatorLoaded', {
@@ -59,6 +59,17 @@ class PhraseTranslator {
             console.error('Failed to load phrase data:', error);
             this.loaded = false;
         }
+    }
+
+    async _waitForDataLoader() {
+        if (typeof pidginDataLoader !== 'undefined' && pidginDataLoader.loaded) return;
+        return new Promise((resolve, reject) => {
+            const timeout = setTimeout(() => reject(new Error('Data loader timeout')), 10000);
+            window.addEventListener('pidginDataLoaded', () => {
+                clearTimeout(timeout);
+                resolve();
+            }, { once: true });
+        });
     }
 
     /**

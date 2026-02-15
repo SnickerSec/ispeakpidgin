@@ -120,7 +120,7 @@ class AskLocalPageManager {
 
         try {
             this.submitQuestion(userName, questionText);
-            this.showFeedback('Your question has been submitted! Locals will respond soon. 🌺', 'success');
+            this.showFeedback('Your question has been submitted! Locals will respond soon. <i class="ti ti-flower"></i>', 'success');
 
             // Reset form
             document.getElementById('ask-form').reset();
@@ -279,7 +279,7 @@ class AskLocalPageManager {
         container.innerHTML = filteredQuestions.map(q => {
             const hasResponses = q.responses && q.responses.length > 0;
             const statusClass = hasResponses ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800';
-            const statusText = hasResponses ? '✅ Answered' : '⏳ Pending Response';
+            const statusText = hasResponses ? '<i class="ti ti-circle-check"></i> Answered' : '<i class="ti ti-hourglass"></i> Pending Response';
             const cardClass = hasResponses ? 'answered-card' : 'pending-card';
             const safeId = this.escapeAttr(q.id);
 
@@ -290,9 +290,9 @@ class AskLocalPageManager {
                             <div class="flex-1">
                                 <h3 class="font-bold text-lg text-gray-800 mb-2">${this.escapeHtml(q.questionText)}</h3>
                                 <div class="flex items-center gap-3 text-sm text-gray-500">
-                                    <span class="whitespace-nowrap">👤 ${this.escapeHtml(q.userName)}</span>
+                                    <span class="whitespace-nowrap"><i class="ti ti-user"></i> ${this.escapeHtml(q.userName)}</span>
                                     <span class="whitespace-nowrap">•</span>
-                                    <span class="whitespace-nowrap">📅 ${this.formatDate(q.timestamp)}</span>
+                                    <span class="whitespace-nowrap"><i class="ti ti-calendar"></i> ${this.formatDate(q.timestamp)}</span>
                                     <span class="${statusClass} px-3 py-1 rounded-full font-medium whitespace-nowrap">${statusText}</span>
                                 </div>
                             </div>
@@ -302,13 +302,13 @@ class AskLocalPageManager {
 
                         <div class="mt-4 pt-4 border-t border-gray-100">
                             <button class="respond-btn text-blue-600 hover:text-blue-800 font-medium" data-question-id="${safeId}">
-                                💬 ${hasResponses ? 'Add Another Response' : 'Respond to Question'}
+                                <i class="ti ti-message"></i> ${hasResponses ? 'Add Another Response' : 'Respond to Question'}
                             </button>
                         </div>
 
                         <!-- Response Form (initially hidden) -->
                         <div id="response-form-${safeId}" class="hidden mt-4 p-4 bg-blue-50 rounded-lg border-2 border-blue-200">
-                            <h4 class="font-semibold mb-3 text-blue-800">🌺 Share Your Local Knowledge</h4>
+                            <h4 class="font-semibold mb-3 text-blue-800"><i class="ti ti-flower"></i> Share Your Local Knowledge</h4>
                             <div class="mb-3">
                                 <input type="text" id="responder-name-${safeId}" class="w-full p-2 border rounded" placeholder="Your name (optional)" maxlength="50">
                             </div>
@@ -320,14 +320,14 @@ class AskLocalPageManager {
                             <!-- Mini CAPTCHA for responses -->
                             <div class="mb-3 bg-yellow-50 p-3 rounded border">
                                 <label class="block text-sm font-medium mb-1">
-                                    🔒 Quick check: <span id="response-captcha-${safeId}"></span> = ?
+                                    <i class="ti ti-lock"></i> Quick check: <span id="response-captcha-${safeId}"></span> = ?
                                 </label>
                                 <input type="number" id="response-captcha-answer-${safeId}" class="w-20 p-1 border rounded text-sm" required>
                             </div>
 
                             <div class="flex gap-2">
                                 <button class="submit-response-btn bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition text-sm" data-question-id="${safeId}">
-                                    🌺 Submit Response
+                                    <i class="ti ti-flower"></i> Submit Response
                                 </button>
                                 <button class="cancel-response-btn text-gray-600 hover:text-gray-800 px-3 py-2 text-sm" data-question-id="${safeId}">
                                     Cancel
@@ -347,7 +347,7 @@ class AskLocalPageManager {
     renderResponses(responses) {
         return `
             <div class="bg-green-50 rounded-lg p-4 mt-4 border border-green-200">
-                <h4 class="font-semibold text-green-800 mb-3">🌺 Local Responses:</h4>
+                <h4 class="font-semibold text-green-800 mb-3"><i class="ti ti-flower"></i> Local Responses:</h4>
                 <div class="space-y-3">
                     ${responses.map(r => {
                         const safeResponseId = this.escapeAttr(r.id);
@@ -356,11 +356,11 @@ class AskLocalPageManager {
                         <div class="bg-white p-4 rounded border-l-4 border-green-400">
                             <p class="text-gray-800 mb-2">${this.escapeHtml(r.responseText)}</p>
                             <div class="flex items-center gap-3 text-sm text-gray-500">
-                                <span class="whitespace-nowrap">👨‍🏫 ${this.escapeHtml(r.responderName || 'Local Helper')}</span>
+                                <span class="whitespace-nowrap"><i class="ti ti-user-check"></i> ${this.escapeHtml(r.responderName || 'Local Helper')}</span>
                                 <span class="whitespace-nowrap">•</span>
-                                <span class="whitespace-nowrap">📅 ${this.formatDate(r.timestamp)}</span>
+                                <span class="whitespace-nowrap"><i class="ti ti-calendar"></i> ${this.formatDate(r.timestamp)}</span>
                                 <button class="helpful-btn text-green-600 hover:text-green-800 ml-2 whitespace-nowrap" data-response-id="${safeResponseId}">
-                                    👍 Helpful (${helpfulCount})
+                                    <i class="ti ti-thumb-up"></i> Helpful (${helpfulCount})
                                 </button>
                             </div>
                         </div>
@@ -468,7 +468,7 @@ class AskLocalPageManager {
 
         try {
             this.addResponseToQuestion(questionId, responderName, responseText);
-            this.showResponseFeedback(questionId, 'Thank you for sharing your local knowledge! 🌺', 'success');
+            this.showResponseFeedback(questionId, 'Thank you for sharing your local knowledge! <i class="ti ti-flower"></i>', 'success');
 
             setTimeout(() => {
                 this.hideResponseForm(questionId);

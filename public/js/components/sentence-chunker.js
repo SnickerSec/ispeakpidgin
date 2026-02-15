@@ -20,9 +20,9 @@ class SentenceChunker {
 
     async loadData() {
         try {
-            // Load translator view data
-            const dataResponse = await fetch('/data/views/translator.json');
-            const translatorData = await dataResponse.json();
+            // Wait for the shared data loader to be ready
+            await this._waitForDataLoader();
+            const translatorData = { entries: pidginDataLoader.getAllEntries() };
 
             // Build sentence and phrase lookups from translator data
             this.sentenceLookup = {
@@ -58,13 +58,24 @@ class SentenceChunker {
             });
 
             this.loaded = true;
-            console.log(`✅ Sentence chunker loaded: ${Object.keys(this.sentenceLookup.englishToPidgin).length} sentences, ${Object.keys(this.phraseLookup).length} phrases`);
+            console.log(`<i class="ti ti-circle-check"></i> Sentence chunker loaded: ${Object.keys(this.sentenceLookup.englishToPidgin).length} sentences, ${Object.keys(this.phraseLookup).length} phrases`);
 
             window.dispatchEvent(new CustomEvent('sentenceChunkerLoaded'));
         } catch (error) {
             console.error('Failed to load sentence chunker data:', error);
             this.loaded = false;
         }
+    }
+
+    async _waitForDataLoader() {
+        if (typeof pidginDataLoader !== 'undefined' && pidginDataLoader.loaded) return;
+        return new Promise((resolve, reject) => {
+            const timeout = setTimeout(() => reject(new Error('Data loader timeout')), 10000);
+            window.addEventListener('pidginDataLoaded', () => {
+                clearTimeout(timeout);
+                resolve();
+            }, { once: true });
+        });
     }
 
     /**

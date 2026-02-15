@@ -179,6 +179,9 @@ function processHTMLFiles() {
                 content = content.replace('<!-- FOOTER_PLACEHOLDER -->', footerTemplate);
             }
 
+            // Inject Tabler Icons CDN stylesheet before </head>
+            content = content.replace('</head>', '    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">\n</head>');
+
             // Update script and link paths
             Object.entries(pathMappings).forEach(([oldPath, newPath]) => {
                 content = content.replace(new RegExp(`src="${oldPath}"`, 'g'), `src="${newPath}"`);
@@ -218,6 +221,9 @@ function processHTMLFiles() {
                 content = content.replace('<!-- FOOTER_PLACEHOLDER -->', blogFooter);
             }
 
+            // Inject Tabler Icons CDN stylesheet before </head>
+            content = content.replace('</head>', '    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">\n</head>');
+
             // Update script and link paths for blog pages
             // First apply standard mappings with ../ prefix for root-relative paths
             Object.entries(pathMappings).forEach(([oldPath, newPath]) => {
@@ -242,6 +248,9 @@ function processHTMLFiles() {
 
     if (fs.existsSync(adminSrcPath)) {
         let content = fs.readFileSync(adminSrcPath, 'utf8');
+
+        // Inject Tabler Icons CDN stylesheet before </head>
+        content = content.replace('</head>', '    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">\n</head>');
 
         // Update script and link paths (no template injection for admin page)
         Object.entries(pathMappings).forEach(([oldPath, newPath]) => {

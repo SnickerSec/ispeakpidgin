@@ -314,11 +314,11 @@ class PidginWordle {
 
     handleWin() {
         const messages = [
-            'Chee hoo! 🌺',
-            'Rajah! You got em! 🤙',
-            'Das it! You da champion! 🏆',
-            'Broke da mouth! 💯',
-            'You stay local! 🌴'
+            'Chee hoo! <i class="ti ti-flower"></i>',
+            'Rajah! You got em! <i class="ti ti-hand-love-you"></i>',
+            'Das it! You da champion! <i class="ti ti-trophy"></i>',
+            'Broke da mouth! <i class="ti ti-number-100-small"></i>',
+            'You stay local! <i class="ti ti-palm-tree"></i>'
         ];
 
         const randomMessage = messages[Math.floor(Math.random() * messages.length)];
@@ -392,7 +392,7 @@ class PidginWordle {
     }
 
     showToast(message) {
-        this.toast.textContent = message;
+        this.toast.innerHTML = message;
         this.toast.classList.add('show');
 
         setTimeout(() => {
@@ -555,7 +555,7 @@ class PidginWordle {
     fallbackShare(text) {
         // Copy to clipboard
         navigator.clipboard.writeText(text).then(() => {
-            this.showToast('Results copied to clipboard! 📋');
+            this.showToast('Results copied to clipboard! <i class="ti ti-clipboard"></i>');
         }).catch(err => {
             // If clipboard fails, show the text in an alert
             alert(text);

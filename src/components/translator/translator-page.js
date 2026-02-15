@@ -349,7 +349,7 @@ async function performTranslation() {
             // Show alternative translations if available
             if (results.length > 1) {
                 outputHTML += '<div class="mt-4 pt-4 border-t border-gray-200">';
-                outputHTML += '<p class="text-sm font-semibold text-gray-700 mb-3">📚 Alternative Translations:</p>';
+                outputHTML += '<p class="text-sm font-semibold text-gray-700 mb-3"><i class="ti ti-books"></i> Alternative Translations:</p>';
                 outputHTML += '<div class="space-y-2">';
                 for (let i = 1; i < Math.min(results.length, 3); i++) {
                     const altConf = Math.round(results[i].confidence * 100);
@@ -369,7 +369,7 @@ async function performTranslation() {
 
                     if (meta.usage) {
                         outputHTML += `<div class="mb-3">
-                            <span class="text-xs font-semibold text-blue-800">💡 Usage:</span>
+                            <span class="text-xs font-semibold text-blue-800"><i class="ti ti-bulb"></i> Usage:</span>
                             <span class="text-sm text-gray-700 ml-2">${meta.usage}</span>
                         </div>`;
                     }
@@ -388,7 +388,7 @@ async function performTranslation() {
 
                     if (meta.examples && meta.examples.length > 0) {
                         outputHTML += '<div class="mt-3">';
-                        outputHTML += '<p class="text-xs font-semibold text-purple-800 mb-2">📝 Examples:</p>';
+                        outputHTML += '<p class="text-xs font-semibold text-purple-800 mb-2"><i class="ti ti-note"></i> Examples:</p>';
                         meta.examples.slice(0, 2).forEach(example => {
                             outputHTML += `<p class="text-sm italic text-gray-600 mb-1">"${example}"</p>`;
                         });
@@ -592,12 +592,12 @@ function setupVoiceInput() {
             recognition.start();
             isListening = true;
             micBtn.classList.add('text-red-600', 'animate-pulse');
-            micBtn.textContent = '🔴 Listening...';
+            micBtn.innerHTML = '<i class="ti ti-circle-filled"></i> Listening...';
         } else {
             recognition.stop();
             isListening = false;
             micBtn.classList.remove('text-red-600', 'animate-pulse');
-            micBtn.textContent = '🎤 Voice Input';
+            micBtn.innerHTML = '<i class="ti ti-microphone"></i> Voice Input';
         }
     });
 
@@ -627,7 +627,7 @@ function setupVoiceInput() {
         console.error('Speech recognition error:', event.error);
         isListening = false;
         micBtn.classList.remove('text-red-600', 'animate-pulse');
-        micBtn.textContent = '🎤 Voice Input';
+        micBtn.innerHTML = '<i class="ti ti-microphone"></i> Voice Input';
 
         if (event.error === 'not-allowed') {
             alert('Please allow microphone access to use voice input');
@@ -637,7 +637,7 @@ function setupVoiceInput() {
     recognition.onend = () => {
         isListening = false;
         micBtn.classList.remove('text-red-600', 'animate-pulse');
-        micBtn.textContent = '🎤 Voice Input';
+        micBtn.innerHTML = '<i class="ti ti-microphone"></i> Voice Input';
     };
 }
 

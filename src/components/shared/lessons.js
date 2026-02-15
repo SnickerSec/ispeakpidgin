@@ -46,7 +46,7 @@ function getFallbackLessonsData() {
             {
                 id: 'greetings',
                 title: 'Basic Greetings',
-                icon: '👋',
+                icon: '<i class="ti ti-hand-wave"></i>',
                 content: {
                     vocabulary: [
                         { pidgin: 'Howzit', english: 'Hello/How are you', example: 'Howzit, brah!' },
@@ -61,7 +61,7 @@ function getFallbackLessonsData() {
             {
                 id: 'food',
                 title: 'Food & Eating',
-                icon: '🍽️',
+                icon: '<i class="ti ti-tools-kitchen-2"></i>',
                 content: {
                     vocabulary: [
                         { pidgin: 'Grinds', english: 'Food', example: 'Da grinds stay ono!' },
@@ -77,7 +77,7 @@ function getFallbackLessonsData() {
             {
                 id: 'exclamations',
                 title: 'Exclamations & Expressions',
-                icon: '🎉',
+                icon: '<i class="ti ti-confetti"></i>',
                 content: {
                     vocabulary: [
                         { pidgin: 'Chee hoo!', english: 'Expression of joy', example: 'Chee hoo! We going beach!' },
@@ -93,7 +93,7 @@ function getFallbackLessonsData() {
             {
                 id: 'complex',
                 title: 'Complex Expressions',
-                icon: '🎯',
+                icon: '<i class="ti ti-target"></i>',
                 content: {
                     vocabulary: [
                         { pidgin: 'If can can, if no can no can', english: "Do it if possible", example: 'If can can, if no can no can.' },

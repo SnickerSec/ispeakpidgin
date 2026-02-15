@@ -299,28 +299,28 @@ class PracticeData {
                 id: 'first_session',
                 name: 'Getting Started',
                 description: 'Complete your first practice session',
-                icon: '🌱',
+                icon: '<i class="ti ti-plant"></i>',
                 condition: () => stats.totalSessions >= 1
             },
             {
                 id: 'streak_3',
                 name: 'Building Habits',
                 description: 'Practice for 3 days in a row',
-                icon: '🔥',
+                icon: '<i class="ti ti-flame"></i>',
                 condition: () => stats.currentStreak >= 3
             },
             {
                 id: 'streak_7',
                 name: 'Week Warrior',
                 description: 'Practice for 7 days in a row',
-                icon: '⚡',
+                icon: '<i class="ti ti-bolt"></i>',
                 condition: () => stats.currentStreak >= 7
             },
             {
                 id: 'words_10',
                 name: 'Vocabulary Builder',
                 description: 'Master 10 words',
-                icon: '📚',
+                icon: '<i class="ti ti-books"></i>',
                 condition: () => stats.totalWordsLearned >= 10
             },
             {
@@ -334,14 +334,14 @@ class PracticeData {
                 id: 'accuracy_90',
                 name: 'Precision Master',
                 description: 'Maintain 90% average accuracy',
-                icon: '🎯',
+                icon: '<i class="ti ti-target"></i>',
                 condition: () => stats.averageAccuracy >= 90
             },
             {
                 id: 'sessions_100',
                 name: 'Dedicated Learner',
                 description: 'Complete 100 practice sessions',
-                icon: '🏆',
+                icon: '<i class="ti ti-trophy"></i>',
                 condition: () => stats.totalSessions >= 100
             }
         ];

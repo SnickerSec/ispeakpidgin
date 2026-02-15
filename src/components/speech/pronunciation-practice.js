@@ -895,12 +895,12 @@ class PronunciationPractice {
         if (score >= 90) {
             feedback.push({
                 type: 'success',
-                message: "Ho, you sound like one local! Perfect! 🤙"
+                message: 'Ho, you sound like one local! Perfect! <i class="ti ti-hand-love-you"></i>'
             });
         } else if (score >= 75) {
             feedback.push({
                 type: 'good',
-                message: "Solid! Getting da hang of it! 🌺"
+                message: 'Solid! Getting da hang of it! <i class="ti ti-flower"></i>'
             });
         } else if (score >= 50) {
             feedback.push({

@@ -195,15 +195,15 @@
     <!-- Header -->
     <header class="py-12 px-4 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 text-white relative overflow-hidden">
         <div class="absolute inset-0 opacity-20">
-            <div class="absolute top-10 left-10 text-6xl emoji-float">💕</div>
-            <div class="absolute top-20 right-20 text-5xl emoji-float" style="animation-delay: 0.5s">🌺</div>
+            <div class="absolute top-10 left-10 text-6xl emoji-float"><i class="ti ti-hearts"></i></div>
+            <div class="absolute top-20 right-20 text-5xl emoji-float" style="animation-delay: 0.5s"><i class="ti ti-flower"></i></div>
             <div class="absolute bottom-20 left-20 text-5xl emoji-float" style="animation-delay: 1s">💖</div>
-            <div class="absolute bottom-10 right-10 text-4xl emoji-float" style="animation-delay: 1.5s">🌴</div>
+            <div class="absolute bottom-10 right-10 text-4xl emoji-float" style="animation-delay: 1.5s"><i class="ti ti-palm-tree"></i></div>
         </div>
 
         <div class="container mx-auto max-w-6xl text-center relative z-10">
             <h1 class="text-3xl md:text-5xl font-bold mb-4">
-                💕 Hawaiian Pidgin Pickup Lines 🌺
+                <i class="ti ti-hearts"></i> Hawaiian Pidgin Pickup Lines <i class="ti ti-flower"></i>
             </h1>
             <p class="text-xl md:text-2xl mb-2">
                 Flirt Island Style with Authentic Local Charm
@@ -219,10 +219,10 @@
         <div class="container mx-auto max-w-6xl">
             <div class="flex gap-2 sm:gap-4 justify-center items-center flex-wrap">
                 <button id="shuffle-btn" class="shuffle-btn px-3 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full text-sm sm:text-base font-semibold hover:from-purple-700 hover:to-pink-700 shadow-lg flex items-center gap-1 sm:gap-2 whitespace-nowrap">
-                    🎲 <span class="hidden sm:inline">Shuffle Pickup Lines</span><span class="sm:hidden">Shuffle</span>
+                    <i class="ti ti-dice"></i> <span class="hidden sm:inline">Shuffle Pickup Lines</span><span class="sm:hidden">Shuffle</span>
                 </button>
                 <a href="pickup-line-generator.html" class="px-3 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-full text-sm sm:text-base font-semibold hover:from-green-700 hover:to-blue-700 shadow-lg flex items-center gap-1 sm:gap-2 whitespace-nowrap">
-                    ✨ <span class="hidden sm:inline">Generate Your Own</span><span class="sm:hidden">Generator</span>
+                    <i class="ti ti-sparkles"></i> <span class="hidden sm:inline">Generate Your Own</span><span class="sm:hidden">Generator</span>
                 </a>
             </div>
         </div>
@@ -247,7 +247,7 @@
                 </h3>
                 <p class="text-gray-700 text-lg">
                     These pickup lines are for <strong>fun and cultural learning</strong>! Use with aloha spirit, respect, and a good sense of humor.
-                    Results may vary, but at the very least, you'll make someone smile. 🤙
+                    Results may vary, but at the very least, you'll make someone smile. <i class="ti ti-hand-love-you"></i>
                 </p>
             </div>
         </div>
@@ -264,13 +264,13 @@
 
         // Category colors and emojis
         const categoryStyles = {
-            romantic: { color: 'pink', emoji: '💕' },
+            romantic: { color: 'pink', emoji: '<i class="ti ti-hearts"></i>' },
             food: { color: 'orange', emoji: '🍜' },
             funny: { color: 'yellow', emoji: '😂' },
-            bold: { color: 'red', emoji: '🔥' },
-            sweet: { color: 'purple', emoji: '🌺' },
-            classic: { color: 'green', emoji: '🌴' },
-            default: { color: 'blue', emoji: '🤙' }
+            bold: { color: 'red', emoji: '<i class="ti ti-flame"></i>' },
+            sweet: { color: 'purple', emoji: '<i class="ti ti-flower"></i>' },
+            classic: { color: 'green', emoji: '<i class="ti ti-palm-tree"></i>' },
+            default: { color: 'blue', emoji: '<i class="ti ti-hand-love-you"></i>' }
         };
 
         // Favorites management
@@ -323,7 +323,7 @@
                                 data-id="${line.id}"
                                 title="${isFav ? 'Remove from favorites' : 'Add to favorites'}"
                             >
-                                ${isFav ? '❤️' : '🤍'}
+                                ${isFav ? '<i class="ti ti-heart-filled" style="color:#ef4444"></i>' : '<i class="ti ti-heart"></i>'}
                             </button>
                         </div>
                         <div>
@@ -353,7 +353,7 @@
                     } else {
                         // Just update the button
                         const isFav = isFavorite(id);
-                        this.textContent = isFav ? '❤️' : '🤍';
+                        this.innerHTML = isFav ? '<i class="ti ti-heart-filled" style="color:#ef4444"></i>' : '<i class="ti ti-heart"></i>';
                         this.classList.toggle('active', isFav);
                     }
                 });
@@ -400,9 +400,9 @@
                 pickupLines = data.lines || data;
                 displayPickupLines(pickupLines);
                 updateFavoritesCount();
-                console.log(`✅ Loaded ${pickupLines.length} pickup lines from Supabase`);
+                console.log(`<i class="ti ti-circle-check"></i> Loaded ${pickupLines.length} pickup lines from Supabase`);
             } catch (error) {
-                console.error('❌ Failed to load pickup lines:', error);
+                console.error('<i class="ti ti-circle-x"></i> Failed to load pickup lines:', error);
                 document.getElementById('pickup-lines-grid').innerHTML = `
                     <div class="col-span-full text-center py-8 text-red-600">
                         Failed to load pickup lines. Please refresh the page.

@@ -179,7 +179,7 @@ class SupabaseAPILoader {
             correctAnswer: q.correct_answer || q.correctAnswer,
             explanation: q.explanation,
             description: q.explanation,
-            image: q.image || '❓',
+            image: q.image || '<i class="ti ti-question-mark"></i>',
             category: q.category || 'general',
             difficulty: q.difficulty || 'beginner',
             points: q.points || 10,

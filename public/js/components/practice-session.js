@@ -108,7 +108,7 @@ class PracticeSession {
                 <div class="bg-gradient-to-r from-purple-600 to-blue-600 p-6 text-white">
                     <div class="flex items-center justify-between">
                         <div>
-                            <h2 class="text-2xl font-bold">🎯 Practice Session</h2>
+                            <h2 class="text-2xl font-bold"><i class="ti ti-target"></i> Practice Session</h2>
                             <p class="text-purple-100 mt-1">${this.getModeTitle()}</p>
                         </div>
                         <button id="close-practice" class="text-white hover:text-purple-200 text-3xl transition">
@@ -289,13 +289,13 @@ class PracticeSession {
                         ✓ I know this!
                     </button>
                     <button id="need-practice" class="px-6 py-3 bg-orange-500 text-white rounded-xl hover:bg-orange-600 transition font-semibold flex items-center gap-2">
-                        📚 Need practice
+                        <i class="ti ti-books"></i> Need practice
                     </button>
                 </div>
 
                 <!-- Flip Button -->
                 <button id="flip-card" class="mx-auto block px-6 py-3 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition font-semibold">
-                    🔄 Flip Card
+                    <i class="ti ti-refresh"></i> Flip Card
                 </button>
 
                 <!-- Audio Button -->
@@ -354,7 +354,7 @@ class PracticeSession {
     renderAudioButton(text) {
         return `
             <button id="speak-word" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
-                🔊 Hear pronunciation
+                <i class="ti ti-volume"></i> Hear pronunciation
             </button>
         `;
     }
@@ -434,7 +434,7 @@ class PracticeSession {
         const content = document.getElementById('practice-content');
         content.innerHTML = `
             <div class="text-center">
-                <div class="text-6xl mb-4">🎉</div>
+                <div class="text-6xl mb-4"><i class="ti ti-confetti"></i></div>
                 <h3 class="text-3xl font-bold text-gray-800 mb-6">Session Complete!</h3>
 
                 <div class="bg-gray-50 rounded-xl p-6 mb-6">
@@ -460,10 +460,10 @@ class PracticeSession {
 
                 <div class="space-y-3">
                     <button id="practice-again" class="w-full px-6 py-3 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition font-semibold">
-                        🔄 Practice Again
+                        <i class="ti ti-refresh"></i> Practice Again
                     </button>
                     <button id="view-stats" class="w-full px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition font-semibold">
-                        📊 View Statistics
+                        <i class="ti ti-chart-bar"></i> View Statistics
                     </button>
                 </div>
             </div>
@@ -508,7 +508,7 @@ class PracticeSession {
     // Show detailed statistics
     showStatistics() {
         if (!this.practiceData) {
-            alert('📊 Statistics are not available.\n\nNo practice data storage system found.');
+            alert('Statistics are not available.\n\nNo practice data storage system found.');
             return;
         }
 
@@ -619,7 +619,7 @@ class PracticeSession {
         content.innerHTML = `
             <div class="statistics-dashboard">
                 <div class="mb-6">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">📊 Practice Statistics</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4"><i class="ti ti-chart-bar"></i> Practice Statistics</h3>
 
                     <!-- Current Session Stats -->
                     <div class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-4 mb-6">
@@ -710,7 +710,7 @@ class PracticeSession {
                             ← Back to Results
                         </button>
                         <button id="stats-export" class="flex-1 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition font-semibold">
-                            📤 Export Data
+                            <i class="ti ti-share"></i> Export Data
                         </button>
                     </div>
                 </div>
@@ -820,7 +820,7 @@ class PracticeSession {
             // Show confirmation
             const exportBtn = document.getElementById('stats-export');
             const originalText = exportBtn.textContent;
-            exportBtn.textContent = '✅ Exported!';
+            exportBtn.innerHTML = '<i class="ti ti-circle-check"></i> Exported!';
             exportBtn.classList.add('bg-green-600');
             exportBtn.classList.remove('bg-blue-600');
 

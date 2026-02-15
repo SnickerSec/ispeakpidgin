@@ -171,7 +171,7 @@ class AskLocalManager {
         // Submit the question
         try {
             await this.submitQuestion(userName, questionText);
-            this.showFeedback('Your question has been submitted! Locals will respond soon. 🌺', 'success');
+            this.showFeedback('Your question has been submitted! Locals will respond soon. <i class="ti ti-flower"></i>', 'success');
 
             // Reset form
             document.getElementById('ask-form').reset();
@@ -245,7 +245,7 @@ class AskLocalManager {
         if (questions.length === 0) {
             container.innerHTML = `
                 <div class="bg-white p-3 rounded text-center text-gray-500">
-                    <p>No questions yet. Be the first to ask! 🌺</p>
+                    <p>No questions yet. Be the first to ask! <i class="ti ti-flower"></i></p>
                 </div>
             `;
             return;
@@ -257,7 +257,7 @@ class AskLocalManager {
         container.innerHTML = displayQuestions.map(q => {
             const hasResponses = q.responses && q.responses.length > 0;
             const statusClass = hasResponses ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800';
-            const statusText = hasResponses ? '✅ Answered' : '⏳ Pending Response';
+            const statusText = hasResponses ? '<i class="ti ti-circle-check"></i> Answered' : '<i class="ti ti-hourglass"></i> Pending Response';
             const responseCount = hasResponses ? q.responses.length : 0;
             const safeId = this.escapeAttr(q.id);
 
@@ -268,9 +268,9 @@ class AskLocalManager {
                             <div class="flex-1">
                                 <p class="font-semibold text-gray-800 mb-2">${this.escapeHtml(q.questionText)}</p>
                                 <div class="flex items-center gap-2 text-xs text-gray-500">
-                                    <span>👤 ${this.escapeHtml(q.userName)}</span>
+                                    <span><i class="ti ti-user"></i> ${this.escapeHtml(q.userName)}</span>
                                     <span>•</span>
-                                    <span>📅 ${this.formatDate(q.timestamp)}</span>
+                                    <span><i class="ti ti-calendar"></i> ${this.formatDate(q.timestamp)}</span>
                                     <span class="${statusClass} px-2 py-1 rounded-full">${statusText}</span>
                                 </div>
                             </div>
@@ -279,7 +279,7 @@ class AskLocalManager {
                         ${hasResponses ? `
                             <div class="mt-3">
                                 <button class="expand-responses-btn text-green-600 hover:text-green-800 text-sm font-medium" data-question-id="${safeId}">
-                                    👁️ View ${responseCount} Response${responseCount !== 1 ? 's' : ''} →
+                                    <i class="ti ti-eye"></i> View ${responseCount} Response${responseCount !== 1 ? 's' : ''} →
                                 </button>
                             </div>
 
@@ -291,13 +291,13 @@ class AskLocalManager {
 
                         <div class="mt-3">
                             <button class="respond-btn text-blue-600 hover:text-blue-800 text-sm font-medium" data-question-id="${safeId}">
-                                💬 ${hasResponses ? 'Add Another Response' : 'Respond to Question'}
+                                <i class="ti ti-message"></i> ${hasResponses ? 'Add Another Response' : 'Respond to Question'}
                             </button>
                         </div>
 
                         <!-- Response Form (initially hidden) -->
                         <div id="response-form-${safeId}" class="hidden mt-4 p-4 bg-blue-50 rounded-lg border-2 border-blue-200">
-                            <h5 class="font-semibold mb-3 text-blue-800">🌺 Share Your Local Knowledge</h5>
+                            <h5 class="font-semibold mb-3 text-blue-800"><i class="ti ti-flower"></i> Share Your Local Knowledge</h5>
                             <div class="mb-3">
                                 <input type="text" id="responder-name-${safeId}" class="w-full p-2 border rounded" placeholder="Your name (optional)" maxlength="50">
                             </div>
@@ -309,14 +309,14 @@ class AskLocalManager {
                             <!-- Mini CAPTCHA for responses -->
                             <div class="mb-3 bg-yellow-50 p-3 rounded border">
                                 <label class="block text-sm font-medium mb-1">
-                                    🔒 Quick check: <span id="response-captcha-${safeId}"></span> = ?
+                                    <i class="ti ti-lock"></i> Quick check: <span id="response-captcha-${safeId}"></span> = ?
                                 </label>
                                 <input type="number" id="response-captcha-answer-${safeId}" class="w-20 p-1 border rounded text-sm" required>
                             </div>
 
                             <div class="flex gap-2">
                                 <button class="submit-response-btn bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition text-sm" data-question-id="${safeId}">
-                                    🌺 Submit Response
+                                    <i class="ti ti-flower"></i> Submit Response
                                 </button>
                                 <button class="cancel-response-btn text-gray-600 hover:text-gray-800 px-3 py-2 text-sm" data-question-id="${safeId}">
                                     Cancel
@@ -334,7 +334,7 @@ class AskLocalManager {
             container.innerHTML += `
                 <div class="text-center mt-6">
                     <a href="ask-local.html" class="inline-block bg-blue-500 text-white px-6 py-3 rounded-full hover:bg-blue-600 transition font-semibold">
-                        📋 View All Questions (${questions.length} total)
+                        <i class="ti ti-clipboard"></i> View All Questions (${questions.length} total)
                     </a>
                 </div>
             `;
@@ -347,7 +347,7 @@ class AskLocalManager {
     renderResponses(responses) {
         return `
             <div class="bg-green-50 rounded-lg p-3 mt-3 border border-green-200">
-                <h5 class="font-semibold text-green-800 mb-2">🌺 Local Responses:</h5>
+                <h5 class="font-semibold text-green-800 mb-2"><i class="ti ti-flower"></i> Local Responses:</h5>
                 <div class="space-y-2">
                     ${responses.map(r => {
                         const safeResponseId = this.escapeAttr(r.id);
@@ -356,11 +356,11 @@ class AskLocalManager {
                         <div class="bg-white p-3 rounded border-l-2 border-green-400">
                             <p class="text-gray-800">${this.escapeHtml(r.responseText)}</p>
                             <div class="flex items-center gap-2 mt-2 text-xs text-gray-500">
-                                <span>👨‍🏫 ${this.escapeHtml(r.responderName || 'Local Helper')}</span>
+                                <span><i class="ti ti-user-check"></i> ${this.escapeHtml(r.responderName || 'Local Helper')}</span>
                                 <span>•</span>
-                                <span>📅 ${this.formatDate(r.timestamp)}</span>
+                                <span><i class="ti ti-calendar"></i> ${this.formatDate(r.timestamp)}</span>
                                 <button class="helpful-btn text-green-600 hover:text-green-800 ml-2" data-response-id="${safeResponseId}">
-                                    👍 Helpful (${helpfulCount})
+                                    <i class="ti ti-thumb-up"></i> Helpful (${helpfulCount})
                                 </button>
                             </div>
                         </div>
@@ -419,13 +419,13 @@ class AskLocalManager {
 
             if (isHidden) {
                 responsesContainer.classList.remove('hidden');
-                button.textContent = '🔽 Hide Responses';
+                button.textContent = '<i class="ti ti-chevron-down"></i> Hide Responses';
             } else {
                 responsesContainer.classList.add('hidden');
                 // Find response count from button text - ensure count is numeric only
                 const match = button.textContent.match(/View (\d+) Response/);
                 const count = match ? parseInt(match[1], 10) : 1;
-                button.textContent = `👁️ View ${count} Response${count !== 1 ? 's' : ''} →`;
+                button.textContent = `<i class="ti ti-eye"></i> View ${count} Response${count !== 1 ? 's' : ''} →`;
             }
         }
     }
@@ -504,7 +504,7 @@ class AskLocalManager {
         try {
             // Add response to question
             this.addResponseToQuestion(questionId, responderName, responseText);
-            this.showResponseFeedback(questionId, 'Thank you for sharing your local knowledge! 🌺', 'success');
+            this.showResponseFeedback(questionId, 'Thank you for sharing your local knowledge! <i class="ti ti-flower"></i>', 'success');
 
             // Hide form after successful submission
             setTimeout(() => {

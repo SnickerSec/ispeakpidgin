@@ -45,7 +45,7 @@ function escapeHtml(text) {
 
 // Fetch all dictionary entries from Supabase
 async function fetchDictionaryEntries() {
-    console.log('🔄 Fetching dictionary entries from Supabase...');
+    console.log('<i class="ti ti-refresh"></i> Fetching dictionary entries from Supabase...');
 
     const allEntries = [];
     const pageSize = 1000;
@@ -125,7 +125,7 @@ function generateEntryPage(entry, relatedTerms) {
     // Create a more compelling, action-oriented meta description
     // Start with a direct answer, add value props, keep under 155 chars
     const shortMeaning = primaryMeaning.length > 30 ? primaryMeaning.substring(0, 30) + '...' : primaryMeaning;
-    const metaDescription = `${capitalizedWord} means "${shortMeaning}" in Hawaiian Pidgin. Hear the pronunciation, see examples, and learn how locals really use this word! 🤙`;
+    const metaDescription = `${capitalizedWord} means "${shortMeaning}" in Hawaiian Pidgin. Hear the pronunciation, see examples, and learn how locals really use this word! <i class="ti ti-hand-love-you"></i>`;
 
     // Create schema markup
     const schema = {
@@ -182,7 +182,7 @@ function generateEntryPage(entry, relatedTerms) {
     // Build related terms HTML
     const relatedHtml = relatedTerms.length > 0 ? `
         <section class="mt-12">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6">🌺 Related Words</h2>
+            <h2 class="text-2xl font-bold text-gray-800 mb-6"><i class="ti ti-flower"></i> Related Words</h2>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                 ${relatedTerms.map(related => {
                     const relatedEnglish = Array.isArray(related.english) ? related.english : [related.english];
@@ -278,6 +278,9 @@ function generateEntryPage(entry, relatedTerms) {
     <link rel="stylesheet" href="/css/tailwind.css">
     <link rel="stylesheet" href="/css/main.css">
 
+    <!-- Tabler Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+
     <style>
         /* Pacifico - LOGO ONLY (Use sparingly for branding) */
         .brand-font {
@@ -306,7 +309,7 @@ function generateEntryPage(entry, relatedTerms) {
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center">
                     <a href="/" class="brand-font text-3xl bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
-                        🌴 ChokePidgin 🌊
+                        <i class="ti ti-palm-tree"></i> ChokePidgin <i class="ti ti-ripple"></i>
                     </a>
                 </div>
                 <div class="hidden md:flex space-x-6 items-center">
@@ -361,7 +364,7 @@ function generateEntryPage(entry, relatedTerms) {
             ${entry.pronunciation ? `
             <div class="mb-4">
                 <span class="inline-block bg-white/80 rounded-full px-6 py-2 text-lg text-gray-700">
-                    🗣️ <strong>Pronunciation:</strong> ${escapeHtml(entry.pronunciation)}
+                    <i class="ti ti-speakerphone"></i> <strong>Pronunciation:</strong> ${escapeHtml(entry.pronunciation)}
                 </span>
             </div>
             ` : ''}
@@ -378,13 +381,13 @@ function generateEntryPage(entry, relatedTerms) {
             </div>
 
             <button id="speak-word" class="bg-gradient-to-r from-blue-500 to-teal-500 text-white px-8 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
-                🔊 Hear Pronunciation
+                <i class="ti ti-volume"></i> Hear Pronunciation
             </button>
         </div>
 
         <!-- Meaning Section -->
         <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">📖 Meaning</h2>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4"><i class="ti ti-book"></i> Meaning</h2>
             <div class="space-y-3">
                 ${englishArray.map(meaning => `
                     <div class="flex items-start">
@@ -404,7 +407,7 @@ function generateEntryPage(entry, relatedTerms) {
         <!-- Examples Section -->
         ${examplesArray.length > 0 ? `
         <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">💬 Examples</h2>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4"><i class="ti ti-message"></i> Examples</h2>
             <div class="space-y-4">
                 ${examplesArray.map(example => `
                     <div class="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-4 border-l-4 border-green-500">
@@ -418,7 +421,7 @@ function generateEntryPage(entry, relatedTerms) {
         <!-- Origin & Cultural Context -->
         ${entry.origin ? `
         <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">🌺 Origin & Cultural Context</h2>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4"><i class="ti ti-flower"></i> Origin & Cultural Context</h2>
             <div class="bg-gradient-to-r from-orange-50 to-pink-50 rounded-xl p-6">
                 <p class="text-lg text-gray-700 mb-2">
                     <strong>Origin:</strong> ${escapeHtml(entry.origin)}
@@ -432,7 +435,7 @@ function generateEntryPage(entry, relatedTerms) {
 
         <!-- FAQ Section for Engagement -->
         <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6">❓ Frequently Asked Questions</h2>
+            <h2 class="text-2xl font-bold text-gray-800 mb-6"><i class="ti ti-question-mark"></i> Frequently Asked Questions</h2>
             <div class="space-y-4">
                 <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-5 border-l-4 border-blue-500">
                     <h3 class="font-bold text-lg text-gray-800 mb-2">What does "${escapeHtml(entry.pidgin)}" mean in Hawaiian Pidgin?</h3>
@@ -451,45 +454,45 @@ function generateEntryPage(entry, relatedTerms) {
 
         <!-- Quick Actions -->
         <section class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">🚀 Quick Actions</h2>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4"><i class="ti ti-rocket"></i> Quick Actions</h2>
             <div class="flex flex-wrap gap-4">
                 <a href="/translator.html?text=${encodeURIComponent(entry.pidgin)}"
                    class="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-6 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
-                    🔄 Translate This Word
+                    <i class="ti ti-refresh"></i> Translate This Word
                 </a>
                 <a href="/dictionary.html"
                    class="bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
-                    📚 Browse Dictionary
+                    <i class="ti ti-books"></i> Browse Dictionary
                 </a>
                 <a href="/learning-hub.html"
                    class="bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
-                    🎓 Learn More
+                    <i class="ti ti-school"></i> Learn More
                 </a>
             </div>
         </section>
 
         <!-- Practice with Games -->
         <section class="bg-gradient-to-r from-yellow-100 to-orange-100 rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">🎮 Practice Your Pidgin</h2>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4"><i class="ti ti-device-gamepad-2"></i> Practice Your Pidgin</h2>
             <p class="text-gray-600 mb-6">Test your knowledge with our fun Hawaiian Pidgin games!</p>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <a href="/pidgin-wordle.html" class="bg-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow border-2 border-green-200 hover:border-green-400">
-                    <div class="text-3xl mb-2">🟩</div>
+                    <div class="text-3xl mb-2"><i class="ti ti-square-filled" style="color: #22c55e;"></i></div>
                     <h3 class="font-bold text-gray-800">Pidgin Wordle</h3>
                     <p class="text-sm text-gray-600">Daily word puzzle</p>
                 </a>
                 <a href="/pidgin-hangman.html" class="bg-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow border-2 border-indigo-200 hover:border-indigo-400">
-                    <div class="text-3xl mb-2">🪢</div>
+                    <div class="text-3xl mb-2"><i class="ti ti-typography"></i></div>
                     <h3 class="font-bold text-gray-800">Hangman</h3>
                     <p class="text-sm text-gray-600">Guess the word</p>
                 </a>
                 <a href="/pidgin-crossword.html" class="bg-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow border-2 border-blue-200 hover:border-blue-400">
-                    <div class="text-3xl mb-2">📝</div>
+                    <div class="text-3xl mb-2"><i class="ti ti-note"></i></div>
                     <h3 class="font-bold text-gray-800">Crossword</h3>
                     <p class="text-sm text-gray-600">Test your vocabulary</p>
                 </a>
                 <a href="/how-local-you-stay.html" class="bg-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow border-2 border-purple-200 hover:border-purple-400">
-                    <div class="text-3xl mb-2">🤙</div>
+                    <div class="text-3xl mb-2"><i class="ti ti-hand-love-you"></i></div>
                     <h3 class="font-bold text-gray-800">How Local?</h3>
                     <p class="text-sm text-gray-600">Take the quiz</p>
                 </a>
@@ -503,7 +506,7 @@ function generateEntryPage(entry, relatedTerms) {
     <footer class="bg-gradient-to-r from-green-600 to-blue-600 text-white py-8 mt-12">
         <div class="container mx-auto px-4">
             <div class="text-center mb-6">
-                <h3 class="brand-font text-3xl mb-2">🌺 ChokePidgin.com</h3>
+                <h3 class="brand-font text-3xl mb-2"><i class="ti ti-flower"></i> ChokePidgin.com</h3>
                 <p class="text-green-100 mb-4">Your gateway to authentic Hawaiian Pidgin language and culture</p>
             </div>
             <nav class="flex justify-center gap-2 sm:gap-6 mb-6">
@@ -515,7 +518,7 @@ function generateEntryPage(entry, relatedTerms) {
             </nav>
             <div class="text-center">
                 <p class="text-sm text-green-100 mb-2">© 2025 ChokePidgin.com - Preserving and sharing Hawaiian Pidgin culture</p>
-                <p class="text-sm text-green-200">Made with aloha 🤙 E komo mai - Everyone is welcome here</p>
+                <p class="text-sm text-green-200">Made with aloha <i class="ti ti-hand-love-you"></i> E komo mai - Everyone is welcome here</p>
             </div>
         </div>
     </footer>
