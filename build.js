@@ -462,7 +462,7 @@ function copyAssets() {
     });
 
     // Copy robots.txt and sitemap.xml if they exist
-    ['robots.txt', 'sitemap.xml'].forEach(file => {
+    ['robots.txt', 'sitemap.xml', 'site.webmanifest'].forEach(file => {
         if (fs.existsSync(file)) {
             fs.copyFileSync(file, path.join('public', file));
             console.log(`📋 Copied: ${file}`);
