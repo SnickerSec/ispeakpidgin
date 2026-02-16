@@ -188,7 +188,7 @@
                     </button>
                     <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
                         <a href="games.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition font-semibold border-b border-gray-100"><i class="ti ti-device-gamepad-2"></i> All Games</a>
-                        <a href="pidgin-wordle.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition flex items-center gap-2"><img src="assets/images/wordle-icon.png" alt="Wordle" loading="lazy" class="w-5 h-5"> Pidgin Wordle</a>
+                        <a href="pidgin-wordle.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition flex items-center gap-2 whitespace-nowrap"><img src="assets/images/wordle-icon.png" alt="Wordle" loading="lazy" class="w-5 h-5"> Pidgin Wordle</a>
                         <a href="pidgin-hangman.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-typography"></i> Hangman</a>
                         <a href="pidgin-crossword.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-puzzle"></i> Crossword</a>
                         <a href="pidgin-heads-up.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-stretching"></i> Heads Up!</a>
@@ -388,40 +388,37 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     <!-- Hero Section -->
-    <div class="translator-hero py-20 px-4 relative overflow-hidden hidden md:block">
+    <div class="translator-hero py-10 px-4 relative overflow-hidden hidden md:block">
         <!-- Background decoration -->
         <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-32 right-20 text-6xl"><i class="ti ti-flower"></i></div>
-            <div class="absolute bottom-20 left-32 text-7xl"><i class="ti ti-hand-love-you"></i></div>
-            <div class="absolute bottom-10 right-10 text-5xl"><i class="ti ti-beach"></i></div>
+            <div class="absolute top-10 right-20 text-5xl"><i class="ti ti-flower"></i></div>
+            <div class="absolute bottom-8 left-32 text-5xl"><i class="ti ti-hand-love-you"></i></div>
+            <div class="absolute bottom-6 right-10 text-4xl"><i class="ti ti-beach"></i></div>
         </div>
 
         <div class="max-w-5xl mx-auto text-center relative z-10">
-            <div class="mb-6 flex items-center justify-center gap-4">
-                <div class="text-6xl md:text-7xl"><i class="ti ti-robot"></i></div>
-                <h1 class="text-5xl md:text-6xl font-bold text-white">
+            <div class="mb-3 flex items-center justify-center gap-3">
+                <div class="text-4xl"><i class="ti ti-robot"></i></div>
+                <h1 class="text-3xl md:text-4xl font-bold text-white">
                     AI Pidgin Translator
                 </h1>
             </div>
-            <p class="text-xl md:text-2xl text-white/90 mb-4">
-                Powered by Google Gemini AI for authentic Hawaiian Pidgin translations
-            </p>
-            <p class="text-lg md:text-xl text-white/80 mb-8">
-                Advanced natural language understanding captures cultural context, slang, and local expressions that traditional translators miss
+            <p class="text-base md:text-lg text-white/90 mb-4">
+                Powered by Google Gemini AI &mdash; captures cultural context, slang, and local expressions
             </p>
 
             <!-- Quick Stats -->
-            <div class="flex flex-wrap justify-center gap-6 text-white/80">
-                <div class="bg-white/20 backdrop-blur rounded-lg px-6 py-3">
+            <div class="flex flex-wrap justify-center gap-4 text-sm text-white/80">
+                <div class="bg-white/20 backdrop-blur rounded-lg px-4 py-2">
                     <span class="font-bold"><i class="ti ti-robot"></i> AI-Powered</span> Translation
                 </div>
-                <div class="bg-white/20 backdrop-blur rounded-lg px-6 py-3">
+                <div class="bg-white/20 backdrop-blur rounded-lg px-4 py-2">
                     <span class="font-bold">660+</span> Dictionary Entries
                 </div>
-                <div class="bg-white/20 backdrop-blur rounded-lg px-6 py-3">
+                <div class="bg-white/20 backdrop-blur rounded-lg px-4 py-2">
                     <span class="font-bold">Cultural</span> Context
                 </div>
-                <div class="bg-white/20 backdrop-blur rounded-lg px-6 py-3">
+                <div class="bg-white/20 backdrop-blur rounded-lg px-4 py-2">
                     <span class="font-bold">Audio</span> Pronunciation
                 </div>
             </div>
