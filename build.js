@@ -6,6 +6,11 @@ const path = require('path');
 
 console.log('🏗️ Building ChokePidgin production files...');
 
+// Strip inline gtag blocks (now loaded via external file in footer template)
+function stripInlineGtag(html) {
+    return html.replace(/\s*<!-- Google (?:tag \(gtag\.js\)|Analytics) -->\s*<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-RB7YYDVDXD"><\/script>\s*<script>\s*window\.dataLayer = window\.dataLayer \|\| \[\];\s*function gtag\(\)\{dataLayer\.push\(arguments\);\}\s*gtag\('js', new Date\(\)\);\s*gtag\('config', 'G-RB7YYDVDXD'\);\s*<\/script>/g, '');
+}
+
 // Configuration
 const config = {
     srcDir: 'src',
@@ -171,6 +176,8 @@ function processHTMLFiles() {
         if (fs.existsSync(srcPath)) {
             let content = fs.readFileSync(srcPath, 'utf8');
 
+            content = stripInlineGtag(content);
+
             // Inject navigation and footer templates if placeholders exist
             if (navigationTemplate && content.includes('<!-- NAVIGATION_PLACEHOLDER -->')) {
                 content = content.replace('<!-- NAVIGATION_PLACEHOLDER -->', navigationTemplate);
@@ -202,6 +209,8 @@ function processHTMLFiles() {
             const destPath = path.join('public/blog', file);
 
             let content = fs.readFileSync(srcPath, 'utf8');
+
+            content = stripInlineGtag(content);
 
             // For blog pages, we need to adjust navigation paths (add ../ prefix)
             let blogNavigation = navigationTemplate;
@@ -248,6 +257,8 @@ function processHTMLFiles() {
 
     if (fs.existsSync(adminSrcPath)) {
         let content = fs.readFileSync(adminSrcPath, 'utf8');
+
+        content = stripInlineGtag(content);
 
         // Inject Tabler Icons CDN stylesheet before </head>
         content = content.replace('</head>', '    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">\n</head>');

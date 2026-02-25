@@ -116,7 +116,6 @@ app.use(helmet({
             styleSrc: ["'self'", "'unsafe-inline'", "https://cdn.tailwindcss.com", "https://fonts.googleapis.com", "https://cdn.jsdelivr.net"],
             scriptSrc: [
                 "'self'",
-                "'unsafe-inline'",
                 "https://cdn.tailwindcss.com",
                 "https://www.googletagmanager.com",
                 "https://www.google-analytics.com"
@@ -147,7 +146,12 @@ app.use(helmet({
         }
     },
     crossOriginEmbedderPolicy: false,
-    crossOriginOpenerPolicy: { policy: "same-origin-allow-popups" }
+    crossOriginOpenerPolicy: { policy: "same-origin-allow-popups" },
+    hsts: {
+        maxAge: 31536000,
+        includeSubDomains: true,
+        preload: true
+    }
 }));
 
 // Compression middleware
@@ -2310,7 +2314,11 @@ app.post('/api/admin/login',
     adminLoginLimiter,
     [
         body('username').trim().notEmpty().isLength({ min: 3, max: 50 }),
-        body('password').notEmpty().isLength({ min: 8, max: 128 })
+        body('password')
+            .notEmpty()
+            .isLength({ min: 12, max: 128 })
+            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])/)
+            .withMessage('Password must be 12+ chars with uppercase, lowercase, number, and special character')
     ],
     async (req, res) => {
         if (!supabaseAdmin) {
@@ -2400,7 +2408,11 @@ app.post('/api/admin/users/setup',
     adminLoginLimiter,
     [
         body('username').trim().notEmpty().isLength({ min: 3, max: 50 }),
-        body('password').notEmpty().isLength({ min: 8, max: 128 }),
+        body('password')
+            .notEmpty()
+            .isLength({ min: 12, max: 128 })
+            .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])/)
+            .withMessage('Password must be 12+ chars with uppercase, lowercase, number, and special character'),
         body('setupSecret').notEmpty()
     ],
     async (req, res) => {
@@ -2696,6 +2708,11 @@ const server = app.listen(PORT, () => {
     // Pre-warm dictionary cache for translation vocabulary injection
     prewarmDictionaryCache();
 });
+
+// Server timeouts
+server.setTimeout(30000);         // 30s overall socket timeout
+server.keepAliveTimeout = 65000;  // Slightly higher than typical LB (60s)
+server.headersTimeout = 66000;    // Must be > keepAliveTimeout
 
 // Graceful shutdown
 const gracefulShutdown = (signal) => {

@@ -300,12 +300,7 @@ function generateEntryPage(entry, relatedTerms) {
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7YYDVDXD"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-RB7YYDVDXD');
-    </script>
+    <script src="/js/components/gtag.js"></script>
 </head>
 <body class="min-h-screen bg-gray-50">
     <!-- Navigation -->

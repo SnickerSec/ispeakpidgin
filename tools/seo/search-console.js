@@ -20,7 +20,7 @@
  *   node tools/seo/search-console.js report --output report.json
  */
 
-const { google } = require('googleapis');
+const { GoogleAuth } = require('google-auth-library');
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
@@ -29,6 +29,8 @@ require('dotenv').config();
 // Use domain property format (sc-domain:) or URL prefix format (https://)
 const SITE_URL = process.env.SITE_URL || 'sc-domain:chokepidgin.com';
 const KEY_PATH = process.env.GOOGLE_SEARCH_CONSOLE_KEY_PATH || './google-search-console-key.json';
+
+const SEARCH_CONSOLE_API = 'https://searchconsole.googleapis.com/webmasters/v3';
 
 // Parse command line arguments
 const args = process.argv.slice(2);
@@ -120,7 +122,7 @@ async function getAuthClient(keyFilePath) {
         process.exit(1);
     }
 
-    const auth = new google.auth.GoogleAuth({
+    const auth = new GoogleAuth({
         keyFile: keyFilePath,
         scopes: ['https://www.googleapis.com/auth/webmasters.readonly']
     });
@@ -128,9 +130,18 @@ async function getAuthClient(keyFilePath) {
     return auth;
 }
 
-async function getSearchConsoleClient(keyFilePath) {
-    const auth = await getAuthClient(keyFilePath);
-    return google.searchconsole({ version: 'v1', auth });
+async function searchAnalyticsQuery(auth, siteUrl, requestBody) {
+    const client = await auth.getClient();
+    const encodedSiteUrl = encodeURIComponent(siteUrl);
+    const url = `${SEARCH_CONSOLE_API}/sites/${encodedSiteUrl}/searchAnalytics/query`;
+
+    const res = await client.request({
+        url,
+        method: 'POST',
+        data: requestBody
+    });
+
+    return res.data;
 }
 
 function getDateRange(days) {
@@ -146,23 +157,20 @@ function getDateRange(days) {
     };
 }
 
-async function fetchQueries(client, days, limit) {
+async function fetchQueries(auth, days, limit) {
     const { startDate, endDate } = getDateRange(days);
 
     console.log(`\n📊 Fetching search queries from ${startDate} to ${endDate}...\n`);
 
-    const response = await client.searchanalytics.query({
-        siteUrl: SITE_URL,
-        requestBody: {
-            startDate,
-            endDate,
-            dimensions: ['query'],
-            rowLimit: limit,
-            orderBy: [{ fieldName: 'clicks', sortOrder: 'DESCENDING' }]
-        }
+    const response = await searchAnalyticsQuery(auth, SITE_URL, {
+        startDate,
+        endDate,
+        dimensions: ['query'],
+        rowLimit: limit,
+        orderBy: [{ fieldName: 'clicks', sortOrder: 'DESCENDING' }]
     });
 
-    const rows = response.data.rows || [];
+    const rows = response.rows || [];
 
     return rows.map(row => ({
         query: row.keys[0],
@@ -173,23 +181,20 @@ async function fetchQueries(client, days, limit) {
     }));
 }
 
-async function fetchPages(client, days, limit) {
+async function fetchPages(auth, days, limit) {
     const { startDate, endDate } = getDateRange(days);
 
     console.log(`\n📄 Fetching page performance from ${startDate} to ${endDate}...\n`);
 
-    const response = await client.searchanalytics.query({
-        siteUrl: SITE_URL,
-        requestBody: {
-            startDate,
-            endDate,
-            dimensions: ['page'],
-            rowLimit: limit,
-            orderBy: [{ fieldName: 'clicks', sortOrder: 'DESCENDING' }]
-        }
+    const response = await searchAnalyticsQuery(auth, SITE_URL, {
+        startDate,
+        endDate,
+        dimensions: ['page'],
+        rowLimit: limit,
+        orderBy: [{ fieldName: 'clicks', sortOrder: 'DESCENDING' }]
     });
 
-    const rows = response.data.rows || [];
+    const rows = response.rows || [];
 
     return rows.map(row => ({
         page: row.keys[0].replace(SITE_URL, ''),
@@ -200,30 +205,27 @@ async function fetchPages(client, days, limit) {
     }));
 }
 
-async function fetchQueryPageCombos(client, days, limit) {
+async function fetchQueryPageCombos(auth, days, limit) {
     const { startDate, endDate } = getDateRange(days);
 
-    const response = await client.searchanalytics.query({
-        siteUrl: SITE_URL,
-        requestBody: {
-            startDate,
-            endDate,
-            dimensions: ['query', 'page'],
-            rowLimit: limit,
-            orderBy: [{ fieldName: 'impressions', sortOrder: 'DESCENDING' }]
-        }
+    const response = await searchAnalyticsQuery(auth, SITE_URL, {
+        startDate,
+        endDate,
+        dimensions: ['query', 'page'],
+        rowLimit: limit,
+        orderBy: [{ fieldName: 'impressions', sortOrder: 'DESCENDING' }]
     });
 
-    return response.data.rows || [];
+    return response.rows || [];
 }
 
-async function generateOptimizations(client, days) {
+async function generateOptimizations(auth, days) {
     console.log('\n🔍 Analyzing data for optimization opportunities...\n');
 
     const [queries, pages, combos] = await Promise.all([
-        fetchQueries(client, days, 500),
-        fetchPages(client, days, 200),
-        fetchQueryPageCombos(client, days, 1000)
+        fetchQueries(auth, days, 500),
+        fetchPages(auth, days, 200),
+        fetchQueryPageCombos(auth, days, 1000)
     ]);
 
     const suggestions = {
@@ -346,13 +348,13 @@ async function generateOptimizations(client, days) {
     return suggestions;
 }
 
-async function generateReport(client, days) {
+async function generateReport(auth, days) {
     console.log('\n📈 Generating comprehensive SEO report...\n');
 
     const [queries, pages, optimizations] = await Promise.all([
-        fetchQueries(client, days, 200),
-        fetchPages(client, days, 100),
-        generateOptimizations(client, days)
+        fetchQueries(auth, days, 200),
+        fetchPages(auth, days, 100),
+        generateOptimizations(auth, days)
     ]);
 
     return {
@@ -418,11 +420,11 @@ async function startApiServer(keyFilePath) {
     const app = express();
     const PORT = process.env.SEARCH_CONSOLE_API_PORT || 3001;
 
-    let client;
+    let auth;
     try {
-        client = await getSearchConsoleClient(keyFilePath);
+        auth = await getAuthClient(keyFilePath);
     } catch (err) {
-        console.error('Failed to initialize Search Console client:', err.message);
+        console.error('Failed to initialize Search Console auth:', err.message);
         process.exit(1);
     }
 
@@ -430,7 +432,7 @@ async function startApiServer(keyFilePath) {
         try {
             const days = parseInt(req.query.days, 10) || 28;
             const limit = parseInt(req.query.limit, 10) || 100;
-            const data = await fetchQueries(client, days, limit);
+            const data = await fetchQueries(auth, days, limit);
             res.json({ success: true, data });
         } catch (err) {
             res.status(500).json({ success: false, error: err.message });
@@ -441,7 +443,7 @@ async function startApiServer(keyFilePath) {
         try {
             const days = parseInt(req.query.days, 10) || 28;
             const limit = parseInt(req.query.limit, 10) || 100;
-            const data = await fetchPages(client, days, limit);
+            const data = await fetchPages(auth, days, limit);
             res.json({ success: true, data });
         } catch (err) {
             res.status(500).json({ success: false, error: err.message });
@@ -451,7 +453,7 @@ async function startApiServer(keyFilePath) {
     app.get('/api/search-console/optimize', async (req, res) => {
         try {
             const days = parseInt(req.query.days, 10) || 28;
-            const data = await generateOptimizations(client, days);
+            const data = await generateOptimizations(auth, days);
             res.json({ success: true, data });
         } catch (err) {
             res.status(500).json({ success: false, error: err.message });
@@ -461,7 +463,7 @@ async function startApiServer(keyFilePath) {
     app.get('/api/search-console/report', async (req, res) => {
         try {
             const days = parseInt(req.query.days, 10) || 28;
-            const data = await generateReport(client, days);
+            const data = await generateReport(auth, days);
             res.json({ success: true, data });
         } catch (err) {
             res.status(500).json({ success: false, error: err.message });
@@ -486,11 +488,11 @@ async function main() {
     }
 
     try {
-        const client = await getSearchConsoleClient(options.keyFile);
+        const auth = await getAuthClient(options.keyFile);
 
         switch (command) {
             case 'queries': {
-                const data = await fetchQueries(client, options.days, options.limit);
+                const data = await fetchQueries(auth, options.days, options.limit);
                 console.log(`Top ${data.length} Search Queries:\n`);
                 formatTable(data, ['query', 'clicks', 'impressions', 'ctr', 'position']);
                 outputResults(data, options.output);
@@ -498,7 +500,7 @@ async function main() {
             }
 
             case 'pages': {
-                const data = await fetchPages(client, options.days, options.limit);
+                const data = await fetchPages(auth, options.days, options.limit);
                 console.log(`Top ${data.length} Pages:\n`);
                 formatTable(data, ['page', 'clicks', 'impressions', 'ctr', 'position']);
                 outputResults(data, options.output);
@@ -506,7 +508,7 @@ async function main() {
             }
 
             case 'optimize': {
-                const data = await generateOptimizations(client, options.days);
+                const data = await generateOptimizations(auth, options.days);
 
                 console.log('═'.repeat(60));
                 console.log('📊 SEO OPTIMIZATION SUGGESTIONS');
@@ -547,7 +549,7 @@ async function main() {
             }
 
             case 'report': {
-                const data = await generateReport(client, options.days);
+                const data = await generateReport(auth, options.days);
 
                 console.log('═'.repeat(60));
                 console.log('📊 COMPREHENSIVE SEO REPORT');
