@@ -38,9 +38,9 @@ const DEFAULT_CONFIG = {
     'hawaiian phrases'
   ],
 
-  // Supabase (inherited from main site)
-  supabaseUrl: 'https://jfzgzjgdptowfbtljvyp.supabase.co',
-  supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impmemd6amdkcHRvd2ZidGxqdnlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzNzk0OTMsImV4cCI6MjA3OTk1NTQ5M30.xPubHKR0PFEic52CffEBVCwmfPz-AiqbwFk39ulwydM'
+  // Supabase (from environment variables)
+  supabaseUrl: process.env.SUPABASE_URL || '',
+  supabaseKey: process.env.SUPABASE_ANON_KEY || ''
 };
 
 /**

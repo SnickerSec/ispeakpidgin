@@ -1,9 +1,16 @@
 const { createClient } = require('@supabase/supabase-js');
 const path = require('path');
 
-// Supabase config (same as main site)
-const supabaseUrl = 'https://jfzgzjgdptowfbtljvyp.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impmemd6amdkcHRvd2ZidGxqdnlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzNzk0OTMsImV4cCI6MjA3OTk1NTQ5M30.xPubHKR0PFEic52CffEBVCwmfPz-AiqbwFk39ulwydM';
+// Supabase config (from environment)
+require('dotenv').config();
+const { loadConfig } = require('./config');
+const config = loadConfig();
+const supabaseUrl = config.supabaseUrl;
+const supabaseKey = config.supabaseKey;
+if (!supabaseUrl || !supabaseKey) {
+    console.error('❌ Missing Supabase env vars: SUPABASE_URL, SUPABASE_ANON_KEY');
+    process.exit(1);
+}
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 

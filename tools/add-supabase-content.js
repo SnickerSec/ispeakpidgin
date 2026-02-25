@@ -5,13 +5,13 @@
  * Adds stories and pickup lines
  */
 
-const SUPABASE_URL = 'https://jfzgzjgdptowfbtljvyp.supabase.co';
+require('dotenv').config();
+const SUPABASE_URL = process.env.SUPABASE_URL;
 // Use service role key to bypass RLS (set via environment variable)
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY;
 
-if (!SUPABASE_KEY) {
-    console.error('❌ Error: SUPABASE_SERVICE_KEY environment variable not set');
-    console.log('Usage: SUPABASE_SERVICE_KEY=your_key node add-supabase-content.js');
+if (!SUPABASE_URL || !SUPABASE_KEY) {
+    console.error('❌ Error: SUPABASE_URL and SUPABASE_SERVICE_KEY environment variables required');
     process.exit(1);
 }
 

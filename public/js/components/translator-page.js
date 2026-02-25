@@ -324,7 +324,7 @@ async function performTranslation() {
     if (results && results.length > 0) {
             // Display the best translation
             const bestMatch = results[0];
-            let outputHTML = `<p class="text-2xl font-semibold text-gray-800 mb-3">${bestMatch.translation}</p>`;
+            let outputHTML = `<p class="text-2xl font-semibold text-gray-800 mb-3">${escapeHtml(bestMatch.translation)}</p>`;
 
             // Show confidence
             const confidence = Math.round(bestMatch.confidence * 100);
@@ -354,7 +354,7 @@ async function performTranslation() {
                 for (let i = 1; i < Math.min(results.length, 3); i++) {
                     const altConf = Math.round(results[i].confidence * 100);
                     outputHTML += `<div class="flex items-center justify-between p-2 bg-gray-50 rounded">
-                        <span class="text-gray-700">${results[i].translation}</span>
+                        <span class="text-gray-700">${escapeHtml(results[i].translation)}</span>
                         <span class="text-xs text-gray-500">${altConf}%</span>
                     </div>`;
                 }
@@ -370,7 +370,7 @@ async function performTranslation() {
                     if (meta.usage) {
                         outputHTML += `<div class="mb-3">
                             <span class="text-xs font-semibold text-blue-800"><i class="ti ti-bulb"></i> Usage:</span>
-                            <span class="text-sm text-gray-700 ml-2">${meta.usage}</span>
+                            <span class="text-sm text-gray-700 ml-2">${escapeHtml(meta.usage)}</span>
                         </div>`;
                     }
 
@@ -382,7 +382,7 @@ async function performTranslation() {
                         };
                         const colorClass = difficultyColors[meta.difficulty] || 'bg-gray-100 text-gray-700';
                         outputHTML += `<span class="inline-block px-2 py-1 ${colorClass} rounded text-xs font-medium mb-3">
-                            Level: ${meta.difficulty}
+                            Level: ${escapeHtml(meta.difficulty)}
                         </span>`;
                     }
 
@@ -390,7 +390,7 @@ async function performTranslation() {
                         outputHTML += '<div class="mt-3">';
                         outputHTML += '<p class="text-xs font-semibold text-purple-800 mb-2"><i class="ti ti-note"></i> Examples:</p>';
                         meta.examples.slice(0, 2).forEach(example => {
-                            outputHTML += `<p class="text-sm italic text-gray-600 mb-1">"${example}"</p>`;
+                            outputHTML += `<p class="text-sm italic text-gray-600 mb-1">"${escapeHtml(example)}"</p>`;
                         });
                         outputHTML += '</div>';
                     }

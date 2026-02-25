@@ -10,11 +10,11 @@
 require('dotenv').config();
 const { createClient } = require('@supabase/supabase-js');
 
-const supabaseUrl = process.env.SUPABASE_URL || 'https://jfzgzjgdptowfbtljvyp.supabase.co';
+const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-if (!supabaseKey) {
-    console.error('❌ SUPABASE_SERVICE_ROLE_KEY not found in environment');
+if (!supabaseUrl || !supabaseKey) {
+    console.error('❌ SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY required in environment');
     process.exit(1);
 }
 

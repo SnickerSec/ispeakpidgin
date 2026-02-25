@@ -1,4 +1,10 @@
 // Pidgin Crossword Game Logic
+function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
 
 class PidginCrossword {
     constructor() {
@@ -178,7 +184,7 @@ class PidginCrossword {
             clueEl.className = 'clue-item';
             clueEl.dataset.number = word.number;
             clueEl.dataset.direction = 'across';
-            clueEl.innerHTML = `<strong>${word.number}.</strong> ${word.clue}`;
+            clueEl.innerHTML = `<strong>${word.number}.</strong> ${escapeHtml(word.clue)}`;
             this.acrossClues.appendChild(clueEl);
         });
 
@@ -189,7 +195,7 @@ class PidginCrossword {
             clueEl.className = 'clue-item';
             clueEl.dataset.number = word.number;
             clueEl.dataset.direction = 'down';
-            clueEl.innerHTML = `<strong>${word.number}.</strong> ${word.clue}`;
+            clueEl.innerHTML = `<strong>${word.number}.</strong> ${escapeHtml(word.clue)}`;
             this.downClues.appendChild(clueEl);
         });
 

@@ -15,8 +15,12 @@ const settingsManager = require('./services/settings-manager');
 const adminAuth = require('./middleware/admin-auth');
 
 // Initialize Supabase client
-const supabaseUrl = process.env.SUPABASE_URL || 'https://jfzgzjgdptowfbtljvyp.supabase.co';
-const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impmemd6amdkcHRvd2ZidGxqdnlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzNzk0OTMsImV4cCI6MjA3OTk1NTQ5M30.xPubHKR0PFEic52CffEBVCwmfPz-AiqbwFk39ulwydM';
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
+if (!supabaseUrl || !supabaseAnonKey) {
+    console.error('❌ Missing required environment variables: SUPABASE_URL, SUPABASE_ANON_KEY');
+    process.exit(1);
+}
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 console.log('✅ Supabase client initialized');
 
@@ -87,17 +91,10 @@ const corsOptions = {
         // Allow requests with no origin (like mobile apps or curl requests)
         if (!origin) return callback(null, true);
 
-        const allowedOrigins = [
-            'https://chokepidgin.com',
-            'https://www.chokepidgin.com',
-            'http://localhost:3000',
-            'http://localhost:8080'
-        ];
-
-        // In development, allow all origins
-        if (process.env.NODE_ENV === 'development') {
-            return callback(null, true);
-        }
+        const isDev = process.env.NODE_ENV === 'development';
+        const allowedOrigins = isDev
+            ? ['http://localhost:3000', 'http://localhost:8080']
+            : ['https://chokepidgin.com', 'https://www.chokepidgin.com'];
 
         if (allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
@@ -362,10 +359,7 @@ Only respond with the Pidgin translation, nothing else.${vocabularySection}`
 
         } catch (error) {
             console.error('Gemini Translation error:', error);
-            res.status(500).json({
-                error: 'Translation service error',
-                message: error.message
-            });
+            res.status(500).json({ error: 'Translation service error' });
         }
     });
 
@@ -414,10 +408,7 @@ app.post('/api/translate',
 
         } catch (error) {
             console.error('Google Translate API error:', error);
-            res.status(500).json({
-                error: 'Translation service error',
-                message: error.message
-            });
+            res.status(500).json({ error: 'Translation service error' });
         }
     });
 
@@ -530,10 +521,7 @@ Generate ONE original pickup line now.`;
 
         } catch (error) {
             console.error('Pickup line generation error:', error);
-            res.status(500).json({
-                error: 'Generation service error',
-                message: error.message
-            });
+            res.status(500).json({ error: 'Generation service error' });
         }
     });
 
@@ -698,10 +686,7 @@ Example for a Kāne (Male) - CORNY STYLE:
 
         } catch (error) {
             console.error('808 Mode generation error:', error);
-            res.status(500).json({
-                error: 'Generation service error',
-                message: error.message
-            });
+            res.status(500).json({ error: 'Generation service error' });
         }
     });
 
@@ -801,10 +786,7 @@ Provide 3 variations in JSON format:
 
         } catch (error) {
             console.error('Enhancement error:', error);
-            res.status(500).json({
-                error: 'Enhancement service error',
-                message: error.message
-            });
+            res.status(500).json({ error: 'Enhancement service error' });
         }
     });
 
@@ -935,7 +917,7 @@ app.get('/api/dictionary/all',
 
             if (error) {
                 console.error('Supabase bulk query error:', error);
-                return res.status(500).json({ error: 'Database query failed', details: error.message });
+                return res.status(500).json({ error: 'Database query failed' });
             }
 
             // Get category counts for stats
@@ -973,16 +955,17 @@ app.get('/api/dictionary',
     dictionaryLimiter,
     async (req, res) => {
         try {
-            const {
-                page = 1,
-                limit = 50,
-                category,
-                difficulty,
-                sort = 'pidgin',
-                order = 'asc'
-            } = req.query;
+            const ALLOWED_SORT_FIELDS = ['pidgin', 'english', 'difficulty', 'category'];
+            const MAX_LIMIT = 100;
 
-            const offset = (parseInt(page) - 1) * parseInt(limit);
+            const page = Math.max(parseInt(req.query.page) || 1, 1);
+            const limit = Math.min(Math.max(parseInt(req.query.limit) || 50, 1), MAX_LIMIT);
+            const category = req.query.category;
+            const difficulty = req.query.difficulty;
+            const sort = ALLOWED_SORT_FIELDS.includes(req.query.sort) ? req.query.sort : 'pidgin';
+            const order = req.query.order;
+
+            const offset = (page - 1) * limit;
             const validOrders = ['asc', 'desc'];
             const sortOrder = validOrders.includes(order) ? order === 'asc' : true;
 
@@ -1001,13 +984,13 @@ app.get('/api/dictionary',
             // Apply sorting and pagination
             query = query
                 .order(sort, { ascending: sortOrder })
-                .range(offset, offset + parseInt(limit) - 1);
+                .range(offset, offset + limit - 1);
 
             const { data, error, count } = await query;
 
             if (error) {
                 console.error('Supabase query error:', error);
-                return res.status(500).json({ error: 'Database query failed', details: error.message });
+                return res.status(500).json({ error: 'Database query failed' });
             }
 
             res.json({
@@ -1037,18 +1020,19 @@ app.get('/api/dictionary/search',
                 return res.status(400).json({ error: 'Search query must be at least 2 characters' });
             }
 
-            const searchTerm = q.trim().toLowerCase();
+            const searchTerm = q.trim().toLowerCase().replace(/[%_\\{},.()"']/g, '');
+            const searchLimit = Math.min(Math.max(parseInt(limit) || 20, 1), 100);
 
-            // Use Supabase full-text search
+            // Use Supabase search with sanitized input
             const { data, error } = await supabase
                 .from('dictionary_entries')
                 .select('*')
-                .or(`pidgin.ilike.%${searchTerm}%,english.cs.{${searchTerm}}`)
-                .limit(parseInt(limit));
+                .or(`pidgin.ilike.%${searchTerm}%,english.ilike.%${searchTerm}%`)
+                .limit(searchLimit);
 
             if (error) {
                 console.error('Supabase search error:', error);
-                return res.status(500).json({ error: 'Search failed', details: error.message });
+                return res.status(500).json({ error: 'Search failed' });
             }
 
             res.json({
@@ -2432,9 +2416,18 @@ app.post('/api/admin/users/setup',
         try {
             const { username, password, setupSecret } = req.body;
 
-            // Verify setup secret
+            // Verify setup secret (timing-safe comparison)
             const expectedSecret = process.env.ADMIN_SETUP_SECRET;
-            if (!expectedSecret || setupSecret !== expectedSecret) {
+            if (!expectedSecret) {
+                return res.status(403).json({ error: 'Invalid setup secret' });
+            }
+            try {
+                const a = Buffer.from(setupSecret);
+                const b = Buffer.from(expectedSecret);
+                if (a.length !== b.length || !require('crypto').timingSafeEqual(a, b)) {
+                    return res.status(403).json({ error: 'Invalid setup secret' });
+                }
+            } catch {
                 return res.status(403).json({ error: 'Invalid setup secret' });
             }
 
@@ -2467,7 +2460,7 @@ app.post('/api/admin/users/setup',
 
         } catch (error) {
             console.error('Admin setup error:', error);
-            res.status(500).json({ error: 'Setup failed: ' + error.message });
+            res.status(500).json({ error: 'Setup failed' });
         }
     });
 
@@ -2627,7 +2620,7 @@ app.post('/api/admin/test/elevenlabs',
             }
         } catch (error) {
             console.error('ElevenLabs test error:', error);
-            res.json({ success: false, error: error.message });
+            res.json({ success: false, error: 'Service test failed' });
         }
     });
 
@@ -2661,7 +2654,7 @@ app.post('/api/admin/test/gemini',
             }
         } catch (error) {
             console.error('Gemini test error:', error);
-            res.json({ success: false, error: error.message });
+            res.json({ success: false, error: 'Service test failed' });
         }
     });
 
@@ -2678,8 +2671,9 @@ app.post('/api/admin/test/gemini',
 
 // Serve static files from public directory
 app.use(express.static(path.join(__dirname, 'public'), {
-    maxAge: '1d', // Cache static files for 1 day
-    etag: true
+    maxAge: '1d',
+    etag: true,
+    dotfiles: 'deny'
 }));
 
 // Handle SPA routing - serve index.html for any non-file requests

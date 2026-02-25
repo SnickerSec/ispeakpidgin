@@ -1,4 +1,10 @@
 // "How Local You Stay?" Quiz Logic
+function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
 
 class LocalQuiz {
     constructor() {
@@ -137,7 +143,7 @@ class LocalQuiz {
             const optionDiv = document.createElement('div');
             optionDiv.className = 'quiz-option bg-white border-4 border-gray-300 rounded-2xl p-6 text-center';
             optionDiv.innerHTML = `
-                <p class="text-lg font-bold text-gray-800">${option.text}</p>
+                <p class="text-lg font-bold text-gray-800">${escapeHtml(option.text)}</p>
             `;
             optionDiv.addEventListener('click', () => this.selectOption(index));
             this.optionsContainer.appendChild(optionDiv);

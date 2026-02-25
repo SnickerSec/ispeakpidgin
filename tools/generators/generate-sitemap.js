@@ -9,9 +9,14 @@
 const fs = require('fs');
 const path = require('path');
 
-// Supabase configuration
-const SUPABASE_URL = 'https://jfzgzjgdptowfbtljvyp.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impmemd6amdkcHRvd2ZidGxqdnlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzNzk0OTMsImV4cCI6MjA3OTk1NTQ5M30.xPubHKR0PFEic52CffEBVCwmfPz-AiqbwFk39ulwydM';
+// Supabase configuration (from environment)
+require('dotenv').config();
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
+if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+    console.error('❌ Missing required environment variables: SUPABASE_URL, SUPABASE_ANON_KEY');
+    process.exit(1);
+}
 
 // Helper: Create URL-friendly slug
 function createSlug(text) {
