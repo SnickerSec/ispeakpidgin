@@ -19,5 +19,8 @@
     "ora": "^5.4.1",
     "puppeteer": "^24.15.0"
   },
-  "type": "commonjs"
+  "type": "commonjs",
+  "overrides": {
+    "basic-ftp": "^5.2.0"
+  }
 }
