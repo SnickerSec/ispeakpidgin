@@ -237,6 +237,11 @@
         // Global stories data
         let storiesData = { stories: [] };
 
+        // Create URL-friendly slug (must match server-side createSlug)
+        function createSlug(text) {
+            return text.toLowerCase().replace(/'/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        }
+
         // Load and display stories
         function displayStories(filter = 'all') {
             const container = document.getElementById('stories-container');
@@ -270,13 +275,15 @@
             }
 
             // Render stories
-            container.innerHTML = filteredStories.map(story => `
+            container.innerHTML = filteredStories.map(story => {
+                const slug = createSlug(story.title);
+                return `
                 <div class="story-card bg-white rounded-2xl shadow-xl overflow-hidden" data-story-id="${story.id}">
                     <div class="p-6 md:p-8">
                         <!-- Header -->
                         <div class="flex justify-between items-start mb-4">
                             <h2 class="text-2xl md:text-3xl font-bold text-gray-800 flex-1">
-                                ${story.title}
+                                <a href="/story/${slug}.html" class="hover:text-purple-600 transition">${story.title}</a>
                             </h2>
                             <span class="difficulty-badge difficulty-${story.difficulty} ml-4">
                                 ${story.difficulty}
@@ -354,17 +361,23 @@
                                 ` : ''}
                             </div>
 
-                            <!-- Read More Button -->
-                            <button
-                                class="read-more-btn w-full mt-4 px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:from-purple-700 hover:to-blue-700 transition shadow-lg"
-                                data-story-id="${story.id}"
-                            >
-                                <i class="ti ti-book"></i> Read Full Story
-                            </button>
+                            <!-- Action Buttons -->
+                            <div class="flex gap-3 mt-4">
+                                <a href="/story/${slug}.html"
+                                   class="flex-1 text-center px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:from-purple-700 hover:to-blue-700 transition shadow-lg">
+                                    <i class="ti ti-book"></i> Read Full Story
+                                </a>
+                                <button
+                                    class="read-more-btn px-6 py-3 bg-gray-100 text-gray-700 rounded-xl font-semibold hover:bg-gray-200 transition"
+                                    data-story-id="${story.id}"
+                                >
+                                    <i class="ti ti-chevron-down"></i> Preview
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
 
             // Add event listeners for read more buttons
             document.querySelectorAll('.read-more-btn').forEach(btn => {
