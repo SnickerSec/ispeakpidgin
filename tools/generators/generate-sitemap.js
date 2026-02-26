@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Generate Sitemap with All Dictionary Entry Pages
+ * Generate Sitemap with All Page Types
  * Creates comprehensive sitemap.xml for SEO
  * Fetches data from Supabase API
  */
@@ -9,23 +9,7 @@
 const fs = require('fs');
 const path = require('path');
 
-// Supabase configuration (from environment)
-require('dotenv').config();
-const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
-if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-    console.error('❌ Missing required environment variables: SUPABASE_URL, SUPABASE_ANON_KEY');
-    process.exit(1);
-}
-
-// Helper: Create URL-friendly slug
-function createSlug(text) {
-    return text
-        .toLowerCase()
-        .replace(/'/g, '')
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-|-$/g, '');
-}
+const { createSlug, fetchFromSupabase } = require('./shared-utils');
 
 // Get current date in YYYY-MM-DD format
 function getCurrentDate() {
@@ -33,49 +17,8 @@ function getCurrentDate() {
     return now.toISOString().split('T')[0];
 }
 
-// Fetch all dictionary entries from Supabase
-async function fetchDictionaryEntries() {
-    console.log('🔄 Fetching dictionary entries from Supabase...');
-
-    const allEntries = [];
-    const pageSize = 1000;
-    let offset = 0;
-    let hasMore = true;
-
-    while (hasMore) {
-        const url = `${SUPABASE_URL}/rest/v1/dictionary_entries?select=pidgin,frequency,difficulty&order=pidgin.asc&offset=${offset}&limit=${pageSize}`;
-
-        const response = await fetch(url, {
-            headers: {
-                'apikey': SUPABASE_ANON_KEY,
-                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error(`Supabase API error: ${response.status} ${response.statusText}`);
-        }
-
-        const entries = await response.json();
-
-        if (entries.length === 0) {
-            hasMore = false;
-        } else {
-            allEntries.push(...entries);
-            offset += pageSize;
-
-            if (entries.length < pageSize) {
-                hasMore = false;
-            }
-        }
-    }
-
-    console.log(`✅ Fetched ${allEntries.length} entries from Supabase\n`);
-    return allEntries;
-}
-
 // Generate sitemap XML
-function generateSitemap(entries) {
+function generateSitemap({ dictionaryEntries, phrases, stories, pickupLines }) {
     const baseUrl = 'https://chokepidgin.com';
     const currentDate = getCurrentDate();
 
@@ -461,25 +404,22 @@ function generateSitemap(entries) {
 
 `;
 
-    // Track slugs to prevent duplicates
+    // Track slugs to prevent duplicates across all types
     const slugSet = new Set();
     let entryCount = 0;
+    let phraseCount = 0;
+    let storyCount = 0;
+    let pickupCount = 0;
 
     // Add individual dictionary entry pages
     xml += `    <!-- Individual Dictionary Entry Pages -->\n`;
 
-    entries.forEach(entry => {
+    dictionaryEntries.forEach(entry => {
         const slug = createSlug(entry.pidgin);
-
-        // Skip duplicates
-        if (slugSet.has(slug)) {
-            return;
-        }
-
-        slugSet.add(slug);
+        if (slugSet.has('word/' + slug)) return;
+        slugSet.add('word/' + slug);
         entryCount++;
 
-        // Determine frequency based on entry popularity
         let changefreq = 'monthly';
         let priority = 0.7;
 
@@ -499,10 +439,64 @@ function generateSitemap(entries) {
 `;
     });
 
+    // Add individual phrase pages
+    xml += `\n    <!-- Individual Phrase Pages -->\n`;
+
+    phrases.forEach(phrase => {
+        const slug = createSlug(phrase.pidgin);
+        if (slugSet.has('phrase/' + slug)) return;
+        slugSet.add('phrase/' + slug);
+        phraseCount++;
+
+        xml += `    <url>
+        <loc>${baseUrl}/phrase/${slug}.html</loc>
+        <lastmod>${currentDate}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.65</priority>
+    </url>
+`;
+    });
+
+    // Add individual story pages
+    xml += `\n    <!-- Individual Story Pages -->\n`;
+
+    stories.forEach(story => {
+        const slug = createSlug(story.title);
+        if (slugSet.has('story/' + slug)) return;
+        slugSet.add('story/' + slug);
+        storyCount++;
+
+        xml += `    <url>
+        <loc>${baseUrl}/story/${slug}.html</loc>
+        <lastmod>${currentDate}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.75</priority>
+    </url>
+`;
+    });
+
+    // Add individual pickup line pages
+    xml += `\n    <!-- Individual Pickup Line Pages -->\n`;
+
+    pickupLines.forEach(line => {
+        const slug = createSlug(line.pidgin.substring(0, 50));
+        if (slugSet.has('pickup/' + slug)) return;
+        slugSet.add('pickup/' + slug);
+        pickupCount++;
+
+        xml += `    <url>
+        <loc>${baseUrl}/pickup/${slug}.html</loc>
+        <lastmod>${currentDate}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+`;
+    });
+
     xml += `
 </urlset>`;
 
-    return { xml, entryCount };
+    return { xml, entryCount, phraseCount, storyCount, pickupCount };
 }
 
 // Main execution
@@ -510,20 +504,41 @@ async function main() {
     console.log('🗺️  Generating sitemap.xml...\n');
 
     try {
-        const entries = await fetchDictionaryEntries();
+        // Fetch all content types in parallel
+        const [dictionaryEntries, phrases, stories, pickupLines] = await Promise.all([
+            fetchFromSupabase('dictionary_entries', 'pidgin,frequency,difficulty', 'pidgin.asc'),
+            fetchFromSupabase('phrases', 'pidgin', 'pidgin.asc'),
+            fetchFromSupabase('stories', 'title', 'title.asc'),
+            fetchFromSupabase('pickup_lines', 'pidgin', 'pidgin.asc')
+        ]);
 
-        if (entries.length === 0) {
+        console.log(`📊 Fetched: ${dictionaryEntries.length} dictionary entries, ${phrases.length} phrases, ${stories.length} stories, ${pickupLines.length} pickup lines\n`);
+
+        if (dictionaryEntries.length === 0) {
             throw new Error('No dictionary entries found in Supabase');
         }
 
-        const { xml, entryCount } = generateSitemap(entries);
+        const { xml, entryCount, phraseCount, storyCount, pickupCount } = generateSitemap({
+            dictionaryEntries,
+            phrases,
+            stories,
+            pickupLines
+        });
 
         // Write sitemap
         const outputPath = path.join(__dirname, '../../public/sitemap.xml');
         fs.writeFileSync(outputPath, xml, 'utf8');
 
+        const staticPages = 57; // main pages + blog + SEO landing pages
+        const totalUrls = staticPages + entryCount + phraseCount + storyCount + pickupCount;
+
         console.log('✅ Sitemap generated successfully!');
-        console.log(`📄 Total URLs: ${entryCount + 12} (7 main pages + 5 blog pages + ${entryCount} dictionary entries)`);
+        console.log(`📄 Total URLs: ${totalUrls}`);
+        console.log(`   - Static pages: ${staticPages}`);
+        console.log(`   - Dictionary entries: ${entryCount}`);
+        console.log(`   - Phrases: ${phraseCount}`);
+        console.log(`   - Stories: ${storyCount}`);
+        console.log(`   - Pickup lines: ${pickupCount}`);
         console.log(`📂 Output: ${outputPath}`);
         console.log(`\n🔗 Submit to search engines:`);
         console.log(`   - Google: https://search.google.com/search-console`);

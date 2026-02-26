@@ -79,7 +79,10 @@ function createPublicStructure() {
         'public/assets/images',
         'public/assets/icons',
         'public/assets/audio',
-        'public/blog'
+        'public/blog',
+        'public/phrase',
+        'public/story',
+        'public/pickup'
     ];
 
     dirs.forEach(dir => {
@@ -527,6 +530,30 @@ function build() {
             console.error('⚠️  Warning: Could not generate entry pages:', error.message);
         }
 
+        // Generate individual phrase pages
+        console.log('\n📝 Generating individual phrase pages...');
+        try {
+            execSync('node tools/generators/generate-phrase-pages.js', { stdio: 'inherit' });
+        } catch (error) {
+            console.error('⚠️  Warning: Could not generate phrase pages:', error.message);
+        }
+
+        // Generate individual story pages
+        console.log('\n📖 Generating individual story pages...');
+        try {
+            execSync('node tools/generators/generate-story-pages.js', { stdio: 'inherit' });
+        } catch (error) {
+            console.error('⚠️  Warning: Could not generate story pages:', error.message);
+        }
+
+        // Generate individual pickup line pages
+        console.log('\n💕 Generating individual pickup line pages...');
+        try {
+            execSync('node tools/generators/generate-pickup-pages.js', { stdio: 'inherit' });
+        } catch (error) {
+            console.error('⚠️  Warning: Could not generate pickup line pages:', error.message);
+        }
+
         // Generate sitemap with all pages
         console.log('\n🗺️  Generating sitemap.xml...');
         try {
@@ -537,8 +564,8 @@ function build() {
 
         console.log('\n✅ Build completed successfully!');
         console.log('📂 Production files are in the /public directory');
-        console.log('📄 Generated 503+ individual dictionary entry pages');
-        console.log('🗺️  Updated sitemap.xml with 508 URLs');
+        console.log('📄 Generated dictionary, phrase, story, and pickup line pages');
+        console.log('🗺️  Updated sitemap.xml with all page URLs');
 
     } catch (error) {
         console.error('❌ Build failed:', error.message);

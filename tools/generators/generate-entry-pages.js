@@ -50,7 +50,7 @@ function escapeHtml(text) {
 
 // Fetch all dictionary entries from Supabase
 async function fetchDictionaryEntries() {
-    console.log('<i class="ti ti-refresh"></i> Fetching dictionary entries from Supabase...');
+    console.log('🔄 Fetching dictionary entries from Supabase...');
 
     const allEntries = [];
     const pageSize = 1000;
@@ -125,12 +125,12 @@ function generateEntryPage(entry, relatedTerms) {
     // SEO-optimized title: Match exact search query "X meaning" with compelling format
     // Capitalize the word properly for display
     const capitalizedWord = entry.pidgin.charAt(0).toUpperCase() + entry.pidgin.slice(1);
-    const pageTitle = `${capitalizedWord} Meaning: "${primaryMeaning}" - Hawaiian Pidgin Slang`;
+    const pageTitle = `${capitalizedWord} Meaning: "${primaryMeaning}" - Hawaiian Slang Dictionary`;
 
     // Create a more compelling, action-oriented meta description
     // Start with a direct answer, add value props, keep under 155 chars
     const shortMeaning = primaryMeaning.length > 30 ? primaryMeaning.substring(0, 30) + '...' : primaryMeaning;
-    const metaDescription = `${capitalizedWord} means "${shortMeaning}" in Hawaiian Pidgin. Hear the pronunciation, see examples, and learn how locals really use this word! <i class="ti ti-hand-love-you"></i>`;
+    const metaDescription = `${capitalizedWord} means "${shortMeaning}" in Hawaiian slang. Hear the pronunciation, see examples, and learn how locals really use this word!`;
 
     // Create schema markup
     const schema = {
@@ -213,7 +213,7 @@ function generateEntryPage(entry, relatedTerms) {
 
     <!-- SEO Meta Tags -->
     <meta name="description" content="${escapeHtml(metaDescription)}">
-    <meta name="keywords" content="${escapeHtml(entry.pidgin)}, hawaiian pidgin, hawaiian slang, ${escapeHtml(englishMeanings)}, pidgin dictionary, hawaii language">
+    <meta name="keywords" content="${escapeHtml(entry.pidgin)}, hawaiian slang, hawaiian pidgin, ${escapeHtml(englishMeanings)}, pidgin dictionary, hawaii language">
     <meta name="author" content="ChokePidgin.com">
     <meta name="robots" content="index, follow">
 
