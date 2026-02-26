@@ -1,6 +1,0 @@
-node_modules/
-output/
-venv/
-__pycache__/
-*.pyc
-.pidgin-seo.json
