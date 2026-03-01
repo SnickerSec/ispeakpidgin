@@ -9,7 +9,7 @@
         if (!loadingEl || !contentEl) return;
 
         try {
-            var response = await fetch(API_URL + '?count=1');
+            var response = await fetch(API_URL + '?count=1&_t=' + Date.now());
             if (!response.ok) throw new Error('API unavailable');
 
             var data = await response.json();
