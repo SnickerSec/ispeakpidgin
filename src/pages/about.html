@@ -106,15 +106,6 @@
         }
     }
     </script>
-
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7YYDVDXD"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-RB7YYDVDXD');
-    </script>
 </head>
 
 <body class="min-h-screen bg-gray-50">
@@ -325,26 +316,6 @@
 
     <!-- JavaScript -->
     <script defer src="js/main.js"></script>
-    <script>
-        // Share website button
-        document.getElementById('share-website-btn')?.addEventListener('click', function() {
-            shareWebsite();
-        });
-
-        // Share website function
-        function shareWebsite() {
-            if (navigator.share) {
-                navigator.share({
-                    title: 'ChokePidgin.com - Hawaiian Pidgin Dictionary',
-                    text: 'Check out this awesome Hawaiian Pidgin dictionary and translator!',
-                    url: 'https://chokepidgin.com'
-                }).catch(err => console.log('Error sharing:', err));
-            } else {
-                // Fallback: copy to clipboard
-                navigator.clipboard.writeText('https://chokepidgin.com');
-                alert('Link copied to clipboard!');
-            }
-        }
-    </script>
+    <script defer src="js/components/share-button.js"></script>
 </body>
 </html>

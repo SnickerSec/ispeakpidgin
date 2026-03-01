@@ -1,0 +1,21 @@
+{
+  "name": "ChokePidgin - Hawaiian Pidgin Dictionary & Translator",
+  "short_name": "ChokePidgin",
+  "description": "Complete Hawaiian Pidgin dictionary with 600+ words, translator, and lessons.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#667eea",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}

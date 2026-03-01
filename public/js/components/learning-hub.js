@@ -1,4 +1,11 @@
 // Learning Hub Component
+function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
 class LearningHub {
     constructor() {
         this.progress = this.loadProgress();
@@ -68,6 +75,12 @@ class LearningHub {
         this.updateProgress();
         this.loadDailyChallenge();
         this.updateAchievements();
+
+        // Listen for API lessons data
+        window.addEventListener('lessonsLoaded', (e) => {
+            this.lessons = this.initializeLessons();
+            this.loadLessons();
+        });
     }
 
     setupEventListeners() {
@@ -131,20 +144,20 @@ class LearningHub {
                 lessonCard.innerHTML = `
                     <div class="flex justify-between items-start mb-3">
                         <div class="flex-1">
-                            <h4 class="font-semibold text-lg mb-1">${lesson.title}</h4>
-                            <p class="text-gray-600 text-sm">${lesson.description}</p>
+                            <h4 class="font-semibold text-lg mb-1">${escapeHtml(lesson.title)}</h4>
+                            <p class="text-gray-600 text-sm">${escapeHtml(lesson.description)}</p>
                         </div>
                         <div class="ml-4 text-right">
                             ${isCompleted ?
                                 '<span class="text-green-500 text-2xl">✓</span>' :
                                 isLocked ?
-                                '<span class="text-gray-400 text-2xl">🔒</span>' :
+                                '<span class="text-gray-400 text-2xl"><i class="ti ti-lock"></i></span>' :
                                 '<span class="text-gray-400 text-2xl">○</span>'
                             }
                         </div>
                     </div>
                     <div class="flex justify-between items-center text-sm">
-                        <span class="text-gray-500">⏱ ${lesson.duration}</span>
+                        <span class="text-gray-500"><i class="ti ti-stopwatch"></i> ${lesson.duration}</span>
                         <span class="text-gray-500">+${lesson.points} points</span>
                     </div>
                 `;
@@ -169,7 +182,7 @@ class LearningHub {
             <div class="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
                 <div class="p-6">
                     <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-2xl font-bold">${lesson.title}</h2>
+                        <h2 class="text-2xl font-bold">${escapeHtml(lesson.title)}</h2>
                         <button class="close-modal text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
                     </div>
 
@@ -181,11 +194,11 @@ class LearningHub {
                                     <div class="bg-gray-50 rounded-lg p-3">
                                         <div class="flex justify-between items-center">
                                             <div>
-                                                <span class="font-bold text-purple-600">${item.pidgin}</span>
+                                                <span class="font-bold text-purple-600">${escapeHtml(item.pidgin)}</span>
                                                 <span class="mx-2">→</span>
-                                                <span>${item.english}</span>
+                                                <span>${escapeHtml(item.english)}</span>
                                             </div>
-                                            <span class="text-sm text-gray-500">[${item.pronunciation}]</span>
+                                            <span class="text-sm text-gray-500">[${escapeHtml(item.pronunciation)}]</span>
                                         </div>
                                     </div>
                                 `).join('')}
@@ -199,7 +212,7 @@ class LearningHub {
                             <div class="space-y-2">
                                 ${content.examples.map(ex => `
                                     <div class="bg-blue-50 rounded-lg p-3">
-                                        <p class="italic">${ex}</p>
+                                        <p class="italic">${escapeHtml(ex)}</p>
                                     </div>
                                 `).join('')}
                             </div>
@@ -208,15 +221,15 @@ class LearningHub {
 
                     ${content.culturalNote ? `
                         <div class="mb-6 bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded">
-                            <h3 class="text-sm font-semibold text-yellow-800 mb-1">🌺 Cultural Note</h3>
-                            <p class="text-sm text-yellow-700">${content.culturalNote}</p>
+                            <h3 class="text-sm font-semibold text-yellow-800 mb-1"><i class="ti ti-flower"></i> Cultural Note</h3>
+                            <p class="text-sm text-yellow-700">${escapeHtml(content.culturalNote)}</p>
                         </div>
                     ` : ''}
 
                     ${content.practice ? `
                         <div class="mb-6 bg-green-50 border-l-4 border-green-500 p-4 rounded">
-                            <h3 class="text-sm font-semibold text-green-800 mb-1">✨ Practice Tip</h3>
-                            <p class="text-sm text-green-700">${content.practice}</p>
+                            <h3 class="text-sm font-semibold text-green-800 mb-1"><i class="ti ti-sparkles"></i> Practice Tip</h3>
+                            <p class="text-sm text-green-700">${escapeHtml(content.practice)}</p>
                         </div>
                     ` : ''}
 
@@ -368,15 +381,15 @@ class LearningHub {
 
                 <div class="space-y-3">
                     <button class="level-btn w-full p-4 bg-green-100 hover:bg-green-200 rounded-lg text-left transition" data-level="beginner">
-                        <div class="font-bold text-green-700">🌱 Beginner</div>
+                        <div class="font-bold text-green-700"><i class="ti ti-plant"></i> Beginner</div>
                         <div class="text-sm text-green-600">Basic greetings, food, and everyday phrases</div>
                     </button>
                     <button class="level-btn w-full p-4 bg-yellow-100 hover:bg-yellow-200 rounded-lg text-left transition" data-level="intermediate">
-                        <div class="font-bold text-yellow-700">⭐ Intermediate</div>
+                        <div class="font-bold text-yellow-700"><i class="ti ti-star"></i> Intermediate</div>
                         <div class="text-sm text-yellow-600">Complex sentences and local slang</div>
                     </button>
                     <button class="level-btn w-full p-4 bg-purple-100 hover:bg-purple-200 rounded-lg text-left transition" data-level="advanced">
-                        <div class="font-bold text-purple-700">🏆 Advanced</div>
+                        <div class="font-bold text-purple-700"><i class="ti ti-trophy"></i> Advanced</div>
                         <div class="text-sm text-purple-600">Cultural nuances and grammar patterns</div>
                     </button>
                 </div>
@@ -491,12 +504,12 @@ class LearningHub {
                     </div>
 
                     <h3 class="text-xl font-bold mb-2">What does this mean?</h3>
-                    <p class="text-3xl font-bold text-${color}-600 mb-6 text-center py-4">${word.pidgin}</p>
+                    <p class="text-3xl font-bold text-${color}-600 mb-6 text-center py-4">${escapeHtml(word.pidgin)}</p>
 
                     <div class="space-y-2 mb-4">
                         ${answers.map(answer => `
-                            <button class="quiz-option w-full text-left px-4 py-3 border-2 border-gray-200 rounded-lg hover:border-${color}-500 hover:bg-${color}-50 transition" data-answer="${answer}" data-correct="${word.english}">
-                                ${answer}
+                            <button class="quiz-option w-full text-left px-4 py-3 border-2 border-gray-200 rounded-lg hover:border-${color}-500 hover:bg-${color}-50 transition" data-answer="${escapeHtml(answer)}" data-correct="${escapeHtml(word.english)}">
+                                ${escapeHtml(answer)}
                             </button>
                         `).join('')}
                     </div>
@@ -564,13 +577,13 @@ class LearningHub {
 
         if (percentage >= 80) {
             message = 'Excellent work!';
-            emoji = '🎉';
+            emoji = '<i class="ti ti-confetti"></i>';
         } else if (percentage >= 60) {
             message = 'Good job!';
-            emoji = '👍';
+            emoji = '<i class="ti ti-thumb-up"></i>';
         } else {
             message = 'Keep practicing!';
-            emoji = '💪';
+            emoji = '<i class="ti ti-barbell"></i>';
         }
 
         const modal = document.createElement('div');

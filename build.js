@@ -57,6 +57,7 @@ const pathMappings = {
     'data/crossword-puzzles.js': 'js/components/games/crossword-data.js',
     'js/local-quiz.js': 'js/components/games/local-quiz.js',
     'js/data/local-quiz-data.js': 'js/components/games/quiz-data.js',
+    'js/components/pidgin-heads-up-page.js': 'js/components/games/pidgin-heads-up-page.js',
 
     // CSS files
     'css/style.css': 'css/main.css',
@@ -286,7 +287,10 @@ function copyJavaScriptFiles() {
         'src/components/bible',
         'src/components/shared',
         'src/components/practice',
-        'src/components/pickup'
+        'src/components/pickup',
+        'src/components/phrases',
+        'src/components/stories',
+        'src/components/learning'
     ];
 
     // Files to exclude from build
@@ -321,7 +325,8 @@ function copyJavaScriptFiles() {
         { src: 'src/components/games/wordle', dest: 'public/js/components/games' },
         { src: 'src/components/games/hangman', dest: 'public/js/components/games' },
         { src: 'src/components/games/crossword', dest: 'public/js/components/games' },
-        { src: 'src/components/games/quiz', dest: 'public/js/components/games' }
+        { src: 'src/components/games/quiz', dest: 'public/js/components/games' },
+        { src: 'src/components/games', dest: 'public/js/components/games', filesOnly: true }
     ];
 
     gameSourceDirs.forEach(({ src, dest }) => {

@@ -114,15 +114,6 @@
         }
     }
     </script>
-
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7YYDVDXD"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-RB7YYDVDXD');
-    </script>
 </head>
 
 <body class="min-h-screen bg-gray-50">
@@ -418,32 +409,7 @@
 
     <!-- JavaScript -->
     <script defer src="js/components/pidgin-bible.js"></script>
+    <script defer src="js/components/bible-page.js"></script>
     <script defer src="js/main.js"></script>
-    <script>
-        // Load book button event listener
-        document.addEventListener('DOMContentLoaded', function() {
-            // Load book button
-            const loadBookBtn = document.querySelector('.load-book-btn');
-            if (loadBookBtn) {
-                loadBookBtn.addEventListener('click', function() {
-                    const book = this.getAttribute('data-book');
-                    if (typeof loadBook === 'function') {
-                        loadBook(book);
-                    }
-                });
-            }
-
-            // Search verse buttons
-            const searchVerseBtns = document.querySelectorAll('.search-verse-btn');
-            searchVerseBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const verse = this.getAttribute('data-verse');
-                    if (typeof searchVerse === 'function') {
-                        searchVerse(verse);
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 </html>

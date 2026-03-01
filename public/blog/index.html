@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hawaiian Pidgin Blog - Learn Island Slang & Culture | ChokePidgin.com</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Learn Hawaiian Pidgin with our comprehensive guides, cultural insights, and language tips. Discover the history, usage, and meaning behind Hawaii's unique creole language.">
+    <meta name="keywords" content="Hawaiian Pidgin blog, learn Hawaiian slang, Hawaii language guide, Hawaiian Creole English, island speak, local Hawaii language">
+    <meta name="author" content="ChokePidgin.com">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Hawaiian Pidgin Blog - Language & Culture Guides">
+    <meta property="og:description" content="Expert guides on Hawaiian Pidgin, local slang, and island culture. Learn authentic Hawaii speak from native speakers.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chokepidgin.com/blog/">
+    <meta property="og:site_name" content="ChokePidgin.com">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://chokepidgin.com/blog/">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" href="/favicon.ico">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="../css/tailwind.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+
+    <style>
+        .brand-font { font-family: 'Pacifico', cursive; }
+        .blog-card { transition: all 0.3s ease; }
+        .blog-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+</head>
+
+<body class="min-h-screen bg-gray-50">
+    <!-- Navigation -->
+<nav class="shadow-lg sticky top-0 z-50" style="background: linear-gradient(to right, rgba(255, 255, 255, 0.95), rgba(255, 251, 235, 0.95)); backdrop-filter: blur(10px); border-bottom: 3px solid #ff6b6b;">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center py-2">
+            <div class="flex items-center">
+                <a href="../index.html">
+                    <span class="brand-font text-2xl bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+                        <i class="ti ti-palm-tree"></i> ChokePidgin <i class="ti ti-ripple"></i>
+                    </span>
+                </a>
+            </div>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="../index.html" class="nav-link text-gray-700 hover:text-green-600 transition">Home</a>
+                <a href="../translator.html" class="nav-link text-gray-700 hover:text-green-600 transition">Translator</a>
+                <a href="../dictionary.html" class="nav-link text-gray-700 hover:text-green-600 transition">Dictionary</a>
+
+                <!-- Learn Dropdown -->
+                <div class="nav-dropdown relative">
+                    <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
+                        Learn
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
+                        <a href="../learning-hub.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-books"></i> Lessons</a>
+                        <a href="../phrases.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-message"></i> Phrases</a>
+                        <a href="../pronunciation-practice.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-microphone"></i> Pronunciation</a>
+                        <a href="../cheat-sheet.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-note"></i> Cheat Sheet</a>
+                    </div>
+                </div>
+
+                <!-- Games Dropdown -->
+                <div class="nav-dropdown relative">
+                    <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
+                        Games
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
+                        <a href="../games.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition font-semibold border-b border-gray-100"><i class="ti ti-device-gamepad-2"></i> All Games</a>
+                        <a href="../pidgin-wordle.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition flex items-center gap-2 whitespace-nowrap"><i class="ti ti-grid-3x3"></i> Pidgin Wordle</a>
+                        <a href="../pidgin-hangman.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-typography"></i> Hangman</a>
+                        <a href="../pidgin-crossword.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-puzzle"></i> Crossword</a>
+                        <a href="../pidgin-heads-up.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-stretching"></i> Heads Up!</a>
+                        <a href="../how-local-you-stay.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-hand-love-you"></i> Local Quiz</a>
+                    </div>
+                </div>
+
+                <!-- Community Dropdown -->
+                <div class="nav-dropdown relative">
+                    <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
+                        Community
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
+                        <a href="../stories.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Stories</a>
+                        <a href="../ask-local.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Ask a Local</a>
+                        <a href="../blog/" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Blog</a>
+                    </div>
+                </div>
+
+                <!-- Pickup Lines Dropdown -->
+                <div class="nav-dropdown relative">
+                    <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
+                        Pickup Lines
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
+                        <a href="../pickup-lines.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Browse Lines</a>
+                        <a href="../pickup-line-generator.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">AI Generator</a>
+                        <a href="../how-to-use-hawaiian-pidgin-pickup-lines.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">How-To Guide</a>
+                    </div>
+                </div>
+
+                <a href="../pidgin-bible.html" class="nav-link text-gray-700 hover:text-green-600 transition">Pidgin Bible</a>
+            </div>
+
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-btn" class="text-gray-700 p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+        <div class="px-2 pt-2 pb-3 space-y-1">
+            <a href="../index.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Home</a>
+            <a href="../translator.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Translator</a>
+            <a href="../dictionary.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Dictionary</a>
+
+            <!-- Learn Submenu -->
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
+                    Learn
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="mobile-dropdown-content hidden pl-6 space-y-1">
+                    <a href="../learning-hub.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-books"></i> Lessons</a>
+                    <a href="../phrases.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-message"></i> Phrases</a>
+                    <a href="../pronunciation-practice.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-microphone"></i> Pronunciation</a>
+                    <a href="../cheat-sheet.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-note"></i> Cheat Sheet</a>
+                </div>
+            </div>
+
+            <!-- Games Submenu -->
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
+                    Games
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="mobile-dropdown-content hidden pl-6 space-y-1">
+                    <a href="../games.html" class="block px-3 py-2 text-gray-600 hover:text-green-600 font-semibold"><i class="ti ti-device-gamepad-2"></i> All Games</a>
+                    <a href="../pidgin-wordle.html" class="block px-3 py-2 text-gray-600 hover:text-green-600 flex items-center gap-2"><i class="ti ti-grid-3x3"></i> Pidgin Wordle</a>
+                    <a href="../pidgin-hangman.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-typography"></i> Hangman</a>
+                    <a href="../pidgin-crossword.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-puzzle"></i> Crossword</a>
+                    <a href="../pidgin-heads-up.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-stretching"></i> Heads Up!</a>
+                    <a href="../how-local-you-stay.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-hand-love-you"></i> Local Quiz</a>
+                </div>
+            </div>
+
+            <!-- Community Submenu -->
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
+                    Community
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="mobile-dropdown-content hidden pl-6 space-y-1">
+                    <a href="../stories.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Stories</a>
+                    <a href="../ask-local.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Ask a Local</a>
+                    <a href="../blog/" class="block px-3 py-2 text-gray-600 hover:text-green-600">Blog</a>
+                </div>
+            </div>
+
+            <!-- Pickup Lines Submenu -->
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
+                    Pickup Lines
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="mobile-dropdown-content hidden pl-6 space-y-1">
+                    <a href="../pickup-lines.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Browse Lines</a>
+                    <a href="../pickup-line-generator.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">AI Generator</a>
+                    <a href="../how-to-use-hawaiian-pidgin-pickup-lines.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">How-To Guide</a>
+                </div>
+            </div>
+
+            <a href="../pidgin-bible.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Pidgin Bible</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Navigation JavaScript - automatically included on all pages -->
+<script defer src="../js/components/navigation.js"></script>
+
+
+    <!-- Hero Section -->
+    <div class="bg-gradient-to-r from-green-600 to-blue-600 text-white py-16 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                Hawaiian Pidgin Blog <i class="ti ti-books"></i>
+            </h1>
+            <p class="text-xl md:text-2xl text-white/90 mb-4">
+                Learn island speak, culture, and authentic Hawaiian Pidgin
+            </p>
+            <p class="text-lg text-white/80">
+                Expert guides, language tips, and cultural insights from native speakers
+            </p>
+        </div>
+    </div>
+
+    <!-- Blog Posts Grid -->
+    <div class="max-w-7xl mx-auto px-4 py-12">
+        <!-- Featured Post -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">📌 Featured Article</h2>
+            <a href="hawaiian-pidgin-beginners-guide.html" class="blog-card block bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div class="md:flex">
+                    <div class="md:w-1/3 bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center p-8">
+                        <div class="text-6xl"><i class="ti ti-flower"></i></div>
+                    </div>
+                    <div class="p-8 md:w-2/3">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Beginner's Guide</span>
+                            <span class="text-gray-500 text-sm">• 10 min read</span>
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
+                            Hawaiian Pidgin for Beginners: Everything You Need to Know
+                        </h3>
+                        <p class="text-gray-600 mb-4 leading-relaxed">
+                            A comprehensive guide to Hawaiian Pidgin English (HCE) - learn the basics, understand the history, and start speaking like a local. Perfect for visitors and new residents.
+                        </p>
+                        <div class="flex items-center gap-4 text-sm text-gray-500">
+                            <span>📅 November 18, 2025</span>
+                            <span>👤 ChokePidgin Team</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Blog Posts Grid -->
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Latest Articles</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Live Articles -->
+            <a href="10-essential-pidgin-phrases-visitors.html" class="blog-card bg-white rounded-2xl shadow-lg p-6 block hover:shadow-xl transition">
+                <div class="text-4xl mb-4">🗣️</div>
+                <div class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold inline-block mb-3">Travel Tips</div>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">
+                    10 Essential Hawaiian Pidgin Phrases Every Visitor Should Know
+                </h3>
+                <p class="text-gray-600 mb-4">
+                    Master these key phrases before your Hawaii trip to connect with locals and experience authentic island culture.
+                </p>
+                <div class="flex items-center justify-between text-sm text-gray-500">
+                    <span>5 min read</span>
+                    <span class="text-green-600 font-semibold">Read →</span>
+                </div>
+            </a>
+
+            <a href="pidgin-vs-hawaiian-language.html" class="blog-card bg-white rounded-2xl shadow-lg p-6 block hover:shadow-xl transition">
+                <div class="text-4xl mb-4"><i class="ti ti-book"></i></div>
+                <div class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold inline-block mb-3">Language Guide</div>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">
+                    Hawaiian Pidgin vs. Hawaiian Language: What's the Difference?
+                </h3>
+                <p class="text-gray-600 mb-4">
+                    Understand the distinction between Hawaiian Pidgin (HCE) and the native Hawaiian language (ʻŌlelo Hawaiʻi).
+                </p>
+                <div class="flex items-center justify-between text-sm text-gray-500">
+                    <span>7 min read</span>
+                    <span class="text-green-600 font-semibold">Read →</span>
+                </div>
+            </a>
+
+            <a href="history-of-hawaiian-pidgin.html" class="blog-card bg-white rounded-2xl shadow-lg p-6 block hover:shadow-xl transition">
+                <div class="text-4xl mb-4"><i class="ti ti-beach"></i></div>
+                <div class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-semibold inline-block mb-3">History</div>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">
+                    The History of Hawaiian Pidgin: From Plantations to Pop Culture
+                </h3>
+                <p class="text-gray-600 mb-4">
+                    Explore how Hawaiian Pidgin emerged from Hawaii's multicultural plantation era and became a cultural icon.
+                </p>
+                <div class="flex items-center justify-between text-sm text-gray-500">
+                    <span>12 min read</span>
+                    <span class="text-green-600 font-semibold">Read →</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-16 px-4 mt-12">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                Ready to Learn Hawaiian Pidgin?
+            </h2>
+            <p class="text-xl mb-8 text-white/90">
+                Start with our free translator and 650+ word dictionary
+            </p>
+            <div class="flex flex-wrap gap-4 justify-center">
+                <a href="../translator.html" class="bg-white text-purple-600 px-8 py-4 rounded-full font-bold hover:bg-gray-100 transition text-lg">
+                    Try Translator
+                </a>
+                <a href="../dictionary.html" class="bg-purple-700 text-white px-8 py-4 rounded-full font-bold hover:bg-purple-800 transition text-lg">
+                    Browse Dictionary
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+<footer class="bg-gradient-to-r from-purple-900 to-blue-900 text-white py-8 mt-12">
+    <div class="container mx-auto px-4 text-center">
+        <p class="brand-font text-xl mb-2"><i class="ti ti-palm-tree"></i> ChokePidgin.com <i class="ti ti-ripple"></i></p>
+        <p class="text-sm opacity-80">Preserving and sharing Hawaiian Pidgin culture</p>
+        <p class="text-xs opacity-60 mt-4">&copy; 2025 ChokePidgin.com - All Rights Reserved</p>
+    </div>
+</footer>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7YYDVDXD"></script>
+<script src="../js/components/gtag.js"></script>
+
+
+    <script src="../js/components/main.js"></script>
+</body>
+</html>

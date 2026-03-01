@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Pidgin Heads Up! - Hawaiian Pidgin Party Game | ChokePidgin</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Play Pidgin Heads Up! Hold your phone to your forehead while friends give you clues to guess Hawaiian Pidgin words. Perfect party game for learning Pidgin!">
+    <meta name="keywords" content="hawaiian pidgin game, heads up pidgin, pidgin party game, hawaii word game, learn pidgin fun">
+    <meta name="author" content="ChokePidgin.com">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Pidgin Heads Up! - Hawaiian Pidgin Party Game">
+    <meta property="og:description" content="Hold your phone to your forehead and guess Pidgin words from your friends' clues!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chokepidgin.com/pidgin-heads-up.html">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://chokepidgin.com/pidgin-heads-up.html">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" href="/favicon.ico">
+
+    <!-- Tailwind CSS -->
+    <link href="css/tailwind.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        .brand-font { font-family: 'Pacifico', cursive; }
+        body, h1, h2, h3, h4, h5, h6 { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+
+        /* Rotate phone prompt - shown in portrait during game */
+        .rotate-prompt {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #1e3a5f 0%, #0d1b2a 100%);
+            z-index: 2000;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .rotate-prompt.show {
+            display: flex;
+        }
+
+        .rotate-icon {
+            font-size: 5rem;
+            animation: rotate-hint 1.5s ease-in-out infinite;
+        }
+
+        @keyframes rotate-hint {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(90deg); }
+        }
+
+        /* Game screen styles */
+        .game-screen {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .word-display {
+            font-size: clamp(3rem, 12vw, 6rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            line-height: 1.1;
+        }
+
+        .hint-display {
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            opacity: 0.9;
+        }
+
+
+        /* Tilt detection feedback */
+        .tilt-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .tilt-indicator.correct {
+            background: rgba(34, 197, 94, 0.95);
+        }
+
+        .tilt-indicator.skip {
+            background: rgba(239, 68, 68, 0.95);
+        }
+
+        .tilt-indicator.show {
+            opacity: 1;
+        }
+
+        .tilt-indicator span {
+            font-size: 4rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Timer bar */
+        .timer-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+
+        .timer-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #22c55e, #eab308, #ef4444);
+            transition: width 0.1s linear;
+        }
+
+        /* Category cards */
+        .category-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+        }
+        .category-card.selected {
+            ring: 4px;
+            ring-color: #22c55e;
+            transform: scale(1.02);
+        }
+
+        /* Fullscreen game mode */
+        .fullscreen-game {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+        }
+
+        /* Score animation */
+        @keyframes score-pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .score-pop {
+            animation: score-pop 0.3s ease;
+        }
+
+        /* Countdown */
+        @keyframes countdown-pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.8; }
+        }
+        .countdown-number {
+            animation: countdown-pulse 1s ease infinite;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+</head>
+<body class="bg-gradient-to-br from-orange-50 to-yellow-50 min-h-screen">
+    <!-- Navigation -->
+<nav class="shadow-lg sticky top-0 z-50" style="background: linear-gradient(to right, rgba(255, 255, 255, 0.95), rgba(255, 251, 235, 0.95)); backdrop-filter: blur(10px); border-bottom: 3px solid #ff6b6b;">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center py-2">
+            <div class="flex items-center">
+                <a href="index.html">
+                    <span class="brand-font text-2xl bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+                        <i class="ti ti-palm-tree"></i> ChokePidgin <i class="ti ti-ripple"></i>
+                    </span>
+                </a>
+            </div>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="index.html" class="nav-link text-gray-700 hover:text-green-600 transition">Home</a>
+                <a href="translator.html" class="nav-link text-gray-700 hover:text-green-600 transition">Translator</a>
+                <a href="dictionary.html" class="nav-link text-gray-700 hover:text-green-600 transition">Dictionary</a>
+
+                <!-- Learn Dropdown -->
+                <div class="nav-dropdown relative">
+                    <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
+                        Learn
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
+                        <a href="learning-hub.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-books"></i> Lessons</a>
+                        <a href="phrases.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-message"></i> Phrases</a>
+                        <a href="pronunciation-practice.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-microphone"></i> Pronunciation</a>
+                        <a href="cheat-sheet.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-note"></i> Cheat Sheet</a>
+                    </div>
+                </div>
+
+                <!-- Games Dropdown -->
+                <div class="nav-dropdown relative">
+                    <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
+                        Games
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
+                        <a href="games.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition font-semibold border-b border-gray-100"><i class="ti ti-device-gamepad-2"></i> All Games</a>
+                        <a href="pidgin-wordle.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition flex items-center gap-2 whitespace-nowrap"><i class="ti ti-grid-3x3"></i> Pidgin Wordle</a>
+                        <a href="pidgin-hangman.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-typography"></i> Hangman</a>
+                        <a href="pidgin-crossword.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-puzzle"></i> Crossword</a>
+                        <a href="pidgin-heads-up.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-stretching"></i> Heads Up!</a>
+                        <a href="how-local-you-stay.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-hand-love-you"></i> Local Quiz</a>
+                    </div>
+                </div>
+
+                <!-- Community Dropdown -->
+                <div class="nav-dropdown relative">
+                    <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
+                        Community
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
+                        <a href="stories.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Stories</a>
+                        <a href="ask-local.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Ask a Local</a>
+                        <a href="blog/" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Blog</a>
+                    </div>
+                </div>
+
+                <!-- Pickup Lines Dropdown -->
+                <div class="nav-dropdown relative">
+                    <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
+                        Pickup Lines
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
+                        <a href="pickup-lines.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Browse Lines</a>
+                        <a href="pickup-line-generator.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">AI Generator</a>
+                        <a href="how-to-use-hawaiian-pidgin-pickup-lines.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">How-To Guide</a>
+                    </div>
+                </div>
+
+                <a href="pidgin-bible.html" class="nav-link text-gray-700 hover:text-green-600 transition">Pidgin Bible</a>
+            </div>
+
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-btn" class="text-gray-700 p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+        <div class="px-2 pt-2 pb-3 space-y-1">
+            <a href="index.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Home</a>
+            <a href="translator.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Translator</a>
+            <a href="dictionary.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Dictionary</a>
+
+            <!-- Learn Submenu -->
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
+                    Learn
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="mobile-dropdown-content hidden pl-6 space-y-1">
+                    <a href="learning-hub.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-books"></i> Lessons</a>
+                    <a href="phrases.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-message"></i> Phrases</a>
+                    <a href="pronunciation-practice.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-microphone"></i> Pronunciation</a>
+                    <a href="cheat-sheet.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-note"></i> Cheat Sheet</a>
+                </div>
+            </div>
+
+            <!-- Games Submenu -->
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
+                    Games
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="mobile-dropdown-content hidden pl-6 space-y-1">
+                    <a href="games.html" class="block px-3 py-2 text-gray-600 hover:text-green-600 font-semibold"><i class="ti ti-device-gamepad-2"></i> All Games</a>
+                    <a href="pidgin-wordle.html" class="block px-3 py-2 text-gray-600 hover:text-green-600 flex items-center gap-2"><i class="ti ti-grid-3x3"></i> Pidgin Wordle</a>
+                    <a href="pidgin-hangman.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-typography"></i> Hangman</a>
+                    <a href="pidgin-crossword.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-puzzle"></i> Crossword</a>
+                    <a href="pidgin-heads-up.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-stretching"></i> Heads Up!</a>
+                    <a href="how-local-you-stay.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-hand-love-you"></i> Local Quiz</a>
+                </div>
+            </div>
+
+            <!-- Community Submenu -->
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
+                    Community
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="mobile-dropdown-content hidden pl-6 space-y-1">
+                    <a href="stories.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Stories</a>
+                    <a href="ask-local.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Ask a Local</a>
+                    <a href="blog/" class="block px-3 py-2 text-gray-600 hover:text-green-600">Blog</a>
+                </div>
+            </div>
+
+            <!-- Pickup Lines Submenu -->
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
+                    Pickup Lines
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="mobile-dropdown-content hidden pl-6 space-y-1">
+                    <a href="pickup-lines.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Browse Lines</a>
+                    <a href="pickup-line-generator.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">AI Generator</a>
+                    <a href="how-to-use-hawaiian-pidgin-pickup-lines.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">How-To Guide</a>
+                </div>
+            </div>
+
+            <a href="pidgin-bible.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Pidgin Bible</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Navigation JavaScript - automatically included on all pages -->
+<script defer src="js/components/navigation.js"></script>
+
+
+    <!-- Main Menu Screen -->
+    <main id="menu-screen" class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                <span class="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+                    <i class="ti ti-hand-love-you"></i> Pidgin Heads Up!
+                </span>
+            </h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Rotate phone sideways, hold to your forehead! Your friends give clues, you guess da Pidgin word.
+                Tilt forward fo' correct, tilt back fo' skip!
+            </p>
+        </div>
+
+        <!-- How to Play -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4"><i class="ti ti-book"></i> How fo' Play</h2>
+            <div class="grid md:grid-cols-4 gap-4">
+                <div class="text-center p-4">
+                    <div class="text-4xl mb-2"><i class="ti ti-refresh"></i></div>
+                    <h3 class="font-bold text-gray-800">1. Rotate Phone</h3>
+                    <p class="text-gray-600 text-sm">Turn your phone sideways (landscape mode)</p>
+                </div>
+                <div class="text-center p-4">
+                    <div class="text-4xl mb-2"><i class="ti ti-device-mobile"></i></div>
+                    <h3 class="font-bold text-gray-800">2. Hold to Forehead</h3>
+                    <p class="text-gray-600 text-sm">Put da phone on your forehead so others can see da word</p>
+                </div>
+                <div class="text-center p-4">
+                    <div class="text-4xl mb-2"><i class="ti ti-speakerphone"></i></div>
+                    <h3 class="font-bold text-gray-800">3. Friends Give Clues</h3>
+                    <p class="text-gray-600 text-sm">They describe da word without saying um</p>
+                </div>
+                <div class="text-center p-4">
+                    <div class="text-4xl mb-2"><i class="ti ti-device-mobile"></i></div>
+                    <h3 class="font-bold text-gray-800">4. Tilt to Answer</h3>
+                    <p class="text-gray-600 text-sm">Tilt FORWARD = correct <i class="ti ti-circle-check"></i><br>Tilt BACK = skip <i class="ti ti-circle-x"></i></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Selection -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4"><i class="ti ti-target"></i> Choose Category</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4" id="category-grid">
+                <div class="category-card bg-gradient-to-br from-green-400 to-green-600 text-white rounded-xl p-6 text-center selected" data-category="all">
+                    <div class="text-3xl mb-2"><i class="ti ti-palm-tree"></i></div>
+                    <h3 class="font-bold text-lg">All Words</h3>
+                    <p class="text-sm opacity-80">Everything mixed up</p>
+                </div>
+                <div class="category-card bg-gradient-to-br from-blue-400 to-blue-600 text-white rounded-xl p-6 text-center" data-category="greetings">
+                    <div class="text-3xl mb-2"><i class="ti ti-hand-love-you"></i></div>
+                    <h3 class="font-bold text-lg">Greetings</h3>
+                    <p class="text-sm opacity-80">Howzit, Aloha, Mahalo</p>
+                </div>
+                <div class="category-card bg-gradient-to-br from-orange-400 to-orange-600 text-white rounded-xl p-6 text-center" data-category="food">
+                    <div class="text-3xl mb-2"><i class="ti ti-tools-kitchen-2"></i></div>
+                    <h3 class="font-bold text-lg">Food & Drink</h3>
+                    <p class="text-sm opacity-80">Grindz, Poke, Loco Moco</p>
+                </div>
+                <div class="category-card bg-gradient-to-br from-purple-400 to-purple-600 text-white rounded-xl p-6 text-center" data-category="slang">
+                    <div class="text-3xl mb-2"><i class="ti ti-message"></i></div>
+                    <h3 class="font-bold text-lg">Local Slang</h3>
+                    <p class="text-sm opacity-80">Da kine, Shoots, Rajah</p>
+                </div>
+                <div class="category-card bg-gradient-to-br from-pink-400 to-pink-600 text-white rounded-xl p-6 text-center" data-category="people">
+                    <div class="text-3xl mb-2"><i class="ti ti-users"></i></div>
+                    <h3 class="font-bold text-lg">People & Family</h3>
+                    <p class="text-sm opacity-80">Ohana, Keiki, Tutu</p>
+                </div>
+                <div class="category-card bg-gradient-to-br from-teal-400 to-teal-600 text-white rounded-xl p-6 text-center" data-category="places">
+                    <div class="text-3xl mb-2"><i class="ti ti-beach"></i></div>
+                    <h3 class="font-bold text-lg">Places & Nature</h3>
+                    <p class="text-sm opacity-80">Mauka, Makai, Lanai</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Settings -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">⚙️ Settings</h2>
+            <div class="flex flex-wrap gap-6 justify-center">
+                <div>
+                    <label class="block text-gray-700 font-medium mb-2"><i class="ti ti-stopwatch"></i> Round Time</label>
+                    <select id="round-time" class="px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-green-500 focus:outline-none">
+                        <option value="30">30 seconds</option>
+                        <option value="60" selected>60 seconds</option>
+                        <option value="90">90 seconds</option>
+                        <option value="120">2 minutes</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-medium mb-2"><i class="ti ti-adjustments"></i> Difficulty</label>
+                    <select id="difficulty" class="px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-green-500 focus:outline-none">
+                        <option value="easy">Easy (Common words)</option>
+                        <option value="medium" selected>Medium (Mixed)</option>
+                        <option value="hard">Hard (Advanced)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Start Button -->
+        <div class="text-center">
+            <button id="start-game-btn" class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white text-2xl font-bold py-4 px-12 rounded-full shadow-lg transform hover:scale-105 transition">
+                <i class="ti ti-device-gamepad-2"></i> Start Game!
+            </button>
+            <p class="text-gray-500 mt-4 text-sm">Make sure to allow motion sensors when prompted</p>
+        </div>
+    </main>
+
+    <!-- Rotate Phone Prompt -->
+    <div id="rotate-prompt" class="rotate-prompt">
+        <div class="rotate-icon"><i class="ti ti-device-mobile"></i></div>
+        <h2 class="text-3xl font-bold mt-6 mb-4">Rotate Your Phone!</h2>
+        <p class="text-xl opacity-80">Turn sideways for the best experience</p>
+    </div>
+
+    <!-- Countdown Screen -->
+    <div id="countdown-screen" class="fullscreen-game bg-gradient-to-br from-purple-600 to-pink-600 hidden">
+        <div class="game-screen text-white">
+            <div class="text-2xl mb-4">Get Ready!</div>
+            <div id="countdown-number" class="text-9xl font-bold countdown-number">3</div>
+            <div class="text-xl mt-4">Hold phone to forehead (sideways) <i class="ti ti-device-mobile"></i></div>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="fullscreen-game hidden">
+        <div class="game-screen" id="game-bg">
+            <!-- Timer -->
+            <div class="timer-container w-full max-w-md mb-8">
+                <div class="flex justify-between text-white text-xl font-bold mb-2">
+                    <span><i class="ti ti-stopwatch"></i> <span id="time-left">60</span>s</span>
+                    <span><i class="ti ti-circle-check"></i> <span id="score">0</span></span>
+                </div>
+                <div class="timer-bar w-full">
+                    <div id="timer-progress" class="timer-progress" style="width: 100%;"></div>
+                </div>
+            </div>
+
+            <!-- Word Display -->
+            <div class="flex-1 flex flex-col justify-center items-center">
+                <div id="current-word" class="word-display text-white mb-4">HOWZIT</div>
+                <div id="current-hint" class="hint-display text-white/80"></div>
+            </div>
+
+            <!-- Tilt Indicators -->
+            <div id="tilt-correct" class="tilt-indicator correct">
+                <span><i class="ti ti-circle-check"></i> CORRECT!</span>
+            </div>
+            <div id="tilt-skip" class="tilt-indicator skip">
+                <span><i class="ti ti-circle-x"></i> SKIP!</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="results-screen" class="fullscreen-game bg-gradient-to-br from-blue-600 to-purple-600 hidden">
+        <div class="game-screen text-white p-8">
+            <h2 class="text-4xl font-bold mb-2"><i class="ti ti-confetti"></i> Pau! Time's Up!</h2>
+
+            <div class="bg-white/20 rounded-2xl p-8 my-8 max-w-md w-full">
+                <div class="text-6xl font-bold mb-2" id="final-score">0</div>
+                <div class="text-2xl opacity-80">Words Correct</div>
+            </div>
+
+            <div class="bg-white/10 rounded-xl p-4 mb-8 max-w-md w-full max-h-64 overflow-y-auto">
+                <h3 class="font-bold mb-3 text-xl">Words This Round:</h3>
+                <div id="words-list" class="text-left space-y-2">
+                    <!-- Filled dynamically -->
+                </div>
+            </div>
+
+            <div class="flex flex-wrap gap-4 justify-center">
+                <button id="play-again-btn" class="bg-white text-purple-600 font-bold py-3 px-8 rounded-full hover:bg-gray-100 transition">
+                    <i class="ti ti-refresh"></i> Play Again
+                </button>
+                <button id="back-to-menu-btn" class="bg-white/20 text-white font-bold py-3 px-8 rounded-full hover:bg-white/30 transition">
+                    <i class="ti ti-clipboard"></i> Change Category
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+<footer class="bg-gradient-to-r from-purple-900 to-blue-900 text-white py-8 mt-12">
+    <div class="container mx-auto px-4 text-center">
+        <p class="brand-font text-xl mb-2"><i class="ti ti-palm-tree"></i> ChokePidgin.com <i class="ti ti-ripple"></i></p>
+        <p class="text-sm opacity-80">Preserving and sharing Hawaiian Pidgin culture</p>
+        <p class="text-xs opacity-60 mt-4">&copy; 2025 ChokePidgin.com - All Rights Reserved</p>
+    </div>
+</footer>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7YYDVDXD"></script>
+<script src="js/components/gtag.js"></script>
+
+
+    <script defer src="js/components/games/pidgin-heads-up-page.js"></script>
+    <script defer src="js/components/main.js"></script>
+</body>
+</html>

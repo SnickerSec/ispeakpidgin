@@ -247,74 +247,7 @@
 </nav>
 
 <!-- Navigation JavaScript - automatically included on all pages -->
-<script>
-// Use DOMContentLoaded to ensure all elements are available
-document.addEventListener('DOMContentLoaded', function() {
-    // Mobile menu toggle
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    if (mobileMenuBtn && mobileMenu) {
-        mobileMenuBtn.addEventListener('click', function() {
-            mobileMenu.classList.toggle('hidden');
-        });
-    } else {
-        console.warn('Mobile menu elements not found:', { mobileMenuBtn, mobileMenu });
-    }
-
-    // Desktop dropdown menus
-    const dropdowns = document.querySelectorAll('.nav-dropdown');
-    dropdowns.forEach(dropdown => {
-        const button = dropdown.querySelector('button');
-        const menu = dropdown.querySelector('.dropdown-menu');
-
-        if (button && menu) {
-            button.addEventListener('click', function(e) {
-                e.stopPropagation();
-                // Close other dropdowns
-                dropdowns.forEach(otherDropdown => {
-                    if (otherDropdown !== dropdown) {
-                        const otherMenu = otherDropdown.querySelector('.dropdown-menu');
-                        if (otherMenu) otherMenu.classList.add('hidden');
-                    }
-                });
-                // Toggle this dropdown
-                menu.classList.toggle('hidden');
-            });
-
-            // Close on outside click
-            document.addEventListener('click', function(e) {
-                if (!dropdown.contains(e.target)) {
-                    menu.classList.add('hidden');
-                }
-            });
-        }
-    });
-
-    // Mobile dropdown menus
-    const mobileDropdowns = document.querySelectorAll('.mobile-dropdown');
-    mobileDropdowns.forEach(dropdown => {
-        const button = dropdown.querySelector('.mobile-dropdown-btn');
-        const content = dropdown.querySelector('.mobile-dropdown-content');
-        const arrow = button ? button.querySelector('svg') : null;
-
-        if (button && content) {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                console.log('Mobile dropdown clicked, toggling hidden class');
-                content.classList.toggle('hidden');
-                console.log('Content hidden after toggle:', content.classList.contains('hidden'));
-                if (arrow) {
-                    arrow.classList.toggle('rotate-180');
-                }
-            });
-        } else {
-            console.warn('Mobile dropdown elements not found:', { button, content });
-        }
-    });
-});
-</script>
+<script defer src="js/components/navigation.js"></script>
 
 
     <!-- Header -->

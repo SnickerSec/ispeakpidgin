@@ -116,6 +116,7 @@ app.use(helmet({
             styleSrc: ["'self'", "'unsafe-inline'", "https://cdn.tailwindcss.com", "https://fonts.googleapis.com", "https://cdn.jsdelivr.net"],
             scriptSrc: [
                 "'self'",
+                "'unsafe-inline'",
                 "https://cdn.tailwindcss.com",
                 "https://www.googletagmanager.com",
                 "https://www.google-analytics.com"

@@ -3,20 +3,22 @@
 /**
  * Generate Individual Dictionary Entry Pages
  * Creates SEO-optimized pages for each dictionary entry
- * Fetches data from Supabase API
+ * Uses shared utilities for consistent styling and data fetching
  */
 
 const fs = require('fs');
 const path = require('path');
-
-// Supabase configuration (from environment)
-require('dotenv').config();
-const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
-if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-    console.error('❌ Missing required environment variables: SUPABASE_URL, SUPABASE_ANON_KEY');
-    process.exit(1);
-}
+const {
+    createSlug,
+    escapeHtml,
+    fetchFromSupabase,
+    getNavAndFooter,
+    getCommonHead,
+    getGameLinksHtml,
+    getQuickActionsHtml,
+    SITE_URL,
+    SITE_NAME
+} = require('./shared-utils');
 
 // Output directory
 const outputDir = path.join(__dirname, '../../public/word');
@@ -24,70 +26,6 @@ const outputDir = path.join(__dirname, '../../public/word');
 // Create output directory
 if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
-}
-
-// Helper: Create URL-friendly slug
-function createSlug(text) {
-    return text
-        .toLowerCase()
-        .replace(/'/g, '') // Remove apostrophes
-        .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric with hyphens
-        .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
-}
-
-// Helper: Escape HTML
-function escapeHtml(text) {
-    if (!text) return '';
-    const map = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#039;'
-    };
-    return String(text).replace(/[&<>"']/g, m => map[m]);
-}
-
-// Fetch all dictionary entries from Supabase
-async function fetchDictionaryEntries() {
-    console.log('🔄 Fetching dictionary entries from Supabase...');
-
-    const allEntries = [];
-    const pageSize = 1000;
-    let offset = 0;
-    let hasMore = true;
-
-    while (hasMore) {
-        const url = `${SUPABASE_URL}/rest/v1/dictionary_entries?select=*&order=pidgin.asc&offset=${offset}&limit=${pageSize}`;
-
-        const response = await fetch(url, {
-            headers: {
-                'apikey': SUPABASE_ANON_KEY,
-                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error(`Supabase API error: ${response.status} ${response.statusText}`);
-        }
-
-        const entries = await response.json();
-
-        if (entries.length === 0) {
-            hasMore = false;
-        } else {
-            allEntries.push(...entries);
-            offset += pageSize;
-            console.log(`   Fetched ${allEntries.length} entries...`);
-
-            if (entries.length < pageSize) {
-                hasMore = false;
-            }
-        }
-    }
-
-    console.log(`✅ Fetched ${allEntries.length} total entries from Supabase\n`);
-    return allEntries;
 }
 
 // Helper: Find related terms (same category or similar tags)
@@ -116,7 +54,7 @@ function findRelatedTerms(entry, allEntries, limit = 6) {
 }
 
 // Generate HTML template for entry page
-function generateEntryPage(entry, relatedTerms) {
+function generateEntryPage(entry, relatedTerms, navigation, footer) {
     const slug = createSlug(entry.pidgin);
     const englishArray = Array.isArray(entry.english) ? entry.english : [entry.english];
     const englishMeanings = englishArray.join(', ');
@@ -128,9 +66,21 @@ function generateEntryPage(entry, relatedTerms) {
     const pageTitle = `${capitalizedWord} Meaning: "${primaryMeaning}" - Hawaiian Slang Dictionary`;
 
     // Create a more compelling, action-oriented meta description
-    // Start with a direct answer, add value props, keep under 155 chars
     const shortMeaning = primaryMeaning.length > 30 ? primaryMeaning.substring(0, 30) + '...' : primaryMeaning;
     const metaDescription = `${capitalizedWord} means "${shortMeaning}" in Hawaiian slang. Hear the pronunciation, see examples, and learn how locals really use this word!`;
+
+    const canonicalUrl = `${SITE_URL}/word/${slug}.html`;
+
+    // Common head content
+    const headContent = getCommonHead({
+        title: pageTitle,
+        metaDescription,
+        keywords: `${entry.pidgin}, hawaiian slang, hawaiian pidgin, ${englishMeanings}, pidgin dictionary, hawaii language`,
+        canonicalUrl,
+        ogType: 'article',
+        ogTitle: `${capitalizedWord} Meaning: ${shortMeaning} | Hawaiian Pidgin`,
+        ogDescription: metaDescription
+    });
 
     // Create schema markup
     const schema = {
@@ -141,7 +91,7 @@ function generateEntryPage(entry, relatedTerms) {
         "inDefinedTermSet": {
             "@type": "DefinedTermSet",
             "name": "Hawaiian Pidgin Dictionary",
-            "url": "https://chokepidgin.com/dictionary.html"
+            "url": `${SITE_URL}/dictionary.html`
         },
         "termCode": entry.id
     };
@@ -150,7 +100,7 @@ function generateEntryPage(entry, relatedTerms) {
         schema.pronunciation = entry.pronunciation;
     }
 
-    // Create FAQ schema for rich snippets (improves CTR significantly)
+    // Create FAQ schema for rich snippets
     const faqSchema = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
@@ -184,6 +134,17 @@ function generateEntryPage(entry, relatedTerms) {
         ]
     };
 
+    // Breadcrumb schema
+    const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": `${SITE_URL}/` },
+            { "@type": "ListItem", "position": 2, "name": "Dictionary", "item": `${SITE_URL}/dictionary.html` },
+            { "@type": "ListItem", "position": 3, "name": entry.pidgin, "item": canonicalUrl }
+        ]
+    };
+
     // Build related terms HTML
     const relatedHtml = relatedTerms.length > 0 ? `
         <section class="mt-12">
@@ -203,38 +164,14 @@ function generateEntryPage(entry, relatedTerms) {
     ` : '';
 
     const examplesArray = Array.isArray(entry.examples) ? entry.examples : (entry.examples ? [entry.examples] : []);
+    const jsEscapedWord = entry.pidgin.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+    const quickActionsHtml = getQuickActionsHtml(entry.pidgin);
+    const gameLinksHtml = getGameLinksHtml();
 
     const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${escapeHtml(pageTitle)}</title>
-
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="${escapeHtml(metaDescription)}">
-    <meta name="keywords" content="${escapeHtml(entry.pidgin)}, hawaiian slang, hawaiian pidgin, ${escapeHtml(englishMeanings)}, pidgin dictionary, hawaii language">
-    <meta name="author" content="ChokePidgin.com">
-    <meta name="robots" content="index, follow">
-
-    <!-- Open Graph Tags -->
-    <meta property="og:title" content="${escapeHtml(capitalizedWord)} Meaning: ${escapeHtml(shortMeaning)} | Hawaiian Pidgin">
-    <meta property="og:description" content="${escapeHtml(metaDescription)}">
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://chokepidgin.com/word/${slug}.html">
-    <meta property="og:site_name" content="ChokePidgin.com">
-
-    <!-- Twitter Card Tags -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="${escapeHtml(capitalizedWord)} Meaning: ${escapeHtml(shortMeaning)} | Hawaiian Pidgin">
-    <meta name="twitter:description" content="${escapeHtml(metaDescription)}">
-
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://chokepidgin.com/word/${slug}.html">
-
-    <!-- Favicons -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="alternate icon" href="/favicon.ico">
+    ${headContent}
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -248,99 +185,11 @@ function generateEntryPage(entry, relatedTerms) {
 
     <!-- Breadcrumb Schema -->
     <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-            {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://chokepidgin.com/"
-            },
-            {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Dictionary",
-                "item": "https://chokepidgin.com/dictionary.html"
-            },
-            {
-                "@type": "ListItem",
-                "position": 3,
-                "name": "${escapeHtml(entry.pidgin)}",
-                "item": "https://chokepidgin.com/word/${slug}.html"
-            }
-        ]
-    }
+    ${JSON.stringify(breadcrumbSchema, null, 2)}
     </script>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- Tailwind CSS (Local Build) -->
-    <link rel="stylesheet" href="/css/tailwind.css">
-    <link rel="stylesheet" href="/css/main.css">
-
-    <!-- Tabler Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
-
-    <style>
-        /* Pacifico - LOGO ONLY (Use sparingly for branding) */
-        .brand-font {
-            font-family: 'Pacifico', cursive;
-        }
-
-        /* Inter - All body text and headings for maximum readability */
-        body, h1, h2, h3, h4, h5, h6 {
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        }
-    </style>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7YYDVDXD"></script>
-    <script src="/js/components/gtag.js"></script>
 </head>
 <body class="min-h-screen bg-gray-50">
-    <!-- Navigation -->
-    <nav class="shadow-lg sticky top-0 z-50 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center py-4">
-                <div class="flex items-center">
-                    <a href="/" class="brand-font text-3xl bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
-                        <i class="ti ti-palm-tree"></i> ChokePidgin <i class="ti ti-ripple"></i>
-                    </a>
-                </div>
-                <div class="hidden md:flex space-x-6 items-center">
-                    <a href="/" class="nav-link text-gray-700 hover:text-green-600 transition">Home</a>
-                    <a href="/translator.html" class="nav-link text-gray-700 hover:text-green-600 transition">Translator</a>
-                    <a href="/dictionary.html" class="nav-link text-gray-700 hover:text-green-600 transition">Dictionary</a>
-                    <a href="/learning-hub.html" class="nav-link text-gray-700 hover:text-green-600 transition">Learning Hub</a>
-                    <a href="/ask-local.html" class="nav-link text-gray-700 hover:text-green-600 transition">Ask a Local</a>
-                </div>
-                <!-- Mobile menu button -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-btn" class="text-gray-700 p-2">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile Navigation -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
-            <div class="px-2 pt-2 pb-3 space-y-1">
-                <a href="/" class="block px-3 py-2 text-gray-700 hover:text-green-600">Home</a>
-                <a href="/translator.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Translator</a>
-                <a href="/dictionary.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Dictionary</a>
-                <a href="/learning-hub.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Learning Hub</a>
-                <a href="/ask-local.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Ask a Local</a>
-            </div>
-        </div>
-    </nav>
+    ${navigation}
 
     <!-- Back to Dictionary Button -->
     <div class="bg-white border-b">
@@ -391,7 +240,7 @@ function generateEntryPage(entry, relatedTerms) {
             <div class="space-y-3">
                 ${englishArray.map(meaning => `
                     <div class="flex items-start">
-                        <span class="text-green-500 mr-2 text-xl">•</span>
+                        <span class="text-green-500 mr-2 text-xl">&bull;</span>
                         <span class="text-xl text-gray-700">${escapeHtml(meaning)}</span>
                     </div>
                 `).join('')}
@@ -453,93 +302,24 @@ function generateEntryPage(entry, relatedTerms) {
         </section>
 
         <!-- Quick Actions -->
-        <section class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4"><i class="ti ti-rocket"></i> Quick Actions</h2>
-            <div class="flex flex-wrap gap-4">
-                <a href="/translator.html?text=${encodeURIComponent(entry.pidgin)}"
-                   class="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-6 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
-                    <i class="ti ti-refresh"></i> Translate This Word
-                </a>
-                <a href="/dictionary.html"
-                   class="bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
-                    <i class="ti ti-books"></i> Browse Dictionary
-                </a>
-                <a href="/learning-hub.html"
-                   class="bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
-                    <i class="ti ti-school"></i> Learn More
-                </a>
-            </div>
-        </section>
+        ${quickActionsHtml}
 
         <!-- Practice with Games -->
-        <section class="bg-gradient-to-r from-yellow-100 to-orange-100 rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4"><i class="ti ti-device-gamepad-2"></i> Practice Your Pidgin</h2>
-            <p class="text-gray-600 mb-6">Test your knowledge with our fun Hawaiian Pidgin games!</p>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <a href="/pidgin-wordle.html" class="bg-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow border-2 border-green-200 hover:border-green-400">
-                    <div class="text-3xl mb-2"><i class="ti ti-square-filled" style="color: #22c55e;"></i></div>
-                    <h3 class="font-bold text-gray-800">Pidgin Wordle</h3>
-                    <p class="text-sm text-gray-600">Daily word puzzle</p>
-                </a>
-                <a href="/pidgin-hangman.html" class="bg-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow border-2 border-indigo-200 hover:border-indigo-400">
-                    <div class="text-3xl mb-2"><i class="ti ti-typography"></i></div>
-                    <h3 class="font-bold text-gray-800">Hangman</h3>
-                    <p class="text-sm text-gray-600">Guess the word</p>
-                </a>
-                <a href="/pidgin-crossword.html" class="bg-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow border-2 border-blue-200 hover:border-blue-400">
-                    <div class="text-3xl mb-2"><i class="ti ti-note"></i></div>
-                    <h3 class="font-bold text-gray-800">Crossword</h3>
-                    <p class="text-sm text-gray-600">Test your vocabulary</p>
-                </a>
-                <a href="/how-local-you-stay.html" class="bg-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow border-2 border-purple-200 hover:border-purple-400">
-                    <div class="text-3xl mb-2"><i class="ti ti-hand-love-you"></i></div>
-                    <h3 class="font-bold text-gray-800">How Local?</h3>
-                    <p class="text-sm text-gray-600">Take the quiz</p>
-                </a>
-            </div>
-        </section>
+        ${gameLinksHtml}
 
         ${relatedHtml}
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-gradient-to-r from-green-600 to-blue-600 text-white py-8 mt-12">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-6">
-                <h3 class="brand-font text-3xl mb-2"><i class="ti ti-flower"></i> ChokePidgin.com</h3>
-                <p class="text-green-100 mb-4">Your gateway to authentic Hawaiian Pidgin language and culture</p>
-            </div>
-            <nav class="flex justify-center gap-2 sm:gap-6 mb-6">
-                <a href="/" class="text-white hover:text-green-200 transition-colors font-medium text-sm sm:text-base">Home</a>
-                <a href="/translator.html" class="text-white hover:text-green-200 transition-colors font-medium text-sm sm:text-base">Translator</a>
-                <a href="/dictionary.html" class="text-white hover:text-green-200 transition-colors font-medium text-sm sm:text-base">Dictionary</a>
-                <a href="/learning-hub.html" class="text-white hover:text-green-200 transition-colors font-medium text-sm sm:text-base">Learning</a>
-                <a href="/ask-local.html" class="text-white hover:text-green-200 transition-colors font-medium text-sm sm:text-base">Ask a Local</a>
-            </nav>
-            <div class="text-center">
-                <p class="text-sm text-green-100 mb-2">© 2025 ChokePidgin.com - Preserving and sharing Hawaiian Pidgin culture</p>
-                <p class="text-sm text-green-200">Made with aloha <i class="ti ti-hand-love-you"></i> E komo mai - Everyone is welcome here</p>
-            </div>
-        </div>
-    </footer>
+    ${footer}
 
-    <!-- Scripts -->
     <script src="/js/components/elevenlabs-speech.js"></script>
     <script src="/js/components/speech.js"></script>
     <script>
-        // Mobile menu toggle
-        document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        });
-
-        // Speak word button
+        // TTS button handler
         document.getElementById('speak-word')?.addEventListener('click', async () => {
-            const text = "${entry.pidgin.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}";
+            const text = "${jsEscapedWord}";
             if (window.pidginSpeech) {
                 await window.pidginSpeech.speak(text);
-            } else {
-                console.error('Pidgin speech not initialized');
             }
         });
     </script>
@@ -555,11 +335,16 @@ async function main() {
 
     try {
         // Fetch entries from Supabase
-        const entries = await fetchDictionaryEntries();
+        console.log('🔄 Fetching dictionary entries from Supabase...');
+        const entries = await fetchFromSupabase('dictionary_entries', '*', 'pidgin.asc');
+        console.log(`✅ Fetched ${entries.length} entries from Supabase\n`);
 
         if (entries.length === 0) {
             throw new Error('No dictionary entries found in Supabase');
         }
+
+        // Load shared navigation and footer templates
+        const { navigation, footer } = getNavAndFooter();
 
         let generatedCount = 0;
         let skippedCount = 0;
@@ -582,7 +367,7 @@ async function main() {
                 const relatedTerms = findRelatedTerms(entry, entries);
 
                 // Generate HTML
-                const html = generateEntryPage(entry, relatedTerms);
+                const html = generateEntryPage(entry, relatedTerms, navigation, footer);
 
                 // Write file
                 const filename = `${slug}.html`;
