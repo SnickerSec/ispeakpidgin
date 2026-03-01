@@ -39,9 +39,6 @@ class PidginWordle {
                 dayNumberEl.textContent = this.wordData.dayNumber;
             }
 
-            console.log('Game initialized. Day:', this.wordData.dayNumber);
-            // Don't log the word in production!
-            // console.log('Today\'s word:', this.dailyWord);
         } catch (error) {
             console.error('Error loading daily word:', error);
             this.showError('Failed to load today\'s puzzle. Please refresh the page.');
@@ -543,8 +540,7 @@ class PidginWordle {
             navigator.share({
                 title: 'Pidgin Wordle Results',
                 text: shareText
-            }).catch(err => {
-                console.log('Share failed:', err);
+            }).catch(() => {
                 this.fallbackShare(shareText);
             });
         } else {

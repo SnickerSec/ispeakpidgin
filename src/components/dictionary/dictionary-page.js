@@ -17,9 +17,6 @@ async function initDictionaryPage() {
     setupAlphabetBrowser();
     loadInitialEntries();
 
-    const actualCount = pidginDictionary.getTotalCount();
-    console.log('🌺 Dictionary page initialized with', actualCount, 'unique entries');
-
     // Text update removed per user request
 }
 

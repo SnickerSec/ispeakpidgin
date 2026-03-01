@@ -37,11 +37,9 @@ class PidginDataLoader {
             await this.loadMasterData();
 
             this.isNewSystem = true;
-            console.log('✅ Using new consolidated data structure');
             return this.data;
 
         } catch (error) {
-            console.log('📦 New structure not found, falling back to legacy...');
             // Fall back to old structure
             return await this.loadLegacy();
         }
@@ -62,7 +60,6 @@ class PidginDataLoader {
         }
 
         try {
-            console.log(`📚 Loading ${viewType} view...`);
             const response = await fetch(url);
 
             if (!response.ok) {
@@ -74,18 +71,9 @@ class PidginDataLoader {
             this.loaded = true;
             this.isNewSystem = true;
 
-            // Log statistics
-            if (viewType === 'dictionary' || viewType === 'master') {
-                console.log(`✅ Loaded ${this.data.entries?.length || 0} entries`);
-            } else if (viewType === 'translator') {
-                const engCount = Object.keys(this.data.translations?.englishToPidgin || {}).length;
-                const pidCount = Object.keys(this.data.translations?.pidginToEnglish || {}).length;
-                console.log(`✅ Loaded ${engCount} English→Pidgin and ${pidCount} Pidgin→English mappings`);
-            }
-
             return this.data;
         } catch (error) {
-            console.error(`❌ Failed to load ${viewType} view:`, error);
+            console.error(`Failed to load ${viewType} view:`, error);
             throw error;
         }
     }
@@ -93,7 +81,6 @@ class PidginDataLoader {
     // Load master data including stories and complete dataset
     async loadMasterData() {
         try {
-            console.log('📚 Loading complete master data...');
             const response = await fetch('data/master/pidgin-master.json');
 
             if (!response.ok) {
@@ -101,10 +88,9 @@ class PidginDataLoader {
             }
 
             this.masterData = await response.json();
-            console.log('✅ Master data loaded with', this.masterData.metadata.totalStories, 'stories');
             return this.masterData;
         } catch (error) {
-            console.warn('❌ Master data not loaded:', error);
+            console.warn('Master data not loaded:', error);
             return null;
         }
     }
@@ -116,14 +102,12 @@ class PidginDataLoader {
             const searchResponse = await fetch('data/indexes/search-index.json');
             if (searchResponse.ok) {
                 this.searchIndex = await searchResponse.json();
-                console.log('🔍 Search index loaded');
             }
 
             // Load pronunciation map
             const pronResponse = await fetch('data/indexes/pronunciation-map.json');
             if (pronResponse.ok) {
                 this.pronunciationMap = await pronResponse.json();
-                console.log('🗣️ Pronunciation map loaded');
             }
         } catch (error) {
             console.warn('Indexes not loaded:', error);
@@ -133,7 +117,6 @@ class PidginDataLoader {
     // Legacy loader for backward compatibility
     async loadLegacy(url = 'data/dictionary/pidgin-dictionary.json') {
         try {
-            console.log('📚 Loading legacy pidgin dictionary data...');
             const response = await fetch(url);
 
             if (!response.ok) {
@@ -153,10 +136,9 @@ class PidginDataLoader {
             this.legacyMode = true;
             this.isNewSystem = false;
 
-            console.log(`✅ Loaded ${this.data.entries.length} pidgin entries (legacy mode)`);
             return this.data;
         } catch (error) {
-            console.error('❌ Failed to load legacy pidgin data:', error);
+            console.error('Failed to load legacy pidgin data:', error);
             throw error;
         }
     }

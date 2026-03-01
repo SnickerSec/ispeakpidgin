@@ -58,8 +58,6 @@ class SentenceChunker {
             });
 
             this.loaded = true;
-            console.log(`<i class="ti ti-circle-check"></i> Sentence chunker loaded: ${Object.keys(this.sentenceLookup.englishToPidgin).length} sentences, ${Object.keys(this.phraseLookup).length} phrases`);
-
             window.dispatchEvent(new CustomEvent('sentenceChunkerLoaded'));
         } catch (error) {
             console.error('Failed to load sentence chunker data:', error);

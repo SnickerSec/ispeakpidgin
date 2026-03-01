@@ -39,7 +39,6 @@ class PidginTranslator {
                 // Build reverse dict
                 this.reverseDict = translations.pidginToEnglish || {};
                 this.initialized = true;
-                console.log('✅ Translator initialized with new optimized data');
             } else {
                 // Fallback to old method
                 this.comprehensiveDict = this.createComprehensiveDictFromLoader();

@@ -49,8 +49,6 @@ class PhraseTranslator {
             });
 
             this.loaded = true;
-            console.log(`<i class="ti ti-circle-check"></i> Loaded ${this.phraseData.metadata.totalPhrases} phrase translations`);
-
             // Dispatch event for initialization tracking
             window.dispatchEvent(new CustomEvent('phraseTranslatorLoaded', {
                 detail: { phrasesCount: this.phraseData.metadata.totalPhrases }

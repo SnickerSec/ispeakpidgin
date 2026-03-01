@@ -23,7 +23,6 @@ class GoogleTranslateService {
             const wordRegex = new RegExp(`\\b${word}\\b`, 'gi');
             if (wordRegex.test(result)) {
                 result = result.replace(wordRegex, pidginEquivalent);
-                console.log(`🔧 Post-LLM fix: "${word}" → "${pidginEquivalent}"`);
             }
         }
 

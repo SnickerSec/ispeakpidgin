@@ -330,8 +330,7 @@ class LocalQuiz {
                 title: 'How Local You Stay? Quiz Results',
                 text: shareText,
                 url: shareUrl
-            }).catch(err => {
-                console.log('Share failed:', err);
+            }).catch(() => {
                 this.fallbackShare(shareText, shareUrl);
             });
         } else {

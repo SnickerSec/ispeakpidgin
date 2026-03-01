@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
 function initTranslatorPage() {
     // Prevent multiple initialization
     if (window.translatorPageInitialized) {
-        console.log('Translator page already initialized, skipping...');
         return;
     }
 
@@ -41,7 +40,6 @@ function initTranslatorPage() {
         setupSmoothAnimations();
 
         window.translatorPageInitialized = true;
-        console.log('✅ Translator page initialized with enhancements');
     } catch (error) {
         console.error('Error initializing translator page:', error);
     }
@@ -159,9 +157,7 @@ function setupTranslationControls() {
     confidenceText = document.getElementById('confidence-text');
 
     // Add translate button listener (manual translation only to save API costs)
-    console.log('🔍 Translate button found:', translateBtn);
     translateBtn?.addEventListener('click', () => {
-        console.log('🎯 Translate button clicked!');
         performTranslation();
     });
 
@@ -228,8 +224,6 @@ function setupTranslationControls() {
 
 // Perform translation
 async function performTranslation() {
-    console.log('🚀 performTranslation called');
-
     // Use global references instead of querying DOM again
     if (!inputField || !outputDiv) {
         console.error('Translation elements not found');
@@ -237,11 +231,7 @@ async function performTranslation() {
     }
 
     const text = inputField.value.trim();
-    console.log('📝 Input text:', text);
-    if (!text) {
-        console.log('⚠️ No text to translate');
-        return;
-    }
+    if (!text) return;
 
     // Determine direction
     const direction = localStorage.getItem('translatorDirection') || 'en-to-pid';
@@ -256,7 +246,6 @@ async function performTranslation() {
         if (wordCount <= 2 && typeof pidginTranslator !== 'undefined' && pidginTranslator && pidginTranslator.initialized) {
             const localResult = pidginTranslator.translate(text, direction === 'en-to-pid' ? 'eng-to-pidgin' : 'pidgin-to-eng');
             if (localResult && localResult.confidence >= 90 && localResult.text && localResult.text !== text) {
-                console.log(`📖 Dictionary match (${localResult.confidence}% confidence): "${text}" → "${localResult.text}"`);
                 results = [{
                     translation: localResult.text,
                     confidence: localResult.confidence / 100,
@@ -669,12 +658,6 @@ function setupKeyboardShortcuts() {
         }
     });
 
-    // Show keyboard shortcut hints
-    console.log('⌨️ Keyboard shortcuts enabled:');
-    console.log('  Ctrl/Cmd + K: Focus input');
-    console.log('  Ctrl/Cmd + L: Clear translation');
-    console.log('  Enter: Translate');
-    console.log('  Escape: Clear and blur');
 }
 
 // Smooth animations for better UX

@@ -5,7 +5,7 @@ document.getElementById('share-website-btn')?.addEventListener('click', function
             title: 'ChokePidgin.com - Hawaiian Pidgin Dictionary',
             text: 'Check out this awesome Hawaiian Pidgin dictionary and translator!',
             url: 'https://chokepidgin.com'
-        }).catch(function(err) { console.log('Error sharing:', err); });
+        }).catch(function() {});
     } else {
         navigator.clipboard.writeText('https://chokepidgin.com');
         alert('Link copied to clipboard!');

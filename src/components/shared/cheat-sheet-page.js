@@ -40,7 +40,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
 
-            console.log('Email submitted:', email);
             closeEmailModal();
             alert('Thanks! Check your email for the PDF. Meanwhile, here\'s a direct download option:');
             window.print();
@@ -109,7 +108,7 @@ window.shareCheatSheet = function() {
             title: 'Hawaiian Pidgin Cheat Sheet - ChokePidgin.com',
             text: 'Check out this awesome Hawaiian Pidgin quick reference guide! 75+ phrases, grammar rules, and examples on one page.',
             url: window.location.href
-        }).catch(function(err) { console.log('Error sharing:', err); });
+        }).catch(function() {});
     } else {
         navigator.clipboard.writeText(window.location.href);
         alert('Link copied to clipboard! Share it with your friends!');

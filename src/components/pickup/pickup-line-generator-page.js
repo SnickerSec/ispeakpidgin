@@ -26,7 +26,6 @@
             // Initialize the generator
             if (typeof PickupLineGenerator !== 'undefined') {
                 generator = new PickupLineGenerator(components);
-                console.log('✅ Pickup Line Generator initialized with Supabase data');
             } else {
                 throw new Error('PickupLineGenerator class not loaded');
             }
@@ -34,7 +33,7 @@
             // Setup event listeners
             setupEventListeners();
         } catch (error) {
-            console.error('❌ Generator initialization error:', error);
+            console.error('Generator initialization error:', error);
             showError('Failed to load generator. Please refresh the page.');
         }
     });
@@ -117,16 +116,12 @@
 
     // Populate 808 Mode Cringe Generator dropdowns
     async function populateHowzitDropdowns() {
-        console.log('📍 Setting up 808 Mode Cringe Generator...');
-
         try {
             // Fetch activities from the new cringe API
             const response = await fetch('/api/cringe/activities');
             if (!response.ok) throw new Error('Failed to load activities');
             const data = await response.json();
             cringeActivities = data.activities || [];
-
-            console.log('✅ Loaded cringe activities:', cringeActivities.length);
 
             // Populate activity dropdown
             const activitySelect = document.getElementById('activity-select');
@@ -140,7 +135,7 @@
                 activitySelect.addEventListener('change', updateLocationOptions);
             }
         } catch (error) {
-            console.error('❌ Failed to load cringe activities:', error);
+            console.error('Failed to load cringe activities:', error);
             const activitySelect = document.getElementById('activity-select');
             if (activitySelect) {
                 activitySelect.innerHTML = '<option value="">Failed to load activities</option>';
@@ -183,8 +178,6 @@
             locationSearch.value = '';
             locationSelect.value = '';
             locationRandom.disabled = false;
-            console.log(`✅ Loaded ${activity.locations.length} locations for ${selectedKey}`);
-
             // Setup the searchable dropdown
             setupLocationSearch();
         } else {
@@ -342,8 +335,6 @@
             throw new Error('Please select an activity and location');
         }
 
-        console.log('📍 Generating cringe line for:', { gender, locationKey });
-
         // Call the cringe generator API
         const response = await fetch(`/api/cringe/generate?target_style=${gender}&location_key=${locationKey}`);
 
@@ -353,7 +344,6 @@
         }
 
         const data = await response.json();
-        console.log('✅ Cringe line generated:', data);
 
         // The API returns pickup_line, english translation, and components
         const fullLine = data.pickup_line;
@@ -476,9 +466,7 @@
             // Use ElevenLabs speech if available, otherwise fallback to browser TTS
             if (typeof elevenLabsSpeech !== 'undefined' && elevenLabsSpeech.isSupported()) {
                 await elevenLabsSpeech.speak(currentLine.pidgin, {
-                    onSuccess: () => {
-                        console.log('✅ Pickup line spoken successfully');
-                    },
+                    onSuccess: () => {},
                     onError: (error) => {
                         console.error('Speech error:', error);
                         showNotification('Speech failed. Try again.', 'error');

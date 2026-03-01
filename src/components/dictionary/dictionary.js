@@ -15,14 +15,13 @@ class PidginDictionary {
                 await this.waitForDataLoader();
                 this.dataLoader = pidginDataLoader;
                 this.isNewSystem = true;
-                console.log('<i class="ti ti-circle-check"></i> Using enhanced JSON data system with', this.dataLoader.getAllEntries().length, 'entries');
                 return;
             } catch (error) {
-                console.error('<i class="ti ti-circle-x"></i> Enhanced data loader failed:', error);
+                console.error('Data loader failed:', error);
                 throw new Error('Failed to load pidgin dictionary data');
             }
         } else {
-            console.error('<i class="ti ti-circle-x"></i> Data loader not available');
+            console.error('Data loader not available');
             throw new Error('Pidgin data loader not found');
         }
     }

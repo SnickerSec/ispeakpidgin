@@ -45,13 +45,11 @@ class PronunciationPractice {
         // Event handlers
         this.recognition.onstart = () => {
             this.isListening = true;
-            console.log('🎤 Listening...');
             if (this.onStartCallback) this.onStartCallback();
         };
 
         this.recognition.onend = () => {
             this.isListening = false;
-            console.log('🎤 Stopped listening');
             if (this.onEndCallback) this.onEndCallback();
         };
 
@@ -144,7 +142,6 @@ class PronunciationPractice {
         } else {
             // Interim result - could show live feedback
             const interim = results[0].transcript;
-            console.log('Interim:', interim);
         }
     }
 
@@ -635,10 +632,6 @@ class PronunciationPractice {
         // STEP 1: Normalize the English transcription back to Pidgin
         const spokenNormalized = this.normalizeText(spoken);
         const spokenAsPidgin = this.normalizeEnglishToPidgin(spokenNormalized);
-
-        console.log(`🎯 Expected: "${expected}"`);
-        console.log(`🎤 Raw transcription: "${spoken}"`);
-        console.log(`🔄 Normalized to Pidgin: "${spokenAsPidgin}"`);
 
         // STEP 2: Check if raw transcription matches a known English equivalent
         const knownEquivalents = this.pidginToEnglishMap[expected] ||

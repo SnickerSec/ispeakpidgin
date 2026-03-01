@@ -200,7 +200,7 @@ async function startCountdown() {
                 alert('Motion permission needed for tilt controls. Using tap instead.');
             }
         } catch (e) {
-            console.log('Motion permission error:', e);
+            console.warn('Motion permission error:', e);
         }
     }
 

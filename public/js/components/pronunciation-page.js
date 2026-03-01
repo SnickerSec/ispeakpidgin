@@ -289,7 +289,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         } catch (error) {
-            console.log('Using default practice words');
         }
     }
 

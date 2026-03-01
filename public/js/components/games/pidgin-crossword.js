@@ -472,7 +472,7 @@ class PidginCrossword {
             navigator.share({
                 title: 'Pidgin Crossword Results',
                 text: shareText
-            }).catch(err => console.log('Share failed:', err));
+            }).catch(() => {});
         } else {
             navigator.clipboard.writeText(shareText).then(() => {
                 alert('Results copied to clipboard! 📋');
