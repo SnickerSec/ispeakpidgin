@@ -255,7 +255,6 @@ class PidginSpeech {
         });
 
         this.preferredVoice = bestVoice || this.voices[0];
-        console.log('Selected voice:', this.preferredVoice?.name);
     }
 
     // Apply comprehensive phonetic transformations for realistic Pidgin pronunciation
@@ -393,8 +392,6 @@ class PidginSpeech {
             try {
                 // First try ElevenLabs if available
                 if (typeof elevenLabsSpeech !== 'undefined' && elevenLabsSpeech.isSupported()) {
-                    console.log('Using ElevenLabs Hawaiian voice');
-
                     // Apply phonetic transformations for ElevenLabs too
                     const phoneticText = this.applyPhoneticTransform(text);
 
@@ -535,7 +532,6 @@ class PidginSpeech {
     testVoices(text = "Howzit brah! Da waves stay pumping today!") {
         this.voices.forEach((voice, index) => {
             setTimeout(() => {
-                console.log(`Testing voice: ${voice.name}`);
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.voice = voice;
                 utterance.rate = 0.9;

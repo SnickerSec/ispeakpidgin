@@ -10,7 +10,6 @@ class ElevenLabsSpeech {
     }
 
     async initialize() {
-        console.log('ElevenLabs TTS initialized with Hawaiian voice');
         await this.initIndexedDB();
         await this.loadCacheFromDB();
         return true;
@@ -60,7 +59,6 @@ class ElevenLabsSpeech {
                         }
                     });
 
-                    console.log(`Loaded ${this.cache.size} cached audio items from IndexedDB`);
                     resolve();
                 };
 
@@ -162,7 +160,6 @@ class ElevenLabsSpeech {
 
         // Prevent concurrent speak attempts
         if (this.currentSpeakPromise) {
-            console.log('Speech already in progress, stopping previous attempt');
             this.stop();
             // Wait a bit for cleanup
             await new Promise(resolve => setTimeout(resolve, 100));
@@ -182,34 +179,24 @@ class ElevenLabsSpeech {
 
                     // Apply pronunciation corrections for Pidgin words
                     const correctedText = this.applyPronunciationCorrections(text);
-                    console.log('Original text:', text);
-                    console.log('Corrected for TTS:', correctedText);
 
                     // Normalize text for caching (use original text for cache key)
                     const normalizedText = text.trim().toLowerCase();
 
                     // Check cache first
                     if (this.cache.has(normalizedText)) {
-                        console.log('Playing cached audio for:', text);
                         if (!options.silent) {
                             // Try to play cached audio with retry fallback
                             const success = await this.playAudioBlobWithRetry(this.cache.get(normalizedText), correctedText, normalizedText);
                             if (success) return;
 
                             // If cached audio failed, remove from cache and retry API
-                            console.log('Cached audio failed, removing from cache and retrying API');
                             this.cache.delete(normalizedText);
                             // Continue to API call below
                         } else {
                             return; // Silent mode, don't play
                         }
                     }
-
-                    if (attempt > 0) {
-                        console.log(`ElevenLabs API retry attempt ${attempt} for:`, text);
-                    }
-
-                    console.log('Generating Hawaiian Pidgin speech for:', text);
 
                     // Show loading state if callback provided
                     if (options.onStart) {
@@ -268,11 +255,9 @@ class ElevenLabsSpeech {
                 if (attempt <= maxRetries) {
                     // Wait before retry (exponential backoff)
                     const delay = Math.min(1000 * Math.pow(2, attempt - 1), 5000);
-                    console.log(`Retrying ElevenLabs API in ${delay}ms...`);
                     await new Promise(resolve => setTimeout(resolve, delay));
                 } else {
                     // All retries exhausted
-                    console.log('All ElevenLabs retry attempts failed, falling back to browser TTS');
 
                     if (options.onError) {
                         options.onError(error);
@@ -382,14 +367,11 @@ class ElevenLabsSpeech {
                     // Attempt to play
                     audio.play().catch(error => {
                         if (error.name === 'NotAllowedError') {
-                            console.log('Audio autoplay blocked - user interaction required');
                             if (!resolved) {
                                 resolved = true;
                                 resolve(false); // Not really a failure, just blocked
                             }
                         } else if (error.name === 'AbortError') {
-                            // Don't treat AbortError as failure if audio is playing elsewhere
-                            console.log('Audio play was interrupted, but may be playing elsewhere');
                             if (!resolved) {
                                 resolved = true;
                                 resolve(false);
@@ -425,11 +407,8 @@ class ElevenLabsSpeech {
                 }
 
                 if (attempt < maxRetries) {
-                    console.log(`Retrying audio playback (attempt ${attempt + 2})...`);
                     await new Promise(resolve => setTimeout(resolve, 200));
                 } else {
-                    // All attempts failed
-                    console.log('All audio playback attempts failed');
                     return false;
                 }
             }
@@ -442,13 +421,11 @@ class ElevenLabsSpeech {
     playAudioBlob(audioBlob, fallbackText = '') {
         this.playAudioBlobWithRetry(audioBlob, fallbackText).then(success => {
             if (!success && fallbackText) {
-                console.log('ElevenLabs audio failed, falling back to browser TTS');
                 this.fallbackToWebSpeech(fallbackText);
             }
         }).catch(error => {
             console.error('Error playing audio blob:', error);
             if (fallbackText) {
-                console.log('Blob creation failed, falling back to browser TTS');
                 this.fallbackToWebSpeech(fallbackText);
             }
         });
@@ -465,8 +442,6 @@ class ElevenLabsSpeech {
     }
 
     fallbackToWebSpeech(text) {
-        console.log('Using browser speech synthesis (ElevenLabs unavailable)');
-
         if ('speechSynthesis' in window) {
             // Apply pronunciation corrections for better Web Speech API pronunciation
             const correctedText = this.applyPronunciationCorrections(text);
@@ -497,7 +472,6 @@ class ElevenLabsSpeech {
 
             if (selectedVoice) {
                 utterance.voice = selectedVoice;
-                console.log('Using voice:', selectedVoice.name);
             }
 
             // Add slight pauses for better pronunciation
@@ -550,8 +524,6 @@ class ElevenLabsSpeech {
             ...terms
         ];
 
-        console.log('Preloading common Pidgin terms...');
-
         // Preload in batches to avoid overwhelming the API
         const batchSize = 3;
         for (let i = 0; i < commonPidginTerms.length; i += batchSize) {
@@ -576,7 +548,6 @@ class ElevenLabsSpeech {
             }
         }
 
-        console.log(`Preloaded ${this.cache.size} terms`);
     }
 
     // Get cache statistics
@@ -602,7 +573,6 @@ class ElevenLabsSpeech {
             }
         }
 
-        console.log('Audio cache cleared');
     }
 }
 

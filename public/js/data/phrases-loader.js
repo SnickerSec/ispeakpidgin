@@ -15,10 +15,9 @@ async function loadPhrasesFromAPI() {
         window.pidginPhrases = data.phrases || [];
         window.phrasesData = data;
 
-        console.log(`✅ Loaded ${window.pidginPhrases.length} phrases from Supabase API`);
         return data;
     } catch (error) {
-        console.error('❌ Failed to load phrases from API:', error.message);
+        console.error('Failed to load phrases from API:', error.message);
         window.pidginPhrases = [];
         throw error;
     }
@@ -30,7 +29,6 @@ window.getDailyPhrase = function() {
         const randomIndex = Math.floor(Math.random() * window.pidginPhrases.length);
         return window.pidginPhrases[randomIndex];
     }
-    console.log('getDailyPhrase: Phrases not loaded yet');
     return null;
 };
 
@@ -48,4 +46,3 @@ if (typeof module !== 'undefined' && module.exports) {
     };
 }
 
-console.log('✅ Phrases data loader initialized (using Supabase API)');

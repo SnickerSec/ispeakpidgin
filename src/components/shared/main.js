@@ -56,12 +56,8 @@ async function preloadCommonPhrases() {
         // Only preload from network if we don't have cached items
         const cachedCount = elevenLabsSpeech.cache.size;
         if (cachedCount > 0) {
-            console.log(`Using ${cachedCount} cached audio items from previous sessions`);
             return;
         }
-
-        // Preload silently in the background (only when API is available)
-        console.log('Will preload phrases when API is available...');
 
         // Don't attempt preloading since ElevenLabs is currently blocked
         // Uncomment this when API is working:
@@ -92,7 +88,6 @@ async function initDailyPhrase() {
     const generateBtn = document.getElementById('generate-phrase');
 
     if (!phrasePidgin || !phraseEnglish || !phraseUsage) {
-        console.log('Daily phrase elements not found');
         return;
     }
 
@@ -100,7 +95,6 @@ async function initDailyPhrase() {
     async function loadPhrase(forceNew = false) {
         // Wait for phrases to load if needed
         if (typeof getDailyPhrase === 'undefined') {
-            console.log('getDailyPhrase function not available yet, retrying...');
             setTimeout(() => initDailyPhrase(), 1000);
             return;
         }
@@ -115,19 +109,15 @@ async function initDailyPhrase() {
 
         // If phrases aren't loaded yet, wait for them
         if (!dailyPhrase && window.phrasesLoadPromise) {
-            console.log('Waiting for phrases to load for daily phrase...');
             try {
                 await window.phrasesLoadPromise;
                 dailyPhrase = getDailyPhrase();
             } catch (error) {
-                console.log('Could not load phrases for daily phrase');
                 return;
             }
         }
 
         if (dailyPhrase) {
-            console.log('✅ Setting daily phrase:', dailyPhrase.pidgin);
-
             // Add animation effect
             const phraseContainer = document.getElementById('daily-phrase');
             if (phraseContainer && forceNew) {
@@ -150,8 +140,6 @@ async function initDailyPhrase() {
 
             // Store current phrase for buttons
             window.currentDailyPhrase = dailyPhrase;
-        } else {
-            console.log('No daily phrase available, keeping default');
         }
     }
 
@@ -163,8 +151,6 @@ async function initDailyPhrase() {
         speakBtn.addEventListener('click', () => {
             if (window.currentDailyPhrase && window.currentDailyPhrase.pidgin) {
                 speakText(window.currentDailyPhrase.pidgin);
-            } else {
-                console.warn('Daily phrase not available for speech');
             }
         });
     }
@@ -184,7 +170,6 @@ async function initDailyPhrase() {
                     if (navigator.share) {
                         // Use Web Share API if available
                         await navigator.share(shareData);
-                        console.log('Phrase shared successfully');
                     } else {
                         // Fallback to clipboard
                         const textToShare = `${shareData.title}\n\n${shareData.text}\n${shareData.url}`;
@@ -198,7 +183,6 @@ async function initDailyPhrase() {
                         }, 2000);
                     }
                 } catch (err) {
-                    console.log('Error sharing:', err);
                 }
             }
         });
@@ -227,7 +211,6 @@ async function initDailyPhrase() {
 // Helper function to get a new phrase that's different from the current one
 function getNewDifferentPhrase() {
     if (!window.pidginPhrases || window.pidginPhrases.length === 0) {
-        console.log('No phrases available for new phrase generation');
         return null;
     }
 
@@ -251,7 +234,6 @@ function getNewDifferentPhrase() {
         newPhrase.pidgin === currentPhrase.pidgin
     );
 
-    console.log('🔄 Generated new phrase:', newPhrase.pidgin, 'after', attempts, 'attempts');
     return newPhrase;
 }
 
@@ -281,9 +263,7 @@ function saveFavoritePhrase(phrase) {
             favorites = favorites.slice(0, 20);
 
             localStorage.setItem('favoritePhrases', JSON.stringify(favorites));
-            console.log('✅ Phrase saved to favorites');
         } else {
-            console.log('Phrase already in favorites');
         }
     } catch (error) {
         console.error('Failed to save favorite phrase:', error);
@@ -298,15 +278,12 @@ async function initEssentialPhrases() {
     // Wait for phrases to load if they haven't yet
     if (typeof window.pidginPhrases === 'undefined' || window.pidginPhrases.length === 0) {
         if (window.phrasesLoadPromise) {
-            console.log('Waiting for phrases to load...');
             try {
                 await window.phrasesLoadPromise;
             } catch (error) {
-                console.log('Could not load phrases for essential phrases');
                 return;
             }
         } else {
-            console.log('No phrases available for essential phrases');
             return;
         }
     }
@@ -314,7 +291,6 @@ async function initEssentialPhrases() {
     // Use the new pidginPhrases array format
     const allPhrases = [...window.pidginPhrases];
     if (allPhrases.length === 0) {
-        console.log('No phrases loaded yet for essential phrases');
         return;
     }
 
@@ -1279,7 +1255,6 @@ async function initStoryCorner() {
 
     // Fetch stories from Supabase API
     try {
-        console.log('🔄 Fetching stories from API...');
         const response = await fetch('/api/stories');
         if (!response.ok) {
             throw new Error(`API error: ${response.status}`);
@@ -1295,21 +1270,17 @@ async function initStoryCorner() {
                 vocabulary: s.vocabulary || [],
                 difficulty: s.difficulty || 'intermediate'
             }));
-            console.log(`✅ Loaded ${stories.length} stories from Supabase API`);
         }
     } catch (error) {
-        console.error('❌ Failed to fetch stories from API:', error.message);
+        console.error('Failed to fetch stories:', error.message);
         storyCorner.innerHTML = '<p class="text-gray-500 text-center col-span-full">Unable to load stories. Please try again later.</p>';
         return;
     }
 
     if (!stories || stories.length === 0) {
         storyCorner.innerHTML = '<p class="text-gray-500 text-center col-span-full">No stories available at this time.</p>';
-        console.log('❌ No stories found');
         return;
     }
-
-    console.log(`Found ${stories.length} stories for story corner`);
 
     // Randomize stories array and show 3 random ones
     const shuffledStories = shuffleArray([...stories]);
@@ -1364,12 +1335,6 @@ async function initStoryCorner() {
 // Show story in modal
 function showStoryModal(story) {
     if (!story) return;
-
-    // Debug logging
-    console.log('🔍 Story modal opened for:', story.title);
-    console.log('📚 Story object:', story);
-    console.log('📝 Story pidginText:', story.pidginText);
-    console.log('📝 Story keys:', Object.keys(story));
 
     // Get the story content with fallbacks
     const storyContent = story.pidginText || story.content || story.text ||
@@ -1544,9 +1509,6 @@ function initVoiceSettings() {
         setTimeout(() => {
             const voices = pidginSpeech.getAvailableVoices();
 
-            console.log('🎙️ Available voices:', voices.length);
-            console.log('Voice details:', voices.map(v => ({ name: v.name, lang: v.lang })));
-
             if (voices.length > 0) {
                 voiceSelect.innerHTML = '';
 
@@ -1559,8 +1521,6 @@ function initVoiceSettings() {
                     }
                     groupedVoices[lang].push(voice);
                 });
-
-                console.log('Grouped voices:', groupedVoices);
 
                 // Add English voices first, grouped by accent type
                 if (groupedVoices['en']) {
@@ -1577,8 +1537,6 @@ function initVoiceSettings() {
                         const hasCountryName = v.name.toLowerCase().includes('australia') || v.name.toLowerCase().includes('new zealand');
                         const hasVoiceName = nonRhoticNames.some(name => v.name.toLowerCase().includes(name.toLowerCase()));
 
-                        console.log(`Voice ${v.name} (${v.lang}): AU/NZ=${hasAuNz}, Country=${hasCountryName}, Name=${hasVoiceName}`);
-
                         return hasAuNz || hasCountryName || hasVoiceName;
                     });
 
@@ -1587,10 +1545,6 @@ function initVoiceSettings() {
 
                     const otherEnglish = groupedVoices['en'].filter(v =>
                         !nonRhoticVoices.includes(v) && !usVoices.includes(v));
-
-                    console.log('Non-rhotic voices found:', nonRhoticVoices.map(v => `${v.name} (${v.lang})`));
-                    console.log('US voices found:', usVoices.map(v => `${v.name} (${v.lang})`));
-                    console.log('Other voices found:', otherEnglish.map(v => `${v.name} (${v.lang})`));
 
                     // Helper function to identify voice accent type
                     function getVoiceAccentType(voice) {
@@ -1632,10 +1586,7 @@ function initVoiceSettings() {
                             optgroup.appendChild(option);
                         });
                         voiceSelect.appendChild(optgroup);
-                        console.log(`✅ Added ${nonRhoticVoices.length} non-rhotic voices to dropdown`);
                     } else {
-                        console.log('❌ No Australian/NZ voices found on this system');
-
                         // Add a message about missing voices
                         const optgroup = document.createElement('optgroup');
                         optgroup.label = '⚠️ No Australian/NZ voices available';
