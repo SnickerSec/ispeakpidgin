@@ -156,7 +156,12 @@ function processHTMLFiles() {
         'what-does-mauka-makai-mean.html',
         // Interactive Features
         'pronunciation-practice.html',
-        'pidgin-heads-up.html'
+        'pidgin-heads-up.html',
+        // New Games
+        'pidgin-scramble.html',
+        'pidgin-memory.html',
+        'pidgin-fill-blank.html',
+        'pidgin-speed.html'
     ];
 
     // Load shared navigation and footer templates
@@ -326,6 +331,10 @@ function copyJavaScriptFiles() {
         { src: 'src/components/games/hangman', dest: 'public/js/components/games' },
         { src: 'src/components/games/crossword', dest: 'public/js/components/games' },
         { src: 'src/components/games/quiz', dest: 'public/js/components/games' },
+        { src: 'src/components/games/scramble', dest: 'public/js/components/games' },
+        { src: 'src/components/games/memory', dest: 'public/js/components/games' },
+        { src: 'src/components/games/fill-blank', dest: 'public/js/components/games' },
+        { src: 'src/components/games/speed', dest: 'public/js/components/games' },
         { src: 'src/components/games', dest: 'public/js/components/games', filesOnly: true }
     ];
 

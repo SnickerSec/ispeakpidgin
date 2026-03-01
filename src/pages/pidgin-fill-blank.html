@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fill in the Blank - Hawaiian Pidgin Sentence Game | ChokePidgin.com</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Fill in the blank with the correct Hawaiian Pidgin word! Read sentences in context and pick the right word from 4 options. Free vocabulary game!">
+    <meta name="keywords" content="pidgin fill in blank, hawaiian sentence game, pidgin vocabulary quiz, pidgin context game, learn pidgin sentences, hawaii language practice">
+    <meta name="author" content="ChokePidgin.com">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Fill in the Blank - Hawaiian Pidgin Sentence Game">
+    <meta property="og:description" content="Pick the right Pidgin word to complete the sentence! Fun vocabulary game.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chokepidgin.com/pidgin-fill-blank.html">
+    <meta property="og:site_name" content="ChokePidgin.com">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://chokepidgin.com/pidgin-fill-blank.html">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" href="/favicon.ico">
+
+    <!-- Tailwind CSS -->
+    <link href="css/tailwind.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        .brand-font { font-family: 'Pacifico', cursive; }
+        body, h1, h2, h3, h4, h5, h6 { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+
+        .toast {
+            position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
+            background: #1f2937; color: white; padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem; font-weight: 500; z-index: 100;
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .toast.show { opacity: 1; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 min-h-screen">
+    <!-- NAVIGATION_PLACEHOLDER -->
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 max-w-2xl">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-2">
+                <i class="ti ti-writing"></i> Fill in da Blank
+            </h1>
+            <p class="text-gray-600 text-lg">Pick the right Pidgin word for the sentence!</p>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="flex justify-center gap-6 mb-6">
+            <div class="text-center">
+                <div class="text-2xl font-bold text-amber-600" id="stat-played">0</div>
+                <div class="text-sm text-gray-500">Played</div>
+            </div>
+            <div class="text-center">
+                <div class="text-2xl font-bold text-green-600" id="stat-correct">0</div>
+                <div class="text-sm text-gray-500">Correct</div>
+            </div>
+            <div class="text-center">
+                <div class="text-2xl font-bold text-orange-600" id="stat-streak">0</div>
+                <div class="text-sm text-gray-500">Best Streak</div>
+            </div>
+            <div class="text-center">
+                <div class="text-2xl font-bold text-blue-600" id="stat-accuracy">0%</div>
+                <div class="text-sm text-gray-500">Accuracy</div>
+            </div>
+        </div>
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="bg-white rounded-3xl shadow-xl p-8 text-center">
+            <div class="text-6xl mb-4"><i class="ti ti-writing"></i></div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">Fill in da Blank</h2>
+            <p class="text-gray-600 mb-4">Read the Pidgin sentence and pick the missing word from 4 choices.</p>
+            <p class="text-gray-500 mb-8">10 questions per round</p>
+
+            <button id="start-btn" class="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-10 py-4 rounded-full font-bold text-lg hover:from-amber-600 hover:to-orange-600 transition-all shadow-lg hover:scale-105">
+                <i class="ti ti-player-play"></i> Start Game
+            </button>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="hidden">
+            <!-- Progress -->
+            <div class="mb-4">
+                <div class="flex justify-between text-sm text-gray-600 mb-1">
+                    <span id="progress-text">1 / 10</span>
+                    <span>Score: <strong id="score-display">0</strong> <span id="streak-indicator" class="text-orange-500 ml-2"></span></span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div id="progress-bar" class="bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Question Area -->
+            <div class="bg-white rounded-3xl shadow-xl p-6 mb-6">
+                <!-- Round Number -->
+                <div class="text-center mb-4">
+                    <span class="bg-amber-100 text-amber-700 text-sm font-bold px-3 py-1 rounded-full">Question <span id="round-num">1</span></span>
+                </div>
+
+                <!-- Sentence Display -->
+                <div class="text-center mb-4">
+                    <p id="sentence-display" class="text-xl md:text-2xl text-gray-800 leading-relaxed font-medium"></p>
+                </div>
+
+                <!-- Translation Hint -->
+                <p id="translation-hint" class="hidden text-center text-gray-500 italic mb-6 text-sm"></p>
+
+                <!-- Options -->
+                <div id="options-container" class="space-y-3">
+                    <!-- Option buttons inserted by JS -->
+                </div>
+
+                <!-- Next Button -->
+                <div class="text-center mt-6">
+                    <button id="next-btn" class="hidden bg-gradient-to-r from-amber-500 to-orange-500 text-white px-8 py-3 rounded-full font-bold hover:from-amber-600 hover:to-orange-600 transition-all shadow-lg">
+                        Next Question <i class="ti ti-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden bg-white rounded-3xl shadow-xl p-8 text-center">
+            <div class="text-6xl mb-4"><i class="ti ti-trophy"></i></div>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Round Complete!</h2>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div class="bg-amber-50 rounded-2xl p-4">
+                    <div class="text-3xl font-bold text-amber-600" id="final-score">0</div>
+                    <div class="text-sm text-gray-600">Score</div>
+                </div>
+                <div class="bg-green-50 rounded-2xl p-4">
+                    <div class="text-3xl font-bold text-green-600" id="final-correct">0</div>
+                    <div class="text-sm text-gray-600">Total Correct</div>
+                </div>
+                <div class="bg-orange-50 rounded-2xl p-4">
+                    <div class="text-3xl font-bold text-orange-600" id="final-streak">0</div>
+                    <div class="text-sm text-gray-600">Streak</div>
+                </div>
+                <div class="bg-blue-50 rounded-2xl p-4">
+                    <div class="text-3xl font-bold text-blue-600" id="final-accuracy">0%</div>
+                    <div class="text-sm text-gray-600">This Round</div>
+                </div>
+            </div>
+
+            <button id="play-again-btn" class="bg-gradient-to-r from-amber-600 to-orange-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:from-amber-700 hover:to-orange-700 transition-all shadow-lg">
+                <i class="ti ti-refresh"></i> Play Again
+            </button>
+        </div>
+
+        <!-- More Games -->
+        <div class="bg-white rounded-2xl shadow-xl p-6 mt-8">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 text-center"><i class="ti ti-device-gamepad-2"></i> More Pidgin Games</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <a href="/pidgin-wordle.html" class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-4 hover:shadow-lg transition-shadow border-2 border-green-200 hover:border-green-400 text-center">
+                    <img src="assets/images/wordle-icon.png" alt="Wordle" loading="lazy" class="w-10 h-10 mx-auto mb-2">
+                    <h3 class="font-bold text-gray-800">Pidgin Wordle</h3>
+                    <p class="text-sm text-gray-600">Daily 5-letter puzzle</p>
+                </a>
+                <a href="/pidgin-scramble.html" class="bg-gradient-to-br from-violet-50 to-purple-50 rounded-xl p-4 hover:shadow-lg transition-shadow border-2 border-violet-200 hover:border-violet-400 text-center">
+                    <div class="text-3xl mb-2"><i class="ti ti-abc"></i></div>
+                    <h3 class="font-bold text-gray-800">Word Scramble</h3>
+                    <p class="text-sm text-gray-600">Unscramble the word</p>
+                </a>
+                <a href="/pidgin-speed.html" class="bg-gradient-to-br from-red-50 to-pink-50 rounded-xl p-4 hover:shadow-lg transition-shadow border-2 border-red-200 hover:border-red-400 text-center">
+                    <div class="text-3xl mb-2"><i class="ti ti-bolt"></i></div>
+                    <h3 class="font-bold text-gray-800">Speed Translation</h3>
+                    <p class="text-sm text-gray-600">Race the clock</p>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER_PLACEHOLDER -->
+
+    <!-- Supabase API -->
+    <script src="/js/components/supabase-api-loader.js"></script>
+
+    <!-- Fill in the Blank Game Logic -->
+    <script defer src="js/components/games/pidgin-fill-blank.js"></script>
+</body>
+</html>
