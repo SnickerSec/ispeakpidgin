@@ -6,14 +6,7 @@ const router = express.Router();
  * @param {object} supabase - Supabase client
  * @param {object} dictionaryLimiter - Rate limiter for dictionary endpoints
  */
-module.exports = function(supabase, dictionaryLimiter) {
-
-    // In-memory cache for dictionary bulk endpoint (refreshes every 5 minutes)
-    let dictionaryCache = {
-        data: null,
-        timestamp: 0,
-        ttl: 5 * 60 * 1000 // 5 minutes
-    };
+module.exports = function(supabase, dictionaryLimiter, dictionaryCache) {
 
     // Pre-warm dictionary cache
     async function prewarmDictionaryCache() {
