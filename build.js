@@ -96,73 +96,12 @@ function createPublicStructure() {
 
 // Copy and process HTML files
 function processHTMLFiles() {
-    const htmlFiles = [
-        'index.html', 'translator.html', 'dictionary.html', 'ask-local.html',
-        'learning-hub.html', 'stories.html', 'pickup-lines.html', 'pickup-line-generator.html', 'pidgin-bible.html',
-        'about.html', 'pidgin-vs-hawaiian.html', 'cheat-sheet.html', 'phrases.html', 'games.html',
-        'how-to-use-hawaiian-pidgin-pickup-lines.html', 'how-local-you-stay.html', 'pidgin-wordle.html', 'pidgin-hangman.html', 'pidgin-crossword.html',
-        // SEO Listicles
-        '15-essential-pidgin-phrases-ordering-plate-lunch.html',
-        'brah-sistah-pidgin-dictionary.html',
-        'beach-surf-pidgin-slang.html',
-        'understanding-time-in-pidgin.html',
-        'funny-insulting-pidgin-phrases.html',
-        'oahu-local-eats.html',
-        // SEO Pages - What Does X Mean
-        'what-does-da-kine-mean.html',
-        'what-does-howzit-mean.html',
-        'what-does-broke-da-mouth-mean.html',
-        'what-does-pau-hana-mean.html',
-        'what-does-ono-grindz-mean.html',
-        'what-does-shoots-mean.html',
-        'what-does-brah-mean.html',
-        'what-does-shaka-mean.html',
-        'what-does-grindz-mean.html',
-        'what-does-pau-mean.html',
-        'what-does-choke-mean.html',
-        'what-does-talk-story-mean.html',
-        'what-does-mahalo-mean.html',
-        'what-does-no-worry-mean.html',
-        // New SEO Pages based on Search Console data
-        'what-does-ainokea-mean.html',
-        'what-does-kanak-attack-mean.html',
-        'what-does-niele-mean.html',
-        'what-does-pilau-mean.html',
-        'what-does-sistah-mean.html',
-        'what-does-moopuna-mean.html',
-        // Additional SEO Pages - Round 2
-        'what-does-buss-up-mean.html',
-        'what-does-mayjah-mean.html',
-        'what-does-poho-mean.html',
-        'what-does-faka-mean.html',
-        // Additional SEO Pages - Round 3
-        'what-does-small-kine-mean.html',
-        'what-does-pake-mean.html',
-        'what-does-buggah-mean.html',
-        'what-does-rajah-mean.html',
-        'what-does-lolo-mean.html',
-        'what-does-hamajang-mean.html',
-        'what-does-humbug-mean.html',
-        // SEO Pages - Round 4 (from keyword research)
-        'what-does-aloha-mean.html',
-        'what-does-ohana-mean.html',
-        'what-does-haole-mean.html',
-        'what-does-keiki-mean.html',
-        'what-does-ono-mean.html',
-        'what-does-kamaaina-mean.html',
-        'what-does-wahine-mean.html',
-        'what-does-stink-eye-mean.html',
-        'what-does-chicken-skin-mean.html',
-        'what-does-mauka-makai-mean.html',
-        // Interactive Features
-        'pronunciation-practice.html',
-        'pidgin-heads-up.html',
-        // New Games
-        'pidgin-scramble.html',
-        'pidgin-memory.html',
-        'pidgin-fill-blank.html',
-        'pidgin-speed.html'
-    ];
+    // Dynamically discover all HTML files in src/pages/
+    const srcPagesDir = 'src/pages';
+    const htmlFiles = fs.readdirSync(srcPagesDir)
+        .filter(file => file.endsWith('.html') && fs.lstatSync(path.join(srcPagesDir, file)).isFile());
+
+    console.log(`🔍 Found ${htmlFiles.length} pages to process in ${srcPagesDir}`);
 
     // Load shared navigation and footer templates
     const navigationPath = path.join('src/components/shared', 'navigation.html');
