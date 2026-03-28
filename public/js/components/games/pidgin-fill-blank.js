@@ -48,6 +48,7 @@ class PidginFillBlank {
 
     async loadWords() {
         try {
+            // Fetch from dictionary API with random=true
             const response = await fetch('/api/dictionary?limit=300&random=true');
             const data = await response.json();
 
@@ -55,18 +56,31 @@ class PidginFillBlank {
 
             // Filter entries that have examples
             this.words = data.entries.filter(entry => {
-                return entry.examples && entry.examples.length > 0 &&
-                    entry.examples.some(ex => ex.pidgin && ex.pidgin.length > 0);
+                if (!entry.examples || !Array.isArray(entry.examples) || entry.examples.length === 0) return false;
+                
+                // Some examples are strings, some are objects with .pidgin
+                return entry.examples.some(ex => {
+                    const pidginText = typeof ex === 'string' ? ex : ex.pidgin;
+                    return pidginText && pidginText.length > 0;
+                });
             });
 
             // Also keep all entries for wrong options
             this.allWords = data.entries;
+            
+            console.log(`Loaded ${this.words.length} words with examples for Fill in da Blank`);
         } catch (error) {
+            console.error('Error loading words:', error);
             this.showToast('Error loading words. Please refresh.');
         }
     }
 
     startGame() {
+        if (this.words.length === 0) {
+            this.showToast('No words with examples found. Please refresh.');
+            return;
+        }
+
         this.round = 0;
         this.score = 0;
         this.streak = 0;
@@ -93,17 +107,21 @@ class PidginFillBlank {
         this.round++;
 
         const entry = this.words[this.round - 1];
-        const example = entry.examples.find(ex => ex.pidgin && ex.pidgin.length > 0);
+        // Find an example that has pidgin text
+        const example = entry.examples.find(ex => {
+            const pidginText = typeof ex === 'string' ? ex : ex.pidgin;
+            return pidginText && pidginText.length > 0;
+        });
 
-        // Create the blank sentence
+        // Get the actual pidgin sentence string
+        const sentence = typeof example === 'string' ? example : example.pidgin;
         const pidginWord = entry.pidgin;
-        const sentence = example.pidgin;
 
         // Create regex to find the word in the sentence (case insensitive)
         const regex = new RegExp(`\\b${this.escapeRegex(pidginWord)}\\b`, 'i');
         const blankSentence = sentence.replace(regex, '________');
 
-        // If we couldn't blank it (word not in example), try simple replacement
+        // If we couldn't blank it (word not in example with word boundaries), try simple replacement
         const displaySentence = blankSentence.includes('________')
             ? blankSentence
             : sentence.replace(new RegExp(this.escapeRegex(pidginWord), 'i'), '________');
@@ -121,7 +139,7 @@ class PidginFillBlank {
         this.currentQuestion = {
             correctAnswer: pidginWord,
             sentence: displaySentence,
-            translation: example.english || '',
+            translation: typeof example === 'object' ? (example.english || '') : '',
             options: options,
             meaning: Array.isArray(entry.english) ? entry.english[0] : entry.english
         };
@@ -236,28 +254,25 @@ class PidginFillBlank {
 
     showToast(message, duration = 2000) {
         const toast = document.getElementById('toast');
+        if (!toast) return;
         toast.textContent = message;
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), duration);
     }
 
     attachEventListeners() {
-        document.getElementById('start-btn').addEventListener('click', () => this.startGame());
-        document.getElementById('next-btn').addEventListener('click', () => this.nextRound());
-        document.getElementById('play-again-btn').addEventListener('click', () => this.showStartScreen());
+        document.getElementById('start-btn')?.addEventListener('click', () => this.startGame());
+        document.getElementById('next-btn')?.addEventListener('click', () => this.nextRound());
+        document.getElementById('play-again-btn')?.addEventListener('click', () => this.showStartScreen());
     }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const checkAPI = setInterval(() => {
-        if (window.supabaseAPI || document.readyState === 'complete') {
-            clearInterval(checkAPI);
-            window.fillBlankGame = new PidginFillBlank();
-        }
-    }, 100);
+    // Wait for supabaseAPI or just start after a small delay
+    // This game doesn't strictly depend on supabaseAPI if it uses direct fetch
     setTimeout(() => {
         if (!window.fillBlankGame) {
             window.fillBlankGame = new PidginFillBlank();
         }
-    }, 2000);
+    }, 500);
 });

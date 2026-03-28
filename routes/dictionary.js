@@ -99,7 +99,7 @@ module.exports = function(supabase, dictionaryLimiter, dictionaryCache) {
     router.get('/', dictionaryLimiter, async (req, res) => {
         try {
             const ALLOWED_SORT_FIELDS = ['pidgin', 'english', 'difficulty', 'category'];
-            const MAX_LIMIT = 100;
+            const MAX_LIMIT = 300; // Increased to accommodate game requests
 
             const page = Math.max(parseInt(req.query.page) || 1, 1);
             const limit = Math.min(Math.max(parseInt(req.query.limit) || 50, 1), MAX_LIMIT);
@@ -107,6 +107,21 @@ module.exports = function(supabase, dictionaryLimiter, dictionaryCache) {
             const difficulty = req.query.difficulty;
             const sort = ALLOWED_SORT_FIELDS.includes(req.query.sort) ? req.query.sort : 'pidgin';
             const order = req.query.order;
+            const isRandom = req.query.random === 'true';
+
+            // If random and we have cached data, use it for faster response
+            if (isRandom && dictionaryCache.data && !category && !difficulty) {
+                const shuffled = [...dictionaryCache.data.entries].sort(() => Math.random() - 0.5);
+                return res.json({
+                    entries: shuffled.slice(0, limit),
+                    pagination: {
+                        page: 1,
+                        limit,
+                        total: dictionaryCache.data.entries.length,
+                        totalPages: 1
+                    }
+                });
+            }
 
             const offset = (page - 1) * limit;
             const validOrders = ['asc', 'desc'];
@@ -118,6 +133,27 @@ module.exports = function(supabase, dictionaryLimiter, dictionaryCache) {
 
             if (category) query = query.eq('category', category);
             if (difficulty) query = query.eq('difficulty', difficulty);
+
+            if (isRandom) {
+                // If random but filtered, we still need to fetch and shuffle
+                // We'll fetch a larger set and shuffle a subset
+                const { data, error, count } = await query.limit(500);
+                if (error) {
+                    console.error('Supabase random query error:', error);
+                    return res.status(500).json({ error: 'Database query failed' });
+                }
+                
+                const shuffled = data.sort(() => Math.random() - 0.5);
+                return res.json({
+                    entries: shuffled.slice(0, limit),
+                    pagination: {
+                        page: 1,
+                        limit,
+                        total: count,
+                        totalPages: 1
+                    }
+                });
+            }
 
             query = query
                 .order(sort, { ascending: sortOrder })

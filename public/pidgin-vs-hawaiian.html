@@ -131,32 +131,187 @@
 </head>
 
 <body class="min-h-screen bg-gray-50">
-    <!-- Navigation (same as other pages) -->
-    <nav class="shadow-lg sticky top-0 z-50 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center py-4">
-                <div class="flex items-center">
-                    <a href="index.html">
-                        <span class="brand-font text-3xl bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
-                            <i class="ti ti-palm-tree"></i> ChokePidgin <i class="ti ti-ripple"></i>
-                        </span>
-                    </a>
+    <!-- Navigation -->
+<nav class="shadow-lg sticky top-0 z-50" style="background: linear-gradient(to right, rgba(255, 255, 255, 0.95), rgba(255, 251, 235, 0.95)); backdrop-filter: blur(10px); border-bottom: 3px solid #ff6b6b;">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center py-2">
+            <div class="flex items-center">
+                <a href="index.html">
+                    <span class="brand-font text-2xl bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+                        <i class="ti ti-palm-tree"></i> ChokePidgin <i class="ti ti-ripple"></i>
+                    </span>
+                </a>
+            </div>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="index.html" class="nav-link text-gray-700 hover:text-green-600 transition">Home</a>
+                <a href="translator.html" class="nav-link text-gray-700 hover:text-green-600 transition">Translator</a>
+                <a href="dictionary.html" class="nav-link text-gray-700 hover:text-green-600 transition">Dictionary</a>
+
+                <!-- Learn Dropdown -->
+                <div class="nav-dropdown relative">
+                    <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
+                        Learn
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
+                        <a href="learning-hub.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-books"></i> Lessons</a>
+                        <a href="phrases.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-message"></i> Phrases</a>
+                        <a href="pronunciation-practice.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-microphone"></i> Pronunciation</a>
+                        <a href="cheat-sheet.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-note"></i> Cheat Sheet</a>
+                    </div>
                 </div>
-                <div class="hidden md:flex space-x-6 items-center">
-                    <a href="index.html" class="nav-link text-gray-700 hover:text-purple-600 transition">Home</a>
-                    <a href="translator.html" class="nav-link text-gray-700 hover:text-purple-600 transition">Translator</a>
-                    <a href="dictionary.html" class="nav-link text-gray-700 hover:text-purple-600 transition">Dictionary</a>
-                    <a href="learning-hub.html" class="nav-link text-gray-700 hover:text-purple-600 transition">Learning Hub</a>
-                    <a href="stories.html" class="nav-link text-gray-700 hover:text-green-600 transition">Stories</a>
-                    <a href="pickup-lines.html" class="nav-link text-gray-700 hover:text-green-600 transition">Pickup Lines</a>
-                    <a href="pidgin-bible.html" class="nav-link text-gray-700 hover:text-purple-600 transition">Pidgin Bible</a>
-                    <a href="ask-local.html" class="nav-link text-gray-700 hover:text-purple-600 transition">Ask a Local</a>
-                    <a href="pidgin-vs-hawaiian.html" class="nav-link text-purple-600 font-semibold">Pidgin vs. Hawaiian</a>
-                    <a href="about.html" class="nav-link text-gray-700 hover:text-purple-600 transition">About</a>
+
+                <!-- Games Dropdown -->
+                <div class="nav-dropdown relative">
+                    <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
+                        Games
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
+                        <a href="games.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition font-semibold border-b border-gray-100"><i class="ti ti-device-gamepad-2"></i> All Games</a>
+                        <a href="pidgin-wordle.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition flex items-center gap-2 whitespace-nowrap"><i class="ti ti-grid-3x3"></i> Pidgin Wordle</a>
+                        <a href="pidgin-hangman.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-typography"></i> Hangman</a>
+                        <a href="pidgin-crossword.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-puzzle"></i> Crossword</a>
+                        <a href="pidgin-heads-up.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-stretching"></i> Heads Up!</a>
+                        <a href="how-local-you-stay.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-hand-love-you"></i> Local Quiz</a>
+                        <a href="pidgin-scramble.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-abc"></i> Word Scramble</a>
+                        <a href="pidgin-memory.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-cards"></i> Memory Match</a>
+                        <a href="pidgin-fill-blank.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-writing"></i> Fill in Blank</a>
+                        <a href="pidgin-speed.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition"><i class="ti ti-bolt"></i> Speed Translation</a>
+                    </div>
                 </div>
+
+                <!-- Community Dropdown -->
+                <div class="nav-dropdown relative">
+                    <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
+                        Community
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
+                        <a href="stories.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Stories</a>
+                        <a href="ask-local.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Ask a Local</a>
+                        <a href="blog/" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Blog</a>
+                    </div>
+                </div>
+
+                <!-- Pickup Lines Dropdown -->
+                <div class="nav-dropdown relative">
+                    <button class="nav-link text-gray-700 hover:text-green-600 transition flex items-center gap-1">
+                        Pickup Lines
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 hidden">
+                        <a href="pickup-lines.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">Browse Lines</a>
+                        <a href="pickup-line-generator.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">AI Generator</a>
+                        <a href="how-to-use-hawaiian-pidgin-pickup-lines.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 hover:text-green-600 transition">How-To Guide</a>
+                    </div>
+                </div>
+
+                <a href="pidgin-bible.html" class="nav-link text-gray-700 hover:text-green-600 transition">Pidgin Bible</a>
+            </div>
+
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-btn" class="text-gray-700 p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
             </div>
         </div>
-    </nav>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+        <div class="px-2 pt-2 pb-3 space-y-1">
+            <a href="index.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Home</a>
+            <a href="translator.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Translator</a>
+            <a href="dictionary.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Dictionary</a>
+
+            <!-- Learn Submenu -->
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
+                    Learn
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="mobile-dropdown-content hidden pl-6 space-y-1">
+                    <a href="learning-hub.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-books"></i> Lessons</a>
+                    <a href="phrases.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-message"></i> Phrases</a>
+                    <a href="pronunciation-practice.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-microphone"></i> Pronunciation</a>
+                    <a href="cheat-sheet.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-note"></i> Cheat Sheet</a>
+                </div>
+            </div>
+
+            <!-- Games Submenu -->
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
+                    Games
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="mobile-dropdown-content hidden pl-6 space-y-1">
+                    <a href="games.html" class="block px-3 py-2 text-gray-600 hover:text-green-600 font-semibold"><i class="ti ti-device-gamepad-2"></i> All Games</a>
+                    <a href="pidgin-wordle.html" class="block px-3 py-2 text-gray-600 hover:text-green-600 flex items-center gap-2"><i class="ti ti-grid-3x3"></i> Pidgin Wordle</a>
+                    <a href="pidgin-hangman.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-typography"></i> Hangman</a>
+                    <a href="pidgin-crossword.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-puzzle"></i> Crossword</a>
+                    <a href="pidgin-heads-up.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-stretching"></i> Heads Up!</a>
+                    <a href="how-local-you-stay.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-hand-love-you"></i> Local Quiz</a>
+                    <a href="pidgin-scramble.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-abc"></i> Word Scramble</a>
+                    <a href="pidgin-memory.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-cards"></i> Memory Match</a>
+                    <a href="pidgin-fill-blank.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-writing"></i> Fill in Blank</a>
+                    <a href="pidgin-speed.html" class="block px-3 py-2 text-gray-600 hover:text-green-600"><i class="ti ti-bolt"></i> Speed Translation</a>
+                </div>
+            </div>
+
+            <!-- Community Submenu -->
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
+                    Community
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="mobile-dropdown-content hidden pl-6 space-y-1">
+                    <a href="stories.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Stories</a>
+                    <a href="ask-local.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Ask a Local</a>
+                    <a href="blog/" class="block px-3 py-2 text-gray-600 hover:text-green-600">Blog</a>
+                </div>
+            </div>
+
+            <!-- Pickup Lines Submenu -->
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn w-full text-left px-3 py-2 text-gray-700 hover:text-green-600 flex items-center justify-between">
+                    Pickup Lines
+                    <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div class="mobile-dropdown-content hidden pl-6 space-y-1">
+                    <a href="pickup-lines.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">Browse Lines</a>
+                    <a href="pickup-line-generator.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">AI Generator</a>
+                    <a href="how-to-use-hawaiian-pidgin-pickup-lines.html" class="block px-3 py-2 text-gray-600 hover:text-green-600">How-To Guide</a>
+                </div>
+            </div>
+
+            <a href="pidgin-bible.html" class="block px-3 py-2 text-gray-700 hover:text-green-600">Pidgin Bible</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Navigation JavaScript - automatically included on all pages -->
+<script defer src="js/components/navigation.js"></script>
+
 
     <!-- Hero Section -->
     <section class="hero-gradient py-16 px-4 text-white">
