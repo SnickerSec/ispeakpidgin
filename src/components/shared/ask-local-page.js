@@ -51,6 +51,14 @@ class AskLocalPageManager {
         this.loadSampleQuestions();
         this.loadQuestions();
         this.setupBackToTop();
+
+        // Check for tab parameter in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const tab = urlParams.get('tab');
+        if (tab === 'suggest' && window.toggleForm) {
+            // Small delay to ensure DOM is fully ready
+            setTimeout(() => window.toggleForm('suggest'), 100);
+        }
     }
 
     initializeFormHandling() {
