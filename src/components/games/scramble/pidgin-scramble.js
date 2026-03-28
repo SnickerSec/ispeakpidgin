@@ -127,7 +127,6 @@ class PidginScramble {
         this.currentScrambled = this.scrambleWord(word);
 
         // Update UI
-        document.getElementById('round-num').textContent = this.round;
         document.getElementById('score-display').textContent = this.score;
         document.getElementById('streak-display').textContent = this.streak;
         document.getElementById('hint-area').classList.add('hidden');
