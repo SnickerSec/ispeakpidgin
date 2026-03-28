@@ -19,10 +19,10 @@ if (!supabaseKey) {
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 async function runMigration() {
-    const sqlFile = path.join(__dirname, '../supabase/migrations/003_lessons.sql');
+    const sqlFile = path.join(__dirname, '../supabase/migrations/006_user_suggestions.sql');
     const sql = fs.readFileSync(sqlFile, 'utf8');
 
-    console.log('🔄 Running migration: 003_lessons.sql\n');
+    console.log(`🔄 Running migration: ${path.basename(sqlFile)}\n`);
 
     // Split by semicolon and run each statement
     const statements = sql

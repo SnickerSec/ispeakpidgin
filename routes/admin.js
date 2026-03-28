@@ -172,5 +172,84 @@ module.exports = function(supabaseAdmin, adminAuth, settingsManager, adminLoginL
         }
     });
 
+    // User Suggestions API
+    router.get('/suggestions', adminAuth.requireAdminAuth, async (req, res) => {
+        if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
+        try {
+            const { status = 'pending', limit = 50 } = req.query;
+            const { data, error } = await supabaseAdmin
+                .from('user_suggestions')
+                .select('*')
+                .eq('status', status)
+                .order('created_at', { ascending: false })
+                .limit(parseInt(limit));
+            
+            if (error) throw error;
+            res.json({ suggestions: data });
+        } catch (error) {
+            res.status(500).json({ error: 'Failed to get suggestions' });
+        }
+    });
+
+    router.put('/suggestions/:id', adminAuth.requireAdminAuth, [
+        body('status').isIn(['approved', 'rejected'])
+    ], async (req, res) => {
+        if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+
+        try {
+            const { id } = req.params;
+            const { status } = req.body;
+
+            // If approved, we can optionally add it to the dictionary automatically
+            if (status === 'approved') {
+                const { data: suggestion, error: fetchErr } = await supabaseAdmin
+                    .from('user_suggestions')
+                    .select('*')
+                    .eq('id', id)
+                    .single();
+                
+                if (fetchErr) throw fetchErr;
+
+                // Add to dictionary_entries
+                const { error: dictErr } = await supabaseAdmin
+                    .from('dictionary_entries')
+                    .insert([{
+                        pidgin: suggestion.pidgin,
+                        english: [suggestion.english], // Store as array
+                        examples: suggestion.example ? [suggestion.example] : [],
+                        category: 'community',
+                        difficulty: 'beginner',
+                        frequency: 'medium'
+                    }]);
+                
+                if (dictErr) console.warn('Failed to auto-add to dictionary:', dictErr.message);
+            }
+
+            const { data, error } = await supabaseAdmin
+                .from('user_suggestions')
+                .update({ status })
+                .eq('id', id)
+                .select();
+
+            if (error) throw error;
+
+            await adminAuth.logAuditAction({ 
+                userId: req.adminUser.id, 
+                username: req.adminUser.username, 
+                action: 'UPDATE_SUGGESTION', 
+                resource: id, 
+                details: { status }, 
+                req 
+            });
+
+            res.json({ success: true, suggestion: data[0] });
+        } catch (error) {
+            console.error('Update suggestion error:', error);
+            res.status(500).json({ error: 'Failed to update suggestion' });
+        }
+    });
+
     return router;
 };

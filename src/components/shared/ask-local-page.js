@@ -21,6 +21,7 @@ class AskLocalPageManager {
         this.minTimeBetweenSubmissions = 30000;
 
         this.initializeFormHandling();
+        this.initializeSuggestionsHandling();
         this.loadSampleQuestions();
         this.loadQuestions();
         this.setupBackToTop();
@@ -53,6 +54,112 @@ class AskLocalPageManager {
                 this.validateCaptcha();
             });
         }
+    }
+
+    initializeSuggestionsHandling() {
+        this.generateSuggestCaptcha();
+
+        // Form submission
+        const suggestForm = document.getElementById('suggest-form');
+        if (suggestForm) {
+            suggestForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleSuggestionSubmission();
+            });
+        }
+
+        // Refresh captcha
+        const refreshBtn = document.getElementById('refresh-suggest-captcha');
+        if (refreshBtn) {
+            refreshBtn.addEventListener('click', () => {
+                this.generateSuggestCaptcha();
+            });
+        }
+
+        // Real-time validation feedback
+        const captchaInput = document.getElementById('suggest-captcha-answer');
+        if (captchaInput) {
+            captchaInput.addEventListener('input', () => {
+                this.validateSuggestCaptcha();
+            });
+        }
+
+        // Global toggle function
+        window.toggleForm = (type) => {
+            const askSection = document.getElementById('ask-section');
+            const suggestSection = document.getElementById('suggest-section');
+            const askBtn = document.getElementById('show-ask-form');
+            const suggestBtn = document.getElementById('show-suggest-form');
+
+            if (type === 'ask') {
+                askSection.classList.remove('hidden');
+                suggestSection.classList.add('hidden');
+                askBtn.classList.add('border-blue-500', 'text-blue-600');
+                askBtn.classList.remove('border-gray-200', 'text-gray-500');
+                suggestBtn.classList.add('border-gray-200', 'text-gray-500');
+                suggestBtn.classList.remove('border-blue-500', 'text-blue-600');
+            } else {
+                askSection.classList.add('hidden');
+                suggestSection.classList.remove('hidden');
+                suggestBtn.classList.add('border-purple-500', 'text-purple-600');
+                suggestBtn.classList.remove('border-gray-200', 'text-gray-500');
+                askBtn.classList.add('border-gray-200', 'text-gray-500');
+                askBtn.classList.remove('border-blue-500', 'text-blue-600');
+            }
+        };
+    }
+
+    generateSuggestCaptcha() {
+        const num1 = Math.floor(Math.random() * 10) + 1;
+        const num2 = Math.floor(Math.random() * 10) + 1;
+        this.suggestCorrectAnswer = num1 + num2;
+        
+        const qEl = document.getElementById('suggest-captcha-question');
+        if (qEl) qEl.textContent = `${num1} + ${num2}`;
+    }
+
+    validateSuggestCaptcha() {
+        const val = parseInt(document.getElementById('suggest-captcha-answer').value);
+        const btn = document.getElementById('submit-suggestion-btn');
+        if (val === this.suggestCorrectAnswer) {
+            if (btn) btn.disabled = false;
+        } else {
+            if (btn) btn.disabled = true;
+        }
+    }
+
+    async handleSuggestionSubmission() {
+        const pidgin = document.getElementById('suggest-pidgin').value.trim();
+        const english = document.getElementById('suggest-english').value.trim();
+        const example = document.getElementById('suggest-example').value.trim();
+        const contributor_name = document.getElementById('suggest-name').value.trim();
+        const feedback = document.getElementById('suggest-feedback');
+
+        if (!pidgin || !english) return;
+
+        try {
+            const response = await fetch('/api/suggestions', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ pidgin, english, example, contributor_name })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                feedback.innerHTML = `<span class="text-green-600 font-bold">${data.message}</span>`;
+                document.getElementById('suggest-form').reset();
+                this.generateSuggestCaptcha();
+            } else {
+                feedback.innerHTML = `<span class="text-red-600">Error: ${data.error || 'Failed to submit'}</span>`;
+            }
+        } catch (err) {
+            feedback.innerHTML = '<span class="text-red-600">Network error. Try again.</span>';
+        }
+
+        setTimeout(() => {
+            if (feedback) feedback.innerHTML = '';
+        }, 5000);
     }
 
     generateNewCaptcha() {
