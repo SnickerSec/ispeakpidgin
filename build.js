@@ -437,26 +437,38 @@ function copyAssets() {
         }
     });
 
-    // Copy robots.txt and sitemap.xml if they exist
-    ['robots.txt', 'sitemap.xml', 'site.webmanifest'].forEach(file => {
-        if (fs.existsSync(file)) {
-            fs.copyFileSync(file, path.join('public', file));
+    // Copy robots.txt, sitemap.xml, etc if they exist
+    ['robots.txt', 'sitemap.xml', 'site.webmanifest', 'sw.js'].forEach(file => {
+        const srcPath = file === 'sw.js' ? path.join('src', file) : file;
+        if (fs.existsSync(srcPath)) {
+            fs.copyFileSync(srcPath, path.join('public', file));
             console.log(`📋 Copied: ${file}`);
         }
     });
 }
 
-// Copy favicon files to root
+// Copy favicon and PWA icon files to root
 function copyFavicons() {
-    const faviconFiles = ['favicon.ico', 'favicon.svg'];
+    const faviconFiles = [
+        'favicon.ico', 
+        'favicon.svg', 
+        'android-chrome-192x192.png', 
+        'android-chrome-512x512.png',
+        'apple-touch-icon.png'
+    ];
 
     faviconFiles.forEach(filename => {
-        const srcPath = path.join(config.publicDir, 'assets', 'icons', filename);
+        // Try src root first (PWA icons), then assets/icons
+        let srcPath = path.join('src', filename);
+        if (!fs.existsSync(srcPath)) {
+            srcPath = path.join(config.publicDir, 'assets', 'icons', filename);
+        }
+        
         const destPath = path.join(config.publicDir, filename);
 
         if (fs.existsSync(srcPath)) {
             fs.copyFileSync(srcPath, destPath);
-            console.log(`🎯 Copied favicon: ${filename}`);
+            console.log(`🎯 Copied: ${filename}`);
         }
     });
 }

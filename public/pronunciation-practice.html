@@ -283,6 +283,25 @@
 <!-- Navigation JavaScript - automatically included on all pages -->
 <script defer src="js/components/navigation.js"></script>
 
+<!-- PWA Service Worker Registration -->
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js')
+                .then(reg => console.log('SW: Registered', reg.scope))
+                .catch(err => console.log('SW: Registration failed', err));
+        });
+    }
+</script>
+
+<!-- PWA Meta Tags -->
+<link rel="manifest" href="/site.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ChokePidgin">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#2563eb">
+
 
     <!-- Hero Section -->
     <section class="bg-gradient-to-r from-purple-600 via-pink-600 to-red-500 text-white py-12 px-4">
