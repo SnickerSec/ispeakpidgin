@@ -5,6 +5,11 @@
 @source "../components/**/*.js";
 @source "../blog/**/*.html";
 
+/* Global font rules */
+body, h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
 /* Brand font class */
 .brand-font {
   font-family: 'Pacifico', cursive;
