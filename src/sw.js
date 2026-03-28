@@ -3,7 +3,7 @@ const ASSETS = [
   '/',
   '/index.html',
   '/css/tailwind.css',
-  '/css/style.css',
+  '/css/main.css',
   '/js/components/main.js',
   '/js/components/navigation.js',
   '/android-chrome-192x192.png',

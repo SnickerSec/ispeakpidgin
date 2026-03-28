@@ -320,6 +320,13 @@ class AskLocalPageManager {
     }
 
     setupEventListeners() {
+        // Form toggle buttons
+        const askBtn = document.getElementById('show-ask-form');
+        const suggestBtn = document.getElementById('show-suggest-form');
+        
+        if (askBtn) askBtn.addEventListener('click', () => window.toggleForm('ask'));
+        if (suggestBtn) suggestBtn.addEventListener('click', () => window.toggleForm('suggest'));
+
         // Filter buttons
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
