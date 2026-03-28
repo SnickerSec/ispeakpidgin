@@ -173,19 +173,164 @@ module.exports = function(supabase, dictionaryLimiter) {
     // QUIZ API
     // ============================================
 
+    /**
+     * Helper to generate dynamic questions from lesson vocabulary
+     */
+    async function generateDynamicQuestions(count = 10, category = null, difficulty = null) {
+        try {
+            let query = supabase
+                .from('lessons')
+                .select(`id, lesson_key, level, title, icon, lesson_vocabulary (pidgin, english, example)`);
+            
+            if (difficulty) query = query.eq('level', difficulty);
+            
+            const { data: lessons, error } = await query;
+            if (error || !lessons || lessons.length === 0) return [];
+
+            // Collect all vocabulary across eligible lessons
+            let allVocab = [];
+            lessons.forEach(lesson => {
+                if (lesson.lesson_vocabulary) {
+                    lesson.lesson_vocabulary.forEach(v => {
+                        allVocab.push({
+                            ...v,
+                            lesson_title: lesson.title,
+                            level: lesson.level
+                        });
+                    });
+                }
+            });
+
+            if (allVocab.length < 4) return [];
+
+            const questions = [];
+            const shuffledVocab = [...allVocab].sort(() => Math.random() - 0.5);
+            const emojis = ['🍧', '🤙', '🌺', '🏝️', '🏄‍♂️', '🍍', '🌋', '🐢', '🌈', '🚲'];
+
+            for (let i = 0; i < Math.min(count, shuffledVocab.length); i++) {
+                const current = shuffledVocab[i];
+                const type = Math.floor(Math.random() * 3); // 0: pidgin->english, 1: english->pidgin, 2: example blank
+
+                let questionText, options, correctIndex, description;
+
+                if (type === 0) {
+                    // What does this mean?
+                    questionText = `What does "${current.pidgin}" mean?`;
+                    description = `From the lesson: ${current.lesson_title}`;
+                    
+                    const wrong = allVocab
+                        .filter(v => v.pidgin !== current.pidgin)
+                        .sort(() => Math.random() - 0.5)
+                        .slice(0, 3)
+                        .map(v => v.english);
+                    
+                    options = [current.english, ...wrong].sort(() => Math.random() - 0.5);
+                    correctIndex = options.indexOf(current.english);
+                } else if (type === 1) {
+                    // How you say this?
+                    questionText = `How do you say "${current.english}" in Pidgin?`;
+                    description = `Local style for: ${current.english}`;
+
+                    const wrong = allVocab
+                        .filter(v => v.pidgin !== current.pidgin)
+                        .sort(() => Math.random() - 0.5)
+                        .slice(0, 3)
+                        .map(v => v.pidgin);
+                    
+                    options = [current.pidgin, ...wrong].sort(() => Math.random() - 0.5);
+                    correctIndex = options.indexOf(current.pidgin);
+                } else {
+                    // Example sentence
+                    const example = current.example || `I like go ${current.pidgin} wit you.`;
+                    const regex = new RegExp(`\\b${current.pidgin}\\b`, 'i');
+                    questionText = example.replace(regex, '________');
+                    description = "Fill in the blank with the best Pidgin word!";
+
+                    const wrong = allVocab
+                        .filter(v => v.pidgin !== current.pidgin)
+                        .sort(() => Math.random() - 0.5)
+                        .slice(0, 3)
+                        .map(v => v.pidgin);
+                    
+                    options = [current.pidgin, ...wrong].sort(() => Math.random() - 0.5);
+                    correctIndex = options.indexOf(current.pidgin);
+                }
+
+                // Format options for the frontend
+                const formattedOptions = options.map((opt, idx) => ({
+                    text: opt,
+                    points: idx === correctIndex ? 10 : (Math.random() > 0.5 ? 2 : 0),
+                    feedback: idx === correctIndex ? "Rajah dat! You know your stuff." : "Try again, brah."
+                }));
+
+                questions.push({
+                    id: `dynamic-${i}`,
+                    question: questionText,
+                    description: description,
+                    image: emojis[Math.floor(Math.random() * emojis.length)],
+                    options: formattedOptions,
+                    category: current.level,
+                    difficulty: current.level
+                });
+            }
+
+            return questions;
+        } catch (err) {
+            console.error('Dynamic question generation error:', err);
+            return [];
+        }
+    }
+
     router.get('/quiz/questions', dictionaryLimiter, async (req, res) => {
         try {
-            const { category, difficulty, count = 10 } = req.query;
-            let query = supabase.from('quiz_questions').select('*');
+            const { category, difficulty, count = 10, random = 'true' } = req.query;
+            let query = supabase.from('lesson_quiz_questions').select('*');
             if (category) query = query.eq('category', category);
-            if (difficulty) query = query.eq('difficulty', difficulty);
+            if (difficulty) query = query.eq('level', difficulty);
 
             const { data, error } = await query;
-            if (error) return res.status(500).json({ error: 'Failed to fetch questions' });
+            
+            // If we have data in the table, use it
+            if (!error && data && data.length > 0) {
+                let shuffled = data;
+                if (random === 'true') {
+                    shuffled = data.sort(() => Math.random() - 0.5);
+                }
+                
+                const limited = shuffled.slice(0, parseInt(count));
+                
+                // Map to frontend format if needed (loader handles some, but let's be safe)
+                const formatted = limited.map(q => ({
+                    ...q,
+                    image: q.image || '🤙',
+                    description: q.description || q.explanation || 'Test your knowledge!',
+                    options: Array.isArray(q.options) ? q.options.map((opt, idx) => {
+                        // If options are strings, convert to objects
+                        if (typeof opt === 'string') {
+                            return {
+                                text: opt,
+                                points: idx === q.correct_index ? 10 : 0,
+                                feedback: idx === q.correct_index ? "Correct!" : "Incorrect."
+                            };
+                        }
+                        return opt;
+                    }) : []
+                }));
 
-            const shuffled = data.sort(() => Math.random() - 0.5).slice(0, parseInt(count));
-            res.json({ questions: shuffled, count: shuffled.length });
+                return res.json({ questions: formatted, count: formatted.length });
+            }
+
+            // Fallback to dynamic questions from vocabulary
+            console.log('Quiz table empty, generating dynamic questions from vocabulary...');
+            const dynamicQuestions = await generateDynamicQuestions(parseInt(count), category, difficulty);
+            
+            if (dynamicQuestions.length === 0) {
+                return res.status(404).json({ error: 'No questions found' });
+            }
+
+            res.json({ questions: dynamicQuestions, count: dynamicQuestions.length });
         } catch (error) {
+            console.error('Quiz API error:', error);
             res.status(500).json({ error: 'Internal server error' });
         }
     });
