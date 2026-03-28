@@ -20,6 +20,7 @@ const contentRoutes = require('./routes/content');
 const gamesRoutes = require('./routes/games');
 const pickupRoutes = require('./routes/pickup');
 const adminRoutes = require('./routes/admin');
+const aiRoutes = require('./routes/ai');
 
 // Initialize Supabase client
 const supabaseUrl = process.env.SUPABASE_URL;
@@ -230,6 +231,7 @@ app.use('/api/dictionary', dictionaryRoutes(supabase, dictionaryLimiter, diction
 app.use('/api', contentRoutes(supabase, dictionaryLimiter));
 app.use('/api', gamesRoutes(supabase, dictionaryLimiter));
 app.use('/api', pickupRoutes(supabase, dictionaryLimiter, translationLimiter));
+app.use('/api/ai', aiRoutes(supabase, dictionaryCache, apiLimiter));
 app.use('/api/admin', adminRoutes(supabaseAdmin, adminAuth, settingsManager, adminLoginLimiter));
 
 // ============================================

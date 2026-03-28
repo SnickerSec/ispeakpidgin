@@ -1,0 +1,131 @@
+const express = require('express');
+const router = express.Router();
+const { body, validationResult } = require('express-validator');
+
+/**
+ * AI & Chat Routes
+ */
+module.exports = function(supabase, dictionaryCache, limiter) {
+
+    // Helper: Get relevant vocabulary for context injection
+    function getRelevantVocabulary(text, maxEntries = 25) {
+        if (!dictionaryCache.data || !dictionaryCache.data.entries) return '';
+
+        const entries = dictionaryCache.data.entries;
+        const inputLower = text.toLowerCase();
+        
+        // Simple matching logic
+        const matched = [];
+        for (const entry of entries) {
+            if (matched.length >= maxEntries) break;
+            
+            const pidgin = (entry.pidgin || '').toLowerCase();
+            const englishArr = Array.isArray(entry.english) ? entry.english : [entry.english];
+            
+            if (inputLower.includes(pidgin) || englishArr.some(e => inputLower.includes((e || '').toLowerCase()))) {
+                matched.push(`${entry.pidgin} (${englishArr[0]})`);
+            }
+        }
+
+        if (matched.length === 0) return '';
+        return `\n\nContextual Pidgin Vocabulary: ${matched.join(', ')}`;
+    }
+
+    // POST /api/ai/talk-story - Interactive Pidgin Tutor
+    router.post('/talk-story',
+        limiter,
+        [
+            body('message').trim().notEmpty().isLength({ max: 1000 }).escape(),
+            body('history').optional().isArray()
+        ],
+        async (req, res) => {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+
+            try {
+                const { message, history = [] } = req.body;
+                const apiKey = process.env.GEMINI_API_KEY;
+                if (!apiKey) return res.status(500).json({ error: 'Gemini API key not configured' });
+
+                const vocabulary = getRelevantVocabulary(message);
+                
+                const systemPrompt = `
+You are "Kimo," a friendly and patient Hawaiian Pidgin tutor. 
+Your goal is to "talk story" with the user to help them practice their Pidgin.
+
+GUIDELINES:
+1. Always respond in authentic, natural Hawaiian Pidgin. 
+2. Keep your responses friendly, encouraging, and "local" in style.
+3. If the user makes a big mistake in their Pidgin, gently suggest the correct way to say it in your response.
+4. If they speak English, respond in Pidgin but keep it simple enough for them to follow.
+5. Use the provided vocabulary context to ensure accuracy.
+
+RESPONSE FORMAT:
+Respond in JSON format:
+{
+  "pidgin": "Your response in authentic Pidgin",
+  "translation": "English translation of your response",
+  "hint": "A small tip about a word or grammar point used in this exchange (optional)"
+}
+${vocabulary}`;
+
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${apiKey}`;
+
+                // Format history for Gemini
+                const contents = history.map(msg => ({
+                    role: msg.role === 'user' ? 'user' : 'model',
+                    parts: [{ text: msg.content }]
+                }));
+                
+                // Add system prompt and current message
+                contents.unshift({
+                    role: 'user',
+                    parts: [{ text: `SYSTEM INSTRUCTION: ${systemPrompt}` }]
+                });
+                contents.push({
+                    role: 'user',
+                    parts: [{ text: message }]
+                });
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: contents,
+                        generationConfig: { 
+                            temperature: 0.7, 
+                            maxOutputTokens: 800,
+                            responseMimeType: "application/json"
+                        }
+                    })
+                });
+
+                if (!response.ok) {
+                    const errText = await response.text();
+                    console.error('Gemini API Error:', response.status, errText);
+                    return res.status(response.status).json({ error: 'AI service currently unavailable' });
+                }
+
+                const data = await response.json();
+                const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || '{}';
+                
+                try {
+                    const parsed = JSON.parse(responseText);
+                    res.json(parsed);
+                } catch (e) {
+                    // Fallback if AI doesn't return perfect JSON
+                    res.json({
+                        pidgin: responseText,
+                        translation: "Sorry brah, my brain wen stay freeze for one second.",
+                        hint: "AI had trouble formatting the response."
+                    });
+                }
+
+            } catch (error) {
+                console.error('Talk Story API error:', error);
+                res.status(500).json({ error: 'Internal server error' });
+            }
+        });
+
+    return router;
+};

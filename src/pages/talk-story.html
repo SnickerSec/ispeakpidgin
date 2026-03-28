@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talk Story with Kimo - Your Pidgin AI Tutor | ChokePidgin.com</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Practice your Hawaiian Pidgin in real-time with Kimo, our friendly AI tutor. Talk story, get corrections, and learn authentic local expressions in a safe environment.">
+    <meta name="keywords" content="Pidgin tutor, learn Hawaiian Pidgin, talk story AI, Hawaii language practice, Pidgin conversation, interactive Pidgin learning">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Talk Story with Kimo - Your Pidgin AI Tutor">
+    <meta property="og:description" content="Practice your Hawaiian Pidgin in real-time with our friendly AI tutor.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chokepidgin.com/talk-story.html">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link href="css/tailwind.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+
+    <style>
+        .brand-font { font-family: 'Pacifico', cursive; }
+        body { font-family: 'Inter', sans-serif; }
+        
+        .chat-container {
+            height: calc(100vh - 200px);
+            max-height: 600px;
+        }
+        
+        .message-bubble {
+            max-width: 85%;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background-color: #94a3b8;
+            border-radius: 50%;
+            display: inline-block;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+        
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1.0); }
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #60a5fa 0%, #a855f7 100%);
+        }
+    </style>
+</head>
+<body class="bg-blue-50 min-h-screen flex flex-col">
+    <!-- NAVIGATION_PLACEHOLDER -->
+
+    <main class="flex-grow container mx-auto px-4 py-6 max-w-4xl">
+        <!-- Header -->
+        <div class="bg-white rounded-2xl p-6 mb-6 shadow-md border-b-4 border-blue-400 flex flex-col md:flex-row items-center gap-6">
+            <div class="w-20 h-20 rounded-full gradient-bg flex items-center justify-center text-white text-4xl shadow-inner border-4 border-white">
+                <i class="ti ti-user-smile"></i>
+            </div>
+            <div class="text-center md:text-left">
+                <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-1">Talk Story wit' Kimo</h1>
+                <p class="text-gray-600">Your friendly AI Pidgin tutor. Just chat like you stay beach!</p>
+            </div>
+            <div class="md:ml-auto flex gap-2">
+                <button id="clear-chat" class="p-2 text-gray-400 hover:text-red-500 transition-colors" title="Clear Chat">
+                    <i class="ti ti-trash text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Chat Area -->
+        <div class="bg-white rounded-2xl shadow-xl border border-blue-100 flex flex-col overflow-hidden">
+            <!-- Messages -->
+            <div id="chat-messages" class="chat-container overflow-y-auto p-4 md:p-6 space-y-4 bg-gray-50/50">
+                <!-- Welcome Message -->
+                <div class="flex justify-start">
+                    <div class="message-bubble bg-white border border-blue-100 rounded-2xl rounded-tl-none p-4 shadow-sm">
+                        <p class="text-gray-800 font-medium">Aloha! I stay Kimo. Like talk story? I can help you practice your Pidgin. Just type someting below!</p>
+                        <div class="mt-2 text-xs text-blue-500 italic">Kimo stays active</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Typing Indicator (hidden by default) -->
+            <div id="typing-indicator" class="hidden px-6 py-2">
+                <div class="typing-indicator flex gap-1">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="p-4 bg-white border-t border-gray-100">
+                <form id="chat-form" class="flex gap-2">
+                    <input type="text" id="user-input" 
+                        class="flex-grow px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-400 focus:outline-none transition-all"
+                        placeholder="Type here..." autocomplete="off">
+                    <button type="submit" id="send-btn" 
+                        class="gradient-bg text-white w-12 h-12 rounded-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-lg">
+                        <i class="ti ti-send text-xl"></i>
+                    </button>
+                </form>
+                <p class="text-[10px] text-gray-400 mt-2 text-center">Kimo is an AI and can make mistakes. Always check da dictionary for fo' real rules!</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER_PLACEHOLDER -->
+
+    <!-- Scripts -->
+    <script src="js/components/elevenlabs-speech.js"></script>
+    <script src="js/components/speech.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatMessages = document.getElementById('chat-messages');
+            const chatForm = document.getElementById('chat-form');
+            const userInput = document.getElementById('user-input');
+            const typingIndicator = document.getElementById('typing-indicator');
+            const clearChatBtn = document.getElementById('clear-chat');
+            
+            let messageHistory = [];
+
+            function addMessage(role, content, data = null) {
+                const isUser = role === 'user';
+                const div = document.createElement('div');
+                div.className = `flex ${isUser ? 'justify-end' : 'justify-start'}`;
+                
+                let innerHTML = '';
+                if (isUser) {
+                    innerHTML = `
+                        <div class="message-bubble gradient-bg text-white rounded-2xl rounded-tr-none p-4 shadow-md">
+                            <p class="font-medium">${escapeHtml(content)}</p>
+                        </div>
+                    `;
+                } else {
+                    const { pidgin, translation, hint } = data || { pidgin: content };
+                    innerHTML = `
+                        <div class="message-bubble bg-white border border-blue-100 rounded-2xl rounded-tl-none p-4 shadow-sm">
+                            <div class="flex justify-between items-start gap-4 mb-1">
+                                <p class="text-gray-800 font-bold text-lg">${escapeHtml(pidgin)}</p>
+                                <button class="speak-btn text-blue-400 hover:text-blue-600 transition-colors" data-text="${pidgin.replace(/"/g, '&quot;')}">
+                                    <i class="ti ti-volume text-xl"></i>
+                                </button>
+                            </div>
+                            ${translation ? `<p class="text-gray-500 text-sm border-t border-gray-50 pt-2 mt-2 italic">${escapeHtml(translation)}</p>` : ''}
+                            ${hint ? `
+                                <div class="mt-3 bg-amber-50 rounded-lg p-2 border-l-2 border-amber-400 flex gap-2 items-start">
+                                    <i class="ti ti-bulb text-amber-500 mt-0.5"></i>
+                                    <p class="text-amber-800 text-xs">${escapeHtml(hint)}</p>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                }
+                
+                div.innerHTML = innerHTML;
+                chatMessages.appendChild(div);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                // Add to history
+                messageHistory.push({ role, content: isUser ? content : (data?.pidgin || content) });
+                if (messageHistory.length > 10) messageHistory.shift();
+
+                // Attach audio listeners
+                if (!isUser) {
+                    const btn = div.querySelector('.speak-btn');
+                    btn?.addEventListener('click', () => {
+                        if (window.pidginSpeech) window.pidginSpeech.speak(btn.dataset.text);
+                    });
+                }
+            }
+
+            chatForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const message = userInput.value.trim();
+                if (!message) return;
+
+                userInput.value = '';
+                userInput.disabled = true;
+                addMessage('user', message);
+                
+                typingIndicator.classList.remove('hidden');
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                try {
+                    const response = await fetch('/api/ai/talk-story', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ message, history: messageHistory.slice(0, -1) })
+                    });
+
+                    const data = await response.json();
+                    typingIndicator.classList.add('hidden');
+                    
+                    if (data.error) {
+                        addMessage('model', "Sorry brah, my brain wen stay freeze for one second. Try again bumbye.");
+                    } else {
+                        addMessage('model', data.pidgin, data);
+                    }
+                } catch (err) {
+                    typingIndicator.classList.add('hidden');
+                    addMessage('model', "Eh, looks like da kine network stay acting up. Try refresh!");
+                } finally {
+                    userInput.disabled = false;
+                    userInput.focus();
+                }
+            });
+
+            clearChatBtn.addEventListener('click', () => {
+                if (confirm('Clear our conversation, brah?')) {
+                    chatMessages.innerHTML = '';
+                    messageHistory = [];
+                    addMessage('model', "Aloha! I stay Kimo. Like talk story? I can help you practice your Pidgin. Just type someting below!");
+                }
+            });
+
+            function escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+        });
+    </script>
+</body>
+</html>
