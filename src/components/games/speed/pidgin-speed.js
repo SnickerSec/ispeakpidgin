@@ -38,9 +38,10 @@ class PidginSpeed {
     }
 
     updateStatsDisplay() {
-        document.getElementById('stat-high-score').textContent = Math.max(this.stats.highScore30, this.stats.highScore60, this.stats.highScore90);
-        document.getElementById('stat-streak').textContent = this.stats.longestStreak;
-        document.getElementById('stat-total').textContent = this.stats.totalWords;
+        const highScore = Math.max(this.stats.highScore30 || 0, this.stats.highScore60 || 0, this.stats.highScore90 || 0);
+        document.getElementById('stat-high-score').textContent = highScore;
+        document.getElementById('stat-streak').textContent = this.stats.longestStreak || 0;
+        document.getElementById('stat-total').textContent = this.stats.totalWords || 0;
     }
 
     showStartScreen() {
@@ -65,25 +66,35 @@ class PidginSpeed {
         document.getElementById('results-screen').classList.add('hidden');
         document.getElementById('game-screen').classList.remove('hidden');
 
-        await this.loadWords();
+        try {
+            await this.loadWords();
+            if (this.words.length === 0) {
+                throw new Error('No suitable words found');
+            }
+            
+            document.getElementById('score-value').textContent = '0';
+            document.getElementById('combo-display').textContent = '';
+            document.getElementById('multiplier-display').textContent = '1x';
+            document.getElementById('multiplier-display').className = 'text-sm font-bold text-gray-400';
 
-        document.getElementById('score-value').textContent = '0';
-        document.getElementById('combo-display').textContent = '';
-        document.getElementById('multiplier-display').textContent = '1x';
-        document.getElementById('multiplier-display').className = 'text-sm font-bold text-gray-400';
+            this.updateTimerDisplay();
+            this.showNextWord();
+            this.startTimer();
+            this.gameActive = true;
 
-        this.updateTimerDisplay();
-        this.showNextWord();
-        this.startTimer();
-        this.gameActive = true;
-
-        // Focus the input
-        document.getElementById('answer-input').focus();
+            // Focus the input
+            document.getElementById('answer-input').focus();
+        } catch (error) {
+            console.error('Failed to start game:', error);
+            this.showToast('Failed to load words. Please refresh.');
+            this.showStartScreen();
+        }
     }
 
     async loadWords() {
         try {
-            const response = await fetch('/api/dictionary?limit=200&random=true');
+            // My recent fix to dictionary API now supports random=true
+            const response = await fetch('/api/dictionary?limit=300&random=true');
             const data = await response.json();
 
             if (!data.entries || data.entries.length === 0) throw new Error('No words');
@@ -91,13 +102,17 @@ class PidginSpeed {
             // Filter for single-word entries with simple pidgin words
             this.words = data.entries.filter(e => {
                 const word = e.pidgin.toLowerCase();
-                return /^[a-z'-]+$/.test(word) && word.length >= 2 && word.length <= 15;
+                // Speed translation works best with simple words/phrases (no crazy punctuation)
+                return /^[a-z' -]+$/i.test(word) && word.length >= 2 && word.length <= 20;
             });
 
             // Shuffle
             this.words.sort(() => Math.random() - 0.5);
+            
+            console.log(`Loaded ${this.words.length} words for Speed Translation`);
         } catch (error) {
-            this.showToast('Error loading words. Please refresh.');
+            console.error('Error loading words:', error);
+            throw error;
         }
     }
 
@@ -111,8 +126,11 @@ class PidginSpeed {
         this.currentWord = this.words[this.currentIndex];
         this.currentIndex++;
 
-        const english = Array.isArray(this.currentWord.english) ? this.currentWord.english[0] : this.currentWord.english;
-        document.getElementById('english-word').textContent = english;
+        // Handle english as array or string
+        const englishValue = this.currentWord.english;
+        const english = Array.isArray(englishValue) ? englishValue[0] : englishValue;
+        
+        document.getElementById('english-word').textContent = english || '???';
         document.getElementById('answer-input').value = '';
         document.getElementById('answer-input').focus();
         document.getElementById('feedback-area').classList.add('hidden');
@@ -125,6 +143,7 @@ class PidginSpeed {
         if (!input) return;
 
         const correctAnswer = this.currentWord.pidgin.toLowerCase();
+        // Allow some flexibility with dashes/spaces if needed, but usually we want exact match
         const isCorrect = input === correctAnswer;
 
         const feedbackArea = document.getElementById('feedback-area');
@@ -143,7 +162,9 @@ class PidginSpeed {
             this.score += points;
             this.stats.totalWords++;
 
-            this.correctWords.push({ pidgin: this.currentWord.pidgin, english: Array.isArray(this.currentWord.english) ? this.currentWord.english[0] : this.currentWord.english });
+            const englishValue = this.currentWord.english;
+            const english = Array.isArray(englishValue) ? englishValue[0] : englishValue;
+            this.correctWords.push({ pidgin: this.currentWord.pidgin, english: english });
 
             document.getElementById('score-value').textContent = this.score;
             this.updateComboDisplay();
@@ -153,20 +174,37 @@ class PidginSpeed {
 
             this.showNextWord();
         } else {
-            // Wrong answer
-            this.combo = 0;
-            this.multiplier = 1;
-
-            this.wrongWords.push({ pidgin: this.currentWord.pidgin, english: Array.isArray(this.currentWord.english) ? this.currentWord.english[0] : this.currentWord.english, yourAnswer: input });
-
-            this.updateComboDisplay();
-
-            feedbackArea.innerHTML = `<span class="text-red-600 font-bold"><i class="ti ti-x"></i> ${this.currentWord.pidgin}</span>`;
-            feedbackArea.classList.remove('hidden');
-
-            // Move to next word after brief pause
-            setTimeout(() => this.showNextWord(), 800);
+            // Only check on enter or if they typed something of similar length?
+            // Actually, Speed game usually checks on Enter. 
+            // The listener handles the trigger.
         }
+    }
+
+    handleIncorrect() {
+        if (!this.gameActive) return;
+        
+        const input = document.getElementById('answer-input').value.trim().toLowerCase();
+        
+        // Wrong answer
+        this.combo = 0;
+        this.multiplier = 1;
+
+        const englishValue = this.currentWord.english;
+        const english = Array.isArray(englishValue) ? englishValue[0] : englishValue;
+        this.wrongWords.push({ 
+            pidgin: this.currentWord.pidgin, 
+            english: english, 
+            yourAnswer: input || '(empty)' 
+        });
+
+        this.updateComboDisplay();
+
+        const feedbackArea = document.getElementById('feedback-area');
+        feedbackArea.innerHTML = `<span class="text-red-600 font-bold"><i class="ti ti-x"></i> ${this.currentWord.pidgin}</span>`;
+        feedbackArea.classList.remove('hidden');
+
+        // Move to next word after brief pause
+        setTimeout(() => this.showNextWord(), 800);
     }
 
     skipWord() {
@@ -175,7 +213,13 @@ class PidginSpeed {
         this.multiplier = 1;
         this.updateComboDisplay();
 
-        this.wrongWords.push({ pidgin: this.currentWord.pidgin, english: Array.isArray(this.currentWord.english) ? this.currentWord.english[0] : this.currentWord.english, yourAnswer: '(skipped)' });
+        const englishValue = this.currentWord.english;
+        const english = Array.isArray(englishValue) ? englishValue[0] : englishValue;
+        this.wrongWords.push({ 
+            pidgin: this.currentWord.pidgin, 
+            english: english, 
+            yourAnswer: '(skipped)' 
+        });
 
         const feedbackArea = document.getElementById('feedback-area');
         feedbackArea.innerHTML = `<span class="text-gray-500">Skipped: <strong>${this.currentWord.pidgin}</strong></span>`;
@@ -213,7 +257,6 @@ class PidginSpeed {
         this.timer = setInterval(() => {
             this.timeLeft--;
             this.updateTimerDisplay();
-
             if (this.timeLeft <= 0) {
                 this.endGame();
             }
@@ -221,62 +264,62 @@ class PidginSpeed {
     }
 
     updateTimerDisplay() {
-        const timerEl = document.getElementById('timer-display');
-        timerEl.textContent = this.timeLeft;
-
-        // Change color as time runs out
-        if (this.timeLeft <= 5) {
-            timerEl.className = 'text-5xl md:text-6xl font-bold text-red-500 animate-pulse';
-        } else if (this.timeLeft <= 15) {
-            timerEl.className = 'text-5xl md:text-6xl font-bold text-orange-500';
-        } else {
-            timerEl.className = 'text-5xl md:text-6xl font-bold text-red-600';
-        }
-
-        // Update progress ring
+        const timerEl = document.getElementById('timer-value');
+        const progressBar = document.getElementById('timer-progress');
+        
+        timerEl.textContent = this.timeLeft + 's';
+        
         const pct = (this.timeLeft / this.totalTime) * 100;
-        document.getElementById('timer-bar').style.width = pct + '%';
+        progressBar.style.width = pct + '%';
+        
+        if (this.timeLeft <= 10) {
+            timerEl.className = 'text-2xl font-bold text-red-500 animate-pulse';
+            progressBar.className = 'h-full bg-red-500 transition-all duration-1000';
+        } else {
+            timerEl.className = 'text-2xl font-bold text-gray-700';
+            progressBar.className = 'h-full bg-blue-500 transition-all duration-1000';
+        }
     }
 
     endGame() {
         this.gameActive = false;
         clearInterval(this.timer);
 
-        // Update high scores
-        const key = `highScore${this.totalTime}`;
-        if (this.score > this.stats[key]) {
-            this.stats[key] = this.score;
+        // Update High Score
+        const scoreKey = `highScore${this.totalTime}`;
+        if (this.score > (this.stats[scoreKey] || 0)) {
+            this.stats[scoreKey] = this.score;
         }
-        if (this.longestStreak > this.stats.longestStreak) {
+        if (this.longestStreak > (this.stats.longestStreak || 0)) {
             this.stats.longestStreak = this.longestStreak;
         }
         this.saveStats();
 
-        // Show results
+        // Show Results
         document.getElementById('game-screen').classList.add('hidden');
         document.getElementById('results-screen').classList.remove('hidden');
 
         document.getElementById('final-score').textContent = this.score;
         document.getElementById('final-correct').textContent = this.correctWords.length;
-        document.getElementById('final-wrong').textContent = this.wrongWords.length;
         document.getElementById('final-streak').textContent = this.longestStreak;
 
-        // Word list
-        const wordListEl = document.getElementById('word-list');
-        wordListEl.innerHTML = '';
-
-        this.correctWords.forEach(w => {
-            const div = document.createElement('div');
-            div.className = 'flex justify-between items-center p-2 bg-green-50 rounded-lg';
-            div.innerHTML = `<span class="font-bold text-green-700">${w.pidgin}</span><span class="text-gray-600 text-sm">${w.english}</span>`;
-            wordListEl.appendChild(div);
-        });
-
-        this.wrongWords.forEach(w => {
-            const div = document.createElement('div');
-            div.className = 'flex justify-between items-center p-2 bg-red-50 rounded-lg';
-            div.innerHTML = `<span class="font-bold text-red-700">${w.pidgin}</span><span class="text-gray-600 text-sm">${w.english}</span>`;
-            wordListEl.appendChild(div);
+        // Render review list
+        const reviewList = document.getElementById('review-list');
+        reviewList.innerHTML = '';
+        
+        const allWords = [...this.correctWords.map(w => ({...w, correct: true})), 
+                          ...this.wrongWords.map(w => ({...w, correct: false}))];
+        
+        allWords.slice(0, 20).forEach(word => {
+            const item = document.createElement('div');
+            item.className = `flex justify-between p-2 rounded ${word.correct ? 'bg-green-50' : 'bg-red-50'}`;
+            item.innerHTML = `
+                <span><strong>${word.pidgin}</strong>: ${word.english}</span>
+                <span class="${word.correct ? 'text-green-600' : 'text-red-600'}">
+                    <i class="ti ti-${word.correct ? 'check' : 'x'}"></i>
+                </span>
+            `;
+            reviewList.appendChild(item);
         });
 
         this.updateStatsDisplay();
@@ -284,44 +327,42 @@ class PidginSpeed {
 
     showToast(message, duration = 2000) {
         const toast = document.getElementById('toast');
+        if (!toast) return;
         toast.textContent = message;
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), duration);
     }
 
     attachEventListeners() {
-        // Time mode buttons
-        document.querySelectorAll('[data-time]').forEach(btn => {
-            btn.addEventListener('click', () => this.startGame(parseInt(btn.dataset.time)));
+        // Duration buttons
+        document.querySelectorAll('[data-duration]').forEach(btn => {
+            btn.addEventListener('click', () => this.startGame(parseInt(btn.dataset.duration)));
         });
 
-        // Submit answer
-        document.getElementById('submit-btn').addEventListener('click', () => this.checkAnswer());
-        document.getElementById('answer-input').addEventListener('keydown', (e) => {
+        // Input handling
+        const input = document.getElementById('answer-input');
+        input.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
-                e.preventDefault();
-                this.checkAnswer();
+                const val = input.value.trim().toLowerCase();
+                if (val === this.currentWord.pidgin.toLowerCase()) {
+                    this.checkAnswer();
+                } else {
+                    this.handleIncorrect();
+                }
             }
         });
 
-        // Skip button
         document.getElementById('skip-btn').addEventListener('click', () => this.skipWord());
-
-        // Play again
         document.getElementById('play-again-btn').addEventListener('click', () => this.showStartScreen());
     }
 }
 
+// Initialize game when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    const checkAPI = setInterval(() => {
-        if (window.supabaseAPI || document.readyState === 'complete') {
-            clearInterval(checkAPI);
-            window.speedGame = new PidginSpeed();
-        }
-    }, 100);
+    // Small delay to ensure dependencies are loaded
     setTimeout(() => {
         if (!window.speedGame) {
             window.speedGame = new PidginSpeed();
         }
-    }, 2000);
+    }, 500);
 });

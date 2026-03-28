@@ -58,13 +58,23 @@ class PidginScramble {
         document.getElementById('results-screen').classList.add('hidden');
         document.getElementById('game-screen').classList.remove('hidden');
 
-        await this.loadWords();
-        this.nextRound();
+        try {
+            await this.loadWords();
+            if (this.words.length === 0) {
+                throw new Error('No suitable words found');
+            }
+            this.nextRound();
+        } catch (error) {
+            console.error('Failed to start game:', error);
+            this.showToast('Failed to load words. Please refresh.');
+            this.showStartScreen();
+        }
     }
 
     async loadWords() {
         try {
-            const response = await fetch('/api/dictionary?limit=200&random=true');
+            // My recent fix to dictionary API now supports random=true
+            const response = await fetch('/api/dictionary?limit=300&random=true');
             const data = await response.json();
 
             if (!data.entries || data.entries.length === 0) {
@@ -78,10 +88,11 @@ class PidginScramble {
 
             this.words = data.entries.filter(entry => {
                 const word = entry.pidgin.toLowerCase();
+                // Basic check for only letters (no spaces, hyphens for scramble)
                 return /^[a-z]+$/.test(word) && word.length >= minLen && word.length <= maxLen;
             });
 
-            // If not enough words for this difficulty, relax the filter
+            // If not enough words for this difficulty, relax the filter but still keep it playable
             if (this.words.length < this.totalRounds) {
                 this.words = data.entries.filter(entry => {
                     const word = entry.pidgin.toLowerCase();
@@ -91,8 +102,11 @@ class PidginScramble {
 
             // Shuffle
             this.words.sort(() => Math.random() - 0.5);
+            
+            console.log(`Loaded ${this.words.length} words for scramble difficulty: ${this.difficulty}`);
         } catch (error) {
-            this.showToast('Error loading words. Please refresh.');
+            console.error('Error loading words:', error);
+            throw error;
         }
     }
 
@@ -118,6 +132,7 @@ class PidginScramble {
         document.getElementById('streak-display').textContent = this.streak;
         document.getElementById('hint-area').classList.add('hidden');
         document.getElementById('result-feedback').classList.add('hidden');
+        document.getElementById('hint-btn').classList.remove('opacity-50');
 
         this.renderLetterTiles();
         this.renderAnswerSlots();
@@ -136,7 +151,7 @@ class PidginScramble {
                 [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
             }
             attempts++;
-        } while (shuffled.join('') === word && attempts < 10);
+        } while (shuffled.join('') === word && attempts < 10 && word.length > 1);
         return shuffled.join('');
     }
 
@@ -149,6 +164,7 @@ class PidginScramble {
             tile.className = 'letter-tile bg-white border-2 border-violet-300 text-violet-800 font-bold text-xl md:text-2xl w-12 h-12 md:w-14 md:h-14 rounded-xl shadow-md hover:shadow-lg hover:border-violet-500 hover:scale-105 transition-all uppercase';
             tile.textContent = letter;
             tile.dataset.index = index;
+            tile.dataset.letter = letter;
             tile.addEventListener('click', () => this.selectLetter(index));
             container.appendChild(tile);
         });
@@ -269,12 +285,13 @@ class PidginScramble {
         if (!this.gameActive || this.hintUsed) return;
         this.hintUsed = true;
 
-        const meanings = Array.isArray(this.currentWord.english)
-            ? this.currentWord.english.join(', ')
-            : this.currentWord.english;
+        const englishValue = this.currentWord.english;
+        const meanings = Array.isArray(englishValue)
+            ? englishValue.join(', ')
+            : englishValue;
 
         const hintArea = document.getElementById('hint-area');
-        hintArea.textContent = meanings;
+        hintArea.textContent = meanings || 'No hint available';
         hintArea.classList.remove('hidden');
 
         document.getElementById('hint-btn').classList.add('opacity-50');
@@ -327,6 +344,7 @@ class PidginScramble {
 
     showToast(message, duration = 2000) {
         const toast = document.getElementById('toast');
+        if (!toast) return;
         toast.textContent = message;
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), duration);
@@ -346,11 +364,28 @@ class PidginScramble {
         // Keyboard support
         document.addEventListener('keydown', (e) => {
             if (!this.gameActive) return;
+
+            // Letters
+            if (/^[a-z]$/i.test(e.key)) {
+                const letter = e.key.toLowerCase();
+                const availableTiles = Array.from(document.querySelectorAll('.letter-tile:not(.used)'));
+                const tile = availableTiles.find(t => t.dataset.letter === letter);
+                if (tile) {
+                    this.selectLetter(parseInt(tile.dataset.index));
+                }
+            }
+
+            // Backspace
             if (e.key === 'Backspace') {
                 e.preventDefault();
                 if (this.selectedLetters.length > 0) {
                     this.removeLetter(this.selectedLetters.length - 1);
                 }
+            }
+
+            // Space to skip or clear
+            if (e.key === 'Escape') {
+                this.clearLetters();
             }
         });
     }
@@ -358,15 +393,10 @@ class PidginScramble {
 
 // Initialize game when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    const checkAPI = setInterval(() => {
-        if (window.supabaseAPI || document.readyState === 'complete') {
-            clearInterval(checkAPI);
-            window.scrambleGame = new PidginScramble();
-        }
-    }, 100);
+    // Small delay to ensure dependencies are loaded
     setTimeout(() => {
         if (!window.scrambleGame) {
             window.scrambleGame = new PidginScramble();
         }
-    }, 2000);
+    }, 500);
 });

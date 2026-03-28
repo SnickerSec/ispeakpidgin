@@ -25,7 +25,11 @@ class PidginMemory {
     loadStats() {
         const saved = localStorage.getItem('pidgin-memory-stats');
         if (saved) return JSON.parse(saved);
-        return { gamesPlayed: 0, bestTimeEasy: null, bestTimeMedium: null, bestTimeHard: null, bestMovesEasy: null, bestMovesMedium: null, bestMovesHard: null };
+        return { 
+            gamesPlayed: 0, 
+            bestTimeEasy: null, bestTimeMedium: null, bestTimeHard: null, 
+            bestMovesEasy: null, bestMovesMedium: null, bestMovesHard: null 
+        };
     }
 
     saveStats() {
@@ -33,10 +37,11 @@ class PidginMemory {
     }
 
     updateStatsDisplay() {
-        document.getElementById('stat-played').textContent = this.stats.gamesPlayed;
-        const bestTime = this.stats[`bestTime${this.capitalize(this.difficulty)}`];
+        document.getElementById('stat-played').textContent = this.stats.gamesPlayed || 0;
+        const diff = this.difficulty || 'medium';
+        const bestTime = this.stats[`bestTime${this.capitalize(diff)}`];
         document.getElementById('stat-best-time').textContent = bestTime ? this.formatTime(bestTime) : '--';
-        const bestMoves = this.stats[`bestMoves${this.capitalize(this.difficulty)}`];
+        const bestMoves = this.stats[`bestMoves${this.capitalize(diff)}`];
         document.getElementById('stat-best-moves').textContent = bestMoves || '--';
     }
 
@@ -74,35 +79,53 @@ class PidginMemory {
         document.getElementById('timer-display').textContent = '0:00';
         document.getElementById('pairs-display').textContent = `0 / ${this.totalPairs}`;
 
-        await this.loadCards();
-        this.renderBoard();
-        this.startTimer();
-        this.gameActive = true;
-        this.updateStatsDisplay();
+        try {
+            await this.loadCards();
+            if (this.cards.length === 0) {
+                throw new Error('No cards loaded');
+            }
+            this.renderBoard();
+            this.startTimer();
+            this.gameActive = true;
+            this.updateStatsDisplay();
+        } catch (error) {
+            console.error('Failed to start memory game:', error);
+            this.showToast('Failed to load words. Please refresh.');
+            this.showStartScreen();
+        }
     }
 
     async loadCards() {
         try {
-            const response = await fetch('/api/dictionary?limit=100&random=true');
+            // My recent fix to dictionary API now supports random=true
+            const response = await fetch('/api/dictionary?limit=300&random=true');
             const data = await response.json();
 
             if (!data.entries || data.entries.length === 0) throw new Error('No words');
 
-            // Pick entries with short pidgin words
+            // Pick entries with short pidgin words (to fit on cards)
             const suitable = data.entries.filter(e => {
                 const word = e.pidgin.toLowerCase();
-                return /^[a-z\s'-]+$/.test(word) && word.length <= 12;
+                // Avoid very long words that break layout
+                return word.length <= 15;
             });
 
-            const selected = suitable.slice(0, this.totalPairs);
+            // If we don't have enough, just use what we have
+            const pool = suitable.length >= this.totalPairs ? suitable : data.entries;
+            
+            // Shuffle pool before picking
+            const shuffledPool = [...pool].sort(() => Math.random() - 0.5);
+            const selected = shuffledPool.slice(0, this.totalPairs);
 
             // Create card pairs: one with pidgin word, one with english meaning
             this.cards = [];
             selected.forEach((entry, i) => {
-                const english = Array.isArray(entry.english) ? entry.english[0] : entry.english;
+                const englishValue = entry.english;
+                const english = Array.isArray(englishValue) ? englishValue[0] : englishValue;
+                
                 this.cards.push(
                     { id: i, type: 'pidgin', text: entry.pidgin, pairId: i },
-                    { id: i + this.totalPairs, type: 'english', text: english, pairId: i }
+                    { id: i + this.totalPairs, type: 'english', text: english || '???', pairId: i }
                 );
             });
 
@@ -111,8 +134,11 @@ class PidginMemory {
                 const j = Math.floor(Math.random() * (i + 1));
                 [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
             }
+            
+            console.log(`Loaded ${this.cards.length} cards (${this.totalPairs} pairs) for memory game`);
         } catch (error) {
-            this.showToast('Error loading words. Please refresh.');
+            console.error('Error loading cards:', error);
+            throw error;
         }
     }
 
@@ -121,23 +147,24 @@ class PidginMemory {
         board.innerHTML = '';
 
         // Set grid columns based on difficulty
-        const cols = this.difficulty === 'easy' ? 4 : this.difficulty === 'medium' ? 4 : 6;
-        board.className = `grid gap-2 md:gap-3`;
+        const cols = this.difficulty === 'easy' ? 3 : this.difficulty === 'medium' ? 4 : 4;
+        board.className = `grid gap-2 md:gap-3 justify-center max-w-lg mx-auto`;
         board.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
 
         this.cards.forEach((card, index) => {
-            const cardEl = document.createElement('button');
-            cardEl.className = 'memory-card aspect-square rounded-xl text-center flex items-center justify-center font-bold transition-all duration-300 cursor-pointer shadow-md';
+            const cardEl = document.createElement('div');
+            cardEl.className = 'memory-card aspect-square rounded-xl cursor-pointer shadow-md transition-all duration-300';
             cardEl.dataset.index = index;
 
-            // Card back (face down)
+            // Card structure with inner for flip animation if we wanted, 
+            // but for now keeping it simple with hidden classes
             cardEl.innerHTML = `
                 <div class="card-inner w-full h-full relative">
                     <div class="card-back absolute inset-0 bg-gradient-to-br from-emerald-400 to-cyan-500 rounded-xl flex items-center justify-center text-white text-2xl md:text-3xl">
                         <i class="ti ti-question-mark"></i>
                     </div>
-                    <div class="card-front absolute inset-0 bg-white border-2 rounded-xl flex items-center justify-center p-1 hidden ${card.type === 'pidgin' ? 'border-emerald-400 text-emerald-700' : 'border-cyan-400 text-cyan-700'}">
-                        <span class="text-xs md:text-sm leading-tight break-words">${card.text}</span>
+                    <div class="card-front absolute inset-0 bg-white border-2 rounded-xl flex items-center justify-center p-2 hidden overflow-hidden ${card.type === 'pidgin' ? 'border-emerald-400 text-emerald-700' : 'border-cyan-400 text-cyan-700'}">
+                        <span class="text-[10px] md:text-xs font-bold leading-tight break-words text-center uppercase">${card.text}</span>
                     </div>
                 </div>
             `;
@@ -150,7 +177,6 @@ class PidginMemory {
     flipCard(index) {
         if (this.lockBoard || !this.gameActive) return;
 
-        const card = this.cards[index];
         const cardEl = document.querySelector(`[data-index="${index}"]`);
 
         // Don't flip already flipped or matched cards
@@ -162,7 +188,7 @@ class PidginMemory {
         cardEl.querySelector('.card-front').classList.remove('hidden');
         cardEl.classList.add('ring-2', 'ring-emerald-400');
 
-        this.flippedCards.push({ index, card });
+        this.flippedCards.push({ index, card: this.cards[index] });
 
         if (this.flippedCards.length === 2) {
             this.moves++;
@@ -179,20 +205,23 @@ class PidginMemory {
             // Match found
             const firstEl = document.querySelector(`[data-index="${first.index}"]`);
             const secondEl = document.querySelector(`[data-index="${second.index}"]`);
-            firstEl.classList.add('matched', 'ring-green-500', 'bg-green-50');
-            secondEl.classList.add('matched', 'ring-green-500', 'bg-green-50');
-            firstEl.classList.remove('ring-emerald-400');
-            secondEl.classList.remove('ring-emerald-400');
+            
+            setTimeout(() => {
+                firstEl.classList.add('matched', 'opacity-60', 'scale-95');
+                secondEl.classList.add('matched', 'opacity-60', 'scale-95');
+                firstEl.classList.remove('ring-emerald-400');
+                secondEl.classList.remove('ring-emerald-400');
+                
+                this.matchedPairs++;
+                document.getElementById('pairs-display').textContent = `${this.matchedPairs} / ${this.totalPairs}`;
 
-            this.matchedPairs++;
-            document.getElementById('pairs-display').textContent = `${this.matchedPairs} / ${this.totalPairs}`;
+                this.flippedCards = [];
+                this.lockBoard = false;
 
-            this.flippedCards = [];
-            this.lockBoard = false;
-
-            if (this.matchedPairs === this.totalPairs) {
-                this.endGame();
-            }
+                if (this.matchedPairs === this.totalPairs) {
+                    this.endGame();
+                }
+            }, 500);
         } else {
             // No match - flip back after delay
             setTimeout(() => {
@@ -200,11 +229,11 @@ class PidginMemory {
                     const el = document.querySelector(`[data-index="${index}"]`);
                     el.querySelector('.card-back').classList.remove('hidden');
                     el.querySelector('.card-front').classList.add('hidden');
-                    el.classList.remove('ring-2', 'ring-emerald-400');
+                    el.classList.remove('ring-emerald-400');
                 });
                 this.flippedCards = [];
                 this.lockBoard = false;
-            }, 800);
+            }, 1000);
         }
     }
 
@@ -219,38 +248,34 @@ class PidginMemory {
     endGame() {
         this.gameActive = false;
         clearInterval(this.timer);
-
         this.stats.gamesPlayed++;
 
-        // Update best time
-        const key = `bestTime${this.capitalize(this.difficulty)}`;
-        if (!this.stats[key] || this.seconds < this.stats[key]) {
-            this.stats[key] = this.seconds;
-        }
-
-        // Update best moves
+        // Update High Scores
+        const timeKey = `bestTime${this.capitalize(this.difficulty)}`;
         const movesKey = `bestMoves${this.capitalize(this.difficulty)}`;
+
+        if (!this.stats[timeKey] || this.seconds < this.stats[timeKey]) {
+            this.stats[timeKey] = this.seconds;
+        }
         if (!this.stats[movesKey] || this.moves < this.stats[movesKey]) {
             this.stats[movesKey] = this.moves;
         }
-
+        
         this.saveStats();
 
-        // Show results
-        setTimeout(() => {
-            document.getElementById('game-screen').classList.add('hidden');
-            document.getElementById('results-screen').classList.remove('hidden');
+        // Show results screen
+        document.getElementById('game-screen').classList.add('hidden');
+        document.getElementById('results-screen').classList.remove('hidden');
 
-            document.getElementById('final-time').textContent = this.formatTime(this.seconds);
-            document.getElementById('final-moves').textContent = this.moves;
-            document.getElementById('final-pairs').textContent = this.totalPairs;
-
-            this.updateStatsDisplay();
-        }, 500);
+        document.getElementById('final-moves').textContent = this.moves;
+        document.getElementById('final-time').textContent = this.formatTime(this.seconds);
+        
+        this.updateStatsDisplay();
     }
 
     showToast(message, duration = 2000) {
         const toast = document.getElementById('toast');
+        if (!toast) return;
         toast.textContent = message;
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), duration);
@@ -260,20 +285,16 @@ class PidginMemory {
         document.querySelectorAll('[data-difficulty]').forEach(btn => {
             btn.addEventListener('click', () => this.startGame(btn.dataset.difficulty));
         });
-        document.getElementById('play-again-btn').addEventListener('click', () => this.showStartScreen());
+
+        document.getElementById('play-again-btn')?.addEventListener('click', () => this.showStartScreen());
     }
 }
 
+// Initialize game when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    const checkAPI = setInterval(() => {
-        if (window.supabaseAPI || document.readyState === 'complete') {
-            clearInterval(checkAPI);
-            window.memoryGame = new PidginMemory();
-        }
-    }, 100);
     setTimeout(() => {
         if (!window.memoryGame) {
             window.memoryGame = new PidginMemory();
         }
-    }, 2000);
+    }, 500);
 });
