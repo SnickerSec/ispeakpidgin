@@ -89,6 +89,14 @@ const translationLimiter = rateLimit({
     message: 'Too many translation requests, please try again later.',
 });
 
+const aiChatLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 20, // 20 messages per 15 mins is reasonable for real users but blocks bots
+    message: 'You stay talking too fast, brah! Try again in one bit.',
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
 const pageLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 300,
@@ -231,7 +239,7 @@ app.use('/api/dictionary', dictionaryRoutes(supabase, dictionaryLimiter, diction
 app.use('/api', contentRoutes(supabase, dictionaryLimiter));
 app.use('/api', gamesRoutes(supabase, dictionaryLimiter));
 app.use('/api', pickupRoutes(supabase, dictionaryLimiter, translationLimiter));
-app.use('/api/ai', aiRoutes(supabase, dictionaryCache, apiLimiter));
+app.use('/api/ai', aiRoutes(supabase, dictionaryCache, aiChatLimiter));
 app.use('/api/admin', adminRoutes(supabaseAdmin, adminAuth, settingsManager, adminLoginLimiter));
 
 // ============================================

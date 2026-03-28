@@ -7,6 +7,17 @@ const { body, validationResult } = require('express-validator');
  */
 module.exports = function(supabase, dictionaryCache, limiter) {
 
+    // Simple bot protection: Ensure request comes from our own site
+    const botProtection = (req, res, next) => {
+        const referer = req.get('Referer');
+        const isDev = process.env.NODE_ENV === 'development';
+        
+        if (!isDev && (!referer || !referer.includes('chokepidgin.com'))) {
+            return res.status(403).json({ error: 'Direct API access not allowed' });
+        }
+        next();
+    };
+
     // Helper: Get relevant vocabulary for context injection
     function getRelevantVocabulary(text, maxEntries = 25) {
         if (!dictionaryCache.data || !dictionaryCache.data.entries) return '';
@@ -34,6 +45,7 @@ module.exports = function(supabase, dictionaryCache, limiter) {
     // POST /api/ai/talk-story - Interactive Pidgin Tutor
     router.post('/talk-story',
         limiter,
+        botProtection,
         [
             body('message').trim().notEmpty().isLength({ max: 1000 }).escape(),
             body('history').optional().isArray()
