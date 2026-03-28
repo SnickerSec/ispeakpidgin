@@ -4,15 +4,34 @@ class ElevenLabsSpeech {
         this.isPlaying = false;
         this.currentAudio = null;
         this.cache = new Map(); // In-memory cache
+        this.pregeneratedIndex = new Map(); // Index of pre-generated local audio files
         this.dbName = 'PidginAudioCache';
         this.storeName = 'audioCache';
         this.initializationPromise = this.initialize();
     }
 
     async initialize() {
-        await this.initIndexedDB();
-        await this.loadCacheFromDB();
+        await Promise.all([
+            this.initIndexedDB(),
+            this.loadCacheFromDB(),
+            this.loadPregeneratedIndex()
+        ]);
         return true;
+    }
+
+    async loadPregeneratedIndex() {
+        try {
+            const response = await fetch('/assets/audio/index.json');
+            if (response.ok) {
+                const data = await response.json();
+                Object.entries(data).forEach(([text, filename]) => {
+                    this.pregeneratedIndex.set(text.toLowerCase(), filename);
+                });
+                console.log(`SW: Loaded ${this.pregeneratedIndex.size} pre-generated audio terms`);
+            }
+        } catch (e) {
+            // Silently fail if index doesn't exist yet
+        }
     }
 
     async initIndexedDB() {
@@ -195,6 +214,28 @@ class ElevenLabsSpeech {
                             // Continue to API call below
                         } else {
                             return; // Silent mode, don't play
+                        }
+                    }
+
+                    // Check pre-generated index for local file
+                    if (this.pregeneratedIndex.has(normalizedText)) {
+                        try {
+                            const filename = this.pregeneratedIndex.get(normalizedText);
+                            const response = await fetch(`/assets/audio/${filename}`);
+                            if (response.ok) {
+                                const audioBlob = await response.blob();
+                                // Cache it for next time
+                                this.cache.set(normalizedText, audioBlob);
+                                
+                                if (!options.silent) {
+                                    const success = await this.playAudioBlobWithRetry(audioBlob, correctedText, normalizedText);
+                                    if (success) return;
+                                } else {
+                                    return;
+                                }
+                            }
+                        } catch (e) {
+                            console.warn('Local audio fetch failed, falling back to API:', e);
                         }
                     }
 
