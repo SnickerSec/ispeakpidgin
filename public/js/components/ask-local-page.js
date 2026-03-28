@@ -1,3 +1,29 @@
+// Global toggle function for the Ask/Suggest forms
+window.toggleForm = (type) => {
+    const askSection = document.getElementById('ask-section');
+    const suggestSection = document.getElementById('suggest-section');
+    const askBtn = document.getElementById('show-ask-form');
+    const suggestBtn = document.getElementById('show-suggest-form');
+
+    if (!askSection || !suggestSection) return;
+
+    if (type === 'ask') {
+        askSection.classList.remove('hidden');
+        suggestSection.classList.add('hidden');
+        askBtn.classList.add('border-blue-500', 'text-blue-600');
+        askBtn.classList.remove('border-gray-200', 'text-gray-500');
+        suggestBtn.classList.add('border-gray-200', 'text-gray-500');
+        suggestBtn.classList.remove('border-purple-500', 'text-purple-600');
+    } else {
+        askSection.classList.add('hidden');
+        suggestSection.classList.remove('hidden');
+        suggestBtn.classList.add('border-purple-500', 'text-purple-600');
+        suggestBtn.classList.remove('border-gray-200', 'text-gray-500');
+        askBtn.classList.add('border-gray-200', 'text-gray-500');
+        askBtn.classList.remove('border-blue-500', 'text-blue-600');
+    }
+};
+
 // Ask a Local Page - Full functionality for dedicated page
 class AskLocalPageManager {
     constructor() {
@@ -83,30 +109,6 @@ class AskLocalPageManager {
                 this.validateSuggestCaptcha();
             });
         }
-
-        // Global toggle function
-        window.toggleForm = (type) => {
-            const askSection = document.getElementById('ask-section');
-            const suggestSection = document.getElementById('suggest-section');
-            const askBtn = document.getElementById('show-ask-form');
-            const suggestBtn = document.getElementById('show-suggest-form');
-
-            if (type === 'ask') {
-                askSection.classList.remove('hidden');
-                suggestSection.classList.add('hidden');
-                askBtn.classList.add('border-blue-500', 'text-blue-600');
-                askBtn.classList.remove('border-gray-200', 'text-gray-500');
-                suggestBtn.classList.add('border-gray-200', 'text-gray-500');
-                suggestBtn.classList.remove('border-blue-500', 'text-blue-600');
-            } else {
-                askSection.classList.add('hidden');
-                suggestSection.classList.remove('hidden');
-                suggestBtn.classList.add('border-purple-500', 'text-purple-600');
-                suggestBtn.classList.remove('border-gray-200', 'text-gray-500');
-                askBtn.classList.add('border-gray-200', 'text-gray-500');
-                askBtn.classList.remove('border-blue-500', 'text-blue-600');
-            }
-        };
     }
 
     generateSuggestCaptcha() {
