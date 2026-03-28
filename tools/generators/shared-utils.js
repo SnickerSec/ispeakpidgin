@@ -9,9 +9,24 @@ const fs = require('fs');
 const path = require('path');
 
 // Load environment
-require('dotenv').config();
-const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
+require('dotenv').config({ path: path.join(__dirname, '../../.env') });
+
+let SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+// Fallback: If SUPABASE_URL is missing but we have a key, try to reconstruct it
+if (!SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    try {
+        const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+        const payload = JSON.parse(Buffer.from(key.split('.')[1], 'base64').toString());
+        if (payload && payload.ref) {
+            SUPABASE_URL = `https://${payload.ref}.supabase.co`;
+            console.log(`ℹ️  Reconstructed SUPABASE_URL: ${SUPABASE_URL}`);
+        }
+    } catch (e) {
+        // Ignore parsing errors
+    }
+}
 
 // Constants
 const SITE_URL = 'https://chokepidgin.com';
