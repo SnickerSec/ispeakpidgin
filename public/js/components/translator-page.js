@@ -38,6 +38,7 @@ function initTranslatorPage() {
         setupVoiceInput();
         setupKeyboardShortcuts();
         setupSmoothAnimations();
+        setupDiscoveryUI();
 
         window.translatorPageInitialized = true;
     } catch (error) {
@@ -265,13 +266,18 @@ async function performTranslation() {
 
 // Display translation result
 function displayTranslationResult(result, originalText, direction) {
-    let outputHTML = `<p class="text-2xl font-semibold text-gray-800 mb-3">${escapeHtml(result.text)}</p>`;
+    // Apply Deep Dive Highlighting for Pidgin results
+    const highlightedText = direction === 'en-to-pid' 
+        ? highlightDictionaryWords(result.text) 
+        : escapeHtml(result.text);
+
+    let outputHTML = `<div class="text-2xl font-semibold text-gray-800 mb-3">${highlightedText}</div>`;
 
     // Show confidence
     const confidence = result.confidence || 80;
     confidenceIndicator?.classList.remove('hidden');
-
-    // Update confidence bar
+    
+    // ... existing confidence bar logic ...
     confidenceBar.style.width = `${confidence}%`;
     if (confidence >= 80) {
         confidenceBar.className = 'h-2 rounded-full transition-all duration-300 bg-green-500';
@@ -305,6 +311,7 @@ function displayTranslationResult(result, originalText, direction) {
             </div>`;
         }
 
+        // ... rest of metadata ...
         if (meta.usage) {
             outputHTML += `<div class="mb-3">
                 <span class="text-xs font-semibold text-blue-800"><i class="ti ti-bulb"></i> Usage Note:</span>
@@ -326,12 +333,126 @@ function displayTranslationResult(result, originalText, direction) {
 
     outputDiv.innerHTML = outputHTML;
 
+    // Attach click listeners to highlights
+    outputDiv.querySelectorAll('.dict-highlight').forEach(el => {
+        el.addEventListener('click', (e) => {
+            const wordId = e.target.dataset.id;
+            showWordDiscovery(wordId);
+        });
+    });
+
     // Show buttons
     copyBtn?.classList.remove('hidden');
     speakBtn?.classList.remove('hidden');
 
     // Add to history
     addToHistory(originalText, result.text, direction);
+}
+
+// Deep Dive: Highlight words found in dictionary
+function highlightDictionaryWords(text) {
+    if (typeof pidginDataLoader === 'undefined' || !pidginDataLoader.loaded) return escapeHtml(text);
+
+    const entries = pidginDataLoader.getAllEntries();
+    // Sort by length descending to match longer phrases first
+    const sortedEntries = [...entries].sort((a, b) => b.pidgin.length - a.pidgin.length);
+    
+    let highlighted = escapeHtml(text);
+
+    // We use a placeholder approach to prevent nested highlights
+    const placeholders = [];
+    
+    sortedEntries.forEach((entry, idx) => {
+        const word = entry.pidgin;
+        if (word.length < 3) return; // Skip very short words
+
+        // Match word boundaries, case insensitive
+        const regex = new RegExp(`\\b(${word})\\b`, 'gi');
+        
+        if (regex.test(highlighted)) {
+            highlighted = highlighted.replace(regex, (match) => {
+                const placeholder = `__DICT_HL_${placeholders.length}__`;
+                placeholders.push({
+                    placeholder,
+                    html: `<span class="dict-highlight text-purple-700 font-bold" data-id="${entry.id || entry.key}">${match}</span>`
+                });
+                return placeholder;
+            });
+        }
+    });
+
+    // Replace placeholders with actual HTML
+    placeholders.forEach(p => {
+        highlighted = highlighted.replace(p.placeholder, p.html);
+    });
+
+    return highlighted;
+}
+
+// Show Word Discovery details
+function showWordDiscovery(wordId) {
+    const panel = document.getElementById('word-discovery-panel');
+    const content = document.getElementById('word-discovery-content');
+    
+    if (!panel || !content || !pidginDataLoader) return;
+
+    const entry = pidginDataLoader.getById(wordId);
+    if (!entry) return;
+
+    const english = Array.isArray(entry.english) ? entry.english.join(', ') : entry.english;
+    const example = Array.isArray(entry.examples) ? entry.examples[0] : (entry.example || '');
+
+    content.innerHTML = `
+        <div class="flex flex-col gap-2">
+            <div class="flex justify-between items-baseline">
+                <span class="text-3xl font-black text-purple-700">${entry.pidgin}</span>
+                <span class="text-xs px-2 py-1 bg-purple-100 text-purple-600 rounded-full font-bold uppercase">${entry.category}</span>
+            </div>
+            <p class="text-lg text-gray-700 font-medium">${english}</p>
+            ${entry.pronunciation ? `<p class="text-sm text-gray-500 italic">[${entry.pronunciation}]</p>` : ''}
+            ${example ? `
+                <div class="mt-4 bg-gray-50 p-4 rounded-xl border-l-4 border-gray-200">
+                    <p class="text-xs font-bold text-gray-400 uppercase mb-1">Example</p>
+                    <p class="text-gray-700 italic">"${example}"</p>
+                </div>
+            ` : ''}
+        </div>
+    `;
+
+    // Configure buttons
+    const practiceBtn = document.getElementById('discovery-practice-btn');
+    const listenBtn = document.getElementById('discovery-listen-btn');
+
+    if (practiceBtn) {
+        practiceBtn.onclick = () => {
+            if (typeof window.practiceSession !== 'undefined') {
+                window.practiceSession.start(wordId, 'quiz');
+            } else {
+                window.location.href = `/learning-hub.html?word=${wordId}`;
+            }
+        };
+    }
+
+    if (listenBtn) {
+        listenBtn.onclick = () => {
+            if (typeof speakText === 'function') {
+                speakText(entry.audioExample || entry.pidgin);
+            }
+        };
+    }
+
+    panel.classList.remove('hidden');
+    panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// Initialize Discovery UI
+function setupDiscoveryUI() {
+    const closeBtn = document.getElementById('close-discovery-btn');
+    const panel = document.getElementById('word-discovery-panel');
+
+    closeBtn?.addEventListener('click', () => {
+        panel?.classList.add('hidden');
+    });
 }
 
 // Example phrases
