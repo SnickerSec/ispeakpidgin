@@ -46,9 +46,18 @@ npm run data:add-missing
 
 # Apply improvements from /tmp/enhanced_final_recommendations.json to Supabase
 npm run data:improve
+
+# Run SEO feedback loop to identify content gaps from Search Console
+npm run seo:loop
 ```
 
 ## Maintenance & Tools
+
+### SEO Feedback Loop
+The feedback loop script closes the gap between what users search for and what is in the dictionary:
+1. **`npm run seo:loop`**: Fetches high-impression queries from Search Console, filters out words already in Supabase, and outputs `missing-terms.json` to `/tmp/`.
+2. **Review**: Manually review `/tmp/missing-terms.json` and fill in the `english` translations.
+3. **`npm run data:add-missing`**: Adds the reviewed terms to Supabase.
 
 ### Dictionary Maintenance
 The project includes specialized tools for maintaining the Supabase dictionary:
