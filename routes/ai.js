@@ -139,5 +139,101 @@ ${vocabulary}`;
             }
         });
 
-    return router;
-};
+    // POST /api/ai/translate - Semantic RAG-based Translation
+    router.post('/translate',
+        limiter,
+        botProtection,
+        [
+            body('text').trim().notEmpty().isLength({ max: 500 }).escape(),
+            body('direction').isIn(['eng-to-pidgin', 'pidgin-to-eng']),
+            body('context').optional().isArray()
+        ],
+        async (req, res) => {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+
+            try {
+                const { text, direction, context = [] } = req.body;
+                const apiKey = process.env.GEMINI_API_KEY;
+                if (!apiKey) return res.status(500).json({ error: 'Gemini API key not configured' });
+
+                let contextStr = '';
+                if (context.length > 0) {
+                    contextStr = '\n\nVERIFIED VOCABULARY CONTEXT (Use these terms first):\n' + 
+                        context.map(c => `- "${c.pidgin}": ${Array.isArray(c.english) ? c.english.join(', ') : c.english}${c.usage ? ' (Usage: ' + c.usage + ')' : ''}`).join('\n');
+                }
+
+                const systemPrompt = direction === 'eng-to-pidgin' 
+                    ? `You are an expert Hawaiian Pidgin translator. 
+Translate the following English text into AUTHENTIC, natural Hawaiian Pidgin.
+
+CRITICAL RULES:
+1. Use the provided VERIFIED VOCABULARY if relevant.
+2. Maintain local island style (e.g., use "stay" for location/state, "wen" for past tense, "da" for the).
+3. Do not be overly formal or academic.
+4. If the text is a question, use natural Pidgin question structures.
+
+${contextStr}
+
+RESPONSE FORMAT:
+Respond only with a JSON object:
+{
+  "translation": "The Pidgin translation",
+  "explanation": "Briefly explain one key Pidgin word or grammar rule used",
+  "confidence": 0.95
+}`
+                    : `You are an expert Hawaiian Pidgin translator. 
+Translate the following Hawaiian Pidgin text into natural English.
+
+CRITICAL RULES:
+1. Use the provided VERIFIED VOCABULARY if relevant.
+2. Capture the intended meaning, not just a literal word-for-word translation.
+3. If multiple meanings are possible, choose the most likely one based on common island usage.
+
+${contextStr}
+
+RESPONSE FORMAT:
+Respond only with a JSON object:
+{
+  "translation": "The English translation",
+  "explanation": "Briefly explain the origin or meaning of one key Pidgin term from the source",
+  "confidence": 0.95
+}`;
+
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{
+                            role: 'user',
+                            parts: [{ text: `SYSTEM INSTRUCTION: ${systemPrompt}\n\nTEXT TO TRANSLATE: "${text}"` }]
+                        }],
+                        generationConfig: { 
+                            temperature: 0.2, // Lower temperature for more accurate translation
+                            maxOutputTokens: 500,
+                            responseMimeType: "application/json"
+                        }
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Gemini API Error: ${response.status}`);
+                }
+
+                const data = await response.json();
+                const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || '{}';
+                
+                try {
+                    const parsed = JSON.parse(responseText);
+                    res.json(parsed);
+                } catch (e) {
+                    res.status(500).json({ error: 'AI returned invalid format' });
+                }
+
+            } catch (error) {
+                console.error('AI Translation error:', error);
+                res.status(500).json({ error: 'Internal server error' });
+            }
+        });

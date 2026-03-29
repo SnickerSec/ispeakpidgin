@@ -438,8 +438,8 @@ class PidginTranslator {
         return reverse;
     }
 
-    // Enhanced main translation function with confidence scoring
-    translate(text, direction = 'eng-to-pidgin') {
+    // Enhanced main translation function with confidence scoring and AI fallback
+    async translate(text, direction = 'eng-to-pidgin') {
         if (!text || text.trim() === '') {
             return {
                 text: '',
@@ -451,14 +451,23 @@ class PidginTranslator {
         }
 
         const wordCount = text.trim().split(/\s+/).length;
+        const isSentence = wordCount >= 5; // AI is better for 5+ words
+
+        // Check if AI is enabled in settings (default to true)
+        const useAI = typeof settingsManager !== 'undefined' ? settingsManager.get('enable_ai_translator') !== 'false' : true;
+
+        if (isSentence && useAI) {
+            console.log('🤖 Using Semantic AI Translation (RAG)...');
+            return await this.aiTranslate(text, direction);
+        }
+
+        // --- RULE-BASED FALLBACK (for short phrases or if AI disabled) ---
         const isPhrase = wordCount > 1;
-        const isSentence = wordCount >= 6;
         const isParagraph = typeof contextTracker !== 'undefined' && contextTracker.isParagraph(text);
 
-        // PRIORITY 0: Check context tracker for paragraphs (multiple sentences)
+        // PRIORITY 0: Check context tracker for paragraphs
         if (isParagraph && typeof contextTracker !== 'undefined') {
             const paragraphResult = contextTracker.translateParagraph(text, direction);
-
             if (paragraphResult && paragraphResult.confidence >= 0.6) {
                 return {
                     text: paragraphResult.translation,
@@ -467,19 +476,16 @@ class PidginTranslator {
                     pronunciation: direction === 'eng-to-pidgin' ? this.getPronunciation(paragraphResult.translation) : null,
                     alternatives: [],
                     metadata: {
-                        method: paragraphResult.method,
-                        sentenceCount: paragraphResult.sentenceCount,
-                        contextUsed: paragraphResult.contextUsed,
-                        sentences: paragraphResult.sentences
+                        method: 'Rule-based (Context)',
+                        details: paragraphResult.contextUsed
                     }
                 };
             }
         }
 
-        // PRIORITY 1: Check sentence chunker for sentences (6+ words)
+        // PRIORITY 1: Check sentence chunker
         if (isSentence && typeof sentenceChunker !== 'undefined' && sentenceChunker.loaded) {
             const sentenceResult = sentenceChunker.translateSentence(text, direction);
-
             if (sentenceResult && sentenceResult.confidence >= 0.7) {
                 return {
                     text: sentenceResult.translation,
@@ -487,28 +493,17 @@ class PidginTranslator {
                     suggestions: [],
                     pronunciation: direction === 'eng-to-pidgin' ? this.getPronunciation(sentenceResult.translation) : null,
                     alternatives: sentenceResult.alternatives || [],
-                    metadata: {
-                        method: sentenceResult.method,
-                        category: sentenceResult.category,
-                        difficulty: sentenceResult.difficulty,
-                        phraseMatches: sentenceResult.phraseMatches,
-                        wordFills: sentenceResult.wordFills
-                    }
+                    metadata: { method: 'Rule-based (Chunking)' }
                 };
             }
         }
 
-        // PRIORITY 2: Check phrase translator for phrases (2-5 words)
+        // PRIORITY 2: Check phrase translator
         if (isPhrase && typeof phraseTranslator !== 'undefined' && phraseTranslator.loaded) {
-            let phraseResult = null;
+            let phraseResult = direction === 'pidgin-to-eng' 
+                ? phraseTranslator.translatePidginToEnglish(text)
+                : phraseTranslator.translateEnglishToPidgin(text);
 
-            if (direction === 'pidgin-to-eng') {
-                phraseResult = phraseTranslator.translatePidginToEnglish(text);
-            } else {
-                phraseResult = phraseTranslator.translateEnglishToPidgin(text);
-            }
-
-            // If phrase translator found a good match, use it
             if (phraseResult && phraseResult.confidence >= 0.75) {
                 return {
                     text: phraseResult.translation,
@@ -516,48 +511,96 @@ class PidginTranslator {
                     suggestions: [],
                     pronunciation: direction === 'eng-to-pidgin' ? this.getPronunciation(phraseResult.translation) : null,
                     alternatives: phraseResult.alternatives || [],
-                    metadata: {
-                        source: phraseResult.source,
-                        category: phraseResult.category,
-                        difficulty: phraseResult.difficulty,
-                        note: phraseResult.note
-                    }
+                    metadata: { method: 'Rule-based (Phrase)' }
                 };
             }
         }
 
-        // PRIORITY 3: Fallback to word-by-word translation
+        // PRIORITY 3: Fallback to word-by-word
         let result;
-        let confidence = 0;
-        let suggestions = [];
-        let alternatives = [];
-        let metadata = null;
-
         if (direction === 'pidgin-to-eng') {
-            const pidginResult = this.translatePidginToEnglishEnhanced(text);
-            result = pidginResult.text;
-            alternatives = pidginResult.alternatives || [];
-            metadata = pidginResult.metadata;
+            result = this.translatePidginToEnglishEnhanced(text).text;
         } else {
-            const englishResult = this.translateEnglishToPidginEnhanced(text);
-            result = englishResult.text;
-            alternatives = englishResult.alternatives || [];
-            metadata = englishResult.metadata;
+            result = this.translateEnglishToPidginEnhanced(text).text;
         }
 
-        // Calculate confidence and generate suggestions
         const analysis = this.analyzeTranslation(text, result, direction);
-        confidence = analysis.confidence;
-        suggestions = analysis.suggestions;
 
         return {
             text: result,
-            confidence: confidence,
-            suggestions: suggestions,
+            confidence: analysis.confidence,
+            suggestions: analysis.suggestions,
             pronunciation: direction === 'eng-to-pidgin' ? this.getPronunciation(result) : null,
-            alternatives: alternatives,
-            metadata: metadata
+            metadata: { method: 'Rule-based (Literal)' }
         };
+    }
+
+    // Semantic AI Translation with RAG (Retrieval-Augmented Generation)
+    async aiTranslate(text, direction) {
+        try {
+            // 1. Get relevant context from local dictionary
+            const context = this.getRelevantContext(text, direction);
+            
+            // 2. Call AI API
+            const response = await fetch('/api/ai/translate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text, direction, context })
+            });
+
+            if (!response.ok) throw new Error('AI Service error');
+
+            const data = await response.json();
+
+            return {
+                text: data.translation,
+                confidence: Math.round(data.confidence * 100),
+                suggestions: [],
+                pronunciation: direction === 'eng-to-pidgin' ? this.getPronunciation(data.translation) : null,
+                metadata: {
+                    method: 'AI-Enhanced (RAG)',
+                    explanation: data.explanation,
+                    contextUsed: context.map(c => c.pidgin)
+                }
+            };
+        } catch (error) {
+            console.warn('AI translation failed, falling back to rules:', error);
+            // Re-call translate without AI (simplified fallback)
+            return this.translateSimple(text, direction);
+        }
+    }
+
+    // Helper: Find relevant dictionary entries for RAG
+    getRelevantContext(text, direction) {
+        if (!pidginDataLoader || !pidginDataLoader.loaded) return [];
+
+        const words = text.toLowerCase().split(/\s+/).map(w => w.replace(/[.,!?;:]/g, ''));
+        const entries = pidginDataLoader.getAllEntries();
+        const matched = [];
+        const seen = new Set();
+
+        for (const word of words) {
+            if (word.length < 3) continue; // Skip small words
+
+            for (const entry of entries) {
+                if (seen.has(entry.id)) continue;
+
+                const pidgin = entry.pidgin.toLowerCase();
+                const english = entry.english.map(e => e.toLowerCase());
+
+                const isMatch = direction === 'eng-to-pidgin'
+                    ? english.some(e => e === word || e.includes(word))
+                    : pidgin === word || pidgin.includes(word);
+
+                if (isMatch) {
+                    matched.push(entry);
+                    seen.add(entry.id);
+                    if (matched.length >= 10) return matched; // Cap context
+                }
+            }
+        }
+
+        return matched;
     }
 
     // Enhanced Pidgin to English translation with fuzzy matching

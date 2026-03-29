@@ -233,175 +233,105 @@ async function performTranslation() {
     const text = inputField.value.trim();
     if (!text) return;
 
-    // Determine direction
-    const direction = localStorage.getItem('translatorDirection') || 'en-to-pid';
+    // Show loading indicator
+    outputDiv.innerHTML = '<p class="text-gray-400 italic animate-pulse"><i class="ti ti-refresh animate-spin"></i> Translating with AI...</p>';
+    confidenceIndicator?.classList.add('hidden');
 
-    let results;
+    // Determine direction
+    const directionStr = localStorage.getItem('translatorDirection') || 'en-to-pid';
+    const direction = directionStr === 'en-to-pid' ? 'eng-to-pidgin' : 'pidgin-to-eng';
 
     try {
-        // Layer 1: Dictionary-first for 1-2 word inputs with high confidence
-        const wordCount = text.trim().split(/\s+/).length;
-        let usedLocalDictionary = false;
-
-        if (wordCount <= 2 && typeof pidginTranslator !== 'undefined' && pidginTranslator && pidginTranslator.initialized) {
-            const localResult = pidginTranslator.translate(text, direction === 'en-to-pid' ? 'eng-to-pidgin' : 'pidgin-to-eng');
-            if (localResult && localResult.confidence >= 90 && localResult.text && localResult.text !== text) {
-                results = [{
-                    translation: localResult.text,
-                    confidence: localResult.confidence / 100,
-                    pronunciation: localResult.pronunciation || null,
-                    metadata: localResult.metadata || null
-                }];
-                usedLocalDictionary = true;
+        if (typeof pidginTranslator !== 'undefined' && pidginTranslator) {
+            if (!pidginTranslator.initialized) {
+                pidginTranslator.tryInitialize();
             }
-        }
 
-        if (!usedLocalDictionary) {
-        // Use AI (Gemini) by default, fallback to local if AI fails
-        if (currentTranslationEngine === 'google' && typeof googleTranslateService !== 'undefined') {
-            // Show loading indicator
-            outputDiv.innerHTML = '<p class="text-gray-400 italic animate-pulse">Translating with AI...</p>';
-
-            try {
-                // Call Gemini API
-                if (direction === 'en-to-pid') {
-                    results = await googleTranslateService.englishToPidgin(text);
-                } else {
-                    results = await googleTranslateService.pidginToEnglish(text);
-                }
-
-                // Check if AI returned valid results
-                if (!results || results.length === 0 || results[0].error) {
-                    throw new Error('AI translation failed, falling back to local');
-                }
-            } catch (aiError) {
-                console.warn('AI translation failed, falling back to local dictionary:', aiError);
-                // Fallback to local translator
-                if (typeof pidginTranslator !== 'undefined' && pidginTranslator) {
-                    if (!pidginTranslator.initialized) {
-                        pidginTranslator.tryInitialize();
-                    }
-
-                    if (direction === 'en-to-pid') {
-                        results = pidginTranslator.englishToPidgin(text);
-                    } else {
-                        results = pidginTranslator.pidginToEnglish(text);
-                    }
-                }
+            const result = await pidginTranslator.translate(text, direction);
+            
+            if (result && result.text) {
+                displayTranslationResult(result, text, directionStr);
+            } else {
+                throw new Error('No translation found');
             }
         } else {
-            // Use local translator
-            if (typeof pidginTranslator !== 'undefined' && pidginTranslator) {
-                if (!pidginTranslator.initialized) {
-                    pidginTranslator.tryInitialize();
-                }
-
-                if (direction === 'en-to-pid') {
-                    results = pidginTranslator.englishToPidgin(text);
-                } else {
-                    results = pidginTranslator.pidginToEnglish(text);
-                }
-            }
+            throw new Error('Translator not loaded');
         }
-        } // end !usedLocalDictionary
     } catch (error) {
         console.error('Translation error:', error);
         outputDiv.innerHTML = '<p class="text-red-500 italic">Translation error. Please try again.</p>';
-        return;
     }
+}
 
-    if (results && results.length > 0) {
-            // Display the best translation
-            const bestMatch = results[0];
-            let outputHTML = `<p class="text-2xl font-semibold text-gray-800 mb-3">${escapeHtml(bestMatch.translation)}</p>`;
+// Display translation result
+function displayTranslationResult(result, originalText, direction) {
+    let outputHTML = `<p class="text-2xl font-semibold text-gray-800 mb-3">${escapeHtml(result.text)}</p>`;
 
-            // Show confidence
-            const confidence = Math.round(bestMatch.confidence * 100);
-            confidenceIndicator?.classList.remove('hidden');
+    // Show confidence
+    const confidence = result.confidence || 80;
+    confidenceIndicator?.classList.remove('hidden');
 
-            // Update confidence bar
-            confidenceBar.style.width = `${confidence}%`;
-            if (confidence >= 80) {
-                confidenceBar.className = 'h-2 rounded-full transition-all duration-300 bg-green-500';
-                confidenceText.textContent = `${confidence}% - High`;
-                confidenceText.className = 'text-sm font-medium confidence-high';
-            } else if (confidence >= 50) {
-                confidenceBar.className = 'h-2 rounded-full transition-all duration-300 bg-yellow-500';
-                confidenceText.textContent = `${confidence}% - Medium`;
-                confidenceText.className = 'text-sm font-medium confidence-medium';
-            } else {
-                confidenceBar.className = 'h-2 rounded-full transition-all duration-300 bg-red-500';
-                confidenceText.textContent = `${confidence}% - Low`;
-                confidenceText.className = 'text-sm font-medium confidence-low';
-            }
-
-            // Show alternative translations if available
-            if (results.length > 1) {
-                outputHTML += '<div class="mt-4 pt-4 border-t border-gray-200">';
-                outputHTML += '<p class="text-sm font-semibold text-gray-700 mb-3"><i class="ti ti-books"></i> Alternative Translations:</p>';
-                outputHTML += '<div class="space-y-2">';
-                for (let i = 1; i < Math.min(results.length, 3); i++) {
-                    const altConf = Math.round(results[i].confidence * 100);
-                    outputHTML += `<div class="flex items-center justify-between p-2 bg-gray-50 rounded">
-                        <span class="text-gray-700">${escapeHtml(results[i].translation)}</span>
-                        <span class="text-xs text-gray-500">${altConf}%</span>
-                    </div>`;
-                }
-                outputHTML += '</div></div>';
-            }
-
-            // Show metadata if available (examples, usage, etc.)
-            if (bestMatch.metadata) {
-                const meta = bestMatch.metadata;
-                if (meta.usage || meta.examples?.length > 0 || meta.difficulty) {
-                    outputHTML += '<div class="mt-4 pt-4 border-t border-gray-200">';
-
-                    if (meta.usage) {
-                        outputHTML += `<div class="mb-3">
-                            <span class="text-xs font-semibold text-blue-800"><i class="ti ti-bulb"></i> Usage:</span>
-                            <span class="text-sm text-gray-700 ml-2">${escapeHtml(meta.usage)}</span>
-                        </div>`;
-                    }
-
-                    if (meta.difficulty) {
-                        const difficultyColors = {
-                            'beginner': 'bg-green-100 text-green-700',
-                            'intermediate': 'bg-yellow-100 text-yellow-700',
-                            'advanced': 'bg-red-100 text-red-700'
-                        };
-                        const colorClass = difficultyColors[meta.difficulty] || 'bg-gray-100 text-gray-700';
-                        outputHTML += `<span class="inline-block px-2 py-1 ${colorClass} rounded text-xs font-medium mb-3">
-                            Level: ${escapeHtml(meta.difficulty)}
-                        </span>`;
-                    }
-
-                    if (meta.examples && meta.examples.length > 0) {
-                        outputHTML += '<div class="mt-3">';
-                        outputHTML += '<p class="text-xs font-semibold text-purple-800 mb-2"><i class="ti ti-note"></i> Examples:</p>';
-                        meta.examples.slice(0, 2).forEach(example => {
-                            outputHTML += `<p class="text-sm italic text-gray-600 mb-1">"${escapeHtml(example)}"</p>`;
-                        });
-                        outputHTML += '</div>';
-                    }
-
-                    outputHTML += '</div>';
-                }
-            }
-
-            outputDiv.innerHTML = outputHTML;
-
-            // Show buttons
-            copyBtn?.classList.remove('hidden');
-            speakBtn?.classList.remove('hidden');
-
-            // Add to history
-            addToHistory(text, bestMatch.translation, direction);
+    // Update confidence bar
+    confidenceBar.style.width = `${confidence}%`;
+    if (confidence >= 80) {
+        confidenceBar.className = 'h-2 rounded-full transition-all duration-300 bg-green-500';
+        confidenceText.textContent = `${confidence}% - High`;
+        confidenceText.className = 'text-sm font-medium confidence-high';
+    } else if (confidence >= 50) {
+        confidenceBar.className = 'h-2 rounded-full transition-all duration-300 bg-yellow-500';
+        confidenceText.textContent = `${confidence}% - Medium`;
+        confidenceText.className = 'text-sm font-medium confidence-medium';
     } else {
-        outputDiv.innerHTML = '<p class="text-gray-500 italic">No translation found. Try different words or check spelling.</p>';
-        confidenceIndicator?.classList.add('hidden');
-        copyBtn?.classList.add('hidden');
-        speakBtn?.classList.add('hidden');
+        confidenceBar.className = 'h-2 rounded-full transition-all duration-300 bg-red-500';
+        confidenceText.textContent = `${confidence}% - Low`;
+        confidenceText.className = 'text-sm font-medium confidence-low';
     }
+
+    // Show AI Explanation/Metadata if available
+    if (result.metadata) {
+        const meta = result.metadata;
+        outputHTML += '<div class="mt-4 pt-4 border-t border-gray-200">';
+
+        // Method tag
+        const methodColor = meta.method?.includes('AI') ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700';
+        outputHTML += `<span class="inline-block px-2 py-0.5 ${methodColor} rounded-full text-[10px] font-bold uppercase tracking-tighter mb-3">
+            Method: ${escapeHtml(meta.method)}
+        </span>`;
+
+        if (meta.explanation) {
+            outputHTML += `<div class="mb-3 bg-indigo-50 p-3 rounded-lg border-l-4 border-indigo-400">
+                <p class="text-xs font-bold text-indigo-800 mb-1 uppercase tracking-wider"><i class="ti ti-info-circle"></i> AI Breakdown:</p>
+                <p class="text-sm text-indigo-900 leading-relaxed">${escapeHtml(meta.explanation)}</p>
+            </div>`;
+        }
+
+        if (meta.usage) {
+            outputHTML += `<div class="mb-3">
+                <span class="text-xs font-semibold text-blue-800"><i class="ti ti-bulb"></i> Usage Note:</span>
+                <p class="text-sm text-gray-700 mt-1">${escapeHtml(meta.usage)}</p>
+            </div>`;
+        }
+
+        if (meta.examples && meta.examples.length > 0) {
+            outputHTML += '<div class="mt-3">';
+            outputHTML += '<p class="text-xs font-semibold text-purple-800 mb-2"><i class="ti ti-note"></i> Examples:</p>';
+            meta.examples.slice(0, 2).forEach(example => {
+                outputHTML += `<p class="text-sm italic text-gray-600 mb-1">"${escapeHtml(example)}"</p>`;
+            });
+            outputHTML += '</div>';
+        }
+
+        outputHTML += '</div>';
+    }
+
+    outputDiv.innerHTML = outputHTML;
+
+    // Show buttons
+    copyBtn?.classList.remove('hidden');
+    speakBtn?.classList.remove('hidden');
+
+    // Add to history
+    addToHistory(originalText, result.text, direction);
 }
 
 // Example phrases
