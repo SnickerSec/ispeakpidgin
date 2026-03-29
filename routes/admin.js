@@ -329,6 +329,61 @@ module.exports = function(supabaseAdmin, adminAuth, settingsManager, adminLoginL
         }
     });
 
+    // AI Suggestion for Dictionary Entry
+    router.post('/seo/suggest', adminAuth.requireAdminAuth, [
+        body('pidgin').trim().notEmpty()
+    ], async (req, res) => {
+        if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+
+        try {
+            const { pidgin } = req.body;
+            const apiKey = process.env.GEMINI_API_KEY;
+            if (!apiKey) return res.status(500).json({ error: 'Gemini API key not configured' });
+
+            const systemPrompt = `You are an expert Hawaiian Pidgin dictionary editor.
+Provide a clear, accurate English translation and a natural example sentence for the following Pidgin term.
+
+RESPONSE FORMAT:
+Respond only with a JSON object:
+{
+  "english": "The primary English translation",
+  "category": "One of: general, slang, food, greetings, locations, culture",
+  "example": "A natural example sentence in Pidgin",
+  "pronunciation": "Phonetic pronunciation guide"
+}`;
+
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${apiKey}`;
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{
+                        role: 'user',
+                        parts: [{ text: `SYSTEM INSTRUCTION: ${systemPrompt}\n\nTERM: "${pidgin}"` }]
+                    }],
+                    generationConfig: { 
+                        temperature: 0.3,
+                        maxOutputTokens: 300,
+                        responseMimeType: "application/json"
+                    }
+                })
+            });
+
+            if (!response.ok) throw new Error('AI Service error');
+
+            const data = await response.json();
+            const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || '{}';
+            
+            res.json(JSON.parse(responseText));
+        } catch (error) {
+            console.error('AI suggestion error:', error);
+            res.status(500).json({ error: 'Failed to generate suggestion' });
+        }
+    });
+
     // Quick Add Dictionary Entry
     router.post('/dictionary/add', adminAuth.requireAdminAuth, [
         body('pidgin').trim().notEmpty(),

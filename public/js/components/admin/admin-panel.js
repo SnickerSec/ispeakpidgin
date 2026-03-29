@@ -64,23 +64,28 @@
 
     // Event delegation for dynamically created elements
     function setupEventDelegation() {
-        // Gaps container - handle quick-add buttons
+        // Gaps container - handle quick-add and suggest buttons
         document.getElementById('gapsContainer')?.addEventListener('click', function(e) {
             const target = e.target.closest('button');
             if (!target) return;
 
+            const pidgin = target.dataset.pidgin;
+            const row = target.closest('tr');
+
             if (target.dataset.action === 'quick-add') {
-                const pidgin = target.dataset.pidgin;
-                const row = target.closest('tr');
                 const english = row.querySelector('.gap-english-input')?.value;
                 const category = row.querySelector('.gap-category-select')?.value;
+                const example = row.querySelector('.gap-example-input')?.value;
+                const pronunciation = target.dataset.pronunciation || '';
 
                 if (!english) {
                     showToast('Please enter an English translation', 'warning');
                     return;
                 }
 
-                addGapToDictionary(pidgin, english, category, target);
+                addGapToDictionary(pidgin, english, category, example, pronunciation, target);
+            } else if (target.dataset.action === 'suggest') {
+                suggestGapData(pidgin, row, target);
             }
         });
         // API Keys container - handle toggle visibility, test, and save buttons
@@ -287,20 +292,32 @@
                         ${gap.ctr}
                     </td>
                     <td class="px-6 py-4">
-                        <div class="flex gap-2">
-                            <input type="text" placeholder="English meaning" 
-                                   class="gap-english-input flex-1 px-3 py-1 text-sm border rounded">
-                            <select class="gap-category-select px-2 py-1 text-sm border rounded">
-                                <option value="general">General</option>
-                                <option value="slang">Slang</option>
-                                <option value="food">Food</option>
-                                <option value="greetings">Greetings</option>
-                                <option value="locations">Locations</option>
-                            </select>
-                            <button data-action="quick-add" data-pidgin="${gap.pidgin}"
-                                    class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition">
-                                Add
-                            </button>
+                        <div class="flex flex-col gap-2">
+                            <div class="flex gap-2">
+                                <input type="text" placeholder="English meaning" 
+                                       class="gap-english-input flex-1 px-3 py-1 text-sm border rounded">
+                                <select class="gap-category-select px-2 py-1 text-sm border rounded">
+                                    <option value="general">General</option>
+                                    <option value="slang">Slang</option>
+                                    <option value="food">Food</option>
+                                    <option value="greetings">Greetings</option>
+                                    <option value="locations">Locations</option>
+                                    <option value="culture">Culture</option>
+                                </select>
+                            </div>
+                            <div class="flex gap-2">
+                                <input type="text" placeholder="Example sentence (optional)" 
+                                       class="gap-example-input flex-1 px-3 py-1 text-sm border rounded italic">
+                                <button data-action="suggest" data-pidgin="${gap.pidgin}"
+                                        class="bg-purple-100 text-purple-700 px-3 py-1 rounded text-sm hover:bg-purple-200 transition"
+                                        title="Use AI to suggest meaning and example">
+                                    <i class="ti ti-magic-wand"></i>
+                                </button>
+                                <button data-action="quick-add" data-pidgin="${gap.pidgin}"
+                                        class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition">
+                                    Add
+                                </button>
+                            </div>
                         </div>
                     </td>
                 </tr>
@@ -322,7 +339,7 @@
         }
     }
 
-    async function addGapToDictionary(pidgin, english, category, button) {
+    async function addGapToDictionary(pidgin, english, category, example, pronunciation, button) {
         button.disabled = true;
         button.innerHTML = '<span class="spinner spinner-white"></span>';
 
@@ -333,7 +350,13 @@
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${authToken}`
                 },
-                body: JSON.stringify({ pidgin, english, category })
+                body: JSON.stringify({ 
+                    pidgin, 
+                    english, 
+                    category, 
+                    examples: example ? [example] : [],
+                    pronunciation
+                })
             });
 
             if (!response.ok) throw new Error('Failed to add entry');
@@ -349,6 +372,54 @@
             showToast('Error: ' + error.message, 'error');
             button.disabled = false;
             button.textContent = 'Add';
+        }
+    }
+
+    async function suggestGapData(pidgin, row, button) {
+        button.disabled = true;
+        const originalHtml = button.innerHTML;
+        button.innerHTML = '<span class="spinner"></span>';
+
+        try {
+            const response = await fetch('/api/admin/seo/suggest', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authToken}`
+                },
+                body: JSON.stringify({ pidgin })
+            });
+
+            if (!response.ok) throw new Error('AI suggestion failed');
+
+            const data = await response.json();
+
+            // Populate fields
+            const englishInput = row.querySelector('.gap-english-input');
+            const categorySelect = row.querySelector('.gap-category-select');
+            const exampleInput = row.querySelector('.gap-example-input');
+            const addBtn = row.querySelector('[data-action="quick-add"]');
+
+            if (englishInput) englishInput.value = data.english || '';
+            if (categorySelect) categorySelect.value = data.category || 'general';
+            if (exampleInput) exampleInput.value = data.example || '';
+            if (addBtn && data.pronunciation) addBtn.dataset.pronunciation = data.pronunciation;
+
+            // Highlight changes
+            [englishInput, categorySelect, exampleInput].forEach(el => {
+                if (el) {
+                    el.classList.add('border-purple-400', 'bg-purple-50');
+                    setTimeout(() => el.classList.remove('border-purple-400', 'bg-purple-50'), 2000);
+                }
+            });
+
+            showToast('AI suggestion applied', 'info');
+
+        } catch (error) {
+            showToast('AI Error: ' + error.message, 'error');
+        } finally {
+            button.disabled = false;
+            button.innerHTML = originalHtml;
         }
     }
 
