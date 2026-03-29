@@ -8,206 +8,254 @@
 
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config();
+const { supabase } = require('../../config/supabase');
 
-console.log('🧪 Validating Phase 2 & 3 Improvements\n');
-console.log('='.repeat(70));
+async function runValidation() {
+    console.log('🧪 Validating Phase 2 & 3 Improvements\n');
+    console.log('📡 Fetching data from Supabase...');
 
-// Load necessary data files
-const phraseLookup = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/phrase-lookup.json'), 'utf8'));
-const sentenceLookup = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/sentence-lookup.json'), 'utf8'));
-const storyExamples = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/story-examples.json'), 'utf8'));
+    // 1. Fetch dictionary entries for phrase/sentence lookup
+    const { data: entries, error: dictError } = await supabase
+        .from('dictionary_entries')
+        .select('*');
 
-console.log('\n📊 Dataset Loaded:');
-console.log(`   Phrase lookups: ${Object.keys(phraseLookup).length}`);
-console.log(`   Sentence lookups: ${Object.keys(sentenceLookup.englishToPidgin).length}`);
-console.log(`   Story examples: ${storyExamples.metadata.totalStories}`);
-console.log(`   Story sentences: ${storyExamples.metadata.totalSentences}\n`);
+    if (dictError) {
+        console.error('❌ Failed to fetch dictionary entries:', dictError.message);
+        process.exit(1);
+    }
 
-// ============================================================================
-// PHASE 2: GRAMMAR PATTERN TESTS
-// ============================================================================
-console.log('='.repeat(70));
-console.log('📝 PHASE 2: GRAMMAR PATTERN TESTS');
-console.log('='.repeat(70));
+    // 2. Fetch phrases
+    const { data: phrases, error: phraseError } = await supabase
+        .from('phrases')
+        .select('*');
 
-const grammarTests = {
-    'Present Tense': [
-        { input: "I'm hungry", expected: "I stay hungry" },
-        { input: "You're tired", expected: "you stay tired" },
-        { input: "He's working", expected: "he stay working" },
-        { input: "They're surfing", expected: "dey stay surfing" }
-    ],
-    'Future Tense': [
-        { input: "I will go", expected: "I going go" },
-        { input: "I'll be there", expected: "I going be there" },
-        { input: "We will eat", expected: "we going eat" }
-    ],
-    'Past Tense': [
-        { input: "I was tired", expected: "I was tired" },
-        { input: "You were late", expected: "you was late" },
-        { input: "They were surfing", expected: "dey was surfing" }
-    ],
-    'Past Perfect': [
-        { input: "I went to the beach", expected: "I wen go beach" },
-        { input: "He went home", expected: "he wen go home" }
-    ],
-    'Negations': [
-        { input: "I don't know", expected: "I no know" },
-        { input: "I didn't go", expected: "I neva go" },
-        { input: "I can't help", expected: "I no can help" }
-    ],
-    'Questions (Do/Does/Did)': [
-        { input: "Do you want food?", expected: "you like food?" },
-        { input: "Did you go?", expected: "you wen go?" }
-    ],
-    'Questions (Are/Is/Was)': [
-        { input: "Are you ready?", expected: "you stay ready?" },
-        { input: "Is he coming?", expected: "he stay coming?" }
-    ],
-    'Modal Verbs': [
-        { input: "I want to eat", expected: "I like eat" },
-        { input: "I must go", expected: "I gotta go" }
-    ]
-};
+    if (phraseError) {
+        console.error('❌ Failed to fetch phrases:', phraseError.message);
+        process.exit(1);
+    }
 
-const grammarResults = {
-    total: 0,
-    passed: 0,
-    failed: 0
-};
+    // 3. Fetch stories
+    const { data: stories, error: storyError } = await supabase
+        .from('stories')
+        .select('*');
 
-console.log('\n🔬 Testing Grammar Transformations:\n');
+    if (storyError) {
+        console.error('❌ Failed to fetch stories:', storyError.message);
+        process.exit(1);
+    }
 
-Object.entries(grammarTests).forEach(([category, tests]) => {
-    console.log(`\n📌 ${category}:`);
-
-    tests.forEach(test => {
-        grammarResults.total++;
-        const result = simulateGrammarTransform(test.input);
-        const success = result.toLowerCase().includes(test.expected.toLowerCase().split(' ').slice(1, 3).join(' '));
-
-        if (success) {
-            grammarResults.passed++;
-            console.log(`   ✅ "${test.input}" → "${result}"`);
-        } else {
-            grammarResults.failed++;
-            console.log(`   ❌ "${test.input}" → "${result}"`);
-            console.log(`      Expected pattern: "${test.expected}"`);
-        }
-    });
-});
-
-const grammarAccuracy = (grammarResults.passed / grammarResults.total * 100).toFixed(1);
-console.log(`\n📊 Grammar Pattern Accuracy: ${grammarAccuracy}%`);
-console.log(`   Passed: ${grammarResults.passed}/${grammarResults.total}`);
-console.log(`   Failed: ${grammarResults.failed}/${grammarResults.total}\n`);
-
-// ============================================================================
-// PHASE 3: STORY TRANSLATION TESTS
-// ============================================================================
-console.log('='.repeat(70));
-console.log('📚 PHASE 3: STORY TRANSLATION TESTS');
-console.log('='.repeat(70));
-
-const storyResults = {
-    total: 0,
-    exactMatch: 0,
-    goodMatch: 0,
-    partial: 0,
-    failed: 0
-};
-
-console.log('\n🔬 Testing Story Translations:\n');
-
-storyExamples.stories.slice(0, 5).forEach((story, index) => {
-    console.log(`\n${index + 1}. ${story.title} (${story.category})`);
-    console.log(`   English: "${story.english.substring(0, 80)}..."`);
-    console.log(`   Expected: "${story.pidgin.substring(0, 80)}..."`);
-
-    // Test individual sentences
-    story.sentences.forEach((sent, sentIndex) => {
-        storyResults.total++;
-        const sentLower = sent.english.toLowerCase().trim();
-
-        // Check sentence lookup
-        const exactMatch = sentenceLookup.englishToPidgin[sentLower];
-        if (exactMatch && exactMatch.length > 0) {
-            storyResults.exactMatch++;
-            console.log(`   ✅ Sentence ${sentIndex + 1}: Exact match`);
-        } else {
-            // Try chunking simulation
-            const chunked = simulateChunking(sent.english);
-            const similarity = calculateSimilarity(chunked.toLowerCase(), sent.pidgin.toLowerCase());
-
-            if (similarity >= 0.85) {
-                storyResults.goodMatch++;
-                console.log(`   ✅ Sentence ${sentIndex + 1}: Good match (${Math.round(similarity * 100)}%)`);
-            } else if (similarity >= 0.65) {
-                storyResults.partial++;
-                console.log(`   ⚠️  Sentence ${sentIndex + 1}: Partial match (${Math.round(similarity * 100)}%)`);
-            } else {
-                storyResults.failed++;
-                console.log(`   ❌ Sentence ${sentIndex + 1}: Poor match (${Math.round(similarity * 100)}%)`);
+    // Reconstruct data structures
+    const phraseLookup = {};
+    const sentenceLookup = { englishToPidgin: {} };
+    
+    entries.forEach(entry => {
+        const engArr = Array.isArray(entry.english) ? entry.english : [entry.english];
+        engArr.forEach(eng => {
+            const engLower = eng.toLowerCase();
+            if (eng.includes(' ')) {
+                if (!phraseLookup[engLower]) phraseLookup[engLower] = [];
+                phraseLookup[engLower].push({ pidgin: entry.pidgin });
             }
+        });
+    });
+
+    phrases.forEach(phrase => {
+        const engLower = phrase.english.toLowerCase();
+        if (!sentenceLookup.englishToPidgin[engLower]) sentenceLookup.englishToPidgin[engLower] = [];
+        sentenceLookup.englishToPidgin[engLower].push(phrase.pidgin);
+    });
+
+    let totalSentencesCount = 0;
+    const storyList = stories.map(s => {
+        const englishText = s.english_translation || s.englishTranslation || '';
+        const pidginText = s.pidgin_text || s.pidginText || '';
+        
+        // Split into sentences (basic splitter)
+        const englishSentences = englishText.split(/(?<=[.!?])\s+/);
+        const pidginSentences = pidginText.split(/(?<=[.!?])\s+/);
+        
+        const matchedSentences = [];
+        for (let i = 0; i < Math.min(englishSentences.length, pidginSentences.length); i++) {
+            matchedSentences.push({
+                english: englishSentences[i],
+                pidgin: pidginSentences[i]
+            });
+        }
+        
+        totalSentencesCount += matchedSentences.length;
+
+        return {
+            title: s.title,
+            category: s.category || 'culture',
+            english: englishText,
+            pidgin: pidginText,
+            sentences: matchedSentences
+        };
+    });
+
+    const storyExamples = {
+        metadata: {
+            totalStories: stories.length,
+            totalSentences: totalSentencesCount
+        },
+        stories: storyList
+    };
+
+    console.log('\n📊 Dataset Loaded:');
+    console.log(`   Phrase lookups: ${Object.keys(phraseLookup).length}`);
+    console.log(`   Sentence lookups: ${Object.keys(sentenceLookup.englishToPidgin).length}`);
+    console.log(`   Story examples: ${storyExamples.metadata.totalStories}`);
+    console.log(`   Story sentences: ${storyExamples.metadata.totalSentences}\n`);
+
+    // ============================================================================
+    // PHASE 2: GRAMMAR PATTERN TESTS
+    // ============================================================================
+    console.log('='.repeat(70));
+    console.log('📝 PHASE 2: GRAMMAR PATTERN TESTS');
+    console.log('='.repeat(70));
+
+    const grammarTests = {
+        'Present Tense': [
+            { input: "I'm hungry", expected: "I stay hungry" },
+            { input: "You're tired", expected: "you stay tired" },
+            { input: "He's working", expected: "he stay working" },
+            { input: "They're surfing", expected: "dey stay surfing" }
+        ],
+        'Future Tense': [
+            { input: "I will go", expected: "I going go" },
+            { input: "I'll be there", expected: "I going be there" },
+            { input: "We will eat", expected: "we going eat" }
+        ],
+        'Past Tense': [
+            { input: "I was tired", expected: "I was tired" },
+            { input: "You were late", expected: "you was late" },
+            { input: "They were surfing", expected: "dey was surfing" }
+        ],
+        'Past Perfect': [
+            { input: "I went to the beach", expected: "I wen go beach" },
+            { input: "He went home", expected: "he wen go home" }
+        ],
+        'Negations': [
+            { input: "I don't know", expected: "I no know" },
+            { input: "I didn't go", expected: "I neva go" },
+            { input: "I can't help", expected: "I no can help" }
+        ],
+        'Questions (Do/Does/Did)': [
+            { input: "Do you want food?", expected: "you like food?" },
+            { input: "Did you go?", expected: "you wen go?" }
+        ],
+        'Questions (Are/Is/Was)': [
+            { input: "Are you ready?", expected: "you stay ready?" },
+            { input: "Is he coming?", expected: "he stay coming?" }
+        ],
+        'Modal Verbs': [
+            { input: "I want to eat", expected: "I like eat" },
+            { input: "I must go", expected: "I gotta go" }
+        ]
+    };
+
+    const grammarResults = {
+        total: 0,
+        passed: 0,
+        failed: 0
+    };
+
+    console.log('\n🔬 Testing Grammar Transformations:\n');
+
+    Object.entries(grammarTests).forEach(([category, tests]) => {
+        console.log(`\n📌 ${category}:`);
+
+        tests.forEach(test => {
+            grammarResults.total++;
+            const result = simulateGrammarTransform(test.input);
+            const words = test.expected.toLowerCase().split(' ');
+            const pattern = words.length > 1 ? words.slice(1, 3).join(' ') : words[0];
+            const success = result.toLowerCase().includes(pattern);
+
+            if (success) {
+                grammarResults.passed++;
+                console.log(`   ✅ "${test.input}" → "${result}"`);
+            } else {
+                grammarResults.failed++;
+                console.log(`   ❌ "${test.input}" → "${result}"`);
+                console.log(`      Expected pattern: "${test.expected}"`);
+            }
+        });
+    });
+
+    const grammarAccuracy = (grammarResults.passed / grammarResults.total * 100).toFixed(1);
+    console.log(`\n📊 Grammar Pattern Accuracy: ${grammarAccuracy}%`);
+    console.log(`   Passed: ${grammarResults.passed}/${grammarResults.total}`);
+    console.log(`   Failed: ${grammarResults.failed}/${grammarResults.total}\n`);
+
+    // ============================================================================
+    // PHASE 3: STORY TRANSLATION TESTS
+    // ============================================================================
+    console.log('='.repeat(70));
+    console.log('📚 PHASE 3: STORY TRANSLATION TESTS');
+    console.log('='.repeat(70));
+
+    const storyResults = {
+        total: 0,
+        exactMatch: 0,
+        goodMatch: 0,
+        partial: 0,
+        failed: 0
+    };
+
+    console.log('\n🔬 Testing Story Translations:\n');
+
+    storyExamples.stories.slice(0, 5).forEach((story, index) => {
+        console.log(`\n${index + 1}. ${story.title} (${story.category})`);
+        console.log(`   English: "${story.english.substring(0, 80)}..."`);
+        console.log(`   Expected: "${story.pidgin.substring(0, 80)}..."`);
+
+        // Test individual sentences
+        if (Array.isArray(story.sentences)) {
+            story.sentences.forEach((sent, sentIndex) => {
+                storyResults.total++;
+                const sentLower = sent.english.toLowerCase().trim();
+
+                // Check sentence lookup
+                const exactMatch = sentenceLookup.englishToPidgin[sentLower];
+                if (exactMatch && exactMatch.length > 0) {
+                    storyResults.exactMatch++;
+                    console.log(`   ✅ Sentence ${sentIndex + 1}: Exact match`);
+                } else {
+                    // Try chunking simulation
+                    const chunked = simulateChunking(sent.english, phraseLookup);
+                    const similarity = calculateSimilarity(chunked.toLowerCase(), sent.pidgin.toLowerCase());
+
+                    if (similarity >= 0.85) {
+                        storyResults.goodMatch++;
+                        console.log(`   ✅ Sentence ${sentIndex + 1}: Good match (${Math.round(similarity * 100)}%)`);
+                    } else if (similarity >= 0.65) {
+                        storyResults.partial++;
+                        console.log(`   ⚠️  Sentence ${sentIndex + 1}: Partial match (${Math.round(similarity * 100)}%)`);
+                    } else {
+                        storyResults.failed++;
+                        console.log(`   ❌ Sentence ${sentIndex + 1}: Poor match (${Math.round(similarity * 100)}%)`);
+                    }
+                }
+            });
         }
     });
-});
 
-const storyAccuracy = ((storyResults.exactMatch + storyResults.goodMatch) / storyResults.total * 100).toFixed(1);
-const storyUseful = ((storyResults.exactMatch + storyResults.goodMatch + storyResults.partial) / storyResults.total * 100).toFixed(1);
+    const storyAccuracy = storyResults.total > 0 ? ((storyResults.exactMatch + storyResults.goodMatch) / storyResults.total * 100).toFixed(1) : 0;
+    const storyUseful = storyResults.total > 0 ? ((storyResults.exactMatch + storyResults.goodMatch + storyResults.partial) / storyResults.total * 100).toFixed(1) : 0;
 
-console.log(`\n📊 Story Translation Results:`);
-console.log(`   Total sentences tested: ${storyResults.total}`);
-console.log(`   Exact matches: ${storyResults.exactMatch} (${(storyResults.exactMatch/storyResults.total*100).toFixed(1)}%)`);
-console.log(`   Good matches (85%+): ${storyResults.goodMatch} (${(storyResults.goodMatch/storyResults.total*100).toFixed(1)}%)`);
-console.log(`   Partial matches (65-84%): ${storyResults.partial} (${(storyResults.partial/storyResults.total*100).toFixed(1)}%)`);
-console.log(`   Failed (<65%): ${storyResults.failed} (${(storyResults.failed/storyResults.total*100).toFixed(1)}%)`);
-console.log(`\n   Story Accuracy: ${storyAccuracy}%`);
-console.log(`   Useful Results: ${storyUseful}%\n`);
+    console.log(`\n📊 Story Translation Results:`);
+    console.log(`   Total sentences tested: ${storyResults.total}`);
+    console.log(`   Exact matches: ${storyResults.exactMatch} (${storyResults.total > 0 ? (storyResults.exactMatch/storyResults.total*100).toFixed(1) : 0}%)`);
+    console.log(`   Good matches (85%+): ${storyResults.goodMatch} (${storyResults.total > 0 ? (storyResults.goodMatch/storyResults.total*100).toFixed(1) : 0}%)`);
+    console.log(`   Partial matches (65-84%): ${storyResults.partial} (${storyResults.total > 0 ? (storyResults.partial/storyResults.total*100).toFixed(1) : 0}%)`);
+    console.log(`   Failed (<65%): ${storyResults.failed} (${storyResults.total > 0 ? (storyResults.failed/storyResults.total*100).toFixed(1) : 0}%)`);
+    console.log(`\n   Story Accuracy: ${storyAccuracy}%`);
+    console.log(`   Useful Results: ${storyUseful}%\n`);
 
-// ============================================================================
-// OVERALL RESULTS
-// ============================================================================
-console.log('='.repeat(70));
-console.log('📈 OVERALL PHASE 2 & 3 RESULTS');
-console.log('='.repeat(70));
-
-console.log('\n✅ Phase 2: Grammar Patterns');
-console.log(`   Coverage: 100+ transformation rules`);
-console.log(`   Accuracy: ${grammarAccuracy}%`);
-console.log(`   Impact: Complex sentence handling improved`);
-
-console.log('\n✅ Phase 3: Story Examples + Context');
-console.log(`   Story examples: ${storyExamples.metadata.totalStories}`);
-console.log(`   Sentence database: ${storyExamples.metadata.totalSentences} sentences`);
-console.log(`   Story accuracy: ${storyAccuracy}%`);
-console.log(`   Useful results: ${storyUseful}%`);
-
-console.log('\n📊 Before vs After Comparison:');
-console.log('\n   Simple Sentences (6-10 words):');
-console.log(`      Before: 70-80%`);
-console.log(`      After:  85-90% (estimated)`);
-console.log(`      Improvement: +10-15%`);
-
-console.log('\n   Complex Sentences (11-15 words):');
-console.log(`      Before: 60-70%`);
-console.log(`      After:  75-85% (with grammar rules)`);
-console.log(`      Improvement: +15-20%`);
-
-console.log('\n   Story Paragraphs (multiple sentences):');
-console.log(`      Before: 50-60%`);
-console.log(`      After:  ${storyAccuracy}% (with context tracking)`);
-console.log(`      Improvement: +${Math.max(0, parseFloat(storyAccuracy) - 55).toFixed(1)}%`);
-
-console.log('\n🎯 Key Achievements:');
-console.log(`   ✅ 100+ comprehensive grammar transformation rules`);
-console.log(`   ✅ 10 multi-sentence story scenarios`);
-console.log(`   ✅ Context tracking across sentences`);
-console.log(`   ✅ Pronoun resolution`);
-console.log(`   ✅ Tense consistency tracking`);
-console.log(`   ✅ Entity and location memory`);
-
-console.log('\n✅ Validation complete!\n');
+    console.log('\n✅ Validation complete!\n');
+}
 
 // ============================================================================
 // HELPER FUNCTIONS
@@ -247,7 +295,7 @@ function simulateGrammarTransform(text) {
     return result;
 }
 
-function simulateChunking(sentence) {
+function simulateChunking(sentence, phraseLookup) {
     const words = sentence.toLowerCase().split(/\s+/);
     const chunks = [];
     let position = 0;
@@ -316,3 +364,8 @@ function calculateSimilarity(str1, str2) {
     const maxLen = Math.max(len1, len2);
     return maxLen === 0 ? 1 : (maxLen - matrix[len1][len2]) / maxLen;
 }
+
+runValidation().catch(err => {
+    console.error('Validation failed:', err);
+    process.exit(1);
+});

@@ -75,7 +75,7 @@ class PracticeData {
     }
 
     // Record practice attempt for a word
-    recordPractice(wordId, correct, difficulty = 'medium') {
+    recordPractice(wordId, correct, difficulty = 'medium', timeTaken = null) {
         if (!this.data.words[wordId]) {
             this.data.words[wordId] = {
                 firstPracticed: new Date().toISOString(),
@@ -110,6 +110,17 @@ class PracticeData {
             wordData.difficulty = Math.min(5, wordData.difficulty + 0.5);
         }
 
+        // Update average time
+        if (timeTaken !== null) {
+            const totalAttempts = wordData.timesCorrect + wordData.timesIncorrect;
+            if (totalAttempts === 1) {
+                wordData.averageTime = timeTaken;
+            } else {
+                // Moving average calculation
+                wordData.averageTime = (wordData.averageTime * (totalAttempts - 1) + timeTaken) / totalAttempts;
+            }
+        }
+
         // Calculate mastery level (0-5)
         const totalAttempts = wordData.timesCorrect + wordData.timesIncorrect;
         const accuracy = totalAttempts > 0 ? wordData.timesCorrect / totalAttempts : 0;
@@ -136,7 +147,7 @@ class PracticeData {
             date: now,
             correct: correct,
             difficulty: difficulty,
-            timeTaken: null // TODO: implement timing
+            timeTaken: timeTaken
         });
 
         // Keep only last 50 practice attempts
