@@ -1,49 +1,36 @@
 // Audio Pre-generation Script
 // Fetches dictionary terms from Supabase and pre-generates high-quality audio via ElevenLabs
-// Run with: node tools/audio/audio-pregeneration.js
+// Run with: node tools/audio/audio-pregeneration.js [--force] [--limit 50]
 
 require('dotenv').config({ path: '../../.env' });
 const fs = require('fs').promises;
 const path = require('path');
 const crypto = require('crypto');
+const { supabase } = require('../../config/supabase');
 
-// Reconstruct SUPABASE_URL if missing
-let SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-if (!SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY) {
-    try {
-        const payload = JSON.parse(Buffer.from(SUPABASE_SERVICE_ROLE_KEY.split('.')[1], 'base64').toString());
-        if (payload && payload.ref) {
-            SUPABASE_URL = `https://${payload.ref}.supabase.co`;
-        }
-    } catch (e) {}
-}
-
+// Configuration
 const AUDIO_DIR = path.join(__dirname, '../../public/assets/audio');
 const INDEX_FILE = path.join(AUDIO_DIR, 'index.json');
+const VOICE_ID = 'f0ODjLMfcJmlKfs7dFCW'; // Authentic local voice
 
-async function fetchTopEntries() {
-    if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
-        console.error('Supabase credentials missing');
-        return [];
-    }
+// Parse arguments
+const args = process.argv.slice(2);
+const FORCE_REGEN = args.includes('--force');
+const LIMIT_ARG = args.indexOf('--limit');
+const MAX_TO_GENERATE = LIMIT_ARG !== -1 ? parseInt(args[LIMIT_ARG + 1], 10) : 100;
 
+async function fetchAllEntries() {
     try {
-        console.log('Fetching top dictionary entries from Supabase...');
-        const url = `${SUPABASE_URL}/rest/v1/dictionary_entries?select=pidgin&order=pidgin.asc&limit=150`;
-        const response = await fetch(url, {
-            headers: {
-                'apikey': SUPABASE_SERVICE_ROLE_KEY,
-                'Authorization': `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`
-            }
-        });
+        console.log('📡 Fetching all dictionary entries from Supabase...');
+        const { data, error } = await supabase
+            .from('dictionary_entries')
+            .select('pidgin')
+            .order('pidgin', { ascending: true });
 
-        if (!response.ok) throw new Error(`Supabase error: ${response.status}`);
-        const data = await response.json();
+        if (error) throw error;
         return data.map(item => item.pidgin);
     } catch (error) {
-        console.error('Error fetching entries:', error.message);
+        console.error('❌ Error fetching entries:', error.message);
         return [];
     }
 }
@@ -55,16 +42,16 @@ async function generateAudioFile(text, apiKey) {
     const filepath = path.join(AUDIO_DIR, filename);
 
     // Check if file already exists
-    try {
-        await fs.access(filepath);
-        console.log(`  ✓ Already exists: "${text}"`);
-        return { text: normalizedText, filename };
-    } catch {
-        // File doesn't exist, generate it
+    if (!FORCE_REGEN) {
+        try {
+            await fs.access(filepath);
+            return { text: normalizedText, filename, skipped: true };
+        } catch {
+            // File doesn't exist, proceed to generate
+        }
     }
 
-    const voiceId = 'f0ODjLMfcJmlKfs7dFCW'; // Authentic local voice
-    const url = `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`;
+    const url = `https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}`;
 
     try {
         const response = await fetch(url, {
@@ -93,8 +80,7 @@ async function generateAudioFile(text, apiKey) {
 
         const audioBuffer = Buffer.from(await response.arrayBuffer());
         await fs.writeFile(filepath, audioBuffer);
-        console.log(`  ✨ Generated: "${text}" -> ${filename}`);
-        return { text: normalizedText, filename };
+        return { text: normalizedText, filename, skipped: false };
     } catch (error) {
         console.error(`  ✗ Error generating "${text}":`, error.message);
         return null;
@@ -102,6 +88,9 @@ async function generateAudioFile(text, apiKey) {
 }
 
 async function main() {
+    console.log('🎙️ ChokePidgin Audio Pipeline');
+    console.log('===========================\n');
+
     const apiKey = process.env.ELEVENLABS_API_KEY;
     if (!apiKey) {
         console.error('❌ ELEVENLABS_API_KEY not found in .env');
@@ -111,46 +100,89 @@ async function main() {
     // Ensure audio directory exists
     await fs.mkdir(AUDIO_DIR, { recursive: true });
 
-    const terms = await fetchTopEntries();
-    if (terms.length === 0) {
-        console.log('No terms found to process.');
+    // Load existing index
+    let index = {};
+    try {
+        const indexData = await fs.readFile(INDEX_FILE, 'utf8');
+        index = JSON.parse(indexData);
+        console.log(`📦 Loaded index with ${Object.keys(index).length} terms`);
+    } catch (e) {
+        console.log('📦 No existing index found, creating new one.');
+    }
+
+    const allTerms = await fetchAllEntries();
+    if (allTerms.length === 0) {
+        console.log('❌ No terms found in Supabase.');
         return;
     }
 
-    console.log(`🚀 Starting audio seeding for ${terms.length} terms...\n`);
+    console.log(`🔍 Total terms in Supabase: ${allTerms.length}`);
 
-    const index = {};
-    try {
-        const existingIndex = await fs.readFile(INDEX_FILE, 'utf8');
-        Object.assign(index, JSON.parse(existingIndex));
-    } catch (e) {}
+    // Identify terms that need audio
+    const termsToProcess = allTerms.filter(term => {
+        const normalized = term.trim().toLowerCase();
+        return FORCE_REGEN || !index[normalized];
+    });
+
+    console.log(`✨ Terms needing audio: ${termsToProcess.length}`);
+    
+    if (termsToProcess.length === 0) {
+        console.log('\n✅ All terms already have audio. Use --force to regenerate.');
+        return;
+    }
+
+    const toGenerate = termsToProcess.slice(0, MAX_TO_GENERATE);
+    console.log(`🚀 Processing ${toGenerate.length} terms (Limit: ${MAX_TO_GENERATE})...\n`);
 
     let successCount = 0;
-    
-    // We only process in batches to be safe with rate limits
-    for (let i = 0; i < terms.length; i++) {
-        const term = terms[i];
+    let skipCount = 0;
+
+    for (let i = 0; i < toGenerate.length; i++) {
+        const term = toGenerate[i];
+        process.stdout.write(`  [${i + 1}/${toGenerate.length}] Processing: "${term}"... `);
+        
         const result = await generateAudioFile(term, apiKey);
         
         if (result) {
             index[result.text] = result.filename;
-            successCount++;
+            if (result.skipped) {
+                console.log('Already exists (Indexed)');
+                skipCount++;
+            } else {
+                console.log('Generated! ✨');
+                successCount++;
+            }
+        } else {
+            console.log('FAILED ❌');
         }
 
-        // Small delay to prevent API flooding
-        if (i % 5 === 0) {
+        // Save index every 5 items
+        if ((i + 1) % 5 === 0) {
             await fs.writeFile(INDEX_FILE, JSON.stringify(index, null, 2));
         }
-        await new Promise(resolve => setTimeout(resolve, 200));
+
+        // Rate limiting delay
+        if (!result?.skipped) {
+            await new Promise(resolve => setTimeout(resolve, 500));
+        }
     }
 
     // Final index save
     await fs.writeFile(INDEX_FILE, JSON.stringify(index, null, 2));
     
-    console.log(`\n✅ Audio seeding complete!`);
-    console.log(`📊 Successfully indexed: ${successCount} terms`);
-    console.log(`📂 Audio files stored in: ${AUDIO_DIR}`);
-    console.log(`📄 Index file: ${INDEX_FILE}`);
+    console.log(`\n✅ Audio Pipeline Summary`);
+    console.log('=======================');
+    console.log(`✨ New audio generated: ${successCount}`);
+    console.log(`⏭️  Skipped/Indexed: ${skipCount}`);
+    console.log(`📊 Total now indexed: ${Object.keys(index).length}`);
+    console.log(`📂 Audio stored in: public/assets/audio/`);
+    
+    if (successCount < termsToProcess.length) {
+        console.log(`\n💡 Note: ${termsToProcess.length - successCount - skipCount} terms remain. Run again to process more.`);
+    }
 }
 
-main().catch(console.error);
+main().catch(error => {
+    console.error('\n❌ Fatal Pipeline Error:', error);
+    process.exit(1);
+});
