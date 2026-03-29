@@ -1,0 +1,346 @@
+{
+  "timestamp": "2026-03-29T21:31:26.742Z",
+  "summary": {
+    "total": 1752,
+    "passed": 1587,
+    "failed": 165,
+    "accuracy": "90.6"
+  },
+  "byCategory": {
+    "expressions": {
+      "total": 609,
+      "passed": 557,
+      "failed": 52,
+      "accuracy": "91.5"
+    },
+    "greetings": {
+      "total": 83,
+      "passed": 64,
+      "failed": 19,
+      "accuracy": "77.1"
+    },
+    "food": {
+      "total": 163,
+      "passed": 151,
+      "failed": 12,
+      "accuracy": "92.6"
+    },
+    "nature": {
+      "total": 70,
+      "passed": 70,
+      "failed": 0,
+      "accuracy": "100.0"
+    },
+    "actions": {
+      "total": 77,
+      "passed": 72,
+      "failed": 5,
+      "accuracy": "93.5"
+    },
+    "cultural": {
+      "total": 151,
+      "passed": 145,
+      "failed": 6,
+      "accuracy": "96.0"
+    },
+    "descriptions": {
+      "total": 111,
+      "passed": 87,
+      "failed": 24,
+      "accuracy": "78.4"
+    },
+    "people": {
+      "total": 100,
+      "passed": 94,
+      "failed": 6,
+      "accuracy": "94.0"
+    },
+    "slang": {
+      "total": 259,
+      "passed": 227,
+      "failed": 32,
+      "accuracy": "87.6"
+    },
+    "objects": {
+      "total": 7,
+      "passed": 7,
+      "failed": 0,
+      "accuracy": "100.0"
+    },
+    "emotions": {
+      "total": 29,
+      "passed": 25,
+      "failed": 4,
+      "accuracy": "86.2"
+    },
+    "grammar": {
+      "total": 19,
+      "passed": 18,
+      "failed": 1,
+      "accuracy": "94.7"
+    },
+    "animals": {
+      "total": 16,
+      "passed": 16,
+      "failed": 0,
+      "accuracy": "100.0"
+    },
+    "clothing": {
+      "total": 17,
+      "passed": 15,
+      "failed": 2,
+      "accuracy": "88.2"
+    },
+    "activities": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "accuracy": "100.0"
+    },
+    "games": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "accuracy": "100.0"
+    },
+    "family": {
+      "total": 6,
+      "passed": 5,
+      "failed": 1,
+      "accuracy": "83.3"
+    },
+    "concepts": {
+      "total": 5,
+      "passed": 5,
+      "failed": 0,
+      "accuracy": "100.0"
+    },
+    "places": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "accuracy": "100.0"
+    },
+    "architecture": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "accuracy": "100.0"
+    },
+    "directions": {
+      "total": 8,
+      "passed": 7,
+      "failed": 1,
+      "accuracy": "87.5"
+    },
+    "numbers": {
+      "total": 4,
+      "passed": 4,
+      "failed": 0,
+      "accuracy": "100.0"
+    },
+    "questions": {
+      "total": 10,
+      "passed": 10,
+      "failed": 0,
+      "accuracy": "100.0"
+    }
+  },
+  "byType": {
+    "english-to-pidgin": {
+      "total": 1092,
+      "passed": 927,
+      "failed": 165,
+      "accuracy": "84.9"
+    },
+    "pidgin-to-english": {
+      "total": 660,
+      "passed": 660,
+      "failed": 0,
+      "accuracy": "100.0"
+    }
+  },
+  "suggestions": [],
+  "topFailures": [
+    {
+      "type": "english-to-pidgin",
+      "input": "friend",
+      "expected": "cuz",
+      "actual": "brah",
+      "category": "expressions",
+      "score": 0,
+      "reason": "Only 0% similar"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "excellent",
+      "expected": "da bomb",
+      "actual": "choice",
+      "category": "slang",
+      "score": 0,
+      "reason": "Only 0% similar"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "for sure",
+      "expected": "garanz",
+      "actual": "fosho",
+      "category": "expressions",
+      "score": 0,
+      "reason": "Only 0% similar"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "for sure",
+      "expected": "guaranz",
+      "actual": "fosho",
+      "category": "expressions",
+      "score": 0,
+      "reason": "Only 0% similar"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "definitely",
+      "expected": "gueren-tee",
+      "actual": "fosho",
+      "category": "expressions",
+      "score": 0,
+      "reason": "Only 0% similar"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "for sure",
+      "expected": "gueren-tee",
+      "actual": "fosho",
+      "category": "expressions",
+      "score": 0,
+      "reason": "Only 0% similar"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "was",
+      "expected": "had",
+      "actual": "bin",
+      "category": "grammar",
+      "score": 0,
+      "reason": "Only 0% similar"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "broken",
+      "expected": "hamajang",
+      "actual": "buss",
+      "category": "slang",
+      "score": 0,
+      "reason": "Only 0% similar"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "angry",
+      "expected": "huhu",
+      "actual": "all salty",
+      "category": "emotions",
+      "score": 0,
+      "reason": "Only 0% similar"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "Japanese person",
+      "expected": "japanee",
+      "actual": "bobora",
+      "category": "slang",
+      "score": 0,
+      "reason": "Only 0% similar"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "bad",
+      "expected": "junk",
+      "actual": "dirty",
+      "category": "slang",
+      "score": 0,
+      "reason": "Only 0% similar"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "man",
+      "expected": "kāne",
+      "actual": "brah",
+      "category": "people",
+      "score": 0,
+      "reason": "Only 0% similar"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "broken",
+      "expected": "kaput",
+      "actual": "buss",
+      "category": "slang",
+      "score": 0,
+      "reason": "Only 0% similar"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "to eat",
+      "expected": "kaukau",
+      "actual": "grind",
+      "category": "food",
+      "score": 0,
+      "reason": "Only 0% similar"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "feces",
+      "expected": "kukae",
+      "actual": "doo doo",
+      "category": "cultural",
+      "score": 0,
+      "reason": "Only 0% similar"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "see you later",
+      "expected": "latahs",
+      "actual": "I spock you bumbye",
+      "category": "greetings",
+      "score": 0,
+      "reason": "Only 0% similar"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "later",
+      "expected": "latahz",
+      "actual": "bumbai",
+      "category": "greetings",
+      "score": 0,
+      "reason": "Only 0% similar"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "see you later",
+      "expected": "laters",
+      "actual": "I spock you bumbye",
+      "category": "greetings",
+      "score": 0,
+      "reason": "Only 0% similar"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "goodbye",
+      "expected": "laters",
+      "actual": "a hui hou",
+      "category": "greetings",
+      "score": 0,
+      "reason": "Only 0% similar"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "party",
+      "expected": "lū'au",
+      "actual": "fest",
+      "category": "cultural",
+      "score": 0,
+      "reason": "Only 0% similar"
+    }
+  ]
+}

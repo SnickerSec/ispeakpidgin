@@ -23,9 +23,42 @@ npm run dev
 
 ### Testing and Deployment
 ```bash
+# Run translator validation (comprehensive)
+npm test
+
+# Run Phase 2 & 3 validation (grammar/stories)
+npm run test:translator
+
+# Generate individual word pages from Supabase
+npm run generate:pages
+
+# Generate sitemap from all Supabase content
+npm run generate:sitemap
+
 # Create deployment package
 ./scripts/deploy.sh
 ```
+
+### Data Maintenance
+```bash
+# Add missing terms from /tmp/missing-terms.json to Supabase
+npm run data:add-missing
+
+# Apply improvements from /tmp/enhanced_final_recommendations.json to Supabase
+npm run data:improve
+```
+
+## Maintenance & Tools
+
+### Dictionary Maintenance
+The project includes specialized tools for maintaining the Supabase dictionary:
+- **`npm run data:add-missing`**: Reads from `/tmp/missing-terms.json` and inserts new, non-duplicate entries into the `dictionary_entries` table. Automatically handles UUID generation and array formatting for English meanings.
+- **`npm run data:improve`**: Reads from `/tmp/enhanced_final_recommendations.json` and applies targeted updates (pronunciation, category) to existing dictionary entries by ID.
+
+### SEO & Generators
+Static page generators fetch live data from Supabase to ensure SEO content is always up-to-date:
+- **`npm run generate:pages`**: Generates 600+ individual SEO-optimized HTML pages in `public/word/` for every dictionary entry.
+- **`npm run generate:sitemap`**: Rebuilds `public/sitemap.xml` including all dictionary words, phrases, and stories.
 
 ## Architecture Overview
 
