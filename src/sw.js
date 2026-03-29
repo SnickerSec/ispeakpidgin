@@ -1,22 +1,29 @@
-const CACHE_NAME = 'chokepidgin-v1';
-const ASSETS = [
+const CACHE_NAME = 'chokepidgin-v2';
+const STATIC_ASSETS = [
   '/',
   '/index.html',
+  '/dictionary.html',
+  '/translator.html',
+  '/learning-hub.html',
+  '/phrases.html',
   '/css/tailwind.css',
   '/css/main.css',
   '/js/components/main.js',
   '/js/components/navigation.js',
+  '/js/components/dictionary-cache.js',
+  '/js/components/supabase-data-loader.js',
   '/android-chrome-192x192.png',
   '/android-chrome-512x512.png',
-  '/favicon.svg'
+  '/favicon.svg',
+  'https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css'
 ];
 
 // Install Event - Cache essential assets
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('SW: Caching essential assets');
-      return cache.addAll(ASSETS);
+      console.log('SW: Pre-caching App Shell');
+      return cache.addAll(STATIC_ASSETS);
     })
   );
   self.skipWaiting();
@@ -29,6 +36,7 @@ self.addEventListener('activate', (event) => {
       return Promise.all(
         keys.map((key) => {
           if (key !== CACHE_NAME) {
+            console.log('SW: Removing old cache', key);
             return caches.delete(key);
           }
         })
@@ -38,29 +46,37 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Fetch Event - Network first, fallback to cache
+// Fetch Event handling
 self.addEventListener('fetch', (event) => {
-  // Skip cross-origin requests
-  if (!event.request.url.startsWith(self.location.origin)) return;
+  const { request } = event;
+  const url = new URL(request.url);
 
-  // Skip API requests (always live)
-  if (event.request.url.includes('/api/')) return;
+  // 1. API Requests - Network Only (handled by SupabaseDataLoader + IndexedDB)
+  if (url.pathname.startsWith('/api/')) {
+    return; // Let it go to network
+  }
 
+  // 2. Static Assets & Pages - Stale-While-Revalidate
+  // Fast load from cache, update in background
   event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        // Cache successful responses for future offline use
-        if (response.status === 200 && event.request.method === 'GET') {
-          const responseClone = response.clone();
+    caches.match(request).then((cachedResponse) => {
+      const fetchPromise = fetch(request).then((networkResponse) => {
+        // Only cache successful GET requests
+        if (networkResponse && networkResponse.status === 200 && request.method === 'GET') {
+          const responseClone = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseClone);
+            cache.put(request, responseClone);
           });
         }
-        return response;
-      })
-      .catch(() => {
-        // If network fails, try cache
-        return caches.match(event.request);
-      })
+        return networkResponse;
+      }).catch(() => {
+        // Fallback for navigation requests
+        if (request.mode === 'navigate') {
+          return caches.match('/index.html');
+        }
+      });
+
+      return cachedResponse || fetchPromise;
+    })
   );
 });
