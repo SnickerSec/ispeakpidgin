@@ -237,3 +237,6 @@ Respond only with a JSON object:
                 res.status(500).json({ error: 'Internal server error' });
             }
         });
+
+    return router;
+};
