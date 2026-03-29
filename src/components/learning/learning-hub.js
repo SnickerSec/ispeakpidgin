@@ -70,17 +70,36 @@ class LearningHub {
     }
 
     init() {
+        // Ensure practice data is loaded
+        if (!window.practiceData && typeof PracticeData !== 'undefined') {
+            window.practiceData = new PracticeData();
+        }
+
         this.setupEventListeners();
         this.loadLessons();
         this.updateProgress();
         this.loadDailyChallenge();
         this.updateAchievements();
+        this.updateReviewCount();
 
         // Listen for API lessons data
         window.addEventListener('lessonsLoaded', (e) => {
             this.lessons = this.initializeLessons();
             this.loadLessons();
         });
+    }
+
+    updateReviewCount() {
+        const reviewCountEl = document.getElementById('reviewCount');
+        if (!reviewCountEl || !window.practiceData) return;
+
+        const dueWords = window.practiceData.getWordsForReview(100);
+        if (dueWords.length > 0) {
+            reviewCountEl.textContent = `${dueWords.length} words due`;
+            reviewCountEl.classList.remove('hidden');
+        } else {
+            reviewCountEl.classList.add('hidden');
+        }
     }
 
     setupEventListeners() {
@@ -96,6 +115,30 @@ class LearningHub {
         const startPracticeBtn = document.getElementById('startPractice');
         if (startPracticeBtn) {
             startPracticeBtn.addEventListener('click', () => this.startPracticeSession());
+        }
+
+        // Smart Review button
+        const smartReviewBtn = document.getElementById('smartReview');
+        if (smartReviewBtn) {
+            smartReviewBtn.addEventListener('click', () => this.startSmartReview());
+        }
+    }
+
+    startSmartReview() {
+        if (!window.practiceData) return;
+
+        const dueWords = window.practiceData.getWordsForReview(15);
+        
+        if (dueWords.length === 0) {
+            this.showNotification('🎉 No words due for review! Check back later.');
+            return;
+        }
+
+        if (window.practiceSession) {
+            // Pick a random due word to start with, but the session should ideally handle multiple
+            window.practiceSession.start(dueWords[0], 'quiz');
+        } else {
+            this.showNotification('Practice system not loaded.');
         }
     }
 

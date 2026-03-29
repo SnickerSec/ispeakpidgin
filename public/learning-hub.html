@@ -358,13 +358,26 @@
     <!-- Interactive Practice Section -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="bg-white rounded-lg shadow-lg p-6">
-            <h2 class="text-2xl font-bold mb-4">Quick Practice</h2>
-            <div id="practiceArea" class="space-y-4">
-                <div class="bg-gray-50 rounded-lg p-4">
-                    <p class="text-gray-600 mb-2">Today's Challenge:</p>
-                    <p class="text-lg font-semibold mb-4" id="dailyChallenge">Loading...</p>
-                    <button id="startPractice" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">
-                        Start Practice Session
+            <h2 class="text-2xl font-bold mb-4">Interactive Practice</h2>
+            <div id="practiceArea" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-gray-50 rounded-lg p-6 border-2 border-transparent hover:border-purple-200 transition">
+                    <div class="flex items-center gap-3 mb-2">
+                        <p class="text-gray-600">Today's Challenge:</p>
+                    </div>
+                    <p class="text-lg font-semibold mb-6" id="dailyChallenge">Loading...</p>
+                    <button id="startPractice" class="w-full bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition font-bold flex items-center justify-center gap-2">
+                        <i class="ti ti-target"></i> Start Level Practice
+                    </button>
+                </div>
+
+                <div class="bg-gradient-to-br from-orange-50 to-red-50 rounded-lg p-6 border-2 border-orange-100 hover:border-orange-200 transition">
+                    <div class="flex justify-between items-center mb-2">
+                        <p class="text-orange-800 font-medium">Smart SRS Review</p>
+                        <span id="reviewCount" class="hidden bg-orange-500 text-white text-xs px-2 py-1 rounded-full font-bold animate-pulse">0 words due</span>
+                    </div>
+                    <p class="text-sm text-orange-700 mb-6 italic">Practice the words you are most likely to forget based on your history.</p>
+                    <button id="smartReview" class="w-full bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition font-bold flex items-center justify-center gap-2">
+                        <i class="ti ti-flame"></i> Start Smart Review
                     </button>
                 </div>
             </div>

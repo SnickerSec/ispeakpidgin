@@ -56,6 +56,7 @@
         // Refresh buttons
         document.getElementById('refreshSettingsBtn')?.addEventListener('click', refreshSettings);
         document.getElementById('refreshAuditLogBtn')?.addEventListener('click', loadAuditLog);
+        document.getElementById('refreshGapsBtn')?.addEventListener('click', loadSearchGaps);
 
         // Save all settings
         document.getElementById('saveAllSettingsBtn')?.addEventListener('click', saveAllSettings);
@@ -63,6 +64,25 @@
 
     // Event delegation for dynamically created elements
     function setupEventDelegation() {
+        // Gaps container - handle quick-add buttons
+        document.getElementById('gapsContainer')?.addEventListener('click', function(e) {
+            const target = e.target.closest('button');
+            if (!target) return;
+
+            if (target.dataset.action === 'quick-add') {
+                const pidgin = target.dataset.pidgin;
+                const row = target.closest('tr');
+                const english = row.querySelector('.gap-english-input')?.value;
+                const category = row.querySelector('.gap-category-select')?.value;
+
+                if (!english) {
+                    showToast('Please enter an English translation', 'warning');
+                    return;
+                }
+
+                addGapToDictionary(pidgin, english, category, target);
+            }
+        });
         // API Keys container - handle toggle visibility, test, and save buttons
         document.getElementById('apiKeysContainer')?.addEventListener('click', function(e) {
             const target = e.target.closest('button');
@@ -219,6 +239,116 @@
         // Load tab-specific data
         if (tabId === 'audit-log') {
             loadAuditLog();
+        } else if (tabId === 'gaps') {
+            loadSearchGaps();
+        }
+    }
+
+    // Search Gaps
+    async function loadSearchGaps() {
+        const container = document.getElementById('gapsContainer');
+        const refreshBtn = document.getElementById('refreshGapsBtn');
+
+        if (refreshBtn) {
+            refreshBtn.disabled = true;
+            refreshBtn.innerHTML = '<span class="spinner"></span> Scanning...';
+        }
+
+        try {
+            const response = await fetch('/api/admin/seo/gaps', {
+                headers: { 'Authorization': `Bearer ${authToken}` }
+            });
+
+            if (!response.ok) throw new Error('Failed to fetch content gaps');
+
+            const data = await response.json();
+
+            if (!data.gaps || data.gaps.length === 0) {
+                container.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="px-6 py-12 text-center text-gray-500">
+                            No content gaps found! You are covering everything.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            container.innerHTML = data.gaps.map(gap => `
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="font-medium text-gray-900">${gap.pidgin}</div>
+                        <div class="text-xs text-gray-500">Position: ${gap.position}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        ${gap.impressions}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        ${gap.ctr}
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex gap-2">
+                            <input type="text" placeholder="English meaning" 
+                                   class="gap-english-input flex-1 px-3 py-1 text-sm border rounded">
+                            <select class="gap-category-select px-2 py-1 text-sm border rounded">
+                                <option value="general">General</option>
+                                <option value="slang">Slang</option>
+                                <option value="food">Food</option>
+                                <option value="greetings">Greetings</option>
+                                <option value="locations">Locations</option>
+                            </select>
+                            <button data-action="quick-add" data-pidgin="${gap.pidgin}"
+                                    class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition">
+                                Add
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+
+        } catch (error) {
+            container.innerHTML = `
+                <tr>
+                    <td colspan="4" class="px-6 py-12 text-center text-red-500">
+                        Error loading gaps: ${error.message}
+                    </td>
+                </tr>
+            `;
+        } finally {
+            if (refreshBtn) {
+                refreshBtn.disabled = false;
+                refreshBtn.textContent = 'Scan for Gaps';
+            }
+        }
+    }
+
+    async function addGapToDictionary(pidgin, english, category, button) {
+        button.disabled = true;
+        button.innerHTML = '<span class="spinner spinner-white"></span>';
+
+        try {
+            const response = await fetch('/api/admin/dictionary/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authToken}`
+                },
+                body: JSON.stringify({ pidgin, english, category })
+            });
+
+            if (!response.ok) throw new Error('Failed to add entry');
+
+            showToast(`Added "${pidgin}" to dictionary`, 'success');
+            
+            // Remove the row
+            const row = button.closest('tr');
+            row.style.opacity = '0';
+            setTimeout(() => row.remove(), 300);
+
+        } catch (error) {
+            showToast('Error: ' + error.message, 'error');
+            button.disabled = false;
+            button.textContent = 'Add';
         }
     }
 

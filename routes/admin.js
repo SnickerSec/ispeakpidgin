@@ -251,5 +251,128 @@ module.exports = function(supabaseAdmin, adminAuth, settingsManager, adminLoginL
         }
     });
 
+    // SEO Content Gaps API
+    router.get('/seo/gaps', adminAuth.requireAdminAuth, async (req, res) => {
+        if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
+        
+        try {
+            // Logic adapted from feedback-loop.js
+            const { GoogleAuth } = require('google-auth-library');
+            const fs = require('fs');
+            const KEY_PATH = process.env.GOOGLE_SEARCH_CONSOLE_KEY_PATH || './google-search-console-key.json';
+            const SITE_URL = process.env.SITE_URL || 'sc-domain:chokepidgin.com';
+
+            if (!fs.existsSync(KEY_PATH)) {
+                return res.status(500).json({ error: 'Search Console key file missing' });
+            }
+
+            const auth = new GoogleAuth({
+                keyFile: KEY_PATH,
+                scopes: ['https://www.googleapis.com/auth/webmasters.readonly']
+            });
+
+            const client = await auth.getClient();
+            const encodedSiteUrl = encodeURIComponent(SITE_URL);
+            const url = `https://searchconsole.googleapis.com/webmasters/v3/sites/${encodedSiteUrl}/searchAnalytics/query`;
+
+            const endDate = new Date();
+            endDate.setDate(endDate.getDate() - 3);
+            const startDate = new Date(endDate);
+            startDate.setDate(startDate.getDate() - 28);
+
+            const requestBody = {
+                startDate: startDate.toISOString().split('T')[0],
+                endDate: endDate.toISOString().split('T')[0],
+                dimensions: ['query'],
+                rowLimit: 1000,
+                orderBy: [{ fieldName: 'impressions', sortOrder: 'DESCENDING' }]
+            };
+
+            const scRes = await client.request({ url, method: 'POST', data: requestBody });
+            const scQueries = scRes.data.rows || [];
+
+            // Get existing terms
+            const { data: existing, error: dictErr } = await supabaseAdmin
+                .from('dictionary_entries')
+                .select('pidgin');
+            
+            if (dictErr) throw dictErr;
+            const existingSet = new Set(existing.map(item => item.pidgin.toLowerCase()));
+
+            const gaps = [];
+            scQueries.forEach(row => {
+                const query = row.keys[0].toLowerCase();
+                let term = query;
+                const meanRegex = /what does (.*) mean/i;
+                const meaningRegex = /(.*) meaning/i;
+
+                if (meanRegex.test(query)) term = query.match(meanRegex)[1];
+                else if (meaningRegex.test(query)) term = query.match(meaningRegex)[1];
+
+                term = term.trim().replace(/[?!]/g, '');
+
+                if (term.length > 2 && !existingSet.has(term) && row.impressions > 10) {
+                    gaps.push({
+                        pidgin: term,
+                        impressions: row.impressions,
+                        clicks: row.clicks,
+                        ctr: (row.ctr * 100).toFixed(1) + '%',
+                        position: row.position.toFixed(1)
+                    });
+                }
+            });
+
+            res.json({ gaps: gaps.slice(0, 50) });
+        } catch (error) {
+            console.error('SEO gaps error:', error);
+            res.status(500).json({ error: 'Failed to fetch SEO gaps' });
+        }
+    });
+
+    // Quick Add Dictionary Entry
+    router.post('/dictionary/add', adminAuth.requireAdminAuth, [
+        body('pidgin').trim().notEmpty(),
+        body('english').trim().notEmpty(),
+        body('category').trim().notEmpty()
+    ], async (req, res) => {
+        if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+
+        try {
+            const { pidgin, english, category, examples = [], pronunciation = '' } = req.body;
+            const crypto = require('crypto');
+
+            const { data, error } = await supabaseAdmin
+                .from('dictionary_entries')
+                .insert([{
+                    id: crypto.randomUUID(),
+                    pidgin,
+                    english: [english],
+                    category,
+                    examples: examples.length > 0 ? examples : [`${pidgin} stay ${english}`],
+                    pronunciation,
+                    difficulty: 'beginner',
+                    frequency: 'medium'
+                }])
+                .select();
+
+            if (error) throw error;
+
+            await adminAuth.logAuditAction({ 
+                userId: req.adminUser.id, 
+                username: req.adminUser.username, 
+                action: 'ADD_DICTIONARY_ENTRY', 
+                resource: pidgin, 
+                req 
+            });
+
+            res.json({ success: true, entry: data[0] });
+        } catch (error) {
+            console.error('Add entry error:', error);
+            res.status(500).json({ error: 'Failed to add entry' });
+        }
+    });
+
     return router;
 };
