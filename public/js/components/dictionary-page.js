@@ -140,10 +140,10 @@ function setupAlphabetBrowser() {
         const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
         alphabetBrowser.innerHTML = alphabet.map(letter => {
             const count = getLetterCount(letter);
-            return `<button class="alphabet-btn px-3 py-2 bg-gray-100 hover:bg-yellow-200 rounded-lg transition font-semibold text-sm ${count === 0 ? 'opacity-50 cursor-not-allowed' : ''}"
+            return `<button class="alphabet-btn px-2 py-1 bg-gray-100 hover:bg-yellow-200 rounded-lg transition font-semibold text-xs ${count === 0 ? 'opacity-50 cursor-not-allowed' : ''}"
                      data-letter="${letter}"
                      ${count === 0 ? 'disabled' : ''}>
-                     ${letter}<span class="text-xs block">${count}</span>
+                     ${letter}<span class="text-[10px] block opacity-70">${count}</span>
                    </button>`;
         }).join('');
 
