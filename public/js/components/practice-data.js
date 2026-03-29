@@ -87,6 +87,9 @@ class PracticeData {
                 masteryLevel: 0, // 0-5 scale
                 streakCount: 0,
                 averageTime: 0,
+                efactor: 2.5, // SM-2 Easiness Factor (starts at 2.5)
+                repetitionCount: 0, // Number of successful consecutive repetitions
+                interval: 0, // Current interval in days
                 practiceHistory: []
             };
         }
@@ -94,21 +97,45 @@ class PracticeData {
         const wordData = this.data.words[wordId];
         const now = new Date().toISOString();
 
+        // Ensure new SM-2 fields exist for old data
+        if (wordData.efactor === undefined) wordData.efactor = 2.5;
+        if (wordData.repetitionCount === undefined) wordData.repetitionCount = wordData.streakCount || 0;
+        if (wordData.interval === undefined) wordData.interval = 0;
+
         // Update practice stats
         wordData.lastPracticed = now;
+        
+        // Calculate quality score (0-5) for SM-2
+        // 5: perfect response
+        // 4: correct response after a hesitation
+        // 3: correct response recalled with serious difficulty
+        // 2: incorrect response; where the correct one seemed easy to recall
+        // 1: incorrect response; the correct one remembered
+        // 0: complete blackout.
+        
+        let quality;
         if (correct) {
+            // Adjust quality based on timeTaken if available
+            if (timeTaken !== null && wordData.averageTime > 0) {
+                if (timeTaken < wordData.averageTime * 0.8) quality = 5;
+                else if (timeTaken < wordData.averageTime * 1.2) quality = 4;
+                else quality = 3;
+            } else {
+                quality = 4; // Default correct quality
+            }
+            
             wordData.timesCorrect++;
             wordData.streakCount++;
-            // Decrease difficulty if getting easier
-            if (wordData.streakCount >= 3 && wordData.difficulty > 1) {
-                wordData.difficulty = Math.max(1, wordData.difficulty - 0.5);
-            }
+            wordData.repetitionCount++;
         } else {
+            quality = 1; // Default incorrect quality
             wordData.timesIncorrect++;
             wordData.streakCount = 0;
-            // Increase difficulty if struggling
-            wordData.difficulty = Math.min(5, wordData.difficulty + 0.5);
+            wordData.repetitionCount = 0; // Reset consecutive repetitions on failure
         }
+
+        // Update efactor: EF' = EF + (0.1 - (5 - q) * (0.08 + (5 - q) * 0.02))
+        wordData.efactor = Math.max(1.3, wordData.efactor + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02)));
 
         // Update average time
         if (timeTaken !== null) {
@@ -121,13 +148,13 @@ class PracticeData {
             }
         }
 
-        // Calculate mastery level (0-5)
+        // Calculate mastery level (0-5) based on efactor and accuracy
         const totalAttempts = wordData.timesCorrect + wordData.timesIncorrect;
         const accuracy = totalAttempts > 0 ? wordData.timesCorrect / totalAttempts : 0;
 
-        if (accuracy >= 0.9 && wordData.timesCorrect >= 3) {
+        if (wordData.efactor > 2.4 && wordData.repetitionCount >= 4) {
             wordData.masteryLevel = 5; // Mastered
-        } else if (accuracy >= 0.8 && wordData.timesCorrect >= 2) {
+        } else if (wordData.repetitionCount >= 2) {
             wordData.masteryLevel = 4; // Strong
         } else if (accuracy >= 0.7) {
             wordData.masteryLevel = 3; // Good
@@ -139,15 +166,25 @@ class PracticeData {
             wordData.masteryLevel = 0; // New
         }
 
-        // Calculate next review date (spaced repetition)
-        wordData.nextReview = this.calculateNextReview(wordData.difficulty, correct);
+        // Update difficulty (inverse of efactor, scaled 1-5)
+        // efactor 1.3 (hardest) -> difficulty 5
+        // efactor 2.5 (avg) -> difficulty 3
+        // efactor 3.5+ (easiest) -> difficulty 1
+        wordData.difficulty = Math.max(1, Math.min(5, 5 - (wordData.efactor - 1.3) * 1.6));
+
+        // Calculate next review date using SM-2
+        const result = this.calculateNextReview(wordData, quality);
+        wordData.nextReview = result.nextReview;
+        wordData.interval = result.interval;
 
         // Add to practice history
         wordData.practiceHistory.push({
             date: now,
             correct: correct,
             difficulty: difficulty,
-            timeTaken: timeTaken
+            timeTaken: timeTaken,
+            quality: quality,
+            efactor: wordData.efactor
         });
 
         // Keep only last 50 practice attempts
@@ -158,28 +195,32 @@ class PracticeData {
         this.saveData();
     }
 
-    // Calculate next review date using simplified spaced repetition
-    calculateNextReview(difficulty, correct) {
-        const now = new Date();
-        let daysToAdd;
+    // Calculate next review date using SM-2 algorithm
+    calculateNextReview(wordData, quality) {
+        let interval;
+        const n = wordData.repetitionCount;
+        const ef = wordData.efactor;
 
-        if (correct) {
-            // Success: longer intervals based on difficulty (easier = longer gap)
-            switch(Math.floor(difficulty)) {
-                case 1: daysToAdd = 7; break;   // Easy: 1 week
-                case 2: daysToAdd = 5; break;   // Medium-easy: 5 days
-                case 3: daysToAdd = 3; break;   // Medium: 3 days
-                case 4: daysToAdd = 2; break;   // Medium-hard: 2 days
-                case 5: daysToAdd = 1; break;   // Hard: 1 day
-                default: daysToAdd = 3; break;
-            }
+        if (quality < 3) {
+            // If quality is low, reset interval but keep efactor
+            interval = 1;
         } else {
-            // Failure: review sooner
-            daysToAdd = 0.5; // 12 hours
+            if (n === 1) {
+                interval = 1;
+            } else if (n === 2) {
+                interval = 6;
+            } else {
+                interval = Math.round(wordData.interval * ef);
+            }
         }
 
-        const nextReview = new Date(now.getTime() + (daysToAdd * 24 * 60 * 60 * 1000));
-        return nextReview.toISOString();
+        const now = new Date();
+        const nextReview = new Date(now.getTime() + (interval * 24 * 60 * 60 * 1000));
+        
+        return {
+            nextReview: nextReview.toISOString(),
+            interval: interval
+        };
     }
 
     // Get word difficulty (1-5 scale)

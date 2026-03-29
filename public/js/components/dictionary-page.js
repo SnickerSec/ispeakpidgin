@@ -213,11 +213,48 @@ const ENTRIES_PER_PAGE = 48; // 4 columns x 12 rows = nice grid
 let currentEntries = [];
 let isLoadingMore = false;
 
+// Helper to get mastery indicator HTML
+function getMasteryHtml(wordKey) {
+    if (!window.practiceData) return '';
+    
+    const mastery = window.practiceData.getWordMastery(wordKey);
+    if (mastery === 0) return ''; // Don't show anything for unpracticed words
+
+    const colors = [
+        'bg-gray-200',    // 0: New
+        'bg-red-400',     // 1: Struggling
+        'bg-orange-400',  // 2: Learning
+        'bg-yellow-400',  // 3: Good
+        'bg-green-400',   // 4: Strong
+        'bg-blue-500'     // 5: Mastered
+    ];
+
+    const labels = ['New', 'Struggling', 'Learning', 'Good', 'Strong', 'Mastered'];
+    const color = colors[mastery] || colors[0];
+    const label = labels[mastery] || labels[0];
+
+    return `
+        <div class="flex items-center gap-2 mt-2 mb-3" title="Mastery Level: ${label}">
+            <div class="flex gap-0.5">
+                ${[1, 2, 3, 4, 5].map(i => `
+                    <div class="w-2.5 h-2.5 rounded-full ${i <= mastery ? color : 'bg-gray-200'}"></div>
+                `).join('')}
+            </div>
+            <span class="text-[10px] uppercase font-bold tracking-wider text-gray-500">${label}</span>
+        </div>
+    `;
+}
+
 // Display search results with pagination
 function displayResults(entries, append = false) {
     const grid = document.getElementById('dictionary-grid');
     const loadingState = document.getElementById('loading-state');
     const noResults = document.getElementById('no-results');
+
+    // Ensure practice data is loaded for mastery indicators
+    if (!window.practiceData && typeof PracticeData !== 'undefined') {
+        window.practiceData = new PracticeData();
+    }
 
     // Hide loading state
     if (loadingState) loadingState.style.display = 'none';
@@ -252,6 +289,7 @@ function displayResults(entries, append = false) {
         const exampleText = Array.isArray(entry.examples) ? entry.examples[0] || entry.example || '' : entry.example || '';
         const pronunciationText = entry.pronunciation || '';
         const audioText = entry.audioExample || exampleText;
+        const masteryHtml = getMasteryHtml(entry.key || entry.id);
 
         // Create slug for individual entry page
         const slug = entry.pidgin.toLowerCase()
@@ -263,12 +301,14 @@ function displayResults(entries, append = false) {
         return `
         <div class="dictionary-entry-card bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer border-l-4 border-transparent"
              data-word="${entry.key}">
-            <div class="flex justify-between items-start mb-3">
+            <div class="flex justify-between items-start mb-1">
                 <a href="${entryPageUrl}" class="text-xl font-bold text-purple-700 hover:text-purple-900 transition">${entry.pidgin}</a>
                 <span class="text-xs px-3 py-1 bg-purple-100 text-purple-600 rounded-full font-medium">
                     ${entry.category}
                 </span>
             </div>
+
+            ${masteryHtml}
 
             <p class="text-gray-700 mb-3 font-medium">${englishText}</p>
 

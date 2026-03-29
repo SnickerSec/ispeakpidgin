@@ -178,6 +178,28 @@ class LearningHub {
 
         const content = lesson.content || { vocabulary: [], examples: [] };
 
+        // Ensure practice data is loaded for mastery indicators
+        if (!window.practiceData && typeof PracticeData !== 'undefined') {
+            window.practiceData = new PracticeData();
+        }
+
+        const getMasteryHtml = (word) => {
+            if (!window.practiceData) return '';
+            const mastery = window.practiceData.getWordMastery(word);
+            if (mastery === 0) return '';
+
+            const colors = ['bg-gray-200', 'bg-red-400', 'bg-orange-400', 'bg-yellow-400', 'bg-green-400', 'bg-blue-500'];
+            const color = colors[mastery] || colors[0];
+
+            return `
+                <div class="flex gap-0.5 mt-1">
+                    ${[1, 2, 3, 4, 5].map(i => `
+                        <div class="w-1.5 h-1.5 rounded-full ${i <= mastery ? color : 'bg-gray-200'}"></div>
+                    `).join('')}
+                </div>
+            `;
+        };
+
         modal.innerHTML = `
             <div class="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
                 <div class="p-6">
@@ -194,9 +216,14 @@ class LearningHub {
                                     <div class="bg-gray-50 rounded-lg p-3">
                                         <div class="flex justify-between items-center">
                                             <div>
-                                                <span class="font-bold text-purple-600">${escapeHtml(item.pidgin)}</span>
-                                                <span class="mx-2">→</span>
-                                                <span>${escapeHtml(item.english)}</span>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="font-bold text-purple-600">${escapeHtml(item.pidgin)}</span>
+                                                    ${getMasteryHtml(item.pidgin)}
+                                                </div>
+                                                <div class="text-sm">
+                                                    <span class="text-gray-400">→</span>
+                                                    <span>${escapeHtml(item.english)}</span>
+                                                </div>
                                             </div>
                                             <span class="text-sm text-gray-500">[${escapeHtml(item.pronunciation)}]</span>
                                         </div>
