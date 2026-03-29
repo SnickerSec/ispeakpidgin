@@ -1,5 +1,5 @@
-// Supabase Data Loader - Optimized Version
-// Single-request loading with client-side caching
+// Supabase Data Loader - Optimized Version with IndexedDB Caching
+// Single-request loading with persistent client-side caching
 class SupabaseDataLoader {
     constructor() {
         this.data = null;
@@ -14,17 +14,19 @@ class SupabaseDataLoader {
         this.categories = [];
 
         // Cache configuration
-        this.cacheKey = 'pidgin_dictionary_cache';
-        this.cacheVersion = 'v2';
-        this.cacheTTL = 5 * 60 * 1000; // 5 minutes client-side cache
-
+        this.cacheKey = 'pidgin_dictionary_master';
+        this.cacheVersion = 'v3'; // Upgraded to v3 for IndexedDB
+        
         // Backward compatibility
         this.isNewSystem = true;
         this.legacyMode = false;
         this.viewType = 'dictionary';
     }
 
-    // Main initialization - loads from cache or API
+    /**
+     * Main initialization - loads from cache or API
+     * Optimized for instant start from persistent cache
+     */
     async autoLoad() {
         // If already loaded, return immediately
         if (this.loaded) {
@@ -50,46 +52,86 @@ class SupabaseDataLoader {
     async _doLoad() {
         const startTime = performance.now();
 
-        // Try to load from sessionStorage cache first
-        const cached = this._getFromCache();
+        // 1. Try to load from persistent IndexedDB cache first (instant)
+        const cached = await this._getFromCache();
+        
         if (cached) {
+            console.log(`📦 Loaded from persistent cache in ${Math.round(performance.now() - startTime)}ms`);
             this._hydrateFromCache(cached);
+            
+            // Background sync check (don't block the UI)
+            this._syncWithServer(cached.stats?.lastUpdated);
+            
             return this.data;
         }
 
-        // Load from API (single request)
+        // 2. No cache found, load from API (first time or cache cleared)
+        console.log('📡 No cache found, fetching from API...');
         await this.loadFromSupabase();
         return this.data;
     }
 
-    // Check sessionStorage cache
-    _getFromCache() {
+    /**
+     * Checks if server has newer data and updates if needed
+     * @param {string} cachedLastUpdated - Timestamp of local cache
+     */
+    async _syncWithServer(cachedLastUpdated) {
         try {
-            const cacheData = sessionStorage.getItem(this.cacheKey);
-            if (!cacheData) return null;
+            // Check stats endpoint for latest update timestamp
+            const response = await fetch(`${this.apiBaseUrl}/stats`);
+            if (!response.ok) return;
+            
+            const stats = await response.json();
+            const serverLastUpdated = stats.lastUpdated;
 
-            const parsed = JSON.parse(cacheData);
+            // If server has newer data, re-fetch everything in background
+            if (serverLastUpdated && cachedLastUpdated !== serverLastUpdated) {
+                console.log('🔄 Server has newer data, updating cache...');
+                await this.loadFromSupabase();
+                // Dispatch event so UI can refresh if it wants to
+                window.dispatchEvent(new Event('pidginDataUpdated'));
+            }
+        } catch (e) {
+            console.warn('Sync check failed (likely offline):', e.message);
+        }
+    }
 
-            // Check version and TTL
-            if (parsed.version !== this.cacheVersion) return null;
-            if (Date.now() - parsed.timestamp > this.cacheTTL) return null;
+    // Check IndexedDB cache
+    async _getFromCache() {
+        try {
+            if (!window.dictionaryCache) {
+                console.warn('DictionaryCache not initialized');
+                return null;
+            }
 
-            return parsed.data;
+            const cached = await window.dictionaryCache.get(this.cacheKey);
+            if (!cached) return null;
+
+            // Check version
+            if (cached.version !== this.cacheVersion) {
+                console.log('⚠️ Cache version mismatch, invalidating...');
+                await window.dictionaryCache.delete(this.cacheKey);
+                return null;
+            }
+
+            return cached.data;
         } catch (e) {
             console.warn('Cache read error:', e);
             return null;
         }
     }
 
-    // Save to sessionStorage cache
-    _saveToCache(data) {
+    // Save to IndexedDB cache
+    async _saveToCache(data) {
         try {
-            const cacheData = {
+            if (!window.dictionaryCache) return;
+
+            const cacheObj = {
                 version: this.cacheVersion,
                 timestamp: Date.now(),
                 data: data
             };
-            sessionStorage.setItem(this.cacheKey, JSON.stringify(cacheData));
+            await window.dictionaryCache.set(this.cacheKey, cacheObj);
         } catch (e) {
             console.warn('Cache write error:', e);
         }
@@ -123,7 +165,7 @@ class SupabaseDataLoader {
     async loadFromSupabase() {
         let data;
 
-        // Try new bulk endpoint first
+        // Try bulk endpoint
         try {
             const response = await fetch(`${this.apiBaseUrl}/all`);
             if (response.ok) {
@@ -140,8 +182,8 @@ class SupabaseDataLoader {
             throw new Error('Failed to load dictionary data');
         }
 
-        // Save to cache before processing
-        this._saveToCache(data);
+        // Save to persistent cache
+        await this._saveToCache(data);
 
         // Transform entries
         this.entries = data.entries.map(entry => ({
@@ -368,19 +410,19 @@ class SupabaseDataLoader {
         return translations;
     }
 
-    // Clear all caches
-    clearCache() {
+    /**
+     * Clear all caches (Persistent + RAM)
+     */
+    async clearCache() {
         this.cache.clear();
-        try {
-            sessionStorage.removeItem(this.cacheKey);
-        } catch (e) {
-            // Ignore
+        if (window.dictionaryCache) {
+            await window.dictionaryCache.clear();
         }
     }
 
     // Force refresh from API
     async refresh() {
-        this.clearCache();
+        await this.clearCache();
         this.loaded = false;
         return this.autoLoad();
     }
@@ -389,23 +431,25 @@ class SupabaseDataLoader {
 // Create global instance
 const supabaseDataLoader = new SupabaseDataLoader();
 
-// Auto-initialize when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        supabaseDataLoader.autoLoad().then(() => {
-            window.dispatchEvent(new Event('pidginDataLoaded'));
-        }).catch(error => {
-            console.error('Failed to auto-load data:', error);
-        });
-    });
-} else {
-    supabaseDataLoader.autoLoad().then(() => {
+/**
+ * Handle data loading and events
+ */
+async function initializeDataLoader() {
+    try {
+        await supabaseDataLoader.autoLoad();
         window.dispatchEvent(new Event('pidginDataLoaded'));
-    }).catch(error => {
+    } catch (error) {
         console.error('Failed to auto-load data:', error);
-    });
+    }
 }
 
-// Make available globally (replacing old loader)
+// Auto-initialize when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeDataLoader);
+} else {
+    initializeDataLoader();
+}
+
+// Make available globally
 window.supabaseDataLoader = supabaseDataLoader;
 window.pidginDataLoader = supabaseDataLoader; // Backward compatibility alias

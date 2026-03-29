@@ -47,6 +47,7 @@ const pathMappings = {
     'js/ask-local.js': 'js/components/ask-local.js',
     'js/ask-local-page.js': 'js/components/ask-local-page.js',
     'js/learning-hub.js': 'js/components/learning-hub.js',
+    'js/dictionary-cache.js': 'js/components/dictionary-cache.js',
     'js/main.js': 'js/components/main.js',
 
     // Game components (new organized structure)
@@ -293,7 +294,7 @@ function copyJavaScriptFiles() {
     });
 
     // Copy individual JS files from src/js
-    const individualJsFiles = ['learning-hub.js', 'pickup-lines.js', 'pickup-line-generator.js', 'pickup-line-generator-page.js'];
+    const individualJsFiles = ['learning-hub.js', 'pickup-lines.js', 'pickup-line-generator.js', 'pickup-line-generator-page.js', 'dictionary-cache.js'];
     individualJsFiles.forEach(file => {
         const srcPath = path.join('src/js', file);
         if (fs.existsSync(srcPath)) {
