@@ -359,6 +359,7 @@ class PidginScramble {
         document.getElementById('skip-btn').addEventListener('click', () => this.skipWord());
         document.getElementById('clear-btn').addEventListener('click', () => this.clearLetters());
         document.getElementById('play-again-btn').addEventListener('click', () => this.showStartScreen());
+        document.getElementById('share-results-btn')?.addEventListener('click', () => this.shareResults());
 
         // Keyboard support
         document.addEventListener('keydown', (e) => {
@@ -387,6 +388,30 @@ class PidginScramble {
                 this.clearLetters();
             }
         });
+    }
+
+    shareResults() {
+        const streak = this.streak;
+        const emoji = streak >= 8 ? '🔥' : (streak >= 5 ? '🌺' : '🏝️');
+        const shareText = `Pidgin Word Scramble (${this.difficulty})\nScore: ${this.score}\nSolved: ${this.stats.wordsSolved}\nStreak: ${emoji} ${streak}\n\nCan you beat my score? Play at ChokePidgin.com! 🤙`;
+        const shareUrl = window.location.href;
+
+        if (navigator.share) {
+            navigator.share({
+                title: 'Pidgin Word Scramble Results',
+                text: shareText,
+                url: shareUrl
+            }).catch(() => this.fallbackShare(shareText, shareUrl));
+        } else {
+            this.fallbackShare(shareText, shareUrl);
+        }
+    }
+
+    fallbackShare(text, url) {
+        const fullText = `${text}\n\n${url}`;
+        navigator.clipboard.writeText(fullText).then(() => {
+            this.showToast('Results copied to clipboard! 📋');
+        }).catch(() => alert(fullText));
     }
 }
 

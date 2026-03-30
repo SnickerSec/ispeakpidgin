@@ -287,6 +287,31 @@ class PidginMemory {
         });
 
         document.getElementById('play-again-btn')?.addEventListener('click', () => this.showStartScreen());
+        document.getElementById('share-results-btn')?.addEventListener('click', () => this.shareResults());
+    }
+
+    shareResults() {
+        const timeStr = this.formatTime(this.seconds);
+        const emoji = this.moves <= this.totalPairs * 2 ? '🧠' : '🌺';
+        const shareText = `Pidgin Memory Match (${this.difficulty})\nTime: ${timeStr}\nMoves: ${this.moves}\n${emoji} I found all da kine pairs!\n\nCan you beat my time? Play at ChokePidgin.com! 🤙`;
+        const shareUrl = window.location.href;
+
+        if (navigator.share) {
+            navigator.share({
+                title: 'Pidgin Memory Match Results',
+                text: shareText,
+                url: shareUrl
+            }).catch(() => this.fallbackShare(shareText, shareUrl));
+        } else {
+            this.fallbackShare(shareText, shareUrl);
+        }
+    }
+
+    fallbackShare(text, url) {
+        const fullText = `${text}\n\n${url}`;
+        navigator.clipboard.writeText(fullText).then(() => {
+            this.showToast('Results copied to clipboard! 📋');
+        }).catch(() => alert(fullText));
     }
 }
 

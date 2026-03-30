@@ -298,39 +298,52 @@ class PidginHangman {
         }, duration);
     }
 
-    attachEventListeners() {
-        // Keyboard clicks
-        document.querySelectorAll('.keyboard-key').forEach(key => {
-            key.addEventListener('click', () => {
-                const letter = key.dataset.key;
-                if (letter) {
-                    this.guessLetter(letter);
-                }
-            });
-        });
+    // Buttons
+    this.newGameBtn = document.getElementById('new-game-btn');
+    this.hintBtn = document.getElementById('hint-btn');
+    this.shareBtn = document.getElementById('share-results-btn');
 
-        // Physical keyboard
-        document.addEventListener('keydown', (e) => {
-            if (this.gameOver) return;
-
-            const key = e.key.toUpperCase();
-            if (/^[A-Z]$/.test(key)) {
-                this.guessLetter(key);
-            }
-        });
-
-        // New game button
-        document.getElementById('new-game-btn').addEventListener('click', () => {
-            this.startNewGame();
-        });
-
-        // Hint button
-        document.getElementById('hint-btn').addEventListener('click', () => {
-            this.useHint();
-        });
+    this.attachEventListeners();
     }
-}
 
+    attachEventListeners() {
+    // Keyboard clicks
+    ...
+    this.hintBtn.addEventListener('click', () => {
+        this.useHint();
+    });
+
+    if (this.shareBtn) {
+        this.shareBtn.addEventListener('click', () => this.shareResults());
+    }
+    }
+
+    shareResults() {
+    const won = !this.currentWord.split('').some(l => !this.guessedLetters.has(l));
+    const emoji = won ? '🌺' : '💀';
+    const resultText = won ? `I won in ${this.wrongGuesses} wrong guesses!` : `I almost had it!`;
+    const shareText = `Pidgin Hangman: ${this.currentWordData.pidgin}\n${emoji} ${resultText}\n\nCan you guess da kine? Play at ChokePidgin.com! 🤙`;
+    const shareUrl = window.location.href;
+
+    if (navigator.share) {
+        navigator.share({
+            title: 'Pidgin Hangman Results',
+            text: shareText,
+            url: shareUrl
+        }).catch(() => this.fallbackShare(shareText, shareUrl));
+    } else {
+        this.fallbackShare(shareText, shareUrl);
+    }
+    }
+
+    fallbackShare(text, url) {
+    const fullText = `${text}\n\n${url}`;
+    navigator.clipboard.writeText(fullText).then(() => {
+        this.showToast('Results copied to clipboard! 📋');
+    }).catch(() => alert(fullText));
+    }
+
+    async startNewGame() {
 // Initialize game when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     // Wait for Supabase API to be ready
