@@ -110,7 +110,9 @@
         try {
             const response = await fetch('/api/dictionary/all');
             const data = await response.json();
-            adminDict = data || [];
+            
+            // The API returns { entries: [...], stats: {...} }
+            adminDict = data.entries || [];
             filterAndRenderAdminDict();
         } catch (error) {
             console.error('Error loading admin dictionary:', error);
