@@ -534,42 +534,42 @@
                     </td>
                     <td class="px-6 py-4">
                         <div class="text-sm text-gray-900">${s.english}</div>
-                        ${s.example ? \`<div class="text-xs text-gray-500 italic mt-1">"\${s.example}"</div>\` : ''}
+                        ${s.example ? `<div class="text-xs text-gray-500 italic mt-1">"${s.example}"</div>` : ''}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        \${s.contributor_name || 'Anonymous'}
+                        ${s.contributor_name || 'Anonymous'}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        \${status === 'pending' ? \`
+                        ${status === 'pending' ? `
                             <div class="flex justify-center gap-2">
-                                <button data-action="approve" data-id="\${s.id}"
+                                <button data-action="approve" data-id="${s.id}"
                                         class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">
                                     Approve
                                 </button>
-                                <button data-action="reject" data-id="\${s.id}"
+                                <button data-action="reject" data-id="${s.id}"
                                         class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition">
                                     Reject
                                 </button>
                             </div>
-                        \` : \`
-                            <span class="px-2 py-1 rounded-full text-xs font-bold uppercase tracking-wider \${
+                        ` : `
+                            <span class="px-2 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
                                 status === 'approved' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
                             }">
-                                \${status}
+                                ${status}
                             </span>
-                        \`}
+                        `}
                     </td>
                 </tr>
-            \`).join('');
+            `).join('');
 
         } catch (error) {
-            container.innerHTML = \`
+            container.innerHTML = `
                 <tr>
                     <td colspan="4" class="px-6 py-12 text-center text-red-500">
-                        Error loading suggestions: \${error.message}
+                        Error loading suggestions: ${error.message}
                     </td>
                 </tr>
-            \`;
+            `;
         } finally {
             if (refreshBtn) {
                 refreshBtn.disabled = false;
@@ -584,18 +584,18 @@
         button.innerHTML = '<span class="spinner spinner-white"></span>';
 
         try {
-            const response = await fetch(\`/api/admin/suggestions/\${id}\`, {
+            const response = await fetch(`/api/admin/suggestions/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': \`Bearer \${authToken}\`
+                    'Authorization': `Bearer ${authToken}`
                 },
                 body: JSON.stringify({ status })
             });
 
-            if (!response.ok) throw new Error(\`Failed to \${status} suggestion\`);
+            if (!response.ok) throw new Error(`Failed to ${status} suggestion`);
 
-            showToast(\`Suggestion \${status}\`, 'success');
+            showToast(`Suggestion ${status}`, 'success');
             
             // Remove the row
             const row = button.closest('tr');
@@ -622,8 +622,8 @@
         }
 
         try {
-            const response = await fetch(\`/api/questions?status=\${status}&limit=100\`, {
-                headers: { 'Authorization': \`Bearer \${authToken}\` }
+            const response = await fetch(`/api/questions?status=${status}&limit=100`, {
+                headers: { 'Authorization': `Bearer ${authToken}` }
             });
 
             if (!response.ok) throw new Error('Failed to fetch questions');
@@ -631,61 +631,61 @@
             const data = await response.json();
 
             if (!data.questions || data.questions.length === 0) {
-                container.innerHTML = \`
+                container.innerHTML = `
                     <tr>
                         <td colspan="3" class="px-6 py-12 text-center text-gray-500">
                             No questions found.
                         </td>
                     </tr>
-                \`;
+                `;
                 return;
             }
 
-            container.innerHTML = data.questions.map(q => \`
+            container.innerHTML = data.questions.map(q => `
                 <tr class="hover:bg-gray-50">
                     <td class="px-6 py-4">
-                        <div class="text-sm font-bold text-gray-900">\${q.question_text}</div>
-                        <div class="text-xs text-gray-500 mt-1">By \${q.user_name} • \${formatDate(q.created_at)}</div>
-                        \${q.responses && q.responses.length > 0 ? \`
+                        <div class="text-sm font-bold text-gray-900">${q.question_text}</div>
+                        <div class="text-xs text-gray-500 mt-1">By ${q.user_name} • ${formatDate(q.created_at)}</div>
+                        ${q.responses && q.responses.length > 0 ? `
                             <div class="mt-2 p-2 bg-green-50 rounded border border-green-100">
                                 <div class="text-xs font-bold text-green-800">Answer:</div>
-                                <div class="text-xs text-green-700">\${q.responses[0].response_text}</div>
+                                <div class="text-xs text-green-700">${q.responses[0].response_text}</div>
                             </div>
-                        \` : ''}
+                        ` : ''}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-2 py-1 rounded-full text-xs font-bold uppercase tracking-wider \${
+                        <span class="px-2 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
                             q.status === 'answered' ? 'bg-green-100 text-green-700' : 
                             q.status === 'pending' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'
                         }">
-                            \${q.status}
+                            ${q.status}
                         </span>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <div class="flex justify-center gap-2">
-                            <button data-action="answer" data-id="\${q.id}"
+                            <button data-action="answer" data-id="${q.id}"
                                     class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition">
-                                \${q.status === 'answered' ? 'Edit Answer' : 'Answer'}
+                                ${q.status === 'answered' ? 'Edit Answer' : 'Answer'}
                             </button>
-                            \${q.status !== 'rejected' ? \`
-                                <button data-action="reject-question" data-id="\${q.id}"
+                            ${q.status !== 'rejected' ? `
+                                <button data-action="reject-question" data-id="${q.id}"
                                         class="bg-red-100 text-red-600 px-3 py-1 rounded hover:bg-red-200 transition">
                                     Reject
                                 </button>
-                            \` : ''}
+                            ` : ''}
                         </div>
                     </td>
                 </tr>
-            \`).join('');
+            `).join('');
 
         } catch (error) {
-            container.innerHTML = \`
+            container.innerHTML = `
                 <tr>
                     <td colspan="3" class="px-6 py-12 text-center text-red-500">
-                        Error loading questions: \${error.message}
+                        Error loading questions: ${error.message}
                     </td>
                 </tr>
-            \`;
+            `;
         } finally {
             if (refreshBtn) {
                 refreshBtn.disabled = false;
@@ -699,7 +699,7 @@
         const questionText = row.querySelector('.text-sm.font-bold').textContent;
         const currentAnswer = row.querySelector('.text-xs.text-green-700')?.textContent || '';
         
-        const answer = prompt(\`Answer for: "\${questionText}"\`, currentAnswer);
+        const answer = prompt(`Answer for: "${questionText}"`, currentAnswer);
         if (answer === null) return; // Cancelled
         if (!answer.trim()) return alert('Answer cannot be empty');
 
@@ -709,11 +709,11 @@
 
         try {
             // We need a specific endpoint for answering questions
-            const response = await fetch(\`/api/admin/questions/\${id}/answer\`, {
+            const response = await fetch(`/api/admin/questions/${id}/answer`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': \`Bearer \${authToken}\`
+                    'Authorization': `Bearer ${authToken}`
                 },
                 body: JSON.stringify({ response_text: answer })
             });
@@ -731,25 +731,25 @@
     }
 
     async function updateQuestionStatus(id, status, button) {
-        if (!confirm(\`Are you sure you want to \${status} this question?\`)) return;
+        if (!confirm(`Are you sure you want to ${status} this question?`)) return;
 
         button.disabled = true;
         const originalHtml = button.innerHTML;
         button.innerHTML = '<span class="spinner spinner-white"></span>';
 
         try {
-            const response = await fetch(\`/api/admin/questions/\${id}/status\`, {
+            const response = await fetch(`/api/admin/questions/${id}/status`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': \`Bearer \${authToken}\`
+                    'Authorization': `Bearer ${authToken}`
                 },
                 body: JSON.stringify({ status })
             });
 
             if (!response.ok) throw new Error('Failed to update status');
 
-            showToast(\`Question \${status}\`, 'success');
+            showToast(`Question ${status}`, 'success');
             loadQuestionsAdmin();
 
         } catch (error) {
