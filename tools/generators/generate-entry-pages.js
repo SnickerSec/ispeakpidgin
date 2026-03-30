@@ -352,15 +352,17 @@ async function main() {
 
         for (const entry of entries) {
             try {
-                const slug = createSlug(entry.pidgin);
+                let slug = createSlug(entry.pidgin);
 
-                // Skip if slug already exists (duplicate handling)
-                if (slugMap.has(slug)) {
-                    console.log(`⚠️  Skipping duplicate slug: ${slug} (${entry.pidgin})`);
-                    skippedCount++;
-                    continue;
+                // Handle duplicates by appending a counter
+                let counter = 1;
+                let finalSlug = slug;
+                while (slugMap.has(finalSlug)) {
+                    counter++;
+                    finalSlug = `${slug}-${counter}`;
                 }
-
+                
+                slug = finalSlug;
                 slugMap.set(slug, entry);
 
                 // Find related terms

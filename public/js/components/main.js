@@ -600,6 +600,13 @@ function initLearningHub() {
         loadLessons(currentLevel);
     }
 
+    // Listen for lessons loaded event from lessons.js
+    window.addEventListener('lessonsLoaded', (e) => {
+        if (lessonsContainer) {
+            loadLessons(currentLevel);
+        }
+    });
+
     function loadLessons(level) {
         if (!lessonsContainer) return;
 
@@ -907,7 +914,7 @@ function initLearningHub() {
             if (tryAnotherBtn) {
                 tryAnotherBtn.addEventListener('click', () => {
                     // Restart the same lesson quiz
-                    startLessonQuiz(level, lessonId, lesson);
+                    startLessonQuiz(lesson);
                 });
             }
 

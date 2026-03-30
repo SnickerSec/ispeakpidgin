@@ -34,13 +34,25 @@ const SITE_NAME = 'ChokePidgin';
 
 /**
  * Create URL-friendly slug from text
+ * Handles Hawaiian characters like ʻokina and kahakō
  */
-function createSlug(text) {
-    return text
+function createSlug(text, suffix = '') {
+    if (!text) return 'unknown';
+    
+    let slug = text
         .toLowerCase()
-        .replace(/'/g, '')
+        // Replace common okina variants with nothing
+        .replace(/['ʻ`‘’]/g, '')
+        // Replace kahako (long vowels) with standard vowels
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        // Replace non-alphanumeric with hyphens
         .replace(/[^a-z0-9]+/g, '-')
+        // Remove leading/trailing hyphens
         .replace(/^-|-$/g, '');
+        
+    if (!slug) slug = 'word';
+    
+    return suffix ? `${slug}-${suffix}` : slug;
 }
 
 /**
