@@ -95,6 +95,11 @@
 
         // Audio upload change listener
         document.getElementById('audio-upload-input')?.addEventListener('change', handleAudioFileSelected);
+
+        // Dashboard quick-access buttons
+        document.getElementById('dash-view-suggestions')?.addEventListener('click', () => switchTab('suggestions'));
+        document.getElementById('dash-view-questions')?.addEventListener('click', () => switchTab('questions'));
+        document.getElementById('dash-view-gaps')?.addEventListener('click', () => switchTab('gaps'));
     }
 
     // Dictionary Manager Functions
