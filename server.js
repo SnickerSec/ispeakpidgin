@@ -170,7 +170,8 @@ app.use(helmet({
                 "https://www.google-analytics.com",
                 "https://analytics.google.com",
                 "https://stats.g.doubleclick.net",
-                "https://jfzgzjgdptowfbtljvyp.supabase.co"
+                "https://jfzgzjgdptowfbtljvyp.supabase.co",
+                "https://cdn.jsdelivr.net"
             ],
             mediaSrc: ["'self'", "blob:", "data:", "https:"],
             objectSrc: ["'none'"],

@@ -253,10 +253,10 @@
             } else if (target.dataset.action === 'suggest') {
                 suggestGapData(pidgin, row, target);
             }
-            });
+        });
 
-            // Suggestions container - handle approve and reject buttons
-            document.getElementById('suggestionsContainer')?.addEventListener('click', function(e) {
+        // Suggestions container - handle approve and reject buttons
+        document.getElementById('suggestionsContainer')?.addEventListener('click', function(e) {
             const target = e.target.closest('button');
             if (!target) return;
 
@@ -268,10 +268,10 @@
             } else if (action === 'reject') {
                 updateSuggestionStatus(id, 'rejected', target);
             }
-            });
+        });
 
-            // Questions container - handle answer/reject actions
-            document.getElementById('questionsContainer')?.addEventListener('click', function(e) {
+        // Questions container - handle answer/reject actions
+        document.getElementById('questionsContainer')?.addEventListener('click', function(e) {
             const target = e.target.closest('button');
             if (!target) return;
 
@@ -283,10 +283,10 @@
             } else if (action === 'reject-question') {
                 updateQuestionStatus(id, 'rejected', target);
             }
-            });
+        });
 
-            // Dictionary container - handle audio upload and play
-            document.getElementById('adminDictContainer')?.addEventListener('click', function(e) {
+        // Dictionary container - handle audio upload and play
+        document.getElementById('adminDictContainer')?.addEventListener('click', function(e) {
             const target = e.target.closest('button');
             if (!target) return;
 
@@ -299,9 +299,10 @@
             } else if (action === 'play-audio') {
                 playAdminAudio(target.dataset.url);
             }
-            });
+        });
 
-            // API Keys container - handle toggle visibility, test, and save buttons        document.getElementById('apiKeysContainer')?.addEventListener('click', function(e) {
+        // API Keys container - handle toggle visibility, test, and save buttons
+        document.getElementById('apiKeysContainer')?.addEventListener('click', function(e) {
             const target = e.target.closest('button');
             if (!target) return;
 
