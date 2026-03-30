@@ -356,6 +356,10 @@
             const data = await response.json();
 
             if (!response.ok) {
+                if (data.errors && Array.isArray(data.errors)) {
+                    const errorMsg = data.errors.map(err => err.msg || err.message).join(', ');
+                    throw new Error(errorMsg);
+                }
                 throw new Error(data.error || 'Login failed');
             }
 

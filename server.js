@@ -35,7 +35,7 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 console.log('✅ Supabase client initialized');
 
 // Initialize Supabase admin client (service role) for admin operations
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
 let supabaseAdmin = null;
 if (supabaseServiceKey) {
     supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
