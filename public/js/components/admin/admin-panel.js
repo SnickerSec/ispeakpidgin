@@ -442,6 +442,7 @@
         }
 
         switchTab('dashboard');
+        loadSettings(); // Pre-load settings for other tabs
     }
 
     function showLoginError(message) {
@@ -478,6 +479,8 @@
             loadAdminDictionary();
         } else if (tabId === 'dashboard') {
             loadDashboardStats();
+        } else if (tabId === 'settings' || tabId === 'api-keys' || tabId === 'features') {
+            loadSettings();
         }
     }
 
