@@ -354,6 +354,30 @@ class PidginSpeed {
 
         document.getElementById('skip-btn').addEventListener('click', () => this.skipWord());
         document.getElementById('play-again-btn').addEventListener('click', () => this.showStartScreen());
+        document.getElementById('share-results-btn')?.addEventListener('click', () => this.shareResults());
+    }
+
+    shareResults() {
+        const emoji = this.longestStreak >= 10 ? '🔥' : (this.longestStreak >= 5 ? '⚡' : '🌺');
+        const shareText = `Pidgin Speed Translation (${this.totalTime}s)\nScore: ${this.score}\nCorrect: ${this.correctWords.length}\nStreak: ${emoji} ${this.longestStreak}\n\nThink you stay fast? Play at ChokePidgin.com! 🤙`;
+        const shareUrl = window.location.href;
+
+        if (navigator.share) {
+            navigator.share({
+                title: 'Pidgin Speed Translation Results',
+                text: shareText,
+                url: shareUrl
+            }).catch(() => this.fallbackShare(shareText, shareUrl));
+        } else {
+            this.fallbackShare(shareText, shareUrl);
+        }
+    }
+
+    fallbackShare(text, url) {
+        const fullText = `${text}\n\n${url}`;
+        navigator.clipboard.writeText(fullText).then(() => {
+            this.showToast('Results copied to clipboard! 📋');
+        }).catch(() => alert(fullText));
     }
 }
 

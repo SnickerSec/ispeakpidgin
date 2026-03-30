@@ -1,6 +1,29 @@
 const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+
+// Configure multer for audio uploads
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        const dir = 'public/assets/audio';
+        if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+        cb(null, dir);
+    },
+    filename: function (req, file, cb) {
+        cb(null, 'temp-' + Date.now() + path.extname(file.originalname));
+    }
+});
+const upload = multer({ 
+    storage: storage,
+    limits: { fileSize: 2 * 1024 * 1024 }, // 2MB limit
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype.startsWith('audio/')) cb(null, true);
+        else cb(new Error('Only audio files are allowed'));
+    }
+});
 
 /**
  * Admin Routes (Login, Settings, Audit Logs, Tests)
@@ -426,6 +449,76 @@ Respond only with a JSON object:
         } catch (error) {
             console.error('Add entry error:', error);
             res.status(500).json({ error: 'Failed to add entry' });
+        }
+    });
+
+    // Upload Audio for Dictionary Entry
+    router.post('/dictionary/:id/audio', adminAuth.requireAdminAuth, upload.single('audio'), async (req, res) => {
+        if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
+        const { id } = req.params;
+        const { pidgin } = req.body;
+        
+        if (!req.file) return res.status(400).json({ error: 'No audio file uploaded' });
+        if (!pidgin) return res.status(400).json({ error: 'Pidgin word required' });
+
+        try {
+            // 1. Create slug for filename
+            const slug = pidgin.toLowerCase()
+                .replace(/['ʻ`‘’]/g, '')
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-|-$/g, '');
+            
+            const finalFilename = `${slug}.mp3`;
+            const finalPath = path.join('public/assets/audio', finalFilename);
+            
+            // 2. Rename temp file to final slugified name
+            if (fs.existsSync(finalPath)) fs.unlinkSync(finalPath);
+            fs.renameSync(req.file.path, finalPath);
+
+            // 3. Update database
+            const audioUrl = `assets/audio/${finalFilename}`;
+            const { error } = await supabaseAdmin
+                .from('dictionary_entries')
+                .update({ audio: audioUrl, audio_url: audioUrl })
+                .eq('id', id);
+
+            if (error) throw error;
+
+            await adminAuth.logAuditAction({ 
+                userId: req.adminUser.id, 
+                username: req.adminUser.username, 
+                action: 'UPLOAD_AUDIO', 
+                resource: pidgin, 
+                req 
+            });
+
+            res.json({ success: true, audioUrl });
+        } catch (error) {
+            console.error('Audio upload error:', error);
+            if (req.file && fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
+            res.status(500).json({ error: 'Failed to upload audio' });
+        }
+    });
+
+    // Dashboard Stats
+    router.get('/stats', adminAuth.requireAdminAuth, async (req, res) => {
+        if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
+        try {
+            // Fetch counts in parallel
+            const [suggestions, questions, gaps] = await Promise.all([
+                supabaseAdmin.from('user_suggestions').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
+                supabaseAdmin.from('local_questions').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
+                supabaseAdmin.from('search_gaps').select('id', { count: 'exact', head: true }).eq('status', 'pending')
+            ]);
+
+            res.json({
+                pendingSuggestions: suggestions.count || 0,
+                pendingQuestions: questions.count || 0,
+                pendingGaps: gaps.count || 0
+            });
+        } catch (error) {
+            console.error('Dashboard stats error:', error);
+            res.status(500).json({ error: 'Failed to fetch dashboard stats' });
         }
     });
 

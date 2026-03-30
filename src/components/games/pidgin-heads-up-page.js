@@ -173,6 +173,33 @@ document.getElementById('back-to-menu-btn').addEventListener('click', function()
     showScreen('menu');
 });
 
+document.getElementById('share-results-btn')?.addEventListener('click', function() {
+    shareResults();
+});
+
+function shareResults() {
+    const emoji = score >= 15 ? '🔥' : (score >= 8 ? '🌺' : '🏝️');
+    const shareText = `Pidgin Heads Up! (${selectedCategory})\nI guessed ${score} words correct! ${emoji}\n\nThink you can beat me? Play at ChokePidgin.com! 🤙`;
+    const shareUrl = window.location.href;
+
+    if (navigator.share) {
+        navigator.share({
+            title: 'Pidgin Heads Up Results',
+            text: shareText,
+            url: shareUrl
+        }).catch(function() { fallbackShare(shareText, shareUrl); });
+    } else {
+        fallbackShare(shareText, shareUrl);
+    }
+}
+
+function fallbackShare(text, url) {
+    const fullText = text + '\n\n' + url;
+    navigator.clipboard.writeText(fullText).then(function() {
+        alert('Results copied to clipboard! 📋');
+    }).catch(function() { alert(fullText); });
+}
+
 function showScreen(screen) {
     menuScreen.classList.add('hidden');
     countdownScreen.classList.add('hidden');

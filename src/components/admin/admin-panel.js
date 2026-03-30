@@ -11,6 +11,13 @@
     let currentUser = null;
     let settings = {};
     let pendingChanges = {};
+    
+    // Dictionary Manager State
+    let adminDict = [];
+    let adminDictFiltered = [];
+    let adminDictPage = 1;
+    const ADMIN_DICT_PER_PAGE = 20;
+    let adminDictSearch = '';
 
     // DOM Elements
     const loginSection = document.getElementById('loginSection');
@@ -61,9 +68,164 @@
         document.getElementById('suggestionStatusSelect')?.addEventListener('change', loadSuggestions);
         document.getElementById('refreshQuestionsBtn')?.addEventListener('click', loadQuestionsAdmin);
         document.getElementById('questionStatusSelect')?.addEventListener('change', loadQuestionsAdmin);
+        
+        // Dictionary Manager listeners
+        document.getElementById('admin-dict-search')?.addEventListener('input', (e) => {
+            adminDictSearch = e.target.value.toLowerCase();
+            adminDictPage = 1;
+            filterAndRenderAdminDict();
+        });
+        document.getElementById('refreshAdminDictBtn')?.addEventListener('click', loadAdminDictionary);
+        document.getElementById('prevAdminDictPage')?.addEventListener('click', () => {
+            if (adminDictPage > 1) {
+                adminDictPage--;
+                renderAdminDict();
+            }
+        });
+        document.getElementById('nextAdminDictPage')?.addEventListener('click', () => {
+            const maxPage = Math.ceil(adminDictFiltered.length / ADMIN_DICT_PER_PAGE);
+            if (adminDictPage < maxPage) {
+                adminDictPage++;
+                renderAdminDict();
+            }
+        });
 
         // Save all settings
         document.getElementById('saveAllSettingsBtn')?.addEventListener('click', saveAllSettings);
+
+        // Audio upload change listener
+        document.getElementById('audio-upload-input')?.addEventListener('change', handleAudioFileSelected);
+    }
+
+    // Dictionary Manager Functions
+    async function loadAdminDictionary() {
+        const container = document.getElementById('adminDictContainer');
+        if (!container) return;
+
+        try {
+            const response = await fetch('/api/dictionary/all');
+            const data = await response.json();
+            adminDict = data || [];
+            filterAndRenderAdminDict();
+        } catch (error) {
+            console.error('Error loading admin dictionary:', error);
+            container.innerHTML = `<tr><td colspan="4" class="px-6 py-4 text-center text-red-500">Error loading dictionary</td></tr>`;
+        }
+    }
+
+    function filterAndRenderAdminDict() {
+        if (!adminDict) return;
+        
+        adminDictFiltered = adminDict.filter(entry => {
+            const pidgin = (entry.pidgin || '').toLowerCase();
+            const english = Array.isArray(entry.english) ? entry.english.join(' ').toLowerCase() : (entry.english || '').toLowerCase();
+            return pidgin.includes(adminDictSearch) || english.includes(adminDictSearch);
+        });
+
+        adminDictPage = 1;
+        renderAdminDict();
+    }
+
+    function renderAdminDict() {
+        const container = document.getElementById('adminDictContainer');
+        const showingEl = document.getElementById('admin-dict-showing');
+        const prevBtn = document.getElementById('prevAdminDictPage');
+        const nextBtn = document.getElementById('nextAdminDictPage');
+
+        if (!container) return;
+
+        const start = (adminDictPage - 1) * ADMIN_DICT_PER_PAGE;
+        const end = start + ADMIN_DICT_PER_PAGE;
+        const pageItems = adminDictFiltered.slice(start, end);
+
+        if (adminDictFiltered.length === 0) {
+            container.innerHTML = `<tr><td colspan="4" class="px-6 py-12 text-center text-gray-500">No matching words found.</td></tr>`;
+            if (showingEl) showingEl.textContent = 'Showing 0 of 0';
+            return;
+        }
+
+        container.innerHTML = pageItems.map(entry => {
+            const hasAudio = !!entry.audio_url || !!entry.audio;
+            return `
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="font-bold text-purple-700">${entry.pidgin}</div>
+                        <div class="text-[10px] text-gray-400 uppercase tracking-tighter">${entry.category || 'general'}</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="text-sm text-gray-600 line-clamp-1">${Array.isArray(entry.english) ? entry.english.join(', ') : entry.english}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        ${hasAudio ? 
+                            `<span class="flex items-center gap-1 text-green-600 text-xs font-bold">
+                                <i class="ti ti-circle-check"></i> Ready
+                                <button data-action="play-audio" data-url="${entry.audio_url || entry.audio}" class="ml-1 text-blue-500 hover:text-blue-700">
+                                    <i class="ti ti-player-play"></i>
+                                </button>
+                            </span>` : 
+                            `<span class="text-red-400 text-xs font-medium italic">Missing Audio</span>`
+                        }
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <button data-action="upload-audio" data-id="${entry.id}" data-pidgin="${entry.pidgin}"
+                                class="bg-blue-50 text-blue-600 px-3 py-1 rounded hover:bg-blue-100 transition flex items-center gap-1 ml-auto">
+                            <i class="ti ti-upload"></i> ${hasAudio ? 'Replace' : 'Add Audio'}
+                        </button>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+
+        if (showingEl) {
+            showingEl.textContent = `Showing ${start + 1}-${Math.min(end, adminDictFiltered.length)} of ${adminDictFiltered.length}`;
+        }
+
+        if (prevBtn) prevBtn.disabled = adminDictPage === 1;
+        if (nextBtn) nextBtn.disabled = end >= adminDictFiltered.length;
+    }
+
+    let currentUploadId = null;
+    let currentUploadPidgin = null;
+
+    function triggerAudioUpload(id, pidgin) {
+        currentUploadId = id;
+        currentUploadPidgin = pidgin;
+        document.getElementById('audio-upload-input').click();
+    }
+
+    async function handleAudioFileSelected(e) {
+        const file = e.target.files[0];
+        if (!file || !currentUploadId) return;
+
+        // Reset input
+        e.target.value = '';
+
+        const formData = new FormData();
+        formData.append('audio', file);
+        formData.append('pidgin', currentUploadPidgin);
+
+        showToast(`Uploading audio for "${currentUploadPidgin}"...`, 'info');
+
+        try {
+            const response = await fetch(`/api/admin/dictionary/${currentUploadId}/audio`, {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${authToken}` },
+                body: formData
+            });
+
+            if (!response.ok) throw new Error('Upload failed');
+
+            showToast('Audio uploaded successfully!', 'success');
+            loadAdminDictionary(); // Refresh list
+        } catch (error) {
+            showToast('Error uploading audio: ' + error.message, 'error');
+        }
+    }
+
+    function playAdminAudio(url) {
+        if (!url) return;
+        const audio = new Audio(url);
+        audio.play().catch(e => console.error('Error playing audio:', e));
     }
 
     // Event delegation for dynamically created elements
@@ -120,6 +282,22 @@
                 promptAndAnswerQuestion(id, target);
             } else if (action === 'reject-question') {
                 updateQuestionStatus(id, 'rejected', target);
+            }
+            });
+
+            // Dictionary container - handle audio upload and play
+            document.getElementById('adminDictContainer')?.addEventListener('click', function(e) {
+            const target = e.target.closest('button');
+            if (!target) return;
+
+            const id = target.dataset.id;
+            const action = target.dataset.action;
+            const pidgin = target.dataset.pidgin;
+
+            if (action === 'upload-audio') {
+                triggerAudioUpload(id, pidgin);
+            } else if (action === 'play-audio') {
+                playAdminAudio(target.dataset.url);
             }
             });
 
@@ -251,7 +429,7 @@
             currentUserEl.textContent = currentUser.username;
         }
 
-        loadSettings();
+        switchTab('dashboard');
     }
 
     function showLoginError(message) {
@@ -284,6 +462,34 @@
             loadSuggestions();
         } else if (tabId === 'questions') {
             loadQuestionsAdmin();
+        } else if (tabId === 'dictionary') {
+            loadAdminDictionary();
+        } else if (tabId === 'dashboard') {
+            loadDashboardStats();
+        }
+    }
+
+    // Dashboard Stats
+    async function loadDashboardStats() {
+        const suggEl = document.getElementById('dash-pending-suggestions');
+        const questEl = document.getElementById('dash-pending-questions');
+        const gapEl = document.getElementById('dash-pending-gaps');
+
+        try {
+            const response = await fetch('/api/admin/stats', {
+                headers: { 'Authorization': `Bearer ${authToken}` }
+            });
+
+            if (!response.ok) throw new Error('Failed to fetch stats');
+
+            const data = await response.json();
+
+            if (suggEl) suggEl.textContent = data.pendingSuggestions || 0;
+            if (questEl) questEl.textContent = data.pendingQuestions || 0;
+            if (gapEl) gapEl.textContent = data.pendingGaps || 0;
+
+        } catch (error) {
+            console.error('Error loading dashboard stats:', error);
         }
     }
 

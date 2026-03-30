@@ -220,27 +220,21 @@ function getMasteryHtml(wordKey) {
     const mastery = window.practiceData.getWordMastery(wordKey);
     if (mastery === 0) return ''; // Don't show anything for unpracticed words
 
-    const colors = [
-        'bg-gray-200',    // 0: New
-        'bg-red-400',     // 1: Struggling
-        'bg-orange-400',  // 2: Learning
-        'bg-yellow-400',  // 3: Good
-        'bg-green-400',   // 4: Strong
-        'bg-blue-500'     // 5: Mastered
+    const config = [
+        { label: 'New', color: 'bg-gray-100 text-gray-600', icon: 'ti-star' },
+        { label: 'Struggling', color: 'bg-red-100 text-red-600', icon: 'ti-mood-sad' },
+        { label: 'Learning', color: 'bg-orange-100 text-orange-600', icon: 'ti-book' },
+        { label: 'Good', color: 'bg-yellow-100 text-yellow-700', icon: 'ti-thumb-up' },
+        { label: 'Strong', color: 'bg-green-100 text-green-700', icon: 'ti-check' },
+        { label: 'Mastered', color: 'bg-blue-100 text-blue-700', icon: 'ti-circle-check' }
     ];
 
-    const labels = ['New', 'Struggling', 'Learning', 'Good', 'Strong', 'Mastered'];
-    const color = colors[mastery] || colors[0];
-    const label = labels[mastery] || labels[0];
+    const { label, color, icon } = config[mastery] || config[0];
+    const prefix = label === 'Mastered' ? '✅ ' : (label === 'Learning' ? '📖 ' : '');
 
     return `
-        <div class="flex items-center gap-2 mt-2 mb-3" title="Mastery Level: ${label}">
-            <div class="flex gap-0.5">
-                ${[1, 2, 3, 4, 5].map(i => `
-                    <div class="w-2.5 h-2.5 rounded-full ${i <= mastery ? color : 'bg-gray-200'}"></div>
-                `).join('')}
-            </div>
-            <span class="text-[10px] uppercase font-bold tracking-wider text-gray-500">${label}</span>
+        <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md ${color} text-[10px] font-bold uppercase tracking-wider mb-2 border border-current opacity-80" title="Your Mastery: ${label}">
+            <i class="ti ${icon}"></i> ${prefix}${label}
         </div>
     `;
 }

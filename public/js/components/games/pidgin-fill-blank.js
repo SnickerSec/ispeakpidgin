@@ -264,6 +264,31 @@ class PidginFillBlank {
         document.getElementById('start-btn')?.addEventListener('click', () => this.startGame());
         document.getElementById('next-btn')?.addEventListener('click', () => this.nextRound());
         document.getElementById('play-again-btn')?.addEventListener('click', () => this.showStartScreen());
+        document.getElementById('share-results-btn')?.addEventListener('click', () => this.shareResults());
+    }
+
+    shareResults() {
+        const streak = this.longestStreak;
+        const emoji = streak >= 8 ? '🧠' : (streak >= 5 ? '🌺' : '🏝️');
+        const shareText = `Pidgin Fill in da Blank\nScore: ${this.score}\nStreak: ${emoji} ${streak}\nAccuracy: ${document.getElementById('final-accuracy').textContent}\n\nYou know da context? Play at ChokePidgin.com! 🤙`;
+        const shareUrl = window.location.href;
+
+        if (navigator.share) {
+            navigator.share({
+                title: 'Pidgin Fill in da Blank Results',
+                text: shareText,
+                url: shareUrl
+            }).catch(() => this.fallbackShare(shareText, shareUrl));
+        } else {
+            this.fallbackShare(shareText, shareUrl);
+        }
+    }
+
+    fallbackShare(text, url) {
+        const fullText = `${text}\n\n${url}`;
+        navigator.clipboard.writeText(fullText).then(() => {
+            this.showToast('Results copied to clipboard! 📋');
+        }).catch(() => alert(fullText));
     }
 }
 
