@@ -325,15 +325,17 @@ async function main() {
 
         for (const line of lines) {
             try {
-                const slug = createSlug(line.pidgin.substring(0, 50));
+                let slug = createSlug(line.pidgin.substring(0, 50));
 
-                // Skip if slug already exists (duplicate handling)
-                if (slugMap.has(slug)) {
-                    console.log(`Skipping duplicate slug: ${slug} (${line.pidgin.substring(0, 40)})`);
-                    skippedCount++;
-                    continue;
+                // Handle duplicates by appending a counter
+                let counter = 1;
+                let finalSlug = slug;
+                while (slugMap.has(finalSlug)) {
+                    counter++;
+                    finalSlug = `${slug}-${counter}`;
                 }
-
+                
+                slug = finalSlug;
                 slugMap.set(slug, line);
 
                 // Find related lines

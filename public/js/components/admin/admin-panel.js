@@ -563,11 +563,11 @@
         }
 
         try {
-            const response = await fetch('/api/admin/seo/gaps', {
+            const response = await fetch('/api/admin/gaps', {
                 headers: { 'Authorization': `Bearer ${authToken}` }
             });
 
-            if (!response.ok) throw new Error('Failed to fetch content gaps');
+            if (!response.ok) throw new Error('Failed to fetch gaps');
 
             const data = await response.json();
 
@@ -575,52 +575,37 @@
                 container.innerHTML = `
                     <tr>
                         <td colspan="4" class="px-6 py-12 text-center text-gray-500">
-                            No content gaps found! You are covering everything.
+                            No search gaps found yet. Keep searching!
                         </td>
                     </tr>
                 `;
                 return;
             }
 
-            container.innerHTML = data.gaps.map(gap => `
+            container.innerHTML = data.gaps.map(g => `
                 <tr class="hover:bg-gray-50">
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="font-medium text-gray-900">${gap.pidgin}</div>
-                        <div class="text-xs text-gray-500">Position: ${gap.position}</div>
+                        <div class="font-medium text-gray-900">${g.term}</div>
+                        <div class="text-xs text-gray-500">Last: ${formatDate(g.last_searched_at)}</div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        ${gap.impressions}
+                        ${g.count} searches
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        ${gap.ctr}
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-yellow-100 text-yellow-700">
+                            ${g.status}
+                        </span>
                     </td>
-                    <td class="px-6 py-4">
-                        <div class="flex flex-col gap-2">
-                            <div class="flex gap-2">
-                                <input type="text" placeholder="English meaning" 
-                                       class="gap-english-input flex-1 px-3 py-1 text-sm border rounded">
-                                <select class="gap-category-select px-2 py-1 text-sm border rounded">
-                                    <option value="general">General</option>
-                                    <option value="slang">Slang</option>
-                                    <option value="food">Food</option>
-                                    <option value="greetings">Greetings</option>
-                                    <option value="locations">Locations</option>
-                                    <option value="culture">Culture</option>
-                                </select>
-                            </div>
-                            <div class="flex gap-2">
-                                <input type="text" placeholder="Example sentence (optional)" 
-                                       class="gap-example-input flex-1 px-3 py-1 text-sm border rounded italic">
-                                <button data-action="suggest" data-pidgin="${gap.pidgin}"
-                                        class="bg-purple-100 text-purple-700 px-3 py-1 rounded text-sm hover:bg-purple-200 transition"
-                                        title="Use AI to suggest meaning and example">
-                                    <i class="ti ti-magic-wand"></i>
-                                </button>
-                                <button data-action="quick-add" data-pidgin="${gap.pidgin}"
-                                        class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition">
-                                    Add
-                                </button>
-                            </div>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <div class="flex justify-center gap-2">
+                            <button data-action="add-gap" data-term="${g.term}" data-id="${g.id}"
+                                    class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition">
+                                Add to Dict
+                            </button>
+                            <button data-action="ignore-gap" data-id="${g.id}"
+                                    class="bg-gray-100 text-gray-600 px-3 py-1 rounded hover:bg-gray-200 transition">
+                                Ignore
+                            </button>
                         </div>
                     </td>
                 </tr>

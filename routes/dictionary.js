@@ -204,6 +204,35 @@ module.exports = function(supabase, dictionaryLimiter, dictionaryCache) {
                 return res.status(500).json({ error: 'Search failed' });
             }
 
+            // SEO Content Gap Logging: If no results, log this term to help grow the dictionary
+            if (data.length === 0 && searchTerm.length >= 3) {
+                try {
+                    // Try to increment count if already exists, or insert new
+                    const { data: existing } = await supabase
+                        .from('search_gaps')
+                        .select('id, count')
+                        .eq('term', searchTerm)
+                        .single();
+
+                    if (existing) {
+                        await supabase
+                            .from('search_gaps')
+                            .update({ 
+                                count: (existing.count || 1) + 1, 
+                                last_searched_at: new Date() 
+                            })
+                            .eq('id', existing.id);
+                    } else {
+                        await supabase
+                            .from('search_gaps')
+                            .insert([{ term: searchTerm, count: 1 }]);
+                    }
+                } catch (logErr) {
+                    // Fail silently for the user, just log to console
+                    console.warn('Failed to log search gap:', logErr.message);
+                }
+            }
+
             res.json({
                 query: q,
                 results: data,

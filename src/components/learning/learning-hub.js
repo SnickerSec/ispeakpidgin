@@ -405,6 +405,12 @@ class LearningHub {
         else if (completedCount >= 6) userLevel = 'Intermediate';
         if (levelEl) levelEl.textContent = userLevel;
 
+        // Update Island Stats (Streak and Points)
+        const streakCountEl = document.getElementById('streakCount');
+        const totalPointsEl = document.getElementById('totalPoints');
+        if (streakCountEl) streakCountEl.textContent = this.progress.streak || 0;
+        if (totalPointsEl) totalPointsEl.textContent = (this.progress.totalPoints || 0).toLocaleString();
+
         // Update progress bars for each level
         ['beginner', 'intermediate', 'advanced'].forEach(level => {
             const levelLessons = this.lessons[level];

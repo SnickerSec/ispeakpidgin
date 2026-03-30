@@ -429,6 +429,57 @@ Respond only with a JSON object:
         }
     });
 
+    // Get Search Gaps
+    router.get('/gaps', adminAuth.requireAdminAuth, async (req, res) => {
+        if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
+        try {
+            const { data, error } = await supabaseAdmin
+                .from('search_gaps')
+                .select('*')
+                .eq('status', 'pending')
+                .order('count', { ascending: false })
+                .limit(100);
+
+            if (error) throw error;
+            res.json({ gaps: data });
+        } catch (error) {
+            console.error('Fetch gaps error:', error);
+            res.status(500).json({ error: 'Failed to fetch gaps' });
+        }
+    });
+
+    // Update Search Gap Status
+    router.put('/gaps/:id', adminAuth.requireAdminAuth, [
+        body('status').isIn(['pending', 'added', 'ignored'])
+    ], async (req, res) => {
+        if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
+        const { id } = req.params;
+        const { status } = req.body;
+
+        try {
+            const { error } = await supabaseAdmin
+                .from('search_gaps')
+                .update({ status })
+                .eq('id', id);
+
+            if (error) throw error;
+
+            await adminAuth.logAuditAction({ 
+                userId: req.adminUser.id, 
+                username: req.adminUser.username, 
+                action: 'UPDATE_GAP_STATUS', 
+                resource: id, 
+                details: { status },
+                req 
+            });
+
+            res.json({ success: true });
+        } catch (error) {
+            console.error('Update gap status error:', error);
+            res.status(500).json({ error: 'Failed to update status' });
+        }
+    });
+
     // Answer a Local Question
     router.post('/questions/:id/answer', adminAuth.requireAdminAuth, [
         body('response_text').trim().notEmpty()

@@ -388,15 +388,17 @@ async function main() {
 
         for (const story of stories) {
             try {
-                const slug = createSlug(story.title);
+                let slug = createSlug(story.title);
 
-                // Skip if slug already exists (duplicate handling)
-                if (slugMap.has(slug)) {
-                    console.log(`⚠️  Skipping duplicate slug: ${slug} (${story.title})`);
-                    skippedCount++;
-                    continue;
+                // Handle duplicates by appending a counter
+                let counter = 1;
+                let finalSlug = slug;
+                while (slugMap.has(finalSlug)) {
+                    counter++;
+                    finalSlug = `${slug}-${counter}`;
                 }
-
+                
+                slug = finalSlug;
                 slugMap.set(slug, story);
 
                 // Generate HTML
