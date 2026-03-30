@@ -51,12 +51,30 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // 1. API Requests - Network Only (handled by SupabaseDataLoader + IndexedDB)
-  if (url.pathname.startsWith('/api/')) {
-    return; // Let it go to network
+  // 1. Dictionary API - Cache First (Offline Pocket Dictionary)
+  if (url.pathname === '/api/dictionary/all') {
+    event.respondWith(
+      caches.open('chokepidgin-data').then((cache) => {
+        return cache.match(request).then((cachedResponse) => {
+          const fetchPromise = fetch(request).then((networkResponse) => {
+            if (networkResponse && networkResponse.status === 200) {
+              cache.put(request, networkResponse.clone());
+            }
+            return networkResponse;
+          });
+          return cachedResponse || fetchPromise;
+        });
+      })
+    );
+    return;
   }
 
-  // 2. Static Assets & Pages - Stale-While-Revalidate
+  // 2. Other API Requests - Network Only
+  if (url.pathname.startsWith('/api/')) {
+    return;
+  }
+
+  // 3. Static Assets & Pages - Stale-While-Revalidate
   // Fast load from cache, update in background
   event.respondWith(
     caches.match(request).then((cachedResponse) => {

@@ -126,8 +126,30 @@ module.exports = function(translate, translationLimiter, dictionaryCache) {
 
                 const vocabularySection = getRelevantVocabulary(text, direction || 'eng-to-pidgin');
                 const systemPrompt = direction === 'eng-to-pidgin'
-                    ? `You are a Hawaiian Pidgin translator...${vocabularySection}`
-                    : `You are an expert Hawaiian Pidgin translator...${vocabularySection}`;
+                    ? `You are an expert Hawaiian Pidgin translator. 
+Translate the following English text into AUTHENTIC, natural Hawaiian Pidgin (Hawaii Creole English).
+
+CRITICAL GRAMMAR RULES:
+1. Present Tense: Use "stay" for "am/is/are" when describing a state or location (e.g., "I stay hungry", "He stay home").
+2. Past Tense: Use "wen" before the verb (e.g., "I wen go" for "I went", "We wen eat" for "We ate").
+3. Future Tense: Use "going" or "going go" (e.g., "I going go beach" for "I will go to the beach").
+4. Negations: Use "no" for "don't", "neva" for "didn't", and "no can" for "can't".
+5. Questions: Use "like" for "want to" (e.g., "You like food?" for "Do you want food?").
+6. Vocabulary: Use "da" for "the", "dat" for "that", "dis" for "this", "wit" for "with", and "fo" for "for".
+7. Pronouns: "They" often becomes "dey".
+
+Maintain a friendly, casual, local island style. Do not be overly formal.
+${vocabularySection}`
+                    : `You are an expert Hawaiian Pidgin translator. 
+Translate the following Hawaiian Pidgin text into natural English.
+
+CRITICAL RULES:
+1. Capture the intended meaning and spirit, not just a literal word-for-word translation.
+2. If multiple meanings are possible, choose the most likely one based on common island usage.
+3. If the Pidgin uses "stay" as a verb, it usually means "am/is/are".
+4. If the Pidgin uses "wen" before a verb, it indicates past tense.
+
+${vocabularySection}`;
 
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
 

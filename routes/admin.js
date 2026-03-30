@@ -429,5 +429,82 @@ Respond only with a JSON object:
         }
     });
 
+    // Answer a Local Question
+    router.post('/questions/:id/answer', adminAuth.requireAdminAuth, [
+        body('response_text').trim().notEmpty()
+    ], async (req, res) => {
+        if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
+        const { id } = req.params;
+        const { response_text } = req.body;
+
+        try {
+            // 1. Upsert the response
+            const { error: respErr } = await supabaseAdmin
+                .from('local_responses')
+                .upsert([
+                    { 
+                        question_id: id, 
+                        response_text,
+                        responder_name: 'Local Expert'
+                    }
+                ], { onConflict: 'question_id' }); // Assuming one response for now
+
+            if (respErr) throw respErr;
+
+            // 2. Update question status to answered
+            const { error: questErr } = await supabaseAdmin
+                .from('local_questions')
+                .update({ status: 'answered', updated_at: new Date() })
+                .eq('id', id);
+
+            if (questErr) throw questErr;
+
+            await adminAuth.logAuditAction({ 
+                userId: req.adminUser.id, 
+                username: req.adminUser.username, 
+                action: 'ANSWER_QUESTION', 
+                resource: id, 
+                req 
+            });
+
+            res.json({ success: true });
+        } catch (error) {
+            console.error('Answer question error:', error);
+            res.status(500).json({ error: 'Failed to save answer' });
+        }
+    });
+
+    // Update Question Status
+    router.put('/questions/:id/status', adminAuth.requireAdminAuth, [
+        body('status').isIn(['pending', 'answered', 'rejected'])
+    ], async (req, res) => {
+        if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
+        const { id } = req.params;
+        const { status } = req.body;
+
+        try {
+            const { error } = await supabaseAdmin
+                .from('local_questions')
+                .update({ status, updated_at: new Date() })
+                .eq('id', id);
+
+            if (error) throw error;
+
+            await adminAuth.logAuditAction({ 
+                userId: req.adminUser.id, 
+                username: req.adminUser.username, 
+                action: 'UPDATE_QUESTION_STATUS', 
+                resource: id, 
+                details: { status },
+                req 
+            });
+
+            res.json({ success: true });
+        } catch (error) {
+            console.error('Update question status error:', error);
+            res.status(500).json({ error: 'Failed to update status' });
+        }
+    });
+
     return router;
 };

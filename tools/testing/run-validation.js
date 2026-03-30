@@ -115,14 +115,22 @@ async function runValidation() {
             };
         }
 
-        const actualPidgin = translations[0].pidgin;
-        const similarity = calculateSimilarity(actualPidgin, expectedPidgin);
+        // Check if any of the possible translations for this English word match the expected Pidgin
+        // This handles synonyms correctly (e.g., 'friend' -> 'brah' or 'cuz')
+        let bestMatch = { score: 0, pidgin: null };
+        const hasMatch = translations.some(t => {
+            const similarity = calculateSimilarity(t.pidgin, expectedPidgin);
+            if (similarity > bestMatch.score) {
+                bestMatch = { score: similarity, pidgin: t.pidgin };
+            }
+            return similarity >= 0.8;
+        });
 
         return {
-            passed: similarity >= 0.8,
-            score: similarity,
-            actual: actualPidgin,
-            reason: similarity >= 0.8 ? 'Match' : `Only ${Math.round(similarity * 100)}% similar`
+            passed: hasMatch,
+            score: bestMatch.score,
+            actual: bestMatch.pidgin,
+            reason: hasMatch ? 'Match' : `Only ${Math.round(bestMatch.score * 100)}% similar`
         };
     }
 

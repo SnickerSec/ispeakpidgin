@@ -1,7 +1,7 @@
 -- User Suggestions Migration
 CREATE TABLE IF NOT EXISTS user_suggestions (
     id SERIAL PRIMARY KEY,
-    pidgin VARCHAR(255) NOT NULL,
+    pidgin VARCHAR(255) NOT NULL UNIQUE,
     english TEXT NOT NULL,
     example TEXT,
     contributor_name VARCHAR(100),

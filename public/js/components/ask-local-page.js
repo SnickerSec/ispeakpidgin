@@ -235,19 +235,36 @@ class AskLocalPageManager {
             return;
         }
 
+        const submitBtn = document.getElementById('submit-question-btn');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="ti ti-loader animate-spin"></span> Sending...';
+
         try {
-            this.submitQuestion(userName, questionText);
+            const response = await fetch('/api/questions', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_name: userName, question_text: questionText })
+            });
+
+            if (!response.ok) throw new Error('Submission failed');
+
             this.showFeedback('Your question has been submitted! Locals will respond soon. <i class="ti ti-flower"></i>', 'success');
 
             // Reset form
             document.getElementById('ask-form').reset();
             this.generateNewCaptcha();
 
-            // Reload questions
+            // Reload questions from server
             this.loadQuestions();
 
         } catch (error) {
             this.showFeedback('There was an error submitting your question. Please try again.', 'error');
+        } finally {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
         }
     }
 
@@ -345,10 +362,26 @@ class AskLocalPageManager {
         // Note: Mobile menu is handled by navigation.html component
     }
 
-    loadQuestions() {
-        this.questions = JSON.parse(localStorage.getItem('askLocalQuestions') || '[]');
-        this.displayAllQuestions();
-        this.updateQuestionCount();
+    async loadQuestions() {
+        const loadingState = document.getElementById('loading-state');
+        if (loadingState) loadingState.style.display = 'block';
+
+        try {
+            const response = await fetch(`/api/questions?status=${this.currentFilter}`);
+            if (!response.ok) throw new Error('Failed to fetch questions');
+            
+            const data = await response.json();
+            this.questions = data.questions || [];
+            this.displayAllQuestions();
+            this.updateQuestionCount();
+        } catch (error) {
+            console.error('Error loading questions:', error);
+            // Fallback to localStorage if server fails
+            this.questions = JSON.parse(localStorage.getItem('askLocalQuestions') || '[]');
+            this.displayAllQuestions();
+        } finally {
+            if (loadingState) loadingState.style.display = 'none';
+        }
     }
 
     setFilter(filter) {

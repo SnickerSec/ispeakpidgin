@@ -57,6 +57,10 @@
         document.getElementById('refreshSettingsBtn')?.addEventListener('click', refreshSettings);
         document.getElementById('refreshAuditLogBtn')?.addEventListener('click', loadAuditLog);
         document.getElementById('refreshGapsBtn')?.addEventListener('click', loadSearchGaps);
+        document.getElementById('refreshSuggestionsBtn')?.addEventListener('click', loadSuggestions);
+        document.getElementById('suggestionStatusSelect')?.addEventListener('change', loadSuggestions);
+        document.getElementById('refreshQuestionsBtn')?.addEventListener('click', loadQuestionsAdmin);
+        document.getElementById('questionStatusSelect')?.addEventListener('change', loadQuestionsAdmin);
 
         // Save all settings
         document.getElementById('saveAllSettingsBtn')?.addEventListener('click', saveAllSettings);
@@ -87,9 +91,39 @@
             } else if (target.dataset.action === 'suggest') {
                 suggestGapData(pidgin, row, target);
             }
-        });
-        // API Keys container - handle toggle visibility, test, and save buttons
-        document.getElementById('apiKeysContainer')?.addEventListener('click', function(e) {
+            });
+
+            // Suggestions container - handle approve and reject buttons
+            document.getElementById('suggestionsContainer')?.addEventListener('click', function(e) {
+            const target = e.target.closest('button');
+            if (!target) return;
+
+            const id = target.dataset.id;
+            const action = target.dataset.action;
+
+            if (action === 'approve') {
+                updateSuggestionStatus(id, 'approved', target);
+            } else if (action === 'reject') {
+                updateSuggestionStatus(id, 'rejected', target);
+            }
+            });
+
+            // Questions container - handle answer/reject actions
+            document.getElementById('questionsContainer')?.addEventListener('click', function(e) {
+            const target = e.target.closest('button');
+            if (!target) return;
+
+            const id = target.dataset.id;
+            const action = target.dataset.action;
+
+            if (action === 'answer') {
+                promptAndAnswerQuestion(id, target);
+            } else if (action === 'reject-question') {
+                updateQuestionStatus(id, 'rejected', target);
+            }
+            });
+
+            // API Keys container - handle toggle visibility, test, and save buttons        document.getElementById('apiKeysContainer')?.addEventListener('click', function(e) {
             const target = e.target.closest('button');
             if (!target) return;
 
@@ -246,6 +280,275 @@
             loadAuditLog();
         } else if (tabId === 'gaps') {
             loadSearchGaps();
+        } else if (tabId === 'suggestions') {
+            loadSuggestions();
+        } else if (tabId === 'questions') {
+            loadQuestionsAdmin();
+        }
+    }
+
+    // User Suggestions
+    async function loadSuggestions() {
+        const container = document.getElementById('suggestionsContainer');
+        const refreshBtn = document.getElementById('refreshSuggestionsBtn');
+        const statusSelect = document.getElementById('suggestionStatusSelect');
+        const status = statusSelect?.value || 'pending';
+
+        if (refreshBtn) {
+            refreshBtn.disabled = true;
+            refreshBtn.innerHTML = '<span class="spinner"></span> Loading...';
+        }
+
+        try {
+            const response = await fetch(`/api/admin/suggestions?status=${status}`, {
+                headers: { 'Authorization': `Bearer ${authToken}` }
+            });
+
+            if (!response.ok) throw new Error('Failed to fetch suggestions');
+
+            const data = await response.json();
+
+            if (!data.suggestions || data.suggestions.length === 0) {
+                container.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="px-6 py-12 text-center text-gray-500">
+                            No ${status} suggestions found.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            container.innerHTML = data.suggestions.map(s => `
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="font-medium text-gray-900">${s.pidgin}</div>
+                        <div class="text-xs text-gray-500">Added: ${formatDate(s.created_at)}</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="text-sm text-gray-900">${s.english}</div>
+                        ${s.example ? \`<div class="text-xs text-gray-500 italic mt-1">"\${s.example}"</div>\` : ''}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        \${s.contributor_name || 'Anonymous'}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        \${status === 'pending' ? \`
+                            <div class="flex justify-center gap-2">
+                                <button data-action="approve" data-id="\${s.id}"
+                                        class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">
+                                    Approve
+                                </button>
+                                <button data-action="reject" data-id="\${s.id}"
+                                        class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition">
+                                    Reject
+                                </button>
+                            </div>
+                        \` : \`
+                            <span class="px-2 py-1 rounded-full text-xs font-bold uppercase tracking-wider \${
+                                status === 'approved' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                            }">
+                                \${status}
+                            </span>
+                        \`}
+                    </td>
+                </tr>
+            \`).join('');
+
+        } catch (error) {
+            container.innerHTML = \`
+                <tr>
+                    <td colspan="4" class="px-6 py-12 text-center text-red-500">
+                        Error loading suggestions: \${error.message}
+                    </td>
+                </tr>
+            \`;
+        } finally {
+            if (refreshBtn) {
+                refreshBtn.disabled = false;
+                refreshBtn.textContent = 'Refresh';
+            }
+        }
+    }
+
+    async function updateSuggestionStatus(id, status, button) {
+        const originalHtml = button.innerHTML;
+        button.disabled = true;
+        button.innerHTML = '<span class="spinner spinner-white"></span>';
+
+        try {
+            const response = await fetch(\`/api/admin/suggestions/\${id}\`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': \`Bearer \${authToken}\`
+                },
+                body: JSON.stringify({ status })
+            });
+
+            if (!response.ok) throw new Error(\`Failed to \${status} suggestion\`);
+
+            showToast(\`Suggestion \${status}\`, 'success');
+            
+            // Remove the row
+            const row = button.closest('tr');
+            row.style.opacity = '0';
+            setTimeout(() => row.remove(), 300);
+
+        } catch (error) {
+            showToast('Error: ' + error.message, 'error');
+            button.disabled = false;
+            button.innerHTML = originalHtml;
+        }
+    }
+
+    // Local Questions (Admin)
+    async function loadQuestionsAdmin() {
+        const container = document.getElementById('questionsContainer');
+        const refreshBtn = document.getElementById('refreshQuestionsBtn');
+        const statusSelect = document.getElementById('questionStatusSelect');
+        const status = statusSelect?.value || 'all';
+
+        if (refreshBtn) {
+            refreshBtn.disabled = true;
+            refreshBtn.innerHTML = '<span class="spinner"></span> Loading...';
+        }
+
+        try {
+            const response = await fetch(\`/api/questions?status=\${status}&limit=100\`, {
+                headers: { 'Authorization': \`Bearer \${authToken}\` }
+            });
+
+            if (!response.ok) throw new Error('Failed to fetch questions');
+
+            const data = await response.json();
+
+            if (!data.questions || data.questions.length === 0) {
+                container.innerHTML = \`
+                    <tr>
+                        <td colspan="3" class="px-6 py-12 text-center text-gray-500">
+                            No questions found.
+                        </td>
+                    </tr>
+                \`;
+                return;
+            }
+
+            container.innerHTML = data.questions.map(q => \`
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4">
+                        <div class="text-sm font-bold text-gray-900">\${q.question_text}</div>
+                        <div class="text-xs text-gray-500 mt-1">By \${q.user_name} • \${formatDate(q.created_at)}</div>
+                        \${q.responses && q.responses.length > 0 ? \`
+                            <div class="mt-2 p-2 bg-green-50 rounded border border-green-100">
+                                <div class="text-xs font-bold text-green-800">Answer:</div>
+                                <div class="text-xs text-green-700">\${q.responses[0].response_text}</div>
+                            </div>
+                        \` : ''}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 py-1 rounded-full text-xs font-bold uppercase tracking-wider \${
+                            q.status === 'answered' ? 'bg-green-100 text-green-700' : 
+                            q.status === 'pending' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'
+                        }">
+                            \${q.status}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <div class="flex justify-center gap-2">
+                            <button data-action="answer" data-id="\${q.id}"
+                                    class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition">
+                                \${q.status === 'answered' ? 'Edit Answer' : 'Answer'}
+                            </button>
+                            \${q.status !== 'rejected' ? \`
+                                <button data-action="reject-question" data-id="\${q.id}"
+                                        class="bg-red-100 text-red-600 px-3 py-1 rounded hover:bg-red-200 transition">
+                                    Reject
+                                </button>
+                            \` : ''}
+                        </div>
+                    </td>
+                </tr>
+            \`).join('');
+
+        } catch (error) {
+            container.innerHTML = \`
+                <tr>
+                    <td colspan="3" class="px-6 py-12 text-center text-red-500">
+                        Error loading questions: \${error.message}
+                    </td>
+                </tr>
+            \`;
+        } finally {
+            if (refreshBtn) {
+                refreshBtn.disabled = false;
+                refreshBtn.textContent = 'Refresh';
+            }
+        }
+    }
+
+    async function promptAndAnswerQuestion(id, button) {
+        const row = button.closest('tr');
+        const questionText = row.querySelector('.text-sm.font-bold').textContent;
+        const currentAnswer = row.querySelector('.text-xs.text-green-700')?.textContent || '';
+        
+        const answer = prompt(\`Answer for: "\${questionText}"\`, currentAnswer);
+        if (answer === null) return; // Cancelled
+        if (!answer.trim()) return alert('Answer cannot be empty');
+
+        button.disabled = true;
+        const originalHtml = button.innerHTML;
+        button.innerHTML = '<span class="spinner spinner-white"></span>';
+
+        try {
+            // We need a specific endpoint for answering questions
+            const response = await fetch(\`/api/admin/questions/\${id}/answer\`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': \`Bearer \${authToken}\`
+                },
+                body: JSON.stringify({ response_text: answer })
+            });
+
+            if (!response.ok) throw new Error('Failed to save answer');
+
+            showToast('Answer saved successfully', 'success');
+            loadQuestionsAdmin(); // Reload list
+
+        } catch (error) {
+            showToast('Error: ' + error.message, 'error');
+            button.disabled = false;
+            button.innerHTML = originalHtml;
+        }
+    }
+
+    async function updateQuestionStatus(id, status, button) {
+        if (!confirm(\`Are you sure you want to \${status} this question?\`)) return;
+
+        button.disabled = true;
+        const originalHtml = button.innerHTML;
+        button.innerHTML = '<span class="spinner spinner-white"></span>';
+
+        try {
+            const response = await fetch(\`/api/admin/questions/\${id}/status\`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': \`Bearer \${authToken}\`
+                },
+                body: JSON.stringify({ status })
+            });
+
+            if (!response.ok) throw new Error('Failed to update status');
+
+            showToast(\`Question \${status}\`, 'success');
+            loadQuestionsAdmin();
+
+        } catch (error) {
+            showToast('Error: ' + error.message, 'error');
+            button.disabled = false;
+            button.innerHTML = originalHtml;
         }
     }
 

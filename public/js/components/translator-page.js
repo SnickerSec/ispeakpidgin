@@ -331,6 +331,32 @@ function displayTranslationResult(result, originalText, direction) {
         outputHTML += '</div>';
     }
 
+    // Add Grammar/Local Tip (Engagement Feature)
+    const grammarTips = [
+        { title: "Present Tense Tip", text: 'Use "stay" for "am/is/are" when describing a state or location. Example: "I stay hungry" means "I am hungry".', icon: "ti-info-circle" },
+        { title: "Past Tense Tip", text: 'Use "wen" before a verb for past tense. Example: "I wen go beach" means "I went to the beach".', icon: "ti-history" },
+        { title: "Future Tense Tip", text: 'Use "going" or "going go" for future tense. Example: "I going eat" means "I will eat".', icon: "ti-arrow-forward" },
+        { title: "The Magic Word", text: '"Da kine" is the most versatile word in Pidgin! Use it for "the thing" when you forget the specific name.', icon: "ti-sparkles" },
+        { title: "Island Respect", text: 'Always say "Mahalo" to show gratitude. It\'s a key part of the aloha spirit!', icon: "ti-hand-love-you" },
+        { title: "Negation Tip", text: 'Use "no" for "don\'t" and "neva" for "didn\'t". Example: "I neva see \'em" means "I didn\'t see it".', icon: "ti-circle-x" },
+        { title: "Pronunciation Tip", text: 'Try dropping the "r" sound at the end of words. "Brother" becomes "Brah", "Sister" becomes "Sistah".', icon: "ti-microphone" }
+    ];
+
+    const randomTip = grammarTips[Math.floor(Math.random() * grammarTips.length)];
+    
+    outputHTML += `
+        <div class="mt-6 pt-4 border-t-2 border-dashed border-gray-100 animate-fade-in">
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-xl border border-blue-100 flex items-start gap-3">
+                <div class="text-blue-600 mt-1 text-xl"><i class="ti ${randomTip.icon}"></i></div>
+                <div>
+                    <h4 class="text-sm font-bold text-blue-800 uppercase tracking-wider">${randomTip.title}</h4>
+                    <p class="text-sm text-blue-900 mt-0.5">${randomTip.text}</p>
+                    <a href="learning-hub.html" class="text-xs text-blue-600 font-bold hover:underline mt-2 inline-block">Learn more in the Hub →</a>
+                </div>
+            </div>
+        </div>
+    `;
+
     outputDiv.innerHTML = outputHTML;
 
     // Attach click listeners to highlights
