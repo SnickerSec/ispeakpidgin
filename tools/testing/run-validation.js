@@ -3,20 +3,67 @@
 /**
  * Automated Translator Validation Runner
  *
- * Runs validation tests by loading the translator data and
- * simulating translations to measure accuracy
+ * Runs validation tests by loading the ACTUAL translator class
+ * and measuring real-world accuracy against the Supabase dataset.
  */
 
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
 const { supabase } = require('../../config/supabase');
+const vm = require('vm');
+
+// Mock browser globals for the translator class
+global.window = {
+    addEventListener: () => {},
+    dispatchEvent: () => {}
+};
+global.performance = { now: () => Date.now() };
+global.navigator = { userAgent: 'node' };
+
+// Mock dependencies
+global.contextTracker = { isParagraph: () => false };
+global.sentenceChunker = { loaded: false };
+global.phraseTranslator = { loaded: false };
+global.settingsManager = { get: () => 'false' }; // Disable AI for deterministic validation
+
+// Mock data loader
+const mockDataLoader = {
+    loaded: true,
+    data: { translations: { englishToPidgin: {}, pidginToEnglish: {} } },
+    entries: [],
+    getTranslations: function() { return this.data.translations; },
+    getAllEntries: function() { return this.entries; }
+};
+global.pidginDataLoader = mockDataLoader;
+
+/**
+ * Loads the actual PidginTranslator class from source
+ */
+function loadTranslatorClass() {
+    const translatorPath = path.join(__dirname, '../../src/components/translator/translator.js');
+    const code = fs.readFileSync(translatorPath, 'utf8');
+    
+    // Extract only the class definition
+    const lines = code.split('\n');
+    let classEndLine = lines.findIndex(line => line.includes('const translator = new PidginTranslator()'));
+    if (classEndLine === -1) classEndLine = lines.length;
+    
+    let classCode = lines.slice(0, classEndLine).join('\n');
+    classCode += '\nthis.PidginTranslator = PidginTranslator;';
+    
+    const script = new vm.Script(classCode);
+    const context = { ...global };
+    script.runInNewContext(context);
+    return context.PidginTranslator;
+}
 
 async function runValidation() {
     console.log('🚀 Hawaiian Pidgin Translator Validation\n');
+    
+    const PidginTranslator = loadTranslatorClass();
+    
     console.log('📡 Fetching dictionary data from Supabase...');
-
-    // Fetch all dictionary entries
     const { data: entries, error } = await supabase
         .from('dictionary_entries')
         .select('*')
@@ -27,37 +74,31 @@ async function runValidation() {
         process.exit(1);
     }
 
-    const masterData = { entries };
-
-    // Reconstruct translator view
-    const translatorView = {
-        translations: {
-            englishToPidgin: {},
-            pidginToEnglish: {}
-        }
-    };
-
+    // Populate mock data loader
+    mockDataLoader.entries = entries;
     entries.forEach(entry => {
-        // Handle English to Pidgin
-        const englishArr = Array.isArray(entry.english) ? entry.english : [entry.english];
-        englishArr.forEach(eng => {
-            const engLower = eng.toLowerCase();
-            if (!translatorView.translations.englishToPidgin[engLower]) {
-                translatorView.translations.englishToPidgin[engLower] = [];
+        const engArr = Array.isArray(entry.english) ? entry.english : [entry.english];
+        engArr.forEach(eng => {
+            const engLower = eng.toLowerCase().trim();
+            if (!mockDataLoader.data.translations.englishToPidgin[engLower]) {
+                mockDataLoader.data.translations.englishToPidgin[engLower] = [];
             }
-            translatorView.translations.englishToPidgin[engLower].push({
+            mockDataLoader.data.translations.englishToPidgin[engLower].push({
                 pidgin: entry.pidgin,
-                id: entry.id
+                id: entry.id,
+                confidence: 1.0
             });
         });
-
-        // Handle Pidgin to English
-        const pidginLower = entry.pidgin.toLowerCase();
-        translatorView.translations.pidginToEnglish[pidginLower] = englishArr;
+        mockDataLoader.data.translations.pidginToEnglish[entry.pidgin.toLowerCase()] = engArr;
     });
 
-    console.log(`📊 Loaded ${masterData.entries.length} master entries`);
-    console.log(`📊 Reconstructed translator view with ${Object.keys(translatorView.translations.englishToPidgin).length} English→Pidgin mappings\n`);
+    // Initialize the real translator
+    const translator = new PidginTranslator();
+    translator.initialized = false;
+    translator.tryInitialize();
+
+    console.log(`📊 Loaded ${entries.length} master entries`);
+    console.log(`📊 Reconstructed translator view with ${Object.keys(mockDataLoader.data.translations.englishToPidgin).length} English→Pidgin mappings\n`);
 
     // Test results
     const results = {
@@ -71,157 +112,97 @@ async function runValidation() {
 
     // Calculate similarity (Levenshtein)
     function calculateSimilarity(str1, str2) {
-        str1 = (str1 || '').toLowerCase();
-        str2 = (str2 || '').toLowerCase();
-
+        str1 = (str1 || '').toLowerCase().trim();
+        str2 = (str2 || '').toLowerCase().trim();
         if (str1 === str2) return 1.0;
-
         const len1 = str1.length;
         const len2 = str2.length;
         const maxLen = Math.max(len1, len2);
-
         if (maxLen === 0) return 1.0;
-
         const matrix = Array(len1 + 1).fill(null).map(() => Array(len2 + 1).fill(0));
-
         for (let i = 0; i <= len1; i++) matrix[i][0] = i;
         for (let j = 0; j <= len2; j++) matrix[0][j] = j;
-
         for (let i = 1; i <= len1; i++) {
             for (let j = 1; j <= len2; j++) {
                 const cost = str1[i - 1] === str2[j - 1] ? 0 : 1;
-                matrix[i][j] = Math.min(
-                    matrix[i - 1][j] + 1,
-                    matrix[i][j - 1] + 1,
-                    matrix[i - 1][j - 1] + cost
-                );
+                matrix[i][j] = Math.min(matrix[i - 1][j] + 1, matrix[i][j - 1] + 1, matrix[i - 1][j - 1] + cost);
             }
         }
-
         return (maxLen - matrix[len1][len2]) / maxLen;
     }
 
-    // Test English → Pidgin translation
-    function testEnglishToPidgin(englishWord, expectedPidgin, category) {
-        const key = englishWord.toLowerCase();
-        const translations = translatorView.translations.englishToPidgin[key];
+    // Test English → Pidgin translation using ACTUAL engine
+    async function testEnglishToPidgin(englishWord, expectedPidgin) {
+        const translationObj = await translator.translate(englishWord, 'eng-to-pidgin');
+        const actual = translationObj.text.toLowerCase();
+        
+        // Get all valid options for this word from our dataset
+        const options = mockDataLoader.data.translations.englishToPidgin[englishWord.toLowerCase().trim()] || [];
+        const validPidgins = options.map(o => o.pidgin.toLowerCase());
+        if (!validPidgins.includes(expectedPidgin.toLowerCase())) validPidgins.push(expectedPidgin.toLowerCase());
 
-        if (!translations || translations.length === 0) {
-            return {
-                passed: false,
-                score: 0,
-                actual: null,
-                reason: 'No translation found'
-            };
-        }
-
-        // Check if any of the possible translations for this English word match the expected Pidgin
-        // This handles synonyms correctly (e.g., 'friend' -> 'brah' or 'cuz')
-        let bestMatch = { score: 0, pidgin: null };
-        const hasMatch = translations.some(t => {
-            const similarity = calculateSimilarity(t.pidgin, expectedPidgin);
-            if (similarity > bestMatch.score) {
-                bestMatch = { score: similarity, pidgin: t.pidgin };
+        let bestScore = 0;
+        let bestMatch = null;
+        
+        const hasMatch = validPidgins.some(opt => {
+            const score = calculateSimilarity(actual, opt);
+            if (score > bestScore) {
+                bestScore = score;
+                bestMatch = opt;
             }
-            return similarity >= 0.8;
+            return score >= 0.85; // Strict threshold for literal matches
         });
 
         return {
             passed: hasMatch,
-            score: bestMatch.score,
-            actual: bestMatch.pidgin,
-            reason: hasMatch ? 'Match' : `Only ${Math.round(bestMatch.score * 100)}% similar`
+            score: bestScore,
+            actual: actual,
+            bestValidOption: bestMatch,
+            reason: hasMatch ? 'Match' : `Only ${Math.round(bestScore * 100)}% similar to closest valid option`
         };
     }
 
-    // Test Pidgin → English translation
-    function testPidginToEnglish(pidginWord, expectedEnglish, category) {
-        const key = pidginWord.toLowerCase();
-        const translations = translatorView.translations.pidginToEnglish[key];
-
-        if (!translations || translations.length === 0) {
-            return {
-                passed: false,
-                score: 0,
-                actual: null,
-                reason: 'No translation found'
-            };
-        }
-
-        const actualEnglish = translations;
-
-        // Check if any expected English word matches
-        const expectedArray = Array.isArray(expectedEnglish) ? expectedEnglish : [expectedEnglish];
-        const hasMatch = expectedArray.some(expected =>
-            actualEnglish.some(actual =>
-                actual.toLowerCase() === expected.toLowerCase() ||
-                actual.toLowerCase().includes(expected.toLowerCase()) ||
-                expected.toLowerCase().includes(actual.toLowerCase())
-            )
-        );
-
-        if (hasMatch) {
-            return {
-                passed: true,
-                score: 1.0,
-                actual: actualEnglish.join(', '),
-                reason: 'Match found'
-            };
-        }
-
-        // Calculate best similarity
-        let bestScore = 0;
-        expectedArray.forEach(expected => {
-            actualEnglish.forEach(actual => {
-                const sim = calculateSimilarity(actual, expected);
-                if (sim > bestScore) bestScore = sim;
-            });
+    // Test Pidgin → English translation using ACTUAL engine
+    async function testPidginToEnglish(pidginWord, expectedEnglishArr) {
+        const translationObj = await translator.translate(pidginWord, 'pidgin-to-eng');
+        const actual = translationObj.text.toLowerCase();
+        
+        const hasMatch = expectedEnglishArr.some(expected => {
+            const score = calculateSimilarity(actual, expected);
+            return score >= 0.8;
         });
 
         return {
-            passed: bestScore >= 0.7,
-            score: bestScore,
-            actual: actualEnglish.join(', '),
-            reason: bestScore >= 0.7 ? 'Partial match' : `Only ${Math.round(bestScore * 100)}% similar`
+            passed: hasMatch,
+            score: hasMatch ? 1.0 : 0,
+            actual: actual,
+            reason: hasMatch ? 'Match' : 'No matching English meaning found'
         };
     }
 
     // Update stats
     function updateStats(category, type, passed) {
-        // By category
-        if (!results.byCategory[category]) {
-            results.byCategory[category] = { total: 0, passed: 0, failed: 0 };
-        }
+        if (!results.byCategory[category]) results.byCategory[category] = { total: 0, passed: 0, failed: 0 };
         results.byCategory[category].total++;
-        if (passed) {
-            results.byCategory[category].passed++;
-        } else {
-            results.byCategory[category].failed++;
-        }
+        if (passed) results.byCategory[category].passed++; else results.byCategory[category].failed++;
 
-        // By type
-        if (!results.byType[type]) {
-            results.byType[type] = { total: 0, passed: 0, failed: 0 };
-        }
+        if (!results.byType[type]) results.byType[type] = { total: 0, passed: 0, failed: 0 };
         results.byType[type].total++;
-        if (passed) {
-            results.byType[type].passed++;
-        } else {
-            results.byType[type].failed++;
-        }
+        if (passed) results.byType[type].passed++; else results.byType[type].failed++;
     }
 
     console.log('🔬 Running validation tests...\n');
 
     // Run tests for each entry
-    masterData.entries.forEach((entry, index) => {
+    for (let i = 0; i < entries.length; i++) {
+        const entry = entries[i];
         const category = entry.category || 'unknown';
         const englishArr = Array.isArray(entry.english) ? entry.english : [entry.english];
 
         // Test each English word → Pidgin
-        englishArr.forEach(englishWord => {
+        for (const englishWord of englishArr) {
             results.total++;
-            const result = testEnglishToPidgin(englishWord, entry.pidgin, category);
+            const result = await testEnglishToPidgin(englishWord, entry.pidgin);
 
             if (result.passed) {
                 results.passed++;
@@ -237,13 +218,12 @@ async function runValidation() {
                     reason: result.reason
                 });
             }
-
             updateStats(category, 'english-to-pidgin', result.passed);
-        });
+        }
 
         // Test Pidgin → English
         results.total++;
-        const result = testPidginToEnglish(entry.pidgin, englishArr, category);
+        const result = await testPidginToEnglish(entry.pidgin, englishArr);
 
         if (result.passed) {
             results.passed++;
@@ -259,30 +239,24 @@ async function runValidation() {
                 reason: result.reason
             });
         }
-
         updateStats(category, 'pidgin-to-english', result.passed);
 
-        // Progress indicator
-        if ((index + 1) % 100 === 0) {
-            process.stdout.write(`  Tested ${index + 1}/${masterData.entries.length} entries...\r`);
+        if ((i + 1) % 100 === 0) {
+            process.stdout.write(`  Tested ${i + 1}/${entries.length} entries...\r`);
         }
-    });
+    }
 
-    console.log(`  Completed all ${masterData.entries.length} entries!       \n`);
+    console.log(`  Completed all ${entries.length} entries!       \n`);
 
     // Calculate accuracy
     results.accuracy = ((results.passed / results.total) * 100).toFixed(1);
 
-    // Calculate category accuracies
+    // Calculate details
     Object.keys(results.byCategory).forEach(cat => {
-        const stats = results.byCategory[cat];
-        stats.accuracy = ((stats.passed / stats.total) * 100).toFixed(1);
+        results.byCategory[cat].accuracy = ((results.byCategory[cat].passed / results.byCategory[cat].total) * 100).toFixed(1);
     });
-
-    // Calculate type accuracies
     Object.keys(results.byType).forEach(type => {
-        const stats = results.byType[type];
-        stats.accuracy = ((stats.passed / stats.total) * 100).toFixed(1);
+        results.byType[type].accuracy = ((results.byType[type].passed / results.byType[type].total) * 100).toFixed(1);
     });
 
     // Display results
@@ -301,133 +275,18 @@ async function runValidation() {
         .sort((a, b) => parseFloat(b[1].accuracy) - parseFloat(a[1].accuracy))
         .forEach(([type, stats]) => {
             const bar = '█'.repeat(Math.round(parseFloat(stats.accuracy) / 5));
-            const color = parseFloat(stats.accuracy) >= 80 ? '🟢' : parseFloat(stats.accuracy) >= 60 ? '🟡' : '🔴';
+            const color = parseFloat(stats.accuracy) >= 80 ? '🟢' : '🔴';
             console.log(`${color} ${type.padEnd(25)} ${stats.accuracy.padStart(5)}%  ${bar}`);
-            console.log(`   ${stats.passed}/${stats.total} tests passed\n`);
         });
-
-    console.log('─'.repeat(60));
-    console.log('📊 Accuracy by Category:');
-    console.log('─'.repeat(60));
-    Object.entries(results.byCategory)
-        .sort((a, b) => parseFloat(b[1].accuracy) - parseFloat(a[1].accuracy))
-        .forEach(([category, stats]) => {
-            const bar = '█'.repeat(Math.round(parseFloat(stats.accuracy) / 5));
-            const color = parseFloat(stats.accuracy) >= 80 ? '🟢' : parseFloat(stats.accuracy) >= 60 ? '🟡' : '🔴';
-            console.log(`${color} ${category.padEnd(25)} ${stats.accuracy.padStart(5)}%  ${bar}`);
-            console.log(`   ${stats.passed}/${stats.total} tests passed\n`);
-        });
-
-    // Generate improvement suggestions
-    console.log('─'.repeat(60));
-    console.log('💡 IMPROVEMENT SUGGESTIONS:');
-    console.log('─'.repeat(60));
-
-    const suggestions = [];
-
-    // Low accuracy categories
-    Object.entries(results.byCategory).forEach(([category, stats]) => {
-        if (parseFloat(stats.accuracy) < 70) {
-            suggestions.push({
-                priority: 'HIGH',
-                issue: `Low accuracy in "${category}" category (${stats.accuracy}%)`,
-                suggestion: `Add more ${category} translations and alternative forms`,
-                impact: `Would improve ${stats.failed} failed translations`
-            });
-        }
-    });
-
-    // Overall accuracy issues
-    if (parseFloat(results.accuracy) < 80) {
-        suggestions.push({
-            priority: 'MEDIUM',
-            issue: `Overall accuracy is ${results.accuracy}%`,
-            suggestion: 'Review and expand translation mappings in Supabase',
-            impact: 'Improves general translation quality'
-        });
-    }
-
-    // Find missing translations
-    const missingTranslations = results.failures.filter(f => f.reason === 'No translation found');
-    if (missingTranslations.length > 0) {
-        const uniqueMissing = [...new Set(missingTranslations.map(f => f.input))];
-        suggestions.push({
-            priority: 'HIGH',
-            issue: `${uniqueMissing.length} words have no translations`,
-            suggestion: `Add missing translations: ${uniqueMissing.slice(0, 5).join(', ')}${uniqueMissing.length > 5 ? '...' : ''}`,
-            impact: `Would fix ${missingTranslations.length} test cases`
-        });
-    }
-
-    // Type-specific suggestions
-    Object.entries(results.byType).forEach(([type, stats]) => {
-        if (parseFloat(stats.accuracy) < 70) {
-            suggestions.push({
-                priority: 'MEDIUM',
-                issue: `${type} accuracy is ${stats.accuracy}%`,
-                suggestion: `Review ${type} translation logic and mappings`,
-                impact: `Would improve ${stats.failed} failed tests`
-            });
-        }
-    });
-
-    if (suggestions.length === 0) {
-        console.log('🎉 No critical issues found! Translator performing well.\n');
-    } else {
-        suggestions
-            .sort((a, b) => {
-                const priority = { HIGH: 3, MEDIUM: 2, LOW: 1 };
-                return priority[b.priority] - priority[a.priority];
-            })
-            .forEach((sug, i) => {
-                console.log(`\n${i + 1}. [${sug.priority}] ${sug.issue}`);
-                console.log(`   💡 ${sug.suggestion}`);
-                console.log(`   📈 Impact: ${sug.impact}`);
-            });
-        console.log();
-    }
-
-    // Show top failures
-    if (results.failures.length > 0) {
-        console.log('─'.repeat(60));
-        console.log('❌ TOP 15 FAILURES:');
-        console.log('─'.repeat(60));
-        results.failures
-            .sort((a, b) => a.score - b.score)
-            .slice(0, 15)
-            .forEach((failure, i) => {
-                console.log(`\n${i + 1}. ${failure.type} [${failure.category}]`);
-                console.log(`   Input: "${failure.input}"`);
-                console.log(`   Expected: "${failure.expected}"`);
-                console.log(`   Actual: "${failure.actual || 'N/A'}"`);
-                console.log(`   Score: ${Math.round(failure.score * 100)}%`);
-                console.log(`   Reason: ${failure.reason}`);
-            });
-        console.log();
-    }
-
-    console.log('═'.repeat(60));
-    console.log('✅ Validation Complete!');
-    console.log('═'.repeat(60));
 
     // Save results to file
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
     const reportPath = path.join(__dirname, `../../docs/validation-report-${timestamp}.json`);
-
     const report = {
         timestamp: new Date().toISOString(),
-        summary: {
-            total: results.total,
-            passed: results.passed,
-            failed: results.failed,
-            accuracy: results.accuracy
-        },
-        byCategory: results.byCategory,
-        byType: results.byType,
-        suggestions: suggestions,
+        summary: results,
         topFailures: results.failures.slice(0, 20)
     };
-
     fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
     console.log(`\n📄 Full report saved: ${reportPath}\n`);
 }
@@ -436,4 +295,3 @@ runValidation().catch(err => {
     console.error('Validation failed:', err);
     process.exit(1);
 });
-

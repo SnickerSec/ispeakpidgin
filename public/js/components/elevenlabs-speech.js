@@ -124,24 +124,25 @@ class ElevenLabsSpeech {
     // Pidgin pronunciation corrections for TTS
     applyPronunciationCorrections(text) {
         // Map of Pidgin words to phonetic spelling for better TTS pronunciation
+        // Optimized specifically for ElevenLabs voices
         const pronunciationMap = {
-            // "kine" should rhyme with "nine"
+            // "kine" should rhyme with "nine" - ElevenLabs sometimes needs help here
             'kine': 'kyne',
-            'da kine': 'da kyne',
+            'da kine': 'dah kyne',
             'any kine': 'any kyne',
             'small kine': 'small kyne',
             'funny kine': 'funny kyne',
             'fast kine': 'fast kyne',
             'faskine': 'fas-kyne',
 
-            // Other common mispronunciations
+            // Common Hawaiian/Pidgin words with specific phonetic needs
             'pau': 'pow',
             'mauka': 'mow-kah',
             'makai': 'mah-kye',
             'ono': 'oh-no',
-            'auwe': 'ow-weh',
-            'wahine': 'vah-hee-neh',
-            'kane': 'kah-neh',
+            'auwe': 'ow-way',
+            'wahine': 'vah-hee-nay',
+            'kane': 'kah-nay',
             'keiki': 'kay-kee',
             'tutu': 'too-too',
             'lanai': 'lah-nye',
@@ -159,16 +160,69 @@ class ElevenLabsSpeech {
             'kupuna': 'koo-poo-nah',
             'lolo': 'low-low',
             'pilau': 'pee-lau',
-            'puka': 'poo-kah'
+            'puka': 'poo-kah',
+            'humbug': 'hum-bug',
+            'howzit': 'how-zit',
+            'shaka': 'shah-kah',
+            'slippahs': 'slip-pahz',
+            'brah': 'brah',
+            'bruddah': 'bruh-dah',
+            'sistah': 'sis-tah',
+            'cuz': 'kuz',
+            'sole': 'so-leh',
+            'pake': 'pah-keh',
+            'haole': 'how-leh',
+            'kanak': 'kah-nahk',
+            'grindz': 'gryndz',
+            'grind': 'grynd',
+            'kaukau': 'cow-cow',
+            'cheehoo': 'chee-hoo!',
+            'rajah': 'rah-jah',
+            'shoots': 'shoots',
+            'choke': 'choke',
+            'bamboocha': 'bam-boo-chah',
+            'akamai': 'ah-kah-my',
+            'niele': 'nee-eh-leh',
+            'pilikia': 'pee-lee-kee-ah'
         };
 
         let correctedText = text;
 
-        // Apply corrections (case-insensitive)
-        Object.entries(pronunciationMap).forEach(([original, phonetic]) => {
+        // 1. Try to use dictionary data for individual words (Dynamic Correction)
+        if (typeof pidginDataLoader !== 'undefined' && pidginDataLoader.loaded) {
+            const words = text.toLowerCase().split(/\s+/);
+            if (words.length === 1) {
+                // For single words, check dictionary first
+                const cleanWord = words[0].replace(/[.,!?;:]/g, '');
+                const entry = pidginDataLoader.getById(cleanWord) || 
+                             pidginDataLoader.getAllEntries().find(e => e.pidgin.toLowerCase() === cleanWord);
+                
+                if (entry && entry.pronunciation) {
+                    // Use dictionary pronunciation but clean it up for TTS (remove capitalization/hyphens if needed)
+                    // ElevenLabs usually handles capitalized phonetics well too
+                    return entry.pronunciation.toLowerCase();
+                }
+            }
+        }
+
+        // 2. Apply hardcoded corrections (Multi-word and high-priority)
+        // Sort keys by length descending to match longer phrases first
+        const sortedKeys = Object.keys(pronunciationMap).sort((a, b) => b.length - a.length);
+        
+        sortedKeys.forEach(original => {
+            const phonetic = pronunciationMap[original];
             const regex = new RegExp(`\\b${original}\\b`, 'gi');
             correctedText = correctedText.replace(regex, phonetic);
         });
+
+        // 3. Add natural pauses for Pidgin rhythm
+        // Pidgin often has distinct pauses before/after words like "eh", "brah", "yeah"
+        correctedText = correctedText
+            .replace(/, /g, '... ') // Longer pause for commas
+            .replace(/\beh\b/gi, 'eh...') 
+            .replace(/\bbrah\b/gi, '...brah')
+            .replace(/\byeah\b\?/gi, '...yeah?')
+            .replace(/\bo wat\b\?/gi, '...or wat?');
 
         return correctedText;
     }

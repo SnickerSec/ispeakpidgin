@@ -109,10 +109,14 @@ async function main() {
             const meanRegex = /what does (.*) mean/i;
             const sayRegex = /how to say (.*) in/i;
             const meaningRegex = /(.*) meaning/i;
+            const inHawaiianRegex = /(.*) in hawaiian/i;
+            const hawaiianSuffixRegex = /(.*) hawaiian/i;
 
             if (meanRegex.test(query)) term = query.match(meanRegex)[1];
             else if (sayRegex.test(query)) term = query.match(sayRegex)[1];
             else if (meaningRegex.test(query)) term = query.match(meaningRegex)[1];
+            else if (inHawaiianRegex.test(query)) term = query.match(inHawaiianRegex)[1];
+            else if (hawaiianSuffixRegex.test(query)) term = query.match(hawaiianSuffixRegex)[1];
 
             term = term.trim().replace(/[?!]/g, '');
 

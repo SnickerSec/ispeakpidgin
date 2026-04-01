@@ -292,7 +292,12 @@ class SentenceChunker {
             'about': 'bout',
             'going': 'goin',
             'to': 'to',
-            'you': 'you'
+            'you': 'you',
+            'am': 'stay',
+            'is': 'stay',
+            'are': 'stay',
+            'was': 'was',
+            'were': 'was'
         };
 
         return rules[word.toLowerCase()] || word;

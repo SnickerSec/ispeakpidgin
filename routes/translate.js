@@ -68,12 +68,16 @@ module.exports = function(translate, translationLimiter, dictionaryCache) {
             if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
             try {
-                const { text } = req.body;
+                const { text, originalText } = req.body;
                 const apiKey = process.env.ELEVENLABS_API_KEY;
                 if (!apiKey) return res.status(500).json({ error: 'ElevenLabs API key not configured' });
 
-                const voiceId = 'f0ODjLMfcJmlKfs7dFCW';
+                const voiceId = 'f0ODjLMfcJmlKfs7dFCW'; // Hawaiian-sounding voice
                 const apiUrl = `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`;
+
+                // Use the corrected text for pronunciation, but the model can also benefit 
+                // from knowing the context of the original text if we provide it.
+                // For now, we use the text as provided by the frontend (which is already phoneticized).
 
                 const response = await fetch(apiUrl, {
                     method: 'POST',
@@ -86,9 +90,9 @@ module.exports = function(translate, translationLimiter, dictionaryCache) {
                         text: text,
                         model_id: 'eleven_flash_v2_5',
                         voice_settings: {
-                            stability: 0.5,
+                            stability: 0.45, // Slightly lower stability for more natural variation
                             similarity_boost: 0.8,
-                            style: 0.0,
+                            style: 0.1, // Small style boost for more "island" expression
                             use_speaker_boost: true
                         }
                     })

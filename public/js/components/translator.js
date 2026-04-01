@@ -28,11 +28,11 @@ class PidginTranslator {
             if (pidginDataLoader.data && pidginDataLoader.data.translations) {
                 const translations = pidginDataLoader.getTranslations();
 
-                // Build comprehensive dict from translations
+                // Build comprehensive dict from translations - Store ALL options
                 this.comprehensiveDict = {};
                 Object.entries(translations.englishToPidgin).forEach(([eng, pidgins]) => {
                     if (pidgins.length > 0) {
-                        this.comprehensiveDict[eng] = pidgins[0].pidgin;
+                        this.comprehensiveDict[eng] = pidgins.map(p => p.pidgin);
                     }
                 });
 
@@ -63,12 +63,20 @@ class PidginTranslator {
                 for (let entry of entries) {
                     // Add english to pidgin mapping
                     for (let englishTranslation of entry.english) {
-                        dict[englishTranslation.toLowerCase()] = entry.pidgin;
+                        const key = englishTranslation.toLowerCase();
+                        if (!dict[key]) dict[key] = [];
+                        if (!dict[key].includes(entry.pidgin)) {
+                            dict[key].push(entry.pidgin);
+                        }
 
                         // Add variations and synonyms
                         if (englishTranslation.includes('/')) {
                             englishTranslation.split('/').forEach(variant => {
-                                dict[variant.trim().toLowerCase()] = entry.pidgin;
+                                const vKey = variant.trim().toLowerCase();
+                                if (!dict[vKey]) dict[vKey] = [];
+                                if (!dict[vKey].includes(entry.pidgin)) {
+                                    dict[vKey].push(entry.pidgin);
+                                }
                             });
                         }
                     }
@@ -88,13 +96,17 @@ class PidginTranslator {
             // Process daily phrases
             if (pidginPhrases.dailyPhrases) {
                 pidginPhrases.dailyPhrases.forEach(phrase => {
-                    dict[phrase.english.toLowerCase()] = phrase.pidgin;
+                    const key = phrase.english.toLowerCase();
+                    if (!dict[key]) dict[key] = [];
+                    dict[key].push(phrase.pidgin);
                 });
             }
             // Process learning phrases if available
             if (pidginPhrases.learningPhrases) {
                 pidginPhrases.learningPhrases.forEach(phrase => {
-                    dict[phrase.english.toLowerCase()] = phrase.pidgin;
+                    const key = phrase.english.toLowerCase();
+                    if (!dict[key]) dict[key] = [];
+                    dict[key].push(phrase.pidgin);
                 });
             }
             this.dict = dict;
@@ -146,6 +158,13 @@ class PidginTranslator {
                 'neva (.+)': 'never $1'
             },
             englishToPidgin: {
+                // Specific phrase overrides (highest priority)
+                'will eat': 'going kau kau',
+                'want food': 'like grinds',
+                'to the beach': 'beach',
+                'want to eat': 'like kau kau',
+                'want to food': 'like grinds',
+
                 // Present tense - "to be" verbs
                 "I'm (.+)": 'I stay $1',
                 'I am (.+)': 'I stay $1',
@@ -168,6 +187,7 @@ class PidginTranslator {
                 'will be (.+)': 'going be $1',
                 'going to (.+)': 'going $1',
                 'gonna (.+)': 'going $1',
+                'will ([a-z]+)': 'going $1',
 
                 // Past tense
                 'I was (.+)': 'I was $1',
@@ -176,6 +196,20 @@ class PidginTranslator {
                 'she was (.+)': 'she was $1',
                 'they were (.+)': 'dey was $1',
                 'we were (.+)': 'we was $1',
+                'were ([a-z]+)': 'was $1',
+
+                // Negations
+                "i don't care": 'ainokea',
+                "i do not care": 'ainokea',
+                "don't (.+)": 'no $1',
+                "do not (.+)": 'no $1',
+                "doesn't (.+)": 'no $1',
+                "does not (.+)": 'no $1',
+                "didn't (.+)": 'neva $1',
+                "did not (.+)": 'neva $1',
+                "won't (.+)": 'no going $1',
+                "can't (.+)": 'no can $1',
+                "cannot (.+)": 'no can $1',
 
                 // Past perfect / "did" constructions
                 'I went': 'I wen go',
@@ -184,14 +218,8 @@ class PidginTranslator {
                 'she went': 'she wen go',
                 'they went': 'dey wen go',
                 'we went': 'we wen go',
-
-                // Negations
-                "don't (.+)": 'no $1',
-                "doesn't (.+)": 'no $1',
-                "didn't (.+)": 'neva $1',
-                "won't (.+)": 'no going $1',
-                "can't (.+)": 'no can $1',
-                "cannot (.+)": 'no can $1',
+                'went to ([a-z]+)': 'wen go $1',
+                'went ([a-z]+)': 'wen go $1',
 
                 // Questions - "Do/Does/Did"
                 'do you (.+)\\?': 'you $1?',
@@ -221,7 +249,8 @@ class PidginTranslator {
                 'must (.+)': 'gotta $1',
                 'have to (.+)': 'gotta $1',
                 'need to (.+)': 'gotta $1',
-                'want to (.+)': 'like $1',
+                'want to ([a-z]+)': 'like $1',
+                'want to ': 'like ',
                 'would like to (.+)': 'like $1',
 
                 // Articles
@@ -450,88 +479,176 @@ class PidginTranslator {
             };
         }
 
-        const wordCount = text.trim().split(/\s+/).length;
-        const isSentence = wordCount >= 5; // AI is better for 5+ words
+        const rawInput = text;
 
-        // Check if AI is enabled in settings (default to true)
-        const useAI = typeof settingsManager !== 'undefined' ? settingsManager.get('enable_ai_translator') !== 'false' : true;
+        // --- PHASE 0: PRE-PRE-PROCESSING (Try original text first for exact phrase matches) ---
+        // This is crucial for matching words like "ainokea" which correspond to expanded phrases
+        if (typeof phraseTranslator !== 'undefined' && phraseTranslator.loaded) {
+            const phraseResult = direction === 'pidgin-to-eng' 
+                ? phraseTranslator.translatePidginToEnglish(rawInput)
+                : phraseTranslator.translateEnglishToPidgin(rawInput);
 
-        if (isSentence && useAI) {
-            console.log('🤖 Using Semantic AI Translation (RAG)...');
-            return await this.aiTranslate(text, direction);
-        }
-
-        // --- RULE-BASED FALLBACK (for short phrases or if AI disabled) ---
-        const isPhrase = wordCount > 1;
-        const isParagraph = typeof contextTracker !== 'undefined' && contextTracker.isParagraph(text);
-
-        // PRIORITY 0: Check context tracker for paragraphs
-        if (isParagraph && typeof contextTracker !== 'undefined') {
-            const paragraphResult = contextTracker.translateParagraph(text, direction);
-            if (paragraphResult && paragraphResult.confidence >= 0.6) {
+            if (phraseResult && phraseResult.confidence >= 0.9) {
                 return {
-                    text: paragraphResult.translation,
-                    confidence: paragraphResult.confidence,
+                    text: phraseResult.translation,
+                    confidence: Math.round(phraseResult.confidence * 100),
                     suggestions: [],
-                    pronunciation: direction === 'eng-to-pidgin' ? this.getPronunciation(paragraphResult.translation) : null,
-                    alternatives: [],
+                    pronunciation: direction === 'eng-to-pidgin' ? this.getPronunciation(phraseResult.translation) : null,
+                    alternatives: phraseResult.alternatives || [],
                     metadata: {
-                        method: 'Rule-based (Context)',
-                        details: paragraphResult.contextUsed
+                        method: 'Rule-based (Exact Phrase)',
+                        details: phraseResult.matchedPhrase
                     }
                 };
             }
         }
 
-        // PRIORITY 1: Check sentence chunker
-        if (isSentence && typeof sentenceChunker !== 'undefined' && sentenceChunker.loaded) {
+        const rawWordCount = rawInput.trim().split(/\s+/).length;
+        // Check if AI is enabled in settings (default to true)
+        const useAI = typeof settingsManager !== 'undefined' ? settingsManager.get('enable_ai_translator') !== 'false' : true;
+
+        if (rawWordCount >= 6 && useAI) {
+            try {
+                // Use rawInput for AI to ensure it sees the natural English
+                const aiResult = await this.aiTranslate(rawInput, direction);
+                if (aiResult) return aiResult;
+            } catch (e) {
+                console.warn('AI translation fallback:', e);
+            }
+        }
+
+        // --- PRE-PROCESSING (English -> Pidgin only) ---
+        if (direction === 'eng-to-pidgin') {
+            // Handle common contractions first to avoid dictionary interference
+            // Use word boundaries and handle lowercase expanded forms
+            const contractions = {
+                "I'm": "i am",
+                "you're": "you are",
+                "he's": "he is",
+                "she's": "she is",
+                "it's": "it is",
+                "we're": "we are",
+                "they're": "they are",
+                "I'll": "i will",
+                "you'll": "you will",
+                "won't": "will not",
+                "can't": "cannot",
+                "don't": "do not",
+                "doesn't": "does not",
+                "didn't": "did not"
+            };
+
+            Object.entries(contractions).forEach(([eng, expanded]) => {
+                const regex = new RegExp(`\\b${eng}\\b`, 'gi');
+                text = text.replace(regex, expanded);
+            });
+        }
+
+        const wordCount = text.trim().split(/\s+/).length;
+        const isSentence = wordCount >= 3; // Lower threshold for grammar rules
+
+        // --- RULE-BASED FALLBACK (for short phrases or if AI disabled) ---
+        const isPhrase = wordCount > 1;
+        const isParagraph = typeof contextTracker !== 'undefined' && contextTracker.isParagraph(text);
+
+        let resultText = '';
+        let resultMethod = '';
+        let resultConfidence = 0.5;
+        let resultAlternatives = [];
+        let details = null;
+
+        // --- PRIORITY 0.5: Grammar Patterns (Higher priority than chunking or literal) ---
+        // Catch specific idiomatic patterns before they are broken apart
+        if (!resultText && direction === 'eng-to-pidgin') {
+            for (let [pattern, replacement] of Object.entries(this.grammarRules.englishToPidgin)) {
+                // Only use patterns that look like full sentence/phrase patterns (contain (.+) or spaces)
+                if (pattern.includes('(.+)') || pattern.includes('([a-z]+)') || pattern.includes(' ')) {
+                    const regex = new RegExp(pattern, 'i');
+                    if (regex.test(text)) {
+                        resultText = text.replace(regex, replacement);
+                        resultConfidence = 0.85;
+                        resultMethod = 'Rule-based (Grammar)';
+                        break;
+                    }
+                }
+            }
+        }
+
+        // PRIORITY 1: Check context tracker for paragraphs
+        if (!resultText && isParagraph && typeof contextTracker !== 'undefined') {
+            const paragraphResult = contextTracker.translateParagraph(text, direction);
+            if (paragraphResult && paragraphResult.confidence >= 0.6) {
+                resultText = paragraphResult.translation;
+                resultConfidence = paragraphResult.confidence;
+                resultMethod = 'Rule-based (Context)';
+                details = paragraphResult.contextUsed;
+            }
+        }
+
+        // PRIORITY 1.5: Check sentence chunker
+        if (!resultText && isSentence && typeof sentenceChunker !== 'undefined' && sentenceChunker.loaded) {
             const sentenceResult = sentenceChunker.translateSentence(text, direction);
             if (sentenceResult && sentenceResult.confidence >= 0.7) {
-                return {
-                    text: sentenceResult.translation,
-                    confidence: sentenceResult.confidence,
-                    suggestions: [],
-                    pronunciation: direction === 'eng-to-pidgin' ? this.getPronunciation(sentenceResult.translation) : null,
-                    alternatives: sentenceResult.alternatives || [],
-                    metadata: { method: 'Rule-based (Chunking)' }
-                };
+                resultText = sentenceResult.translation;
+                resultConfidence = sentenceResult.confidence;
+                resultMethod = 'Rule-based (Chunking)';
+                resultAlternatives = sentenceResult.alternatives || [];
             }
         }
 
         // PRIORITY 2: Check phrase translator
-        if (isPhrase && typeof phraseTranslator !== 'undefined' && phraseTranslator.loaded) {
+        if (!resultText && isPhrase && typeof phraseTranslator !== 'undefined' && phraseTranslator.loaded) {
             let phraseResult = direction === 'pidgin-to-eng' 
                 ? phraseTranslator.translatePidginToEnglish(text)
                 : phraseTranslator.translateEnglishToPidgin(text);
 
             if (phraseResult && phraseResult.confidence >= 0.75) {
-                return {
-                    text: phraseResult.translation,
-                    confidence: phraseResult.confidence,
-                    suggestions: [],
-                    pronunciation: direction === 'eng-to-pidgin' ? this.getPronunciation(phraseResult.translation) : null,
-                    alternatives: phraseResult.alternatives || [],
-                    metadata: { method: 'Rule-based (Phrase)' }
-                };
+                resultText = phraseResult.translation;
+                resultConfidence = phraseResult.confidence;
+                resultMethod = 'Rule-based (Phrase)';
+                resultAlternatives = phraseResult.alternatives || [];
             }
         }
 
         // PRIORITY 3: Fallback to word-by-word
-        let result;
-        if (direction === 'pidgin-to-eng') {
-            result = this.translatePidginToEnglishEnhanced(text).text;
-        } else {
-            result = this.translateEnglishToPidginEnhanced(text).text;
+        if (!resultText) {
+            if (direction === 'pidgin-to-eng') {
+                resultText = this.translatePidginToEnglishEnhanced(text).text;
+                resultMethod = 'Rule-based (Literal)';
+            } else {
+                // Apply grammar rules BEFORE literal translation for better phrase matching
+                let grammarText = text;
+                for (let [pattern, replacement] of Object.entries(this.grammarRules.englishToPidgin)) {
+                    const regex = new RegExp(pattern, 'gi');
+                    grammarText = grammarText.replace(regex, replacement);
+                }
+                
+                resultText = this.translateEnglishToPidginEnhanced(grammarText).text;
+                resultMethod = 'Rule-based (Literal)';
+            }
         }
 
-        const analysis = this.analyzeTranslation(text, result, direction);
+        // FINAL PASS: Apply grammar transformations to the final result (English -> Pidgin only)
+        // This ensures consistent verb tenses and patterns regardless of the translation method used
+        if (direction === 'eng-to-pidgin') {
+            for (let [pattern, replacement] of Object.entries(this.grammarRules.englishToPidgin)) {
+                const regex = new RegExp(pattern, 'gi');
+                resultText = resultText.replace(regex, replacement);
+            }
+        }
+
+        const analysis = this.analyzeTranslation(rawInput, resultText, direction);
 
         return {
-            text: result,
+            text: resultText,
             confidence: analysis.confidence,
             suggestions: analysis.suggestions,
-            pronunciation: direction === 'eng-to-pidgin' ? this.getPronunciation(result) : null,
-            metadata: { method: 'Rule-based (Literal)' }
+            pronunciation: direction === 'eng-to-pidgin' ? this.getPronunciation(resultText) : null,
+            alternatives: resultAlternatives,
+            metadata: {
+                method: resultMethod,
+                details: details
+            }
         };
     }
 
@@ -676,30 +793,23 @@ class PidginTranslator {
         // Detect context for better translation
         const context = this.detectContext(text);
 
-        // Apply grammar patterns first
-        for (let [pattern, replacement] of Object.entries(this.grammarRules.englishToPidgin)) {
-            const regex = new RegExp(pattern, 'gi');
-            text = text.replace(regex, replacement);
+        // --- PRIORITY 1: COMPLETE PHRASE MATCHING (Dictionary) ---
+        // Try comprehensive dictionary for the ENTIRE text first
+        if (this.comprehensiveDict[text]) {
+            const pidginArr = this.comprehensiveDict[text];
+            const pidgin = Array.isArray(pidginArr) ? pidginArr[0] : pidginArr;
+            return { text: this.enhanceWithContext(this.capitalizeFirst(pidgin), context) };
         }
 
-        // First try comprehensive dictionary
-        for (let [english, pidgin] of Object.entries(this.comprehensiveDict)) {
-            if (text === english) {
-                return this.enhanceWithContext(this.capitalizeFirst(pidgin), context);
-            }
+        // Try original dictionary for the ENTIRE text
+        if (this.dict[text]) {
+            const pidginArr = this.dict[text];
+            const pidgin = Array.isArray(pidginArr) ? pidginArr[0] : pidginArr;
+            return { text: this.enhanceWithContext(this.capitalizeFirst(pidgin), context) };
         }
 
-        // Then try original dictionary
-        for (let [english, pidgin] of Object.entries(this.dict)) {
-            if (text === english) {
-                return this.enhanceWithContext(this.capitalizeFirst(pidgin), context);
-            }
-        }
-
-        // Combine both dictionaries for phrase matching
+        // --- PRIORITY 2: PARTIAL PHRASE MATCHING (Longest first) ---
         const combinedDict = { ...this.dict, ...this.comprehensiveDict };
-
-        // Try to match longer phrases first
         const sortedPhrases = Object.keys(combinedDict)
             .filter(key => key.includes(' '))
             .sort((a, b) => b.length - a.length);
@@ -707,12 +817,14 @@ class PidginTranslator {
         for (let phrase of sortedPhrases) {
             const regex = new RegExp(`\\b${this.escapeRegex(phrase)}\\b`, 'gi');
             if (regex.test(text)) {
-                text = text.replace(regex, combinedDict[phrase]);
+                const pidginArr = combinedDict[phrase];
+                const pidgin = Array.isArray(pidginArr) ? pidginArr[0] : pidginArr;
+                text = text.replace(regex, pidgin);
             }
         }
 
-        // Enhanced word-by-word translation
-        let words = text.split(' ');
+        // --- PRIORITY 3: WORD-BY-WORD ---
+        let words = text.split(/\s+/);
         let translatedWords = words.map(word => {
             // Preserve punctuation
             let punctuation = '';
@@ -726,19 +838,22 @@ class PidginTranslator {
 
             // Check comprehensive dictionary first
             if (this.comprehensiveDict[cleanWord]) {
-                return this.comprehensiveDict[cleanWord] + punctuation;
+                const pidginArr = this.comprehensiveDict[cleanWord];
+                return (Array.isArray(pidginArr) ? pidginArr[0] : pidginArr) + punctuation;
             }
 
             // Check original dictionary
             if (this.dict[cleanWord]) {
-                return this.dict[cleanWord] + punctuation;
+                const pidginArr = this.dict[cleanWord];
+                return (Array.isArray(pidginArr) ? pidginArr[0] : pidginArr) + punctuation;
             }
 
             // Try fuzzy matching with higher threshold
             const allKeys = [...Object.keys(this.comprehensiveDict), ...Object.keys(this.dict)];
             const fuzzyMatch = this.findFuzzyMatch(cleanWord, allKeys);
             if (fuzzyMatch && this.calculateSimilarity(cleanWord, fuzzyMatch) > 0.85) {
-                return (this.comprehensiveDict[fuzzyMatch] || this.dict[fuzzyMatch]) + punctuation;
+                const pidginArr = (this.comprehensiveDict[fuzzyMatch] || this.dict[fuzzyMatch]);
+                return (Array.isArray(pidginArr) ? pidginArr[0] : pidginArr) + punctuation;
             }
 
             // Return original word if no translation found
@@ -760,11 +875,12 @@ class PidginTranslator {
     // Enhanced translation with alternatives and metadata
     translateEnglishToPidginEnhanced(englishText) {
         const basicTranslation = this.translateEnglishToPidgin(englishText);
+        const translatedText = typeof basicTranslation === 'object' ? basicTranslation.text : basicTranslation;
         const alternatives = this.getAlternativeTranslations(englishText, 'eng-to-pidgin');
-        const metadata = this.getTranslationMetadata(englishText, basicTranslation, 'eng-to-pidgin');
+        const metadata = this.getTranslationMetadata(englishText, translatedText, 'eng-to-pidgin');
 
         return {
-            text: basicTranslation,
+            text: translatedText,
             alternatives: alternatives,
             metadata: metadata
         };
@@ -772,11 +888,12 @@ class PidginTranslator {
 
     translatePidginToEnglishEnhanced(pidginText) {
         const basicTranslation = this.translatePidginToEnglish(pidginText);
+        const translatedText = typeof basicTranslation === 'object' ? basicTranslation.text : basicTranslation;
         const alternatives = this.getAlternativeTranslations(pidginText, 'pidgin-to-eng');
-        const metadata = this.getTranslationMetadata(pidginText, basicTranslation, 'pidgin-to-eng');
+        const metadata = this.getTranslationMetadata(pidginText, translatedText, 'pidgin-to-eng');
 
         return {
-            text: basicTranslation,
+            text: translatedText,
             alternatives: alternatives,
             metadata: metadata
         };
@@ -830,13 +947,16 @@ class PidginTranslator {
             culturalNotes: null
         };
 
+        // Ensure translatedText is a string for comparisons
+        const searchTextStr = typeof translatedText === 'object' ? translatedText.text : translatedText;
+        if (typeof searchTextStr !== 'string') return metadata;
+
         // Try to get metadata from pidginDataLoader
         if (typeof pidginDataLoader !== 'undefined' && pidginDataLoader.loaded) {
             const entries = pidginDataLoader.getAllEntries();
-            const searchText = direction === 'eng-to-pidgin' ? translatedText : sourceText;
 
             for (let entry of entries) {
-                if (entry.pidgin.toLowerCase() === searchText.toLowerCase()) {
+                if (entry.pidgin.toLowerCase() === searchTextStr.toLowerCase()) {
                     metadata.examples = entry.examples || [];
                     metadata.usage = entry.usage || null;
                     metadata.difficulty = entry.difficulty || null;
@@ -907,8 +1027,11 @@ class PidginTranslator {
 
         // Replace "don't" variations
         text = text.replace(/\bdon't\b/gi, 'no');
+        text = text.replace(/\bdo not\b/gi, 'no');
         text = text.replace(/\bdoesn't\b/gi, 'no');
+        text = text.replace(/\bdoes not\b/gi, 'no');
         text = text.replace(/\bdidn't\b/gi, 'neva');
+        text = text.replace(/\bdid not\b/gi, 'neva');
 
         // Replace "have to" with "gotta"
         text = text.replace(/\bhave to\b/gi, 'gotta');
@@ -979,6 +1102,12 @@ class PidginTranslator {
 
         const contextData = this.contextPatterns[context];
         if (!contextData) {
+            return translation;
+        }
+
+        // Only enhance if it's a reasonably long translation (not a single dictionary word)
+        const wordCount = translation.trim().split(/\s+/).length;
+        if (wordCount < 3) {
             return translation;
         }
 
@@ -1063,6 +1192,17 @@ class PidginTranslator {
         const translatedLower = translatedText.toLowerCase().trim();
 
         if (direction === 'eng-to-pidgin') {
+            // PRIORITY 1: Check comprehensive dictionary (which now contains all options)
+            if (this.comprehensiveDict[originalLower]) {
+                const options = Array.isArray(this.comprehensiveDict[originalLower]) 
+                    ? this.comprehensiveDict[originalLower] 
+                    : [this.comprehensiveDict[originalLower]];
+                
+                if (options.some(opt => opt.toLowerCase() === translatedLower)) {
+                    return true;
+                }
+            }
+
             // Common English phrases that successfully translate to Pidgin
             const successfulPhrases = {
                 'how are you': 'howzit',
@@ -1084,7 +1224,7 @@ class PidginTranslator {
                 'crazy': 'pilau'
             };
 
-            // Check for exact matches first
+            // Check for exact matches
             if (successfulPhrases[originalLower] === translatedLower) {
                 return true;
             }
@@ -1121,9 +1261,8 @@ class PidginTranslator {
 
     // Analyze translation quality and generate suggestions
     analyzeTranslation(originalText, translatedText, direction) {
-        const originalWords = originalText.toLowerCase().split(' ');
-        const translatedWords = translatedText.toLowerCase().split(' ');
-
+        const originalWords = originalText.toLowerCase().split(/\s+/);
+        
         let translatedCount = 0;
         let totalWords = originalWords.length;
         let suggestions = [];
@@ -1293,8 +1432,8 @@ class PidginTranslator {
     }
 
     // Backward compatibility method for old translation calls
-    translateSimple(text, direction = 'eng-to-pidgin') {
-        const result = this.translate(text, direction);
+    async translateSimple(text, direction = 'eng-to-pidgin') {
+        const result = await this.translate(text, direction);
         return typeof result === 'string' ? result : result.text;
     }
 }
@@ -1306,8 +1445,8 @@ const translator = new PidginTranslator();
 const pidginTranslator = translator;
 
 // Add methods for backward compatibility with translator-page.js
-pidginTranslator.englishToPidgin = function(text) {
-    const result = this.translate(text, 'eng-to-pidgin');
+pidginTranslator.englishToPidgin = async function(text) {
+    const result = await this.translate(text, 'eng-to-pidgin');
     return [{
         translation: result.text,
         confidence: (result.confidence || 80) / 100,
@@ -1315,8 +1454,8 @@ pidginTranslator.englishToPidgin = function(text) {
     }];
 };
 
-pidginTranslator.pidginToEnglish = function(text) {
-    const result = this.translate(text, 'pidgin-to-eng');
+pidginTranslator.pidginToEnglish = async function(text) {
+    const result = await this.translate(text, 'pidgin-to-eng');
     return [{
         translation: result.text,
         confidence: (result.confidence || 80) / 100,
