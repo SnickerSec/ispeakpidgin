@@ -2426,6 +2426,12 @@
         <priority>0.75</priority>
     </url>
     <url>
+        <loc>https://chokepidgin.com/word/kala-mai.html</loc>
+        <lastmod>2026-04-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://chokepidgin.com/word/kalo.html</loc>
         <lastmod>2026-04-01</lastmod>
         <changefreq>monthly</changefreq>
@@ -2675,7 +2681,7 @@
         <loc>https://chokepidgin.com/word/lanai.html</loc>
         <lastmod>2026-04-01</lastmod>
         <changefreq>monthly</changefreq>
-        <priority>0.75</priority>
+        <priority>0.7</priority>
     </url>
     <url>
         <loc>https://chokepidgin.com/word/latahs.html</loc>
@@ -3560,6 +3566,18 @@
         <priority>0.75</priority>
     </url>
     <url>
+        <loc>https://chokepidgin.com/word/pukui.html</loc>
+        <lastmod>2026-04-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://chokepidgin.com/word/pule.html</loc>
+        <lastmod>2026-04-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://chokepidgin.com/word/punahele.html</loc>
         <lastmod>2026-04-01</lastmod>
         <changefreq>monthly</changefreq>
@@ -3609,6 +3627,12 @@
     </url>
     <url>
         <loc>https://chokepidgin.com/word/rolo.html</loc>
+        <lastmod>2026-04-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://chokepidgin.com/word/rubbah-slippah.html</loc>
         <lastmod>2026-04-01</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
@@ -3840,6 +3864,18 @@
         <lastmod>2026-04-01</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.75</priority>
+    </url>
+    <url>
+        <loc>https://chokepidgin.com/word/stay-pono.html</loc>
+        <lastmod>2026-04-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://chokepidgin.com/word/stay-stoked.html</loc>
+        <lastmod>2026-04-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
     </url>
     <url>
         <loc>https://chokepidgin.com/word/stink-eye.html</loc>
