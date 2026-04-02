@@ -288,13 +288,24 @@ const spellingRedirects = {
     'mempachi eyes': 'menpachi eyes'
 };
 
-app.use('/:type(word|phrase)/:slug', (req, res, next) => {
-    const { type, slug: rawSlug } = req.params;
-    const slug = rawSlug.replace('.html', '').toLowerCase();
+// SEO: Spelling Variant Redirects for Words
+app.use('/word/:slug', (req, res, next) => {
+    const slug = req.params.slug.replace('.html', '').toLowerCase();
     const correctSlug = spellingRedirects[slug];
 
     if (correctSlug && correctSlug !== slug) {
-        return res.redirect(301, `/${type}/${correctSlug}.html`);
+        return res.redirect(301, `/word/${correctSlug}.html`);
+    }
+    next();
+});
+
+// SEO: Spelling Variant Redirects for Phrases
+app.use('/phrase/:slug', (req, res, next) => {
+    const slug = req.params.slug.replace('.html', '').toLowerCase();
+    const correctSlug = spellingRedirects[slug];
+
+    if (correctSlug && correctSlug !== slug) {
+        return res.redirect(301, `/phrase/${correctSlug}.html`);
     }
     next();
 });
