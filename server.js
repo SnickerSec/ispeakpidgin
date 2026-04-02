@@ -282,15 +282,19 @@ const spellingRedirects = {
     'bumbucha': 'bumboocha',
     'acshun': 'ackshun',
     'cholips': 'cho-cho-lips',
-    'chocholips': 'cho-cho-lips'
+    'chocholips': 'cho-cho-lips',
+    'mempachi': 'menpachi',
+    'mempachi-eyes': 'menpachi-eyes',
+    'mempachi eyes': 'menpachi eyes'
 };
 
-app.use('/word/:slug', (req, res, next) => {
-    const slug = req.params.slug.replace('.html', '').toLowerCase();
+app.use('/:type(word|phrase)/:slug', (req, res, next) => {
+    const { type, slug: rawSlug } = req.params;
+    const slug = rawSlug.replace('.html', '').toLowerCase();
     const correctSlug = spellingRedirects[slug];
 
     if (correctSlug && correctSlug !== slug) {
-        return res.redirect(301, `/word/${correctSlug}.html`);
+        return res.redirect(301, `/${type}/${correctSlug}.html`);
     }
     next();
 });
