@@ -303,6 +303,13 @@ app.use('/word/:slug', (req, res, next) => {
     }
 })();
 
+// ============================================
+// SEO: Redirect index.html to /
+// ============================================
+app.get('/index.html', (req, res) => {
+    res.redirect(301, '/');
+});
+
 // Serve static files from public directory
 app.use(express.static(path.join(__dirname, 'public'), {
     maxAge: '1d',
@@ -311,10 +318,12 @@ app.use(express.static(path.join(__dirname, 'public'), {
 }));
 
 // Handle SPA routing - serve index.html for any non-file requests
-app.get('/{*splat}', pageLimiter, (req, res) => {
+app.get('*', pageLimiter, (req, res) => {
+    // If it looks like a file (has an extension), but wasn't served by express.static
     if (path.extname(req.path)) {
         return res.status(404).send('File not found');
     }
+    // Only serve index.html for clean URLs (no extension)
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
