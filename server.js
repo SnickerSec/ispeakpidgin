@@ -282,7 +282,7 @@ const spellingRedirects = {
     'chocholips': 'cho-cho-lips'
 };
 
-app.use('/word/:slug(.*)', (req, res, next) => {
+app.use('/word/:slug', (req, res, next) => {
     const slug = req.params.slug.replace('.html', '').toLowerCase();
     const correctSlug = spellingRedirects[slug];
 
@@ -318,12 +318,17 @@ app.use(express.static(path.join(__dirname, 'public'), {
 }));
 
 // Handle SPA routing - serve index.html for any non-file requests
-app.get('/*', pageLimiter, (req, res) => {
-    // If it looks like a file (has an extension), but wasn't served by express.static
+// Use app.use() without a path to avoid path-to-regexp issues in Express 5
+app.use(pageLimiter, (req, res, next) => {
+    // Only handle GET requests for SPA routing that haven't been handled by static/api
+    if (req.method !== 'GET') return next();
+    
+    // If it looks like a file (has an extension), it's a 404
     if (path.extname(req.path)) {
         return res.status(404).send('File not found');
     }
-    // Only serve index.html for clean URLs (no extension)
+    
+    // Serve index.html for all other clean URLs
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
