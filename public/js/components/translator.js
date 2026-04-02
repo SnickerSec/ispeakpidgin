@@ -538,6 +538,37 @@ class PidginTranslator {
 
         // --- PHASE 0: PRE-PRE-PROCESSING (Try original text first for exact phrase matches) ---
         // This is crucial for matching words like "ainokea" which correspond to expanded phrases
+        
+        // 1. First, check if the raw text is an exact match in our dictionary
+        const rawTextLower = rawInput.toLowerCase().trim();
+        if (direction === 'eng-to-pidgin') {
+            if (this.comprehensiveDict[rawTextLower]) {
+                const pidginArr = this.comprehensiveDict[rawTextLower];
+                const pidgin = Array.isArray(pidginArr) ? pidginArr[0] : pidginArr;
+                return {
+                    text: this.capitalizeFirst(pidgin),
+                    confidence: 95,
+                    suggestions: [],
+                    pronunciation: this.getPronunciation(pidgin),
+                    alternatives: Array.isArray(pidginArr) ? pidginArr.slice(1) : [],
+                    metadata: { method: 'Dictionary (Exact Match)', details: 'Matched raw input directly against dictionary' }
+                };
+            }
+        } else {
+            if (this.reverseDict[rawTextLower]) {
+                const englishArr = Array.isArray(this.reverseDict[rawTextLower]) ? this.reverseDict[rawTextLower] : [this.reverseDict[rawTextLower]];
+                return {
+                    text: this.capitalizeFirst(englishArr[0]),
+                    confidence: 95,
+                    suggestions: [],
+                    pronunciation: null,
+                    alternatives: englishArr.slice(1),
+                    metadata: { method: 'Dictionary (Exact Match)', details: 'Matched raw input directly against reverse dictionary' }
+                };
+            }
+        }
+
+        // 2. Then try phraseTranslator if available
         if (typeof phraseTranslator !== 'undefined' && phraseTranslator.loaded) {
             const phraseResult = direction === 'pidgin-to-eng' 
                 ? phraseTranslator.translatePidginToEnglish(rawInput)
