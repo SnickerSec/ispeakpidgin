@@ -76,6 +76,9 @@ const dictionaryCache = {
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Enable trust proxy for accurate rate limiting on Railway/proxies
+app.set('trust proxy', 1);
+
 // Rate limiting configuration
 const apiLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'chokepidgin-v2.1';
+const CACHE_NAME = 'chokepidgin-v2.2';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
