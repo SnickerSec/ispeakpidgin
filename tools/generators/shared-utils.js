@@ -122,7 +122,7 @@ async function fetchFromSupabase(tableName, selectFields = '*', orderBy = null) 
 
 /**
  * Read navigation and footer templates with absolute paths
- * Converts relative paths (href="index.html") to absolute (href="/index.html")
+ * Converts relative paths (e.g., href="translator.html") to absolute (e.g., href="/translator.html")
  * @returns {{ navigation: string, footer: string }}
  */
 function getNavAndFooter() {
