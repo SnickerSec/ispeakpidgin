@@ -324,7 +324,7 @@ app.use('/phrase/:slug', (req, res, next) => {
 // ============================================
 // SEO: Redirect index.html to /
 // ============================================
-app.get('/index.html', (req, res) => {
+app.get(['/index.html', '/index'], (req, res) => {
     res.redirect(301, '/');
 });
 
