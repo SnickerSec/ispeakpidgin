@@ -328,11 +328,25 @@ app.get(['/index.html', '/index'], (req, res) => {
     res.redirect(301, '/');
 });
 
-// Serve static files from public directory
+// Serve static files from public directory with smarter caching
 app.use(express.static(path.join(__dirname, 'public'), {
-    maxAge: '1d',
+    maxAge: '1h', // Default 1 hour for assets
     etag: true,
-    dotfiles: 'deny'
+    dotfiles: 'deny',
+    setHeaders: (res, path) => {
+        // HTML files should always be revalidated (Cache-Busting)
+        if (path.endsWith('.html')) {
+            res.set('Cache-Control', 'public, no-cache, must-revalidate');
+        }
+        // CSS/JS can be cached longer if versioned, but for now 1 hour is safe
+        if (path.endsWith('.css') || path.endsWith('.js')) {
+            res.set('Cache-Control', 'public, max-age=3600');
+        }
+        // Images can stay cached longer
+        if (/\.(jpg|jpeg|png|gif|ico|svg|webp)$/.test(path)) {
+            res.set('Cache-Control', 'public, max-age=86400');
+        }
+    }
 }));
 
 // Handle SPA routing - serve index.html for any non-file requests

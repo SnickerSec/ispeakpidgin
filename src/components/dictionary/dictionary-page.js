@@ -85,12 +85,31 @@ function setupSearch() {
 
         if (term) {
             results = pidginDictionary.searchDictionary(term);
+            
+            // Log content gap if no results found
+            if (results.length === 0 && term.length >= 3) {
+                logSearchGap(term);
+            }
         } else {
             results = pidginDictionary.getByCategory('all');
         }
 
         displayResults(results);
         updateSearchStats(results.length, term);
+    }
+
+    /**
+     * Log a search term that returned no results
+     * Fails silently to not affect user experience
+     */
+    async function logSearchGap(term) {
+        try {
+            // Hit the search endpoint - the server-side logic handles the logging to Supabase
+            // when results count is 0
+            await fetch(`/api/dictionary/search?q=${encodeURIComponent(term)}&limit=1`);
+        } catch (e) {
+            console.warn('Could not log search gap:', e.message);
+        }
     }
 }
 
