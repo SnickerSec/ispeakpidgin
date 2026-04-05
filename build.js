@@ -490,6 +490,15 @@ function build() {
 
         cleanPublic();
         createPublicStructure();
+
+        // Run Tailwind CSS build after structure is created
+        console.log('\n🎨 Building Tailwind CSS...');
+        try {
+            execSync('npx @tailwindcss/cli -i src/styles/tailwind.css -o public/css/tailwind.css --minify', { stdio: 'inherit' });
+        } catch (error) {
+            console.error('⚠️  Warning: Could not build Tailwind CSS:', error.message);
+        }
+
         processHTMLFiles();
         copyJavaScriptFiles();
         copyDataFiles();
