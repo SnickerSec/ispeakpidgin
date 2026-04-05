@@ -151,30 +151,35 @@ app.use(helmet({
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
-            styleSrc: ["'self'", "'unsafe-inline'", "https://cdn.tailwindcss.com", "https://fonts.googleapis.com", "https://cdn.jsdelivr.net"],
+            styleSrc: ["'self'", "'unsafe-inline'", "https:", "https://fonts.googleapis.com"],
             scriptSrc: [
                 "'self'",
                 "'unsafe-inline'",
-                "https://cdn.tailwindcss.com",
+                "'unsafe-eval'",
                 "https://www.googletagmanager.com",
-                "https://www.google-analytics.com"
+                "https://www.google-analytics.com",
+                "https://cdn.jsdelivr.net"
             ],
             imgSrc: [
                 "'self'",
                 "data:",
                 "https:",
                 "https://www.google-analytics.com",
-                "https://www.googletagmanager.com"
+                "https://www.googletagmanager.com",
+                "https://cdn-icons-png.flaticon.com"
             ],
-            fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdn.jsdelivr.net"],
+            fontSrc: ["'self'", "https:", "https://fonts.gstatic.com", "https://cdn.jsdelivr.net"],
             connectSrc: [
                 "'self'",
+                "https:",
                 "https://api.elevenlabs.io",
                 "https://www.google-analytics.com",
                 "https://analytics.google.com",
                 "https://stats.g.doubleclick.net",
                 "https://jfzgzjgdptowfbtljvyp.supabase.co",
-                "https://cdn.jsdelivr.net"
+                "https://fonts.googleapis.com",
+                "https://fonts.gstatic.com",
+                "https://www.googletagmanager.com"
             ],
             mediaSrc: ["'self'", "blob:", "data:", "https:"],
             objectSrc: ["'none'"],
