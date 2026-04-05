@@ -243,9 +243,10 @@
             if (!target) return;
 
             const pidgin = target.dataset.pidgin;
+            const id = target.dataset.id;
             const row = target.closest('tr');
 
-            if (target.dataset.action === 'quick-add') {
+            if (target.dataset.action === 'add-gap-btn') {
                 const english = row.querySelector('.gap-english-input')?.value;
                 const category = row.querySelector('.gap-category-select')?.value;
                 const example = row.querySelector('.gap-example-input')?.value;
@@ -256,9 +257,11 @@
                     return;
                 }
 
-                addGapToDictionary(pidgin, english, category, example, pronunciation, target);
-            } else if (target.dataset.action === 'suggest') {
+                addGapToDictionary(pidgin, english, category, example, pronunciation, target, id);
+            } else if (target.dataset.action === 'suggest-gap') {
                 suggestGapData(pidgin, row, target);
+            } else if (target.dataset.action === 'ignore-gap') {
+                ignoreGap(id, target);
             }
         });
 
@@ -806,26 +809,45 @@
             container.innerHTML = data.gaps.map(g => `
                 <tr class="hover:bg-gray-50">
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="font-medium text-gray-900">${g.term}</div>
-                        <div class="text-xs text-gray-500">Last: ${formatDate(g.last_searched_at)}</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        ${g.count} searches
+                        <div class="font-bold text-gray-900">${g.term}</div>
+                        <div class="text-[10px] text-gray-500 mt-1 uppercase">Last searched: ${formatDate(g.last_searched_at)}</div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-2 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-yellow-100 text-yellow-700">
-                            ${g.status}
-                        </span>
+                        <div class="text-sm font-bold text-purple-600">${g.count} searches</div>
+                        <div class="text-[10px] text-gray-400 uppercase">Status: ${g.status}</div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex flex-col gap-2">
+                            <div class="flex gap-2">
+                                <input type="text" placeholder="English translation" 
+                                       class="gap-english-input flex-1 px-2 py-1 text-xs border rounded outline-none focus:ring-1 focus:ring-purple-400">
+                                <select class="gap-category-select px-2 py-1 text-xs border rounded outline-none focus:ring-1 focus:ring-purple-400">
+                                    <option value="general">General</option>
+                                    <option value="slang">Slang</option>
+                                    <option value="food">Food</option>
+                                    <option value="expressions">Expressions</option>
+                                    <option value="culture">Culture</option>
+                                </select>
+                            </div>
+                            <input type="text" placeholder="Example sentence" 
+                                   class="gap-example-input w-full px-2 py-1 text-xs border rounded outline-none focus:ring-1 focus:ring-purple-400">
+                        </div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <div class="flex justify-center gap-2">
-                            <button data-action="add-gap" data-term="${g.term}" data-id="${g.id}"
-                                    class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition">
-                                Add to Dict
-                            </button>
+                        <div class="flex flex-col gap-2">
+                            <div class="flex gap-2">
+                                <button data-action="suggest-gap" data-pidgin="${g.term}"
+                                        class="flex-1 bg-purple-50 text-purple-600 px-2 py-1 rounded hover:bg-purple-100 transition text-xs font-bold border border-purple-200">
+                                    <i class="ti ti-wand"></i> Suggest
+                                </button>
+                                <button data-action="add-gap-btn" data-id="${g.id}" data-pidgin="${g.term}"
+                                        class="flex-1 bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700 transition text-xs font-bold shadow-sm">
+                                    <i class="ti ti-plus"></i> Add
+                                </button>
+                            </div>
                             <button data-action="ignore-gap" data-id="${g.id}"
-                                    class="bg-gray-100 text-gray-600 px-3 py-1 rounded hover:bg-gray-200 transition">
-                                Ignore
+                                    class="w-full bg-gray-100 text-gray-600 px-2 py-1 rounded hover:bg-gray-200 transition text-xs border border-gray-200">
+                                <i class="ti ti-trash"></i> Ignore Gap
                             </button>
                         </div>
                     </td>
@@ -848,8 +870,9 @@
         }
     }
 
-    async function addGapToDictionary(pidgin, english, category, example, pronunciation, button) {
+    async function addGapToDictionary(pidgin, english, category, example, pronunciation, button, gapId) {
         button.disabled = true;
+        const originalHtml = button.innerHTML;
         button.innerHTML = '<span class="spinner spinner-white"></span>';
 
         try {
@@ -870,6 +893,18 @@
 
             if (!response.ok) throw new Error('Failed to add entry');
 
+            // Now update the gap status if a gapId was provided
+            if (gapId) {
+                await fetch(`/api/admin/gaps/${gapId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify({ status: 'added' })
+                });
+            }
+
             showToast(`Added "${pidgin}" to dictionary`, 'success');
             
             // Remove the row
@@ -877,10 +912,55 @@
             row.style.opacity = '0';
             setTimeout(() => row.remove(), 300);
 
+            // Update dashboard count if visible
+            const gapCountEl = document.getElementById('dash-pending-gaps');
+            if (gapCountEl) {
+                const current = parseInt(gapCountEl.textContent) || 0;
+                gapCountEl.textContent = Math.max(0, current - 1);
+            }
+
         } catch (error) {
             showToast('Error: ' + error.message, 'error');
             button.disabled = false;
-            button.textContent = 'Add';
+            button.innerHTML = originalHtml;
+        }
+    }
+
+    async function ignoreGap(id, button) {
+        button.disabled = true;
+        const originalHtml = button.innerHTML;
+        button.innerHTML = '<span class="spinner"></span>';
+
+        try {
+            const response = await fetch(`/api/admin/gaps/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authToken}`
+                },
+                body: JSON.stringify({ status: 'ignored' })
+            });
+
+            if (!response.ok) throw new Error('Failed to ignore gap');
+
+            showToast('Gap ignored', 'info');
+            
+            // Remove the row
+            const row = button.closest('tr');
+            row.style.opacity = '0';
+            setTimeout(() => row.remove(), 300);
+
+            // Update dashboard count
+            const gapCountEl = document.getElementById('dash-pending-gaps');
+            if (gapCountEl) {
+                const current = parseInt(gapCountEl.textContent) || 0;
+                gapCountEl.textContent = Math.max(0, current - 1);
+            }
+
+        } catch (error) {
+            showToast('Error: ' + error.message, 'error');
+            button.disabled = false;
+            button.innerHTML = originalHtml;
         }
     }
 
