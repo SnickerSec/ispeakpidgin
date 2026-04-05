@@ -19,6 +19,14 @@ const config = {
     assetsDir: 'src/assets'
 };
 
+// Clean public directory
+function cleanPublic() {
+    if (fs.existsSync(config.publicDir)) {
+        console.log(`🧹 Cleaning ${config.publicDir} directory...`);
+        fs.rmSync(config.publicDir, { recursive: true, force: true });
+    }
+}
+
 // Path mappings for script updates
 const pathMappings = {
     // JavaScript components
@@ -476,20 +484,30 @@ function copyFavicons() {
 
 // Main build function
 function build() {
+    const { execSync } = require('child_process');
     try {
         console.log('Starting build process...\n');
 
+        cleanPublic();
         createPublicStructure();
         processHTMLFiles();
         copyJavaScriptFiles();
         copyDataFiles();
         copyCSSFiles();
+        
+        // Generate OG images before copying assets
+        console.log('\n🖼️  Generating OG images...');
+        try {
+            execSync('node scripts/generate-og-images.js', { stdio: 'inherit' });
+        } catch (error) {
+            console.error('⚠️  Warning: Could not generate OG images:', error.message);
+        }
+
         copyAssets();
         copyFavicons();
 
         // Generate individual dictionary entry pages
         console.log('\n📖 Generating individual dictionary entry pages...');
-        const { execSync } = require('child_process');
         try {
             execSync('node tools/generators/generate-entry-pages.js', { stdio: 'inherit' });
         } catch (error) {

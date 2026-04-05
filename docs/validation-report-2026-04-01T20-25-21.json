@@ -1,0 +1,1610 @@
+{
+  "timestamp": "2026-04-01T20:25:21.237Z",
+  "summary": {
+    "total": 1864,
+    "passed": 1725,
+    "failed": 139,
+    "byCategory": {
+      "expressions": {
+        "total": 583,
+        "passed": 496,
+        "failed": 87,
+        "accuracy": "85.1"
+      },
+      "greetings": {
+        "total": 88,
+        "passed": 74,
+        "failed": 14,
+        "accuracy": "84.1"
+      },
+      "food": {
+        "total": 158,
+        "passed": 154,
+        "failed": 4,
+        "accuracy": "97.5"
+      },
+      "nature": {
+        "total": 85,
+        "passed": 79,
+        "failed": 6,
+        "accuracy": "92.9"
+      },
+      "actions": {
+        "total": 96,
+        "passed": 91,
+        "failed": 5,
+        "accuracy": "94.8"
+      },
+      "cultural": {
+        "total": 143,
+        "passed": 139,
+        "failed": 4,
+        "accuracy": "97.2"
+      },
+      "descriptions": {
+        "total": 162,
+        "passed": 161,
+        "failed": 1,
+        "accuracy": "99.4"
+      },
+      "people": {
+        "total": 112,
+        "passed": 110,
+        "failed": 2,
+        "accuracy": "98.2"
+      },
+      "slang": {
+        "total": 257,
+        "passed": 252,
+        "failed": 5,
+        "accuracy": "98.1"
+      },
+      "objects": {
+        "total": 7,
+        "passed": 7,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "emotions": {
+        "total": 50,
+        "passed": 47,
+        "failed": 3,
+        "accuracy": "94.0"
+      },
+      "grammar": {
+        "total": 17,
+        "passed": 17,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "general": {
+        "total": 31,
+        "passed": 28,
+        "failed": 3,
+        "accuracy": "90.3"
+      },
+      "animals": {
+        "total": 14,
+        "passed": 14,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "clothing": {
+        "total": 19,
+        "passed": 19,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "activities": {
+        "total": 2,
+        "passed": 2,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "games": {
+        "total": 2,
+        "passed": 2,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "family": {
+        "total": 2,
+        "passed": 2,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "concepts": {
+        "total": 5,
+        "passed": 5,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "places": {
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "body": {
+        "total": 2,
+        "passed": 2,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "directions": {
+        "total": 8,
+        "passed": 6,
+        "failed": 2,
+        "accuracy": "75.0"
+      },
+      "behavior": {
+        "total": 4,
+        "passed": 4,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "numbers": {
+        "total": 4,
+        "passed": 4,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "questions": {
+        "total": 10,
+        "passed": 7,
+        "failed": 3,
+        "accuracy": "70.0"
+      }
+    },
+    "byType": {
+      "english-to-pidgin": {
+        "total": 1195,
+        "passed": 1056,
+        "failed": 139,
+        "accuracy": "88.4"
+      },
+      "pidgin-to-english": {
+        "total": 669,
+        "passed": 669,
+        "failed": 0,
+        "accuracy": "100.0"
+      }
+    },
+    "failures": [
+      {
+        "type": "english-to-pidgin",
+        "input": "the land",
+        "expected": "'āina",
+        "actual": "da land",
+        "category": "nature",
+        "score": 0.14285714285714285,
+        "reason": "Only 14% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "doing something on purpose but making it look accidental",
+        "expected": "accidentally on purpose",
+        "actual": "doing someting on purpose but making it look accidental",
+        "category": "expressions",
+        "score": 0.2,
+        "reason": "Only 20% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "respectful term for older woman",
+        "expected": "aunty",
+        "actual": "respectful term fo older woman",
+        "category": "expressions",
+        "score": 0.06666666666666667,
+        "reason": "Only 7% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "caught a big fish!",
+        "expected": "bango",
+        "actual": "caught one big fish!",
+        "category": "expressions",
+        "score": 0.15,
+        "reason": "Only 15% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "have a problem",
+        "expected": "beef",
+        "actual": "have one problem",
+        "category": "slang",
+        "score": 0.125,
+        "reason": "Only 13% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "back in the day",
+        "expected": "before time",
+        "actual": "back in da day",
+        "category": "expressions",
+        "score": 0.14285714285714285,
+        "reason": "Only 14% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "can't see",
+        "expected": "blind mullet",
+        "actual": "no can see",
+        "category": "slang",
+        "score": 0.16666666666666666,
+        "reason": "Only 17% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "is that so?",
+        "expected": "bline",
+        "actual": "is dat so?",
+        "category": "expressions",
+        "score": 0,
+        "reason": "Only 0% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "does this bother you",
+        "expected": "boddah you",
+        "actual": "does dis bother you",
+        "category": "expressions",
+        "score": 0.3684210526315789,
+        "reason": "Only 37% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "brah, it's your turn again?",
+        "expected": "brah, you naman?",
+        "actual": "brah, stay your turn again?",
+        "category": "expressions",
+        "score": 0.5555555555555556,
+        "reason": "Only 56% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "that thing is",
+        "expected": "buggah stay",
+        "actual": "dat thing is",
+        "category": "expressions",
+        "score": 0.08333333333333333,
+        "reason": "Only 8% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "that person is",
+        "expected": "buggah stay",
+        "actual": "dat person is",
+        "category": "expressions",
+        "score": 0.07692307692307693,
+        "reason": "Only 8% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "you'll learn eventually",
+        "expected": "bumbai you learn",
+        "actual": "you goin learn eventually",
+        "category": "expressions",
+        "score": 0.24,
+        "reason": "Only 24% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "you'll see what happens",
+        "expected": "bumbai you learn",
+        "actual": "you goin see what happens",
+        "category": "expressions",
+        "score": 0.24,
+        "reason": "Only 24% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "laugh really hard",
+        "expected": "bust 'em up",
+        "actual": "laugh real hard",
+        "category": "emotions",
+        "score": 0.26666666666666666,
+        "reason": "Only 27% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "go for it",
+        "expected": "chance 'um",
+        "actual": "go fo it",
+        "category": "expressions",
+        "score": 0.125,
+        "reason": "Only 13% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "take a chance",
+        "expected": "chance 'um",
+        "actual": "take one chance",
+        "category": "expressions",
+        "score": 0.26666666666666666,
+        "reason": "Only 27% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "the best",
+        "expected": "da bes'!",
+        "actual": "da best",
+        "category": "expressions",
+        "score": 0.75,
+        "reason": "Only 75% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "the best",
+        "expected": "da bomb",
+        "actual": "da best",
+        "category": "slang",
+        "score": 0.75,
+        "reason": "Only 75% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "the thing",
+        "expected": "da kine",
+        "actual": "da thing",
+        "category": "expressions",
+        "score": 0.625,
+        "reason": "Only 63% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "that thing, the whole thing",
+        "expected": "da kine, da whole kine",
+        "actual": "dat thing, da whole thing",
+        "category": "expressions",
+        "score": 0.72,
+        "reason": "Only 72% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "all of that stuff",
+        "expected": "da kine, da whole kine",
+        "actual": "all of dat stuff",
+        "category": "expressions",
+        "score": 0.18181818181818182,
+        "reason": "Only 18% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "you know the kind surf",
+        "expected": "dakine surf",
+        "actual": "you know da kind surf",
+        "category": "expressions",
+        "score": 0.47619047619047616,
+        "reason": "Only 48% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "that's why it's difficult",
+        "expected": "das why hard",
+        "actual": "that's why stay difficult",
+        "category": "expressions",
+        "score": 0.36,
+        "reason": "Only 36% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "those people",
+        "expected": "dem",
+        "actual": "dose people",
+        "category": "expressions",
+        "score": 0.18181818181818182,
+        "reason": "Only 18% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "You should try it",
+        "expected": "Eh, chance 'um",
+        "actual": "you should try it",
+        "category": "expressions",
+        "score": 0.17647058823529413,
+        "reason": "Only 18% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "Take a chance",
+        "expected": "Eh, chance 'um",
+        "actual": "take one chance",
+        "category": "expressions",
+        "score": 0.26666666666666666,
+        "reason": "Only 27% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "hey, are you with that thingamajig?",
+        "expected": "eh, you stay wit' da kine?",
+        "actual": "eh, you stay wit dat thingamajig?",
+        "category": "expressions",
+        "score": 0.6666666666666666,
+        "reason": "Only 67% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "are you with that thing?",
+        "expected": "eh, you stay wit' da kine?",
+        "actual": "you stay wit dat thing?",
+        "category": "expressions",
+        "score": 0.6538461538461539,
+        "reason": "Only 65% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "do you have that thing?",
+        "expected": "eh, you stay wit' da kine?",
+        "actual": "you have dat thing?",
+        "category": "expressions",
+        "score": 0.38461538461538464,
+        "reason": "Only 38% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "fresh off the boat",
+        "expected": "f.o.b.",
+        "actual": "fresh off da boat",
+        "category": "slang",
+        "score": 0.17647058823529413,
+        "reason": "Only 18% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "for what reason",
+        "expected": "fakawat",
+        "actual": "fo what reason",
+        "category": "expressions",
+        "score": 0.5,
+        "reason": "Only 50% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "for what reason?",
+        "expected": "fo wat?",
+        "actual": "fo what reason?",
+        "category": "expressions",
+        "score": 0.4666666666666667,
+        "reason": "Only 47% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "for what reason",
+        "expected": "fo what",
+        "actual": "fo what reason",
+        "category": "expressions",
+        "score": 0.5,
+        "reason": "Only 50% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "for sure",
+        "expected": "fosho",
+        "actual": "fo sure",
+        "category": "expressions",
+        "score": 0.42857142857142855,
+        "reason": "Only 43% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "for sure",
+        "expected": "garanz",
+        "actual": "fo sure",
+        "category": "expressions",
+        "score": 0.42857142857142855,
+        "reason": "Only 43% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "go for it",
+        "expected": "geev",
+        "actual": "go fo it",
+        "category": "actions",
+        "score": 0.125,
+        "reason": "Only 13% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "go for it",
+        "expected": "geev 'um",
+        "actual": "go fo it",
+        "category": "expressions",
+        "score": 0.125,
+        "reason": "Only 13% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "beat them up",
+        "expected": "geev 'um",
+        "actual": "beat 'em up",
+        "category": "expressions",
+        "score": 0.36363636363636365,
+        "reason": "Only 36% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "there's a lot",
+        "expected": "get choke",
+        "actual": "there's one lot",
+        "category": "expressions",
+        "score": 0.2,
+        "reason": "Only 20% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "go for it",
+        "expected": "get'um",
+        "actual": "go fo it",
+        "category": "actions",
+        "score": 0.125,
+        "reason": "Only 13% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "seize the opportunity",
+        "expected": "get'um",
+        "actual": "seize da opportunity",
+        "category": "actions",
+        "score": 0.1,
+        "reason": "Only 10% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "you should do better",
+        "expected": "go mo' bettah",
+        "actual": "you should do better",
+        "category": "expressions",
+        "score": 0.4,
+        "reason": "Only 40% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "for sure",
+        "expected": "guaranz",
+        "actual": "fo sure",
+        "category": "expressions",
+        "score": 0.42857142857142855,
+        "reason": "Only 43% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "for sure",
+        "expected": "gueren-tee",
+        "actual": "fo sure",
+        "category": "expressions",
+        "score": 0.42857142857142855,
+        "reason": "Only 43% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "in a bad mood",
+        "expected": "habut",
+        "actual": "in one bad mood",
+        "category": "emotions",
+        "score": 0.06666666666666667,
+        "reason": "Only 7% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "be in a bad mood",
+        "expected": "habuteru",
+        "actual": "be in one bad mood",
+        "category": "emotions",
+        "score": 0.05555555555555555,
+        "reason": "Only 6% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "you're in trouble",
+        "expected": "hana okolele",
+        "actual": "you stay in trouble",
+        "category": "expressions",
+        "score": 0.2631578947368421,
+        "reason": "Only 26% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "one more time",
+        "expected": "hanahou",
+        "actual": "one mo' time",
+        "category": "actions",
+        "score": 0.08333333333333333,
+        "reason": "Only 8% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "check this out",
+        "expected": "ho, brah",
+        "actual": "check dis out",
+        "category": "expressions",
+        "score": 0.15384615384615385,
+        "reason": "Only 15% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "wow, that guy is getting goosebumps!",
+        "expected": "ho, da bagah's goin' chicken skin!",
+        "actual": "wow, dat guy is getting goosebumps!",
+        "category": "expressions",
+        "score": 0.3142857142857143,
+        "reason": "Only 31% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "look, he's getting chills!",
+        "expected": "ho, da bagah's goin' chicken skin!",
+        "actual": "look, he stay getting chills!",
+        "category": "expressions",
+        "score": 0.3235294117647059,
+        "reason": "Only 32% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "that person has goosebumps!",
+        "expected": "ho, da bagah's goin' chicken skin!",
+        "actual": "dat person has goosebumps!",
+        "category": "expressions",
+        "score": 0.23529411764705882,
+        "reason": "Only 24% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "that's really hard",
+        "expected": "ho, da hard",
+        "actual": "that's real hard",
+        "category": "expressions",
+        "score": 0.5,
+        "reason": "Only 50% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "how about it?",
+        "expected": "how 'bout",
+        "actual": "how bout it?",
+        "category": "expressions",
+        "score": 0.5833333333333334,
+        "reason": "Only 58% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "what do you say?",
+        "expected": "how 'bout",
+        "actual": "what you say?",
+        "category": "expressions",
+        "score": 0.23076923076923078,
+        "reason": "Only 23% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "how is that possible",
+        "expected": "how you figgah",
+        "actual": "how is dat possible",
+        "category": "expressions",
+        "score": 0.2631578947368421,
+        "reason": "Only 26% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "how is that possible?",
+        "expected": "how you figgah?",
+        "actual": "how is dat possible?",
+        "category": "general",
+        "score": 0.3,
+        "reason": "Only 30% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "how do you figure?",
+        "expected": "how you figgah?",
+        "actual": "how you figure?",
+        "category": "general",
+        "score": 0.8,
+        "reason": "Only 80% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "to rotate something, as on a spit",
+        "expected": "hulihuli",
+        "actual": "to rotate something, as on one spit",
+        "category": "cultural",
+        "score": 0.05714285714285714,
+        "reason": "Only 6% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "I have a lot of work",
+        "expected": "I get choke work",
+        "actual": "i have one lot of work",
+        "category": "expressions",
+        "score": 0.4090909090909091,
+        "reason": "Only 41% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "I'm going home",
+        "expected": "I hele to da hale",
+        "actual": "i stay goin home",
+        "category": "expressions",
+        "score": 0.4117647058823529,
+        "reason": "Only 41% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "I would like",
+        "expected": "I like",
+        "actual": "i would like",
+        "category": "expressions",
+        "score": 0.5,
+        "reason": "Only 50% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "I'm serious",
+        "expected": "i no kid you",
+        "actual": "i stay serious",
+        "category": "expressions",
+        "score": 0.2857142857142857,
+        "reason": "Only 29% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "I'll see you later",
+        "expected": "I spock you bumbye",
+        "actual": "i goin see you latahs",
+        "category": "greetings",
+        "score": 0.3333333333333333,
+        "reason": "Only 33% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "See you later",
+        "expected": "I spock you bumbye",
+        "actual": "see you latahs",
+        "category": "greetings",
+        "score": 0.42857142857142855,
+        "reason": "Only 43% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "I'm busy right now",
+        "expected": "I stay pau with dat",
+        "actual": "i stay busy right now",
+        "category": "expressions",
+        "score": 0.5238095238095238,
+        "reason": "Only 52% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "I'm done with that",
+        "expected": "I stay pau with dat",
+        "actual": "i stay done wit that",
+        "category": "expressions",
+        "score": 0.65,
+        "reason": "Only 65% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "shave ice in a cup",
+        "expected": "ice cake",
+        "actual": "shave ice in one cup",
+        "category": "food",
+        "score": 0.25,
+        "reason": "Only 25% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "just off the jet",
+        "expected": "j.o.j.",
+        "actual": "just off da jet",
+        "category": "slang",
+        "score": 0.2,
+        "reason": "Only 20% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "just the kind",
+        "expected": "jus' 'kine",
+        "actual": "just da kind",
+        "category": "expressions",
+        "score": 0.5833333333333334,
+        "reason": "Only 58% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "the beach",
+        "expected": "kahakai",
+        "actual": "da beach",
+        "category": "nature",
+        "score": 0.25,
+        "reason": "Only 25% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "to bake in an imu",
+        "expected": "kalua",
+        "actual": "to bake in one imu",
+        "category": "cultural",
+        "score": 0.05555555555555555,
+        "reason": "Only 6% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "child of the land",
+        "expected": "kama'āina",
+        "actual": "child of da land",
+        "category": "people",
+        "score": 0.125,
+        "reason": "Only 13% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "the sun",
+        "expected": "lā",
+        "actual": "da sun",
+        "category": "nature",
+        "score": 0,
+        "reason": "Only 0% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "see you later",
+        "expected": "latahs",
+        "actual": "see you latahs",
+        "category": "greetings",
+        "score": 0.42857142857142855,
+        "reason": "Only 43% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "see you later",
+        "expected": "laters",
+        "actual": "see you latahs",
+        "category": "greetings",
+        "score": 0.42857142857142855,
+        "reason": "Only 43% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "lehua - a type of blossom",
+        "expected": "lehua",
+        "actual": "lehua - one type of blossom",
+        "category": "nature",
+        "score": 0.18518518518518517,
+        "reason": "Only 19% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "that way",
+        "expected": "lidat",
+        "actual": "dat way",
+        "category": "expressions",
+        "score": 0.14285714285714285,
+        "reason": "Only 14% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "want to fight",
+        "expected": "like beef",
+        "actual": "like fight",
+        "category": "expressions",
+        "score": 0.5,
+        "reason": "Only 50% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "want to fight?",
+        "expected": "like beef",
+        "actual": "like fight?",
+        "category": "expressions",
+        "score": 0.45454545454545453,
+        "reason": "Only 45% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "you want to fight?",
+        "expected": "like scrap",
+        "actual": "you like fight?",
+        "category": "expressions",
+        "score": 0.3333333333333333,
+        "reason": "Only 33% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "do you want to fight?",
+        "expected": "like scrap",
+        "actual": "you like fight?",
+        "category": "expressions",
+        "score": 0.45,
+        "reason": "Only 45% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "the boss, foreman",
+        "expected": "luna",
+        "actual": "da boss, foreman",
+        "category": "cultural",
+        "score": 0.0625,
+        "reason": "Only 6% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "thank you for your help",
+        "expected": "mahalo for your kokua",
+        "actual": "thank you fo your help",
+        "category": "greetings",
+        "score": 0.4090909090909091,
+        "reason": "Only 41% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "thank you for your cooperation",
+        "expected": "mahalo for your kokua",
+        "actual": "thank you fo your cooperation",
+        "category": "greetings",
+        "score": 0.41379310344827586,
+        "reason": "Only 41% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "thank you very much",
+        "expected": "mahalo nui",
+        "actual": "thank you real much",
+        "category": "expressions",
+        "score": 0.21052631578947367,
+        "reason": "Only 21% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "thank you for the connection!",
+        "expected": "mahalo, for da hookup!",
+        "actual": "thank you fo da connection!",
+        "category": "greetings",
+        "score": 0.37037037037037035,
+        "reason": "Only 37% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "thanks for the favor!",
+        "expected": "mahalo, for da hookup!",
+        "actual": "thanks fo da favor!",
+        "category": "greetings",
+        "score": 0.45454545454545453,
+        "reason": "Only 45% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "thank you for hooking me up!",
+        "expected": "mahalo, for da hookup!",
+        "actual": "thank you fo hooking me up!",
+        "category": "greetings",
+        "score": 0.4074074074074074,
+        "reason": "Only 41% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "the moon",
+        "expected": "mahina",
+        "actual": "da moon",
+        "category": "nature",
+        "score": 0.14285714285714285,
+        "reason": "Only 14% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "toward the ocean",
+        "expected": "makai",
+        "actual": "toward da ocean",
+        "category": "directions",
+        "score": 0.13333333333333333,
+        "reason": "Only 13% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "to play a joke on someone",
+        "expected": "make funny",
+        "actual": "to play one joke on someone",
+        "category": "actions",
+        "score": 0.18518518518518517,
+        "reason": "Only 19% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "respectful term for Filipino elder",
+        "expected": "manong",
+        "actual": "respectful term fo filipino elder",
+        "category": "people",
+        "score": 0.09090909090909091,
+        "reason": "Only 9% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "toward the mountains",
+        "expected": "mauka",
+        "actual": "toward da mountains",
+        "category": "directions",
+        "score": 0.15789473684210525,
+        "reason": "Only 16% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "wide-eyed with surprise",
+        "expected": "menpachi eyes",
+        "actual": "wide-eyed wit surprise",
+        "category": "descriptions",
+        "score": 0.18181818181818182,
+        "reason": "Only 18% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "go nighty-night sleep for kids",
+        "expected": "moemoe",
+        "actual": "go nighty-night sleep fo kids",
+        "category": "cultural",
+        "score": 0.10344827586206896,
+        "reason": "Only 10% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "the native Hawaiian goose",
+        "expected": "nēnē",
+        "actual": "da native hawaiian goose",
+        "category": "nature",
+        "score": 0.08333333333333333,
+        "reason": "Only 8% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "didn't",
+        "expected": "neva",
+        "actual": "did 'a'ole",
+        "category": "expressions",
+        "score": 0.1,
+        "reason": "Only 10% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "don't",
+        "expected": "no",
+        "actual": "do 'a'ole",
+        "category": "expressions",
+        "score": 0.1111111111111111,
+        "reason": "Only 11% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "doesn't",
+        "expected": "no",
+        "actual": "does 'a'ole",
+        "category": "expressions",
+        "score": 0.09090909090909091,
+        "reason": "Only 9% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "don't act",
+        "expected": "no ack",
+        "actual": "no act",
+        "category": "expressions",
+        "score": 0.8333333333333334,
+        "reason": "Only 83% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "don't act like that",
+        "expected": "no act",
+        "actual": "no act like that",
+        "category": "expressions",
+        "score": 0.375,
+        "reason": "Only 38% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "don't pretend",
+        "expected": "no act",
+        "actual": "no pretend",
+        "category": "expressions",
+        "score": 0.4,
+        "reason": "Only 40% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "can't, the thing is broken",
+        "expected": "no can, da buggah stay broke",
+        "actual": "cannot, da thing is broken",
+        "category": "expressions",
+        "score": 0.39285714285714285,
+        "reason": "Only 39% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "unable to, it's broken",
+        "expected": "no can, da buggah stay broke",
+        "actual": "unable to, stay broken",
+        "category": "expressions",
+        "score": 0.42857142857142855,
+        "reason": "Only 43% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "no way, it's not working",
+        "expected": "no can, da buggah stay broke",
+        "actual": "no way, stay not working",
+        "category": "expressions",
+        "score": 0.2857142857142857,
+        "reason": "Only 29% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "the best",
+        "expected": "no ka 'oi",
+        "actual": "da best",
+        "category": "expressions",
+        "score": 0.75,
+        "reason": "Only 75% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "it's the truth",
+        "expected": "no lie",
+        "actual": "stay da truth",
+        "category": "expressions",
+        "score": 0.07692307692307693,
+        "reason": "Only 8% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "I'm serious",
+        "expected": "no lie",
+        "actual": "i stay serious",
+        "category": "expressions",
+        "score": 0.2857142857142857,
+        "reason": "Only 29% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "don't die",
+        "expected": "no make",
+        "actual": "no die",
+        "category": "expressions",
+        "score": 0.5714285714285714,
+        "reason": "Only 57% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "you're welcome",
+        "expected": "no problem",
+        "actual": "you stay welcome",
+        "category": "greetings",
+        "score": 0.25,
+        "reason": "Only 25% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "it's okay",
+        "expected": "no worries",
+        "actual": "stay okay",
+        "category": "greetings",
+        "score": 0,
+        "reason": "Only 0% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "don't worry about it",
+        "expected": "no worries",
+        "actual": "no worry bout it",
+        "category": "greetings",
+        "score": 0.4375,
+        "reason": "Only 44% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "like that?",
+        "expected": "oh wow ladat",
+        "actual": "oh ho ladat",
+        "category": "expressions",
+        "score": 0.8333333333333334,
+        "reason": "Only 83% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "the whole thing",
+        "expected": "sha-bang",
+        "actual": "da whole thing",
+        "category": "general",
+        "score": 0.21428571428571427,
+        "reason": "Only 21% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "shaved ice dessert with flavored syrup",
+        "expected": "shave ice",
+        "actual": "shaved ice dessert wit flavored syrup",
+        "category": "food",
+        "score": 0.24324324324324326,
+        "reason": "Only 24% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "see you later",
+        "expected": "shoots",
+        "actual": "see you latahs",
+        "category": "greetings",
+        "score": 0.42857142857142855,
+        "reason": "Only 43% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "when I was a kid",
+        "expected": "small kid time",
+        "actual": "when i was one kid",
+        "category": "expressions",
+        "score": 0.1111111111111111,
+        "reason": "Only 11% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "back in the day",
+        "expected": "small kid time",
+        "actual": "back in da day",
+        "category": "expressions",
+        "score": 0.14285714285714285,
+        "reason": "Only 14% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "Just a little bit",
+        "expected": "Small kine, eh",
+        "actual": "just one little bit",
+        "category": "expressions",
+        "score": 0.21052631578947367,
+        "reason": "Only 21% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "That's really delicious",
+        "expected": "So ono, broke da mouth",
+        "actual": "that's real delicious",
+        "category": "food",
+        "score": 0.18181818181818182,
+        "reason": "Only 18% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "tropical plant with edible root",
+        "expected": "taro",
+        "actual": "tropical plant wit edible root",
+        "category": "food",
+        "score": 0.13333333333333333,
+        "reason": "Only 13% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "check this out",
+        "expected": "try look",
+        "actual": "check dis out",
+        "category": "expressions",
+        "score": 0.15384615384615385,
+        "reason": "Only 15% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "wait a moment",
+        "expected": "try wait",
+        "actual": "wait one moment",
+        "category": "expressions",
+        "score": 0.2,
+        "reason": "Only 20% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "what's wrong with you",
+        "expected": "wassamattayou",
+        "actual": "what's wrong wit you",
+        "category": "expressions",
+        "score": 0.35,
+        "reason": "Only 35% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "are you jealous?",
+        "expected": "wat, you jealous?",
+        "actual": "you stay jealous?",
+        "category": "expressions",
+        "score": 0.5294117647058824,
+        "reason": "Only 53% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "what's going on",
+        "expected": "whaddsdascoops",
+        "actual": "what's goin on",
+        "category": "greetings",
+        "score": 0.2857142857142857,
+        "reason": "Only 29% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "what, you want to fight?",
+        "expected": "what, you like beef?",
+        "actual": "what, you like fight?",
+        "category": "expressions",
+        "score": 0.7619047619047619,
+        "reason": "Only 76% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "do you want to fight?",
+        "expected": "what, you like beef?",
+        "actual": "you like fight?",
+        "category": "expressions",
+        "score": 0.45,
+        "reason": "Only 45% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "Where is the restroom?",
+        "expected": "Where da lua stay?",
+        "actual": "where is da restroom?",
+        "category": "expressions",
+        "score": 0.5238095238095238,
+        "reason": "Only 52% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "Where is the bathroom?",
+        "expected": "Where da lua stay?",
+        "actual": "where is da bathroom?",
+        "category": "expressions",
+        "score": 0.47619047619047616,
+        "reason": "Only 48% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "agree, right?",
+        "expected": "yeah no",
+        "actual": "agree, yeah?",
+        "category": "expressions",
+        "score": 0.16666666666666666,
+        "reason": "Only 17% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "you're right",
+        "expected": "yeah you",
+        "actual": "you stay right",
+        "category": "expressions",
+        "score": 0.21428571428571427,
+        "reason": "Only 21% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "I agree with you",
+        "expected": "yeah you",
+        "actual": "i agree wit you",
+        "category": "expressions",
+        "score": 0.3333333333333333,
+        "reason": "Only 33% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "you want to eat, right?",
+        "expected": "you like eat, eh?",
+        "actual": "you like kau kau, yeah?",
+        "category": "questions",
+        "score": 0.6521739130434783,
+        "reason": "Only 65% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "do you want to eat?",
+        "expected": "you like eat, eh?",
+        "actual": "you like kau kau?",
+        "category": "questions",
+        "score": 0.6470588235294118,
+        "reason": "Only 65% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "Are you done with that?",
+        "expected": "You pau with dat?",
+        "actual": "you stay done wit that?",
+        "category": "expressions",
+        "score": 0.5217391304347826,
+        "reason": "Only 52% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "are you going?",
+        "expected": "you stay go?",
+        "actual": "you stay going?",
+        "category": "questions",
+        "score": 0.8,
+        "reason": "Only 80% similar to closest valid option"
+      }
+    ],
+    "accuracy": "92.5"
+  },
+  "topFailures": [
+    {
+      "type": "english-to-pidgin",
+      "input": "the land",
+      "expected": "'āina",
+      "actual": "da land",
+      "category": "nature",
+      "score": 0.14285714285714285,
+      "reason": "Only 14% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "doing something on purpose but making it look accidental",
+      "expected": "accidentally on purpose",
+      "actual": "doing someting on purpose but making it look accidental",
+      "category": "expressions",
+      "score": 0.2,
+      "reason": "Only 20% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "respectful term for older woman",
+      "expected": "aunty",
+      "actual": "respectful term fo older woman",
+      "category": "expressions",
+      "score": 0.06666666666666667,
+      "reason": "Only 7% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "caught a big fish!",
+      "expected": "bango",
+      "actual": "caught one big fish!",
+      "category": "expressions",
+      "score": 0.15,
+      "reason": "Only 15% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "have a problem",
+      "expected": "beef",
+      "actual": "have one problem",
+      "category": "slang",
+      "score": 0.125,
+      "reason": "Only 13% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "back in the day",
+      "expected": "before time",
+      "actual": "back in da day",
+      "category": "expressions",
+      "score": 0.14285714285714285,
+      "reason": "Only 14% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "can't see",
+      "expected": "blind mullet",
+      "actual": "no can see",
+      "category": "slang",
+      "score": 0.16666666666666666,
+      "reason": "Only 17% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "is that so?",
+      "expected": "bline",
+      "actual": "is dat so?",
+      "category": "expressions",
+      "score": 0,
+      "reason": "Only 0% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "does this bother you",
+      "expected": "boddah you",
+      "actual": "does dis bother you",
+      "category": "expressions",
+      "score": 0.3684210526315789,
+      "reason": "Only 37% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "brah, it's your turn again?",
+      "expected": "brah, you naman?",
+      "actual": "brah, stay your turn again?",
+      "category": "expressions",
+      "score": 0.5555555555555556,
+      "reason": "Only 56% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "that thing is",
+      "expected": "buggah stay",
+      "actual": "dat thing is",
+      "category": "expressions",
+      "score": 0.08333333333333333,
+      "reason": "Only 8% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "that person is",
+      "expected": "buggah stay",
+      "actual": "dat person is",
+      "category": "expressions",
+      "score": 0.07692307692307693,
+      "reason": "Only 8% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "you'll learn eventually",
+      "expected": "bumbai you learn",
+      "actual": "you goin learn eventually",
+      "category": "expressions",
+      "score": 0.24,
+      "reason": "Only 24% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "you'll see what happens",
+      "expected": "bumbai you learn",
+      "actual": "you goin see what happens",
+      "category": "expressions",
+      "score": 0.24,
+      "reason": "Only 24% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "laugh really hard",
+      "expected": "bust 'em up",
+      "actual": "laugh real hard",
+      "category": "emotions",
+      "score": 0.26666666666666666,
+      "reason": "Only 27% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "go for it",
+      "expected": "chance 'um",
+      "actual": "go fo it",
+      "category": "expressions",
+      "score": 0.125,
+      "reason": "Only 13% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "take a chance",
+      "expected": "chance 'um",
+      "actual": "take one chance",
+      "category": "expressions",
+      "score": 0.26666666666666666,
+      "reason": "Only 27% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "the best",
+      "expected": "da bes'!",
+      "actual": "da best",
+      "category": "expressions",
+      "score": 0.75,
+      "reason": "Only 75% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "the best",
+      "expected": "da bomb",
+      "actual": "da best",
+      "category": "slang",
+      "score": 0.75,
+      "reason": "Only 75% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "the thing",
+      "expected": "da kine",
+      "actual": "da thing",
+      "category": "expressions",
+      "score": 0.625,
+      "reason": "Only 63% similar to closest valid option"
+    }
+  ]
+}

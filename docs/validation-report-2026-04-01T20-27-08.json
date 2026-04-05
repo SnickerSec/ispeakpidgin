@@ -1,0 +1,629 @@
+{
+  "timestamp": "2026-04-01T20:27:08.343Z",
+  "summary": {
+    "total": 1864,
+    "passed": 1834,
+    "failed": 30,
+    "byCategory": {
+      "expressions": {
+        "total": 583,
+        "passed": 558,
+        "failed": 25,
+        "accuracy": "95.7"
+      },
+      "greetings": {
+        "total": 88,
+        "passed": 84,
+        "failed": 4,
+        "accuracy": "95.5"
+      },
+      "food": {
+        "total": 158,
+        "passed": 158,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "nature": {
+        "total": 85,
+        "passed": 85,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "actions": {
+        "total": 96,
+        "passed": 96,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "cultural": {
+        "total": 143,
+        "passed": 143,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "descriptions": {
+        "total": 162,
+        "passed": 162,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "people": {
+        "total": 112,
+        "passed": 112,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "slang": {
+        "total": 257,
+        "passed": 256,
+        "failed": 1,
+        "accuracy": "99.6"
+      },
+      "objects": {
+        "total": 7,
+        "passed": 7,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "emotions": {
+        "total": 50,
+        "passed": 50,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "grammar": {
+        "total": 17,
+        "passed": 17,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "general": {
+        "total": 31,
+        "passed": 31,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "animals": {
+        "total": 14,
+        "passed": 14,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "clothing": {
+        "total": 19,
+        "passed": 19,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "activities": {
+        "total": 2,
+        "passed": 2,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "games": {
+        "total": 2,
+        "passed": 2,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "family": {
+        "total": 2,
+        "passed": 2,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "concepts": {
+        "total": 5,
+        "passed": 5,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "places": {
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "body": {
+        "total": 2,
+        "passed": 2,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "directions": {
+        "total": 8,
+        "passed": 8,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "behavior": {
+        "total": 4,
+        "passed": 4,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "numbers": {
+        "total": 4,
+        "passed": 4,
+        "failed": 0,
+        "accuracy": "100.0"
+      },
+      "questions": {
+        "total": 10,
+        "passed": 10,
+        "failed": 0,
+        "accuracy": "100.0"
+      }
+    },
+    "byType": {
+      "english-to-pidgin": {
+        "total": 1195,
+        "passed": 1165,
+        "failed": 30,
+        "accuracy": "97.5"
+      },
+      "pidgin-to-english": {
+        "total": 669,
+        "passed": 669,
+        "failed": 0,
+        "accuracy": "100.0"
+      }
+    },
+    "failures": [
+      {
+        "type": "english-to-pidgin",
+        "input": "I don't care",
+        "expected": "ainokea",
+        "actual": "i do 'a'ole care",
+        "category": "expressions",
+        "score": 0.1875,
+        "reason": "Only 19% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "can't see",
+        "expected": "blind mullet",
+        "actual": "no can see",
+        "category": "slang",
+        "score": 0.16666666666666666,
+        "reason": "Only 17% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "brah, it's your turn again?",
+        "expected": "brah, you naman?",
+        "actual": "brah, it stay brah, you naman?, yeah?",
+        "category": "expressions",
+        "score": 0.43243243243243246,
+        "reason": "Only 43% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "you'll learn eventually",
+        "expected": "bumbai you learn",
+        "actual": "you goin learn eventually",
+        "category": "expressions",
+        "score": 0.24,
+        "reason": "Only 24% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "you'll see what happens",
+        "expected": "bumbai you learn",
+        "actual": "you goin see what happens",
+        "category": "expressions",
+        "score": 0.24,
+        "reason": "Only 24% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "that's why it's difficult",
+        "expected": "das why hard",
+        "actual": "ass fo what it stay hard",
+        "category": "expressions",
+        "score": 0.4166666666666667,
+        "reason": "Only 42% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "you're in trouble",
+        "expected": "hana okolele",
+        "actual": "you stay choke your neck",
+        "category": "expressions",
+        "score": 0.25,
+        "reason": "Only 25% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "look, he's getting chills!",
+        "expected": "ho, da bagah's goin' chicken skin!",
+        "actual": "look, he stay getting chills!",
+        "category": "expressions",
+        "score": 0.3235294117647059,
+        "reason": "Only 32% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "I'm going home",
+        "expected": "I hele to da hale",
+        "actual": "i stay goin home",
+        "category": "expressions",
+        "score": 0.4117647058823529,
+        "reason": "Only 41% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "I'm serious",
+        "expected": "i no kid you",
+        "actual": "i stay serious",
+        "category": "expressions",
+        "score": 0.2857142857142857,
+        "reason": "Only 29% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "I'll see you later",
+        "expected": "I spock you bumbye",
+        "actual": "i goin i spock you bumbye",
+        "category": "greetings",
+        "score": 0.72,
+        "reason": "Only 72% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "I'm busy right now",
+        "expected": "I stay pau with dat",
+        "actual": "i stay busy correck now",
+        "category": "expressions",
+        "score": 0.391304347826087,
+        "reason": "Only 39% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "I'm done with that",
+        "expected": "I stay pau with dat",
+        "actual": "i stay all pau wit dat",
+        "category": "expressions",
+        "score": 0.7727272727272727,
+        "reason": "Only 77% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "didn't",
+        "expected": "neva",
+        "actual": "did 'a'ole",
+        "category": "expressions",
+        "score": 0.1,
+        "reason": "Only 10% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "don't",
+        "expected": "no",
+        "actual": "do 'a'ole",
+        "category": "expressions",
+        "score": 0.1111111111111111,
+        "reason": "Only 11% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "doesn't",
+        "expected": "no",
+        "actual": "does 'a'ole",
+        "category": "expressions",
+        "score": 0.09090909090909091,
+        "reason": "Only 9% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "don't act",
+        "expected": "no ack",
+        "actual": "do 'a'ole act",
+        "category": "expressions",
+        "score": 0.3076923076923077,
+        "reason": "Only 31% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "don't act like that",
+        "expected": "no act",
+        "actual": "do 'a'ole act l'dat",
+        "category": "expressions",
+        "score": 0.2631578947368421,
+        "reason": "Only 26% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "don't pretend",
+        "expected": "no act",
+        "actual": "do 'a'ole pretend",
+        "category": "expressions",
+        "score": 0.23529411764705882,
+        "reason": "Only 24% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "can't, the thing is broken",
+        "expected": "no can, da buggah stay broke",
+        "actual": "no can, da kine stay all buss up",
+        "category": "expressions",
+        "score": 0.5,
+        "reason": "Only 50% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "unable to, it's broken",
+        "expected": "no can, da buggah stay broke",
+        "actual": "no can fo', it stay all buss up",
+        "category": "expressions",
+        "score": 0.3548387096774194,
+        "reason": "Only 35% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "no way, it's not working",
+        "expected": "no can, da buggah stay broke",
+        "actual": "'a'ole way, it stay 'a'ole working",
+        "category": "expressions",
+        "score": 0.23529411764705882,
+        "reason": "Only 24% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "it's the truth",
+        "expected": "no lie",
+        "actual": "it stay da truth",
+        "category": "expressions",
+        "score": 0.0625,
+        "reason": "Only 6% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "I'm serious",
+        "expected": "no lie",
+        "actual": "i stay serious",
+        "category": "expressions",
+        "score": 0.2857142857142857,
+        "reason": "Only 29% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "don't die",
+        "expected": "no make",
+        "actual": "do 'a'ole make",
+        "category": "expressions",
+        "score": 0.42857142857142855,
+        "reason": "Only 43% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "you're welcome",
+        "expected": "no problem",
+        "actual": "you stay e komo mai",
+        "category": "greetings",
+        "score": 0.21052631578947367,
+        "reason": "Only 21% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "it's okay",
+        "expected": "no worries",
+        "actual": "it stay aurite",
+        "category": "greetings",
+        "score": 0.21428571428571427,
+        "reason": "Only 21% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "don't worry about it",
+        "expected": "no worries",
+        "actual": "do 'a'ole worry bout it",
+        "category": "greetings",
+        "score": 0.2608695652173913,
+        "reason": "Only 26% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "like that?",
+        "expected": "oh wow ladat",
+        "actual": "oh ho ladat",
+        "category": "expressions",
+        "score": 0.8333333333333334,
+        "reason": "Only 83% similar to closest valid option"
+      },
+      {
+        "type": "english-to-pidgin",
+        "input": "you're right",
+        "expected": "yeah you",
+        "actual": "you stay correck",
+        "category": "expressions",
+        "score": 0.25,
+        "reason": "Only 25% similar to closest valid option"
+      }
+    ],
+    "accuracy": "98.4"
+  },
+  "topFailures": [
+    {
+      "type": "english-to-pidgin",
+      "input": "I don't care",
+      "expected": "ainokea",
+      "actual": "i do 'a'ole care",
+      "category": "expressions",
+      "score": 0.1875,
+      "reason": "Only 19% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "can't see",
+      "expected": "blind mullet",
+      "actual": "no can see",
+      "category": "slang",
+      "score": 0.16666666666666666,
+      "reason": "Only 17% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "brah, it's your turn again?",
+      "expected": "brah, you naman?",
+      "actual": "brah, it stay brah, you naman?, yeah?",
+      "category": "expressions",
+      "score": 0.43243243243243246,
+      "reason": "Only 43% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "you'll learn eventually",
+      "expected": "bumbai you learn",
+      "actual": "you goin learn eventually",
+      "category": "expressions",
+      "score": 0.24,
+      "reason": "Only 24% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "you'll see what happens",
+      "expected": "bumbai you learn",
+      "actual": "you goin see what happens",
+      "category": "expressions",
+      "score": 0.24,
+      "reason": "Only 24% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "that's why it's difficult",
+      "expected": "das why hard",
+      "actual": "ass fo what it stay hard",
+      "category": "expressions",
+      "score": 0.4166666666666667,
+      "reason": "Only 42% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "you're in trouble",
+      "expected": "hana okolele",
+      "actual": "you stay choke your neck",
+      "category": "expressions",
+      "score": 0.25,
+      "reason": "Only 25% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "look, he's getting chills!",
+      "expected": "ho, da bagah's goin' chicken skin!",
+      "actual": "look, he stay getting chills!",
+      "category": "expressions",
+      "score": 0.3235294117647059,
+      "reason": "Only 32% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "I'm going home",
+      "expected": "I hele to da hale",
+      "actual": "i stay goin home",
+      "category": "expressions",
+      "score": 0.4117647058823529,
+      "reason": "Only 41% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "I'm serious",
+      "expected": "i no kid you",
+      "actual": "i stay serious",
+      "category": "expressions",
+      "score": 0.2857142857142857,
+      "reason": "Only 29% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "I'll see you later",
+      "expected": "I spock you bumbye",
+      "actual": "i goin i spock you bumbye",
+      "category": "greetings",
+      "score": 0.72,
+      "reason": "Only 72% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "I'm busy right now",
+      "expected": "I stay pau with dat",
+      "actual": "i stay busy correck now",
+      "category": "expressions",
+      "score": 0.391304347826087,
+      "reason": "Only 39% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "I'm done with that",
+      "expected": "I stay pau with dat",
+      "actual": "i stay all pau wit dat",
+      "category": "expressions",
+      "score": 0.7727272727272727,
+      "reason": "Only 77% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "didn't",
+      "expected": "neva",
+      "actual": "did 'a'ole",
+      "category": "expressions",
+      "score": 0.1,
+      "reason": "Only 10% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "don't",
+      "expected": "no",
+      "actual": "do 'a'ole",
+      "category": "expressions",
+      "score": 0.1111111111111111,
+      "reason": "Only 11% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "doesn't",
+      "expected": "no",
+      "actual": "does 'a'ole",
+      "category": "expressions",
+      "score": 0.09090909090909091,
+      "reason": "Only 9% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "don't act",
+      "expected": "no ack",
+      "actual": "do 'a'ole act",
+      "category": "expressions",
+      "score": 0.3076923076923077,
+      "reason": "Only 31% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "don't act like that",
+      "expected": "no act",
+      "actual": "do 'a'ole act l'dat",
+      "category": "expressions",
+      "score": 0.2631578947368421,
+      "reason": "Only 26% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "don't pretend",
+      "expected": "no act",
+      "actual": "do 'a'ole pretend",
+      "category": "expressions",
+      "score": 0.23529411764705882,
+      "reason": "Only 24% similar to closest valid option"
+    },
+    {
+      "type": "english-to-pidgin",
+      "input": "can't, the thing is broken",
+      "expected": "no can, da buggah stay broke",
+      "actual": "no can, da kine stay all buss up",
+      "category": "expressions",
+      "score": 0.5,
+      "reason": "Only 50% similar to closest valid option"
+    }
+  ]
+}

@@ -2,7 +2,7 @@ const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
 
-const outputDir = path.join(__dirname, '../public/assets/images');
+const outputDir = path.join(__dirname, '../src/assets/images');
 if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
 }
