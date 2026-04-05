@@ -1,4 +1,4 @@
-const CACHE_NAME = 'chokepidgin-v2.4';
+const CACHE_NAME = 'chokepidgin-v2.5';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -55,10 +55,12 @@ self.addEventListener('fetch', (event) => {
   // Skip non-GET requests
   if (request.method !== 'GET') return;
 
-  // Skip tracking and analytics to avoid CSP issues in SW
+  // BYPASS TRACKING AND ANALYTICS COMPLETELY
+  // Let the browser handle these natively without SW interference
   if (url.hostname.includes('google-analytics') || 
       url.hostname.includes('googletagmanager') || 
-      url.hostname.includes('stats.g.doubleclick.net')) {
+      url.hostname.includes('stats.g.doubleclick.net') ||
+      url.pathname.includes('gtag.js')) {
     return;
   }
 
@@ -107,7 +109,7 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(request).then((cachedResponse) => {
       const fetchPromise = fetch(request).then((networkResponse) => {
-        // Only cache successful same-origin or allowed cross-origin requests
+        // Only cache successful requests
         if (networkResponse && networkResponse.status === 200) {
           const responseClone = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => {
@@ -115,11 +117,10 @@ self.addEventListener('fetch', (event) => {
           });
         }
         return networkResponse;
-      }).catch(() => {
-        // Silently fail for external assets if offline
-        return null;
       });
 
+      // Crucial: return cachedResponse immediately or wait for the fetchPromise
+      // NEVER return null or undefined to respondWith
       return cachedResponse || fetchPromise;
     })
   );
