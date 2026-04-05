@@ -11,7 +11,8 @@ const crypto = require('crypto');
 require('dotenv').config();
 const { supabase } = require('../../config/supabase');
 
-const MISSING_TERMS_PATH = '/tmp/missing-terms.json';
+const DEFAULT_MISSING_TERMS_PATH = '/tmp/missing-terms.json';
+const MISSING_TERMS_PATH = process.argv[2] || DEFAULT_MISSING_TERMS_PATH;
 
 async function main() {
     console.log('📚 Adding Missing Terms to Supabase Dictionary');

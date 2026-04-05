@@ -100,23 +100,33 @@ async function main() {
         for (const row of scQueries) {
             const query = row.keys[0].toLowerCase();
             
-            // Filter criteria:
-            // 1. Not in dictionary
-            // 2. Has at least 20 impressions (adjust as needed)
-            // 3. Not a "what does X mean" or "how to say X" query (extract X)
-            
-            let term = query;
-            const meanRegex = /what does (.*) mean/i;
-            const sayRegex = /how to say (.*) in/i;
-            const meaningRegex = /(.*) meaning/i;
-            const inHawaiianRegex = /(.*) in hawaiian/i;
-            const hawaiianSuffixRegex = /(.*) hawaiian/i;
+            const suffixes = [
+                /what does (.*) mean/i,
+                /how to say (.*) in/i,
+                /(.*) meaning/i,
+                /(.*) in hawaiian/i,
+                /(.*) hawaiian/i,
+                /(.*) pidgin/i,
+                /(.*) slang/i,
+                /(.*) hawaii/i,
+                /what is (.*)/i
+            ];
 
-            if (meanRegex.test(query)) term = query.match(meanRegex)[1];
-            else if (sayRegex.test(query)) term = query.match(sayRegex)[1];
-            else if (meaningRegex.test(query)) term = query.match(meaningRegex)[1];
-            else if (inHawaiianRegex.test(query)) term = query.match(inHawaiianRegex)[1];
-            else if (hawaiianSuffixRegex.test(query)) term = query.match(hawaiianSuffixRegex)[1];
+            let term = query;
+            let changed = true;
+            while (changed) {
+                changed = false;
+                for (const regex of suffixes) {
+                    const match = term.match(regex);
+                    if (match) {
+                        const newTerm = match[1].trim();
+                        if (newTerm !== term) {
+                            term = newTerm;
+                            changed = true;
+                        }
+                    }
+                }
+            }
 
             term = term.trim().replace(/[?!]/g, '');
 
