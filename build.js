@@ -3,21 +3,85 @@
 // Build script to process source files and create production-ready public folder
 const fs = require('fs');
 const path = require('path');
+const Terser = require('terser');
+const sharp = require('sharp');
 
 console.log('🏗️ Building ChokePidgin production files...');
-
-// Strip inline gtag blocks (now loaded via external file in footer template)
-function stripInlineGtag(html) {
-    return html.replace(/\s*<!-- Google (?:tag \(gtag\.js\)|Analytics) -->\s*<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-RB7YYDVDXD"><\/script>\s*<script>\s*window\.dataLayer = window\.dataLayer \|\| \[\];\s*function gtag\(\)\{dataLayer\.push\(arguments\);\}\s*gtag\('js', new Date\(\)\);\s*gtag\('config', 'G-RB7YYDVDXD'\);\s*<\/script>/g, '');
-}
 
 // Configuration
 const config = {
     srcDir: 'src',
     publicDir: 'public',
     dataDir: 'data',
-    assetsDir: 'src/assets'
+    assetsDir: 'src/assets',
+    minify: true, // Set to false to disable JS minification
+    minifyImages: true // Set to false to disable image optimization
 };
+
+// Strip inline gtag blocks (now loaded via external file in footer template)
+function stripInlineGtag(html) {
+    return html.replace(/\s*<!-- Google (?:tag \(gtag\.js\)|Analytics) -->\s*<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-RB7YYDVDXD"><\/script>\s*<script>\s*window\.dataLayer = window\.dataLayer \|\| \[\];\s*function gtag\(\)\{dataLayer\.push\(arguments\);\}\s*gtag\('js', new Date\(\)\);\s*gtag\('config', 'G-RB7YYDVDXD'\);\s*<\/script>/g, '');
+}
+
+// Helper to minify JS
+async function minifyJS(srcPath, destPath) {
+    if (!config.minify) {
+        fs.copyFileSync(srcPath, destPath);
+        return;
+    }
+
+    try {
+        const code = fs.readFileSync(srcPath, 'utf8');
+        const minified = await Terser.minify(code, {
+            mangle: true,
+            compress: true
+        });
+        
+        if (minified.error) {
+            console.error(`❌ Minification error for ${path.basename(srcPath)}:`, minified.error);
+            fs.copyFileSync(srcPath, destPath);
+            return;
+        }
+        
+        fs.writeFileSync(destPath, minified.code);
+    } catch (error) {
+        console.error(`❌ Could not minify ${path.basename(srcPath)}:`, error.message);
+        fs.copyFileSync(srcPath, destPath);
+    }
+}
+
+// Helper to minify images
+async function processImage(srcPath, destPath) {
+    if (!config.minifyImages) {
+        fs.copyFileSync(srcPath, destPath);
+        return;
+    }
+
+    const ext = path.extname(srcPath).toLowerCase();
+    
+    // Only optimize JPG, PNG, and WebP
+    if (!['.jpg', '.jpeg', '.png', '.webp'].includes(ext)) {
+        fs.copyFileSync(srcPath, destPath);
+        return;
+    }
+
+    try {
+        let pipeline = sharp(srcPath);
+        
+        if (ext === '.png') {
+            pipeline = pipeline.png({ quality: 80, compressionLevel: 9 });
+        } else if (ext === '.jpg' || ext === '.jpeg') {
+            pipeline = pipeline.jpeg({ quality: 80, progressive: true });
+        } else if (ext === '.webp') {
+            pipeline = pipeline.webp({ quality: 80 });
+        }
+        
+        await pipeline.toFile(destPath);
+    } catch (error) {
+        console.error(`❌ Could not optimize ${path.basename(srcPath)}:`, error.message);
+        fs.copyFileSync(srcPath, destPath);
+    }
+}
 
 // Clean public directory
 function cleanPublic() {
@@ -231,8 +295,8 @@ function processHTMLFiles() {
     }
 }
 
-// Copy JavaScript components
-function copyJavaScriptFiles() {
+// Copy JavaScript components with minification
+async function copyJavaScriptFiles() {
     const jsSourceDirs = [
         'src/components/dictionary',
         'src/components/translator',
@@ -259,19 +323,19 @@ function copyJavaScriptFiles() {
         return excludePatterns.some(pattern => pattern.test(filename));
     };
 
-    jsSourceDirs.forEach(dir => {
+    for (const dir of jsSourceDirs) {
         if (fs.existsSync(dir)) {
             const files = fs.readdirSync(dir);
-            files.forEach(file => {
+            for (const file of files) {
                 if (file.endsWith('.js') && !shouldExclude(file)) {
                     const srcPath = path.join(dir, file);
                     const destPath = path.join('public/js/components', file);
-                    fs.copyFileSync(srcPath, destPath);
-                    console.log(`📦 Copied: ${file}`);
+                    await minifyJS(srcPath, destPath);
+                    console.log(`📦 Minified: ${file}`);
                 }
-            });
+            }
         }
-    });
+    }
 
     // Copy game components (new organized structure)
     const gameSourceDirs = [
@@ -286,31 +350,31 @@ function copyJavaScriptFiles() {
         { src: 'src/components/games', dest: 'public/js/components/games', filesOnly: true }
     ];
 
-    gameSourceDirs.forEach(({ src, dest }) => {
+    for (const { src, dest } of gameSourceDirs) {
         if (fs.existsSync(src)) {
             fs.mkdirSync(dest, { recursive: true });
             const files = fs.readdirSync(src);
-            files.forEach(file => {
+            for (const file of files) {
                 if (file.endsWith('.js') && !shouldExclude(file)) {
                     const srcPath = path.join(src, file);
                     const destPath = path.join(dest, file);
-                    fs.copyFileSync(srcPath, destPath);
-                    console.log(`🎮 Copied game: ${file}`);
+                    await minifyJS(srcPath, destPath);
+                    console.log(`🎮 Minified game: ${file}`);
                 }
-            });
+            }
         }
-    });
+    }
 
     // Copy individual JS files from src/js
     const individualJsFiles = ['learning-hub.js', 'pickup-lines.js', 'pickup-line-generator.js', 'pickup-line-generator-page.js', 'dictionary-cache.js'];
-    individualJsFiles.forEach(file => {
+    for (const file of individualJsFiles) {
         const srcPath = path.join('src/js', file);
         if (fs.existsSync(srcPath)) {
             const destPath = path.join('public/js/components', file);
-            fs.copyFileSync(srcPath, destPath);
-            console.log(`📦 Copied: ${file}`);
+            await minifyJS(srcPath, destPath);
+            console.log(`📦 Minified: ${file}`);
         }
-    });
+    }
 
     // Copy JS data files from src/js/data
     const jsDataDir = 'src/js/data';
@@ -319,22 +383,22 @@ function copyJavaScriptFiles() {
 
     if (fs.existsSync(jsDataDir)) {
         const files = fs.readdirSync(jsDataDir);
-        files.forEach(file => {
+        for (const file of files) {
             if (file.endsWith('.js')) {
                 const srcPath = path.join(jsDataDir, file);
                 const destPath = path.join(destDataDir, file);
-                fs.copyFileSync(srcPath, destPath);
-                console.log(`📦 Copied data loader: ${file}`);
+                await minifyJS(srcPath, destPath);
+                console.log(`📦 Minified data loader: ${file}`);
             }
-        });
+        }
     }
 
     // Copy phrases-loader.js from shared components to js/data (where HTML expects it)
     const phrasesLoaderSrc = 'src/components/shared/phrases-loader.js';
     if (fs.existsSync(phrasesLoaderSrc)) {
         const destPath = path.join(destDataDir, 'phrases-loader.js');
-        fs.copyFileSync(phrasesLoaderSrc, destPath);
-        console.log(`📦 Copied: phrases-loader.js to js/data/`);
+        await minifyJS(phrasesLoaderSrc, destPath);
+        console.log(`📦 Minified: phrases-loader.js to js/data/`);
     }
 
     // Copy admin components
@@ -344,14 +408,14 @@ function copyJavaScriptFiles() {
     if (fs.existsSync(adminSrcDir)) {
         fs.mkdirSync(adminDestDir, { recursive: true });
         const files = fs.readdirSync(adminSrcDir);
-        files.forEach(file => {
+        for (const file of files) {
             if (file.endsWith('.js') && !shouldExclude(file)) {
                 const srcPath = path.join(adminSrcDir, file);
                 const destPath = path.join(adminDestDir, file);
-                fs.copyFileSync(srcPath, destPath);
-                console.log(`🔐 Copied admin: ${file}`);
+                await minifyJS(srcPath, destPath);
+                console.log(`🔐 Minified admin: ${file}`);
             }
-        });
+        }
     }
 }
 
@@ -421,30 +485,34 @@ function copyCSSFiles() {
 }
 
 // Copy assets
-function copyAssets() {
+async function copyAssets() {
     const assetDirs = ['images', 'icons', 'audio'];
 
-    assetDirs.forEach(dir => {
+    for (const dir of assetDirs) {
         const srcDir = path.join('src/assets', dir);
         const destDir = path.join('public/assets', dir);
 
         if (fs.existsSync(srcDir)) {
             const files = fs.readdirSync(srcDir);
-            const fileCount = files.filter(file => {
+            let fileCount = 0;
+            for (const file of files) {
                 const srcPath = path.join(srcDir, file);
                 const destPath = path.join(destDir, file);
 
                 // Only copy files, not directories
                 if (fs.lstatSync(srcPath).isFile()) {
-                    fs.copyFileSync(srcPath, destPath);
-                    return true;
+                    if (dir === 'images') {
+                        await processImage(srcPath, destPath);
+                    } else {
+                        fs.copyFileSync(srcPath, destPath);
+                    }
+                    fileCount++;
                 }
-                return false;
-            }).length;
+            }
 
             console.log(`🖼️ Copied ${dir}: ${fileCount} files`);
         }
-    });
+    }
 
     // Copy robots.txt, sitemap.xml, etc if they exist
     ['robots.txt', 'sitemap.xml', 'site.webmanifest', 'sw.js'].forEach(file => {
@@ -483,7 +551,7 @@ function copyFavicons() {
 }
 
 // Main build function
-function build() {
+async function build() {
     const { execSync } = require('child_process');
     try {
         console.log('Starting build process...\n');
@@ -500,7 +568,7 @@ function build() {
         }
 
         processHTMLFiles();
-        copyJavaScriptFiles();
+        await copyJavaScriptFiles();
         copyDataFiles();
         copyCSSFiles();
         
@@ -512,7 +580,7 @@ function build() {
             console.error('⚠️  Warning: Could not generate OG images:', error.message);
         }
 
-        copyAssets();
+        await copyAssets();
         copyFavicons();
 
         // Generate individual dictionary entry pages
