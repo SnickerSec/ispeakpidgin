@@ -158,6 +158,8 @@
                 ? entry.english.map(e => escapeHtml(e)).join(', ') 
                 : escapeHtml(entry.english);
             const category = escapeHtml(entry.category || 'general');
+            const audioUrl = escapeHtml(entry.audio_url || entry.audio || '');
+            const entryId = escapeHtml(entry.id);
 
             return `
                 <tr class="hover:bg-gray-50 transition-colors">
@@ -172,7 +174,7 @@
                         ${hasAudio ? 
                             `<span class="flex items-center gap-1 text-green-600 text-xs font-bold">
                                 <i class="ti ti-circle-check"></i> Ready
-                                <button data-action="play-audio" data-url="${entry.audio_url || entry.audio}" class="ml-1 text-blue-500 hover:text-blue-700">
+                                <button data-action="play-audio" data-url="${audioUrl}" class="ml-1 text-blue-500 hover:text-blue-700">
                                     <i class="ti ti-player-play"></i>
                                 </button>
                             </span>` : 
@@ -180,7 +182,7 @@
                         }
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <button data-action="upload-audio" data-id="${entry.id}" data-pidgin="${pidgin}"
+                        <button data-action="upload-audio" data-id="${entryId}" data-pidgin="${pidgin}"
                                 class="bg-blue-50 text-blue-600 px-3 py-1 rounded hover:bg-blue-100 transition flex items-center gap-1 ml-auto">
                             <i class="ti ti-upload"></i> ${hasAudio ? 'Replace' : 'Add Audio'}
                         </button>
@@ -539,10 +541,11 @@
             const data = await response.json();
 
             if (!data.suggestions || data.suggestions.length === 0) {
+                const escapedStatus = escapeHtml(status);
                 container.innerHTML = `
                     <tr>
                         <td colspan="4" class="px-6 py-12 text-center text-gray-500">
-                            No ${status} suggestions found.
+                            No ${escapedStatus} suggestions found.
                         </td>
                     </tr>
                 `;
@@ -592,10 +595,11 @@
             `;}).join('');
 
         } catch (error) {
+            const escapedMessage = escapeHtml(error.message);
             container.innerHTML = `
                 <tr>
                     <td colspan="4" class="px-6 py-12 text-center text-red-500">
-                        Error loading suggestions: ${error.message}
+                        Error loading suggestions: ${escapedMessage}
                     </td>
                 </tr>
             `;
@@ -674,6 +678,8 @@
                 const questionText = escapeHtml(q.question_text);
                 const userName = escapeHtml(q.user_name);
                 const responseText = q.responses && q.responses.length > 0 ? escapeHtml(q.responses[0].response_text) : null;
+                const escapedStatus = escapeHtml(q.status);
+                const escapedId = escapeHtml(q.id);
                 const statusClass = q.status === 'answered' ? 'bg-green-100 text-green-700' : 
                                     q.status === 'pending' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700';
 
@@ -691,17 +697,17 @@
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <span class="px-2 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${statusClass}">
-                            ${q.status}
+                            ${escapedStatus}
                         </span>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <div class="flex justify-center gap-2">
-                            <button data-action="answer" data-id="${q.id}"
+                            <button data-action="answer" data-id="${escapedId}"
                                     class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition">
                                 ${q.status === 'answered' ? 'Edit Answer' : 'Answer'}
                             </button>
                             ${q.status !== 'rejected' ? `
-                                <button data-action="reject-question" data-id="${q.id}"
+                                <button data-action="reject-question" data-id="${escapedId}"
                                         class="bg-red-100 text-red-600 px-3 py-1 rounded hover:bg-red-200 transition">
                                     Reject
                                 </button>
@@ -712,10 +718,11 @@
             `;}).join('');
 
         } catch (error) {
+            const escapedMessage = escapeHtml(error.message);
             container.innerHTML = `
                 <tr>
                     <td colspan="3" class="px-6 py-12 text-center text-red-500">
-                        Error loading questions: ${error.message}
+                        Error loading questions: ${escapedMessage}
                     </td>
                 </tr>
             `;
@@ -824,6 +831,8 @@
 
             container.innerHTML = data.gaps.map(g => {
                 const term = escapeHtml(g.term);
+                const escapedStatus = escapeHtml(g.status);
+                const escapedCount = escapeHtml(String(g.count));
                 return `
                 <tr class="hover:bg-gray-50" data-pidgin="${term}">
                     <td class="px-6 py-4 whitespace-nowrap">
@@ -831,8 +840,8 @@
                         <div class="text-[10px] text-gray-500 mt-1 uppercase">Last searched: ${formatDate(g.last_searched_at)}</div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="text-sm font-bold text-purple-600">${g.count} searches</div>
-                        <div class="text-[10px] text-gray-400 uppercase">Status: ${g.status}</div>
+                        <div class="text-sm font-bold text-purple-600">${escapedCount} searches</div>
+                        <div class="text-[10px] text-gray-400 uppercase">Status: ${escapedStatus}</div>
                     </td>
                     <td class="px-6 py-4">
                         <div class="flex flex-col gap-2">
@@ -886,10 +895,11 @@
             });
 
         } catch (error) {
+            const escapedMessage = escapeHtml(error.message);
             container.innerHTML = `
                 <tr>
                     <td colspan="4" class="px-6 py-12 text-center text-red-500">
-                        Error loading gaps: ${error.message}
+                        Error loading gaps: ${escapedMessage}
                     </td>
                 </tr>
             `;
@@ -1113,26 +1123,29 @@
     }
 
     function renderSettingInput(setting) {
-        const inputId = `setting-${setting.key}`;
+        const escapedKey = escapeHtml(setting.key);
+        const escapedValue = escapeHtml(String(setting.value || ''));
+        const escapedDescription = escapeHtml(setting.description || '');
+        const inputId = `setting-${escapedKey}`;
         let inputHtml = '';
 
         if (setting.type === 'boolean') {
             const checked = setting.value === 'true' || setting.value === true ? 'checked' : '';
             inputHtml = `
                 <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" id="${inputId}" data-key="${setting.key}" ${checked}
+                    <input type="checkbox" id="${inputId}" data-key="${escapedKey}" ${checked}
                            class="sr-only peer">
                     <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
                 </label>
             `;
         } else if (setting.type === 'number') {
             inputHtml = `
-                <input type="number" id="${inputId}" data-key="${setting.key}" value="${setting.value || ''}"
+                <input type="number" id="${inputId}" data-key="${escapedKey}" value="${escapedValue}"
                        step="any" class="w-32 px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
             `;
         } else {
             inputHtml = `
-                <input type="text" id="${inputId}" data-key="${setting.key}" value="${setting.value || ''}"
+                <input type="text" id="${inputId}" data-key="${escapedKey}" value="${escapedValue}"
                        class="w-64 px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
             `;
         }
@@ -1141,7 +1154,7 @@
             <div class="setting-row flex items-center justify-between py-2 px-3 rounded-lg">
                 <div class="flex-1">
                     <label for="${inputId}" class="text-sm font-medium text-gray-700">${formatSettingName(setting.key)}</label>
-                    <p class="text-xs text-gray-500">${setting.description || ''}</p>
+                    <p class="text-xs text-gray-500">${escapedDescription}</p>
                 </div>
                 <div class="ml-4">
                     ${inputHtml}
@@ -1161,21 +1174,23 @@
         let html = '<div class="divide-y">';
 
         settings.api_keys.forEach(setting => {
-            const inputId = `api-${setting.key}`;
+            const escapedKey = escapeHtml(setting.key);
+            const escapedValue = escapeHtml(String(setting.value || ''));
+            const escapedDescription = escapeHtml(setting.description || '');
+            const inputId = `api-${escapedKey}`;
             const isSecret = setting.isSecret;
-            const maskedValue = isSecret ? setting.value : setting.value;
 
             html += `
                 <div class="setting-row p-4">
                     <div class="flex items-start justify-between mb-2">
                         <div>
                             <label for="${inputId}" class="text-sm font-medium text-gray-700">${formatSettingName(setting.key)}</label>
-                            <p class="text-xs text-gray-500">${setting.description || ''}</p>
+                            <p class="text-xs text-gray-500">${escapedDescription}</p>
                         </div>
                     </div>
                     <div class="flex items-center gap-2">
-                        <input type="${isSecret ? 'password' : 'text'}" id="${inputId}" data-key="${setting.key}"
-                               value="${maskedValue || ''}" placeholder="${isSecret ? '********' : ''}"
+                        <input type="${isSecret ? 'password' : 'text'}" id="${inputId}" data-key="${escapedKey}"
+                               value="${escapedValue}" placeholder="${isSecret ? '********' : ''}"
                                class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm font-mono masked-input">
                         <button type="button" data-action="toggle-visibility" data-key="${inputId}"
                                 class="text-gray-500 hover:text-gray-700 p-2">
@@ -1184,11 +1199,11 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                             </svg>
                         </button>
-                        <button type="button" data-action="test" data-key="${setting.key}"
+                        <button type="button" data-action="test" data-key="${escapedKey}"
                                 class="bg-gray-100 text-gray-700 px-3 py-2 rounded-lg hover:bg-gray-200 transition-colors text-sm">
                             Test
                         </button>
-                        <button type="button" data-action="save" data-key="${setting.key}"
+                        <button type="button" data-action="save" data-key="${escapedKey}"
                                 class="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm">
                             Save
                         </button>
@@ -1212,6 +1227,8 @@
         let html = '<div class="grid gap-4 p-4 sm:grid-cols-2 lg:grid-cols-3">';
 
         settings.features.forEach(setting => {
+            const escapedKey = escapeHtml(setting.key);
+            const escapedDescription = escapeHtml(setting.description || '');
             const enabled = setting.value === 'true' || setting.value === true;
             const statusClass = enabled ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600';
             const statusText = enabled ? 'Enabled' : 'Disabled';
@@ -1222,9 +1239,9 @@
                         <h4 class="font-medium text-gray-800">${formatSettingName(setting.key)}</h4>
                         <span class="px-2 py-1 text-xs font-medium rounded-full ${statusClass}">${statusText}</span>
                     </div>
-                    <p class="text-sm text-gray-500 mb-3">${setting.description || ''}</p>
+                    <p class="text-sm text-gray-500 mb-3">${escapedDescription}</p>
                     <label class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" data-key="${setting.key}" ${enabled ? 'checked' : ''}
+                        <input type="checkbox" data-key="${escapedKey}" ${enabled ? 'checked' : ''}
                                class="sr-only peer">
                         <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
                     </label>
@@ -1338,10 +1355,11 @@
             `;}).join('');
 
         } catch (error) {
+            const escapedMessage = escapeHtml(error.message);
             container.innerHTML = `
                 <tr>
                     <td colspan="5" class="px-4 py-8 text-center text-red-500">
-                        Failed to load audit log: ${error.message}
+                        Failed to load audit log: ${escapedMessage}
                     </td>
                 </tr>
             `;
@@ -1359,14 +1377,21 @@
 
         const toast = document.createElement('div');
         toast.className = `toast ${colors[type]} text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-2`;
-        toast.innerHTML = `
-            <span>${message}</span>
-            <button data-action="close-toast" class="text-white/80 hover:text-white">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
+        
+        const messageEl = document.createElement('span');
+        messageEl.textContent = message;
+        
+        const closeBtn = document.createElement('button');
+        closeBtn.dataset.action = 'close-toast';
+        closeBtn.className = 'text-white/80 hover:text-white';
+        closeBtn.innerHTML = `
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
         `;
+        
+        toast.appendChild(messageEl);
+        toast.appendChild(closeBtn);
 
         toastContainer.appendChild(toast);
 
@@ -1397,9 +1422,12 @@
 
     function escapeHtml(text) {
         if (!text) return '';
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
+        return String(text)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
     }
 
     // Action handlers (called via event delegation)
