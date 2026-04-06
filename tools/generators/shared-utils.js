@@ -265,6 +265,16 @@ function getQuickActionsHtml(translateText) {
         </section>`;
 }
 
+/**
+ * Mini Quiz placeholder HTML
+ */
+function getMiniQuizHtml() {
+    return `
+        <section class="mb-8">
+            <div id="mini-quiz-container"></div>
+        </section>`;
+}
+
 module.exports = {
     createSlug,
     escapeHtml,
@@ -273,6 +283,7 @@ module.exports = {
     getCommonHead,
     getGameLinksHtml,
     getQuickActionsHtml,
+    getMiniQuizHtml,
     SITE_URL,
     SITE_NAME
 };

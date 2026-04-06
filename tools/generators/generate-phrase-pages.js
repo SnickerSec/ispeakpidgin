@@ -16,6 +16,7 @@ const {
     getCommonHead,
     getGameLinksHtml,
     getQuickActionsHtml,
+    getMiniQuizHtml,
     SITE_URL,
     SITE_NAME
 } = require('./shared-utils');
@@ -192,6 +193,9 @@ function generatePhrasePage(phrase, relatedPhrases, navigation, footer) {
     // Game links
     const gameLinksHtml = getGameLinksHtml();
 
+    // Mini quiz
+    const miniQuizHtml = getMiniQuizHtml();
+
     // Tags HTML
     const tagsArray = Array.isArray(phrase.tags) ? phrase.tags : [];
     const tagsHtml = tagsArray.length > 0 ? `
@@ -291,6 +295,9 @@ ${headContent}
             ` : ''}
         </section>
 
+        <!-- Mini Quiz for Engagement -->
+        ${miniQuizHtml}
+
         <!-- FAQ Section -->
         <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
             <h2 class="text-2xl font-bold text-gray-800 mb-6"><i class="ti ti-question-mark"></i> Frequently Asked Questions</h2>
@@ -322,6 +329,8 @@ ${headContent}
 
     ${footer}
 
+    <script src="/js/components/supabase-api-loader.js"></script>
+    <script src="/js/components/mini-quiz.js"></script>
     <script src="/js/components/elevenlabs-speech.js"></script>
     <script src="/js/components/speech.js"></script>
     <script>

@@ -16,6 +16,7 @@ const {
     getCommonHead,
     getGameLinksHtml,
     getQuickActionsHtml,
+    getMiniQuizHtml,
     SITE_URL,
     SITE_NAME
 } = require('./shared-utils');
@@ -173,6 +174,7 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
     const jsEscapedWord = entry.pidgin.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
     const quickActionsHtml = getQuickActionsHtml(entry.pidgin);
     const gameLinksHtml = getGameLinksHtml();
+    const miniQuizHtml = getMiniQuizHtml();
 
     const html = `<!DOCTYPE html>
 <html lang="en">
@@ -259,6 +261,9 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
             ` : ''}
         </section>
 
+        <!-- Mini Quiz for Engagement -->
+        ${miniQuizHtml}
+
         <!-- Examples Section -->
         ${examplesArray.length > 0 ? `
         <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
@@ -318,6 +323,8 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
 
     ${footer}
 
+    <script src="/js/components/supabase-api-loader.js"></script>
+    <script src="/js/components/mini-quiz.js"></script>
     <script src="/js/components/elevenlabs-speech.js"></script>
     <script src="/js/components/speech.js"></script>
     <script>
