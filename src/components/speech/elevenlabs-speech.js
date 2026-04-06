@@ -245,6 +245,25 @@ class ElevenLabsSpeech {
                     // Wait for initialization
                     await this.initializationPromise;
 
+                    // Detect if text is a direct URL (Supabase audio or pre-recorded)
+                    const isUrl = text.startsWith('http') || text.startsWith('/') || text.endsWith('.mp3');
+                    if (isUrl) {
+                        try {
+                            const response = await fetch(text);
+                            if (response.ok) {
+                                const audioBlob = await response.blob();
+                                if (!options.silent) {
+                                    const success = await this.playAudioBlobWithRetry(audioBlob, text, text);
+                                    if (success) return;
+                                } else {
+                                    return;
+                                }
+                            }
+                        } catch (e) {
+                            console.warn('Direct URL audio fetch failed:', e);
+                        }
+                    }
+
                     // Only stop if we're going to play new audio (not during retries)
                     if (attempt === 0) {
                         this.stop();

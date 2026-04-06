@@ -204,7 +204,12 @@ app.use(helmet({
                 "https://cdn.jsdelivr.net",
                 "https://cdn-icons-png.flaticon.com"
             ],
-            mediaSrc: ["'self'", "blob:", "data:"],
+            mediaSrc: [
+                "'self'", 
+                "blob:", 
+                "data:",
+                "https://jfzgzjgdptowfbtljvyp.supabase.co"
+            ],
             objectSrc: ["'none'"],
             frameSrc: ["'none'"],
             frameAncestors: ["'none'"],

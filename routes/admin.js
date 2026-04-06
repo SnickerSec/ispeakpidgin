@@ -5,20 +5,11 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-// Configure multer for audio uploads
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        const dir = 'public/assets/audio';
-        if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-        cb(null, dir);
-    },
-    filename: function (req, file, cb) {
-        cb(null, 'temp-' + Date.now() + path.extname(file.originalname));
-    }
-});
+// Configure multer for audio uploads using memory storage
+const storage = multer.memoryStorage();
 const upload = multer({ 
     storage: storage,
-    limits: { fileSize: 2 * 1024 * 1024 }, // 2MB limit
+    limits: { fileSize: 5 * 1024 * 1024 }, // Increased to 5MB for high-quality audio
     fileFilter: (req, file, cb) => {
         if (file.mimetype.startsWith('audio/')) cb(null, true);
         else cb(new Error('Only audio files are allowed'));
@@ -529,40 +520,49 @@ Respond only with a JSON object:
                 .replace(/[^a-z0-9]+/g, '-')
                 .replace(/^-|-$/g, '');
             
-            const finalFilename = `${path.basename(slug)}.mp3`;
-            const finalPath = path.resolve('public/assets/audio', finalFilename);
-            
-            // Ensure the path is still within our intended directory (prevent traversal)
-            if (!finalPath.startsWith(path.resolve('public/assets/audio'))) {
-                throw new Error('Invalid file path');
-            }
+            const finalFilename = `${slug}-${Date.now()}.mp3`;
 
-            // 2. Rename temp file to final slugified name
-            if (fs.existsSync(finalPath)) fs.unlinkSync(finalPath);
-            fs.renameSync(req.file.path, finalPath);
+            // 2. Upload to Supabase Storage (Bucket: 'audio')
+            const { data: uploadData, error: uploadError } = await supabaseAdmin
+                .storage
+                .from('audio')
+                .upload(finalFilename, req.file.buffer, {
+                    contentType: req.file.mimetype,
+                    upsert: true
+                });
 
-            // 3. Update database
-            const audioUrl = `assets/audio/${finalFilename}`;
-            const { error } = await supabaseAdmin
+            if (uploadError) throw uploadError;
+
+            // 3. Get Public URL
+            const { data: { publicUrl } } = supabaseAdmin
+                .storage
+                .from('audio')
+                .getPublicUrl(finalFilename);
+
+            // 4. Update database
+            const { error: dbError } = await supabaseAdmin
                 .from('dictionary_entries')
-                .update({ audio: audioUrl, audio_url: audioUrl })
+                .update({ 
+                    audio: publicUrl, 
+                    audio_url: publicUrl 
+                })
                 .eq('id', id);
 
-            if (error) throw error;
+            if (dbError) throw dbError;
 
             await adminAuth.logAuditAction({ 
                 userId: req.adminUser.id, 
                 username: req.adminUser.username, 
-                action: 'UPLOAD_AUDIO', 
+                action: 'UPLOAD_AUDIO_SUPABASE', 
                 resource: pidgin, 
+                details: { filename: finalFilename },
                 req 
             });
 
-            res.json({ success: true, audioUrl });
+            res.json({ success: true, audioUrl: publicUrl });
         } catch (error) {
             console.error('Audio upload error:', error);
-            if (req.file && fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
-            res.status(500).json({ error: 'Failed to upload audio' });
+            res.status(500).json({ error: 'Failed to upload audio to Supabase: ' + error.message });
         }
     });
 
