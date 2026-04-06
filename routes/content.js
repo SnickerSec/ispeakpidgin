@@ -210,10 +210,3 @@ module.exports = function(supabase, dictionaryLimiter) {
 
     return router;
 };
-        } catch (error) {
-            res.status(500).json({ error: 'Internal server error' });
-        }
-    });
-
-    return router;
-};
