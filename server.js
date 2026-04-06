@@ -126,7 +126,7 @@ const adminLoginLimiter = rateLimit({
 
 const adminActionLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 50,
+    max: 25,
     message: 'Too many admin actions, please slow down, brah.',
     standardHeaders: true,
     legacyHeaders: false,
@@ -256,6 +256,10 @@ app.use(express.urlencoded({
 
 // Apply general rate limiting to all API routes
 app.use('/api/', apiLimiter);
+
+// Rate limiting for admin login and actions
+app.use('/api/admin/login', adminLoginLimiter);
+app.use('/api/admin', adminActionLimiter);
 
 // Mount modular routes
 const translateRouter = translateRoutes(translate, translationLimiter, dictionaryCache);

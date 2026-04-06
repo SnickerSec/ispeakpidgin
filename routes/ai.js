@@ -11,13 +11,22 @@ module.exports = function(supabase, dictionaryCache, limiter) {
     const botProtection = (req, res, next) => {
         const referer = req.get('Referer');
         const isDev = process.env.NODE_ENV === 'development';
-        
-        if (!isDev && (!referer || !referer.includes('chokepidgin.com'))) {
+
+        if (!isDev && referer) {
+            try {
+                const url = new URL(referer);
+                const allowedHosts = ['chokepidgin.com', 'www.chokepidgin.com'];
+                if (!allowedHosts.includes(url.hostname)) {
+                    return res.status(403).json({ error: 'Direct API access not allowed' });
+                }
+            } catch (e) {
+                return res.status(403).json({ error: 'Invalid Referer header' });
+            }
+        } else if (!isDev && !referer) {
             return res.status(403).json({ error: 'Direct API access not allowed' });
         }
         next();
     };
-
     // Helper: Get relevant vocabulary for context injection
     function getRelevantVocabulary(text, maxEntries = 25) {
         if (!dictionaryCache.data || !dictionaryCache.data.entries) return '';

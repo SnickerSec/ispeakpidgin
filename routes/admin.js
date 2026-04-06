@@ -72,7 +72,7 @@ module.exports = function(supabaseAdmin, adminAuth, settingsManager, adminLoginL
     });
 
     // POST /api/admin/logout
-    router.post('/logout', adminAuth.requireAdminAuth, async (req, res) => {
+    router.post('/logout', adminAuth.requireAdminAuth, actionLimiter, async (req, res) => {
         try {
             await adminAuth.revokeSession(req.adminToken);
             await adminAuth.logAuditAction({ userId: req.adminUser.id, username: req.adminUser.username, action: 'LOGOUT', req });
@@ -336,7 +336,7 @@ module.exports = function(supabaseAdmin, adminAuth, settingsManager, adminLoginL
     });
 
     // SEO Content Gaps API
-    router.get('/seo/gaps', adminAuth.requireAdminAuth, async (req, res) => {
+    router.get('/seo/gaps', adminAuth.requireAdminAuth, actionLimiter, async (req, res) => {
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
         
         try {
