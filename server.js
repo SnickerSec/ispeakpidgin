@@ -175,11 +175,12 @@ app.use(helmet({
             imgSrc: [
                 "'self'",
                 "data:",
+                "https://*.google-analytics.com",
                 "https://www.google-analytics.com",
+                "https://*.googletagmanager.com",
                 "https://www.googletagmanager.com",
                 "https://cdn-icons-png.flaticon.com",
-                "https://*.google-analytics.com",
-                "https://*.googletagmanager.com"
+                "https://*.g.doubleclick.net"
             ],
             fontSrc: [
                 "'self'", 
@@ -188,13 +189,14 @@ app.use(helmet({
             ],
             connectSrc: [
                 "'self'",
-                "https://www.google-analytics.com",
-                "https://analytics.google.com",
-                "https://stats.g.doubleclick.net",
                 "https://*.google-analytics.com",
+                "https://www.google-analytics.com",
                 "https://*.analytics.google.com",
+                "https://analytics.google.com",
                 "https://*.g.doubleclick.net",
+                "https://stats.g.doubleclick.net",
                 "https://jfzgzjgdptowfbtljvyp.supabase.co",
+                "https://*.googletagmanager.com",
                 "https://www.googletagmanager.com",
                 "https://fonts.googleapis.com",
                 "https://fonts.gstatic.com",
@@ -427,4 +429,6 @@ process.on('uncaughtException', (err) => {
 
 process.on('unhandledRejection', (reason, promise) => {
     console.error('⚠️ Unhandled Rejection at:', promise, 'reason:', reason);
+});
+led Rejection at:', promise, 'reason:', reason);
 });
