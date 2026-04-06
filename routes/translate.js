@@ -61,7 +61,6 @@ module.exports = function(translate, translationLimiter, dictionaryCache) {
                 .trim()
                 .notEmpty().withMessage('Text is required')
                 .isLength({ min: 1, max: 500 }).withMessage('Text must be between 1 and 500 characters')
-                .escape()
         ],
         async (req, res) => {
             const errors = validationResult(req);
@@ -116,7 +115,7 @@ module.exports = function(translate, translationLimiter, dictionaryCache) {
     router.post('/llm',
         translationLimiter,
         [
-            body('text').trim().notEmpty().withMessage('Text is required').isLength({ min: 1, max: 1000 }).escape(),
+            body('text').trim().notEmpty().withMessage('Text is required').isLength({ min: 1, max: 1000 }),
             body('direction').optional().isIn(['eng-to-pidgin', 'pidgin-to-eng'])
         ],
         async (req, res) => {
@@ -191,7 +190,7 @@ ${vocabularySection}`;
     router.post('/',
         translationLimiter,
         [
-            body('text').trim().notEmpty().withMessage('Text is required').isLength({ min: 1, max: 1000 }).escape(),
+            body('text').trim().notEmpty().withMessage('Text is required').isLength({ min: 1, max: 1000 }),
             body('targetLanguage').optional().isLength({ min: 2, max: 5 }),
             body('sourceLanguage').optional().isLength({ min: 2, max: 5 })
         ],

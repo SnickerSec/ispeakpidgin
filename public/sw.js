@@ -1,4 +1,4 @@
-const CACHE_NAME = 'chokepidgin-v2.3';
+const CACHE_NAME = 'chokepidgin-v2.5';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -52,7 +52,19 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // 1. Dictionary API - Cache First (Offline Pocket Dictionary)
+  // Skip non-GET requests
+  if (request.method !== 'GET') return;
+
+  // BYPASS TRACKING AND ANALYTICS COMPLETELY
+  // Let the browser handle these natively without SW interference
+  if (url.hostname.includes('google-analytics') || 
+      url.hostname.includes('googletagmanager') || 
+      url.hostname.includes('stats.g.doubleclick.net') ||
+      url.pathname.includes('gtag.js')) {
+    return;
+  }
+
+  // 1. Dictionary API - Cache First
   if (url.pathname === '/api/dictionary/all') {
     event.respondWith(
       caches.open('chokepidgin-data').then((cache) => {
@@ -75,21 +87,18 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 3. HTML Navigation - Network First (Always try for fresh page, fallback to cache)
-  if (request.mode === 'navigate' || (request.method === 'GET' && request.headers.get('accept').includes('text/html'))) {
+  // 3. HTML Navigation - Network First
+  if (request.mode === 'navigate' || (request.headers.get('accept') && request.headers.get('accept').includes('text/html'))) {
     event.respondWith(
       fetch(request)
         .then((networkResponse) => {
-          // If valid response, update cache and return
           if (networkResponse && networkResponse.status === 200) {
             const responseClone = networkResponse.clone();
             caches.open(CACHE_NAME).then((cache) => cache.put(request, responseClone));
-            return networkResponse;
           }
           return networkResponse;
         })
         .catch(() => {
-          // If offline, try to get from cache
           return caches.match(request).then(cached => cached || caches.match('/index.html'));
         })
     );
@@ -97,12 +106,11 @@ self.addEventListener('fetch', (event) => {
   }
 
   // 4. Static Assets - Stale-While-Revalidate
-  // Fast load from cache, update in background
   event.respondWith(
     caches.match(request).then((cachedResponse) => {
       const fetchPromise = fetch(request).then((networkResponse) => {
-        // Only cache successful GET requests
-        if (networkResponse && networkResponse.status === 200 && request.method === 'GET') {
+        // Only cache successful requests
+        if (networkResponse && networkResponse.status === 200) {
           const responseClone = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => {
             cache.put(request, responseClone);
@@ -111,6 +119,8 @@ self.addEventListener('fetch', (event) => {
         return networkResponse;
       });
 
+      // Crucial: return cachedResponse immediately or wait for the fetchPromise
+      // NEVER return null or undefined to respondWith
       return cachedResponse || fetchPromise;
     })
   );

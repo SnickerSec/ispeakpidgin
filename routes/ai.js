@@ -47,7 +47,7 @@ module.exports = function(supabase, dictionaryCache, limiter) {
         limiter,
         botProtection,
         [
-            body('message').trim().notEmpty().isLength({ max: 1000 }).escape(),
+            body('message').trim().notEmpty().isLength({ max: 1000 }),
             body('history').optional().isArray()
         ],
         async (req, res) => {
@@ -144,7 +144,7 @@ ${vocabulary}`;
         limiter,
         botProtection,
         [
-            body('text').trim().notEmpty().isLength({ max: 500 }).escape(),
+            body('text').trim().notEmpty().isLength({ max: 500 }),
             body('direction').isIn(['eng-to-pidgin', 'pidgin-to-eng']),
             body('context').optional().isArray()
         ],

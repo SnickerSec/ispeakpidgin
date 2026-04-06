@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "./scripts/dev-server.sh",
-    "build": "npm run build:css && node build.js",
+    "build": "node build.js",
     "build:css": "npx @tailwindcss/cli -i src/styles/tailwind.css -o public/css/tailwind.css --minify",
     "watch:css": "npx @tailwindcss/cli -i src/styles/tailwind.css -o public/css/tailwind.css --watch",
     "deploy": "./scripts/deploy.sh",
@@ -69,7 +69,8 @@
     "google-auth-library": "^9.15.1",
     "sharp": "^0.34.5",
     "supabase": "^2.76.14",
-    "tailwindcss": "^4.2.1"
+    "tailwindcss": "^4.2.1",
+    "terser": "^5.46.1"
   },
   "overrides": {
     "tar": "^7.5.8",

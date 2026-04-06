@@ -22,6 +22,12 @@ class PidginHangman {
 
     async init() {
         this.updateStatsDisplay();
+        
+        // Buttons
+        this.newGameBtn = document.getElementById('new-game-btn');
+        this.hintBtn = document.getElementById('hint-btn');
+        this.shareBtn = document.getElementById('share-results-btn');
+        
         await this.startNewGame();
         this.attachEventListeners();
     }
@@ -29,7 +35,11 @@ class PidginHangman {
     loadStats() {
         const saved = localStorage.getItem('pidgin-hangman-stats');
         if (saved) {
-            return JSON.parse(saved);
+            try {
+                return JSON.parse(saved);
+            } catch (e) {
+                console.error('Error parsing stats:', e);
+            }
         }
         return { wins: 0, losses: 0, streak: 0 };
     }
@@ -39,9 +49,12 @@ class PidginHangman {
     }
 
     updateStatsDisplay() {
-        document.getElementById('wins').textContent = this.stats.wins;
-        document.getElementById('losses').textContent = this.stats.losses;
-        document.getElementById('streak').textContent = this.stats.streak;
+        const winsEl = document.getElementById('wins');
+        const lossesEl = document.getElementById('losses');
+        const streakEl = document.getElementById('streak');
+        if (winsEl) winsEl.textContent = this.stats.wins;
+        if (lossesEl) lossesEl.textContent = this.stats.losses;
+        if (streakEl) streakEl.textContent = this.stats.streak;
     }
 
     async startNewGame() {
@@ -52,7 +65,8 @@ class PidginHangman {
         this.hintsUsed = 0;
 
         // Hide result card
-        document.getElementById('result-card').classList.add('hidden');
+        const resultCard = document.getElementById('result-card');
+        if (resultCard) resultCard.classList.add('hidden');
 
         // Reset hangman drawing
         this.bodyParts.forEach(part => {
@@ -68,7 +82,8 @@ class PidginHangman {
         });
 
         // Update wrong count
-        document.getElementById('wrong-count').textContent = '0';
+        const wrongCountEl = document.getElementById('wrong-count');
+        if (wrongCountEl) wrongCountEl.textContent = '0';
 
         // Get a random word from dictionary
         await this.getRandomWord();
@@ -89,7 +104,7 @@ class PidginHangman {
 
             // Filter for words that are suitable for hangman (3-10 letters, only a-z)
             const suitableWords = data.entries.filter(entry => {
-                const word = entry.pidgin.toLowerCase();
+                const word = entry.pidgin.toLowerCase().replace(/['']/g, '');
                 // Only letters a-z, no special characters or spaces
                 return /^[a-z]{3,10}$/.test(word);
             });
@@ -101,17 +116,18 @@ class PidginHangman {
             // Pick a random word
             const randomIndex = Math.floor(Math.random() * suitableWords.length);
             this.currentWordData = suitableWords[randomIndex];
-            this.currentWord = this.currentWordData.pidgin.toLowerCase();
+            this.currentWord = this.currentWordData.pidgin.toLowerCase().replace(/['']/g, '');
 
             // Update category badge
             const categoryBadge = document.getElementById('category-badge');
-            categoryBadge.textContent = this.currentWordData.category || 'pidgin';
+            if (categoryBadge) categoryBadge.textContent = this.currentWordData.category || 'pidgin';
 
             // Set hint text (use the English meaning)
             const meanings = Array.isArray(this.currentWordData.english)
                 ? this.currentWordData.english
                 : [this.currentWordData.english];
-            document.getElementById('hint-text').textContent = `Hint: ${meanings[0]}`;
+            const hintTextEl = document.getElementById('hint-text');
+            if (hintTextEl) hintTextEl.textContent = `Hint: ${meanings[0]}`;
 
         } catch (error) {
             console.error('Error fetching word:', error);
@@ -121,6 +137,8 @@ class PidginHangman {
 
     displayWord() {
         const wordDisplay = document.getElementById('word-display');
+        if (!wordDisplay) return;
+        
         wordDisplay.innerHTML = '';
 
         for (const letter of this.currentWord) {
@@ -163,7 +181,8 @@ class PidginHangman {
             // Wrong guess
             if (keyBtn) keyBtn.classList.add('wrong');
             this.wrongGuesses++;
-            document.getElementById('wrong-count').textContent = this.wrongGuesses;
+            const wrongCountEl = document.getElementById('wrong-count');
+            if (wrongCountEl) wrongCountEl.textContent = this.wrongGuesses;
 
             // Show body part
             if (this.wrongGuesses <= this.bodyParts.length) {
@@ -172,10 +191,13 @@ class PidginHangman {
             }
 
             // Shake the hangman
-            document.querySelector('.hangman-svg').classList.add('shake');
-            setTimeout(() => {
-                document.querySelector('.hangman-svg').classList.remove('shake');
-            }, 300);
+            const hangmanSvg = document.querySelector('.hangman-svg');
+            if (hangmanSvg) {
+                hangmanSvg.classList.add('shake');
+                setTimeout(() => {
+                    hangmanSvg.classList.remove('shake');
+                }, 300);
+            }
 
             this.checkLose();
         }
@@ -221,26 +243,30 @@ class PidginHangman {
         const resultMeaning = document.getElementById('result-meaning');
         const resultLink = document.getElementById('result-link');
 
-        resultTitle.innerHTML = won ? '<i class="ti ti-confetti"></i> You Got It!' : '<i class="ti ti-mood-sad"></i> Game Over';
-        resultTitle.className = `text-2xl font-bold mb-2 ${won ? 'text-green-600' : 'text-red-600'}`;
+        if (resultTitle) {
+            resultTitle.innerHTML = won ? '<i class="ti ti-confetti"></i> You Got It!' : '<i class="ti ti-mood-sad"></i> Game Over';
+            resultTitle.className = `text-2xl font-bold mb-2 ${won ? 'text-green-600' : 'text-red-600'}`;
+        }
 
-        resultWord.textContent = this.currentWordData.pidgin;
+        if (resultWord) resultWord.textContent = this.currentWordData.pidgin;
 
         const meanings = Array.isArray(this.currentWordData.english)
             ? this.currentWordData.english.join(', ')
             : this.currentWordData.english;
-        resultMeaning.textContent = `Meaning: ${meanings}`;
+        if (resultMeaning) resultMeaning.textContent = `Meaning: ${meanings}`;
 
         // Create slug for link
         const slug = this.currentWordData.pidgin.toLowerCase()
             .replace(/['']/g, '')
             .replace(/\s+/g, '-')
             .replace(/[^a-z0-9-]/g, '');
-        resultLink.href = `/word/${slug}.html`;
+        if (resultLink) resultLink.href = `/word/${slug}.html`;
 
-        resultCard.classList.remove('hidden');
-        resultCard.classList.add('bounce');
-        setTimeout(() => resultCard.classList.remove('bounce'), 500);
+        if (resultCard) {
+            resultCard.classList.remove('hidden');
+            resultCard.classList.add('bounce');
+            setTimeout(() => resultCard.classList.remove('bounce'), 500);
+        }
     }
 
     useHint() {
@@ -290,6 +316,7 @@ class PidginHangman {
 
     showToast(message, duration = 2000) {
         const toast = document.getElementById('toast');
+        if (!toast) return;
         toast.textContent = message;
         toast.classList.add('show');
 
@@ -298,59 +325,76 @@ class PidginHangman {
         }, duration);
     }
 
-    // Buttons
-    this.newGameBtn = document.getElementById('new-game-btn');
-    this.hintBtn = document.getElementById('hint-btn');
-    this.shareBtn = document.getElementById('share-results-btn');
-
-    this.attachEventListeners();
-    }
-
     attachEventListeners() {
-    // Keyboard clicks
-    ...
-    this.hintBtn.addEventListener('click', () => {
-        this.useHint();
-    });
+        // Keyboard clicks
+        document.querySelectorAll('.keyboard-key').forEach(key => {
+            key.addEventListener('click', () => {
+                this.guessLetter(key.dataset.key);
+            });
+        });
 
-    if (this.shareBtn) {
-        this.shareBtn.addEventListener('click', () => this.shareResults());
-    }
+        // Physical keyboard support
+        document.addEventListener('keydown', (e) => {
+            if (e.key.match(/^[a-zA-Z]$/)) {
+                this.guessLetter(e.key.toLowerCase());
+            }
+        });
+
+        // Reset button
+        if (this.newGameBtn) {
+            this.newGameBtn.addEventListener('click', () => {
+                this.startNewGame();
+            });
+        }
+
+        // Hint button
+        if (this.hintBtn) {
+            this.hintBtn.addEventListener('click', () => {
+                this.useHint();
+            });
+        }
+
+        // Share button
+        if (this.shareBtn) {
+            this.shareBtn.addEventListener('click', () => this.shareResults());
+        }
     }
 
     shareResults() {
-    const won = !this.currentWord.split('').some(l => !this.guessedLetters.has(l));
-    const emoji = won ? '🌺' : '💀';
-    const resultText = won ? `I won in ${this.wrongGuesses} wrong guesses!` : `I almost had it!`;
-    const shareText = `Pidgin Hangman: ${this.currentWordData.pidgin}\n${emoji} ${resultText}\n\nCan you guess da kine? Play at ChokePidgin.com! 🤙`;
-    const shareUrl = window.location.href;
+        const won = !this.currentWord.split('').some(l => !this.guessedLetters.has(l));
+        const emoji = won ? '🌺' : '💀';
+        const resultText = won ? `I won in ${this.wrongGuesses} wrong guesses!` : `I almost had it!`;
+        const shareText = `Pidgin Hangman: ${this.currentWordData.pidgin}\n${emoji} ${resultText}\n\nCan you guess da kine? Play at ChokePidgin.com! 🤙`;
+        const shareUrl = window.location.href;
 
-    if (navigator.share) {
-        navigator.share({
-            title: 'Pidgin Hangman Results',
-            text: shareText,
-            url: shareUrl
-        }).catch(() => this.fallbackShare(shareText, shareUrl));
-    } else {
-        this.fallbackShare(shareText, shareUrl);
-    }
+        if (navigator.share) {
+            navigator.share({
+                title: 'Pidgin Hangman Results',
+                text: shareText,
+                url: shareUrl
+            }).catch(() => this.fallbackShare(shareText, shareUrl));
+        } else {
+            this.fallbackShare(shareText, shareUrl);
+        }
     }
 
     fallbackShare(text, url) {
-    const fullText = `${text}\n\n${url}`;
-    navigator.clipboard.writeText(fullText).then(() => {
-        this.showToast('Results copied to clipboard! 📋');
-    }).catch(() => alert(fullText));
+        const fullText = `${text}\n\n${url}`;
+        navigator.clipboard.writeText(fullText).then(() => {
+            this.showToast('Results copied to clipboard! 📋');
+        }).catch(() => alert(fullText));
     }
+}
 
-    async startNewGame() {
 // Initialize game when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     // Wait for Supabase API to be ready
     const checkAPI = setInterval(() => {
         if (window.supabaseAPI || document.readyState === 'complete') {
             clearInterval(checkAPI);
-            window.hangmanGame = new PidginHangman();
+            if (!window.hangmanGame) {
+                window.hangmanGame = new PidginHangman();
+            }
         }
     }, 100);
 

@@ -2,7 +2,7 @@ const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
 
-const outputDir = path.join(__dirname, '../public/assets/images');
+const outputDir = path.join(__dirname, '../src/assets/images');
 if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
 }
@@ -48,13 +48,13 @@ async function main() {
         await createOGImage(
             "Hawaiian Pidgin Dictionary", 
             "660 plus Local Words and Phrases", 
-            "og-home.png"
+            "og-home.webp"
         );
         
         await createOGImage(
             "AI Pidgin Translator", 
             "English to Hawaiian Pidgin", 
-            "og-translator.png"
+            "og-translator.webp"
         );
         
         console.log('\n✨ OG Images generated successfully!');

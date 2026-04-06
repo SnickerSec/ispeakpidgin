@@ -94,16 +94,37 @@ module.exports = function(supabaseAdmin, adminAuth, settingsManager, adminLoginL
         try {
             const { username, password, setupSecret } = req.body;
             const expectedSecret = process.env.ADMIN_SETUP_SECRET;
-            if (!expectedSecret) return res.status(403).json({ error: 'Invalid setup secret' });
+            
+            if (!expectedSecret) {
+                console.error('ADMIN_SETUP_SECRET not configured in environment');
+                return res.status(403).json({ error: 'Admin setup is not enabled' });
+            }
 
-            const a = Buffer.from(setupSecret);
-            const b = Buffer.from(expectedSecret);
-            if (a.length !== b.length || !require('crypto').timingSafeEqual(a, b)) return res.status(403).json({ error: 'Invalid setup secret' });
+            // Timing-safe comparison for setup secret
+            const crypto = require('crypto');
+            try {
+                const setupSecretBuffer = Buffer.from(setupSecret);
+                const expectedSecretBuffer = Buffer.from(expectedSecret);
+                
+                if (setupSecretBuffer.length !== expectedSecretBuffer.length || 
+                    !crypto.timingSafeEqual(setupSecretBuffer, expectedSecretBuffer)) {
+                    return res.status(403).json({ error: 'Invalid setup secret' });
+                }
+            } catch (err) {
+                return res.status(403).json({ error: 'Invalid setup secret' });
+            }
 
-            if (await adminAuth.hasAdminUsers()) return res.status(400).json({ error: 'Admin user already exists' });
+            if (await adminAuth.hasAdminUsers()) {
+                return res.status(400).json({ error: 'Admin user already exists. Use login instead.' });
+            }
 
             const user = await adminAuth.createAdminUser(username, password, 'super_admin');
-            await adminAuth.logAuditAction({ username: username, action: 'ADMIN_SETUP', details: { created_user: username }, req });
+            await adminAuth.logAuditAction({ 
+                username: username, 
+                action: 'ADMIN_SETUP', 
+                details: { created_user: username }, 
+                req 
+            });
 
             res.json({ success: true, user: { id: user.id, username: user.username, role: user.role } });
         } catch (error) {
@@ -115,33 +136,70 @@ module.exports = function(supabaseAdmin, adminAuth, settingsManager, adminLoginL
     // Settings API
     router.get('/settings', adminAuth.requireAdminAuth, async (req, res) => {
         try {
-            if (!settingsManager.isInitialized() && supabaseAdmin) await settingsManager.initialize(supabaseAdmin);
+            if (!settingsManager.isInitialized() && supabaseAdmin) {
+                await settingsManager.initialize(supabaseAdmin);
+            }
             res.json(settingsManager.getAllGrouped(true));
         } catch (error) {
             res.status(500).json({ error: 'Failed to get settings' });
         }
     });
 
-    router.put('/settings', adminAuth.requireAdminAuth, [body('key').trim().notEmpty(), body('value').exists()], async (req, res) => {
+    router.put('/settings', adminAuth.requireAdminAuth, [
+        body('key').trim().notEmpty().isLength({ max: 100 }),
+        body('value').exists()
+    ], async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+        
         try {
             const { key, value } = req.body;
             const updated = await settingsManager.set(key, String(value));
-            await adminAuth.logAuditAction({ userId: req.adminUser.id, username: req.adminUser.username, action: 'UPDATE_SETTING', resource: key, details: { new_value: value.toString().substring(0, 50) }, req });
+            
+            await adminAuth.logAuditAction({ 
+                userId: req.adminUser.id, 
+                username: req.adminUser.username, 
+                action: 'UPDATE_SETTING', 
+                resource: key, 
+                details: { new_value: String(value).substring(0, 100) }, 
+                req 
+            });
+            
             res.json({ success: true, setting: updated });
         } catch (error) {
+            console.error('Update setting error:', error);
             res.status(500).json({ error: 'Failed to update setting' });
         }
     });
 
-    router.put('/settings/bulk', adminAuth.requireAdminAuth, async (req, res) => {
+    router.put('/settings/bulk', adminAuth.requireAdminAuth, [
+        body().isObject().withMessage('Body must be an object of key-value pairs')
+    ], async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+
         try {
             const updates = req.body;
+            // Additional basic validation of keys and values
+            for (const key in updates) {
+                if (typeof key !== 'string' || key.length > 100) {
+                    return res.status(400).json({ error: `Invalid key: ${key}` });
+                }
+            }
+
             const count = await settingsManager.setBulk(updates);
-            await adminAuth.logAuditAction({ userId: req.adminUser.id, username: req.adminUser.username, action: 'BULK_UPDATE_SETTINGS', details: { count, keys: Object.keys(updates) }, req });
+            
+            await adminAuth.logAuditAction({ 
+                userId: req.adminUser.id, 
+                username: req.adminUser.username, 
+                action: 'BULK_UPDATE_SETTINGS', 
+                details: { count, keys: Object.keys(updates) }, 
+                req 
+            });
+            
             res.json({ success: true, updated: count });
         } catch (error) {
+            console.error('Bulk update settings error:', error);
             res.status(500).json({ error: 'Failed to update settings' });
         }
     });
