@@ -807,7 +807,7 @@
             }
 
             container.innerHTML = data.gaps.map(g => `
-                <tr class="hover:bg-gray-50">
+                <tr class="hover:bg-gray-50" data-pidgin="${g.term}">
                     <td class="px-6 py-4 whitespace-nowrap">
                         <div class="font-bold text-gray-900">${g.term}</div>
                         <div class="text-[10px] text-gray-500 mt-1 uppercase">Last searched: ${formatDate(g.last_searched_at)}</div>
@@ -853,6 +853,19 @@
                     </td>
                 </tr>
             `).join('');
+
+            // Auto-trigger AI suggestions for top 5 gaps if they are empty
+            const rows = container.querySelectorAll('tr[data-pidgin]');
+            rows.forEach((row, index) => {
+                if (index < 5) {
+                    const pidgin = row.dataset.pidgin;
+                    const englishInput = row.querySelector('.gap-english-input');
+                    if (englishInput && !englishInput.value) {
+                        const suggestBtn = row.querySelector('[data-action="suggest-gap"]');
+                        if (suggestBtn) suggestGapData(pidgin, row, suggestBtn);
+                    }
+                }
+            });
 
         } catch (error) {
             container.innerHTML = `

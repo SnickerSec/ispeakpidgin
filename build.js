@@ -15,7 +15,8 @@ const config = {
     dataDir: 'data',
     assetsDir: 'src/assets',
     minify: true, // Set to false to disable JS minification
-    minifyImages: true // Set to false to disable image optimization
+    minifyImages: true, // Set to false to disable image optimization
+    generateWebP: true // Set to false to disable WebP generation
 };
 
 // Strip inline gtag blocks (now loaded via external file in footer template)
@@ -50,33 +51,34 @@ async function minifyJS(srcPath, destPath) {
     }
 }
 
-// Helper to minify images
+// Helper to minify images and generate WebP versions
 async function processImage(srcPath, destPath) {
-    if (!config.minifyImages) {
-        fs.copyFileSync(srcPath, destPath);
-        return;
-    }
-
     const ext = path.extname(srcPath).toLowerCase();
-    
-    // Only optimize JPG, PNG, and WebP
-    if (!['.jpg', '.jpeg', '.png', '.webp'].includes(ext)) {
+    const isImage = ['.jpg', '.jpeg', '.png', '.webp'].includes(ext);
+
+    if (!config.minifyImages || !isImage) {
         fs.copyFileSync(srcPath, destPath);
         return;
     }
 
     try {
-        let pipeline = sharp(srcPath);
+        const pipeline = sharp(srcPath);
         
+        // 1. Save optimized original
         if (ext === '.png') {
-            pipeline = pipeline.png({ quality: 80, compressionLevel: 9 });
+            await pipeline.clone().png({ quality: 80, compressionLevel: 9 }).toFile(destPath);
         } else if (ext === '.jpg' || ext === '.jpeg') {
-            pipeline = pipeline.jpeg({ quality: 80, progressive: true });
+            await pipeline.clone().jpeg({ quality: 80, progressive: true }).toFile(destPath);
         } else if (ext === '.webp') {
-            pipeline = pipeline.webp({ quality: 80 });
+            await pipeline.clone().webp({ quality: 80 }).toFile(destPath);
         }
-        
-        await pipeline.toFile(destPath);
+
+        // 2. Generate WebP version if it's not already a WebP
+        if (config.generateWebP && ext !== '.webp') {
+            const webpPath = destPath.substring(0, destPath.lastIndexOf('.')) + '.webp';
+            await pipeline.clone().webp({ quality: 75 }).toFile(webpPath);
+            console.log(`🖼️  Generated WebP: ${path.basename(webpPath)}`);
+        }
     } catch (error) {
         console.error(`❌ Could not optimize ${path.basename(srcPath)}:`, error.message);
         fs.copyFileSync(srcPath, destPath);

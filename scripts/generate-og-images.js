@@ -48,13 +48,13 @@ async function main() {
         await createOGImage(
             "Hawaiian Pidgin Dictionary", 
             "660 plus Local Words and Phrases", 
-            "og-home.png"
+            "og-home.webp"
         );
         
         await createOGImage(
             "AI Pidgin Translator", 
             "English to Hawaiian Pidgin", 
-            "og-translator.png"
+            "og-translator.webp"
         );
         
         console.log('\n✨ OG Images generated successfully!');

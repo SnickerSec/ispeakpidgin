@@ -55,9 +55,9 @@ npm run seo:loop
 
 ### SEO Feedback Loop
 The feedback loop script closes the gap between what users search for and what is in the dictionary:
-1. **`npm run seo:loop`**: Fetches high-impression queries from Search Console, filters out words already in Supabase, and outputs `missing-terms.json` to `/tmp/`.
-2. **Review**: Manually review `/tmp/missing-terms.json` and fill in the `english` translations.
-3. **`npm run data:add-missing`**: Adds the reviewed terms to Supabase.
+1. **Search Gaps Tab**: The Admin Panel (`/admin.html`) automatically scans for search gaps and triggers AI suggestions for the top entries.
+2. **Review & Add**: Review the AI-generated definitions and examples in the Admin Panel and click "Add" to insert directly into Supabase.
+3. **Advanced Tooling**: Use the dedicated `seo-cli` tool in `tools/seo-cli` for comprehensive Search Console and Analytics audits.
 
 ### Dictionary Maintenance
 The project includes specialized tools for maintaining the Supabase dictionary:
@@ -169,8 +169,11 @@ The site uses a **build-time component injection system** for consistent navigat
 
 ### Build System Details
 - **Entry point**: `build.js` (root level, Railway compatible)
-- **Path mapping**: Automatically updates import paths during build
-- **Asset copying**: Handles JS, CSS, and static assets
+- **Minification**: Automatically minifies all JavaScript components and games using Terser.
+- **Image Optimization**: Optimizes PNG/JPG assets and generates WebP versions using Sharp.
+- **Path mapping**: Automatically updates import paths during build.
+- **Asset copying**: Handles JS, CSS, and static assets.
+- **Clean step**: Automatically wipes the `public/` directory before every build to prevent artifact clutter.
 
 ### Railway Deployment Specifics
 - **Build command**: `npm run build` (calls `node build.js`)
