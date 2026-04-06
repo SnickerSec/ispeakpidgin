@@ -60,11 +60,17 @@ self.addEventListener('fetch', (event) => {
 
   // BYPASS TRACKING AND ANALYTICS COMPLETELY
   // Let the browser handle these natively without SW interference
-  if (url.hostname.includes('google-analytics') || 
-      url.hostname.includes('googletagmanager') || 
-      url.hostname.includes('stats.g.doubleclick.net') ||
-      url.hostname.includes('doubleclick.net') ||
-      url.pathname.includes('gtag.js') ||
+  const isAnalyticsHost = [
+    'www.google-analytics.com',
+    'google-analytics.com',
+    'www.googletagmanager.com',
+    'googletagmanager.com',
+    'stats.g.doubleclick.net',
+    'doubleclick.net'
+  ].some(host => url.hostname === host || url.hostname.endsWith('.' + host));
+
+  if (isAnalyticsHost || 
+      url.pathname.includes('gtag.js') || 
       url.pathname.includes('analytics.js')) {
     return;
   }

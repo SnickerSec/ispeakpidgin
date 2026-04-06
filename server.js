@@ -266,7 +266,7 @@ app.use('/api', pickupRoutes(supabase, dictionaryLimiter, translationLimiter));
 app.use('/api/ai', aiRoutes(supabase, dictionaryCache, aiChatLimiter));
 app.use('/api/suggestions', suggestionsRoutes(supabase, apiLimiter));
 app.use('/api/questions', questionsRoutes(supabase, apiLimiter));
-app.use('/api/admin', adminRoutes(supabaseAdmin, adminAuth, settingsManager, adminLoginLimiter));
+app.use('/api/admin', adminRoutes(supabaseAdmin, adminAuth, settingsManager, adminLoginLimiter, adminActionLimiter));
 
 // ============================================
 // SEO: Spelling Variant Redirects
@@ -415,6 +415,12 @@ process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 process.on('uncaughtException', (err) => {
     console.error('⚠️ Uncaught Exception:', err);
     gracefulShutdown('UNCAUGHT_EXCEPTION');
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('⚠️ Unhandled Rejection at:', promise, 'reason:', reason);
+});
+acefulShutdown('UNCAUGHT_EXCEPTION');
 });
 
 process.on('unhandledRejection', (reason, promise) => {

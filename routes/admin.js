@@ -28,7 +28,10 @@ const upload = multer({
 /**
  * Admin Routes (Login, Settings, Audit Logs, Tests)
  */
-module.exports = function(supabaseAdmin, adminAuth, settingsManager, adminLoginLimiter) {
+module.exports = function(supabaseAdmin, adminAuth, settingsManager, adminLoginLimiter, adminActionLimiter) {
+
+    // Helper to ensure adminActionLimiter is available (fallback if not passed)
+    const actionLimiter = adminActionLimiter || ((req, res, next) => next());
 
     // POST /api/admin/login
     router.post('/login', adminLoginLimiter, [
@@ -411,7 +414,7 @@ module.exports = function(supabaseAdmin, adminAuth, settingsManager, adminLoginL
     });
 
     // AI Suggestion for Dictionary Entry
-    router.post('/seo/suggest', adminAuth.requireAdminAuth, [
+    router.post('/seo/suggest', adminAuth.requireAdminAuth, actionLimiter, [
         body('pidgin').trim().notEmpty()
     ], async (req, res) => {
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
@@ -511,7 +514,7 @@ Respond only with a JSON object:
     });
 
     // Upload Audio for Dictionary Entry
-    router.post('/dictionary/:id/audio', adminAuth.requireAdminAuth, upload.single('audio'), async (req, res) => {
+    router.post('/dictionary/:id/audio', adminAuth.requireAdminAuth, actionLimiter, upload.single('audio'), async (req, res) => {
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
         const { id } = req.params;
         const { pidgin } = req.body;
@@ -526,9 +529,14 @@ Respond only with a JSON object:
                 .replace(/[^a-z0-9]+/g, '-')
                 .replace(/^-|-$/g, '');
             
-            const finalFilename = `${slug}.mp3`;
-            const finalPath = path.join('public/assets/audio', finalFilename);
+            const finalFilename = `${path.basename(slug)}.mp3`;
+            const finalPath = path.resolve('public/assets/audio', finalFilename);
             
+            // Ensure the path is still within our intended directory (prevent traversal)
+            if (!finalPath.startsWith(path.resolve('public/assets/audio'))) {
+                throw new Error('Invalid file path');
+            }
+
             // 2. Rename temp file to final slugified name
             if (fs.existsSync(finalPath)) fs.unlinkSync(finalPath);
             fs.renameSync(req.file.path, finalPath);
@@ -558,8 +566,8 @@ Respond only with a JSON object:
         }
     });
 
-    // Dashboard Stats
-    router.get('/stats', adminAuth.requireAdminAuth, async (req, res) => {
+    // Get Dashboard Stats
+    router.get('/stats', adminAuth.requireAdminAuth, actionLimiter, async (req, res) => {
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
         try {
             // Fetch counts in parallel
@@ -581,7 +589,7 @@ Respond only with a JSON object:
     });
 
     // Get Search Gaps
-    router.get('/gaps', adminAuth.requireAdminAuth, async (req, res) => {
+    router.get('/gaps', adminAuth.requireAdminAuth, actionLimiter, async (req, res) => {
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
         try {
             const { data, error } = await supabaseAdmin
@@ -600,7 +608,7 @@ Respond only with a JSON object:
     });
 
     // Update Search Gap Status
-    router.put('/gaps/:id', adminAuth.requireAdminAuth, [
+    router.put('/gaps/:id', adminAuth.requireAdminAuth, actionLimiter, [
         body('status').isIn(['pending', 'added', 'ignored'])
     ], async (req, res) => {
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
@@ -632,7 +640,7 @@ Respond only with a JSON object:
     });
 
     // Answer a Local Question
-    router.post('/questions/:id/answer', adminAuth.requireAdminAuth, [
+    router.post('/questions/:id/answer', adminAuth.requireAdminAuth, actionLimiter, [
         body('response_text').trim().notEmpty()
     ], async (req, res) => {
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
@@ -677,7 +685,7 @@ Respond only with a JSON object:
     });
 
     // Update Question Status
-    router.put('/questions/:id/status', adminAuth.requireAdminAuth, [
+    router.put('/questions/:id/status', adminAuth.requireAdminAuth, actionLimiter, [
         body('status').isIn(['pending', 'answered', 'rejected'])
     ], async (req, res) => {
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
