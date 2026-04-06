@@ -124,6 +124,14 @@ const adminLoginLimiter = rateLimit({
     legacyHeaders: false,
 });
 
+const adminActionLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 50,
+    message: 'Too many admin actions, please slow down, brah.',
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
 // CORS configuration
 const corsOptions = {
     origin: function (origin, callback) {
