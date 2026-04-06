@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { query, param, validationResult } = require('express-validator');
 
 /**
  * Dictionary Routes
@@ -7,6 +8,15 @@ const router = express.Router();
  * @param {object} dictionaryLimiter - Rate limiter for dictionary endpoints
  */
 module.exports = function(supabase, dictionaryLimiter, dictionaryCache) {
+
+    // Helper to handle validation errors
+    const validate = (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        next();
+    };
 
     // Pre-warm dictionary cache
     async function prewarmDictionaryCache() {
@@ -182,16 +192,15 @@ module.exports = function(supabase, dictionaryLimiter, dictionaryCache) {
     });
 
     // GET /api/dictionary/search - Full-text search
-    router.get('/search', dictionaryLimiter, async (req, res) => {
+    router.get('/search', dictionaryLimiter, [
+        query('q').trim().notEmpty().isLength({ min: 2, max: 100 }).escape(),
+        query('limit').optional().isInt({ min: 1, max: 100 }).toInt()
+    ], validate, async (req, res) => {
         try {
             const { q, limit = 20 } = req.query;
 
-            if (!q || q.trim().length < 2) {
-                return res.status(400).json({ error: 'Search query must be at least 2 characters' });
-            }
-
-            const searchTerm = q.trim().toLowerCase().replace(/[%_\\{},.()"']/g, '');
-            const searchLimit = Math.min(Math.max(parseInt(limit) || 20, 1), 100);
+            const searchTerm = q.toLowerCase().replace(/[%_\\{},.()"']/g, '');
+            const searchLimit = limit;
 
             const { data, error } = await supabase
                 .from('dictionary_entries')
@@ -277,10 +286,13 @@ module.exports = function(supabase, dictionaryLimiter, dictionaryCache) {
     });
 
     // GET /api/dictionary/random - Get random entries
-    router.get('/random', dictionaryLimiter, async (req, res) => {
+    router.get('/random', dictionaryLimiter, [
+        query('count').optional().isInt({ min: 1, max: 20 }).toInt(),
+        query('difficulty').optional().isIn(['beginner', 'intermediate', 'advanced'])
+    ], validate, async (req, res) => {
         try {
             const { count = 5, difficulty } = req.query;
-            const limit = Math.min(parseInt(count), 20);
+            const limit = count;
 
             let countQuery = supabase
                 .from('dictionary_entries')
@@ -358,7 +370,9 @@ module.exports = function(supabase, dictionaryLimiter, dictionaryCache) {
     });
 
     // GET /api/dictionary/word/:pidgin - Get entry by Pidgin word
-    router.get('/word/:pidgin', dictionaryLimiter, async (req, res) => {
+    router.get('/word/:pidgin', dictionaryLimiter, [
+        param('pidgin').trim().notEmpty().isLength({ max: 100 }).escape()
+    ], validate, async (req, res) => {
         try {
             const { pidgin } = req.params;
 
@@ -383,7 +397,9 @@ module.exports = function(supabase, dictionaryLimiter, dictionaryCache) {
     });
 
     // GET /api/dictionary/:id - Get single entry by ID
-    router.get('/:id', dictionaryLimiter, async (req, res) => {
+    router.get('/:id', dictionaryLimiter, [
+        param('id').trim().notEmpty().isUUID()
+    ], validate, async (req, res) => {
         try {
             const { id } = req.params;
 

@@ -169,7 +169,9 @@ class PidginSpeed {
             document.getElementById('score-value').textContent = this.score;
             this.updateComboDisplay();
 
-            feedbackArea.innerHTML = `<span class="text-green-600 font-bold"><i class="ti ti-check"></i> +${points}</span>`;
+            const feedbackArea = document.getElementById('feedback-area');
+            feedbackArea.textContent = `+${points}`;
+            feedbackArea.className = 'text-green-600 font-bold animate-bounce-in';
             feedbackArea.classList.remove('hidden');
 
             this.showNextWord();
@@ -200,7 +202,8 @@ class PidginSpeed {
         this.updateComboDisplay();
 
         const feedbackArea = document.getElementById('feedback-area');
-        feedbackArea.innerHTML = `<span class="text-red-600 font-bold"><i class="ti ti-x"></i> ${this.currentWord.pidgin}</span>`;
+        feedbackArea.textContent = this.currentWord.pidgin;
+        feedbackArea.className = 'text-red-600 font-bold animate-bounce-in';
         feedbackArea.classList.remove('hidden');
 
         // Move to next word after brief pause
@@ -222,7 +225,8 @@ class PidginSpeed {
         });
 
         const feedbackArea = document.getElementById('feedback-area');
-        feedbackArea.innerHTML = `<span class="text-gray-500">Skipped: <strong>${this.currentWord.pidgin}</strong></span>`;
+        feedbackArea.textContent = `Skipped: ${this.currentWord.pidgin}`;
+        feedbackArea.className = 'text-gray-500 font-medium animate-pulse';
         feedbackArea.classList.remove('hidden');
 
         setTimeout(() => this.showNextWord(), 600);

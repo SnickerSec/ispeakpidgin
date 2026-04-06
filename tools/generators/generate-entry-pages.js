@@ -88,7 +88,7 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
         "@context": "https://schema.org",
         "@type": "DefinedTerm",
         "name": entry.pidgin,
-        "description": entry.usage || englishMeanings,
+        "description": escapeHtml(entry.usage || englishMeanings),
         "inDefinedTermSet": {
             "@type": "DefinedTermSet",
             "name": "Hawaiian Pidgin Dictionary",
@@ -98,7 +98,7 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
     };
 
     if (entry.pronunciation) {
-        schema.pronunciation = entry.pronunciation;
+        schema.pronunciation = escapeHtml(entry.pronunciation);
     }
 
     // Create FAQ schema for rich snippets
@@ -108,28 +108,28 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
         "mainEntity": [
             {
                 "@type": "Question",
-                "name": `What does "${entry.pidgin}" mean in Hawaiian Pidgin?`,
+                "name": `What does "${escapeHtml(entry.pidgin)}" mean in Hawaiian Pidgin?`,
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": `"${entry.pidgin}" means "${primaryMeaning}" in Hawaiian Pidgin.${entry.usage ? ' ' + entry.usage + '.' : ''}`
+                    "text": `"${escapeHtml(entry.pidgin)}" means "${escapeHtml(primaryMeaning)}" in Hawaiian Pidgin.${entry.usage ? ' ' + escapeHtml(entry.usage) + '.' : ''}`
                 }
             },
             {
                 "@type": "Question",
-                "name": `How do you pronounce "${entry.pidgin}"?`,
+                "name": `How do you pronounce "${escapeHtml(entry.pidgin)}"?`,
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": entry.pronunciation ? `"${entry.pidgin}" is pronounced "${entry.pronunciation}".` : `"${entry.pidgin}" is pronounced phonetically as it appears.`
+                    "text": entry.pronunciation ? `"${escapeHtml(entry.pidgin)}" is pronounced "${escapeHtml(entry.pronunciation)}".` : `"${escapeHtml(entry.pidgin)}" is pronounced phonetically as it appears.`
                 }
             },
             {
                 "@type": "Question",
-                "name": `How do you use "${entry.pidgin}" in a sentence?`,
+                "name": `How do you use "${escapeHtml(entry.pidgin)}" in a sentence?`,
                 "acceptedAnswer": {
                     "@type": "Answer",
                     "text": Array.isArray(entry.examples) && entry.examples.length > 0
-                        ? `Example: "${entry.examples[0]}"`
-                        : `"${entry.pidgin}" is commonly used in casual Hawaiian conversation.`
+                        ? `Example: "${escapeHtml(entry.examples[0])}"`
+                        : `"${escapeHtml(entry.pidgin)}" is commonly used in casual Hawaiian conversation.`
                 }
             }
         ]

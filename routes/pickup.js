@@ -1,22 +1,34 @@
 const express = require('express');
 const router = express.Router();
-const { body, validationResult } = require('express-validator');
+const { body, query, validationResult } = require('express-validator');
 
 /**
  * Pickup Line Routes (Standard, 808 Mode, Cringe Generator)
  */
 module.exports = function(supabase, dictionaryLimiter, translationLimiter) {
 
+    // Helper to handle validation errors
+    const validate = (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        next();
+    };
+
     // ============================================
     // PICKUP LINES API
     // ============================================
 
-    router.get('/pickup-lines', dictionaryLimiter, async (req, res) => {
+    router.get('/pickup-lines', dictionaryLimiter, [
+        query('category').optional().trim().isLength({ max: 50 }),
+        query('maxSpiciness').optional().isInt({ min: 1, max: 5 }).toInt()
+    ], validate, async (req, res) => {
         try {
             const { category, maxSpiciness } = req.query;
             let query = supabase.from('pickup_lines').select('*');
             if (category) query = query.eq('category', category);
-            if (maxSpiciness) query = query.lte('spiciness', parseInt(maxSpiciness));
+            if (maxSpiciness) query = query.lte('spiciness', maxSpiciness);
 
             const { data, error } = await query;
             if (error) return res.status(500).json({ error: 'Failed to fetch pickup lines' });
@@ -26,10 +38,12 @@ module.exports = function(supabase, dictionaryLimiter, translationLimiter) {
         }
     });
 
-    router.get('/pickup-lines/random', dictionaryLimiter, async (req, res) => {
+    router.get('/pickup-lines/random', dictionaryLimiter, [
+        query('maxSpiciness').optional().isInt({ min: 1, max: 5 }).toInt()
+    ], validate, async (req, res) => {
         try {
             const { maxSpiciness = 5 } = req.query;
-            const { data, error } = await supabase.from('pickup_lines').select('*').lte('spiciness', parseInt(maxSpiciness));
+            const { data, error } = await supabase.from('pickup_lines').select('*').lte('spiciness', maxSpiciness);
             if (error) return res.status(500).json({ error: 'Failed to fetch pickup line' });
 
             const randomLine = data[Math.floor(Math.random() * data.length)];

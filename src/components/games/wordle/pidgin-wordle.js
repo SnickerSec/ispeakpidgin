@@ -389,7 +389,21 @@ class PidginWordle {
     }
 
     showToast(message) {
-        this.toast.innerHTML = message;
+        this.toast.textContent = ''; // Clear
+        
+        // Handle icons if they are in the message (simple check)
+        if (message.includes('<i class="ti')) {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = message;
+            
+            // Move children to toast
+            while (tempDiv.firstChild) {
+                this.toast.appendChild(tempDiv.firstChild);
+            }
+        } else {
+            this.toast.textContent = message;
+        }
+        
         this.toast.classList.add('show');
 
         setTimeout(() => {

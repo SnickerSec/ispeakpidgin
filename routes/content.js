@@ -1,10 +1,20 @@
 const express = require('express');
 const router = express.Router();
+const { query, validationResult } = require('express-validator');
 
 /**
  * Content Routes (Phrases, Stories, Lessons)
  */
 module.exports = function(supabase, dictionaryLimiter) {
+
+    // Helper to handle validation errors
+    const validate = (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        next();
+    };
 
     // ============================================
     // PHRASES API
@@ -87,8 +97,9 @@ module.exports = function(supabase, dictionaryLimiter) {
     // ============================================
     // STORIES API
     // ============================================
-
-    router.get('/stories', dictionaryLimiter, async (req, res) => {
+    router.get('/stories', dictionaryLimiter, [
+        query('difficulty').optional().isIn(['beginner', 'intermediate', 'advanced'])
+    ], validate, async (req, res) => {
         try {
             const { difficulty } = req.query;
             let query = supabase.from('stories').select('*');
@@ -123,7 +134,9 @@ module.exports = function(supabase, dictionaryLimiter) {
 
     const lessonsCache = { data: null, timestamp: 0, ttl: 300000 };
 
-    router.get('/lessons', dictionaryLimiter, async (req, res) => {
+    router.get('/lessons', dictionaryLimiter, [
+        query('level').optional().isIn(['beginner', 'intermediate', 'advanced'])
+    ], validate, async (req, res) => {
         try {
             const { level } = req.query;
             const now = Date.now();
@@ -190,6 +203,13 @@ module.exports = function(supabase, dictionaryLimiter) {
                     practice: data.practice
                 }
             });
+        } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+    return router;
+};
         } catch (error) {
             res.status(500).json({ error: 'Internal server error' });
         }

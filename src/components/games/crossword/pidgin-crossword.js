@@ -184,7 +184,12 @@ class PidginCrossword {
             clueEl.className = 'clue-item';
             clueEl.dataset.number = word.number;
             clueEl.dataset.direction = 'across';
-            clueEl.innerHTML = `<strong>${word.number}.</strong> ${escapeHtml(word.clue)}`;
+            
+            const numStrong = document.createElement('strong');
+            numStrong.textContent = `${word.number}. `;
+            clueEl.appendChild(numStrong);
+            clueEl.appendChild(document.createTextNode(word.clue));
+            
             this.acrossClues.appendChild(clueEl);
         });
 
@@ -195,22 +200,43 @@ class PidginCrossword {
             clueEl.className = 'clue-item';
             clueEl.dataset.number = word.number;
             clueEl.dataset.direction = 'down';
-            clueEl.innerHTML = `<strong>${word.number}.</strong> ${escapeHtml(word.clue)}`;
+            
+            const numStrong = document.createElement('strong');
+            numStrong.textContent = `${word.number}. `;
+            clueEl.appendChild(numStrong);
+            clueEl.appendChild(document.createTextNode(word.clue));
+            
             this.downClues.appendChild(clueEl);
         });
 
         // Mobile clues (combined)
         if (this.mobileClues) {
-            this.mobileClues.innerHTML = `
-                <div class="mb-4">
-                    <h4 class="font-bold mb-2">Across</h4>
-                    ${this.acrossClues.innerHTML}
-                </div>
-                <div>
-                    <h4 class="font-bold mb-2">Down</h4>
-                    ${this.downClues.innerHTML}
-                </div>
-            `;
+            this.mobileClues.textContent = ''; // Clear
+            
+            const acrossSection = document.createElement('div');
+            acrossSection.className = 'mb-4';
+            const acrossH4 = document.createElement('h4');
+            acrossH4.className = 'font-bold mb-2';
+            acrossH4.textContent = 'Across';
+            acrossSection.appendChild(acrossH4);
+            
+            // Clone across clues for mobile view
+            Array.from(this.acrossClues.children).forEach(clue => {
+                acrossSection.appendChild(clue.cloneNode(true));
+            });
+            this.mobileClues.appendChild(acrossSection);
+            
+            const downSection = document.createElement('div');
+            const downH4 = document.createElement('h4');
+            downH4.className = 'font-bold mb-2';
+            downH4.textContent = 'Down';
+            downSection.appendChild(downH4);
+            
+            // Clone down clues for mobile view
+            Array.from(this.downClues.children).forEach(clue => {
+                downSection.appendChild(clue.cloneNode(true));
+            });
+            this.mobileClues.appendChild(downSection);
         }
     }
 

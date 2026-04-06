@@ -199,11 +199,24 @@ class PidginFillBlank {
             }
         });
 
-        // Update sentence to show the answer
-        document.getElementById('sentence-display').innerHTML = this.currentQuestion.sentence.replace(
-            '________',
-            `<span class="inline-block ${correct ? 'bg-green-200 text-green-900' : 'bg-red-200 text-red-900'} px-3 py-1 rounded-lg font-bold mx-1">${this.currentQuestion.correctAnswer}</span>`
-        );
+        // Update sentence to show the answer securely
+        const sentenceDisplay = document.getElementById('sentence-display');
+        sentenceDisplay.textContent = ''; // Clear
+        
+        const [before, after] = this.currentQuestion.sentence.split('________');
+        
+        if (before) {
+            sentenceDisplay.appendChild(document.createTextNode(before));
+        }
+        
+        const answerSpan = document.createElement('span');
+        answerSpan.className = `inline-block ${correct ? 'bg-green-200 text-green-900' : 'bg-red-200 text-red-900'} px-3 py-1 rounded-lg font-bold mx-1`;
+        answerSpan.textContent = this.currentQuestion.correctAnswer;
+        sentenceDisplay.appendChild(answerSpan);
+        
+        if (after) {
+            sentenceDisplay.appendChild(document.createTextNode(after));
+        }
 
         if (correct) {
             this.score += 10;
@@ -301,3 +314,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, 500);
 });
+
