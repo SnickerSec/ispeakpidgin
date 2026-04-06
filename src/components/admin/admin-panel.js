@@ -153,14 +153,20 @@
 
         container.innerHTML = pageItems.map(entry => {
             const hasAudio = !!entry.audio_url || !!entry.audio;
+            const pidgin = escapeHtml(entry.pidgin);
+            const english = Array.isArray(entry.english) 
+                ? entry.english.map(e => escapeHtml(e)).join(', ') 
+                : escapeHtml(entry.english);
+            const category = escapeHtml(entry.category || 'general');
+
             return `
                 <tr class="hover:bg-gray-50 transition-colors">
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="font-bold text-purple-700">${entry.pidgin}</div>
-                        <div class="text-[10px] text-gray-400 uppercase tracking-tighter">${entry.category || 'general'}</div>
+                        <div class="font-bold text-purple-700">${pidgin}</div>
+                        <div class="text-[10px] text-gray-400 uppercase tracking-tighter">${category}</div>
                     </td>
                     <td class="px-6 py-4">
-                        <div class="text-sm text-gray-600 line-clamp-1">${Array.isArray(entry.english) ? entry.english.join(', ') : entry.english}</div>
+                        <div class="text-sm text-gray-600 line-clamp-1">${english}</div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         ${hasAudio ? 
@@ -174,7 +180,7 @@
                         }
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <button data-action="upload-audio" data-id="${entry.id}" data-pidgin="${entry.pidgin}"
+                        <button data-action="upload-audio" data-id="${entry.id}" data-pidgin="${pidgin}"
                                 class="bg-blue-50 text-blue-600 px-3 py-1 rounded hover:bg-blue-100 transition flex items-center gap-1 ml-auto">
                             <i class="ti ti-upload"></i> ${hasAudio ? 'Replace' : 'Add Audio'}
                         </button>
@@ -543,18 +549,24 @@
                 return;
             }
 
-            container.innerHTML = data.suggestions.map(s => `
+            container.innerHTML = data.suggestions.map(s => {
+                const pidgin = escapeHtml(s.pidgin);
+                const english = escapeHtml(s.english);
+                const example = s.example ? escapeHtml(s.example) : null;
+                const contributor = escapeHtml(s.contributor_name || 'Anonymous');
+
+                return `
                 <tr class="hover:bg-gray-50">
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="font-medium text-gray-900">${s.pidgin}</div>
+                        <div class="font-medium text-gray-900">${pidgin}</div>
                         <div class="text-xs text-gray-500">Added: ${formatDate(s.created_at)}</div>
                     </td>
                     <td class="px-6 py-4">
-                        <div class="text-sm text-gray-900">${s.english}</div>
-                        ${s.example ? `<div class="text-xs text-gray-500 italic mt-1">"${s.example}"</div>` : ''}
+                        <div class="text-sm text-gray-900">${english}</div>
+                        ${example ? `<div class="text-xs text-gray-500 italic mt-1">"${example}"</div>` : ''}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        ${s.contributor_name || 'Anonymous'}
+                        ${contributor}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         ${status === 'pending' ? `
@@ -577,7 +589,7 @@
                         `}
                     </td>
                 </tr>
-            `).join('');
+            `;}).join('');
 
         } catch (error) {
             container.innerHTML = `
@@ -658,23 +670,27 @@
                 return;
             }
 
-            container.innerHTML = data.questions.map(q => `
+            container.innerHTML = data.questions.map(q => {
+                const questionText = escapeHtml(q.question_text);
+                const userName = escapeHtml(q.user_name);
+                const responseText = q.responses && q.responses.length > 0 ? escapeHtml(q.responses[0].response_text) : null;
+                const statusClass = q.status === 'answered' ? 'bg-green-100 text-green-700' : 
+                                    q.status === 'pending' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700';
+
+                return `
                 <tr class="hover:bg-gray-50">
                     <td class="px-6 py-4">
-                        <div class="text-sm font-bold text-gray-900">${q.question_text}</div>
-                        <div class="text-xs text-gray-500 mt-1">By ${q.user_name} • ${formatDate(q.created_at)}</div>
-                        ${q.responses && q.responses.length > 0 ? `
+                        <div class="text-sm font-bold text-gray-900">${questionText}</div>
+                        <div class="text-xs text-gray-500 mt-1">By ${userName} • ${formatDate(q.created_at)}</div>
+                        ${responseText ? `
                             <div class="mt-2 p-2 bg-green-50 rounded border border-green-100">
                                 <div class="text-xs font-bold text-green-800">Answer:</div>
-                                <div class="text-xs text-green-700">${q.responses[0].response_text}</div>
+                                <div class="text-xs text-green-700">${responseText}</div>
                             </div>
                         ` : ''}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-2 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
-                            q.status === 'answered' ? 'bg-green-100 text-green-700' : 
-                            q.status === 'pending' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'
-                        }">
+                        <span class="px-2 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${statusClass}">
                             ${q.status}
                         </span>
                     </td>
@@ -693,7 +709,7 @@
                         </div>
                     </td>
                 </tr>
-            `).join('');
+            `;}).join('');
 
         } catch (error) {
             container.innerHTML = `
@@ -806,10 +822,12 @@
                 return;
             }
 
-            container.innerHTML = data.gaps.map(g => `
-                <tr class="hover:bg-gray-50" data-pidgin="${g.term}">
+            container.innerHTML = data.gaps.map(g => {
+                const term = escapeHtml(g.term);
+                return `
+                <tr class="hover:bg-gray-50" data-pidgin="${term}">
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="font-bold text-gray-900">${g.term}</div>
+                        <div class="font-bold text-gray-900">${term}</div>
                         <div class="text-[10px] text-gray-500 mt-1 uppercase">Last searched: ${formatDate(g.last_searched_at)}</div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
@@ -836,11 +854,11 @@
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <div class="flex flex-col gap-2">
                             <div class="flex gap-2">
-                                <button data-action="suggest-gap" data-pidgin="${g.term}"
+                                <button data-action="suggest-gap" data-pidgin="${term}"
                                         class="flex-1 bg-purple-50 text-purple-600 px-2 py-1 rounded hover:bg-purple-100 transition text-xs font-bold border border-purple-200">
                                     <i class="ti ti-wand"></i> Suggest
                                 </button>
-                                <button data-action="add-gap-btn" data-id="${g.id}" data-pidgin="${g.term}"
+                                <button data-action="add-gap-btn" data-id="${g.id}" data-pidgin="${term}"
                                         class="flex-1 bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700 transition text-xs font-bold shadow-sm">
                                     <i class="ti ti-plus"></i> Add
                                 </button>
@@ -852,7 +870,7 @@
                         </div>
                     </td>
                 </tr>
-            `).join('');
+            `;}).join('');
 
             // Auto-trigger AI suggestions for top 5 gaps if they are empty
             const rows = container.querySelectorAll('tr[data-pidgin]');
@@ -1303,15 +1321,21 @@
                 return;
             }
 
-            container.innerHTML = data.logs.map(log => `
+            container.innerHTML = data.logs.map(log => {
+                const username = escapeHtml(log.username || 'Unknown');
+                const action = escapeHtml(log.action);
+                const resource = escapeHtml(log.resource || '-');
+                const ip = escapeHtml(log.ip_address || '-');
+
+                return `
                 <tr class="hover:bg-gray-50">
                     <td class="px-4 py-3 text-sm text-gray-600">${formatDate(log.created_at)}</td>
-                    <td class="px-4 py-3 text-sm font-medium text-gray-800">${log.username || 'Unknown'}</td>
-                    <td class="px-4 py-3 text-sm text-gray-600">${log.action}</td>
-                    <td class="px-4 py-3 text-sm text-gray-600">${log.resource || '-'}</td>
-                    <td class="px-4 py-3 text-sm text-gray-500">${log.ip_address || '-'}</td>
+                    <td class="px-4 py-3 text-sm font-medium text-gray-800">${username}</td>
+                    <td class="px-4 py-3 text-sm text-gray-600">${action}</td>
+                    <td class="px-4 py-3 text-sm text-gray-600">${resource}</td>
+                    <td class="px-4 py-3 text-sm text-gray-500">${ip}</td>
                 </tr>
-            `).join('');
+            `;}).join('');
 
         } catch (error) {
             container.innerHTML = `
@@ -1369,6 +1393,13 @@
     function formatDate(dateString) {
         const date = new Date(dateString);
         return date.toLocaleString();
+    }
+
+    function escapeHtml(text) {
+        if (!text) return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
     }
 
     // Action handlers (called via event delegation)

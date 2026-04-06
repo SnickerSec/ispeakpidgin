@@ -7,14 +7,14 @@ const { body, validationResult } = require('express-validator');
  */
 module.exports = function(supabase, limiter) {
 
-    // POST /api/suggestions - Submit a new word suggestion
+    // POST /api/suggestions - Submit a new word/phrase suggestion
     router.post('/',
         limiter,
         [
-            body('pidgin').trim().notEmpty().isLength({ max: 100 }).escape(),
-            body('english').trim().notEmpty().isLength({ max: 500 }).escape(),
-            body('example').optional().trim().isLength({ max: 1000 }).escape(),
-            body('contributor_name').optional().trim().isLength({ max: 100 }).escape()
+            body('pidgin').trim().notEmpty().isLength({ max: 200 }),
+            body('english').trim().notEmpty().isLength({ max: 500 }),
+            body('example').optional().trim().isLength({ max: 1000 }),
+            body('contributor_name').optional().trim().isLength({ max: 100 })
         ],
         async (req, res) => {
             const errors = validationResult(req);

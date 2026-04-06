@@ -151,11 +151,15 @@ app.use(helmet({
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
-            styleSrc: ["'self'", "'unsafe-inline'", "https:", "https://fonts.googleapis.com"],
+            styleSrc: [
+                "'self'", 
+                "'unsafe-inline'", 
+                "https://fonts.googleapis.com",
+                "https://cdn.jsdelivr.net"
+            ],
             scriptSrc: [
                 "'self'",
                 "'unsafe-inline'",
-                "'unsafe-eval'",
                 "https://www.googletagmanager.com",
                 "https://www.google-analytics.com",
                 "https://cdn.jsdelivr.net"
@@ -163,25 +167,31 @@ app.use(helmet({
             imgSrc: [
                 "'self'",
                 "data:",
-                "https:",
                 "https://www.google-analytics.com",
                 "https://www.googletagmanager.com",
-                "https://cdn-icons-png.flaticon.com"
+                "https://cdn-icons-png.flaticon.com",
+                "https://*.google-analytics.com",
+                "https://*.googletagmanager.com"
             ],
-            fontSrc: ["'self'", "https:", "https://fonts.gstatic.com", "https://cdn.jsdelivr.net"],
+            fontSrc: [
+                "'self'", 
+                "https://fonts.gstatic.com", 
+                "https://cdn.jsdelivr.net"
+            ],
             connectSrc: [
                 "'self'",
-                "https:",
-                "https://api.elevenlabs.io",
                 "https://www.google-analytics.com",
                 "https://analytics.google.com",
                 "https://stats.g.doubleclick.net",
+                "https://*.google-analytics.com",
+                "https://*.analytics.google.com",
+                "https://*.g.doubleclick.net",
                 "https://jfzgzjgdptowfbtljvyp.supabase.co",
+                "https://www.googletagmanager.com",
                 "https://fonts.googleapis.com",
-                "https://fonts.gstatic.com",
-                "https://www.googletagmanager.com"
+                "https://fonts.gstatic.com"
             ],
-            mediaSrc: ["'self'", "blob:", "data:", "https:"],
+            mediaSrc: ["'self'", "blob:", "data:"],
             objectSrc: ["'none'"],
             frameSrc: ["'none'"],
             frameAncestors: ["'none'"],

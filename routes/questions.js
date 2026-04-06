@@ -41,8 +41,8 @@ module.exports = function(supabase, limiter) {
     router.post('/',
         limiter,
         [
-            body('user_name').optional().trim().isLength({ max: 100 }).escape(),
-            body('question_text').trim().notEmpty().isLength({ min: 10, max: 2000 }).escape()
+            body('user_name').optional().trim().isLength({ max: 100 }),
+            body('question_text').trim().notEmpty().isLength({ min: 10, max: 2000 })
         ],
         async (req, res) => {
             const errors = validationResult(req);
