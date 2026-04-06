@@ -1,4 +1,4 @@
-const CACHE_NAME = 'chokepidgin-v2.5';
+const CACHE_NAME = 'chokepidgin-v2.6';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -13,6 +13,7 @@ const STATIC_ASSETS = [
   '/js/components/navigation.js',
   '/js/components/dictionary-cache.js',
   '/js/components/supabase-data-loader.js',
+  '/js/components/elevenlabs-speech.js',
   '/android-chrome-192x192.png',
   '/android-chrome-512x512.png',
   '/favicon.svg',
@@ -24,7 +25,9 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       console.log('SW: Pre-caching App Shell');
-      return cache.addAll(STATIC_ASSETS);
+      return cache.addAll(STATIC_ASSETS).catch(error => {
+        console.warn('SW: Pre-caching failed, but continuing...', error);
+      });
     })
   );
   self.skipWaiting();
@@ -60,12 +63,14 @@ self.addEventListener('fetch', (event) => {
   if (url.hostname.includes('google-analytics') || 
       url.hostname.includes('googletagmanager') || 
       url.hostname.includes('stats.g.doubleclick.net') ||
-      url.pathname.includes('gtag.js')) {
+      url.hostname.includes('doubleclick.net') ||
+      url.pathname.includes('gtag.js') ||
+      url.pathname.includes('analytics.js')) {
     return;
   }
 
   // 1. Dictionary API - Cache First
-  if (url.pathname === '/api/dictionary/all') {
+  if (url.pathname === '/api/dictionary/all' || url.pathname === '/api/dictionary') {
     event.respondWith(
       caches.open('chokepidgin-data').then((cache) => {
         return cache.match(request).then((cachedResponse) => {
@@ -74,6 +79,8 @@ self.addEventListener('fetch', (event) => {
               cache.put(request, networkResponse.clone());
             }
             return networkResponse;
+          }).catch(err => {
+            return cachedResponse;
           });
           return cachedResponse || fetchPromise;
         });

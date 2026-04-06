@@ -189,7 +189,10 @@ app.use(helmet({
                 "https://jfzgzjgdptowfbtljvyp.supabase.co",
                 "https://www.googletagmanager.com",
                 "https://fonts.googleapis.com",
-                "https://fonts.gstatic.com"
+                "https://fonts.gstatic.com",
+                "https://api.elevenlabs.io",
+                "https://cdn.jsdelivr.net",
+                "https://cdn-icons-png.flaticon.com"
             ],
             mediaSrc: ["'self'", "blob:", "data:"],
             objectSrc: ["'none'"],
