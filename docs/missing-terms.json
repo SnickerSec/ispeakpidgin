@@ -1,0 +1,644 @@
+{
+  "generated": "2026-04-07T04:56:30.786Z",
+  "count": 58,
+  "missing": [
+    {
+      "pidgin": "hawaiian",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 122,
+      "clicks": 15,
+      "ctr": "12.30%",
+      "position": "4.1"
+    },
+    {
+      "pidgin": "help",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 105,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "10.8"
+    },
+    {
+      "pidgin": "nosy",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 88,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "5.2"
+    },
+    {
+      "pidgin": "pidgin translator",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 73,
+      "clicks": 3,
+      "ctr": "4.11%",
+      "position": "5.6"
+    },
+    {
+      "pidgin": "punnami",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 72,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "10.4"
+    },
+    {
+      "pidgin": "kōkua kōkua",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 70,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "10.6"
+    },
+    {
+      "pidgin": "nosey",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 70,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "8.0"
+    },
+    {
+      "pidgin": "pidgin dictionary",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 66,
+      "clicks": 1,
+      "ctr": "1.52%",
+      "position": "7.1"
+    },
+    {
+      "pidgin": "help help",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 60,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "8.8"
+    },
+    {
+      "pidgin": "hawaiian for ocean",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 55,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "9.7"
+    },
+    {
+      "pidgin": "no ka' oi",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 52,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "20.2"
+    },
+    {
+      "pidgin": "malama your boto",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 49,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "3.8"
+    },
+    {
+      "pidgin": "ohana",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 49,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "47.7"
+    },
+    {
+      "pidgin": "done",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 47,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "11.1"
+    },
+    {
+      "pidgin": "pake",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 47,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "9.7"
+    },
+    {
+      "pidgin": "teacher",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 47,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "9.5"
+    },
+    {
+      "pidgin": "a hui hou pronunciation",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 46,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "13.4"
+    },
+    {
+      "pidgin": "english to",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 44,
+      "clicks": 5,
+      "ctr": "11.36%",
+      "position": "5.7"
+    },
+    {
+      "pidgin": "pidgin",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 43,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "12.0"
+    },
+    {
+      "pidgin": "a goin",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 43,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "9.2"
+    },
+    {
+      "pidgin": "li hing mui pronunciation",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 40,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "7.8"
+    },
+    {
+      "pidgin": "kokua kokua",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 40,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "9.9"
+    },
+    {
+      "pidgin": "ole way",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 37,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "7.4"
+    },
+    {
+      "pidgin": "nō ka oi",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 36,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "5.7"
+    },
+    {
+      "pidgin": "faka mean",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "slang",
+      "impressions": 35,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "9.0"
+    },
+    {
+      "pidgin": "all done",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 34,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "8.7"
+    },
+    {
+      "pidgin": "malama da aina",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 30,
+      "clicks": 1,
+      "ctr": "3.33%",
+      "position": "8.1"
+    },
+    {
+      "pidgin": "pidgin phrases",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 30,
+      "clicks": 1,
+      "ctr": "3.33%",
+      "position": "11.9"
+    },
+    {
+      "pidgin": "everyone",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 30,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "5.3"
+    },
+    {
+      "pidgin": "cuz cousin",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 29,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "11.4"
+    },
+    {
+      "pidgin": "ocean",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 29,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "11.7"
+    },
+    {
+      "pidgin": "yobo in korean",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 29,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "15.7"
+    },
+    {
+      "pidgin": "dead",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 28,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "9.3"
+    },
+    {
+      "pidgin": "translate poo from",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 28,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "12.6"
+    },
+    {
+      "pidgin": "fat",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 27,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "6.7"
+    },
+    {
+      "pidgin": "lets go",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 27,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "11.4"
+    },
+    {
+      "pidgin": "lilikoi pronunciation",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 27,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "4.5"
+    },
+    {
+      "pidgin": "pidgin sayings",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 27,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "9.9"
+    },
+    {
+      "pidgin": "rubbah",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 27,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "7.0"
+    },
+    {
+      "pidgin": "slang for the best you da",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 27,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "10.0"
+    },
+    {
+      "pidgin": "goin definition",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 26,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "9.7"
+    },
+    {
+      "pidgin": "goin'",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 26,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "6.7"
+    },
+    {
+      "pidgin": "how to respond to howzit",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "greetings",
+      "impressions": 26,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "7.8"
+    },
+    {
+      "pidgin": "hawaii",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 25,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "30.8"
+    },
+    {
+      "pidgin": "kamaaina",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 25,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "42.6"
+    },
+    {
+      "pidgin": "hawaiian word for nosey",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 24,
+      "clicks": 1,
+      "ctr": "4.17%",
+      "position": "6.0"
+    },
+    {
+      "pidgin": "kokua definition",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 24,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "10.0"
+    },
+    {
+      "pidgin": "let's go",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 24,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "10.3"
+    },
+    {
+      "pidgin": "yobo korean",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 24,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "15.3"
+    },
+    {
+      "pidgin": "a'ole pilikia",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 23,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "18.3"
+    },
+    {
+      "pidgin": "no ganja",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 23,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "8.5"
+    },
+    {
+      "pidgin": "a pau",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 23,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "8.4"
+    },
+    {
+      "pidgin": "ballah",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 22,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "11.1"
+    },
+    {
+      "pidgin": "sea",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 22,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "12.2"
+    },
+    {
+      "pidgin": "so ono",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "food",
+      "impressions": 22,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "6.3"
+    },
+    {
+      "pidgin": "pow",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 22,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "6.6"
+    },
+    {
+      "pidgin": "\"da aina\"",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 21,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "5.3"
+    },
+    {
+      "pidgin": "luau",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 21,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "71.5"
+    }
+  ]
+}

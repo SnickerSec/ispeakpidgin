@@ -764,6 +764,12 @@
         <priority>0.75</priority>
     </url>
     <url>
+        <loc>https://chokepidgin.com/word/ballah.html</loc>
+        <lastmod>2026-04-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://chokepidgin.com/word/ballah-head.html</loc>
         <lastmod>2026-04-07</lastmod>
         <changefreq>monthly</changefreq>
@@ -1952,6 +1958,12 @@
         <priority>0.75</priority>
     </url>
     <url>
+        <loc>https://chokepidgin.com/word/hawaiian.html</loc>
+        <lastmod>2026-04-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.75</priority>
+    </url>
+    <url>
         <loc>https://chokepidgin.com/word/hawaiian-time.html</loc>
         <lastmod>2026-04-07</lastmod>
         <changefreq>monthly</changefreq>
@@ -2750,6 +2762,12 @@
         <priority>0.75</priority>
     </url>
     <url>
+        <loc>https://chokepidgin.com/word/li-hing.html</loc>
+        <lastmod>2026-04-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
         <loc>https://chokepidgin.com/word/li-hing-mui.html</loc>
         <lastmod>2026-04-07</lastmod>
         <changefreq>monthly</changefreq>
@@ -2952,6 +2970,12 @@
         <lastmod>2026-04-07</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.75</priority>
+    </url>
+    <url>
+        <loc>https://chokepidgin.com/word/malama-da-aina.html</loc>
+        <lastmod>2026-04-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
     </url>
     <url>
         <loc>https://chokepidgin.com/word/malasada.html</loc>
@@ -3314,6 +3338,12 @@
         <priority>0.8</priority>
     </url>
     <url>
+        <loc>https://chokepidgin.com/word/nosy.html</loc>
+        <lastmod>2026-04-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
         <loc>https://chokepidgin.com/word/nuff.html</loc>
         <lastmod>2026-04-07</lastmod>
         <changefreq>monthly</changefreq>
@@ -3406,8 +3436,8 @@
     <url>
         <loc>https://chokepidgin.com/word/pake.html</loc>
         <lastmod>2026-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
     </url>
     <url>
         <loc>https://chokepidgin.com/word/pali.html</loc>
@@ -3515,7 +3545,7 @@
         <loc>https://chokepidgin.com/word/poho.html</loc>
         <lastmod>2026-04-07</lastmod>
         <changefreq>monthly</changefreq>
-        <priority>0.75</priority>
+        <priority>0.7</priority>
     </url>
     <url>
         <loc>https://chokepidgin.com/word/poi.html</loc>
@@ -3642,6 +3672,12 @@
         <lastmod>2026-04-07</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://chokepidgin.com/word/rubbah.html</loc>
+        <lastmod>2026-04-07</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.75</priority>
     </url>
     <url>
         <loc>https://chokepidgin.com/word/rubbah-slippah.html</loc>

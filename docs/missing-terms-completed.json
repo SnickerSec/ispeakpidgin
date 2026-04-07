@@ -1,0 +1,586 @@
+{
+  "generated": "2026-04-07T05:15:00.000Z",
+  "count": 58,
+  "missing": [
+    {
+      "pidgin": "hawaiian",
+      "english": ["of or relating to Hawaii, its people, or its language"],
+      "category": "cultural",
+      "pronunciation": "ha-WYE-an",
+      "examples": ["He is proud of his Hawaiian heritage."],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["identity", "culture"]
+    },
+    {
+      "pidgin": "nosy",
+      "english": ["niele", "prying", "curious"],
+      "category": "descriptions",
+      "pronunciation": "NO-zee",
+      "examples": ["Stop being so nosy about my business."],
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": ["behavior", "niele"]
+    },
+    {
+      "pidgin": "punani",
+      "english": ["female genitalia", "vagina"],
+      "category": "slang",
+      "pronunciation": "poo-NAH-nee",
+      "examples": ["That song is about punani."],
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": ["vulgar", "body"]
+    },
+    {
+      "pidgin": "kōkua",
+      "english": ["help", "assistance", "aid"],
+      "category": "cultural",
+      "pronunciation": "koh-KOO-ah",
+      "examples": ["Mahalo for your kōkua."],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["help", "values"]
+    },
+    {
+      "pidgin": "moana",
+      "english": ["ocean", "sea", "expanse of water"],
+      "category": "nature",
+      "pronunciation": "moh-AH-nah",
+      "examples": ["The moana is beautiful today."],
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": ["ocean", "water"]
+    },
+    {
+      "pidgin": "nō ka ʻoi",
+      "english": ["the best", "supreme", "number one"],
+      "category": "descriptions",
+      "pronunciation": "noh kah OY",
+      "examples": ["Maui nō ka ʻoi!"],
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": ["praise", "location"]
+    },
+    {
+      "pidgin": "mālama da ʻāina",
+      "english": ["take care of the land", "stewardship"],
+      "category": "cultural",
+      "pronunciation": "mah-LAH-mah dah EYE-nah",
+      "examples": ["Always mālama da ʻāina when you hike."],
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": ["environment", "values"]
+    },
+    {
+      "pidgin": "boto",
+      "english": ["male genitalia", "penis"],
+      "category": "slang",
+      "pronunciation": "BOH-toh",
+      "examples": ["Watch out, don't hit your boto."],
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": ["vulgar", "body"]
+    },
+    {
+      "pidgin": "ohana",
+      "english": ["family", "kinship", "social group"],
+      "category": "cultural",
+      "pronunciation": "oh-HAH-nah",
+      "examples": ["Ohana means family."],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["family", "values"]
+    },
+    {
+      "pidgin": "kamaʻāina",
+      "english": ["local resident", "child of the land"],
+      "category": "people",
+      "pronunciation": "kah-mah-EYE-nah",
+      "examples": ["Do you have a kamaʻāina discount?"],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["local", "identity"]
+    },
+    {
+      "pidgin": "rubbah",
+      "english": ["rubber", "eraser", "condom"],
+      "category": "objects",
+      "pronunciation": "RUB-bah",
+      "examples": ["You get one rubbah? I wen make mistake."],
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": ["slang"]
+    },
+    {
+      "pidgin": "ballah",
+      "english": ["wealthy person", "someone who spends freely"],
+      "category": "people",
+      "pronunciation": "BAL-lah",
+      "examples": ["He one real ballah since he got that new job."],
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": ["slang", "money"]
+    },
+    {
+      "pidgin": "li hing mui",
+      "english": ["salty dried plum", "popular snack powder"],
+      "category": "food",
+      "pronunciation": "lee hing MOO-ee",
+      "examples": ["I love li hing mui on my shave ice."],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["snack", "sweet"]
+    },
+    {
+      "pidgin": "lilikoi",
+      "english": ["passion fruit"],
+      "category": "food",
+      "pronunciation": "lee-lee-KO-ee",
+      "examples": ["This lilikoi juice is so ono."],
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": ["fruit", "flavor"]
+    },
+    {
+      "pidgin": "a hui hou",
+      "english": ["until we meet again", "goodbye"],
+      "category": "greetings",
+      "pronunciation": "ah HOO-ee HOH",
+      "examples": ["A hui hou, my friend!"],
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": ["goodbye", "farewell"]
+    },
+    {
+      "pidgin": "a'ole pilikia",
+      "english": ["no problem", "you're welcome", "no trouble"],
+      "category": "expressions",
+      "pronunciation": "ah-OH-leh pee-lee-KEE-ah",
+      "examples": ["Mahalo! - A'ole pilikia."],
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": ["polite", "response"]
+    },
+    {
+      "pidgin": "faka",
+      "english": ["fellow", "guy", "jerk", "expletive"],
+      "category": "slang",
+      "pronunciation": "FAH-kah",
+      "examples": ["Dat faka stay late again."],
+      "difficulty": "intermediate",
+      "frequency": "very_high",
+      "tags": ["insult", "casual"]
+    },
+    {
+      "pidgin": "ono",
+      "english": ["delicious", "tasty", "good"],
+      "category": "food",
+      "pronunciation": "OH-no",
+      "examples": ["This plate lunch stay so ono."],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["praise", "food"]
+    },
+    {
+      "pidgin": "pau",
+      "english": ["finished", "done", "ended"],
+      "category": "actions",
+      "pronunciation": "POW",
+      "examples": ["I pau work already."],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["time", "status"]
+    },
+    {
+      "pidgin": "humbug",
+      "english": ["nuisance", "bothersome", "annoyance"],
+      "category": "descriptions",
+      "pronunciation": "HUM-bug",
+      "examples": ["Driving in traffic is so humbug."],
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": ["negative", "behavior"]
+    },
+    {
+      "pidgin": "keiki",
+      "english": ["child", "children"],
+      "category": "people",
+      "pronunciation": "KAY-kee",
+      "examples": ["The keiki are playing at the beach."],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["family", "kids"]
+    },
+    {
+      "pidgin": "lolo",
+      "english": ["crazy", "stupid", "foolish"],
+      "category": "descriptions",
+      "pronunciation": "LOW-low",
+      "examples": ["Don't be so lolo, use your head."],
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": ["insult", "behavior"]
+    },
+    {
+      "pidgin": "mahalo",
+      "english": ["thank you", "gratitude", "respect"],
+      "category": "greetings",
+      "pronunciation": "mah-HAH-low",
+      "examples": ["Mahalo for your help."],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["polite", "gratitude"]
+    },
+    {
+      "pidgin": "shaka",
+      "english": ["hand gesture of aloha", "hang loose"],
+      "category": "cultural",
+      "pronunciation": "SHAH-kah",
+      "examples": ["Throw him a shaka!"],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["gesture", "aloha"]
+    },
+    {
+      "pidgin": "shoots",
+      "english": ["okay", "all right", "I agree"],
+      "category": "expressions",
+      "pronunciation": "SHOOTS",
+      "examples": ["You like go beach? Shoots!"],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["agreement", "casual"]
+    },
+    {
+      "pidgin": "da kine",
+      "english": ["the thing", "what's-his-name", "you know"],
+      "category": "expressions",
+      "pronunciation": "dah KYNE",
+      "examples": ["You get da kine?"],
+      "difficulty": "intermediate",
+      "frequency": "very_high",
+      "tags": ["placeholder", "slang"]
+    },
+    {
+      "pidgin": "howzit",
+      "english": ["how are you", "hello", "what's up"],
+      "category": "greetings",
+      "pronunciation": "HOW-zit",
+      "examples": ["Howzit brah!"],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["greeting", "casual"]
+    },
+    {
+      "pidgin": "pake",
+      "english": ["Chinese person", "stingy (derogatory)"],
+      "category": "people",
+      "pronunciation": "PAH-keh",
+      "examples": ["He so pake, he no like spend money."],
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": ["ethnicity", "insult"]
+    },
+    {
+      "pidgin": "luau",
+      "english": ["Hawaiian feast", "party"],
+      "category": "cultural",
+      "pronunciation": "LOO-ow",
+      "examples": ["We going to one luau tonight."],
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": ["party", "food"]
+    },
+    {
+      "pidgin": "goin",
+      "english": ["going", "will", "about to"],
+      "category": "grammar",
+      "pronunciation": "GO-in",
+      "examples": ["I goin' go store later."],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["future", "action"]
+    },
+    {
+      "pidgin": "ainokea",
+      "english": ["I don't care", "no care"],
+      "category": "expressions",
+      "pronunciation": "eye-no-KAY-ah",
+      "examples": ["Ainokea what they think."],
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": ["attitude", "slang"]
+    },
+    {
+      "pidgin": "aloha",
+      "english": ["love", "hello", "goodbye", "affection"],
+      "category": "cultural",
+      "pronunciation": "ah-LOW-hah",
+      "examples": ["Spread the aloha."],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["love", "greeting"]
+    },
+    {
+      "pidgin": "brah",
+      "english": ["brother", "friend", "guy"],
+      "category": "people",
+      "pronunciation": "BRAH",
+      "examples": ["What's up, brah?"],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["friend", "casual"]
+    },
+    {
+      "pidgin": "broke da mouth",
+      "english": ["extremely delicious", "unbelievably good"],
+      "category": "food",
+      "pronunciation": "BROKE dah MOWTH",
+      "examples": ["This steak broke da mouth!"],
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": ["praise", "food"]
+    },
+    {
+      "pidgin": "buggah",
+      "english": ["guy", "fellow", "thing", "pest"],
+      "category": "people",
+      "pronunciation": "BUG-gah",
+      "examples": ["That buggah stay fast!"],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["person", "casual"]
+    },
+    {
+      "pidgin": "buss up",
+      "english": ["broken", "damaged", "drunk", "messed up"],
+      "category": "descriptions",
+      "pronunciation": "BUSS UP",
+      "examples": ["His car stay all buss up."],
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": ["status", "negative"]
+    },
+    {
+      "pidgin": "chicken skin",
+      "english": ["goosebumps", "chills"],
+      "category": "emotions",
+      "pronunciation": "CHICK-en SKIN",
+      "examples": ["That story gave me chicken skin."],
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": ["feeling", "fear"]
+    },
+    {
+      "pidgin": "choke",
+      "english": ["many", "a lot", "plenty"],
+      "category": "descriptions",
+      "pronunciation": "CHOKE",
+      "examples": ["Get choke people at the beach today."],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["quantity", "slang"]
+    },
+    {
+      "pidgin": "grindz",
+      "english": ["food", "meal", "to eat"],
+      "category": "food",
+      "pronunciation": "GRYNDZ",
+      "examples": ["Let's go find some ono grindz."],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["food", "action"]
+    },
+    {
+      "pidgin": "hamajang",
+      "english": ["messy", "disorganized", "messed up"],
+      "category": "descriptions",
+      "pronunciation": "hah-mah-JANG",
+      "examples": ["Your room stay all hamajang."],
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": ["status", "negative"]
+    },
+    {
+      "pidgin": "haole",
+      "english": ["white person", "foreigner", "outsider"],
+      "category": "people",
+      "pronunciation": "HOW-leh",
+      "examples": ["He one haole from the mainland."],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["identity", "culture"]
+    },
+    {
+      "pidgin": "kanak attack",
+      "english": ["food coma", "sleepy after eating"],
+      "category": "descriptions",
+      "pronunciation": "kah-NAHK ah-TACK",
+      "examples": ["I got one major kanak attack after that plate lunch."],
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": ["food", "sleep"]
+    },
+    {
+      "pidgin": "mauka",
+      "english": ["toward the mountains", "inland"],
+      "category": "directions",
+      "pronunciation": "MOW-kah",
+      "examples": ["Go mauka at the next light."],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["navigation", "location"]
+    },
+    {
+      "pidgin": "makai",
+      "english": ["toward the ocean", "seaward"],
+      "category": "directions",
+      "pronunciation": "mah-KYE",
+      "examples": ["The park is on the makai side of the road."],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["navigation", "location"]
+    },
+    {
+      "pidgin": "mayjah",
+      "english": ["major", "big deal", "important"],
+      "category": "descriptions",
+      "pronunciation": "MAY-jah",
+      "examples": ["That was one mayjah mistake."],
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": ["emphasis", "slang"]
+    },
+    {
+      "pidgin": "moopuna",
+      "english": ["grandchild"],
+      "category": "people",
+      "pronunciation": "mo-POO-nah",
+      "examples": ["My moopuna is visiting this weekend."],
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": ["family", "kinship"]
+    },
+    {
+      "pidgin": "niele",
+      "english": ["nosy", "prying", "curious"],
+      "category": "descriptions",
+      "pronunciation": "nee-EH-leh",
+      "examples": ["Don't be so niele about my secrets."],
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": ["behavior", "praise"]
+    },
+    {
+      "pidgin": "pau hana",
+      "english": ["after work", "quitting time", "happy hour"],
+      "category": "cultural",
+      "pronunciation": "POW HAH-nah",
+      "examples": ["Meet me for pau hana drinks."],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["work", "social"]
+    },
+    {
+      "pidgin": "pilau",
+      "english": ["filthy", "stinking", "dirty"],
+      "category": "descriptions",
+      "pronunciation": "pee-LOW",
+      "examples": ["That trash stay real pilau."],
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": ["negative", "smell"]
+    },
+    {
+      "pidgin": "poho",
+      "english": ["waste", "a pity", "loss"],
+      "category": "descriptions",
+      "pronunciation": "PO-ho",
+      "examples": ["It's poho to throw away good food."],
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": ["negative", "waste"]
+    },
+    {
+      "pidgin": "rajah",
+      "english": ["roger", "understood", "I agree"],
+      "category": "expressions",
+      "pronunciation": "RAH-jah",
+      "examples": ["Rajah dat, I'll be there."],
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": ["agreement", "casual"]
+    },
+    {
+      "pidgin": "sistah",
+      "english": ["sister", "female friend", "woman"],
+      "category": "people",
+      "pronunciation": "SIS-tah",
+      "examples": ["How's it going, sistah?"],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["friend", "casual"]
+    },
+    {
+      "pidgin": "small kine",
+      "english": ["a little bit", "small amount", "trivial"],
+      "category": "descriptions",
+      "pronunciation": "small KYNE",
+      "examples": ["I stay small kine hungry."],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["quantity", "slang"]
+    },
+    {
+      "pidgin": "stink eye",
+      "english": ["dirty look", "glare", "look of disapproval"],
+      "category": "actions",
+      "pronunciation": "STINK EYE",
+      "examples": ["She gave me major stink eye when I wen cut in line."],
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": ["behavior", "negative"]
+    },
+    {
+      "pidgin": "talk story",
+      "english": ["chat", "gossip", "share stories"],
+      "category": "cultural",
+      "pronunciation": "TALK STORE-ee",
+      "examples": ["Let's go talk story for a while."],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["action", "social"]
+    },
+    {
+      "pidgin": "wahine",
+      "english": ["woman", "female"],
+      "category": "people",
+      "pronunciation": "wah-HEE-neh",
+      "examples": ["The wahine is a great surfer."],
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": ["identity", "gender"]
+    },
+    {
+      "pidgin": "li hing",
+      "english": ["salty dried plum snack powder"],
+      "category": "food",
+      "pronunciation": "lee HING",
+      "examples": ["I love li hing on my apples."],
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": ["snack", "sweet"]
+    },
+    {
+      "pidgin": "yobo",
+      "english": ["Korean person", "term of endearment (Korean)"],
+      "category": "people",
+      "pronunciation": "YO-bo",
+      "examples": ["The yobo at the market is real nice."],
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": ["ethnicity", "casual"]
+    }
+  ]
+}

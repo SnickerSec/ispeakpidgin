@@ -24,7 +24,7 @@ const { supabase } = require('../../config/supabase');
 const SITE_URL = process.env.SITE_URL || 'sc-domain:chokepidgin.com';
 const KEY_PATH = process.env.GOOGLE_SEARCH_CONSOLE_KEY_PATH || './google-search-console-key.json';
 const SEARCH_CONSOLE_API = 'https://searchconsole.googleapis.com/webmasters/v3';
-const OUTPUT_PATH = '/tmp/missing-terms.json';
+const OUTPUT_PATH = process.env.OUTPUT_PATH || '/tmp/missing-terms.json';
 
 async function getAuthClient() {
     if (!fs.existsSync(KEY_PATH)) {
