@@ -315,10 +315,10 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
         <!-- Quick Actions -->
         ${quickActionsHtml}
 
+        ${relatedHtml}
+
         <!-- Practice with Games -->
         ${gameLinksHtml}
-
-        ${relatedHtml}
     </main>
 
     ${footer}
