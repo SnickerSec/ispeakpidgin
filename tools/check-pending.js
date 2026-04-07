@@ -2,52 +2,43 @@ const { createClient } = require('@supabase/supabase-js');
 require('dotenv').config();
 
 const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
+const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-if (!supabaseUrl || !supabaseServiceKey) {
-    console.error('Missing SUPABASE_URL or SUPABASE_SERVICE_KEY');
-    process.exit(1);
-}
-
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
-
-async function checkPendingItems() {
+async function checkPending() {
+    console.log('🔍 Checking for pending questions and suggestions...');
+    
     try {
-        const [suggestions, questions, gaps] = await Promise.all([
-            supabase.from('user_suggestions').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
-            supabase.from('local_questions').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
-            supabase.from('search_gaps').select('id', { count: 'exact', head: true }).eq('status', 'pending')
-        ]);
-
-        console.log('--- PENDING ITEMS ---');
-        console.log(`Pending Suggestions: ${suggestions.count || 0}`);
-        console.log(`Pending Questions: ${questions.count || 0}`);
-        console.log(`Pending Search Gaps: ${gaps.count || 0}`);
-        console.log('---------------------');
+        const { data: questions, error: qError } = await supabase
+            .from('local_questions')
+            .select('*')
+            .eq('status', 'pending');
         
-        if (suggestions.count > 0) {
-            const { data: suggestionsData } = await supabase
-                .from('user_suggestions')
-                .select('*')
-                .eq('status', 'pending')
-                .limit(5);
-            console.log('\n--- SAMPLE SUGGESTIONS ---');
-            suggestionsData.forEach(s => console.log(`- ${s.pidgin}: ${s.english}`));
+        if (qError) throw qError;
+        console.log(`📝 Pending Questions: ${questions.length}`);
+        questions.forEach((q, i) => {
+            console.log(`   ${i+1}. [${q.user_name}] ${q.question_text.substring(0, 50)}...`);
+        });
+
+        const { data: suggestions, error: sError } = await supabase
+            .from('dictionary_suggestions')
+            .select('*')
+            .eq('status', 'pending');
+        
+        if (sError) {
+            // Table might not exist yet, ignore if so
+            if (sError.code !== 'PGRST116') {
+                 console.log('📝 dictionary_suggestions table not found or empty.');
+            } else {
+                throw sError;
+            }
+        } else {
+            console.log(`💡 Pending Suggestions: ${suggestions.length}`);
         }
 
-        if (questions.count > 0) {
-            const { data: questionsData } = await supabase
-                .from('local_questions')
-                .select('*')
-                .eq('status', 'pending')
-                .limit(5);
-            console.log('\n--- SAMPLE QUESTIONS ---');
-            questionsData.forEach(q => console.log(`- ${q.question_text} (from: ${q.user_name || 'Anon'})`));
-        }
-
-    } catch (err) {
-        console.error('Fatal error:', err.message);
+    } catch (error) {
+        console.error('Error checking pending items:', error.message);
     }
 }
 
-checkPendingItems();
+checkPending();
