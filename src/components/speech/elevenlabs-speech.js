@@ -126,7 +126,7 @@ class ElevenLabsSpeech {
         // Map of Pidgin words to phonetic spelling for better TTS pronunciation
         // Optimized specifically for ElevenLabs voices
         const pronunciationMap = {
-            // "kine" should rhyme with "nine" - ElevenLabs sometimes needs help here
+            // "kine" should rhyme with "nine"
             'kine': 'kyne',
             'da kine': 'dah kyne',
             'any kine': 'any kyne',
@@ -137,6 +137,7 @@ class ElevenLabsSpeech {
 
             // Common Hawaiian/Pidgin words with specific phonetic needs
             'pau': 'pow',
+            'pau hana': 'pow hah-nah',
             'mauka': 'mow-kah',
             'makai': 'mah-kye',
             'ono': 'oh-no',
@@ -183,29 +184,99 @@ class ElevenLabsSpeech {
             'bamboocha': 'bam-boo-chah',
             'akamai': 'ah-kah-my',
             'niele': 'nee-eh-leh',
-            'pilikia': 'pee-lee-kee-ah'
+            'pilikia': 'pee-lee-kee-ah',
+            'ainokea': 'eye-no-kay-ah',
+            'mo bettah': 'mo beh-tah',
+            'kay den': 'kay den...',
+            'aurite': 'ah-rye-t',
+            'stink eye': 'stink eye',
+            'chicken skin': 'chicken skin',
+            'talk story': 'talk story',
+            'broke da mouth': 'broke dah mouth',
+            'kanak attack': 'kah-nahk ah-tack',
+            'mālama da ʻāina': 'mah-lah-mah dah eye-nah',
+            'nō ka ʻoi': 'noh kah oy',
+            'a hui hou': 'ah-hoo-ee-hoh',
+            'aʻole pilikia': 'ah-oh-leh pee-lee-kee-ah',
+            'moopuna': 'mo-poo-nah',
+            'li hing mui': 'lee hing moo-ee',
+            'lilikoi': 'lee-lee-koy',
+            'shave ice': 'shave ice',
+            'plate lunch': 'plate lunch',
+            'ballah': 'bal-lah',
+            'rubbah': 'rub-bah',
+            'punani': 'poo-nah-nee',
+            'boto': 'boh-toh',
+            'faka': 'fah-kah',
+            'hamajang': 'hah-mah-jahng',
+            'mayjah': 'may-jah',
+            'poho': 'poh-hoh',
+            'rajah dat': 'rah-jah dat',
+            'yobo': 'yo-boh'
         };
 
-        let correctedText = text;
+        let correctedText = text.toLowerCase();
 
-        // 1. Try to use dictionary data for individual words (Dynamic Correction)
-        if (typeof pidginDataLoader !== 'undefined' && pidginDataLoader.loaded) {
-            const words = text.toLowerCase().split(/\s+/);
-            if (words.length === 1) {
-                // For single words, check dictionary first
-                const cleanWord = words[0].replace(/[.,!?;:]/g, '');
-                const entry = pidginDataLoader.getById(cleanWord) || 
-                             pidginDataLoader.getAllEntries().find(e => e.pidgin.toLowerCase() === cleanWord);
-                
-                if (entry && entry.pronunciation) {
-                    // Use dictionary pronunciation but clean it up for TTS (remove capitalization/hyphens if needed)
-                    // ElevenLabs usually handles capitalized phonetics well too
-                    return entry.pronunciation.toLowerCase();
-                }
+        // Advanced Phonetic Rules for ElevenLabs
+        // These rules catch patterns that the map might miss
+        
+        // 1. Th-fronting (th -> d or t) - very characteristic of Pidgin
+        // Only apply to common words to avoid mangling actual English
+        const thWords = {
+            'the': 'dah',
+            'that': 'daht',
+            'this': 'dis',
+            'them': 'dehm',
+            'there': 'dea',
+            'then': 'dehn',
+            'their': 'dea',
+            'they': 'dey',
+            'with': 'wit',
+            'mother': 'mah-dah',
+            'father': 'fah-dah',
+            'brother': 'bruh-dah'
+        };
+        
+        Object.entries(thWords).forEach(([word, replacement]) => {
+            const regex = new RegExp(`\\b${word}\\b`, 'gi');
+            correctedText = correctedText.replace(regex, replacement);
+        });
+
+        // 2. Final 'r' dropping (non-rhoticity)
+        // car -> cah, water -> wah-tah
+        correctedText = correctedText.replace(/(\w+)er\b/g, '$1-ah');
+        correctedText = correctedText.replace(/(\w+)ar\b/g, '$1-ah');
+        correctedText = correctedText.replace(/(\w+)or\b/g, '$1-oh');
+
+        // 3. Vowel Adjustments for Hawaiian words
+        // 'ai' usually sounds like 'eye'
+        // 'au' usually sounds like 'ow' (as in cow)
+        // Only apply if not already handled by map
+        
+        // Helper to check if a word is likely Hawaiian/Pidgin (contains unique patterns)
+        const isPidginLike = (word) => {
+            return /['ʻ]/.test(word) || pronunciationMap[word] || 
+                   ['ka', 'la', 'ma', 'na', 'ha', 'ke', 'le', 'me', 'ne', 'he'].some(s => word.includes(s));
+        };
+
+        const words = correctedText.split(/\s+/);
+        const processedWords = words.map(word => {
+            if (pronunciationMap[word]) return pronunciationMap[word];
+            
+            if (isPidginLike(word)) {
+                let w = word.replace(/['ʻ]/g, '-'); // Pause for okinas
+                w = w.replace(/ai/g, 'eye');
+                w = w.replace(/au/g, 'ow');
+                w = w.replace(/ei/g, 'ay');
+                w = w.replace(/ie/g, 'ee-eh');
+                return w;
             }
-        }
+            return word;
+        });
+        
+        correctedText = processedWords.join(' ');
 
-        // 2. Apply hardcoded corrections (Multi-word and high-priority)
+        // 4. Apply hardcoded corrections (Multi-word and high-priority)
         // Sort keys by length descending to match longer phrases first
         const sortedKeys = Object.keys(pronunciationMap).sort((a, b) => b.length - a.length);
         
@@ -215,10 +286,9 @@ class ElevenLabsSpeech {
             correctedText = correctedText.replace(regex, phonetic);
         });
 
-        // 3. Add natural pauses for Pidgin rhythm
-        // Pidgin often has distinct pauses before/after words like "eh", "brah", "yeah"
+        // 5. Add natural pauses for Pidgin rhythm
         correctedText = correctedText
-            .replace(/, /g, '... ') // Longer pause for commas
+            .replace(/, /g, '... ') 
             .replace(/\beh\b/gi, 'eh...') 
             .replace(/\bbrah\b/gi, '...brah')
             .replace(/\byeah\b\?/gi, '...yeah?')
