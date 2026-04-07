@@ -92,6 +92,17 @@ async function main() {
         const existingTerms = await getExistingDictionary();
         console.log(`✅ Found ${existingTerms.size} existing dictionary terms`);
 
+        // Helper for normalization (remove accents/okinas for comparison)
+        const normalize = (txt) => {
+            return txt.toLowerCase()
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                .replace(/['ʻ`‘’]/g, '')
+                .trim();
+        };
+
+        const normalizedExisting = new Set();
+        existingTerms.forEach(term => normalizedExisting.add(normalize(term)));
+
         console.log('\n🧠 Identifying missing terms and content gaps...');
         
         const missing = [];
@@ -129,8 +140,9 @@ async function main() {
             }
 
             term = term.trim().replace(/[?!]/g, '');
+            const normalizedTerm = normalize(term);
 
-            if (term.length > 2 && !existingTerms.has(term) && !seenQueries.has(term) && row.impressions > 20) {
+            if (term.length > 2 && !normalizedExisting.has(normalizedTerm) && !seenQueries.has(normalizedTerm) && row.impressions > 20) {
                 missing.push({
                     pidgin: term,
                     english: ["TBD (Add English translation)"],
@@ -140,7 +152,7 @@ async function main() {
                     ctr: (row.ctr * 100).toFixed(2) + '%',
                     position: row.position.toFixed(1)
                 });
-                seenQueries.add(term);
+                seenQueries.add(normalizedTerm);
             }
         }
 

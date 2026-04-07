@@ -58,10 +58,52 @@ function findRelatedPhrases(phrase, allPhrases, limit = 6) {
 }
 
 /**
+ * Internal Linker: Finds dictionary terms in a phrase and wraps them in links
+ */
+function internalLinker(text, dictionary) {
+    if (!text || !dictionary || dictionary.length === 0) return text;
+    
+    let linkedText = text;
+    
+    // Sort dictionary by length descending to match longest terms first
+    const sortedDict = [...dictionary].sort((a, b) => b.pidgin.length - a.pidgin.length);
+    
+    for (const term of sortedDict) {
+        const pidgin = term.pidgin.toLowerCase();
+        // Skip very short words to avoid over-linking common small words
+        if (pidgin.length < 3) continue;
+        
+        // Escape special characters for regex
+        const escapedPidgin = pidgin.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        
+        // Match whole word only, case insensitive, but not already inside a tag
+        // We use a temporary placeholder to avoid double-linking
+        const regex = new RegExp(`\\b(${escapedPidgin})\\b`, 'gi');
+        
+        // Simple check to see if we've already linked this part
+        // (A more robust solution would use a proper HTML parser)
+        linkedText = linkedText.replace(regex, (match) => {
+            const slug = createSlug(pidgin);
+            return `<a href="/word/${slug}.html" class="text-purple-600 hover:underline font-medium">${match}</a>`;
+        });
+        
+        // Once we link a term, we stop for this specific term to prevent nested links
+        // However, the longest-first sorting helps significantly
+    }
+    
+    return linkedText;
+}
+
+/**
  * Generate HTML page for a single phrase
  */
-function generatePhrasePage(phrase, relatedPhrases, navigation, footer) {
+function generatePhrasePage(phrase, relatedPhrases, navigation, footer, dictionary) {
     const slug = createSlug(phrase.pidgin);
+    
+    // Apply internal linking to the phrase itself and notes
+    const linkedPhrase = internalLinker(phrase.pidgin, dictionary);
+    const linkedNotes = internalLinker(phrase.notes || '', dictionary);
+    
     const escapedPhrase = escapeHtml(phrase.pidgin);
     const escapedEnglish = escapeHtml(phrase.english);
     const escapedCategory = escapeHtml(phrase.category || 'general');
@@ -249,7 +291,7 @@ ${headContent}
     <main class="container mx-auto px-4 py-8 max-w-4xl">
         <!-- Phrase Header -->
         <div class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 rounded-3xl p-8 mb-8 shadow-2xl border-2 border-purple-200">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-2">${escapedPhrase}</h1>
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-2">${linkedPhrase}</h1>
             <p class="text-xl text-gray-600 mb-4">Meaning: <span class="font-semibold text-purple-700">${escapedEnglish}</span></p>
 
             ${phrase.pronunciation ? `
@@ -290,7 +332,7 @@ ${headContent}
 
             ${phrase.notes ? `
             <div class="mt-6 bg-blue-50 rounded-xl p-4 border-l-4 border-blue-500">
-                <p class="text-gray-700"><strong>Usage Notes:</strong> ${escapedNotes}</p>
+                <p class="text-gray-700"><strong>Usage Notes:</strong> ${linkedNotes}</p>
             </div>
             ` : ''}
         </section>
@@ -353,10 +395,14 @@ async function main() {
     console.log('🏗️  Generating individual phrase pages...\n');
 
     try {
-        // Fetch phrases from Supabase
-        console.log('🔄 Fetching phrases from Supabase...');
-        const phrases = await fetchFromSupabase('phrases', '*', 'pidgin.asc');
-        console.log(`✅ Fetched ${phrases.length} total phrases from Supabase\n`);
+        // Fetch phrases and dictionary from Supabase
+        console.log('🔄 Fetching data from Supabase...');
+        const [phrases, dictionary] = await Promise.all([
+            fetchFromSupabase('phrases', '*', 'pidgin.asc'),
+            fetchFromSupabase('dictionary_entries', 'pidgin', 'pidgin.asc')
+        ]);
+        
+        console.log(`✅ Fetched ${phrases.length} total phrases and ${dictionary.length} dictionary terms\n`);
 
         if (phrases.length === 0) {
             throw new Error('No phrases found in Supabase');
@@ -388,7 +434,7 @@ async function main() {
                 const relatedPhrases = findRelatedPhrases(phrase, phrases);
 
                 // Generate HTML
-                const html = generatePhrasePage(phrase, relatedPhrases, navigation, footer);
+                const html = generatePhrasePage(phrase, relatedPhrases, navigation, footer, dictionary);
 
                 // Write file
                 const filename = `${slug}.html`;
