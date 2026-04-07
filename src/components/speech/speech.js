@@ -386,6 +386,19 @@ class PidginSpeech {
         return params;
     }
 
+    // Helper to track pronunciation events in Google Analytics
+    trackPronunciation(text, provider) {
+        if (typeof gtag === 'function') {
+            gtag('event', 'pronunciation_play', {
+                'event_category': 'Engagement',
+                'event_label': text,
+                'value': 1,
+                'provider': provider,
+                'content_type': text.split(' ').length > 1 ? 'phrase' : 'word'
+            });
+        }
+    }
+
     // Main speak function with ElevenLabs integration and fallback
     speak(text, options = {}) {
         return new Promise(async (resolve, reject) => {
@@ -396,7 +409,10 @@ class PidginSpeech {
                     const phoneticText = this.applyPhoneticTransform(text);
 
                     await elevenLabsSpeech.speak(phoneticText, {
-                        onStart: options.onStart,
+                        onStart: () => {
+                            this.trackPronunciation(text, 'ElevenLabs');
+                            if (options.onStart) options.onStart();
+                        },
                         onSuccess: () => {
                             if (options.onSuccess) options.onSuccess();
                             resolve();
@@ -426,8 +442,8 @@ class PidginSpeech {
             return;
         }
 
-        // Cancel any ongoing speech
-        speechSynthesis.cancel();
+        // Track the fallback event
+        this.trackPronunciation(text, 'Browser');
 
         // Wait for voices to load if needed
         if (!this.isLoaded) {
