@@ -64,7 +64,7 @@ function applyPronunciationCorrections(text) {
         'wassamattayou': 'wah-sah-mah-tah-yoo',
         'whaddsdascoops': 'whah-dah-dah-skoops',
         'shaka': 'shah-kah',
-        'slippahs': 'slip-pahz',
+        'slippahs': 'slippahz',
         'still': 'steel',
         'brah': 'brah',
         'bruddah': 'bruh-dah',
@@ -140,9 +140,9 @@ function applyPronunciationCorrections(text) {
     });
 
     // 2. Final 'r' dropping
-    correctedText = correctedText.replace(/(\w+)er\b/g, '$1-ah');
-    correctedText = correctedText.replace(/(\w+)ar\b/g, '$1-ah');
-    correctedText = correctedText.replace(/(\w+)or\b/g, '$1-oh');
+    correctedText = correctedText.replace(/(\w+)er\b/g, '$1ah');
+    correctedText = correctedText.replace(/(\w+)ar\b/g, '$1ah');
+    correctedText = correctedText.replace(/(\w+)or\b/g, '$1oh');
 
     // 3. Vowel Adjustments for Hawaiian words
     const isPidginLike = (word) => {

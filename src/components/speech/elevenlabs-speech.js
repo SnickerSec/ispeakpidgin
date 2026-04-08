@@ -173,7 +173,7 @@ class ElevenLabsSpeech {
             'wassamattayou': 'wah-sah-mah-tah-yoo',
             'whaddsdascoops': 'whah-dah-dah-skoops',
             'shaka': 'shah-kah',
-            'slippahs': 'slip-pahz',
+            'slippahs': 'slippahz',
             'still': 'steel',
             'brah': 'brah',
             'bruddah': 'bruh-dah',
@@ -262,10 +262,10 @@ class ElevenLabsSpeech {
         });
 
         // 2. Final 'r' dropping (non-rhoticity)
-        // car -> cah, water -> wah-tah
-        correctedText = correctedText.replace(/(\w+)er\b/g, '$1-ah');
-        correctedText = correctedText.replace(/(\w+)ar\b/g, '$1-ah');
-        correctedText = correctedText.replace(/(\w+)or\b/g, '$1-oh');
+        // car -> cah, water -> wahtah
+        correctedText = correctedText.replace(/(\w+)er\b/g, '$1ah');
+        correctedText = correctedText.replace(/(\w+)ar\b/g, '$1ah');
+        correctedText = correctedText.replace(/(\w+)or\b/g, '$1oh');
 
         // 3. Vowel Adjustments for Hawaiian words
         // 'ai' usually sounds like 'eye'

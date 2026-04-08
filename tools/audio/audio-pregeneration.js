@@ -66,7 +66,7 @@ function applyPronunciationCorrections(text) {
         'wassamattayou': 'wah-sah-mah-tah-yoo',
         'whaddsdascoops': 'whah-dah-dah-skoops',
         'shaka': 'shah-kah',
-        'slippahs': 'slip-pahz',
+        'slippahs': 'slippahz',
         'still': 'steel',
         'brah': 'brah',
         'bruddah': 'bruh-dah',
@@ -93,7 +93,7 @@ function applyPronunciationCorrections(text) {
         'akamai': 'ah-kah-my',
         'buggah': 'buh-gah',
         'niele': 'nee-eh-leh',
-        'pilicai': 'pee-lee-kee-ah',
+        'pilikia': 'pee-lee-kee-ah',
         'ainokea': 'eye-no-kay-ah',
         'mo bettah': 'mo beh-tah',
         'kay den': 'kay den...',
@@ -112,18 +112,26 @@ function applyPronunciationCorrections(text) {
     };
 
     let correctedText = text.toLowerCase();
+
+    // 1. Th-fronting
+    const thWords = {
+        'the': 'dah', 'that': 'daht', 'this': 'dis', 'them': 'dehm',
+        'there': 'dea', 'then': 'dehn', 'their': 'dea', 'they': 'dey',
+        'with': 'wit', 'mother': 'mah-dah', 'father': 'fah-dah', 'brother': 'bruh-dah'
+    };
     
-    // Sort keys by length descending to match longer phrases first
-    const sortedKeys = Object.keys(pronunciationMap).sort((a, b) => b.length - a.length);
-    
-    sortedKeys.forEach(original => {
-        const phonetic = pronunciationMap[original];
-        const regex = new RegExp(`\\b${original}\\b`, 'gi');
-        correctedText = correctedText.replace(regex, phonetic);
+    Object.entries(thWords).forEach(([word, replacement]) => {
+        const regex = new RegExp(`\\b${word}\\b`, 'gi');
+        correctedText = correctedText.replace(regex, replacement);
     });
 
-    return correctedText;
-}
+    // 2. Final 'r' dropping
+    correctedText = correctedText.replace(/(\w+)er\b/g, '$1ah');
+    correctedText = correctedText.replace(/(\w+)ar\b/g, '$1ah');
+    correctedText = correctedText.replace(/(\w+)or\b/g, '$1oh');
+
+    // Sort keys by length descending to match longer phrases first
+    const sortedKeys = Object.keys(pronunciationMap).sort((a, b) => b.length - a.length);
 
 async function fetchAllEntries() {
     try {
