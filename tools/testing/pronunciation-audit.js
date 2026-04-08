@@ -82,6 +82,7 @@ function applyPronunciationCorrections(text) {
         'choke': 'choke',
         'bamboocha': 'bam-boo-chah',
         'akamai': 'ah-kah-my',
+        'buggah': 'buh-gah',
         'niele': 'nee-eh-leh',
         'pilikia': 'pee-lee-kee-ah',
         'ainokea': 'eye-no-kay-ah',
