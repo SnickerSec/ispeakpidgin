@@ -212,7 +212,7 @@ function getCommonHead({ title, metaDescription, keywords, canonicalUrl, ogType 
  */
 function getGameLinksHtml() {
     return `
-        <section class="bg-gradient-to-r from-yellow-100 to-orange-100 rounded-3xl p-8 mb-8 shadow-xl border-2 border-yellow-200 overflow-hidden relative group">
+        <section class="mt-12 bg-gradient-to-r from-yellow-100 to-orange-100 rounded-3xl p-8 mb-8 shadow-xl border-2 border-yellow-200 overflow-hidden relative group">
             <div class="absolute -right-10 -bottom-10 text-9xl text-yellow-500/10 rotate-12 group-hover:scale-110 transition-transform duration-500">
                 <i class="ti ti-device-gamepad-2"></i>
             </div>
@@ -263,7 +263,7 @@ function getGameLinksHtml() {
 function getQuickActionsHtml(translateText) {
     const encoded = encodeURIComponent(translateText || '');
     return `
-        <section class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-8 mb-8 shadow-xl">
+        <section class="mt-12 bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-8 mb-8 shadow-xl">
             <h2 class="text-2xl font-bold text-gray-800 mb-4"><i class="ti ti-rocket"></i> Quick Actions</h2>
             <div class="flex flex-wrap gap-4">
                 <a href="/translator.html${encoded ? '?text=' + encoded : ''}"
