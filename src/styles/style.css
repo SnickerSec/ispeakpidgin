@@ -756,15 +756,20 @@ button:focus, a:focus, input:focus, textarea:focus {
 .nav-dropdown .dropdown-menu {
     position: absolute;
     left: 0;
-    margin-top: 0.5rem;
+    top: 100%;
+    padding-top: 0.5rem; /* Gap replacement using padding to maintain hover state */
     width: 12rem;
+    background-color: transparent;
+    display: none;
+    z-index: 50;
+}
+
+.dropdown-menu-content {
     background-color: white;
     border-radius: 0.5rem;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     border: 1px solid rgba(0, 0, 0, 0.1);
     padding: 0.5rem 0;
-    display: none;
-    z-index: 50;
 }
 
 /* Show dropdown on hover (desktop) or when .show class is added (click/touch) */
@@ -785,12 +790,12 @@ button:focus, a:focus, input:focus, textarea:focus {
     color: #16a34a;
 }
 
-.nav-dropdown .dropdown-menu a:first-child {
+.nav-dropdown .dropdown-menu-content a:first-child {
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
 }
 
-.nav-dropdown .dropdown-menu a:last-child {
+.nav-dropdown .dropdown-menu-content a:last-child {
     border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
 }
