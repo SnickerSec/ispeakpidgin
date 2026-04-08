@@ -167,7 +167,7 @@ function generateStoryPage(story, allStories, navigation, footer) {
     // Related stories
     const relatedStories = findRelatedStories(story, allStories);
     const relatedHtml = relatedStories.length > 0 ? `
-        <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
+        <section class="mt-12 bg-white rounded-2xl p-8 mb-8 shadow-xl">
             <h2 class="text-2xl font-bold text-gray-800 mb-6"><i class="ti ti-books"></i> Related Stories</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 ${relatedStories.map(rs => {
@@ -188,7 +188,7 @@ function generateStoryPage(story, allStories, navigation, footer) {
 
     // Vocabulary grid HTML
     const vocabularyHtml = vocabulary.length > 0 ? `
-        <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
+        <section class="mt-12 bg-white rounded-2xl p-8 mb-8 shadow-xl">
             <h2 class="text-2xl font-bold text-gray-800 mb-6"><i class="ti ti-vocabulary"></i> Vocabulary</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 ${vocabulary.map(v => `
@@ -203,7 +203,7 @@ function generateStoryPage(story, allStories, navigation, footer) {
 
     // Cultural notes HTML
     const culturalNotesHtml = story.cultural_notes ? `
-        <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
+        <section class="mt-12 bg-white rounded-2xl p-8 mb-8 shadow-xl">
             <h2 class="text-2xl font-bold text-gray-800 mb-4"><i class="ti ti-flower"></i> Cultural Notes</h2>
             <div class="bg-gradient-to-r from-orange-50 to-pink-50 rounded-xl p-6 border-l-4 border-orange-500">
                 <p class="text-lg text-gray-700">${escapeHtml(story.cultural_notes)}</p>

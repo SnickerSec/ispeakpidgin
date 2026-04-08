@@ -128,7 +128,7 @@ function generatePickupPage(line, relatedLines) {
 
     // Related lines HTML
     const relatedHtml = relatedLines.length > 0 ? `
-        <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
+        <section class="mt-12 bg-white rounded-2xl p-8 mb-8 shadow-xl">
             <h2 class="text-2xl font-bold text-gray-800 mb-6"><i class="ti ti-heart"></i> Related Pickup Lines</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 ${relatedLines.map(related => {
