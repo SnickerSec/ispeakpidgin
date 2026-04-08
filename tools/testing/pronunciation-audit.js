@@ -149,7 +149,10 @@ function applyPronunciationCorrections(text) {
     // 3. Vowel Adjustments for Hawaiian words
     const isPidginLike = (word) => {
         // Exclude common English words that might trigger false positives
-        const commonEnglish = ['you', 'your', 'out', 'about', 'around', 'sound', 'house', 'mouth', 'stout', 'shout'];
+        const commonEnglish = [
+            'you', 'your', 'out', 'about', 'around', 'sound', 'house', 'mouth', 'stout', 'shout',
+            'friend', 'believe', 'field', 'piece', 'view', 'die', 'lie', 'tie', 'tried'
+        ];
         if (commonEnglish.includes(word.toLowerCase())) return false;
 
         return /['ʻ]/.test(word) || pronunciationMap[word.replace(/['ʻ]/g, '')] || 

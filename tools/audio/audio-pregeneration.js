@@ -132,6 +132,41 @@ function applyPronunciationCorrections(text) {
     correctedText = correctedText.replace(/(\w+)ar\b/g, '$1ah');
     correctedText = correctedText.replace(/(\w+)or\b/g, '$1oh');
 
+    // Helper to check if a word is likely Hawaiian/Pidgin (contains unique patterns)
+    const isPidginLike = (word) => {
+        // Exclude common English words that might trigger false positives
+        const commonEnglish = [
+            'you', 'your', 'out', 'about', 'around', 'sound', 'house', 'mouth', 'stout', 'shout',
+            'friend', 'believe', 'field', 'piece', 'view', 'die', 'lie', 'tie', 'tried'
+        ];
+        if (commonEnglish.includes(word.toLowerCase())) return false;
+
+        return /['ʻ]/.test(word) || pronunciationMap[word.replace(/['ʻ]/g, '')] || 
+               ['ka', 'la', 'ma', 'na', 'ha', 'ke', 'le', 'me', 'ne', 'he', 'oi', 'ai', 'au', 'ei', 'ie', 'ou'].some(s => word.includes(s));
+    };
+    const words = correctedText.split(/\s+/);
+    const processedWords = words.map(word => {
+        // Check map with and without okinas
+        const cleanWord = word.replace(/['ʻ]/g, '');
+        if (pronunciationMap[word]) return pronunciationMap[word];
+        if (pronunciationMap[cleanWord]) return pronunciationMap[cleanWord];
+        
+        if (isPidginLike(word)) {
+            let w = word.replace(/['ʻ]/g, '-'); // Pause for okinas
+            w = w.replace(/ai/g, 'eye');
+            w = w.replace(/au/g, 'ow');
+            w = w.replace(/oi/g, 'oy');
+            w = w.replace(/ei/g, 'ay');
+            w = w.replace(/ie/g, 'ee-eh');
+            // Clean up leading/trailing hyphens from okinas
+            w = w.replace(/^-/, '').replace(/-$/, '');
+            return w;
+        }
+        return word;
+    });
+    
+    correctedText = processedWords.join(' ');
+
     // Sort keys by length descending to match longer phrases first
     const sortedKeys = Object.keys(pronunciationMap).sort((a, b) => b.length - a.length);
 
