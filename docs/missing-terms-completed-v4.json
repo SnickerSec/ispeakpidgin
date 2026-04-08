@@ -1,0 +1,256 @@
+{
+  "generated": "2026-04-08T07:00:00.000Z",
+  "count": 25,
+  "missing": [
+    {
+      "pidgin": "help",
+      "english": ["kōkua", "assistance", "support"],
+      "category": "general",
+      "pronunciation": "help",
+      "examples": ["You need some help with dat?"],
+      "usage": "While 'help' is used, locals often use 'kōkua' for a more cultural sense of cooperation and assistance.",
+      "difficulty": "beginner",
+      "tags": ["general", "social"]
+    },
+    {
+      "pidgin": "nosey",
+      "english": ["niele", "prying", "meddling"],
+      "category": "descriptions",
+      "pronunciation": "NO-zee",
+      "examples": ["Brah, no stay so nosey!"],
+      "usage": "A common English word used in Pidgin, often synonymous with 'niele'.",
+      "difficulty": "beginner",
+      "tags": ["personality"]
+    },
+    {
+      "pidgin": "kōkua kōkua",
+      "english": ["help help", "extreme cooperation"],
+      "category": "expressions",
+      "pronunciation": "koh-KOO-ah koh-KOO-ah",
+      "examples": ["We need kōkua kōkua for fix da roof."],
+      "usage": "Reduplication in Pidgin/Hawaiian often adds emphasis. Repeating kōkua emphasizes a great need for help.",
+      "difficulty": "intermediate",
+      "tags": ["emphasis", "hawaiian"]
+    },
+    {
+      "pidgin": "ocean",
+      "english": ["kai", "moana"],
+      "category": "nature",
+      "pronunciation": "OH-shun",
+      "examples": ["Da ocean stay looking blue today."],
+      "usage": "Used alongside 'kai' (near shore) and 'moana' (deep sea/open ocean).",
+      "difficulty": "beginner",
+      "tags": ["nature"]
+    },
+    {
+      "pidgin": "teacher",
+      "english": ["kumu", "instructor"],
+      "category": "people",
+      "pronunciation": "TEE-chah",
+      "examples": ["My teacher stay giving choke homework."],
+      "usage": "Pronounced with a dropped 'r'. 'Kumu' is the preferred local term for a teacher or source of knowledge.",
+      "difficulty": "beginner",
+      "tags": ["school", "people"]
+    },
+    {
+      "pidgin": "a goin",
+      "english": ["going", "about to"],
+      "category": "general",
+      "pronunciation": "ah GO-in",
+      "examples": ["I a goin' store, you like something?"],
+      "usage": "A common contraction of 'I am going'. Used to indicate future action.",
+      "difficulty": "intermediate",
+      "tags": ["grammar", "action"]
+    },
+    {
+      "pidgin": "faka",
+      "english": ["fucker", "guy", "jerk"],
+      "category": "slang",
+      "pronunciation": "FAH-kah",
+      "examples": ["Dat faka stay late again!"],
+      "usage": "A very common island slang term. Depending on tone, it can be a friendly way to refer to a guy or a sharp insult.",
+      "difficulty": "intermediate",
+      "tags": ["slang", "people"]
+    },
+    {
+      "pidgin": "everyone",
+      "english": ["errbody", "all da guys"],
+      "category": "people",
+      "pronunciation": "EV-ree-won",
+      "examples": ["Everyone stay going beach tomorrow."],
+      "usage": "Standard English word used frequently in Pidgin sentences.",
+      "difficulty": "beginner",
+      "tags": ["people"]
+    },
+    {
+      "pidgin": "fat",
+      "english": ["momona", "huge", "thick"],
+      "category": "descriptions",
+      "pronunciation": "fat",
+      "examples": ["Ho, dat one fat fish you caught!"],
+      "usage": "Often used as a compliment for fish or food. 'Momona' is the Hawaiian equivalent.",
+      "difficulty": "beginner",
+      "tags": ["description"]
+    },
+    {
+      "pidgin": "dead",
+      "english": ["make", "pau"],
+      "category": "general",
+      "pronunciation": "ded",
+      "examples": ["My phone stay dead, no more charge."],
+      "usage": "Used for electronics or literal death. 'Make' (mah-kay) is the common Pidgin term for dead.",
+      "difficulty": "beginner",
+      "tags": ["general"]
+    },
+    {
+      "pidgin": "let's go",
+      "english": ["we go", "aurite", "shoots"],
+      "category": "expressions",
+      "pronunciation": "lets go",
+      "examples": ["Let's go, da waves stay pumping!"],
+      "usage": "While used, locals more commonly say 'We go' or 'Hele on'.",
+      "difficulty": "beginner",
+      "tags": ["action", "expression"]
+    },
+    {
+      "pidgin": "no ganja",
+      "english": ["no marijuana", "sober"],
+      "category": "slang",
+      "pronunciation": "no GAHN-jah",
+      "examples": ["No ganja for me, I stay driving."],
+      "usage": "Common slang for marijuana. 'No ganja' implies avoiding or being without it.",
+      "difficulty": "intermediate",
+      "tags": ["slang", "lifestyle"]
+    },
+    {
+      "pidgin": "sea",
+      "english": ["kai", "ocean"],
+      "category": "nature",
+      "pronunciation": "see",
+      "examples": ["I love da smell of da sea."],
+      "usage": "Used less often than 'ocean' or 'kai' in local speech.",
+      "difficulty": "beginner",
+      "tags": ["nature"]
+    },
+    {
+      "pidgin": "done",
+      "english": ["pau", "finished"],
+      "category": "general",
+      "pronunciation": "dun",
+      "examples": ["You done with your lunch?"],
+      "usage": "Standard English word used alongside the much more common 'pau'.",
+      "difficulty": "beginner",
+      "tags": ["general"]
+    },
+    {
+      "pidgin": "all done",
+      "english": ["all pau", "completely finished"],
+      "category": "general",
+      "pronunciation": "all dun",
+      "examples": ["I stay all done with my work."],
+      "usage": "A variation of 'all pau'. Indicates something is entirely completed.",
+      "difficulty": "beginner",
+      "tags": ["general"]
+    },
+    {
+      "pidgin": "cuz cousin",
+      "english": ["cuz", "cousin", "friend"],
+      "category": "people",
+      "pronunciation": "kuz KUZ-in",
+      "examples": ["Howzit cuz, how your cousin stay?"],
+      "usage": "Refers to both actual relatives and close friends. 'Cuz' is the ubiquitous short form.",
+      "difficulty": "beginner",
+      "tags": ["people", "family"]
+    },
+    {
+      "pidgin": "yobo korean",
+      "english": ["yobo", "honey", "darling"],
+      "category": "people",
+      "pronunciation": "YO-bo ko-REE-an",
+      "examples": ["His yobo stay one mean cook."],
+      "usage": "A term of endearment from Korean (yobo) used in Hawaii to refer to a spouse or partner, particularly among older generations.",
+      "difficulty": "intermediate",
+      "tags": ["people", "relationship"]
+    },
+    {
+      "pidgin": "all bline",
+      "english": ["extremely drunk", "blind drunk"],
+      "category": "slang",
+      "pronunciation": "all BLYNE",
+      "examples": ["He was all bline at da wedding."],
+      "usage": "Slang for being heavily intoxicated to the point of not being able to see straight.",
+      "difficulty": "intermediate",
+      "tags": ["slang", "party"]
+    },
+    {
+      "pidgin": "so ono",
+      "english": ["very delicious", "tasty"],
+      "category": "food",
+      "pronunciation": "so OH-no",
+      "examples": ["Dis poke stay so ono!"],
+      "usage": "Emphasis on 'ono' (delicious). A very common way to praise good food.",
+      "difficulty": "beginner",
+      "tags": ["food"]
+    },
+    {
+      "pidgin": "pow",
+      "english": ["pau", "finished"],
+      "category": "general",
+      "pronunciation": "pow",
+      "examples": ["I almost pow already."],
+      "usage": "A common phonetic misspelling of 'pau' used in texts and casual writing.",
+      "difficulty": "beginner",
+      "tags": ["misspelling", "general"]
+    },
+    {
+      "pidgin": "hawaiin",
+      "english": ["Hawaiian"],
+      "category": "general",
+      "pronunciation": "ha-WYE-in",
+      "examples": ["I love Hawaiin music."],
+      "usage": "Common misspelling of 'Hawaiian'. Users often search for this.",
+      "difficulty": "beginner",
+      "tags": ["misspelling"]
+    },
+    {
+      "pidgin": "how to respond to howzit",
+      "english": ["Responses to howzit"],
+      "category": "greetings",
+      "pronunciation": "how to re-spond to how-zit",
+      "examples": ["Stay good", "Howzit", "Shoots"],
+      "usage": "Typical responses include repeating 'howzit', 'stay good', 'all good', or simply 'shoots'.",
+      "difficulty": "beginner",
+      "tags": ["etiquette", "greetings"]
+    },
+    {
+      "pidgin": "sea",
+      "english": ["kai", "ocean"],
+      "category": "nature",
+      "pronunciation": "see",
+      "examples": ["Go look da sea."],
+      "usage": "Standard English word used in local context.",
+      "difficulty": "beginner",
+      "tags": ["nature"]
+    },
+    {
+      "pidgin": "ole way",
+      "english": ["auwe", "oh no"],
+      "category": "expressions",
+      "pronunciation": "oh-LAY way",
+      "examples": ["Ole way! I forgot my keys!"],
+      "usage": "Phonetic misspelling of 'auwe'.",
+      "difficulty": "beginner",
+      "tags": ["misspelling", "expression"]
+    },
+    {
+      "pidgin": "punnami",
+      "english": ["punani", "vagina"],
+      "category": "slang",
+      "pronunciation": "poo-NAH-mee",
+      "examples": ["No use dat word around your tutu."],
+      "usage": "Common misspelling of 'punani'.",
+      "difficulty": "intermediate",
+      "tags": ["misspelling", "slang"]
+    }
+  ]
+}
