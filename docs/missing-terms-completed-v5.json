@@ -1,0 +1,206 @@
+{
+  "generated": "2026-04-08T07:30:00.000Z",
+  "count": 20,
+  "missing": [
+    {
+      "pidgin": "bumbumbai",
+      "english": ["eventually", "later on", "by and by"],
+      "category": "general",
+      "pronunciation": "bum-bum-BYE",
+      "examples": ["Bumbumbai you going learn, no worry."],
+      "usage": "A more emphasized version of 'bumbai' or 'bumbye'. Indicates something will happen in the future, often as a consequence.",
+      "difficulty": "intermediate",
+      "tags": ["time", "future"]
+    },
+    {
+      "pidgin": "steah",
+      "english": ["stay", "is", "located at"],
+      "category": "general",
+      "pronunciation": "STE-ah",
+      "examples": ["Wea you steah?"],
+      "usage": "A heavy phonetic spelling of 'stay'. Used as a verb 'to be' or to indicate location.",
+      "difficulty": "intermediate",
+      "tags": ["verb", "grammar"]
+    },
+    {
+      "pidgin": "faskine",
+      "english": ["fast", "quickly"],
+      "category": "descriptions",
+      "pronunciation": "FAS-kyne",
+      "examples": ["He run faskine, yeah?"],
+      "usage": "Contraction of 'fast kine'. Used to describe speed.",
+      "difficulty": "beginner",
+      "tags": ["description", "speed"]
+    },
+    {
+      "pidgin": "heavy",
+      "english": ["cool", "impressive", "intense"],
+      "category": "expressions",
+      "pronunciation": "HEH-vee",
+      "examples": ["Ho, dat wave was heavy!"],
+      "usage": "Used to describe something powerful, impressive, or serious.",
+      "difficulty": "beginner",
+      "tags": ["expression", "slang"]
+    },
+    {
+      "pidgin": "junk city",
+      "english": ["terrible", "very bad", "low quality"],
+      "category": "expressions",
+      "pronunciation": "JUNK SI-tee",
+      "examples": ["Dis traffic stay junk city today."],
+      "usage": "An exaggerated way to say something is very bad or annoying.",
+      "difficulty": "beginner",
+      "tags": ["expression", "slang"]
+    },
+    {
+      "pidgin": "killah",
+      "english": ["excellent", "great", "cool"],
+      "category": "expressions",
+      "pronunciation": "KI-lah",
+      "examples": ["Dat was one killah sunset last night."],
+      "usage": "Slang for something that is exceptionally good.",
+      "difficulty": "beginner",
+      "tags": ["expression", "slang"]
+    },
+    {
+      "pidgin": "make a-ass",
+      "english": ["embarrass oneself", "act foolishly"],
+      "category": "expressions",
+      "pronunciation": "make ah-ASS",
+      "examples": ["No go make a-ass in front your tutu!"],
+      "usage": "To behave in a way that is embarrassing to oneself or others.",
+      "difficulty": "intermediate",
+      "tags": ["expression", "social"]
+    },
+    {
+      "pidgin": "mean kine",
+      "english": ["seriously", "really", "intensely"],
+      "category": "expressions",
+      "pronunciation": "MEAN kyne",
+      "examples": ["He stay hungry mean kine."],
+      "usage": "Used for emphasis, similar to 'really' or 'very'.",
+      "difficulty": "beginner",
+      "tags": ["emphasis"]
+    },
+    {
+      "pidgin": "moke out",
+      "english": ["act tough", "behave in a rugged local manner"],
+      "category": "slang",
+      "pronunciation": "MOKE out",
+      "examples": ["He stay moking out with his big truck."],
+      "usage": "To lean into a rugged, tough, local persona.",
+      "difficulty": "intermediate",
+      "tags": ["slang", "behavior"]
+    },
+    {
+      "pidgin": "one time",
+      "english": ["immediately", "right away"],
+      "category": "general",
+      "pronunciation": "won tyme",
+      "examples": ["Go store one time!"],
+      "usage": "Used to tell someone to do something immediately, not just 'once'.",
+      "difficulty": "intermediate",
+      "tags": ["time", "command"]
+    },
+    {
+      "pidgin": "pork out",
+      "english": ["overeat", "eat excessively"],
+      "category": "food",
+      "pronunciation": "pork out",
+      "examples": ["We went pork out at da buffet."],
+      "usage": "Common slang for eating a lot of food.",
+      "difficulty": "beginner",
+      "tags": ["food", "slang"]
+    },
+    {
+      "pidgin": "rattah",
+      "english": ["rather", "prefer"],
+      "category": "general",
+      "pronunciation": "RA-tah",
+      "examples": ["I rattah go beach than work."],
+      "usage": "Local pronunciation of 'rather'.",
+      "difficulty": "beginner",
+      "tags": ["pronunciation"]
+    },
+    {
+      "pidgin": "scared",
+      "english": ["afraid", "sked"],
+      "category": "general",
+      "pronunciation": "SKE-ard",
+      "examples": ["You scared, o wat?"],
+      "usage": "Often used in a challenging way among friends.",
+      "difficulty": "beginner",
+      "tags": ["emotion"]
+    },
+    {
+      "pidgin": "shoyu chicken",
+      "english": ["chicken cooked in soy sauce"],
+      "category": "food",
+      "pronunciation": "SHO-yu CHI-ken",
+      "examples": ["My favorite plate lunch stay shoyu chicken."],
+      "usage": "A staple local Hawaii dish.",
+      "difficulty": "beginner",
+      "tags": ["food", "local"]
+    },
+    {
+      "pidgin": "slippah weather",
+      "english": ["sunny weather", "warm weather"],
+      "category": "nature",
+      "pronunciation": "SLI-pah WE-thah",
+      "examples": ["Today stay perfect slippah weather."],
+      "usage": "Humorous way to describe a beautiful, sunny day in Hawaii.",
+      "difficulty": "beginner",
+      "tags": ["weather", "humor"]
+    },
+    {
+      "pidgin": "stay good",
+      "english": ["I am doing well", "fine"],
+      "category": "greetings",
+      "pronunciation": "stay gud",
+      "examples": ["Howzit? - Stay good, brah."],
+      "usage": "The standard positive response to 'Howzit?'.",
+      "difficulty": "beginner",
+      "tags": ["greeting", "response"]
+    },
+    {
+      "pidgin": "tita out",
+      "english": ["act like a tough local woman"],
+      "category": "slang",
+      "pronunciation": "TEE-tah out",
+      "examples": ["She stay tita-ing out on dat guy."],
+      "usage": "The female equivalent of 'moking out'.",
+      "difficulty": "intermediate",
+      "tags": ["slang", "behavior"]
+    },
+    {
+      "pidgin": "try wait",
+      "english": ["hold on", "wait a second"],
+      "category": "expressions",
+      "pronunciation": "try wayt",
+      "examples": ["Try wait, I coming!"],
+      "usage": "Used to ask someone to wait briefly. 'Try' is often used before verbs to make a polite request.",
+      "difficulty": "beginner",
+      "tags": ["command", "politeness"]
+    },
+    {
+      "pidgin": "wattah",
+      "english": ["water", "wai"],
+      "category": "nature",
+      "pronunciation": "WAH-tah",
+      "examples": ["Go jump in da wattah!"],
+      "usage": "Local pronunciation of 'water'.",
+      "difficulty": "beginner",
+      "tags": ["pronunciation", "nature"]
+    },
+    {
+      "pidgin": "you da man",
+      "english": ["you are the best", "great job"],
+      "category": "expressions",
+      "pronunciation": "you da man",
+      "examples": ["Tanks fo da help, you da man!"],
+      "usage": "A common expression of gratitude or praise.",
+      "difficulty": "beginner",
+      "tags": ["praise", "expression"]
+    }
+  ]
+}
