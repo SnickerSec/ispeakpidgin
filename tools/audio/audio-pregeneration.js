@@ -19,100 +19,128 @@ const FORCE_REGEN = args.includes('--force');
 const LIMIT_ARG = args.indexOf('--limit');
 const MAX_TO_GENERATE = LIMIT_ARG !== -1 ? parseInt(args[LIMIT_ARG + 1], 10) : 100;
 
-// Pidgin pronunciation corrections for TTS (identical to elevenlabs-speech.js)
-function applyPronunciationCorrections(text) {
-    const pronunciationMap = {
-        'kine': 'kyne',
-        'da kine': 'dah kyne',
-        'da': 'dah',
-        'any kine': 'any kyne',
-        'small kine': 'small kyne',
-        'funny kine': 'funny kyne',
-        'fast kine': 'fast kyne',
-        'faskine': 'fas-kyne',
-        'pau': 'pow',
-        'pau hana': 'pow hah-nah',
-        'mauka': 'mow-kah',
-        'makai': 'mah-kye',
-        'ono': 'oh-no',
-        'oe': 'oh-eh',
-        'ʻoe': 'oh-eh',
-        'auwe': 'ow-way',
-        'wahine': 'vah-hee-nay',
-        'kane': 'kah-nay',
-        'keiki': 'kay-kee',
-        'tutu': 'too-too',
-        'lanai': 'lah-nye',
-        'mahalo': 'mah-hah-low',
-        'aloha': 'ah-low-hah',
-        'ohana': 'oh-hah-nah',
-        'kokua': 'koh-koo-ah',
-        'malama': 'mah-lah-mah',
-        'kapu': 'kah-poo',
-        'wiki': 'vee-kee',
-        'wikiwiki': 'vee-kee-vee-kee',
-        'pupus': 'poo-poos',
-        'pupu': 'poo-poo',
-        'gou': 'gow',
-        'hale': 'hah-leh',
-        'hele': 'heh-leh',
-        'kupuna': 'koo-poo-nah',
-        'lolo': 'low-low',
-        'pilau': 'pee-lau',
-        'puka': 'poo-kah',
-        'humbug': 'hum-bug',
-        'ho': 'hoh',
-        'howzit': 'how-zit',
-        'hana hou': 'hah-nah hoh-oo',
-        'hanahou': 'hah-nah-hoh-oo',
-        'wassamattayou': 'wah-sah-mah-tah-yoo',
-        'whaddsdascoops': 'whah-dah-dah-skoops',
-        'shaka': 'shah-kah',
-        'slippahs': 'slippahz',
-        'still': 'steel',
-        'brah': 'brah',
-        'bruddah': 'bruh-dah',
-        'sistah': 'sis-tah',
-        'cuz': 'kuz',
-        'sole': 'so-leh',
-        'pake': 'pah-keh',
-        'haole': 'how-leh',
-        'poke': 'poh-kay',
-        'musubi': 'moo-soo-bee',
-        'shoyu': 'show-yoo',
-        'mochi': 'mo-chee',
-        'manapua': 'mah-nah-poo-ah',
-        'malasada': 'mah-lah-sah-dah',
-        'kanak': 'kah-nahk',
-        'grindz': 'gryndz',
-        'grind': 'grynd',
-        'kaukau': 'cow-cow',
-        'cheehoo': 'chee-hoo!',
-        'rajah': 'rah-jah',
-        'shoots': 'shoots',
-        'choke': 'choke',
-        'bamboocha': 'bam-boo-chah',
-        'akamai': 'ah-kah-my',
-        'buggah': 'buh-gah',
-        'niele': 'nee-eh-leh',
-        'pilikia': 'pee-lee-kee-ah',
-        'ainokea': 'eye-no-kay-ah',
-        'mo bettah': 'mo beh-tah',
-        'kay den': 'kay den...',
-        'aurite': 'ah-rye-t',
-        'stink eye': 'stink eye',
-        'chicken skin': 'chicken skin',
-        'talk story': 'talk story',
-        'broke da mouth': 'broke dah mouth',
-        'kanak attack': 'kah-nahk ah-tack',
-        'li hing mui': 'lee hing moo-ee',
-        'lilikoi': 'lee-lee-koy',
-        'faka': 'fah-kah',
-        'hamajang': 'hah-mah-jahng',
-        'mayjah': 'may-jah',
-        'poho': 'poh-hoh'
-    };
+// Shared pronunciation map (identical to elevenlabs-speech.js)
+const globalPronunciationMap = {
+    // "kine" should rhyme with "nine"
+    'kine': 'kyne',
+    'da kine': 'dah kyne',
+    'da': 'dah',
+    'any kine': 'any kyne',
+    'small kine': 'small kyne',
+    'funny kine': 'funny kyne',
+    'fast kine': 'fast kyne',
+    'faskine': 'fas-kyne',
 
+    // Common Hawaiian/Pidgin words with specific phonetic needs
+    'pau': 'pow',
+    'pau hana': 'pow hah-nah',
+    'mauka': 'mow-kah',
+    'makai': 'mah-kye',
+    'ono': 'oh-no',
+    'oe': 'oh-eh',
+    'ʻoe': 'oh-eh',
+    'auwe': 'ow-way',
+    'wahine': 'vah-hee-nay',
+    'kane': 'kah-nay',
+    'keiki': 'kay-kee',
+    'tutu': 'too-too',
+    'lanai': 'lah-nye',
+    'mahalo': 'mah-hah-low',
+    'aloha': 'ah-low-hah',
+    'ohana': 'oh-hah-nah',
+    'kokua': 'koh-koo-ah',
+    'malama': 'mah-lah-mah',
+    'kapu': 'kah-poo',
+    'wiki': 'vee-kee',
+    'wikiwiki': 'vee-kee-vee-kee',
+    'pupus': 'poo-poos',
+    'pupu': 'poo-poo',
+    'gou': 'gow',
+    'hale': 'hah-leh',
+    'hele': 'heh-leh',
+    'kupuna': 'koo-poo-nah',
+    'lolo': 'low-low',
+    'pilau': 'pee-lau',
+    'puka': 'poo-kah',
+    'humbug': 'hum-bug',
+    'ho': 'hoh',
+    'howzit': 'how-zit',
+    'hana hou': 'hah-nah hoh-oo',
+    'hanahou': 'hah-nah-hoh-oo',
+    'wassamattayou': 'wah-sah-mah-tah-yoo',
+    'whaddsdascoops': 'whah-dah-dah-skoops',
+    'shaka': 'shah-kah',
+    'slippahs': 'slippahz',
+    'still': 'steel',
+    'brah': 'brah',
+    'bruddah': 'bruh-dah',
+    'sistah': 'sis-tah',
+    'cuz': 'kuz',
+    'sole': 'so-leh',
+    'pake': 'pah-keh',
+    'haole': 'how-leh',
+    'poke': 'poh-kay',
+    'musubi': 'moo-soo-bee',
+    'shoyu': 'show-yoo',
+    'mochi': 'mo-chee',
+    'manapua': 'mah-nah-poo-ah',
+    'malasada': 'mah-lah-sah-dah',
+    'kanak': 'kah-nahk',
+    'grindz': 'gryndz',
+    'grind': 'grynd',
+    'kaukau': 'cow-cow',
+    'cheehoo': 'chee-hoo!',
+    'rajah': 'rah-jah',
+    'shoots': 'shoots',
+    'choke': 'choke',
+    'bamboocha': 'bam-boo-chah',
+    'akamai': 'ah-kah-my',
+    'buggah': 'buh-gah',
+    'niele': 'nee-eh-leh',
+    'pilikia': 'pee-lee-kee-ah',
+    'chee hu': 'chee-hoo!',
+    'pilau': 'pee-lau',
+    'bust \'em up': 'bust em up',
+    'bust em up': 'bust em up',
+    'ainokea': 'eye-no-kay-ah',
+    'mo bettah': 'mo beh-tah',
+    'kay den': 'kay den...',
+    'aurite': 'ah-rye-t',
+    'stink eye': 'stink eye',
+    'chicken skin': 'chicken skin',
+    'talk story': 'talk story',
+    'broke da mouth': 'broke dah mouth',
+    'kanak attack': 'kah-nahk ah-tack',
+    'li hing mui': 'lee hing moo-ee',
+    'lilikoi': 'lee-lee-koy',
+    'faka': 'fah-kah',
+    'hamajang': 'hah-mah-jahng',
+    'mayjah': 'may-jah',
+    'poho': 'poh-hoh'
+};
+
+// Helper to check if a word is likely Hawaiian/Pidgin (contains unique patterns)
+function isPidginLike(word) {
+    // Exclude common English words that might trigger false positives
+    const commonEnglish = [
+        'you', 'your', 'out', 'about', 'around', 'sound', 'house', 'mouth', 'stout', 'shout',
+        'friend', 'believe', 'field', 'piece', 'view', 'die', 'lie', 'tie', 'tried',
+        'cousin', 'jealous', 'touch', 'enough', 'rough', 'tough', 'young', 'country', 'should', 'would', 'could',
+        'lunch', 'just', 'much', 'such', 'but', 'bus', 'up', 'us', 'under', 'until', 'uncle',
+        'buss', 'buggah', 'bust', 'cuz', 'humbug', 'funny', 'rub', 'rubbah', 'surf', 'brush', 'crush', 'must', 'trust',
+        'chance', 'dance', 'lance', 'glance', 'france', 'stance', 'bruddah', 'laff', 'chawan', 'stay', 'broke',
+        'aunty', 'going', 'nails', 'worries', 'wait', 'bait', 'shark', 'choice', 'goin', 'townie', 'point', 'noise',
+        'voice', 'boil', 'oil', 'soil', 'join', 'coin', 'enjoy', 'boy', 'toy', 'joy',
+        'cut', 'joke', 'um', 'them', 'then', 'than', 'that', 'this', 'there', 'their', 'they', 'with', 'jealous',
+        'mout', 'bout', 'bust', 'pilau', 'up', 'em'
+    ];
+    if (commonEnglish.includes(word.toLowerCase())) return false;
+
+    return /['ʻ]/.test(word) || globalPronunciationMap[word.replace(/['ʻ]/g, '')] || 
+           ['ka', 'la', 'ma', 'na', 'ha', 'ke', 'le', 'me', 'ne', 'he', 'oi', 'ai', 'au', 'ei', 'ie', 'ou', 'lua', 'pua', 'hua'].some(s => word.includes(s));
+}
+
+function applyPronunciationCorrections(text) {
     let correctedText = text.toLowerCase();
 
     // 1. Th-fronting
@@ -132,33 +160,27 @@ function applyPronunciationCorrections(text) {
     correctedText = correctedText.replace(/(\w+)ar\b/g, '$1ah');
     correctedText = correctedText.replace(/(\w+)or\b/g, '$1oh');
 
-    // Helper to check if a word is likely Hawaiian/Pidgin (contains unique patterns)
-    const isPidginLike = (word) => {
-        // Exclude common English words that might trigger false positives
-        const commonEnglish = [
-            'you', 'your', 'out', 'about', 'around', 'sound', 'house', 'mouth', 'stout', 'shout',
-            'friend', 'believe', 'field', 'piece', 'view', 'die', 'lie', 'tie', 'tried'
-        ];
-        if (commonEnglish.includes(word.toLowerCase())) return false;
-
-        return /['ʻ]/.test(word) || pronunciationMap[word.replace(/['ʻ]/g, '')] || 
-               ['ka', 'la', 'ma', 'na', 'ha', 'ke', 'le', 'me', 'ne', 'he', 'oi', 'ai', 'au', 'ei', 'ie', 'ou'].some(s => word.includes(s));
-    };
+    // 3. Vowel Adjustments for Hawaiian words
     const words = correctedText.split(/\s+/);
     const processedWords = words.map(word => {
-        // Check map with and without okinas
         const cleanWord = word.replace(/['ʻ]/g, '');
-        if (pronunciationMap[word]) return pronunciationMap[word];
-        if (pronunciationMap[cleanWord]) return pronunciationMap[cleanWord];
+        if (globalPronunciationMap[word]) return globalPronunciationMap[word];
+        if (globalPronunciationMap[cleanWord]) return globalPronunciationMap[cleanWord];
         
         if (isPidginLike(word)) {
-            let w = word.replace(/['ʻ]/g, '-'); // Pause for okinas
+            let w = word.replace(/['ʻ]/g, '-');
             w = w.replace(/ai/g, 'eye');
             w = w.replace(/au/g, 'ow');
             w = w.replace(/oi/g, 'oy');
             w = w.replace(/ei/g, 'ay');
             w = w.replace(/ie/g, 'ee-eh');
-            // Clean up leading/trailing hyphens from okinas
+            // Hawaiian 'u' sounds like 'oo' (as in hula, pupule)
+            if (!w.includes('oo') && !w.includes('ow')) {
+                // Only transform 'u' if it's not followed by certain consonants that usually stay 'u'
+                // Or if it's a standalone 'u'
+                w = w.replace(/\bu\b/g, 'oo');
+                w = w.replace(/u(?![nstp])/g, 'oo');
+            }
             w = w.replace(/^-/, '').replace(/-$/, '');
             return w;
         }
@@ -167,8 +189,16 @@ function applyPronunciationCorrections(text) {
     
     correctedText = processedWords.join(' ');
 
-    // Sort keys by length descending to match longer phrases first
-    const sortedKeys = Object.keys(pronunciationMap).sort((a, b) => b.length - a.length);
+    // 4. Hardcoded map
+    const sortedKeys = Object.keys(globalPronunciationMap).sort((a, b) => b.length - a.length);
+    sortedKeys.forEach(original => {
+        const phonetic = globalPronunciationMap[original];
+        const regex = new RegExp(`\\b${original.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
+        correctedText = correctedText.replace(regex, phonetic);
+    });
+
+    return correctedText;
+}
 
 async function fetchAllEntries() {
     try {

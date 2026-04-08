@@ -203,6 +203,10 @@ class ElevenLabsSpeech {
             'buggah': 'buh-gah',
             'niele': 'nee-eh-leh',
             'pilikia': 'pee-lee-kee-ah',
+            'chee hu': 'chee-hoo!',
+            'pilau': 'pee-lau',
+            'bust \'em up': 'bust em up',
+            'bust em up': 'bust em up',
             'ainokea': 'eye-no-kay-ah',
             'mo bettah': 'mo beh-tah',
             'kay den': 'kay den...',
@@ -278,12 +282,20 @@ class ElevenLabsSpeech {
             // Exclude common English words that might trigger false positives
             const commonEnglish = [
                 'you', 'your', 'out', 'about', 'around', 'sound', 'house', 'mouth', 'stout', 'shout',
-                'friend', 'believe', 'field', 'piece', 'view', 'die', 'lie', 'tie', 'tried'
+                'friend', 'believe', 'field', 'piece', 'view', 'die', 'lie', 'tie', 'tried',
+                'cousin', 'jealous', 'touch', 'enough', 'rough', 'tough', 'young', 'country', 'should', 'would', 'could',
+                'lunch', 'just', 'much', 'such', 'but', 'bus', 'up', 'us', 'under', 'until', 'uncle',
+                'buss', 'buggah', 'bust', 'cuz', 'humbug', 'funny', 'rub', 'rubbah', 'surf', 'brush', 'crush', 'must', 'trust',
+                'chance', 'dance', 'lance', 'glance', 'france', 'stance', 'bruddah', 'laff', 'chawan', 'stay', 'broke',
+                'aunty', 'going', 'nails', 'worries', 'wait', 'bait', 'shark', 'choice', 'goin', 'townie', 'point', 'noise',
+                'voice', 'boil', 'oil', 'soil', 'join', 'coin', 'enjoy', 'boy', 'toy', 'joy',
+                'cut', 'joke', 'um', 'them', 'then', 'than', 'that', 'this', 'there', 'their', 'they', 'with', 'jealous',
+                'mout', 'bout', 'bust', 'pilau', 'up', 'em'
             ];
             if (commonEnglish.includes(word.toLowerCase())) return false;
 
             return /['ʻ]/.test(word) || pronunciationMap[word.replace(/['ʻ]/g, '')] || 
-                   ['ka', 'la', 'ma', 'na', 'ha', 'ke', 'le', 'me', 'ne', 'he', 'oi', 'ai', 'au', 'ei', 'ie', 'ou'].some(s => word.includes(s));
+                   ['ka', 'la', 'ma', 'na', 'ha', 'ke', 'le', 'me', 'ne', 'he', 'oi', 'ai', 'au', 'ei', 'ie', 'ou', 'lua', 'pua', 'hua'].some(s => word.includes(s));
         };
         const words = correctedText.split(/\s+/);
         const processedWords = words.map(word => {
@@ -299,6 +311,14 @@ class ElevenLabsSpeech {
                 w = w.replace(/oi/g, 'oy');
                 w = w.replace(/ei/g, 'ay');
                 w = w.replace(/ie/g, 'ee-eh');
+                // Hawaiian 'u' sounds like 'oo' (as in hula, pupule)
+                // But only if it's likely a Hawaiian word and not English/Pidgin
+                if (!w.includes('oo') && !w.includes('ow')) {
+                    // Only transform 'u' if it's not followed by certain consonants that usually stay 'u'
+                    // Or if it's a standalone 'u'
+                    w = w.replace(/\bu\b/g, 'oo');
+                    w = w.replace(/u(?![nstp])/g, 'oo');
+                }
                 // Clean up leading/trailing hyphens from okinas
                 w = w.replace(/^-/, '').replace(/-$/, '');
                 return w;
