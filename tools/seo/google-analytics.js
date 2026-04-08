@@ -515,6 +515,78 @@ async function cmdConversions() {
     output(formatted, 'Event Performance');
 }
 
+// Pronunciation Report
+async function cmdPronunciation() {
+    console.log(`\n🎙️  Analyzing pronunciation performance from last ${options.days} days...\n`);
+
+    const client = createClient();
+    
+    // 1. Basic Event Counts (Always works)
+    try {
+        console.log('--- Overall Speech Activity ---');
+        const basicEvents = await runReport(client, {
+            metrics: ['eventCount', 'totalUsers'],
+            dimensions: ['eventName'],
+            limit: 10,
+            days: options.days
+        });
+        
+        const speechEvents = basicEvents.filter(r => 
+            ['pronunciation_play', 'pronunciation_practice'].includes(r.eventName)
+        );
+        if (speechEvents.length > 0) {
+            output(speechEvents, 'Speech Event Overview');
+        } else {
+            console.log('No speech events recorded in this period yet.');
+        }
+    } catch (e) {
+        console.warn('⚠️ Could not fetch basic speech events:', e.message);
+    }
+
+    // 2. Try to get more detail if custom dimensions exist
+    console.log('\n--- Top Played Terms ---');
+    try {
+        const termData = await runReport(client, {
+            metrics: ['eventCount'],
+            dimensions: ['eventName', 'customEvent:event_label'],
+            limit: 20,
+            days: options.days
+        });
+        
+        const topTerms = termData.filter(r => r.eventName === 'pronunciation_play');
+        if (topTerms.length > 0) {
+            output(topTerms, 'Most Popular Pronunciations');
+        } else {
+            console.log('No specific term data found yet.');
+        }
+    } catch (e) {
+        console.log('ℹ️  Top terms data (event_label) not yet available or custom dimension not registered.');
+    }
+
+    console.log('\n--- Practice Accuracy ---');
+    try {
+        const practiceData = await runReport(client, {
+            metrics: ['eventCount', 'eventValue'],
+            dimensions: ['customEvent:event_label'],
+            limit: 20,
+            days: options.days
+        });
+        
+        if (practiceData.length > 0) {
+            const formattedPractice = practiceData.map(r => ({
+                term: r['customEvent:event_label'],
+                attempts: r.eventCount,
+                avgScore: r.eventCount > 0 ? (r.eventValue / r.eventCount).toFixed(1) : '0'
+            }));
+            output(formattedPractice, 'Practice Scores by Term');
+        } else {
+            console.log('No practice data found yet.');
+        }
+    } catch (e) {
+        console.log('ℹ️  Practice score data not yet available or custom dimension not registered.');
+    }
+}
+
 // Custom Report
 async function cmdReport() {
     const metrics = options.metrics || ['sessions', 'screenPageViews', 'totalUsers'];
@@ -794,6 +866,10 @@ async function main() {
                 break;
             case 'insights':
                 await cmdInsights();
+                break;
+            case 'pronunciation':
+            case 'speech':
+                await cmdPronunciation();
                 break;
             case 'realtime':
             case 'rt':
