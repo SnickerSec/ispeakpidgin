@@ -158,6 +158,7 @@ class ElevenLabsSpeech {
             'wikiwiki': 'vee-kee-vee-kee',
             'pupus': 'poo-poos',
             'pupu': 'poo-poo',
+            'gou': 'gow',
             'hale': 'hah-leh',
             'kupuna': 'koo-poo-nah',
             'lolo': 'low-low',
@@ -166,6 +167,10 @@ class ElevenLabsSpeech {
             'humbug': 'hum-bug',
             'ho': 'hoh',
             'howzit': 'how-zit',
+            'hana hou': 'hah-nah hoh-oo',
+            'hanahou': 'hah-nah-hoh-oo',
+            'wassamattayou': 'wah-sah-mah-tah-yoo',
+            'whaddsdascoops': 'whah-dah-dah-skoops',
             'shaka': 'shah-kah',
             'slippahs': 'slip-pahz',
             'still': 'steel',
@@ -257,14 +262,16 @@ class ElevenLabsSpeech {
         // 3. Vowel Adjustments for Hawaiian words
         // 'ai' usually sounds like 'eye'
         // 'au' usually sounds like 'ow' (as in cow)
-        // Only apply if not already handled by map
         
         // Helper to check if a word is likely Hawaiian/Pidgin (contains unique patterns)
         const isPidginLike = (word) => {
-            return /['ʻ]/.test(word) || pronunciationMap[word.replace(/['ʻ]/g, '')] || 
-                   ['ka', 'la', 'ma', 'na', 'ha', 'ke', 'le', 'me', 'ne', 'he', 'oi', 'ai', 'au', 'ei', 'ie'].some(s => word.includes(s));
-        };
+            // Exclude common English words that might trigger false positives
+            const commonEnglish = ['you', 'your', 'out', 'about', 'around', 'sound', 'house', 'mouth', 'stout', 'shout'];
+            if (commonEnglish.includes(word.toLowerCase())) return false;
 
+            return /['ʻ]/.test(word) || pronunciationMap[word.replace(/['ʻ]/g, '')] || 
+                   ['ka', 'la', 'ma', 'na', 'ha', 'ke', 'le', 'me', 'ne', 'he', 'oi', 'ai', 'au', 'ei', 'ie', 'ou'].some(s => word.includes(s));
+        };
         const words = correctedText.split(/\s+/);
         const processedWords = words.map(word => {
             // Check map with and without okinas

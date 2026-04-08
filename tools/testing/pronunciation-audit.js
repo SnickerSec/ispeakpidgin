@@ -49,6 +49,7 @@ function applyPronunciationCorrections(text) {
         'wikiwiki': 'vee-kee-vee-kee',
         'pupus': 'poo-poos',
         'pupu': 'poo-poo',
+        'gou': 'gow',
         'hale': 'hah-leh',
         'kupuna': 'koo-poo-nah',
         'lolo': 'low-low',
@@ -57,6 +58,10 @@ function applyPronunciationCorrections(text) {
         'humbug': 'hum-bug',
         'ho': 'hoh',
         'howzit': 'how-zit',
+        'hana hou': 'hah-nah hoh-oo',
+        'hanahou': 'hah-nah-hoh-oo',
+        'wassamattayou': 'wah-sah-mah-tah-yoo',
+        'whaddsdascoops': 'whah-dah-dah-skoops',
         'shaka': 'shah-kah',
         'slippahs': 'slip-pahz',
         'still': 'steel',
@@ -133,8 +138,12 @@ function applyPronunciationCorrections(text) {
 
     // 3. Vowel Adjustments for Hawaiian words
     const isPidginLike = (word) => {
+        // Exclude common English words that might trigger false positives
+        const commonEnglish = ['you', 'your', 'out', 'about', 'around', 'sound', 'house', 'mouth', 'stout', 'shout'];
+        if (commonEnglish.includes(word.toLowerCase())) return false;
+
         return /['ʻ]/.test(word) || pronunciationMap[word.replace(/['ʻ]/g, '')] || 
-               ['ka', 'la', 'ma', 'na', 'ha', 'ke', 'le', 'me', 'ne', 'he', 'oi', 'ai', 'au', 'ei', 'ie'].some(s => word.includes(s));
+               ['ka', 'la', 'ma', 'na', 'ha', 'ke', 'le', 'me', 'ne', 'he', 'oi', 'ai', 'au', 'ei', 'ie', 'ou'].some(s => word.includes(s));
     };
 
     const words = correctedText.split(/\s+/);
@@ -209,8 +218,24 @@ async function runAudit() {
             const clusters = ['ai', 'au', 'oi', 'ei', 'ie', 'ou'];
             clusters.forEach(c => {
                 if (original.toLowerCase().includes(c) && !wasTransformed) {
-                    score -= 10;
-                    issues.push(`Untransformed cluster: ${c}`);
+                    // Check if the cluster is in an English exclusion
+                    const commonEnglish = ['you', 'your', 'out', 'about', 'around', 'sound', 'house', 'mouth', 'stout', 'shout'];
+                    const words = original.toLowerCase().split(/\s+/);
+                    const hasExcludedWord = words.some(w => commonEnglish.includes(w) && w.includes(c));
+                    
+                    if (!hasExcludedWord) {
+                        score -= 10;
+                        issues.push(`Untransformed cluster: ${c}`);
+                    }
+                }
+            });
+
+            // Danger: Long words without hyphens
+            const words = corrected.split(/\s+/);
+            words.forEach(w => {
+                if (w.length > 12 && !w.includes('-')) {
+                    score -= 5;
+                    issues.push(`Long word without hyphens: ${w}`);
                 }
             });
 
@@ -228,7 +253,7 @@ async function runAudit() {
         const total = results.length;
         const transformedCount = results.filter(r => r.transformed).length;
         const perfectScore = results.filter(r => r.score === 100).length;
-        const problematic = results.filter(r => r.score < 80);
+        const problematic = results.filter(r => r.score < 100);
 
         console.log('--- Summary ---');
         console.log(`Total Terms: ${total}`);
@@ -237,8 +262,8 @@ async function runAudit() {
         console.log(`Potentially Problematic: ${problematic.length}\n`);
 
         if (problematic.length > 0) {
-            console.log('--- Top 20 Problematic Terms (Action Required) ---');
-            problematic.slice(0, 20).forEach(p => {
+            console.log('--- Terms Needing Review (Score < 100) ---');
+            problematic.forEach(p => {
                 console.log(`❌ "${p.word}" -> "${p.phonetic}" [Score: ${p.score}] | Issues: ${p.issues.join(', ')}`);
             });
         }
