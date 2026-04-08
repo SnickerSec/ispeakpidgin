@@ -162,27 +162,30 @@ class PidginDataLoader {
         return this.getAllEntries().filter(entry => entry.category === category);
     }
 
-    // Enhanced search with index support
+    // Enhanced search with index support and fuzzy fallback
     search(term) {
-        const searchTerm = term.toLowerCase();
+        if (!term) return [];
+        const searchTerm = term.toLowerCase().trim();
 
-        // Use search index if available
+        // 1. Try search index first (fastest)
         if (this.searchIndex && this.searchIndex.terms) {
             const indexResults = this.searchIndex.terms[searchTerm];
             if (indexResults) {
-                // Map index results to actual entries
                 const entryIds = new Set(indexResults.map(r => r.id));
                 return this.getAllEntries().filter(entry => entryIds.has(entry.id));
             }
         }
 
-        // Fallback to regular search
-        return this.getAllEntries().filter(entry =>
-            entry.pidgin.toLowerCase().includes(searchTerm) ||
-            entry.english.some(eng => eng.toLowerCase().includes(searchTerm)) ||
-            (entry.examples && entry.examples.some(ex => ex.toLowerCase().includes(searchTerm))) ||
-            (entry.tags && entry.tags.some(tag => tag.toLowerCase().includes(searchTerm)))
+        // 2. Exact/Partial matches (high confidence)
+        const matches = this.getAllEntries().filter(entry =>
+            entry.pidgin.toLowerCase() === searchTerm ||
+            entry.english.some(eng => eng.toLowerCase() === searchTerm)
         );
+
+        if (matches.length > 0) return matches;
+
+        // 3. Fallback to includes and fuzzy search
+        return this.fuzzySearch(searchTerm);
     }
 
     // Get translation mappings (for translator)
@@ -305,27 +308,71 @@ class PidginDataLoader {
         );
     }
 
-    // Fuzzy search with scoring
-    fuzzySearch(term, threshold = 0.3) {
-        const searchTerm = term.toLowerCase();
+    // Helper for Levenshtein distance (fuzzy matching)
+    levenshtein(a, b) {
+        const matrix = [];
+        for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+        for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+
+        for (let i = 1; i <= b.length; i++) {
+            for (let j = 1; j <= a.length; j++) {
+                if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                    matrix[i][j] = matrix[i - 1][j - 1];
+                } else {
+                    matrix[i][j] = Math.min(
+                        matrix[i - 1][j - 1] + 1,
+                        matrix[i][j - 1] + 1,
+                        matrix[i - 1][j] + 1
+                    );
+                }
+            }
+        }
+        return matrix[b.length][a.length];
+    }
+
+    // Fuzzy search with scoring and Levenshtein distance
+    fuzzySearch(term, threshold = 0.4) {
+        const searchTerm = term.toLowerCase().trim();
+        if (searchTerm.length < 2) return [];
+
         const results = [];
+        const entries = this.getAllEntries();
 
-        this.getAllEntries().forEach(entry => {
+        entries.forEach(entry => {
             let score = 0;
+            const pidgin = entry.pidgin.toLowerCase();
 
-            // Exact match scores highest
-            if (entry.pidgin.toLowerCase() === searchTerm) {
+            // A. Exact match (already handled but good for scoring)
+            if (pidgin === searchTerm) {
                 score = 1.0;
-            } else if (entry.pidgin.toLowerCase().includes(searchTerm)) {
-                score = 0.7;
+            } 
+            // B. Starts with (high confidence)
+            else if (pidgin.startsWith(searchTerm)) {
+                score = 0.8;
+            }
+            // C. Includes (medium confidence)
+            else if (pidgin.includes(searchTerm)) {
+                score = 0.6;
+            }
+            // D. Levenshtein Distance (true fuzzy)
+            else if (searchTerm.length > 3) {
+                const distance = this.levenshtein(searchTerm, pidgin);
+                const maxLength = Math.max(searchTerm.length, pidgin.length);
+                const similarity = 1 - (distance / maxLength);
+                
+                // Bonus for similarity
+                if (similarity > 0.7) {
+                    score = Math.max(score, similarity * 0.7);
+                }
             }
 
-            // Check English translations
+            // Check English translations too
             entry.english.forEach(eng => {
-                if (eng.toLowerCase() === searchTerm) {
+                const engLower = eng.toLowerCase();
+                if (engLower === searchTerm) {
                     score = Math.max(score, 0.9);
-                } else if (eng.toLowerCase().includes(searchTerm)) {
-                    score = Math.max(score, 0.6);
+                } else if (engLower.includes(searchTerm)) {
+                    score = Math.max(score, 0.5);
                 }
             });
 
@@ -334,7 +381,10 @@ class PidginDataLoader {
             }
         });
 
-        return results.sort((a, b) => b.score - a.score).map(r => r.entry);
+        // Sort by score (highest first) and return entries
+        return results
+            .sort((a, b) => b.score - a.score)
+            .map(r => r.entry);
     }
 }
 
