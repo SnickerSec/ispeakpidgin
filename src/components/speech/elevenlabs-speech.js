@@ -142,6 +142,8 @@ class ElevenLabsSpeech {
             'mauka': 'mow-kah',
             'makai': 'mah-kye',
             'ono': 'oh-no',
+            'oe': 'oh-eh',
+            'ʻoe': 'oh-eh',
             'auwe': 'ow-way',
             'wahine': 'vah-hee-nay',
             'kane': 'kah-nay',
