@@ -53,6 +53,7 @@ function applyPronunciationCorrections(text) {
         'pupu': 'poo-poo',
         'gou': 'gow',
         'hale': 'hah-leh',
+        'hele': 'heh-leh',
         'kupuna': 'koo-poo-nah',
         'lolo': 'low-low',
         'pilau': 'pee-lau',
