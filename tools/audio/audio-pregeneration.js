@@ -19,6 +19,111 @@ const FORCE_REGEN = args.includes('--force');
 const LIMIT_ARG = args.indexOf('--limit');
 const MAX_TO_GENERATE = LIMIT_ARG !== -1 ? parseInt(args[LIMIT_ARG + 1], 10) : 100;
 
+// Pidgin pronunciation corrections for TTS (identical to elevenlabs-speech.js)
+function applyPronunciationCorrections(text) {
+    const pronunciationMap = {
+        'kine': 'kyne',
+        'da kine': 'dah kyne',
+        'da': 'dah',
+        'any kine': 'any kyne',
+        'small kine': 'small kyne',
+        'funny kine': 'funny kyne',
+        'fast kine': 'fast kyne',
+        'faskine': 'fas-kyne',
+        'pau': 'pow',
+        'pau hana': 'pow hah-nah',
+        'mauka': 'mow-kah',
+        'makai': 'mah-kye',
+        'ono': 'oh-no',
+        'auwe': 'ow-way',
+        'wahine': 'vah-hee-nay',
+        'kane': 'kah-nay',
+        'keiki': 'kay-kee',
+        'tutu': 'too-too',
+        'lanai': 'lah-nye',
+        'mahalo': 'mah-hah-low',
+        'aloha': 'ah-low-hah',
+        'ohana': 'oh-hah-nah',
+        'kokua': 'koh-koo-ah',
+        'malama': 'mah-lah-mah',
+        'kapu': 'kah-poo',
+        'wiki': 'vee-kee',
+        'wikiwiki': 'vee-kee-vee-kee',
+        'pupus': 'poo-poos',
+        'pupu': 'poo-poo',
+        'gou': 'gow',
+        'hale': 'hah-leh',
+        'kupuna': 'koo-poo-nah',
+        'lolo': 'low-low',
+        'pilau': 'pee-lau',
+        'puka': 'poo-kah',
+        'humbug': 'hum-bug',
+        'ho': 'hoh',
+        'howzit': 'how-zit',
+        'hana hou': 'hah-nah hoh-oo',
+        'hanahou': 'hah-nah-hoh-oo',
+        'wassamattayou': 'wah-sah-mah-tah-yoo',
+        'whaddsdascoops': 'whah-dah-dah-skoops',
+        'shaka': 'shah-kah',
+        'slippahs': 'slip-pahz',
+        'still': 'steel',
+        'brah': 'brah',
+        'bruddah': 'bruh-dah',
+        'sistah': 'sis-tah',
+        'cuz': 'kuz',
+        'sole': 'so-leh',
+        'pake': 'pah-keh',
+        'haole': 'how-leh',
+        'poke': 'poh-kay',
+        'musubi': 'moo-soo-bee',
+        'shoyu': 'show-yoo',
+        'mochi': 'mo-chee',
+        'manapua': 'mah-nah-poo-ah',
+        'malasada': 'mah-lah-sah-dah',
+        'kanak': 'kah-nahk',
+        'grindz': 'gryndz',
+        'grind': 'grynd',
+        'kaukau': 'cow-cow',
+        'cheehoo': 'chee-hoo!',
+        'rajah': 'rah-jah',
+        'shoots': 'shoots',
+        'choke': 'choke',
+        'bamboocha': 'bam-boo-chah',
+        'akamai': 'ah-kah-my',
+        'buggah': 'buh-gah',
+        'niele': 'nee-eh-leh',
+        'pilicai': 'pee-lee-kee-ah',
+        'ainokea': 'eye-no-kay-ah',
+        'mo bettah': 'mo beh-tah',
+        'kay den': 'kay den...',
+        'aurite': 'ah-rye-t',
+        'stink eye': 'stink eye',
+        'chicken skin': 'chicken skin',
+        'talk story': 'talk story',
+        'broke da mouth': 'broke dah mouth',
+        'kanak attack': 'kah-nahk ah-tack',
+        'li hing mui': 'lee hing moo-ee',
+        'lilikoi': 'lee-lee-koy',
+        'faka': 'fah-kah',
+        'hamajang': 'hah-mah-jahng',
+        'mayjah': 'may-jah',
+        'poho': 'poh-hoh'
+    };
+
+    let correctedText = text.toLowerCase();
+    
+    // Sort keys by length descending to match longer phrases first
+    const sortedKeys = Object.keys(pronunciationMap).sort((a, b) => b.length - a.length);
+    
+    sortedKeys.forEach(original => {
+        const phonetic = pronunciationMap[original];
+        const regex = new RegExp(`\\b${original}\\b`, 'gi');
+        correctedText = correctedText.replace(regex, phonetic);
+    });
+
+    return correctedText;
+}
+
 async function fetchAllEntries() {
     try {
         console.log('📡 Fetching all dictionary entries from Supabase...');
@@ -52,6 +157,7 @@ async function generateAudioFile(text, apiKey) {
     }
 
     const url = `https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}`;
+    const correctedText = applyPronunciationCorrections(text);
 
     try {
         const response = await fetch(url, {
@@ -62,7 +168,7 @@ async function generateAudioFile(text, apiKey) {
                 'xi-api-key': apiKey
             },
             body: JSON.stringify({
-                text: text,
+                text: correctedText,
                 model_id: 'eleven_flash_v2_5',
                 voice_settings: {
                     stability: 0.5,
