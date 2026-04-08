@@ -122,6 +122,7 @@ const pathMappings = {
     'js/ask-local-page.js': 'js/components/ask-local-page.js',
     'js/learning-hub.js': 'js/components/learning-hub.js',
     'js/dictionary-cache.js': 'js/components/dictionary-cache.js',
+    'js/favorites-manager.js': 'js/components/favorites-manager.js',
     'js/main.js': 'js/components/main.js',
 
     // Game components (new organized structure)

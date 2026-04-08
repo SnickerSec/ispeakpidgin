@@ -127,13 +127,32 @@ function setupFilters() {
 
             // Load entries for selected category
             const category = btn.dataset.category;
-            const results = pidginDictionary.getByCategory(category);
+            let results;
+            
+            if (category === 'favorites') {
+                const favKeys = window.favoritesManager.getAllFavorites();
+                results = pidginDictionary.dataLoader.getAllEntries().filter(e => favKeys.includes(e.key || e.id));
+            } else {
+                results = pidginDictionary.getByCategory(category);
+            }
+            
             displayResults(results);
-            updateSearchStats(results.length, '', category);
+            updateSearchStats(results.length, '', category === 'favorites' ? 'Your Saved Words' : category);
 
             // Clear search input
             document.getElementById('dictionary-search').value = '';
         });
+    });
+
+    // Listen for favorites updates to refresh if on favorites tab
+    window.addEventListener('favoritesUpdated', () => {
+        const activeBtn = document.querySelector('.dict-category.active');
+        if (activeBtn && activeBtn.dataset.category === 'favorites') {
+            const favKeys = window.favoritesManager.getAllFavorites();
+            const results = pidginDictionary.dataLoader.getAllEntries().filter(e => favKeys.includes(e.key || e.id));
+            displayResults(results);
+            updateSearchStats(results.length, '', 'Your Saved Words');
+        }
     });
 
     // Show all button
@@ -303,6 +322,7 @@ function displayResults(entries, append = false) {
         const pronunciationText = entry.pronunciation || '';
         const audioText = entry.audioExample || exampleText;
         const masteryHtml = getMasteryHtml(entry.key || entry.id);
+        const isFav = window.favoritesManager.isFavorite(entry.key || entry.id);
 
         // Create slug for individual entry page
         const slug = entry.pidgin.toLowerCase()
@@ -313,12 +333,21 @@ function displayResults(entries, append = false) {
 
         return `
         <div class="dictionary-entry-card bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer border-l-4 border-transparent"
-             data-word="${entry.key}">
+             data-word="${entry.key || entry.id}">
             <div class="flex justify-between items-start mb-1">
-                <a href="${entryPageUrl}" class="text-xl font-bold text-purple-700 hover:text-purple-900 transition">${entry.pidgin}</a>
-                <span class="text-xs px-3 py-1 bg-purple-100 text-purple-600 rounded-full font-medium">
-                    ${entry.category}
-                </span>
+                <div class="flex flex-col">
+                    <a href="${entryPageUrl}" class="text-xl font-bold text-purple-700 hover:text-purple-900 transition">${entry.pidgin}</a>
+                </div>
+                <div class="flex gap-2 items-center">
+                    <button class="dict-fav-btn p-2 rounded-full hover:bg-red-50 transition-colors" 
+                            data-word="${entry.key || entry.id}" 
+                            title="${isFav ? 'Remove from My Words' : 'Save to My Words'}">
+                        <i class="ti ${isFav ? 'ti-heart-filled text-red-500' : 'ti-heart text-gray-400'} text-lg"></i>
+                    </button>
+                    <span class="text-xs px-3 py-1 bg-purple-100 text-purple-600 rounded-full font-medium">
+                        ${entry.category}
+                    </span>
+                </div>
             </div>
 
             ${masteryHtml}
@@ -444,6 +473,26 @@ function addEntryEventListeners() {
         });
     });
 
+    // Favorite buttons
+    const favBtns = grid.querySelectorAll('.dict-fav-btn');
+    favBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const wordKey = btn.dataset.word;
+            const isAdded = window.favoritesManager.toggleFavorite(wordKey);
+            
+            // Update icon and title
+            const icon = btn.querySelector('i');
+            if (isAdded) {
+                icon.className = 'ti ti-heart-filled text-red-500 text-lg animate-bounce-subtle';
+                btn.title = 'Remove from My Words';
+            } else {
+                icon.className = 'ti ti-heart text-gray-400 text-lg';
+                btn.title = 'Save to My Words';
+            }
+        });
+    });
+
     // Full Page links - prevent modal popup on mobile
     const fullPageLinks = grid.querySelectorAll('a[href^="/word/"]');
     fullPageLinks.forEach(link => {
@@ -474,6 +523,8 @@ function showWordDetails(wordKey) {
 
     if (!entry) return;
 
+    const isFav = window.favoritesManager.isFavorite(wordKey);
+
     // Normalize entry format for display
     const displayEntry = {
         pidgin: entry.pidgin,
@@ -499,7 +550,13 @@ function showWordDetails(wordKey) {
                         <h2 class="text-4xl font-bold mb-2">${displayEntry.pidgin}</h2>
                         <p class="text-xl text-purple-100">${displayEntry.english}</p>
                     </div>
-                    <button class="close-modal text-white hover:text-purple-200 text-3xl font-bold">×</button>
+                    <div class="flex gap-4 items-center">
+                        <button class="modal-fav-btn p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors" 
+                                title="${isFav ? 'Remove from My Words' : 'Save to My Words'}">
+                            <i class="ti ${isFav ? 'ti-heart-filled text-red-400' : 'ti-heart text-white'} text-2xl"></i>
+                        </button>
+                        <button class="close-modal text-white hover:text-purple-200 text-3xl font-bold">×</button>
+                    </div>
                 </div>
             </div>
 
@@ -590,6 +647,7 @@ function showWordDetails(wordKey) {
     const speakExampleBtn = modal.querySelector('.speak-example');
     const practiceBtn = modal.querySelector('.practice-word');
     const translateBtn = modal.querySelector('.translate-word');
+    const favBtn = modal.querySelector('.modal-fav-btn');
 
     // Close modal
     [closeBtn, gotItBtn].forEach(btn => {
@@ -598,6 +656,33 @@ function showWordDetails(wordKey) {
 
     modal.addEventListener('click', (e) => {
         if (e.target === modal) document.body.removeChild(modal);
+    });
+
+    // Favorite action
+    favBtn.addEventListener('click', () => {
+        const isAdded = window.favoritesManager.toggleFavorite(wordKey);
+        const icon = favBtn.querySelector('i');
+        
+        if (isAdded) {
+            icon.className = 'ti ti-heart-filled text-red-400 text-2xl animate-bounce-subtle';
+            favBtn.title = 'Remove from My Words';
+        } else {
+            icon.className = 'ti ti-heart text-white text-2xl';
+            favBtn.title = 'Save to My Words';
+        }
+
+        // Also update the card in the background if it exists
+        const cardFavBtn = document.querySelector(`.dict-fav-btn[data-word="${wordKey}"]`);
+        if (cardFavBtn) {
+            const cardIcon = cardFavBtn.querySelector('i');
+            if (isAdded) {
+                cardIcon.className = 'ti ti-heart-filled text-red-500 text-lg';
+                cardFavBtn.title = 'Remove from My Words';
+            } else {
+                cardIcon.className = 'ti ti-heart text-gray-400 text-lg';
+                cardFavBtn.title = 'Save to My Words';
+            }
+        }
     });
 
     // Audio actions

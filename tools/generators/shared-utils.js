@@ -204,7 +204,8 @@ function getCommonHead({ title, metaDescription, keywords, canonicalUrl, ogType 
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7YYDVDXD"></script>
-    <script src="/js/components/gtag.js"></script>`;
+    <script src="/js/components/gtag.js"></script>
+    <script src="/js/components/favorites-manager.js"></script>`;
 }
 
 /**

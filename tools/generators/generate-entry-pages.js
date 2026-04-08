@@ -237,9 +237,14 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
                 ` : ''}
             </div>
 
-            <button id="speak-word" class="bg-gradient-to-r from-blue-500 to-teal-500 text-white px-8 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
-                <i class="ti ti-volume"></i> Hear Pronunciation
-            </button>
+            <div class="flex flex-wrap gap-4">
+                <button id="speak-word" class="bg-gradient-to-r from-blue-500 to-teal-500 text-white px-8 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
+                    <i class="ti ti-volume"></i> Hear Pronunciation
+                </button>
+                <button id="fav-word" class="bg-white text-gray-700 px-8 py-3 rounded-full hover:bg-red-50 transition-all font-bold shadow-lg border-2 border-transparent hover:border-red-200 flex items-center gap-2">
+                    <i class="ti ti-heart text-red-500"></i> <span id="fav-text">Save to My Words</span>
+                </button>
+            </div>
         </div>
 
         <!-- Meaning Section -->
@@ -335,6 +340,37 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
                 await window.pidginSpeech.speak(text);
             }
         });
+
+        // Favorites toggle handler
+        (function() {
+            const favBtn = document.getElementById('fav-word');
+            const favIcon = favBtn?.querySelector('i');
+            const favText = document.getElementById('fav-text');
+            const wordKey = "${entry.key || entry.id}";
+
+            if (!favBtn || !window.favoritesManager) return;
+
+            // Initial state
+            if (window.favoritesManager.isFavorite(wordKey)) {
+                favIcon.className = 'ti ti-heart-filled text-red-500';
+                favText.textContent = 'Saved to My Words';
+                favBtn.classList.add('bg-red-50', 'border-red-200');
+            }
+
+            favBtn.addEventListener('click', () => {
+                const isAdded = window.favoritesManager.toggleFavorite(wordKey);
+                
+                if (isAdded) {
+                    favIcon.className = 'ti ti-heart-filled text-red-500 animate-bounce-subtle';
+                    favText.textContent = 'Saved to My Words';
+                    favBtn.classList.add('bg-red-50', 'border-red-200');
+                } else {
+                    favIcon.className = 'ti ti-heart text-red-500';
+                    favText.textContent = 'Save to My Words';
+                    favBtn.classList.remove('bg-red-50', 'border-red-200');
+                }
+            });
+        })();
     </script>
 </body>
 </html>`;
