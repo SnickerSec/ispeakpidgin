@@ -129,6 +129,7 @@ class ElevenLabsSpeech {
             // "kine" should rhyme with "nine"
             'kine': 'kyne',
             'da kine': 'dah kyne',
+            'da': 'dah',
             'any kine': 'any kyne',
             'small kine': 'small kyne',
             'funny kine': 'funny kyne',
@@ -163,9 +164,11 @@ class ElevenLabsSpeech {
             'pilau': 'pee-lau',
             'puka': 'poo-kah',
             'humbug': 'hum-bug',
+            'ho': 'hoh',
             'howzit': 'how-zit',
             'shaka': 'shah-kah',
             'slippahs': 'slip-pahz',
+            'still': 'steel',
             'brah': 'brah',
             'bruddah': 'bruh-dah',
             'sistah': 'sis-tah',
@@ -212,7 +215,10 @@ class ElevenLabsSpeech {
             'mayjah': 'may-jah',
             'poho': 'poh-hoh',
             'rajah dat': 'rah-jah dat',
-            'yobo': 'yo-boh'
+            'yobo': 'yo-boh',
+            'wit\'': 'wit',
+            'wit': 'wit',
+            'yesterday': 'yes-tah-deh'
         };
 
         let correctedText = text.toLowerCase();
@@ -255,20 +261,26 @@ class ElevenLabsSpeech {
         
         // Helper to check if a word is likely Hawaiian/Pidgin (contains unique patterns)
         const isPidginLike = (word) => {
-            return /['ʻ]/.test(word) || pronunciationMap[word] || 
-                   ['ka', 'la', 'ma', 'na', 'ha', 'ke', 'le', 'me', 'ne', 'he'].some(s => word.includes(s));
+            return /['ʻ]/.test(word) || pronunciationMap[word.replace(/['ʻ]/g, '')] || 
+                   ['ka', 'la', 'ma', 'na', 'ha', 'ke', 'le', 'me', 'ne', 'he', 'oi', 'ai', 'au', 'ei', 'ie'].some(s => word.includes(s));
         };
 
         const words = correctedText.split(/\s+/);
         const processedWords = words.map(word => {
+            // Check map with and without okinas
+            const cleanWord = word.replace(/['ʻ]/g, '');
             if (pronunciationMap[word]) return pronunciationMap[word];
+            if (pronunciationMap[cleanWord]) return pronunciationMap[cleanWord];
             
             if (isPidginLike(word)) {
                 let w = word.replace(/['ʻ]/g, '-'); // Pause for okinas
                 w = w.replace(/ai/g, 'eye');
                 w = w.replace(/au/g, 'ow');
+                w = w.replace(/oi/g, 'oy');
                 w = w.replace(/ei/g, 'ay');
                 w = w.replace(/ie/g, 'ee-eh');
+                // Clean up leading/trailing hyphens from okinas
+                w = w.replace(/^-/, '').replace(/-$/, '');
                 return w;
             }
             return word;
@@ -289,8 +301,9 @@ class ElevenLabsSpeech {
         // 5. Add natural pauses for Pidgin rhythm
         correctedText = correctedText
             .replace(/, /g, '... ') 
-            .replace(/\beh\b/gi, 'eh...') 
-            .replace(/\bbrah\b/gi, '...brah')
+            .replace(/\beh\b(?!\.\.\.)/gi, 'eh...') 
+            .replace(/\bhoh\b(?!\.\.\.)/gi, 'hoh...') 
+            .replace(/\bbrah\b(?!\.\.\.)/gi, '...brah')
             .replace(/\byeah\b\?/gi, '...yeah?')
             .replace(/\bo wat\b\?/gi, '...or wat?');
 
