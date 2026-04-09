@@ -305,7 +305,6 @@ const spellingRedirects = {
     'busup': 'buss-up',
     'bussup': 'buss-up',
     'ai-no-kea': 'ainokea',
-    'ainokea': 'ainokea',
     'a-hui-ho': 'a-hui-hou',
     'a-hoi-hou': 'a-hui-hou',
     'a-hui-hoa': 'a-hui-hou',
@@ -327,23 +326,41 @@ const spellingRedirects = {
 
 // SEO: Spelling Variant Redirects for Words
 app.use('/word/:slug', (req, res, next) => {
+    if (!req.params.slug) return next();
+    
     const slug = req.params.slug.replace('.html', '').toLowerCase();
     const correctSlug = spellingRedirects[slug];
 
     if (correctSlug && correctSlug !== slug) {
         return res.redirect(301, `/word/${correctSlug}.html`);
     }
+    
+    // Explicitly check for file existence to avoid 5xx or SPA issues
+    const filePath = path.join(__dirname, 'public', 'word', req.params.slug.endsWith('.html') ? req.params.slug : `${req.params.slug}.html`);
+    if (fs.existsSync(filePath)) {
+        return res.sendFile(filePath);
+    }
+    
     next();
 });
 
 // SEO: Spelling Variant Redirects for Phrases
 app.use('/phrase/:slug', (req, res, next) => {
+    if (!req.params.slug) return next();
+
     const slug = req.params.slug.replace('.html', '').toLowerCase();
     const correctSlug = spellingRedirects[slug];
 
     if (correctSlug && correctSlug !== slug) {
         return res.redirect(301, `/phrase/${correctSlug}.html`);
     }
+
+    // Explicitly check for file existence
+    const filePath = path.join(__dirname, 'public', 'phrase', req.params.slug.endsWith('.html') ? req.params.slug : `${req.params.slug}.html`);
+    if (fs.existsSync(filePath)) {
+        return res.sendFile(filePath);
+    }
+
     next();
 });
 
