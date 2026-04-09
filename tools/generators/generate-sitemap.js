@@ -237,6 +237,24 @@ function generateSitemap({ dictionaryEntries, phrases, stories, pickupLines }) {
         <changefreq>monthly</changefreq>
         <priority>0.85</priority>
     </url>
+    <url>
+        <loc>${baseUrl}/what-does-menpachi-eyes-mean.html</loc>
+        <lastmod>${currentDate}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>${baseUrl}/what-does-no-ka-oi-mean.html</loc>
+        <lastmod>${currentDate}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>${baseUrl}/what-does-akamai-mean.html</loc>
+        <lastmod>${currentDate}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
     <!-- New SEO Pages based on Search Console Data -->
     <url>
         <loc>${baseUrl}/what-does-ainokea-mean.html</loc>

@@ -296,6 +296,8 @@ const spellingRedirects = {
     'no-ka-oi': '../what-does-no-ka-oi-mean.html',
     'no-ka-oy': '../what-does-no-ka-oi-mean.html',
     'nokaoi': '../what-does-no-ka-oi-mean.html',
+    'akamai': '../what-does-akamai-mean.html',
+    'ah-kah-my': '../what-does-akamai-mean.html',
     'chee-woo': 'chee-hoo',
     'cheewoo': 'chee-hoo',
     'che-hu': 'chee-hoo',
