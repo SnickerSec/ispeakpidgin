@@ -291,6 +291,11 @@ app.use('/api/admin', adminRoutes(supabaseAdmin, adminAuth, settingsManager, adm
 // SEO: Spelling Variant Redirects
 // ============================================
 const spellingRedirects = {
+    'stop-da-mempachi-eye': '../what-does-menpachi-eyes-mean.html',
+    'menpachi-eyes': '../what-does-menpachi-eyes-mean.html',
+    'no-ka-oi': '../what-does-no-ka-oi-mean.html',
+    'no-ka-oy': '../what-does-no-ka-oi-mean.html',
+    'nokaoi': '../what-does-no-ka-oi-mean.html',
     'chee-woo': 'chee-hoo',
     'cheewoo': 'chee-hoo',
     'che-hu': 'chee-hoo',

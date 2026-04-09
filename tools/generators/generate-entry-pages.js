@@ -68,7 +68,7 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
 
     // Create a more compelling, action-oriented meta description
     const shortMeaning = primaryMeaning.length > 30 ? primaryMeaning.substring(0, 30) + '...' : primaryMeaning;
-    const metaDescription = `${capitalizedWord} means "${shortMeaning}" in Hawaiian slang. Hear the pronunciation, see examples, and learn how locals really use this word!`;
+    const metaDescription = `What does "${capitalizedWord}" mean? Learn the local Hawaiian meaning, hear the authentic pronunciation, and see real-life examples of how locals use "${capitalizedWord}" in conversation.`;
 
     const canonicalUrl = `${SITE_URL}/word/${slug}.html`;
 

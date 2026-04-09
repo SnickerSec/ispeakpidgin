@@ -113,11 +113,11 @@ function generatePhrasePage(phrase, relatedPhrases, navigation, footer, dictiona
 
     const canonicalUrl = `${SITE_URL}/phrase/${slug}.html`;
 
-    // Page title
-    const pageTitle = `"${phrase.pidgin}" - Hawaiian Slang Meaning & Pronunciation | ${SITE_NAME}`;
+    // Page title - more compelling
+    const pageTitle = `"${phrase.pidgin}" Meaning & Pronunciation - Hawaiian Pidgin Guide | ${SITE_NAME}`;
 
-    // Meta description (NO HTML tags)
-    const metaDescription = `Learn what "${phrase.pidgin}" means in Hawaiian slang. Hear the pronunciation and learn when locals use this ${phrase.category || 'general'} expression.`;
+    // Meta description - much more compelling, includes call to action
+    const metaDescription = `What does "${phrase.pidgin}" mean? Discover the local meaning, hear the authentic pronunciation, and see real-life examples of this ${phrase.category || 'popular'} Hawaiian slang phrase.`;
 
     // Keywords
     const keywords = `${phrase.pidgin}, hawaiian slang, hawaiian pidgin, ${phrase.english}, pidgin phrases, hawaii language`;
