@@ -1,0 +1,1017 @@
+{
+  "generated": "2026-04-09T04:17:52.194Z",
+  "site": "sc-domain:chokepidgin.com",
+  "period": {
+    "days": 28,
+    "startDate": "2026-03-09",
+    "endDate": "2026-04-06"
+  },
+  "summary": {
+    "totalQueries": 500,
+    "totalPages": 200,
+    "totalClicks": 95,
+    "totalImpressions": 9303,
+    "avgPosition": "15.4",
+    "avgCtr": "1.25%",
+    "optimizationCount": 64
+  },
+  "topQueries": [
+    {
+      "query": "hawaiian pidgin dictionary",
+      "clicks": 16,
+      "impressions": 124,
+      "ctr": "12.90%",
+      "position": "3.9"
+    },
+    {
+      "query": "hawaiian pidgin translator",
+      "clicks": 11,
+      "impressions": 121,
+      "ctr": "9.09%",
+      "position": "5.5"
+    },
+    {
+      "query": "english to hawaiian pidgin",
+      "clicks": 5,
+      "impressions": 45,
+      "ctr": "11.11%",
+      "position": "4.9"
+    },
+    {
+      "query": "hawaii pidgin dictionary",
+      "clicks": 5,
+      "impressions": 20,
+      "ctr": "25.00%",
+      "position": "4.3"
+    },
+    {
+      "query": "hawaiian pidgin translator google translate",
+      "clicks": 5,
+      "impressions": 12,
+      "ctr": "41.67%",
+      "position": "3.4"
+    },
+    {
+      "query": "hawaiian pidgin to english",
+      "clicks": 4,
+      "impressions": 23,
+      "ctr": "17.39%",
+      "position": "3.5"
+    },
+    {
+      "query": "english to hawaiian pidgin translator",
+      "clicks": 3,
+      "impressions": 40,
+      "ctr": "7.50%",
+      "position": "4.9"
+    },
+    {
+      "query": "pidgin translator",
+      "clicks": 3,
+      "impressions": 73,
+      "ctr": "4.11%",
+      "position": "5.6"
+    },
+    {
+      "query": "hawaii pidgin translator",
+      "clicks": 2,
+      "impressions": 11,
+      "ctr": "18.18%",
+      "position": "5.3"
+    },
+    {
+      "query": "no ka oi meaning",
+      "clicks": 2,
+      "impressions": 771,
+      "ctr": "0.26%",
+      "position": "7.3"
+    },
+    {
+      "query": "pidgin dictionary",
+      "clicks": 2,
+      "impressions": 65,
+      "ctr": "3.08%",
+      "position": "7.2"
+    },
+    {
+      "query": "pidgin dictionary hawaii",
+      "clicks": 2,
+      "impressions": 16,
+      "ctr": "12.50%",
+      "position": "3.6"
+    },
+    {
+      "query": "choke pidgin",
+      "clicks": 1,
+      "impressions": 25,
+      "ctr": "4.00%",
+      "position": "2.1"
+    },
+    {
+      "query": "english to pidgin google translate",
+      "clicks": 1,
+      "impressions": 44,
+      "ctr": "2.27%",
+      "position": "8.3"
+    },
+    {
+      "query": "english to pidgin hawaiian",
+      "clicks": 1,
+      "impressions": 11,
+      "ctr": "9.09%",
+      "position": "4.4"
+    },
+    {
+      "query": "english to pidgin hawaiian translation",
+      "clicks": 1,
+      "impressions": 21,
+      "ctr": "4.76%",
+      "position": "5.0"
+    },
+    {
+      "query": "go nai",
+      "clicks": 1,
+      "impressions": 2,
+      "ctr": "50.00%",
+      "position": "2.0"
+    },
+    {
+      "query": "grindz hawaii meaning",
+      "clicks": 1,
+      "impressions": 53,
+      "ctr": "1.89%",
+      "position": "6.0"
+    },
+    {
+      "query": "hana okolele",
+      "clicks": 1,
+      "impressions": 10,
+      "ctr": "10.00%",
+      "position": "7.9"
+    },
+    {
+      "query": "hawaiian slang",
+      "clicks": 1,
+      "impressions": 332,
+      "ctr": "0.30%",
+      "position": "9.5"
+    },
+    {
+      "query": "hawaiian slang terms",
+      "clicks": 1,
+      "impressions": 14,
+      "ctr": "7.14%",
+      "position": "14.7"
+    },
+    {
+      "query": "hawaiian slangs",
+      "clicks": 1,
+      "impressions": 7,
+      "ctr": "14.29%",
+      "position": "10.0"
+    },
+    {
+      "query": "hawaiian word for nosey",
+      "clicks": 1,
+      "impressions": 25,
+      "ctr": "4.00%",
+      "position": "5.6"
+    },
+    {
+      "query": "how to learn hawaiian pidgin",
+      "clicks": 1,
+      "impressions": 2,
+      "ctr": "50.00%",
+      "position": "6.0"
+    },
+    {
+      "query": "howzit",
+      "clicks": 1,
+      "impressions": 41,
+      "ctr": "2.44%",
+      "position": "15.4"
+    },
+    {
+      "query": "howzit meaning",
+      "clicks": 1,
+      "impressions": 112,
+      "ctr": "0.89%",
+      "position": "3.8"
+    },
+    {
+      "query": "islander pick up lines",
+      "clicks": 1,
+      "impressions": 1,
+      "ctr": "100.00%",
+      "position": "1.0"
+    },
+    {
+      "query": "kala in hawaiian",
+      "clicks": 1,
+      "impressions": 81,
+      "ctr": "1.23%",
+      "position": "9.1"
+    },
+    {
+      "query": "kokua",
+      "clicks": 1,
+      "impressions": 88,
+      "ctr": "1.14%",
+      "position": "19.8"
+    },
+    {
+      "query": "learn hawaiian pidgin",
+      "clicks": 1,
+      "impressions": 14,
+      "ctr": "7.14%",
+      "position": "9.5"
+    },
+    {
+      "query": "malama da aina",
+      "clicks": 1,
+      "impressions": 30,
+      "ctr": "3.33%",
+      "position": "8.1"
+    },
+    {
+      "query": "menpachi eyes",
+      "clicks": 1,
+      "impressions": 1384,
+      "ctr": "0.07%",
+      "position": "8.6"
+    },
+    {
+      "query": "menpachi eyes meaning",
+      "clicks": 1,
+      "impressions": 496,
+      "ctr": "0.20%",
+      "position": "4.1"
+    },
+    {
+      "query": "mo bettah meaning",
+      "clicks": 1,
+      "impressions": 14,
+      "ctr": "7.14%",
+      "position": "5.9"
+    },
+    {
+      "query": "niele hawaiian",
+      "clicks": 1,
+      "impressions": 524,
+      "ctr": "0.19%",
+      "position": "7.1"
+    },
+    {
+      "query": "niele in hawaiian",
+      "clicks": 1,
+      "impressions": 65,
+      "ctr": "1.54%",
+      "position": "7.8"
+    },
+    {
+      "query": "oof hawaii slang",
+      "clicks": 1,
+      "impressions": 17,
+      "ctr": "5.88%",
+      "position": "5.2"
+    },
+    {
+      "query": "pau hawaiian",
+      "clicks": 1,
+      "impressions": 234,
+      "ctr": "0.43%",
+      "position": "8.5"
+    },
+    {
+      "query": "pidgin hawaiian translator",
+      "clicks": 1,
+      "impressions": 5,
+      "ctr": "20.00%",
+      "position": "4.0"
+    },
+    {
+      "query": "pidgin phrases",
+      "clicks": 1,
+      "impressions": 32,
+      "ctr": "3.13%",
+      "position": "12.8"
+    },
+    {
+      "query": "pidgin slang phrases",
+      "clicks": 1,
+      "impressions": 19,
+      "ctr": "5.26%",
+      "position": "10.6"
+    },
+    {
+      "query": "pidgin story",
+      "clicks": 1,
+      "impressions": 2,
+      "ctr": "50.00%",
+      "position": "9.0"
+    },
+    {
+      "query": "pigeon slang hawaiian",
+      "clicks": 1,
+      "impressions": 15,
+      "ctr": "6.67%",
+      "position": "11.4"
+    },
+    {
+      "query": "shoots slang hawaii",
+      "clicks": 1,
+      "impressions": 4,
+      "ctr": "25.00%",
+      "position": "2.8"
+    },
+    {
+      "query": "stoked meaning slang",
+      "clicks": 1,
+      "impressions": 7,
+      "ctr": "14.29%",
+      "position": "27.9"
+    },
+    {
+      "query": "white kukui blossom",
+      "clicks": 1,
+      "impressions": 6,
+      "ctr": "16.67%",
+      "position": "7.5"
+    },
+    {
+      "query": "yessah blessah",
+      "clicks": 1,
+      "impressions": 3,
+      "ctr": "33.33%",
+      "position": "6.3"
+    },
+    {
+      "query": "\"da aina\" hawaii slang",
+      "clicks": 0,
+      "impressions": 27,
+      "ctr": "0.00%",
+      "position": "5.6"
+    },
+    {
+      "query": "\"goin\" definition slang",
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": "0.00%",
+      "position": "8.0"
+    },
+    {
+      "query": "\"goin\" definition word",
+      "clicks": 0,
+      "impressions": 9,
+      "ctr": "0.00%",
+      "position": "8.9"
+    }
+  ],
+  "topPages": [
+    {
+      "page": "https://chokepidgin.com/",
+      "clicks": 180,
+      "impressions": 9130,
+      "ctr": "1.97%",
+      "position": "7.0"
+    },
+    {
+      "page": "https://chokepidgin.com/translator.html",
+      "clicks": 20,
+      "impressions": 790,
+      "ctr": "2.53%",
+      "position": "7.7"
+    },
+    {
+      "page": "https://chokepidgin.com/pickup-lines.html",
+      "clicks": 10,
+      "impressions": 376,
+      "ctr": "2.66%",
+      "position": "6.5"
+    },
+    {
+      "page": "https://chokepidgin.com/how-local-you-stay.html",
+      "clicks": 7,
+      "impressions": 402,
+      "ctr": "1.74%",
+      "position": "9.2"
+    },
+    {
+      "page": "https://chokepidgin.com/games.html",
+      "clicks": 5,
+      "impressions": 604,
+      "ctr": "0.83%",
+      "position": "9.0"
+    },
+    {
+      "page": "https://chokepidgin.com/phrases.html",
+      "clicks": 5,
+      "impressions": 968,
+      "ctr": "0.52%",
+      "position": "12.4"
+    },
+    {
+      "page": "https://chokepidgin.com/what-does-niele-mean.html",
+      "clicks": 5,
+      "impressions": 1934,
+      "ctr": "0.26%",
+      "position": "6.2"
+    },
+    {
+      "page": "https://chokepidgin.com/funny-insulting-pidgin-phrases.html",
+      "clicks": 4,
+      "impressions": 94,
+      "ctr": "4.26%",
+      "position": "5.1"
+    },
+    {
+      "page": "https://chokepidgin.com/stories.html",
+      "clicks": 3,
+      "impressions": 107,
+      "ctr": "2.80%",
+      "position": "5.6"
+    },
+    {
+      "page": "https://chokepidgin.com/what-does-howzit-mean.html",
+      "clicks": 3,
+      "impressions": 745,
+      "ctr": "0.40%",
+      "position": "6.6"
+    },
+    {
+      "page": "https://chokepidgin.com/what-does-no-worry-mean.html",
+      "clicks": 3,
+      "impressions": 445,
+      "ctr": "0.67%",
+      "position": "4.5"
+    },
+    {
+      "page": "https://chokepidgin.com/word/kokua.html",
+      "clicks": 3,
+      "impressions": 1638,
+      "ctr": "0.18%",
+      "position": "9.8"
+    },
+    {
+      "page": "https://chokepidgin.com/phrase/stop-da-mempachi-eye.html",
+      "clicks": 2,
+      "impressions": 2469,
+      "ctr": "0.08%",
+      "position": "7.2"
+    },
+    {
+      "page": "https://chokepidgin.com/what-does-grindz-mean.html",
+      "clicks": 2,
+      "impressions": 753,
+      "ctr": "0.27%",
+      "position": "7.0"
+    },
+    {
+      "page": "https://chokepidgin.com/what-does-pau-mean.html",
+      "clicks": 2,
+      "impressions": 2915,
+      "ctr": "0.07%",
+      "position": "8.4"
+    },
+    {
+      "page": "https://chokepidgin.com/word/cuz.html",
+      "clicks": 2,
+      "impressions": 709,
+      "ctr": "0.28%",
+      "position": "11.0"
+    },
+    {
+      "page": "https://chokepidgin.com/word/das-why-hard.html",
+      "clicks": 2,
+      "impressions": 56,
+      "ctr": "3.57%",
+      "position": "5.6"
+    },
+    {
+      "page": "https://chokepidgin.com/word/make.html",
+      "clicks": 2,
+      "impressions": 333,
+      "ctr": "0.60%",
+      "position": "8.3"
+    },
+    {
+      "page": "https://chokepidgin.com/word/tantaran.html",
+      "clicks": 2,
+      "impressions": 185,
+      "ctr": "1.08%",
+      "position": "4.4"
+    },
+    {
+      "page": "https://chokepidgin.com/blog/hawaiian-pidgin-beginners-guide.html",
+      "clicks": 1,
+      "impressions": 156,
+      "ctr": "0.64%",
+      "position": "13.1"
+    },
+    {
+      "page": "https://chokepidgin.com/blog/pidgin-vs-hawaiian-language.html",
+      "clicks": 1,
+      "impressions": 39,
+      "ctr": "2.56%",
+      "position": "8.2"
+    },
+    {
+      "page": "https://chokepidgin.com/cheat-sheet.html",
+      "clicks": 1,
+      "impressions": 134,
+      "ctr": "0.75%",
+      "position": "4.8"
+    },
+    {
+      "page": "https://chokepidgin.com/phrase/all-gullah-gullahs.html",
+      "clicks": 1,
+      "impressions": 25,
+      "ctr": "4.00%",
+      "position": "6.7"
+    },
+    {
+      "page": "https://chokepidgin.com/phrase/ass-why.html",
+      "clicks": 1,
+      "impressions": 13,
+      "ctr": "7.69%",
+      "position": "5.8"
+    },
+    {
+      "page": "https://chokepidgin.com/phrase/cannot-comb-down-da-giri-giri.html",
+      "clicks": 1,
+      "impressions": 22,
+      "ctr": "4.55%",
+      "position": "9.6"
+    },
+    {
+      "page": "https://chokepidgin.com/phrase/come-kanikapila.html",
+      "clicks": 1,
+      "impressions": 95,
+      "ctr": "1.05%",
+      "position": "10.4"
+    },
+    {
+      "page": "https://chokepidgin.com/phrase/da-car-stay-cherreh.html",
+      "clicks": 1,
+      "impressions": 183,
+      "ctr": "0.55%",
+      "position": "8.5"
+    },
+    {
+      "page": "https://chokepidgin.com/phrase/da-hikiee-stay-comfortable.html",
+      "clicks": 1,
+      "impressions": 8,
+      "ctr": "12.50%",
+      "position": "9.5"
+    },
+    {
+      "page": "https://chokepidgin.com/phrase/da-new-place-stay-mo-bettah.html",
+      "clicks": 1,
+      "impressions": 44,
+      "ctr": "2.27%",
+      "position": "7.1"
+    },
+    {
+      "page": "https://chokepidgin.com/phrase/das-how-we-do-um.html",
+      "clicks": 1,
+      "impressions": 5,
+      "ctr": "20.00%",
+      "position": "1.6"
+    }
+  ],
+  "optimizations": {
+    "lowCtrHighImpressions": {
+      "title": "Improve Titles & Descriptions",
+      "description": "These queries get views but few clicks. Improve meta titles and descriptions.",
+      "items": [
+        {
+          "query": "no ka oi meaning",
+          "impressions": 771,
+          "clicks": 2,
+          "ctr": "0.26%",
+          "suggestion": "Write a more compelling title/description targeting \"no ka oi meaning\""
+        },
+        {
+          "query": "hawaiian slang",
+          "impressions": 332,
+          "clicks": 1,
+          "ctr": "0.30%",
+          "suggestion": "Write a more compelling title/description targeting \"hawaiian slang\""
+        },
+        {
+          "query": "howzit meaning",
+          "impressions": 112,
+          "clicks": 1,
+          "ctr": "0.89%",
+          "suggestion": "Write a more compelling title/description targeting \"howzit meaning\""
+        },
+        {
+          "query": "menpachi eyes",
+          "impressions": 1384,
+          "clicks": 1,
+          "ctr": "0.07%",
+          "suggestion": "Write a more compelling title/description targeting \"menpachi eyes\""
+        },
+        {
+          "query": "menpachi eyes meaning",
+          "impressions": 496,
+          "clicks": 1,
+          "ctr": "0.20%",
+          "suggestion": "Write a more compelling title/description targeting \"menpachi eyes meaning\""
+        },
+        {
+          "query": "niele hawaiian",
+          "impressions": 524,
+          "clicks": 1,
+          "ctr": "0.19%",
+          "suggestion": "Write a more compelling title/description targeting \"niele hawaiian\""
+        },
+        {
+          "query": "pau hawaiian",
+          "impressions": 234,
+          "clicks": 1,
+          "ctr": "0.43%",
+          "suggestion": "Write a more compelling title/description targeting \"pau hawaiian\""
+        },
+        {
+          "query": "amped meaning",
+          "impressions": 126,
+          "clicks": 0,
+          "ctr": "0.00%",
+          "suggestion": "Write a more compelling title/description targeting \"amped meaning\""
+        },
+        {
+          "query": "bline meaning",
+          "impressions": 250,
+          "clicks": 0,
+          "ctr": "0.00%",
+          "suggestion": "Write a more compelling title/description targeting \"bline meaning\""
+        },
+        {
+          "query": "bruddah",
+          "impressions": 115,
+          "clicks": 0,
+          "ctr": "0.00%",
+          "suggestion": "Write a more compelling title/description targeting \"bruddah\""
+        }
+      ]
+    },
+    "almostPage1": {
+      "title": "Almost Page 1 - Content Boost Needed",
+      "description": "Keywords ranking positions 4-20. Small improvements could get page 1.",
+      "items": [
+        {
+          "query": "hawaiian pidgin translator",
+          "position": "5.5",
+          "impressions": 121,
+          "suggestion": "Create or improve content specifically targeting \"hawaiian pidgin translator\""
+        },
+        {
+          "query": "pidgin translator",
+          "position": "5.6",
+          "impressions": 73,
+          "suggestion": "Create or improve content specifically targeting \"pidgin translator\""
+        },
+        {
+          "query": "no ka oi meaning",
+          "position": "7.3",
+          "impressions": 771,
+          "suggestion": "Create or improve content specifically targeting \"no ka oi meaning\""
+        },
+        {
+          "query": "pidgin dictionary",
+          "position": "7.2",
+          "impressions": 65,
+          "suggestion": "Create or improve content specifically targeting \"pidgin dictionary\""
+        },
+        {
+          "query": "grindz hawaii meaning",
+          "position": "6.0",
+          "impressions": 53,
+          "suggestion": "Create or improve content specifically targeting \"grindz hawaii meaning\""
+        },
+        {
+          "query": "hawaiian slang",
+          "position": "9.5",
+          "impressions": 332,
+          "suggestion": "Create or improve content specifically targeting \"hawaiian slang\""
+        },
+        {
+          "query": "kala in hawaiian",
+          "position": "9.1",
+          "impressions": 81,
+          "suggestion": "Create or improve content specifically targeting \"kala in hawaiian\""
+        },
+        {
+          "query": "kokua",
+          "position": "19.8",
+          "impressions": 88,
+          "suggestion": "Create or improve content specifically targeting \"kokua\""
+        },
+        {
+          "query": "menpachi eyes",
+          "position": "8.6",
+          "impressions": 1384,
+          "suggestion": "Create or improve content specifically targeting \"menpachi eyes\""
+        },
+        {
+          "query": "menpachi eyes meaning",
+          "position": "4.1",
+          "impressions": 496,
+          "suggestion": "Create or improve content specifically targeting \"menpachi eyes meaning\""
+        },
+        {
+          "query": "niele hawaiian",
+          "position": "7.1",
+          "impressions": 524,
+          "suggestion": "Create or improve content specifically targeting \"niele hawaiian\""
+        },
+        {
+          "query": "niele in hawaiian",
+          "position": "7.8",
+          "impressions": 65,
+          "suggestion": "Create or improve content specifically targeting \"niele in hawaiian\""
+        },
+        {
+          "query": "pau hawaiian",
+          "position": "8.5",
+          "impressions": 234,
+          "suggestion": "Create or improve content specifically targeting \"pau hawaiian\""
+        },
+        {
+          "query": "a hui hou",
+          "position": "15.8",
+          "impressions": 75,
+          "suggestion": "Create or improve content specifically targeting \"a hui hou\""
+        },
+        {
+          "query": "ainokea meaning",
+          "position": "6.7",
+          "impressions": 98,
+          "suggestion": "Create or improve content specifically targeting \"ainokea meaning\""
+        },
+        {
+          "query": "amped meaning",
+          "position": "14.8",
+          "impressions": 126,
+          "suggestion": "Create or improve content specifically targeting \"amped meaning\""
+        },
+        {
+          "query": "auwe hawaiian",
+          "position": "10.0",
+          "impressions": 78,
+          "suggestion": "Create or improve content specifically targeting \"auwe hawaiian\""
+        },
+        {
+          "query": "auwe hawaiian meaning",
+          "position": "8.6",
+          "impressions": 51,
+          "suggestion": "Create or improve content specifically targeting \"auwe hawaiian meaning\""
+        },
+        {
+          "query": "auwe in hawaiian",
+          "position": "9.7",
+          "impressions": 94,
+          "suggestion": "Create or improve content specifically targeting \"auwe in hawaiian\""
+        },
+        {
+          "query": "auwe meaning",
+          "position": "10.1",
+          "impressions": 54,
+          "suggestion": "Create or improve content specifically targeting \"auwe meaning\""
+        }
+      ]
+    },
+    "topPerformers": {
+      "title": "Top Performing Pages",
+      "description": "Your best pages. Consider creating similar content or internal linking.",
+      "items": [
+        {
+          "page": "https://chokepidgin.com/",
+          "clicks": 180,
+          "impressions": 9130,
+          "suggestion": "Create related content and link to this page"
+        },
+        {
+          "page": "https://chokepidgin.com/translator.html",
+          "clicks": 20,
+          "impressions": 790,
+          "suggestion": "Create related content and link to this page"
+        },
+        {
+          "page": "https://chokepidgin.com/pickup-lines.html",
+          "clicks": 10,
+          "impressions": 376,
+          "suggestion": "Create related content and link to this page"
+        },
+        {
+          "page": "https://chokepidgin.com/how-local-you-stay.html",
+          "clicks": 7,
+          "impressions": 402,
+          "suggestion": "Create related content and link to this page"
+        },
+        {
+          "page": "https://chokepidgin.com/games.html",
+          "clicks": 5,
+          "impressions": 604,
+          "suggestion": "Create related content and link to this page"
+        },
+        {
+          "page": "https://chokepidgin.com/phrases.html",
+          "clicks": 5,
+          "impressions": 968,
+          "suggestion": "Create related content and link to this page"
+        },
+        {
+          "page": "https://chokepidgin.com/what-does-niele-mean.html",
+          "clicks": 5,
+          "impressions": 1934,
+          "suggestion": "Create related content and link to this page"
+        },
+        {
+          "page": "https://chokepidgin.com/funny-insulting-pidgin-phrases.html",
+          "clicks": 4,
+          "impressions": 94,
+          "suggestion": "Create related content and link to this page"
+        },
+        {
+          "page": "https://chokepidgin.com/stories.html",
+          "clicks": 3,
+          "impressions": 107,
+          "suggestion": "Create related content and link to this page"
+        },
+        {
+          "page": "https://chokepidgin.com/what-does-howzit-mean.html",
+          "clicks": 3,
+          "impressions": 745,
+          "suggestion": "Create related content and link to this page"
+        }
+      ]
+    },
+    "underperformingPages": {
+      "title": "Underperforming Pages",
+      "description": "Pages with visibility but low engagement. Need content or meta improvements.",
+      "items": [
+        {
+          "page": "https://chokepidgin.com/",
+          "impressions": 9130,
+          "ctr": "1.97%",
+          "suggestion": "Improve page title, meta description, and content quality"
+        },
+        {
+          "page": "https://chokepidgin.com/how-local-you-stay.html",
+          "impressions": 402,
+          "ctr": "1.74%",
+          "suggestion": "Improve page title, meta description, and content quality"
+        },
+        {
+          "page": "https://chokepidgin.com/games.html",
+          "impressions": 604,
+          "ctr": "0.83%",
+          "suggestion": "Improve page title, meta description, and content quality"
+        },
+        {
+          "page": "https://chokepidgin.com/phrases.html",
+          "impressions": 968,
+          "ctr": "0.52%",
+          "suggestion": "Improve page title, meta description, and content quality"
+        },
+        {
+          "page": "https://chokepidgin.com/what-does-niele-mean.html",
+          "impressions": 1934,
+          "ctr": "0.26%",
+          "suggestion": "Improve page title, meta description, and content quality"
+        },
+        {
+          "page": "https://chokepidgin.com/what-does-howzit-mean.html",
+          "impressions": 745,
+          "ctr": "0.40%",
+          "suggestion": "Improve page title, meta description, and content quality"
+        },
+        {
+          "page": "https://chokepidgin.com/what-does-no-worry-mean.html",
+          "impressions": 445,
+          "ctr": "0.67%",
+          "suggestion": "Improve page title, meta description, and content quality"
+        },
+        {
+          "page": "https://chokepidgin.com/word/kokua.html",
+          "impressions": 1638,
+          "ctr": "0.18%",
+          "suggestion": "Improve page title, meta description, and content quality"
+        },
+        {
+          "page": "https://chokepidgin.com/phrase/stop-da-mempachi-eye.html",
+          "impressions": 2469,
+          "ctr": "0.08%",
+          "suggestion": "Improve page title, meta description, and content quality"
+        },
+        {
+          "page": "https://chokepidgin.com/what-does-grindz-mean.html",
+          "impressions": 753,
+          "ctr": "0.27%",
+          "suggestion": "Improve page title, meta description, and content quality"
+        },
+        {
+          "page": "https://chokepidgin.com/what-does-pau-mean.html",
+          "impressions": 2915,
+          "ctr": "0.07%",
+          "suggestion": "Improve page title, meta description, and content quality"
+        },
+        {
+          "page": "https://chokepidgin.com/word/cuz.html",
+          "impressions": 709,
+          "ctr": "0.28%",
+          "suggestion": "Improve page title, meta description, and content quality"
+        },
+        {
+          "page": "https://chokepidgin.com/word/make.html",
+          "impressions": 333,
+          "ctr": "0.60%",
+          "suggestion": "Improve page title, meta description, and content quality"
+        },
+        {
+          "page": "https://chokepidgin.com/phrase/dis-beach-no-ka-oi.html",
+          "impressions": 524,
+          "ctr": "0.19%",
+          "suggestion": "Improve page title, meta description, and content quality"
+        },
+        {
+          "page": "https://chokepidgin.com/phrase/no-ka-oi.html",
+          "impressions": 1088,
+          "ctr": "0.09%",
+          "suggestion": "Improve page title, meta description, and content quality"
+        }
+      ]
+    },
+    "contentGaps": {
+      "title": "Content Gap Opportunities",
+      "description": "Popular search queries that may need dedicated content.",
+      "items": [
+        {
+          "query": "no ka oi meaning",
+          "impressions": 771,
+          "position": "7.3",
+          "suggestion": "Create a dedicated page for \"no ka oi meaning\""
+        },
+        {
+          "query": "menpachi eyes",
+          "impressions": 1384,
+          "position": "8.6",
+          "suggestion": "Create a dedicated page for \"menpachi eyes\""
+        },
+        {
+          "query": "menpachi eyes meaning",
+          "impressions": 496,
+          "position": "4.1",
+          "suggestion": "Create a dedicated page for \"menpachi eyes meaning\""
+        },
+        {
+          "query": "amped meaning",
+          "impressions": 126,
+          "position": "14.8",
+          "suggestion": "Create a dedicated page for \"amped meaning\""
+        },
+        {
+          "query": "bline meaning",
+          "impressions": 250,
+          "position": "9.3",
+          "suggestion": "Create a dedicated page for \"bline meaning\""
+        },
+        {
+          "query": "bruddah",
+          "impressions": 115,
+          "position": "9.2",
+          "suggestion": "Create a dedicated page for \"bruddah\""
+        }
+      ]
+    },
+    "quickWins": {
+      "title": "Quick Wins",
+      "description": "Already ranking well. Small optimizations could boost traffic.",
+      "items": [
+        {
+          "query": "howzit meaning",
+          "position": "3.8",
+          "ctr": "0.89%",
+          "impressions": 112,
+          "suggestion": "Add schema markup, improve meta description, or add FAQ section"
+        },
+        {
+          "query": "menpachi eyes meaning",
+          "position": "4.1",
+          "ctr": "0.20%",
+          "impressions": 496,
+          "suggestion": "Add schema markup, improve meta description, or add FAQ section"
+        },
+        {
+          "query": "akamai meaning",
+          "position": "2.8",
+          "ctr": "0.00%",
+          "impressions": 74,
+          "suggestion": "Add schema markup, improve meta description, or add FAQ section"
+        }
+      ]
+    }
+  }
+}
