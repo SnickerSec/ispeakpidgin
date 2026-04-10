@@ -178,10 +178,12 @@ function setupAlphabetBrowser() {
         const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
         alphabetBrowser.innerHTML = alphabet.map(letter => {
             const count = getLetterCount(letter);
+            const escapedLetter = escapeHtml(letter);
+            const escapedCount = escapeHtml(String(count));
             return `<button class="alphabet-btn px-3 py-2 bg-gray-100 hover:bg-yellow-200 rounded-lg transition font-semibold text-sm ${count === 0 ? 'opacity-50 cursor-not-allowed' : ''}"
-                     data-letter="${letter}"
+                     data-letter="${escapedLetter}"
                      ${count === 0 ? 'disabled' : ''}>
-                     ${letter}<span class="text-xs block opacity-70">${count}</span>
+                     ${escapedLetter}<span class="text-xs block opacity-70">${escapedCount}</span>
                    </button>`;
         }).join('');
 
@@ -321,6 +323,15 @@ function displayResults(entries, append = false) {
         const exampleText = Array.isArray(entry.examples) ? entry.examples[0] || entry.example || '' : entry.example || '';
         const pronunciationText = entry.pronunciation || '';
         const audioText = entry.audioExample || exampleText;
+        
+        const escapedPidgin = escapeHtml(entry.pidgin);
+        const escapedEnglish = escapeHtml(englishText);
+        const escapedExample = escapeHtml(exampleText);
+        const escapedPronunciation = escapeHtml(pronunciationText);
+        const escapedAudioText = escapeHtml(audioText);
+        const escapedCategory = escapeHtml(entry.category);
+        const escapedId = escapeHtml(entry.key || entry.id);
+
         const masteryHtml = getMasteryHtml(entry.key || entry.id);
         const isFav = window.favoritesManager.isFavorite(entry.key || entry.id);
 
@@ -333,50 +344,50 @@ function displayResults(entries, append = false) {
 
         return `
         <div class="dictionary-entry-card bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer border-l-4 border-transparent"
-             data-word="${entry.key || entry.id}">
+             data-word="${escapedId}">
             <div class="flex justify-between items-start mb-1">
                 <div class="flex flex-col">
-                    <a href="${entryPageUrl}" class="text-xl font-bold text-purple-700 hover:text-purple-900 transition">${entry.pidgin}</a>
+                    <a href="${entryPageUrl}" class="text-xl font-bold text-purple-700 hover:text-purple-900 transition">${escapedPidgin}</a>
                 </div>
                 <div class="flex gap-2 items-center">
                     <button class="dict-fav-btn p-2 rounded-full hover:bg-red-50 transition-colors" 
-                            data-word="${entry.key || entry.id}" 
+                            data-word="${escapedId}" 
                             title="${isFav ? 'Remove from My Words' : 'Save to My Words'}">
                         <i class="ti ${isFav ? 'ti-heart-filled text-red-500' : 'ti-heart text-gray-400'} text-lg"></i>
                     </button>
                     <span class="text-xs px-3 py-1 bg-purple-100 text-purple-600 rounded-full font-medium">
-                        ${entry.category}
+                        ${escapedCategory}
                     </span>
                 </div>
             </div>
 
             ${masteryHtml}
 
-            <p class="text-gray-700 mb-3 font-medium">${englishText}</p>
+            <p class="text-gray-700 mb-3 font-medium">${escapedEnglish}</p>
 
-            ${exampleText ? `
+            ${escapedExample ? `
             <div class="mb-4">
-                <p class="text-sm text-gray-600 italic">"${exampleText}"</p>
+                <p class="text-sm text-gray-600 italic">"${escapedExample}"</p>
             </div>
             ` : ''}
 
-            ${pronunciationText ? `
+            ${escapedPronunciation ? `
             <div class="mb-4 bg-yellow-50 rounded-lg p-3">
                 <div class="text-xs text-yellow-800 font-semibold mb-1">Pronunciation:</div>
-                <div class="text-sm text-yellow-700">${pronunciationText}</div>
+                <div class="text-sm text-yellow-700">${escapedPronunciation}</div>
             </div>
             ` : ''}
 
             <div class="flex gap-2 flex-wrap">
                 <button class="dict-speak-btn text-xs px-3 py-2 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-full transition font-medium"
-                        data-text="${audioText}">
+                        data-text="${escapedAudioText}">
                     <i class="ti ti-volume"></i> Listen
                 </button>
                 <a href="${entryPageUrl}" class="inline-block text-xs px-3 py-2 bg-green-100 hover:bg-green-200 text-green-700 rounded-full transition font-medium">
                     <i class="ti ti-book"></i> Full Page
                 </a>
                 <button class="dict-practice-btn text-xs px-3 py-2 bg-purple-100 hover:bg-purple-200 text-purple-700 rounded-full transition font-medium"
-                        data-word="${entry.key}">
+                        data-word="${escapedId}">
                     <i class="ti ti-target"></i> Practice
                 </button>
             </div>
@@ -527,15 +538,17 @@ function showWordDetails(wordKey) {
 
     // Normalize entry format for display
     const displayEntry = {
-        pidgin: entry.pidgin,
-        english: Array.isArray(entry.english) ? entry.english.join(', ') : entry.english,
-        pronunciation: entry.pronunciation || '',
-        examples: Array.isArray(entry.examples) ? entry.examples : [entry.example || ''],
-        usage: entry.usage || '',
-        origin: entry.origin || '',
-        category: entry.category || '',
-        audioExample: entry.audioExample || entry.examples?.[0] || entry.example || ''
+        pidgin: escapeHtml(entry.pidgin),
+        english: escapeHtml(Array.isArray(entry.english) ? entry.english.join(', ') : entry.english),
+        pronunciation: escapeHtml(entry.pronunciation || ''),
+        examples: (Array.isArray(entry.examples) ? entry.examples : [entry.example || '']).map(ex => escapeHtml(ex)),
+        usage: escapeHtml(entry.usage || ''),
+        origin: escapeHtml(entry.origin || ''),
+        category: escapeHtml(entry.category || ''),
+        audioExample: escapeHtml(entry.audioExample || entry.examples?.[0] || entry.example || '')
     };
+
+    const escapedWordKey = escapeHtml(wordKey);
 
     // Create modal
     const modal = document.createElement('div');
@@ -552,6 +565,7 @@ function showWordDetails(wordKey) {
                     </div>
                     <div class="flex gap-4 items-center">
                         <button class="modal-fav-btn p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors" 
+                                data-word="${escapedWordKey}"
                                 title="${isFav ? 'Remove from My Words' : 'Save to My Words'}">
                             <i class="ti ${isFav ? 'ti-heart-filled text-red-400' : 'ti-heart text-white'} text-2xl"></i>
                         </button>
@@ -569,7 +583,8 @@ function showWordDetails(wordKey) {
                         <i class="ti ti-speakerphone"></i> Pronunciation
                     </h3>
                     <p class="text-2xl text-purple-700 font-mono">${displayEntry.pronunciation}</p>
-                    <button class="mt-3 px-6 py-3 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition speak-word">
+                    <button class="mt-3 px-6 py-3 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition speak-word"
+                            data-text="${displayEntry.pidgin}">
                         <i class="ti ti-volume"></i> Hear Pronunciation
                     </button>
                 </div>
@@ -584,7 +599,8 @@ function showWordDetails(wordKey) {
                     ${displayEntry.examples.filter(ex => ex).map(example => `
                         <p class="text-xl italic text-blue-700 mb-3">"${example}"</p>
                     `).join('')}
-                    <button class="px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition speak-example">
+                    <button class="px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition speak-example"
+                            data-text="${displayEntry.audioExample}">
                         <i class="ti ti-volume"></i> Listen to Example
                     </button>
                 </div>
@@ -624,10 +640,12 @@ function showWordDetails(wordKey) {
             <!-- Actions -->
             <div class="p-8 border-t bg-gray-50 rounded-b-2xl">
                 <div class="flex gap-4 justify-center flex-wrap">
-                    <button class="px-8 py-4 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition font-semibold practice-word">
+                    <button class="px-8 py-4 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition font-semibold practice-word"
+                            data-word="${escapedWordKey}">
                         <i class="ti ti-target"></i> Practice This Word
                     </button>
-                    <button class="px-8 py-4 bg-green-500 text-white rounded-full hover:bg-green-600 transition font-semibold translate-word">
+                    <button class="px-8 py-4 bg-green-500 text-white rounded-full hover:bg-green-600 transition font-semibold translate-word"
+                            data-text="${displayEntry.pidgin}">
                         <i class="ti ti-refresh"></i> Use in Translator
                     </button>
                     <button class="px-8 py-4 bg-gray-500 text-white rounded-full hover:bg-gray-600 transition font-semibold close-btn">
@@ -810,6 +828,17 @@ function speakText(text, options = {}) {
         utterance.rate = 0.9;
         speechSynthesis.speak(utterance);
     }
+}
+
+// Helper function to escape HTML entities to prevent XSS
+function escapeHtml(text) {
+    if (!text) return '';
+    return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
 }
 
 // Responsive placeholder for search input

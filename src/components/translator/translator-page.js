@@ -343,14 +343,17 @@ function displayTranslationResult(result, originalText, direction) {
     ];
 
     const randomTip = grammarTips[Math.floor(Math.random() * grammarTips.length)];
+    const escapedTipTitle = escapeHtml(randomTip.title);
+    const escapedTipText = escapeHtml(randomTip.text);
+    const escapedTipIcon = escapeHtml(randomTip.icon);
     
     outputHTML += `
         <div class="mt-6 pt-4 border-t-2 border-dashed border-gray-100 animate-fade-in">
             <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-xl border border-blue-100 flex items-start gap-3">
-                <div class="text-blue-600 mt-1 text-xl"><i class="ti ${randomTip.icon}"></i></div>
+                <div class="text-blue-600 mt-1 text-xl"><i class="ti ${escapedTipIcon}"></i></div>
                 <div>
-                    <h4 class="text-sm font-bold text-blue-800 uppercase tracking-wider">${randomTip.title}</h4>
-                    <p class="text-sm text-blue-900 mt-0.5">${randomTip.text}</p>
+                    <h4 class="text-sm font-bold text-blue-800 uppercase tracking-wider">${escapedTipTitle}</h4>
+                    <p class="text-sm text-blue-900 mt-0.5">${escapedTipText}</p>
                     <a href="learning-hub.html" class="text-xs text-blue-600 font-bold hover:underline mt-2 inline-block">Learn more in the Hub →</a>
                 </div>
             </div>
@@ -428,18 +431,24 @@ function showWordDiscovery(wordId) {
     const english = Array.isArray(entry.english) ? entry.english.join(', ') : entry.english;
     const example = Array.isArray(entry.examples) ? entry.examples[0] : (entry.example || '');
 
+    const escapedPidgin = escapeHtml(entry.pidgin);
+    const escapedCategory = escapeHtml(entry.category);
+    const escapedEnglish = escapeHtml(english);
+    const escapedPronunciation = entry.pronunciation ? escapeHtml(entry.pronunciation) : null;
+    const escapedExample = example ? escapeHtml(example) : null;
+
     content.innerHTML = `
         <div class="flex flex-col gap-2">
             <div class="flex justify-between items-baseline">
-                <span class="text-3xl font-black text-purple-700">${entry.pidgin}</span>
-                <span class="text-xs px-2 py-1 bg-purple-100 text-purple-600 rounded-full font-bold uppercase">${entry.category}</span>
+                <span class="text-3xl font-black text-purple-700">${escapedPidgin}</span>
+                <span class="text-xs px-2 py-1 bg-purple-100 text-purple-600 rounded-full font-bold uppercase">${escapedCategory}</span>
             </div>
-            <p class="text-lg text-gray-700 font-medium">${english}</p>
-            ${entry.pronunciation ? `<p class="text-sm text-gray-500 italic">[${entry.pronunciation}]</p>` : ''}
-            ${example ? `
+            <p class="text-lg text-gray-700 font-medium">${escapedEnglish}</p>
+            ${escapedPronunciation ? `<p class="text-sm text-gray-500 italic">[${escapedPronunciation}]</p>` : ''}
+            ${escapedExample ? `
                 <div class="mt-4 bg-gray-50 p-4 rounded-xl border-l-4 border-gray-200">
                     <p class="text-xs font-bold text-gray-400 uppercase mb-1">Example</p>
-                    <p class="text-gray-700 italic">"${example}"</p>
+                    <p class="text-gray-700 italic">"${escapedExample}"</p>
                 </div>
             ` : ''}
         </div>
@@ -568,18 +577,21 @@ function loadHistory() {
             const time = new Date(item.timestamp).toLocaleTimeString();
             const escapedOriginal = escapeHtml(item.original);
             const escapedTranslation = escapeHtml(item.translation);
+            const escapedDirectionLabel = escapeHtml(direction);
+            const escapedTime = escapeHtml(time);
+            const escapedDirectionKey = escapeHtml(item.direction);
 
             return `
                 <div class="border-l-4 border-purple-400 pl-4 py-2 hover:bg-gray-50 transition cursor-pointer history-item"
-                     data-original="${escapedOriginal}" data-translation="${escapedTranslation}" data-direction="${escapeHtml(item.direction)}">
+                     data-original="${escapedOriginal}" data-translation="${escapedTranslation}" data-direction="${escapedDirectionKey}">
                     <div class="flex justify-between items-start">
                         <div class="flex-1">
                             <p class="text-gray-700">${escapedOriginal}</p>
                             <p class="text-purple-600 font-medium">→ ${escapedTranslation}</p>
                         </div>
                         <div class="text-xs text-gray-500 ml-4">
-                            <div>${direction}</div>
-                            <div>${time}</div>
+                            <div>${escapedDirectionLabel}</div>
+                            <div>${escapedTime}</div>
                         </div>
                     </div>
                 </div>

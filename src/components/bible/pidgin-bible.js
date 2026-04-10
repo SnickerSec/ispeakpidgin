@@ -52,13 +52,17 @@ function initializeBibleNav() {
     const bookList = document.getElementById('book-list');
     if (!bookList) return;
 
-    bookList.innerHTML = bibleBooks.map(book => `
-        <button
-            class="book-nav-item block w-full text-left px-3 py-2 rounded-lg text-sm hover:bg-purple-50 transition"
-            data-book="${book.slug}">
-            ${book.name}
-        </button>
-    `).join('');
+    bookList.innerHTML = bibleBooks.map(book => {
+        const escapedSlug = escapeHtml(book.slug);
+        const escapedName = escapeHtml(book.name);
+        return `
+            <button
+                class="book-nav-item block w-full text-left px-3 py-2 rounded-lg text-sm hover:bg-purple-50 transition"
+                data-book="${escapedSlug}">
+                ${escapedName}
+            </button>
+        `;
+    }).join('');
 
     // Add event delegation for book navigation
     bookList.addEventListener('click', (e) => {
@@ -199,11 +203,12 @@ function loadBook(slug) {
 
     // Build chapter selector
     const chapters = Array.from({ length: book.chapters }, (_, i) => i + 1);
+    const escapedBookName = escapeHtml(book.name);
 
     readingArea.innerHTML = `
         <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-3xl font-bold text-gray-800">${book.name}</h2>
+                <h2 class="text-3xl font-bold text-gray-800">${escapedBookName}</h2>
                 <button id="reset-view-btn" class="text-purple-600 hover:text-purple-800 font-semibold">
                     ← Back to Home
                 </button>
@@ -214,14 +219,17 @@ function loadBook(slug) {
             </p>
 
             <div id="chapters-grid" class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-3 mb-8">
-                ${chapters.map(ch => `
-                    <button
-                        data-book-name="${book.name}"
-                        data-chapter="${ch}"
-                        class="chapter-btn bg-purple-100 hover:bg-purple-600 hover:text-white text-purple-800 font-bold py-3 px-4 rounded-lg transition text-center">
-                        ${ch}
-                    </button>
-                `).join('')}
+                ${chapters.map(ch => {
+                    const escapedCh = escapeHtml(String(ch));
+                    return `
+                        <button
+                            data-book-name="${escapedBookName}"
+                            data-chapter="${escapedCh}"
+                            class="chapter-btn bg-purple-100 hover:bg-purple-600 hover:text-white text-purple-800 font-bold py-3 px-4 rounded-lg transition text-center">
+                            ${escapedCh}
+                        </button>
+                    `;
+                }).join('')}
             </div>
 
             <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6">
@@ -282,10 +290,13 @@ function showChapterModal(book, chapter) {
         if (e.target === modal) document.body.removeChild(modal);
     };
 
+    const escapedBookName = escapeHtml(book.name);
+    const escapedChapter = escapeHtml(String(chapter));
+
     modal.innerHTML = `
         <div class="bg-white rounded-2xl max-w-2xl w-full p-8 shadow-2xl">
             <h2 class="text-3xl font-bold text-gray-800 mb-4">
-                ${book.name} ${chapter}
+                ${escapedBookName} ${escapedChapter}
             </h2>
             <p class="text-lg text-gray-700 mb-6">
                 Choose where you'd like to read this chapter:
@@ -404,3 +415,14 @@ window.loadBook = loadBook;
 window.openChapter = openChapter;
 window.resetView = resetView;
 window.searchVerse = searchVerse;
+
+// Helper function to escape HTML entities to prevent XSS
+function escapeHtml(text) {
+    if (!text) return '';
+    return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
