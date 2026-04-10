@@ -10,22 +10,27 @@ module.exports = function(supabase, dictionaryCache, limiter) {
     // Simple bot protection: Ensure request comes from our own site
     const botProtection = (req, res, next) => {
         const referer = req.get('Referer');
-        const isDev = process.env.NODE_ENV === 'development';
+        const origin = req.get('Origin');
+        const isDev = process.env.NODE_ENV === 'development' || req.hostname === 'localhost' || req.hostname === '127.0.0.1';
 
-        if (!isDev && referer) {
+        if (isDev) return next();
+
+        const source = referer || origin;
+        if (source) {
             try {
-                const url = new URL(referer);
-                const allowedHosts = ['chokepidgin.com', 'www.chokepidgin.com'];
-                if (!allowedHosts.includes(url.hostname)) {
-                    return res.status(403).json({ error: 'Direct API access not allowed' });
+                const url = new URL(source);
+                const allowedDomains = ['chokepidgin.com', 'www.chokepidgin.com'];
+                if (allowedDomains.includes(url.hostname) || url.hostname.endsWith('.chokepidgin.com')) {
+                    return next();
                 }
             } catch (e) {
-                return res.status(403).json({ error: 'Invalid Referer header' });
+                // Ignore invalid URLs
             }
-        } else if (!isDev && !referer) {
-            return res.status(403).json({ error: 'Direct API access not allowed' });
         }
-        next();
+        
+        // If no referer/origin in production, or it doesn't match
+        console.warn(`Blocked request from hostname: ${req.hostname}, referer: ${referer}, origin: ${origin}`);
+        return res.status(403).json({ error: 'Direct API access not allowed' });
     };
     // Helper: Get relevant vocabulary for context injection
     function getRelevantVocabulary(text, maxEntries = 25) {
