@@ -64,11 +64,11 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
     // SEO-optimized title: Match exact search query "X meaning" with compelling format
     // Capitalize the word properly for display
     const capitalizedWord = entry.pidgin.charAt(0).toUpperCase() + entry.pidgin.slice(1);
-    const pageTitle = `${capitalizedWord} Meaning: "${primaryMeaning}" - Hawaiian Slang Dictionary`;
+    const pageTitle = `${capitalizedWord} Meaning: "${primaryMeaning}" - Hawaiian Pidgin Dictionary`;
 
     // Create a more compelling, action-oriented meta description
     const shortMeaning = primaryMeaning.length > 30 ? primaryMeaning.substring(0, 30) + '...' : primaryMeaning;
-    const metaDescription = `What does "${capitalizedWord}" mean? Learn the local Hawaiian meaning, hear the authentic pronunciation, and see real-life examples of how locals use "${capitalizedWord}" in conversation.`;
+    const metaDescription = `What does "${capitalizedWord}" mean in Hawaiian Pidgin? Learn the local meaning, hear how to pronounce "${capitalizedWord}" correctly, and see real examples of Hawaiian Pidgin English.`;
 
     const canonicalUrl = `${SITE_URL}/word/${slug}.html`;
 
@@ -76,10 +76,10 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
     const headContent = getCommonHead({
         title: pageTitle,
         metaDescription,
-        keywords: `${entry.pidgin}, hawaiian slang, hawaiian pidgin, ${englishMeanings}, pidgin dictionary, hawaii language`,
+        keywords: `${entry.pidgin} meaning, ${entry.pidgin} hawaiian pidgin, what does ${entry.pidgin} mean, hawaiian slang, ${englishMeanings}, hawaii creole english`,
         canonicalUrl,
         ogType: 'article',
-        ogTitle: `${capitalizedWord} Meaning: ${shortMeaning} | Hawaiian Pidgin`,
+        ogTitle: `${capitalizedWord} Meaning & Pronunciation | Hawaiian Pidgin Dictionary`,
         ogDescription: metaDescription
     });
 
@@ -88,10 +88,10 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
         "@context": "https://schema.org",
         "@type": "DefinedTerm",
         "name": entry.pidgin,
-        "description": escapeHtml(entry.usage || englishMeanings),
+        "description": escapeHtml(entry.usage || `Meaning of ${entry.pidgin}: ${englishMeanings}`),
         "inDefinedTermSet": {
             "@type": "DefinedTermSet",
-            "name": "Hawaiian Pidgin Dictionary",
+            "name": "Hawaiian Pidgin English Dictionary",
             "url": `${SITE_URL}/dictionary.html`
         },
         "termCode": entry.id
@@ -108,28 +108,26 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
         "mainEntity": [
             {
                 "@type": "Question",
-                "name": `What does "${escapeHtml(entry.pidgin)}" mean in Hawaiian Pidgin?`,
+                "name": `What does the Hawaiian Pidgin word "${escapeHtml(entry.pidgin)}" mean?`,
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": `"${escapeHtml(entry.pidgin)}" means "${escapeHtml(primaryMeaning)}" in Hawaiian Pidgin.${entry.usage ? ' ' + escapeHtml(entry.usage) + '.' : ''}`
+                    "text": `In Hawaiian Pidgin, "${escapeHtml(entry.pidgin)}" means "${escapeHtml(primaryMeaning)}".${entry.usage ? ' It is commonly used to mean ' + escapeHtml(entry.usage) + '.' : ''}`
                 }
             },
             {
                 "@type": "Question",
-                "name": `How do you pronounce "${escapeHtml(entry.pidgin)}"?`,
+                "name": `How do you say "${escapeHtml(primaryMeaning)}" in Hawaiian Pidgin?`,
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": entry.pronunciation ? `"${escapeHtml(entry.pidgin)}" is pronounced "${escapeHtml(entry.pronunciation)}".` : `"${escapeHtml(entry.pidgin)}" is pronounced phonetically as it appears.`
+                    "text": `One of the most common ways to say "${escapeHtml(primaryMeaning)}" in Hawaiian Pidgin is "${escapeHtml(entry.pidgin)}".`
                 }
             },
             {
                 "@type": "Question",
-                "name": `How do you use "${escapeHtml(entry.pidgin)}" in a sentence?`,
+                "name": `Is "${escapeHtml(entry.pidgin)}" a Hawaiian word or Pidgin?`,
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": Array.isArray(entry.examples) && entry.examples.length > 0
-                        ? `Example: "${escapeHtml(entry.examples[0])}"`
-                        : `"${escapeHtml(entry.pidgin)}" is commonly used in casual Hawaiian conversation.`
+                    "text": `${entry.origin ? `"${escapeHtml(entry.pidgin)}" has its origins in ${escapeHtml(entry.origin)}` : `"${escapeHtml(entry.pidgin)}"`} and is a key part of modern Hawaiian Pidgin English (Hawaii Creole English).`
                 }
             }
         ]
