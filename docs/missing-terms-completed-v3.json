@@ -1,0 +1,86 @@
+{
+  "generated": "2026-04-08T06:30:00.000Z",
+  "count": 8,
+  "missing": [
+    {
+      "pidgin": "punnami",
+      "english": ["Common misspelling of 'punani'"],
+      "category": "slang",
+      "pronunciation": "poo-nah-mee",
+      "examples": ["He neva know how for spell punnami."],
+      "usage": "A common misspelling of 'punani' (vagina). Often used in casual or vulgar island slang.",
+      "difficulty": "intermediate",
+      "tags": ["misspelling", "slang"]
+    },
+    {
+      "pidgin": "malama your boto",
+      "english": ["Take care of your private parts"],
+      "category": "slang",
+      "pronunciation": "mah-lah-mah your boh-toh",
+      "examples": ["Brah, you bettah malama your boto!"],
+      "usage": "A humorous or warning phrase often said between friends. 'Malama' means to take care of, and 'boto' refers to male genitalia.",
+      "difficulty": "intermediate",
+      "tags": ["humor", "slang"]
+    },
+    {
+      "pidgin": "ole way",
+      "english": ["Phonetic spelling of 'auwe'"],
+      "category": "expressions",
+      "pronunciation": "oh-lay way",
+      "examples": ["Ole way! I forgot my slippahs!"],
+      "usage": "A phonetic misspelling of 'auwe' (oh my, alas). Expresses shock, sadness, or disappointment.",
+      "difficulty": "beginner",
+      "tags": ["misspelling", "expression"]
+    },
+    {
+      "pidgin": "bline",
+      "english": ["Blind", "extremely drunk"],
+      "category": "slang",
+      "pronunciation": "blyne",
+      "examples": ["He was all bline last night at da party."],
+      "usage": "Short for 'blind.' Often used in the phrase 'all bline' to describe being extremely drunk or intoxicated.",
+      "difficulty": "intermediate",
+      "tags": ["slang", "drinking"]
+    },
+    {
+      "pidgin": "pow",
+      "english": ["Phonetic spelling of 'pau'"],
+      "category": "general",
+      "pronunciation": "pow",
+      "examples": ["I almost pow with my work."],
+      "usage": "A common phonetic spelling of 'pau' (finished, done). Used when something is completed or over.",
+      "difficulty": "beginner",
+      "tags": ["misspelling", "general"]
+    },
+    {
+      "pidgin": "so ono",
+      "english": ["Very delicious", "very tasty"],
+      "category": "food",
+      "pronunciation": "so oh-no",
+      "examples": ["Dis plate lunch stay so ono!"],
+      "usage": "Used to describe food that is exceptionally good. 'Ono' is the Hawaiian word for delicious.",
+      "difficulty": "beginner",
+      "tags": ["food", "praise"]
+    },
+    {
+      "pidgin": "hawaiin",
+      "english": ["Misspelling of 'Hawaiian'"],
+      "category": "general",
+      "pronunciation": "ha-wye-in",
+      "examples": ["I love Hawaiin food."],
+      "usage": "A common misspelling of 'Hawaiian.' Used to refer to the people, language, or culture of Hawaii.",
+      "difficulty": "beginner",
+      "tags": ["misspelling"]
+    },
+    {
+      "pidgin": "how to respond to howzit",
+      "english": ["Common responses to the 'howzit' greeting"],
+      "category": "greetings",
+      "pronunciation": "how to re-spond to how-zit",
+      "examples": ["Response: 'Howzit', 'Stay good', or 'Shoots'"],
+      "usage": "Common responses include 'howzit', 'stay good', 'shoots', or simply a head nod. It is more of a greeting than a question requiring a detailed answer.",
+      "difficulty": "beginner",
+      "tags": ["greetings", "etiquette"]
+    }
+  ]
+}

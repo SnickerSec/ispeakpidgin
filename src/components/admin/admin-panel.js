@@ -557,12 +557,15 @@
                 const english = escapeHtml(s.english);
                 const example = s.example ? escapeHtml(s.example) : null;
                 const contributor = escapeHtml(s.contributor_name || 'Anonymous');
+                const escapedId = escapeHtml(s.id);
+                const escapedDate = escapeHtml(formatDate(s.created_at));
+                const escapedStatus = escapeHtml(status);
 
                 return `
                 <tr class="hover:bg-gray-50">
                     <td class="px-6 py-4 whitespace-nowrap">
                         <div class="font-medium text-gray-900">${pidgin}</div>
-                        <div class="text-xs text-gray-500">Added: ${formatDate(s.created_at)}</div>
+                        <div class="text-xs text-gray-500">Added: ${escapedDate}</div>
                     </td>
                     <td class="px-6 py-4">
                         <div class="text-sm text-gray-900">${english}</div>
@@ -574,11 +577,11 @@
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         ${status === 'pending' ? `
                             <div class="flex justify-center gap-2">
-                                <button data-action="approve" data-id="${s.id}"
+                                <button data-action="approve" data-id="${escapedId}"
                                         class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">
                                     Approve
                                 </button>
-                                <button data-action="reject" data-id="${s.id}"
+                                <button data-action="reject" data-id="${escapedId}"
                                         class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition">
                                     Reject
                                 </button>
@@ -587,7 +590,7 @@
                             <span class="px-2 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
                                 status === 'approved' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
                             }">
-                                ${status}
+                                ${escapedStatus}
                             </span>
                         `}
                     </td>
@@ -680,6 +683,7 @@
                 const responseText = q.responses && q.responses.length > 0 ? escapeHtml(q.responses[0].response_text) : null;
                 const escapedStatus = escapeHtml(q.status);
                 const escapedId = escapeHtml(q.id);
+                const escapedDate = escapeHtml(formatDate(q.created_at));
                 const statusClass = q.status === 'answered' ? 'bg-green-100 text-green-700' : 
                                     q.status === 'pending' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700';
 
@@ -687,7 +691,7 @@
                 <tr class="hover:bg-gray-50">
                     <td class="px-6 py-4">
                         <div class="text-sm font-bold text-gray-900">${questionText}</div>
-                        <div class="text-xs text-gray-500 mt-1">By ${userName} • ${formatDate(q.created_at)}</div>
+                        <div class="text-xs text-gray-500 mt-1">By ${userName} • ${escapedDate}</div>
                         ${responseText ? `
                             <div class="mt-2 p-2 bg-green-50 rounded border border-green-100">
                                 <div class="text-xs font-bold text-green-800">Answer:</div>
@@ -833,11 +837,13 @@
                 const term = escapeHtml(g.term);
                 const escapedStatus = escapeHtml(g.status);
                 const escapedCount = escapeHtml(String(g.count));
+                const escapedDate = escapeHtml(formatDate(g.last_searched_at));
+                const escapedId = escapeHtml(g.id);
                 return `
                 <tr class="hover:bg-gray-50" data-pidgin="${term}">
                     <td class="px-6 py-4 whitespace-nowrap">
                         <div class="font-bold text-gray-900">${term}</div>
-                        <div class="text-[10px] text-gray-500 mt-1 uppercase">Last searched: ${formatDate(g.last_searched_at)}</div>
+                        <div class="text-[10px] text-gray-500 mt-1 uppercase">Last searched: ${escapedDate}</div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <div class="text-sm font-bold text-purple-600">${escapedCount} searches</div>
@@ -867,12 +873,12 @@
                                         class="flex-1 bg-purple-50 text-purple-600 px-2 py-1 rounded hover:bg-purple-100 transition text-xs font-bold border border-purple-200">
                                     <i class="ti ti-wand"></i> Suggest
                                 </button>
-                                <button data-action="add-gap-btn" data-id="${g.id}" data-pidgin="${term}"
+                                <button data-action="add-gap-btn" data-id="${escapedId}" data-pidgin="${term}"
                                         class="flex-1 bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700 transition text-xs font-bold shadow-sm">
                                     <i class="ti ti-plus"></i> Add
                                 </button>
                             </div>
-                            <button data-action="ignore-gap" data-id="${g.id}"
+                            <button data-action="ignore-gap" data-id="${escapedId}"
                                     class="w-full bg-gray-100 text-gray-600 px-2 py-1 rounded hover:bg-gray-200 transition text-xs border border-gray-200">
                                 <i class="ti ti-trash"></i> Ignore Gap
                             </button>
@@ -1343,10 +1349,11 @@
                 const action = escapeHtml(log.action);
                 const resource = escapeHtml(log.resource || '-');
                 const ip = escapeHtml(log.ip_address || '-');
+                const escapedDate = escapeHtml(formatDate(log.created_at));
 
                 return `
                 <tr class="hover:bg-gray-50">
-                    <td class="px-4 py-3 text-sm text-gray-600">${formatDate(log.created_at)}</td>
+                    <td class="px-4 py-3 text-sm text-gray-600">${escapedDate}</td>
                     <td class="px-4 py-3 text-sm font-medium text-gray-800">${username}</td>
                     <td class="px-4 py-3 text-sm text-gray-600">${action}</td>
                     <td class="px-4 py-3 text-sm text-gray-600">${resource}</td>

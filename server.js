@@ -332,18 +332,22 @@ const spellingRedirects = {
 };
 
 // SEO: Spelling Variant Redirects for Words
-app.use('/word/:slug', (req, res, next) => {
+app.use('/word/:slug', pageLimiter, (req, res, next) => {
     if (!req.params.slug) return next();
     
-    const slug = req.params.slug.replace('.html', '').toLowerCase();
-    const correctSlug = spellingRedirects[slug];
+    // Sanitize slug to prevent directory traversal
+    const rawSlug = req.params.slug;
+    const safeSlug = path.basename(rawSlug);
+    
+    const slugKey = safeSlug.replace('.html', '').toLowerCase();
+    const correctSlug = spellingRedirects[slugKey];
 
-    if (correctSlug && correctSlug !== slug) {
+    if (correctSlug && correctSlug !== slugKey) {
         return res.redirect(301, `/word/${correctSlug}.html`);
     }
     
     // Explicitly check for file existence to avoid 5xx or SPA issues
-    const filePath = path.join(__dirname, 'public', 'word', req.params.slug.endsWith('.html') ? req.params.slug : `${req.params.slug}.html`);
+    const filePath = path.join(__dirname, 'public', 'word', safeSlug.endsWith('.html') ? safeSlug : `${safeSlug}.html`);
     if (fs.existsSync(filePath)) {
         return res.sendFile(filePath);
     }
@@ -352,18 +356,22 @@ app.use('/word/:slug', (req, res, next) => {
 });
 
 // SEO: Spelling Variant Redirects for Phrases
-app.use('/phrase/:slug', (req, res, next) => {
+app.use('/phrase/:slug', pageLimiter, (req, res, next) => {
     if (!req.params.slug) return next();
 
-    const slug = req.params.slug.replace('.html', '').toLowerCase();
-    const correctSlug = spellingRedirects[slug];
+    // Sanitize slug to prevent directory traversal
+    const rawSlug = req.params.slug;
+    const safeSlug = path.basename(rawSlug);
 
-    if (correctSlug && correctSlug !== slug) {
+    const slugKey = safeSlug.replace('.html', '').toLowerCase();
+    const correctSlug = spellingRedirects[slugKey];
+
+    if (correctSlug && correctSlug !== slugKey) {
         return res.redirect(301, `/phrase/${correctSlug}.html`);
     }
 
     // Explicitly check for file existence
-    const filePath = path.join(__dirname, 'public', 'phrase', req.params.slug.endsWith('.html') ? req.params.slug : `${req.params.slug}.html`);
+    const filePath = path.join(__dirname, 'public', 'phrase', safeSlug.endsWith('.html') ? safeSlug : `${safeSlug}.html`);
     if (fs.existsSync(filePath)) {
         return res.sendFile(filePath);
     }
@@ -385,7 +393,7 @@ app.use('/phrase/:slug', (req, res, next) => {
 // ============================================
 // SEO: Redirect index.html to /
 // ============================================
-app.get(['/index.html', '/index'], (req, res) => {
+app.get(['/index.html', '/index'], pageLimiter, (req, res) => {
     res.redirect(301, '/');
 });
 
