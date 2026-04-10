@@ -1,0 +1,92 @@
+{
+  "missing": [
+    {
+      "pidgin": "kōkua",
+      "english": ["help", "assistance", "support"],
+      "category": "general",
+      "pronunciation": "koh-KOO-ah",
+      "examples": ["Mahalo for your kōkua today.", "We need some kōkua with cleaning up da beach."],
+      "usage": "Used frequently in both Pidgin and formal English in Hawaii to ask for or acknowledge help.",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "tags": ["help", "community", "aloha"]
+    },
+    {
+      "pidgin": "niele",
+      "english": ["nosy", "inquisitive", "prying"],
+      "category": "slang",
+      "pronunciation": "nee-EH-leh",
+      "examples": ["Eh, no be so niele!", "She always asking too many questions, she stay too niele."],
+      "usage": "Used to describe someone who is being too nosy or asking personal questions.",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "tags": ["behavior", "personality"]
+    },
+    {
+      "pidgin": "da aina",
+      "english": ["the land", "the earth"],
+      "category": "culture",
+      "pronunciation": "dah EYE-nah",
+      "examples": ["We gotta malama da aina.", "Da aina give us everything we need."],
+      "usage": "Refers to the land and the environment, emphasizing the cultural connection and responsibility to care for it.",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "tags": ["land", "nature", "responsibility"]
+    },
+    {
+      "pidgin": "so ono",
+      "english": ["so delicious", "very tasty"],
+      "category": "food",
+      "pronunciation": "so OH-no",
+      "examples": ["Ho, dis plate lunch stay so ono!", "Dat shave ice was so ono, I like get another one."],
+      "usage": "Common way to express that food is very delicious.",
+      "origin": "Pidgin/Hawaiian",
+      "difficulty": "beginner",
+      "tags": ["food", "delicious"]
+    },
+    {
+      "pidgin": "akamai",
+      "english": ["smart", "clever", "intelligent"],
+      "category": "general",
+      "pronunciation": "ah-kah-MY",
+      "examples": ["You so akamai, you wen figure 'em out fast.", "He one akamai kid, always get good grades."],
+      "usage": "Used to praise someone's intelligence or cleverness.",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "tags": ["intelligence", "compliment"]
+    },
+    {
+      "pidgin": "ma-ke",
+      "english": ["dead", "to die", "broken"],
+      "category": "slang",
+      "pronunciation": "MAH-keh",
+      "examples": ["My phone stay ma-ke.", "The battery ma-ke already."],
+      "usage": "Can refer to literal death or, more commonly in Pidgin, to something being broken or out of power.",
+      "origin": "Hawaiian",
+      "difficulty": "intermediate",
+      "tags": ["broken", "status"]
+    },
+    {
+      "pidgin": "li hing mui",
+      "english": ["salty dried plum"],
+      "category": "food",
+      "pronunciation": "lee hing MOO-ee",
+      "examples": ["I love li hing mui powder on my gummy bears.", "You like some li hing mui? Was on sale."],
+      "usage": "A popular snack flavor in Hawaii, originally from China. Used as a powder on fruit, candy, and snacks.",
+      "origin": "Chinese",
+      "difficulty": "beginner",
+      "tags": ["food", "snack", "sweet-and-sour"]
+    },
+    {
+      "pidgin": "lilikoi",
+      "english": ["passion fruit"],
+      "category": "food",
+      "pronunciation": "lee-lee-KOY",
+      "examples": ["Dis lilikoi juice stay so refreshing.", "I wen make one lilikoi cheesecake for da party."],
+      "usage": "The local name for passion fruit, used in many desserts and drinks.",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "tags": ["food", "fruit"]
+    }
+  ]
+}

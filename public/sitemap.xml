@@ -1304,6 +1304,12 @@
         <priority>0.8</priority>
     </url>
     <url>
+        <loc>https://chokepidgin.com/word/da-aina.html</loc>
+        <lastmod>2026-04-10</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.75</priority>
+    </url>
+    <url>
         <loc>https://chokepidgin.com/word/da-bes.html</loc>
         <lastmod>2026-04-10</lastmod>
         <changefreq>weekly</changefreq>
@@ -2120,16 +2126,16 @@
         <priority>0.75</priority>
     </url>
     <url>
-        <loc>https://chokepidgin.com/word/ho-nah.html</loc>
+        <loc>https://chokepidgin.com/word/ho-brah.html</loc>
         <lastmod>2026-04-10</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.75</priority>
     </url>
     <url>
-        <loc>https://chokepidgin.com/word/ho-brah.html</loc>
+        <loc>https://chokepidgin.com/word/ho-nah.html</loc>
         <lastmod>2026-04-10</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
+        <changefreq>monthly</changefreq>
+        <priority>0.75</priority>
     </url>
     <url>
         <loc>https://chokepidgin.com/word/ho-da-bagahs-goin-chicken-skin.html</loc>
@@ -2988,6 +2994,12 @@
         <lastmod>2026-04-10</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.75</priority>
+    </url>
+    <url>
+        <loc>https://chokepidgin.com/word/ma-ke.html</loc>
+        <lastmod>2026-04-10</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
     </url>
     <url>
         <loc>https://chokepidgin.com/word/madt.html</loc>

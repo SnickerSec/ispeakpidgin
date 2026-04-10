@@ -1,0 +1,70 @@
+{
+  "missing": [
+    {
+      "pidgin": "punnami",
+      "english": ["pretty girl", "beautiful woman"],
+      "category": "slang",
+      "pronunciation": "poo-NAH-mee",
+      "examples": ["Look at dat punnami ovah dea.", "She stay one real punnami."],
+      "usage": "Used to compliment a girl's appearance. Derived from Ilocano.",
+      "origin": "Filipino (Ilocano)",
+      "difficulty": "intermediate",
+      "tags": ["compliment", "appearance", "slang"]
+    },
+    {
+      "pidgin": "mo' bettah",
+      "english": ["much better", "superior", "improved"],
+      "category": "general",
+      "pronunciation": "mo BEH-tah",
+      "examples": ["Dis one stay mo' bettah than da other one.", "It's mo' bettah if we go early."],
+      "usage": "Classic Pidgin expression for something that is better or preferred.",
+      "origin": "Pidgin",
+      "difficulty": "beginner",
+      "tags": ["comparison", "common"]
+    },
+    {
+      "pidgin": "chee-hoo",
+      "english": ["joyful shout", "celebratory cry"],
+      "category": "expressions",
+      "pronunciation": "CHEE-hoo",
+      "examples": ["We won da game! Chee-hoo!", "Chee-hoo! Party tonight!"],
+      "usage": "A high-pitched shout used to express excitement, joy, or celebration.",
+      "origin": "Polynesian/Samoan",
+      "difficulty": "beginner",
+      "tags": ["celebration", "shout", "joy"]
+    },
+    {
+      "pidgin": "ho brah",
+      "english": ["wow man", "hey brother"],
+      "category": "expressions",
+      "pronunciation": "ho brah",
+      "examples": ["Ho brah, you see dat wave?", "Ho brah, long time no see!"],
+      "usage": "A very common exclamation used for surprise, emphasis, or simply to get a friend's attention.",
+      "origin": "Pidgin",
+      "difficulty": "beginner",
+      "tags": ["greeting", "surprise", "common"]
+    },
+    {
+      "pidgin": "grindz",
+      "english": ["food", "delicious meal"],
+      "category": "food",
+      "pronunciation": "grindz",
+      "examples": ["We go get some mean grindz.", "Da grindz at dat party was unreal."],
+      "usage": "Slang for food or a meal, often used with 'ono' or 'mean'.",
+      "origin": "Pidgin",
+      "difficulty": "beginner",
+      "tags": ["food", "slang"]
+    },
+    {
+      "pidgin": "talk story",
+      "english": ["to chat", "to converse", "to gossip"],
+      "category": "general",
+      "pronunciation": "talk STOH-ree",
+      "examples": ["We was just sitting dea, talking story.", "Come ovah, we talk story for one bit."],
+      "usage": "The quintessential local term for casual conversation and sharing news or stories.",
+      "origin": "Pidgin",
+      "difficulty": "beginner",
+      "tags": ["conversation", "culture"]
+    }
+  ]
+}
