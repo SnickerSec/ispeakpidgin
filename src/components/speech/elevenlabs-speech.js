@@ -448,7 +448,8 @@ class ElevenLabsSpeech {
                         },
                         body: JSON.stringify({
                             text: correctedText,  // Use corrected text for better pronunciation
-                            originalText: text    // Keep original for reference
+                            originalText: text,   // Keep original for reference
+                            voiceId: options.voiceId // Pass through the requested voiceId
                         })
                     });
 

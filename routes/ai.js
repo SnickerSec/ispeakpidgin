@@ -57,26 +57,47 @@ module.exports = function(supabase, dictionaryCache, limiter) {
         botProtection,
         [
             body('message').trim().notEmpty().isLength({ max: 1000 }),
-            body('history').optional().isArray()
+            body('history').optional().isArray(),
+            body('character').optional().isIn(['kimo', 'aunty', 'braddah'])
         ],
         async (req, res) => {
             const errors = validationResult(req);
             if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
             try {
-                const { message, history = [] } = req.body;
+                const { message, history = [], character = 'kimo' } = req.body;
                 const apiKey = process.env.GEMINI_API_KEY;
                 if (!apiKey) return res.status(500).json({ error: 'Gemini API key not configured' });
 
                 const vocabulary = getRelevantVocabulary(message);
                 
+                const characters = {
+                    kimo: {
+                        name: "Kimo",
+                        desc: "a friendly and patient Hawaiian Pidgin tutor. He likes to help people learn correctly but stay casual.",
+                        voiceId: "f0ODjLMfcJmlKfs7dFCW"
+                    },
+                    aunty: {
+                        name: "Aunty Leilani",
+                        desc: "a warm, wise, and slightly sassy Hawaiian Aunty. She uses more traditional Pidgin and often talks about food, family, and respect (mana'o).",
+                        voiceId: "EXAVITQu4vr4xnSDxMaL" // Sarah (mature, warm)
+                    },
+                    braddah: {
+                        name: "Braddah Shane",
+                        desc: "a young, super casual surfer braddah. He uses lots of slang (chee-hoo, rajah, shoots) and talks about the beach and good times.",
+                        voiceId: "ErXwbc3VNbCc1k9An9bS" // Ethan (casual, male)
+                    }
+                };
+
+                const activeChar = characters[character] || characters.kimo;
+
                 const systemPrompt = `
-You are "Kimo," a friendly and patient Hawaiian Pidgin tutor. 
+You are "${activeChar.name}," ${activeChar.desc}
 Your goal is to "talk story" with the user to help them practice their Pidgin.
 
 GUIDELINES:
 1. Always respond in authentic, natural Hawaiian Pidgin. 
-2. Keep your responses friendly, encouraging, and "local" in style.
+2. Keep your responses consistent with your specific personality (${activeChar.name}).
 3. If the user makes a big mistake in their Pidgin, gently suggest the correct way to say it in your response.
 4. If they speak English, respond in Pidgin but keep it simple enough for them to follow.
 5. Use the provided vocabulary context to ensure accuracy.
@@ -86,7 +107,9 @@ Respond in JSON format:
 {
   "pidgin": "Your response in authentic Pidgin",
   "translation": "English translation of your response",
-  "hint": "A small tip about a word or grammar point used in this exchange (optional)"
+  "hint": "A small tip about a word or grammar point used in this exchange (optional)",
+  "character": "${character}",
+  "voiceId": "${activeChar.voiceId}"
 }
 ${vocabulary}`;
 
