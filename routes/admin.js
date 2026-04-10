@@ -4,6 +4,24 @@ const { body, validationResult } = require('express-validator');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const rateLimit = require('express-rate-limit');
+
+// Define rate limiters explicitly for CodeQL detection
+const adminLoginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 5,
+    message: 'Too many login attempts, please try again later.',
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
+const adminActionLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 25,
+    message: 'Too many admin actions, please slow down, brah.',
+    standardHeaders: true,
+    legacyHeaders: false,
+});
 
 // Configure multer for audio uploads using memory storage
 const storage = multer.memoryStorage();
@@ -19,10 +37,7 @@ const upload = multer({
 /**
  * Admin Routes (Login, Settings, Audit Logs, Tests)
  */
-module.exports = function(supabaseAdmin, adminAuth, settingsManager, adminLoginLimiter, adminActionLimiter) {
-
-    // Helper to ensure adminActionLimiter is available (fallback if not passed)
-    const actionLimiter = adminActionLimiter || ((req, res, next) => next());
+module.exports = function(supabaseAdmin, adminAuth, settingsManager) {
 
     // POST /api/admin/login
     router.post('/login', adminLoginLimiter, [
@@ -63,7 +78,7 @@ module.exports = function(supabaseAdmin, adminAuth, settingsManager, adminLoginL
     });
 
     // POST /api/admin/logout
-    router.post('/logout', adminAuth.requireAdminAuth, actionLimiter, async (req, res) => {
+    router.post('/logout', adminAuth.requireAdminAuth, adminActionLimiter, async (req, res) => {
         try {
             await adminAuth.revokeSession(req.adminToken);
             await adminAuth.logAuditAction({ userId: req.adminUser.id, username: req.adminUser.username, action: 'LOGOUT', req });
@@ -128,7 +143,7 @@ module.exports = function(supabaseAdmin, adminAuth, settingsManager, adminLoginL
     });
 
     // Settings API
-    router.get('/settings', adminAuth.requireAdminAuth, actionLimiter, async (req, res) => {
+    router.get('/settings', adminAuth.requireAdminAuth, adminActionLimiter, async (req, res) => {
         try {
             if (!settingsManager.isInitialized() && supabaseAdmin) {
                 await settingsManager.initialize(supabaseAdmin);
@@ -139,7 +154,7 @@ module.exports = function(supabaseAdmin, adminAuth, settingsManager, adminLoginL
         }
     });
 
-    router.put('/settings', adminAuth.requireAdminAuth, actionLimiter, [
+    router.put('/settings', adminAuth.requireAdminAuth, adminActionLimiter, [
         body('key').trim().notEmpty().isLength({ max: 100 }),
         body('value').exists()
     ], async (req, res) => {
@@ -166,7 +181,7 @@ module.exports = function(supabaseAdmin, adminAuth, settingsManager, adminLoginL
         }
     });
 
-    router.put('/settings/bulk', adminAuth.requireAdminAuth, actionLimiter, [
+    router.put('/settings/bulk', adminAuth.requireAdminAuth, adminActionLimiter, [
         body().isObject().withMessage('Body must be an object of key-value pairs')
     ], async (req, res) => {
         const errors = validationResult(req);
@@ -198,7 +213,7 @@ module.exports = function(supabaseAdmin, adminAuth, settingsManager, adminLoginL
         }
     });
 
-    router.post('/settings/refresh', adminAuth.requireAdminAuth, actionLimiter, async (req, res) => {
+    router.post('/settings/refresh', adminAuth.requireAdminAuth, adminActionLimiter, async (req, res) => {
         try {
             await settingsManager.refresh();
             await adminAuth.logAuditAction({ userId: req.adminUser.id, username: req.adminUser.username, action: 'REFRESH_SETTINGS', req });
@@ -209,7 +224,7 @@ module.exports = function(supabaseAdmin, adminAuth, settingsManager, adminLoginL
     });
 
     // Audit Log and Tests
-    router.get('/audit-log', adminAuth.requireAdminAuth, actionLimiter, async (req, res) => {
+    router.get('/audit-log', adminAuth.requireAdminAuth, adminActionLimiter, async (req, res) => {
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
         try {
             const { limit = 50, offset = 0 } = req.query;
@@ -221,7 +236,7 @@ module.exports = function(supabaseAdmin, adminAuth, settingsManager, adminLoginL
         }
     });
 
-    router.post('/test/elevenlabs', adminAuth.requireAdminAuth, actionLimiter, [body('apiKey').notEmpty()], async (req, res) => {
+    router.post('/test/elevenlabs', adminAuth.requireAdminAuth, adminActionLimiter, [body('apiKey').notEmpty()], async (req, res) => {
         try {
             const { apiKey } = req.body;
             const response = await fetch('https://api.elevenlabs.io/v1/user', { headers: { 'xi-api-key': apiKey } });
@@ -234,7 +249,7 @@ module.exports = function(supabaseAdmin, adminAuth, settingsManager, adminLoginL
         }
     });
 
-    router.post('/test/gemini', adminAuth.requireAdminAuth, actionLimiter, [body('apiKey').notEmpty()], async (req, res) => {
+    router.post('/test/gemini', adminAuth.requireAdminAuth, adminActionLimiter, [body('apiKey').notEmpty()], async (req, res) => {
         try {
             const { apiKey } = req.body;
             const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
@@ -248,7 +263,7 @@ module.exports = function(supabaseAdmin, adminAuth, settingsManager, adminLoginL
     });
 
     // User Suggestions API
-    router.get('/suggestions', adminAuth.requireAdminAuth, actionLimiter, async (req, res) => {
+    router.get('/suggestions', adminAuth.requireAdminAuth, adminActionLimiter, async (req, res) => {
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
         try {
             const { status = 'pending', limit = 50 } = req.query;
@@ -266,7 +281,7 @@ module.exports = function(supabaseAdmin, adminAuth, settingsManager, adminLoginL
         }
     });
 
-    router.put('/suggestions/:id', adminAuth.requireAdminAuth, actionLimiter, [
+    router.put('/suggestions/:id', adminAuth.requireAdminAuth, adminActionLimiter, [
         body('status').isIn(['approved', 'rejected'])
     ], async (req, res) => {
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
@@ -327,7 +342,7 @@ module.exports = function(supabaseAdmin, adminAuth, settingsManager, adminLoginL
     });
 
     // SEO Content Gaps API
-    router.get('/seo/gaps', adminAuth.requireAdminAuth, actionLimiter, async (req, res) => {
+    router.get('/seo/gaps', adminAuth.requireAdminAuth, adminActionLimiter, async (req, res) => {
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
         
         try {
@@ -405,7 +420,7 @@ module.exports = function(supabaseAdmin, adminAuth, settingsManager, adminLoginL
     });
 
     // AI Suggestion for Dictionary Entry
-    router.post('/seo/suggest', adminAuth.requireAdminAuth, actionLimiter, [
+    router.post('/seo/suggest', adminAuth.requireAdminAuth, adminActionLimiter, [
         body('pidgin').trim().notEmpty()
     ], async (req, res) => {
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
@@ -460,7 +475,7 @@ Respond only with a JSON object:
     });
 
     // Quick Add Dictionary Entry
-    router.post('/dictionary/add', adminAuth.requireAdminAuth, actionLimiter, [
+    router.post('/dictionary/add', adminAuth.requireAdminAuth, adminActionLimiter, [
         body('pidgin').trim().notEmpty(),
         body('english').trim().notEmpty(),
         body('category').trim().notEmpty()
@@ -505,7 +520,7 @@ Respond only with a JSON object:
     });
 
     // Upload Audio for Dictionary Entry
-    router.post('/dictionary/:id/audio', adminAuth.requireAdminAuth, actionLimiter, upload.single('audio'), async (req, res) => {
+    router.post('/dictionary/:id/audio', adminAuth.requireAdminAuth, adminActionLimiter, upload.single('audio'), async (req, res) => {
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
         const { id } = req.params;
         const { pidgin } = req.body;
@@ -567,7 +582,7 @@ Respond only with a JSON object:
     });
 
     // Get Dashboard Stats
-    router.get('/stats', adminAuth.requireAdminAuth, actionLimiter, async (req, res) => {
+    router.get('/stats', adminAuth.requireAdminAuth, adminActionLimiter, async (req, res) => {
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
         try {
             // Fetch counts in parallel
@@ -589,7 +604,7 @@ Respond only with a JSON object:
     });
 
     // Get Search Gaps
-    router.get('/gaps', adminAuth.requireAdminAuth, actionLimiter, async (req, res) => {
+    router.get('/gaps', adminAuth.requireAdminAuth, adminActionLimiter, async (req, res) => {
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
         try {
             const { data, error } = await supabaseAdmin
@@ -608,7 +623,7 @@ Respond only with a JSON object:
     });
 
     // Update Search Gap Status
-    router.put('/gaps/:id', adminAuth.requireAdminAuth, actionLimiter, [
+    router.put('/gaps/:id', adminAuth.requireAdminAuth, adminActionLimiter, [
         body('status').isIn(['pending', 'added', 'ignored'])
     ], async (req, res) => {
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
@@ -640,7 +655,7 @@ Respond only with a JSON object:
     });
 
     // Answer a Local Question
-    router.post('/questions/:id/answer', adminAuth.requireAdminAuth, actionLimiter, [
+    router.post('/questions/:id/answer', adminAuth.requireAdminAuth, adminActionLimiter, [
         body('response_text').trim().notEmpty()
     ], async (req, res) => {
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
@@ -685,7 +700,7 @@ Respond only with a JSON object:
     });
 
     // Update Question Status
-    router.put('/questions/:id/status', adminAuth.requireAdminAuth, actionLimiter, [
+    router.put('/questions/:id/status', adminAuth.requireAdminAuth, adminActionLimiter, [
         body('status').isIn(['pending', 'answered', 'rejected'])
     ], async (req, res) => {
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
