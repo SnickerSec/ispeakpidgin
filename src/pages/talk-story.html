@@ -165,6 +165,7 @@
     <script src="js/components/elevenlabs-speech.js"></script>
     <script src="js/components/speech.js"></script>
     <script src="js/components/voice-chat.js"></script>
+    <script src="js/components/voice-visualizer.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const chatMessages = document.getElementById('chat-messages');
@@ -210,18 +211,21 @@
             let currentCharacter = 'kimo';
             let messageHistory = [];
 
+            // Voice Visualizer
+            const visualizer = new VoiceVisualizer('voice-status');
+
             // Voice Chat Integration
             const voiceHandler = new VoiceChat({
                 onStart: () => {
                     micBtn.classList.remove('bg-gray-100', 'text-gray-500');
                     micBtn.classList.add('bg-red-500', 'text-white');
-                    voiceStatus.classList.remove('hidden');
+                    visualizer.start();
                     userInput.placeholder = "Listening...";
                 },
                 onEnd: () => {
                     micBtn.classList.add('bg-gray-100', 'text-gray-500');
                     micBtn.classList.remove('bg-red-500', 'text-white');
-                    voiceStatus.classList.add('hidden');
+                    visualizer.stop();
                     userInput.placeholder = "Type here...";
                 },
                 onResult: (text) => {
