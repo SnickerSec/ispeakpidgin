@@ -402,10 +402,8 @@ class PidginSpeech {
     // Main speak function with ElevenLabs integration and fallback
     speak(text, options = {}) {
         return new Promise(async (resolve, reject) => {
-            window.dispatchEvent(new CustomEvent('pidginSpeechStart'));
-            
             const cleanup = () => {
-                window.dispatchEvent(new CustomEvent('pidginSpeechEnd'));
+                // We no longer dispatch here because the underlying providers do it
                 if (options.onEnd) options.onEnd();
             };
 
@@ -454,6 +452,8 @@ class PidginSpeech {
             reject(new Error('Speech synthesis not supported'));
             return;
         }
+
+        window.dispatchEvent(new CustomEvent('pidginSpeechStart'));
 
         // Track the fallback event
         this.trackPronunciation(text, 'Browser');
@@ -507,11 +507,13 @@ class PidginSpeech {
 
         // Event handlers
         utterance.onend = () => {
+            window.dispatchEvent(new CustomEvent('pidginSpeechEnd'));
             if (options.onSuccess) options.onSuccess();
             cleanup();
             resolve();
         };
         utterance.onerror = (error) => {
+            window.dispatchEvent(new CustomEvent('pidginSpeechEnd'));
             console.warn('Speech failed:', error);
             if (options.onError) options.onError(error);
             cleanup();

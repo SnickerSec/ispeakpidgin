@@ -405,8 +405,14 @@ class ElevenLabsSpeech {
                     // Check cache first
                     if (this.cache.has(normalizedText)) {
                         if (!options.silent) {
+                            window.dispatchEvent(new CustomEvent('pidginSpeechStart'));
+                            if (options.onStart) options.onStart();
+
                             // Try to play cached audio with retry fallback
                             const success = await this.playAudioBlobWithRetry(this.cache.get(normalizedText), correctedText, normalizedText);
+                            
+                            if (options.onEnd) options.onEnd();
+                            
                             if (success) return;
 
                             // If cached audio failed, remove from cache and retry API
@@ -428,7 +434,9 @@ class ElevenLabsSpeech {
                                 this.cache.set(normalizedText, audioBlob);
                                 
                                 if (!options.silent) {
+                                    window.dispatchEvent(new CustomEvent('pidginSpeechStart'));
                                     const success = await this.playAudioBlobWithRetry(audioBlob, correctedText, normalizedText);
+                                    if (options.onEnd) options.onEnd();
                                     if (success) return;
                                 } else {
                                     return;
@@ -440,9 +448,7 @@ class ElevenLabsSpeech {
                     }
 
                     // Show loading state if callback provided
-                    if (options.onStart) {
-                        options.onStart();
-                    }
+                    if (options.onStart) options.onStart();
 
                     // Make request to our backend API with corrected pronunciation
                     const response = await fetch('/api/text-to-speech', {
@@ -479,7 +485,7 @@ class ElevenLabsSpeech {
                     if (!options.silent) {
                         window.dispatchEvent(new CustomEvent('pidginSpeechStart'));
                         const success = await this.playAudioBlobWithRetry(audioBlob, correctedText, normalizedText);
-                        window.dispatchEvent(new CustomEvent('pidginSpeechEnd'));
+                        if (options.onEnd) options.onEnd();
                         
                         if (!success && attempt < maxRetries) {
                             throw new Error('Audio playback failed, retrying API call');
@@ -580,6 +586,7 @@ class ElevenLabsSpeech {
 
                     // Set up event listeners
                     const onEnded = () => {
+                        window.dispatchEvent(new CustomEvent('pidginSpeechEnd'));
                         if (!resolved) {
                             resolved = true;
                             resolve(true);
@@ -588,6 +595,7 @@ class ElevenLabsSpeech {
                     };
 
                     const onError = (e) => {
+                        window.dispatchEvent(new CustomEvent('pidginSpeechEnd'));
                         console.error('Audio playback error:', e);
                         if (!resolved) {
                             resolved = true;
@@ -597,11 +605,9 @@ class ElevenLabsSpeech {
                     };
 
                     const onCanPlay = () => {
-                        if (!resolved) {
-                            resolved = true;
-                            resolve(true);
-                        }
-                        // Don't cleanup on canplay - let audio continue
+                        // Just let it play, don't resolve yet if we want to wait for the end
+                        // But we still need to handle the case where we don't want to wait
+                        // For this class, we usually WANT to wait for completion
                     };
 
                     // Add listeners

@@ -93,6 +93,13 @@
                             <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-500"></div>
                         </div>
                     </label>
+                    <label class="flex items-center cursor-pointer gap-2" title="Keep microphone active after AI finishes speaking">
+                        <span class="text-xs font-bold text-gray-400 uppercase">Hands-Free</span>
+                        <div class="relative">
+                            <input type="checkbox" id="hands-free" class="sr-only peer">
+                            <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-green-500"></div>
+                        </div>
+                    </label>
                 </div>
             </div>
 
@@ -175,8 +182,30 @@
             const clearChatBtn = document.getElementById('clear-chat');
             const charButtons = document.querySelectorAll('.char-btn');
             const autoVoiceCheck = document.getElementById('auto-voice');
+            const handsFreeCheck = document.getElementById('hands-free');
             const micBtn = document.getElementById('mic-btn');
             const voiceStatus = document.getElementById('voice-status');
+            
+            // Hands-Free Auto-Restart Logic
+            window.addEventListener('pidginSpeechEnd', () => {
+                if (handsFreeCheck.checked && !voiceHandler.isListening) {
+                    console.log('Hands-Free: Restarting microphone...');
+                    setTimeout(() => {
+                        voiceHandler.start();
+                    }, 800); // Wait a bit after AI finishes
+                }
+            });
+
+            handsFreeCheck.addEventListener('change', () => {
+                if (handsFreeCheck.checked && !voiceHandler.isListening) {
+                    // Start only if AI is not currently speaking (visualizer.isActive for AI)
+                    if (!visualizer.isActive) {
+                        voiceHandler.start();
+                    }
+                } else if (!handsFreeCheck.checked && voiceHandler.isListening) {
+                    voiceHandler.stop();
+                }
+            });
             
             const characterProfiles = {
                 kimo: {
@@ -217,6 +246,10 @@
             // Voice Chat Integration
             const voiceHandler = new VoiceChat({
                 onStart: () => {
+                    // Stop any current AI speech when user starts talking
+                    if (window.elevenLabsSpeech) window.elevenLabsSpeech.stop();
+                    if (window.pidginSpeech) window.pidginSpeech.stop();
+                    
                     micBtn.classList.remove('bg-gray-100', 'text-gray-500');
                     micBtn.classList.add('bg-red-500', 'text-white');
                     visualizer.start();
