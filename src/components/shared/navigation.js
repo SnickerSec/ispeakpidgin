@@ -1,60 +1,178 @@
 // Navigation JavaScript - automatically included on all pages
 document.addEventListener('DOMContentLoaded', function() {
-    // Mobile menu toggle
-    var mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    var mobileMenu = document.getElementById('mobile-menu');
+    // Dropdown Logic (Desktop)
+    const dropdowns = document.querySelectorAll('.nav-dropdown');
+    let activeDropdown = null;
 
-    if (mobileMenuBtn && mobileMenu) {
-        mobileMenuBtn.addEventListener('click', function() {
-            mobileMenu.classList.toggle('hidden');
+    dropdowns.forEach(dropdown => {
+        const btn = dropdown.querySelector('button');
+        const menu = dropdown.querySelector('.dropdown-menu');
+        
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isHidden = menu.classList.contains('hidden');
+            
+            // Close all others
+            closeAllDropdowns();
+            
+            if (isHidden) {
+                menu.classList.remove('hidden');
+                activeDropdown = menu;
+            }
         });
+
+        // Hover support for desktop
+        dropdown.addEventListener('mouseenter', () => {
+            if (window.innerWidth >= 1024) {
+                closeAllDropdowns();
+                menu.classList.remove('hidden');
+                activeDropdown = menu;
+            }
+        });
+    });
+
+    function closeAllDropdowns() {
+        document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.add('hidden'));
+        activeDropdown = null;
     }
 
-    // Desktop dropdown menus
-    var dropdowns = document.querySelectorAll('.nav-dropdown');
-    dropdowns.forEach(function(dropdown) {
-        var button = dropdown.querySelector('button');
-        var menu = dropdown.querySelector('.dropdown-menu');
+    // Close on outside click
+    document.addEventListener('click', () => closeAllDropdowns());
 
-        if (button && menu) {
-            button.addEventListener('click', function(e) {
-                e.stopPropagation();
-                // Close other dropdowns
-                dropdowns.forEach(function(otherDropdown) {
-                    if (otherDropdown !== dropdown) {
-                        var otherMenu = otherDropdown.querySelector('.dropdown-menu');
-                        if (otherMenu) otherMenu.classList.add('hidden');
-                    }
-                });
-                // Toggle this dropdown
-                menu.classList.toggle('hidden');
-            });
+    // Mobile Menu Logic
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMobileBtn = document.getElementById('close-mobile-menu');
 
-            // Close on outside click
-            document.addEventListener('click', function(e) {
-                if (!dropdown.contains(e.target)) {
-                    menu.classList.add('hidden');
-                }
+    if (mobileBtn && mobileMenu) {
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        });
+
+        if (closeMobileBtn) {
+            closeMobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                document.body.style.overflow = '';
             });
         }
-    });
+    }
 
-    // Mobile dropdown menus
-    var mobileDropdowns = document.querySelectorAll('.mobile-dropdown');
-    mobileDropdowns.forEach(function(dropdown) {
-        var button = dropdown.querySelector('.mobile-dropdown-btn');
-        var content = dropdown.querySelector('.mobile-dropdown-content');
-        var arrow = button ? button.querySelector('svg') : null;
+    // Quick Search Logic
+    const searchBtn = document.getElementById('nav-search-btn');
+    const searchOverlay = document.getElementById('search-overlay');
+    const searchInput = document.getElementById('nav-search-input');
+    const closeSearch = document.getElementById('close-search');
+    const searchResults = document.getElementById('search-results');
+    const searchPlaceholder = document.getElementById('search-placeholder');
 
-        if (button && content) {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                content.classList.toggle('hidden');
-                if (arrow) {
-                    arrow.classList.toggle('rotate-180');
-                }
-            });
+    if (searchBtn && searchOverlay) {
+        searchBtn.addEventListener('click', () => {
+            searchOverlay.classList.remove('hidden');
+            searchInput.focus();
+            document.body.style.overflow = 'hidden';
+            
+            // Preload dictionary if not already loaded
+            if (window.dictionaryCache && !window.dictionaryCache.data) {
+                window.dictionaryCache.load();
+            }
+        });
+
+        const hideSearch = () => {
+            searchOverlay.classList.add('hidden');
+            document.body.style.overflow = '';
+        };
+
+        closeSearch.addEventListener('click', hideSearch);
+        searchOverlay.addEventListener('click', (e) => {
+            if (e.target === searchOverlay) hideSearch();
+        });
+
+        // Handle ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                hideSearch();
+                if (mobileMenu) mobileMenu.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Live Search Implementation
+        let searchTimeout;
+        searchInput.addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            const query = e.target.value.trim().toLowerCase();
+
+            if (query.length < 2) {
+                searchResults.classList.add('hidden');
+                searchPlaceholder.classList.remove('hidden');
+                return;
+            }
+
+            searchTimeout = setTimeout(() => {
+                performSearch(query);
+            }, 200);
+        });
+
+        async function performSearch(query) {
+            if (!window.dictionaryCache) return;
+
+            const entries = await window.dictionaryCache.getEntries();
+            if (!entries) return;
+
+            const matches = entries.filter(entry => {
+                const pidgin = (entry.pidgin || '').toLowerCase();
+                const english = Array.isArray(entry.english) ? entry.english.join(' ').toLowerCase() : (entry.english || '').toLowerCase();
+                return pidgin.includes(query) || english.includes(query);
+            }).slice(0, 8); // Limit to top 8 results
+
+            displayResults(matches, query);
         }
-    });
+
+        function displayResults(matches, query) {
+            searchPlaceholder.classList.add('hidden');
+            searchResults.classList.remove('hidden');
+
+            if (matches.length === 0) {
+                searchResults.innerHTML = `
+                    <div class="p-8 text-center text-gray-500">
+                        <i class="ti ti-mood-empty text-3xl mb-2 block"></i>
+                        <p>No results found for "${query}"</p>
+                        <p class="text-xs mt-1">Try different word, brah!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            searchResults.innerHTML = matches.map(entry => `
+                <a href="/word/${entry.slug || entry.pidgin.toLowerCase().replace(/ /g, '-')}.html" 
+                   class="flex items-center justify-between p-4 hover:bg-gray-50 rounded-2xl transition group">
+                    <div>
+                        <div class="font-bold text-gray-800 group-hover:text-green-600">${entry.pidgin}</div>
+                        <div class="text-sm text-gray-500 line-clamp-1">${Array.isArray(entry.english) ? entry.english[0] : entry.english}</div>
+                    </div>
+                    <i class="ti ti-chevron-right text-gray-300 group-hover:text-green-400"></i>
+                </a>
+            `).join('');
+
+            // Add "See all" link if many results
+            if (matches.length >= 8) {
+                searchResults.innerHTML += `
+                    <a href="/dictionary.html?q=${encodeURIComponent(query)}" class="block text-center p-3 text-sm font-bold text-blue-500 hover:text-blue-700">
+                        View all results in dictionary
+                    </a>
+                `;
+            }
+        }
+
+        // Handle Enter key
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const query = searchInput.value.trim();
+                if (query) {
+                    window.location.href = `/dictionary.html?q=${encodeURIComponent(query)}`;
+                }
+            }
+        });
+    }
 });
