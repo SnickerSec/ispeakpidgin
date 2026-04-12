@@ -187,11 +187,17 @@
             const voiceStatus = document.getElementById('voice-status');
             
             // Hands-Free Auto-Restart Logic
+            let lastRestartTime = 0;
             window.addEventListener('pidginSpeechEnd', () => {
-                if (handsFreeCheck.checked && !voiceHandler.isListening) {
+                const now = Date.now();
+                if (handsFreeCheck.checked && !voiceHandler.isListening && (now - lastRestartTime > 2000)) {
+                    lastRestartTime = now;
                     console.log('Hands-Free: Restarting microphone...');
                     setTimeout(() => {
-                        voiceHandler.start();
+                        // Check again right before starting
+                        if (handsFreeCheck.checked && !voiceHandler.isListening) {
+                            voiceHandler.start();
+                        }
                     }, 800); // Wait a bit after AI finishes
                 }
             });
@@ -383,13 +389,10 @@
 
                         if (window.elevenLabsSpeech) {
                             window.elevenLabsSpeech.speak(btn.dataset.text, { 
-                                voiceId: btn.dataset.voice,
-                                onEnd: () => window.dispatchEvent(new CustomEvent('pidginSpeechEnd'))
+                                voiceId: btn.dataset.voice
                             });
                         } else if (window.pidginSpeech) {
-                            window.pidginSpeech.speak(btn.dataset.text, {
-                                onEnd: () => window.dispatchEvent(new CustomEvent('pidginSpeechEnd'))
-                            });
+                            window.pidginSpeech.speak(btn.dataset.text);
                         }
                     };
 

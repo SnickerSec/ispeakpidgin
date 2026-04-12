@@ -586,8 +586,8 @@ class ElevenLabsSpeech {
 
                     // Set up event listeners
                     const onEnded = () => {
-                        window.dispatchEvent(new CustomEvent('pidginSpeechEnd'));
                         if (!resolved) {
+                            window.dispatchEvent(new CustomEvent('pidginSpeechEnd'));
                             resolved = true;
                             resolve(true);
                         }
@@ -595,19 +595,13 @@ class ElevenLabsSpeech {
                     };
 
                     const onError = (e) => {
-                        window.dispatchEvent(new CustomEvent('pidginSpeechEnd'));
-                        console.error('Audio playback error:', e);
                         if (!resolved) {
+                            window.dispatchEvent(new CustomEvent('pidginSpeechEnd'));
+                            console.error('Audio playback error:', e);
                             resolved = true;
                             reject(e);
                         }
                         cleanup();
-                    };
-
-                    const onCanPlay = () => {
-                        // Just let it play, don't resolve yet if we want to wait for the end
-                        // But we still need to handle the case where we don't want to wait
-                        // For this class, we usually WANT to wait for completion
                     };
 
                     // Add listeners
@@ -629,6 +623,7 @@ class ElevenLabsSpeech {
                         } else {
                             console.error('Audio play error:', error);
                             if (!resolved) {
+                                window.dispatchEvent(new CustomEvent('pidginSpeechEnd'));
                                 resolved = true;
                                 reject(error);
                             }
@@ -639,6 +634,7 @@ class ElevenLabsSpeech {
                     // Timeout after 10 seconds
                     setTimeout(() => {
                         if (!resolved) {
+                            window.dispatchEvent(new CustomEvent('pidginSpeechEnd'));
                             resolved = true;
                             reject(new Error('Audio play timeout'));
                             cleanup();
