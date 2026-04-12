@@ -57,32 +57,4 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
-
-    // Global Stats Sync
-    function syncGlobalStats() {
-        try {
-            var progress = JSON.parse(localStorage.getItem('learningHubProgress') || '{}');
-            var streakCountEl = document.getElementById('nav-streak-count');
-            var totalPointsEl = document.getElementById('nav-total-points');
-            var statsBar = document.getElementById('nav-stats-bar');
-
-            if (progress.streak || progress.totalPoints) {
-                if (streakCountEl) streakCountEl.textContent = progress.streak || 0;
-                if (totalPointsEl) totalPointsEl.textContent = (progress.totalPoints || 0).toLocaleString();
-                if (statsBar) statsBar.classList.remove('hidden');
-            }
-        } catch (e) {
-            console.warn('Failed to sync nav stats:', e);
-        }
-    }
-
-    // Initial sync
-    syncGlobalStats();
-
-    // Re-sync when storage changes (from other tabs)
-    window.addEventListener('storage', function(e) {
-        if (e.key === 'learningHubProgress') {
-            syncGlobalStats();
-        }
-    });
 });
