@@ -487,8 +487,11 @@ class ElevenLabsSpeech {
                         const success = await this.playAudioBlobWithRetry(audioBlob, correctedText, normalizedText);
                         if (options.onEnd) options.onEnd();
                         
+                        // If it failed but didn't actually start playing, we might want to retry
+                        // But if it started playing and just timed out later, we definitely DON'T want to retry (causes double playback)
                         if (!success && attempt < maxRetries) {
-                            throw new Error('Audio playback failed, retrying API call');
+                            // Only retry if it was a real failure, not a blocked playback or a timeout after starting
+                            throw new Error('Audio playback failed or never started, retrying API call');
                         }
                     }
 
@@ -564,13 +567,14 @@ class ElevenLabsSpeech {
                 const playResult = await new Promise((resolve, reject) => {
                     let resolved = false;
                     let cleanupDone = false;
+                    let playbackStarted = false;
 
                     const cleanup = () => {
                         if (cleanupDone) return;
                         cleanupDone = true;
 
-                        if (audioUrl && attempt === maxRetries) {
-                            // Only revoke URL on final attempt or success
+                        if (audioUrl && (attempt === maxRetries || !resolved)) {
+                            // Revoke URL on final attempt or if we're done with this attempt
                             setTimeout(() => URL.revokeObjectURL(audioUrl), 1000);
                         }
 
@@ -584,9 +588,32 @@ class ElevenLabsSpeech {
                         }
                     };
 
+                    // Timer for starting playback
+                    const startTimeout = setTimeout(() => {
+                        if (!playbackStarted && !resolved) {
+                            console.warn(`SW: Audio failed to start within 10s for: ${cacheKey}`);
+                            resolved = true;
+                            cleanup();
+                            reject(new Error('Audio play timeout (never started)'));
+                        }
+                    }, 10000);
+
+                    // Long timer for total playback (safety measure)
+                    const finishTimeout = setTimeout(() => {
+                        if (!resolved) {
+                            console.warn(`SW: Audio exceeded maximum playback time (5m) for: ${cacheKey}`);
+                            if (audio) audio.pause();
+                            resolved = true;
+                            cleanup();
+                            reject(new Error('Audio play timeout (took too long)'));
+                        }
+                    }, 300000);
+
                     // Set up event listeners
                     const onEnded = () => {
                         if (!resolved) {
+                            clearTimeout(startTimeout);
+                            clearTimeout(finishTimeout);
                             window.dispatchEvent(new CustomEvent('pidginSpeechEnd'));
                             resolved = true;
                             resolve(true);
@@ -596,6 +623,8 @@ class ElevenLabsSpeech {
 
                     const onError = (e) => {
                         if (!resolved) {
+                            clearTimeout(startTimeout);
+                            clearTimeout(finishTimeout);
                             window.dispatchEvent(new CustomEvent('pidginSpeechEnd'));
                             console.error('Audio playback error:', e);
                             resolved = true;
@@ -609,7 +638,13 @@ class ElevenLabsSpeech {
                     audio.addEventListener('error', onError, { once: true });
 
                     // Attempt to play
-                    audio.play().catch(error => {
+                    audio.play().then(() => {
+                        playbackStarted = true;
+                        // We don't clear the finishTimeout here, as we still want to resolve on 'ended'
+                    }).catch(error => {
+                        clearTimeout(startTimeout);
+                        clearTimeout(finishTimeout);
+                        
                         if (error.name === 'NotAllowedError') {
                             if (!resolved) {
                                 resolved = true;
@@ -630,28 +665,16 @@ class ElevenLabsSpeech {
                         }
                         cleanup();
                     });
-
-                    // Timeout after 60 seconds (increased from 10s for long stories/AI responses)
-                    setTimeout(() => {
-                        if (!resolved) {
-                            const errorMsg = audio.paused ? 'Audio play timeout (never started)' : 'Audio play timeout (took too long to finish)';
-                            console.warn(`SW: ${errorMsg} for key: ${cacheKey}`);
-                            window.dispatchEvent(new CustomEvent('pidginSpeechEnd'));
-                            resolved = true;
-                            reject(new Error('Audio play timeout'));
-                            cleanup();
-                        }
-                    }, 60000);
                 });
 
                 return playResult;
 
             } catch (error) {
                 console.error(`Audio play attempt ${attempt + 1} failed:`, error);
-
-                // Clean up URLs on error
-                if (audioUrl) {
-                    setTimeout(() => URL.revokeObjectURL(audioUrl), 100);
+                
+                // Ensure audio is stopped on error
+                if (audio) {
+                    try { audio.pause(); } catch(e) {}
                 }
 
                 if (attempt < maxRetries) {
