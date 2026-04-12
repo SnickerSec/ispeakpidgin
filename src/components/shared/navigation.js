@@ -73,8 +73,8 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.style.overflow = 'hidden';
             
             // Preload dictionary if not already loaded
-            if (window.dictionaryCache && !window.dictionaryCache.data) {
-                window.dictionaryCache.load();
+            if (window.pidginDataLoader && !window.pidginDataLoader.loaded) {
+                window.pidginDataLoader.autoLoad();
             }
         });
 
@@ -115,9 +115,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         async function performSearch(query) {
-            if (!window.dictionaryCache) return;
+            if (!window.pidginDataLoader) return;
 
-            const entries = await window.dictionaryCache.getEntries();
+            // Wait for data if it's still loading
+            if (!window.pidginDataLoader.loaded) {
+                await window.pidginDataLoader.autoLoad();
+            }
+
+            const entries = window.pidginDataLoader.getAllEntries();
             if (!entries) return;
 
             const matches = entries.filter(entry => {
@@ -144,8 +149,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            searchResults.innerHTML = matches.map(entry => `
-                <a href="/word/${entry.slug || entry.pidgin.toLowerCase().replace(/ /g, '-')}.html" 
+            searchResults.innerHTML = matches.map(entry => {
+                const slug = entry.slug || entry.pidgin.toLowerCase().replace(/['ʻ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+                return `
+                <a href="/word/${slug}.html" 
                    class="flex items-center justify-between p-4 hover:bg-gray-50 rounded-2xl transition group">
                     <div>
                         <div class="font-bold text-gray-800 group-hover:text-green-600">${entry.pidgin}</div>
@@ -153,7 +160,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                     <i class="ti ti-chevron-right text-gray-300 group-hover:text-green-400"></i>
                 </a>
-            `).join('');
+                `;
+            }).join('');
 
             // Add "See all" link if many results
             if (matches.length >= 8) {
