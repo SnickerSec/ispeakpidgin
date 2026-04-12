@@ -10,7 +10,7 @@
     <!-- Meta Tags -->
     <meta name="description" content="Professional-grade Hawaiian Pidgin translator powered by AI. Instantly translate English to authentic Hawaiian Pidgin English (HCE) with cultural context and natural flow. The most accurate Hawaiian Pidgin converter available.">
     <meta name="keywords" content="Hawaiian Pidgin translator, translate Hawaiian Pidgin, AI Hawaiian Pidgin, Hawaii Creole English translator, Hawaiian slang translator, Gemini AI translator, translate Hawaiian slang, local Hawaiian translator">
-    ...
+
     <!-- Structured Data -->
     <script type="application/ld+json">
     {
@@ -60,6 +60,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Pidgin Translator">
     <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://chokepidgin.com/translator.html">
@@ -169,13 +170,6 @@
 <body class="min-h-screen bg-gray-50">
     <!-- Navigation -->
 <nav class="shadow-lg sticky top-0 z-50" style="background: linear-gradient(to right, rgba(255, 255, 255, 0.95), rgba(255, 251, 235, 0.95)); backdrop-filter: blur(10px); border-bottom: 3px solid #ff6b6b;">
-    <!-- Global Stats Bar -->
-    <div id="nav-stats-bar" class="bg-gray-900/5 border-b border-gray-100 hidden sm:block">
-        <div class="container mx-auto px-4 py-1 flex justify-end gap-4 text-[10px] font-bold uppercase tracking-widest text-gray-500">
-            <span class="flex items-center gap-1"><i class="ti ti-flame text-orange-500 text-xs"></i> <span id="nav-streak-count">0</span> Day Streak</span>
-            <span class="flex items-center gap-1"><i class="ti ti-award text-blue-500 text-xs"></i> <span id="nav-total-points">0</span> Points</span>
-        </div>
-    </div>
     <div class="container mx-auto px-4">
         <div class="flex justify-between items-center py-2">
             <div class="flex items-center">
@@ -376,17 +370,9 @@
     }
 </script>
 
-<!-- PWA Meta Tags -->
-<link rel="manifest" href="/site.webmanifest">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="ChokePidgin">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="theme-color" content="#2563eb">
-
 
     <!-- Hero Section -->
-    <div class="translator-hero py-10 px-4 relative overflow-hidden hidden md:block">
+    <div class="translator-hero py-6 md:py-10 px-4 relative overflow-hidden">
         <!-- Background decoration -->
         <div class="absolute inset-0 opacity-10">
             <div class="absolute top-10 right-20 text-5xl"><i class="ti ti-flower"></i></div>
@@ -396,35 +382,35 @@
 
         <div class="max-w-5xl mx-auto text-center relative z-10">
             <div class="mb-3 flex items-center justify-center gap-3">
-                <div class="text-4xl"><i class="ti ti-robot"></i></div>
-                <h1 class="text-3xl md:text-4xl font-bold text-white">
+                <div class="text-3xl md:text-4xl"><i class="ti ti-robot"></i></div>
+                <h1 class="text-2xl md:text-4xl font-bold text-white">
                     AI Pidgin Translator
                 </h1>
             </div>
-            <p class="text-base md:text-lg text-white/90 mb-4">
+            <p class="text-sm md:text-lg text-white/90 mb-4">
                 Powered by Google Gemini AI &mdash; captures cultural context, slang, and local expressions
             </p>
 
             <!-- Quick Stats -->
-            <div class="flex flex-wrap justify-center gap-4 text-sm text-white/80">
-                <div class="bg-white/20 backdrop-blur rounded-lg px-4 py-2">
-                    <span class="font-bold"><i class="ti ti-robot"></i> AI-Powered</span> Translation
+            <div class="flex flex-wrap justify-center gap-2 md:gap-4 text-xs md:text-sm text-white/80">
+                <div class="bg-white/20 backdrop-blur rounded-lg px-3 py-1 md:px-4 md:py-2">
+                    <span class="font-bold"><i class="ti ti-robot"></i> AI-Powered</span>
                 </div>
-                <div class="bg-white/20 backdrop-blur rounded-lg px-4 py-2">
-                    <span class="font-bold">660+</span> Dictionary Entries
+                <div class="bg-white/20 backdrop-blur rounded-lg px-3 py-1 md:px-4 md:py-2">
+                    <span class="font-bold">660+</span> Words
                 </div>
-                <div class="bg-white/20 backdrop-blur rounded-lg px-4 py-2">
+                <div class="bg-white/20 backdrop-blur rounded-lg px-3 py-1 md:px-4 md:py-2">
                     <span class="font-bold">Cultural</span> Context
                 </div>
-                <div class="bg-white/20 backdrop-blur rounded-lg px-4 py-2">
-                    <span class="font-bold">Audio</span> Pronunciation
+                <div class="bg-white/20 backdrop-blur rounded-lg px-3 py-1 md:px-4 md:py-2">
+                    <span class="font-bold">Audio</span> Playback
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Main Translator Section -->
-    <div class="max-w-6xl mx-auto px-4 py-4 md:py-12">
+    <div class="max-w-6xl mx-auto px-4 py-6 md:py-10">
         <!-- Translation Interface -->
         <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
             <!-- Direction Toggle -->
@@ -462,11 +448,19 @@
                             </button>
                         </div>
                     </div>
-                    <div class="mt-2 flex justify-center items-center">
-                        <div class="flex gap-3">
-                            <button id="mic-input-btn" class="text-purple-600 hover:text-purple-700 transition whitespace-nowrap" title="Voice Input">
-                                <i class="ti ti-microphone"></i> Voice Input
+                    <div class="mt-2 flex flex-col items-center">
+                        <div id="voice-status" class="hidden mb-2"></div>
+                        <div class="flex gap-3 items-center">
+                            <button id="mic-input-btn" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 transition whitespace-nowrap font-medium" title="Voice Input">
+                                <i class="ti ti-microphone text-xl"></i> Voice Input
                             </button>
+                            <label class="flex items-center cursor-pointer gap-2" title="Automatically translate and speak after voice input">
+                                <span class="text-[10px] font-bold text-gray-400 uppercase">Hands-Free</span>
+                                <div class="relative">
+                                    <input type="checkbox" id="hands-free-mode" class="sr-only peer" checked>
+                                    <div class="w-8 h-4 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-purple-500"></div>
+                                </div>
+                            </label>
                             <button id="translate-btn" class="px-6 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-indigo-700 transition shadow-md hover:shadow-lg whitespace-nowrap">
                                 <i class="ti ti-sparkles"></i> Translate
                             </button>
@@ -690,8 +684,79 @@
     <script defer src="js/components/translator-page.js"></script>
     <script defer src="js/components/elevenlabs-speech.js"></script>
     <script defer src="js/components/speech.js"></script>
+    <script defer src="js/components/voice-chat.js"></script>
+    <script defer src="js/components/voice-visualizer.js"></script>
     <script defer src="js/components/main.js"></script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const micBtn = document.getElementById('mic-input-btn');
+            const handsFreeMode = document.getElementById('hands-free-mode');
+            const translatorInput = document.getElementById('translator-input');
+            const translateBtn = document.getElementById('translate-btn');
+            const speakBtn = document.getElementById('speak-btn');
+
+            // Wait for visualizer to load
+            let visualizer;
+            const initVoice = () => {
+                if (typeof VoiceVisualizer !== 'undefined' && typeof VoiceChat !== 'undefined') {
+                    visualizer = new VoiceVisualizer('voice-status');
+
+                    const voiceHandler = new VoiceChat({
+                        onStart: () => {
+                            micBtn.classList.remove('text-purple-600');
+                            micBtn.classList.add('text-red-500', 'animate-pulse');
+                            visualizer.start('user');
+                            translatorInput.placeholder = "Listening...";
+                        },
+                        onEnd: () => {
+                            micBtn.classList.add('text-purple-600');
+                            micBtn.classList.remove('text-red-500', 'animate-pulse');
+                            visualizer.stop();
+                            translatorInput.placeholder = "Type or paste English text here...";
+                        },
+                        onResult: (text) => {
+                            translatorInput.value = text;
+                            if (handsFreeMode.checked) {
+                                // Trigger translation
+                                translateBtn.click();
+
+                                // Wait for translation to appear, then speak
+                                const observer = new MutationObserver((mutations) => {
+                                    const speakBtn = document.getElementById('speak-btn');
+                                    if (speakBtn && (speakBtn.style.display !== 'none' && !speakBtn.classList.contains('hidden'))) {
+                                        setTimeout(() => {
+                                            speakBtn.click();
+                                            observer.disconnect();
+                                        }, 500);
+                                    }
+                                });
+                                observer.observe(document.getElementById('translation-output'), { childList: true, subtree: true });
+                            }
+                        },
+                        onInterim: (text) => {
+                            translatorInput.value = text;
+                        }
+                    });
+
+                    micBtn.addEventListener('click', () => voiceHandler.toggle());
+
+                    // Listen for AI speech events to show waveform
+                    window.addEventListener('pidginSpeechStart', () => {
+                        if (visualizer) visualizer.start('ai');
+                    });
+                    window.addEventListener('pidginSpeechEnd', () => {
+                        if (visualizer) visualizer.stop();
+                    });
+                } else {
+                    setTimeout(initVoice, 100);
+                }
+            };
+
+            initVoice();
+        });
+    </script>
+
     <!-- Mobile menu is handled by the shared navigation component -->
-</body>
-</html>
+    </body>
+    </html>

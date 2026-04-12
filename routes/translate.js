@@ -77,8 +77,24 @@ module.exports = function(translate, translationLimiter, dictionaryCache) {
                     return res.status(500).json({ error: 'ElevenLabs API key not configured' });
                 }
 
+                // Whitelist of allowed voice IDs to prevent SSRF
+                const allowedVoices = [
+                    'f0ODjLMfcJmlKfs7dFCW', // Kimo / Hawaiian
+                    'EXAVITQu4vr4xnSDxMaL', // Sarah / Aunty
+                    'ErXwbc3VNbCc1k9An9bS'  // Ethan / Braddah
+                ];
+
                 const defaultVoiceId = 'f0ODjLMfcJmlKfs7dFCW'; // Hawaiian-sounding voice
-                const voiceId = requestedVoiceId || defaultVoiceId;
+                let voiceId = defaultVoiceId;
+
+                if (requestedVoiceId) {
+                    if (allowedVoices.includes(requestedVoiceId)) {
+                        voiceId = requestedVoiceId;
+                    } else {
+                        console.warn(`Invalid voiceId requested: ${requestedVoiceId}. Falling back to default.`);
+                    }
+                }
+
                 const apiUrl = `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`;
 
                 console.log(`Processing TTS request for voice: ${voiceId}, length: ${text.length}`);
