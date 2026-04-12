@@ -364,16 +364,16 @@ ${getGameLinksHtml()}
 
 /**
  * Main execution
- // Main execution
- async function main() {
-     console.log('🏗️  Generating individual story pages...\n');
+ */
+async function main() {
+    console.log('🏗️  Generating individual story pages...\n');
 
-     try {
-         // Ensure directories exist
-         if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
-         if (!fs.existsSync(ogOutputDir)) fs.mkdirSync(ogOutputDir, { recursive: true });
+    try {
+        // Ensure directories exist
+        if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
+        if (!fs.existsSync(ogOutputDir)) fs.mkdirSync(ogOutputDir, { recursive: true });
 
-         // Fetch stories from Supabase
+        // Fetch stories from Supabase
 
         console.log('🔄 Fetching stories from Supabase...');
         const stories = await fetchFromSupabase('stories', '*', 'title.asc');

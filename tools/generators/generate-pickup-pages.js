@@ -304,16 +304,16 @@ ${headContent}
 
 /**
  * Main execution
- // Main execution
- async function main() {
-     console.log('Generate individual pickup line pages...\n');
+ */
+async function main() {
+    console.log('Generate individual pickup line pages...\n');
 
-     try {
-         // Ensure directories exist
-         if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
-         if (!fs.existsSync(ogOutputDir)) fs.mkdirSync(ogOutputDir, { recursive: true });
+    try {
+        // Ensure directories exist
+        if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
+        if (!fs.existsSync(ogOutputDir)) fs.mkdirSync(ogOutputDir, { recursive: true });
 
-         // Fetch pickup lines from Supabase
+        // Fetch pickup lines from Supabase
 
         console.log('Fetching pickup lines from Supabase...');
         const lines = await fetchFromSupabase('pickup_lines', '*', 'pidgin.asc');
