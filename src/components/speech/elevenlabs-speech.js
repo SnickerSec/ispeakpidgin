@@ -613,7 +613,6 @@ class ElevenLabsSpeech {
                     // Add listeners
                     audio.addEventListener('ended', onEnded, { once: true });
                     audio.addEventListener('error', onError, { once: true });
-                    audio.addEventListener('canplay', onCanPlay, { once: true });
 
                     // Attempt to play
                     audio.play().catch(error => {
@@ -637,14 +636,14 @@ class ElevenLabsSpeech {
                         cleanup();
                     });
 
-                    // Timeout after 3 seconds (reduced from 5)
+                    // Timeout after 10 seconds
                     setTimeout(() => {
                         if (!resolved) {
                             resolved = true;
                             reject(new Error('Audio play timeout'));
                             cleanup();
                         }
-                    }, 3000);
+                    }, 10000);
                 });
 
                 return playResult;

@@ -561,6 +561,16 @@ class PidginSpeech {
         return false;
     }
 
+    // Stop all speech
+    stop() {
+        if (typeof elevenLabsSpeech !== 'undefined') {
+            elevenLabsSpeech.stop();
+        }
+        if ('speechSynthesis' in window) {
+            speechSynthesis.cancel();
+        }
+    }
+
     // Test different voices
     testVoices(text = "Howzit brah! Da waves stay pumping today!") {
         this.voices.forEach((voice, index) => {
