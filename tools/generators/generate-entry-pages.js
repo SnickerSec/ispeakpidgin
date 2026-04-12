@@ -20,9 +20,11 @@ const {
     SITE_URL,
     SITE_NAME
 } = require('./shared-utils');
+const { generateOgImage } = require('./og-image-generator');
 
-// Output directory
+// Output directories
 const outputDir = path.join(__dirname, '../../public/word');
+const ogOutputDir = path.join(__dirname, '../../public/assets/og/words');
 
 // Map of words that have high-quality, dedicated landing pages
 const premiumPages = {
@@ -99,6 +101,7 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
     const metaDescription = `What does "${capitalizedWord}" mean in Hawaiian Pidgin? Learn the local meaning, hear how to pronounce "${capitalizedWord}" correctly, and see real examples of Hawaiian Pidgin English.`;
 
     const canonicalUrl = `${SITE_URL}/word/${slug}.html`;
+    const ogImage = `${SITE_URL}/assets/og/words/${slug}.webp`;
 
     // Common head content
     const headContent = getCommonHead({
@@ -108,7 +111,8 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
         canonicalUrl,
         ogType: 'article',
         ogTitle: `${capitalizedWord} Meaning & Pronunciation | Hawaiian Pidgin Dictionary`,
-        ogDescription: metaDescription
+        ogDescription: metaDescription,
+        ogImage
     });
 
     // Create schema markup
@@ -427,6 +431,10 @@ async function main() {
     console.log('🏗️  Generating individual dictionary entry pages...\n');
 
     try {
+        // Ensure directories exist
+        if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
+        if (!fs.existsSync(ogOutputDir)) fs.mkdirSync(ogOutputDir, { recursive: true });
+
         // Fetch entries from Supabase
         console.log('🔄 Fetching dictionary entries from Supabase...');
         const entries = await fetchFromSupabase('dictionary_entries', '*', 'pidgin.asc');
@@ -460,6 +468,15 @@ async function main() {
 
                 // Find related terms
                 const relatedTerms = findRelatedTerms(entry, entries);
+
+                // Generate OG Image
+                await generateOgImage({
+                    title: entry.pidgin,
+                    subtitle: Array.isArray(entry.english) ? entry.english[0] : entry.english,
+                    category: entry.category || 'general',
+                    outputDir: ogOutputDir,
+                    filename: `${slug}.webp`
+                });
 
                 // Generate HTML
                 const html = generateEntryPage(entry, relatedTerms, navigation, footer);

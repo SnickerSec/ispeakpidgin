@@ -85,11 +85,28 @@ async function processImage(srcPath, destPath) {
     }
 }
 
-// Clean public directory
+// Clean public directory but preserve OG images to speed up build
 function cleanPublic() {
     if (fs.existsSync(config.publicDir)) {
-        console.log(`🧹 Cleaning ${config.publicDir} directory...`);
-        fs.rmSync(config.publicDir, { recursive: true, force: true });
+        console.log(`🧹 Cleaning ${config.publicDir} directory (preserving OG assets)...`);
+        
+        // Get all items in public
+        const items = fs.readdirSync(config.publicDir);
+        for (const item of items) {
+            const itemPath = path.join(config.publicDir, item);
+            
+            // Skip assets/og
+            if (item === 'assets') {
+                const assetItems = fs.readdirSync(itemPath);
+                for (const assetItem of assetItems) {
+                    if (assetItem !== 'og') {
+                        fs.rmSync(path.join(itemPath, assetItem), { recursive: true, force: true });
+                    }
+                }
+            } else {
+                fs.rmSync(itemPath, { recursive: true, force: true });
+            }
+        }
     }
 }
 

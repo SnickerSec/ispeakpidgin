@@ -20,9 +20,11 @@ const {
     SITE_URL,
     SITE_NAME
 } = require('./shared-utils');
+const { generateOgImage } = require('./og-image-generator');
 
-// Output directory
+// Output directories
 const outputDir = path.join(__dirname, '../../public/phrase');
+const ogOutputDir = path.join(__dirname, '../../public/assets/og/phrases');
 
 // Create output directory
 if (!fs.existsSync(outputDir)) {
@@ -122,6 +124,8 @@ function generatePhrasePage(phrase, relatedPhrases, navigation, footer, dictiona
     // Keywords
     const keywords = `${phrase.pidgin}, hawaiian slang, hawaiian pidgin, ${phrase.english}, pidgin phrases, hawaii language`;
 
+    const ogImage = `${SITE_URL}/assets/og/phrases/${slug}.webp`;
+
     // Common head content
     const headContent = getCommonHead({
         title: pageTitle,
@@ -130,7 +134,8 @@ function generatePhrasePage(phrase, relatedPhrases, navigation, footer, dictiona
         canonicalUrl,
         ogType: 'article',
         ogTitle: pageTitle,
-        ogDescription: metaDescription
+        ogDescription: metaDescription,
+        ogImage
     });
 
     // DefinedTerm structured data
@@ -395,6 +400,10 @@ async function main() {
     console.log('🏗️  Generating individual phrase pages...\n');
 
     try {
+        // Ensure directories exist
+        if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
+        if (!fs.existsSync(ogOutputDir)) fs.mkdirSync(ogOutputDir, { recursive: true });
+
         // Fetch phrases and dictionary from Supabase
         console.log('🔄 Fetching data from Supabase...');
         const [phrases, dictionary] = await Promise.all([
@@ -432,6 +441,15 @@ async function main() {
 
                 // Find related phrases
                 const relatedPhrases = findRelatedPhrases(phrase, phrases);
+
+                // Generate OG Image
+                await generateOgImage({
+                    title: phrase.pidgin,
+                    subtitle: phrase.english,
+                    category: phrase.category || 'general',
+                    outputDir: ogOutputDir,
+                    filename: `${slug}.webp`
+                });
 
                 // Generate HTML
                 const html = generatePhrasePage(phrase, relatedPhrases, navigation, footer, dictionary);

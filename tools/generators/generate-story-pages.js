@@ -9,9 +9,11 @@
 const fs = require('fs');
 const path = require('path');
 const { createSlug, escapeHtml, fetchFromSupabase, getNavAndFooter, getCommonHead, getGameLinksHtml, getQuickActionsHtml, SITE_URL, SITE_NAME } = require('./shared-utils');
+const { generateOgImage } = require('./og-image-generator');
 
-// Output directory
+// Output directories
 const outputDir = path.join(__dirname, '../../public/story');
+const ogOutputDir = path.join(__dirname, '../../public/assets/og/stories');
 
 /**
  * Find related stories based on shared difficulty and tags
@@ -59,6 +61,7 @@ function generateStoryPage(story, allStories, navigation, footer) {
     const metaDescription = `Read "${capitalizedTitle}" - an authentic Hawaiian Pidgin story. Includes English translation, vocabulary list, cultural notes, and pronunciation guide.`;
     const keywords = `${capitalizedTitle}, hawaiian pidgin story, hawaiian slang, pidgin stories, hawaii culture, pidgin translation`;
     const canonicalUrl = `${SITE_URL}/story/${slug}.html`;
+    const ogImage = `${SITE_URL}/assets/og/stories/${slug}.webp`;
 
     const headContent = getCommonHead({
         title: pageTitle,
@@ -67,7 +70,8 @@ function generateStoryPage(story, allStories, navigation, footer) {
         canonicalUrl,
         ogType: 'article',
         ogTitle: pageTitle,
-        ogDescription: metaDescription
+        ogDescription: metaDescription,
+        ogImage
     });
 
     // Vocabulary array (parse if string)
@@ -360,12 +364,17 @@ ${getGameLinksHtml()}
 
 /**
  * Main execution
- */
-async function main() {
-    console.log('🏗️  Generating individual story pages...\n');
+ // Main execution
+ async function main() {
+     console.log('🏗️  Generating individual story pages...\n');
 
-    try {
-        // Fetch stories from Supabase
+     try {
+         // Ensure directories exist
+         if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
+         if (!fs.existsSync(ogOutputDir)) fs.mkdirSync(ogOutputDir, { recursive: true });
+
+         // Fetch stories from Supabase
+
         console.log('🔄 Fetching stories from Supabase...');
         const stories = await fetchFromSupabase('stories', '*', 'title.asc');
         console.log(`✅ Fetched ${stories.length} stories from Supabase\n`);
@@ -400,6 +409,15 @@ async function main() {
                 
                 slug = finalSlug;
                 slugMap.set(slug, story);
+
+                // Generate OG Image
+                await generateOgImage({
+                    title: story.title,
+                    subtitle: "Authentic Hawaiian Pidgin Story",
+                    category: 'culture',
+                    outputDir: ogOutputDir,
+                    filename: `${slug}.webp`
+                });
 
                 // Generate HTML
                 const html = generateStoryPage(story, stories, navigation, footer);

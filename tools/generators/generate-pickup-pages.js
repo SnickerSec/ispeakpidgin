@@ -8,9 +8,11 @@
 const fs = require('fs');
 const path = require('path');
 const { createSlug, escapeHtml, fetchFromSupabase, getNavAndFooter, getCommonHead, getGameLinksHtml, getQuickActionsHtml, SITE_URL, SITE_NAME } = require('./shared-utils');
+const { generateOgImage } = require('./og-image-generator');
 
-// Output directory
+// Output directories
 const outputDir = path.join(__dirname, '../../public/pickup');
+const ogOutputDir = path.join(__dirname, '../../public/assets/og/pickup');
 
 /**
  * Find related pickup lines by category and tags
@@ -153,6 +155,7 @@ function generatePickupPage(line, relatedLines) {
     const { navigation, footer } = getNavAndFooter();
 
     // Build common head
+    const ogImage = `${SITE_URL}/assets/og/pickup/${slug}.webp`;
     const headContent = getCommonHead({
         title,
         metaDescription,
@@ -160,7 +163,8 @@ function generatePickupPage(line, relatedLines) {
         canonicalUrl,
         ogType: 'article',
         ogTitle: title,
-        ogDescription: metaDescription
+        ogDescription: metaDescription,
+        ogImage
     });
 
     // Escape pidgin text for JS string
@@ -300,17 +304,17 @@ ${headContent}
 
 /**
  * Main execution
- */
-async function main() {
-    console.log('Generate individual pickup line pages...\n');
+ // Main execution
+ async function main() {
+     console.log('Generate individual pickup line pages...\n');
 
-    try {
-        // Create output directory
-        if (!fs.existsSync(outputDir)) {
-            fs.mkdirSync(outputDir, { recursive: true });
-        }
+     try {
+         // Ensure directories exist
+         if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
+         if (!fs.existsSync(ogOutputDir)) fs.mkdirSync(ogOutputDir, { recursive: true });
 
-        // Fetch pickup lines from Supabase
+         // Fetch pickup lines from Supabase
+
         console.log('Fetching pickup lines from Supabase...');
         const lines = await fetchFromSupabase('pickup_lines', '*', 'pidgin.asc');
         console.log(`Fetched ${lines.length} pickup lines from Supabase\n`);
@@ -340,6 +344,15 @@ async function main() {
 
                 // Find related lines
                 const relatedLines = findRelatedLines(line, lines);
+
+                // Generate OG Image
+                await generateOgImage({
+                    title: line.pidgin,
+                    subtitle: line.english,
+                    category: 'action',
+                    outputDir: ogOutputDir,
+                    filename: `${slug}.webp`
+                });
 
                 // Generate HTML
                 const html = generatePickupPage(line, relatedLines);

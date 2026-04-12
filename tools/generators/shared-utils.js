@@ -155,7 +155,9 @@ function getNavAndFooter() {
 /**
  * Common HTML head boilerplate for generated pages
  */
-function getCommonHead({ title, metaDescription, keywords, canonicalUrl, ogType = 'article', ogTitle, ogDescription }) {
+function getCommonHead({ title, metaDescription, keywords, canonicalUrl, ogType = 'article', ogTitle, ogDescription, ogImage }) {
+    const finalOgImage = ogImage || `${SITE_URL}/assets/images/og-home.webp`;
+    
     return `    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${escapeHtml(title)}</title>
@@ -172,11 +174,13 @@ function getCommonHead({ title, metaDescription, keywords, canonicalUrl, ogType 
     <meta property="og:type" content="${ogType}">
     <meta property="og:url" content="${canonicalUrl}">
     <meta property="og:site_name" content="ChokePidgin.com">
+    <meta property="og:image" content="${finalOgImage}">
 
     <!-- Twitter Card Tags -->
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="${escapeHtml(ogTitle || title)}">
     <meta name="twitter:description" content="${escapeHtml(ogDescription || metaDescription)}">
+    <meta name="twitter:image" content="${finalOgImage}">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="${canonicalUrl}">
