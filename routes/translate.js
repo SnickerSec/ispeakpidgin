@@ -60,24 +60,28 @@ module.exports = function(translate, translationLimiter, dictionaryCache) {
             body('text')
                 .trim()
                 .notEmpty().withMessage('Text is required')
-                .isLength({ min: 1, max: 500 }).withMessage('Text must be between 1 and 500 characters')
+                .isLength({ min: 1, max: 1000 }).withMessage('Text must be between 1 and 1000 characters')
         ],
         async (req, res) => {
             const errors = validationResult(req);
-            if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+            if (!errors.isEmpty()) {
+                console.warn('TTS validation error:', errors.array());
+                return res.status(400).json({ errors: errors.array() });
+            }
 
             try {
                 const { text, originalText, voiceId: requestedVoiceId } = req.body;
                 const apiKey = process.env.ELEVENLABS_API_KEY;
-                if (!apiKey) return res.status(500).json({ error: 'ElevenLabs API key not configured' });
+                if (!apiKey) {
+                    console.error('ElevenLabs API key missing');
+                    return res.status(500).json({ error: 'ElevenLabs API key not configured' });
+                }
 
                 const defaultVoiceId = 'f0ODjLMfcJmlKfs7dFCW'; // Hawaiian-sounding voice
                 const voiceId = requestedVoiceId || defaultVoiceId;
                 const apiUrl = `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`;
 
-                // Use the corrected text for pronunciation, but the model can also benefit 
-                // from knowing the context of the original text if we provide it.
-                // For now, we use the text as provided by the frontend (which is already phoneticized).
+                console.log(`Processing TTS request for voice: ${voiceId}, length: ${text.length}`);
 
                 const response = await fetch(apiUrl, {
                     method: 'POST',
@@ -88,19 +92,23 @@ module.exports = function(translate, translationLimiter, dictionaryCache) {
                     },
                     body: JSON.stringify({
                         text: text,
-                        model_id: 'eleven_flash_v2_5',
+                        model_id: 'eleven_multilingual_v2', // More stable multilingual model
                         voice_settings: {
-                            stability: 0.45, // Slightly lower stability for more natural variation
-                            similarity_boost: 0.8,
-                            style: 0.1, // Small style boost for more "island" expression
+                            stability: 0.5,
+                            similarity_boost: 0.75,
+                            style: 0.0,
                             use_speaker_boost: true
                         }
                     })
                 });
 
                 if (!response.ok) {
-                    console.error('ElevenLabs API error:', response.status, response.statusText);
-                    return res.status(response.status).json({ error: `ElevenLabs API error: ${response.status} ${response.statusText}` });
+                    const errorDetails = await response.text();
+                    console.error('ElevenLabs API error:', response.status, response.statusText, errorDetails);
+                    return res.status(response.status).json({ 
+                        error: `ElevenLabs API error: ${response.status} ${response.statusText}`,
+                        details: errorDetails
+                    });
                 }
 
                 const audioBuffer = await response.arrayBuffer();
