@@ -631,15 +631,17 @@ class ElevenLabsSpeech {
                         cleanup();
                     });
 
-                    // Timeout after 10 seconds
+                    // Timeout after 60 seconds (increased from 10s for long stories/AI responses)
                     setTimeout(() => {
                         if (!resolved) {
+                            const errorMsg = audio.paused ? 'Audio play timeout (never started)' : 'Audio play timeout (took too long to finish)';
+                            console.warn(`SW: ${errorMsg} for key: ${cacheKey}`);
                             window.dispatchEvent(new CustomEvent('pidginSpeechEnd'));
                             resolved = true;
                             reject(new Error('Audio play timeout'));
                             cleanup();
                         }
-                    }, 10000);
+                    }, 60000);
                 });
 
                 return playResult;
