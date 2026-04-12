@@ -139,11 +139,21 @@
                     <input type="text" id="user-input" 
                         class="flex-grow px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-400 focus:outline-none transition-all"
                         placeholder="Type here..." autocomplete="off">
+                    <button type="button" id="mic-btn" 
+                        class="bg-gray-100 text-gray-500 w-12 h-12 rounded-xl flex items-center justify-center hover:bg-red-50 hover:text-red-500 transition-all border-2 border-transparent"
+                        title="Talk Story (Voice Input)">
+                        <i class="ti ti-microphone text-xl"></i>
+                    </button>
                     <button type="submit" id="send-btn" 
                         class="gradient-bg text-white w-12 h-12 rounded-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-lg">
                         <i class="ti ti-send text-xl"></i>
                     </button>
                 </form>
+                <div id="voice-status" class="hidden text-center mt-2">
+                    <span class="text-xs font-bold text-red-500 animate-pulse flex items-center justify-center gap-1">
+                        <i class="ti ti-antenna-bars-5"></i> Listening...
+                    </span>
+                </div>
                 <p class="text-[10px] text-gray-400 mt-2 text-center">Kimo is an AI and can make mistakes. Always check da dictionary for fo' real rules!</p>
             </div>
         </div>
@@ -154,6 +164,7 @@
     <!-- Scripts -->
     <script src="js/components/elevenlabs-speech.js"></script>
     <script src="js/components/speech.js"></script>
+    <script src="js/components/voice-chat.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const chatMessages = document.getElementById('chat-messages');
@@ -163,6 +174,8 @@
             const clearChatBtn = document.getElementById('clear-chat');
             const charButtons = document.querySelectorAll('.char-btn');
             const autoVoiceCheck = document.getElementById('auto-voice');
+            const micBtn = document.getElementById('mic-btn');
+            const voiceStatus = document.getElementById('voice-status');
             
             const characterProfiles = {
                 kimo: {
@@ -196,6 +209,45 @@
 
             let currentCharacter = 'kimo';
             let messageHistory = [];
+
+            // Voice Chat Integration
+            const voiceHandler = new VoiceChat({
+                onStart: () => {
+                    micBtn.classList.remove('bg-gray-100', 'text-gray-500');
+                    micBtn.classList.add('bg-red-500', 'text-white');
+                    voiceStatus.classList.remove('hidden');
+                    userInput.placeholder = "Listening...";
+                },
+                onEnd: () => {
+                    micBtn.classList.add('bg-gray-100', 'text-gray-500');
+                    micBtn.classList.remove('bg-red-500', 'text-white');
+                    voiceStatus.classList.add('hidden');
+                    userInput.placeholder = "Type here...";
+                },
+                onResult: (text) => {
+                    userInput.value = text;
+                    // Auto-submit after voice input
+                    setTimeout(() => {
+                        chatForm.dispatchEvent(new Event('submit'));
+                    }, 500);
+                },
+                onInterim: (text) => {
+                    userInput.value = text;
+                },
+                onError: (err) => {
+                    console.error('Voice Chat Error:', err);
+                    voiceStatus.innerHTML = `<span class="text-[10px] text-red-400">Mic error: ${err}</span>`;
+                    setTimeout(() => voiceStatus.classList.add('hidden'), 3000);
+                }
+            });
+
+            if (!voiceHandler.supported) {
+                micBtn.style.display = 'none';
+            }
+
+            micBtn.addEventListener('click', () => {
+                voiceHandler.toggle();
+            });
 
             // Character switching logic
             charButtons.forEach(btn => {

@@ -117,6 +117,7 @@ const pathMappings = {
     'js/lessons.js': 'js/components/lessons.js',
     'js/elevenlabs-speech.js': 'js/components/elevenlabs-speech.js',
     'js/speech.js': 'js/components/speech.js',
+    'js/voice-chat.js': 'js/components/voice-chat.js',
     'js/pronunciation-practice.js': 'js/components/pronunciation-practice.js',
     'js/ask-local.js': 'js/components/ask-local.js',
     'js/ask-local-page.js': 'js/components/ask-local-page.js',
