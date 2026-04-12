@@ -60,6 +60,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Pidgin Translator">
     <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://chokepidgin.com/translator.html">
@@ -169,7 +170,7 @@
     <!-- NAVIGATION_PLACEHOLDER -->
 
     <!-- Hero Section -->
-    <div class="translator-hero py-10 px-4 relative overflow-hidden hidden md:block">
+    <div class="translator-hero py-6 md:py-10 px-4 relative overflow-hidden">
         <!-- Background decoration -->
         <div class="absolute inset-0 opacity-10">
             <div class="absolute top-10 right-20 text-5xl"><i class="ti ti-flower"></i></div>
@@ -179,35 +180,35 @@
 
         <div class="max-w-5xl mx-auto text-center relative z-10">
             <div class="mb-3 flex items-center justify-center gap-3">
-                <div class="text-4xl"><i class="ti ti-robot"></i></div>
-                <h1 class="text-3xl md:text-4xl font-bold text-white">
+                <div class="text-3xl md:text-4xl"><i class="ti ti-robot"></i></div>
+                <h1 class="text-2xl md:text-4xl font-bold text-white">
                     AI Pidgin Translator
                 </h1>
             </div>
-            <p class="text-base md:text-lg text-white/90 mb-4">
+            <p class="text-sm md:text-lg text-white/90 mb-4">
                 Powered by Google Gemini AI &mdash; captures cultural context, slang, and local expressions
             </p>
 
             <!-- Quick Stats -->
-            <div class="flex flex-wrap justify-center gap-4 text-sm text-white/80">
-                <div class="bg-white/20 backdrop-blur rounded-lg px-4 py-2">
-                    <span class="font-bold"><i class="ti ti-robot"></i> AI-Powered</span> Translation
+            <div class="flex flex-wrap justify-center gap-2 md:gap-4 text-xs md:text-sm text-white/80">
+                <div class="bg-white/20 backdrop-blur rounded-lg px-3 py-1 md:px-4 md:py-2">
+                    <span class="font-bold"><i class="ti ti-robot"></i> AI-Powered</span>
                 </div>
-                <div class="bg-white/20 backdrop-blur rounded-lg px-4 py-2">
-                    <span class="font-bold">660+</span> Dictionary Entries
+                <div class="bg-white/20 backdrop-blur rounded-lg px-3 py-1 md:px-4 md:py-2">
+                    <span class="font-bold">660+</span> Words
                 </div>
-                <div class="bg-white/20 backdrop-blur rounded-lg px-4 py-2">
+                <div class="bg-white/20 backdrop-blur rounded-lg px-3 py-1 md:px-4 md:py-2">
                     <span class="font-bold">Cultural</span> Context
                 </div>
-                <div class="bg-white/20 backdrop-blur rounded-lg px-4 py-2">
-                    <span class="font-bold">Audio</span> Pronunciation
+                <div class="bg-white/20 backdrop-blur rounded-lg px-3 py-1 md:px-4 md:py-2">
+                    <span class="font-bold">Audio</span> Playback
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Main Translator Section -->
-    <div class="max-w-6xl mx-auto px-4 py-4 md:py-12">
+    <div class="max-w-6xl mx-auto px-4 py-6 md:py-10">
         <!-- Translation Interface -->
         <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
             <!-- Direction Toggle -->
