@@ -1,0 +1,46 @@
+{
+  "missing": [
+    {
+      "pidgin": "yobo",
+      "english": ["honey", "dear", "sweetheart"],
+      "category": "romance",
+      "usage": "Used to call one's spouse or partner. From Korean 'yeobo'."
+    },
+    {
+      "pidgin": "kefe",
+      "english": ["bastard", "idiot", "fool"],
+      "category": "slang",
+      "usage": "A Samoan slang term often used as an insult or exclamation."
+    },
+    {
+      "pidgin": "sukebe",
+      "english": ["pervert", "lecherous"],
+      "category": "slang",
+      "usage": "From Japanese. Used to describe someone who is being perverted or overly sexual."
+    },
+    {
+      "pidgin": "hukilau",
+      "english": ["net fishing party", "community feast"],
+      "category": "general",
+      "usage": "A traditional Hawaiian way of fishing with a large net, usually involving a group of people and followed by a feast."
+    },
+    {
+      "pidgin": "pilikia",
+      "english": ["trouble", "problem", "difficulty"],
+      "category": "general",
+      "usage": "A very common Hawaiian word used to describe any kind of trouble or issue."
+    },
+    {
+      "pidgin": "nani",
+      "english": ["beautiful", "pretty", "lovely"],
+      "category": "general",
+      "usage": "A Hawaiian word for beauty, often used for people or scenery."
+    },
+    {
+      "pidgin": "kai",
+      "english": ["ocean", "sea", "seawater"],
+      "category": "general",
+      "usage": "The Hawaiian word for the sea. Used in names and directions (makai)."
+    }
+  ]
+}

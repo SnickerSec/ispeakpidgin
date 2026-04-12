@@ -14,13 +14,13 @@
  * 5. Output to /tmp/missing-terms.json for use with npm run data:add-missing
  */
 
-const { GoogleAuth } = require('google-auth-library');
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
+const { GoogleAuth } = require('google-auth-library');
 const { supabase } = require('../../config/supabase');
 
-// Configuration
+// Configuration - Load from environment AFTER dotenv.config()
 const SITE_URL = process.env.SITE_URL || 'sc-domain:chokepidgin.com';
 const KEY_PATH = process.env.GOOGLE_SEARCH_CONSOLE_KEY_PATH || './google-search-console-key.json';
 const SEARCH_CONSOLE_API = 'https://searchconsole.googleapis.com/webmasters/v3';
