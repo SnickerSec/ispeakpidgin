@@ -402,6 +402,13 @@ class PidginSpeech {
     // Main speak function with ElevenLabs integration and fallback
     speak(text, options = {}) {
         return new Promise(async (resolve, reject) => {
+            window.dispatchEvent(new CustomEvent('pidginSpeechStart'));
+            
+            const cleanup = () => {
+                window.dispatchEvent(new CustomEvent('pidginSpeechEnd'));
+                if (options.onEnd) options.onEnd();
+            };
+
             try {
                 // First try ElevenLabs if available
                 if (typeof elevenLabsSpeech !== 'undefined' && elevenLabsSpeech.isSupported()) {
@@ -409,34 +416,40 @@ class PidginSpeech {
                     const phoneticText = this.applyPhoneticTransform(text);
 
                     await elevenLabsSpeech.speak(phoneticText, {
+                        ...options,
                         onStart: () => {
                             this.trackPronunciation(text, 'ElevenLabs');
                             if (options.onStart) options.onStart();
                         },
                         onSuccess: () => {
                             if (options.onSuccess) options.onSuccess();
+                            cleanup();
+                            resolve();
+                        },
+                        onEnd: () => {
+                            cleanup();
                             resolve();
                         },
                         onError: (error) => {
                             console.warn('ElevenLabs failed, falling back to browser speech:', error);
-                            this.fallbackToBrowserSpeech(text, options, resolve, reject);
+                            this.fallbackToBrowserSpeech(text, options, resolve, reject, cleanup);
                         }
                     });
                     return;
                 }
 
                 // Fallback to browser speech synthesis
-                this.fallbackToBrowserSpeech(text, options, resolve, reject);
+                this.fallbackToBrowserSpeech(text, options, resolve, reject, cleanup);
 
             } catch (error) {
                 console.warn('Speech error, falling back to browser speech:', error);
-                this.fallbackToBrowserSpeech(text, options, resolve, reject);
+                this.fallbackToBrowserSpeech(text, options, resolve, reject, cleanup);
             }
         });
     }
 
     // Fallback to browser speech synthesis
-    fallbackToBrowserSpeech(text, options, resolve, reject) {
+    fallbackToBrowserSpeech(text, options, resolve, reject, cleanup) {
         if (!('speechSynthesis' in window)) {
             reject(new Error('Speech synthesis not supported'));
             return;
@@ -495,11 +508,13 @@ class PidginSpeech {
         // Event handlers
         utterance.onend = () => {
             if (options.onSuccess) options.onSuccess();
+            cleanup();
             resolve();
         };
         utterance.onerror = (error) => {
             console.warn('Speech failed:', error);
             if (options.onError) options.onError(error);
+            cleanup();
             reject(error);
         };
 

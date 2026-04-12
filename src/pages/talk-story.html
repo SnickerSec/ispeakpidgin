@@ -340,10 +340,23 @@
                 if (!isUser) {
                     const btn = div.querySelector('.speak-btn');
                     const playVoice = () => {
+                        visualizer.start('ai');
+                        
+                        const onSpeechEnd = () => {
+                            visualizer.stop();
+                            window.removeEventListener('pidginSpeechEnd', onSpeechEnd);
+                        };
+                        window.addEventListener('pidginSpeechEnd', onSpeechEnd);
+
                         if (window.elevenLabsSpeech) {
-                            window.elevenLabsSpeech.speak(btn.dataset.text, { voiceId: btn.dataset.voice });
+                            window.elevenLabsSpeech.speak(btn.dataset.text, { 
+                                voiceId: btn.dataset.voice,
+                                onEnd: () => window.dispatchEvent(new CustomEvent('pidginSpeechEnd'))
+                            });
                         } else if (window.pidginSpeech) {
-                            window.pidginSpeech.speak(btn.dataset.text);
+                            window.pidginSpeech.speak(btn.dataset.text, {
+                                onEnd: () => window.dispatchEvent(new CustomEvent('pidginSpeechEnd'))
+                            });
                         }
                     };
 

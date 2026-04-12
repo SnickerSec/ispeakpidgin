@@ -477,7 +477,10 @@ class ElevenLabsSpeech {
 
                     // Play the audio (unless silent mode for preloading)
                     if (!options.silent) {
+                        window.dispatchEvent(new CustomEvent('pidginSpeechStart'));
                         const success = await this.playAudioBlobWithRetry(audioBlob, correctedText, normalizedText);
+                        window.dispatchEvent(new CustomEvent('pidginSpeechEnd'));
+                        
                         if (!success && attempt < maxRetries) {
                             throw new Error('Audio playback failed, retrying API call');
                         }
@@ -685,9 +688,15 @@ class ElevenLabsSpeech {
 
     fallbackToWebSpeech(text) {
         if ('speechSynthesis' in window) {
+            window.dispatchEvent(new CustomEvent('pidginSpeechStart'));
+            
             // Apply pronunciation corrections for better Web Speech API pronunciation
             const correctedText = this.applyPronunciationCorrections(text);
             const utterance = new SpeechSynthesisUtterance(correctedText);
+            
+            utterance.onend = () => window.dispatchEvent(new CustomEvent('pidginSpeechEnd'));
+            utterance.onerror = () => window.dispatchEvent(new CustomEvent('pidginSpeechEnd'));
+
             utterance.rate = 0.85; // Slightly slower for pidgin
             utterance.pitch = 0.95; // Slightly lower pitch
             utterance.volume = 0.9;

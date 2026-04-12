@@ -246,11 +246,19 @@
                             </button>
                         </div>
                     </div>
-                    <div class="mt-2 flex justify-center items-center">
-                        <div class="flex gap-3">
-                            <button id="mic-input-btn" class="text-purple-600 hover:text-purple-700 transition whitespace-nowrap" title="Voice Input">
-                                <i class="ti ti-microphone"></i> Voice Input
+                    <div class="mt-2 flex flex-col items-center">
+                        <div id="voice-status" class="hidden mb-2"></div>
+                        <div class="flex gap-3 items-center">
+                            <button id="mic-input-btn" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 transition whitespace-nowrap font-medium" title="Voice Input">
+                                <i class="ti ti-microphone text-xl"></i> Voice Input
                             </button>
+                            <label class="flex items-center cursor-pointer gap-2" title="Automatically translate and speak after voice input">
+                                <span class="text-[10px] font-bold text-gray-400 uppercase">Hands-Free</span>
+                                <div class="relative">
+                                    <input type="checkbox" id="hands-free-mode" class="sr-only peer" checked>
+                                    <div class="w-8 h-4 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-purple-500"></div>
+                                </div>
+                            </label>
                             <button id="translate-btn" class="px-6 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-indigo-700 transition shadow-md hover:shadow-lg whitespace-nowrap">
                                 <i class="ti ti-sparkles"></i> Translate
                             </button>
@@ -462,8 +470,79 @@
     <script defer src="js/translator-page.js"></script>
     <script defer src="js/elevenlabs-speech.js"></script>
     <script defer src="js/speech.js"></script>
+    <script defer src="js/voice-chat.js"></script>
+    <script defer src="js/voice-visualizer.js"></script>
     <script defer src="js/main.js"></script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const micBtn = document.getElementById('mic-input-btn');
+            const handsFreeMode = document.getElementById('hands-free-mode');
+            const translatorInput = document.getElementById('translator-input');
+            const translateBtn = document.getElementById('translate-btn');
+            const speakBtn = document.getElementById('speak-btn');
+
+            // Wait for visualizer to load
+            let visualizer;
+            const initVoice = () => {
+                if (typeof VoiceVisualizer !== 'undefined' && typeof VoiceChat !== 'undefined') {
+                    visualizer = new VoiceVisualizer('voice-status');
+
+                    const voiceHandler = new VoiceChat({
+                        onStart: () => {
+                            micBtn.classList.remove('text-purple-600');
+                            micBtn.classList.add('text-red-500', 'animate-pulse');
+                            visualizer.start('user');
+                            translatorInput.placeholder = "Listening...";
+                        },
+                        onEnd: () => {
+                            micBtn.classList.add('text-purple-600');
+                            micBtn.classList.remove('text-red-500', 'animate-pulse');
+                            visualizer.stop();
+                            translatorInput.placeholder = "Type or paste English text here...";
+                        },
+                        onResult: (text) => {
+                            translatorInput.value = text;
+                            if (handsFreeMode.checked) {
+                                // Trigger translation
+                                translateBtn.click();
+
+                                // Wait for translation to appear, then speak
+                                const observer = new MutationObserver((mutations) => {
+                                    const speakBtn = document.getElementById('speak-btn');
+                                    if (speakBtn && (speakBtn.style.display !== 'none' && !speakBtn.classList.contains('hidden'))) {
+                                        setTimeout(() => {
+                                            speakBtn.click();
+                                            observer.disconnect();
+                                        }, 500);
+                                    }
+                                });
+                                observer.observe(document.getElementById('translation-output'), { childList: true, subtree: true });
+                            }
+                        },
+                        onInterim: (text) => {
+                            translatorInput.value = text;
+                        }
+                    });
+
+                    micBtn.addEventListener('click', () => voiceHandler.toggle());
+
+                    // Listen for AI speech events to show waveform
+                    window.addEventListener('pidginSpeechStart', () => {
+                        if (visualizer) visualizer.start('ai');
+                    });
+                    window.addEventListener('pidginSpeechEnd', () => {
+                        if (visualizer) visualizer.stop();
+                    });
+                } else {
+                    setTimeout(initVoice, 100);
+                }
+            };
+
+            initVoice();
+        });
+    </script>
+
     <!-- Mobile menu is handled by the shared navigation component -->
-</body>
-</html>
+    </body>
+    </html>
