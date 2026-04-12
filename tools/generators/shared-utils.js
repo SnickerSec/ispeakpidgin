@@ -153,6 +153,44 @@ function getNavAndFooter() {
 }
 
 /**
+ * Get a random Pidgin grammar tip to bulk up content for SEO
+ */
+function getGrammarTip() {
+    const tips = [
+        "Pidgin often drops the 'to be' verb. Instead of saying 'He is tired', you say 'He stay tired'.",
+        "The word 'da kine' is a versatile placeholder used when you can't remember a specific word.",
+        "To indicate past tense, Pidgin often uses 'wen' before the verb (e.g., 'I wen go' for 'I went').",
+        "Plurals in Pidgin are often formed by adding 'them' or 'dem' after the noun (e.g., 'The boy dem').",
+        "The word 'stay' is frequently used as a progressive marker, like 'He stay eating' for 'He is eating'.",
+        "Negative sentences in Pidgin often use 'never' for past tense, as in 'I never see him' (I didn't see him).",
+        "Questions in Pidgin often use a rising intonation at the end of a statement rather than changing word order.",
+        "The word 'pau' means finished or done, and is one of the most common loanwords from Hawaiian.",
+        "Using 'mo' before an adjective creates a comparative, like 'mo bettah' for 'better'.",
+        "The word 'buggah' can refer to a person, a thing, or an animal depending on the context."
+    ];
+    return tips[Math.floor(Math.random() * tips.length)];
+}
+
+/**
+ * Get a random Hawaiian cultural fact to bulk up content for SEO
+ */
+function getCulturalFact() {
+    const facts = [
+        "Hawaiian Pidgin (HWC) originated on sugar plantations as a way for diverse ethnic groups to communicate.",
+        "The 'okina (ʻ) is a consonant in the Hawaiian language representing a glottal stop.",
+        "The kahakō (vowel with a macron) indicates a long vowel sound in Hawaiian words.",
+        "Aloha means more than just hello; it encompasses love, peace, compassion, and mercy.",
+        "The shaka sign (🤙) is a common gesture in Hawaii expressing the 'Aloha Spirit'.",
+        "Talk story is a local Hawaiian expression for a casual conversation or sharing experiences.",
+        "Many Pidgin words have roots in Portuguese, Cantonese, Japanese, Filipino, and Hawaiian.",
+        "The concept of 'Ohana' means family, but can also include close friends and the broader community.",
+        "A 'Hui' is a club, association, or group of people working toward a common goal.",
+        "The 'Aloha Spirit' is actually part of Hawaii state law (HRS [§ 5-7.5])."
+    ];
+    return facts[Math.floor(Math.random() * facts.length)];
+}
+
+/**
  * Common HTML head boilerplate for generated pages
  */
 function getCommonHead({ title, metaDescription, keywords, canonicalUrl, ogType = 'article', ogTitle, ogDescription, ogImage }) {
@@ -306,6 +344,8 @@ module.exports = {
     getGameLinksHtml,
     getQuickActionsHtml,
     getMiniQuizHtml,
+    getGrammarTip,
+    getCulturalFact,
     SITE_URL,
     SITE_NAME
 };

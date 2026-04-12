@@ -400,6 +400,26 @@ app.get(['/index.html', '/index'], pageLimiter, (req, res) => {
     res.redirect(301, '/');
 });
 
+// ============================================
+// SEO: Redirect legacy 'what-does-X-mean.html' to '/word/X.html'
+// ============================================
+app.get(['/what-does-:word-mean.html', '/what-is-:word-mean.html', '/what-does-:word.html', '/what-is-:word.html'], (req, res, next) => {
+    const word = req.params.word;
+    const legacyFile = req.path.substring(1); // e.g., 'what-does-aloha-mean.html'
+    
+    // 1. Check if the legacy file actually exists in public/
+    const legacyFilePath = path.join(__dirname, 'public', legacyFile);
+    if (fs.existsSync(legacyFilePath)) {
+        // If it exists, let the static server handle it later (or serve it now)
+        return res.sendFile(legacyFilePath);
+    }
+    
+    // 2. If it doesn't exist, redirect to the new dictionary structure
+    // We assume the :word parameter is a good slug
+    console.log(`SEO: Redirecting legacy URL ${req.path} to /word/${word}.html`);
+    return res.redirect(301, `/word/${word}.html`);
+});
+
 // Serve static files from public directory with smarter caching
 app.use(express.static(path.join(__dirname, 'public'), {
     maxAge: '1h', // Default 1 hour for assets
