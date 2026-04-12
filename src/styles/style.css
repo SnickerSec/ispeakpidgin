@@ -748,56 +748,14 @@ button:focus, a:focus, input:focus, textarea:focus {
     display: inline-block !important;
 }
 
-/* Navigation Dropdown Styles */
+/* Navigation Dropdown Styles - Now handled by Tailwind in navigation.html */
 .nav-dropdown {
     position: relative;
 }
-
-.nav-dropdown .dropdown-menu {
-    position: absolute;
-    left: 0;
-    top: 100%;
-    padding-top: 0.5rem; /* Gap replacement using padding to maintain hover state */
-    width: 12rem;
-    background-color: transparent;
-    display: none;
-    z-index: 50;
-}
-
-.dropdown-menu-content {
-    background-color: white;
-    border-radius: 0.5rem;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 0.5rem 0;
-}
-
-/* Show dropdown on hover (desktop) or when .show class is added (click/touch) */
-.nav-dropdown:hover .dropdown-menu,
-.nav-dropdown .dropdown-menu.show {
-    display: block !important;
-}
-
-.nav-dropdown .dropdown-menu a {
-    display: block;
-    padding: 0.5rem 1rem;
-    color: #374151;
-    transition: all 0.2s;
-}
-
-.nav-dropdown .dropdown-menu a:hover {
-    background-color: #f0fdf4;
-    color: #16a34a;
-}
-
-.nav-dropdown .dropdown-menu-content a:first-child {
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
-}
-
-.nav-dropdown .dropdown-menu-content a:last-child {
-    border-bottom-left-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
+/* Base styles for dropdown menu transition */
+.dropdown-menu {
+    transition: all 0.2s ease-out;
+    z-index: 100 !important;
 }
 
 /* ==================== */
