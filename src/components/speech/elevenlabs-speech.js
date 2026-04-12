@@ -344,12 +344,12 @@ class ElevenLabsSpeech {
 
         // 5. Add natural pauses for Pidgin rhythm
         correctedText = correctedText
-            .replace(/, /g, '... ') 
-            .replace(/\beh\b(?!\.\.\.)/gi, 'eh...') 
-            .replace(/\bhoh\b(?!\.\.\.)/gi, 'hoh...') 
-            .replace(/\bbrah\b(?!\.\.\.)/gi, '...brah')
-            .replace(/\byeah\b\?/gi, '...yeah?')
-            .replace(/\bo wat\b\?/gi, '...or wat?');
+            .replace(/, /g, ', ') 
+            .replace(/\beh\b(?!\.\.\.)/gi, 'eh, ') 
+            .replace(/\bhoh\b(?!\.\.\.)/gi, 'hoh, ') 
+            .replace(/\bbrah\b(?!\.\.\.)/gi, ', brah')
+            .replace(/\byeah\b\?/gi, ', yeah?')
+            .replace(/\bo wat\b\?/gi, ', or wat?');
 
         return correctedText;
     }
@@ -832,5 +832,7 @@ const elevenLabsSpeech = new ElevenLabsSpeech();
 
 // Export for use in other modules
 if (typeof module !== 'undefined' && module.exports) {
+    module.exports = ElevenLabsSpeech;
+} {
     module.exports = ElevenLabsSpeech;
 }

@@ -484,12 +484,12 @@ class PidginSpeech {
         utterance.pitch = options.pitch || params.pitch;
         utterance.volume = options.volume || params.volume;
 
-        // Simulate rhythm by adding pauses using periods
+        // Simulate rhythm by adding slight pauses using punctuation
         let textWithPauses = phoneticText;
-        textWithPauses = textWithPauses.replace(/,/g, '... ');
-        textWithPauses = textWithPauses.replace(/\./g, '..... ');
-        textWithPauses = textWithPauses.replace(/!/g, '!... ');
-        textWithPauses = textWithPauses.replace(/\?/g, '?... ');
+        textWithPauses = textWithPauses.replace(/,/g, ', ');
+        textWithPauses = textWithPauses.replace(/\./g, '. ');
+        textWithPauses = textWithPauses.replace(/!/g, '! ');
+        textWithPauses = textWithPauses.replace(/\?/g, '? ');
 
         // Use the text with simulated pauses for speech
         utterance.text = textWithPauses;
@@ -574,4 +574,5 @@ class PidginSpeech {
 
 // Initialize the Pidgin speech synthesizer and make it globally accessible
 const pidginSpeech = new PidginSpeech();
+window.pidginSpeech = pidginSpeech;;
 window.pidginSpeech = pidginSpeech;
