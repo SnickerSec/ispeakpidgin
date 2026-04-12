@@ -576,5 +576,9 @@ class PidginSpeech {
 
 // Initialize the Pidgin speech synthesizer and make it globally accessible
 const pidginSpeech = new PidginSpeech();
-window.pidginSpeech = pidginSpeech;;
 window.pidginSpeech = pidginSpeech;
+
+// Export for use in other modules (Node/Bundlers)
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = PidginSpeech;
+}

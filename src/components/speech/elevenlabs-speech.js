@@ -835,10 +835,9 @@ class ElevenLabsSpeech {
 
 // Create global instance
 const elevenLabsSpeech = new ElevenLabsSpeech();
+window.elevenLabsSpeech = elevenLabsSpeech;
 
-// Export for use in other modules
+// Export for use in other modules (Node/Bundlers)
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = ElevenLabsSpeech;
-} {
     module.exports = ElevenLabsSpeech;
 }
