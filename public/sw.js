@@ -1,4 +1,4 @@
-const CACHE_NAME = 'chokepidgin-v2.6';
+const CACHE_NAME = 'chokepidgin-v2.7';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -14,6 +14,7 @@ const STATIC_ASSETS = [
   '/js/components/dictionary-cache.js',
   '/js/components/supabase-data-loader.js',
   '/js/components/elevenlabs-speech.js',
+  '/js/components/speech.js',
   '/android-chrome-192x192.png',
   '/android-chrome-512x512.png',
   '/favicon.svg',
