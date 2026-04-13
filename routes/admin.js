@@ -603,10 +603,84 @@ Respond only with a JSON object:
         }
     });
 
-    // Get Search Gaps
+    // GET /api/admin/gaps - Get pending search gaps from DB, with optional Google Sync
     router.get('/gaps', adminActionLimiter, adminAuth.requireAdminAuth, async (req, res) => {
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
+        
         try {
+            const { sync = 'false' } = req.query;
+
+            // If sync is requested, fetch from GSC and update DB first
+            if (sync === 'true') {
+                const { GoogleAuth } = require('google-auth-library');
+                const KEY_PATH = process.env.GOOGLE_SEARCH_CONSOLE_KEY_PATH || './google-search-console-key.json';
+                const SITE_URL = process.env.SITE_URL || 'sc-domain:chokepidgin.com';
+
+                if (fs.existsSync(KEY_PATH)) {
+                    const auth = new GoogleAuth({
+                        keyFile: KEY_PATH,
+                        scopes: ['https://www.googleapis.com/auth/webmasters.readonly']
+                    });
+
+                    const client = await auth.getClient();
+                    const encodedSiteUrl = encodeURIComponent(SITE_URL);
+                    const url = `https://searchconsole.googleapis.com/webmasters/v3/sites/${encodedSiteUrl}/searchAnalytics/query`;
+
+                    const endDate = new Date();
+                    endDate.setDate(endDate.getDate() - 3);
+                    const startDate = new Date(endDate);
+                    startDate.setDate(startDate.getDate() - 28);
+
+                    const requestBody = {
+                        startDate: startDate.toISOString().split('T')[0],
+                        endDate: endDate.toISOString().split('T')[0],
+                        dimensions: ['query'],
+                        rowLimit: 1000,
+                        orderBy: [{ fieldName: 'impressions', sortOrder: 'DESCENDING' }]
+                    };
+
+                    const scRes = await client.request({ url, method: 'POST', data: requestBody });
+                    const scQueries = scRes.data.rows || [];
+
+                    // Get existing dictionary terms to filter out
+                    const { data: existingDict } = await supabaseAdmin.from('dictionary_entries').select('pidgin');
+                    const existingSet = new Set(existingDict.map(item => item.pidgin.toLowerCase()));
+                    
+                    // Patterns to clean/filter
+                    const meanRegex = /what does (.*) mean/i;
+                    const meaningRegex = /(.*) meaning/i;
+
+                    const gapsToUpsert = [];
+                    scQueries.forEach(row => {
+                        const query = row.keys[0].toLowerCase();
+                        let term = query;
+                        if (meanRegex.test(query)) term = query.match(meanRegex)[1];
+                        else if (meaningRegex.test(query)) term = query.match(meaningRegex)[1];
+                        term = term.trim().replace(/[?!]/g, '');
+
+                        if (term.length > 2 && !existingSet.has(term) && row.impressions > 5) {
+                            gapsToUpsert.push({
+                                term,
+                                count: row.impressions,
+                                status: 'pending',
+                                last_searched_at: new Date()
+                            });
+                        }
+                    });
+
+                    // Upsert in batches to DB
+                    if (gapsToUpsert.length > 0) {
+                        // Use a simple loop or bulk upsert if supported by your schema/policies
+                        // Here we'll do a few at a time for safety
+                        for (let i = 0; i < Math.min(gapsToUpsert.length, 100); i++) {
+                            const gap = gapsToUpsert[i];
+                            await supabaseAdmin.from('search_gaps').upsert([gap], { onConflict: 'term' });
+                        }
+                    }
+                }
+            }
+
+            // Fetch pending gaps from DB
             const { data, error } = await supabaseAdmin
                 .from('search_gaps')
                 .select('*')

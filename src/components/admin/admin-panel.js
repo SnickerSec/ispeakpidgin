@@ -63,7 +63,7 @@
         // Refresh buttons
         document.getElementById('refreshSettingsBtn')?.addEventListener('click', refreshSettings);
         document.getElementById('refreshAuditLogBtn')?.addEventListener('click', loadAuditLog);
-        document.getElementById('refreshGapsBtn')?.addEventListener('click', loadSearchGaps);
+        document.getElementById('refreshGapsBtn')?.addEventListener('click', () => loadSearchGaps(true));
         document.getElementById('refreshSuggestionsBtn')?.addEventListener('click', loadSuggestions);
         document.getElementById('suggestionStatusSelect')?.addEventListener('change', loadSuggestions);
         document.getElementById('refreshQuestionsBtn')?.addEventListener('click', loadQuestionsAdmin);
@@ -481,7 +481,7 @@
         if (tabId === 'audit-log') {
             loadAuditLog();
         } else if (tabId === 'gaps') {
-            loadSearchGaps();
+            loadSearchGaps(false);
         } else if (tabId === 'suggestions') {
             loadSuggestions();
         } else if (tabId === 'questions') {
@@ -804,17 +804,17 @@
     }
 
     // Search Gaps
-    async function loadSearchGaps() {
+    async function loadSearchGaps(sync = false) {
         const container = document.getElementById('gapsContainer');
         const refreshBtn = document.getElementById('refreshGapsBtn');
 
         if (refreshBtn) {
             refreshBtn.disabled = true;
-            refreshBtn.innerHTML = '<span class="spinner"></span> Scanning...';
+            refreshBtn.innerHTML = sync ? '<span class="spinner"></span> Syncing with Google...' : '<span class="spinner"></span> Loading...';
         }
 
         try {
-            const response = await fetch('/api/admin/gaps', {
+            const response = await fetch(`/api/admin/gaps?sync=${sync}`, {
                 headers: { 'Authorization': `Bearer ${authToken}` }
             });
 
