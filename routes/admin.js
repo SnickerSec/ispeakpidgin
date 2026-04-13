@@ -648,6 +648,9 @@ Respond only with a JSON object:
             res.status(500).json({ error: 'Batch search failed: ' + error.message });
         }
     });
+
+    // POST /api/admin/dictionary/:id/audio - Upload Audio for Dictionary Entry
+    router.post('/dictionary/:id/audio', adminActionLimiter, adminAuth.requireAdminAuth, upload.single('audio'), async (req, res) => {
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
         const { id } = req.params;
         const { pidgin } = req.body;
