@@ -21,20 +21,27 @@ async function checkPending() {
         });
 
         const { data: suggestions, error: sError } = await supabase
-            .from('dictionary_suggestions')
+            .from('user_suggestions')
             .select('*')
             .eq('status', 'pending');
         
-        if (sError) {
-            // Table might not exist yet, ignore if so
-            if (sError.code !== 'PGRST116') {
-                 console.log('📝 dictionary_suggestions table not found or empty.');
-            } else {
-                throw sError;
-            }
-        } else {
-            console.log(`💡 Pending Suggestions: ${suggestions.length}`);
-        }
+        if (sError) throw sError;
+        console.log(`💡 Pending Suggestions: ${suggestions.length}`);
+        suggestions.forEach((s, i) => {
+            console.log(`   ${i+1}. [${s.contributor_name}] ${s.pidgin} -> ${s.english}`);
+        });
+
+        const { data: gaps, error: gError } = await supabase
+            .from('search_gaps')
+            .select('*')
+            .eq('status', 'pending');
+        
+        if (gError) throw gError;
+        console.log(`🔍 Search Gaps (Pending): ${gaps.length}`);
+        gaps.sort((a, b) => b.count - a.count);
+        gaps.slice(0, 10).forEach((g, i) => {
+            console.log(`   ${i+1}. "${g.term}" (${g.count} searches)`);
+        });
 
     } catch (error) {
         console.error('Error checking pending items:', error.message);

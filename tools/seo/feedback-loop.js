@@ -107,6 +107,11 @@ async function main() {
         
         const missing = [];
         const seenQueries = new Set();
+        const blacklist = [
+            'dictionary', 'translator', 'pigeon', 'hawaiian', 'pidgin', 'google translate',
+            'english to', 'how to say', 'what does', 'meaning of', 'translate', 'sayings',
+            'lingo', 'phrases', 'words', 'saying', 'phrase', 'word', 'help help', 'translate poo from'
+        ];
 
         for (const row of scQueries) {
             const query = row.keys[0].toLowerCase();
@@ -115,12 +120,22 @@ async function main() {
                 /what does (.*) mean/i,
                 /how to say (.*) in/i,
                 /(.*) meaning/i,
+                /(.*) definition/i,
+                /(.*) pronunciation/i,
                 /(.*) in hawaiian/i,
                 /(.*) hawaiian/i,
                 /(.*) pidgin/i,
                 /(.*) slang/i,
                 /(.*) hawaii/i,
-                /what is (.*)/i
+                /what is (.*)/i,
+                /hawaiian word (.*)/i,
+                /hawaiian phrase (.*)/i,
+                /hawaiian for (.*)/i,
+                /pidgin word (.*)/i,
+                /pidgin phrase (.*)/i,
+                /(.*) mean/i,
+                /(.*) means/i,
+                /(.*) translated/i
             ];
 
             let term = query;
@@ -141,6 +156,11 @@ async function main() {
 
             term = term.trim().replace(/[?!]/g, '');
             const normalizedTerm = normalize(term);
+
+            // Skip if in blacklist or matches common site queries
+            if (blacklist.some(b => normalizedTerm === b || normalizedTerm.includes(b) && normalizedTerm.length < 15)) {
+                continue;
+            }
 
             if (term.length > 2 && !normalizedExisting.has(normalizedTerm) && !seenQueries.has(normalizedTerm) && row.impressions > 20) {
                 missing.push({
