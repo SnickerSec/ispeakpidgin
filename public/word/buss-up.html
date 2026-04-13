@@ -316,7 +316,10 @@
             </div>
 
             <!-- Search and Mobile Toggle -->
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-4">
+                <!-- Auth Container -->
+                <div class="auth-nav-container"></div>
+
                 <!-- Search Button (Trigger) -->
                 <button id="nav-search-btn" class="p-2 text-gray-600 hover:text-green-600 transition-colors rounded-full hover:bg-gray-100" title="Quick Search">
                     <i class="ti ti-search text-xl"></i>
@@ -430,6 +433,7 @@
 </nav>
 
 <!-- Navigation JavaScript - automatically included on all pages -->
+<script defer src="/js/components/user-auth.js"></script>
 <script defer src="/js/components/navigation.js"></script>
 
 <!-- PWA Service Worker Registration -->
@@ -682,7 +686,7 @@
                         <i class="ti ti-message-language"></i> Pidgin Grammar Tip
                     </h3>
                     <p class="text-gray-700 leading-relaxed italic">
-                        "Using 'mo' before an adjective creates a comparative, like 'mo bettah' for 'better'."
+                        "The word 'stay' is frequently used as a progressive marker, like 'He stay eating' for 'He is eating'."
                     </p>
                 </div>
                 <div class="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-white">
@@ -690,7 +694,7 @@
                         <i class="ti ti-map-pin"></i> Local Culture Fact
                     </h3>
                     <p class="text-gray-700 leading-relaxed italic">
-                        "Aloha means more than just hello; it encompasses love, peace, compassion, and mercy."
+                        "Hawaiian Pidgin (HWC) originated on sugar plantations as a way for diverse ethnic groups to communicate."
                     </p>
                 </div>
             </div>

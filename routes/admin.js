@@ -519,8 +519,135 @@ Respond only with a JSON object:
         }
     });
 
-    // Upload Audio for Dictionary Entry
-    router.post('/dictionary/:id/audio', adminActionLimiter, adminAuth.requireAdminAuth, upload.single('audio'), async (req, res) => {
+    // POST /api/admin/dictionary/:id/audio/generate - Auto-generate audio via ElevenLabs
+    router.post('/dictionary/:id/audio/generate', adminActionLimiter, adminAuth.requireAdminAuth, async (req, res) => {
+        if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
+        const { id } = req.params;
+        
+        try {
+            // 1. Get the word from DB
+            const { data: entry, error: fetchErr } = await supabaseAdmin
+                .from('dictionary_entries')
+                .select('pidgin, pronunciation')
+                .eq('id', id)
+                .single();
+            
+            if (fetchErr || !entry) throw new Error('Entry not found');
+
+            const pidgin = entry.pidgin;
+            const apiKey = process.env.ELEVENLABS_API_KEY;
+            if (!apiKey) throw new Error('ElevenLabs API key not configured');
+
+            // 2. Prepare text for ElevenLabs (with pronunciation help if available)
+            // We can reuse logic from audio-pregeneration.js if we wanted to make it a shared util
+            // For now, let's use the pronunciation field if it exists, otherwise the pidgin word
+            const textToSpeak = entry.pronunciation || pidgin;
+
+            // 3. Call ElevenLabs
+            const VOICE_ID = 'f0ODjLMfcJmlKfs7dFCW'; // Authentic local voice
+            const url = `https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}`;
+            
+            const elRes = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'audio/mpeg',
+                    'Content-Type': 'application/json',
+                    'xi-api-key': apiKey
+                },
+                body: JSON.stringify({
+                    text: textToSpeak,
+                    model_id: 'eleven_flash_v2_5',
+                    voice_settings: {
+                        stability: 0.5,
+                        similarity_boost: 0.8,
+                        style: 0.0,
+                        use_speaker_boost: true
+                    }
+                })
+            });
+
+            if (!elRes.ok) {
+                const errData = await elRes.json();
+                throw new Error(`ElevenLabs error: ${errData.detail?.message || elRes.statusText}`);
+            }
+
+            const audioBuffer = await elRes.arrayBuffer();
+
+            // 4. Upload to Supabase Storage
+            const slug = pidgin.toLowerCase()
+                .replace(/['ʻ`‘’]/g, '')
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-|-$/g, '');
+            
+            const finalFilename = `${slug}-auto-${Date.now()}.mp3`;
+
+            const { data: uploadData, error: uploadError } = await supabaseAdmin
+                .storage
+                .from('audio')
+                .upload(finalFilename, Buffer.from(audioBuffer), {
+                    contentType: 'audio/mpeg',
+                    upsert: true
+                });
+
+            if (uploadError) throw uploadError;
+
+            // 5. Get Public URL
+            const { data: { publicUrl } } = supabaseAdmin
+                .storage
+                .from('audio')
+                .getPublicUrl(finalFilename);
+
+            // 6. Update database
+            const { error: dbError } = await supabaseAdmin
+                .from('dictionary_entries')
+                .update({ 
+                    audio: publicUrl, 
+                    audio_url: publicUrl 
+                })
+                .eq('id', id);
+
+            if (dbError) throw dbError;
+
+            await adminAuth.logAuditAction({ 
+                userId: req.adminUser.id, 
+                username: req.adminUser.username, 
+                action: 'AUTO_GENERATE_AUDIO', 
+                resource: pidgin, 
+                details: { filename: finalFilename },
+                req 
+            });
+
+            res.json({ success: true, audioUrl: publicUrl });
+        } catch (error) {
+            console.error('Auto-generate audio error:', error);
+            res.status(500).json({ error: 'Failed to auto-generate audio: ' + error.message });
+        }
+    });
+
+    // POST /api/admin/dictionary/audio/generate-missing - Batch generate missing audio
+    router.post('/dictionary/audio/generate-missing', adminActionLimiter, adminAuth.requireAdminAuth, async (req, res) => {
+        if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
+        
+        try {
+            // Find entries without audio
+            const { data: entries, error: fetchErr } = await supabaseAdmin
+                .from('dictionary_entries')
+                .select('id, pidgin')
+                .or('audio.is.null,audio_url.is.null')
+                .limit(10); // Limit to 10 at a time to avoid timeouts/rate limits
+            
+            if (fetchErr) throw fetchErr;
+            if (!entries || entries.length === 0) {
+                return res.json({ success: true, count: 0, message: 'No missing audio found' });
+            }
+
+            // In a real scenario, we'd probably use a queue, but for admin triggered batch:
+            // We'll return the list and let the frontend iterate to show progress
+            res.json({ success: true, entries });
+        } catch (error) {
+            res.status(500).json({ error: 'Batch search failed: ' + error.message });
+        }
+    });
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
         const { id } = req.params;
         const { pidgin } = req.body;
@@ -802,6 +929,41 @@ Respond only with a JSON object:
         } catch (error) {
             console.error('Update question status error:', error);
             res.status(500).json({ error: 'Failed to update status' });
+        }
+    });
+
+    // DELETE /api/admin/dictionary/:id - Delete dictionary entry
+    router.delete('/dictionary/:id', adminActionLimiter, adminAuth.requireAdminAuth, async (req, res) => {
+        if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
+        const { id } = req.params;
+
+        try {
+            // Get entry name for audit log
+            const { data: entry } = await supabaseAdmin
+                .from('dictionary_entries')
+                .select('pidgin')
+                .eq('id', id)
+                .single();
+
+            const { error } = await supabaseAdmin
+                .from('dictionary_entries')
+                .delete()
+                .eq('id', id);
+
+            if (error) throw error;
+
+            await adminAuth.logAuditAction({ 
+                userId: req.adminUser.id, 
+                username: req.adminUser.username, 
+                action: 'DELETE_DICTIONARY_ENTRY', 
+                resource: entry?.pidgin || id, 
+                req 
+            });
+
+            res.json({ success: true });
+        } catch (error) {
+            console.error('Delete entry error:', error);
+            res.status(500).json({ error: 'Failed to delete entry' });
         }
     });
 

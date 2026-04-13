@@ -31,18 +31,66 @@ class FavoritesManager {
     }
 
     // Toggle a favorite word
-    toggleFavorite(wordKey) {
+    async toggleFavorite(wordKey, itemType = 'word', itemId = null) {
         if (!wordKey) return false;
         
+        // Always update local for instant feedback
         const index = this.favorites.indexOf(wordKey);
+        let added = false;
         if (index === -1) {
             this.favorites.push(wordKey);
-            this.saveFavorites();
-            return true; // Added
+            added = true;
         } else {
             this.favorites.splice(index, 1);
+            added = false;
+        }
+        this.saveFavorites();
+
+        // Sync with backend if logged in
+        if (window.UserAuth && window.UserAuth.isLoggedIn()) {
+            try {
+                const response = await fetch('/api/user/favorites/toggle', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...window.UserAuth.getAuthHeader()
+                    },
+                    body: JSON.stringify({
+                        pidgin: wordKey,
+                        item_type: itemType,
+                        item_id: itemId || 0 // If not provided, backend should still handle it or we should lookup
+                    })
+                });
+                
+                if (!response.ok) throw new Error('Sync failed');
+            } catch (error) {
+                console.error('Failed to sync favorite:', error);
+                // We could revert local state here, but for better UX we'll just log
+            }
+        }
+        
+        return added;
+    }
+
+    // Sync from cloud
+    async syncFromCloud() {
+        if (!window.UserAuth || !window.UserAuth.isLoggedIn()) return;
+
+        try {
+            const response = await fetch('/api/user/favorites', {
+                headers: window.UserAuth.getAuthHeader()
+            });
+
+            if (!response.ok) throw new Error('Cloud fetch failed');
+
+            const data = await response.json();
+            const cloudFavorites = data.favorites.map(f => f.pidgin);
+            
+            // Merge or replace? For simplicity, we'll replace with cloud data if logged in
+            this.favorites = cloudFavorites;
             this.saveFavorites();
-            return false; // Removed
+        } catch (error) {
+            console.error('Failed to sync favorites from cloud:', error);
         }
     }
 

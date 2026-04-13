@@ -76,6 +76,7 @@
             filterAndRenderAdminDict();
         });
         document.getElementById('refreshAdminDictBtn')?.addEventListener('click', loadAdminDictionary);
+        document.getElementById('generateMissingAudioBtn')?.addEventListener('click', batchGenerateMissingAudio);
         document.getElementById('prevAdminDictPage')?.addEventListener('click', () => {
             if (adminDictPage > 1) {
                 adminDictPage--;
@@ -172,20 +173,33 @@
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         ${hasAudio ? 
-                            `<span class="flex items-center gap-1 text-green-600 text-xs font-bold">
-                                <i class="ti ti-circle-check"></i> Ready
-                                <button data-action="play-audio" data-url="${audioUrl}" class="ml-1 text-blue-500 hover:text-blue-700">
+                            `<div class="flex items-center gap-2">
+                                <span class="flex items-center gap-1 text-green-600 text-xs font-bold">
+                                    <i class="ti ti-circle-check"></i> Ready
+                                </span>
+                                <button data-action="play-audio" data-url="${audioUrl}" class="p-1 bg-blue-50 text-blue-600 rounded hover:bg-blue-100 transition" title="Play">
                                     <i class="ti ti-player-play"></i>
                                 </button>
-                            </span>` : 
-                            `<span class="text-red-400 text-xs font-medium italic">Missing Audio</span>`
+                                <button data-action="upload-audio" data-id="${entryId}" data-pidgin="${pidgin}" class="p-1 bg-gray-50 text-gray-600 rounded hover:bg-gray-100 transition" title="Replace">
+                                    <i class="ti ti-upload"></i>
+                                </button>
+                            </div>` : 
+                            `<div class="flex items-center gap-2">
+                                <span class="text-red-400 text-xs font-medium italic">Missing</span>
+                                <button data-action="auto-gen-audio" data-id="${entryId}" class="p-1.5 bg-purple-50 text-purple-600 rounded-lg hover:bg-purple-100 border border-purple-200 transition flex items-center gap-1 text-[10px] font-bold" title="Auto-generate with ElevenLabs">
+                                    <i class="ti ti-wand"></i> GENERATE
+                                </button>
+                                <button data-action="upload-audio" data-id="${entryId}" data-pidgin="${pidgin}" class="p-1 bg-blue-50 text-blue-600 rounded hover:bg-blue-100 transition" title="Upload Manual">
+                                    <i class="ti ti-upload"></i>
+                                </button>
+                            </div>`
                         }
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <button data-action="upload-audio" data-id="${entryId}" data-pidgin="${pidgin}"
-                                class="bg-blue-50 text-blue-600 px-3 py-1 rounded hover:bg-blue-100 transition flex items-center gap-1 ml-auto">
-                            <i class="ti ti-upload"></i> ${hasAudio ? 'Replace' : 'Add Audio'}
-                        </button>
+                        <div class="flex justify-end gap-2">
+                            <button data-action="delete-entry" data-id="${entryId}" data-pidgin="${pidgin}"
+                                    class="text-gray-400 hover:text-red-600 p-1.5 transition"><i class="ti ti-trash"></i></button>
+                        </div>
                     </td>
                 </tr>
             `;
@@ -241,6 +255,120 @@
         if (!url) return;
         const audio = new Audio(url);
         audio.play().catch(e => console.error('Error playing audio:', e));
+    }
+
+    async function autoGenerateAudio(id, button) {
+        if (!id) return;
+        const originalHtml = button.innerHTML;
+        button.disabled = true;
+        button.innerHTML = '<span class="spinner spinner-white"></span>';
+        
+        try {
+            const response = await fetch(`/api/admin/dictionary/${id}/audio/generate`, {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${authToken}` }
+            });
+
+            if (!response.ok) {
+                const data = await response.json();
+                throw new Error(data.error || 'Generation failed');
+            }
+
+            const data = await response.json();
+            showToast('Audio generated successfully!', 'success');
+            
+            // Refresh dictionary to show "Ready" status
+            loadAdminDictionary();
+        } catch (error) {
+            showToast('Error generating audio: ' + error.message, 'error');
+            button.disabled = false;
+            button.innerHTML = originalHtml;
+        }
+    }
+
+    async function batchGenerateMissingAudio() {
+        const btn = document.getElementById('generateMissingAudioBtn');
+        const originalHtml = btn.innerHTML;
+        
+        try {
+            // 1. Get list of entries missing audio
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner spinner-white"></span> Searching...';
+            
+            const response = await fetch('/api/admin/dictionary/audio/generate-missing', {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${authToken}` }
+            });
+            
+            if (!response.ok) throw new Error('Search failed');
+            
+            const data = await response.json();
+            const entries = data.entries || [];
+            
+            if (entries.length === 0) {
+                showToast('No missing audio found!', 'info');
+                return;
+            }
+            
+            if (!confirm(`Found ${entries.length} entries missing audio. Proceed with auto-generation via ElevenLabs? This will use API credits.`)) {
+                return;
+            }
+            
+            // 2. Iterate and generate one by one
+            let successCount = 0;
+            for (let i = 0; i < entries.length; i++) {
+                const entry = entries[i];
+                btn.innerHTML = `<span class="spinner spinner-white"></span> Generating ${i+1}/${entries.length}...`;
+                
+                try {
+                    const genRes = await fetch(`/api/admin/dictionary/${entry.id}/audio/generate`, {
+                        method: 'POST',
+                        headers: { 'Authorization': `Bearer ${authToken}` }
+                    });
+                    
+                    if (genRes.ok) successCount++;
+                    // Short delay to avoid rate limits
+                    await new Promise(r => setTimeout(r, 500));
+                } catch (e) {
+                    console.error(`Failed to generate audio for ${entry.pidgin}:`, e);
+                }
+            }
+            
+            showToast(`Batch complete: Generated ${successCount} audio files`, 'success');
+            loadAdminDictionary();
+            
+        } catch (error) {
+            showToast('Batch error: ' + error.message, 'error');
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = originalHtml;
+        }
+    }
+
+    async function deleteDictionaryEntry(id, pidgin, button) {
+        if (!confirm(`Are you sure you want to delete "${pidgin}" from the dictionary? This cannot be undone.`)) {
+            return;
+        }
+
+        const originalHtml = button.innerHTML;
+        button.disabled = true;
+        button.innerHTML = '<span class="spinner"></span>';
+
+        try {
+            const response = await fetch(`/api/admin/dictionary/${id}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${authToken}` }
+            });
+
+            if (!response.ok) throw new Error('Delete failed');
+
+            showToast(`Deleted "${pidgin}"`, 'success');
+            loadAdminDictionary();
+        } catch (error) {
+            showToast('Error deleting entry: ' + error.message, 'error');
+            button.disabled = false;
+            button.innerHTML = originalHtml;
+        }
     }
 
     // Event delegation for dynamically created elements
@@ -316,6 +444,10 @@
                 triggerAudioUpload(id, pidgin);
             } else if (action === 'play-audio') {
                 playAdminAudio(target.dataset.url);
+            } else if (action === 'auto-gen-audio') {
+                autoGenerateAudio(id, target);
+            } else if (action === 'delete-entry') {
+                deleteDictionaryEntry(id, pidgin, target);
             }
         });
 

@@ -23,6 +23,7 @@ const adminRoutes = require('./routes/admin');
 const aiRoutes = require('./routes/ai');
 const suggestionsRoutes = require('./routes/suggestions');
 const questionsRoutes = require('./routes/questions');
+const userRoutes = require('./routes/user');
 
 // Initialize Supabase client
 const supabaseUrl = process.env.SUPABASE_URL;
@@ -120,6 +121,14 @@ const adminLoginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 5,
     message: 'Too many login attempts, please try again later.',
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
+const userLoginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 10,
+    message: 'Too many requests, please try again later.',
     standardHeaders: true,
     legacyHeaders: false,
 });
@@ -285,6 +294,7 @@ app.use('/api', pickupRoutes(supabase, dictionaryLimiter, translationLimiter));
 app.use('/api/ai', aiRoutes(supabase, dictionaryCache, aiChatLimiter));
 app.use('/api/suggestions', suggestionsRoutes(supabase, apiLimiter));
 app.use('/api/questions', questionsRoutes(supabase, apiLimiter));
+app.use('/api/user', userLoginLimiter, userRoutes(supabaseAdmin));
 app.use('/api/admin', adminRoutes(supabaseAdmin, adminAuth, settingsManager));
 
 // ============================================

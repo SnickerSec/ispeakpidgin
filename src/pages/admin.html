@@ -195,10 +195,15 @@
             <!-- Dictionary Tab -->
             <div id="tab-dictionary" class="tab-content">
                 <div class="bg-white rounded-lg shadow">
-                    <div class="p-4 border-b flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div class="p-4 border-b flex flex-col md:flex-row justify-between items-center gap-4">
                         <div>
                             <h2 class="text-lg font-semibold">Dictionary Manager</h2>
-                            <p class="text-sm text-gray-500">Manage 660+ Pidgin terms and audio.</p>
+                            <p class="text-sm text-gray-500">Manage 700+ Pidgin terms and audio.</p>
+                            <div class="mt-2">
+                                <button id="generateMissingAudioBtn" class="bg-purple-600 text-white px-3 py-1.5 rounded-lg hover:bg-purple-700 transition text-xs font-bold flex items-center gap-2 shadow-sm">
+                                    <i class="ti ti-microphone"></i> Generate Missing Audio (Batch)
+                                </button>
+                            </div>
                         </div>
                         <div class="flex w-full md:w-auto gap-2">
                             <input type="text" id="admin-dict-search" placeholder="Search Pidgin or English..." 
