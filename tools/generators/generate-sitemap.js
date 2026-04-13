@@ -44,6 +44,14 @@ function generateSitemap({ dictionaryEntries, phrases, stories, pickupLines }) {
         <priority>0.9</priority>
     </url>
 
+    <!-- English to Pidgin Page - SEO reverse lookup -->
+    <url>
+        <loc>${baseUrl}/english-to-pidgin.html</loc>
+        <lastmod>${currentDate}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.95</priority>
+    </url>
+
     <!-- Translator Page - Dedicated translator tool -->
     <url>
         <loc>${baseUrl}/translator.html</loc>

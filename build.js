@@ -139,6 +139,7 @@ const pathMappings = {
     'js/pronunciation-practice.js': 'js/components/pronunciation-practice.js',
     'js/ask-local.js': 'js/components/ask-local.js',
     'js/ask-local-page.js': 'js/components/ask-local-page.js',
+    'js/english-to-pidgin-page.js': 'js/components/english-to-pidgin-page.js',
     'js/learning-hub.js': 'js/components/learning-hub.js',
     'js/dictionary-cache.js': 'js/components/dictionary-cache.js',
     'js/favorites-manager.js': 'js/components/favorites-manager.js',
