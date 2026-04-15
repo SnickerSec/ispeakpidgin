@@ -294,7 +294,7 @@ app.use('/api', pickupRoutes(supabase, dictionaryLimiter, translationLimiter));
 app.use('/api/ai', aiRoutes(supabase, dictionaryCache, aiChatLimiter));
 app.use('/api/suggestions', suggestionsRoutes(supabase, apiLimiter));
 app.use('/api/questions', questionsRoutes(supabase, apiLimiter));
-app.use('/api/user', userLoginLimiter, userRoutes(supabaseAdmin, userLoginLimiter));
+app.use('/api/user', userLoginLimiter, userRoutes(supabaseAdmin));
 app.use('/api/admin', adminRoutes(supabaseAdmin, adminAuth, settingsManager));
 
 // ============================================

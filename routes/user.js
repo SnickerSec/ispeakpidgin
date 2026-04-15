@@ -1,11 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
+const rateLimit = require('express-rate-limit');
 const userAuth = require('../middleware/user-auth');
 
-module.exports = function(supabaseAdmin, limiter) {
+const rl = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 30,
+    message: 'Too many requests, please try again later.',
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
+module.exports = function(supabaseAdmin) {
     userAuth.initializeAuth(supabaseAdmin);
-    const rl = limiter || ((req, res, next) => next());
 
     // POST /api/user/register
     router.post('/register', rl, [
