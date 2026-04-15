@@ -344,8 +344,7 @@ class ElevenLabsSpeech {
 
         // 5. Add natural pauses for Pidgin rhythm
         correctedText = correctedText
-            .replace(/, /g, ', ') 
-            .replace(/\beh\b(?!\.\.\.)/gi, 'eh, ') 
+            .replace(/\beh\b(?!\.\.\.)/gi, 'eh, ')
             .replace(/\bhoh\b(?!\.\.\.)/gi, 'hoh, ') 
             .replace(/\bbrah\b(?!\.\.\.)/gi, ', brah')
             .replace(/\byeah\b\?/gi, ', yeah?')

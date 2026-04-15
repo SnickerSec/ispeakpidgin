@@ -294,7 +294,7 @@ app.use('/api', pickupRoutes(supabase, dictionaryLimiter, translationLimiter));
 app.use('/api/ai', aiRoutes(supabase, dictionaryCache, aiChatLimiter));
 app.use('/api/suggestions', suggestionsRoutes(supabase, apiLimiter));
 app.use('/api/questions', questionsRoutes(supabase, apiLimiter));
-app.use('/api/user', userLoginLimiter, userRoutes(supabaseAdmin));
+app.use('/api/user', userLoginLimiter, userRoutes(supabaseAdmin, userLoginLimiter));
 app.use('/api/admin', adminRoutes(supabaseAdmin, adminAuth, settingsManager));
 
 // ============================================
@@ -415,17 +415,21 @@ app.get(['/index.html', '/index'], pageLimiter, (req, res) => {
 // ============================================
 app.get(['/what-does-:word-mean.html', '/what-is-:word-mean.html', '/what-does-:word.html', '/what-is-:word.html'], (req, res, next) => {
     const word = req.params.word;
-    const legacyFile = req.path.substring(1); // e.g., 'what-does-aloha-mean.html'
-    
-    // 1. Check if the legacy file actually exists in public/
-    const legacyFilePath = path.join(__dirname, 'public', legacyFile);
-    if (fs.existsSync(legacyFilePath)) {
-        // If it exists, let the static server handle it later (or serve it now)
+
+    // Only allow safe slug characters to avoid path traversal
+    if (!/^[a-z0-9-]+$/i.test(word)) {
+        return res.redirect(301, '/');
+    }
+
+    const publicDir = path.join(__dirname, 'public');
+    const legacyFile = path.basename(req.path); // strip any directory components
+    const legacyFilePath = path.join(publicDir, legacyFile);
+
+    // Ensure resolved path stays within publicDir
+    if (legacyFilePath.startsWith(publicDir + path.sep) && fs.existsSync(legacyFilePath)) {
         return res.sendFile(legacyFilePath);
     }
-    
-    // 2. If it doesn't exist, redirect to the new dictionary structure
-    // We assume the :word parameter is a good slug
+
     console.log(`SEO: Redirecting legacy URL ${req.path} to /word/${word}.html`);
     return res.redirect(301, `/word/${word}.html`);
 });

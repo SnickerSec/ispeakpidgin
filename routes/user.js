@@ -3,11 +3,12 @@ const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const userAuth = require('../middleware/user-auth');
 
-module.exports = function(supabaseAdmin) {
+module.exports = function(supabaseAdmin, limiter) {
     userAuth.initializeAuth(supabaseAdmin);
+    const rl = limiter || ((req, res, next) => next());
 
     // POST /api/user/register
-    router.post('/register', [
+    router.post('/register', rl, [
         body('email').isEmail().normalizeEmail(),
         body('password').isLength({ min: 6 }),
         body('display_name').trim().notEmpty()
@@ -47,7 +48,7 @@ module.exports = function(supabaseAdmin) {
     });
 
     // POST /api/user/login
-    router.post('/login', async (req, res) => {
+    router.post('/login', rl, async (req, res) => {
         const { email, password } = req.body;
 
         try {
@@ -74,7 +75,7 @@ module.exports = function(supabaseAdmin) {
     });
 
     // GET /api/user/favorites
-    router.get('/favorites', userAuth.requireUserAuth, async (req, res) => {
+    router.get('/favorites', rl, userAuth.requireUserAuth, async (req, res) => {
         try {
             const { data, error } = await supabaseAdmin
                 .from('user_favorites')
@@ -90,7 +91,7 @@ module.exports = function(supabaseAdmin) {
     });
 
     // POST /api/user/favorites/toggle
-    router.post('/favorites/toggle', userAuth.requireUserAuth, async (req, res) => {
+    router.post('/favorites/toggle', rl, userAuth.requireUserAuth, async (req, res) => {
         const { item_type, item_id, pidgin } = req.body;
 
         try {

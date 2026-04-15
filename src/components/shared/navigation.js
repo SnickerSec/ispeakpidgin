@@ -134,6 +134,12 @@ document.addEventListener('DOMContentLoaded', function() {
             displayResults(matches, query);
         }
 
+        function escapeHtml(s) {
+            return String(s ?? '').replace(/[&<>"']/g, c => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            }[c]));
+        }
+
         function displayResults(matches, query) {
             searchPlaceholder.classList.add('hidden');
             searchResults.classList.remove('hidden');
@@ -142,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 searchResults.innerHTML = `
                     <div class="p-8 text-center text-gray-500">
                         <i class="ti ti-mood-empty text-3xl mb-2 block"></i>
-                        <p>No results found for "${query}"</p>
+                        <p>No results found for "${escapeHtml(query)}"</p>
                         <p class="text-xs mt-1">Try different word, brah!</p>
                     </div>
                 `;
@@ -151,12 +157,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
             searchResults.innerHTML = matches.map(entry => {
                 const slug = entry.slug || entry.pidgin.toLowerCase().replace(/['ʻ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+                const english = Array.isArray(entry.english) ? entry.english[0] : entry.english;
                 return `
-                <a href="/word/${slug}.html" 
+                <a href="/word/${encodeURIComponent(slug)}.html"
                    class="flex items-center justify-between p-4 hover:bg-gray-50 rounded-2xl transition group">
                     <div>
-                        <div class="font-bold text-gray-800 group-hover:text-green-600">${entry.pidgin}</div>
-                        <div class="text-sm text-gray-500 line-clamp-1">${Array.isArray(entry.english) ? entry.english[0] : entry.english}</div>
+                        <div class="font-bold text-gray-800 group-hover:text-green-600">${escapeHtml(entry.pidgin)}</div>
+                        <div class="text-sm text-gray-500 line-clamp-1">${escapeHtml(english)}</div>
                     </div>
                     <i class="ti ti-chevron-right text-gray-300 group-hover:text-green-400"></i>
                 </a>
