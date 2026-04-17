@@ -210,7 +210,7 @@ class SupabaseAPILoader {
     }
 
     async validateWordleWord(word) {
-        const data = await this.fetchWithCache(`/wordle/validate/${word.toUpperCase()}`);
+        const data = await this.fetchWithCache(`/wordle/validate/${word.toLowerCase()}`);
         return data.valid || false;
     }
 
