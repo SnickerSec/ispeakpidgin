@@ -180,15 +180,46 @@
                     </div>
                 </div>
 
-                <div class="bg-blue-50 border border-blue-100 rounded-xl p-6">
-                    <h3 class="font-bold text-blue-800 mb-2 flex items-center gap-2">
-                        <i class="ti ti-info-circle"></i> Island Admin Tips
-                    </h3>
-                    <ul class="text-sm text-blue-700 space-y-2 list-disc list-inside">
-                        <li>New user suggestions help expand the culture. Review them daily to keep content fresh!</li>
-                        <li>Answering questions in "Ask a Local" builds community trust and provides unique SEO content.</li>
-                        <li>Check Search Gaps to see exactly what users are looking for that you haven't added yet.</li>
-                    </ul>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <!-- Voicing Card -->
+                    <div class="bg-white rounded-xl shadow p-6 border-t-4 border-indigo-500">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-gray-800">Content Voicing (ElevenLabs)</h3>
+                            <span class="bg-indigo-100 text-indigo-700 text-[10px] font-bold px-2 py-0.5 rounded-full">ONE-CLICK VOICE</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4">Ensure all dictionary words, phrases, and stories have high-quality audio.</p>
+                        
+                        <div class="space-y-3 mb-6">
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-gray-500">Missing Audio:</span>
+                                <span id="dash-missing-audio-count" class="font-bold text-indigo-600">Scanning...</span>
+                            </div>
+                            <div class="w-full bg-gray-100 rounded-full h-2">
+                                <div id="voicing-progress-bar" class="bg-indigo-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <button id="scanMissingAudioBtn" class="flex-1 bg-white border-2 border-indigo-600 text-indigo-600 py-2 rounded-lg font-bold text-sm hover:bg-indigo-50 transition">
+                                Scan All
+                            </button>
+                            <button id="voiceAllMissingBtn" disabled class="flex-1 bg-indigo-600 text-white py-2 rounded-lg font-bold text-sm hover:bg-indigo-700 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                                Voice All
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tips/Info Card -->
+                    <div class="bg-blue-50 border border-blue-100 rounded-xl p-6">
+                        <h3 class="font-bold text-blue-800 mb-2 flex items-center gap-2">
+                            <i class="ti ti-info-circle"></i> Island Admin Tips
+                        </h3>
+                        <ul class="text-sm text-blue-700 space-y-2 list-disc list-inside">
+                            <li><strong>Caching Active:</strong> Translations and audio are saved to Supabase to prevent "AI Waste".</li>
+                            <li><strong>Batching:</strong> "Voice All" generates audio in small batches to avoid ElevenLabs rate limits.</li>
+                            <li><strong>New Content:</strong> Always scan for missing audio after approving new community suggestions.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 

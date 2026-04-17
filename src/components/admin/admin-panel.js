@@ -101,8 +101,115 @@
         document.getElementById('dash-view-suggestions')?.addEventListener('click', () => switchTab('suggestions'));
         document.getElementById('dash-view-questions')?.addEventListener('click', () => switchTab('questions'));
         document.getElementById('dash-view-gaps')?.addEventListener('click', () => switchTab('gaps'));
-    }
 
+        // One-Click Voice listeners
+        document.getElementById('scanMissingAudioBtn')?.addEventListener('click', scanMissingAudio);
+        document.getElementById('voiceAllMissingBtn')?.addEventListener('click', voiceAllMissing);
+        }
+
+        let missingAudioList = [];
+
+        async function scanMissingAudio() {
+        const countEl = document.getElementById('dash-missing-audio-count');
+        const voiceBtn = document.getElementById('voiceAllMissingBtn');
+        const scanBtn = document.getElementById('scanMissingAudioBtn');
+
+        if (countEl) {
+            countEl.textContent = 'Scanning...';
+            countEl.className = 'font-bold text-gray-500';
+        }
+        scanBtn.disabled = true;
+
+        try {
+            const response = await fetch('/api/admin/audio/missing', {
+                headers: { 'Authorization': `Bearer ${authToken}` }
+            });
+
+            if (!response.ok) throw new Error('Scan failed');
+
+            const data = await response.json();
+            const missing = data.missing || {};
+
+            // Flatten into a single list
+            missingAudioList = [
+                ...missing.dictionary,
+                ...missing.phrases,
+                ...missing.stories,
+                ...missing.lessons
+            ];
+
+            if (countEl) {
+                countEl.textContent = `${missingAudioList.length} items`;
+                countEl.className = missingAudioList.length > 0 ? 'font-bold text-red-600' : 'font-bold text-green-600';
+            }
+
+            if (voiceBtn) {
+                voiceBtn.disabled = missingAudioList.length === 0;
+            }
+
+        } catch (error) {
+            console.error('Scan error:', error);
+            if (countEl) countEl.textContent = 'Error';
+            showToast('Failed to scan for missing audio', 'error');
+        } finally {
+            scanBtn.disabled = false;
+        }
+        }
+
+        async function voiceAllMissing() {
+        if (missingAudioList.length === 0) return;
+
+        if (!confirm(`This will generate ${missingAudioList.length} high-quality audio files using ElevenLabs. Continue?`)) {
+            return;
+        }
+
+        const voiceBtn = document.getElementById('voiceAllMissingBtn');
+        const scanBtn = document.getElementById('scanMissingAudioBtn');
+        const progressBar = document.getElementById('voicing-progress-bar');
+        const countEl = document.getElementById('dash-missing-audio-count');
+
+        voiceBtn.disabled = true;
+        scanBtn.disabled = true;
+
+        let successCount = 0;
+        const total = missingAudioList.length;
+
+        for (let i = 0; i < total; i++) {
+            const item = missingAudioList[i];
+
+            // Update UI
+            if (countEl) countEl.textContent = `Generating ${i + 1}/${total}...`;
+            if (progressBar) progressBar.style.width = `${((i + 1) / total) * 100}%`;
+
+            try {
+                const response = await fetch('/api/admin/audio/generate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify({ id: item.id, type: item.type })
+                });
+
+                if (response.ok) successCount++;
+
+                // Small delay to prevent hitting ElevenLabs rate limits too hard
+                await new Promise(r => setTimeout(r, 600));
+
+            } catch (error) {
+                console.error(`Failed to voice ${item.type} ${item.id}:`, error);
+            }
+        }
+
+        showToast(`Successfully voiced ${successCount} items!`, 'success');
+
+        // Final UI update
+        if (progressBar) progressBar.style.width = '100%';
+        setTimeout(() => {
+            if (progressBar) progressBar.style.width = '0%';
+            scanMissingAudio(); // Rescan to confirm
+        }, 2000);
+        }
     // Dictionary Manager Functions
     async function loadAdminDictionary() {
         const container = document.getElementById('adminDictContainer');

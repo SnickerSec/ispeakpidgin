@@ -23,6 +23,145 @@ const adminActionLimiter = rateLimit({
     legacyHeaders: false,
 });
 
+// Shared pronunciation map for admin audio generation
+const globalPronunciationMap = {
+    'kine': 'kyne', 'da kine': 'dah kyne', 'da': 'dah', 'any kine': 'any kyne',
+    'small kine': 'small kyne', 'funny kine': 'funny kyne', 'fast kine': 'fast kyne',
+    'faskine': 'fas-kyne', 'pau': 'pow', 'pau hana': 'pow hah-nah', 'mauka': 'mow-kah',
+    'makai': 'mah-kye', 'ono': 'oh-no', 'oe': 'oh-eh', 'ʻoe': 'oh-eh', 'auwe': 'ow-way',
+    'wahine': 'vah-hee-nay', 'kane': 'kah-nay', 'keiki': 'kay-kee', 'tutu': 'too-too',
+    'lanai': 'lah-nye', 'mahalo': 'mah-hah-low', 'aloha': 'ah-low-hah', 'ohana': 'oh-hah-nah',
+    'kokua': 'koh-koo-ah', 'malama': 'mah-lah-mah', 'kapu': 'kah-poo', 'wiki': 'vee-kee',
+    'wikiwiki': 'vee-kee-vee-kee', 'pupus': 'poo-poos', 'pupu': 'poo-poo', 'gou': 'gow',
+    'hale': 'hah-leh', 'hele': 'heh-leh', 'kupuna': 'koo-poo-nah', 'lolo': 'low-low',
+    'pilau': 'pee-lau', 'puka': 'poo-kah', 'humbug': 'hum-bug', 'ho': 'hoh',
+    'howzit': 'how-zit', 'hana hou': 'hah-nah hoh-oo', 'hanahou': 'hah-nah-hoh-oo',
+    'wassamattayou': 'wah-sah-mah-tah-yoo', 'whaddsdascoops': 'whah-dah-dah-skoops',
+    'shaka': 'shah-kah', 'slippahs': 'slippahz', 'still': 'steel', 'brah': 'brah',
+    'bruddah': 'bruh-dah', 'sistah': 'sis-tah', 'cuz': 'kuz', 'sole': 'so-leh',
+    'pake': 'pah-keh', 'haole': 'how-leh', 'poke': 'poh-kay', 'musubi': 'moo-soo-bee',
+    'shoyu': 'show-yoo', 'mochi': 'mo-chee', 'manapua': 'mah-nah-poo-ah',
+    'malasada': 'mah-lah-sah-dah', 'kanak': 'kah-nahk', 'grindz': 'gryndz',
+    'grind': 'grynd', 'kaukau': 'cow-cow', 'cheehoo': 'chee-hoo!', 'rajah': 'rah-jah',
+    'shoots': 'shoots', 'choke': 'choke', 'bamboocha': 'bam-boo-chah',
+    'akamai': 'ah-kah-my', 'buggah': 'buh-gah', 'niele': 'nee-eh-leh',
+    'pilikia': 'pee-lee-kee-ah', 'chee hu': 'chee-hoo!', 'pilau': 'pee-lau',
+    'bust \'em up': 'bust em up', 'bust em up': 'bust em up', 'ainokea': 'eye-no-kay-ah',
+    'mo bettah': 'mo beh-tah', 'kay den': 'kay den...', 'aurite': 'ah-rye-t',
+    'stink eye': 'stink eye', 'chicken skin': 'chicken skin', 'talk story': 'talk story',
+    'broke da mouth': 'broke dah mouth', 'kanak attack': 'kah-nahk ah-tack',
+    'mālama da ʻāina': 'mah-lah-mah dah eye-nah', 'nō ka ʻoi': 'noh kah oy',
+    'a hui hou': 'ah-hoo-ee-oh', 'aʻole pilikia': 'ah-oh-leh pee-lee-kee-ah',
+    'moopuna': 'mo-poo-nah', 'li hing mui': 'lee hing moo-ee', 'lilikoi': 'lee-lee-koy',
+    'shave ice': 'shave ice', 'plate lunch': 'plate lunch', 'ballah': 'bal-lah',
+    'rubbah': 'rub-bah', 'punani': 'poo-nah-nee', 'boto': 'boh-toh', 'faka': 'fah-kah',
+    'hamajang': 'hah-mah-jahng', 'mayjah': 'may-jah', 'poho': 'poh-hoh',
+    'rajah dat': 'rah-jah dat', 'yobo': 'yo-boh', 'wit\'': 'wit', 'wit': 'wit',
+    'yesterday': 'yes-tah-deh'
+};
+
+function applyPronunciationCorrections(text) {
+    if (!text) return '';
+    let correctedText = text.toLowerCase();
+    const thWords = {
+        'the': 'dah', 'that': 'daht', 'this': 'dis', 'them': 'dehm',
+        'there': 'dea', 'then': 'dehn', 'their': 'dea', 'they': 'dey',
+        'with': 'wit', 'mother': 'mah-dah', 'father': 'fah-dah', 'brother': 'bruh-dah'
+    };
+    Object.entries(thWords).forEach(([word, replacement]) => {
+        const regex = new RegExp(`\\b${word}\\b`, 'gi');
+        correctedText = correctedText.replace(regex, replacement);
+    });
+    correctedText = correctedText.replace(/(\w+)er\b/g, '$1ah');
+    correctedText = correctedText.replace(/(\w+)ar\b/g, '$1ah');
+    correctedText = correctedText.replace(/(\w+)or\b/g, '$1oh');
+    
+    const sortedKeys = Object.keys(globalPronunciationMap).sort((a, b) => b.length - a.length);
+    sortedKeys.forEach(original => {
+        const phonetic = globalPronunciationMap[original];
+        const regex = new RegExp(`\\b${original.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
+        correctedText = correctedText.replace(regex, phonetic);
+    });
+    return correctedText;
+}
+
+/**
+ * Shared ElevenLabs + Supabase Storage generation logic
+ */
+async function generateAndUploadAudio(supabaseAdmin, text, filenamePrefix) {
+    const crypto = require('crypto');
+    const BUCKET_NAME = 'audio-assets';
+    const VOICE_ID = 'f0ODjLMfcJmlKfs7dFCW'; // Authentic local voice
+    const apiKey = process.env.ELEVENLABS_API_KEY;
+
+    if (!apiKey) throw new Error('ElevenLabs API key not configured');
+
+    const hash = crypto.createHash('md5').update(text.trim().toLowerCase()).digest('hex');
+    const filename = `${filenamePrefix}_${hash}.mp3`;
+    const correctedText = applyPronunciationCorrections(text);
+    
+    const url = `https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}`;
+    const elRes = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Accept': 'audio/mpeg',
+            'Content-Type': 'application/json',
+            'xi-api-key': apiKey
+        },
+        body: JSON.stringify({
+            text: correctedText,
+            model_id: 'eleven_multilingual_v2',
+            voice_settings: {
+                stability: 0.5,
+                similarity_boost: 0.75,
+                style: 0.0,
+                use_speaker_boost: true
+            }
+        })
+    });
+
+    if (!elRes.ok) {
+        const errData = await elRes.json().catch(() => ({}));
+        throw new Error(`ElevenLabs error: ${errData.detail?.message || elRes.statusText}`);
+    }
+
+    const audioBuffer = await elRes.arrayBuffer();
+
+    // Upload to Supabase Storage
+    const { error: uploadError } = await supabaseAdmin
+        .storage
+        .from(BUCKET_NAME)
+        .upload(filename, Buffer.from(audioBuffer), {
+            contentType: 'audio/mpeg',
+            upsert: true
+        });
+
+    if (uploadError) throw uploadError;
+
+    // Update index.json in bucket
+    try {
+        const { data: indexBlob } = await supabaseAdmin.storage.from(BUCKET_NAME).download('index.json');
+        let index = {};
+        if (indexBlob) {
+            index = JSON.parse(await indexBlob.text());
+        }
+        
+        // Add entry to index
+        // If it starts with dict_, strip it for the key (dictionary terms use plain text as key)
+        const indexKey = filenamePrefix === 'dict' ? text.trim().toLowerCase() : `${filenamePrefix}:${text.trim().toLowerCase()}`;
+        index[indexKey] = filename;
+
+        await supabaseAdmin.storage.from(BUCKET_NAME).upload('index.json', Buffer.from(JSON.stringify(index, null, 2)), {
+            contentType: 'application/json',
+            upsert: true
+        });
+    } catch (e) {
+        console.warn('Failed to update index.json in admin route:', e.message);
+    }
+
+    return filename;
+}
+
 // Configure multer for audio uploads using memory storage
 const storage = multer.memoryStorage();
 const upload = multer({ 
@@ -534,75 +673,15 @@ Respond only with a JSON object:
             
             if (fetchErr || !entry) throw new Error('Entry not found');
 
-            const pidgin = entry.pidgin;
-            const apiKey = process.env.ELEVENLABS_API_KEY;
-            if (!apiKey) throw new Error('ElevenLabs API key not configured');
+            // 2. Generate and Upload
+            const filename = await generateAndUploadAudio(supabaseAdmin, entry.pidgin, 'dict');
 
-            // 2. Prepare text for ElevenLabs (with pronunciation help if available)
-            // We can reuse logic from audio-pregeneration.js if we wanted to make it a shared util
-            // For now, let's use the pronunciation field if it exists, otherwise the pidgin word
-            const textToSpeak = entry.pronunciation || pidgin;
-
-            // 3. Call ElevenLabs
-            const VOICE_ID = 'f0ODjLMfcJmlKfs7dFCW'; // Authentic local voice
-            const url = `https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}`;
-            
-            const elRes = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'audio/mpeg',
-                    'Content-Type': 'application/json',
-                    'xi-api-key': apiKey
-                },
-                body: JSON.stringify({
-                    text: textToSpeak,
-                    model_id: 'eleven_flash_v2_5',
-                    voice_settings: {
-                        stability: 0.5,
-                        similarity_boost: 0.8,
-                        style: 0.0,
-                        use_speaker_boost: true
-                    }
-                })
-            });
-
-            if (!elRes.ok) {
-                const errData = await elRes.json();
-                throw new Error(`ElevenLabs error: ${errData.detail?.message || elRes.statusText}`);
-            }
-
-            const audioBuffer = await elRes.arrayBuffer();
-
-            // 4. Upload to Supabase Storage
-            const slug = pidgin.toLowerCase()
-                .replace(/['ʻ`‘’]/g, '')
-                .replace(/[^a-z0-9]+/g, '-')
-                .replace(/^-|-$/g, '');
-            
-            const finalFilename = `${slug}-auto-${Date.now()}.mp3`;
-
-            const { data: uploadData, error: uploadError } = await supabaseAdmin
-                .storage
-                .from('audio')
-                .upload(finalFilename, Buffer.from(audioBuffer), {
-                    contentType: 'audio/mpeg',
-                    upsert: true
-                });
-
-            if (uploadError) throw uploadError;
-
-            // 5. Get Public URL
-            const { data: { publicUrl } } = supabaseAdmin
-                .storage
-                .from('audio')
-                .getPublicUrl(finalFilename);
-
-            // 6. Update database
+            // 3. Update database
             const { error: dbError } = await supabaseAdmin
                 .from('dictionary_entries')
                 .update({ 
-                    audio: publicUrl, 
-                    audio_url: publicUrl 
+                    audio: filename, 
+                    audio_url: filename 
                 })
                 .eq('id', id);
 
@@ -611,41 +690,16 @@ Respond only with a JSON object:
             await adminAuth.logAuditAction({ 
                 userId: req.adminUser.id, 
                 username: req.adminUser.username, 
-                action: 'AUTO_GENERATE_AUDIO', 
-                resource: pidgin, 
-                details: { filename: finalFilename },
+                action: 'AUTO_GENERATE_AUDIO_V2', 
+                resource: entry.pidgin, 
+                details: { filename },
                 req 
             });
 
-            res.json({ success: true, audioUrl: publicUrl });
+            res.json({ success: true, filename });
         } catch (error) {
             console.error('Auto-generate audio error:', error);
             res.status(500).json({ error: 'Failed to auto-generate audio: ' + error.message });
-        }
-    });
-
-    // POST /api/admin/dictionary/audio/generate-missing - Batch generate missing audio
-    router.post('/dictionary/audio/generate-missing', adminActionLimiter, adminAuth.requireAdminAuth, async (req, res) => {
-        if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
-        
-        try {
-            // Find entries without audio
-            const { data: entries, error: fetchErr } = await supabaseAdmin
-                .from('dictionary_entries')
-                .select('id, pidgin')
-                .or('audio.is.null,audio_url.is.null')
-                .limit(10); // Limit to 10 at a time to avoid timeouts/rate limits
-            
-            if (fetchErr) throw fetchErr;
-            if (!entries || entries.length === 0) {
-                return res.json({ success: true, count: 0, message: 'No missing audio found' });
-            }
-
-            // In a real scenario, we'd probably use a queue, but for admin triggered batch:
-            // We'll return the list and let the frontend iterate to show progress
-            res.json({ success: true, entries });
-        } catch (error) {
-            res.status(500).json({ error: 'Batch search failed: ' + error.message });
         }
     });
 
@@ -654,23 +708,20 @@ Respond only with a JSON object:
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
         const { id } = req.params;
         const { pidgin } = req.body;
+        const BUCKET_NAME = 'audio-assets';
         
         if (!req.file) return res.status(400).json({ error: 'No audio file uploaded' });
         if (!pidgin) return res.status(400).json({ error: 'Pidgin word required' });
 
         try {
-            // 1. Create slug for filename
-            const slug = pidgin.toLowerCase()
-                .replace(/['ʻ`‘’]/g, '')
-                .replace(/[^a-z0-9]+/g, '-')
-                .replace(/^-|-$/g, '');
-            
-            const finalFilename = `${slug}-${Date.now()}.mp3`;
+            const crypto = require('crypto');
+            const hash = crypto.createHash('md5').update(pidgin.trim().toLowerCase()).digest('hex');
+            const finalFilename = `dict_${hash}.mp3`;
 
-            // 2. Upload to Supabase Storage (Bucket: 'audio')
+            // 1. Upload to Supabase Storage
             const { data: uploadData, error: uploadError } = await supabaseAdmin
                 .storage
-                .from('audio')
+                .from(BUCKET_NAME)
                 .upload(finalFilename, req.file.buffer, {
                     contentType: req.file.mimetype,
                     upsert: true
@@ -678,18 +729,24 @@ Respond only with a JSON object:
 
             if (uploadError) throw uploadError;
 
-            // 3. Get Public URL
-            const { data: { publicUrl } } = supabaseAdmin
-                .storage
-                .from('audio')
-                .getPublicUrl(finalFilename);
+            // 2. Update index.json in bucket
+            try {
+                const { data: indexBlob } = await supabaseAdmin.storage.from(BUCKET_NAME).download('index.json');
+                let index = {};
+                if (indexBlob) index = JSON.parse(await indexBlob.text());
+                index[pidgin.trim().toLowerCase()] = finalFilename;
+                await supabaseAdmin.storage.from(BUCKET_NAME).upload('index.json', Buffer.from(JSON.stringify(index, null, 2)), {
+                    contentType: 'application/json',
+                    upsert: true
+                });
+            } catch (e) { console.warn('Index sync failed:', e.message); }
 
-            // 4. Update database
+            // 3. Update database
             const { error: dbError } = await supabaseAdmin
                 .from('dictionary_entries')
                 .update({ 
-                    audio: publicUrl, 
-                    audio_url: publicUrl 
+                    audio: finalFilename, 
+                    audio_url: finalFilename 
                 })
                 .eq('id', id);
 
@@ -698,16 +755,46 @@ Respond only with a JSON object:
             await adminAuth.logAuditAction({ 
                 userId: req.adminUser.id, 
                 username: req.adminUser.username, 
-                action: 'UPLOAD_AUDIO_SUPABASE', 
+                action: 'UPLOAD_AUDIO_V2', 
                 resource: pidgin, 
                 details: { filename: finalFilename },
                 req 
             });
 
-            res.json({ success: true, audioUrl: publicUrl });
+            res.json({ success: true, filename: finalFilename });
         } catch (error) {
             console.error('Audio upload error:', error);
-            res.status(500).json({ error: 'Failed to upload audio to Supabase: ' + error.message });
+            res.status(500).json({ error: 'Failed to upload audio: ' + error.message });
+        }
+    });
+
+    // POST /api/admin/dictionary/audio/generate-missing - Batch generate missing audio
+    router.post('/dictionary/audio/generate-missing', adminActionLimiter, adminAuth.requireAdminAuth, async (req, res) => {
+        if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
+        
+        try {
+            // Get current index from storage
+            const BUCKET_NAME = 'audio-assets';
+            const { data: indexBlob } = await supabaseAdmin.storage.from(BUCKET_NAME).download('index.json');
+            let index = {};
+            if (indexBlob) {
+                const text = await indexBlob.text();
+                index = JSON.parse(text);
+            }
+
+            // Find entries without audio in index
+            const { data: entries, error: fetchErr } = await supabaseAdmin
+                .from('dictionary_entries')
+                .select('id, pidgin');
+            
+            if (fetchErr) throw fetchErr;
+
+            const missing = entries.filter(e => !index[e.pidgin.trim().toLowerCase()]);
+            
+            res.json({ success: true, entries: missing.slice(0, 10) });
+        } catch (error) {
+            console.error('Batch missing audio error:', error);
+            res.status(500).json({ error: 'Batch search failed: ' + error.message });
         }
     });
 
@@ -967,6 +1054,107 @@ Respond only with a JSON object:
         } catch (error) {
             console.error('Delete entry error:', error);
             res.status(500).json({ error: 'Failed to delete entry' });
+        }
+    });
+
+    // ============================================
+    // Universal Content Voicing (One-Click)
+    // ============================================
+
+    // GET /api/admin/audio/missing - Find missing audio across all tables
+    router.get('/audio/missing', adminActionLimiter, adminAuth.requireAdminAuth, async (req, res) => {
+        if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
+        
+        try {
+            const BUCKET_NAME = 'audio-assets';
+            const { data: indexBlob } = await supabaseAdmin.storage.from(BUCKET_NAME).download('index.json');
+            let index = {};
+            if (indexBlob) index = JSON.parse(await indexBlob.text());
+
+            const [dictRes, phrasesRes, storiesRes, lessonsRes] = await Promise.all([
+                supabaseAdmin.from('dictionary_entries').select('id, pidgin'),
+                supabaseAdmin.from('phrases').select('id, pidgin'),
+                supabaseAdmin.from('stories').select('id, title, pidgin_text'),
+                supabaseAdmin.from('lessons').select('id, title, cultural_note, practice')
+            ]);
+
+            const missing = {
+                dictionary: (dictRes.data || []).filter(e => !index[e.pidgin.trim().toLowerCase()]).map(e => ({ id: e.id, text: e.pidgin, type: 'dict' })),
+                phrases: (phrasesRes.data || []).filter(e => !index[`phrase:${e.pidgin.trim().toLowerCase()}`]).map(e => ({ id: e.id, text: e.pidgin, type: 'phrase' })),
+                stories: (storiesRes.data || []).filter(e => !index[`story:${e.id}`]).map(e => ({ id: e.id, text: e.title, type: 'story' })),
+                lessons: []
+            };
+
+            // Lesson notes/practice
+            (lessonsRes.data || []).forEach(l => {
+                if (l.cultural_note && !index[`lesson:note:${l.id}`]) {
+                    missing.lessons.push({ id: l.id, text: `${l.title} (Note)`, type: 'lesson_note' });
+                }
+                if (l.practice && !index[`lesson:practice:${l.id}`]) {
+                    missing.lessons.push({ id: l.id, text: `${l.title} (Practice)`, type: 'lesson_practice' });
+                }
+            });
+
+            res.json({ success: true, missing });
+        } catch (error) {
+            console.error('Find missing audio error:', error);
+            res.status(500).json({ error: 'Failed to find missing audio' });
+        }
+    });
+
+    // POST /api/admin/audio/generate - Universal generation endpoint
+    router.post('/audio/generate', adminActionLimiter, adminAuth.requireAdminAuth, async (req, res) => {
+        if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
+        const { id, type } = req.body;
+
+        try {
+            let textToVoice = '';
+            let prefix = '';
+            let table = '';
+            let updateField = 'audio_url';
+
+            if (type === 'dict') {
+                const { data } = await supabaseAdmin.from('dictionary_entries').select('pidgin').eq('id', id).single();
+                textToVoice = data.pidgin;
+                prefix = 'dict';
+                table = 'dictionary_entries';
+            } else if (type === 'phrase') {
+                const { data } = await supabaseAdmin.from('phrases').select('pidgin').eq('id', id).single();
+                textToVoice = data.pidgin;
+                prefix = 'phrase';
+                table = 'phrases';
+            } else if (type === 'story') {
+                const { data } = await supabaseAdmin.from('stories').select('pidgin_text').eq('id', id).single();
+                textToVoice = data.pidgin_text;
+                prefix = 'story';
+                table = 'stories';
+                updateField = 'audio_example';
+            } else if (type === 'lesson_note') {
+                const { data } = await supabaseAdmin.from('lessons').select('cultural_note').eq('id', id).single();
+                textToVoice = data.cultural_note;
+                prefix = `lesson:note:${id}`; // Special handling in helper
+                table = 'lessons';
+                // No audio field in lessons table yet, just update storage/index
+            } else if (type === 'lesson_practice') {
+                const { data } = await supabaseAdmin.from('lessons').select('practice').eq('id', id).single();
+                textToVoice = data.practice;
+                prefix = `lesson:practice:${id}`;
+                table = 'lessons';
+            }
+
+            if (!textToVoice) throw new Error('Content not found');
+
+            const filename = await generateAndUploadAudio(supabaseAdmin, textToVoice, prefix);
+
+            // Update DB if table/field exists
+            if (table && updateField && type !== 'lesson_note' && type !== 'lesson_practice') {
+                await supabaseAdmin.from(table).update({ [updateField]: filename }).eq('id', id);
+            }
+
+            res.json({ success: true, filename });
+        } catch (error) {
+            console.error('Universal generation error:', error);
+            res.status(500).json({ error: 'Generation failed: ' + error.message });
         }
     });
 
