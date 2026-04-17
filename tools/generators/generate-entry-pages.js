@@ -96,11 +96,10 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
     // SEO-optimized title: Match exact search query "X meaning" with compelling format
     // Capitalize the word properly for display
     const capitalizedWord = entry.pidgin.charAt(0).toUpperCase() + entry.pidgin.slice(1);
-    const pageTitle = `${capitalizedWord} Meaning: "${primaryMeaning}" - Hawaiian Pidgin Dictionary`;
+    const pageTitle = `${capitalizedWord} Meaning: Definition, Examples & Audio | ChokePidgin`;
 
     // Create a more compelling, action-oriented meta description
-    const shortMeaning = primaryMeaning.length > 30 ? primaryMeaning.substring(0, 30) + '...' : primaryMeaning;
-    const metaDescription = `What does "${capitalizedWord}" mean in Hawaiian Pidgin? Learn the local meaning, hear how to pronounce "${capitalizedWord}" correctly, and see real examples of Hawaiian Pidgin English.`;
+    const metaDescription = `What does '${entry.pidgin}' mean? Discover the definition, authentic examples, cultural origin, and local pronunciation for this Hawaiian Pidgin term.`;
 
     const canonicalUrl = `${SITE_URL}/word/${slug}.html`;
     const ogImage = `${SITE_URL}/assets/og/words/${slug}.webp`;
