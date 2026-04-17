@@ -217,6 +217,40 @@ class LearningHub {
         });
     }
 
+    playLessonAudio(key, btn) {
+        if (!window.elevenLabsSpeech) return;
+        
+        const icon = btn.querySelector('i');
+        const isPlaying = icon.classList.contains('ti-player-pause');
+        
+        window.elevenLabsSpeech.stop();
+        
+        if (isPlaying) {
+            icon.className = 'ti ti-player-play';
+            return;
+        }
+
+        // Reset all play icons in the modal
+        document.querySelectorAll('.modal-play-btn i').forEach(i => i.className = 'ti ti-player-play');
+        icon.className = 'ti ti-player-pause';
+
+        // Check pregenerated index
+        const filename = window.elevenLabsSpeech.pregeneratedIndex.get(key.toLowerCase());
+        if (filename) {
+            const url = 'https://jfzgzjgdptowfbtljvyp.supabase.co/storage/v1/object/public/audio-assets/' + filename;
+            window.elevenLabsSpeech.speak(url, {
+                onEnd: () => icon.className = 'ti ti-player-play',
+                onError: () => icon.className = 'ti ti-player-play'
+            });
+        } else {
+            // Fallback to TTS if not pre-generated
+            window.elevenLabsSpeech.speak(key, {
+                onEnd: () => icon.className = 'ti ti-player-play',
+                onError: () => icon.className = 'ti ti-player-play'
+            });
+        }
+    }
+
     startLesson(lesson, level) {
         // Create modal for lesson
         const modal = document.createElement('div');
@@ -271,7 +305,12 @@ class LearningHub {
                                                     <span>${escapeHtml(item.english)}</span>
                                                 </div>
                                             </div>
-                                            <span class="text-sm text-gray-500">[${escapeHtml(item.pronunciation)}]</span>
+                                            <div class="flex items-center gap-2">
+                                                <span class="text-sm text-gray-500">[${escapeHtml(item.pronunciation)}]</span>
+                                                <button class="modal-play-btn p-1.5 bg-purple-100 text-purple-600 rounded-full hover:bg-purple-200 transition" data-audio-key="${escapeHtml(item.pidgin)}">
+                                                    <i class="ti ti-player-play"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 `).join('')}
@@ -284,8 +323,11 @@ class LearningHub {
                             <h3 class="text-lg font-semibold mb-3">Examples</h3>
                             <div class="space-y-2">
                                 ${content.examples.map(ex => `
-                                    <div class="bg-blue-50 rounded-lg p-3">
+                                    <div class="bg-blue-50 rounded-lg p-3 flex justify-between items-center">
                                         <p class="italic">${escapeHtml(ex)}</p>
+                                        <button class="modal-play-btn p-1.5 bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200 transition" data-audio-key="${escapeHtml(ex)}">
+                                            <i class="ti ti-player-play"></i>
+                                        </button>
                                     </div>
                                 `).join('')}
                             </div>
@@ -293,16 +335,26 @@ class LearningHub {
                     ` : ''}
 
                     ${content.culturalNote ? `
-                        <div class="mb-6 bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded">
-                            <h3 class="text-sm font-semibold text-yellow-800 mb-1"><i class="ti ti-flower"></i> Cultural Note</h3>
-                            <p class="text-sm text-yellow-700">${escapeHtml(content.culturalNote)}</p>
+                        <div class="mb-6 bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded flex justify-between items-start">
+                            <div class="flex-1">
+                                <h3 class="text-sm font-semibold text-yellow-800 mb-1"><i class="ti ti-flower"></i> Cultural Note</h3>
+                                <p class="text-sm text-yellow-700">${escapeHtml(content.culturalNote)}</p>
+                            </div>
+                            <button class="modal-play-btn ml-3 p-1.5 bg-yellow-100 text-yellow-600 rounded-full hover:bg-yellow-200 transition" data-audio-key="lesson:note:${lesson.id}">
+                                <i class="ti ti-player-play"></i>
+                            </button>
                         </div>
                     ` : ''}
 
                     ${content.practice ? `
-                        <div class="mb-6 bg-green-50 border-l-4 border-green-500 p-4 rounded">
-                            <h3 class="text-sm font-semibold text-green-800 mb-1"><i class="ti ti-sparkles"></i> Practice Tip</h3>
-                            <p class="text-sm text-green-700">${escapeHtml(content.practice)}</p>
+                        <div class="mb-6 bg-green-50 border-l-4 border-green-500 p-4 rounded flex justify-between items-start">
+                            <div class="flex-1">
+                                <h3 class="text-sm font-semibold text-green-800 mb-1"><i class="ti ti-sparkles"></i> Practice Tip</h3>
+                                <p class="text-sm text-green-700">${escapeHtml(content.practice)}</p>
+                            </div>
+                            <button class="modal-play-btn ml-3 p-1.5 bg-green-100 text-green-600 rounded-full hover:bg-green-200 transition" data-audio-key="lesson:practice:${lesson.id}">
+                                <i class="ti ti-player-play"></i>
+                            </button>
                         </div>
                     ` : ''}
 
@@ -317,6 +369,15 @@ class LearningHub {
         `;
 
         document.body.appendChild(modal);
+
+        // Add audio button listeners
+        modal.querySelectorAll('.modal-play-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const key = btn.dataset.audioKey;
+                this.playLessonAudio(key, btn);
+            });
+        });
 
         // Close modal handlers
         modal.querySelectorAll('.close-modal').forEach(btn => {

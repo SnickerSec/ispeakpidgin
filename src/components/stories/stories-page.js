@@ -70,8 +70,13 @@ function displayStories(filter) {
                 '</div>' +
                 '<div class="story-content-wrapper">' +
                     '<div class="story-content collapsed mb-4" id="content-' + escapedId + '">' +
-                        '<div class="mb-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl">' +
-                            '<h3 class="text-lg font-bold text-purple-700 mb-2"><i class="ti ti-book"></i> Pidgin Story</h3>' +
+                        '<div class="mb-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl relative group">' +
+                            '<div class="flex justify-between items-start mb-2">' +
+                                '<h3 class="text-lg font-bold text-purple-700"><i class="ti ti-book"></i> Pidgin Story</h3>' +
+                                (story.audioExample ? 
+                                    '<button class="play-story-btn p-2 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition shadow-md flex items-center justify-center" data-audio="' + escapeHtml(story.audioExample) + '" title="Listen to story">' +
+                                        '<i class="ti ti-player-play"></i></button>' : '') +
+                            '</div>' +
                             '<p class="text-gray-800 text-base leading-relaxed">' + escapedPidgin + '</p>' +
                         '</div>' +
                         '<div class="mb-6 p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-xl">' +
@@ -125,6 +130,49 @@ function displayStories(filter) {
                 document.querySelector('[data-story-id="' + storyId + '"]').scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
+                });
+            }
+        });
+    });
+
+    // Add event listeners for play story buttons
+    document.querySelectorAll('.play-story-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var audioFile = this.getAttribute('data-audio');
+            if (!audioFile) return;
+
+            var icon = this.querySelector('i');
+            var isPlaying = icon.classList.contains('ti-player-pause');
+            
+            // Stop any currently playing speech
+            if (window.elevenLabsSpeech) {
+                window.elevenLabsSpeech.stop();
+            }
+
+            if (isPlaying) {
+                icon.className = 'ti ti-player-play';
+                return;
+            }
+
+            // Reset all other icons
+            document.querySelectorAll('.play-story-btn i').forEach(function(i) {
+                i.className = 'ti ti-player-play';
+            });
+
+            // Set this one to pause
+            icon.className = 'ti ti-player-pause';
+
+            var audioUrl = 'https://jfzgzjgdptowfbtljvyp.supabase.co/storage/v1/object/public/audio-assets/' + audioFile;
+            
+            if (window.elevenLabsSpeech) {
+                window.elevenLabsSpeech.speak(audioUrl, {
+                    onEnd: function() {
+                        icon.className = 'ti ti-player-play';
+                    },
+                    onError: function() {
+                        icon.className = 'ti ti-player-play';
+                    }
                 });
             }
         });
