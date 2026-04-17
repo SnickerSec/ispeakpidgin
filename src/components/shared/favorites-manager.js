@@ -99,7 +99,7 @@ class FavoritesManager {
         return this.favorites.includes(wordKey);
     }
 
-    // Get all favorite word keys
+    // Get all favorite keys
     getAllFavorites() {
         return [...this.favorites];
     }

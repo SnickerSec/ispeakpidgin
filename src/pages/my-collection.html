@@ -26,8 +26,13 @@
                 <h1 class="text-4xl font-extrabold mb-2">My Collection</h1>
                 <p class="text-blue-50">Your personal library of saved Pidgin words and phrases.</p>
             </div>
-            <div id="user-info" class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-2xl border border-white/20">
-                <!-- Populated by JS -->
+            <div class="flex flex-col items-end gap-3">
+                <div id="user-info" class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-2xl border border-white/20">
+                    <!-- Populated by JS -->
+                </div>
+                <button id="clear-all-btn" class="hidden text-xs text-blue-100 hover:text-white transition flex items-center gap-1">
+                    <i class="ti ti-trash"></i> Clear All Saved Words
+                </button>
             </div>
         </div>
     </div>

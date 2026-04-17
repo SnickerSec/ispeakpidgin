@@ -9,13 +9,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const userInfo = document.getElementById('user-info');
 
     const init = async () => {
-        // Enforce login
-        if (!window.UserAuth || !window.UserAuth.isLoggedIn()) {
-            window.location.href = '/login.html';
-            return;
+        const clearAllBtn = document.getElementById('clear-all-btn');
+        if (clearAllBtn) {
+            clearAllBtn.addEventListener('click', () => {
+                if (confirm('Are you sure you want to clear your entire collection?')) {
+                    if (window.favoritesManager) {
+                        window.favoritesManager.clearAll();
+                        renderFavorites();
+                    }
+                }
+            });
         }
 
-        renderUserInfo();
+        // Only show user info if logged in, but don't redirect
+        if (window.UserAuth && window.UserAuth.isLoggedIn()) {
+            renderUserInfo();
+        } else {
+            renderGuestInfo();
+        }
 
         // Wait for data
         if (window.supabaseDataLoader && window.supabaseDataLoader.loaded) {
@@ -26,6 +37,20 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Listen for updates
         window.addEventListener('favoritesUpdated', renderFavorites);
+    };
+
+    const renderGuestInfo = () => {
+        userInfo.innerHTML = `
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                    <i class="ti ti-user"></i>
+                </div>
+                <div>
+                    <div class="font-bold leading-tight text-white">Guest User</div>
+                    <a href="/login.html" class="text-xs text-blue-200 hover:text-white underline">Login to sync across devices</a>
+                </div>
+            </div>
+        `;
     };
 
     const renderUserInfo = () => {
@@ -47,14 +72,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderFavorites = () => {
         const favKeys = window.favoritesManager ? window.favoritesManager.getAllFavorites() : [];
+        const clearAllBtn = document.getElementById('clear-all-btn');
         
         if (favKeys.length === 0) {
             container.innerHTML = '';
             emptyState.classList.remove('hidden');
+            if (clearAllBtn) clearAllBtn.classList.add('hidden');
             return;
         }
 
         emptyState.classList.add('hidden');
+        if (clearAllBtn) clearAllBtn.classList.remove('hidden');
         
         const allEntries = window.supabaseDataLoader.getAllEntries();
         const favorites = allEntries.filter(entry => favKeys.includes(entry.pidgin));
