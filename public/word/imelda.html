@@ -492,6 +492,9 @@
                 <button id="speak-word" class="bg-gradient-to-r from-blue-500 to-teal-500 text-white px-8 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
                     <i class="ti ti-volume"></i> Hear Pronunciation
                 </button>
+                <button id="download-audio" class="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-8 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
+                    <i class="ti ti-download"></i> Download MP3
+                </button>
                 <button id="fav-word" class="bg-white text-gray-700 px-8 py-3 rounded-full hover:bg-red-50 transition-all font-bold shadow-lg border-2 border-transparent hover:border-red-200 flex items-center gap-2">
                     <i class="ti ti-heart text-red-500"></i> <span id="fav-text">Save to My Words</span>
                 </button>
@@ -665,7 +668,7 @@
                         <i class="ti ti-message-language"></i> Pidgin Grammar Tip
                     </h3>
                     <p class="text-gray-700 leading-relaxed italic">
-                        "Negative sentences in Pidgin often use 'never' for past tense, as in 'I never see him' (I didn't see him)."
+                        "Pidgin often drops the 'to be' verb. Instead of saying 'He is tired', you say 'He stay tired'."
                     </p>
                 </div>
                 <div class="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-white">
@@ -673,7 +676,7 @@
                         <i class="ti ti-map-pin"></i> Local Culture Fact
                     </h3>
                     <p class="text-gray-700 leading-relaxed italic">
-                        "The kahakō (vowel with a macron) indicates a long vowel sound in Hawaiian words."
+                        "A 'Hui' is a club, association, or group of people working toward a common goal."
                     </p>
                 </div>
             </div>
@@ -755,6 +758,28 @@
             const text = "imelda";
             if (window.pidginSpeech) {
                 await window.pidginSpeech.speak(text);
+            }
+        });
+
+        // Download button handler
+        document.getElementById('download-audio')?.addEventListener('click', async () => {
+            const text = "imelda";
+            try {
+                const response = await fetch('/assets/audio/index.json');
+                const index = await response.json();
+                const filename = index[text.toLowerCase()];
+                if (filename) {
+                    const anchor = document.createElement('a');
+                    anchor.href = "/assets/audio/" + filename;
+                    anchor.download = text.toLowerCase().replace(/\s+/g, '-') + ".mp3";
+                    document.body.appendChild(anchor);
+                    anchor.click();
+                    document.body.removeChild(anchor);
+                } else {
+                    alert('Aloha! Download for "' + text + '" not yet available.');
+                }
+            } catch (e) {
+                alert('Aloha! Audio download is currently unavailable.');
             }
         });
 

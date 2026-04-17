@@ -322,9 +322,14 @@ ${headContent}
 
             ${tagsHtml}
 
-            <button id="speak-phrase" class="mt-4 bg-gradient-to-r from-blue-500 to-teal-500 text-white px-8 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
-                <i class="ti ti-volume"></i> Hear Pronunciation
-            </button>
+            <div class="flex flex-wrap gap-4 mt-4">
+                <button id="speak-phrase" class="bg-gradient-to-r from-blue-500 to-teal-500 text-white px-8 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
+                    <i class="ti ti-volume"></i> Hear Pronunciation
+                </button>
+                <button id="download-audio" class="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-8 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
+                    <i class="ti ti-download"></i> Download MP3
+                </button>
+            </div>
         </div>
 
         <!-- Meaning Section -->
@@ -418,6 +423,28 @@ ${headContent}
             const text = "${jsEscapedPhrase}";
             if (window.pidginSpeech) {
                 await window.pidginSpeech.speak(text);
+            }
+        });
+
+        // Download button handler
+        document.getElementById('download-audio')?.addEventListener('click', async () => {
+            const text = "${jsEscapedPhrase}";
+            try {
+                const response = await fetch('/assets/audio/index.json');
+                const index = await response.json();
+                const filename = index[text.toLowerCase()];
+                if (filename) {
+                    const anchor = document.createElement('a');
+                    anchor.href = "/assets/audio/" + filename;
+                    anchor.download = text.toLowerCase().replace(/\\s+/g, '-') + ".mp3";
+                    document.body.appendChild(anchor);
+                    anchor.click();
+                    document.body.removeChild(anchor);
+                } else {
+                    alert('Aloha! Download for "' + text + '" not yet available.');
+                }
+            } catch (e) {
+                alert('Aloha! Audio download is currently unavailable.');
             }
         });
     </script>

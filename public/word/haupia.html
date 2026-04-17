@@ -492,6 +492,9 @@
                 <button id="speak-word" class="bg-gradient-to-r from-blue-500 to-teal-500 text-white px-8 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
                     <i class="ti ti-volume"></i> Hear Pronunciation
                 </button>
+                <button id="download-audio" class="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-8 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
+                    <i class="ti ti-download"></i> Download MP3
+                </button>
                 <button id="fav-word" class="bg-white text-gray-700 px-8 py-3 rounded-full hover:bg-red-50 transition-all font-bold shadow-lg border-2 border-transparent hover:border-red-200 flex items-center gap-2">
                     <i class="ti ti-heart text-red-500"></i> <span id="fav-text">Save to My Words</span>
                 </button>
@@ -665,7 +668,7 @@
                         <i class="ti ti-message-language"></i> Pidgin Grammar Tip
                     </h3>
                     <p class="text-gray-700 leading-relaxed italic">
-                        "The word 'pau' means finished or done, and is one of the most common loanwords from Hawaiian."
+                        "To indicate past tense, Pidgin often uses 'wen' before the verb (e.g., 'I wen go' for 'I went')."
                     </p>
                 </div>
                 <div class="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-white">
@@ -673,7 +676,7 @@
                         <i class="ti ti-map-pin"></i> Local Culture Fact
                     </h3>
                     <p class="text-gray-700 leading-relaxed italic">
-                        "The 'okina (ʻ) is a consonant in the Hawaiian language representing a glottal stop."
+                        "Many Pidgin words have roots in Portuguese, Cantonese, Japanese, Filipino, and Hawaiian."
                     </p>
                 </div>
             </div>
@@ -755,6 +758,28 @@
             const text = "haupia";
             if (window.pidginSpeech) {
                 await window.pidginSpeech.speak(text);
+            }
+        });
+
+        // Download button handler
+        document.getElementById('download-audio')?.addEventListener('click', async () => {
+            const text = "haupia";
+            try {
+                const response = await fetch('/assets/audio/index.json');
+                const index = await response.json();
+                const filename = index[text.toLowerCase()];
+                if (filename) {
+                    const anchor = document.createElement('a');
+                    anchor.href = "/assets/audio/" + filename;
+                    anchor.download = text.toLowerCase().replace(/\s+/g, '-') + ".mp3";
+                    document.body.appendChild(anchor);
+                    anchor.click();
+                    document.body.removeChild(anchor);
+                } else {
+                    alert('Aloha! Download for "' + text + '" not yet available.');
+                }
+            } catch (e) {
+                alert('Aloha! Audio download is currently unavailable.');
             }
         });
 
