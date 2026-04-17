@@ -13,6 +13,7 @@
     "deploy": "./scripts/deploy.sh",
     "data:add-missing": "node tools/data/add-missing-terms.js",
     "data:improve": "node tools/data/improve-dictionary.js",
+    "data:crosswords": "node tools/data/generate-more-crosswords.js",
     "seo:loop": "node tools/seo/feedback-loop.js",
     "test": "node tools/testing/run-validation.js",
     "test:translator": "node tools/testing/validate-phase-2-3.js",
