@@ -31,9 +31,14 @@ public/
 !public/sitemap.xml
 !public/site.webmanifest
 !public/sw.js
-!public/assets/audio/*.mp3
+!public/assets/
+!public/assets/audio/
+public/assets/audio/*.mp3
 !public/assets/audio/index.json
 !public/.gitkeep
+
+# Audio files (stored in Supabase)
+*.mp3
 
 # Training data (development only)
 data/training/

@@ -6,12 +6,23 @@ require('dotenv').config({ path: '../../.env' });
 const fs = require('fs').promises;
 const path = require('path');
 const crypto = require('crypto');
-const { supabase } = require('../../config/supabase');
+const { createClient } = require('@supabase/supabase-js');
+
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+if (!supabaseUrl || !supabaseServiceKey) {
+    console.error('❌ Missing SUPABASE_URL or SUPABASE_SERVICE_KEY');
+    process.exit(1);
+}
+
+const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 // Configuration
-const AUDIO_DIR = path.join(__dirname, '../../src/assets/audio');
+const AUDIO_DIR = path.join(__dirname, '../../public/assets/audio');
 const INDEX_FILE = path.join(AUDIO_DIR, 'index.json');
 const VOICE_ID = 'f0ODjLMfcJmlKfs7dFCW'; // Authentic local voice
+const BUCKET_NAME = 'audio-assets';
 
 // Parse arguments
 const args = process.argv.slice(2);
@@ -238,13 +249,20 @@ async function generateAudioFile(text, apiKey) {
     const filename = `${hash}.mp3`;
     const filepath = path.join(AUDIO_DIR, filename);
 
-    // Check if file already exists
+    // Check if file already exists locally or in Supabase
+    // (For simplicity, we'll check local first if it exists, but the main goal is Supabase)
     if (!FORCE_REGEN) {
         try {
             await fs.access(filepath);
             return { text: normalizedText, filename, skipped: true };
         } catch {
-            // File doesn't exist, proceed to generate
+            // Check Supabase Storage
+            const { data, error } = await supabase.storage.from(BUCKET_NAME).list('', {
+                search: filename
+            });
+            if (data && data.length > 0) {
+                return { text: normalizedText, filename, skipped: true };
+            }
         }
     }
 
@@ -277,7 +295,23 @@ async function generateAudioFile(text, apiKey) {
         }
 
         const audioBuffer = Buffer.from(await response.arrayBuffer());
+        
+        // 1. Save locally
         await fs.writeFile(filepath, audioBuffer);
+        
+        // 2. Upload to Supabase Storage
+        const { error: uploadError } = await supabase.storage
+            .from(BUCKET_NAME)
+            .upload(filename, audioBuffer, {
+                contentType: 'audio/mpeg',
+                upsert: true
+            });
+        
+        if (uploadError) {
+            console.error(`  ✗ Failed to upload to Supabase: "${filename}"`, uploadError.message);
+            // We still return the result because it was saved locally
+        }
+
         return { text: normalizedText, filename, skipped: false };
     } catch (error) {
         console.error(`  ✗ Error generating "${text}":`, error.message);
@@ -298,14 +332,26 @@ async function main() {
     // Ensure audio directory exists
     await fs.mkdir(AUDIO_DIR, { recursive: true });
 
-    // Load existing index
+    // Load existing index (Try Supabase first, then local)
     let index = {};
     try {
-        const indexData = await fs.readFile(INDEX_FILE, 'utf8');
-        index = JSON.parse(indexData);
-        console.log(`📦 Loaded index with ${Object.keys(index).length} terms`);
+        const { data, error } = await supabase.storage.from(BUCKET_NAME).download('index.json');
+        if (data) {
+            index = JSON.parse(await data.text());
+            console.log(`📦 Loaded index from Supabase with ${Object.keys(index).length} terms`);
+            // Save locally too for sync
+            await fs.writeFile(INDEX_FILE, JSON.stringify(index, null, 2));
+        } else {
+            throw new Error('Supabase index not found');
+        }
     } catch (e) {
-        console.log('📦 No existing index found, creating new one.');
+        try {
+            const indexData = await fs.readFile(INDEX_FILE, 'utf8');
+            index = JSON.parse(indexData);
+            console.log(`📦 Loaded index from local file with ${Object.keys(index).length} terms`);
+        } catch (localError) {
+            console.log('📦 No existing index found, creating new one.');
+        }
     }
 
     const allTerms = await fetchAllEntries();
@@ -344,7 +390,7 @@ async function main() {
         if (result) {
             index[result.text] = result.filename;
             if (result.skipped) {
-                console.log('Already exists (Indexed)');
+                console.log('Already exists');
                 skipCount++;
             } else {
                 console.log('Generated! ✨');
@@ -354,9 +400,14 @@ async function main() {
             console.log('FAILED ❌');
         }
 
-        // Save index every 5 items
-        if ((i + 1) % 5 === 0) {
-            await fs.writeFile(INDEX_FILE, JSON.stringify(index, null, 2));
+        // Save index every 10 items
+        if ((i + 1) % 10 === 0) {
+            const indexStr = JSON.stringify(index, null, 2);
+            await fs.writeFile(INDEX_FILE, indexStr);
+            await supabase.storage.from(BUCKET_NAME).upload('index.json', Buffer.from(indexStr), {
+                contentType: 'application/json',
+                upsert: true
+            });
         }
 
         // Rate limiting delay
@@ -366,14 +417,19 @@ async function main() {
     }
 
     // Final index save
-    await fs.writeFile(INDEX_FILE, JSON.stringify(index, null, 2));
+    const finalIndexStr = JSON.stringify(index, null, 2);
+    await fs.writeFile(INDEX_FILE, finalIndexStr);
+    await supabase.storage.from(BUCKET_NAME).upload('index.json', Buffer.from(finalIndexStr), {
+        contentType: 'application/json',
+        upsert: true
+    });
     
     console.log(`\n✅ Audio Pipeline Summary`);
     console.log('=======================');
     console.log(`✨ New audio generated: ${successCount}`);
     console.log(`⏭️  Skipped/Indexed: ${skipCount}`);
     console.log(`📊 Total now indexed: ${Object.keys(index).length}`);
-    console.log(`📂 Audio stored in: public/assets/audio/`);
+    console.log(`📂 Audio stored in Supabase bucket: ${BUCKET_NAME}`);
     
     if (successCount < termsToProcess.length) {
         console.log(`\n💡 Note: ${termsToProcess.length - successCount - skipCount} terms remain. Run again to process more.`);
