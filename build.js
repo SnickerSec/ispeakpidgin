@@ -187,6 +187,7 @@ const pathMappings = {
     'js/local-quiz.js': 'js/components/games/local-quiz.js',
     'js/data/local-quiz-data.js': 'js/components/games/quiz-data.js',
     'js/components/pidgin-heads-up-page.js': 'js/components/games/pidgin-heads-up-page.js',
+    'js/components/games/ear-trainer.js': 'js/components/games/ear-trainer.js',
 
     // CSS files
     'css/style.css': 'css/main.css',

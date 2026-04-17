@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pidgin Ear Trainer - Master the Local Accent | ChokePidgin.com</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Test your ears with the Pidgin Ear Trainer! Listen to authentic Hawaiian Pidgin audio and match it to the correct meaning. Improve your listening skills and master the local accent.">
+    <meta name="keywords" content="pidgin listening game, hawaiian accent practice, learn pidgin audio, pidgin ear trainer, hawaii language audio, understand pidgin">
+    <meta name="author" content="ChokePidgin.com">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Pidgin Ear Trainer - Master the Local Accent">
+    <meta property="og:description" content="Listen to authentic Hawaiian Pidgin and guess the meaning. The ultimate test for your ears!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://chokepidgin.com/pidgin-ear-trainer.html">
+    <meta property="og:site_name" content="ChokePidgin.com">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://chokepidgin.com/pidgin-ear-trainer.html">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" href="/favicon.ico">
+
+    <!-- Tailwind CSS -->
+    <link href="css/tailwind.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        .brand-font { font-family: 'Pacifico', cursive; }
+        body, h1, h2, h3, h4, h5, h6 { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+
+        .audio-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .7; transform: scale(1.05); }
+        }
+
+        .option-btn {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .option-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .option-btn:active:not(:disabled) {
+            transform: scale(0.98);
+        }
+
+        .correct {
+            background-color: #10b981 !important;
+            color: white !important;
+            border-color: #059669 !important;
+        }
+
+        .wrong {
+            background-color: #ef4444 !important;
+            color: white !important;
+            border-color: #dc2626 !important;
+        }
+
+        .playing {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-50 via-purple-50 to-blue-50 min-h-screen">
+    <!-- NAVIGATION_PLACEHOLDER -->
+
+    <main class="container mx-auto px-4 py-8 max-w-2xl">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-2">
+                <i class="ti ti-headset text-indigo-600"></i> Ear Trainer
+            </h1>
+            <p class="text-gray-600 text-lg">Listen carefully... wot dey wen say?</p>
+        </div>
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="bg-white rounded-3xl shadow-xl p-8 text-center">
+            <div class="w-32 h-32 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-6 text-5xl">
+                <i class="ti ti-volume"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Master da Accent</h2>
+            <p class="text-gray-600 mb-8">Listen to high-quality Pidgin audio and choose the correct English translation. How many can you get right?</p>
+
+            <div class="grid grid-cols-1 gap-4">
+                <button data-mode="relaxed" class="flex items-center gap-4 p-5 rounded-2xl border-2 border-gray-100 hover:border-indigo-500 hover:bg-indigo-50 transition-all text-left group">
+                    <div class="w-12 h-12 rounded-xl bg-green-100 text-green-600 flex items-center justify-center text-2xl group-hover:bg-green-600 group-hover:text-white transition-colors">
+                        <i class="ti ti-leaf"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-gray-800">Relaxed Mode</div>
+                        <div class="text-sm text-gray-500">10 questions, no timer. Take your time.</div>
+                    </div>
+                </button>
+
+                <button data-mode="blitz" class="flex items-center gap-4 p-5 rounded-2xl border-2 border-gray-100 hover:border-purple-500 hover:bg-purple-50 transition-all text-left group">
+                    <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-2xl group-hover:bg-purple-600 group-hover:text-white transition-colors">
+                        <i class="ti ti-bolt"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-gray-800">Blitz Mode</div>
+                        <div class="text-sm text-gray-500">60 seconds to get as many as possible.</div>
+                    </div>
+                </button>
+
+                <button data-mode="marathon" class="flex items-center gap-4 p-5 rounded-2xl border-2 border-gray-100 hover:border-blue-500 hover:bg-blue-50 transition-all text-left group">
+                    <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-2xl group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                        <i class="ti ti-trophy"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-gray-800">Marathon</div>
+                        <div class="text-sm text-gray-500">Keep going until you make a mistake!</div>
+                    </div>
+                </button>
+            </div>
+            
+            <div class="mt-8 p-4 bg-yellow-50 rounded-2xl border border-yellow-100 flex items-center gap-3 text-left">
+                <div class="text-2xl text-yellow-600"><i class="ti ti-info-circle"></i></div>
+                <p class="text-xs text-yellow-800">
+                    <strong>Note:</strong> Dis game use high-quality ElevenLabs AI voices. Make sure your volume is up!
+                </p>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="hidden">
+            <div class="flex justify-between items-center mb-6">
+                <div id="game-stats" class="flex gap-4">
+                    <div class="bg-white px-4 py-2 rounded-full shadow-sm font-bold text-gray-700">
+                        <i class="ti ti-star text-yellow-500"></i> Score: <span id="current-score">0</span>
+                    </div>
+                    <div id="timer-container" class="bg-white px-4 py-2 rounded-full shadow-sm font-bold text-gray-700 hidden">
+                        <i class="ti ti-clock text-red-500"></i> <span id="time-left">60</span>s
+                    </div>
+                </div>
+                <button id="exit-game" class="text-gray-400 hover:text-gray-600 transition">
+                    <i class="ti ti-x text-2xl"></i>
+                </button>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-xl p-8 mb-6 text-center relative overflow-hidden">
+                <!-- Progress indicator -->
+                <div id="progress-bar" class="absolute top-0 left-0 h-1 bg-indigo-500 transition-all duration-300" style="width: 0%"></div>
+
+                <p class="text-gray-500 font-medium mb-6 uppercase tracking-widest text-sm">Listen carefully:</p>
+                
+                <button id="play-audio-btn" class="w-32 h-32 bg-indigo-600 text-white rounded-full flex items-center justify-center mx-auto mb-8 text-5xl hover:bg-indigo-700 hover:scale-110 transition-all shadow-lg shadow-indigo-200 group relative">
+                    <div class="absolute inset-0 rounded-full bg-indigo-400 animate-ping opacity-20 hidden" id="audio-ring"></div>
+                    <i class="ti ti-player-play" id="play-icon"></i>
+                </button>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Wot dat mean?</h3>
+                    <p class="text-gray-500 text-sm">Pick the correct English translation</p>
+                </div>
+
+                <!-- Multiple Choice Grid -->
+                <div class="grid grid-cols-1 gap-3" id="options-grid">
+                    <!-- Options inserted by JS -->
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <button id="replay-btn" class="text-indigo-600 font-bold hover:underline flex items-center gap-2 mx-auto">
+                    <i class="ti ti-refresh"></i> Play audio again
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden bg-white rounded-3xl shadow-xl p-8 text-center">
+            <div class="text-7xl mb-4" id="result-emoji">🤙</div>
+            <h2 class="text-3xl font-bold text-gray-800 mb-2" id="result-title">Good Job, Brah!</h2>
+            <p class="text-gray-600 mb-8" id="result-text">You're getting da hang of it.</p>
+
+            <div class="grid grid-cols-2 gap-4 mb-8">
+                <div class="bg-indigo-50 p-6 rounded-2xl">
+                    <div class="text-4xl font-black text-indigo-600" id="final-score">0</div>
+                    <div class="text-sm font-bold text-indigo-400 uppercase">Correct</div>
+                </div>
+                <div class="bg-purple-50 p-6 rounded-2xl">
+                    <div class="text-4xl font-black text-purple-600" id="accuracy-rate">0%</div>
+                    <div class="text-sm font-bold text-purple-400 uppercase">Accuracy</div>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-3">
+                <button id="play-again-btn" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-5 rounded-2xl font-bold text-xl hover:scale-105 transition-all shadow-lg">
+                    Try Again
+                </button>
+                <a href="/games.html" class="text-gray-500 font-bold p-3 hover:text-gray-800 transition">
+                    Back to All Games
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER_PLACEHOLDER -->
+
+    <!-- Core Scripts -->
+    <script src="/js/components/supabase-api-loader.js"></script>
+    <script src="/js/elevenlabs-speech.js"></script>
+    
+    <!-- Game Logic -->
+    <script defer src="js/components/games/ear-trainer.js"></script>
+</body>
+</html>
