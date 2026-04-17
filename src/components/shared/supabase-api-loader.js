@@ -171,20 +171,35 @@ class SupabaseAPILoader {
     }
 
     transformQuizResponse(data) {
-        const questions = (data.questions || data).map(q => ({
-            id: q.id,
-            question: q.question,
-            questionType: q.question_type || q.questionType || 'multiple_choice',
-            options: q.options || [],
-            correctAnswer: q.correct_answer || q.correctAnswer,
-            explanation: q.explanation,
-            description: q.explanation,
-            image: q.image || '<i class="ti ti-question-mark"></i>',
-            category: q.category || 'general',
-            difficulty: q.difficulty || 'beginner',
-            points: q.points || 10,
-            tags: q.tags || []
-        }));
+        const questions = (data.questions || data).map(q => {
+            // Options might be strings or objects depending on source
+            const options = Array.isArray(q.options) ? q.options.map((opt, idx) => {
+                if (typeof opt === 'string') {
+                    const isCorrect = idx === (q.correct_index ?? q.correctIndex);
+                    return {
+                        text: opt,
+                        points: isCorrect ? 10 : 0,
+                        feedback: isCorrect ? "Rajah dat! You know your stuff." : "Try again, brah."
+                    };
+                }
+                return opt;
+            }) : [];
+
+            return {
+                id: q.id,
+                question: q.question,
+                questionType: q.question_type || q.questionType || 'multiple_choice',
+                options: options,
+                correctAnswer: q.correct_index ?? q.correctIndex ?? q.correct_answer ?? q.correctAnswer,
+                explanation: q.explanation || q.description,
+                description: q.description || q.explanation,
+                image: q.image || '🤙',
+                category: q.category || 'general',
+                difficulty: q.difficulty || q.level || 'beginner',
+                points: q.points || 10,
+                tags: q.tags || []
+            };
+        });
         return { questions, metadata: data.metadata };
     }
 

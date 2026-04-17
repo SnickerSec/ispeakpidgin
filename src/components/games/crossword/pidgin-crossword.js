@@ -56,12 +56,15 @@ class PidginCrossword {
 
     async loadPuzzle() {
         try {
+            console.log('📡 Fetching daily puzzle...');
             // Get daily puzzle from Supabase API
             this.puzzle = await window.supabaseAPI.getDailyCrosswordPuzzle();
 
             if (!this.puzzle) {
                 throw new Error('No puzzle available');
             }
+
+            console.log('✅ Loaded puzzle:', this.puzzle.title);
 
             // Update UI
             this.puzzleTitle.textContent = this.puzzle.title;
@@ -71,7 +74,7 @@ class PidginCrossword {
             this.buildGrid();
             this.buildClues();
         } catch (error) {
-            console.error('Error loading puzzle:', error);
+            console.error('❌ Error loading puzzle:', error);
             this.showError('Failed to load puzzle. Please refresh the page.');
         }
     }
@@ -85,12 +88,12 @@ class PidginCrossword {
     }
 
     buildGrid() {
-        // Create a simple grid based on words
-        // For now, use a basic 10x10 grid
-        const gridSize = 10;
+        console.log('🏗️ Building grid for puzzle size:', this.puzzle.size);
+        // Create a grid based on puzzle size
+        const gridSize = this.puzzle.size || 10;
         this.grid = Array(gridSize).fill(null).map(() => Array(gridSize).fill(null));
 
-        // Place words on grid (simplified version)
+        // Place words on grid
         this.placeWords();
 
         // Render grid HTML
