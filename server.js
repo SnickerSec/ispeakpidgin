@@ -276,7 +276,7 @@ app.use('/api/admin/login', adminLoginLimiter);
 app.use('/api/admin', adminActionLimiter);
 
 // Mount modular routes
-const translateRouter = translateRoutes(translate, translationLimiter, dictionaryCache);
+const translateRouter = translateRoutes(translate, translationLimiter, dictionaryCache, supabaseAdmin);
 app.use('/api/translate', translateRouter);
 // Legacy frontend paths (frontend uses /api/text-to-speech and /api/translate-llm)
 app.post('/api/text-to-speech', translationLimiter, (req, res, next) => {

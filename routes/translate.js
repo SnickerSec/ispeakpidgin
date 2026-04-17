@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
+const crypto = require('crypto');
 
 /**
  * Translation Routes (Google Translate, Gemini LLM, TTS)
  */
-module.exports = function(translate, translationLimiter, dictionaryCache) {
+module.exports = function(translate, translationLimiter, dictionaryCache, supabase) {
 
     // Extract relevant vocabulary from dictionary for LLM prompt injection
     function getRelevantVocabulary(text, direction, maxEntries = 35) {
@@ -77,27 +78,52 @@ module.exports = function(translate, translationLimiter, dictionaryCache) {
                     return res.status(500).json({ error: 'ElevenLabs API key not configured' });
                 }
 
-                // Whitelist of allowed voice IDs to prevent SSRF
+                const defaultVoiceId = 'f0ODjLMfcJmlKfs7dFCW'; // Hawaiian-sounding voice
                 const allowedVoices = [
                     'f0ODjLMfcJmlKfs7dFCW', // Kimo / Hawaiian
                     'EXAVITQu4vr4xnSDxMaL', // Sarah / Aunty
                     'ErXwbc3VNbCc1k9An9bS'  // Ethan / Braddah
                 ];
 
-                const defaultVoiceId = 'f0ODjLMfcJmlKfs7dFCW'; // Hawaiian-sounding voice
                 let voiceId = defaultVoiceId;
+                if (requestedVoiceId && allowedVoices.includes(requestedVoiceId)) {
+                    voiceId = requestedVoiceId;
+                }
 
-                if (requestedVoiceId) {
-                    if (allowedVoices.includes(requestedVoiceId)) {
-                        voiceId = requestedVoiceId;
-                    } else {
-                        console.warn(`Invalid voiceId requested: ${requestedVoiceId}. Falling back to default.`);
+                // 1. Check Cache First
+                const normalizedText = text.trim().toLowerCase();
+                const textHash = crypto.createHash('md5').update(normalizedText).digest('hex');
+                const BUCKET_NAME = 'audio-assets';
+
+                if (supabase) {
+                    try {
+                        const { data: cached } = await supabase
+                            .from('translation_cache')
+                            .select('audio_filename')
+                            .eq('md5_hash', textHash)
+                            .eq('voice_id', voiceId)
+                            .single();
+
+                        if (cached && cached.audio_filename) {
+                            console.log(`📡 Serving cached TTS for: ${textHash}`);
+                            const { data: audioData, error: downloadError } = await supabase.storage
+                                .from(BUCKET_NAME)
+                                .download(cached.audio_filename);
+
+                            if (!downloadError && audioData) {
+                                const audioBuffer = await audioData.arrayBuffer();
+                                res.set({ 'Content-Type': 'audio/mpeg', 'Content-Length': audioBuffer.byteLength });
+                                return res.send(Buffer.from(audioBuffer));
+                            }
+                        }
+                    } catch (cacheError) {
+                        console.warn('TTS Cache check failed:', cacheError.message);
                     }
                 }
 
+                // 2. Generate new audio
                 const apiUrl = `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`;
-
-                console.log(`Processing TTS request for voice: ${voiceId}, length: ${text.length}`);
+                console.log(`Processing NEW TTS request for voice: ${voiceId}, length: ${text.length}`);
 
                 const response = await fetch(apiUrl, {
                     method: 'POST',
@@ -108,7 +134,7 @@ module.exports = function(translate, translationLimiter, dictionaryCache) {
                     },
                     body: JSON.stringify({
                         text: text,
-                        model_id: 'eleven_multilingual_v2', // More stable multilingual model
+                        model_id: 'eleven_multilingual_v2',
                         voice_settings: {
                             stability: 0.5,
                             similarity_boost: 0.75,
@@ -120,16 +146,39 @@ module.exports = function(translate, translationLimiter, dictionaryCache) {
 
                 if (!response.ok) {
                     const errorDetails = await response.text();
-                    console.error('ElevenLabs API error:', response.status, response.statusText, errorDetails);
                     return res.status(response.status).json({ 
                         error: `ElevenLabs API error: ${response.status} ${response.statusText}`,
                         details: errorDetails
                     });
                 }
 
-                const audioBuffer = await response.arrayBuffer();
-                res.set({ 'Content-Type': 'audio/mpeg', 'Content-Length': audioBuffer.byteLength });
-                res.send(Buffer.from(audioBuffer));
+                const audioBuffer = Buffer.from(await response.arrayBuffer());
+
+                // 3. Save to Cache & Storage asynchronously
+                if (supabase) {
+                    const filename = `cached_${voiceId}_${textHash}.mp3`;
+                    
+                    // Upload to Storage
+                    supabase.storage.from(BUCKET_NAME).upload(filename, audioBuffer, {
+                        contentType: 'audio/mpeg',
+                        upsert: true
+                    }).then(({ error: uploadError }) => {
+                        if (!uploadError) {
+                            // Update database record
+                            supabase.from('translation_cache').upsert({
+                                original_text: originalText || text,
+                                translated_text: text,
+                                direction: 'tts',
+                                voice_id: voiceId,
+                                audio_filename: filename,
+                                md5_hash: textHash
+                            }).catch(err => console.error('Cache DB update failed:', err));
+                        }
+                    }).catch(err => console.error('Cache upload failed:', err));
+                }
+
+                res.set({ 'Content-Type': 'audio/mpeg', 'Content-Length': audioBuffer.length });
+                res.send(audioBuffer);
             } catch (error) {
                 console.error('TTS API error:', error);
                 res.status(500).json({ error: 'Internal server error' });
@@ -152,22 +201,39 @@ module.exports = function(translate, translationLimiter, dictionaryCache) {
                 const apiKey = process.env.GEMINI_API_KEY;
                 if (!apiKey) return res.status(500).json({ error: 'Gemini API key not configured' });
 
-                const vocabularySection = getRelevantVocabulary(text, direction || 'eng-to-pidgin');
-                const systemPrompt = direction === 'eng-to-pidgin'
+                const textHash = crypto.createHash('md5').update(text.trim().toLowerCase()).digest('hex');
+                const transDirection = direction || 'eng-to-pidgin';
+
+                // 1. Check Cache
+                if (supabase) {
+                    try {
+                        const { data: cached } = await supabase
+                            .from('translation_cache')
+                            .select('translated_text')
+                            .eq('md5_hash', textHash)
+                            .eq('direction', transDirection)
+                            .single();
+
+                        if (cached && cached.translated_text) {
+                            console.log(`📡 Serving cached translation for: ${textHash}`);
+                            return res.json({ 
+                                originalText: text, 
+                                translatedText: cached.translated_text, 
+                                direction: transDirection, 
+                                model: 'cache',
+                                cached: true
+                            });
+                        }
+                    } catch (e) {
+                        console.warn('Translation cache check failed:', e.message);
+                    }
+                }
+
+                // 2. Generate new translation
+                const vocabularySection = getRelevantVocabulary(text, transDirection);
+                const systemPrompt = transDirection === 'eng-to-pidgin'
                     ? `You are an expert Hawaiian Pidgin translator. 
-Translate the following English text into AUTHENTIC, natural Hawaiian Pidgin (Hawaii Creole English).
-
-CRITICAL GRAMMAR RULES:
-1. Present Tense: Use "stay" for "am/is/are" when describing a state or location (e.g., "I stay hungry", "He stay home").
-2. Past Tense: Use "wen" before the verb (e.g., "I wen go" for "I went", "We wen eat" for "We ate").
-3. Future Tense: Use "going" or "going go" (e.g., "I going go beach" for "I will go to the beach").
-4. Negations: Use "no" for "don't", "neva" for "didn't", and "no can" for "can't".
-5. Questions: Use "like" for "want to" (e.g., "You like food?" for "Do you want food?").
-6. Vocabulary: Use "da" for "the", "dat" for "that", "dis" for "this", "wit" for "with", and "fo" for "for".
-7. Pronouns: "They" often becomes "dey".
-
-Maintain a friendly, casual, local island style. Do not be overly formal.
-${vocabularySection}`
+...
                     : `You are an expert Hawaiian Pidgin translator. 
 Translate the following Hawaiian Pidgin text into natural English.
 
@@ -204,7 +270,17 @@ ${vocabularySection}`;
                 const data = await response.json();
                 const translation = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
 
-                res.json({ originalText: text, translatedText: translation, direction: direction, model: 'gemini-2.5-flash-lite' });
+                // 3. Save to Cache
+                if (supabase && translation) {
+                    supabase.from('translation_cache').upsert({
+                        original_text: text,
+                        translated_text: translation,
+                        direction: transDirection,
+                        md5_hash: textHash
+                    }).catch(err => console.error('Translation cache save failed:', err));
+                }
+
+                res.json({ originalText: text, translatedText: translation, direction: transDirection, model: 'gemini-2.5-flash-lite', cached: false });
             } catch (error) {
                 console.error('Gemini Translation error:', error);
                 res.status(500).json({ error: 'Translation service error' });
