@@ -408,7 +408,7 @@ ${headContent}
         </section>
 
         <!-- Practice with Games -->
-        ${gameLinksHtml}
+        ${getGameLinksHtml(phrase.pidgin)}
     </main>
 
     ${footer}

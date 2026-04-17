@@ -405,7 +405,7 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
         </section>
 
         <!-- Practice with Games -->
-        ${gameLinksHtml}
+        ${getGameLinksHtml(entry.pidgin)}
     </main>
 
     ${footer}

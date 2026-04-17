@@ -252,8 +252,12 @@ function getCommonHead({ title, metaDescription, keywords, canonicalUrl, ogType 
 
 /**
  * Common games section HTML
+ * @param {string} pidginWord - Optional current word to personalize callouts
  */
-function getGameLinksHtml() {
+function getGameLinksHtml(pidginWord = null) {
+    const wordDisplay = pidginWord ? `"${pidginWord}"` : 'your Pidgin';
+    const subTitle = pidginWord ? `Think you know how for use ${wordDisplay}?` : 'Test your Pidgin skills with our viral island culture quiz!';
+    
     return `
         <section class="mt-12 bg-gradient-to-r from-yellow-100 to-orange-100 rounded-3xl p-8 mb-8 shadow-xl border-2 border-yellow-200 overflow-hidden relative group">
             <div class="absolute -right-10 -bottom-10 text-9xl text-yellow-500/10 rotate-12 group-hover:scale-110 transition-transform duration-500">
@@ -272,7 +276,7 @@ function getGameLinksHtml() {
                     </div>
                     <div class="text-center md:text-left flex-1">
                         <h3 class="text-xl md:text-2xl font-black mb-1">How Local You Stay?</h3>
-                        <p class="text-white/90 mb-4 font-medium">Test your Pidgin skills with our viral island culture quiz!</p>
+                        <p class="text-white/90 mb-4 font-medium">${subTitle}</p>
                         <a href="/how-local-you-stay.html" class="inline-block bg-white text-orange-600 px-6 py-2 rounded-xl font-black hover:bg-orange-50 transition shadow-md">
                             Take the Quiz &rarr;
                         </a>
@@ -284,17 +288,17 @@ function getGameLinksHtml() {
                 <a href="/pidgin-wordle.html" class="bg-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow border-2 border-green-200 hover:border-green-400">
                     <div class="text-3xl mb-2"><i class="ti ti-grid-3x3" style="color: #22c55e;"></i></div>
                     <h3 class="font-bold text-gray-800">Pidgin Wordle</h3>
-                    <p class="text-sm text-gray-600">Daily word puzzle</p>
+                    <p class="text-sm text-gray-600">Can you spell it?</p>
                 </a>
                 <a href="/pidgin-hangman.html" class="bg-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow border-2 border-indigo-200 hover:border-indigo-400">
                     <div class="text-3xl mb-2"><i class="ti ti-typography"></i></div>
                     <h3 class="font-bold text-gray-800">Hangman</h3>
-                    <p class="text-sm text-gray-600">Guess the word</p>
+                    <p class="text-sm text-gray-600">Guess da word</p>
                 </a>
                 <a href="/pidgin-crossword.html" class="bg-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow border-2 border-blue-200 hover:border-blue-400">
                     <div class="text-3xl mb-2"><i class="ti ti-note"></i></div>
                     <h3 class="font-bold text-gray-800">Crossword</h3>
-                    <p class="text-sm text-gray-600">Test your vocabulary</p>
+                    <p class="text-sm text-gray-600">Vocabulary test</p>
                 </a>
             </div>
         </section>`;
