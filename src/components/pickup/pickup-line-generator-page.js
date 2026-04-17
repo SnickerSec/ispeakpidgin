@@ -80,6 +80,9 @@
         // Share button
         document.getElementById('share-btn')?.addEventListener('click', sharePickupLine);
 
+        // Share Image button
+        document.getElementById('share-image-btn')?.addEventListener('click', shareImage);
+
         // Speak button
         document.getElementById('speak-btn')?.addEventListener('click', speakPickupLine);
     }
@@ -448,6 +451,30 @@
         } else {
             // Fallback: copy to clipboard
             copyToClipboard();
+        }
+    }
+
+    async function shareImage() {
+        if (!currentLine) return;
+        const btn = document.getElementById('share-image-btn');
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = '<i class="ti ti-loader animate-spin"></i> Generating...';
+        btn.disabled = true;
+
+        try {
+            const dataUrl = await window.socialCardGenerator.generate({
+                title: currentLine.pidgin,
+                subtitle: currentLine.english,
+                category: 'slang',
+                type: 'phrase'
+            });
+            window.socialCardGenerator.download(dataUrl, `chokepidgin-pickup-${Date.now()}.png`);
+        } catch (e) {
+            console.error('Share image error:', e);
+            showNotification('Failed to generate image', 'error');
+        } finally {
+            btn.innerHTML = originalHtml;
+            btn.disabled = false;
         }
     }
 

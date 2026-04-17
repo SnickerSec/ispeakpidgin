@@ -296,6 +296,9 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
                 <button id="fav-word" class="bg-white text-gray-700 px-8 py-3 rounded-full hover:bg-red-50 transition-all font-bold shadow-lg border-2 border-transparent hover:border-red-200 flex items-center gap-2">
                     <i class="ti ti-heart text-red-500"></i> <span id="fav-text">Save to My Words</span>
                 </button>
+                <button id="share-image-btn" class="bg-white text-gray-700 px-8 py-3 rounded-full hover:bg-purple-50 transition-all font-bold shadow-lg border-2 border-transparent hover:border-purple-200 flex items-center gap-2">
+                    <i class="ti ti-camera text-purple-600"></i> Share as Image
+                </button>
             </div>
         </div>
 
@@ -411,6 +414,7 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
     ${footer}
 
     <script src="/js/components/supabase-api-loader.js"></script>
+    <script src="/js/components/social-card-generator.js"></script>
     <script src="/js/components/mini-quiz.js"></script>
     <script src="/js/components/elevenlabs-speech.js"></script>
     <script src="/js/components/speech.js"></script>
@@ -473,9 +477,32 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
                     favText.textContent = 'Save to My Words';
                     favBtn.classList.remove('bg-red-50', 'border-red-200');
                 }
+            }
+            })();
+
+            // Social Share button handler
+            document.getElementById('share-image-btn')?.addEventListener('click', async () => {
+            const btn = document.getElementById('share-image-btn');
+            const originalHtml = btn.innerHTML;
+            btn.innerHTML = '<i class="ti ti-loader animate-spin"></i> Generating...';
+            btn.disabled = true;
+
+            try {
+                const dataUrl = await window.socialCardGenerator.generate({
+                    title: "${jsEscapedWord}",
+                    subtitle: "${jsEscapedPrimaryMeaning}",
+                    category: "${entry.category || 'general'}"
+                });
+                window.socialCardGenerator.download(dataUrl, "chokepidgin-${slug}.png");
+            } catch (e) {
+                console.error('Share error:', e);
+                alert('Aloha! Could not generate share image. Try again!');
+            } finally {
+                btn.innerHTML = originalHtml;
+                btn.disabled = false;
+            }
             });
-        })();
-    </script>
+            </script>
 </body>
 </html>`;
 
