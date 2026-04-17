@@ -301,16 +301,25 @@ app.use('/api/admin', adminRoutes(supabaseAdmin, adminAuth, settingsManager));
 // SEO: Spelling Variant Redirects
 // ============================================
 const spellingRedirects = {
-    'stop-da-mempachi-eye': '../what-does-menpachi-eyes-mean.html',
-    'menpachi-eyes': '../what-does-menpachi-eyes-mean.html',
-    'no-ka-oi': '../what-does-no-ka-oi-mean.html',
-    'no-ka-oy': '../what-does-no-ka-oi-mean.html',
-    'nokaoi': '../what-does-no-ka-oi-mean.html',
-    'akamai': '../what-does-akamai-mean.html',
-    'ah-kah-my': '../what-does-akamai-mean.html',
-    'amped': '../what-does-amped-mean.html',
-    'bline': '../what-does-bline-mean.html',
-    'bruddah': '../what-does-bruddah-mean.html',
+    'stop-da-mempachi-eye': 'what-does-menpachi-eyes-mean',
+    'mempachi-eyes': 'what-does-menpachi-eyes-mean',
+    'menpachi-eyes': 'what-does-menpachi-eyes-mean',
+    'no-ka-oi': 'what-does-no-ka-oi-mean',
+    'no-ka-oy': 'what-does-no-ka-oi-mean',
+    'nokaoi': 'what-does-no-ka-oi-mean',
+    'akamai': 'what-does-akamai-mean',
+    'ah-kah-my': 'what-does-akamai-mean',
+    'amped': 'what-does-amped-mean',
+    'bline': 'what-does-bline-mean',
+    'bruddah': 'what-does-bruddah-mean',
+    'howzit': 'what-does-howzit-mean',
+    'niele': 'what-does-niele-mean',
+    'grindz': 'what-does-grindz-mean',
+    'pau': 'what-does-pau-mean',
+    'pau-hana': 'what-does-pau-hana-mean',
+    'da-kine': 'what-does-da-kine-mean',
+    'shaka': 'what-does-shaka-mean',
+    'shoots': 'what-does-shoots-mean',
     'chee-woo': 'chee-hoo',
     'cheewoo': 'chee-hoo',
     'che-hu': 'chee-hoo',
@@ -340,31 +349,34 @@ const spellingRedirects = {
     'cholips': 'cho-cho-lips',
     'chocholips': 'cho-cho-lips',
     'mempachi': 'menpachi',
-    'mempachi-eyes': 'menpachi-eyes',
-    'mempachi eyes': 'menpachi eyes'
+    'mempachi-eyes': 'menpachi-eyes'
 };
 
 // SEO: Spelling Variant Redirects for Words
 app.use('/word/:slug', pageLimiter, (req, res, next) => {
     if (!req.params.slug) return next();
-    
+
     // Sanitize slug to prevent directory traversal
     const rawSlug = req.params.slug;
     const safeSlug = path.basename(rawSlug);
-    
+
     const slugKey = safeSlug.replace('.html', '').toLowerCase();
     const correctSlug = spellingRedirects[slugKey];
 
     if (correctSlug && correctSlug !== slugKey) {
+        // If the correct slug is a "what-does-*-mean" page, it's at the root
+        if (correctSlug.startsWith('what-does-')) {
+            return res.redirect(301, `/${correctSlug}.html`);
+        }
         return res.redirect(301, `/word/${correctSlug}.html`);
     }
-    
+
     // Explicitly check for file existence to avoid 5xx or SPA issues
     const filePath = path.join(__dirname, 'public', 'word', safeSlug.endsWith('.html') ? safeSlug : `${safeSlug}.html`);
     if (fs.existsSync(filePath)) {
         return res.sendFile(filePath);
     }
-    
+
     next();
 });
 
@@ -380,9 +392,12 @@ app.use('/phrase/:slug', pageLimiter, (req, res, next) => {
     const correctSlug = spellingRedirects[slugKey];
 
     if (correctSlug && correctSlug !== slugKey) {
+        // If the correct slug is a "what-does-*-mean" page, it's at the root
+        if (correctSlug.startsWith('what-does-')) {
+            return res.redirect(301, `/${correctSlug}.html`);
+        }
         return res.redirect(301, `/phrase/${correctSlug}.html`);
     }
-
     // Explicitly check for file existence
     const filePath = path.join(__dirname, 'public', 'phrase', safeSlug.endsWith('.html') ? safeSlug : `${safeSlug}.html`);
     if (fs.existsSync(filePath)) {
