@@ -16,8 +16,21 @@ const config = {
     assetsDir: 'src/assets',
     minify: true, // Set to false to disable JS minification
     minifyImages: true, // Set to false to disable image optimization
-    generateWebP: true // Set to false to disable WebP generation
+    generateWebP: true, // Set to false to disable WebP generation
+    isQuick: process.argv.includes('--quick') || process.argv.includes('-q')
 };
+
+if (config.isQuick) {
+    console.log('⚡ Running in QUICK build mode (skipping heavy generations)');
+}
+
+// Helper to check if file should be updated (source is newer than destination)
+function isModified(srcPath, destPath) {
+    if (!fs.existsSync(destPath)) return true;
+    const srcStat = fs.statSync(srcPath);
+    const destStat = fs.statSync(destPath);
+    return srcStat.mtime > destStat.mtime;
+}
 
 // Strip inline gtag blocks (now loaded via external file in footer template)
 function stripInlineGtag(html) {
@@ -26,6 +39,10 @@ function stripInlineGtag(html) {
 
 // Helper to minify JS
 async function minifyJS(srcPath, destPath) {
+    if (!isModified(srcPath, destPath)) {
+        return; // Skip unchanged file
+    }
+
     if (!config.minify) {
         fs.copyFileSync(srcPath, destPath);
         return;
@@ -45,6 +62,7 @@ async function minifyJS(srcPath, destPath) {
         }
         
         fs.writeFileSync(destPath, minified.code);
+        console.log(`📦 Minified: ${path.basename(srcPath)}`);
     } catch (error) {
         console.error(`❌ Could not minify ${path.basename(srcPath)}:`, error.message);
         fs.copyFileSync(srcPath, destPath);
@@ -55,6 +73,10 @@ async function minifyJS(srcPath, destPath) {
 async function processImage(srcPath, destPath) {
     const ext = path.extname(srcPath).toLowerCase();
     const isImage = ['.jpg', '.jpeg', '.png', '.webp'].includes(ext);
+
+    if (!isModified(srcPath, destPath)) {
+        return; // Skip unchanged image
+    }
 
     if (!config.minifyImages || !isImage) {
         fs.copyFileSync(srcPath, destPath);
@@ -76,8 +98,10 @@ async function processImage(srcPath, destPath) {
         // 2. Generate WebP version if it's not already a WebP
         if (config.generateWebP && ext !== '.webp') {
             const webpPath = destPath.substring(0, destPath.lastIndexOf('.')) + '.webp';
-            await pipeline.clone().webp({ quality: 75 }).toFile(webpPath);
-            console.log(`🖼️  Generated WebP: ${path.basename(webpPath)}`);
+            if (isModified(srcPath, webpPath)) {
+                await pipeline.clone().webp({ quality: 75 }).toFile(webpPath);
+                console.log(`🖼️  Generated WebP: ${path.basename(webpPath)}`);
+            }
         }
     } catch (error) {
         console.error(`❌ Could not optimize ${path.basename(srcPath)}:`, error.message);
@@ -88,6 +112,13 @@ async function processImage(srcPath, destPath) {
 // Clean public directory but preserve OG images to speed up build
 function cleanPublic() {
     if (fs.existsSync(config.publicDir)) {
+        if (config.isQuick) {
+            console.log('🧹 QUICK clean: Preserving core assets and most generated pages...');
+            // In quick mode, only clean specific high-volume directories if we wanted to force regen
+            // For now, let's keep everything to maximize speed
+            return;
+        }
+
         console.log(`🧹 Cleaning ${config.publicDir} directory (preserving OG assets)...`);
         
         // Get all items in public
@@ -577,7 +608,10 @@ function copyFavicons() {
 
 // Main build function
 async function build() {
-    const { execSync } = require('child_process');
+    const { exec } = require('child_process');
+    const util = require('util');
+    const execPromise = util.promisify(exec);
+
     try {
         console.log('Starting build process...\n');
 
@@ -587,7 +621,8 @@ async function build() {
         // Run Tailwind CSS build after structure is created
         console.log('\n🎨 Building Tailwind CSS...');
         try {
-            execSync('npx @tailwindcss/cli -i src/styles/tailwind.css -o public/css/tailwind.css --minify', { stdio: 'inherit' });
+            await execPromise('npx @tailwindcss/cli -i src/styles/tailwind.css -o public/css/tailwind.css --minify');
+            console.log('✅ Tailwind CSS built');
         } catch (error) {
             console.error('⚠️  Warning: Could not build Tailwind CSS:', error.message);
         }
@@ -597,61 +632,59 @@ async function build() {
         copyDataFiles();
         copyCSSFiles();
         
-        // Generate OG images before copying assets
-        console.log('\n🖼️  Generating OG images...');
-        try {
-            execSync('node scripts/generate-og-images.js', { stdio: 'inherit' });
-        } catch (error) {
-            console.error('⚠️  Warning: Could not generate OG images:', error.message);
+        if (!config.isQuick) {
+            // Generate OG images before copying assets
+            console.log('\n🖼️  Generating OG images...');
+            try {
+                await execPromise('node scripts/generate-og-images.js');
+                console.log('✅ OG images generated');
+            } catch (error) {
+                console.error('⚠️  Warning: Could not generate OG images:', error.message);
+            }
         }
 
         await copyAssets();
         copyFavicons();
 
-        // Generate individual dictionary entry pages
-        console.log('\n📖 Generating individual dictionary entry pages...');
-        try {
-            execSync('node tools/generators/generate-entry-pages.js', { stdio: 'inherit' });
-        } catch (error) {
-            console.error('⚠️  Warning: Could not generate entry pages:', error.message);
-        }
+        if (!config.isQuick) {
+            console.log('\n🚀 Starting heavy parallel generations...');
+            const startTime = Date.now();
+            
+            // Run generators in parallel for speed
+            const generators = [
+                { name: 'Dictionary', cmd: 'node tools/generators/generate-entry-pages.js' },
+                { name: 'Phrases', cmd: 'node tools/generators/generate-phrase-pages.js' },
+                { name: 'Stories', cmd: 'node tools/generators/generate-story-pages.js' },
+                { name: 'Pickup Lines', cmd: 'node tools/generators/generate-pickup-pages.js' }
+            ];
 
-        // Generate individual phrase pages
-        console.log('\n📝 Generating individual phrase pages...');
-        try {
-            execSync('node tools/generators/generate-phrase-pages.js', { stdio: 'inherit' });
-        } catch (error) {
-            console.error('⚠️  Warning: Could not generate phrase pages:', error.message);
-        }
+            await Promise.all(generators.map(async (gen) => {
+                try {
+                    console.log(`⏳ Generating ${gen.name}...`);
+                    await execPromise(gen.cmd);
+                    console.log(`✅ ${gen.name} complete`);
+                } catch (err) {
+                    console.error(`❌ Error in ${gen.name} generator:`, err.message);
+                }
+            }));
 
-        // Generate individual story pages
-        console.log('\n📖 Generating individual story pages...');
-        try {
-            execSync('node tools/generators/generate-story-pages.js', { stdio: 'inherit' });
-        } catch (error) {
-            console.error('⚠️  Warning: Could not generate story pages:', error.message);
-        }
+            // Final sitemap generation (must be after all pages are done)
+            console.log('\n🗺️  Generating sitemap.xml...');
+            try {
+                await execPromise('node tools/generators/generate-sitemap.js');
+                console.log('✅ Sitemap complete');
+            } catch (error) {
+                console.error('⚠️  Warning: Could not generate sitemap:', error.message);
+            }
 
-        // Generate individual pickup line pages
-        console.log('\n💕 Generating individual pickup line pages...');
-        try {
-            execSync('node tools/generators/generate-pickup-pages.js', { stdio: 'inherit' });
-        } catch (error) {
-            console.error('⚠️  Warning: Could not generate pickup line pages:', error.message);
-        }
-
-        // Generate sitemap with all pages
-        console.log('\n🗺️  Generating sitemap.xml...');
-        try {
-            execSync('node tools/generators/generate-sitemap.js', { stdio: 'inherit' });
-        } catch (error) {
-            console.error('⚠️  Warning: Could not generate sitemap:', error.message);
+            const duration = ((Date.now() - startTime) / 1000).toFixed(1);
+            console.log(`\n✨ Heavy generations finished in ${duration}s`);
+        } else {
+            console.log('\n⏩ Skipping heavy generations (--quick)');
         }
 
         console.log('\n✅ Build completed successfully!');
         console.log('📂 Production files are in the /public directory');
-        console.log('📄 Generated dictionary, phrase, story, and pickup line pages');
-        console.log('🗺️  Updated sitemap.xml with all page URLs');
 
     } catch (error) {
         console.error('❌ Build failed:', error.message);

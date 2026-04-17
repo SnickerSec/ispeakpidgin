@@ -7,6 +7,7 @@
     "start": "node server.js",
     "dev": "./scripts/dev-server.sh",
     "build": "node build.js",
+    "build:quick": "node build.js --quick",
     "build:css": "npx @tailwindcss/cli -i src/styles/tailwind.css -o public/css/tailwind.css --minify",
     "watch:css": "npx @tailwindcss/cli -i src/styles/tailwind.css -o public/css/tailwind.css --watch",
     "deploy": "./scripts/deploy.sh",
