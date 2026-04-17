@@ -21,13 +21,14 @@ class ElevenLabsSpeech {
 
     async loadPregeneratedIndex() {
         try {
-            const response = await fetch('/assets/audio/index.json');
+            const supabaseStorageUrl = 'https://jfzgzjgdptowfbtljvyp.supabase.co/storage/v1/object/public/audio-assets';
+            const response = await fetch(`${supabaseStorageUrl}/index.json`);
             if (response.ok) {
                 const data = await response.json();
                 Object.entries(data).forEach(([text, filename]) => {
                     this.pregeneratedIndex.set(text.toLowerCase(), filename);
                 });
-                console.log(`SW: Loaded ${this.pregeneratedIndex.size} pre-generated audio terms`);
+                console.log(`SW: Loaded ${this.pregeneratedIndex.size} pre-generated audio terms from Supabase`);
             }
         } catch (e) {
             // Silently fail if index doesn't exist yet
@@ -425,8 +426,9 @@ class ElevenLabsSpeech {
                     // Check pre-generated index for local file
                     if (this.pregeneratedIndex.has(normalizedText)) {
                         try {
+                            const supabaseStorageUrl = 'https://jfzgzjgdptowfbtljvyp.supabase.co/storage/v1/object/public/audio-assets';
                             const filename = this.pregeneratedIndex.get(normalizedText);
-                            const response = await fetch(`/assets/audio/${filename}`);
+                            const response = await fetch(`${supabaseStorageUrl}/${filename}`);
                             if (response.ok) {
                                 const audioBlob = await response.blob();
                                 // Cache it for next time
