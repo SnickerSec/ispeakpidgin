@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 /**
- * AI Dictionary Content Enrichment Script
+ * Bulk AI Dictionary Content Enrichment Script
  * Identifies entries with thin content and uses AI to generate
- * more examples, detailed usage, and cultural origin info.
+ * more examples, detailed usage, and cultural origin info in BULK.
  */
 
 require('dotenv').config();
@@ -11,13 +11,14 @@ const { supabase } = require('../../config/supabase');
 const fetch = require('node-fetch');
 
 // Configuration
-const BATCH_SIZE = 50; // Increased for bulk processing
+const BATCH_SIZE = 100; // Total per run
+const SUB_BATCH_SIZE = 10; // Number of words per AI call
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_MODEL = 'gemini-2.0-flash-lite';
 
 async function main() {
-    console.log('🤖 AI Dictionary Content Enrichment');
-    console.log('==================================\n');
+    console.log('🚀 Bulk AI Dictionary Content Enrichment');
+    console.log('======================================\n');
 
     if (!GEMINI_API_KEY) {
         console.error('❌ GEMINI_API_KEY not found in environment variables.');
@@ -25,10 +26,8 @@ async function main() {
     }
 
     // 1. Identify "thin" entries
-    // Criteria: missing usage, missing origin, or < 2 examples
     console.log('🔍 Identifying entries with thin content...');
     
-    // Fetch all entries to filter locally - this is more robust than the .or() query
     const { data: allEntries, error: fetchError } = await supabase
         .from('dictionary_entries')
         .select('*')
@@ -39,7 +38,6 @@ async function main() {
         process.exit(1);
     }
 
-    // Filter locally to find the best candidates (ones that really need it)
     const candidates = allEntries.filter(entry => {
         const needsUsage = !entry.usage || entry.usage.length < 10;
         const needsOrigin = !entry.origin || entry.origin.length < 5;
@@ -52,50 +50,56 @@ async function main() {
         return;
     }
 
-    console.log(`📋 Found ${candidates.length} entries to enrich.\n`);
+    console.log(`📋 Found ${candidates.length} total entries to enrich in this run.`);
+    console.log(`⚡ Processing in sub-batches of ${SUB_BATCH_SIZE} for maximum speed...\n`);
 
-    for (let i = 0; i < candidates.length; i++) {
-        const entry = candidates[i];
-        console.log(`[${i+1}/${candidates.length}] Enriching: "${entry.pidgin}"...`);
+    for (let i = 0; i < candidates.length; i += SUB_BATCH_SIZE) {
+        const subBatch = candidates.slice(i, i + SUB_BATCH_SIZE);
+        const subBatchNames = subBatch.map(e => e.pidgin).join(', ');
+        
+        console.log(`📦 [Batch ${Math.floor(i/SUB_BATCH_SIZE) + 1}] Processing: ${subBatchNames}...`);
         
         try {
-            const enrichedData = await getAiEnrichment(entry);
-            if (enrichedData) {
-                await updateEntryInSupabase(entry.id, entry.pidgin, enrichedData);
+            const enrichedResults = await getBulkAiEnrichment(subBatch);
+            if (enrichedResults) {
+                await updateEntriesInSupabase(subBatch, enrichedResults);
             }
         } catch (error) {
-            console.error(`   ❌ Failed to enrich "${entry.pidgin}":`, error.message);
+            console.error(`   ❌ Failed to enrich batch:`, error.message);
         }
-        
-        // Add a small delay to avoid rate limits
-        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        // Add a small delay between AI calls
+        await new Promise(resolve => setTimeout(resolve, 2000));
     }
 
     console.log('\n✨ Enrichment process complete!');
 }
 
-async function getAiEnrichment(entry) {
+async function getBulkAiEnrichment(entries) {
     const systemPrompt = `You are an expert Hawaiian Pidgin linguist and cultural historian.
-Your task is to enrich a dictionary entry with authentic examples and cultural context.
+Enrich these ${entries.length} dictionary entries with authentic examples and cultural context.
 
-Provide:
+For EACH entry, provide:
 1. Two additional natural example sentences in authentic Hawaiian Pidgin.
 2. A detailed "Usage & Context" explanation in English (2-3 sentences).
 3. A brief "Cultural Origin" explanation in English (1-2 sentences).
 
-RETURN ONLY A JSON OBJECT:
+RETURN ONLY A JSON OBJECT where keys are the EXACT Pidgin terms:
 {
-  "additional_examples": ["Example 1", "Example 2"],
-  "usage": "Detailed usage explanation...",
-  "origin": "Cultural origin info...",
-  "audio_example": "One of the new examples that is best for text-to-speech"
+  "pidgin_term_1": {
+    "additional_examples": ["Ex 1", "Ex 2"],
+    "usage": "Usage details...",
+    "origin": "Origin info...",
+    "audio_example": "Best for TTS"
+  },
+  ...
 }`;
 
-    const userPrompt = `TERM: "${entry.pidgin}"
-CURRENT ENGLISH: "${Array.isArray(entry.english) ? entry.english.join(', ') : entry.english}"
-CURRENT EXAMPLES: ${JSON.stringify(entry.examples || [])}
+    const userPrompt = entries.map(entry => `
+TERM: "${entry.pidgin}"
+ENGLISH: "${Array.isArray(entry.english) ? entry.english.join(', ') : entry.english}"
 CURRENT USAGE: "${entry.usage || 'None'}"
-CURRENT ORIGIN: "${entry.origin || 'None'}"`;
+`).join('\n---');
 
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
 
@@ -109,7 +113,7 @@ CURRENT ORIGIN: "${entry.origin || 'None'}"`;
             }],
             generationConfig: { 
                 temperature: 0.4,
-                maxOutputTokens: 500,
+                maxOutputTokens: 2000,
                 responseMimeType: "application/json"
             }
         })
@@ -125,42 +129,67 @@ CURRENT ORIGIN: "${entry.origin || 'None'}"`;
     
     if (!text) return null;
     
-    return JSON.parse(text);
+    try {
+        const parsed = JSON.parse(text);
+        // Create a lowercase map for easier matching
+        const normalized = {};
+        Object.keys(parsed).forEach(key => {
+            normalized[key.toLowerCase().trim()] = parsed[key];
+        });
+        return normalized;
+    } catch (e) {
+        console.error("❌ Failed to parse AI JSON response");
+        return null;
+    }
 }
 
-async function updateEntryInSupabase(id, pidgin, enriched) {
-    // Merge examples
-    // We'll fetch the current entry again to be safe on concurrency, 
-    // but for a script we can just use our local copy.
-    const { data: current } = await supabase.from('dictionary_entries').select('examples').eq('id', id).single();
-    
-    const existingExamples = current?.examples || [];
-    const allExamples = [...new Set([...existingExamples, ...enriched.additional_examples])];
+async function updateEntriesInSupabase(originalEntries, enrichedMap) {
+    const updates = originalEntries.map(entry => {
+        const pidginKey = entry.pidgin.toLowerCase().trim();
+        const enriched = enrichedMap[pidginKey];
+        
+        if (!enriched) {
+            console.log(`   ⚠️  No AI data found for "${entry.pidgin}"`);
+            return null;
+        }
 
-    const updateData = {
-        examples: allExamples,
-        usage: enriched.usage,
-        origin: enriched.origin,
-        updated_at: new Date().toISOString()
-    };
+        const existingExamples = entry.examples || [];
+        const additional = enriched.additional_examples || enriched.examples || [];
+        const allExamples = [...new Set([...existingExamples, ...additional])];
 
-    // Only update audio_example if it was missing or we have a better one
-    if (enriched.audio_example) {
-        updateData.audio_example = enriched.audio_example;
+        const updateData = {
+            id: entry.id,
+            pidgin: entry.pidgin,
+            english: entry.english,
+            category: entry.category,
+            examples: allExamples,
+            usage: enriched.usage,
+            origin: enriched.origin,
+            updated_at: new Date().toISOString()
+        };
+
+        if (enriched.audio_example) {
+            updateData.audio_example = enriched.audio_example;
+        }
+
+        return updateData;
+    }).filter(Boolean);
+
+    if (updates.length === 0) {
+        console.log('   ⚠️  No updates to perform for this batch.');
+        return;
     }
 
+    // Use upsert to update multiple rows at once
     const { error } = await supabase
         .from('dictionary_entries')
-        .update(updateData)
-        .eq('id', id);
+        .upsert(updates, { onConflict: 'id' });
 
     if (error) {
-        throw new Error(`Supabase update failed: ${error.message}`);
+        throw new Error(`Supabase bulk update failed: ${error.message}`);
     }
-
-    console.log(`   ✅ Successfully enriched "${pidgin}"`);
-    console.log(`      - Added ${enriched.additional_examples.length} examples`);
-    console.log(`      - Updated usage and origin info`);
+    
+    console.log(`   ✅ Successfully updated ${updates.length} entries.`);
 }
 
 main().catch(err => {
