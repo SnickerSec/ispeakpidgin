@@ -439,17 +439,22 @@ class AskLocalPageManager {
             const statusText = hasResponses ? '<i class="ti ti-circle-check"></i> Answered' : '<i class="ti ti-hourglass"></i> Pending Response';
             const cardClass = hasResponses ? 'answered-card' : 'pending-card';
             const safeId = this.escapeAttr(q.id);
+            
+            // Map Supabase snake_case to what the template expects if needed, or use directly
+            const questionText = q.question_text || q.questionText || 'No question text';
+            const userName = q.user_name || q.userName || 'Anonymous';
+            const timestamp = q.created_at || q.timestamp;
 
             return `
                 <div class="question-card ${cardClass} bg-white border rounded-lg overflow-hidden shadow-lg">
                     <div class="p-6">
                         <div class="flex justify-between items-start mb-4">
                             <div class="flex-1">
-                                <h3 class="font-bold text-lg text-gray-800 mb-2">${this.escapeHtml(q.questionText)}</h3>
+                                <h3 class="font-bold text-lg text-gray-800 mb-2">${this.escapeHtml(questionText)}</h3>
                                 <div class="flex items-center gap-3 text-sm text-gray-500">
-                                    <span class="whitespace-nowrap"><i class="ti ti-user"></i> ${this.escapeHtml(q.userName)}</span>
+                                    <span class="whitespace-nowrap"><i class="ti ti-user"></i> ${this.escapeHtml(userName)}</span>
                                     <span class="whitespace-nowrap">•</span>
-                                    <span class="whitespace-nowrap"><i class="ti ti-calendar"></i> ${this.formatDate(q.timestamp)}</span>
+                                    <span class="whitespace-nowrap"><i class="ti ti-calendar"></i> ${this.formatDate(timestamp)}</span>
                                     <span class="${statusClass} px-3 py-1 rounded-full font-medium whitespace-nowrap">${statusText}</span>
                                 </div>
                             </div>
@@ -461,36 +466,6 @@ class AskLocalPageManager {
                             <button class="respond-btn text-blue-600 hover:text-blue-800 font-medium" data-question-id="${safeId}">
                                 <i class="ti ti-message"></i> ${hasResponses ? 'Add Another Response' : 'Respond to Question'}
                             </button>
-                        </div>
-
-                        <!-- Response Form (initially hidden) -->
-                        <div id="response-form-${safeId}" class="hidden mt-4 p-4 bg-blue-50 rounded-lg border-2 border-blue-200">
-                            <h4 class="font-semibold mb-3 text-blue-800"><i class="ti ti-flower"></i> Share Your Local Knowledge</h4>
-                            <div class="mb-3">
-                                <input type="text" id="responder-name-${safeId}" class="w-full p-2 border rounded" placeholder="Your name (optional)" maxlength="50">
-                            </div>
-                            <div class="mb-3">
-                                <textarea id="response-text-${safeId}" class="w-full p-2 border rounded" rows="3" placeholder="Share your local knowledge..." required maxlength="500"></textarea>
-                                <div class="text-xs text-gray-500 mt-1">Maximum 500 characters</div>
-                            </div>
-
-                            <!-- Mini CAPTCHA for responses -->
-                            <div class="mb-3 bg-yellow-50 p-3 rounded border">
-                                <label class="block text-sm font-medium mb-1">
-                                    <i class="ti ti-lock"></i> Quick check: <span id="response-captcha-${safeId}"></span> = ?
-                                </label>
-                                <input type="number" id="response-captcha-answer-${safeId}" class="w-20 p-1 border rounded text-sm" required>
-                            </div>
-
-                            <div class="flex gap-2">
-                                <button class="submit-response-btn bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition text-sm" data-question-id="${safeId}">
-                                    <i class="ti ti-flower"></i> Submit Response
-                                </button>
-                                <button class="cancel-response-btn text-gray-600 hover:text-gray-800 px-3 py-2 text-sm" data-question-id="${safeId}">
-                                    Cancel
-                                </button>
-                            </div>
-                            <div id="response-feedback-${safeId}" class="mt-2 text-sm"></div>
                         </div>
                     </div>
                 </div>
@@ -508,14 +483,20 @@ class AskLocalPageManager {
                 <div class="space-y-3">
                     ${responses.map(r => {
                         const safeResponseId = this.escapeAttr(r.id);
-                        const helpfulCount = parseInt(r.helpfulCount, 10) || 0;
+                        
+                        // Map Supabase snake_case
+                        const responseText = r.response_text || r.responseText || 'No response text';
+                        const responderName = r.responder_name || r.responderName || 'Local Helper';
+                        const timestamp = r.created_at || r.timestamp;
+                        const helpfulCount = parseInt(r.helpful_count || r.helpfulCount, 10) || 0;
+
                         return `
                         <div class="bg-white p-4 rounded border-l-4 border-green-400">
-                            <p class="text-gray-800 mb-2">${this.escapeHtml(r.responseText)}</p>
+                            <p class="text-gray-800 mb-2">${this.escapeHtml(responseText)}</p>
                             <div class="flex items-center gap-3 text-sm text-gray-500">
-                                <span class="whitespace-nowrap"><i class="ti ti-user-check"></i> ${this.escapeHtml(r.responderName || 'Local Helper')}</span>
+                                <span class="whitespace-nowrap"><i class="ti ti-user-check"></i> ${this.escapeHtml(responderName)}</span>
                                 <span class="whitespace-nowrap">•</span>
-                                <span class="whitespace-nowrap"><i class="ti ti-calendar"></i> ${this.formatDate(r.timestamp)}</span>
+                                <span class="whitespace-nowrap"><i class="ti ti-calendar"></i> ${this.formatDate(timestamp)}</span>
                                 <button class="helpful-btn text-green-600 hover:text-green-800 ml-2 whitespace-nowrap" data-response-id="${safeResponseId}">
                                     <i class="ti ti-thumb-up"></i> Helpful (${helpfulCount})
                                 </button>
@@ -746,7 +727,10 @@ class AskLocalPageManager {
     }
 
     formatDate(isoString) {
+        if (!isoString) return 'Just now';
         const date = new Date(isoString);
+        if (isNaN(date.getTime())) return 'Just now';
+        
         const now = new Date();
         const diffMs = now - date;
         const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));

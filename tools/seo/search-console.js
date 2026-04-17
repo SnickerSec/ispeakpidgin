@@ -294,10 +294,16 @@ async function generateOptimizations(auth, days) {
 
     // 5. Content gap opportunities - Queries without dedicated pages
     const pageKeywords = new Set();
+    const pageSlugs = new Set();
+    
     pages.forEach(p => {
-        const slug = p.page.toLowerCase();
-        slug.split(/[-\/]/).forEach(word => {
-            if (word.length > 3) pageKeywords.add(word);
+        const url = p.page.toLowerCase();
+        // Extract the slug from the URL
+        const slug = url.split('/').pop().replace('.html', '');
+        if (slug) pageSlugs.add(slug);
+        
+        url.split(/[-\/]/).forEach(word => {
+            if (word.length > 2) pageKeywords.add(word);
         });
     });
 
@@ -306,7 +312,25 @@ async function generateOptimizations(auth, days) {
         description: 'Popular search queries that may need dedicated content.',
         items: queries
             .filter(q => {
-                const queryWords = q.query.toLowerCase().split(' ');
+                const query = q.query.toLowerCase();
+                const querySlug = query.replace(/\s+/g, '-');
+                
+                // If we have a page with this exact slug (or containing it), it's not a gap
+                if (pageSlugs.has(querySlug) || 
+                    pageSlugs.has(`what-does-${querySlug}-mean`) ||
+                    Array.from(pageSlugs).some(s => s.includes(querySlug))) {
+                    return false;
+                }
+
+                // Clean query for keyword matching
+                const cleanQuery = query
+                    .replace(/\b(what does|mean|meaning|definition|in pidgin|hawaiian pidgin)\b/g, '')
+                    .trim();
+                
+                if (!cleanQuery) return false;
+
+                const queryWords = cleanQuery.split(/\s+/);
+                // If ANY word in the cleaned query is a main keyword for a page, probably not a gap
                 return !queryWords.some(w => pageKeywords.has(w)) && q.impressions > 100;
             })
             .slice(0, 15)

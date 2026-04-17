@@ -17,7 +17,7 @@ async function checkPending() {
         if (qError) throw qError;
         console.log(`📝 Pending Questions: ${questions.length}`);
         questions.forEach((q, i) => {
-            console.log(`   ${i+1}. [${q.user_name}] ${q.question_text.substring(0, 50)}...`);
+            console.log(`   ${i+1}. [ID: ${q.id}] [${q.user_name}] Full text: ${q.question_text}`);
         });
 
         const { data: suggestions, error: sError } = await supabase
