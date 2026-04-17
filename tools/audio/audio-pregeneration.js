@@ -9,7 +9,7 @@ const crypto = require('crypto');
 const { supabase } = require('../../config/supabase');
 
 // Configuration
-const AUDIO_DIR = path.join(__dirname, '../../public/assets/audio');
+const AUDIO_DIR = path.join(__dirname, '../../src/assets/audio');
 const INDEX_FILE = path.join(AUDIO_DIR, 'index.json');
 const VOICE_ID = 'f0ODjLMfcJmlKfs7dFCW'; // Authentic local voice
 
@@ -111,12 +111,28 @@ const globalPronunciationMap = {
     'talk story': 'talk story',
     'broke da mouth': 'broke dah mouth',
     'kanak attack': 'kah-nahk ah-tack',
+    'mālama da ʻāina': 'mah-lah-mah dah eye-nah',
+    'nō ka ʻoi': 'noh kah oy',
+    'a hui hou': 'ah-hoo-ee-hoh',
+    'aʻole pilikia': 'ah-oh-leh pee-lee-kee-ah',
+    'moopuna': 'mo-poo-nah',
     'li hing mui': 'lee hing moo-ee',
     'lilikoi': 'lee-lee-koy',
+    'shave ice': 'shave ice',
+    'plate lunch': 'plate lunch',
+    'ballah': 'bal-lah',
+    'rubbah': 'rub-bah',
+    'punani': 'poo-nah-nee',
+    'boto': 'boh-toh',
     'faka': 'fah-kah',
     'hamajang': 'hah-mah-jahng',
     'mayjah': 'may-jah',
-    'poho': 'poh-hoh'
+    'poho': 'poh-hoh',
+    'rajah dat': 'rah-jah dat',
+    'yobo': 'yo-boh',
+    'wit\'': 'wit',
+    'wit': 'wit',
+    'yesterday': 'yes-tah-deh'
 };
 
 // Helper to check if a word is likely Hawaiian/Pidgin (contains unique patterns)

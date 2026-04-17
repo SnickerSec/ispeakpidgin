@@ -42,7 +42,7 @@ echo ""
 read -p "Press Enter to start generation (Ctrl+C to cancel)..."
 
 # Run the Node.js generation script
-node js/audio-pregeneration.js
+node tools/audio/audio-pregeneration.js
 
 echo ""
 echo "Generation complete!"
