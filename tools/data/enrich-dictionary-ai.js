@@ -11,7 +11,7 @@ const { supabase } = require('../../config/supabase');
 const fetch = require('node-fetch');
 
 // Configuration
-const BATCH_SIZE = 10; // Number of entries to process per run
+const BATCH_SIZE = 50; // Increased for bulk processing
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_MODEL = 'gemini-2.0-flash-lite';
 
@@ -28,23 +28,22 @@ async function main() {
     // Criteria: missing usage, missing origin, or < 2 examples
     console.log('🔍 Identifying entries with thin content...');
     
-    const { data: thinEntries, error: fetchError } = await supabase
+    // Fetch all entries to filter locally - this is more robust than the .or() query
+    const { data: allEntries, error: fetchError } = await supabase
         .from('dictionary_entries')
         .select('*')
-        .or('usage.is.null,origin.is.null,examples.is.null')
-        .order('created_at', { ascending: false })
-        .limit(BATCH_SIZE * 5); // Get a larger pool to filter further locally
+        .order('created_at', { ascending: false });
 
     if (fetchError) {
-        console.error('❌ Error fetching thin entries:', fetchError.message);
+        console.error('❌ Error fetching entries:', fetchError.message);
         process.exit(1);
     }
 
     // Filter locally to find the best candidates (ones that really need it)
-    const candidates = thinEntries.filter(entry => {
+    const candidates = allEntries.filter(entry => {
         const needsUsage = !entry.usage || entry.usage.length < 10;
         const needsOrigin = !entry.origin || entry.origin.length < 5;
-        const needsExamples = !entry.examples || entry.examples.length < 2;
+        const needsExamples = !entry.examples || (Array.isArray(entry.examples) && entry.examples.length < 2);
         return needsUsage || needsOrigin || needsExamples;
     }).slice(0, BATCH_SIZE);
 
