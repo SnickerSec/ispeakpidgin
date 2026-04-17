@@ -44,10 +44,10 @@ The build scripts (sitemap, entry page generators) fetch directly from Supabase 
 
 ## Testing Checklist
 
-- [ ] Dictionary loads and searches work
+- [x] Dictionary loads and searches work
 - [ ] Stories load on homepage
 - [ ] Quiz game functions correctly
-- [ ] Wordle game loads daily word
+- [x] Wordle game loads daily word
 - [ ] Crossword loads puzzles
 - [ ] Pickup line generator works
-- [ ] Translator functions properly
+- [x] Translator functions properly
