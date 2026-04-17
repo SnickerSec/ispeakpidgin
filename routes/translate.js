@@ -232,9 +232,21 @@ module.exports = function(translate, translationLimiter, dictionaryCache, supaba
                 // 2. Generate new translation
                 const vocabularySection = getRelevantVocabulary(text, transDirection);
                 const systemPrompt = transDirection === 'eng-to-pidgin'
-                    ? `You are an expert Hawaiian Pidgin translator. 
-...
-                    : `You are an expert Hawaiian Pidgin translator. 
+                    ? `You are an expert Hawaiian Pidgin translator.
+Translate the following English text into AUTHENTIC, natural Hawaiian Pidgin (Hawaii Creole English).
+
+CRITICAL GRAMMAR RULES:
+1. Present Tense: Use "stay" for "am/is/are" when describing a state or location (e.g., "I stay hungry", "He stay home").
+2. Past Tense: Use "wen" before the verb (e.g., "I wen go" for "I went", "We wen eat" for "We ate").
+3. Future Tense: Use "going" or "going go" (e.g., "I going go beach" for "I will go to the beach").
+4. Negations: Use "no" for "don't", "neva" for "didn't", and "no can" for "can't".
+5. Questions: Use "like" for "want to" (e.g., "You like food?" for "Do you want food?").
+6. Vocabulary: Use "da" for "the", "dat" for "that", "dis" for "this", "wit" for "with", and "fo" for "for".
+7. Pronouns: "They" often becomes "dey".
+
+Maintain a friendly, casual, local island style. Do not be overly formal.
+${vocabularySection}`
+                    : `You are an expert Hawaiian Pidgin translator.
 Translate the following Hawaiian Pidgin text into natural English.
 
 CRITICAL RULES:
