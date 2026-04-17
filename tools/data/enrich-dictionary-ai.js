@@ -11,8 +11,8 @@ const { supabase } = require('../../config/supabase');
 const fetch = require('node-fetch');
 
 // Configuration
-const BATCH_SIZE = 100; // Total per run
-const SUB_BATCH_SIZE = 10; // Number of words per AI call
+const BATCH_SIZE = 300; // Total per run
+const SUB_BATCH_SIZE = 20; // Number of words per AI call
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_MODEL = 'gemini-2.0-flash-lite';
 
@@ -113,7 +113,7 @@ CURRENT USAGE: "${entry.usage || 'None'}"
             }],
             generationConfig: { 
                 temperature: 0.4,
-                maxOutputTokens: 2000,
+                maxOutputTokens: 4000,
                 responseMimeType: "application/json"
             }
         })
