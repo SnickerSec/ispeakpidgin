@@ -173,6 +173,37 @@
         </div>
     </section>
 
+    <!-- Proficiency Widget -->
+    <section id="proficiency-section" class="max-w-4xl mx-auto px-4 -mt-8 hidden">
+        <div class="bg-white rounded-3xl shadow-xl p-6 md:p-8 border border-teal-100">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div id="rank-icon" class="text-6xl md:text-7xl">📸</div>
+                <div class="flex-grow text-center md:text-left">
+                    <div class="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-1">
+                        <span class="text-sm font-bold text-teal-400 uppercase tracking-widest">Current Rank</span>
+                        <span id="rank-name" class="text-2xl font-black text-teal-700 uppercase">Visitor</span>
+                    </div>
+                    <h2 class="text-gray-800 text-lg md:text-xl font-medium mb-4">
+                        You stay learning! Play mo' games for rank up.
+                    </h2>
+                    
+                    <!-- Progress Bar -->
+                    <div class="w-full bg-gray-100 h-4 rounded-full overflow-hidden mb-2">
+                        <div id="rank-progress-bar" class="h-full bg-gradient-to-r from-teal-500 to-blue-500 transition-all duration-1000" style="width: 0%"></div>
+                    </div>
+                    <div class="flex justify-between text-xs font-bold text-gray-400 uppercase">
+                        <span>Total Score: <span id="total-proficiency-score" class="text-teal-600">0</span></span>
+                        <span>Next: <span id="next-rank-name">Townie</span></span>
+                    </div>
+                </div>
+                <div class="bg-teal-50 p-4 rounded-2xl text-center min-w-[120px]">
+                    <div id="games-played-count" class="text-3xl font-black text-teal-600">0</div>
+                    <div class="text-[10px] font-bold text-teal-400 uppercase">Games Played</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Featured Game: Daily Wordle -->
     <section class="container mx-auto px-4 py-12">
         <div class="featured-game rounded-3xl p-8 md:p-12 text-white shadow-2xl">
@@ -428,5 +459,39 @@
     </section>
 
     <!-- FOOTER_PLACEHOLDER -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const playerName = localStorage.getItem('pidgin_player_name');
+            if (!playerName) return;
+
+            try {
+                const response = await fetch(`/api/games/proficiency?username=${encodeURIComponent(playerName)}`);
+                const data = await response.json();
+
+                if (data && data.rank) {
+                    document.getElementById('proficiency-section').classList.remove('hidden');
+                    document.getElementById('rank-name').textContent = data.rank;
+                    document.getElementById('rank-icon').textContent = data.icon;
+                    document.getElementById('total-proficiency-score').textContent = data.totalScore;
+                    document.getElementById('next-rank-name').textContent = data.nextRank;
+                    document.getElementById('games-played-count').textContent = data.gamesPlayed;
+                    document.getElementById('rank-progress-bar').style.width = `${data.progress}%`;
+                    
+                    // Update welcome text
+                    const welcomeText = document.querySelector('#proficiency-section h2');
+                    if (data.rank === 'Big Kahuna') {
+                        welcomeText.textContent = "You one true local! Your Pidgin stay maxed out. 👑";
+                    } else if (data.rank === 'Local') {
+                        welcomeText.textContent = "Rajah dat! You talking like one local already.";
+                    } else if (data.rank === 'Townie') {
+                        welcomeText.textContent = "You getting there! Keep playing for stay local.";
+                    }
+                }
+            } catch (err) {
+                console.error('Failed to load proficiency:', err);
+            }
+        });
+    </script>
 </body>
 </html>

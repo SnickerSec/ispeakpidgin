@@ -408,5 +408,80 @@ module.exports = function(supabase, dictionaryLimiter) {
         }
     });
 
+    // ============================================
+    // PROFICIENCY & GLOBAL RANKING
+    // ============================================
+
+    router.get('/proficiency', dictionaryLimiter, async (req, res) => {
+        try {
+            const { username } = req.query;
+            if (!username) return res.status(400).json({ error: 'Username required' });
+
+            // Fetch all scores for this user from our makeshift scores table
+            const { data, error } = await supabase
+                .from('local_questions')
+                .select('question_text, created_at')
+                .eq('status', 'score')
+                .eq('user_name', username);
+
+            if (error) throw error;
+
+            const scores = (data || []).map(d => JSON.parse(d.question_text));
+            
+            // Logic: 
+            // - Wordle: 1-6 points per win
+            // - Scramble: 50-200+ points per game
+            // - Speed: 50-300+ points per game
+            // - Ear Trainer: 10-50+ points per game
+            
+            const totalScore = scores.reduce((acc, s) => acc + (s.score || 0), 0);
+            const gamesPlayed = scores.length;
+            const uniqueGames = new Set(scores.map(s => s.game_type.split('-')[0])).size;
+            
+            // Calculate Rank
+            let rank = 'Visitor';
+            let icon = '🌊';
+            let nextRank = 'Townie';
+            let progress = 0;
+
+            if (totalScore >= 1000) {
+                rank = 'Big Kahuna';
+                icon = '👑';
+                nextRank = 'Max Rank';
+                progress = 100;
+            } else if (totalScore >= 500) {
+                rank = 'Local';
+                icon = '🤙';
+                nextRank = 'Big Kahuna';
+                progress = ((totalScore - 500) / 500) * 100;
+            } else if (totalScore >= 150) {
+                rank = 'Townie';
+                icon = '🏢';
+                nextRank = 'Local';
+                progress = ((totalScore - 150) / 350) * 100;
+            } else {
+                rank = 'Visitor';
+                icon = '📸';
+                nextRank = 'Townie';
+                progress = (totalScore / 150) * 100;
+            }
+
+            res.json({
+                username,
+                totalScore,
+                gamesPlayed,
+                uniqueGames,
+                rank,
+                icon,
+                nextRank,
+                progress: Math.min(100, Math.round(progress))
+            });
+
+        } catch (error) {
+            console.error('Proficiency fetch error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
     return router;
 };
