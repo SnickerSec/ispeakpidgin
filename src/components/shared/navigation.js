@@ -58,6 +58,29 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // --- Theme Switching (Dark Mode) ---
+    const themeToggle = document.getElementById('dark-mode-toggle');
+    const mobileThemeToggle = document.getElementById('mobile-dark-mode-toggle');
+    
+    function toggleTheme() {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('pidgin_theme', isDark ? 'dark' : 'light');
+        
+        // Add ripple or wave effect if possible
+        console.log(`Theme switched to: ${isDark ? 'Island Night' : 'High Noon'}`);
+    }
+
+    if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+    if (mobileThemeToggle) mobileThemeToggle.addEventListener('click', toggleTheme);
+
+    // Initialize theme from storage or system
+    const savedTheme = localStorage.getItem('pidgin_theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.documentElement.classList.add('dark');
+    }
+
     // Quick Search Logic
     const searchBtn = document.getElementById('nav-search-btn');
     const searchOverlay = document.getElementById('search-overlay');

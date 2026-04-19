@@ -1,8 +1,29 @@
 /* Custom styles for Pidgin Pal - Hawaiian Theme */
 
-/* Performance: CSS variable for animation play state (controlled by JS visibility API) */
 :root {
     --animation-play-state: running;
+    
+    /* Light Mode Colors (High Noon) */
+    --bg-gradient: linear-gradient(135deg, #1e6ba8 0%, #5ca3db 25%, #87ceeb 50%, #ffb347 75%, #ff6b6b 100%);
+    --nav-bg: linear-gradient(to right, rgba(255, 255, 255, 0.95), rgba(255, 251, 235, 0.95));
+    --card-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 251, 235, 0.9));
+    --text-main: #1f2937;
+    --text-muted: #4b5563;
+    --accent-primary: #ff6b6b;
+    --accent-secondary: #ffb347;
+    --nav-link-color: #1e6ba8;
+}
+
+/* Dark Mode Colors (Island Night) */
+.dark {
+    --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 25%, #312e81 50%, #4338ca 75%, #1e1b4b 100%);
+    --nav-bg: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(30, 27, 75, 0.95));
+    --card-bg: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8));
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --accent-primary: #fb923c; /* Lava Orange */
+    --accent-secondary: #fcd34d; /* Moonlight Gold */
+    --nav-link-color: #93c5fd;
 }
 
 /* Daily phrase animations and transitions */
@@ -38,15 +59,16 @@
 
 /* Hawaiian ocean and sunset gradient background */
 body {
-    background: linear-gradient(135deg,
-        #1e6ba8 0%,    /* Deep ocean blue */
-        #5ca3db 25%,   /* Pacific blue */
-        #87ceeb 50%,   /* Sky blue */
-        #ffb347 75%,   /* Sunset orange */
-        #ff6b6b 100%); /* Hawaiian sunset red */
+    background: var(--bg-gradient);
     background-size: 400% 400%;
     animation: hawaiianSunset 20s ease infinite;
     position: relative;
+    color: var(--text-main);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+body.dark::before {
+    opacity: 0.15; /* Dimmer waves in dark mode */
 }
 
 body::before {
@@ -109,15 +131,16 @@ body::before {
 
 /* Navigation with Hawaiian styling */
 nav {
-    background: linear-gradient(to right, rgba(255, 255, 255, 0.95), rgba(255, 251, 235, 0.95));
+    background: var(--nav-bg);
     backdrop-filter: blur(10px);
-    border-bottom: 3px solid #ff6b6b;
+    border-bottom: 3px solid var(--accent-primary);
+    transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .nav-link {
     position: relative;
     transition: all 0.3s ease;
-    color: #1e6ba8;
+    color: var(--nav-link-color);
     font-weight: 500;
 }
 
@@ -128,7 +151,7 @@ nav {
     height: 3px;
     bottom: -5px;
     left: 50%;
-    background: linear-gradient(to right, #ff6b6b, #ffb347);
+    background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
     transition: all 0.3s ease;
     border-radius: 2px;
 }
@@ -138,14 +161,38 @@ nav {
     left: 0;
 }
 
+/* Dark mode toggle button style */
+.dark-toggle {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--nav-link-color);
+    background: rgba(0,0,0,0.03);
+}
+
+.dark .dark-toggle {
+    background: rgba(255,255,255,0.05);
+}
+
+.dark-toggle:hover {
+    background-color: rgba(255, 107, 107, 0.1);
+    transform: scale(1.1);
+}
+
 /* Hawaiian themed phrase cards */
 .phrase-card {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 251, 235, 0.9));
+    background: var(--card-bg);
     border: 2px solid transparent;
     background-clip: padding-box;
+    color: var(--text-main);
 }
 
 .phrase-card::before {
@@ -351,11 +398,13 @@ html {
 
 /* Hawaiian themed cards */
 .lesson-card, .quiz-card {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 251, 235, 0.95));
+    background: var(--card-bg);
     border: 2px solid transparent;
     background-clip: padding-box;
     position: relative;
     overflow: hidden;
+    color: var(--text-main);
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 .lesson-card::before, .quiz-card::before {
@@ -378,11 +427,13 @@ html {
 }
 
 /* Cultural insights cards */
-article.bg-gray-50 {
+article.bg-gray-50, .bg-white.rounded-lg.shadow-lg {
+    background: var(--card-bg);
+    color: var(--text-main);
     transition: all 0.3s ease;
 }
 
-article.bg-gray-50:hover {
+article.bg-gray-50:hover, .bg-white.rounded-lg.shadow-lg:hover {
     transform: scale(1.02);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
