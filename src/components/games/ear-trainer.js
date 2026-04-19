@@ -37,7 +37,14 @@ class PidginEarTrainer {
             playBtn: document.getElementById('play-audio-btn'),
             playIcon: document.getElementById('play-icon'),
             audioRing: document.getElementById('audio-ring'),
-            skipBtn: document.getElementById('skip-btn')
+            skipBtn: document.getElementById('skip-btn'),
+            
+            // Leaderboard elements
+            scoreSubmitContainer: document.getElementById('score-submit-container'),
+            leaderboardContainer: document.getElementById('leaderboard-container'),
+            leaderboardBody: document.getElementById('leaderboard-body'),
+            playerNameInput: document.getElementById('player-name'),
+            submitScoreBtn: document.getElementById('submit-score-btn')
         };
 
         this.init();
@@ -46,6 +53,12 @@ class PidginEarTrainer {
     async init() {
         this.setupEventListeners();
         await this.loadData();
+        
+        // Pre-fill name from local storage if available
+        const savedName = localStorage.getItem('pidgin_player_name');
+        if (savedName && this.elements.playerNameInput) {
+            this.elements.playerNameInput.value = savedName;
+        }
     }
 
     async loadData() {
@@ -95,6 +108,9 @@ class PidginEarTrainer {
         // Skip button
         this.elements.skipBtn.addEventListener('click', () => this.skipQuestion());
 
+        // Leaderboard submission
+        this.elements.submitScoreBtn.addEventListener('click', () => this.submitScore());
+
         // Navigation
         document.getElementById('exit-game').addEventListener('click', () => this.showScreen('start'));
         document.getElementById('play-again-btn').addEventListener('click', () => this.showScreen('start'));
@@ -119,6 +135,8 @@ class PidginEarTrainer {
         this.elements.progressBar.style.width = '0%';
         this.elements.timerContainer.classList.add('hidden');
         this.elements.streakContainer.classList.add('hidden');
+        this.elements.scoreSubmitContainer.classList.remove('hidden');
+        this.elements.leaderboardContainer.classList.add('hidden');
     }
 
     startGame(mode) {
@@ -130,7 +148,6 @@ class PidginEarTrainer {
         this.totalQuestions = (mode === 'relaxed') ? 10 : 999;
         this.isGameOver = false;
         
-        // Filter words based on mode/difficulty (simplified: just use all for now)
         this.filteredWords = [...this.allWords];
         
         this.showScreen('game');
@@ -165,7 +182,7 @@ class PidginEarTrainer {
         // Pick a random word from filtered pool
         const correctEntry = this.filteredWords[Math.floor(Math.random() * this.filteredWords.length)];
         
-        // Pick 3 distractors from the FULL pool for more variety
+        // Pick 3 distractors
         const distractors = [];
         while (distractors.length < 3) {
             const random = this.allWords[Math.floor(Math.random() * this.allWords.length)];
@@ -184,7 +201,7 @@ class PidginEarTrainer {
 
         this.renderQuestion();
         
-        // Auto-play audio on first load of question
+        // Auto-play audio
         setTimeout(() => this.playCurrentAudio(), 500);
     }
 
@@ -194,9 +211,8 @@ class PidginEarTrainer {
         
         if (this.streak > 1) {
             this.elements.streakContainer.classList.remove('hidden');
-            // Add a little pop animation
             this.elements.streakContainer.classList.remove('animate-bounce');
-            void this.elements.streakContainer.offsetWidth; // trigger reflow
+            void this.elements.streakContainer.offsetWidth; 
             this.elements.streakContainer.classList.add('animate-bounce');
         } else {
             this.elements.streakContainer.classList.add('hidden');
@@ -219,18 +235,15 @@ class PidginEarTrainer {
             </button>
         `).join('');
 
-        // Add listeners to new buttons
         this.elements.optionsGrid.querySelectorAll('.option-btn').forEach(btn => {
             btn.addEventListener('click', () => this.handleAnswer(parseInt(btn.dataset.index), btn));
         });
 
-        // Re-enable skip button
         this.elements.skipBtn.disabled = false;
         this.elements.skipBtn.classList.remove('opacity-50');
     }
 
     formatEnglish(english) {
-        // If english is an array, take first item
         const text = Array.isArray(english) ? english[0] : english;
         return text.charAt(0).toUpperCase() + text.slice(1);
     }
@@ -254,10 +267,9 @@ class PidginEarTrainer {
     skipQuestion() {
         if (this.isGameOver || !this.currentRound) return;
         
-        this.streak = 0; // Reset streak on skip
+        this.streak = 0;
         this.questionsAttempted++;
         
-        // Show the correct answer briefly
         this.elements.optionsGrid.querySelectorAll('.option-btn').forEach(b => {
             const opt = this.currentRound.options[parseInt(b.dataset.index)];
             if (opt.pidgin === this.currentRound.correct.pidgin) {
@@ -285,25 +297,18 @@ class PidginEarTrainer {
         const isCorrect = selected.pidgin === this.currentRound.correct.pidgin;
         
         this.questionsAttempted++;
-        
-        // Disable all buttons
         this.elements.optionsGrid.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
         this.elements.skipBtn.disabled = true;
 
         if (isCorrect) {
             this.streak++;
             if (this.streak > this.maxStreak) this.maxStreak = this.streak;
-            
-            // Score with streak bonus
             const points = 1 + Math.floor(this.streak / 5);
             this.score += points;
-            
             btn.classList.add('correct');
-            this.elements.score.textContent = this.score;
         } else {
             this.streak = 0;
             btn.classList.add('wrong');
-            // Show correct answer
             this.elements.optionsGrid.querySelectorAll('.option-btn').forEach(b => {
                 const opt = this.currentRound.options[parseInt(b.dataset.index)];
                 if (opt.pidgin === this.currentRound.correct.pidgin) {
@@ -317,11 +322,68 @@ class PidginEarTrainer {
             }
         }
 
-        // Check if game should end
         if (this.gameMode === 'relaxed' && this.questionsAttempted >= this.totalQuestions) {
             setTimeout(() => this.endGame(), 1500);
         } else {
             setTimeout(() => this.nextQuestion(), 1500);
+        }
+    }
+
+    async submitScore() {
+        const username = this.elements.playerNameInput.value.trim() || 'Anonymous';
+        this.elements.submitScoreBtn.disabled = true;
+        this.elements.submitScoreBtn.innerHTML = '<i class="ti ti-loader animate-spin"></i> Saving...';
+
+        try {
+            const response = await fetch('/api/games/leaderboard', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    username,
+                    score: this.score,
+                    game_type: 'ear-trainer',
+                    streak: this.maxStreak
+                })
+            });
+
+            if (response.ok) {
+                localStorage.setItem('pidgin_player_name', username);
+                this.elements.scoreSubmitContainer.classList.add('hidden');
+                await this.loadLeaderboard();
+            } else {
+                alert('Failed to save score. Try again!');
+                this.elements.submitScoreBtn.disabled = false;
+                this.elements.submitScoreBtn.textContent = 'Save';
+            }
+        } catch (err) {
+            console.error('Score submission error:', err);
+            this.elements.submitScoreBtn.disabled = false;
+            this.elements.submitScoreBtn.textContent = 'Save';
+        }
+    }
+
+    async loadLeaderboard() {
+        this.elements.leaderboardContainer.classList.remove('hidden');
+        this.elements.leaderboardBody.innerHTML = '<tr><td colspan="3" class="p-4 text-center text-gray-400">Loading rankings...</td></tr>';
+
+        try {
+            const response = await fetch('/api/games/leaderboard?game_type=ear-trainer&limit=10');
+            const data = await response.json();
+
+            if (data.scores && data.scores.length > 0) {
+                this.elements.leaderboardBody.innerHTML = data.scores.map((s, i) => `
+                    <tr class="${s.username === this.elements.playerNameInput.value ? 'bg-indigo-50 font-bold' : ''}">
+                        <td class="px-4 py-3">${i + 1}</td>
+                        <td class="px-4 py-3">${s.username}</td>
+                        <td class="px-4 py-3 text-right">${s.score}</td>
+                    </tr>
+                `).join('');
+            } else {
+                this.elements.leaderboardBody.innerHTML = '<tr><td colspan="3" class="p-4 text-center text-gray-400">No scores yet. Be da first!</td></tr>';
+            }
+        } catch (err) {
+            console.error('Leaderboard load error:', err);
+            this.elements.leaderboardBody.innerHTML = '<tr><td colspan="3" class="p-4 text-center text-red-400">Failed to load.</td></tr>';
         }
     }
 
@@ -330,13 +392,13 @@ class PidginEarTrainer {
         if (this.timer) clearInterval(this.timer);
         
         this.showScreen('results');
+        this.loadLeaderboard(); // Show it even if they don't submit
         
         const accuracy = Math.round((this.score / Math.max(1, this.questionsAttempted)) * 100);
         
         document.getElementById('final-score').textContent = this.score;
         document.getElementById('accuracy-rate').textContent = `${accuracy}%`;
         
-        // Update results text
         const title = document.getElementById('result-title');
         const text = document.getElementById('result-text');
         const emoji = document.getElementById('result-emoji');
@@ -357,10 +419,8 @@ class PidginEarTrainer {
     }
 }
 
-// Initialize when components are ready
 window.addEventListener('load', () => {
     if (window.elevenLabsSpeech) {
-        // Need to wait for speech component to load its index
         const checkReady = setInterval(() => {
             if (window.elevenLabsSpeech.pregeneratedIndex.size > 0) {
                 clearInterval(checkReady);

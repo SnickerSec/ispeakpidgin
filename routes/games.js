@@ -335,5 +335,78 @@ module.exports = function(supabase, dictionaryLimiter) {
         }
     });
 
+    // ============================================
+    // LEADERBOARD API
+    // ============================================
+
+    router.get('/leaderboard', dictionaryLimiter, async (req, res) => {
+        try {
+            const { game_type = 'ear-trainer', limit = 10 } = req.query;
+            
+            // We use local_questions table as a makeshift scores table
+            // status = 'score' identifies leaderboard entries
+            const { data, error } = await supabase
+                .from('local_questions')
+                .select('user_name, question_text, created_at')
+                .eq('status', 'score')
+                .order('created_at', { ascending: false }); // We'll sort by score in JS
+
+            if (error) throw error;
+
+            const scores = (data || [])
+                .map(item => {
+                    try {
+                        const meta = JSON.parse(item.question_text);
+                        if (meta.game_type !== game_type) return null;
+                        return {
+                            username: item.user_name,
+                            score: meta.score,
+                            streak: meta.streak || 0,
+                            created_at: item.created_at
+                        };
+                    } catch (e) { return null; }
+                })
+                .filter(Boolean)
+                .sort((a, b) => b.score - a.score)
+                .slice(0, parseInt(limit));
+
+            res.json({ scores });
+        } catch (error) {
+            console.error('Leaderboard fetch error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+    router.post('/leaderboard', dictionaryLimiter, async (req, res) => {
+        try {
+            const { username, score, game_type, streak } = req.body;
+
+            if (!username || score === undefined || !game_type) {
+                return res.status(400).json({ error: 'Missing required fields' });
+            }
+
+            const metadata = JSON.stringify({
+                score: parseInt(score),
+                game_type,
+                streak: parseInt(streak || 0),
+                version: '1.0'
+            });
+
+            const { data, error } = await supabase
+                .from('local_questions')
+                .insert({
+                    user_name: username.substring(0, 20),
+                    question_text: metadata,
+                    status: 'score'
+                });
+
+            if (error) throw error;
+            res.json({ success: true });
+        } catch (error) {
+            console.error('Leaderboard submit error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
     return router;
 };
