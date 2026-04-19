@@ -59,23 +59,25 @@
 
     <style>
         .brand-font { font-family: 'Pacifico', cursive; }
-        .hero-gradient { background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%); }
+        .hero-gradient { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%); }
         .letter-btn.active { background-color: #2563eb; color: white; border-color: #2563eb; }
+        .dark .letter-btn:not(.active) { background-color: #1e293b; border-color: #334155; color: #94a3b8; }
+        .dark .letter-btn:not(.active):hover { background-color: #334155; color: #f8fafc; }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
+<body class="bg-gray-50 dark:bg-slate-900 min-h-screen transition-colors duration-300">
     <!-- NAVIGATION_PLACEHOLDER -->
 
     <!-- Hero Section -->
-    <div class="hero-gradient py-12 px-4 text-white">
+    <div class="hero-gradient py-12 px-4 text-white border-b dark:border-slate-800">
         <div class="max-w-4xl mx-auto text-center">
             <h1 class="text-4xl md:text-5xl font-extrabold mb-4">English to Pidgin Dictionary</h1>
-            <p class="text-lg md:text-xl text-blue-50 mb-8">Stop guessing. Learn how locals actually talk.</p>
+            <p class="text-lg md:text-xl text-blue-50 dark:text-blue-200 mb-8">Stop guessing. Learn how locals actually talk.</p>
             
             <!-- Quick Search -->
             <div class="relative max-w-xl mx-auto">
                 <input type="text" id="english-search" placeholder="Enter an English word (e.g., 'Delicious' or 'Finished')" 
-                       class="w-full px-6 py-4 rounded-full text-gray-800 text-lg shadow-lg focus:ring-4 focus:ring-blue-300 outline-none transition">
+                       class="w-full px-6 py-4 rounded-full text-gray-800 dark:text-white dark:bg-slate-800 dark:border-slate-700 border-2 border-transparent text-lg shadow-lg focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900 outline-none transition">
                 <button class="absolute right-2 top-2 bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition">
                     <i class="ti ti-search text-xl"></i>
                 </button>
@@ -87,7 +89,7 @@
         <!-- A-Z Navigation -->
         <div class="mb-10 overflow-x-auto pb-4">
             <div class="flex flex-wrap justify-center gap-2" id="az-nav">
-                <button class="letter-btn active w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center font-bold hover:border-blue-500 transition" data-letter="all">ALL</button>
+                <button class="letter-btn active w-10 h-10 rounded-lg border border-gray-300 dark:border-blue-600 flex items-center justify-center font-bold hover:border-blue-500 transition" data-letter="all">ALL</button>
                 <!-- Generated A-Z -->
             </div>
         </div>
@@ -104,53 +106,53 @@
         <!-- No Results -->
         <div id="no-results" class="hidden text-center py-20">
             <div class="text-6xl mb-4">🏝️</div>
-            <h3 class="text-2xl font-bold text-gray-800 mb-2">Auwe! No translation found.</h3>
-            <p class="text-gray-600 mb-8">Try searching for something else or use our AI translator.</p>
+            <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">Auwe! No translation found.</h3>
+            <p class="text-gray-600 dark:text-slate-400 mb-8">Try searching for something else or use our AI translator.</p>
             <a href="/translator.html" class="inline-block bg-blue-600 text-white px-8 py-3 rounded-full font-bold hover:bg-blue-700 transition">Try AI Translator</a>
         </div>
 
         <!-- Category Shortcuts -->
         <section class="mt-20">
-            <h2 class="text-2xl font-bold text-gray-800 mb-8 border-b-2 border-blue-100 pb-2">Common Categories</h2>
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-8 border-b-2 border-blue-100 dark:border-slate-800 pb-2">Common Categories</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <a href="/phrases.html?cat=food" class="p-6 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition text-center group">
+                <a href="/phrases.html?cat=food" class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-md transition text-center group">
                     <div class="text-4xl mb-3 group-hover:scale-110 transition">🍱</div>
-                    <h3 class="font-bold text-gray-800">Food & Dining</h3>
-                    <p class="text-xs text-gray-500 mt-1">Plate lunch, poke & more</p>
+                    <h3 class="font-bold text-gray-800 dark:text-white">Food & Dining</h3>
+                    <p class="text-xs text-gray-500 dark:text-slate-400 mt-1">Plate lunch, poke & more</p>
                 </a>
-                <a href="/phrases.html?cat=greetings" class="p-6 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition text-center group">
+                <a href="/phrases.html?cat=greetings" class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-md transition text-center group">
                     <div class="text-4xl mb-3 group-hover:scale-110 transition">🤙</div>
-                    <h3 class="font-bold text-gray-800">Greetings</h3>
-                    <p class="text-xs text-gray-500 mt-1">Howzit, Aloha & Shaka</p>
+                    <h3 class="font-bold text-gray-800 dark:text-white">Greetings</h3>
+                    <p class="text-xs text-gray-500 dark:text-slate-400 mt-1">Howzit, Aloha & Shaka</p>
                 </a>
-                <a href="/phrases.html?cat=slang" class="p-6 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition text-center group">
+                <a href="/phrases.html?cat=slang" class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-md transition text-center group">
                     <div class="text-4xl mb-3 group-hover:scale-110 transition">🗣️</div>
-                    <h3 class="font-bold text-gray-800">Modern Slang</h3>
-                    <p class="text-xs text-gray-500 mt-1">Cheehoo, Rajah Dat & more</p>
+                    <h3 class="font-bold text-gray-800 dark:text-white">Modern Slang</h3>
+                    <p class="text-xs text-gray-500 dark:text-slate-400 mt-1">Cheehoo, Rajah Dat & more</p>
                 </a>
-                <a href="/phrases.html?cat=nature" class="p-6 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition text-center group">
+                <a href="/phrases.html?cat=nature" class="p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-md transition text-center group">
                     <div class="text-4xl mb-3 group-hover:scale-110 transition">⛰️</div>
-                    <h3 class="font-bold text-gray-800">Directions & Nature</h3>
-                    <p class="text-xs text-gray-500 mt-1">Mauka, Makai & Ocean</p>
+                    <h3 class="font-bold text-gray-800 dark:text-white">Directions & Nature</h3>
+                    <p class="text-xs text-gray-500 dark:text-slate-400 mt-1">Mauka, Makai & Ocean</p>
                 </a>
             </div>
         </section>
 
         <!-- SEO Content / FAQ -->
         <section class="mt-24 max-w-3xl mx-auto">
-            <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Frequently Asked Questions</h2>
+            <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-8 text-center">Frequently Asked Questions</h2>
             <div class="space-y-6">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                    <h3 class="font-bold text-lg text-blue-700 mb-2">How do I translate English to Hawaiian Pidgin?</h3>
-                    <p class="text-gray-600">The easiest way is to use our searchable dictionary above! Simply type the English word you're thinking of, and we'll show you the authentic Pidgin equivalent. For full sentences, try our <a href="/translator.html" class="text-blue-600 hover:underline">AI Translator</a>.</p>
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700">
+                    <h3 class="font-bold text-lg text-blue-700 dark:text-blue-400 mb-2">How do I translate English to Hawaiian Pidgin?</h3>
+                    <p class="text-gray-600 dark:text-slate-300">The easiest way is to use our searchable dictionary above! Simply type the English word you're thinking of, and we'll show you the authentic Pidgin equivalent. For full sentences, try our <a href="/translator.html" class="text-blue-600 dark:text-blue-400 hover:underline">AI Translator</a>.</p>
                 </div>
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                    <h3 class="font-bold text-lg text-blue-700 mb-2">What is the difference between Hawaiian and Pidgin?</h3>
-                    <p class="text-gray-600">Hawaiian is a Polynesian language (the indigenous language of Hawaii). Hawaiian Pidgin (Hawaii Creole English) is a separate language that developed as a mix of Hawaiian, English, Portuguese, Japanese, Chinese, and Filipino. Many Pidgin words are borrowed from Hawaiian.</p>
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700">
+                    <h3 class="font-bold text-lg text-blue-700 dark:text-blue-400 mb-2">What is the difference between Hawaiian and Pidgin?</h3>
+                    <p class="text-gray-600 dark:text-slate-300">Hawaiian is a Polynesian language (the indigenous language of Hawaii). Hawaiian Pidgin (Hawaii Creole English) is a separate language that developed as a mix of Hawaiian, English, Portuguese, Japanese, Chinese, and Filipino. Many Pidgin words are borrowed from Hawaiian.</p>
                 </div>
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                    <h3 class="font-bold text-lg text-blue-700 mb-2">Is it polite to use Pidgin as a tourist?</h3>
-                    <p class="text-gray-600">While locals appreciate it when you learn the meanings, try not to "force" the accent. It's better to use common words like "Mahalo," "Aloha," and "Howzit" naturally rather than trying to speak full Pidgin if you aren't from here. Understanding it is half the battle!</p>
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700">
+                    <h3 class="font-bold text-lg text-blue-700 dark:text-blue-400 mb-2">Is it polite to use Pidgin as a tourist?</h3>
+                    <p class="text-gray-600 dark:text-slate-300">While locals appreciate it when you learn the meanings, try not to "force" the accent. It's better to use common words like "Mahalo," "Aloha," and "Howzit" naturally rather than trying to speak full Pidgin if you aren't from here. Understanding it is half the battle!</p>
                 </div>
             </div>
         </section>

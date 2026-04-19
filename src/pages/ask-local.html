@@ -42,11 +42,9 @@
         .brand-font {
             font-family: 'Pacifico', cursive;
         }
-    </style>
 
-    <style>
         .ask-local-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
         }
 
         .question-card {
@@ -56,7 +54,7 @@
 
         .question-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
         }
 
         .answered-card {
@@ -68,17 +66,17 @@
         }
 
         .search-stats {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(15, 23, 42, 0.9);
             backdrop-filter: blur(10px);
         }
     </style>
 </head>
 
-<body class="min-h-screen">
+<body class="min-h-screen bg-gray-50 dark:bg-slate-900 transition-colors duration-300">
     <!-- NAVIGATION_PLACEHOLDER -->
 
     <!-- Header -->
-    <div class="ask-local-header py-16 px-4 relative overflow-hidden">
+    <div class="ask-local-header py-16 px-4 relative overflow-hidden border-b dark:border-slate-800">
         <!-- Background decoration -->
         <div class="absolute inset-0 opacity-10">
             <div class="absolute top-10 left-10 text-6xl"><i class="ti ti-beach"></i></div>
@@ -99,40 +97,40 @@
 
     <!-- Ask / Suggest Toggle -->
     <div class="max-w-4xl mx-auto px-4 py-4 flex gap-4">
-        <button id="show-ask-form" class="flex-1 py-3 rounded-xl font-bold bg-white border-2 border-blue-500 text-blue-600 shadow-sm transition-all active-tab">
+        <button id="show-ask-form" class="flex-1 py-3 rounded-xl font-bold bg-white dark:bg-slate-800 border-2 border-blue-500 text-blue-600 dark:text-blue-400 shadow-sm transition-all active-tab">
             <i class="ti ti-message-question"></i> Ask a Question
         </button>
-        <button id="show-suggest-form" class="flex-1 py-3 rounded-xl font-bold bg-white border-2 border-gray-200 text-gray-500 shadow-sm transition-all">
+        <button id="show-suggest-form" class="flex-1 py-3 rounded-xl font-bold bg-white dark:bg-slate-800 border-2 border-gray-200 dark:border-slate-700 text-gray-500 dark:text-gray-400 shadow-sm transition-all">
             <i class="ti ti-plus"></i> Suggest a Word
         </button>
     </div>
 
     <!-- Ask Question Section -->
     <div id="ask-section" class="max-w-4xl mx-auto px-4 py-4">
-        <div class="bg-gradient-to-br from-white/90 to-blue-50/90 backdrop-blur rounded-lg p-6 shadow-xl border-2 border-blue-200 mb-8">
+        <div class="bg-gradient-to-br from-white/90 to-blue-50/90 dark:from-slate-800 dark:to-slate-900 backdrop-blur rounded-lg p-6 shadow-xl border-2 border-blue-200 dark:border-blue-900/50 mb-8">
             <h2 class="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-teal-500 bg-clip-text text-transparent">
                 <i class="ti ti-flower"></i> Ask Your Question
             </h2>
             <form id="ask-form" class="mb-6">
                 <div class="mb-4">
-                    <label class="block text-sm font-bold mb-2" for="user-name">Your Name (optional)</label>
-                    <input type="text" id="user-name" class="w-full p-3 border rounded-lg" placeholder="What should we call you?">
+                    <label class="block text-sm font-bold mb-2 dark:text-slate-300" for="user-name">Your Name (optional)</label>
+                    <input type="text" id="user-name" class="w-full p-3 border dark:border-slate-700 dark:bg-slate-800 dark:text-white rounded-lg" placeholder="What should we call you?">
                 </div>
                 <div class="mb-4">
-                    <label class="block text-sm font-bold mb-2" for="question-text">Your Question</label>
-                    <textarea id="question-text" class="w-full p-3 border rounded-lg" rows="3" placeholder="Ask your question about Pidgin..." required></textarea>
+                    <label class="block text-sm font-bold mb-2 dark:text-slate-300" for="question-text">Your Question</label>
+                    <textarea id="question-text" class="w-full p-3 border dark:border-slate-700 dark:bg-slate-800 dark:text-white rounded-lg" rows="3" placeholder="Ask your question about Pidgin..." required></textarea>
                 </div>
 
                 <!-- Simple Math CAPTCHA for Spam Protection -->
-                <div class="mb-4 bg-yellow-50 p-4 rounded-lg border border-yellow-200">
-                    <label class="block text-sm font-bold mb-2" for="captcha-answer">
+                <div class="mb-4 bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg border border-yellow-200 dark:border-yellow-900/50">
+                    <label class="block text-sm font-bold mb-2 dark:text-slate-300" for="captcha-answer">
                         🛡️ Spam Protection: What is <span id="captcha-question"></span>?
                     </label>
                     <div class="flex items-center gap-3 mb-3">
-                        <input type="number" id="captcha-answer" class="w-24 p-2 border rounded text-sm" placeholder="Answer" required>
+                        <input type="number" id="captcha-answer" class="w-24 p-2 border dark:border-slate-700 dark:bg-slate-800 dark:text-white rounded text-sm" placeholder="Answer" required>
                         <div class="flex-1"></div>
-                        <button type="button" id="refresh-captcha" class="text-blue-500 hover:text-blue-700 text-xs whitespace-nowrap">Refresh</button>
-                        <button type="submit" id="submit-question-btn" class="bg-green-500 text-white px-6 py-2 rounded-full hover:bg-green-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed whitespace-nowrap text-sm">
+                        <button type="button" id="refresh-captcha" class="text-blue-500 dark:text-blue-400 hover:text-blue-700 text-xs whitespace-nowrap">Refresh</button>
+                        <button type="submit" id="submit-question-btn" class="bg-green-500 text-white px-6 py-2 rounded-full hover:bg-green-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed whitespace-nowrap text-sm font-bold shadow-md">
                             Submit
                         </button>
                     </div>
@@ -145,42 +143,42 @@
 
     <!-- Suggest Word Section -->
     <div id="suggest-section" class="max-w-4xl mx-auto px-4 py-4 hidden">
-        <div class="bg-gradient-to-br from-white/90 to-purple-50/90 backdrop-blur rounded-lg p-6 shadow-xl border-2 border-purple-200 mb-8">
+        <div class="bg-gradient-to-br from-white/90 to-purple-50/90 dark:from-slate-800 dark:to-slate-900 backdrop-blur rounded-lg p-6 shadow-xl border-2 border-purple-200 dark:border-purple-900/50 mb-8">
             <h2 class="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-500 to-indigo-500 bg-clip-text text-transparent">
                 <i class="ti ti-plus"></i> Suggest a New Word
             </h2>
-            <p class="text-gray-600 mb-6 text-sm">Know one Pidgin word we stay missing? Share 'um below and we go check 'um out!</p>
+            <p class="text-gray-600 dark:text-slate-400 mb-6 text-sm">Know one Pidgin word we stay missing? Share 'um below and we go check 'um out!</p>
             
             <form id="suggest-form" class="mb-6">
                 <div class="grid md:grid-cols-2 gap-4 mb-4">
                     <div>
-                        <label class="block text-sm font-bold mb-2" for="suggest-pidgin">Pidgin Word/Phrase</label>
-                        <input type="text" id="suggest-pidgin" class="w-full p-3 border rounded-lg" placeholder="e.g. 'Aurite'" required>
+                        <label class="block text-sm font-bold mb-2 dark:text-slate-300" for="suggest-pidgin">Pidgin Word/Phrase</label>
+                        <input type="text" id="suggest-pidgin" class="w-full p-3 border dark:border-slate-700 dark:bg-slate-800 dark:text-white rounded-lg" placeholder="e.g. 'Aurite'" required>
                     </div>
                     <div>
-                        <label class="block text-sm font-bold mb-2" for="suggest-english">English Meaning</label>
-                        <input type="text" id="suggest-english" class="w-full p-3 border rounded-lg" placeholder="e.g. 'All right / Cool'" required>
+                        <label class="block text-sm font-bold mb-2 dark:text-slate-300" for="suggest-english">English Meaning</label>
+                        <input type="text" id="suggest-english" class="w-full p-3 border dark:border-slate-700 dark:bg-slate-800 dark:text-white rounded-lg" placeholder="e.g. 'All right / Cool'" required>
                     </div>
                 </div>
                 <div class="mb-4">
-                    <label class="block text-sm font-bold mb-2" for="suggest-example">Example Sentence (optional)</label>
-                    <textarea id="suggest-example" class="w-full p-3 border rounded-lg" rows="2" placeholder="How you use 'um in one sentence?"></textarea>
+                    <label class="block text-sm font-bold mb-2 dark:text-slate-300" for="suggest-example">Example Sentence (optional)</label>
+                    <textarea id="suggest-example" class="w-full p-3 border dark:border-slate-700 dark:bg-slate-800 dark:text-white rounded-lg" rows="2" placeholder="How you use 'um in one sentence?"></textarea>
                 </div>
                 <div class="mb-4">
-                    <label class="block text-sm font-bold mb-2" for="suggest-name">Your Name (optional)</label>
-                    <input type="text" id="suggest-name" class="w-full p-3 border rounded-lg" placeholder="What should we call you?">
+                    <label class="block text-sm font-bold mb-2 dark:text-slate-300" for="suggest-name">Your Name (optional)</label>
+                    <input type="text" id="suggest-name" class="w-full p-3 border dark:border-slate-700 dark:bg-slate-800 dark:text-white rounded-lg" placeholder="What should we call you?">
                 </div>
 
                 <!-- Simple Math CAPTCHA for Suggestions -->
-                <div class="mb-4 bg-yellow-50 p-4 rounded-lg border border-yellow-200">
-                    <label class="block text-sm font-bold mb-2" for="suggest-captcha-answer">
+                <div class="mb-4 bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg border border-yellow-200 dark:border-yellow-900/50">
+                    <label class="block text-sm font-bold mb-2 dark:text-slate-300" for="suggest-captcha-answer">
                         🛡️ Spam Protection: What is <span id="suggest-captcha-question"></span>?
                     </label>
                     <div class="flex items-center gap-3 mb-3">
-                        <input type="number" id="suggest-captcha-answer" class="w-24 p-2 border rounded text-sm" placeholder="Answer" required>
+                        <input type="number" id="suggest-captcha-answer" class="w-24 p-2 border dark:border-slate-700 dark:bg-slate-800 dark:text-white rounded text-sm" placeholder="Answer" required>
                         <div class="flex-1"></div>
-                        <button type="button" id="refresh-suggest-captcha" class="text-blue-500 hover:text-blue-700 text-xs whitespace-nowrap">Refresh</button>
-                        <button type="submit" id="submit-suggestion-btn" class="bg-purple-500 text-white px-6 py-2 rounded-full hover:bg-purple-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed whitespace-nowrap text-sm">
+                        <button type="button" id="refresh-suggest-captcha" class="text-blue-500 dark:text-blue-400 hover:text-blue-700 text-xs whitespace-nowrap">Refresh</button>
+                        <button type="submit" id="submit-suggestion-btn" class="bg-purple-500 text-white px-6 py-2 rounded-full hover:bg-purple-600 transition disabled:bg-gray-400 disabled:cursor-not-allowed whitespace-nowrap text-sm font-bold shadow-md">
                             Submit Suggestion
                         </button>
                     </div>
@@ -192,16 +190,16 @@
     </div>
 
     <!-- Filter Section -->
-    <div class="bg-white/95 backdrop-blur border-b sticky top-16 z-30">
+    <div class="bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b dark:border-slate-800 sticky top-16 z-30">
         <div class="max-w-4xl mx-auto px-4 py-4">
             <div class="flex flex-nowrap gap-2 justify-center">
-                <button class="filter-btn active px-4 py-2 rounded-full border transition bg-blue-500 text-white whitespace-nowrap" data-filter="all">
+                <button class="filter-btn active px-4 py-2 rounded-full border dark:border-slate-700 transition bg-blue-500 text-white whitespace-nowrap font-bold" data-filter="all">
                     All Questions
                 </button>
-                <button class="filter-btn px-4 py-2 rounded-full border transition hover:bg-gray-100 whitespace-nowrap" data-filter="answered">
+                <button class="filter-btn px-4 py-2 rounded-full border dark:border-slate-700 transition hover:bg-gray-100 dark:hover:bg-slate-800 dark:text-slate-300 whitespace-nowrap" data-filter="answered">
                     <i class="ti ti-circle-check"></i> Answered
                 </button>
-                <button class="filter-btn px-4 py-2 rounded-full border transition hover:bg-gray-100 whitespace-nowrap" data-filter="pending">
+                <button class="filter-btn px-4 py-2 rounded-full border dark:border-slate-700 transition hover:bg-gray-100 dark:hover:bg-slate-800 dark:text-slate-300 whitespace-nowrap" data-filter="pending">
                     <i class="ti ti-hourglass"></i> Pending
                 </button>
             </div>
@@ -209,9 +207,9 @@
     </div>
 
     <!-- Search Stats -->
-    <div class="search-stats py-4 px-4">
+    <div class="search-stats py-4 px-4 dark:bg-slate-900/50">
         <div class="max-w-4xl mx-auto">
-            <div id="questions-count" class="text-center text-gray-600">
+            <div id="questions-count" class="text-center text-gray-600 dark:text-slate-400">
                 Loading questions...
             </div>
         </div>

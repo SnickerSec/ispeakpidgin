@@ -144,9 +144,9 @@ class LocalQuiz {
         this.optionsContainer.innerHTML = '';
         question.options.forEach((option, index) => {
             const optionDiv = document.createElement('div');
-            optionDiv.className = 'quiz-option bg-white border-4 border-gray-300 rounded-2xl p-6 text-center';
+            optionDiv.className = 'quiz-option bg-white dark:bg-slate-800 border-4 border-gray-300 dark:border-slate-700 rounded-2xl p-6 text-center';
             optionDiv.innerHTML = `
-                <p class="text-lg font-bold text-gray-800">${escapeHtml(option.text)}</p>
+                <p class="text-lg font-bold text-gray-800 dark:text-white">${escapeHtml(option.text)}</p>
             `;
             optionDiv.addEventListener('click', () => this.selectOption(index));
             this.optionsContainer.appendChild(optionDiv);
@@ -193,9 +193,11 @@ class LocalQuiz {
         this.feedbackContainer.classList.remove('hidden');
 
         if (selectedOption.points >= 8) {
-            this.feedbackContainer.className = 'mt-6 p-4 rounded-lg bg-green-100 border-l-4 border-green-500';
+            this.feedbackContainer.className = 'mt-6 p-4 rounded-lg bg-green-100 dark:bg-green-900/30 border-l-4 border-green-500 dark:border-green-600';
+            this.feedbackText.className = 'text-lg font-semibold text-green-800 dark:text-green-300';
         } else {
-            this.feedbackContainer.className = 'mt-6 p-4 rounded-lg bg-red-100 border-l-4 border-red-500';
+            this.feedbackContainer.className = 'mt-6 p-4 rounded-lg bg-red-100 dark:bg-red-900/30 border-l-4 border-red-500 dark:border-red-600';
+            this.feedbackText.className = 'text-lg font-semibold text-red-800 dark:text-red-300';
         }
 
         // Show next button after a delay
@@ -232,7 +234,7 @@ class LocalQuiz {
         this.resultTips.innerHTML = '';
         result.tips.forEach(tip => {
             const li = document.createElement('li');
-            li.className = 'text-gray-700';
+            li.className = 'text-gray-700 dark:text-slate-300';
             li.textContent = `• ${tip}`;
             this.resultTips.appendChild(li);
         });

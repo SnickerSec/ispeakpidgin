@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const renderAZ = () => {
         const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
         const html = ['all', ...alphabet].map(letter => `
-            <button class="letter-btn ${currentLetter === letter.toLowerCase() ? 'active' : ''} w-10 h-10 rounded-lg border border-gray-300 flex items-center justify-center font-bold hover:border-blue-500 transition" 
+            <button class="letter-btn ${currentLetter === letter.toLowerCase() ? 'active' : ''} w-10 h-10 rounded-lg border border-gray-300 dark:border-slate-700 flex items-center justify-center font-bold hover:border-blue-500 transition dark:text-slate-300 dark:bg-slate-800" 
                     data-letter="${letter.toLowerCase()}">
                 ${letter.toUpperCase()}
             </button>
@@ -95,21 +95,21 @@ document.addEventListener('DOMContentLoaded', () => {
         noResults.classList.add('hidden');
         
         grid.innerHTML = filtered.map(item => `
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition group">
+            <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-md transition group">
                 <div class="flex justify-between items-start mb-2">
-                    <span class="text-xs font-bold text-blue-500 uppercase tracking-widest">${escapeHtml(item.category || 'general')}</span>
+                    <span class="text-xs font-bold text-blue-500 dark:text-blue-400 uppercase tracking-widest">${escapeHtml(item.category || 'general')}</span>
                 </div>
-                <h3 class="text-lg font-bold text-gray-400 mb-1">English: <span class="text-gray-900">${escapeHtml(item.english)}</span></h3>
-                <div class="text-2xl font-black text-blue-600 mb-3">
-                    <span class="text-gray-400 text-sm font-normal">Pidgin:</span> ${escapeHtml(item.pidgin)}
+                <h3 class="text-lg font-bold text-gray-400 dark:text-gray-500 mb-1">English: <span class="text-gray-900 dark:text-slate-100">${escapeHtml(item.english)}</span></h3>
+                <div class="text-2xl font-black text-blue-600 dark:text-blue-400 mb-3">
+                    <span class="text-gray-400 dark:text-gray-500 text-sm font-normal">Pidgin:</span> ${escapeHtml(item.pidgin)}
                 </div>
                 ${item.example ? `
-                    <div class="bg-blue-50 p-3 rounded-lg border border-blue-100 italic text-sm text-blue-800">
+                    <div class="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg border border-blue-100 dark:border-blue-800/50 italic text-sm text-blue-800 dark:text-blue-300">
                         "${escapeHtml(item.example)}"
                     </div>
                 ` : ''}
                 <div class="mt-4 flex justify-end">
-                    <a href="/word/${slugify(item.pidgin)}.html" class="text-xs font-bold text-gray-400 hover:text-blue-600 transition flex items-center gap-1">
+                    <a href="/word/${slugify(item.pidgin)}.html" class="text-xs font-bold text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition flex items-center gap-1">
                         VIEW DETAILS <i class="ti ti-arrow-right"></i>
                     </a>
                 </div>

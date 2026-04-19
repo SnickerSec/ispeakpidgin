@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@config "../../tailwind.config.js";
 
 /* Content sources for purging unused classes */
 @source "../pages/**/*.html";

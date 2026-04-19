@@ -82,7 +82,7 @@
 
         .pickup-card:hover {
             transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
         .pickup-card:hover::before {
@@ -113,45 +113,81 @@
             background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
             border: 2px solid #f9a8d4;
         }
+        .dark .card-pink {
+            background: linear-gradient(135deg, #831843 0%, #701a75 100%);
+            border-color: #9d174d;
+        }
 
         .card-red {
             background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
             border: 2px solid #fca5a5;
+        }
+        .dark .card-red {
+            background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
+            border-color: #b91c1c;
         }
 
         .card-orange {
             background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%);
             border: 2px solid #fdba74;
         }
+        .dark .card-orange {
+            background: linear-gradient(135deg, #7c2d12 0%, #9a3412 100%);
+            border-color: #c2410c;
+        }
 
         .card-purple {
             background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
             border: 2px solid #d8b4fe;
+        }
+        .dark .card-purple {
+            background: linear-gradient(135deg, #4c1d95 0%, #581c87 100%);
+            border-color: #6d28d9;
         }
 
         .card-green {
             background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
             border: 2px solid #6ee7b7;
         }
+        .dark .card-green {
+            background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+            border-color: #047857;
+        }
 
         .card-blue {
             background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
             border: 2px solid #93c5fd;
+        }
+        .dark .card-blue {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            border-color: #1d4ed8;
         }
 
         .card-teal {
             background: linear-gradient(135deg, #ccfbf1 0%, #99f6e4 100%);
             border: 2px solid #5eead4;
         }
+        .dark .card-teal {
+            background: linear-gradient(135deg, #134e4a 0%, #115e59 100%);
+            border-color: #0f766e;
+        }
 
         .card-indigo {
             background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
             border: 2px solid #a5b4fc;
         }
+        .dark .card-indigo {
+            background: linear-gradient(135deg, #312e81 0%, #3730a3 100%);
+            border-color: #4338ca;
+        }
 
         .card-yellow {
             background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
             border: 2px solid #fcd34d;
+        }
+        .dark .card-yellow {
+            background: linear-gradient(135deg, #713f12 0%, #854d0e 100%);
+            border-color: #a16207;
         }
 
         .shuffle-btn {
@@ -180,11 +216,11 @@
     </style>
 </head>
 
-<body class="min-h-screen bg-gradient-to-b from-pink-50 via-purple-50 to-blue-50">
+<body class="min-h-screen bg-gradient-to-b from-pink-50 via-purple-50 to-blue-50 dark:from-slate-900 dark:via-indigo-950 dark:to-slate-900 transition-colors duration-300">
     <!-- NAVIGATION_PLACEHOLDER -->
 
     <!-- Header -->
-    <header class="py-12 px-4 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 text-white relative overflow-hidden">
+    <header class="py-12 px-4 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 dark:from-pink-900 dark:via-purple-900 dark:to-blue-900 text-white relative overflow-hidden">
         <div class="absolute inset-0 opacity-20">
             <div class="absolute top-10 left-10 text-6xl emoji-float"><i class="ti ti-hearts"></i></div>
             <div class="absolute top-20 right-20 text-5xl emoji-float" style="animation-delay: 0.5s"><i class="ti ti-flower"></i></div>
@@ -206,7 +242,7 @@
     </header>
 
     <!-- Controls Section -->
-    <section class="py-6 px-4 bg-white shadow-md sticky top-[73px] z-40">
+    <section class="py-6 px-4 bg-white dark:bg-slate-900 shadow-md sticky top-[73px] z-40 border-b dark:border-slate-800">
         <div class="container mx-auto max-w-6xl">
             <div class="flex gap-2 sm:gap-4 justify-center items-center flex-wrap">
                 <button id="shuffle-btn" class="shuffle-btn px-3 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full text-sm sm:text-base font-semibold hover:from-purple-700 hover:to-pink-700 shadow-lg flex items-center gap-1 sm:gap-2 whitespace-nowrap">
@@ -230,13 +266,13 @@
     </section>
 
     <!-- Fun Disclaimer -->
-    <section class="py-8 px-4 bg-white">
+    <section class="py-8 px-4 bg-white dark:bg-slate-900">
         <div class="container mx-auto max-w-4xl text-center">
-            <div class="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-2xl p-6 border-2 border-yellow-300">
-                <h3 class="text-2xl font-bold text-gray-800 mb-3">
+            <div class="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/30 dark:to-orange-900/30 rounded-2xl p-6 border-2 border-yellow-300 dark:border-yellow-700">
+                <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-3">
                     😄 Important Note
                 </h3>
-                <p class="text-gray-700 text-lg">
+                <p class="text-gray-700 dark:text-slate-300 text-lg">
                     These pickup lines are for <strong>fun and cultural learning</strong>! Use with aloha spirit, respect, and a good sense of humor.
                     Results may vary, but at the very least, you'll make someone smile. <i class="ti ti-hand-love-you"></i>
                 </p>

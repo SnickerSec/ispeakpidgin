@@ -178,7 +178,7 @@
         }
 
         .search-stats {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(15, 23, 42, 0.9);
             backdrop-filter: blur(10px);
         }
     </style>
@@ -202,11 +202,11 @@
     </script>
 </head>
 
-<body class="min-h-screen">
+<body class="min-h-screen bg-gray-50 dark:bg-slate-900 transition-colors duration-300">
     <!-- NAVIGATION_PLACEHOLDER -->
 
     <!-- Header -->
-    <div class="dictionary-search-container py-6 md:py-16 px-4 relative overflow-hidden">
+    <div class="dictionary-search-container py-6 md:py-16 px-4 relative overflow-hidden dark:bg-slate-900">
         <!-- Background decoration -->
         <div class="absolute inset-0 opacity-10">
             <div class="absolute top-10 left-10 text-6xl"><i class="ti ti-books"></i></div>
@@ -222,13 +222,13 @@
             </h1>
 
             <!-- Search Bar -->
-            <div class="bg-white/20 backdrop-blur rounded-2xl p-6">
+            <div class="bg-white/20 dark:bg-slate-800/40 backdrop-blur rounded-2xl p-6 border border-white/10">
                 <div class="flex gap-2 sm:gap-3 mb-4">
                     <input
                         type="text"
                         id="dictionary-search"
                         placeholder="Search for any pidgin word or English meaning..."
-                        class="flex-1 p-3 sm:p-4 rounded-xl border-2 border-white/30 bg-white/90 backdrop-blur text-gray-800 placeholder-gray-600 focus:outline-none focus:border-yellow-400 transition text-sm sm:text-base"
+                        class="flex-1 p-3 sm:p-4 rounded-xl border-2 border-white/30 dark:border-slate-700 bg-white/90 dark:bg-slate-800 text-gray-800 dark:text-white placeholder-gray-600 dark:placeholder-slate-400 focus:outline-none focus:border-yellow-400 transition text-sm sm:text-base"
                     >
                     <button id="dictionary-search-btn" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold transition shadow-lg text-sm sm:text-base">
                         <i class="ti ti-search"></i> Search
@@ -238,66 +238,66 @@
                 <!-- Quick Search Suggestions -->
                 <div class="flex flex-wrap gap-1 sm:gap-2 justify-center items-center">
                     <span class="text-white/80 text-xs sm:text-sm">Quick search:</span>
-                    <button class="quick-search bg-white/20 hover:bg-white/30 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm transition" data-word="howzit">howzit</button>
-                    <button class="quick-search bg-white/20 hover:bg-white/30 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm transition" data-word="brah">brah</button>
-                    <button class="quick-search bg-white/20 hover:bg-white/30 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm transition" data-word="grinds">grinds</button>
-                    <button class="quick-search bg-white/20 hover:bg-white/30 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm transition" data-word="shoots">shoots</button>
-                    <button class="quick-search bg-white/20 hover:bg-white/30 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm transition" data-word="pau">pau</button>
+                    <button class="quick-search bg-white/20 dark:bg-slate-700/40 hover:bg-white/30 dark:hover:bg-slate-700/60 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm transition" data-word="howzit">howzit</button>
+                    <button class="quick-search bg-white/20 dark:bg-slate-700/40 hover:bg-white/30 dark:hover:bg-slate-700/60 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm transition" data-word="brah">brah</button>
+                    <button class="quick-search bg-white/20 dark:bg-slate-700/40 hover:bg-white/30 dark:hover:bg-slate-700/60 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm transition" data-word="grinds">grinds</button>
+                    <button class="quick-search bg-white/20 dark:bg-slate-700/40 hover:bg-white/30 dark:hover:bg-slate-700/60 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm transition" data-word="shoots">shoots</button>
+                    <button class="quick-search bg-white/20 dark:bg-slate-700/40 hover:bg-white/30 dark:hover:bg-slate-700/60 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm transition" data-word="pau">pau</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Filter Section -->
-    <div class="bg-white/95 backdrop-blur border-b">
+    <div class="bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b dark:border-slate-800">
         <div class="max-w-7xl mx-auto px-4 py-4">
             <div class="flex flex-col gap-4">
                 <!-- Categories -->
                 <div>
                     <div class="flex flex-nowrap md:flex-wrap gap-2 md:justify-center overflow-x-auto md:overflow-visible pb-2 scrollbar-hide">
-                        <button class="dict-category category-filter active px-4 py-2 text-sm rounded-full border transition whitespace-nowrap flex-shrink-0" data-category="all">
+                        <button class="dict-category category-filter active px-4 py-2 text-sm rounded-full border dark:border-slate-700 transition whitespace-nowrap flex-shrink-0" data-category="all">
                             All Categories
                         </button>
-                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border transition whitespace-nowrap flex-shrink-0" data-category="favorites">
+                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border dark:border-slate-700 transition whitespace-nowrap flex-shrink-0 dark:text-slate-300 dark:hover:bg-slate-800" data-category="favorites">
                             <i class="ti ti-heart-filled text-red-500"></i> Saved Words
                         </button>
-                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border transition whitespace-nowrap flex-shrink-0" data-category="greetings">
+                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border dark:border-slate-700 transition whitespace-nowrap flex-shrink-0 dark:text-slate-300 dark:hover:bg-slate-800" data-category="greetings">
                             🙋‍♂️ Greetings
                         </button>
-                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border transition whitespace-nowrap flex-shrink-0" data-category="food">
-                            <i class="ti ti-tools-kitchen-2"></i> Food
+                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border dark:border-slate-700 transition whitespace-nowrap flex-shrink-0 dark:text-slate-300 dark:hover:bg-slate-800" data-category="food">
+                            <i class="ti ti-tools-kitchen-2 text-orange-500"></i> Food
                         </button>
-                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border transition whitespace-nowrap flex-shrink-0" data-category="expressions">
-                            <i class="ti ti-message"></i> Expressions
+                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border dark:border-slate-700 transition whitespace-nowrap flex-shrink-0 dark:text-slate-300 dark:hover:bg-slate-800" data-category="expressions">
+                            <i class="ti ti-message text-blue-500"></i> Expressions
                         </button>
-                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border transition whitespace-nowrap flex-shrink-0" data-category="slang">
-                            <i class="ti ti-hand-love-you"></i> Slang
+                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border dark:border-slate-700 transition whitespace-nowrap flex-shrink-0 dark:text-slate-300 dark:hover:bg-slate-800" data-category="slang">
+                            <i class="ti ti-hand-love-you text-purple-500"></i> Slang
                         </button>
-                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border transition whitespace-nowrap flex-shrink-0" data-category="emotions">
-                            <i class="ti ti-mood-smile"></i> Emotions
+                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border dark:border-slate-700 transition whitespace-nowrap flex-shrink-0 dark:text-slate-300 dark:hover:bg-slate-800" data-category="emotions">
+                            <i class="ti ti-mood-smile text-yellow-500"></i> Emotions
                         </button>
-                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border transition whitespace-nowrap flex-shrink-0" data-category="directions">
+                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border dark:border-slate-700 transition whitespace-nowrap flex-shrink-0 dark:text-slate-300 dark:hover:bg-slate-800" data-category="directions">
                             🧭 Directions
                         </button>
-                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border transition whitespace-nowrap flex-shrink-0" data-category="nature">
-                            <i class="ti ti-leaf"></i> Nature
+                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border dark:border-slate-700 transition whitespace-nowrap flex-shrink-0 dark:text-slate-300 dark:hover:bg-slate-800" data-category="nature">
+                            <i class="ti ti-leaf text-green-500"></i> Nature
                         </button>
-                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border transition whitespace-nowrap flex-shrink-0" data-category="cultural">
-                            <i class="ti ti-beach"></i> Cultural
+                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border dark:border-slate-700 transition whitespace-nowrap flex-shrink-0 dark:text-slate-300 dark:hover:bg-slate-800" data-category="cultural">
+                            <i class="ti ti-beach text-cyan-500"></i> Cultural
                         </button>
-                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border transition whitespace-nowrap flex-shrink-0" data-category="people">
-                            <i class="ti ti-users"></i> People
+                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border dark:border-slate-700 transition whitespace-nowrap flex-shrink-0 dark:text-slate-300 dark:hover:bg-slate-800" data-category="people">
+                            <i class="ti ti-users text-indigo-500"></i> People
                         </button>
-                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border transition whitespace-nowrap flex-shrink-0" data-category="descriptions">
-                            <i class="ti ti-note"></i> Descriptions
+                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border dark:border-slate-700 transition whitespace-nowrap flex-shrink-0 dark:text-slate-300 dark:hover:bg-slate-800" data-category="descriptions">
+                            <i class="ti ti-note text-slate-500"></i> Descriptions
                         </button>
-                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border transition whitespace-nowrap flex-shrink-0" data-category="actions">
-                            🏃 Actions
+                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border dark:border-slate-700 transition whitespace-nowrap flex-shrink-0 dark:text-slate-300 dark:hover:bg-slate-800" data-category="actions">
+                            跑 Actions
                         </button>
-                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border transition whitespace-nowrap flex-shrink-0" data-category="animals">
+                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border dark:border-slate-700 transition whitespace-nowrap flex-shrink-0 dark:text-slate-300 dark:hover:bg-slate-800" data-category="animals">
                             🐾 Animals
                         </button>
-                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border transition whitespace-nowrap flex-shrink-0" data-category="family">
+                        <button class="dict-category category-filter px-4 py-2 text-sm rounded-full border dark:border-slate-700 transition whitespace-nowrap flex-shrink-0 dark:text-slate-300 dark:hover:bg-slate-800" data-category="family">
                             🏠 Family
                         </button>
                     </div>
@@ -312,9 +312,9 @@
     </div>
 
     <!-- Search Stats -->
-    <div class="search-stats py-4 px-4">
+    <div class="search-stats py-4 px-4 dark:bg-slate-900/50">
         <div class="max-w-7xl mx-auto">
-            <div id="search-results-count" class="text-center text-gray-600">
+            <div id="search-results-count" class="text-center text-gray-600 dark:text-slate-400">
                 Loading dictionary...
             </div>
         </div>
@@ -328,17 +328,17 @@
 
         <!-- Loading State -->
         <div id="loading-state" class="text-center py-12">
-            <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
-            <p class="mt-4 text-gray-600">Loading dictionary entries...</p>
+            <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 dark:border-purple-400"></div>
+            <p class="mt-4 text-gray-600 dark:text-slate-400">Loading dictionary entries...</p>
         </div>
 
         <!-- No Results State -->
         <div id="no-results" class="hidden text-center py-12">
-            <div class="text-6xl mb-4"><i class="ti ti-mood-puzzled"></i></div>
-            <h3 class="text-2xl font-bold text-gray-800 mb-2">No matches found</h3>
-            <p class="text-gray-600 mb-6">Try a different search term or browse by category.</p>
+            <div class="text-6xl mb-4"><i class="ti ti-mood-puzzled dark:text-slate-500"></i></div>
+            <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">No matches found</h3>
+            <p class="text-gray-600 dark:text-slate-400 mb-6">Try a different search term or browse by category.</p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <button id="show-all-btn" class="bg-gray-200 text-gray-800 px-6 py-3 rounded-full hover:bg-gray-300 transition">
+                <button id="show-all-btn" class="bg-gray-200 dark:bg-slate-800 text-gray-800 dark:text-white px-6 py-3 rounded-full hover:bg-gray-300 dark:hover:bg-slate-700 transition">
                     Show All Words
                 </button>
                 <a href="ask-local.html?tab=suggest" class="bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 transition shadow-lg">
@@ -348,8 +348,8 @@
         </div>
 
         <!-- Quiz Promotion CTA -->
-        <div class="mt-12 bg-gradient-to-br from-yellow-100 to-orange-100 rounded-3xl p-8 md:p-12 border-2 border-yellow-200 shadow-xl max-w-4xl mx-auto relative overflow-hidden group">
-            <div class="absolute -right-10 -bottom-10 text-9xl text-yellow-500/10 rotate-12 group-hover:scale-110 transition-transform duration-500">
+        <div class="mt-12 bg-gradient-to-br from-yellow-100 to-orange-100 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 md:p-12 border-2 border-yellow-200 dark:border-slate-700 shadow-xl max-w-4xl mx-auto relative overflow-hidden group">
+            <div class="absolute -right-10 -bottom-10 text-9xl text-yellow-500/10 dark:text-yellow-500/5 rotate-12 group-hover:scale-110 transition-transform duration-500">
                 <i class="ti ti-target"></i>
             </div>
             <div class="relative z-10 flex flex-col md:flex-row items-center gap-8">
@@ -357,8 +357,8 @@
                     <i class="ti ti-mood-check text-orange-500"></i>
                 </div>
                 <div class="text-center md:text-left">
-                    <h3 class="text-2xl md:text-3xl font-black text-gray-800 mb-2">Think you know Pidgin?</h3>
-                    <p class="text-lg text-gray-700 mb-6 font-medium">Test your skills with our "How Local You Stay?" quiz and see if you one real kamaʻāina!</p>
+                    <h3 class="text-2xl md:text-3xl font-black text-gray-800 dark:text-white mb-2">Think you know Pidgin?</h3>
+                    <p class="text-lg text-gray-700 dark:text-slate-300 mb-6 font-medium">Test your skills with our "How Local You Stay?" quiz and see if you one real kamaʻāina!</p>
                     <a href="how-local-you-stay.html" class="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-red-500 text-white px-8 py-4 rounded-2xl font-black text-lg hover:scale-105 transition-transform shadow-lg">
                         <i class="ti ti-rocket"></i> Take the Quiz &rarr;
                     </a>
@@ -367,10 +367,10 @@
         </div>
 
         <!-- Suggestion CTA -->
-        <div class="mt-8 text-center border-t border-gray-100 pt-8">
-            <div class="bg-purple-50 rounded-2xl p-6 md:p-8 max-w-2xl mx-auto inline-block border-2 border-purple-100">
-                <h3 class="text-xl font-bold text-purple-900 mb-2">Missing a word, brah?</h3>
-                <p class="text-purple-700 mb-4">Our dictionary stay always growing! If you know one word we no more, share 'um wit us.</p>
+        <div class="mt-8 text-center border-t border-gray-100 dark:border-slate-800 pt-8">
+            <div class="bg-purple-50 dark:bg-slate-800/50 rounded-2xl p-6 md:p-8 max-w-2xl mx-auto inline-block border-2 border-purple-100 dark:border-slate-700">
+                <h3 class="text-xl font-bold text-purple-900 dark:text-purple-400 mb-2">Missing a word, brah?</h3>
+                <p class="text-purple-700 dark:text-slate-300 mb-4">Our dictionary stay always growing! If you know one word we no more, share 'um wit us.</p>
                 <a href="ask-local.html?tab=suggest" class="inline-flex items-center gap-2 bg-purple-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-purple-700 transition transform hover:scale-105 shadow-md">
                     <i class="ti ti-plus"></i> Suggest a New Word
                 </a>
@@ -385,89 +385,89 @@
 
     <!-- Featured Word Deep Dives -->
     <div class="container mx-auto px-4 pb-8">
-        <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8">
-            <h2 class="text-2xl font-bold text-gray-800 mb-2 text-center">Popular Word Deep Dives</h2>
-            <p class="text-gray-600 text-center mb-6">Learn the complete meaning, history, and usage of Hawaii's most searched words</p>
+        <div class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-slate-800/50 dark:to-slate-900/50 rounded-2xl p-8 border dark:border-slate-800">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-2 text-center">Popular Word Deep Dives</h2>
+            <p class="text-gray-600 dark:text-slate-400 text-center mb-6">Learn the complete meaning, history, and usage of Hawaii's most searched words</p>
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
-                <a href="what-does-aloha-mean.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105">
-                    <h3 class="font-bold text-purple-700">Aloha</h3>
-                    <p class="text-xs text-gray-500">Love, hello, goodbye</p>
+                <a href="what-does-aloha-mean.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105 border dark:border-slate-700">
+                    <h3 class="font-bold text-purple-700 dark:text-purple-400">Aloha</h3>
+                    <p class="text-xs text-gray-500 dark:text-slate-500">Love, hello, goodbye</p>
                 </a>
-                <a href="what-does-mahalo-mean.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105">
-                    <h3 class="font-bold text-purple-700">Mahalo</h3>
-                    <p class="text-xs text-gray-500">Thank you</p>
+                <a href="what-does-mahalo-mean.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105 border dark:border-slate-700">
+                    <h3 class="font-bold text-purple-700 dark:text-purple-400">Mahalo</h3>
+                    <p class="text-xs text-gray-500 dark:text-slate-500">Thank you</p>
                 </a>
-                <a href="what-does-ohana-mean.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105">
-                    <h3 class="font-bold text-purple-700">Ohana</h3>
-                    <p class="text-xs text-gray-500">Family</p>
+                <a href="what-does-ohana-mean.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105 border dark:border-slate-700">
+                    <h3 class="font-bold text-purple-700 dark:text-purple-400">Ohana</h3>
+                    <p class="text-xs text-gray-500 dark:text-slate-500">Family</p>
                 </a>
-                <a href="what-does-howzit-mean.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105">
-                    <h3 class="font-bold text-purple-700">Howzit</h3>
-                    <p class="text-xs text-gray-500">How's it going?</p>
+                <a href="what-does-howzit-mean.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105 border dark:border-slate-700">
+                    <h3 class="font-bold text-purple-700 dark:text-purple-400">Howzit</h3>
+                    <p class="text-xs text-gray-500 dark:text-slate-500">How's it going?</p>
                 </a>
-                <a href="what-does-da-kine-mean.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105">
-                    <h3 class="font-bold text-purple-700">Da Kine</h3>
-                    <p class="text-xs text-gray-500">The thing</p>
+                <a href="what-does-da-kine-mean.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105 border dark:border-slate-700">
+                    <h3 class="font-bold text-purple-700 dark:text-purple-400">Da Kine</h3>
+                    <p class="text-xs text-gray-500 dark:text-slate-500">The thing</p>
                 </a>
-                <a href="what-does-shaka-mean.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105">
-                    <h3 class="font-bold text-purple-700">Shaka</h3>
-                    <p class="text-xs text-gray-500">Hang loose</p>
+                <a href="what-does-shaka-mean.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105 border dark:border-slate-700">
+                    <h3 class="font-bold text-purple-700 dark:text-purple-400">Shaka</h3>
+                    <p class="text-xs text-gray-500 dark:text-slate-500">Hang loose</p>
                 </a>
-                <a href="what-does-pau-hana-mean.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105">
-                    <h3 class="font-bold text-purple-700">Pau Hana</h3>
-                    <p class="text-xs text-gray-500">After work</p>
+                <a href="what-does-pau-hana-mean.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105 border dark:border-slate-700">
+                    <h3 class="font-bold text-purple-700 dark:text-purple-400">Pau Hana</h3>
+                    <p class="text-xs text-gray-500 dark:text-slate-500">After work</p>
                 </a>
-                <a href="what-does-kamaaina-mean.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105">
-                    <h3 class="font-bold text-purple-700">Kamaaina</h3>
-                    <p class="text-xs text-gray-500">Local resident</p>
+                <a href="what-does-kamaaina-mean.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105 border dark:border-slate-700">
+                    <h3 class="font-bold text-purple-700 dark:text-purple-400">Kamaaina</h3>
+                    <p class="text-xs text-gray-500 dark:text-slate-500">Local resident</p>
                 </a>
-                <a href="what-does-haole-mean.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105">
-                    <h3 class="font-bold text-purple-700">Haole</h3>
-                    <p class="text-xs text-gray-500">Non-local</p>
+                <a href="what-does-haole-mean.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105 border dark:border-slate-700">
+                    <h3 class="font-bold text-purple-700 dark:text-purple-400">Haole</h3>
+                    <p class="text-xs text-gray-500 dark:text-slate-500">Non-local</p>
                 </a>
-                <a href="what-does-wahine-mean.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105">
-                    <h3 class="font-bold text-purple-700">Wahine</h3>
-                    <p class="text-xs text-gray-500">Woman</p>
+                <a href="what-does-wahine-mean.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105 border dark:border-slate-700">
+                    <h3 class="font-bold text-purple-700 dark:text-purple-400">Wahine</h3>
+                    <p class="text-xs text-gray-500 dark:text-slate-500">Woman</p>
                 </a>
-                <a href="what-does-keiki-mean.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105">
-                    <h3 class="font-bold text-purple-700">Keiki</h3>
-                    <p class="text-xs text-gray-500">Child</p>
+                <a href="what-does-keiki-mean.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105 border dark:border-slate-700">
+                    <h3 class="font-bold text-purple-700 dark:text-purple-400">Keiki</h3>
+                    <p class="text-xs text-gray-500 dark:text-slate-500">Child</p>
                 </a>
-                <a href="what-does-mauka-makai-mean.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105">
-                    <h3 class="font-bold text-purple-700">Mauka/Makai</h3>
-                    <p class="text-xs text-gray-500">Mountain/Ocean</p>
+                <a href="what-does-mauka-makai-mean.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105 border dark:border-slate-700">
+                    <h3 class="font-bold text-purple-700 dark:text-purple-400">Mauka/Makai</h3>
+                    <p class="text-xs text-gray-500 dark:text-slate-500">Mountain/Ocean</p>
                 </a>
-                <a href="what-does-grindz-mean.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105">
-                    <h3 class="font-bold text-purple-700">Grindz</h3>
-                    <p class="text-xs text-gray-500">Food</p>
+                <a href="what-does-grindz-mean.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105 border dark:border-slate-700">
+                    <h3 class="font-bold text-purple-700 dark:text-purple-400">Grindz</h3>
+                    <p class="text-xs text-gray-500 dark:text-slate-500">Food</p>
                 </a>
-                <a href="what-does-ono-mean.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105">
-                    <h3 class="font-bold text-purple-700">Ono</h3>
-                    <p class="text-xs text-gray-500">Delicious</p>
+                <a href="what-does-ono-mean.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105 border dark:border-slate-700">
+                    <h3 class="font-bold text-purple-700 dark:text-purple-400">Ono</h3>
+                    <p class="text-xs text-gray-500 dark:text-slate-500">Delicious</p>
                 </a>
-                <a href="what-does-chicken-skin-mean.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105">
-                    <h3 class="font-bold text-purple-700">Chicken Skin</h3>
-                    <p class="text-xs text-gray-500">Goosebumps</p>
+                <a href="what-does-chicken-skin-mean.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105 border dark:border-slate-700">
+                    <h3 class="font-bold text-purple-700 dark:text-purple-400">Chicken Skin</h3>
+                    <p class="text-xs text-gray-500 dark:text-slate-500">Goosebumps</p>
                 </a>
-                <a href="what-does-stink-eye-mean.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105">
-                    <h3 class="font-bold text-purple-700">Stink Eye</h3>
-                    <p class="text-xs text-gray-500">Dirty look</p>
+                <a href="what-does-stink-eye-mean.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105 border dark:border-slate-700">
+                    <h3 class="font-bold text-purple-700 dark:text-purple-400">Stink Eye</h3>
+                    <p class="text-xs text-gray-500 dark:text-slate-500">Dirty look</p>
                 </a>
-                <a href="what-does-brah-mean.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105">
-                    <h3 class="font-bold text-purple-700">Brah</h3>
-                    <p class="text-xs text-gray-500">Brother, friend</p>
+                <a href="what-does-brah-mean.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105 border dark:border-slate-700">
+                    <h3 class="font-bold text-purple-700 dark:text-purple-400">Brah</h3>
+                    <p class="text-xs text-gray-500 dark:text-slate-500">Brother, friend</p>
                 </a>
-                <a href="what-does-shoots-mean.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105">
-                    <h3 class="font-bold text-purple-700">Shoots</h3>
-                    <p class="text-xs text-gray-500">Okay, sure</p>
+                <a href="what-does-shoots-mean.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105 border dark:border-slate-700">
+                    <h3 class="font-bold text-purple-700 dark:text-purple-400">Shoots</h3>
+                    <p class="text-xs text-gray-500 dark:text-slate-500">Okay, sure</p>
                 </a>
-                <a href="what-does-choke-mean.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105">
-                    <h3 class="font-bold text-purple-700">Choke</h3>
-                    <p class="text-xs text-gray-500">A lot, plenty</p>
+                <a href="what-does-choke-mean.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105 border dark:border-slate-700">
+                    <h3 class="font-bold text-purple-700 dark:text-purple-400">Choke</h3>
+                    <p class="text-xs text-gray-500 dark:text-slate-500">A lot, plenty</p>
                 </a>
-                <a href="what-does-broke-da-mouth-mean.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105">
-                    <h3 class="font-bold text-purple-700">Broke Da Mouth</h3>
-                    <p class="text-xs text-gray-500">Delicious</p>
+                <a href="what-does-broke-da-mouth-mean.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition hover:scale-105 border dark:border-slate-700">
+                    <h3 class="font-bold text-purple-700 dark:text-purple-400">Broke Da Mouth</h3>
+                    <p class="text-xs text-gray-500 dark:text-slate-500">Delicious</p>
                 </a>
             </div>
         </div>
@@ -475,28 +475,28 @@
 
     <!-- Related Resources -->
     <div class="container mx-auto px-4 pb-12">
-        <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-8">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">More Ways to Learn</h2>
+        <div class="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-slate-800/50 dark:to-slate-900/50 rounded-2xl p-8 border dark:border-slate-800">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6 text-center">More Ways to Learn</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <a href="translator.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition group">
-                    <div class="text-3xl mb-2 group-hover:scale-110 transition"><i class="ti ti-refresh"></i></div>
-                    <h3 class="font-bold text-gray-800">Translator</h3>
-                    <p class="text-sm text-gray-500">AI-powered</p>
+                <a href="translator.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition group border dark:border-slate-700">
+                    <div class="text-3xl mb-2 group-hover:scale-110 transition dark:text-slate-200"><i class="ti ti-refresh"></i></div>
+                    <h3 class="font-bold text-gray-800 dark:text-white">Translator</h3>
+                    <p class="text-sm text-gray-500 dark:text-slate-400">AI-powered</p>
                 </a>
-                <a href="phrases.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition group">
-                    <div class="text-3xl mb-2 group-hover:scale-110 transition"><i class="ti ti-message"></i></div>
-                    <h3 class="font-bold text-gray-800">Phrases</h3>
-                    <p class="text-sm text-gray-500">100+ expressions</p>
+                <a href="phrases.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition group border dark:border-slate-700">
+                    <div class="text-3xl mb-2 group-hover:scale-110 transition dark:text-slate-200"><i class="ti ti-message"></i></div>
+                    <h3 class="font-bold text-gray-800 dark:text-white">Phrases</h3>
+                    <p class="text-sm text-gray-500 dark:text-slate-400">100+ expressions</p>
                 </a>
-                <a href="games.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition group">
-                    <div class="text-3xl mb-2 group-hover:scale-110 transition"><i class="ti ti-device-gamepad-2"></i></div>
-                    <h3 class="font-bold text-gray-800">Games</h3>
-                    <p class="text-sm text-gray-500">Learn & play</p>
+                <a href="games.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition group border dark:border-slate-700">
+                    <div class="text-3xl mb-2 group-hover:scale-110 transition dark:text-slate-200"><i class="ti ti-device-gamepad-2"></i></div>
+                    <h3 class="font-bold text-gray-800 dark:text-white">Games</h3>
+                    <p class="text-sm text-gray-500 dark:text-slate-400">Learn & play</p>
                 </a>
-                <a href="learning-hub.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition group">
-                    <div class="text-3xl mb-2 group-hover:scale-110 transition"><i class="ti ti-books"></i></div>
-                    <h3 class="font-bold text-gray-800">Lessons</h3>
-                    <p class="text-sm text-gray-500">Structured learning</p>
+                <a href="learning-hub.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition group border dark:border-slate-700">
+                    <div class="text-3xl mb-2 group-hover:scale-110 transition dark:text-slate-200"><i class="ti ti-books"></i></div>
+                    <h3 class="font-bold text-gray-800 dark:text-white">Lessons</h3>
+                    <p class="text-sm text-gray-500 dark:text-slate-400">Structured learning</p>
                 </a>
             </div>
         </div>

@@ -140,6 +140,10 @@
             background: linear-gradient(to bottom, transparent, white);
         }
 
+        .dark .collapsed::after {
+            background: linear-gradient(to bottom, transparent, #0f172a);
+        }
+
         .filter-btn {
             transition: all 0.2s;
         }
@@ -148,15 +152,27 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             transform: scale(1.05);
+            border-color: transparent;
+        }
+        
+        .dark .filter-btn:not(.active) {
+            background-color: #1e293b;
+            border-color: #334155;
+            color: #94a3b8;
+        }
+
+        .dark .filter-btn:not(.active):hover {
+            background-color: #334155;
+            color: #f8fafc;
         }
     </style>
 </head>
 
-<body class="min-h-screen bg-gradient-to-b from-blue-50 to-purple-50">
+<body class="min-h-screen bg-gradient-to-b from-blue-50 to-purple-50 dark:from-slate-900 dark:to-slate-800 transition-colors duration-300">
     <!-- NAVIGATION_PLACEHOLDER -->
 
     <!-- Header -->
-    <header class="py-12 px-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+    <header class="py-12 px-4 bg-gradient-to-r from-purple-600 to-blue-600 dark:from-indigo-900 dark:to-blue-900 text-white">
         <div class="container mx-auto max-w-6xl text-center">
             <h1 class="text-3xl md:text-5xl font-bold mb-4 whitespace-nowrap">
                 <i class="ti ti-palm-tree"></i> Tropical Story Corner <i class="ti ti-books"></i>
@@ -171,31 +187,31 @@
     </header>
 
     <!-- Filter Section -->
-    <section class="py-6 px-4 bg-white shadow-md sticky top-[73px] z-40">
+    <section class="py-6 px-4 bg-white dark:bg-slate-900 shadow-md sticky top-[73px] z-40 border-b dark:border-slate-800">
         <div class="container mx-auto max-w-6xl">
             <div class="flex md:flex-wrap gap-3 md:justify-center items-center overflow-x-auto pb-2 scrollbar-hide">
-                <button class="filter-btn active px-4 py-2 rounded-full border-2 border-gray-300" data-filter="all">
+                <button class="filter-btn active px-4 py-2 rounded-full border-2 border-gray-300 dark:border-transparent" data-filter="all">
                     All Stories
                 </button>
-                <button class="filter-btn px-4 py-2 rounded-full border-2 border-gray-300" data-filter="beginner">
+                <button class="filter-btn px-4 py-2 rounded-full border-2 border-gray-300 dark:border-slate-700" data-filter="beginner">
                     Beginner
                 </button>
-                <button class="filter-btn px-4 py-2 rounded-full border-2 border-gray-300" data-filter="intermediate">
+                <button class="filter-btn px-4 py-2 rounded-full border-2 border-gray-300 dark:border-slate-700" data-filter="intermediate">
                     Intermediate
                 </button>
-                <button class="filter-btn px-4 py-2 rounded-full border-2 border-gray-300" data-filter="advanced">
+                <button class="filter-btn px-4 py-2 rounded-full border-2 border-gray-300 dark:border-slate-700" data-filter="advanced">
                     Advanced
                 </button>
-                <button class="filter-btn px-4 py-2 rounded-full border-2 border-gray-300" data-filter="family">
+                <button class="filter-btn px-4 py-2 rounded-full border-2 border-gray-300 dark:border-slate-700" data-filter="family">
                     🏠 Family
                 </button>
-                <button class="filter-btn px-4 py-2 rounded-full border-2 border-gray-300" data-filter="ocean">
+                <button class="filter-btn px-4 py-2 rounded-full border-2 border-gray-300 dark:border-slate-700" data-filter="ocean">
                     <i class="ti ti-ripple"></i> Ocean
                 </button>
-                <button class="filter-btn px-4 py-2 rounded-full border-2 border-gray-300" data-filter="food">
+                <button class="filter-btn px-4 py-2 rounded-full border-2 border-gray-300 dark:border-slate-700" data-filter="food">
                     <i class="ti ti-tools-kitchen-2"></i> Food
                 </button>
-                <button class="filter-btn px-4 py-2 rounded-full border-2 border-gray-300" data-filter="culture">
+                <button class="filter-btn px-4 py-2 rounded-full border-2 border-gray-300 dark:border-slate-700" data-filter="culture">
                     <i class="ti ti-flower"></i> Culture
                 </button>
             </div>

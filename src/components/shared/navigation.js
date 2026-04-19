@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.documentElement.classList.add('dark');
     // We can also clear the saved theme to avoid confusion if it was 'light'
     localStorage.removeItem('pidgin_theme');
+
     // Quick Search Logic
     const searchBtn = document.getElementById('nav-search-btn');
     const searchOverlay = document.getElementById('search-overlay');

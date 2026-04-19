@@ -435,7 +435,7 @@ class AskLocalPageManager {
 
         container.innerHTML = filteredQuestions.map(q => {
             const hasResponses = q.responses && q.responses.length > 0;
-            const statusClass = hasResponses ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800';
+            const statusClass = hasResponses ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300' : 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
             const statusText = hasResponses ? '<i class="ti ti-circle-check"></i> Answered' : '<i class="ti ti-hourglass"></i> Pending Response';
             const cardClass = hasResponses ? 'answered-card' : 'pending-card';
             const safeId = this.escapeAttr(q.id);
@@ -446,24 +446,24 @@ class AskLocalPageManager {
             const timestamp = q.created_at || q.timestamp;
 
             return `
-                <div class="question-card ${cardClass} bg-white border rounded-lg overflow-hidden shadow-lg">
+                <div class="question-card ${cardClass} bg-white dark:bg-slate-800 border dark:border-slate-700 rounded-lg overflow-hidden shadow-lg">
                     <div class="p-6">
                         <div class="flex justify-between items-start mb-4">
                             <div class="flex-1">
-                                <h3 class="font-bold text-lg text-gray-800 mb-2">${this.escapeHtml(questionText)}</h3>
-                                <div class="flex items-center gap-3 text-sm text-gray-500">
+                                <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">${this.escapeHtml(questionText)}</h3>
+                                <div class="flex items-center gap-3 text-sm text-gray-500 dark:text-slate-400">
                                     <span class="whitespace-nowrap"><i class="ti ti-user"></i> ${this.escapeHtml(userName)}</span>
                                     <span class="whitespace-nowrap">•</span>
                                     <span class="whitespace-nowrap"><i class="ti ti-calendar"></i> ${this.formatDate(timestamp)}</span>
-                                    <span class="${statusClass} px-3 py-1 rounded-full font-medium whitespace-nowrap">${statusText}</span>
+                                    <span class="${statusClass} px-3 py-1 rounded-full font-medium whitespace-nowrap border dark:border-slate-700">${statusText}</span>
                                 </div>
                             </div>
                         </div>
 
                         ${hasResponses ? this.renderResponses(q.responses) : ''}
 
-                        <div class="mt-4 pt-4 border-t border-gray-100">
-                            <button class="respond-btn text-blue-600 hover:text-blue-800 font-medium" data-question-id="${safeId}">
+                        <div class="mt-4 pt-4 border-t border-gray-100 dark:border-slate-700">
+                            <button class="respond-btn text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium" data-question-id="${safeId}">
                                 <i class="ti ti-message"></i> ${hasResponses ? 'Add Another Response' : 'Respond to Question'}
                             </button>
                         </div>
@@ -478,8 +478,8 @@ class AskLocalPageManager {
 
     renderResponses(responses) {
         return `
-            <div class="bg-green-50 rounded-lg p-4 mt-4 border border-green-200">
-                <h4 class="font-semibold text-green-800 mb-3"><i class="ti ti-flower"></i> Local Responses:</h4>
+            <div class="bg-green-50 dark:bg-green-900/10 rounded-lg p-4 mt-4 border border-green-200 dark:border-green-800/50">
+                <h4 class="font-semibold text-green-800 dark:text-green-400 mb-3"><i class="ti ti-flower"></i> Local Responses:</h4>
                 <div class="space-y-3">
                     ${responses.map(r => {
                         const safeResponseId = this.escapeAttr(r.id);
@@ -491,13 +491,13 @@ class AskLocalPageManager {
                         const helpfulCount = parseInt(r.helpful_count || r.helpfulCount, 10) || 0;
 
                         return `
-                        <div class="bg-white p-4 rounded border-l-4 border-green-400">
-                            <p class="text-gray-800 mb-2">${this.escapeHtml(responseText)}</p>
-                            <div class="flex items-center gap-3 text-sm text-gray-500">
+                        <div class="bg-white dark:bg-slate-900 p-4 rounded border-l-4 border-green-400 dark:border-green-600 shadow-sm">
+                            <p class="text-gray-800 dark:text-slate-200 mb-2">${this.escapeHtml(responseText)}</p>
+                            <div class="flex items-center gap-3 text-sm text-gray-500 dark:text-slate-500">
                                 <span class="whitespace-nowrap"><i class="ti ti-user-check"></i> ${this.escapeHtml(responderName)}</span>
                                 <span class="whitespace-nowrap">•</span>
                                 <span class="whitespace-nowrap"><i class="ti ti-calendar"></i> ${this.formatDate(timestamp)}</span>
-                                <button class="helpful-btn text-green-600 hover:text-green-800 ml-2 whitespace-nowrap" data-response-id="${safeResponseId}">
+                                <button class="helpful-btn text-green-600 dark:text-green-500 hover:text-green-800 dark:hover:text-green-400 ml-2 whitespace-nowrap" data-response-id="${safeResponseId}">
                                     <i class="ti ti-thumb-up"></i> Helpful (${helpfulCount})
                                 </button>
                             </div>

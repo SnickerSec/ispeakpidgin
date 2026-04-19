@@ -303,10 +303,10 @@ async function initEssentialPhrases() {
 
     // Create HTML for each phrase
     grid.innerHTML = selectedPhrases.map(phrase => `
-        <div class="phrase-card bg-white rounded-lg p-6 shadow hover:shadow-lg transition">
-            <h3 class="text-xl font-bold text-green-600 mb-2">${phrase.pidgin}</h3>
-            <p class="text-gray-600 mb-2">${phrase.english}</p>
-            <p class="text-sm text-gray-500">${phrase.context || phrase.usage || ''}</p>
+        <div class="phrase-card bg-white dark:bg-slate-800 rounded-lg p-6 shadow hover:shadow-lg transition border dark:border-slate-700">
+            <h3 class="text-xl font-bold text-green-600 dark:text-green-400 mb-2">${phrase.pidgin}</h3>
+            <p class="text-gray-600 dark:text-slate-300 mb-2">${phrase.english}</p>
+            <p class="text-sm text-gray-500 dark:text-slate-500">${phrase.context || phrase.usage || ''}</p>
         </div>
     `).join('');
 }
@@ -621,12 +621,12 @@ function initLearningHub() {
 
     function createLessonCard(lesson) {
         const card = document.createElement('div');
-        card.className = 'bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition cursor-pointer';
+        card.className = 'bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 hover:shadow-xl transition cursor-pointer border dark:border-slate-700';
 
         card.innerHTML = `
             <div class="text-4xl mb-3">${lesson.icon}</div>
-            <h3 class="text-xl font-bold mb-3 text-gray-800">${lesson.title}</h3>
-            <p class="text-gray-600 mb-4">Learn essential ${lesson.title.toLowerCase()} in Pidgin</p>
+            <h3 class="text-xl font-bold mb-3 text-gray-800 dark:text-white">${lesson.title}</h3>
+            <p class="text-gray-600 dark:text-slate-400 mb-4">Learn essential ${lesson.title.toLowerCase()} in Pidgin</p>
             <button class="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition">
                 Start Lesson →
             </button>
@@ -645,40 +645,40 @@ function initLearningHub() {
         modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
 
         const modalContent = document.createElement('div');
-        modalContent.className = 'bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-8';
+        modalContent.className = 'bg-white dark:bg-slate-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto p-8 border dark:border-slate-700';
 
         modalContent.innerHTML = `
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-3xl font-bold text-gray-800">
+                <h2 class="text-3xl font-bold text-gray-800 dark:text-white">
                     <span class="text-4xl mr-3">${lesson.icon}</span>
                     ${lesson.title}
                 </h2>
-                <button class="close-modal text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
+                <button class="close-modal text-gray-500 hover:text-gray-700 dark:text-slate-400 dark:hover:text-white text-3xl">&times;</button>
             </div>
 
             <div class="mb-6">
-                <h3 class="text-xl font-bold mb-4 text-green-600">Vocabulary</h3>
+                <h3 class="text-xl font-bold mb-4 text-green-600 dark:text-green-400">Vocabulary</h3>
                 <div class="space-y-4">
                     ${lesson.content.vocabulary.map(item => `
-                        <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="bg-gray-50 dark:bg-slate-900 rounded-lg p-4 border dark:border-slate-700">
                             <div class="flex justify-between items-start mb-2">
-                                <span class="text-lg font-bold text-gray-800">${item.pidgin}</span>
-                                <span class="text-gray-600">${item.english}</span>
+                                <span class="text-lg font-bold text-gray-800 dark:text-white">${item.pidgin}</span>
+                                <span class="text-gray-600 dark:text-slate-400">${item.english}</span>
                             </div>
-                            <p class="text-gray-700 italic">"${item.example}"</p>
+                            <p class="text-gray-700 dark:text-slate-300 italic">"${item.example}"</p>
                         </div>
                     `).join('')}
                 </div>
             </div>
 
-            <div class="mb-6 bg-blue-50 rounded-lg p-4">
-                <h3 class="text-lg font-bold mb-2 text-blue-800">Cultural Note</h3>
-                <p class="text-gray-700">${lesson.content.culturalNote}</p>
+            <div class="mb-6 bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 border dark:border-blue-800/50">
+                <h3 class="text-lg font-bold mb-2 text-blue-800 dark:text-blue-400">Cultural Note</h3>
+                <p class="text-gray-700 dark:text-slate-300">${lesson.content.culturalNote}</p>
             </div>
 
-            <div class="mb-6 bg-green-50 rounded-lg p-4">
-                <h3 class="text-lg font-bold mb-2 text-green-800">Practice</h3>
-                <p class="text-gray-700">${lesson.content.practice}</p>
+            <div class="mb-6 bg-green-50 dark:bg-green-900/20 rounded-lg p-4 border dark:border-green-800/50">
+                <h3 class="text-lg font-bold mb-2 text-green-800 dark:text-green-400">Practice</h3>
+                <p class="text-gray-700 dark:text-slate-300">${lesson.content.practice}</p>
             </div>
 
             <button class="quiz-btn bg-green-500 text-white px-6 py-3 rounded-full hover:bg-green-600 transition" data-level="${level}" data-lesson-id="${lesson.id}">
@@ -853,11 +853,11 @@ function initLearningHub() {
             const q = questions[currentQuestion];
             quizContent.innerHTML = `
                 <div class="mb-6">
-                    <h3 class="text-xl font-bold mb-2">Question ${currentQuestion + 1} of ${questions.length}</h3>
-                    <p class="text-lg mb-4">${q.question}</p>
+                    <h3 class="text-xl font-bold mb-2 dark:text-white">Question ${currentQuestion + 1} of ${questions.length}</h3>
+                    <p class="text-lg mb-4 dark:text-slate-200">${q.question}</p>
                     <div class="space-y-2">
                         ${q.options.map((option, index) => `
-                            <button class="quiz-option w-full text-left p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition" data-index="${index}">
+                            <button class="quiz-option w-full text-left p-4 bg-gray-50 dark:bg-slate-900 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition border dark:border-slate-700 dark:text-slate-200" data-index="${index}">
                                 ${option}
                             </button>
                         `).join('')}
@@ -1117,36 +1117,36 @@ function showFullStory(storyId) {
     modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
 
     modal.innerHTML = `
-        <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border dark:border-slate-700">
             <!-- Header -->
-            <div class="bg-gradient-to-r from-orange-500 to-red-500 text-white p-8 rounded-t-2xl">
+            <div class="bg-gradient-to-r from-orange-500 to-red-500 dark:from-orange-700 dark:to-red-800 text-white p-8 rounded-t-2xl">
                 <div class="flex justify-between items-start">
                     <div>
                         <span class="text-4xl mb-2 block"><i class="ti ti-book"></i></span>
                         <h2 class="text-3xl font-bold mb-2">${story.title}</h2>
                         <p class="text-orange-100 text-lg">Hawaiian Pidgin Short Story</p>
                     </div>
-                    <button class="close-modal text-white hover:text-orange-200 text-3xl font-bold">×</button>
+                    <button class="close-modal text-white hover:text-orange-200 text-3xl font-bold transition">×</button>
                 </div>
             </div>
 
             <!-- Story Content -->
             <div class="p-8">
                 <div class="prose prose-lg max-w-none">
-                    <div class="text-gray-800 leading-relaxed text-lg whitespace-pre-line">${story.pidginText}</div>
+                    <div class="text-gray-800 dark:text-slate-200 leading-relaxed text-lg whitespace-pre-line">${story.pidginText}</div>
                 </div>
             </div>
 
             <!-- Actions -->
-            <div class="p-8 border-t bg-gray-50 rounded-b-2xl">
+            <div class="p-8 border-t dark:border-slate-700 bg-gray-50 dark:bg-slate-900 rounded-b-2xl">
                 <div class="flex gap-4 justify-center flex-wrap">
-                    <button class="px-8 py-4 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition font-semibold listen-story">
+                    <button class="px-8 py-4 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition font-semibold listen-story shadow-lg">
                         <i class="ti ti-volume"></i> Listen to Story
                     </button>
-                    <button class="px-8 py-4 bg-green-500 text-white rounded-full hover:bg-green-600 transition font-semibold share-story">
+                    <button class="px-8 py-4 bg-green-500 text-white rounded-full hover:bg-green-600 transition font-semibold share-story shadow-lg">
                         <i class="ti ti-share"></i> Share Story
                     </button>
-                    <button class="px-8 py-4 bg-gray-500 text-white rounded-full hover:bg-gray-600 transition font-semibold close-btn">
+                    <button class="px-8 py-4 bg-gray-500 text-white rounded-full hover:bg-gray-600 transition font-semibold close-btn shadow-lg">
                         ✓ Close
                     </button>
                 </div>
@@ -1298,7 +1298,7 @@ async function initStoryCorner() {
     storiesToShow.forEach((story, index) => {
 
         const storyCard = document.createElement('div');
-        storyCard.className = 'bg-white/95 backdrop-blur rounded-lg shadow-lg p-6 transform hover:scale-105 transition-all duration-200 cursor-pointer';
+        storyCard.className = 'bg-white/95 dark:bg-slate-800/95 backdrop-blur rounded-lg shadow-lg p-6 transform hover:scale-105 transition-all duration-200 cursor-pointer border dark:border-slate-700';
         storyCard.dataset.storyId = story.id;
 
         // Create a preview from the pidgin text (first ~100 chars)
@@ -1306,11 +1306,11 @@ async function initStoryCorner() {
 
         storyCard.innerHTML = `
             <div class="mb-4">
-                <span class="text-3xl"><i class="ti ti-book"></i></span>
+                <span class="text-3xl dark:text-orange-400"><i class="ti ti-book"></i></span>
             </div>
-            <h4 class="text-xl font-bold text-gray-800 mb-2">${story.title}</h4>
-            <p class="text-gray-600 italic line-clamp-3">${preview}</p>
-            <button class="mt-4 text-green-600 font-semibold hover:text-green-700 transition">
+            <h4 class="text-xl font-bold text-gray-800 dark:text-white mb-2">${story.title}</h4>
+            <p class="text-gray-600 dark:text-slate-400 italic line-clamp-3">${preview}</p>
+            <button class="mt-4 text-green-600 dark:text-green-400 font-semibold hover:text-green-700 transition">
                 Read Story →
             </button>
         `;
@@ -1354,9 +1354,9 @@ function showStoryModal(story) {
     modal.style.animation = 'fadeIn 0.3s ease';
 
     modal.innerHTML = `
-        <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl" style="animation: slideUp 0.3s ease">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border dark:border-slate-700" style="animation: slideUp 0.3s ease">
             <!-- Header -->
-            <div class="bg-gradient-to-r from-green-500 to-teal-500 text-white p-8 rounded-t-2xl">
+            <div class="bg-gradient-to-r from-green-500 to-teal-500 dark:from-emerald-700 dark:to-teal-800 text-white p-8 rounded-t-2xl">
                 <div class="flex justify-between items-start">
                     <div>
                         <span class="text-4xl mb-2 block"><i class="ti ti-books"></i></span>
@@ -1370,15 +1370,15 @@ function showStoryModal(story) {
             <!-- Story Content -->
             <div class="p-8">
                 <div class="prose prose-lg max-w-none">
-                    <div class="text-gray-800 leading-relaxed text-lg whitespace-pre-line">${storyContent}</div>
+                    <div class="text-gray-800 dark:text-slate-200 leading-relaxed text-lg whitespace-pre-line">${storyContent}</div>
                 </div>
 
                 <!-- Story Actions -->
-                <div class="mt-8 pt-6 border-t flex justify-between items-center">
-                    <button class="speak-story bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition">
+                <div class="mt-8 pt-6 border-t dark:border-slate-700 flex justify-between items-center">
+                    <button class="speak-story bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition shadow-lg">
                         <i class="ti ti-volume"></i> Listen to Story
                     </button>
-                    <button class="close-btn bg-gray-500 text-white px-6 py-2 rounded-full hover:bg-gray-600 transition">
+                    <button class="close-btn bg-gray-500 text-white px-6 py-2 rounded-full hover:bg-gray-600 transition shadow-lg">
                         Close
                     </button>
                 </div>

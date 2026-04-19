@@ -42,24 +42,24 @@
     </style>
     <link rel="stylesheet" href="css/learning-hub.css">
 </head>
-<body class="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
+<body class="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-slate-900 dark:to-slate-800 transition-colors duration-300">
     <!-- NAVIGATION_PLACEHOLDER -->
 
     <!-- Hero Section -->
-    <header class="learning-hero bg-gradient-to-r from-purple-600 to-blue-600 text-white py-16">
+    <header class="learning-hero bg-gradient-to-r from-purple-600 to-blue-600 dark:from-indigo-900 dark:to-slate-900 text-white py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 class="text-4xl md:text-5xl font-bold mb-4">Hawaiian Pidgin Learning Hub</h1>
             <p class="text-xl mb-8">Master da kine from beginner to advanced with structured lessons</p>
             <div class="flex flex-wrap justify-center gap-4">
-                <div class="bg-white/20 backdrop-blur-md rounded-lg px-4 py-2">
+                <div class="bg-white/20 dark:bg-white/10 backdrop-blur-md rounded-lg px-4 py-2 border border-white/10">
                     <span class="text-sm">Your Level:</span>
                     <span class="font-bold ml-2" id="userLevel">Beginner</span>
                 </div>
-                <div class="bg-white/20 backdrop-blur-md rounded-lg px-4 py-2">
+                <div class="bg-white/20 dark:bg-white/10 backdrop-blur-md rounded-lg px-4 py-2 border border-white/10">
                     <span class="text-sm">Progress:</span>
                     <span class="font-bold ml-2" id="overallProgress">0%</span>
                 </div>
-                <div class="bg-white/20 backdrop-blur-md rounded-lg px-4 py-2">
+                <div class="bg-white/20 dark:bg-white/10 backdrop-blur-md rounded-lg px-4 py-2 border border-white/10">
                     <span class="text-sm">Lessons Completed:</span>
                     <span class="font-bold ml-2" id="lessonsCompleted">0/30</span>
                 </div>
@@ -69,15 +69,15 @@
 
     <!-- Progress Overview -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="bg-white rounded-lg shadow-lg p-6">
+        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 border dark:border-slate-700">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-                <h2 class="text-2xl font-bold">Your Island Stats</h2>
+                <h2 class="text-2xl font-bold dark:text-white">Your Island Stats</h2>
                 <div class="flex gap-4">
-                    <div class="bg-orange-100 text-orange-700 px-4 py-2 rounded-xl flex items-center gap-2 font-bold shadow-sm border border-orange-200">
+                    <div class="bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 px-4 py-2 rounded-xl flex items-center gap-2 font-bold shadow-sm border border-orange-200 dark:border-orange-800/50">
                         <i class="ti ti-flame text-xl"></i>
                         <span id="streakCount">0</span> Day Streak
                     </div>
-                    <div class="bg-blue-100 text-blue-700 px-4 py-2 rounded-xl flex items-center gap-2 font-bold shadow-sm border border-blue-200">
+                    <div class="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-4 py-2 rounded-xl flex items-center gap-2 font-bold shadow-sm border border-blue-200 dark:border-blue-800/50">
                         <i class="ti ti-award text-xl"></i>
                         <span id="totalPoints">0</span> Points
                     </div>
@@ -86,24 +86,24 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="text-center">
                     <div class="relative pt-1">
-                        <div class="text-xs text-gray-600 mb-2">Beginner</div>
-                        <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-green-100">
+                        <div class="text-xs text-gray-600 dark:text-slate-400 mb-2">Beginner</div>
+                        <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-green-100 dark:bg-green-900/20">
                             <div id="beginnerProgress" style="width:0%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500 transition-all duration-500"></div>
                         </div>
                     </div>
                 </div>
                 <div class="text-center">
                     <div class="relative pt-1">
-                        <div class="text-xs text-gray-600 mb-2">Intermediate</div>
-                        <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-yellow-100">
+                        <div class="text-xs text-gray-600 dark:text-slate-400 mb-2">Intermediate</div>
+                        <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-yellow-100 dark:bg-yellow-900/20">
                             <div id="intermediateProgress" style="width:0%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-yellow-500 transition-all duration-500"></div>
                         </div>
                     </div>
                 </div>
                 <div class="text-center">
                     <div class="relative pt-1">
-                        <div class="text-xs text-gray-600 mb-2">Advanced</div>
-                        <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-purple-100">
+                        <div class="text-xs text-gray-600 dark:text-slate-400 mb-2">Advanced</div>
+                        <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-purple-100 dark:bg-purple-900/20">
                             <div id="advancedProgress" style="width:0%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-purple-500 transition-all duration-500"></div>
                         </div>
                     </div>
@@ -114,21 +114,21 @@
 
     <!-- Level Tabs -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="bg-white rounded-lg shadow-lg">
+        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg border dark:border-slate-700">
             <!-- Tab Navigation -->
-            <div class="border-b border-gray-200">
+            <div class="border-b border-gray-200 dark:border-slate-700">
                 <nav class="flex -mb-px">
-                    <button class="level-tab active-tab py-4 px-3 md:px-6 text-center border-b-2 border-green-500 font-medium text-green-600 whitespace-nowrap" data-level="beginner">
+                    <button class="level-tab active-tab py-4 px-3 md:px-6 text-center border-b-2 border-green-500 font-medium text-green-600 dark:text-green-400 whitespace-nowrap" data-level="beginner">
                         <span class="block text-base md:text-lg">Beginner</span>
-                        <span class="text-xs text-gray-500 whitespace-nowrap">Start your journey</span>
+                        <span class="text-xs text-gray-500 dark:text-slate-500 whitespace-nowrap">Start your journey</span>
                     </button>
-                    <button class="level-tab py-4 px-3 md:px-6 text-center border-b-2 border-transparent font-medium text-gray-600 hover:text-gray-800 whitespace-nowrap" data-level="intermediate">
+                    <button class="level-tab py-4 px-3 md:px-6 text-center border-b-2 border-transparent font-medium text-gray-600 dark:text-slate-400 hover:text-gray-800 dark:hover:text-slate-200 whitespace-nowrap" data-level="intermediate">
                         <span class="block text-base md:text-lg">Intermediate</span>
-                        <span class="text-xs text-gray-500 whitespace-nowrap">Build your skills</span>
+                        <span class="text-xs text-gray-500 dark:text-slate-500 whitespace-nowrap">Build your skills</span>
                     </button>
-                    <button class="level-tab py-4 px-3 md:px-6 text-center border-b-2 border-transparent font-medium text-gray-600 hover:text-gray-800 whitespace-nowrap" data-level="advanced">
+                    <button class="level-tab py-4 px-3 md:px-6 text-center border-b-2 border-transparent font-medium text-gray-600 dark:text-slate-400 hover:text-gray-800 dark:hover:text-slate-200 whitespace-nowrap" data-level="advanced">
                         <span class="block text-base md:text-lg">Advanced</span>
-                        <span class="text-xs text-gray-500 whitespace-nowrap">Master da kine</span>
+                        <span class="text-xs text-gray-500 dark:text-slate-500 whitespace-nowrap">Master da kine</span>
                     </button>
                 </nav>
             </div>
@@ -137,8 +137,8 @@
             <div class="p-6">
                 <!-- Beginner Lessons -->
                 <div id="beginner-content" class="level-content">
-                    <h3 class="text-2xl font-bold mb-4 text-green-600">Beginner Lessons</h3>
-                    <p class="text-gray-600 mb-6">Start with basic greetings, common phrases, and essential vocabulary</p>
+                    <h3 class="text-2xl font-bold mb-4 text-green-600 dark:text-green-400">Beginner Lessons</h3>
+                    <p class="text-gray-600 dark:text-slate-400 mb-6">Start with basic greetings, common phrases, and essential vocabulary</p>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="beginnerLessons">
                         <!-- Lessons will be loaded here dynamically -->
                     </div>
@@ -146,8 +146,8 @@
 
                 <!-- Intermediate Lessons -->
                 <div id="intermediate-content" class="level-content hidden">
-                    <h3 class="text-2xl font-bold mb-4 text-yellow-600">Intermediate Lessons</h3>
-                    <p class="text-gray-600 mb-6">Expand your vocabulary and learn more complex expressions</p>
+                    <h3 class="text-2xl font-bold mb-4 text-yellow-600 dark:text-yellow-400">Intermediate Lessons</h3>
+                    <p class="text-gray-600 dark:text-slate-400 mb-6">Expand your vocabulary and learn more complex expressions</p>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="intermediateLessons">
                         <!-- Lessons will be loaded here dynamically -->
                     </div>
@@ -155,8 +155,8 @@
 
                 <!-- Advanced Lessons -->
                 <div id="advanced-content" class="level-content hidden">
-                    <h3 class="text-2xl font-bold mb-4 text-purple-600">Advanced Lessons</h3>
-                    <p class="text-gray-600 mb-6">Master cultural context, slang, and nuanced expressions</p>
+                    <h3 class="text-2xl font-bold mb-4 text-purple-600 dark:text-purple-400">Advanced Lessons</h3>
+                    <p class="text-gray-600 dark:text-slate-400 mb-6">Master cultural context, slang, and nuanced expressions</p>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="advancedLessons">
                         <!-- Lessons will be loaded here dynamically -->
                     </div>
@@ -167,25 +167,25 @@
 
     <!-- Interactive Practice Section -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="bg-white rounded-lg shadow-lg p-6">
-            <h2 class="text-2xl font-bold mb-4">Interactive Practice</h2>
+        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 border dark:border-slate-700">
+            <h2 class="text-2xl font-bold mb-4 dark:text-white">Interactive Practice</h2>
             <div id="practiceArea" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-gray-50 rounded-lg p-6 border-2 border-transparent hover:border-purple-200 transition">
+                <div class="bg-gray-50 dark:bg-slate-900 rounded-lg p-6 border-2 border-transparent hover:border-purple-200 dark:hover:border-purple-900 transition">
                     <div class="flex items-center gap-3 mb-2">
-                        <p class="text-gray-600">Today's Challenge:</p>
+                        <p class="text-gray-600 dark:text-slate-400">Today's Challenge:</p>
                     </div>
-                    <p class="text-lg font-semibold mb-6" id="dailyChallenge">Loading...</p>
+                    <p class="text-lg font-semibold mb-6 dark:text-slate-200" id="dailyChallenge">Loading...</p>
                     <button id="startPractice" class="w-full bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition font-bold flex items-center justify-center gap-2">
                         <i class="ti ti-target"></i> Start Level Practice
                     </button>
                 </div>
 
-                <div class="bg-gradient-to-br from-orange-50 to-red-50 rounded-lg p-6 border-2 border-orange-100 hover:border-orange-200 transition">
+                <div class="bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20 rounded-lg p-6 border-2 border-orange-100 dark:border-orange-900/30 hover:border-orange-200 transition">
                     <div class="flex justify-between items-center mb-2">
-                        <p class="text-orange-800 font-medium">Smart SRS Review</p>
+                        <p class="text-orange-800 dark:text-orange-400 font-medium">Smart SRS Review</p>
                         <span id="reviewCount" class="hidden bg-orange-500 text-white text-xs px-2 py-1 rounded-full font-bold animate-pulse">0 words due</span>
                     </div>
-                    <p class="text-sm text-orange-700 mb-6 italic">Practice the words you are most likely to forget based on your history.</p>
+                    <p class="text-sm text-orange-700 dark:text-orange-500 mb-6 italic">Practice the words you are most likely to forget based on your history.</p>
                     <button id="smartReview" class="w-full bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition font-bold flex items-center justify-center gap-2">
                         <i class="ti ti-flame"></i> Start Smart Review
                     </button>
@@ -196,28 +196,28 @@
 
     <!-- Achievement Section -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="bg-white rounded-lg shadow-lg p-6">
-            <h2 class="text-2xl font-bold mb-4">Achievements</h2>
+        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 border dark:border-slate-700">
+            <h2 class="text-2xl font-bold mb-4 dark:text-white">Achievements</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="achievements">
-                <div class="text-center p-4 bg-gray-50 rounded-lg">
-                    <div class="text-3xl mb-2"><i class="ti ti-beach"></i></div>
-                    <div class="text-sm font-semibold">First Steps</div>
-                    <div class="text-xs text-gray-500">Complete first lesson</div>
+                <div class="text-center p-4 bg-gray-50 dark:bg-slate-900 rounded-lg border dark:border-slate-800">
+                    <div class="text-3xl mb-2"><i class="ti ti-beach text-blue-500"></i></div>
+                    <div class="text-sm font-semibold dark:text-slate-200">First Steps</div>
+                    <div class="text-xs text-gray-500 dark:text-slate-500">Complete first lesson</div>
                 </div>
-                <div class="text-center p-4 bg-gray-50 rounded-lg opacity-50">
-                    <div class="text-3xl mb-2"><i class="ti ti-flower"></i></div>
-                    <div class="text-sm font-semibold">Local Speaker</div>
-                    <div class="text-xs text-gray-500">Complete 10 lessons</div>
+                <div class="text-center p-4 bg-gray-50 dark:bg-slate-900 rounded-lg opacity-50 border dark:border-slate-800">
+                    <div class="text-3xl mb-2"><i class="ti ti-flower text-pink-500"></i></div>
+                    <div class="text-sm font-semibold dark:text-slate-200">Local Speaker</div>
+                    <div class="text-xs text-gray-500 dark:text-slate-500">Complete 10 lessons</div>
                 </div>
-                <div class="text-center p-4 bg-gray-50 rounded-lg opacity-50">
-                    <div class="text-3xl mb-2"><i class="ti ti-hand-love-you"></i></div>
-                    <div class="text-sm font-semibold">Da Kine Master</div>
-                    <div class="text-xs text-gray-500">Complete all lessons</div>
+                <div class="text-center p-4 bg-gray-50 dark:bg-slate-900 rounded-lg opacity-50 border dark:border-slate-800">
+                    <div class="text-3xl mb-2"><i class="ti ti-hand-love-you text-orange-500"></i></div>
+                    <div class="text-sm font-semibold dark:text-slate-200">Da Kine Master</div>
+                    <div class="text-xs text-gray-500 dark:text-slate-500">Complete all lessons</div>
                 </div>
-                <div class="text-center p-4 bg-gray-50 rounded-lg opacity-50">
-                    <div class="text-3xl mb-2"><i class="ti ti-trophy"></i></div>
-                    <div class="text-sm font-semibold">Pidgin Pro</div>
-                    <div class="text-xs text-gray-500">Perfect score streak</div>
+                <div class="text-center p-4 bg-gray-50 dark:bg-slate-900 rounded-lg opacity-50 border dark:border-slate-800">
+                    <div class="text-3xl mb-2"><i class="ti ti-trophy text-yellow-500"></i></div>
+                    <div class="text-sm font-semibold dark:text-slate-200">Pidgin Pro</div>
+                    <div class="text-xs text-gray-500 dark:text-slate-500">Perfect score streak</div>
                 </div>
             </div>
         </div>
@@ -225,25 +225,25 @@
 
     <!-- Creole Comparisons -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="bg-white rounded-lg shadow-lg p-6">
-            <h2 class="text-2xl font-bold mb-2">Creole Comparisons</h2>
-            <p class="text-gray-600 mb-6">Explore how Hawaiian Pidgin relates to other unique languages</p>
+        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 border dark:border-slate-700">
+            <h2 class="text-2xl font-bold mb-2 dark:text-white">Creole Comparisons</h2>
+            <p class="text-gray-600 dark:text-slate-400 mb-6">Explore how Hawaiian Pidgin relates to other unique languages</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <a href="pidgin-vs-hawaiian.html" class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-6 border-2 border-transparent hover:border-purple-200 transition group">
+                <a href="pidgin-vs-hawaiian.html" class="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl p-6 border-2 border-transparent hover:border-purple-200 dark:hover:border-purple-800 transition group">
                     <div class="flex items-center gap-4">
                         <div class="text-4xl group-hover:scale-110 transition">🌺</div>
                         <div>
-                            <h3 class="text-xl font-bold text-purple-800">Pidgin vs. Hawaiian</h3>
-                            <p class="text-gray-600 text-sm mt-1">Understanding the difference between the Creole and the Language.</p>
+                            <h3 class="text-xl font-bold text-purple-800 dark:text-purple-400">Pidgin vs. Hawaiian</h3>
+                            <p class="text-gray-600 dark:text-slate-400 text-sm mt-1">Understanding the difference between the Creole and the Language.</p>
                         </div>
                     </div>
                 </a>
-                <a href="pidgin-vs-singlish.html" class="bg-gradient-to-br from-green-50 to-red-50 rounded-2xl p-6 border-2 border-transparent hover:border-red-200 transition group">
+                <a href="pidgin-vs-singlish.html" class="bg-gradient-to-br from-green-50 to-red-50 dark:from-green-900/20 dark:to-red-900/20 rounded-2xl p-6 border-2 border-transparent hover:border-red-200 dark:hover:border-red-800 transition group">
                     <div class="flex items-center gap-4">
                         <div class="text-4xl group-hover:scale-110 transition">🇸🇬</div>
                         <div>
-                            <h3 class="text-xl font-bold text-red-800">Pidgin vs. Singlish</h3>
-                            <p class="text-gray-600 text-sm mt-1">"Can or Wat?" meeting "Can or Not?" — See the parallels.</p>
+                            <h3 class="text-xl font-bold text-red-800 dark:text-red-400">Pidgin vs. Singlish</h3>
+                            <p class="text-gray-600 dark:text-slate-400 text-sm mt-1">"Can or Wat?" meeting "Can or Not?" — See the parallels.</p>
                         </div>
                     </div>
                 </a>
@@ -253,57 +253,57 @@
 
     <!-- Essential Words Quick Reference -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="bg-white rounded-lg shadow-lg p-6">
-            <h2 class="text-2xl font-bold mb-2">Essential Words Quick Reference</h2>
-            <p class="text-gray-600 mb-6">Deep dive into Hawaii's most important words and phrases</p>
+        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 border dark:border-slate-700">
+            <h2 class="text-2xl font-bold mb-2 dark:text-white">Essential Words Quick Reference</h2>
+            <p class="text-gray-600 dark:text-slate-400 mb-6">Deep dive into Hawaii's most important words and phrases</p>
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
-                <a href="what-does-aloha-mean.html" class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg p-3 text-center hover:shadow-md transition hover:scale-105">
-                    <span class="font-bold text-purple-700">Aloha</span>
-                    <span class="block text-xs text-gray-500">Love & greeting</span>
+                <a href="what-does-aloha-mean.html" class="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 rounded-lg p-3 text-center border dark:border-slate-700 hover:shadow-md transition hover:scale-105">
+                    <span class="font-bold text-purple-700 dark:text-purple-400">Aloha</span>
+                    <span class="block text-xs text-gray-500 dark:text-slate-500">Love & greeting</span>
                 </a>
-                <a href="what-does-mahalo-mean.html" class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg p-3 text-center hover:shadow-md transition hover:scale-105">
-                    <span class="font-bold text-purple-700">Mahalo</span>
-                    <span class="block text-xs text-gray-500">Thank you</span>
+                <a href="what-does-mahalo-mean.html" class="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 rounded-lg p-3 text-center border dark:border-slate-700 hover:shadow-md transition hover:scale-105">
+                    <span class="font-bold text-purple-700 dark:text-purple-400">Mahalo</span>
+                    <span class="block text-xs text-gray-500 dark:text-slate-500">Thank you</span>
                 </a>
-                <a href="what-does-ohana-mean.html" class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg p-3 text-center hover:shadow-md transition hover:scale-105">
-                    <span class="font-bold text-purple-700">Ohana</span>
-                    <span class="block text-xs text-gray-500">Family</span>
+                <a href="what-does-ohana-mean.html" class="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 rounded-lg p-3 text-center border dark:border-slate-700 hover:shadow-md transition hover:scale-105">
+                    <span class="font-bold text-purple-700 dark:text-purple-400">Ohana</span>
+                    <span class="block text-xs text-gray-500 dark:text-slate-500">Family</span>
                 </a>
-                <a href="what-does-howzit-mean.html" class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg p-3 text-center hover:shadow-md transition hover:scale-105">
-                    <span class="font-bold text-purple-700">Howzit</span>
-                    <span class="block text-xs text-gray-500">Hello</span>
+                <a href="what-does-howzit-mean.html" class="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 rounded-lg p-3 text-center border dark:border-slate-700 hover:shadow-md transition hover:scale-105">
+                    <span class="font-bold text-purple-700 dark:text-purple-400">Howzit</span>
+                    <span class="block text-xs text-gray-500 dark:text-slate-500">Hello</span>
                 </a>
-                <a href="how-to-respond-to-howzit.html" class="bg-gradient-to-br from-green-50 to-blue-50 border border-green-100 rounded-lg p-3 text-center hover:shadow-md transition hover:scale-105">
-                    <span class="font-bold text-green-700 italic">How-To Guide</span>
-                    <span class="block text-xs text-gray-500">How to respond</span>
+                <a href="how-to-respond-to-howzit.html" class="bg-gradient-to-br from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 border border-green-100 dark:border-green-800/50 rounded-lg p-3 text-center hover:shadow-md transition hover:scale-105">
+                    <span class="font-bold text-green-700 dark:text-green-400 italic">How-To Guide</span>
+                    <span class="block text-xs text-gray-500 dark:text-slate-500">How to respond</span>
                 </a>
-                <a href="what-does-da-kine-mean.html" class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg p-3 text-center hover:shadow-md transition hover:scale-105">
-                    <span class="font-bold text-purple-700">Da Kine</span>
-                    <span class="block text-xs text-gray-500">The thing</span>
+                <a href="what-does-da-kine-mean.html" class="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 rounded-lg p-3 text-center border dark:border-slate-700 hover:shadow-md transition hover:scale-105">
+                    <span class="font-bold text-purple-700 dark:text-purple-400">Da Kine</span>
+                    <span class="block text-xs text-gray-500 dark:text-slate-500">The thing</span>
                 </a>
-                <a href="what-does-pau-hana-mean.html" class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg p-3 text-center hover:shadow-md transition hover:scale-105">
-                    <span class="font-bold text-purple-700">Pau Hana</span>
-                    <span class="block text-xs text-gray-500">After work</span>
+                <a href="what-does-pau-hana-mean.html" class="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 rounded-lg p-3 text-center border dark:border-slate-700 hover:shadow-md transition hover:scale-105">
+                    <span class="font-bold text-purple-700 dark:text-purple-400">Pau Hana</span>
+                    <span class="block text-xs text-gray-500 dark:text-slate-500">After work</span>
                 </a>
-                <a href="what-does-kamaaina-mean.html" class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg p-3 text-center hover:shadow-md transition hover:scale-105">
-                    <span class="font-bold text-purple-700">Kamaaina</span>
-                    <span class="block text-xs text-gray-500">Local</span>
+                <a href="what-does-kamaaina-mean.html" class="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 rounded-lg p-3 text-center border dark:border-slate-700 hover:shadow-md transition hover:scale-105">
+                    <span class="font-bold text-purple-700 dark:text-purple-400">Kamaaina</span>
+                    <span class="block text-xs text-gray-500 dark:text-slate-500">Local</span>
                 </a>
-                <a href="what-does-mauka-makai-mean.html" class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg p-3 text-center hover:shadow-md transition hover:scale-105">
-                    <span class="font-bold text-purple-700">Mauka/Makai</span>
-                    <span class="block text-xs text-gray-500">Directions</span>
+                <a href="what-does-mauka-makai-mean.html" class="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 rounded-lg p-3 text-center border dark:border-slate-700 hover:shadow-md transition hover:scale-105">
+                    <span class="font-bold text-purple-700 dark:text-purple-400">Mauka/Makai</span>
+                    <span class="block text-xs text-gray-500 dark:text-slate-500">Directions</span>
                 </a>
-                <a href="what-does-shaka-mean.html" class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg p-3 text-center hover:shadow-md transition hover:scale-105">
-                    <span class="font-bold text-purple-700">Shaka</span>
-                    <span class="block text-xs text-gray-500">Hang loose</span>
+                <a href="what-does-shaka-mean.html" class="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 rounded-lg p-3 text-center border dark:border-slate-700 hover:shadow-md transition hover:scale-105">
+                    <span class="font-bold text-purple-700 dark:text-purple-400">Shaka</span>
+                    <span class="block text-xs text-gray-500 dark:text-slate-500">Hang loose</span>
                 </a>
-                <a href="what-does-grindz-mean.html" class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg p-3 text-center hover:shadow-md transition hover:scale-105">
-                    <span class="font-bold text-purple-700">Grindz</span>
-                    <span class="block text-xs text-gray-500">Food</span>
+                <a href="what-does-grindz-mean.html" class="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 rounded-lg p-3 text-center border dark:border-slate-700 hover:shadow-md transition hover:scale-105">
+                    <span class="font-bold text-purple-700 dark:text-purple-400">Grindz</span>
+                    <span class="block text-xs text-gray-500 dark:text-slate-500">Food</span>
                 </a>
             </div>
             <div class="text-center mt-4">
-                <a href="dictionary.html" class="text-purple-600 hover:text-purple-800 font-semibold">Browse Full Dictionary &rarr;</a>
+                <a href="dictionary.html" class="text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300 font-semibold">Browse Full Dictionary &rarr;</a>
             </div>
         </div>
     </section>

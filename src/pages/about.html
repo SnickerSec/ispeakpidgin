@@ -56,7 +56,7 @@
 
     <style>
         .brand-font { font-family: 'Pacifico', cursive; }
-        .hero-gradient { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .hero-gradient { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%); }
     </style>
 
     <!-- Structured Data -->
@@ -108,7 +108,7 @@
     </script>
 </head>
 
-<body class="min-h-screen bg-gray-50">
+<body class="min-h-screen bg-gray-50 dark:bg-slate-900 transition-colors duration-300">
     <!-- NAVIGATION_PLACEHOLDER -->
 
     <!-- Hero Section -->
@@ -117,10 +117,10 @@
             <h1 class="text-4xl md:text-5xl font-bold mb-6">
                 About ChokePidgin.com
             </h1>
-            <p class="text-xl md:text-2xl text-white/90 mb-4">
+            <p class="text-xl md:text-2xl text-white/90 mb-4 dark:text-blue-200">
                 Preserving Hawaii's Unique Linguistic Heritage
             </p>
-            <p class="text-lg text-white/80 max-w-2xl mx-auto">
+            <p class="text-lg text-white/80 dark:text-blue-300 max-w-2xl mx-auto">
                 The most comprehensive online resource for Hawaiian Pidgin, created by local speakers who grew up with the language.
             </p>
         </div>
@@ -131,18 +131,18 @@
 
         <!-- Our Mission -->
         <section class="mb-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
-                <span class="text-4xl mr-3"><i class="ti ti-target"></i></span>
+            <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-6 flex items-center">
+                <span class="text-4xl mr-3"><i class="ti ti-target text-purple-600 dark:text-purple-400"></i></span>
                 Our Mission
             </h2>
-            <div class="bg-white rounded-2xl shadow-lg p-8">
-                <p class="text-lg text-gray-700 leading-relaxed mb-4">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 border dark:border-slate-700">
+                <p class="text-lg text-gray-700 dark:text-slate-300 leading-relaxed mb-4">
                     ChokePidgin.com was created to <strong>preserve, celebrate, and share authentic Hawaiian Pidgin</strong> with both locals and visitors who want to understand Hawaii's unique linguistic culture.
                 </p>
-                <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                <p class="text-lg text-gray-700 dark:text-slate-300 leading-relaxed mb-4">
                     Hawaiian Pidgin (Hawaiian Creole English) is more than just slang—it's a legitimate creole language with its own grammar, syntax, and rich cultural history. It emerged from Hawaii's multicultural plantation era, blending Hawaiian, English, Portuguese, Japanese, Filipino, Chinese, and other languages into something entirely unique.
                 </p>
-                <p class="text-lg text-gray-700 leading-relaxed">
+                <p class="text-lg text-gray-700 dark:text-slate-300 leading-relaxed">
                     Our goal is to be the <strong>definitive online resource</strong> for anyone seeking to learn, understand, or translate Hawaiian Pidgin.
                 </p>
             </div>
@@ -150,35 +150,35 @@
 
         <!-- What Makes Us Different -->
         <section class="mb-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
-                <span class="text-4xl mr-3"><i class="ti ti-star"></i></span>
+            <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-6 flex items-center">
+                <span class="text-4xl mr-3"><i class="ti ti-star text-yellow-500"></i></span>
                 What Makes Us Different
             </h2>
-            <div class="grid md:grid-2 gap-6">
-                <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 shadow-md">
-                    <h3 class="text-xl font-bold text-gray-800 mb-3"><i class="ti ti-beach"></i> Authentic & Local</h3>
-                    <p class="text-gray-700">
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-indigo-900/30 dark:to-purple-900/30 rounded-2xl p-6 shadow-md border dark:border-purple-800/50">
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-3"><i class="ti ti-beach text-blue-500"></i> Authentic & Local</h3>
+                    <p class="text-gray-700 dark:text-slate-400">
                         Every word and phrase in our dictionary has been verified by native Hawaiian Pidgin speakers who grew up using the language daily.
                     </p>
                 </div>
 
-                <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-6 shadow-md">
-                    <h3 class="text-xl font-bold text-gray-800 mb-3"><i class="ti ti-books"></i> Comprehensive</h3>
-                    <p class="text-gray-700">
+                <div class="bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/30 dark:to-cyan-900/30 rounded-2xl p-6 shadow-md border dark:border-blue-800/50">
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-3"><i class="ti ti-books text-indigo-500"></i> Comprehensive</h3>
+                    <p class="text-gray-700 dark:text-slate-400">
                         With 600+ entries, we cover everything from everyday greetings to regional variations, cultural context, and proper pronunciation.
                     </p>
                 </div>
 
-                <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 shadow-md">
-                    <h3 class="text-xl font-bold text-gray-800 mb-3"><i class="ti ti-school"></i> Educational</h3>
-                    <p class="text-gray-700">
+                <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/30 dark:to-emerald-900/30 rounded-2xl p-6 shadow-md border dark:border-green-800/50">
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-3"><i class="ti ti-school text-emerald-500"></i> Educational</h3>
+                    <p class="text-gray-700 dark:text-slate-400">
                         We don't just translate—we explain the cultural context, origins, and nuances that make Hawaiian Pidgin special.
                     </p>
                 </div>
 
-                <div class="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl p-6 shadow-md">
-                    <h3 class="text-xl font-bold text-gray-800 mb-3"><i class="ti ti-free-rights"></i> Free & Accessible</h3>
-                    <p class="text-gray-700">
+                <div class="bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/30 dark:to-orange-900/30 rounded-2xl p-6 shadow-md border dark:border-orange-800/50">
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-3"><i class="ti ti-free-rights text-amber-500"></i> Free & Accessible</h3>
+                    <p class="text-gray-700 dark:text-slate-400">
                         Hawaiian Pidgin is part of Hawaii's cultural heritage. We believe this knowledge should be freely available to everyone.
                     </p>
                 </div>
@@ -187,23 +187,23 @@
 
         <!-- About Hawaiian Pidgin -->
         <section class="mb-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
-                <span class="text-4xl mr-3"><i class="ti ti-flower"></i></span>
+            <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-6 flex items-center">
+                <span class="text-4xl mr-3"><i class="ti ti-flower text-pink-500"></i></span>
                 About Hawaiian Pidgin
             </h2>
-            <div class="bg-white rounded-2xl shadow-lg p-8">
-                <h3 class="text-2xl font-bold text-gray-800 mb-4">What is Hawaiian Pidgin?</h3>
-                <p class="text-lg text-gray-700 leading-relaxed mb-4">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 border dark:border-slate-700">
+                <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">What is Hawaiian Pidgin?</h3>
+                <p class="text-lg text-gray-700 dark:text-slate-300 leading-relaxed mb-4">
                     <strong>Hawaiian Pidgin</strong> (technically Hawaiian Creole English or HCE) is a creole language that developed on Hawaii's sugar plantations in the late 1800s and early 1900s. Workers from Hawaii, China, Japan, Portugal, the Philippines, Korea, and other countries needed a common language to communicate—and Hawaiian Pidgin was born.
                 </p>
 
-                <h3 class="text-2xl font-bold text-gray-800 mb-4 mt-8">Is it "Pidgin" or "Creole"?</h3>
-                <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-4 mt-8">Is it "Pidgin" or "Creole"?</h3>
+                <p class="text-lg text-gray-700 dark:text-slate-300 leading-relaxed mb-4">
                     Linguistically, it's a <strong>creole language</strong>—a fully-developed language with its own grammar and native speakers. However, locals call it "Pidgin," and that name has stuck. We use "Hawaiian Pidgin" because that's what people actually search for and use in everyday conversation.
                 </p>
 
-                <h3 class="text-2xl font-bold text-gray-800 mb-4 mt-8">Why Preserve It?</h3>
-                <p class="text-lg text-gray-700 leading-relaxed">
+                <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-4 mt-8">Why Preserve It?</h3>
+                <p class="text-lg text-gray-700 dark:text-slate-300 leading-relaxed">
                     Hawaiian Pidgin is a vital part of Hawaii's identity and multicultural heritage. It represents the unique blend of cultures that makes Hawaii special. By preserving and teaching Pidgin, we honor the contributions of all the immigrant communities that built modern Hawaii.
                 </p>
             </div>
@@ -211,21 +211,21 @@
 
         <!-- Our Expertise -->
         <section class="mb-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
-                <span class="text-4xl mr-3"><i class="ti ti-users"></i></span>
+            <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-6 flex items-center">
+                <span class="text-4xl mr-3"><i class="ti ti-users text-blue-500"></i></span>
                 Our Expertise
             </h2>
-            <div class="bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl shadow-lg p-8">
-                <p class="text-lg text-gray-800 leading-relaxed mb-4">
+            <div class="bg-gradient-to-br from-purple-100 to-pink-100 dark:from-indigo-900 dark:to-purple-950 rounded-2xl shadow-lg p-8 border dark:border-purple-800">
+                <p class="text-lg text-gray-800 dark:text-slate-200 leading-relaxed mb-4">
                     ChokePidgin.com was compiled by a team of <strong>local Hawaii residents and native Pidgin speakers</strong> with deep roots in the islands. Our contributors include:
                 </p>
-                <ul class="list-disc list-inside space-y-2 text-lg text-gray-800 mb-4">
+                <ul class="list-disc list-inside space-y-2 text-lg text-gray-800 dark:text-slate-300 mb-4">
                     <li><strong>Native speakers</strong> who grew up speaking Pidgin at home and in their communities</li>
                     <li><strong>Cultural experts</strong> with knowledge of Hawaii's multicultural history</li>
                     <li><strong>Linguists</strong> who understand the grammatical structure and evolution of creole languages</li>
                     <li><strong>Educators</strong> who teach Hawaiian culture and language</li>
                 </ul>
-                <p class="text-lg text-gray-800 leading-relaxed">
+                <p class="text-lg text-gray-800 dark:text-slate-200 leading-relaxed">
                     Every entry has been carefully researched, verified by multiple speakers, and contextualized with real-world examples and cultural notes.
                 </p>
             </div>

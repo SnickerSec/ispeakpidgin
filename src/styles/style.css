@@ -14,7 +14,7 @@
     --nav-link-color: #93c5fd;
 }
 
-/* Maintain .dark class for Tailwind compatibility and legacy support */
+/* Maintain .dark class for Tailwind compatibility */
 .dark {
     --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 25%, #312e81 50%, #4338ca 75%, #1e1b4b 100%);
     --nav-bg: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(30, 27, 75, 0.95));
@@ -26,133 +26,43 @@
     --nav-link-color: #93c5fd;
 }
 
-/* Dark Mode Overrides (Island Night) */
-.dark body {
+/* Island Night Base Styles */
+body {
     background: var(--bg-gradient);
     color: var(--text-main);
+    background-size: 400% 400%;
+    animation: hawaiianSunset 20s ease infinite;
+    position: relative;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
-.dark p, .dark li, .dark span:not([class*="bg-"]) {
+/* Ensure all text uses main color by default in dark mode */
+.dark body {
     color: var(--text-main);
 }
 
-.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
-    color: var(--text-main);
-}
-
-/* Target specific utility backgrounds that often stay white */
-.dark .bg-white, .dark .bg-gray-50, .dark .bg-blue-50, .dark .bg-purple-50, .dark .bg-green-50, .dark .bg-orange-50 {
-    background-color: #1e293b !important; /* slate-800 */
-    color: var(--text-main) !important;
-}
-
-.dark .bg-gray-100, .dark .bg-slate-100 {
-    background-color: #334155 !important; /* slate-700 */
-}
-
-.dark .border, .dark .border-gray-100, .dark .border-gray-200, .dark .border-blue-100, .dark .border-purple-100 {
-    border-color: #334155 !important;
-}
-
-/* Fix text colors in dark mode for elements that might have hardcoded gray classes */
-.dark .text-gray-600, .dark .text-gray-700, .dark .text-slate-600, .dark .text-slate-700 {
-    color: #cbd5e1 !important; /* slate-300 */
-}
-
-.dark .text-gray-800, .dark .text-slate-800 {
-    color: #f1f5f9 !important; /* slate-100 */
-}
-
-.dark .text-gray-500, .dark .text-slate-500 {
-    color: #94a3b8 !important; /* slate-400 */
-}
-
-/* Specific component fixes */
-.dark .category-tab:not(.active):hover {
-    background-color: #334155 !important;
-}
-
-.dark .alphabet-browser button:not(.active):not(.no-hover) {
-    background-color: #1e293b !important;
-    color: var(--text-main);
-}
-
-.dark .alphabet-browser button.no-hover {
-    background-color: #0f172a !important; /* slate-900 */
-}
-
-.dark .quick-search {
-    background-color: rgba(255, 255, 255, 0.1) !important;
-}
-
-.dark #dictionary-search, .dark #english-input, .dark #pidgin-output {
-    background-color: #0f172a !important;
-    color: white !important;
-    border-color: #334155 !important;
-}
-
-.dark #dictionary-search::placeholder {
-    color: #94a3b8 !important;
-}
-
-/* Fix Hero sections in dark mode */
-.dark .bg-gradient-to-r.from-blue-600.to-purple-600,
-.dark .bg-gradient-to-br.from-green-500.via-teal-500.to-blue-600,
-.dark .bg-gradient-to-br.from-purple-600.via-blue-600.to-teal-500,
+/* Fix Hero sections and large containers with proper Island Night gradients */
 .dark .hero-gradient,
 .dark .translator-hero,
 .dark .dictionary-search-container {
-    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%) !important;
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%) !important;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
-/* Force dark background for sections with inline light gradients */
-.dark section[style*="background: linear-gradient"],
-.dark div[style*="background: linear-gradient"] {
-    background: #0f172a !important; /* slate-900 */
+/* Ensure cards and articles use the themed card background */
+.dark article, 
+.dark .bg-white,
+.dark .bg-gray-50,
+.dark .lesson-card,
+.dark .quiz-card {
+    background: var(--card-bg);
 }
 
-/* Fix Quiz cards and other themed sections */
-.dark .bg-gradient-to-r.from-yellow-400.via-orange-500.to-red-500,
-.dark .bg-gradient-to-r.from-blue-600.via-green-600.to-yellow-600 {
-    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
-    border: 1px solid #334155 !important;
-}
-
-/* Sticky headers */
+/* Fix sticky headers to be semi-transparent dark */
 .dark .sticky {
     background-color: rgba(15, 23, 42, 0.9) !important;
-    border-color: #334155 !important;
-}
-
-/* Fix Daily Phrase and WOD cards in dark mode */
-.dark .bg-gradient-to-br.from-orange-100,
-.dark .bg-gradient-to-br.from-purple-100 {
-    background: var(--card-bg) !important;
-    border-color: #334155 !important;
-}
-
-/* Target specific utility text colors that often become invisible */
-.dark .text-gray-800, .dark .text-gray-700, .dark .text-gray-600, .dark .text-slate-700 {
-    color: var(--text-main) !important;
-}
-
-.dark .text-gray-500, .dark .text-slate-500 {
-    color: var(--text-muted) !important;
-}
-
-/* Fix dropdown menus in dark mode */
-.dark .dropdown-menu, .dark #search-overlay > div {
-    background-color: #1e293b !important;
-    border-color: #334155 !important;
-}
-
-.dark .dropdown-menu a:hover {
-    background-color: #334155 !important;
-}
-
-/* Light Mode specific overrides (ensure we don't break original design) */
-body:not(.dark) {
-    color: #1f2937;
+    backdrop-filter: blur(10px);
+    border-bottom-color: rgba(255,255,255,0.1) !important;
 }
 
 /* Daily phrase animations and transitions */

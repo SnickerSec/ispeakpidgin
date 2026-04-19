@@ -153,11 +153,11 @@
         }
     </style>
 </head>
-<body class="min-h-screen bg-gray-50">
+<body class="min-h-screen bg-gray-50 dark:bg-slate-900 transition-colors duration-300">
     <!-- NAVIGATION_PLACEHOLDER -->
 
     <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-green-500 via-teal-500 to-blue-600 text-white py-16 relative overflow-hidden">
+    <section class="bg-gradient-to-br from-green-500 via-teal-500 to-blue-600 dark:from-emerald-950 dark:via-teal-950 dark:to-blue-950 text-white py-16 relative overflow-hidden border-b dark:border-slate-800">
         <!-- Decorative elements -->
         <div class="absolute top-10 left-10 text-6xl opacity-20 animate-pulse-slow"><i class="ti ti-device-gamepad-2"></i></div>
         <div class="absolute bottom-10 right-10 text-6xl opacity-20 animate-pulse-slow"><i class="ti ti-flower"></i></div>
@@ -165,8 +165,8 @@
 
         <div class="container mx-auto px-4 text-center relative z-10">
             <h1 class="text-4xl md:text-5xl font-bold mb-4">Hawaiian Pidgin Games</h1>
-            <p class="text-xl md:text-2xl text-green-100 mb-6">Learn Pidgin While Having Fun!</p>
-            <p class="text-lg text-green-200 max-w-2xl mx-auto">
+            <p class="text-xl md:text-2xl text-green-100 dark:text-green-300 mb-6">Learn Pidgin While Having Fun!</p>
+            <p class="text-lg text-green-200 dark:text-slate-300 max-w-2xl mx-auto">
                 Master Hawaiian Pidgin through interactive word games. Perfect for beginners and locals alike.
                 Challenge yourself daily and track your progress!
             </p>
@@ -174,31 +174,31 @@
     </section>
 
     <!-- Proficiency Widget -->
-    <section id="proficiency-section" class="max-w-4xl mx-auto px-4 -mt-8 hidden">
-        <div class="bg-white rounded-3xl shadow-xl p-6 md:p-8 border border-teal-100">
+    <section id="proficiency-section" class="max-w-4xl mx-auto px-4 -mt-8 hidden relative z-20">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-xl p-6 md:p-8 border border-teal-100 dark:border-teal-900/50">
             <div class="flex flex-col md:flex-row items-center gap-6">
                 <div id="rank-icon" class="text-6xl md:text-7xl">📸</div>
                 <div class="flex-grow text-center md:text-left">
                     <div class="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-1">
-                        <span class="text-sm font-bold text-teal-400 uppercase tracking-widest">Current Rank</span>
-                        <span id="rank-name" class="text-2xl font-black text-teal-700 uppercase">Visitor</span>
+                        <span class="text-sm font-bold text-teal-400 dark:text-teal-500 uppercase tracking-widest">Current Rank</span>
+                        <span id="rank-name" class="text-2xl font-black text-teal-700 dark:text-teal-400 uppercase">Visitor</span>
                     </div>
-                    <h2 class="text-gray-800 text-lg md:text-xl font-medium mb-4">
+                    <h2 class="text-gray-800 dark:text-slate-200 text-lg md:text-xl font-medium mb-4">
                         You stay learning! Play mo' games for rank up.
                     </h2>
                     
                     <!-- Progress Bar -->
-                    <div class="w-full bg-gray-100 h-4 rounded-full overflow-hidden mb-2">
+                    <div class="w-full bg-gray-100 dark:bg-slate-700 h-4 rounded-full overflow-hidden mb-2">
                         <div id="rank-progress-bar" class="h-full bg-gradient-to-r from-teal-500 to-blue-500 transition-all duration-1000" style="width: 0%"></div>
                     </div>
-                    <div class="flex justify-between text-xs font-bold text-gray-400 uppercase">
-                        <span>Total Score: <span id="total-proficiency-score" class="text-teal-600">0</span></span>
+                    <div class="flex justify-between text-xs font-bold text-gray-400 dark:text-gray-500 uppercase">
+                        <span>Total Score: <span id="total-proficiency-score" class="text-teal-600 dark:text-teal-400">0</span></span>
                         <span>Next: <span id="next-rank-name">Townie</span></span>
                     </div>
                 </div>
-                <div class="bg-teal-50 p-4 rounded-2xl text-center min-w-[120px]">
-                    <div id="games-played-count" class="text-3xl font-black text-teal-600">0</div>
-                    <div class="text-[10px] font-bold text-teal-400 uppercase">Games Played</div>
+                <div class="bg-teal-50 dark:bg-teal-900/30 p-4 rounded-2xl text-center min-w-[120px] border dark:border-teal-800/50">
+                    <div id="games-played-count" class="text-3xl font-black text-teal-600 dark:text-teal-400">0</div>
+                    <div class="text-[10px] font-bold text-teal-400 dark:text-teal-500 uppercase">Games Played</div>
                 </div>
             </div>
         </div>
@@ -206,20 +206,21 @@
 
     <!-- Featured Game: Daily Wordle -->
     <section class="container mx-auto px-4 py-12">
-        <div class="featured-game rounded-3xl p-8 md:p-12 text-white shadow-2xl">
-            <div class="flex flex-col md:flex-row items-center gap-8">
+        <div class="featured-game rounded-3xl p-8 md:p-12 text-white shadow-2xl border dark:border-white/10 relative overflow-hidden">
+            <div class="absolute inset-0 bg-black/10 dark:bg-black/20 pointer-events-none"></div>
+            <div class="flex flex-col md:flex-row items-center gap-8 relative z-10">
                 <img src="assets/images/wordle-icon.webp" alt="Wordle" loading="lazy" class="w-32 h-32 md:w-40 md:h-40 game-icon">
                 <div class="flex-1 text-center md:text-left">
-                    <span class="inline-block bg-white/20 text-white text-sm font-bold px-4 py-1 rounded-full mb-4">
+                    <span class="inline-block bg-white/20 dark:bg-black/30 text-white text-sm font-bold px-4 py-1 rounded-full mb-4 border border-white/20">
                         DAILY CHALLENGE
                     </span>
                     <h2 class="text-3xl md:text-4xl font-bold mb-4">Pidgin Wordle</h2>
-                    <p class="text-lg text-purple-100 mb-6">
+                    <p class="text-lg text-purple-100 dark:text-purple-200 mb-6">
                         A new Hawaiian Pidgin word every day! Guess the 5-letter Pidgin word in 6 tries.
                         Share your results and compete with friends.
                     </p>
                     <a href="/pidgin-wordle.html"
-                       class="inline-block bg-white text-purple-700 px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition shadow-lg">
+                       class="inline-block bg-white dark:bg-slate-800 text-purple-700 dark:text-purple-400 px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition shadow-lg border dark:border-slate-700">
                         Play Today's Wordle
                     </a>
                 </div>
@@ -229,178 +230,178 @@
 
     <!-- All Games Grid -->
     <section class="container mx-auto px-4 py-12">
-        <h2 class="text-3xl font-bold text-gray-800 text-center mb-4">All Games</h2>
-        <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+        <h2 class="text-3xl font-bold text-gray-800 dark:text-white text-center mb-4">All Games</h2>
+        <p class="text-gray-600 dark:text-slate-400 text-center mb-12 max-w-2xl mx-auto">
             Choose your favorite way to learn Hawaiian Pidgin. Each game helps you build vocabulary and understand local culture.
         </p>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Pidgin Ear Trainer (NEW) -->
-            <a href="/pidgin-ear-trainer.html" class="game-card bg-white rounded-2xl shadow-xl overflow-hidden group">
-                <div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-8 text-center relative">
+            <a href="/pidgin-ear-trainer.html" class="game-card bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden group border dark:border-slate-700">
+                <div class="bg-gradient-to-br from-indigo-500 to-purple-600 dark:from-indigo-800 dark:to-purple-900 p-8 text-center relative">
                     <span class="absolute top-4 right-4 bg-yellow-400 text-yellow-900 text-[10px] font-black px-2 py-0.5 rounded-full shadow-sm animate-bounce">NEW</span>
                     <div class="text-7xl game-icon mb-4 text-white"><i class="ti ti-headset"></i></div>
                 </div>
                 <div class="p-6">
                     <div class="flex items-center gap-2 mb-2">
-                        <h3 class="text-xl font-bold text-gray-800">Ear Trainer</h3>
-                        <span class="bg-indigo-100 text-indigo-700 text-xs font-bold px-2 py-1 rounded-full">AUDIO</span>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Ear Trainer</h3>
+                        <span class="bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 text-xs font-bold px-2 py-1 rounded-full">AUDIO</span>
                     </div>
-                    <p class="text-gray-600 mb-4">Listen to authentic Pidgin audio and guess the meaning. Master the local accent!</p>
-                    <div class="flex items-center text-indigo-600 font-semibold group-hover:translate-x-2 transition">
+                    <p class="text-gray-600 dark:text-slate-400 mb-4">Listen to authentic Pidgin audio and guess the meaning. Master the local accent!</p>
+                    <div class="flex items-center text-indigo-600 dark:text-indigo-400 font-semibold group-hover:translate-x-2 transition">
                         Play Now <span class="ml-2">→</span>
                     </div>
                 </div>
             </a>
 
             <!-- Pidgin Wordle -->
-            <a href="/pidgin-wordle.html" class="game-card bg-white rounded-2xl shadow-xl overflow-hidden group">
-                <div class="bg-gradient-to-br from-green-400 to-green-600 p-8 flex items-center justify-center">
+            <a href="/pidgin-wordle.html" class="game-card bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden group border dark:border-slate-700">
+                <div class="bg-gradient-to-br from-green-400 to-green-600 dark:from-green-700 dark:to-green-900 p-8 flex items-center justify-center">
                     <img src="assets/images/wordle-icon.webp" alt="Wordle" loading="lazy" class="w-24 h-24 game-icon">
                 </div>
                 <div class="p-6">
                     <div class="flex items-center gap-2 mb-2">
-                        <h3 class="text-xl font-bold text-gray-800">Pidgin Wordle</h3>
-                        <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded-full">DAILY</span>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Pidgin Wordle</h3>
+                        <span class="bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400 text-xs font-bold px-2 py-1 rounded-full">DAILY</span>
                     </div>
-                    <p class="text-gray-600 mb-4">Guess the 5-letter Pidgin word in 6 tries. New puzzle every day!</p>
-                    <div class="flex items-center text-green-600 font-semibold group-hover:translate-x-2 transition">
+                    <p class="text-gray-600 dark:text-slate-400 mb-4">Guess the 5-letter Pidgin word in 6 tries. New puzzle every day!</p>
+                    <div class="flex items-center text-green-600 dark:text-green-400 font-semibold group-hover:translate-x-2 transition">
                         Play Now <span class="ml-2">→</span>
                     </div>
                 </div>
             </a>
 
             <!-- Pidgin Hangman -->
-            <a href="/pidgin-hangman.html" class="game-card bg-white rounded-2xl shadow-xl overflow-hidden group">
-                <div class="bg-gradient-to-br from-indigo-400 to-indigo-600 p-8 text-center">
+            <a href="/pidgin-hangman.html" class="game-card bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden group border dark:border-slate-700">
+                <div class="bg-gradient-to-br from-indigo-400 to-indigo-600 dark:from-indigo-700 dark:to-indigo-900 p-8 text-center text-white">
                     <div class="text-7xl game-icon mb-4"><i class="ti ti-typography"></i></div>
                 </div>
                 <div class="p-6">
                     <div class="flex items-center gap-2 mb-2">
-                        <h3 class="text-xl font-bold text-gray-800">Pidgin Hangman</h3>
-                        <span class="bg-indigo-100 text-indigo-700 text-xs font-bold px-2 py-1 rounded-full">CLASSIC</span>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Pidgin Hangman</h3>
+                        <span class="bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 text-xs font-bold px-2 py-1 rounded-full">CLASSIC</span>
                     </div>
-                    <p class="text-gray-600 mb-4">Classic hangman with Hawaiian Pidgin words. Guess letters before time runs out!</p>
-                    <div class="flex items-center text-indigo-600 font-semibold group-hover:translate-x-2 transition">
+                    <p class="text-gray-600 dark:text-slate-400 mb-4">Classic hangman with Hawaiian Pidgin words. Guess letters before time runs out!</p>
+                    <div class="flex items-center text-indigo-600 dark:text-indigo-400 font-semibold group-hover:translate-x-2 transition">
                         Play Now <span class="ml-2">→</span>
                     </div>
                 </div>
             </a>
 
             <!-- Pidgin Crossword -->
-            <a href="/pidgin-crossword.html" class="game-card bg-white rounded-2xl shadow-xl overflow-hidden group">
-                <div class="bg-gradient-to-br from-blue-400 to-blue-600 p-8 text-center">
+            <a href="/pidgin-crossword.html" class="game-card bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden group border dark:border-slate-700">
+                <div class="bg-gradient-to-br from-blue-400 to-blue-600 dark:from-blue-700 dark:to-blue-900 p-8 text-center text-white">
                     <div class="text-7xl game-icon mb-4"><i class="ti ti-note"></i></div>
                 </div>
                 <div class="p-6">
                     <div class="flex items-center gap-2 mb-2">
-                        <h3 class="text-xl font-bold text-gray-800">Pidgin Crossword</h3>
-                        <span class="bg-blue-100 text-blue-700 text-xs font-bold px-2 py-1 rounded-full">PUZZLES</span>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Pidgin Crossword</h3>
+                        <span class="bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-bold px-2 py-1 rounded-full">PUZZLES</span>
                     </div>
-                    <p class="text-gray-600 mb-4">Solve crossword puzzles filled with Hawaiian Pidgin words and definitions.</p>
-                    <div class="flex items-center text-blue-600 font-semibold group-hover:translate-x-2 transition">
+                    <p class="text-gray-600 dark:text-slate-400 mb-4">Solve crossword puzzles filled with Hawaiian Pidgin words and definitions.</p>
+                    <div class="flex items-center text-blue-600 dark:text-blue-400 font-semibold group-hover:translate-x-2 transition">
                         Play Now <span class="ml-2">→</span>
                     </div>
                 </div>
             </a>
 
             <!-- How Local You Stay Quiz -->
-            <a href="/how-local-you-stay.html" class="game-card bg-white rounded-2xl shadow-xl overflow-hidden group">
-                <div class="bg-gradient-to-br from-orange-400 to-red-500 p-8 text-center">
+            <a href="/how-local-you-stay.html" class="game-card bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden group border dark:border-slate-700">
+                <div class="bg-gradient-to-br from-orange-400 to-red-500 dark:from-orange-700 dark:to-red-900 p-8 text-center text-white">
                     <div class="text-7xl game-icon mb-4"><i class="ti ti-hand-love-you"></i></div>
                 </div>
                 <div class="p-6">
                     <div class="flex items-center gap-2 mb-2">
-                        <h3 class="text-xl font-bold text-gray-800">How Local You Stay?</h3>
-                        <span class="bg-orange-100 text-orange-700 text-xs font-bold px-2 py-1 rounded-full">QUIZ</span>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white">How Local You Stay?</h3>
+                        <span class="bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-400 text-xs font-bold px-2 py-1 rounded-full">QUIZ</span>
                     </div>
-                    <p class="text-gray-600 mb-4">Test your Hawaiian Pidgin knowledge and find out how local you really are!</p>
-                    <div class="flex items-center text-orange-600 font-semibold group-hover:translate-x-2 transition">
+                    <p class="text-gray-600 dark:text-slate-400 mb-4">Test your Hawaiian Pidgin knowledge and find out how local you really are!</p>
+                    <div class="flex items-center text-orange-600 dark:text-orange-400 font-semibold group-hover:translate-x-2 transition">
                         Take Quiz <span class="ml-2">→</span>
                     </div>
                 </div>
             </a>
 
             <!-- Pidgin Heads Up -->
-            <a href="/pidgin-heads-up.html" class="game-card bg-white rounded-2xl shadow-xl overflow-hidden group">
-                <div class="bg-gradient-to-br from-pink-400 to-purple-500 p-8 text-center">
+            <a href="/pidgin-heads-up.html" class="game-card bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden group border dark:border-slate-700">
+                <div class="bg-gradient-to-br from-pink-400 to-purple-500 dark:from-pink-700 dark:to-purple-900 p-8 text-center text-white">
                     <div class="text-7xl game-icon mb-4"><i class="ti ti-confetti"></i></div>
                 </div>
                 <div class="p-6">
                     <div class="flex items-center gap-2 mb-2">
-                        <h3 class="text-xl font-bold text-gray-800">Pidgin Heads Up</h3>
-                        <span class="bg-pink-100 text-pink-700 text-xs font-bold px-2 py-1 rounded-full">PARTY</span>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Pidgin Heads Up</h3>
+                        <span class="bg-pink-100 dark:bg-pink-900/40 text-pink-700 dark:text-pink-300 text-xs font-bold px-2 py-1 rounded-full">PARTY</span>
                     </div>
-                    <p class="text-gray-600 mb-4">Party game! Hold the phone on your forehead and guess the Pidgin word from clues.</p>
-                    <div class="flex items-center text-pink-600 font-semibold group-hover:translate-x-2 transition">
+                    <p class="text-gray-600 dark:text-slate-400 mb-4">Party game! Hold the phone on your forehead and guess the Pidgin word from clues.</p>
+                    <div class="flex items-center text-pink-600 dark:text-pink-400 font-semibold group-hover:translate-x-2 transition">
                         Play Now <span class="ml-2">→</span>
                     </div>
                 </div>
             </a>
 
             <!-- Word Scramble -->
-            <a href="/pidgin-scramble.html" class="game-card bg-white rounded-2xl shadow-xl overflow-hidden group">
-                <div class="bg-gradient-to-br from-violet-400 to-purple-500 p-8 text-center">
+            <a href="/pidgin-scramble.html" class="game-card bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden group border dark:border-slate-700">
+                <div class="bg-gradient-to-br from-violet-400 to-purple-500 dark:from-violet-700 dark:to-purple-900 p-8 text-center text-white">
                     <div class="text-7xl game-icon mb-4"><i class="ti ti-abc"></i></div>
                 </div>
                 <div class="p-6">
                     <div class="flex items-center gap-2 mb-2">
-                        <h3 class="text-xl font-bold text-gray-800">Word Scramble</h3>
-                        <span class="bg-violet-100 text-violet-700 text-xs font-bold px-2 py-1 rounded-full">PUZZLES</span>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Word Scramble</h3>
+                        <span class="bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 text-xs font-bold px-2 py-1 rounded-full">PUZZLES</span>
                     </div>
-                    <p class="text-gray-600 mb-4">Unscramble jumbled letters to form Hawaiian Pidgin words. Three difficulty levels!</p>
-                    <div class="flex items-center text-violet-600 font-semibold group-hover:translate-x-2 transition">
+                    <p class="text-gray-600 dark:text-slate-400 mb-4">Unscramble jumbled letters to form Hawaiian Pidgin words. Three difficulty levels!</p>
+                    <div class="flex items-center text-violet-600 dark:text-violet-400 font-semibold group-hover:translate-x-2 transition">
                         Play Now <span class="ml-2">&rarr;</span>
                     </div>
                 </div>
             </a>
 
             <!-- Memory Match -->
-            <a href="/pidgin-memory.html" class="game-card bg-white rounded-2xl shadow-xl overflow-hidden group">
-                <div class="bg-gradient-to-br from-emerald-400 to-cyan-500 p-8 text-center">
+            <a href="/pidgin-memory.html" class="game-card bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden group border dark:border-slate-700">
+                <div class="bg-gradient-to-br from-emerald-400 to-cyan-500 dark:from-emerald-700 dark:to-cyan-900 p-8 text-center text-white">
                     <div class="text-7xl game-icon mb-4"><i class="ti ti-cards"></i></div>
                 </div>
                 <div class="p-6">
                     <div class="flex items-center gap-2 mb-2">
-                        <h3 class="text-xl font-bold text-gray-800">Memory Match</h3>
-                        <span class="bg-emerald-100 text-emerald-700 text-xs font-bold px-2 py-1 rounded-full">CLASSIC</span>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Memory Match</h3>
+                        <span class="bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 text-xs font-bold px-2 py-1 rounded-full">CLASSIC</span>
                     </div>
-                    <p class="text-gray-600 mb-4">Flip cards to match Pidgin words with their English meanings. Test your memory!</p>
-                    <div class="flex items-center text-emerald-600 font-semibold group-hover:translate-x-2 transition">
+                    <p class="text-gray-600 dark:text-slate-400 mb-4">Flip cards to match Pidgin words with their English meanings. Test your memory!</p>
+                    <div class="flex items-center text-emerald-600 dark:text-emerald-400 font-semibold group-hover:translate-x-2 transition">
                         Play Now <span class="ml-2">&rarr;</span>
                     </div>
                 </div>
             </a>
 
             <!-- Fill in the Blank -->
-            <a href="/pidgin-fill-blank.html" class="game-card bg-white rounded-2xl shadow-xl overflow-hidden group">
-                <div class="bg-gradient-to-br from-amber-400 to-orange-500 p-8 text-center">
+            <a href="/pidgin-fill-blank.html" class="game-card bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden group border dark:border-slate-700">
+                <div class="bg-gradient-to-br from-amber-400 to-orange-500 dark:from-amber-700 dark:to-orange-900 p-8 text-center text-white">
                     <div class="text-7xl game-icon mb-4"><i class="ti ti-writing"></i></div>
                 </div>
                 <div class="p-6">
                     <div class="flex items-center gap-2 mb-2">
-                        <h3 class="text-xl font-bold text-gray-800">Fill in da Blank</h3>
-                        <span class="bg-amber-100 text-amber-700 text-xs font-bold px-2 py-1 rounded-full">LEARN</span>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Fill in da Blank</h3>
+                        <span class="bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400 text-xs font-bold px-2 py-1 rounded-full">LEARN</span>
                     </div>
-                    <p class="text-gray-600 mb-4">Complete Pidgin sentences by picking the right word from four choices!</p>
-                    <div class="flex items-center text-amber-600 font-semibold group-hover:translate-x-2 transition">
+                    <p class="text-gray-600 dark:text-slate-400 mb-4">Complete Pidgin sentences by picking the right word from four choices!</p>
+                    <div class="flex items-center text-amber-600 dark:text-amber-400 font-semibold group-hover:translate-x-2 transition">
                         Play Now <span class="ml-2">&rarr;</span>
                     </div>
                 </div>
             </a>
 
             <!-- Speed Translation -->
-            <a href="/pidgin-speed.html" class="game-card bg-white rounded-2xl shadow-xl overflow-hidden group">
-                <div class="bg-gradient-to-br from-red-400 to-pink-500 p-8 text-center">
+            <a href="/pidgin-speed.html" class="game-card bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden group border dark:border-slate-700">
+                <div class="bg-gradient-to-br from-red-400 to-pink-500 dark:from-red-700 dark:to-pink-900 p-8 text-center text-white">
                     <div class="text-7xl game-icon mb-4"><i class="ti ti-bolt"></i></div>
                 </div>
                 <div class="p-6">
                     <div class="flex items-center gap-2 mb-2">
-                        <h3 class="text-xl font-bold text-gray-800">Speed Translation</h3>
-                        <span class="bg-red-100 text-red-700 text-xs font-bold px-2 py-1 rounded-full">SPEED</span>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white">Speed Translation</h3>
+                        <span class="bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-400 text-xs font-bold px-2 py-1 rounded-full">SPEED</span>
                     </div>
-                    <p class="text-gray-600 mb-4">Race the clock! Type Pidgin translations as fast as you can. Build combos for bonus points!</p>
-                    <div class="flex items-center text-red-600 font-semibold group-hover:translate-x-2 transition">
+                    <p class="text-gray-600 dark:text-slate-400 mb-4">Race the clock! Type Pidgin translations as fast as you can. Build combos for bonus points!</p>
+                    <div class="flex items-center text-red-600 dark:text-red-400 font-semibold group-hover:translate-x-2 transition">
                         Play Now <span class="ml-2">&rarr;</span>
                     </div>
                 </div>
@@ -409,29 +410,52 @@
     </section>
 
     <!-- Benefits Section -->
-    <section class="bg-gradient-to-br from-gray-100 to-gray-200 py-16">
+    <section class="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-slate-800 dark:to-slate-900 py-16 border-y dark:border-slate-700">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-gray-800 text-center mb-12">Why Learn With Games?</h2>
+            <h2 class="text-3xl font-bold text-gray-800 dark:text-white text-center mb-12">Why Learn With Games?</h2>
 
             <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                <div class="bg-white rounded-2xl p-8 text-center shadow-lg">
-                    <div class="text-5xl mb-4"><i class="ti ti-brain"></i></div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Better Retention</h3>
-                    <p class="text-gray-600">Games use active recall and spaced repetition, helping words stick in your memory longer.</p>
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 text-center shadow-lg border dark:border-slate-700">
+                    <div class="text-5xl mb-4 dark:text-blue-400"><i class="ti ti-brain"></i></div>
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Better Retention</h3>
+                    <p class="text-gray-600 dark:text-slate-400">Games use active recall and spaced repetition, helping words stick in your memory longer.</p>
                 </div>
 
-                <div class="bg-white rounded-2xl p-8 text-center shadow-lg">
-                    <div class="text-5xl mb-4"><i class="ti ti-mood-happy"></i></div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Fun Learning</h3>
-                    <p class="text-gray-600">No boring flashcards! Our games make learning Hawaiian Pidgin enjoyable and addictive.</p>
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 text-center shadow-lg border dark:border-slate-700">
+                    <div class="text-5xl mb-4 dark:text-yellow-400"><i class="ti ti-mood-happy"></i></div>
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Fun Learning</h3>
+                    <p class="text-gray-600 dark:text-slate-400">No boring flashcards! Our games make learning Hawaiian Pidgin enjoyable and addictive.</p>
                 </div>
 
-                <div class="bg-white rounded-2xl p-8 text-center shadow-lg">
-                    <div class="text-5xl mb-4"><i class="ti ti-trending-up"></i></div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Track Progress</h3>
-                    <p class="text-gray-600">See your improvement over time. Daily challenges help build a consistent learning habit.</p>
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 text-center shadow-lg border dark:border-slate-700">
+                    <div class="text-5xl mb-4 dark:text-green-400"><i class="ti ti-trending-up"></i></div>
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Track Progress</h3>
+                    <p class="text-gray-600 dark:text-slate-400">See your improvement over time. Daily challenges help build a consistent learning habit.</p>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="container mx-auto px-4 py-16 text-center">
+        <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-4">Ready to Start Learning?</h2>
+        <p class="text-gray-600 dark:text-slate-400 mb-8 max-w-2xl mx-auto">
+            Jump into any game and start building your Hawaiian Pidgin vocabulary today.
+            No sign-up required!
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="/pidgin-ear-trainer.html" class="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full font-bold hover:scale-105 transition shadow-lg flex items-center gap-2">
+                <i class="ti ti-headset"></i> Play Ear Trainer
+            </a>
+            <a href="/pidgin-wordle.html" class="px-8 py-4 bg-gradient-to-r from-green-500 to-teal-500 text-white rounded-full font-bold hover:scale-105 transition shadow-lg flex items-center gap-2">
+                <img src="assets/images/wordle-icon.webp" alt="Wordle" loading="lazy" class="w-6 h-6"> Play Wordle
+            </a>
+            <a href="/dictionary.html" class="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-full font-bold hover:scale-105 transition shadow-lg">
+                <i class="ti ti-books"></i> Browse Dictionary
+            </a>
+            <a href="/phrases.html" class="px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full font-bold hover:scale-105 transition shadow-lg">
+                <i class="ti ti-message"></i> Learn Phrases
+            </a>
         </div>
     </section>
 

@@ -192,11 +192,11 @@
     </script>
 </head>
 
-<body class="min-h-screen bg-gray-50">
+<body class="min-h-screen bg-gray-50 dark:bg-slate-900 transition-colors duration-300">
     <!-- NAVIGATION_PLACEHOLDER -->
 
     <!-- Hero Section -->
-    <div class="translator-hero py-6 md:py-10 px-4 relative overflow-hidden">
+    <div class="translator-hero py-6 md:py-10 px-4 relative overflow-hidden dark:bg-slate-900">
         <!-- Background decoration -->
         <div class="absolute inset-0 opacity-10">
             <div class="absolute top-10 right-20 text-5xl"><i class="ti ti-flower"></i></div>
@@ -206,7 +206,7 @@
 
         <div class="max-w-5xl mx-auto text-center relative z-10">
             <div class="mb-3 flex items-center justify-center gap-3">
-                <div class="text-3xl md:text-4xl"><i class="ti ti-robot"></i></div>
+                <div class="text-3xl md:text-4xl"><i class="ti ti-robot text-white"></i></div>
                 <h1 class="text-2xl md:text-4xl font-bold text-white">
                     AI Pidgin Translator
                 </h1>
@@ -217,16 +217,16 @@
 
             <!-- Quick Stats -->
             <div class="flex flex-wrap justify-center gap-2 md:gap-4 text-xs md:text-sm text-white/80">
-                <div class="bg-white/20 backdrop-blur rounded-lg px-3 py-1 md:px-4 md:py-2">
+                <div class="bg-white/20 dark:bg-slate-800/40 backdrop-blur rounded-lg px-3 py-1 md:px-4 md:py-2 border border-white/10">
                     <span class="font-bold"><i class="ti ti-robot"></i> AI-Powered</span>
                 </div>
-                <div class="bg-white/20 backdrop-blur rounded-lg px-3 py-1 md:px-4 md:py-2">
+                <div class="bg-white/20 dark:bg-slate-800/40 backdrop-blur rounded-lg px-3 py-1 md:px-4 md:py-2 border border-white/10">
                     <span class="font-bold">660+</span> Words
                 </div>
-                <div class="bg-white/20 backdrop-blur rounded-lg px-3 py-1 md:px-4 md:py-2">
+                <div class="bg-white/20 dark:bg-slate-800/40 backdrop-blur rounded-lg px-3 py-1 md:px-4 md:py-2 border border-white/10">
                     <span class="font-bold">Cultural</span> Context
                 </div>
-                <div class="bg-white/20 backdrop-blur rounded-lg px-3 py-1 md:px-4 md:py-2">
+                <div class="bg-white/20 dark:bg-slate-800/40 backdrop-blur rounded-lg px-3 py-1 md:px-4 md:py-2 border border-white/10">
                     <span class="font-bold">Audio</span> Playback
                 </div>
             </div>
@@ -236,14 +236,14 @@
     <!-- Main Translator Section -->
     <div class="max-w-6xl mx-auto px-4 py-6 md:py-10">
         <!-- Translation Interface -->
-        <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 mb-8 border dark:border-slate-700">
             <!-- Direction Toggle -->
             <div class="flex justify-center mb-8">
-                <div class="bg-gray-100 rounded-full p-1 flex items-center">
-                    <button id="english-to-pidgin-btn" class="px-6 py-3 rounded-full bg-purple-600 text-white font-semibold transition whitespace-nowrap">
+                <div class="bg-gray-100 dark:bg-slate-900 rounded-full p-1 flex items-center">
+                    <button id="english-to-pidgin-btn" class="px-6 py-3 rounded-full bg-purple-600 text-white font-semibold transition whitespace-nowrap shadow-md">
                         English → Pidgin
                     </button>
-                    <button id="pidgin-to-english-btn" class="px-6 py-3 rounded-full text-gray-600 hover:text-gray-800 font-semibold transition whitespace-nowrap">
+                    <button id="pidgin-to-english-btn" class="px-6 py-3 rounded-full text-gray-600 dark:text-slate-400 hover:text-gray-800 dark:hover:text-white font-semibold transition whitespace-nowrap">
                         Pidgin → English
                     </button>
                 </div>
@@ -254,12 +254,12 @@
                 <!-- Input Box -->
                 <div>
                     <div class="flex justify-between items-center mb-2">
-                        <label id="input-label" class="block text-sm font-semibold text-gray-700">
+                        <label id="input-label" class="block text-sm font-semibold text-gray-700 dark:text-slate-300">
                             Enter English Text
                         </label>
                         <div id="tone-selector" class="flex items-center gap-2">
                             <span class="text-[10px] font-bold text-gray-400 uppercase">Style:</span>
-                            <select id="translation-tone" class="text-xs font-bold text-purple-600 bg-purple-50 border-none rounded-md px-2 py-1 focus:ring-1 focus:ring-purple-500">
+                            <select id="translation-tone" class="text-xs font-bold text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-slate-900 border-none rounded-md px-2 py-1 focus:ring-1 focus:ring-purple-500">
                                 <option value="light">Light (Visitor)</option>
                                 <option value="standard" selected>Standard (Local)</option>
                                 <option value="heavy">Heavy (Street)</option>
@@ -270,14 +270,14 @@
                         <textarea
                             id="translator-input"
                             placeholder="Type or paste English text here..."
-                            class="w-full h-40 p-4 pb-8 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-purple-500 transition resize-none text-lg"
+                            class="w-full h-40 p-4 pb-8 border-2 border-gray-300 dark:border-slate-700 rounded-xl focus:outline-none focus:border-purple-500 bg-white dark:bg-slate-900 text-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 transition resize-none text-lg"
                         ></textarea>
-                        <span id="char-count" class="absolute bottom-4 left-4 text-sm text-gray-500 whitespace-nowrap">0 / 500 characters</span>
+                        <span id="char-count" class="absolute bottom-4 left-4 text-sm text-gray-500 dark:text-slate-500 whitespace-nowrap">0 / 500 characters</span>
                         <div class="absolute bottom-4 right-4 flex gap-2">
-                            <button id="clear-input-btn" class="text-gray-400 hover:text-gray-600 transition" title="Clear">
+                            <button id="clear-input-btn" class="text-gray-400 hover:text-gray-600 dark:hover:text-slate-300 transition" title="Clear">
                                 ✕
                             </button>
-                            <button id="paste-btn" class="text-gray-400 hover:text-gray-600 transition" title="Paste">
+                            <button id="paste-btn" class="text-gray-400 hover:text-gray-600 dark:hover:text-slate-300 transition" title="Paste">
                                 <i class="ti ti-clipboard"></i>
                             </button>
                         </div>
@@ -285,14 +285,14 @@
                     <div class="mt-2 flex flex-col items-center">
                         <div id="voice-status" class="hidden mb-2"></div>
                         <div class="flex gap-3 items-center">
-                            <button id="mic-input-btn" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 transition whitespace-nowrap font-medium" title="Voice Input">
+                            <button id="mic-input-btn" class="flex items-center gap-1 text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition whitespace-nowrap font-medium" title="Voice Input">
                                 <i class="ti ti-microphone text-xl"></i> Voice Input
                             </button>
                             <label class="flex items-center cursor-pointer gap-2" title="Automatically translate and speak after voice input">
-                                <span class="text-[10px] font-bold text-gray-400 uppercase">Hands-Free</span>
+                                <span class="text-[10px] font-bold text-gray-400 dark:text-slate-500 uppercase">Hands-Free</span>
                                 <div class="relative">
                                     <input type="checkbox" id="hands-free-mode" class="sr-only peer" checked>
-                                    <div class="w-8 h-4 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-purple-500"></div>
+                                    <div class="w-8 h-4 bg-gray-200 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-purple-500"></div>
                                 </div>
                             </label>
                             <button id="translate-btn" class="px-6 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-indigo-700 transition shadow-md hover:shadow-lg whitespace-nowrap">
@@ -304,29 +304,29 @@
 
                 <!-- Output Box -->
                 <div>
-                    <label id="output-label" class="block text-sm font-semibold text-gray-700 mb-2">
+                    <label id="output-label" class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">
                         Pidgin Translation
                     </label>
-                    <div class="relative bg-gray-50 rounded-xl p-4 h-40 overflow-y-auto">
-                        <div id="translation-output" class="text-lg text-gray-800">
-                            <p class="text-gray-400 italic">Translation will appear here...</p>
+                    <div class="relative bg-gray-50 dark:bg-slate-900 rounded-xl p-4 h-40 overflow-y-auto border dark:border-slate-700">
+                        <div id="translation-output" class="text-lg text-gray-800 dark:text-white">
+                            <p class="text-gray-400 dark:text-slate-500 italic">Translation will appear here...</p>
                         </div>
                         <div class="absolute top-4 right-4 flex gap-2">
-                            <button id="copy-btn" class="text-gray-400 hover:text-gray-600 transition hidden" title="Copy">
+                            <button id="copy-btn" class="text-gray-400 hover:text-gray-600 dark:hover:text-slate-300 transition hidden" title="Copy">
                                 <i class="ti ti-clipboard"></i>
                             </button>
-                            <button id="speak-btn" class="text-gray-400 hover:text-gray-600 transition hidden" title="Listen">
+                            <button id="speak-btn" class="text-gray-400 hover:text-gray-600 dark:hover:text-slate-300 transition hidden" title="Listen">
                                 <i class="ti ti-volume"></i>
                             </button>
                         </div>
                     </div>
                     <div id="confidence-indicator" class="mt-2 hidden">
                         <div class="flex items-center gap-2">
-                            <span class="text-sm font-medium">Confidence:</span>
-                            <div class="flex-1 bg-gray-200 rounded-full h-2">
+                            <span class="text-sm font-medium dark:text-slate-400">Confidence:</span>
+                            <div class="flex-1 bg-gray-200 dark:bg-slate-700 rounded-full h-2">
                                 <div id="confidence-bar" class="h-2 rounded-full transition-all duration-300"></div>
                             </div>
-                            <span id="confidence-text" class="text-sm font-medium"></span>
+                            <span id="confidence-text" class="text-sm font-medium dark:text-slate-300"></span>
                         </div>
                     </div>
                 </div>
@@ -335,160 +335,144 @@
         </div>
 
         <!-- Example Phrases -->
-        <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
-                <i class="ti ti-star-filled"></i> Try These Examples
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 mb-8 border dark:border-slate-700">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6 text-center">
+                <i class="ti ti-star-filled text-yellow-500"></i> Try These Examples
             </h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <button class="example-phrase p-4 bg-gray-50 hover:bg-purple-50 rounded-lg text-left transition" data-text="How are you doing?" data-direction="en-to-pid">
-                    <div class="text-sm text-gray-600">English:</div>
-                    <div class="font-semibold">How are you doing?</div>
-                    <div class="text-sm text-purple-600 mt-1">→ Howzit?</div>
+                <button class="example-phrase p-4 bg-gray-50 dark:bg-slate-900 hover:bg-purple-50 dark:hover:bg-slate-800 rounded-lg text-left transition border dark:border-slate-700" data-text="How are you doing?" data-direction="en-to-pid">
+                    <div class="text-sm text-gray-600 dark:text-slate-500">English:</div>
+                    <div class="font-semibold dark:text-slate-200">How are you doing?</div>
+                    <div class="text-sm text-purple-600 dark:text-purple-400 mt-1">→ Howzit?</div>
                 </button>
-                <button class="example-phrase p-4 bg-gray-50 hover:bg-purple-50 rounded-lg text-left transition" data-text="The food is delicious" data-direction="en-to-pid">
-                    <div class="text-sm text-gray-600">English:</div>
-                    <div class="font-semibold">The food is delicious</div>
-                    <div class="text-sm text-purple-600 mt-1">→ Da grinds stay ono</div>
+                <button class="example-phrase p-4 bg-gray-50 dark:bg-slate-900 hover:bg-purple-50 dark:hover:bg-slate-800 rounded-lg text-left transition border dark:border-slate-700" data-text="The food is delicious" data-direction="en-to-pid">
+                    <div class="text-sm text-gray-600 dark:text-slate-500">English:</div>
+                    <div class="font-semibold dark:text-slate-200">The food is delicious</div>
+                    <div class="text-sm text-purple-600 dark:text-purple-400 mt-1">→ Da grinds stay ono</div>
                 </button>
-                <button class="example-phrase p-4 bg-gray-50 hover:bg-purple-50 rounded-lg text-left transition" data-text="I'm finished" data-direction="en-to-pid">
-                    <div class="text-sm text-gray-600">English:</div>
-                    <div class="font-semibold">I'm finished</div>
-                    <div class="text-sm text-purple-600 mt-1">→ I stay pau</div>
+                <button class="example-phrase p-4 bg-gray-50 dark:bg-slate-900 hover:bg-purple-50 dark:hover:bg-slate-800 rounded-lg text-left transition border dark:border-slate-700" data-text="I'm finished" data-direction="en-to-pid">
+                    <div class="text-sm text-gray-600 dark:text-slate-500">English:</div>
+                    <div class="font-semibold dark:text-slate-200">I'm finished</div>
+                    <div class="text-sm text-purple-600 dark:text-purple-400 mt-1">→ I stay pau</div>
                 </button>
-                <button class="example-phrase p-4 bg-gray-50 hover:bg-purple-50 rounded-lg text-left transition" data-text="Shoots brah" data-direction="pid-to-en">
-                    <div class="text-sm text-gray-600">Pidgin:</div>
-                    <div class="font-semibold">Shoots brah</div>
-                    <div class="text-sm text-blue-600 mt-1">→ Sounds good, friend</div>
+                <button class="example-phrase p-4 bg-gray-50 dark:bg-slate-900 hover:bg-purple-50 dark:hover:bg-slate-800 rounded-lg text-left transition border dark:border-slate-700" data-text="Shoots brah" data-direction="pid-to-en">
+                    <div class="text-sm text-gray-600 dark:text-slate-500">Pidgin:</div>
+                    <div class="font-semibold dark:text-slate-200">Shoots brah</div>
+                    <div class="text-sm text-blue-600 dark:text-blue-400 mt-1">→ Sounds good, friend</div>
                 </button>
-                <button class="example-phrase p-4 bg-gray-50 hover:bg-purple-50 rounded-lg text-left transition" data-text="Dis buggah stay broke" data-direction="pid-to-en">
-                    <div class="text-sm text-gray-600">Pidgin:</div>
-                    <div class="font-semibold">Dis buggah stay broke</div>
-                    <div class="text-sm text-blue-600 mt-1">→ This thing is broken</div>
+                <button class="example-phrase p-4 bg-gray-50 dark:bg-slate-900 hover:bg-purple-50 dark:hover:bg-slate-800 rounded-lg text-left transition border dark:border-slate-700" data-text="Dis buggah stay broke" data-direction="pid-to-en">
+                    <div class="text-sm text-gray-600 dark:text-slate-500">Pidgin:</div>
+                    <div class="font-semibold dark:text-slate-200">Dis buggah stay broke</div>
+                    <div class="text-sm text-blue-600 dark:text-blue-400 mt-1">→ This thing is broken</div>
                 </button>
-                <button class="example-phrase p-4 bg-gray-50 hover:bg-purple-50 rounded-lg text-left transition" data-text="No make lidat" data-direction="pid-to-en">
-                    <div class="text-sm text-gray-600">Pidgin:</div>
-                    <div class="font-semibold">No make lidat</div>
-                    <div class="text-sm text-blue-600 mt-1">→ Don't do it like that</div>
+                <button class="example-phrase p-4 bg-gray-50 dark:bg-slate-900 hover:bg-purple-50 dark:hover:bg-slate-800 rounded-lg text-left transition border dark:border-slate-700" data-text="No make lidat" data-direction="pid-to-en">
+                    <div class="text-sm text-gray-600 dark:text-slate-500">Pidgin:</div>
+                    <div class="font-semibold dark:text-slate-200">No make lidat</div>
+                    <div class="text-sm text-blue-600 dark:text-blue-400 mt-1">→ Don't do it like that</div>
                 </button>
             </div>
         </div>
 
         <!-- Trending Phrases -->
-        <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl shadow-lg p-8 mb-8 border border-indigo-100">
+        <div class="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-slate-800 dark:to-slate-900 rounded-2xl shadow-lg p-8 mb-8 border border-indigo-100 dark:border-slate-700">
             <div class="flex items-center justify-between mb-6">
-                <h2 class="text-xl md:text-2xl font-bold text-gray-800">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800 dark:text-white">
                     🔥 Trending Island Phrases
                 </h2>
-                <span class="bg-indigo-100 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Popular Now</span>
+                <span class="bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Popular Now</span>
             </div>
             <div class="flex flex-wrap gap-3">
-                <a href="what-does-da-kine-mean.html" class="bg-white border border-indigo-200 px-4 py-2 rounded-full text-indigo-700 hover:bg-indigo-600 hover:text-white transition shadow-sm hover:shadow-md font-medium">#da-kine</a>
-                <a href="what-does-shoots-mean.html" class="bg-white border border-indigo-200 px-4 py-2 rounded-full text-indigo-700 hover:bg-indigo-600 hover:text-white transition shadow-sm hover:shadow-md font-medium">#shoots</a>
-                <a href="what-does-howzit-mean.html" class="bg-white border border-indigo-200 px-4 py-2 rounded-full text-indigo-700 hover:bg-indigo-600 hover:text-white transition shadow-sm hover:shadow-md font-medium">#howzit</a>
-                <a href="what-does-ono-mean.html" class="bg-white border border-indigo-200 px-4 py-2 rounded-full text-indigo-700 hover:bg-indigo-600 hover:text-white transition shadow-sm hover:shadow-md font-medium">#ono</a>
-                <a href="what-does-pau-hana-mean.html" class="bg-white border border-indigo-200 px-4 py-2 rounded-full text-indigo-700 hover:bg-indigo-600 hover:text-white transition shadow-sm hover:shadow-md font-medium">#pau-hana</a>
-                <a href="what-does-brah-mean.html" class="bg-white border border-indigo-200 px-4 py-2 rounded-full text-indigo-700 hover:bg-indigo-600 hover:text-white transition shadow-sm hover:shadow-md font-medium">#brah</a>
-                <a href="what-does-broke-da-mouth-mean.html" class="bg-white border border-indigo-200 px-4 py-2 rounded-full text-indigo-700 hover:bg-indigo-600 hover:text-white transition shadow-sm hover:shadow-md font-medium">#broke-da-mouth</a>
-                <a href="what-does-grindz-mean.html" class="bg-white border border-indigo-200 px-4 py-2 rounded-full text-indigo-700 hover:bg-indigo-600 hover:text-white transition shadow-sm hover:shadow-md font-medium">#grindz</a>
+                <a href="what-does-da-kine-mean.html" class="bg-white dark:bg-slate-800 border border-indigo-200 dark:border-slate-700 px-4 py-2 rounded-full text-indigo-700 dark:text-indigo-400 hover:bg-indigo-600 hover:text-white transition shadow-sm hover:shadow-md font-medium">#da-kine</a>
+                <a href="what-does-shoots-mean.html" class="bg-white dark:bg-slate-800 border border-indigo-200 dark:border-slate-700 px-4 py-2 rounded-full text-indigo-700 dark:text-indigo-400 hover:bg-indigo-600 hover:text-white transition shadow-sm hover:shadow-md font-medium">#shoots</a>
+                <a href="what-does-howzit-mean.html" class="bg-white dark:bg-slate-800 border border-indigo-200 dark:border-slate-700 px-4 py-2 rounded-full text-indigo-700 dark:text-indigo-400 hover:bg-indigo-600 hover:text-white transition shadow-sm hover:shadow-md font-medium">#howzit</a>
+                <a href="what-does-ono-mean.html" class="bg-white dark:bg-slate-800 border border-indigo-200 dark:border-slate-700 px-4 py-2 rounded-full text-indigo-700 dark:text-indigo-400 hover:bg-indigo-600 hover:text-white transition shadow-sm hover:shadow-md font-medium">#ono</a>
+                <a href="what-does-pau-hana-mean.html" class="bg-white dark:bg-slate-800 border border-indigo-200 dark:border-slate-700 px-4 py-2 rounded-full text-indigo-700 dark:text-indigo-400 hover:bg-indigo-600 hover:text-white transition shadow-sm hover:shadow-md font-medium">#pau-hana</a>
+                <a href="what-does-brah-mean.html" class="bg-white dark:bg-slate-800 border border-indigo-200 dark:border-slate-700 px-4 py-2 rounded-full text-indigo-700 dark:text-indigo-400 hover:bg-indigo-600 hover:text-white transition shadow-sm hover:shadow-md font-medium">#brah</a>
+                <a href="what-does-broke-da-mouth-mean.html" class="bg-white dark:bg-slate-800 border border-indigo-200 dark:border-slate-700 px-4 py-2 rounded-full text-indigo-700 dark:text-indigo-400 hover:bg-indigo-600 hover:text-white transition shadow-sm hover:shadow-md font-medium">#broke-da-mouth</a>
+                <a href="what-does-grindz-mean.html" class="bg-white dark:bg-slate-800 border border-indigo-200 dark:border-slate-700 px-4 py-2 rounded-full text-indigo-700 dark:text-indigo-400 hover:bg-indigo-600 hover:text-white transition shadow-sm hover:shadow-md font-medium">#grindz</a>
             </div>
-            <p class="text-xs text-gray-500 mt-6 text-center italic">
+            <p class="text-xs text-gray-500 dark:text-slate-500 mt-6 text-center italic">
                 <i class="ti ti-info-circle"></i> Trending based on real-world island conversations and search interest.
             </p>
         </div>
 
         <!-- Features -->
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            <div class="feature-card rounded-xl p-6">
-                <h3 class="font-bold text-lg mb-2"><span class="text-3xl mr-2"><i class="ti ti-robot"></i></span>AI-Powered Translation</h3>
-                <p class="text-gray-600">Google Gemini AI understands context, slang, and natural Hawaiian Pidgin expressions</p>
+            <div class="feature-card dark:bg-slate-800/50 rounded-xl p-6 border dark:border-slate-700">
+                <h3 class="font-bold text-lg mb-2 dark:text-white"><span class="text-3xl mr-2"><i class="ti ti-robot text-purple-500"></i></span>AI-Powered Translation</h3>
+                <p class="text-gray-600 dark:text-slate-400">Google Gemini AI understands context, slang, and natural Hawaiian Pidgin expressions</p>
             </div>
-            <div class="feature-card rounded-xl p-6">
-                <h3 class="font-bold text-lg mb-2"><span class="text-3xl mr-2"><i class="ti ti-target"></i></span>Smart Context Analysis</h3>
-                <p class="text-gray-600">AI analyzes sentence structure and context for accurate cultural translation</p>
+            <div class="feature-card dark:bg-slate-800/50 rounded-xl p-6 border dark:border-slate-700">
+                <h3 class="font-bold text-lg mb-2 dark:text-white"><span class="text-3xl mr-2"><i class="ti ti-target text-red-500"></i></span>Smart Context Analysis</h3>
+                <p class="text-gray-600 dark:text-slate-400">AI analyzes sentence structure and context for accurate cultural translation</p>
             </div>
-            <div class="feature-card rounded-xl p-6">
-                <h3 class="font-bold text-lg mb-2"><span class="text-3xl mr-2"><i class="ti ti-chart-bar"></i></span>Confidence Scoring</h3>
-                <p class="text-gray-600">See how accurate each translation is with our scoring system</p>
-            </div>
-            <div class="feature-card rounded-xl p-6">
-                <h3 class="font-bold text-lg mb-2"><span class="text-3xl mr-2"><i class="ti ti-volume"></i></span>Audio Pronunciation</h3>
-                <p class="text-gray-600">Hear how words are pronounced by locals</p>
-            </div>
-            <div class="feature-card rounded-xl p-6">
-                <h3 class="font-bold text-lg mb-2"><span class="text-3xl mr-2"><i class="ti ti-books"></i></span>Cultural Context</h3>
-                <p class="text-gray-600">Learn the cultural meaning behind expressions</p>
-            </div>
-            <div class="feature-card rounded-xl p-6">
-                <h3 class="font-bold text-lg mb-2"><span class="text-3xl mr-2"><i class="ti ti-message"></i></span>Bidirectional</h3>
-                <p class="text-gray-600">Translate both English to Pidgin and Pidgin to English</p>
-            </div>
-            <div class="feature-card rounded-xl p-6">
-                <h3 class="font-bold text-lg mb-2"><span class="text-3xl mr-2"><i class="ti ti-note"></i></span>Phrase Support</h3>
-                <p class="text-gray-600">Translate full sentences and common phrases</p>
+            <div class="feature-card dark:bg-slate-800/50 rounded-xl p-6 border dark:border-slate-700">
+                <h3 class="font-bold text-lg mb-2 dark:text-white"><span class="text-3xl mr-2"><i class="ti ti-chart-bar text-blue-500"></i></span>Confidence Scoring</h3>
+                <p class="text-gray-600 dark:text-slate-400">See how accurate each translation is with our scoring system</p>
             </div>
         </div>
 
         <!-- Word Discovery Panel (Deep Dive) -->
-        <div id="word-discovery-panel" class="bg-white rounded-2xl shadow-xl p-8 mb-8 hidden border-2 border-purple-200 animate-slide-up">
+        <div id="word-discovery-panel" class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 mb-8 hidden border-2 border-purple-200 dark:border-purple-900/50 animate-slide-up">
             <div class="flex justify-between items-start mb-4">
-                <h2 class="text-xl font-bold text-purple-800">
+                <h2 class="text-xl font-bold text-purple-800 dark:text-purple-400">
                     <i class="ti ti-search"></i> Word Discovery
                 </h2>
-                <button id="close-discovery-btn" class="text-gray-400 hover:text-gray-600">
+                <button id="close-discovery-btn" class="text-gray-400 hover:text-gray-600 dark:hover:text-slate-300">
                     <i class="ti ti-x"></i>
                 </button>
             </div>
-            <div id="word-discovery-content">
+            <div id="word-discovery-content" class="dark:text-slate-200">
                 <!-- Populated via JS -->
             </div>
             <div class="mt-6 flex gap-3">
                 <button id="discovery-practice-btn" class="flex-1 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition font-bold">
                     Practice this word
                 </button>
-                <button id="discovery-listen-btn" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg hover:bg-blue-200 transition">
+                <button id="discovery-listen-btn" class="bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 px-4 py-2 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/60 transition border dark:border-blue-800/50">
                     <i class="ti ti-volume"></i>
                 </button>
             </div>
         </div>
 
         <!-- Translation History -->
-        <div class="bg-white rounded-2xl shadow-xl p-8">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 border dark:border-slate-700">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold text-gray-800 whitespace-nowrap">
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white whitespace-nowrap">
                     📜 Recent Translations
                 </h2>
-                <button id="clear-history-btn" class="text-sm text-gray-500 hover:text-gray-700 transition whitespace-nowrap">
+                <button id="clear-history-btn" class="text-sm text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200 transition whitespace-nowrap">
                     Clear History
                 </button>
             </div>
             <div id="translation-history" class="space-y-3">
-                <p class="text-gray-400 italic text-center py-8">No translations yet. Start translating above!</p>
+                <p class="text-gray-400 dark:text-slate-500 italic text-center py-8">No translations yet. Start translating above!</p>
             </div>
         </div>
 
         <!-- Related Resources -->
-        <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 mt-8">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Keep Learning Hawaiian Pidgin</h2>
+        <div class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-slate-800/50 dark:to-slate-900/50 rounded-2xl p-8 mt-8 border dark:border-slate-800">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6 text-center">Keep Learning Hawaiian Pidgin</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <a href="dictionary.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition group">
-                    <div class="text-3xl mb-2 group-hover:scale-110 transition"><i class="ti ti-books"></i></div>
-                    <h3 class="font-bold text-gray-800">Dictionary</h3>
-                    <p class="text-sm text-gray-500">660+ words</p>
+                <a href="dictionary.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition group border dark:border-slate-700">
+                    <div class="text-3xl mb-2 group-hover:scale-110 transition dark:text-slate-200"><i class="ti ti-books text-purple-500"></i></div>
+                    <h3 class="font-bold text-gray-800 dark:text-white">Dictionary</h3>
+                    <p class="text-sm text-gray-500 dark:text-slate-400">660+ words</p>
                 </a>
-                <a href="phrases.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition group">
-                    <div class="text-3xl mb-2 group-hover:scale-110 transition"><i class="ti ti-message"></i></div>
-                    <h3 class="font-bold text-gray-800">Phrases</h3>
-                    <p class="text-sm text-gray-500">100+ expressions</p>
+                <a href="phrases.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition group border dark:border-slate-700">
+                    <div class="text-3xl mb-2 group-hover:scale-110 transition dark:text-slate-200"><i class="ti ti-message text-green-500"></i></div>
+                    <h3 class="font-bold text-gray-800 dark:text-white">Phrases</h3>
+                    <p class="text-sm text-gray-500 dark:text-slate-400">100+ expressions</p>
                 </a>
-                <a href="games.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition group">
-                    <div class="text-3xl mb-2 group-hover:scale-110 transition"><i class="ti ti-device-gamepad-2"></i></div>
-                    <h3 class="font-bold text-gray-800">Games</h3>
-                    <p class="text-sm text-gray-500">Learn & play</p>
+                <a href="games.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition group border dark:border-slate-700">
+                    <div class="text-3xl mb-2 group-hover:scale-110 transition dark:text-slate-200"><i class="ti ti-device-gamepad-2 text-red-500"></i></div>
+                    <h3 class="font-bold text-gray-800 dark:text-white">Games</h3>
+                    <p class="text-sm text-gray-500 dark:text-slate-400">Learn & play</p>
                 </a>
-                <a href="cheat-sheet.html" class="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition group">
-                    <div class="text-3xl mb-2 group-hover:scale-110 transition"><i class="ti ti-clipboard"></i></div>
-                    <h3 class="font-bold text-gray-800">Cheat Sheet</h3>
-                    <p class="text-sm text-gray-500">Quick reference</p>
+                <a href="cheat-sheet.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 text-center shadow-md hover:shadow-lg transition group border dark:border-slate-700">
+                    <div class="text-3xl mb-2 group-hover:scale-110 transition dark:text-slate-200"><i class="ti ti-clipboard text-amber-500"></i></div>
+                    <h3 class="font-bold text-gray-800 dark:text-white">Cheat Sheet</h3>
+                    <p class="text-sm text-gray-500 dark:text-slate-400">Quick reference</p>
                 </a>
             </div>
         </div>
