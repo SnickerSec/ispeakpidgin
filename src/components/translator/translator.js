@@ -523,7 +523,7 @@ class PidginTranslator {
     }
 
     // Enhanced main translation function with confidence scoring and AI fallback
-    async translate(text, direction = 'eng-to-pidgin') {
+    async translate(text, direction = 'eng-to-pidgin', tone = 'standard') {
         if (!text || text.trim() === '') {
             return {
                 text: '',
@@ -596,7 +596,7 @@ class PidginTranslator {
         if (rawWordCount >= 6 && useAI) {
             try {
                 // Use rawInput for AI to ensure it sees the natural English
-                const aiResult = await this.aiTranslate(rawInput, direction);
+                const aiResult = await this.aiTranslate(rawInput, direction, tone);
                 if (aiResult) return aiResult;
             } catch (e) {
                 console.warn('AI translation fallback:', e);
@@ -739,7 +739,7 @@ class PidginTranslator {
     }
 
     // Semantic AI Translation with RAG (Retrieval-Augmented Generation)
-    async aiTranslate(text, direction) {
+    async aiTranslate(text, direction, tone = 'standard') {
         try {
             // 1. Get relevant context from local dictionary
             const context = this.getRelevantContext(text, direction);
@@ -748,7 +748,7 @@ class PidginTranslator {
             const response = await fetch('/api/ai/translate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text, direction, context })
+                body: JSON.stringify({ text, direction, context, tone })
             });
 
             if (!response.ok) throw new Error('AI Service error');

@@ -157,6 +157,13 @@ function setupTranslationControls() {
     confidenceBar = document.getElementById('confidence-bar');
     confidenceText = document.getElementById('confidence-text');
 
+    // Style selector listener
+    document.getElementById('translation-tone')?.addEventListener('change', () => {
+        if (inputField && inputField.value.trim()) {
+            performTranslation();
+        }
+    });
+
     // Add translate button listener (manual translation only to save API costs)
     translateBtn?.addEventListener('click', () => {
         performTranslation();
@@ -238,9 +245,10 @@ async function performTranslation() {
     outputDiv.innerHTML = '<p class="text-gray-400 italic animate-pulse"><i class="ti ti-refresh animate-spin"></i> Translating with AI...</p>';
     confidenceIndicator?.classList.add('hidden');
 
-    // Determine direction
+    // Determine direction and tone
     const directionStr = localStorage.getItem('translatorDirection') || 'en-to-pid';
     const direction = directionStr === 'en-to-pid' ? 'eng-to-pidgin' : 'pidgin-to-eng';
+    const tone = document.getElementById('translation-tone')?.value || 'standard';
 
     try {
         if (typeof pidginTranslator !== 'undefined' && pidginTranslator) {
@@ -248,7 +256,7 @@ async function performTranslation() {
                 pidginTranslator.tryInitialize();
             }
 
-            const result = await pidginTranslator.translate(text, direction);
+            const result = await pidginTranslator.translate(text, direction, tone);
             
             if (result && result.text) {
                 displayTranslationResult(result, text, directionStr);
@@ -302,6 +310,23 @@ function displayTranslationResult(result, originalText, direction) {
         const methodColor = meta.method?.includes('AI') ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700';
         outputHTML += `<span class="inline-block px-2 py-0.5 ${methodColor} rounded-full text-[10px] font-bold uppercase tracking-tighter mb-3">
             Method: ${escapeHtml(meta.method)}
+        </span>`;
+
+        // Style tag
+        const currentTone = document.getElementById('translation-tone')?.value || 'standard';
+        const toneColors = {
+            'light': 'bg-blue-50 text-blue-600',
+            'standard': 'bg-purple-50 text-purple-600',
+            'heavy': 'bg-orange-50 text-orange-600'
+        };
+        const toneLabels = {
+            'light': 'Light Style',
+            'standard': 'Standard Style',
+            'heavy': 'Heavy Style'
+        };
+        
+        outputHTML += `<span class="inline-block ml-2 px-2 py-0.5 ${toneColors[currentTone]} rounded-full text-[10px] font-bold uppercase tracking-tighter mb-3">
+            ${toneLabels[currentTone]}
         </span>`;
 
         if (meta.explanation) {

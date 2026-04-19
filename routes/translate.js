@@ -190,18 +190,20 @@ module.exports = function(translate, translationLimiter, dictionaryCache, supaba
         translationLimiter,
         [
             body('text').trim().notEmpty().withMessage('Text is required').isLength({ min: 1, max: 1000 }),
-            body('direction').optional().isIn(['eng-to-pidgin', 'pidgin-to-eng'])
+            body('direction').optional().isIn(['eng-to-pidgin', 'pidgin-to-eng']),
+            body('tone').optional().isIn(['light', 'standard', 'heavy'])
         ],
         async (req, res) => {
             const errors = validationResult(req);
             if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
             try {
-                const { text, direction } = req.body;
+                const { text, direction, tone = 'standard' } = req.body;
                 const apiKey = process.env.GEMINI_API_KEY;
                 if (!apiKey) return res.status(500).json({ error: 'Gemini API key not configured' });
 
-                const textHash = crypto.createHash('md5').update(text.trim().toLowerCase()).digest('hex');
+                // Add tone to hash to ensure unique caching for different styles
+                const textHash = crypto.createHash('md5').update(`${text.trim().toLowerCase()}_${tone}`).digest('hex');
                 const transDirection = direction || 'eng-to-pidgin';
 
                 // 1. Check Cache
@@ -215,11 +217,12 @@ module.exports = function(translate, translationLimiter, dictionaryCache, supaba
                             .single();
 
                         if (cached && cached.translated_text) {
-                            console.log(`📡 Serving cached translation for: ${textHash}`);
+                            console.log(`📡 Serving cached translation for: ${textHash} [${tone}]`);
                             return res.json({ 
                                 originalText: text, 
                                 translatedText: cached.translated_text, 
                                 direction: transDirection, 
+                                tone,
                                 model: 'cache',
                                 cached: true
                             });
@@ -231,9 +234,30 @@ module.exports = function(translate, translationLimiter, dictionaryCache, supaba
 
                 // 2. Generate new translation
                 const vocabularySection = getRelevantVocabulary(text, transDirection);
+                
+                let toneGuidance = '';
+                if (tone === 'light') {
+                    toneGuidance = `STYLE: "Visitor Friendly / Light Pidgin"
+- Use standard English grammar mostly, but pepper in core local vocabulary (da, stay, brah).
+- Keep it very easy to understand for someone not from Hawaii.
+- Avoid heavy sentence structure changes.`;
+                } else if (tone === 'heavy') {
+                    toneGuidance = `STYLE: "Street / Heavy Pidgin"
+- Use thick, authentic local grammar and heavy slang.
+- Maximize use of "stay" (stative), "wen" (past), "om" (them), "buggah", etc.
+- Use local contractions and shortcuts (e.g., "Whatchu" instead of "What you").
+- Make it sound like a local talking to a lifelong friend in the country.`;
+                } else {
+                    toneGuidance = `STYLE: "Standard Local Pidgin"
+- Balanced, everyday Pidgin used in Honolulu.
+- Natural mix of HCE grammar and local vocabulary.`;
+                }
+
                 const systemPrompt = transDirection === 'eng-to-pidgin'
                     ? `You are an expert Hawaiian Pidgin translator.
-Translate the following English text into AUTHENTIC, natural Hawaiian Pidgin (Hawaii Creole English).
+Translate the following English text into AUTHENTIC Hawaiian Pidgin (Hawaii Creole English).
+
+${toneGuidance}
 
 CRITICAL GRAMMAR RULES:
 1. Present Tense: Use "stay" for "am/is/are" when describing a state or location (e.g., "I stay hungry", "He stay home").
@@ -242,9 +266,9 @@ CRITICAL GRAMMAR RULES:
 4. Negations: Use "no" for "don't", "neva" for "didn't", and "no can" for "can't".
 5. Questions: Use "like" for "want to" (e.g., "You like food?" for "Do you want food?").
 6. Vocabulary: Use "da" for "the", "dat" for "that", "dis" for "this", "wit" for "with", and "fo" for "for".
-7. Pronouns: "They" often becomes "dey".
+7. Pronouns: "They" often becomes "dey", "them" becomes "om" or "dehm".
 
-Maintain a friendly, casual, local island style. Do not be overly formal.
+Maintain a friendly, casual, local island style. 
 ${vocabularySection}`
                     : `You are an expert Hawaiian Pidgin translator.
 Translate the following Hawaiian Pidgin text into natural English.

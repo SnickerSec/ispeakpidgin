@@ -185,14 +185,15 @@ ${vocabulary}`;
         [
             body('text').trim().notEmpty().isLength({ max: 500 }),
             body('direction').isIn(['eng-to-pidgin', 'pidgin-to-eng']),
-            body('context').optional().isArray()
+            body('context').optional().isArray(),
+            body('tone').optional().isIn(['light', 'standard', 'heavy'])
         ],
         async (req, res) => {
             const errors = validationResult(req);
             if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
             try {
-                const { text, direction, context = [] } = req.body;
+                const { text, direction, context = [], tone = 'standard' } = req.body;
                 const apiKey = process.env.GEMINI_API_KEY;
                 if (!apiKey) return res.status(500).json({ error: 'Gemini API key not configured' });
 
@@ -202,9 +203,20 @@ ${vocabulary}`;
                         context.map(c => `- "${c.pidgin}": ${Array.isArray(c.english) ? c.english.join(', ') : c.english}${c.usage ? ' (Usage: ' + c.usage + ')' : ''}`).join('\n');
                 }
 
+                let styleGuidance = '';
+                if (direction === 'eng-to-pidgin') {
+                    if (tone === 'light') {
+                        styleGuidance = '\nSTYLE: "Visitor Friendly / Light Pidgin" - Use standard English grammar mostly, but pepper in core local vocabulary. Keep it very easy to understand for non-locals.';
+                    } else if (tone === 'heavy') {
+                        styleGuidance = '\nSTYLE: "Street / Heavy Pidgin" - Use thick, authentic local grammar and heavy slang. Make it sound like a local talking to a lifelong friend. Use shortcuts like "whatchu", "buggah", "om".';
+                    } else {
+                        styleGuidance = '\nSTYLE: "Standard Local Pidgin" - Balanced, everyday Pidgin used in Honolulu. Natural mix of local grammar and vocabulary.';
+                    }
+                }
+
                 const systemPrompt = direction === 'eng-to-pidgin' 
                     ? `You are an expert Hawaiian Pidgin translator. 
-Translate the following English text into AUTHENTIC, natural Hawaiian Pidgin.
+Translate the following English text into AUTHENTIC, natural Hawaiian Pidgin.${styleGuidance}
 
 CRITICAL RULES:
 1. Use the provided VERIFIED VOCABULARY if relevant.
