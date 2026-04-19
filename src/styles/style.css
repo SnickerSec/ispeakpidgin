@@ -856,6 +856,14 @@ button:focus, a:focus, input:focus, textarea:focus {
     background: #1e293b !important;
 }
 
+/* Mobile menu - force opaque background so content doesn't bleed through */
+#mobile-menu {
+    background: #ffffff !important;
+}
+.dark #mobile-menu {
+    background: #0f172a !important;
+}
+
 /* ==================== */
 /* Mobile UX Improvements */
 /* ==================== */
