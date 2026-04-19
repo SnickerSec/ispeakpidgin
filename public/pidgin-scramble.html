@@ -47,6 +47,19 @@
 
         .letter-tile.used { pointer-events: none; }
     </style>
+
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('pidgin_theme');
+                if (savedTheme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            } catch (e) {}
+        })();
+    </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 </head>
 <body class="bg-gradient-to-br from-violet-50 via-purple-50 to-fuchsia-50 min-h-screen">

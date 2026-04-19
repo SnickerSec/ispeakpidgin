@@ -264,8 +264,21 @@ function processHTMLFiles() {
                 content = content.replace('<!-- FOOTER_PLACEHOLDER -->', footerTemplate);
             }
 
-            // Inject Tabler Icons CDN stylesheet before </head>
-            content = content.replace('</head>', '    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">\n</head>');
+            // Inject Tabler Icons CDN stylesheet and Theme Initialization Script before </head>
+            const themeScript = `
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('pidgin_theme');
+                if (savedTheme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            } catch (e) {}
+        })();
+    </script>`;
+            content = content.replace('</head>', `${themeScript}\n    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">\n</head>`);
 
             // Update script and link paths
             Object.entries(pathMappings).forEach(([oldPath, newPath]) => {
@@ -308,8 +321,21 @@ function processHTMLFiles() {
                 content = content.replace('<!-- FOOTER_PLACEHOLDER -->', blogFooter);
             }
 
-            // Inject Tabler Icons CDN stylesheet before </head>
-            content = content.replace('</head>', '    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">\n</head>');
+            // Inject Tabler Icons CDN stylesheet and Theme Initialization Script before </head>
+            const themeScript = `
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('pidgin_theme');
+                if (savedTheme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            } catch (e) {}
+        })();
+    </script>`;
+            content = content.replace('</head>', `${themeScript}\n    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">\n</head>`);
 
             // Update script and link paths for blog pages
             // First apply standard mappings with ../ prefix for root-relative paths
@@ -338,8 +364,21 @@ function processHTMLFiles() {
 
         content = stripInlineGtag(content);
 
-        // Inject Tabler Icons CDN stylesheet before </head>
-        content = content.replace('</head>', '    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">\n</head>');
+        // Inject Tabler Icons CDN stylesheet and Theme Initialization Script before </head>
+        const themeScript = `
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('pidgin_theme');
+                if (savedTheme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            } catch (e) {}
+        })();
+    </script>`;
+        content = content.replace('</head>', `${themeScript}\n    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">\n</head>`);
 
         // Update script and link paths (no template injection for admin page)
         Object.entries(pathMappings).forEach(([oldPath, newPath]) => {

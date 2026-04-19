@@ -73,14 +73,17 @@ document.addEventListener('DOMContentLoaded', function() {
     if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
     if (mobileThemeToggle) mobileThemeToggle.addEventListener('click', toggleTheme);
 
-    // Initialize theme from storage or system
+    // Initialize theme from storage or default to light
     const savedTheme = localStorage.getItem('pidgin_theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-        document.documentElement.classList.add('dark');
-    }
 
+    // Light theme is now the absolute default for new users
+    // We only apply dark mode if the user explicitly chose it previously
+    if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+    } else {
+        // Ensure light mode is the state if no preference or explicitly light
+        document.documentElement.classList.remove('dark');
+    }
     // Quick Search Logic
     const searchBtn = document.getElementById('nav-search-btn');
     const searchOverlay = document.getElementById('search-overlay');
