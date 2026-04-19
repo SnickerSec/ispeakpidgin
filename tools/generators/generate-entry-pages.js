@@ -34,6 +34,7 @@ const premiumPages = {
     'aloha': 'what-does-aloha-mean.html',
     'howzit': 'what-does-howzit-mean.html',
     'menpachi eyes': 'what-does-menpachi-eyes-mean.html',
+    'mempachi eyes': 'what-does-menpachi-eyes-mean.html',
     'no ka oi': 'what-does-no-ka-oi-mean.html',
     'pau': 'what-does-pau-mean.html',
     'choke': 'what-does-choke-mean.html',
@@ -91,7 +92,7 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
 
     // Check if this word has a premium landing page
     const premiumPage = premiumPages[entry.pidgin.toLowerCase()];
-    const premiumLink = premiumPage ? `/${premiumPage}` : null;
+    const premiumLink = premiumPage ? `${SITE_URL}/${premiumPage}` : null;
 
     // SEO-optimized title: Match exact search query "X meaning" with compelling format
     // Capitalize the word properly for display
@@ -101,7 +102,7 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
     // Create a more compelling, action-oriented meta description
     const metaDescription = `What does '${entry.pidgin}' mean? Discover the definition, authentic examples, cultural origin, and local pronunciation for this Hawaiian Pidgin term.`;
 
-    const canonicalUrl = `${SITE_URL}/word/${slug}.html`;
+    const canonicalUrl = premiumLink || `${SITE_URL}/word/${slug}.html`;
     const ogImage = `${SITE_URL}/assets/og/words/${slug}.webp`;
 
     // Common head content
@@ -203,6 +204,7 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
 
     const examplesArray = Array.isArray(entry.examples) ? entry.examples : (entry.examples ? [entry.examples] : []);
     const jsEscapedWord = entry.pidgin.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+    const jsEscapedPrimaryMeaning = primaryMeaning.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
     const quickActionsHtml = getQuickActionsHtml(entry.pidgin);
     const gameLinksHtml = getGameLinksHtml();
     const miniQuizHtml = getMiniQuizHtml();

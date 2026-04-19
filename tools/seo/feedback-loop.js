@@ -110,7 +110,9 @@ async function main() {
         const blacklist = [
             'dictionary', 'translator', 'pigeon', 'hawaiian', 'pidgin', 'google translate',
             'english to', 'how to say', 'what does', 'meaning of', 'translate', 'sayings',
-            'lingo', 'phrases', 'words', 'saying', 'phrase', 'word', 'help help', 'translate poo from'
+            'lingo', 'phrases', 'words', 'saying', 'phrase', 'word', 'help help', 'translate poo from',
+            'google', 'search', 'free', 'online', 'app', 'download', 'website', 'best', 'hawaii',
+            'choke pidgin', 'chokepidgin'
         ];
 
         for (const row of scQueries) {
@@ -123,11 +125,18 @@ async function main() {
                 /(.*) definition/i,
                 /(.*) pronunciation/i,
                 /(.*) in hawaiian/i,
+                /(.*) in korean/i,
+                /(.*) in japanese/i,
                 /(.*) hawaiian/i,
                 /(.*) pidgin/i,
                 /(.*) slang/i,
                 /(.*) hawaii/i,
                 /what is (.*)/i,
+                /define (.*)/i,
+                /is (.*) a word/i,
+                /is (.*) a real word/i,
+                /(.*) eyes/i,
+                /(.*) fish/i,
                 /hawaiian word (.*)/i,
                 /hawaiian phrase (.*)/i,
                 /hawaiian for (.*)/i,

@@ -28,6 +28,33 @@ const { generateOgImage } = require('./og-image-generator');
 const outputDir = path.join(__dirname, '../../public/phrase');
 const ogOutputDir = path.join(__dirname, '../../public/assets/og/phrases');
 
+// Map of words/phrases that have high-quality, dedicated landing pages
+const premiumPages = {
+    'akamai': 'what-does-akamai-mean.html',
+    'aloha': 'what-does-aloha-mean.html',
+    'howzit': 'what-does-howzit-mean.html',
+    'menpachi eyes': 'what-does-menpachi-eyes-mean.html',
+    'mempachi eyes': 'what-does-menpachi-eyes-mean.html',
+    'stop da menpachi eye': 'what-does-menpachi-eyes-mean.html',
+    'stop da mempachi eye': 'what-does-menpachi-eyes-mean.html',
+    'no ka oi': 'what-does-no-ka-oi-mean.html',
+    'pau': 'what-does-pau-mean.html',
+    'choke': 'what-does-choke-mean.html',
+    'mahalo': 'what-does-mahalo-mean.html',
+    'no worry': 'what-does-no-worry-mean.html',
+    'talk story': 'what-does-talk-story-mean.html',
+    'ainokea': 'what-does-ainokea-mean.html',
+    'buss up': 'what-does-buss-up-mean.html',
+    'amped': 'what-does-amped-mean.html',
+    'bline': 'what-does-bline-mean.html',
+    'bruddah': 'what-does-bruddah-mean.html',
+    'sistah': 'what-does-sistah-mean.html',
+    'moopuna': 'what-does-moopuna-mean.html',
+    'niele': 'what-does-niele-mean.html',
+    'pilau': 'what-does-pilau-mean.html',
+    'kanak attack': 'what-does-kanak-attack-mean.html'
+};
+
 // Create output directory
 if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
@@ -104,6 +131,11 @@ function internalLinker(text, dictionary) {
 function generatePhrasePage(phrase, relatedPhrases, navigation, footer, dictionary) {
     const slug = createSlug(phrase.pidgin);
     
+    // Check if this phrase has a premium landing page
+    const cleanedPidgin = phrase.pidgin.toLowerCase().replace(/[!?.]$/, '');
+    const premiumPage = premiumPages[cleanedPidgin];
+    const premiumLink = premiumPage ? `${SITE_URL}/${premiumPage}` : null;
+    
     // Apply internal linking to the phrase itself and notes
     const linkedPhrase = internalLinker(phrase.pidgin, dictionary);
     const linkedNotes = internalLinker(phrase.notes || '', dictionary);
@@ -115,7 +147,7 @@ function generatePhrasePage(phrase, relatedPhrases, navigation, footer, dictiona
     const escapedNotes = escapeHtml(phrase.notes || '');
     const escapedDifficulty = escapeHtml(phrase.difficulty || '');
 
-    const canonicalUrl = `${SITE_URL}/phrase/${slug}.html`;
+    const canonicalUrl = premiumLink || `${SITE_URL}/phrase/${slug}.html`;
 
     // Page title - more compelling
     const pageTitle = `"${phrase.pidgin}" Meaning & Pronunciation - Hawaiian Pidgin Guide | ${SITE_NAME}`;
@@ -296,6 +328,24 @@ ${headContent}
     </div>
 
     <main class="container mx-auto px-4 py-8 max-w-4xl">
+        ${premiumLink ? `
+        <!-- Premium Landing Page Callout -->
+        <div class="mb-8 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl p-1 shadow-lg">
+            <div class="bg-white rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="text-4xl">📖</div>
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-800">Deep Dive Guide</h2>
+                        <p class="text-gray-600">We have a complete cultural guide for this topic!</p>
+                    </div>
+                </div>
+                <a href="${premiumLink}" class="whitespace-nowrap px-6 py-3 bg-orange-500 text-white rounded-xl font-bold hover:bg-orange-600 transition-all shadow-md">
+                    Read Full Guide <i class="ti ti-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+        ` : ''}
+
         <!-- Phrase Header -->
         <div class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 rounded-3xl p-8 mb-8 shadow-2xl border-2 border-purple-200">
             <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-2">${linkedPhrase}</h1>
