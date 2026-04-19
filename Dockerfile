@@ -5,11 +5,11 @@
 FROM node:20-slim AS build
 WORKDIR /app
 
-# Install deps with lockfile (includes devDeps). npm cache is mounted so
-# repeat builds reuse downloaded tarballs.
+# Install deps with lockfile (includes devDeps). Docker layer caching
+# skips this step entirely when package.json / package-lock.json are
+# unchanged between builds.
 COPY package.json package-lock.json .npmrc ./
-RUN --mount=type=cache,id=npm,target=/root/.npm,sharing=locked \
-    npm ci --prefer-offline
+RUN npm ci --prefer-offline
 
 # Copy everything needed by the build script.
 COPY build.js ./
@@ -38,8 +38,7 @@ WORKDIR /app
 ENV NODE_ENV=production
 
 COPY package.json package-lock.json .npmrc ./
-RUN --mount=type=cache,id=npm,target=/root/.npm,sharing=locked \
-    npm ci --omit=dev --prefer-offline
+RUN npm ci --omit=dev --prefer-offline
 
 # Runtime code + built static output from the build stage.
 COPY server.js ./
