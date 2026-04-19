@@ -6,11 +6,15 @@
 class PidginEarTrainer {
     constructor() {
         this.allWords = [];
+        this.filteredWords = [];
         this.currentRound = null;
         this.score = 0;
+        this.streak = 0;
+        this.maxStreak = 0;
         this.totalQuestions = 0;
         this.questionsAttempted = 0;
         this.gameMode = 'relaxed'; // relaxed, blitz, marathon
+        this.difficulty = 'all'; // beginner, intermediate, expert, all
         this.timeLeft = 60;
         this.timer = null;
         this.isGameOver = false;
@@ -24,13 +28,16 @@ class PidginEarTrainer {
         
         this.elements = {
             score: document.getElementById('current-score'),
+            streak: document.getElementById('current-streak'),
+            streakContainer: document.getElementById('streak-container'),
             timer: document.getElementById('time-left'),
             timerContainer: document.getElementById('timer-container'),
             progressBar: document.getElementById('progress-bar'),
             optionsGrid: document.getElementById('options-grid'),
             playBtn: document.getElementById('play-audio-btn'),
             playIcon: document.getElementById('play-icon'),
-            audioRing: document.getElementById('audio-ring')
+            audioRing: document.getElementById('audio-ring'),
+            skipBtn: document.getElementById('skip-btn')
         };
 
         this.init();
@@ -61,8 +68,8 @@ class PidginEarTrainer {
             const phraseEntries = (phrases.phrases || []).filter(e => audioIndex.has(e.pidgin.toLowerCase()));
 
             this.allWords = [
-                ...dictEntries.map(e => ({ pidgin: e.pidgin, english: e.english })),
-                ...phraseEntries.map(e => ({ pidgin: e.pidgin, english: e.english }))
+                ...dictEntries.map(e => ({ pidgin: e.pidgin, english: e.english, type: 'word' })),
+                ...phraseEntries.map(e => ({ pidgin: e.pidgin, english: e.english, type: 'phrase' }))
             ];
 
             console.log(`Loaded ${this.allWords.length} audio-ready terms for Ear Trainer`);
@@ -85,6 +92,9 @@ class PidginEarTrainer {
         this.elements.playBtn.addEventListener('click', () => this.playCurrentAudio());
         document.getElementById('replay-btn').addEventListener('click', () => this.playCurrentAudio());
 
+        // Skip button
+        this.elements.skipBtn.addEventListener('click', () => this.skipQuestion());
+
         // Navigation
         document.getElementById('exit-game').addEventListener('click', () => this.showScreen('start'));
         document.getElementById('play-again-btn').addEventListener('click', () => this.showScreen('start'));
@@ -101,19 +111,27 @@ class PidginEarTrainer {
 
     resetGame() {
         this.score = 0;
+        this.streak = 0;
+        this.maxStreak = 0;
         this.questionsAttempted = 0;
         this.isGameOver = false;
         if (this.timer) clearInterval(this.timer);
         this.elements.progressBar.style.width = '0%';
         this.elements.timerContainer.classList.add('hidden');
+        this.elements.streakContainer.classList.add('hidden');
     }
 
     startGame(mode) {
         this.gameMode = mode;
         this.score = 0;
+        this.streak = 0;
+        this.maxStreak = 0;
         this.questionsAttempted = 0;
         this.totalQuestions = (mode === 'relaxed') ? 10 : 999;
         this.isGameOver = false;
+        
+        // Filter words based on mode/difficulty (simplified: just use all for now)
+        this.filteredWords = [...this.allWords];
         
         this.showScreen('game');
         
@@ -144,10 +162,10 @@ class PidginEarTrainer {
     nextQuestion() {
         if (this.isGameOver) return;
 
-        // Pick a random word
-        const correctEntry = this.allWords[Math.floor(Math.random() * this.allWords.length)];
+        // Pick a random word from filtered pool
+        const correctEntry = this.filteredWords[Math.floor(Math.random() * this.filteredWords.length)];
         
-        // Pick 3 distractors
+        // Pick 3 distractors from the FULL pool for more variety
         const distractors = [];
         while (distractors.length < 3) {
             const random = this.allWords[Math.floor(Math.random() * this.allWords.length)];
@@ -172,7 +190,18 @@ class PidginEarTrainer {
 
     renderQuestion() {
         this.elements.score.textContent = this.score;
+        this.elements.streak.textContent = this.streak;
         
+        if (this.streak > 1) {
+            this.elements.streakContainer.classList.remove('hidden');
+            // Add a little pop animation
+            this.elements.streakContainer.classList.remove('animate-bounce');
+            void this.elements.streakContainer.offsetWidth; // trigger reflow
+            this.elements.streakContainer.classList.add('animate-bounce');
+        } else {
+            this.elements.streakContainer.classList.add('hidden');
+        }
+
         // Progress bar
         if (this.gameMode === 'relaxed') {
             const progress = (this.questionsAttempted / this.totalQuestions) * 100;
@@ -194,6 +223,10 @@ class PidginEarTrainer {
         this.elements.optionsGrid.querySelectorAll('.option-btn').forEach(btn => {
             btn.addEventListener('click', () => this.handleAnswer(parseInt(btn.dataset.index), btn));
         });
+
+        // Re-enable skip button
+        this.elements.skipBtn.disabled = false;
+        this.elements.skipBtn.classList.remove('opacity-50');
     }
 
     formatEnglish(english) {
@@ -218,6 +251,33 @@ class PidginEarTrainer {
         });
     }
 
+    skipQuestion() {
+        if (this.isGameOver || !this.currentRound) return;
+        
+        this.streak = 0; // Reset streak on skip
+        this.questionsAttempted++;
+        
+        // Show the correct answer briefly
+        this.elements.optionsGrid.querySelectorAll('.option-btn').forEach(b => {
+            const opt = this.currentRound.options[parseInt(b.dataset.index)];
+            if (opt.pidgin === this.currentRound.correct.pidgin) {
+                b.classList.add('correct');
+            }
+            b.disabled = true;
+        });
+
+        this.elements.skipBtn.disabled = true;
+        this.elements.skipBtn.classList.add('opacity-50');
+
+        setTimeout(() => {
+            if (this.gameMode === 'relaxed' && this.questionsAttempted >= this.totalQuestions) {
+                this.endGame();
+            } else {
+                this.nextQuestion();
+            }
+        }, 1000);
+    }
+
     handleAnswer(index, btn) {
         if (this.isGameOver) return;
         
@@ -228,12 +288,20 @@ class PidginEarTrainer {
         
         // Disable all buttons
         this.elements.optionsGrid.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+        this.elements.skipBtn.disabled = true;
 
         if (isCorrect) {
-            this.score++;
+            this.streak++;
+            if (this.streak > this.maxStreak) this.maxStreak = this.streak;
+            
+            // Score with streak bonus
+            const points = 1 + Math.floor(this.streak / 5);
+            this.score += points;
+            
             btn.classList.add('correct');
             this.elements.score.textContent = this.score;
         } else {
+            this.streak = 0;
             btn.classList.add('wrong');
             // Show correct answer
             this.elements.optionsGrid.querySelectorAll('.option-btn').forEach(b => {
@@ -275,11 +343,11 @@ class PidginEarTrainer {
         
         if (accuracy >= 90) {
             title.textContent = "Certified Local! 🌺";
-            text.textContent = "Your ears stay sharp, brah. You know da kine!";
+            text.textContent = `Your ears stay sharp, brah. Max streak: ${this.maxStreak}!`;
             emoji.textContent = "🤙";
         } else if (accuracy >= 70) {
             title.textContent = "Good Job, Brah! 👍";
-            text.textContent = "You getting da hang of it. Keep listening!";
+            text.textContent = `You getting da hang of it. Best streak: ${this.maxStreak}.`;
             emoji.textContent = "🌴";
         } else {
             title.textContent = "Try Again! 🌊";
