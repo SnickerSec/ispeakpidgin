@@ -20,6 +20,11 @@ class PidginWordle {
         this.attachEventListeners();
         this.loadGameState();
         this.startCountdown();
+        
+        // Load leaderboard initially if game is already over
+        if (this.gameOver) {
+            this.loadLeaderboard();
+        }
     }
 
     async initGame() {
@@ -118,6 +123,18 @@ class PidginWordle {
         this.statMaxStreak = document.getElementById('stat-max-streak');
         this.shareSection = document.getElementById('share-section');
         this.countdownTimer = document.getElementById('countdown-timer');
+        
+        // Leaderboard elements
+        this.leaderboardBody = document.getElementById('leaderboard-body');
+        this.scoreSubmitSection = document.getElementById('wordle-score-submit');
+        this.submitScoreBtn = document.getElementById('submit-score-btn');
+        this.playerNameInput = document.getElementById('player-name');
+        
+        // Pre-fill name
+        const savedName = localStorage.getItem('pidgin_player_name');
+        if (savedName && this.playerNameInput) {
+            this.playerNameInput.value = savedName;
+        }
     }
 
     attachEventListeners() {
@@ -161,6 +178,11 @@ class PidginWordle {
         // Share button
         if (this.shareBtn) {
             this.shareBtn.addEventListener('click', () => this.shareResults());
+        }
+        
+        // Score submission
+        if (this.submitScoreBtn) {
+            this.submitScoreBtn.addEventListener('click', () => this.submitScore());
         }
     }
 
@@ -335,7 +357,9 @@ class PidginWordle {
         setTimeout(() => {
             this.updateStatsDisplay();
             this.shareSection.classList.remove('hidden');
+            this.scoreSubmitSection.classList.remove('hidden'); // Show submission
             this.openModal('stats-modal');
+            this.loadLeaderboard();
         }, 3000);
     }
 
@@ -354,7 +378,9 @@ class PidginWordle {
         setTimeout(() => {
             this.updateStatsDisplay();
             this.shareSection.classList.remove('hidden');
+            this.scoreSubmitSection.classList.add('hidden'); // Don't submit losses for now
             this.openModal('stats-modal');
+            this.loadLeaderboard();
         }, 3000);
     }
 
@@ -477,6 +503,16 @@ class PidginWordle {
         // If game is over, show share section
         if (this.gameOver) {
             this.shareSection.classList.remove('hidden');
+            
+            // If won, show submit section unless already submitted
+            const won = this.guesses.length > 0 && this.guesses[this.guesses.length - 1].word === this.dailyWord;
+            const alreadySubmitted = localStorage.getItem(`wordle_submitted_${this.wordData.dayNumber}`);
+            
+            if (won && !alreadySubmitted) {
+                this.scoreSubmitSection.classList.remove('hidden');
+            } else {
+                this.scoreSubmitSection.classList.add('hidden');
+            }
         }
     }
 
@@ -525,6 +561,76 @@ class PidginWordle {
         this.statWinRate.textContent = stats.winRate;
         this.statStreak.textContent = stats.currentStreak;
         this.statMaxStreak.textContent = stats.maxStreak;
+    }
+
+    async submitScore() {
+        const username = this.playerNameInput.value.trim() || 'Anonymous';
+        this.submitScoreBtn.disabled = true;
+        this.submitScoreBtn.innerHTML = '<i class="ti ti-loader animate-spin"></i> Saving...';
+
+        try {
+            // We use guess count as the "score" but lower is better
+            // Backend sorts by score DESC, so we submit (7 - guesses) 
+            // 1 guess = 6 points, 6 guesses = 1 point
+            const guessCount = this.guesses.length;
+            const points = 7 - guessCount;
+
+            const response = await fetch('/api/games/leaderboard', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    username,
+                    score: points,
+                    game_type: `wordle-${this.wordData.dayNumber}`,
+                    streak: this.getStats().currentStreak
+                })
+            });
+
+            if (response.ok) {
+                localStorage.setItem('pidgin_player_name', username);
+                localStorage.setItem(`wordle_submitted_${this.wordData.dayNumber}`, 'true');
+                this.scoreSubmitSection.classList.add('hidden');
+                await this.loadLeaderboard();
+            } else {
+                alert('Failed to save score. Try again!');
+                this.submitScoreBtn.disabled = false;
+                this.submitScoreBtn.textContent = 'Save';
+            }
+        } catch (err) {
+            console.error('Score submission error:', err);
+            this.submitScoreBtn.disabled = false;
+            this.submitScoreBtn.textContent = 'Save';
+        }
+    }
+
+    async loadLeaderboard() {
+        this.leaderboardBody.innerHTML = '<tr><td colspan="3" class="p-4 text-center text-gray-400">Loading rankings...</td></tr>';
+
+        try {
+            const gameType = `wordle-${this.wordData.dayNumber}`;
+            const response = await fetch(`/api/games/leaderboard?game_type=${gameType}&limit=10`);
+            const data = await response.json();
+
+            if (data.scores && data.scores.length > 0) {
+                this.leaderboardBody.innerHTML = data.scores.map((s, i) => {
+                    // Convert score back to guesses
+                    const guesses = 7 - s.score;
+                    const isMe = s.username === this.playerNameInput.value;
+                    return `
+                        <tr class="${isMe ? 'bg-green-50 font-bold' : ''}">
+                            <td class="px-3 py-2">${i + 1}</td>
+                            <td class="px-3 py-2">${s.username}</td>
+                            <td class="px-3 py-2 text-right">${guesses} / 6</td>
+                        </tr>
+                    `;
+                }).join('');
+            } else {
+                this.leaderboardBody.innerHTML = '<tr><td colspan="3" class="p-4 text-center text-gray-400 italic">No scores yet today!</td></tr>';
+            }
+        } catch (err) {
+            console.error('Leaderboard load error:', err);
+            this.leaderboardBody.innerHTML = '<tr><td colspan="3" class="p-4 text-center text-red-400">Failed to load.</td></tr>';
+        }
     }
 
     shareResults() {

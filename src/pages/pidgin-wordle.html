@@ -505,11 +505,42 @@
                 </div>
             </div>
 
-            <div id="share-section" class="hidden">
+            <div id="share-section" class="hidden border-t border-gray-100 pt-6 mt-6">
                 <h3 class="font-bold mb-3">Share Your Results</h3>
-                <button id="share-btn" class="w-full px-6 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition">
+                <button id="share-btn" class="w-full px-6 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition mb-4">
                     <i class="ti ti-device-mobile"></i> Share Results
                 </button>
+
+                <!-- Daily Leaderboard -->
+                <div id="wordle-leaderboard" class="text-left mt-6">
+                    <h3 class="font-bold text-gray-800 mb-3 flex items-center gap-2">
+                        <i class="ti ti-medal text-yellow-500"></i> Daily Leaderboard
+                    </h3>
+                    
+                    <div id="wordle-score-submit" class="mb-4 hidden">
+                        <div class="flex gap-2">
+                            <input type="text" id="player-name" placeholder="Your name..." maxlength="20" class="flex-1 px-3 py-2 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <button id="submit-score-btn" class="bg-green-600 text-white px-4 py-2 rounded-lg font-bold text-sm hover:bg-green-700 transition-all">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl overflow-hidden border border-gray-100">
+                        <table class="w-full text-xs">
+                            <thead class="bg-gray-100 text-gray-500 uppercase">
+                                <tr>
+                                    <th class="px-3 py-2 text-left">Rank</th>
+                                    <th class="px-3 py-2 text-left">Player</th>
+                                    <th class="px-3 py-2 text-right">Guesses</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leaderboard-body">
+                                <tr><td colspan="3" class="p-4 text-center text-gray-400 italic">Play today's word to see rankings!</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
 
             <div id="next-word-section" class="mt-6 text-center">
