@@ -228,9 +228,10 @@
             </div>
         </div>
     </div>
+</nav>
 
-    <!-- Mobile Navigation Menu -->
-    <div id="mobile-menu" class="hidden lg:hidden fixed inset-0 z-50 bg-white dark:bg-gray-900 pt-20 overflow-y-auto">
+<!-- Mobile Navigation Menu (outside nav so backdrop-filter doesn't trap `position: fixed`) -->
+<div id="mobile-menu" class="hidden lg:hidden fixed inset-0 z-50 bg-white dark:bg-gray-900 pt-20 overflow-y-auto">
         <div class="px-6 pb-12 space-y-6">
             <div class="flex items-center justify-between border-b dark:border-gray-800 pb-4">
                 <span class="brand-font text-2xl text-orange-500">Menu</span>
@@ -306,7 +307,7 @@
             </div>
         </div>
     </div>
-</nav>
+</div>
 
 <!-- Navigation JavaScript - automatically included on all pages -->
 <script defer src="/js/components/user-auth.js"></script>

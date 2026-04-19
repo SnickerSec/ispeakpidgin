@@ -76,6 +76,20 @@
         <priority>0.8</priority>
     </url>
 
+    <url>
+        <loc>https://chokepidgin.com/pidgin-vs-hawaiian.html</loc>
+        <lastmod>2026-04-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://chokepidgin.com/pidgin-vs-singlish.html</loc>
+        <lastmod>2026-04-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
     <!-- Ask a Local Page - Community feature -->
     <url>
         <loc>https://chokepidgin.com/ask-local.html</loc>
@@ -533,6 +547,12 @@
     </url>
     <url>
         <loc>https://chokepidgin.com/word/ulu.html</loc>
+        <lastmod>2026-04-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://chokepidgin.com/word/da-aina.html</loc>
         <lastmod>2026-04-19</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
@@ -1294,6 +1314,12 @@
         <priority>0.75</priority>
     </url>
     <url>
+        <loc>https://chokepidgin.com/word/cousin.html</loc>
+        <lastmod>2026-04-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://chokepidgin.com/word/cousin-cuz.html</loc>
         <lastmod>2026-04-19</lastmod>
         <changefreq>monthly</changefreq>
@@ -1346,12 +1372,6 @@
         <lastmod>2026-04-19</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://chokepidgin.com/word/da-aina.html</loc>
-        <lastmod>2026-04-19</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.75</priority>
     </url>
     <url>
         <loc>https://chokepidgin.com/word/da-bes.html</loc>
@@ -1664,6 +1684,12 @@
         <lastmod>2026-04-19</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://chokepidgin.com/word/for-no-worries.html</loc>
+        <lastmod>2026-04-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
     </url>
     <url>
         <loc>https://chokepidgin.com/word/fosho.html</loc>
@@ -2080,10 +2106,22 @@
         <priority>0.75</priority>
     </url>
     <url>
+        <loc>https://chokepidgin.com/word/hawaii-pick-up-lines.html</loc>
+        <lastmod>2026-04-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://chokepidgin.com/word/hawaiian.html</loc>
         <lastmod>2026-04-19</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.75</priority>
+    </url>
+    <url>
+        <loc>https://chokepidgin.com/word/hawaiian-pick-up-lines.html</loc>
+        <lastmod>2026-04-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
     </url>
     <url>
         <loc>https://chokepidgin.com/word/hawaiian-time.html</loc>
@@ -3238,6 +3276,12 @@
         <priority>0.75</priority>
     </url>
     <url>
+        <loc>https://chokepidgin.com/word/meaning-of-goin.html</loc>
+        <lastmod>2026-04-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://chokepidgin.com/word/mele.html</loc>
         <lastmod>2026-04-19</lastmod>
         <changefreq>monthly</changefreq>
@@ -4132,6 +4176,12 @@
         <priority>0.75</priority>
     </url>
     <url>
+        <loc>https://chokepidgin.com/word/slang-for-the-best-you-da.html</loc>
+        <lastmod>2026-04-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://chokepidgin.com/word/slippah-weather.html</loc>
         <lastmod>2026-04-19</lastmod>
         <changefreq>monthly</changefreq>
@@ -4322,6 +4372,12 @@
         <lastmod>2026-04-19</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.75</priority>
+    </url>
+    <url>
+        <loc>https://chokepidgin.com/word/the.html</loc>
+        <lastmod>2026-04-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
     </url>
     <url>
         <loc>https://chokepidgin.com/word/ti.html</loc>
