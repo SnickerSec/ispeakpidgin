@@ -191,6 +191,48 @@ module.exports = function(supabase, dictionaryLimiter, dictionaryCache) {
         }
     });
 
+    // GET /api/dictionary/daily - Get a consistent word of the day
+    router.get('/daily', dictionaryLimiter, async (req, res) => {
+        try {
+            // Get all entries (ideally from cache)
+            let entries = [];
+            if (dictionaryCache.data) {
+                entries = dictionaryCache.data.entries;
+            } else {
+                const { data, error } = await supabase
+                    .from('dictionary_entries')
+                    .select('*')
+                    .order('pidgin', { ascending: true });
+                if (error) throw error;
+                entries = data || [];
+            }
+
+            if (entries.length === 0) {
+                return res.status(404).json({ error: 'No dictionary entries found' });
+            }
+
+            // Use the date to select a consistent word
+            const today = new Date().toLocaleDateString('en-CA', { timeZone: 'Pacific/Honolulu' });
+            const seedDate = new Date(today);
+            const startOfYear = new Date(seedDate.getFullYear(), 0, 0);
+            const diff = seedDate - startOfYear;
+            const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
+            
+            // Deterministic selection
+            const index = dayOfYear % entries.length;
+            const word = entries[index];
+
+            res.json({
+                word,
+                date: today,
+                dayOfYear
+            });
+        } catch (error) {
+            console.error('Daily word API error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
     // GET /api/dictionary/search - Full-text search
     router.get('/search', dictionaryLimiter, [
         query('q').trim().notEmpty().isLength({ min: 2, max: 100 }).escape(),
