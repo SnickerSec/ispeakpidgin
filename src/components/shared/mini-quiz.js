@@ -42,13 +42,13 @@ class MiniQuiz {
 
     renderLoading() {
         this.container.innerHTML = `
-            <div class="bg-white rounded-2xl p-6 shadow-md animate-pulse border-2 border-gray-100">
-                <div class="h-6 bg-gray-200 rounded w-3/4 mb-4 mx-auto"></div>
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-md animate-pulse border-2 border-gray-100 dark:border-slate-700">
+                <div class="h-6 bg-gray-200 dark:bg-slate-700 rounded w-3/4 mb-4 mx-auto"></div>
                 <div class="space-y-3">
-                    <div class="h-10 bg-gray-100 rounded"></div>
-                    <div class="h-10 bg-gray-100 rounded"></div>
-                    <div class="h-10 bg-gray-100 rounded"></div>
-                    <div class="h-10 bg-gray-100 rounded"></div>
+                    <div class="h-10 bg-gray-100 dark:bg-slate-700/50 rounded"></div>
+                    <div class="h-10 bg-gray-100 dark:bg-slate-700/50 rounded"></div>
+                    <div class="h-10 bg-gray-100 dark:bg-slate-700/50 rounded"></div>
+                    <div class="h-10 bg-gray-100 dark:bg-slate-700/50 rounded"></div>
                 </div>
             </div>
         `;
@@ -59,7 +59,7 @@ class MiniQuiz {
 
         const optionsHtml = this.question.options.map((option, index) => `
             <button 
-                class="mini-quiz-option w-full text-left p-4 rounded-xl border-2 border-gray-100 hover:border-blue-400 hover:bg-blue-50 transition-all font-medium text-gray-700 mb-2 flex justify-between items-center group"
+                class="mini-quiz-option w-full text-left p-4 rounded-xl border-2 border-gray-100 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all font-medium text-gray-700 dark:text-slate-200 mb-2 flex justify-between items-center group"
                 data-index="${index}"
             >
                 <span>${this.escapeHtml(option.text || option)}</span>
@@ -68,17 +68,17 @@ class MiniQuiz {
         `).join('');
 
         this.container.innerHTML = `
-            <div class="bg-white rounded-2xl p-6 shadow-xl border-2 border-blue-100 relative overflow-hidden transition-all duration-500" id="mini-quiz-card">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-xl border-2 border-blue-100 dark:border-blue-900/30 relative overflow-hidden transition-all duration-500" id="mini-quiz-card">
                 <div class="absolute top-0 right-0 p-3 opacity-10">
-                    <i class="ti ti-bulb text-6xl text-blue-600"></i>
+                    <i class="ti ti-bulb text-6xl text-blue-600 dark:text-blue-400"></i>
                 </div>
                 
                 <div class="flex items-center gap-2 mb-4">
-                    <span class="bg-blue-100 text-blue-700 text-xs font-bold px-2 py-1 rounded uppercase tracking-wider">Mini Quiz</span>
-                    <span class="text-gray-400 text-xs">• Test your Pidgin!</span>
+                    <span class="bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-bold px-2 py-1 rounded uppercase tracking-wider">Mini Quiz</span>
+                    <span class="text-gray-400 dark:text-slate-500 text-xs">• Test your Pidgin!</span>
                 </div>
 
-                <h3 class="text-xl font-bold text-gray-800 mb-6 leading-tight">
+                <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-6 leading-tight">
                     ${this.escapeHtml(this.question.question)}
                 </h3>
 

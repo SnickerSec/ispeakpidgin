@@ -182,8 +182,8 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
 
     // Build related terms HTML
     const relatedHtml = relatedTerms.length > 0 ? `
-        <section class="mt-12 bg-white rounded-2xl p-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+        <section class="mt-12 bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-xl border border-gray-100 dark:border-slate-700">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6 flex items-center gap-2">
                 <i class="ti ti-link"></i> Related Pidgin Words
             </h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -192,10 +192,10 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
                     const relatedSlug = createSlug(related.pidgin);
                     return `
                     <a href="/word/${relatedSlug}.html"
-                       class="group bg-gradient-to-br from-gray-50 to-blue-50 rounded-xl p-5 hover:from-purple-50 hover:to-blue-100 transition-all duration-300 border border-gray-100 hover:border-purple-200 shadow-sm hover:shadow-md">
-                        <h3 class="font-bold text-lg text-purple-700 group-hover:text-purple-900 mb-1 transition-colors">${escapeHtml(related.pidgin)}</h3>
-                        <p class="text-xs text-gray-600 line-clamp-2">${escapeHtml(relatedEnglish.join(', '))}</p>
-                        <div class="mt-2 text-[10px] font-bold text-blue-500 uppercase tracking-wider flex items-center gap-1">
+                       class="group bg-gradient-to-br from-gray-50 to-blue-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-5 hover:from-purple-50 hover:to-blue-100 dark:hover:from-slate-600 dark:hover:to-slate-700 transition-all duration-300 border border-gray-100 dark:border-slate-600 shadow-sm hover:shadow-md">
+                        <h3 class="font-bold text-lg text-purple-700 dark:text-purple-300 group-hover:text-purple-900 dark:group-hover:text-purple-100 mb-1 transition-colors">${escapeHtml(related.pidgin)}</h3>
+                        <p class="text-xs text-gray-600 dark:text-slate-400 line-clamp-2">${escapeHtml(relatedEnglish.join(', '))}</p>
+                        <div class="mt-2 text-[10px] font-bold text-blue-500 dark:text-blue-400 uppercase tracking-wider flex items-center gap-1">
                             Learn More <i class="ti ti-arrow-right group-hover:translate-x-1 transition-transform"></i>
                         </div>
                     </a>
@@ -231,11 +231,11 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
     ${JSON.stringify(breadcrumbSchema, null, 2)}
     </script>
 </head>
-<body class="min-h-screen bg-gray-50">
+<body class="min-h-screen bg-gray-50 dark:bg-slate-900 transition-colors duration-300">
     ${navigation}
 
     <!-- Back to Dictionary Button -->
-    <div class="bg-white border-b">
+    <div class="bg-white dark:bg-slate-800 border-b dark:border-slate-700 transition-colors">
         <div class="container mx-auto px-4 py-4">
             <a href="/dictionary.html" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-full hover:from-purple-700 hover:to-blue-700 transition-all shadow-lg hover:shadow-xl font-semibold">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -251,12 +251,12 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
         ${premiumLink ? `
         <!-- Premium Landing Page Callout -->
         <div class="mb-8 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl p-1 shadow-lg">
-            <div class="bg-white rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="bg-white dark:bg-slate-800 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4">
                 <div class="flex items-center gap-4">
                     <div class="text-4xl">📖</div>
                     <div>
-                        <h2 class="text-xl font-bold text-gray-800">Deep Dive: ${capitalizedWord}</h2>
-                        <p class="text-gray-600">We have a complete cultural guide for this word!</p>
+                        <h2 class="text-xl font-bold text-gray-800 dark:text-white">Deep Dive: ${capitalizedWord}</h2>
+                        <p class="text-gray-600 dark:text-slate-400">We have a complete cultural guide for this word!</p>
                     </div>
                 </div>
                 <a href="${premiumLink}" class="whitespace-nowrap px-6 py-3 bg-orange-500 text-white rounded-xl font-bold hover:bg-orange-600 transition-all shadow-md">
@@ -267,13 +267,13 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
         ` : ''}
 
         <!-- Word Header -->
-        <div class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 rounded-3xl p-8 mb-8 shadow-2xl border-2 border-purple-200">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-2">${escapeHtml(entry.pidgin)}</h1>
-            <p class="text-xl text-gray-600 mb-4">Meaning: <span class="font-semibold text-purple-700">${escapeHtml(primaryMeaning)}</span></p>
+        <div class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 dark:from-indigo-900 dark:via-slate-900 dark:to-purple-900 rounded-3xl p-8 mb-8 shadow-2xl border-2 border-purple-200 dark:border-indigo-500/30">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-2">${escapeHtml(entry.pidgin)}</h1>
+            <p class="text-xl text-gray-600 dark:text-slate-300 mb-4">Meaning: <span class="font-semibold text-purple-700 dark:text-purple-400">${escapeHtml(primaryMeaning)}</span></p>
 
             ${entry.pronunciation ? `
             <div class="mb-4">
-                <span class="inline-block bg-white/80 rounded-full px-6 py-2 text-lg text-gray-700">
+                <span class="inline-block bg-white/80 dark:bg-white/10 rounded-full px-6 py-2 text-lg text-gray-700 dark:text-slate-200 border border-transparent dark:border-white/10">
                     <i class="ti ti-speakerphone"></i> <strong>Pronunciation:</strong> ${escapeHtml(entry.pronunciation)}
                 </span>
             </div>
@@ -307,20 +307,20 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
         </div>
 
         <!-- Meaning Section -->
-        <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4"><i class="ti ti-book"></i> Meaning</h2>
+        <section class="bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border border-gray-100 dark:border-slate-700">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4"><i class="ti ti-book"></i> Meaning</h2>
             <div class="space-y-3">
                 ${englishArray.map(meaning => `
                     <div class="flex items-start">
                         <span class="text-green-500 mr-2 text-xl">&bull;</span>
-                        <span class="text-xl text-gray-700">${escapeHtml(meaning)}</span>
+                        <span class="text-xl text-gray-700 dark:text-slate-200">${escapeHtml(meaning)}</span>
                     </div>
                 `).join('')}
             </div>
 
             ${entry.usage ? `
-            <div class="mt-6 bg-blue-50 rounded-xl p-4 border-l-4 border-blue-500">
-                <p class="text-gray-700"><strong>Usage:</strong> ${escapeHtml(entry.usage)}</p>
+            <div class="mt-6 bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 border-l-4 border-blue-500">
+                <p class="text-gray-700 dark:text-slate-300"><strong>Usage:</strong> ${escapeHtml(entry.usage)}</p>
             </div>
             ` : ''}
         </section>
@@ -330,12 +330,12 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
 
         <!-- Examples Section -->
         ${examplesArray.length > 0 ? `
-        <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4"><i class="ti ti-message"></i> Examples</h2>
+        <section class="bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border border-gray-100 dark:border-slate-700">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4"><i class="ti ti-message"></i> Examples</h2>
             <div class="space-y-4">
                 ${examplesArray.map(example => `
-                    <div class="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-4 border-l-4 border-green-500">
-                        <p class="text-lg text-gray-800 italic">"${escapeHtml(example)}"</p>
+                    <div class="bg-gradient-to-r from-green-50 to-blue-50 dark:from-slate-700 dark:to-slate-800 rounded-lg p-4 border-l-4 border-green-500">
+                        <p class="text-lg text-gray-800 dark:text-slate-200 italic">"${escapeHtml(example)}"</p>
                     </div>
                 `).join('')}
             </div>
@@ -344,34 +344,34 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
 
         <!-- Origin & Cultural Context -->
         ${entry.origin ? `
-        <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4"><i class="ti ti-flower"></i> Origin & Cultural Context</h2>
-            <div class="bg-gradient-to-r from-orange-50 to-pink-50 rounded-xl p-6">
-                <p class="text-lg text-gray-700 mb-2">
+        <section class="bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border border-gray-100 dark:border-slate-700">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4"><i class="ti ti-flower"></i> Origin & Cultural Context</h2>
+            <div class="bg-gradient-to-r from-orange-50 to-pink-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-6">
+                <p class="text-lg text-gray-700 dark:text-slate-200 mb-2">
                     <strong>Origin:</strong> ${escapeHtml(entry.origin)}
                 </p>
                 ${entry.cultural_notes ? `
-                <p class="text-gray-700 mt-4">${escapeHtml(entry.cultural_notes)}</p>
+                <p class="text-gray-700 dark:text-slate-300 mt-4">${escapeHtml(entry.cultural_notes)}</p>
                 ` : ''}
             </div>
         </section>
         ` : ''}
 
         <!-- FAQ Section for Engagement -->
-        <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6"><i class="ti ti-question-mark"></i> Frequently Asked Questions</h2>
+        <section class="bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border border-gray-100 dark:border-slate-700">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6"><i class="ti ti-question-mark"></i> Frequently Asked Questions</h2>
             <div class="space-y-4">
-                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-5 border-l-4 border-blue-500">
-                    <h3 class="font-bold text-lg text-gray-800 mb-2">What does "${escapeHtml(entry.pidgin)}" mean in Hawaiian Pidgin?</h3>
-                    <p class="text-gray-700">"${escapeHtml(entry.pidgin)}" means "${escapeHtml(primaryMeaning)}" in Hawaiian Pidgin.${entry.usage ? ' ' + escapeHtml(entry.usage) + '.' : ''}</p>
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-5 border-l-4 border-blue-500">
+                    <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">What does "${escapeHtml(entry.pidgin)}" mean in Hawaiian Pidgin?</h3>
+                    <p class="text-gray-700 dark:text-slate-300">"${escapeHtml(entry.pidgin)}" means "${escapeHtml(primaryMeaning)}" in Hawaiian Pidgin.${entry.usage ? ' ' + escapeHtml(entry.usage) + '.' : ''}</p>
                 </div>
-                <div class="bg-gradient-to-r from-green-50 to-teal-50 rounded-xl p-5 border-l-4 border-green-500">
-                    <h3 class="font-bold text-lg text-gray-800 mb-2">How do you pronounce "${escapeHtml(entry.pidgin)}"?</h3>
-                    <p class="text-gray-700">${entry.pronunciation ? `"${escapeHtml(entry.pidgin)}" is pronounced "${escapeHtml(entry.pronunciation)}". Click the "Hear Pronunciation" button above to listen!` : `"${escapeHtml(entry.pidgin)}" is pronounced phonetically as it appears. Click the "Hear Pronunciation" button above to listen!`}</p>
+                <div class="bg-gradient-to-r from-green-50 to-teal-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-5 border-l-4 border-green-500">
+                    <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">How do you pronounce "${escapeHtml(entry.pidgin)}"?</h3>
+                    <p class="text-gray-700 dark:text-slate-300">${entry.pronunciation ? `"${escapeHtml(entry.pidgin)}" is pronounced "${escapeHtml(entry.pronunciation)}". Click the "Hear Pronunciation" button above to listen!` : `"${escapeHtml(entry.pidgin)}" is pronounced phonetically as it appears. Click the "Hear Pronunciation" button above to listen!`}</p>
                 </div>
-                <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-5 border-l-4 border-purple-500">
-                    <h3 class="font-bold text-lg text-gray-800 mb-2">How do you use "${escapeHtml(entry.pidgin)}" in a sentence?</h3>
-                    <p class="text-gray-700">${examplesArray.length > 0 ? `Example: "${escapeHtml(examplesArray[0])}"` : `"${escapeHtml(entry.pidgin)}" is commonly used in casual Hawaiian conversation.`}</p>
+                <div class="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-5 border-l-4 border-purple-500">
+                    <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">How do you use "${escapeHtml(entry.pidgin)}" in a sentence?</h3>
+                    <p class="text-gray-700 dark:text-slate-300">${examplesArray.length > 0 ? `Example: "${escapeHtml(examplesArray[0])}"` : `"${escapeHtml(entry.pidgin)}" is commonly used in casual Hawaiian conversation.`}</p>
                 </div>
             </div>
         </section>
@@ -382,31 +382,31 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
         ${relatedHtml}
 
         <!-- Educational Corner -->
-        <section class="mt-8 bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 border border-blue-100 shadow-inner">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+        <section class="mt-8 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-slate-800 dark:to-slate-900 rounded-2xl p-8 border border-blue-100 dark:border-slate-700 shadow-inner">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6 flex items-center gap-2">
                 <i class="ti ti-school"></i> Pidgin & Local Culture Corner
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-white">
-                    <h3 class="text-sm font-bold text-blue-600 uppercase tracking-widest mb-3 flex items-center gap-2">
+                <div class="bg-white/60 dark:bg-slate-700/50 backdrop-blur-sm rounded-xl p-6 border border-white dark:border-slate-600">
+                    <h3 class="text-sm font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-3 flex items-center gap-2">
                         <i class="ti ti-message-language"></i> Pidgin Grammar Tip
                     </h3>
-                    <p class="text-gray-700 leading-relaxed italic">
+                    <p class="text-gray-700 dark:text-slate-200 leading-relaxed italic">
                         "${getGrammarTip()}"
                     </p>
                 </div>
-                <div class="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-white">
-                    <h3 class="text-sm font-bold text-purple-600 uppercase tracking-widest mb-3 flex items-center gap-2">
+                <div class="bg-white/60 dark:bg-slate-700/50 backdrop-blur-sm rounded-xl p-6 border border-white dark:border-slate-600">
+                    <h3 class="text-sm font-bold text-purple-600 dark:text-purple-400 uppercase tracking-widest mb-3 flex items-center gap-2">
                         <i class="ti ti-map-pin"></i> Local Culture Fact
                     </h3>
-                    <p class="text-gray-700 leading-relaxed italic">
+                    <p class="text-gray-700 dark:text-slate-200 leading-relaxed italic">
                         "${getCulturalFact()}"
                     </p>
                 </div>
             </div>
-            <div class="mt-6 pt-6 border-t border-blue-100/50 text-center">
-                <p class="text-xs text-gray-500">
-                    Want to learn more? Check out our <a href="/learning-hub.html" class="text-blue-500 font-bold hover:underline">Learning Hub</a> or <a href="/talk-story.html" class="text-purple-500 font-bold hover:underline">Talk Story with Kimo</a>!
+            <div class="mt-6 pt-6 border-t border-blue-100/50 dark:border-slate-700 text-center">
+                <p class="text-xs text-gray-500 dark:text-slate-400">
+                    Want to learn more? Check out our <a href="/learning-hub.html" class="text-blue-500 dark:text-blue-400 font-bold hover:underline">Learning Hub</a> or <a href="/talk-story.html" class="text-purple-500 dark:text-purple-400 font-bold hover:underline">Talk Story with Kimo</a>!
                 </p>
             </div>
         </section>

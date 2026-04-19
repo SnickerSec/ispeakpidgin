@@ -183,12 +183,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 const english = Array.isArray(entry.english) ? entry.english[0] : entry.english;
                 return `
                 <a href="/word/${encodeURIComponent(slug)}.html"
-                   class="flex items-center justify-between p-4 hover:bg-gray-50 rounded-2xl transition group">
+                   class="flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-slate-700/50 rounded-2xl transition group">
                     <div>
-                        <div class="font-bold text-gray-800 group-hover:text-green-600">${escapeHtml(entry.pidgin)}</div>
-                        <div class="text-sm text-gray-500 line-clamp-1">${escapeHtml(english)}</div>
+                        <div class="font-bold text-gray-800 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400">${escapeHtml(entry.pidgin)}</div>
+                        <div class="text-sm text-gray-500 dark:text-slate-400 line-clamp-1">${escapeHtml(english)}</div>
                     </div>
-                    <i class="ti ti-chevron-right text-gray-300 group-hover:text-green-400"></i>
+                    <i class="ti ti-chevron-right text-gray-300 dark:text-gray-600 group-hover:text-green-400"></i>
                 </a>
                 `;
             }).join('');

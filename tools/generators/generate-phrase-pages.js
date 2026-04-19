@@ -336,11 +336,11 @@ ${headContent}
     ${JSON.stringify(breadcrumbSchema, null, 2)}
     </script>
 </head>
-<body class="min-h-screen bg-gray-50">
+<body class="min-h-screen bg-gray-50 dark:bg-slate-900 transition-colors duration-300 text-gray-800 dark:text-slate-100">
     ${navigation}
 
-    <!-- Back to Phrases -->
-    <div class="bg-white border-b">
+    <!-- Back to Phrases Button -->
+    <div class="bg-white dark:bg-slate-800 border-b dark:border-slate-700 transition-colors">
         <div class="container mx-auto px-4 py-4">
             <a href="/phrases.html" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-full hover:from-purple-700 hover:to-blue-700 transition-all shadow-lg hover:shadow-xl font-semibold">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -355,12 +355,12 @@ ${headContent}
         ${premiumLink ? `
         <!-- Premium Landing Page Callout -->
         <div class="mb-8 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl p-1 shadow-lg">
-            <div class="bg-white rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="bg-white dark:bg-slate-800 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4">
                 <div class="flex items-center gap-4">
                     <div class="text-4xl">📖</div>
                     <div>
-                        <h2 class="text-xl font-bold text-gray-800">Deep Dive Guide</h2>
-                        <p class="text-gray-600">We have a complete cultural guide for this topic!</p>
+                        <h2 class="text-xl font-bold text-gray-800 dark:text-white">Deep Dive Guide</h2>
+                        <p class="text-gray-600 dark:text-slate-400">We have a complete cultural guide for this topic!</p>
                     </div>
                 </div>
                 <a href="${premiumLink}" class="whitespace-nowrap px-6 py-3 bg-orange-500 text-white rounded-xl font-bold hover:bg-orange-600 transition-all shadow-md">
@@ -371,13 +371,13 @@ ${headContent}
         ` : ''}
 
         <!-- Phrase Header -->
-        <div class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 rounded-3xl p-8 mb-8 shadow-2xl border-2 border-purple-200">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-2">${linkedPhrase}</h1>
-            <p class="text-xl text-gray-600 mb-4">Meaning: <span class="font-semibold text-purple-700">${escapedEnglish}</span></p>
+        <div class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 dark:from-indigo-900 dark:via-slate-900 dark:to-purple-900 rounded-3xl p-8 mb-8 shadow-2xl border-2 border-purple-200 dark:border-indigo-500/30">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-2">${linkedPhrase}</h1>
+            <p class="text-xl text-gray-600 dark:text-slate-300 mb-4">Meaning: <span class="font-semibold text-purple-700 dark:text-purple-400">${escapedEnglish}</span></p>
 
             ${phrase.pronunciation ? `
             <div class="mb-4">
-                <span class="inline-block bg-white/80 rounded-full px-6 py-2 text-lg text-gray-700">
+                <span class="inline-block bg-white/80 dark:bg-white/10 rounded-full px-6 py-2 text-lg text-gray-700 dark:text-slate-200 border border-transparent dark:border-white/10">
                     <i class="ti ti-speakerphone"></i> <strong>Pronunciation:</strong> ${escapedPronunciation}
                 </span>
             </div>
@@ -452,31 +452,31 @@ ${headContent}
         ${quickActionsHtml}
 
         <!-- Educational Corner -->
-        <section class="mt-8 bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 border border-blue-100 shadow-inner">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+        <section class="mt-8 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-slate-800 dark:to-slate-900 rounded-2xl p-8 border border-blue-100 dark:border-slate-700 shadow-inner">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6 flex items-center gap-2">
                 <i class="ti ti-school"></i> Pidgin & Local Culture Corner
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-white">
-                    <h3 class="text-sm font-bold text-blue-600 uppercase tracking-widest mb-3 flex items-center gap-2">
+                <div class="bg-white/60 dark:bg-slate-700/50 backdrop-blur-sm rounded-xl p-6 border border-white dark:border-slate-600">
+                    <h3 class="text-sm font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-3 flex items-center gap-2">
                         <i class="ti ti-message-language"></i> Pidgin Grammar Tip
                     </h3>
-                    <p class="text-gray-700 leading-relaxed italic">
+                    <p class="text-gray-700 dark:text-slate-200 leading-relaxed italic">
                         "${getGrammarTip()}"
                     </p>
                 </div>
-                <div class="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-white">
-                    <h3 class="text-sm font-bold text-purple-600 uppercase tracking-widest mb-3 flex items-center gap-2">
+                <div class="bg-white/60 dark:bg-slate-700/50 backdrop-blur-sm rounded-xl p-6 border border-white dark:border-slate-600">
+                    <h3 class="text-sm font-bold text-purple-600 dark:text-purple-400 uppercase tracking-widest mb-3 flex items-center gap-2">
                         <i class="ti ti-map-pin"></i> Local Culture Fact
                     </h3>
-                    <p class="text-gray-700 leading-relaxed italic">
+                    <p class="text-gray-700 dark:text-slate-200 leading-relaxed italic">
                         "${getCulturalFact()}"
                     </p>
                 </div>
             </div>
-            <div class="mt-6 pt-6 border-t border-blue-100/50 text-center">
-                <p class="text-xs text-gray-500">
-                    Want to learn more? Check out our <a href="/learning-hub.html" class="text-blue-500 font-bold hover:underline">Learning Hub</a> or <a href="/talk-story.html" class="text-purple-500 font-bold hover:underline">Talk Story with Kimo</a>!
+            <div class="mt-6 pt-6 border-t border-blue-100/50 dark:border-slate-700 text-center">
+                <p class="text-xs text-gray-500 dark:text-slate-400">
+                    Want to learn more? Check out our <a href="/learning-hub.html" class="text-blue-500 dark:text-blue-400 font-bold hover:underline">Learning Hub</a> or <a href="/talk-story.html" class="text-purple-500 dark:text-purple-400 font-bold hover:underline">Talk Story with Kimo</a>!
                 </p>
             </div>
         </section>
