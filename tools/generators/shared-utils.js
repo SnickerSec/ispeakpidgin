@@ -259,25 +259,25 @@ function getGameLinksHtml(pidginWord = null) {
     const subTitle = pidginWord ? `Think you know how for use ${wordDisplay}?` : 'Test your Pidgin skills with our viral island culture quiz!';
     
     return `
-        <section class="mt-12 bg-gradient-to-r from-yellow-100 to-orange-100 rounded-3xl p-8 mb-8 shadow-xl border-2 border-yellow-200 overflow-hidden relative group">
-            <div class="absolute -right-10 -bottom-10 text-9xl text-yellow-500/10 rotate-12 group-hover:scale-110 transition-transform duration-500">
+        <section class="mt-12 bg-gradient-to-r from-yellow-100 to-orange-100 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 mb-8 shadow-xl border-2 border-yellow-200 dark:border-slate-700 overflow-hidden relative group">
+            <div class="absolute -right-10 -bottom-10 text-9xl text-yellow-500/10 dark:text-yellow-500/5 rotate-12 group-hover:scale-110 transition-transform duration-500">
                 <i class="ti ti-device-gamepad-2"></i>
             </div>
             
-            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2 relative z-10">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6 flex items-center gap-2 relative z-10">
                 <i class="ti ti-device-gamepad-2"></i> Practice Your Pidgin
             </h2>
             
             <!-- High Impact Quiz CTA for Word Pages -->
-            <div class="bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl p-6 mb-8 text-white shadow-lg transform hover:scale-[1.02] transition-transform relative z-10">
+            <div class="bg-gradient-to-r from-orange-500 to-red-600 dark:from-orange-700 dark:to-red-800 rounded-2xl p-6 mb-8 text-white shadow-lg transform hover:scale-[1.02] transition-transform relative z-10">
                 <div class="flex flex-col md:flex-row items-center gap-6">
                     <div class="text-5xl animate-bounce">
                         <i class="ti ti-trophy"></i>
                     </div>
                     <div class="text-center md:text-left flex-1">
                         <h3 class="text-xl md:text-2xl font-black mb-1">How Local You Stay?</h3>
-                        <p class="text-white/90 mb-4 font-medium">${subTitle}</p>
-                        <a href="/how-local-you-stay.html" class="inline-block bg-white text-orange-600 px-6 py-2 rounded-xl font-black hover:bg-orange-50 transition shadow-md">
+                        <p class="text-white/90 dark:text-white/80 mb-4 font-medium">${subTitle}</p>
+                        <a href="/how-local-you-stay.html" class="inline-block bg-white dark:bg-slate-800 text-orange-600 dark:text-orange-400 px-6 py-2 rounded-xl font-black hover:bg-orange-50 dark:hover:bg-slate-700 transition shadow-md border dark:border-orange-700">
                             Take the Quiz &rarr;
                         </a>
                     </div>
@@ -285,20 +285,20 @@ function getGameLinksHtml(pidginWord = null) {
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4 relative z-10">
-                <a href="/pidgin-wordle.html" class="bg-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow border-2 border-green-200 hover:border-green-400">
+                <a href="/pidgin-wordle.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow border-2 border-green-200 dark:border-green-900/50 hover:border-green-400 dark:hover:border-green-600">
                     <div class="text-3xl mb-2"><i class="ti ti-grid-3x3" style="color: #22c55e;"></i></div>
-                    <h3 class="font-bold text-gray-800">Pidgin Wordle</h3>
-                    <p class="text-sm text-gray-600">Can you spell it?</p>
+                    <h3 class="font-bold text-gray-800 dark:text-white">Pidgin Wordle</h3>
+                    <p class="text-sm text-gray-600 dark:text-slate-400">Can you spell it?</p>
                 </a>
-                <a href="/pidgin-hangman.html" class="bg-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow border-2 border-indigo-200 hover:border-indigo-400">
-                    <div class="text-3xl mb-2"><i class="ti ti-typography"></i></div>
-                    <h3 class="font-bold text-gray-800">Hangman</h3>
-                    <p class="text-sm text-gray-600">Guess da word</p>
+                <a href="/pidgin-hangman.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow border-2 border-indigo-200 dark:border-indigo-900/50 hover:border-indigo-400 dark:hover:border-indigo-600">
+                    <div class="text-3xl mb-2"><i class="ti ti-typography" style="color: #6366f1;"></i></div>
+                    <h3 class="font-bold text-gray-800 dark:text-white">Hangman</h3>
+                    <p class="text-sm text-gray-600 dark:text-slate-400">Guess da word</p>
                 </a>
-                <a href="/pidgin-crossword.html" class="bg-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow border-2 border-blue-200 hover:border-blue-400">
-                    <div class="text-3xl mb-2"><i class="ti ti-note"></i></div>
-                    <h3 class="font-bold text-gray-800">Crossword</h3>
-                    <p class="text-sm text-gray-600">Vocabulary test</p>
+                <a href="/pidgin-crossword.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow border-2 border-blue-200 dark:border-blue-900/50 hover:border-blue-400 dark:hover:border-blue-600">
+                    <div class="text-3xl mb-2"><i class="ti ti-note" style="color: #3b82f6;"></i></div>
+                    <h3 class="font-bold text-gray-800 dark:text-white">Crossword</h3>
+                    <p class="text-sm text-gray-600 dark:text-slate-400">Vocabulary test</p>
                 </a>
             </div>
         </section>`;
@@ -310,8 +310,8 @@ function getGameLinksHtml(pidginWord = null) {
 function getQuickActionsHtml(translateText) {
     const encoded = encodeURIComponent(translateText || '');
     return `
-        <section class="mt-12 bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4"><i class="ti ti-rocket"></i> Quick Actions</h2>
+        <section class="mt-12 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-slate-800 dark:to-slate-900 rounded-2xl p-8 mb-8 shadow-xl border dark:border-slate-700">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4"><i class="ti ti-rocket"></i> Quick Actions</h2>
             <div class="flex flex-wrap gap-4">
                 <a href="/translator.html${encoded ? '?text=' + encoded : ''}"
                    class="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-6 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">

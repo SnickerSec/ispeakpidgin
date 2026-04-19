@@ -14,10 +14,12 @@
         .tab-button { transition: all 0.2s; }
         .tab-button.active { background-color: #2563eb; color: white; }
         .tab-button:not(.active):hover { background-color: #e5e7eb; }
+        .dark .tab-button:not(.active):hover { background-color: #334155; color: #f8fafc; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         .setting-row { transition: background-color 0.2s; }
         .setting-row:hover { background-color: #f9fafb; }
+        .dark .setting-row:hover { background-color: #1e293b; }
         .toast { animation: slideIn 0.3s ease-out; }
         @keyframes slideIn {
             from { transform: translateX(100%); opacity: 0; }
@@ -32,6 +34,10 @@
             animation: spin 1s linear infinite;
             display: inline-block;
         }
+        .dark .spinner {
+            border-color: #334155;
+            border-top-color: #60a5fa;
+        }
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -39,32 +45,32 @@
         .masked-input::placeholder { letter-spacing: 0.2em; }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-gray-100 dark:bg-slate-950 min-h-screen transition-colors duration-300">
     <!-- Login Form -->
     <div id="loginSection" class="min-h-screen flex items-center justify-center">
-        <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full mx-4">
+        <div class="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-2xl max-w-md w-full mx-4 border dark:border-slate-800">
             <div class="text-center mb-6">
-                <h1 class="text-2xl font-bold text-gray-800">Admin Panel</h1>
-                <p class="text-gray-600 text-sm mt-1">ChokePidgin Administration</p>
+                <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Admin Panel</h1>
+                <p class="text-gray-600 dark:text-slate-400 text-sm mt-1">ChokePidgin Administration</p>
             </div>
 
             <form id="loginForm" class="space-y-4">
                 <div>
-                    <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                    <label for="username" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Username</label>
                     <input type="text" id="username" name="username" required autocomplete="username"
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                           class="w-full px-4 py-2 border border-gray-300 dark:border-slate-700 dark:bg-slate-800 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition">
                 </div>
 
                 <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <label for="password" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1">Password</label>
                     <input type="password" id="password" name="password" required autocomplete="current-password"
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                           class="w-full px-4 py-2 border border-gray-300 dark:border-slate-700 dark:bg-slate-800 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition">
                 </div>
 
-                <div id="loginError" class="hidden text-red-600 text-sm py-2 px-3 bg-red-50 rounded-lg"></div>
+                <div id="loginError" class="hidden text-red-600 dark:text-red-400 text-sm py-2 px-3 bg-red-50 dark:bg-red-900/20 rounded-lg border dark:border-red-800/50"></div>
 
                 <button type="submit" id="loginButton"
-                        class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                        class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors font-bold shadow-lg">
                     Sign In
                 </button>
             </form>
@@ -74,57 +80,57 @@
     <!-- Admin Dashboard -->
     <div id="dashboardSection" class="hidden">
         <!-- Header -->
-        <header class="bg-white shadow-sm">
+        <header class="bg-white dark:bg-slate-900 shadow-sm border-b dark:border-slate-800">
             <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
                 <div>
-                    <h1 class="text-xl font-bold text-gray-800">Admin Dashboard</h1>
-                    <p class="text-sm text-gray-500">Logged in as <span id="currentUser" class="font-medium"></span></p>
+                    <h1 class="text-xl font-bold text-gray-800 dark:text-white">Admin Dashboard</h1>
+                    <p class="text-sm text-gray-500 dark:text-slate-400">Logged in as <span id="currentUser" class="font-medium"></span></p>
                 </div>
                 <div class="flex items-center gap-4">
-                    <button id="refreshSettingsBtn" class="text-gray-600 hover:text-blue-600 transition-colors" title="Refresh Settings">
+                    <button id="refreshSettingsBtn" class="text-gray-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" title="Refresh Settings">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
                         </svg>
                     </button>
-                    <button id="logoutButton" class="text-gray-600 hover:text-red-600 transition-colors flex items-center gap-1">
+                    <button id="logoutButton" class="text-gray-600 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-400 transition-colors flex items-center gap-1">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                         </svg>
-                        <span class="text-sm">Logout</span>
+                        <span class="text-sm font-bold">Logout</span>
                     </button>
                 </div>
             </div>
         </header>
 
         <!-- Tab Navigation -->
-        <div class="bg-white border-b">
+        <div class="bg-white dark:bg-slate-900 border-b dark:border-slate-800 sticky top-0 z-30">
             <div class="max-w-7xl mx-auto px-4">
-                <nav class="flex space-x-1 py-2" role="tablist">
-                    <button class="tab-button active px-4 py-2 rounded-lg text-sm font-medium" data-tab="dashboard">
+                <nav class="flex space-x-1 py-2 overflow-x-auto scrollbar-hide" role="tablist">
+                    <button class="tab-button active px-4 py-2 rounded-lg text-sm font-medium dark:text-slate-200" data-tab="dashboard">
                         Dashboard
                     </button>
-                    <button class="tab-button px-4 py-2 rounded-lg text-sm font-medium" data-tab="dictionary">
+                    <button class="tab-button px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-slate-400" data-tab="dictionary">
                         Dictionary
                     </button>
-                    <button class="tab-button px-4 py-2 rounded-lg text-sm font-medium" data-tab="settings">
+                    <button class="tab-button px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-slate-400" data-tab="settings">
                         Settings
                     </button>
-                    <button class="tab-button px-4 py-2 rounded-lg text-sm font-medium" data-tab="api-keys">
+                    <button class="tab-button px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-slate-400" data-tab="api-keys">
                         API Keys
                     </button>
-                    <button class="tab-button px-4 py-2 rounded-lg text-sm font-medium" data-tab="features">
+                    <button class="tab-button px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-slate-400" data-tab="features">
                         Features
                     </button>
-                    <button class="tab-button px-4 py-2 rounded-lg text-sm font-medium" data-tab="audit-log">
+                    <button class="tab-button px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-slate-400" data-tab="audit-log">
                         Audit Log
                     </button>
-                    <button class="tab-button px-4 py-2 rounded-lg text-sm font-medium" data-tab="gaps">
+                    <button class="tab-button px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-slate-400" data-tab="gaps">
                         Search Gaps
                     </button>
-                    <button class="tab-button px-4 py-2 rounded-lg text-sm font-medium" data-tab="suggestions">
+                    <button class="tab-button px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-slate-400" data-tab="suggestions">
                         User Suggestions
                     </button>
-                    <button class="tab-button px-4 py-2 rounded-lg text-sm font-medium" data-tab="questions">
+                    <button class="tab-button px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-slate-400" data-tab="questions">
                         Local Questions
                     </button>
                 </nav>
@@ -137,72 +143,72 @@
             <div id="tab-dashboard" class="tab-content active">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                     <!-- Suggestions Card -->
-                    <div class="bg-white rounded-xl shadow p-6 border-l-4 border-blue-500">
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 border-l-4 border-blue-500 border dark:border-slate-700">
                         <div class="flex items-center justify-between mb-4">
-                            <div class="p-3 bg-blue-100 text-blue-600 rounded-lg">
+                            <div class="p-3 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                 </svg>
                             </div>
-                            <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Suggestions</span>
+                            <span class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">Suggestions</span>
                         </div>
-                        <div class="text-3xl font-bold text-gray-800 mb-1" id="dash-pending-suggestions">0</div>
-                        <p class="text-sm text-gray-500 mb-4">Pending user suggestions</p>
-                        <button id="dash-view-suggestions" class="text-blue-600 text-xs font-bold hover:underline">Review All →</button>
+                        <div class="text-3xl font-bold text-gray-800 dark:text-white mb-1" id="dash-pending-suggestions">0</div>
+                        <p class="text-sm text-gray-500 dark:text-slate-400 mb-4">Pending user suggestions</p>
+                        <button id="dash-view-suggestions" class="text-blue-600 dark:text-blue-400 text-xs font-bold hover:underline">Review All →</button>
                     </div>
 
                     <!-- Questions Card -->
-                    <div class="bg-white rounded-xl shadow p-6 border-l-4 border-green-500">
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 border-l-4 border-green-500 border dark:border-slate-700">
                         <div class="flex items-center justify-between mb-4">
-                            <div class="p-3 bg-green-100 text-green-600 rounded-lg">
+                            <div class="p-3 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-lg">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                             </div>
-                            <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Questions</span>
+                            <span class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">Questions</span>
                         </div>
-                        <div class="text-3xl font-bold text-gray-800 mb-1" id="dash-pending-questions">0</div>
-                        <p class="text-sm text-gray-500 mb-4">Unanswered "Ask a Local"</p>
-                        <button id="dash-view-questions" class="text-green-600 text-xs font-bold hover:underline">View Questions →</button>
+                        <div class="text-3xl font-bold text-gray-800 dark:text-white mb-1" id="dash-pending-questions">0</div>
+                        <p class="text-sm text-gray-500 dark:text-slate-400 mb-4">Unanswered "Ask a Local"</p>
+                        <button id="dash-view-questions" class="text-green-600 dark:text-green-400 text-xs font-bold hover:underline">View Questions →</button>
                     </div>
 
                     <!-- Search Gaps Card -->
-                    <div class="bg-white rounded-xl shadow p-6 border-l-4 border-purple-500">
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 border-l-4 border-purple-500 border dark:border-slate-700">
                         <div class="flex items-center justify-between mb-4">
-                            <div class="p-3 bg-purple-100 text-purple-600 rounded-lg">
+                            <div class="p-3 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-lg">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                 </svg>
                             </div>
-                            <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">Search Gaps</span>
+                            <span class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">Search Gaps</span>
                         </div>
-                        <div class="text-3xl font-bold text-gray-800 mb-1" id="dash-pending-gaps">0</div>
-                        <p class="text-sm text-gray-500 mb-4">Missing dictionary terms</p>
-                        <button id="dash-view-gaps" class="text-purple-600 text-xs font-bold hover:underline">Grow Dictionary →</button>
+                        <div class="text-3xl font-bold text-gray-800 dark:text-white mb-1" id="dash-pending-gaps">0</div>
+                        <p class="text-sm text-gray-500 dark:text-slate-400 mb-4">Missing dictionary terms</p>
+                        <button id="dash-view-gaps" class="text-purple-600 dark:text-purple-400 text-xs font-bold hover:underline">Grow Dictionary →</button>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                     <!-- Voicing Card -->
-                    <div class="bg-white rounded-xl shadow p-6 border-t-4 border-indigo-500">
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 border-t-4 border-indigo-500 border dark:border-slate-700">
                         <div class="flex items-center justify-between mb-4">
-                            <h3 class="font-bold text-gray-800">Content Voicing (ElevenLabs)</h3>
-                            <span class="bg-indigo-100 text-indigo-700 text-[10px] font-bold px-2 py-0.5 rounded-full">ONE-CLICK VOICE</span>
+                            <h3 class="font-bold text-gray-800 dark:text-white">Content Voicing (ElevenLabs)</h3>
+                            <span class="bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 text-[10px] font-bold px-2 py-0.5 rounded-full">ONE-CLICK VOICE</span>
                         </div>
-                        <p class="text-sm text-gray-600 mb-4">Ensure all dictionary words, phrases, and stories have high-quality audio.</p>
+                        <p class="text-sm text-gray-600 dark:text-slate-400 mb-4">Ensure all dictionary words, phrases, and stories have high-quality audio.</p>
                         
                         <div class="space-y-3 mb-6">
                             <div class="flex justify-between items-center text-sm">
-                                <span class="text-gray-500">Missing Audio:</span>
-                                <span id="dash-missing-audio-count" class="font-bold text-indigo-600">Scanning...</span>
+                                <span class="text-gray-500 dark:text-slate-500">Missing Audio:</span>
+                                <span id="dash-missing-audio-count" class="font-bold text-indigo-600 dark:text-indigo-400">Scanning...</span>
                             </div>
-                            <div class="w-full bg-gray-100 rounded-full h-2">
+                            <div class="w-full bg-gray-100 dark:bg-slate-700 rounded-full h-2">
                                 <div id="voicing-progress-bar" class="bg-indigo-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
                             </div>
                         </div>
 
                         <div class="flex gap-3">
-                            <button id="scanMissingAudioBtn" class="flex-1 bg-white border-2 border-indigo-600 text-indigo-600 py-2 rounded-lg font-bold text-sm hover:bg-indigo-50 transition">
+                            <button id="scanMissingAudioBtn" class="flex-1 bg-white dark:bg-slate-900 border-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 py-2 rounded-lg font-bold text-sm hover:bg-indigo-50 dark:hover:bg-slate-800 transition">
                                 Scan All
                             </button>
                             <button id="voiceAllMissingBtn" disabled class="flex-1 bg-indigo-600 text-white py-2 rounded-lg font-bold text-sm hover:bg-indigo-700 transition disabled:opacity-50 disabled:cursor-not-allowed">
@@ -212,11 +218,11 @@
                     </div>
 
                     <!-- Tips/Info Card -->
-                    <div class="bg-blue-50 border border-blue-100 rounded-xl p-6">
-                        <h3 class="font-bold text-blue-800 mb-2 flex items-center gap-2">
+                    <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/50 rounded-xl p-6">
+                        <h3 class="font-bold text-blue-800 dark:text-blue-400 mb-2 flex items-center gap-2">
                             <i class="ti ti-info-circle"></i> Island Admin Tips
                         </h3>
-                        <ul class="text-sm text-blue-700 space-y-2 list-disc list-inside">
+                        <ul class="text-sm text-blue-700 dark:text-blue-300 space-y-2 list-disc list-inside">
                             <li><strong>Caching Active:</strong> Translations and audio are saved to Supabase to prevent "AI Waste".</li>
                             <li><strong>Batching:</strong> "Voice All" generates audio in small batches to avoid ElevenLabs rate limits.</li>
                             <li><strong>New Content:</strong> Always scan for missing audio after approving new community suggestions.</li>
@@ -227,11 +233,11 @@
 
             <!-- Dictionary Tab -->
             <div id="tab-dictionary" class="tab-content">
-                <div class="bg-white rounded-lg shadow">
-                    <div class="p-4 border-b flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg border dark:border-slate-700">
+                    <div class="p-4 border-b dark:border-slate-700 flex flex-col md:flex-row justify-between items-center gap-4">
                         <div>
-                            <h2 class="text-lg font-semibold">Dictionary Manager</h2>
-                            <p class="text-sm text-gray-500">Manage 700+ Pidgin terms and audio.</p>
+                            <h2 class="text-lg font-semibold dark:text-white">Dictionary Manager</h2>
+                            <p class="text-sm text-gray-500 dark:text-slate-400">Manage 700+ Pidgin terms and audio.</p>
                             <div class="mt-2">
                                 <button id="generateMissingAudioBtn" class="bg-purple-600 text-white px-3 py-1.5 rounded-lg hover:bg-purple-700 transition text-xs font-bold flex items-center gap-2 shadow-sm">
                                     <i class="ti ti-microphone"></i> Generate Missing Audio (Batch)
@@ -240,26 +246,26 @@
                         </div>
                         <div class="flex w-full md:w-auto gap-2">
                             <input type="text" id="admin-dict-search" placeholder="Search Pidgin or English..." 
-                                   class="flex-1 md:w-64 px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
-                            <button id="refreshAdminDictBtn" class="bg-gray-100 text-gray-700 px-3 py-2 rounded-lg hover:bg-gray-200 transition text-sm font-medium">
+                                   class="flex-1 md:w-64 px-3 py-2 text-sm border dark:border-slate-700 dark:bg-slate-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                            <button id="refreshAdminDictBtn" class="bg-gray-100 dark:bg-slate-900 text-gray-700 dark:text-slate-300 px-3 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-700 transition text-sm font-medium border dark:border-slate-700">
                                 <i class="ti ti-refresh"></i>
                             </button>
                         </div>
                     </div>
 
                     <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
+                            <thead class="bg-gray-50 dark:bg-slate-900">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Word</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">English</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Audio Status</th>
-                                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider">Word</th>
+                                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider">English</th>
+                                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider">Audio Status</th>
+                                    <th class="px-6 py-3 text-center text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider">Action</th>
                                 </tr>
                             </thead>
-                            <tbody id="adminDictContainer" class="bg-white divide-y divide-gray-200">
+                            <tbody id="adminDictContainer" class="bg-white dark:bg-slate-800 divide-y divide-gray-200 dark:divide-slate-700">
                                 <tr>
-                                    <td colspan="4" class="px-6 py-12 text-center text-gray-500">
+                                    <td colspan="4" class="px-6 py-12 text-center text-gray-500 dark:text-slate-500">
                                         <div class="spinner mx-auto mb-2"></div>
                                         Loading dictionary...
                                     </td>
@@ -268,11 +274,11 @@
                         </table>
                     </div>
                     
-                    <div class="p-4 border-t bg-gray-50 flex justify-between items-center" id="admin-dict-pagination">
-                        <span class="text-xs text-gray-500" id="admin-dict-showing">Showing 0 of 0</span>
+                    <div class="p-4 border-t dark:border-slate-700 bg-gray-50 dark:bg-slate-900 flex justify-between items-center" id="admin-dict-pagination">
+                        <span class="text-xs text-gray-500 dark:text-slate-500" id="admin-dict-showing">Showing 0 of 0</span>
                         <div class="flex gap-2">
-                            <button id="prevAdminDictPage" class="px-3 py-1 bg-white border rounded text-xs hover:bg-gray-50 disabled:opacity-50">Prev</button>
-                            <button id="nextAdminDictPage" class="px-3 py-1 bg-white border rounded text-xs hover:bg-gray-50 disabled:opacity-50">Next</button>
+                            <button id="prevAdminDictPage" class="px-3 py-1 bg-white dark:bg-slate-800 border dark:border-slate-700 dark:text-slate-300 rounded text-xs hover:bg-gray-50 dark:hover:bg-slate-700 disabled:opacity-50">Prev</button>
+                            <button id="nextAdminDictPage" class="px-3 py-1 bg-white dark:bg-slate-800 border dark:border-slate-700 dark:text-slate-300 rounded text-xs hover:bg-gray-50 dark:hover:bg-slate-700 disabled:opacity-50">Next</button>
                         </div>
                     </div>
                 </div>
@@ -280,18 +286,18 @@
 
             <!-- Settings Tab -->
             <div id="tab-settings" class="tab-content">
-                <div class="bg-white rounded-lg shadow">
-                    <div class="p-4 border-b flex justify-between items-center">
-                        <h2 class="text-lg font-semibold">Site Settings</h2>
-                        <button id="saveAllSettingsBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg border dark:border-slate-700">
+                    <div class="p-4 border-b dark:border-slate-700 flex justify-between items-center">
+                        <h2 class="text-lg font-semibold dark:text-white">Site Settings</h2>
+                        <button id="saveAllSettingsBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-bold shadow-md">
                             Save All Changes
                         </button>
                     </div>
 
                     <!-- Settings Categories -->
-                    <div id="settingsContainer" class="divide-y">
+                    <div id="settingsContainer" class="divide-y dark:divide-slate-700">
                         <!-- Populated by JavaScript -->
-                        <div class="p-8 text-center text-gray-500">
+                        <div class="p-8 text-center text-gray-500 dark:text-slate-500">
                             <div class="spinner mx-auto mb-2"></div>
                             Loading settings...
                         </div>
@@ -301,15 +307,15 @@
 
             <!-- API Keys Tab -->
             <div id="tab-api-keys" class="tab-content">
-                <div class="bg-white rounded-lg shadow">
-                    <div class="p-4 border-b">
-                        <h2 class="text-lg font-semibold">API Keys</h2>
-                        <p class="text-sm text-gray-500 mt-1">Manage external service API keys. Keys are masked for security.</p>
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg border dark:border-slate-700">
+                    <div class="p-4 border-b dark:border-slate-700">
+                        <h2 class="text-lg font-semibold dark:text-white">API Keys</h2>
+                        <p class="text-sm text-gray-500 dark:text-slate-400 mt-1">Manage external service API keys. Keys are masked for security.</p>
                     </div>
 
-                    <div id="apiKeysContainer" class="divide-y">
+                    <div id="apiKeysContainer" class="divide-y dark:divide-slate-700">
                         <!-- Populated by JavaScript -->
-                        <div class="p-8 text-center text-gray-500">
+                        <div class="p-8 text-center text-gray-500 dark:text-slate-500">
                             <div class="spinner mx-auto mb-2"></div>
                             Loading API keys...
                         </div>
@@ -319,15 +325,15 @@
 
             <!-- Features Tab -->
             <div id="tab-features" class="tab-content">
-                <div class="bg-white rounded-lg shadow">
-                    <div class="p-4 border-b">
-                        <h2 class="text-lg font-semibold">Feature Toggles</h2>
-                        <p class="text-sm text-gray-500 mt-1">Enable or disable site features.</p>
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg border dark:border-slate-700">
+                    <div class="p-4 border-b dark:border-slate-700">
+                        <h2 class="text-lg font-semibold dark:text-white">Feature Toggles</h2>
+                        <p class="text-sm text-gray-500 dark:text-slate-400 mt-1">Enable or disable site features.</p>
                     </div>
 
-                    <div id="featuresContainer" class="divide-y">
+                    <div id="featuresContainer" class="divide-y dark:divide-slate-700">
                         <!-- Populated by JavaScript -->
-                        <div class="p-8 text-center text-gray-500">
+                        <div class="p-8 text-center text-gray-500 dark:text-slate-500">
                             <div class="spinner mx-auto mb-2"></div>
                             Loading features...
                         </div>
@@ -337,13 +343,13 @@
 
             <!-- Audit Log Tab -->
             <div id="tab-audit-log" class="tab-content">
-                <div class="bg-white rounded-lg shadow">
-                    <div class="p-4 border-b flex justify-between items-center">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg border dark:border-slate-700">
+                    <div class="p-4 border-b dark:border-slate-700 flex justify-between items-center">
                         <div>
-                            <h2 class="text-lg font-semibold">Audit Log</h2>
-                            <p class="text-sm text-gray-500 mt-1">Recent admin actions</p>
+                            <h2 class="text-lg font-semibold dark:text-white">Audit Log</h2>
+                            <p class="text-sm text-gray-500 dark:text-slate-400 mt-1">Recent admin actions</p>
                         </div>
-                        <button id="refreshAuditLogBtn" class="text-gray-600 hover:text-blue-600 transition-colors">
+                        <button id="refreshAuditLogBtn" class="text-gray-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
                             </svg>
@@ -352,18 +358,18 @@
 
                     <div id="auditLogContainer" class="overflow-x-auto">
                         <table class="w-full">
-                            <thead class="bg-gray-50">
+                            <thead class="bg-gray-50 dark:bg-slate-900">
                                 <tr>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Time</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">User</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Action</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Resource</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">IP</th>
+                                    <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 dark:text-slate-400 uppercase">Time</th>
+                                    <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 dark:text-slate-400 uppercase">User</th>
+                                    <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 dark:text-slate-400 uppercase">Action</th>
+                                    <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 dark:text-slate-400 uppercase">Resource</th>
+                                    <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 dark:text-slate-400 uppercase">IP</th>
                                 </tr>
                             </thead>
-                            <tbody id="auditLogBody" class="divide-y">
+                            <tbody id="auditLogBody" class="divide-y dark:divide-slate-700">
                                 <tr>
-                                    <td colspan="5" class="px-4 py-8 text-center text-gray-500">
+                                    <td colspan="5" class="px-4 py-8 text-center text-gray-500 dark:text-slate-500">
                                         <div class="spinner mx-auto mb-2"></div>
                                         Loading audit log...
                                     </td>
@@ -375,31 +381,31 @@
             </div>
             <!-- Search Gaps Tab -->
             <div id="tab-gaps" class="tab-content">
-                <div class="bg-white rounded-lg shadow">
-                    <div class="p-4 border-b flex justify-between items-center">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg border dark:border-slate-700">
+                    <div class="p-4 border-b dark:border-slate-700 flex justify-between items-center">
                         <div>
-                            <h2 class="text-lg font-semibold">Search Content Gaps</h2>
-                            <p class="text-sm text-gray-500">Terms users search for that are missing from the dictionary.</p>
+                            <h2 class="text-lg font-semibold dark:text-white">Search Content Gaps</h2>
+                            <p class="text-sm text-gray-500 dark:text-slate-400">Terms users search for that are missing from the dictionary.</p>
                         </div>
-                        <button id="refreshGapsBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium">
+                        <button id="refreshGapsBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-bold shadow-md">
                             Sync with Google
                         </button>
                     </div>
 
                     <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
+                            <thead class="bg-gray-50 dark:bg-slate-900">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Term</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stats</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Details (English / Category / Example)</th>
-                                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider">Term</th>
+                                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider">Stats</th>
+                                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider">Details (English / Category / Example)</th>
+                                    <th class="px-6 py-3 text-center text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="gapsContainer" class="bg-white divide-y divide-gray-200">
+                            <tbody id="gapsContainer" class="bg-white dark:bg-slate-800 divide-y divide-gray-200 dark:divide-slate-700">
                                 <tr>
-                                    <td colspan="4" class="px-6 py-12 text-center text-gray-500">
-                                        Click "Scan for Gaps" to analyze Search Console data.
+                                    <td colspan="4" class="px-6 py-12 text-center text-gray-500 dark:text-slate-500">
+                                        Click "Sync with Google" to analyze Search Console data.
                                     </td>
                                 </tr>
                             </tbody>
@@ -410,37 +416,37 @@
 
             <!-- User Suggestions Tab -->
             <div id="tab-suggestions" class="tab-content">
-                <div class="bg-white rounded-lg shadow">
-                    <div class="p-4 border-b flex justify-between items-center">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg border dark:border-slate-700">
+                    <div class="p-4 border-b dark:border-slate-700 flex justify-between items-center">
                         <div>
-                            <h2 class="text-lg font-semibold">User Suggestions</h2>
-                            <p class="text-sm text-gray-500">Community submitted terms and phrases.</p>
+                            <h2 class="text-lg font-semibold dark:text-white">User Suggestions</h2>
+                            <p class="text-sm text-gray-500 dark:text-slate-400">Community submitted terms and phrases.</p>
                         </div>
                         <div class="flex gap-2">
-                            <select id="suggestionStatusSelect" class="px-3 py-1 text-sm border rounded">
+                            <select id="suggestionStatusSelect" class="px-3 py-1 text-sm border dark:border-slate-700 dark:bg-slate-900 dark:text-white rounded outline-none">
                                 <option value="pending">Pending</option>
                                 <option value="approved">Approved</option>
                                 <option value="rejected">Rejected</option>
                             </select>
-                            <button id="refreshSuggestionsBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium">
+                            <button id="refreshSuggestionsBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-bold shadow-md">
                                 Refresh
                             </button>
                         </div>
                     </div>
 
                     <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
+                            <thead class="bg-gray-50 dark:bg-slate-900">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Term</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">English</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contributor</th>
-                                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider">Term</th>
+                                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider">English</th>
+                                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider">Contributor</th>
+                                    <th class="px-6 py-3 text-center text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider">Action</th>
                                 </tr>
                             </thead>
-                            <tbody id="suggestionsContainer" class="bg-white divide-y divide-gray-200">
+                            <tbody id="suggestionsContainer" class="bg-white dark:bg-slate-800 divide-y divide-gray-200 dark:divide-slate-700">
                                 <tr>
-                                    <td colspan="4" class="px-6 py-12 text-center text-gray-500">
+                                    <td colspan="4" class="px-6 py-12 text-center text-gray-500 dark:text-slate-500">
                                         <div class="spinner mx-auto mb-2"></div>
                                         Loading suggestions...
                                     </td>
@@ -453,37 +459,37 @@
 
             <!-- Local Questions Tab -->
             <div id="tab-questions" class="tab-content">
-                <div class="bg-white rounded-lg shadow">
-                    <div class="p-4 border-b flex justify-between items-center">
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg border dark:border-slate-700">
+                    <div class="p-4 border-b dark:border-slate-700 flex justify-between items-center">
                         <div>
-                            <h2 class="text-lg font-semibold">Local Questions</h2>
-                            <p class="text-sm text-gray-500">Manage "Ask a Local" questions and provide answers.</p>
+                            <h2 class="text-lg font-semibold dark:text-white">Local Questions</h2>
+                            <p class="text-sm text-gray-500 dark:text-slate-400">Manage "Ask a Local" questions and provide answers.</p>
                         </div>
                         <div class="flex gap-2">
-                            <select id="questionStatusSelect" class="px-3 py-1 text-sm border rounded">
+                            <select id="questionStatusSelect" class="px-3 py-1 text-sm border dark:border-slate-700 dark:bg-slate-900 dark:text-white rounded outline-none">
                                 <option value="all">All</option>
                                 <option value="pending">Pending</option>
                                 <option value="answered">Answered</option>
                                 <option value="rejected">Rejected</option>
                             </select>
-                            <button id="refreshQuestionsBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium">
+                            <button id="refreshQuestionsBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-bold shadow-md">
                                 Refresh
                             </button>
                         </div>
                     </div>
 
                     <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
+                            <thead class="bg-gray-50 dark:bg-slate-900">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Question</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider">Question</th>
+                                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-center text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider">Action</th>
                                 </tr>
                             </thead>
-                            <tbody id="questionsContainer" class="bg-white divide-y divide-gray-200">
+                            <tbody id="questionsContainer" class="bg-white dark:bg-slate-800 divide-y divide-gray-200 dark:divide-slate-700">
                                 <tr>
-                                    <td colspan="3" class="px-6 py-12 text-center text-gray-500">
+                                    <td colspan="3" class="px-6 py-12 text-center text-gray-500 dark:text-slate-500">
                                         <div class="spinner mx-auto mb-2"></div>
                                         Loading questions...
                                     </td>
@@ -495,13 +501,3 @@
             </div>
         </main>
     </div>
-
-    <!-- Toast Container -->
-    <div id="toastContainer" class="fixed bottom-4 right-4 space-y-2 z-50"></div>
-
-    <!-- Hidden Audio Input -->
-    <input type="file" id="audio-upload-input" accept="audio/*" class="hidden">
-
-    <script src="js/components/admin/admin-panel.js"></script>
-</body>
-</html>

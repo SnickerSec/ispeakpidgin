@@ -270,33 +270,33 @@
             const entryId = escapeHtml(entry.id);
 
             return `
-                <tr class="hover:bg-gray-50 transition-colors">
+                <tr class="hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors">
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="font-bold text-purple-700">${pidgin}</div>
-                        <div class="text-[10px] text-gray-400 uppercase tracking-tighter">${category}</div>
+                        <div class="font-bold text-purple-700 dark:text-purple-400">${pidgin}</div>
+                        <div class="text-[10px] text-gray-400 dark:text-slate-500 uppercase tracking-tighter">${category}</div>
                     </td>
                     <td class="px-6 py-4">
-                        <div class="text-sm text-gray-600 line-clamp-1">${english}</div>
+                        <div class="text-sm text-gray-600 dark:text-slate-300 line-clamp-1">${english}</div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         ${hasAudio ? 
                             `<div class="flex items-center gap-2">
-                                <span class="flex items-center gap-1 text-green-600 text-xs font-bold">
+                                <span class="flex items-center gap-1 text-green-600 dark:text-green-400 text-xs font-bold">
                                     <i class="ti ti-circle-check"></i> Ready
                                 </span>
-                                <button data-action="play-audio" data-url="${audioUrl}" class="p-1 bg-blue-50 text-blue-600 rounded hover:bg-blue-100 transition" title="Play">
+                                <button data-action="play-audio" data-url="${audioUrl}" class="p-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded hover:bg-blue-100 dark:hover:bg-blue-900/50 transition" title="Play">
                                     <i class="ti ti-player-play"></i>
                                 </button>
-                                <button data-action="upload-audio" data-id="${entryId}" data-pidgin="${pidgin}" class="p-1 bg-gray-50 text-gray-600 rounded hover:bg-gray-100 transition" title="Replace">
+                                <button data-action="upload-audio" data-id="${entryId}" data-pidgin="${pidgin}" class="p-1 bg-gray-50 dark:bg-slate-700 text-gray-600 dark:text-slate-300 rounded hover:bg-gray-100 dark:hover:bg-slate-600 transition" title="Replace">
                                     <i class="ti ti-upload"></i>
                                 </button>
                             </div>` : 
                             `<div class="flex items-center gap-2">
-                                <span class="text-red-400 text-xs font-medium italic">Missing</span>
-                                <button data-action="auto-gen-audio" data-id="${entryId}" class="p-1.5 bg-purple-50 text-purple-600 rounded-lg hover:bg-purple-100 border border-purple-200 transition flex items-center gap-1 text-[10px] font-bold" title="Auto-generate with ElevenLabs">
+                                <span class="text-red-400 dark:text-red-300 text-xs font-medium italic">Missing</span>
+                                <button data-action="auto-gen-audio" data-id="${entryId}" class="p-1.5 bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/50 border border-purple-200 dark:border-purple-800 transition flex items-center gap-1 text-[10px] font-bold" title="Auto-generate with ElevenLabs">
                                     <i class="ti ti-wand"></i> GENERATE
                                 </button>
-                                <button data-action="upload-audio" data-id="${entryId}" data-pidgin="${pidgin}" class="p-1 bg-blue-50 text-blue-600 rounded hover:bg-blue-100 transition" title="Upload Manual">
+                                <button data-action="upload-audio" data-id="${entryId}" data-pidgin="${pidgin}" class="p-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded hover:bg-blue-100 dark:hover:bg-blue-900/50 transition" title="Upload Manual">
                                     <i class="ti ti-upload"></i>
                                 </button>
                             </div>`
@@ -305,7 +305,7 @@
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <div class="flex justify-end gap-2">
                             <button data-action="delete-entry" data-id="${entryId}" data-pidgin="${pidgin}"
-                                    class="text-gray-400 hover:text-red-600 p-1.5 transition"><i class="ti ti-trash"></i></button>
+                                    class="text-gray-400 dark:text-slate-500 hover:text-red-600 dark:hover:text-red-400 p-1.5 transition"><i class="ti ti-trash"></i></button>
                         </div>
                     </td>
                 </tr>
@@ -801,33 +801,33 @@
                 const escapedStatus = escapeHtml(status);
 
                 return `
-                <tr class="hover:bg-gray-50">
+                <tr class="hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors">
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="font-medium text-gray-900">${pidgin}</div>
-                        <div class="text-xs text-gray-500">Added: ${escapedDate}</div>
+                        <div class="font-bold text-gray-900 dark:text-white">${pidgin}</div>
+                        <div class="text-[10px] text-gray-400 dark:text-slate-500">Added: ${escapedDate}</div>
                     </td>
                     <td class="px-6 py-4">
-                        <div class="text-sm text-gray-900">${english}</div>
-                        ${example ? `<div class="text-xs text-gray-500 italic mt-1">"${example}"</div>` : ''}
+                        <div class="text-sm text-gray-900 dark:text-slate-300">${english}</div>
+                        ${example ? `<div class="text-xs text-gray-500 dark:text-slate-500 italic mt-1">"${example}"</div>` : ''}
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-slate-400">
                         ${contributor}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         ${status === 'pending' ? `
                             <div class="flex justify-center gap-2">
                                 <button data-action="approve" data-id="${escapedId}"
-                                        class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">
+                                        class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition font-bold text-xs shadow-sm">
                                     Approve
                                 </button>
                                 <button data-action="reject" data-id="${escapedId}"
-                                        class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition">
+                                        class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition font-bold text-xs shadow-sm">
                                     Reject
                                 </button>
                             </div>
                         ` : `
-                            <span class="px-2 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
-                                status === 'approved' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                            <span class="px-2 py-1 rounded-full text-[10px] font-black uppercase tracking-wider ${
+                                status === 'approved' ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400' : 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-400'
                             }">
                                 ${escapedStatus}
                             </span>
@@ -923,35 +923,35 @@
                 const escapedStatus = escapeHtml(q.status);
                 const escapedId = escapeHtml(q.id);
                 const escapedDate = escapeHtml(formatDate(q.created_at));
-                const statusClass = q.status === 'answered' ? 'bg-green-100 text-green-700' : 
-                                    q.status === 'pending' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700';
+                const statusClass = q.status === 'answered' ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400' : 
+                                    q.status === 'pending' ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-400' : 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-400';
 
                 return `
-                <tr class="hover:bg-gray-50">
+                <tr class="hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors">
                     <td class="px-6 py-4">
-                        <div class="text-sm font-bold text-gray-900">${questionText}</div>
-                        <div class="text-xs text-gray-500 mt-1">By ${userName} • ${escapedDate}</div>
+                        <div class="text-sm font-bold text-gray-900 dark:text-white">${questionText}</div>
+                        <div class="text-[10px] text-gray-500 dark:text-slate-500 mt-1 uppercase tracking-tighter">By ${userName} • ${escapedDate}</div>
                         ${responseText ? `
-                            <div class="mt-2 p-2 bg-green-50 rounded border border-green-100">
-                                <div class="text-xs font-bold text-green-800">Answer:</div>
-                                <div class="text-xs text-green-700">${responseText}</div>
+                            <div class="mt-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-100 dark:border-green-800/50">
+                                <div class="text-[10px] font-black text-green-800 dark:text-green-500 uppercase tracking-widest mb-1">Answer:</div>
+                                <div class="text-sm text-green-700 dark:text-green-300 italic">${responseText}</div>
                             </div>
                         ` : ''}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-2 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${statusClass}">
+                        <span class="px-2 py-1 rounded-full text-[10px] font-black uppercase tracking-wider ${statusClass}">
                             ${escapedStatus}
                         </span>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <div class="flex justify-center gap-2">
                             <button data-action="answer" data-id="${escapedId}"
-                                    class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition">
+                                    class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition font-bold text-xs shadow-sm">
                                 ${q.status === 'answered' ? 'Edit Answer' : 'Answer'}
                             </button>
                             ${q.status !== 'rejected' ? `
                                 <button data-action="reject-question" data-id="${escapedId}"
-                                        class="bg-red-100 text-red-600 px-3 py-1 rounded hover:bg-red-200 transition">
+                                        class="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 px-3 py-1 rounded hover:bg-red-100 dark:hover:bg-red-900/40 transition font-bold text-xs border dark:border-red-800/50">
                                     Reject
                                 </button>
                             ` : ''}
@@ -1079,21 +1079,21 @@
                 const escapedDate = escapeHtml(formatDate(g.last_searched_at));
                 const escapedId = escapeHtml(g.id);
                 return `
-                <tr class="hover:bg-gray-50" data-pidgin="${term}">
+                <tr class="hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors" data-pidgin="${term}">
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="font-bold text-gray-900">${term}</div>
-                        <div class="text-[10px] text-gray-500 mt-1 uppercase">Last searched: ${escapedDate}</div>
+                        <div class="font-bold text-gray-900 dark:text-white">${term}</div>
+                        <div class="text-[10px] text-gray-400 dark:text-slate-500 mt-1 uppercase">Last searched: ${escapedDate}</div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="text-sm font-bold text-purple-600">${escapedCount} searches</div>
-                        <div class="text-[10px] text-gray-400 uppercase">Status: ${escapedStatus}</div>
+                        <div class="text-sm font-bold text-purple-600 dark:text-purple-400">${escapedCount} searches</div>
+                        <div class="text-[10px] text-gray-400 dark:text-slate-500 uppercase">Status: ${escapedStatus}</div>
                     </td>
                     <td class="px-6 py-4">
                         <div class="flex flex-col gap-2">
                             <div class="flex gap-2">
                                 <input type="text" placeholder="English translation" 
-                                       class="gap-english-input flex-1 px-2 py-1 text-xs border rounded outline-none focus:ring-1 focus:ring-purple-400">
-                                <select class="gap-category-select px-2 py-1 text-xs border rounded outline-none focus:ring-1 focus:ring-purple-400">
+                                       class="gap-english-input flex-1 px-2 py-1 text-xs border dark:border-slate-700 dark:bg-slate-900 dark:text-white rounded outline-none focus:ring-1 focus:ring-purple-400">
+                                <select class="gap-category-select px-2 py-1 text-xs border dark:border-slate-700 dark:bg-slate-900 dark:text-white rounded outline-none focus:ring-1 focus:ring-purple-400">
                                     <option value="general">General</option>
                                     <option value="slang">Slang</option>
                                     <option value="food">Food</option>
@@ -1102,14 +1102,14 @@
                                 </select>
                             </div>
                             <input type="text" placeholder="Example sentence" 
-                                   class="gap-example-input w-full px-2 py-1 text-xs border rounded outline-none focus:ring-1 focus:ring-purple-400">
+                                   class="gap-example-input w-full px-2 py-1 text-xs border dark:border-slate-700 dark:bg-slate-900 dark:text-white rounded outline-none focus:ring-1 focus:ring-purple-400">
                         </div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <div class="flex flex-col gap-2">
                             <div class="flex gap-2">
                                 <button data-action="suggest-gap" data-pidgin="${term}"
-                                        class="flex-1 bg-purple-50 text-purple-600 px-2 py-1 rounded hover:bg-purple-100 transition text-xs font-bold border border-purple-200">
+                                        class="flex-1 bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 px-2 py-1 rounded hover:bg-purple-100 dark:hover:bg-purple-900/50 transition text-xs font-bold border border-purple-200 dark:border-purple-800/50">
                                     <i class="ti ti-wand"></i> Suggest
                                 </button>
                                 <button data-action="add-gap-btn" data-id="${escapedId}" data-pidgin="${term}"
@@ -1118,7 +1118,7 @@
                                 </button>
                             </div>
                             <button data-action="ignore-gap" data-id="${escapedId}"
-                                    class="w-full bg-gray-100 text-gray-600 px-2 py-1 rounded hover:bg-gray-200 transition text-xs border border-gray-200">
+                                    class="w-full bg-gray-100 dark:bg-slate-900 text-gray-600 dark:text-slate-400 px-2 py-1 rounded hover:bg-gray-200 dark:hover:bg-slate-800 transition text-xs border border-gray-200 dark:border-slate-700">
                                 <i class="ti ti-trash"></i> Ignore Gap
                             </button>
                         </div>
@@ -1348,7 +1348,7 @@
             const categoryTitle = formatCategoryName(category);
             html += `
                 <div class="p-4">
-                    <h3 class="text-md font-medium text-gray-700 mb-3">${categoryTitle}</h3>
+                    <h3 class="text-md font-bold text-gray-700 dark:text-slate-300 mb-3 uppercase tracking-wider">${categoryTitle}</h3>
                     <div class="space-y-3">
             `;
 
@@ -1359,7 +1359,7 @@
             html += '</div></div>';
         });
 
-        container.innerHTML = html || '<p class="p-4 text-gray-500">No settings available</p>';
+        container.innerHTML = html || '<p class="p-4 text-gray-500 dark:text-slate-500">No settings available</p>';
 
         // Add event listeners for inputs
         container.querySelectorAll('input, select').forEach(input => {
@@ -1380,26 +1380,26 @@
                 <label class="relative inline-flex items-center cursor-pointer">
                     <input type="checkbox" id="${inputId}" data-key="${escapedKey}" ${checked}
                            class="sr-only peer">
-                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    <div class="w-11 h-6 bg-gray-200 dark:bg-slate-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
                 </label>
             `;
         } else if (setting.type === 'number') {
             inputHtml = `
                 <input type="number" id="${inputId}" data-key="${escapedKey}" value="${escapedValue}"
-                       step="any" class="w-32 px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
+                       step="any" class="w-32 px-3 py-1.5 border border-gray-300 dark:border-slate-700 dark:bg-slate-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
             `;
         } else {
             inputHtml = `
                 <input type="text" id="${inputId}" data-key="${escapedKey}" value="${escapedValue}"
-                       class="w-64 px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
+                       class="w-64 px-3 py-1.5 border border-gray-300 dark:border-slate-700 dark:bg-slate-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
             `;
         }
 
         return `
-            <div class="setting-row flex items-center justify-between py-2 px-3 rounded-lg">
+            <div class="setting-row flex items-center justify-between py-2 px-3 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors">
                 <div class="flex-1">
-                    <label for="${inputId}" class="text-sm font-medium text-gray-700">${formatSettingName(setting.key)}</label>
-                    <p class="text-xs text-gray-500">${escapedDescription}</p>
+                    <label for="${inputId}" class="text-sm font-bold text-gray-700 dark:text-slate-300">${formatSettingName(setting.key)}</label>
+                    <p class="text-xs text-gray-500 dark:text-slate-500">${escapedDescription}</p>
                 </div>
                 <div class="ml-4">
                     ${inputHtml}
@@ -1412,11 +1412,11 @@
         const container = document.getElementById('apiKeysContainer');
 
         if (!settings.api_keys) {
-            container.innerHTML = '<p class="p-4 text-gray-500">No API keys configured</p>';
+            container.innerHTML = '<p class="p-4 text-gray-500 dark:text-slate-500">No API keys configured</p>';
             return;
         }
 
-        let html = '<div class="divide-y">';
+        let html = '<div class="divide-y dark:divide-slate-700">';
 
         settings.api_keys.forEach(setting => {
             const escapedKey = escapeHtml(setting.key);
@@ -1426,30 +1426,30 @@
             const isSecret = setting.isSecret;
 
             html += `
-                <div class="setting-row p-4">
+                <div class="setting-row p-4 hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors">
                     <div class="flex items-start justify-between mb-2">
                         <div>
-                            <label for="${inputId}" class="text-sm font-medium text-gray-700">${formatSettingName(setting.key)}</label>
-                            <p class="text-xs text-gray-500">${escapedDescription}</p>
+                            <label for="${inputId}" class="text-sm font-bold text-gray-700 dark:text-slate-300">${formatSettingName(setting.key)}</label>
+                            <p class="text-xs text-gray-500 dark:text-slate-500">${escapedDescription}</p>
                         </div>
                     </div>
                     <div class="flex items-center gap-2">
                         <input type="${isSecret ? 'password' : 'text'}" id="${inputId}" data-key="${escapedKey}"
                                value="${escapedValue}" placeholder="${isSecret ? '********' : ''}"
-                               class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm font-mono masked-input">
+                               class="flex-1 px-3 py-2 border border-gray-300 dark:border-slate-700 dark:bg-slate-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm font-mono masked-input transition">
                         <button type="button" data-action="toggle-visibility" data-key="${inputId}"
-                                class="text-gray-500 hover:text-gray-700 p-2">
+                                class="text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-white p-2 transition">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                             </svg>
                         </button>
                         <button type="button" data-action="test" data-key="${escapedKey}"
-                                class="bg-gray-100 text-gray-700 px-3 py-2 rounded-lg hover:bg-gray-200 transition-colors text-sm">
+                                class="bg-gray-100 dark:bg-slate-900 text-gray-700 dark:text-slate-300 px-3 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-800 transition-colors text-sm border dark:border-slate-700">
                             Test
                         </button>
                         <button type="button" data-action="save" data-key="${escapedKey}"
-                                class="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm">
+                                class="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-bold shadow-sm">
                             Save
                         </button>
                     </div>
@@ -1465,7 +1465,7 @@
         const container = document.getElementById('featuresContainer');
 
         if (!settings.features) {
-            container.innerHTML = '<p class="p-4 text-gray-500">No features configured</p>';
+            container.innerHTML = '<p class="p-4 text-gray-500 dark:text-slate-500">No features configured</p>';
             return;
         }
 
@@ -1475,20 +1475,20 @@
             const escapedKey = escapeHtml(setting.key);
             const escapedDescription = escapeHtml(setting.description || '');
             const enabled = setting.value === 'true' || setting.value === true;
-            const statusClass = enabled ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600';
+            const statusClass = enabled ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 border dark:border-green-800/50' : 'bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-400 border dark:border-slate-600';
             const statusText = enabled ? 'Enabled' : 'Disabled';
 
             html += `
-                <div class="border rounded-lg p-4 hover:shadow-md transition-shadow">
+                <div class="border dark:border-slate-700 rounded-xl p-4 hover:shadow-md transition-shadow bg-white dark:bg-slate-800">
                     <div class="flex items-center justify-between mb-2">
-                        <h4 class="font-medium text-gray-800">${formatSettingName(setting.key)}</h4>
-                        <span class="px-2 py-1 text-xs font-medium rounded-full ${statusClass}">${statusText}</span>
+                        <h4 class="font-bold text-gray-800 dark:text-white">${formatSettingName(setting.key)}</h4>
+                        <span class="px-2 py-1 text-[10px] font-black uppercase tracking-wider rounded-full ${statusClass}">${statusText}</span>
                     </div>
-                    <p class="text-sm text-gray-500 mb-3">${escapedDescription}</p>
+                    <p class="text-sm text-gray-500 dark:text-slate-400 mb-3 h-10 line-clamp-2">${escapedDescription}</p>
                     <label class="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" data-key="${escapedKey}" ${enabled ? 'checked' : ''}
                                class="sr-only peer">
-                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        <div class="w-11 h-6 bg-gray-200 dark:bg-slate-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
                     </label>
                 </div>
             `;
@@ -1591,12 +1591,12 @@
                 const escapedDate = escapeHtml(formatDate(log.created_at));
 
                 return `
-                <tr class="hover:bg-gray-50">
-                    <td class="px-4 py-3 text-sm text-gray-600">${escapedDate}</td>
-                    <td class="px-4 py-3 text-sm font-medium text-gray-800">${username}</td>
-                    <td class="px-4 py-3 text-sm text-gray-600">${action}</td>
-                    <td class="px-4 py-3 text-sm text-gray-600">${resource}</td>
-                    <td class="px-4 py-3 text-sm text-gray-500">${ip}</td>
+                <tr class="hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors">
+                    <td class="px-4 py-3 text-sm text-gray-600 dark:text-slate-400">${escapedDate}</td>
+                    <td class="px-4 py-3 text-sm font-bold text-gray-800 dark:text-white">${username}</td>
+                    <td class="px-4 py-3 text-sm text-gray-600 dark:text-slate-300">${action}</td>
+                    <td class="px-4 py-3 text-sm text-gray-600 dark:text-slate-400">${resource}</td>
+                    <td class="px-4 py-3 text-sm text-gray-500 dark:text-slate-500 font-mono text-xs">${ip}</td>
                 </tr>
             `;}).join('');
 

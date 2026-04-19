@@ -297,10 +297,10 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
                 <button id="download-audio" class="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-8 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
                     <i class="ti ti-download"></i> Download MP3
                 </button>
-                <button id="fav-word" class="bg-white text-gray-700 px-8 py-3 rounded-full hover:bg-red-50 transition-all font-bold shadow-lg border-2 border-transparent hover:border-red-200 flex items-center gap-2">
+                <button id="fav-word" class="bg-white dark:bg-slate-800 text-gray-700 dark:text-slate-200 px-8 py-3 rounded-full hover:bg-red-50 dark:hover:bg-red-900/20 transition-all font-bold shadow-lg border-2 border-transparent hover:border-red-200 dark:hover:border-red-800/50 flex items-center gap-2">
                     <i class="ti ti-heart text-red-500"></i> <span id="fav-text">Save to My Words</span>
                 </button>
-                <button id="share-image-btn" class="bg-white text-gray-700 px-8 py-3 rounded-full hover:bg-purple-50 transition-all font-bold shadow-lg border-2 border-transparent hover:border-purple-200 flex items-center gap-2">
+                <button id="share-image-btn" class="bg-white dark:bg-slate-800 text-gray-700 dark:text-slate-200 px-8 py-3 rounded-full hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-all font-bold shadow-lg border-2 border-transparent hover:border-purple-200 dark:hover:border-purple-800/50 flex items-center gap-2">
                     <i class="ti ti-camera text-purple-600"></i> Share as Image
                 </button>
             </div>

@@ -130,8 +130,8 @@ function generatePickupPage(line, relatedLines) {
 
     // Related lines HTML
     const relatedHtml = relatedLines.length > 0 ? `
-        <section class="mt-12 bg-white rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6"><i class="ti ti-heart"></i> Related Pickup Lines</h2>
+        <section class="mt-12 bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border dark:border-slate-700">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6"><i class="ti ti-heart"></i> Related Pickup Lines</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 ${relatedLines.map(related => {
                     const relSlug = createSlug(related.pidgin.substring(0, 50));
@@ -139,11 +139,11 @@ function generatePickupPage(line, relatedLines) {
                     const relSpicy = related.spiciness ? Array(Math.min(related.spiciness, 5)).fill('<i class="ti ti-flame" style="color: #ef4444;"></i>').join('') : '';
                     return `
                     <a href="/pickup/${relSlug}.html"
-                       class="bg-gradient-to-br from-pink-50 to-red-50 rounded-xl p-4 hover:shadow-lg transition-shadow border-2 border-pink-200 hover:border-pink-400">
-                        <p class="font-bold text-gray-800 mb-1">"${escapeHtml(relShort)}"</p>
-                        <p class="text-sm text-gray-600 mb-2">${escapeHtml(related.english)}</p>
+                       class="bg-gradient-to-br from-pink-50 to-red-50 dark:from-pink-900/30 dark:to-red-900/30 rounded-xl p-4 hover:shadow-lg transition-shadow border-2 border-pink-200 dark:border-pink-800/50 hover:border-pink-400 dark:hover:border-pink-700">
+                        <p class="font-bold text-gray-800 dark:text-white mb-1">"${escapeHtml(relShort)}"</p>
+                        <p class="text-sm text-gray-600 dark:text-slate-400 mb-2">${escapeHtml(related.english)}</p>
                         <div class="flex items-center gap-2">
-                            <span class="inline-block bg-pink-100 text-pink-700 text-xs font-semibold px-2 py-1 rounded-full">${escapeHtml(related.category || 'classic')}</span>
+                            <span class="inline-block bg-pink-100 dark:bg-pink-900/50 text-pink-700 dark:text-pink-300 text-xs font-semibold px-2 py-1 rounded-full border dark:border-pink-800">${escapeHtml(related.category || 'classic')}</span>
                             ${relSpicy ? `<span class="text-sm">${relSpicy}</span>` : ''}
                         </div>
                     </a>`;
@@ -190,11 +190,11 @@ ${headContent}
     ${JSON.stringify(breadcrumbSchema, null, 2)}
     </script>
 </head>
-<body class="min-h-screen bg-gray-50">
+<body class="min-h-screen bg-gray-50 dark:bg-slate-900 transition-colors duration-300">
     ${navigation}
 
     <!-- Back to Pickup Lines -->
-    <div class="bg-white border-b">
+    <div class="bg-white dark:bg-slate-800 border-b dark:border-slate-700 transition-colors">
         <div class="container mx-auto px-4 py-4">
             <a href="/pickup-lines.html" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-600 to-red-600 text-white rounded-full hover:from-pink-700 hover:to-red-700 transition-all shadow-lg hover:shadow-xl font-semibold">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -207,10 +207,10 @@ ${headContent}
 
     <main class="container mx-auto px-4 py-8 max-w-4xl">
         <!-- Line Header Card -->
-        <div class="bg-gradient-to-br from-pink-100 via-red-100 to-orange-100 rounded-3xl p-8 mb-8 shadow-2xl border-2 border-pink-200">
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">"${escapeHtml(line.pidgin)}"</h1>
-            <p class="text-xl text-gray-600 mb-4">
-                <i class="ti ti-language"></i> <span class="font-semibold text-pink-700">${escapeHtml(line.english)}</span>
+        <div class="bg-gradient-to-br from-pink-100 via-red-100 to-orange-100 dark:from-pink-950 dark:via-red-950 dark:to-orange-950 rounded-3xl p-8 mb-8 shadow-2xl border-2 border-pink-200 dark:border-pink-800">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-4">"${escapeHtml(line.pidgin)}"</h1>
+            <p class="text-xl text-gray-600 dark:text-slate-300 mb-4">
+                <i class="ti ti-language"></i> <span class="font-semibold text-pink-700 dark:text-pink-400">${escapeHtml(line.english)}</span>
             </p>
 
             <div class="flex flex-wrap items-center gap-3 mb-4">
@@ -218,8 +218,8 @@ ${headContent}
                     ${escapeHtml(line.category || 'classic')}
                 </span>
                 ${spicyHtml ? `
-                <span class="inline-flex items-center gap-1 bg-white/80 rounded-full px-4 py-2 text-lg">
-                    <strong class="text-gray-700 mr-1">Spice:</strong> ${spicyHtml}
+                <span class="inline-flex items-center gap-1 bg-white/80 dark:bg-white/10 rounded-full px-4 py-2 text-lg border dark:border-white/10">
+                    <strong class="text-gray-700 dark:text-slate-200 mr-1">Spice:</strong> ${spicyHtml}
                 </span>` : ''}
             </div>
 
@@ -229,44 +229,44 @@ ${headContent}
         </div>
 
         <!-- Pronunciation & Delivery Tips -->
-        <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4"><i class="ti ti-speakerphone"></i> Pronunciation & Delivery</h2>
+        <section class="bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border dark:border-slate-700">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4"><i class="ti ti-speakerphone"></i> Pronunciation & Delivery</h2>
             <div class="space-y-4">
-                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-5 border-l-4 border-blue-500">
-                    <h3 class="font-bold text-lg text-gray-800 mb-2">How to Say It</h3>
-                    <p class="text-gray-700">Read it just as it looks - Pidgin is phonetic. Speak with a relaxed, island rhythm. Don't rush it; let the words flow naturally like you're talking story with friends.</p>
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-5 border-l-4 border-blue-500">
+                    <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">How to Say It</h3>
+                    <p class="text-gray-700 dark:text-slate-300">Read it just as it looks - Pidgin is phonetic. Speak with a relaxed, island rhythm. Don't rush it; let the words flow naturally like you're talking story with friends.</p>
                 </div>
-                <div class="bg-gradient-to-r from-green-50 to-teal-50 rounded-xl p-5 border-l-4 border-green-500">
-                    <h3 class="font-bold text-lg text-gray-800 mb-2">Delivery Tips</h3>
-                    <p class="text-gray-700">Confidence is key, but keep it playful. Smile when you say it - Pidgin pickup lines are meant to be fun and lighthearted. ${line.spiciness && line.spiciness >= 4 ? 'This one\'s on the spicier side, so make sure the vibe is right before you drop it!' : 'This is a great icebreaker that works in casual settings.'}</p>
+                <div class="bg-gradient-to-r from-green-50 to-teal-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-5 border-l-4 border-green-500">
+                    <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">Delivery Tips</h3>
+                    <p class="text-gray-700 dark:text-slate-300">Confidence is key, but keep it playful. Smile when you say it - Pidgin pickup lines are meant to be fun and lighthearted. ${line.spiciness && line.spiciness >= 4 ? 'This one\'s on the spicier side, so make sure the vibe is right before you drop it!' : 'This is a great icebreaker that works in casual settings.'}</p>
                 </div>
             </div>
         </section>
 
         <!-- Context / When to Use -->
-        <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4"><i class="ti ti-map-pin"></i> When to Use This Line</h2>
-            <div class="bg-gradient-to-r from-orange-50 to-yellow-50 rounded-xl p-6 border-l-4 border-orange-500">
-                <p class="text-gray-700 mb-3">This <strong>${escapeHtml(line.category || 'classic')}</strong> pickup line is perfect for casual, fun moments. ${line.spiciness && line.spiciness >= 3 ? 'With a spice level of ' + line.spiciness + '/5, save this one for when you\'re feeling bold and the mood is right.' : 'It\'s a lighthearted line that works great as an icebreaker.'}</p>
-                <p class="text-gray-700">Best settings: beach hangouts, local parties, pau hana gatherings, or anytime you want to bring some island charm to the conversation. Remember - the key to any good Pidgin line is delivering it with genuine aloha spirit!</p>
+        <section class="bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border dark:border-slate-700">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4"><i class="ti ti-map-pin"></i> When to Use This Line</h2>
+            <div class="bg-gradient-to-r from-orange-50 to-yellow-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-6 border-l-4 border-orange-500">
+                <p class="text-gray-700 dark:text-slate-300 mb-3">This <strong>${escapeHtml(line.category || 'classic')}</strong> pickup line is perfect for casual, fun moments. ${line.spiciness && line.spiciness >= 3 ? 'With a spice level of ' + line.spiciness + '/5, save this one for when you\'re feeling bold and the mood is right.' : 'It\'s a lighthearted line that works great as an icebreaker.'}</p>
+                <p class="text-gray-700 dark:text-slate-300">Best settings: beach hangouts, local parties, pau hana gatherings, or anytime you want to bring some island charm to the conversation. Remember - the key to any good Pidgin line is delivering it with genuine aloha spirit!</p>
             </div>
         </section>
 
         <!-- FAQ Section -->
-        <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6"><i class="ti ti-question-mark"></i> Frequently Asked Questions</h2>
+        <section class="bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border dark:border-slate-700">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6"><i class="ti ti-question-mark"></i> Frequently Asked Questions</h2>
             <div class="space-y-4">
-                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-5 border-l-4 border-blue-500">
-                    <h3 class="font-bold text-lg text-gray-800 mb-2">What does "${escapeHtml(shortDisplay)}" mean in English?</h3>
-                    <p class="text-gray-700">This Hawaiian Pidgin pickup line "${escapeHtml(line.pidgin)}" means "${escapeHtml(line.english)}" in English. It's a ${escapeHtml(line.category || 'classic')} style line used for flirting island style.</p>
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-5 border-l-4 border-blue-500">
+                    <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">What does "${escapeHtml(shortDisplay)}" mean in English?</h3>
+                    <p class="text-gray-700 dark:text-slate-300">This Hawaiian Pidgin pickup line "${escapeHtml(line.pidgin)}" means "${escapeHtml(line.english)}" in English. It's a ${escapeHtml(line.category || 'classic')} style line used for flirting island style.</p>
                 </div>
-                <div class="bg-gradient-to-r from-green-50 to-teal-50 rounded-xl p-5 border-l-4 border-green-500">
-                    <h3 class="font-bold text-lg text-gray-800 mb-2">How do you say "${escapeHtml(shortDisplay)}" in Hawaiian Pidgin?</h3>
-                    <p class="text-gray-700">You say it just like it reads: "${escapeHtml(line.pidgin)}". Click the "Hear It" button above to listen to the pronunciation. Pidgin is spoken with a relaxed, melodic tone.</p>
+                <div class="bg-gradient-to-r from-green-50 to-teal-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-5 border-l-4 border-green-500">
+                    <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">How do you say "${escapeHtml(shortDisplay)}" in Hawaiian Pidgin?</h3>
+                    <p class="text-gray-700 dark:text-slate-300">You say it just like it reads: "${escapeHtml(line.pidgin)}". Click the "Hear It" button above to listen to the pronunciation. Pidgin is spoken with a relaxed, melodic tone.</p>
                 </div>
-                <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-5 border-l-4 border-purple-500">
-                    <h3 class="font-bold text-lg text-gray-800 mb-2">When should you use this Pidgin pickup line?</h3>
-                    <p class="text-gray-700">${line.spiciness && line.spiciness >= 4 ? 'This is a spicier line, so make sure you know the person well enough!' : 'It\'s a lighthearted line that\'s great for breaking the ice.'} Always deliver it with a smile and good vibes.</p>
+                <div class="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-5 border-l-4 border-purple-500">
+                    <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">When should you use this Pidgin pickup line?</h3>
+                    <p class="text-gray-700 dark:text-slate-300">${line.spiciness && line.spiciness >= 4 ? 'This is a spicier line, so make sure you know the person well enough!' : 'It\'s a lighthearted line that\'s great for breaking the ice.'} Always deliver it with a smile and good vibes.</p>
                 </div>
             </div>
         </section>

@@ -278,14 +278,16 @@ function generatePhrasePage(phrase, relatedPhrases, navigation, footer, dictiona
 
     // Build related phrases HTML
     const relatedHtml = relatedPhrases.length > 0 ? `
-        <section class="mt-12">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6"><i class="ti ti-flower"></i> Related Phrases</h2>
+        <section class="mt-12 bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-xl border border-gray-100 dark:border-slate-700">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6 flex items-center gap-2">
+                <i class="ti ti-link"></i> Related Pidgin Phrases
+            </h2>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                 ${relatedPhrases.map(related => `
                     <a href="/phrase/${createSlug(related.pidgin)}.html"
-                       class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-4 hover:shadow-lg transition-shadow border-2 border-blue-200">
-                        <h3 class="font-bold text-lg text-purple-600 mb-1">${escapeHtml(related.pidgin)}</h3>
-                        <p class="text-sm text-gray-600">${escapeHtml(related.english)}</p>
+                       class="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-4 hover:shadow-lg transition-shadow border border-gray-100 dark:border-slate-600">
+                        <h3 class="font-bold text-lg text-purple-600 dark:text-purple-400 mb-1">${escapeHtml(related.pidgin)}</h3>
+                        <p class="text-sm text-gray-600 dark:text-slate-400">${escapeHtml(related.english)}</p>
                     </a>
                 `).join('')}
             </div>
@@ -306,7 +308,7 @@ function generatePhrasePage(phrase, relatedPhrases, navigation, footer, dictiona
     const tagsHtml = tagsArray.length > 0 ? `
             <div class="flex flex-wrap gap-2 mt-4">
                 ${tagsArray.map(tag => `
-                    <span class="inline-block bg-white/60 text-gray-700 rounded-full px-4 py-1 text-sm font-medium">
+                    <span class="inline-block bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm text-gray-700 dark:text-slate-300 rounded-full px-4 py-1 text-sm font-medium border dark:border-slate-700">
                         <i class="ti ti-tag"></i> ${escapeHtml(tag)}
                     </span>
                 `).join('')}
@@ -407,18 +409,18 @@ ${headContent}
         </div>
 
         <!-- Meaning Section -->
-        <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4"><i class="ti ti-book"></i> Meaning</h2>
+        <section class="bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border dark:border-slate-700">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4"><i class="ti ti-book"></i> Meaning</h2>
             <div class="space-y-3">
                 <div class="flex items-start">
                     <span class="text-green-500 mr-2 text-xl">&bull;</span>
-                    <span class="text-xl text-gray-700">${escapedEnglish}</span>
+                    <span class="text-xl text-gray-700 dark:text-slate-200">${escapedEnglish}</span>
                 </div>
             </div>
 
             ${phrase.notes ? `
-            <div class="mt-6 bg-blue-50 rounded-xl p-4 border-l-4 border-blue-500">
-                <p class="text-gray-700"><strong>Usage Notes:</strong> ${linkedNotes}</p>
+            <div class="mt-6 bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 border-l-4 border-blue-500">
+                <p class="text-gray-700 dark:text-slate-300"><strong>Usage Notes:</strong> ${linkedNotes}</p>
             </div>
             ` : ''}
         </section>
@@ -427,20 +429,20 @@ ${headContent}
         ${miniQuizHtml}
 
         <!-- FAQ Section -->
-        <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6"><i class="ti ti-question-mark"></i> Frequently Asked Questions</h2>
+        <section class="bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border dark:border-slate-700">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6"><i class="ti ti-question-mark"></i> Frequently Asked Questions</h2>
             <div class="space-y-4">
-                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-5 border-l-4 border-blue-500">
-                    <h3 class="font-bold text-lg text-gray-800 mb-2">What does "${escapedPhrase}" mean in Hawaiian Pidgin?</h3>
-                    <p class="text-gray-700">"${escapedPhrase}" means "${escapedEnglish}" in Hawaiian Pidgin.${phrase.notes ? ' ' + escapedNotes : ''}</p>
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-5 border-l-4 border-blue-500">
+                    <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">What does "${escapedPhrase}" mean in Hawaiian Pidgin?</h3>
+                    <p class="text-gray-700 dark:text-slate-300">"${escapedPhrase}" means "${escapedEnglish}" in Hawaiian Pidgin.${phrase.notes ? ' ' + escapedNotes : ''}</p>
                 </div>
-                <div class="bg-gradient-to-r from-green-50 to-teal-50 rounded-xl p-5 border-l-4 border-green-500">
-                    <h3 class="font-bold text-lg text-gray-800 mb-2">How do you pronounce "${escapedPhrase}"?</h3>
-                    <p class="text-gray-700">${phrase.pronunciation ? `"${escapedPhrase}" is pronounced "${escapedPronunciation}". Click the "Hear Pronunciation" button above to listen!` : `"${escapedPhrase}" is pronounced phonetically as it appears. Click the "Hear Pronunciation" button above to listen!`}</p>
+                <div class="bg-gradient-to-r from-green-50 to-teal-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-5 border-l-4 border-green-500">
+                    <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">How do you pronounce "${escapedPhrase}"?</h3>
+                    <p class="text-gray-700 dark:text-slate-300">${phrase.pronunciation ? `"${escapedPhrase}" is pronounced "${escapedPronunciation}". Click the "Hear Pronunciation" button above to listen!` : `"${escapedPhrase}" is pronounced phonetically as it appears. Click the "Hear Pronunciation" button above to listen!`}</p>
                 </div>
-                <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-5 border-l-4 border-purple-500">
-                    <h3 class="font-bold text-lg text-gray-800 mb-2">When do locals use "${escapedPhrase}"?</h3>
-                    <p class="text-gray-700">${phrase.notes ? escapedNotes : `"${escapedPhrase}" is a ${escapedCategory} expression used in everyday Hawaiian Pidgin conversation.`}</p>
+                <div class="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-5 border-l-4 border-purple-500">
+                    <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">When do locals use "${escapedPhrase}"?</h3>
+                    <p class="text-gray-700 dark:text-slate-300">${phrase.notes ? escapedNotes : `"${escapedPhrase}" is a ${escapedCategory} expression used in everyday Hawaiian Pidgin conversation.`}</p>
                 </div>
             </div>
         </section>

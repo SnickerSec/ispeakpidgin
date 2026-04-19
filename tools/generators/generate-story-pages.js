@@ -171,19 +171,19 @@ function generateStoryPage(story, allStories, navigation, footer) {
     // Related stories
     const relatedStories = findRelatedStories(story, allStories);
     const relatedHtml = relatedStories.length > 0 ? `
-        <section class="mt-12 bg-white rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6"><i class="ti ti-books"></i> Related Stories</h2>
+        <section class="mt-12 bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border dark:border-slate-700">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6"><i class="ti ti-books"></i> Related Stories</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 ${relatedStories.map(rs => {
                     const rsSlug = createSlug(rs.title);
                     const rsTags = Array.isArray(rs.tags) ? rs.tags : [];
                     return `
                     <a href="/story/${rsSlug}.html"
-                       class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-5 hover:shadow-lg transition-shadow border-2 border-blue-200 hover:border-blue-400">
-                        <h3 class="font-bold text-lg text-purple-600 mb-2">${escapeHtml(rs.title)}</h3>
+                       class="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-5 hover:shadow-lg transition-shadow border-2 border-blue-200 dark:border-slate-600 hover:border-blue-400 dark:hover:border-slate-500">
+                        <h3 class="font-bold text-lg text-purple-600 dark:text-purple-300 mb-2 transition-colors">${escapeHtml(rs.title)}</h3>
                         <div class="flex flex-wrap gap-2">
                             ${rs.difficulty ? `<span class="text-xs bg-gradient-to-r ${getDifficultyColor(rs.difficulty)} text-white rounded-full px-3 py-1 font-semibold">${escapeHtml(rs.difficulty)}</span>` : ''}
-                            ${rsTags.slice(0, 3).map(t => `<span class="text-xs bg-gray-200 text-gray-700 rounded-full px-3 py-1">${escapeHtml(t)}</span>`).join('')}
+                            ${rsTags.slice(0, 3).map(t => `<span class="text-xs bg-gray-200 dark:bg-slate-900 text-gray-700 dark:text-slate-400 rounded-full px-3 py-1 border dark:border-slate-700">${escapeHtml(t)}</span>`).join('')}
                         </div>
                     </a>`;
                 }).join('')}
@@ -192,14 +192,14 @@ function generateStoryPage(story, allStories, navigation, footer) {
 
     // Vocabulary grid HTML
     const vocabularyHtml = vocabulary.length > 0 ? `
-        <section class="mt-12 bg-white rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6"><i class="ti ti-vocabulary"></i> Vocabulary</h2>
+        <section class="mt-12 bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border dark:border-slate-700">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6"><i class="ti ti-vocabulary"></i> Vocabulary</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 ${vocabulary.map(v => `
-                    <div class="bg-gradient-to-br from-green-50 to-teal-50 rounded-xl p-4 border-2 border-green-200">
-                        <h3 class="font-bold text-lg text-green-700 mb-1">${escapeHtml(v.pidgin || '')}</h3>
-                        <p class="text-gray-700 mb-1">${escapeHtml(v.english || '')}</p>
-                        ${v.pronunciation ? `<p class="text-sm text-gray-500 italic"><i class="ti ti-speakerphone"></i> ${escapeHtml(v.pronunciation)}</p>` : ''}
+                    <div class="bg-gradient-to-br from-green-50 to-teal-50 dark:from-green-900/30 dark:to-teal-900/30 rounded-xl p-4 border-2 border-green-200 dark:border-green-800/50">
+                        <h3 class="font-bold text-lg text-green-700 dark:text-green-400 mb-1">${escapeHtml(v.pidgin || '')}</h3>
+                        <p class="text-gray-700 dark:text-slate-300 mb-1">${escapeHtml(v.english || '')}</p>
+                        ${v.pronunciation ? `<p class="text-sm text-gray-500 dark:text-slate-500 italic"><i class="ti ti-speakerphone"></i> ${escapeHtml(v.pronunciation)}</p>` : ''}
                     </div>
                 `).join('')}
             </div>
@@ -244,11 +244,11 @@ ${headContent}
     ${JSON.stringify(breadcrumbSchema, null, 2)}
     </script>
 </head>
-<body class="min-h-screen bg-gray-50">
+<body class="min-h-screen bg-gray-50 dark:bg-slate-900 transition-colors duration-300 text-gray-800 dark:text-slate-100">
     ${navigation}
 
     <!-- Back to Stories -->
-    <div class="bg-white border-b">
+    <div class="bg-white dark:bg-slate-800 border-b dark:border-slate-700 transition-colors">
         <div class="container mx-auto px-4 py-4">
             <a href="/stories.html" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-full hover:from-purple-700 hover:to-blue-700 transition-all shadow-lg hover:shadow-xl font-semibold">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -261,8 +261,8 @@ ${headContent}
 
     <main class="container mx-auto px-4 py-8 max-w-4xl">
         <!-- Story Header -->
-        <div class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 rounded-3xl p-8 mb-8 shadow-2xl border-2 border-purple-200">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">${escapeHtml(capitalizedTitle)}</h1>
+        <div class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 dark:from-indigo-900 dark:via-slate-900 dark:to-purple-900 rounded-3xl p-8 mb-8 shadow-2xl border-2 border-purple-200 dark:border-indigo-500/30">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4">${escapeHtml(capitalizedTitle)}</h1>
 
             <div class="flex flex-wrap items-center gap-3 mb-4">
                 ${story.difficulty ? `<span class="inline-block bg-gradient-to-r ${getDifficultyColor(story.difficulty)} text-white rounded-full px-6 py-2 text-lg font-semibold">${escapeHtml(story.difficulty)}</span>` : ''}
@@ -276,22 +276,22 @@ ${tagsBadgesHtml}
         </div>
 
         <!-- Pidgin Story Text -->
-        <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4"><i class="ti ti-book"></i> Story in Pidgin</h2>
-            <blockquote class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border-l-4 border-blue-500">
-                <p class="text-lg text-gray-800 leading-relaxed whitespace-pre-line">${escapeHtml(story.content_pidgin || '')}</p>
+        <section class="bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border dark:border-slate-700">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4"><i class="ti ti-book"></i> Story in Pidgin</h2>
+            <blockquote class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-6 border-l-4 border-blue-500">
+                <p class="text-lg text-gray-800 dark:text-slate-200 leading-relaxed whitespace-pre-line">${escapeHtml(story.content_pidgin || '')}</p>
             </blockquote>
         </section>
 
         <!-- English Translation (Collapsible) -->
-        <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4"><i class="ti ti-language"></i> English Translation</h2>
+        <section class="bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border dark:border-slate-700">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4"><i class="ti ti-language"></i> English Translation</h2>
             <button id="toggle-translation" class="bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg mb-4">
                 Show English Translation
             </button>
             <div id="translation-content" class="hidden">
-                <div class="bg-gradient-to-r from-green-50 to-teal-50 rounded-xl p-6 border-l-4 border-green-500">
-                    <p class="text-lg text-gray-800 leading-relaxed whitespace-pre-line">${escapeHtml(story.content_english || '')}</p>
+                <div class="bg-gradient-to-r from-green-50 to-teal-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-6 border-l-4 border-green-500">
+                    <p class="text-lg text-gray-800 dark:text-slate-200 leading-relaxed whitespace-pre-line">${escapeHtml(story.content_english || '')}</p>
                 </div>
             </div>
         </section>
@@ -303,20 +303,20 @@ ${vocabularyHtml}
 ${culturalNotesHtml}
 
         <!-- FAQ Section -->
-        <section class="bg-white rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6"><i class="ti ti-question-mark"></i> Frequently Asked Questions</h2>
+        <section class="bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border dark:border-slate-700">
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6"><i class="ti ti-question-mark"></i> Frequently Asked Questions</h2>
             <div class="space-y-4">
-                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-5 border-l-4 border-blue-500">
-                    <h3 class="font-bold text-lg text-gray-800 mb-2">What is the story "${escapeHtml(capitalizedTitle)}" about?</h3>
-                    <p class="text-gray-700">"${escapeHtml(capitalizedTitle)}" is an authentic Hawaiian Pidgin story that showcases the local language and culture of Hawaii. It includes both the original Pidgin text and an English translation.</p>
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-5 border-l-4 border-blue-500">
+                    <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">What is the story "${escapeHtml(capitalizedTitle)}" about?</h3>
+                    <p class="text-gray-700 dark:text-slate-300">"${escapeHtml(capitalizedTitle)}" is an authentic Hawaiian Pidgin story that showcases the local language and culture of Hawaii. It includes both the original Pidgin text and an English translation.</p>
                 </div>
-                <div class="bg-gradient-to-r from-green-50 to-teal-50 rounded-xl p-5 border-l-4 border-green-500">
-                    <h3 class="font-bold text-lg text-gray-800 mb-2">What Pidgin words are in this story?</h3>
-                    <p class="text-gray-700">${vocabWords.length > 0 ? `This story features the following Pidgin words: ${vocabWords.map(w => escapeHtml(w)).join(', ')}. Each word includes its English meaning and pronunciation guide.` : `This story contains authentic Hawaiian Pidgin vocabulary. Read the full story to discover the words used.`}</p>
+                <div class="bg-gradient-to-r from-green-50 to-teal-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-5 border-l-4 border-green-500">
+                    <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">What Pidgin words are in this story?</h3>
+                    <p class="text-gray-700 dark:text-slate-300">${vocabWords.length > 0 ? `This story features the following Pidgin words: ${vocabWords.map(w => escapeHtml(w)).join(', ')}. Each word includes its English meaning and pronunciation guide.` : `This story contains authentic Hawaiian Pidgin vocabulary. Read the full story to discover the words used.`}</p>
                 </div>
-                <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-5 border-l-4 border-purple-500">
-                    <h3 class="font-bold text-lg text-gray-800 mb-2">What difficulty level is this story?</h3>
-                    <p class="text-gray-700">${story.difficulty ? `This story is rated as ${escapeHtml(story.difficulty)} level. ${story.difficulty.toLowerCase() === 'beginner' ? 'It is great for those just starting to learn Hawaiian Pidgin.' : story.difficulty.toLowerCase() === 'intermediate' ? 'It is suited for learners with some familiarity with Pidgin.' : 'It is designed for those with a strong understanding of Hawaiian Pidgin.'}` : 'This story is suitable for all learners of Hawaiian Pidgin.'}</p>
+                <div class="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-5 border-l-4 border-purple-500">
+                    <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">What difficulty level is this story?</h3>
+                    <p class="text-gray-700 dark:text-slate-300">${story.difficulty ? `This story is rated as ${escapeHtml(story.difficulty)} level. ${story.difficulty.toLowerCase() === 'beginner' ? 'It is great for those just starting to learn Hawaiian Pidgin.' : story.difficulty.toLowerCase() === 'intermediate' ? 'It is suited for learners with some familiarity with Pidgin.' : 'It is designed for those with a strong understanding of Hawaiian Pidgin.'}` : 'This story is suitable for all learners of Hawaiian Pidgin.'}</p>
                 </div>
             </div>
         </section>
