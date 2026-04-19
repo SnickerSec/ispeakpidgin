@@ -70,7 +70,6 @@
     "@tailwindcss/cli": "^4.2.1",
     "google-auth-library": "^9.15.1",
     "sharp": "^0.34.5",
-    "supabase": "^2.76.14",
     "tailwindcss": "^4.2.1",
     "terser": "^5.46.1"
   },
