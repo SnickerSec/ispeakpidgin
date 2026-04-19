@@ -97,6 +97,7 @@ function internalLinker(text, dictionary) {
     if (!text || !dictionary || dictionary.length === 0) return text;
     
     let linkedText = text;
+    const placeholders = [];
     
     // Sort dictionary by length descending to match longest terms first
     const sortedDict = [...dictionary].sort((a, b) => b.pidgin.length - a.pidgin.length);
@@ -109,19 +110,40 @@ function internalLinker(text, dictionary) {
         // Escape special characters for regex
         const escapedPidgin = pidgin.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         
-        // Match whole word only, case insensitive, but not already inside a tag
-        // We use a temporary placeholder to avoid double-linking
+        // Match whole word only, case insensitive
         const regex = new RegExp(`\\b(${escapedPidgin})\\b`, 'gi');
         
-        // Simple check to see if we've already linked this part
-        // (A more robust solution would use a proper HTML parser)
-        linkedText = linkedText.replace(regex, (match) => {
+        // Replace matches with unique placeholders to avoid matching inside HTML
+        let match;
+        while ((match = regex.exec(linkedText)) !== null) {
+            const start = match.index;
+            const length = match[0].length;
+            const fullMatch = match[0];
+            
+            // Check if we are already inside an existing placeholder
+            const preceding = linkedText.substring(0, start);
+            const placeholderOpenCount = (preceding.match(/__LINK_/g) || []).length;
+            const placeholderCloseCount = (preceding.match(/__/g) || []).length / 2 - placeholderOpenCount;
+            
+            if (placeholderOpenCount > placeholderCloseCount) {
+                // We're inside a placeholder, skip
+                continue;
+            }
+
             const slug = createSlug(pidgin);
-            return `<a href="/word/${slug}.html" class="text-purple-600 hover:underline font-medium">${match}</a>`;
-        });
-        
-        // Once we link a term, we stop for this specific term to prevent nested links
-        // However, the longest-first sorting helps significantly
+            const placeholder = `__LINK_${placeholders.length}__`;
+            placeholders.push(`<a href="/word/${slug}.html" class="text-purple-600 hover:underline font-medium">${fullMatch}</a>`);
+            
+            linkedText = linkedText.substring(0, start) + placeholder + linkedText.substring(start + length);
+            
+            // Reset regex lastIndex because the string length changed
+            regex.lastIndex = start + placeholder.length;
+        }
+    }
+    
+    // Restore placeholders
+    for (let i = 0; i < placeholders.length; i++) {
+        linkedText = linkedText.replace(`__LINK_${i}__`, placeholders[i]);
     }
     
     return linkedText;
