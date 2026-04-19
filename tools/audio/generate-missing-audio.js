@@ -63,7 +63,8 @@ const globalPronunciationMap = {
     'rubbah': 'rub-bah', 'punani': 'poo-nah-nee', 'boto': 'boh-toh', 'faka': 'fah-kah',
     'hamajang': 'hah-mah-jahng', 'mayjah': 'may-jah', 'poho': 'poh-hoh',
     'rajah dat': 'rah-jah dat', 'yobo': 'yo-boh', 'wit\'': 'wit', 'wit': 'wit',
-    'yesterday': 'yes-tah-deh'
+    'yesterday': 'yes-tah-deh', 'shoots brah': 'shoots brah', 'cousin cuz': 'kuz-in kuz',
+    'mempachi': 'mem-pah-chee', 'menpachi': 'men-pah-chee'
 };
 
 function applyPronunciationCorrections(text) {
