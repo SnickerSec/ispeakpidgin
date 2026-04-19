@@ -59,7 +59,17 @@ var curatedPhrases = {
 };
 
 function createSlug(text) {
-    return text.toLowerCase().replace(/'/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    if (!text) return 'unknown';
+    
+    return text.toLowerCase()
+        // Replace common okina variants with nothing
+        .replace(/['ʻ`‘’]/g, '')
+        // Replace kahako (long vowels) with standard vowels
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        // Replace non-alphanumeric with hyphens
+        .replace(/[^a-z0-9]+/g, '-')
+        // Remove leading/trailing hyphens
+        .replace(/^-|-$/g, '');
 }
 
 function renderPhraseCard(phrase) {

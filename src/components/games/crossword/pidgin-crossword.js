@@ -89,9 +89,28 @@ class PidginCrossword {
 
     buildGrid() {
         console.log('🏗️ Building grid for puzzle size:', this.puzzle.size);
-        // Create a grid based on puzzle size
-        const gridSize = this.puzzle.size || 10;
-        this.grid = Array(gridSize).fill(null).map(() => Array(gridSize).fill(null));
+        // Create a grid based on puzzle size (handle object or number)
+        let rows = 10;
+        let cols = 10;
+        
+        if (typeof this.puzzle.size === 'object' && this.puzzle.size !== null) {
+            rows = this.puzzle.size.rows || 10;
+            cols = this.puzzle.size.cols || 10;
+        } else if (typeof this.puzzle.size === 'number') {
+            rows = this.puzzle.size;
+            cols = this.puzzle.size;
+        } else if (this.puzzle.grid_size) {
+            // Handle table field grid_size
+            if (typeof this.puzzle.grid_size === 'object') {
+                rows = this.puzzle.grid_size.rows || 10;
+                cols = this.puzzle.grid_size.cols || 10;
+            } else {
+                rows = parseInt(this.puzzle.grid_size) || 10;
+                cols = rows;
+            }
+        }
+        
+        this.grid = Array(rows).fill(null).map(() => Array(cols).fill(null));
 
         // Place words on grid
         this.placeWords();
@@ -137,7 +156,11 @@ class PidginCrossword {
     renderGrid() {
         const gridEl = document.createElement('div');
         gridEl.className = 'crossword-grid';
-        gridEl.style.gridTemplateColumns = `repeat(${this.grid[0].length}, 1fr)`;
+        
+        const rows = this.grid.length;
+        const cols = this.grid[0].length;
+        
+        gridEl.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
 
         this.grid.forEach((row, rowIdx) => {
             row.forEach((cell, colIdx) => {
