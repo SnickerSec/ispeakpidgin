@@ -100,6 +100,20 @@ function generateSitemap({ dictionaryEntries, phrases, stories, pickupLines }) {
         <priority>0.8</priority>
     </url>
 
+    <url>
+        <loc>${baseUrl}/pidgin-vs-hawaiian.html</loc>
+        <lastmod>${currentDate}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>${baseUrl}/pidgin-vs-singlish.html</loc>
+        <lastmod>${currentDate}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
     <!-- Ask a Local Page - Community feature -->
     <url>
         <loc>${baseUrl}/ask-local.html</loc>
