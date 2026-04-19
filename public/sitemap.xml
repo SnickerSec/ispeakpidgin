@@ -277,6 +277,18 @@
         <priority>0.85</priority>
     </url>
     <url>
+        <loc>https://chokepidgin.com/what-does-bruddah-mean.html</loc>
+        <lastmod>2026-04-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
+        <loc>https://chokepidgin.com/what-does-you-da-man-mean.html</loc>
+        <lastmod>2026-04-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
         <loc>https://chokepidgin.com/what-does-buss-up-mean.html</loc>
         <lastmod>2026-04-19</lastmod>
         <changefreq>monthly</changefreq>
@@ -4673,6 +4685,12 @@
     </url>
     <url>
         <loc>https://chokepidgin.com/word/yobo-korean.html</loc>
+        <lastmod>2026-04-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://chokepidgin.com/word/you-da-best.html</loc>
         <lastmod>2026-04-19</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>

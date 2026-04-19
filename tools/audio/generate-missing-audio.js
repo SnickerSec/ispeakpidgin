@@ -64,8 +64,9 @@ const globalPronunciationMap = {
     'hamajang': 'hah-mah-jahng', 'mayjah': 'may-jah', 'poho': 'poh-hoh',
     'rajah dat': 'rah-jah dat', 'yobo': 'yo-boh', 'wit\'': 'wit', 'wit': 'wit',
     'yesterday': 'yes-tah-deh', 'shoots brah': 'shoots brah', 'cousin cuz': 'kuz-in kuz',
-    'mempachi': 'mem-pah-chee', 'menpachi': 'men-pah-chee'
-};
+    'mempachi': 'mem-pah-chee', 'menpachi': 'mem-pah-chee', 'you da best': 'you dah best',
+    'you da man': 'you dah man'
+    };
 
 function applyPronunciationCorrections(text) {
     let correctedText = text.toLowerCase();

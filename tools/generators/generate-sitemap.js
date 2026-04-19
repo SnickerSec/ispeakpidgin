@@ -301,6 +301,18 @@ function generateSitemap({ dictionaryEntries, phrases, stories, pickupLines }) {
         <priority>0.85</priority>
     </url>
     <url>
+        <loc>${baseUrl}/what-does-bruddah-mean.html</loc>
+        <lastmod>${currentDate}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
+        <loc>${baseUrl}/what-does-you-da-man-mean.html</loc>
+        <lastmod>${currentDate}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
         <loc>${baseUrl}/what-does-buss-up-mean.html</loc>
         <lastmod>${currentDate}</lastmod>
         <changefreq>monthly</changefreq>

@@ -50,7 +50,9 @@ const premiumPages = {
     'moopuna': 'what-does-moopuna-mean.html',
     'niele': 'what-does-niele-mean.html',
     'pilau': 'what-does-pilau-mean.html',
-    'kanak attack': 'what-does-kanak-attack-mean.html'
+    'kanak attack': 'what-does-kanak-attack-mean.html',
+    'you da man': 'what-does-you-da-man-mean.html',
+    'you da best': 'what-does-you-da-man-mean.html'
 };
 
 // Create output directory
