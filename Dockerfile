@@ -8,7 +8,7 @@ WORKDIR /app
 # Install deps with lockfile (includes devDeps). npm cache is mounted so
 # repeat builds reuse downloaded tarballs.
 COPY package.json package-lock.json .npmrc ./
-RUN --mount=type=cache,target=/root/.npm,sharing=locked \
+RUN --mount=type=cache,id=npm,target=/root/.npm,sharing=locked \
     npm ci --prefer-offline
 
 # Copy everything needed by the build script.
@@ -38,7 +38,7 @@ WORKDIR /app
 ENV NODE_ENV=production
 
 COPY package.json package-lock.json .npmrc ./
-RUN --mount=type=cache,target=/root/.npm,sharing=locked \
+RUN --mount=type=cache,id=npm,target=/root/.npm,sharing=locked \
     npm ci --omit=dev --prefer-offline
 
 # Runtime code + built static output from the build stage.
