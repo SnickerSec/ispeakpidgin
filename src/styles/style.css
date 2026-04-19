@@ -26,16 +26,55 @@
     --nav-link-color: #93c5fd;
 }
 
+/* Dark Mode Overrides (Island Night) */
 .dark body {
+    background: var(--bg-gradient);
     color: var(--text-main);
 }
 
-.dark p, .dark li, .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6, .dark span:not([class*="bg-"]) {
+.dark p, .dark li, .dark span:not([class*="bg-"]) {
     color: var(--text-main);
 }
 
-.dark .text-gray-600, .dark .text-gray-500, .dark .text-slate-600 {
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+    color: var(--text-main);
+}
+
+/* Fix Hero sections in dark mode */
+.dark .bg-gradient-to-r.from-blue-600.to-purple-600,
+.dark .bg-gradient-to-br.from-green-500.via-teal-500.to-blue-600 {
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%) !important;
+}
+
+/* Fix Daily Phrase and WOD cards in dark mode */
+.dark .bg-gradient-to-br.from-orange-100,
+.dark .bg-gradient-to-br.from-purple-100 {
+    background: var(--card-bg) !important;
+    border-color: #334155 !important;
+}
+
+/* Target specific utility text colors that often become invisible */
+.dark .text-gray-800, .dark .text-gray-700, .dark .text-gray-600, .dark .text-slate-700 {
+    color: var(--text-main) !important;
+}
+
+.dark .text-gray-500, .dark .text-slate-500 {
     color: var(--text-muted) !important;
+}
+
+/* Fix dropdown menus in dark mode */
+.dark .dropdown-menu, .dark #search-overlay > div {
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+.dark .dropdown-menu a:hover {
+    background-color: #334155 !important;
+}
+
+/* Light Mode specific overrides (ensure we don't break original design) */
+body:not(.dark) {
+    color: #1f2937;
 }
 
 /* Daily phrase animations and transitions */
