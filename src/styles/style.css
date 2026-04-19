@@ -26,6 +26,18 @@
     --nav-link-color: #93c5fd;
 }
 
+.dark body {
+    color: var(--text-main);
+}
+
+.dark p, .dark li, .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6, .dark span:not([class*="bg-"]) {
+    color: var(--text-main);
+}
+
+.dark .text-gray-600, .dark .text-gray-500, .dark .text-slate-600 {
+    color: var(--text-muted) !important;
+}
+
 /* Daily phrase animations and transitions */
 #daily-phrase {
     transition: all 0.3s ease-in-out;
@@ -193,6 +205,10 @@ nav {
     border: 2px solid transparent;
     background-clip: padding-box;
     color: var(--text-main);
+}
+
+.dark .phrase-card::before {
+    opacity: 0.2; /* More visible emoji in dark mode */
 }
 
 .phrase-card::before {
@@ -600,13 +616,13 @@ button:focus, a:focus, input:focus, textarea:focus {
 }
 
 .aloha-spirit {
-    background: linear-gradient(135deg,
-        rgba(255, 107, 107, 0.1),
-        rgba(255, 179, 71, 0.1),
-        rgba(30, 107, 168, 0.1));
+    background: var(--card-bg);
+    color: var(--text-main);
+    border: 1px solid rgba(255, 107, 107, 0.2);
     border-radius: 20px;
     padding: 2rem;
     position: relative;
+    transition: all 0.3s ease;
 }
 
 .aloha-spirit::before {
