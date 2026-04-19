@@ -269,12 +269,8 @@ function processHTMLFiles() {
     <script>
         (function() {
             try {
-                const savedTheme = localStorage.getItem('pidgin_theme');
-                if (savedTheme === 'dark') {
-                    document.documentElement.classList.add('dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                }
+                // Island Night is now the only theme
+                document.documentElement.classList.add('dark');
             } catch (e) {}
         })();
     </script>`;
@@ -326,12 +322,8 @@ function processHTMLFiles() {
     <script>
         (function() {
             try {
-                const savedTheme = localStorage.getItem('pidgin_theme');
-                if (savedTheme === 'dark') {
-                    document.documentElement.classList.add('dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                }
+                // Island Night is now the only theme
+                document.documentElement.classList.add('dark');
             } catch (e) {}
         })();
     </script>`;
@@ -369,12 +361,8 @@ function processHTMLFiles() {
     <script>
         (function() {
             try {
-                const savedTheme = localStorage.getItem('pidgin_theme');
-                if (savedTheme === 'dark') {
-                    document.documentElement.classList.add('dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                }
+                // Island Night is now the only theme
+                document.documentElement.classList.add('dark');
             } catch (e) {}
         })();
     </script>`;

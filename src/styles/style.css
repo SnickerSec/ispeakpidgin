@@ -3,19 +3,7 @@
 :root {
     --animation-play-state: running;
     
-    /* Light Mode Colors (High Noon) */
-    --bg-gradient: linear-gradient(135deg, #1e6ba8 0%, #5ca3db 25%, #87ceeb 50%, #ffb347 75%, #ff6b6b 100%);
-    --nav-bg: linear-gradient(to right, rgba(255, 255, 255, 0.95), rgba(255, 251, 235, 0.95));
-    --card-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 251, 235, 0.9));
-    --text-main: #1f2937;
-    --text-muted: #4b5563;
-    --accent-primary: #ff6b6b;
-    --accent-secondary: #ffb347;
-    --nav-link-color: #1e6ba8;
-}
-
-/* Dark Mode Colors (Island Night) */
-.dark {
+    /* Default Colors (Island Night) - Always Dark Now */
     --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 25%, #312e81 50%, #4338ca 75%, #1e1b4b 100%);
     --nav-bg: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(30, 27, 75, 0.95));
     --card-bg: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8));
@@ -23,6 +11,18 @@
     --text-muted: #94a3b8;
     --accent-primary: #fb923c; /* Lava Orange */
     --accent-secondary: #fcd34d; /* Moonlight Gold */
+    --nav-link-color: #93c5fd;
+}
+
+/* Maintain .dark class for Tailwind compatibility and legacy support */
+.dark {
+    --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 25%, #312e81 50%, #4338ca 75%, #1e1b4b 100%);
+    --nav-bg: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(30, 27, 75, 0.95));
+    --card-bg: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.8));
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --accent-primary: #fb923c;
+    --accent-secondary: #fcd34d;
     --nav-link-color: #93c5fd;
 }
 

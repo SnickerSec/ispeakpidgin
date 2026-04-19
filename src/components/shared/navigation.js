@@ -58,32 +58,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // --- Theme Switching (Dark Mode) ---
-    const themeToggle = document.getElementById('dark-mode-toggle');
-    const mobileThemeToggle = document.getElementById('mobile-dark-mode-toggle');
-    
-    function toggleTheme() {
-        const isDark = document.documentElement.classList.toggle('dark');
-        localStorage.setItem('pidgin_theme', isDark ? 'dark' : 'light');
-        
-        // Add ripple or wave effect if possible
-        console.log(`Theme switched to: ${isDark ? 'Island Night' : 'High Noon'}`);
-    }
-
-    if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
-    if (mobileThemeToggle) mobileThemeToggle.addEventListener('click', toggleTheme);
-
-    // Initialize theme from storage or default to light
-    const savedTheme = localStorage.getItem('pidgin_theme');
-
-    // Light theme is now the absolute default for new users
-    // We only apply dark mode if the user explicitly chose it previously
-    if (savedTheme === 'dark') {
-        document.documentElement.classList.add('dark');
-    } else {
-        // Ensure light mode is the state if no preference or explicitly light
-        document.documentElement.classList.remove('dark');
-    }
+    // --- Theme Enforcement (Exclusive Island Night) ---
+    // Ensure dark mode is always applied on load
+    document.documentElement.classList.add('dark');
+    // We can also clear the saved theme to avoid confusion if it was 'light'
+    localStorage.removeItem('pidgin_theme');
     // Quick Search Logic
     const searchBtn = document.getElementById('nav-search-btn');
     const searchOverlay = document.getElementById('search-overlay');
