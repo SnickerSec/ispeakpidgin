@@ -498,6 +498,9 @@
                 <button id="fav-word" class="bg-white text-gray-700 px-8 py-3 rounded-full hover:bg-red-50 transition-all font-bold shadow-lg border-2 border-transparent hover:border-red-200 flex items-center gap-2">
                     <i class="ti ti-heart text-red-500"></i> <span id="fav-text">Save to My Words</span>
                 </button>
+                <button id="share-image-btn" class="bg-white text-gray-700 px-8 py-3 rounded-full hover:bg-purple-50 transition-all font-bold shadow-lg border-2 border-transparent hover:border-purple-200 flex items-center gap-2">
+                    <i class="ti ti-camera text-purple-600"></i> Share as Image
+                </button>
             </div>
         </div>
 
@@ -681,7 +684,7 @@
                         <i class="ti ti-message-language"></i> Pidgin Grammar Tip
                     </h3>
                     <p class="text-gray-700 leading-relaxed italic">
-                        "The word 'buggah' can refer to a person, a thing, or an animal depending on the context."
+                        "Plurals in Pidgin are often formed by adding 'them' or 'dem' after the noun (e.g., 'The boy dem')."
                     </p>
                 </div>
                 <div class="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-white">
@@ -689,7 +692,7 @@
                         <i class="ti ti-map-pin"></i> Local Culture Fact
                     </h3>
                     <p class="text-gray-700 leading-relaxed italic">
-                        "A 'Hui' is a club, association, or group of people working toward a common goal."
+                        "The 'okina (ʻ) is a consonant in the Hawaiian language representing a glottal stop."
                     </p>
                 </div>
             </div>
@@ -719,7 +722,7 @@
                     </div>
                     <div class="text-center md:text-left flex-1">
                         <h3 class="text-xl md:text-2xl font-black mb-1">How Local You Stay?</h3>
-                        <p class="text-white/90 mb-4 font-medium">Test your Pidgin skills with our viral island culture quiz!</p>
+                        <p class="text-white/90 mb-4 font-medium">Think you know how for use "mongoose"?</p>
                         <a href="/how-local-you-stay.html" class="inline-block bg-white text-orange-600 px-6 py-2 rounded-xl font-black hover:bg-orange-50 transition shadow-md">
                             Take the Quiz &rarr;
                         </a>
@@ -731,17 +734,17 @@
                 <a href="/pidgin-wordle.html" class="bg-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow border-2 border-green-200 hover:border-green-400">
                     <div class="text-3xl mb-2"><i class="ti ti-grid-3x3" style="color: #22c55e;"></i></div>
                     <h3 class="font-bold text-gray-800">Pidgin Wordle</h3>
-                    <p class="text-sm text-gray-600">Daily word puzzle</p>
+                    <p class="text-sm text-gray-600">Can you spell it?</p>
                 </a>
                 <a href="/pidgin-hangman.html" class="bg-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow border-2 border-indigo-200 hover:border-indigo-400">
                     <div class="text-3xl mb-2"><i class="ti ti-typography"></i></div>
                     <h3 class="font-bold text-gray-800">Hangman</h3>
-                    <p class="text-sm text-gray-600">Guess the word</p>
+                    <p class="text-sm text-gray-600">Guess da word</p>
                 </a>
                 <a href="/pidgin-crossword.html" class="bg-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow border-2 border-blue-200 hover:border-blue-400">
                     <div class="text-3xl mb-2"><i class="ti ti-note"></i></div>
                     <h3 class="font-bold text-gray-800">Crossword</h3>
-                    <p class="text-sm text-gray-600">Test your vocabulary</p>
+                    <p class="text-sm text-gray-600">Vocabulary test</p>
                 </a>
             </div>
         </section>
@@ -762,6 +765,7 @@
 
 
     <script src="/js/components/supabase-api-loader.js"></script>
+    <script src="/js/components/social-card-generator.js"></script>
     <script src="/js/components/mini-quiz.js"></script>
     <script src="/js/components/elevenlabs-speech.js"></script>
     <script src="/js/components/speech.js"></script>
@@ -824,8 +828,31 @@
                     favText.textContent = 'Save to My Words';
                     favBtn.classList.remove('bg-red-50', 'border-red-200');
                 }
+            }
+            })();
+
+            // Social Share button handler
+            document.getElementById('share-image-btn')?.addEventListener('click', async () => {
+            const btn = document.getElementById('share-image-btn');
+            const originalHtml = btn.innerHTML;
+            btn.innerHTML = '<i class="ti ti-loader animate-spin"></i> Generating...';
+            btn.disabled = true;
+
+            try {
+                const dataUrl = await window.socialCardGenerator.generate({
+                    title: "mongoose",
+                    subtitle: "mongoose animal",
+                    category: "animals"
+                });
+                window.socialCardGenerator.download(dataUrl, "chokepidgin-mongoose.png");
+            } catch (e) {
+                console.error('Share error:', e);
+                alert('Aloha! Could not generate share image. Try again!');
+            } finally {
+                btn.innerHTML = originalHtml;
+                btn.disabled = false;
+            }
             });
-        })();
-    </script>
+            </script>
 </body>
 </html>
