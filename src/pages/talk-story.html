@@ -67,38 +67,38 @@
         }
     </style>
 </head>
-<body class="bg-blue-50 min-h-screen flex flex-col">
+<body class="bg-slate-900 min-h-screen flex flex-col text-slate-100">
     <!-- NAVIGATION_PLACEHOLDER -->
 
     <main class="flex-grow container mx-auto px-4 py-6 max-w-4xl">
         <!-- Header -->
-        <div class="bg-white rounded-2xl p-6 mb-6 shadow-md border-b-4 border-blue-400">
+        <div class="bg-slate-800 rounded-2xl p-6 mb-6 shadow-md border-b-4 border-indigo-500">
             <div class="flex flex-col md:flex-row items-center gap-6 mb-6">
-                <div id="character-avatar" class="w-20 h-20 rounded-full gradient-bg flex items-center justify-center text-white text-4xl shadow-inner border-4 border-white transition-all duration-500">
+                <div id="character-avatar" class="w-20 h-20 rounded-full gradient-bg flex items-center justify-center text-white text-4xl shadow-inner border-4 border-slate-700 transition-all duration-500">
                     <i class="ti ti-user-smile"></i>
                 </div>
                 <div class="text-center md:text-left flex-grow">
-                    <h1 id="character-name" class="text-2xl md:text-3xl font-bold text-gray-800 mb-1">Talk Story wit' Kimo</h1>
-                    <p id="character-desc" class="text-gray-600 text-sm md:text-base">Your friendly AI Pidgin tutor. Just chat like you stay beach!</p>
+                    <h1 id="character-name" class="text-2xl md:text-3xl font-bold text-slate-100 mb-1">Talk Story wit' Kimo</h1>
+                    <p id="character-desc" class="text-slate-400 text-sm md:text-base">Your friendly AI Pidgin tutor. Just chat like you stay beach!</p>
                 </div>
                 <div class="flex flex-col items-end gap-2">
                     <div class="flex gap-2">
-                        <button id="clear-chat" class="p-2 text-gray-400 hover:text-red-500 transition-colors" title="Clear Chat">
+                        <button id="clear-chat" class="p-2 text-slate-400 hover:text-red-400 transition-colors" title="Clear Chat">
                             <i class="ti ti-trash text-2xl"></i>
                         </button>
                     </div>
                     <label class="flex items-center cursor-pointer gap-2" title="Automatically play AI voice response">
-                        <span class="text-xs font-bold text-gray-400 uppercase">Auto-Voice</span>
+                        <span class="text-xs font-bold text-slate-500 uppercase">Auto-Voice</span>
                         <div class="relative">
                             <input type="checkbox" id="auto-voice" class="sr-only peer" checked>
-                            <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-500"></div>
+                            <div class="w-10 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-slate-600 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-500"></div>
                         </div>
                     </label>
                     <label class="flex items-center cursor-pointer gap-2" title="Keep microphone active after AI finishes speaking">
-                        <span class="text-xs font-bold text-gray-400 uppercase">Hands-Free</span>
+                        <span class="text-xs font-bold text-slate-500 uppercase">Hands-Free</span>
                         <div class="relative">
                             <input type="checkbox" id="hands-free" class="sr-only peer">
-                            <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-green-500"></div>
+                            <div class="w-10 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-slate-600 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-green-500"></div>
                         </div>
                     </label>
                 </div>
@@ -106,15 +106,15 @@
 
             <!-- Character Selection -->
             <div class="grid grid-cols-3 gap-3">
-                <button data-char="kimo" class="char-btn active border-2 border-blue-400 bg-blue-50 p-2 rounded-xl flex flex-col items-center transition-all">
+                <button data-char="kimo" class="char-btn active border-2 border-blue-500 bg-slate-700 text-slate-100 p-2 rounded-xl flex flex-col items-center transition-all">
                     <span class="text-xl">👨🏽‍🏫</span>
                     <span class="text-xs font-bold mt-1">Kimo</span>
                 </button>
-                <button data-char="aunty" class="char-btn border-2 border-transparent bg-gray-50 p-2 rounded-xl flex flex-col items-center transition-all hover:bg-purple-50 hover:border-purple-200">
+                <button data-char="aunty" class="char-btn border-2 border-transparent bg-slate-700/60 text-slate-200 p-2 rounded-xl flex flex-col items-center transition-all hover:bg-purple-900/40 hover:border-purple-500/50">
                     <span class="text-xl">👵🏽</span>
                     <span class="text-xs font-bold mt-1">Aunty</span>
                 </button>
-                <button data-char="braddah" class="char-btn border-2 border-transparent bg-gray-50 p-2 rounded-xl flex flex-col items-center transition-all hover:bg-orange-50 hover:border-orange-200">
+                <button data-char="braddah" class="char-btn border-2 border-transparent bg-slate-700/60 text-slate-200 p-2 rounded-xl flex flex-col items-center transition-all hover:bg-orange-900/40 hover:border-orange-500/50">
                     <span class="text-xl">🤙🏽</span>
                     <span class="text-xs font-bold mt-1">Braddah</span>
                 </button>
@@ -122,14 +122,14 @@
         </div>
 
         <!-- Chat Area -->
-        <div class="bg-white rounded-2xl shadow-xl border border-blue-100 flex flex-col overflow-hidden">
+        <div class="bg-slate-800 rounded-2xl shadow-xl border border-slate-700 flex flex-col overflow-hidden">
             <!-- Messages -->
-            <div id="chat-messages" class="chat-container overflow-y-auto p-4 md:p-6 space-y-4 bg-gray-50/50">
+            <div id="chat-messages" class="chat-container overflow-y-auto p-4 md:p-6 space-y-4 bg-slate-900/40">
                 <!-- Welcome Message -->
                 <div class="flex justify-start">
-                    <div class="message-bubble bg-white border border-blue-100 rounded-2xl rounded-tl-none p-4 shadow-sm">
-                        <p class="text-gray-800 font-medium">Aloha! I stay Kimo. Like talk story? I can help you practice your Pidgin. Just type someting below!</p>
-                        <div class="mt-2 text-xs text-blue-500 italic">Kimo stays active</div>
+                    <div class="message-bubble bg-slate-700 border border-slate-600 rounded-2xl rounded-tl-none p-4 shadow-sm">
+                        <p class="text-slate-100 font-medium">Aloha! I stay Kimo. Like talk story? I can help you practice your Pidgin. Just type someting below!</p>
+                        <div class="mt-2 text-xs text-blue-400 italic">Kimo stays active</div>
                     </div>
                 </div>
             </div>
@@ -142,27 +142,27 @@
             </div>
 
             <!-- Input Area -->
-            <div class="p-4 bg-white border-t border-gray-100">
+            <div class="p-4 bg-slate-800 border-t border-slate-700">
                 <form id="chat-form" class="flex gap-2">
-                    <input type="text" id="user-input" 
-                        class="flex-grow px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-400 focus:outline-none transition-all"
+                    <input type="text" id="user-input"
+                        class="flex-grow px-4 py-3 rounded-xl bg-slate-900 border-2 border-slate-700 text-slate-100 placeholder-slate-500 focus:border-blue-400 focus:outline-none transition-all"
                         placeholder="Type here..." autocomplete="off">
-                    <button type="button" id="mic-btn" 
-                        class="bg-gray-100 text-gray-500 w-12 h-12 rounded-xl flex items-center justify-center hover:bg-red-50 hover:text-red-500 transition-all border-2 border-transparent"
+                    <button type="button" id="mic-btn"
+                        class="bg-slate-700 text-slate-300 w-12 h-12 rounded-xl flex items-center justify-center hover:bg-red-500/20 hover:text-red-400 transition-all border-2 border-transparent"
                         title="Talk Story (Voice Input)">
                         <i class="ti ti-microphone text-xl"></i>
                     </button>
-                    <button type="submit" id="send-btn" 
+                    <button type="submit" id="send-btn"
                         class="gradient-bg text-white w-12 h-12 rounded-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-lg">
                         <i class="ti ti-send text-xl"></i>
                     </button>
                 </form>
                 <div id="voice-status" class="hidden text-center mt-2">
-                    <span class="text-xs font-bold text-red-500 animate-pulse flex items-center justify-center gap-1">
+                    <span class="text-xs font-bold text-red-400 animate-pulse flex items-center justify-center gap-1">
                         <i class="ti ti-antenna-bars-5"></i> Listening...
                     </span>
                 </div>
-                <p class="text-[10px] text-gray-400 mt-2 text-center">Kimo is an AI and can make mistakes. Always check da dictionary for fo' real rules!</p>
+                <p class="text-[10px] text-slate-500 mt-2 text-center">Kimo is an AI and can make mistakes. Always check da dictionary for fo' real rules!</p>
             </div>
         </div>
     </main>
@@ -343,7 +343,7 @@
                         </div>
                     `;
                 } else {
-                    const { pidgin, translation, hint, voiceId } = data || { pidgin: content };
+                    const { pidgin = content, translation, hint, voiceId } = data || {};
                     const char = data?.character || currentCharacter;
                     const profile = characterProfiles[char] || characterProfiles.kimo;
                     const safePidgin = pidgin || '';
@@ -380,8 +380,11 @@
                 if (!isUser) {
                     const btn = div.querySelector('.speak-btn');
                     const playVoice = () => {
+                        const textToSpeak = btn?.dataset.text?.trim();
+                        if (!textToSpeak) return;
+
                         visualizer.start('ai');
-                        
+
                         const onSpeechEnd = () => {
                             visualizer.stop();
                             window.removeEventListener('pidginSpeechEnd', onSpeechEnd);
@@ -389,11 +392,11 @@
                         window.addEventListener('pidginSpeechEnd', onSpeechEnd);
 
                         if (window.elevenLabsSpeech) {
-                            window.elevenLabsSpeech.speak(btn.dataset.text, { 
+                            window.elevenLabsSpeech.speak(textToSpeak, {
                                 voiceId: btn.dataset.voice
                             });
                         } else if (window.pidginSpeech) {
-                            window.pidginSpeech.speak(btn.dataset.text);
+                            window.pidginSpeech.speak(textToSpeak);
                         }
                     };
 
