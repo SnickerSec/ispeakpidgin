@@ -220,8 +220,8 @@
                     desc: "Your friendly AI Pidgin tutor. Just chat like you stay beach!",
                     icon: "ti-user-smile",
                     color: "linear-gradient(135deg, #60a5fa 0%, #a855f7 100%)",
-                    accent: "border-blue-400",
-                    bg: "bg-blue-50",
+                    accent: "border-blue-500",
+                    bg: "bg-slate-700",
                     voiceId: "f0ODjLMfcJmlKfs7dFCW"
                 },
                 aunty: {
@@ -229,8 +229,8 @@
                     desc: "Warm, wise, and a little bit sassy. Like talking to your favorite Tutu.",
                     icon: "ti-woman",
                     color: "linear-gradient(135deg, #f472b6 0%, #db2777 100%)",
-                    accent: "border-purple-400",
-                    bg: "bg-purple-50",
+                    accent: "border-purple-500",
+                    bg: "bg-purple-900/40",
                     voiceId: "EXAVITQu4vr4xnSDxMaL"
                 },
                 braddah: {
@@ -238,8 +238,8 @@
                     desc: "Super casual surfer braddah. Chee-hoo! Rajah dat!",
                     icon: "ti-mood-smile-beam",
                     color: "linear-gradient(135deg, #fbbf24 0%, #ea580c 100%)",
-                    accent: "border-orange-400",
-                    bg: "bg-orange-50",
+                    accent: "border-orange-500",
+                    bg: "bg-orange-900/40",
                     voiceId: "ErXwbc3VNbCc1k9An9bS"
                 }
             };
@@ -301,12 +301,12 @@
 
                     // Update UI
                     charButtons.forEach(b => {
-                        b.classList.remove('active', 'border-blue-400', 'border-purple-400', 'border-orange-400', 'bg-blue-50', 'bg-purple-50', 'bg-orange-50');
-                        b.classList.add('border-transparent', 'bg-gray-50');
+                        b.classList.remove('active', 'border-blue-400', 'border-purple-400', 'border-orange-400', 'bg-slate-700', 'bg-slate-800');
+                        b.classList.add('border-transparent', 'bg-slate-800');
                     });
 
                     const profile = characterProfiles[char];
-                    btn.classList.remove('border-transparent', 'bg-gray-50');
+                    btn.classList.remove('border-transparent', 'bg-slate-800');
                     btn.classList.add('active', profile.accent, profile.bg);
 
                     // Update header
@@ -316,7 +316,7 @@
                     avatar.style.background = profile.color;
                     avatar.innerHTML = `<i class="ti ${profile.icon}"></i>`;
                     
-                    document.querySelector('main > div:first-child').className = `bg-white rounded-2xl p-6 mb-6 shadow-md border-b-4 ${profile.accent}`;
+                    document.querySelector('main > div:first-child').className = `bg-slate-800 rounded-2xl p-6 mb-6 shadow-md border-b-4 ${profile.accent}`;
 
                     currentCharacter = char;
                     
