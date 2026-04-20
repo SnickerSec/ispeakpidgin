@@ -11,12 +11,13 @@ WORKDIR /app
 COPY package.json package-lock.json .npmrc ./
 RUN npm ci --prefer-offline
 
-# Copy everything needed by the build script.
+# Copy everything needed by the build script. (`data/` isn't copied -
+# all content lives in Supabase now; the build script tolerates its
+# absence.)
 COPY build.js ./
 COPY src/ ./src/
 COPY tools/ ./tools/
 COPY scripts/ ./scripts/
-COPY data/ ./data/
 
 # Supabase creds are needed by the page generators to fetch dictionary/
 # phrase/story content at build time. Railway passes matching service
