@@ -365,8 +365,11 @@
                 if (!isUser) {
                     const btn = div.querySelector('.speak-btn');
                     const playVoice = () => {
-                        const textToSpeak = btn?.dataset.text?.trim();
+                        let textToSpeak = btn?.dataset.text?.trim();
                         if (!textToSpeak) return;
+
+                        // Fix pronunciation for specific Hawaiian words
+                        textToSpeak = textToSpeak.replace(/Kailua/gi, 'Kai-loo-ah');
 
                         visualizer.start('ai');
 
