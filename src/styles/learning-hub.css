@@ -79,6 +79,9 @@
     border-radius: 9999px;
     overflow: hidden;
 }
+.dark .progress-bar {
+    background: #334155;
+}
 
 .progress-bar-fill {
     height: 100%;
@@ -181,6 +184,11 @@
     margin: 0.5rem 0;
     cursor: pointer;
     transition: all 0.2s ease;
+}
+.dark .quiz-option {
+    background: #1e293b;
+    border-color: #334155;
+    color: #f1f5f9;
 }
 
 .quiz-option:hover {
