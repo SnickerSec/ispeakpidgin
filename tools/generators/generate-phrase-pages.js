@@ -19,6 +19,7 @@ const {
     getMiniQuizHtml,
     getGrammarTip,
     getCulturalFact,
+    parallelForEach,
     SITE_URL,
     SITE_NAME
 } = require('./shared-utils');
@@ -557,27 +558,25 @@ async function main() {
 
         let generatedCount = 0;
         let skippedCount = 0;
-        const slugMap = new Map(); // Track slugs to prevent duplicates
+        // Phase 1: assign slugs sequentially to preserve deterministic dedup.
+        const slugMap = new Map();
+        const jobs = phrases.map(phrase => {
+            let slug = createSlug(phrase.pidgin);
+            let counter = 1;
+            let finalSlug = slug;
+            while (slugMap.has(finalSlug)) {
+                counter++;
+                finalSlug = `${slug}-${counter}`;
+            }
+            slugMap.set(finalSlug, phrase);
+            return { phrase, slug: finalSlug };
+        });
 
-        for (const phrase of phrases) {
+        // Phase 2: OG rasterization + HTML write run with bounded concurrency.
+        await parallelForEach(jobs, 8, async ({ phrase, slug }) => {
             try {
-                let slug = createSlug(phrase.pidgin);
-
-                // Handle duplicates by appending a counter
-                let counter = 1;
-                let finalSlug = slug;
-                while (slugMap.has(finalSlug)) {
-                    counter++;
-                    finalSlug = `${slug}-${counter}`;
-                }
-                
-                slug = finalSlug;
-                slugMap.set(slug, phrase);
-
-                // Find related phrases
                 const relatedPhrases = findRelatedPhrases(phrase, phrases);
 
-                // Generate OG Image
                 await generateOgImage({
                     title: phrase.pidgin,
                     subtitle: phrase.english,
@@ -586,16 +585,10 @@ async function main() {
                     filename: `${slug}.webp`
                 });
 
-                // Generate HTML
                 const html = generatePhrasePage(phrase, relatedPhrases, navigation, footer, dictionary);
-
-                // Write file
-                const filename = `${slug}.html`;
-                const filepath = path.join(outputDir, filename);
-                fs.writeFileSync(filepath, html, 'utf8');
+                fs.writeFileSync(path.join(outputDir, `${slug}.html`), html, 'utf8');
 
                 generatedCount++;
-
                 if (generatedCount % 50 === 0) {
                     console.log(`✅ Generated ${generatedCount} pages...`);
                 }
@@ -603,7 +596,7 @@ async function main() {
                 console.error(`❌ Error generating page for "${phrase.pidgin}":`, error.message);
                 skippedCount++;
             }
-        }
+        });
 
         console.log('\n✨ Generation complete!');
         console.log(`📄 Generated: ${generatedCount} pages`);

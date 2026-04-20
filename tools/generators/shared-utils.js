@@ -339,6 +339,23 @@ function getMiniQuizHtml() {
         </section>`;
 }
 
+/**
+ * Run an async handler over a list with bounded concurrency.
+ * OG image generation (Sharp/libvips) is the dominant cost in the page
+ * generators - running a small pool lets I/O and libvips threads overlap,
+ * cutting wall-clock time on fresh builds where no OG images are cached.
+ */
+async function parallelForEach(items, concurrency, handler) {
+    let cursor = 0;
+    const workers = Array.from({ length: Math.min(concurrency, items.length) }, async () => {
+        while (cursor < items.length) {
+            const index = cursor++;
+            await handler(items[index], index);
+        }
+    });
+    await Promise.all(workers);
+}
+
 module.exports = {
     createSlug,
     escapeHtml,
@@ -350,6 +367,7 @@ module.exports = {
     getMiniQuizHtml,
     getGrammarTip,
     getCulturalFact,
+    parallelForEach,
     SITE_URL,
     SITE_NAME
 };

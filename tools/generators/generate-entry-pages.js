@@ -19,6 +19,7 @@ const {
     getMiniQuizHtml,
     getGrammarTip,
     getCulturalFact,
+    parallelForEach,
     SITE_URL,
     SITE_NAME
 } = require('./shared-utils');
@@ -536,27 +537,27 @@ async function main() {
 
         let generatedCount = 0;
         let skippedCount = 0;
-        const slugMap = new Map(); // Track slugs to prevent duplicates
 
-        for (const entry of entries) {
+        // Phase 1: assign slugs sequentially to preserve the deterministic
+        // duplicate-suffix behavior (-2, -3, ...) without cross-worker races.
+        const slugMap = new Map();
+        const jobs = entries.map(entry => {
+            let slug = createSlug(entry.pidgin);
+            let counter = 1;
+            let finalSlug = slug;
+            while (slugMap.has(finalSlug)) {
+                counter++;
+                finalSlug = `${slug}-${counter}`;
+            }
+            slugMap.set(finalSlug, entry);
+            return { entry, slug: finalSlug };
+        });
+
+        // Phase 2: OG rasterization + HTML write run with bounded concurrency.
+        await parallelForEach(jobs, 8, async ({ entry, slug }) => {
             try {
-                let slug = createSlug(entry.pidgin);
-
-                // Handle duplicates by appending a counter
-                let counter = 1;
-                let finalSlug = slug;
-                while (slugMap.has(finalSlug)) {
-                    counter++;
-                    finalSlug = `${slug}-${counter}`;
-                }
-                
-                slug = finalSlug;
-                slugMap.set(slug, entry);
-
-                // Find related terms
                 const relatedTerms = findRelatedTerms(entry, entries);
 
-                // Generate OG Image
                 await generateOgImage({
                     title: entry.pidgin,
                     subtitle: Array.isArray(entry.english) ? entry.english[0] : entry.english,
@@ -565,16 +566,10 @@ async function main() {
                     filename: `${slug}.webp`
                 });
 
-                // Generate HTML
                 const html = generateEntryPage(entry, relatedTerms, navigation, footer);
-
-                // Write file
-                const filename = `${slug}.html`;
-                const filepath = path.join(outputDir, filename);
-                fs.writeFileSync(filepath, html, 'utf8');
+                fs.writeFileSync(path.join(outputDir, `${slug}.html`), html, 'utf8');
 
                 generatedCount++;
-
                 if (generatedCount % 50 === 0) {
                     console.log(`✅ Generated ${generatedCount} pages...`);
                 }
@@ -582,7 +577,7 @@ async function main() {
                 console.error(`❌ Error generating page for "${entry.pidgin}":`, error.message);
                 skippedCount++;
             }
-        }
+        });
 
         console.log('\n✨ Generation complete!');
         console.log(`📄 Generated: ${generatedCount} pages`);

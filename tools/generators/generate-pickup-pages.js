@@ -7,7 +7,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { createSlug, escapeHtml, fetchFromSupabase, getNavAndFooter, getCommonHead, getGameLinksHtml, getQuickActionsHtml, SITE_URL, SITE_NAME } = require('./shared-utils');
+const { createSlug, escapeHtml, fetchFromSupabase, getNavAndFooter, getCommonHead, getGameLinksHtml, getQuickActionsHtml, parallelForEach, SITE_URL, SITE_NAME } = require('./shared-utils');
 const { generateOgImage } = require('./og-image-generator');
 
 // Output directories
@@ -325,27 +325,25 @@ async function main() {
 
         let generatedCount = 0;
         let skippedCount = 0;
+        // Phase 1: assign slugs sequentially to preserve deterministic dedup.
         const slugMap = new Map();
+        const jobs = lines.map(line => {
+            let slug = createSlug(line.pidgin.substring(0, 50));
+            let counter = 1;
+            let finalSlug = slug;
+            while (slugMap.has(finalSlug)) {
+                counter++;
+                finalSlug = `${slug}-${counter}`;
+            }
+            slugMap.set(finalSlug, line);
+            return { line, slug: finalSlug };
+        });
 
-        for (const line of lines) {
+        // Phase 2: OG rasterization + HTML write run with bounded concurrency.
+        await parallelForEach(jobs, 8, async ({ line, slug }) => {
             try {
-                let slug = createSlug(line.pidgin.substring(0, 50));
-
-                // Handle duplicates by appending a counter
-                let counter = 1;
-                let finalSlug = slug;
-                while (slugMap.has(finalSlug)) {
-                    counter++;
-                    finalSlug = `${slug}-${counter}`;
-                }
-                
-                slug = finalSlug;
-                slugMap.set(slug, line);
-
-                // Find related lines
                 const relatedLines = findRelatedLines(line, lines);
 
-                // Generate OG Image
                 await generateOgImage({
                     title: line.pidgin,
                     subtitle: line.english,
@@ -354,16 +352,10 @@ async function main() {
                     filename: `${slug}.webp`
                 });
 
-                // Generate HTML
                 const html = generatePickupPage(line, relatedLines);
-
-                // Write file
-                const filename = `${slug}.html`;
-                const filepath = path.join(outputDir, filename);
-                fs.writeFileSync(filepath, html, 'utf8');
+                fs.writeFileSync(path.join(outputDir, `${slug}.html`), html, 'utf8');
 
                 generatedCount++;
-
                 if (generatedCount % 10 === 0) {
                     console.log(`Generated ${generatedCount} pages...`);
                 }
@@ -371,7 +363,7 @@ async function main() {
                 console.error(`Error generating page for "${line.pidgin?.substring(0, 40)}":`, error.message);
                 skippedCount++;
             }
-        }
+        });
 
         console.log('\nGeneration complete!');
         console.log(`Generated: ${generatedCount} pages`);
