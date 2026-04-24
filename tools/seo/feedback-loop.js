@@ -97,6 +97,7 @@ async function main() {
             return txt.toLowerCase()
                 .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
                 .replace(/['ʻ`‘’]/g, '')
+                .replace(/\s+/g, '') // Remove spaces for comparison
                 .trim();
         };
 
@@ -112,7 +113,7 @@ async function main() {
             'english to', 'how to say', 'what does', 'meaning of', 'translate', 'sayings',
             'lingo', 'phrases', 'words', 'saying', 'phrase', 'word', 'help help', 'translate poo from',
             'google', 'search', 'free', 'online', 'app', 'download', 'website', 'best', 'hawaii',
-            'choke pidgin', 'chokepidgin'
+            'choke pidgin', 'chokepidgin', 'pronounce', 'pronunciation', 'how to', 'define', 'definition'
         ];
 
         for (const row of scQueries) {
@@ -121,8 +122,10 @@ async function main() {
             const suffixes = [
                 /what does (.*) mean/i,
                 /how to say (.*) in/i,
+                /meaning of (.*)/i,
                 /(.*) meaning/i,
                 /(.*) definition/i,
+                /how to pronounce (.*)/i,
                 /(.*) pronunciation/i,
                 /(.*) in hawaiian/i,
                 /(.*) in korean/i,
