@@ -241,15 +241,30 @@ class AskLocalPageManager {
         submitBtn.innerHTML = '<span class="ti ti-loader animate-spin"></span> Sending...';
 
         try {
+            const headers = { 'Content-Type': 'application/json' };
+            if (window.UserAuth && window.UserAuth.isLoggedIn()) {
+                headers['Authorization'] = `Bearer ${window.UserAuth.token}`;
+            }
+
             const response = await fetch('/api/questions', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: headers,
                 body: JSON.stringify({ user_name: userName, question_text: questionText })
             });
 
             if (!response.ok) throw new Error('Submission failed');
 
-            this.showFeedback('Your question has been submitted! Locals will respond soon. <i class="ti ti-flower"></i>', 'success');
+            const data = await response.json();
+
+            let feedbackMsg = 'Your question has been submitted! Locals will respond soon. <i class="ti ti-flower"></i>';
+            if (data.ai_response) {
+                feedbackMsg = '<b>Instant Answer!</b> Kimo (AI) just responded to your question below. <i class="ti ti-robot"></i>';
+            }
+            if (data.xp && data.xp.xp_awarded) {
+                feedbackMsg += `<br><span class="text-xs font-bold text-blue-500">+${data.xp.xp_awarded} XP earned!</span>`;
+            }
+
+            this.showFeedback(feedbackMsg, 'success');
 
             // Reset form
             document.getElementById('ask-form').reset();
@@ -290,13 +305,13 @@ class AskLocalPageManager {
     showFeedback(message, type = 'info') {
         const feedback = document.getElementById('submit-feedback');
         if (feedback) {
-            feedback.textContent = message;
+            feedback.innerHTML = message;
             feedback.className = `text-sm ${type === 'success' ? 'text-green-600' : type === 'error' ? 'text-red-600' : 'text-blue-600'}`;
 
             setTimeout(() => {
-                feedback.textContent = '';
+                feedback.innerHTML = '';
                 feedback.className = 'text-sm';
-            }, 5000);
+            }, 8000);
         }
     }
 
@@ -405,9 +420,9 @@ class AskLocalPageManager {
     getFilteredQuestions() {
         switch (this.currentFilter) {
             case 'answered':
-                return this.questions.filter(q => q.responses && q.responses.length > 0);
+                return this.questions.filter(q => (q.responses && q.responses.length > 0) || q.status === 'ai_suggested');
             case 'pending':
-                return this.questions.filter(q => !q.responses || q.responses.length === 0);
+                return this.questions.filter(q => (!q.responses || q.responses.length === 0) && q.status !== 'ai_suggested');
             default:
                 return this.questions;
         }
@@ -435,8 +450,21 @@ class AskLocalPageManager {
 
         container.innerHTML = filteredQuestions.map(q => {
             const hasResponses = q.responses && q.responses.length > 0;
-            const statusClass = hasResponses ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300' : 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
-            const statusText = hasResponses ? '<i class="ti ti-circle-check"></i> Answered' : '<i class="ti ti-hourglass"></i> Pending Response';
+            const isAiSuggested = q.status === 'ai_suggested';
+            
+            let statusClass = 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
+            let statusText = '<i class="ti ti-hourglass"></i> Pending Response';
+            
+            if (hasResponses) {
+                if (isAiSuggested && q.responses.every(r => r.is_ai)) {
+                    statusClass = 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300';
+                    statusText = '<i class="ti ti-robot"></i> AI Suggested';
+                } else {
+                    statusClass = 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
+                    statusText = '<i class="ti ti-circle-check"></i> Answered';
+                }
+            }
+
             const cardClass = hasResponses ? 'answered-card' : 'pending-card';
             const safeId = this.escapeAttr(q.id);
             
@@ -489,17 +517,20 @@ class AskLocalPageManager {
                         const responderName = r.responder_name || r.responderName || 'Local Helper';
                         const timestamp = r.created_at || r.timestamp;
                         const helpfulCount = parseInt(r.helpful_count || r.helpfulCount, 10) || 0;
+                        const isAi = r.is_ai === true;
+                        const avatar = r.responder_avatar || (isAi ? '🏝️' : '👤');
 
                         return `
-                        <div class="bg-white dark:bg-slate-900 p-4 rounded border-l-4 border-green-400 dark:border-green-600 shadow-sm">
+                        <div class="bg-white dark:bg-slate-900 p-4 rounded border-l-4 ${isAi ? 'border-blue-400 dark:border-blue-600' : 'border-green-400 dark:border-green-600'} shadow-sm">
                             <p class="text-gray-800 dark:text-slate-200 mb-2">${this.escapeHtml(responseText)}</p>
                             <div class="flex items-center gap-3 text-sm text-gray-500 dark:text-slate-500">
-                                <span class="whitespace-nowrap"><i class="ti ti-user-check"></i> ${this.escapeHtml(responderName)}</span>
+                                <span class="whitespace-nowrap"><span class="text-lg mr-1">${avatar}</span> ${this.escapeHtml(responderName)}</span>
                                 <span class="whitespace-nowrap">•</span>
                                 <span class="whitespace-nowrap"><i class="ti ti-calendar"></i> ${this.formatDate(timestamp)}</span>
+                                ${!isAi ? `
                                 <button class="helpful-btn text-green-600 dark:text-green-500 hover:text-green-800 dark:hover:text-green-400 ml-2 whitespace-nowrap" data-response-id="${safeResponseId}">
                                     <i class="ti ti-thumb-up"></i> Helpful (${helpfulCount})
-                                </button>
+                                </button>` : '<span class="text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded ml-2">AI Suggestion</span>'}
                             </div>
                         </div>
                     `}).join('')}

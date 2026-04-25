@@ -6,7 +6,96 @@ const userAuth = require('../middleware/user-auth');
 /**
  * Local Questions API (Ask a Local)
  */
-module.exports = function(supabase, limiter, gamificationService) {
+module.exports = function(supabase, limiter, gamificationService, dictionaryCache) {
+
+    // Helper: Generate AI Response for a question
+    async function generateAIResponse(questionId, questionText) {
+        const apiKey = process.env.GEMINI_API_KEY;
+        if (!apiKey) return null;
+
+        try {
+            // Get some context from dictionary
+            let vocabContext = '';
+            if (dictionaryCache.data && dictionaryCache.data.entries) {
+                const entries = dictionaryCache.data.entries;
+                const matched = entries
+                    .filter(e => questionText.toLowerCase().includes(e.pidgin.toLowerCase()))
+                    .slice(0, 10)
+                    .map(e => `${e.pidgin}: ${Array.isArray(e.english) ? e.english[0] : e.english}`)
+                    .join(', ');
+                if (matched) vocabContext = `\n\nRelevant Pidgin Terms: ${matched}`;
+            }
+
+            const systemPrompt = `You are "Kimo," a helpful and friendly Hawaiian local expert. 
+A user has asked a question about Hawaiian Pidgin or local culture. 
+Provide a helpful, authentic answer in natural Pidgin.
+
+CRITICAL RULES:
+1. Respond in authentic Hawaiian Pidgin.
+2. Be respectful and accurate about local culture.
+3. If you don't know something specific (like a specific business's hours), give general local advice instead.
+4. Keep it relatively concise (1-3 sentences).
+5. Always mention that this is an "AI Suggestion" while they wait for a human expert.
+
+FORMAT:
+Respond with a JSON object:
+{
+  "response": "Your answer in Pidgin",
+  "translation": "English translation"
+}
+${vocabContext}`;
+
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${apiKey}`;
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{
+                        role: 'user',
+                        parts: [{ text: `SYSTEM INSTRUCTION: ${systemPrompt}\n\nQUESTION: "${questionText}"` }]
+                    }],
+                    generationConfig: { 
+                        temperature: 0.7, 
+                        responseMimeType: "application/json"
+                    }
+                })
+            });
+
+            if (!response.ok) return null;
+
+            const data = await response.json();
+            const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (!responseText) return null;
+
+            const parsed = JSON.parse(responseText);
+            
+            // Insert AI response
+            const { data: aiRes, error } = await supabase
+                .from('local_responses')
+                .insert({
+                    question_id: questionId,
+                    responder_name: 'Kimo (AI)',
+                    response_text: `${parsed.response}\n\n*English: ${parsed.translation}*`,
+                    is_ai: true,
+                    responder_avatar: '🏝️'
+                })
+                .select();
+
+            if (!error) {
+                // Update question status
+                await supabase
+                    .from('local_questions')
+                    .update({ status: 'ai_suggested' })
+                    .eq('id', questionId);
+            }
+
+            return aiRes;
+        } catch (err) {
+            console.error('AI Response Generation Error:', err);
+            return null;
+        }
+    }
 
     // GET /api/questions - Fetch answered and pending questions
     router.get('/', async (req, res) => {
@@ -23,7 +112,7 @@ module.exports = function(supabase, limiter, gamificationService) {
             if (status !== 'all') {
                 query = query.eq('status', status);
             } else {
-                query = query.in('status', ['pending', 'answered']);
+                query = query.in('status', ['pending', 'answered', 'ai_suggested']);
             }
 
             const { data, error } = await query
@@ -67,6 +156,10 @@ module.exports = function(supabase, limiter, gamificationService) {
 
                 if (error) throw error;
 
+                // Trigger AI response generation in the background (don't await for faster response)
+                // but we might want to return it immediately if possible for "Instant" feel
+                const aiResponse = await generateAIResponse(data[0].id, question_text);
+
                 // Gamification: Award XP for asking a question
                 let xpResult = null;
                 const authHeader = req.headers.authorization;
@@ -81,6 +174,7 @@ module.exports = function(supabase, limiter, gamificationService) {
                 res.status(201).json({ 
                     message: 'Your question has been submitted! Our local experts will respond soon.',
                     question: data[0],
+                    ai_response: aiResponse ? aiResponse[0] : null,
                     xp: xpResult
                 });
             } catch (error) {

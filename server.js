@@ -295,7 +295,7 @@ app.use('/api', gamesRoutes(supabase, dictionaryLimiter, gamificationService));
 app.use('/api', pickupRoutes(supabase, dictionaryLimiter, translationLimiter));
 app.use('/api/ai', aiRoutes(supabase, dictionaryCache, aiChatLimiter, gamificationService));
 app.use('/api/suggestions', suggestionsRoutes(supabase, apiLimiter, gamificationService));
-app.use('/api/questions', questionsRoutes(supabase, apiLimiter, gamificationService));
+app.use('/api/questions', questionsRoutes(supabase, apiLimiter, gamificationService, dictionaryCache));
 app.use('/api/user', userLoginLimiter, userRoutes(supabaseAdmin, gamificationService));
 app.use('/api/admin', adminRoutes(supabaseAdmin, adminAuth, settingsManager));
 
