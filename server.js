@@ -98,9 +98,25 @@ const translationLimiter = rateLimit({
 });
 
 const aiChatLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 20, // 20 messages per 15 mins is reasonable for real users but blocks bots
+    windowMs: 15 * 60 * 1000,
+    max: 10, // Stricter: 10 messages per 15 mins
     message: 'You stay talking too fast, brah! Try again in one bit.',
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
+const semanticSearchLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 30, // 30 semantic searches per 15 mins
+    message: 'Too many smart searches, brah. Take one break.',
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
+const questionSubmitLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 5, // Only 5 questions per 15 mins (prevents AI cost spikes)
+    message: 'You got choke questions! Wait one bit before asking more.',
     standardHeaders: true,
     legacyHeaders: false,
 });
@@ -289,13 +305,13 @@ app.post('/api/translate-llm', translationLimiter, (req, res, next) => {
     req.url = '/llm';
     translateRouter(req, res, next);
 });
-app.use('/api/dictionary', dictionaryRoutes(supabase, dictionaryLimiter, dictionaryCache));
+app.use('/api/dictionary', dictionaryRoutes(supabase, dictionaryLimiter, dictionaryCache, semanticSearchLimiter));
 app.use('/api', contentRoutes(supabase, dictionaryLimiter));
 app.use('/api', gamesRoutes(supabase, dictionaryLimiter, gamificationService));
 app.use('/api', pickupRoutes(supabase, dictionaryLimiter, translationLimiter));
 app.use('/api/ai', aiRoutes(supabase, dictionaryCache, aiChatLimiter, gamificationService));
 app.use('/api/suggestions', suggestionsRoutes(supabase, apiLimiter, gamificationService));
-app.use('/api/questions', questionsRoutes(supabase, apiLimiter, gamificationService, dictionaryCache));
+app.use('/api/questions', questionsRoutes(supabase, questionSubmitLimiter, gamificationService, dictionaryCache));
 app.use('/api/user', userLoginLimiter, userRoutes(supabaseAdmin, gamificationService));
 app.use('/api/admin', adminRoutes(supabaseAdmin, adminAuth, settingsManager));
 

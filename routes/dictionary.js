@@ -7,7 +7,7 @@ const { query, param, validationResult } = require('express-validator');
  * @param {object} supabase - Supabase client
  * @param {object} dictionaryLimiter - Rate limiter for dictionary endpoints
  */
-module.exports = function(supabase, dictionaryLimiter, dictionaryCache) {
+module.exports = function(supabase, dictionaryLimiter, dictionaryCache, semanticSearchLimiter) {
 
     // Helper to handle validation errors
     const validate = (req, res, next) => {
@@ -234,7 +234,7 @@ module.exports = function(supabase, dictionaryLimiter, dictionaryCache) {
     });
 
     // GET /api/dictionary/search - Full-text + Semantic search
-    router.get('/search', dictionaryLimiter, [
+    router.get('/search', semanticSearchLimiter || dictionaryLimiter, [
         query('q').trim().notEmpty().isLength({ min: 2, max: 100 }).escape(),
         query('limit').optional().isInt({ min: 1, max: 100 }).toInt()
     ], validate, async (req, res) => {
