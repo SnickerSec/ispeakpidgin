@@ -233,7 +233,7 @@ module.exports = function(supabase, dictionaryLimiter, dictionaryCache) {
         }
     });
 
-    // GET /api/dictionary/search - Full-text search
+    // GET /api/dictionary/search - Full-text + Semantic search
     router.get('/search', dictionaryLimiter, [
         query('q').trim().notEmpty().isLength({ min: 2, max: 100 }).escape(),
         query('limit').optional().isInt({ min: 1, max: 100 }).toInt()
@@ -244,19 +244,66 @@ module.exports = function(supabase, dictionaryLimiter, dictionaryCache) {
             const searchTerm = q.toLowerCase().replace(/[%_\\{},.()"']/g, '');
             const searchLimit = limit;
 
-            const { data, error } = await supabase
+            // 1. Try traditional keyword search first
+            const { data: keywordResults, error: keywordError } = await supabase
                 .from('dictionary_entries')
                 .select('*')
                 .or(`pidgin.ilike.%${searchTerm}%,english.ilike.%${searchTerm}%`)
                 .limit(searchLimit);
 
-            if (error) {
-                console.error('Supabase search error:', error);
+            if (keywordError) {
+                console.error('Supabase search error:', keywordError);
                 return res.status(500).json({ error: 'Search failed' });
             }
 
+            let finalResults = [...keywordResults];
+            let searchMethod = 'keyword';
+
+            // 2. If results are thin, try Semantic Search (Gemini Embeddings + pgvector)
+            const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+            if (finalResults.length < 5 && GEMINI_API_KEY) {
+                try {
+                    // Generate embedding for the query
+                    const embedUrl = `https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent?key=${GEMINI_API_KEY}`;
+                    const embedRes = await fetch(embedUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            model: "models/text-embedding-004",
+                            content: { parts: [{ text: searchTerm }] },
+                            task_type: "RETRIEVAL_QUERY"
+                        })
+                    });
+
+                    if (embedRes.ok) {
+                        const { embedding } = await embedRes.json();
+                        
+                        // Call Supabase RPC for vector similarity
+                        const { data: semanticResults, error: semanticError } = await supabase
+                            .rpc('match_dictionary_entries', {
+                                query_embedding: embedding.values,
+                                match_threshold: 0.35, // Adjust based on testing
+                                match_count: searchLimit
+                            });
+
+                        if (!semanticError && semanticResults) {
+                            searchMethod = 'hybrid';
+                            // Merge results, removing duplicates by ID
+                            const existingIds = new Set(finalResults.map(r => r.id));
+                            semanticResults.forEach(res => {
+                                if (!existingIds.has(res.id)) {
+                                    finalResults.push({ ...res, is_semantic: true });
+                                }
+                            });
+                        }
+                    }
+                } catch (semanticErr) {
+                    console.warn('Semantic search failed, falling back to keyword only:', semanticErr.message);
+                }
+            }
+
             // SEO Content Gap Logging: If no results, log this term to help grow the dictionary
-            if (data.length === 0 && searchTerm.length >= 3) {
+            if (finalResults.length === 0 && searchTerm.length >= 3) {
                 try {
                     // Try to increment count if already exists, or insert new
                     const { data: existing } = await supabase
@@ -286,8 +333,9 @@ module.exports = function(supabase, dictionaryLimiter, dictionaryCache) {
 
             res.json({
                 query: q,
-                results: data,
-                count: data.length
+                results: finalResults,
+                count: finalResults.length,
+                method: searchMethod
             });
         } catch (error) {
             console.error('Search API error:', error);
