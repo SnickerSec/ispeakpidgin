@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const userAuth = require('../middleware/user-auth');
 
 /**
  * Game Routes (Wordle, Crossword, Quiz)
  */
-module.exports = function(supabase, dictionaryLimiter) {
+module.exports = function(supabase, dictionaryLimiter, gamificationService) {
 
     // ============================================
     // WORDLE API
@@ -385,11 +386,21 @@ module.exports = function(supabase, dictionaryLimiter) {
                 return res.status(400).json({ error: 'Missing required fields' });
             }
 
+            // Check if user is logged in (optional)
+            const authHeader = req.headers.authorization;
+            let userId = null;
+            if (authHeader && authHeader.startsWith('Bearer ')) {
+                const token = authHeader.substring(7);
+                const decoded = userAuth.verifyToken ? userAuth.verifyToken(token) : null;
+                if (decoded) userId = decoded.userId;
+            }
+
+            const parsedScore = parseInt(score);
             const metadata = JSON.stringify({
-                score: parseInt(score),
+                score: parsedScore,
                 game_type,
                 streak: parseInt(streak || 0),
-                version: '1.0'
+                version: '1.1'
             });
 
             const { data, error } = await supabase
@@ -401,7 +412,24 @@ module.exports = function(supabase, dictionaryLimiter) {
                 });
 
             if (error) throw error;
-            res.json({ success: true });
+
+            // Gamification: Award XP if user is logged in
+            let xpResult = null;
+            if (userId && gamificationService) {
+                // Base XP: 20 for finishing a game
+                // Bonus XP: score-based
+                let xpAmount = 20 + Math.floor(parsedScore / 10);
+                
+                // Perfect score bonus for quizzes
+                if (game_type.includes('quiz') && parsedScore >= 50) {
+                    xpAmount += 50;
+                    await gamificationService.awardBadge(userId, 'quiz_king');
+                }
+
+                xpResult = await gamificationService.awardXP(userId, xpAmount, 'game_complete', `${game_type}_${Date.now()}`);
+            }
+
+            res.json({ success: true, xp: xpResult });
         } catch (error) {
             console.error('Leaderboard submit error:', error);
             res.status(500).json({ error: 'Internal server error' });

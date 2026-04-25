@@ -53,21 +53,98 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     };
 
-    const renderUserInfo = () => {
+    const renderUserInfo = async () => {
         const user = window.UserAuth.user;
         if (!user) return;
 
+        // Display basic info first
         userInfo.innerHTML = `
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center font-bold text-lg">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center font-bold text-xl border border-white/30">
                     ${user.display_name.charAt(0).toUpperCase()}
                 </div>
-                <div>
-                    <div class="font-bold leading-tight">${user.display_name}</div>
-                    <div class="text-xs text-blue-200">${user.email}</div>
+                <div class="flex-1">
+                    <div class="flex items-center gap-2">
+                        <span class="font-bold text-lg leading-tight">${user.display_name}</span>
+                        <span id="user-rank-badge" class="px-2 py-0.5 bg-yellow-400 text-blue-900 text-[10px] font-black rounded-full uppercase tracking-tighter">
+                            LOADING...
+                        </span>
+                    </div>
+                    <div id="xp-progress-container" class="mt-2 w-full">
+                        <div class="flex justify-between text-[10px] mb-1 font-bold">
+                            <span id="level-display">LEVEL --</span>
+                            <span id="xp-display">-- / -- XP</span>
+                        </div>
+                        <div class="w-full bg-white/10 rounded-full h-1.5 overflow-hidden border border-white/10">
+                            <div id="xp-progress-bar" class="bg-yellow-400 h-full transition-all duration-1000" style="width: 0%"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         `;
+
+        // Fetch gamification data
+        try {
+            const response = await fetch('/api/user/gamification', {
+                headers: { 'Authorization': `Bearer ${window.UserAuth.token}` }
+            });
+            const data = await response.json();
+            
+            if (data && data.profile) {
+                const { total_xp, current_level, current_rank } = data.profile;
+                
+                // Update UI
+                const rankBadge = document.getElementById('user-rank-badge');
+                const levelDisplay = document.getElementById('level-display');
+                const xpDisplay = document.getElementById('xp-display');
+                const progressBar = document.getElementById('xp-progress-bar');
+                
+                if (rankBadge) rankBadge.innerText = current_rank;
+                if (levelDisplay) levelDisplay.innerText = `LEVEL ${current_level}`;
+                
+                // Simple level logic for display (100 XP per level for simplicity in UI)
+                const xpInLevel = total_xp % 100;
+                const nextLevelXp = 100;
+                
+                if (xpDisplay) xpDisplay.innerText = `${total_xp} TOTAL XP`;
+                if (progressBar) progressBar.style.width = `${xpInLevel}%`;
+
+                // Render Badges
+                if (data.badges && data.badges.length > 0) {
+                    renderGamification(data.badges);
+                }
+            }
+        } catch (error) {
+            console.error('Failed to load gamification data:', error);
+        }
+    };
+
+    const renderGamification = (badges) => {
+        const gamificationSection = document.getElementById('gamification-section');
+        const badgesContainer = document.getElementById('badges-container');
+        
+        if (!gamificationSection || !badgesContainer) return;
+        
+        gamificationSection.classList.remove('hidden');
+        
+        const badgeIcons = {
+            'malahini_arrival': '🏝️',
+            'first_shaka': '🤙',
+            'word_wizard': '🧙‍♂️',
+            'helpful_local': '🤝',
+            'quiz_king': '👑',
+            'talk_story_pro': '🗣️'
+        };
+
+        badgesContainer.innerHTML = badges.map(badge => `
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center group hover:border-yellow-200 transition">
+                <div class="text-3xl mb-2 group-hover:scale-110 transition duration-300">
+                    ${badgeIcons[badge.id] || '🏅'}
+                </div>
+                <div class="text-[10px] font-black text-gray-900 uppercase tracking-tighter mb-1">${badge.name}</div>
+                <div class="text-[9px] text-gray-500 leading-tight">${badge.description}</div>
+            </div>
+        `).join('');
     };
 
     const renderFavorites = () => {

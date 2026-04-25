@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
+const userAuth = require('../middleware/user-auth');
 
 /**
  * AI & Chat Routes
  */
-module.exports = function(supabase, dictionaryCache, limiter) {
+module.exports = function(supabase, dictionaryCache, limiter, gamificationService) {
 
     // Simple bot protection: Ensure request comes from our own site
     const botProtection = (req, res, next) => {
@@ -162,7 +163,20 @@ ${vocabulary}`;
                 
                 try {
                     const parsed = JSON.parse(responseText);
-                    res.json(parsed);
+                    
+                    // Gamification: Award XP for chatting
+                    let xpResult = null;
+                    const authHeader = req.headers.authorization;
+                    if (authHeader && authHeader.startsWith('Bearer ') && gamificationService) {
+                        const token = authHeader.substring(7);
+                        const decoded = userAuth.verifyToken ? userAuth.verifyToken(token) : null;
+                        if (decoded) {
+                            xpResult = await gamificationService.awardXP(decoded.userId, 10, 'ai_chat', 'first_chat');
+                            await gamificationService.awardBadge(decoded.userId, 'talk_story_pro');
+                        }
+                    }
+                    
+                    res.json({ ...parsed, xp: xpResult });
                 } catch (e) {
                     // Fallback if AI doesn't return perfect JSON
                     res.json({

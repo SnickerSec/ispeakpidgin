@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
+const userAuth = require('../middleware/user-auth');
 
 /**
  * Local Questions API (Ask a Local)
  */
-module.exports = function(supabase, limiter) {
+module.exports = function(supabase, limiter, gamificationService) {
 
     // GET /api/questions - Fetch answered and pending questions
     router.get('/', async (req, res) => {
@@ -66,9 +67,21 @@ module.exports = function(supabase, limiter) {
 
                 if (error) throw error;
 
+                // Gamification: Award XP for asking a question
+                let xpResult = null;
+                const authHeader = req.headers.authorization;
+                if (authHeader && authHeader.startsWith('Bearer ') && gamificationService) {
+                    const token = authHeader.substring(7);
+                    const decoded = userAuth.verifyToken ? userAuth.verifyToken(token) : null;
+                    if (decoded) {
+                        xpResult = await gamificationService.awardXP(decoded.userId, 15, 'question_asked', data[0].id);
+                    }
+                }
+
                 res.status(201).json({ 
                     message: 'Your question has been submitted! Our local experts will respond soon.',
-                    question: data[0]
+                    question: data[0],
+                    xp: xpResult
                 });
             } catch (error) {
                 console.error('Submit question error:', error);

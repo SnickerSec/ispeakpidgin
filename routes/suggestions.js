@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
+const userAuth = require('../middleware/user-auth');
 
 /**
  * User Suggestions Routes
  */
-module.exports = function(supabase, limiter) {
+module.exports = function(supabase, limiter, gamificationService) {
 
     // POST /api/suggestions - Submit a new word/phrase suggestion
     router.post('/',
@@ -42,7 +43,21 @@ module.exports = function(supabase, limiter) {
                     return res.status(500).json({ error: 'Failed to save suggestion' });
                 }
 
-                res.status(201).json({ message: 'Mahalo! Your suggestion has been submitted for review.' });
+                // Gamification: Award XP for submission
+                let xpResult = null;
+                const authHeader = req.headers.authorization;
+                if (authHeader && authHeader.startsWith('Bearer ') && gamificationService) {
+                    const token = authHeader.substring(7);
+                    const decoded = userAuth.verifyToken ? userAuth.verifyToken(token) : null;
+                    if (decoded) {
+                        xpResult = await gamificationService.awardXP(decoded.userId, 20, 'suggestion_submitted');
+                    }
+                }
+
+                res.status(201).json({ 
+                    message: 'Mahalo! Your suggestion has been submitted for review.',
+                    xp: xpResult
+                });
             } catch (error) {
                 console.error('Suggestion API error:', error);
                 res.status(500).json({ error: 'Internal server error' });

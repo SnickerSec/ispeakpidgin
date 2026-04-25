@@ -12,7 +12,7 @@ const rl = rateLimit({
     legacyHeaders: false,
 });
 
-module.exports = function(supabaseAdmin) {
+module.exports = function(supabaseAdmin, gamificationService) {
     userAuth.initializeAuth(supabaseAdmin);
 
     // POST /api/user/register
@@ -45,6 +45,12 @@ module.exports = function(supabaseAdmin) {
                 .single();
 
             if (error) throw error;
+
+            // Gamification: Award registration XP and badge
+            if (gamificationService) {
+                await gamificationService.awardXP(user.id, 50, 'registration');
+                await gamificationService.awardBadge(user.id, 'malahini_arrival');
+            }
 
             const token = userAuth.generateToken(user);
             await userAuth.createSession(user.id, token, req);
@@ -98,6 +104,17 @@ module.exports = function(supabaseAdmin) {
         }
     });
 
+    // GET /api/user/gamification
+    router.get('/gamification', rl, userAuth.requireUserAuth, async (req, res) => {
+        try {
+            if (!gamificationService) return res.status(501).json({ error: 'Gamification service not available' });
+            const data = await gamificationService.getUserGamification(req.user.id);
+            res.json(data);
+        } catch (error) {
+            res.status(500).json({ error: 'Failed to fetch gamification data' });
+        }
+    });
+
     // POST /api/user/favorites/toggle
     router.post('/favorites/toggle', rl, userAuth.requireUserAuth, async (req, res) => {
         const { item_type, item_id, pidgin } = req.body;
@@ -122,6 +139,13 @@ module.exports = function(supabaseAdmin) {
                     item_id,
                     pidgin
                 }]);
+
+                // Gamification: Award XP for favoriting
+                if (gamificationService) {
+                    await gamificationService.awardXP(req.user.id, 10, 'word_favorite', `fav_${item_type}_${item_id}`);
+                    await gamificationService.awardBadge(req.user.id, 'first_shaka');
+                }
+
                 res.json({ status: 'added' });
             }
         } catch (error) {

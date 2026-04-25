@@ -11,6 +11,7 @@ require('dotenv').config();
 
 // Admin panel imports
 const settingsManager = require('./services/settings-manager');
+const gamificationService = require('./services/gamification-service');
 const adminAuth = require('./middleware/admin-auth');
 
 // Route imports
@@ -41,6 +42,7 @@ let supabaseAdmin = null;
 if (supabaseServiceKey) {
     supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
     adminAuth.initializeAuth(supabaseAdmin);
+    gamificationService.initialize(supabaseAdmin);
     console.log('✅ Supabase admin client initialized');
 } else {
     console.warn('⚠️ SUPABASE_SERVICE_KEY not set - admin features disabled');
@@ -289,12 +291,12 @@ app.post('/api/translate-llm', translationLimiter, (req, res, next) => {
 });
 app.use('/api/dictionary', dictionaryRoutes(supabase, dictionaryLimiter, dictionaryCache));
 app.use('/api', contentRoutes(supabase, dictionaryLimiter));
-app.use('/api', gamesRoutes(supabase, dictionaryLimiter));
+app.use('/api', gamesRoutes(supabase, dictionaryLimiter, gamificationService));
 app.use('/api', pickupRoutes(supabase, dictionaryLimiter, translationLimiter));
-app.use('/api/ai', aiRoutes(supabase, dictionaryCache, aiChatLimiter));
-app.use('/api/suggestions', suggestionsRoutes(supabase, apiLimiter));
-app.use('/api/questions', questionsRoutes(supabase, apiLimiter));
-app.use('/api/user', userLoginLimiter, userRoutes(supabaseAdmin));
+app.use('/api/ai', aiRoutes(supabase, dictionaryCache, aiChatLimiter, gamificationService));
+app.use('/api/suggestions', suggestionsRoutes(supabase, apiLimiter, gamificationService));
+app.use('/api/questions', questionsRoutes(supabase, apiLimiter, gamificationService));
+app.use('/api/user', userLoginLimiter, userRoutes(supabaseAdmin, gamificationService));
 app.use('/api/admin', adminRoutes(supabaseAdmin, adminAuth, settingsManager));
 
 // ============================================
