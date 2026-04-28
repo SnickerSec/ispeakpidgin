@@ -57,15 +57,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const user = window.UserAuth.user;
         if (!user) return;
 
+        const escapedName = escapeHtml(user.display_name);
+        const initial = escapeHtml(user.display_name.charAt(0).toUpperCase());
+
         // Display basic info first
         userInfo.innerHTML = `
             <div class="flex items-center gap-4">
                 <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center font-bold text-xl border border-white/30">
-                    ${user.display_name.charAt(0).toUpperCase()}
+                    ${initial}
                 </div>
                 <div class="flex-1">
                     <div class="flex items-center gap-2">
-                        <span class="font-bold text-lg leading-tight">${user.display_name}</span>
+                        <span class="font-bold text-lg leading-tight">${escapedName}</span>
                         <span id="user-rank-badge" class="px-2 py-0.5 bg-yellow-400 text-blue-900 text-[10px] font-black rounded-full uppercase tracking-tighter">
                             LOADING...
                         </span>
@@ -207,3 +210,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     init();
 });
+
+function escapeHtml(text) {
+    if (!text) return '';
+    return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}

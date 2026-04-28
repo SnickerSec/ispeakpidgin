@@ -586,21 +586,23 @@ Respond only with a JSON object:
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${apiKey}`;
 
             const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{
-                        role: 'user',
-                        parts: [{ text: `SYSTEM INSTRUCTION: ${systemPrompt}\n\nTERM: "${pidgin}"` }]
-                    }],
-                    generationConfig: { 
-                        temperature: 0.3,
-                        maxOutputTokens: 300,
-                        responseMimeType: "application/json"
-                    }
-                })
+               method: 'POST',
+               headers: { 'Content-Type': 'application/json' },
+               body: JSON.stringify({
+                   system_instruction: {
+                       parts: [{ text: systemPrompt }]
+                   },
+                   contents: [{
+                       role: 'user',
+                       parts: [{ text: `PIDGIN TERM: "${pidgin}"` }]
+                   }],
+                   generationConfig: {
+                       temperature: 0.3,
+                       maxOutputTokens: 300,
+                       responseMimeType: "application/json"
+                   }
+               })
             });
-
             if (!response.ok) throw new Error('AI Service error');
 
             const data = await response.json();

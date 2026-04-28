@@ -280,12 +280,13 @@ class PidginSpeed {
             const data = await response.json();
             if (data.scores && data.scores.length > 0) {
                 this.leaderboardBody.innerHTML = data.scores.map((s, i) => `
-                    <tr class="${s.username === this.playerNameInput.value ? 'bg-red-50 font-bold' : ''}">
+                    <tr class="${s.username === this.playerNameInput.value ? 'bg-orange-50 font-bold' : ''}">
                         <td class="px-4 py-3">${i + 1}</td>
-                        <td class="px-4 py-3">${s.username}</td>
+                        <td class="px-4 py-3">${this.escapeHtml(s.username)}</td>
                         <td class="px-4 py-3 text-right">${s.score}</td>
                     </tr>
                 `).join('');
+
             } else {
                 this.leaderboardBody.innerHTML = '<tr><td colspan="3" class="p-4 text-center text-gray-400 italic">No scores yet. Be da first!</td></tr>';
             }
@@ -360,11 +361,22 @@ class PidginSpeed {
                 .catch(() => this.fallbackShare(shareText, shareUrl));
         } else this.fallbackShare(shareText, shareUrl);
     }
+fallbackShare(text, url) {
+    const fullText = `${text}\n\n${url}`;
+    navigator.clipboard.writeText(fullText).then(() => {
+        alert('Results copied to clipboard! 📋');
+    }).catch(() => alert(fullText));
+}
 
-    fallbackShare(text, url) {
-        const fullText = `${text}\n\n${url}`;
-        navigator.clipboard.writeText(fullText).then(() => this.showToast('Results copied to clipboard! 📋')).catch(() => alert(fullText));
-    }
+escapeHtml(text) {
+    if (!text) return '';
+    return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
 }
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -68,7 +68,7 @@
   "devDependencies": {
     "@google-analytics/data": "^5.2.1",
     "@tailwindcss/cli": "^4.2.1",
-    "google-auth-library": "^9.15.1",
+    "google-auth-library": "^10.6.2",
     "sharp": "^0.34.5",
     "tailwindcss": "^4.2.1",
     "terser": "^5.46.1"

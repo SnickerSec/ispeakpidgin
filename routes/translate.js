@@ -287,7 +287,15 @@ ${vocabularySection}`;
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        contents: [{ parts: [{ text: `${systemPrompt}\n\nTranslate: ${text}` }] }],
+                        system_instruction: {
+                            parts: [{ text: systemPrompt }]
+                        },
+                        contents: [
+                            {
+                                role: 'user',
+                                parts: [{ text: `Translate this text: "${text}"` }]
+                            }
+                        ],
                         generationConfig: { temperature: 0.3, maxOutputTokens: 500 },
                         safetySettings: [
                             { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_NONE' },

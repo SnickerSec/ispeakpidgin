@@ -619,7 +619,7 @@ class PidginWordle {
                     return `
                         <tr class="${isMe ? 'bg-green-50 font-bold' : ''}">
                             <td class="px-3 py-2">${i + 1}</td>
-                            <td class="px-3 py-2">${s.username}</td>
+                            <td class="px-3 py-2">${this.escapeHtml(s.username)}</td>
                             <td class="px-3 py-2 text-right">${guesses} / 6</td>
                         </tr>
                     `;
@@ -700,6 +700,16 @@ class PidginWordle {
         if (this.countdownTimer) {
             this.countdownTimer.textContent = countdownStr;
         }
+    }
+
+    escapeHtml(text) {
+        if (!text) return '';
+        return String(text)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
     }
 }
 

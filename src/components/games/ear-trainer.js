@@ -372,12 +372,13 @@ class PidginEarTrainer {
 
             if (data.scores && data.scores.length > 0) {
                 this.elements.leaderboardBody.innerHTML = data.scores.map((s, i) => `
-                    <tr class="${s.username === this.elements.playerNameInput.value ? 'bg-indigo-50 font-bold' : ''}">
+                    <tr class="${s.username === this.elements.playerNameInput.value ? 'bg-blue-50 font-bold' : ''}">
                         <td class="px-4 py-3">${i + 1}</td>
-                        <td class="px-4 py-3">${s.username}</td>
+                        <td class="px-4 py-3">${this.escapeHtml(s.username)}</td>
                         <td class="px-4 py-3 text-right">${s.score}</td>
                     </tr>
                 `).join('');
+
             } else {
                 this.elements.leaderboardBody.innerHTML = '<tr><td colspan="3" class="p-4 text-center text-gray-400">No scores yet. Be da first!</td></tr>';
             }
@@ -416,6 +417,16 @@ class PidginEarTrainer {
             text.textContent = "No worry, beef stew. Practice make perfect.";
             emoji.textContent = "🛶";
         }
+    }
+
+    escapeHtml(text) {
+        if (!text) return '';
+        return String(text)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
     }
 }
 

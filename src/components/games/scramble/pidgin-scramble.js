@@ -352,7 +352,7 @@ class PidginScramble {
                 this.leaderboardBody.innerHTML = data.scores.map((s, i) => `
                     <tr class="${s.username === this.playerNameInput.value ? 'bg-violet-50 font-bold' : ''}">
                         <td class="px-4 py-3">${i + 1}</td>
-                        <td class="px-4 py-3">${s.username}</td>
+                        <td class="px-4 py-3">${this.escapeHtml(s.username)}</td>
                         <td class="px-4 py-3 text-right">${s.score}</td>
                     </tr>
                 `).join('');
@@ -441,6 +441,16 @@ class PidginScramble {
         navigator.clipboard.writeText(fullText).then(() => {
             this.showToast('Results copied to clipboard! 📋');
         }).catch(() => alert(fullText));
+    }
+
+    escapeHtml(text) {
+        if (!text) return '';
+        return String(text)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
     }
 }
 

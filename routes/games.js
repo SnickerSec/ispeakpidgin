@@ -396,6 +396,9 @@ module.exports = function(supabase, dictionaryLimiter, gamificationService) {
             }
 
             const parsedScore = parseInt(score);
+            // Basic sanitization for storage
+            const sanitizedUsername = username.replace(/[<>]/g, '').substring(0, 20);
+            
             const metadata = JSON.stringify({
                 score: parsedScore,
                 game_type,
@@ -406,7 +409,7 @@ module.exports = function(supabase, dictionaryLimiter, gamificationService) {
             const { data, error } = await supabase
                 .from('local_questions')
                 .insert({
-                    user_name: username.substring(0, 20),
+                    user_name: sanitizedUsername,
                     question_text: metadata,
                     status: 'score'
                 });

@@ -129,11 +129,7 @@ ${vocabulary}`;
                     parts: [{ text: msg.content }]
                 }));
                 
-                // Add system prompt and current message
-                contents.unshift({
-                    role: 'user',
-                    parts: [{ text: `SYSTEM INSTRUCTION: ${systemPrompt}` }]
-                });
+                // Add current message
                 contents.push({
                     role: 'user',
                     parts: [{ text: message }]
@@ -143,6 +139,9 @@ ${vocabulary}`;
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
+                        system_instruction: {
+                            parts: [{ text: systemPrompt }]
+                        },
                         contents: contents,
                         generationConfig: { 
                             temperature: 0.7, 
@@ -271,9 +270,12 @@ Respond only with a JSON object:
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
+                        system_instruction: {
+                            parts: [{ text: systemPrompt }]
+                        },
                         contents: [{
                             role: 'user',
-                            parts: [{ text: `SYSTEM INSTRUCTION: ${systemPrompt}\n\nTEXT TO TRANSLATE: "${text}"` }]
+                            parts: [{ text: `TEXT TO TRANSLATE: "${text}"` }]
                         }],
                         generationConfig: { 
                             temperature: 0.2, // Lower temperature for more accurate translation

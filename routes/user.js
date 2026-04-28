@@ -19,7 +19,12 @@ module.exports = function(supabaseAdmin, gamificationService) {
     router.post('/register', rl, [
         body('email').isEmail().normalizeEmail(),
         body('password').isLength({ min: 6 }),
-        body('display_name').trim().notEmpty()
+        body('display_name').trim().notEmpty().custom(value => {
+            if (/[<>]/.test(value)) {
+                throw new Error('Display name cannot contain < or > characters');
+            }
+            return true;
+        })
     ], async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
