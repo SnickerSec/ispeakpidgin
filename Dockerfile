@@ -18,6 +18,7 @@ COPY build.js ./
 COPY src/ ./src/
 COPY tools/ ./tools/
 COPY scripts/ ./scripts/
+COPY tailwind.config.js site.webmanifest robots.txt ./
 
 # Supabase creds are needed by the page generators to fetch dictionary/
 # phrase/story content at build time. Railway passes matching service
