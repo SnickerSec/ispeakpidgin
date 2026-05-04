@@ -343,19 +343,19 @@ function displayResults(entries, append = false) {
         const entryPageUrl = `/word/${slug}.html`;
 
         return `
-        <div class="dictionary-entry-card bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer border-l-4 border-transparent"
+        <div class="dictionary-entry-card bg-white dark:bg-slate-800 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer border-l-4 border-transparent dark:border-slate-700"
              data-word="${escapedId}">
             <div class="flex justify-between items-start mb-1">
                 <div class="flex flex-col">
-                    <a href="${entryPageUrl}" class="text-xl font-bold text-purple-700 hover:text-purple-900 transition">${escapedPidgin}</a>
+                    <a href="${entryPageUrl}" class="text-xl font-bold text-purple-700 dark:text-purple-400 hover:text-purple-900 dark:hover:text-purple-300 transition">${escapedPidgin}</a>
                 </div>
                 <div class="flex gap-2 items-center">
-                    <button class="dict-fav-btn p-2 rounded-full hover:bg-red-50 transition-colors" 
+                    <button class="dict-fav-btn p-2 rounded-full hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors" 
                             data-word="${escapedId}" 
                             title="${isFav ? 'Remove from My Words' : 'Save to My Words'}">
-                        <i class="ti ${isFav ? 'ti-heart-filled text-red-500' : 'ti-heart text-gray-400'} text-lg"></i>
+                        <i class="ti ${isFav ? 'ti-heart-filled text-red-500' : 'ti-heart text-gray-400 dark:text-slate-500'} text-lg"></i>
                     </button>
-                    <span class="text-xs px-3 py-1 bg-purple-100 text-purple-600 rounded-full font-medium">
+                    <span class="text-xs px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-300 rounded-full font-bold">
                         ${escapedCategory}
                     </span>
                 </div>
@@ -363,30 +363,30 @@ function displayResults(entries, append = false) {
 
             ${masteryHtml}
 
-            <p class="text-gray-700 mb-3 font-medium">${escapedEnglish}</p>
+            <p class="text-gray-800 dark:text-slate-200 mb-3 font-semibold leading-relaxed">${escapedEnglish}</p>
 
             ${escapedExample ? `
             <div class="mb-4">
-                <p class="text-sm text-gray-600 italic">"${escapedExample}"</p>
+                <p class="text-sm text-gray-700 dark:text-slate-400 italic">"${escapedExample}"</p>
             </div>
             ` : ''}
 
             ${escapedPronunciation ? `
-            <div class="mb-4 bg-yellow-50 rounded-lg p-3">
-                <div class="text-xs text-yellow-800 font-semibold mb-1">Pronunciation:</div>
-                <div class="text-sm text-yellow-700">${escapedPronunciation}</div>
+            <div class="mb-4 bg-yellow-50 dark:bg-yellow-900/10 rounded-lg p-3 border border-yellow-100/50 dark:border-yellow-900/20">
+                <div class="text-xs text-yellow-800 dark:text-yellow-500 font-bold mb-1 uppercase tracking-wider">Pronunciation:</div>
+                <div class="text-sm text-yellow-700 dark:text-yellow-200/90 font-medium">${escapedPronunciation}</div>
             </div>
             ` : ''}
 
-            <div class="flex gap-2 flex-wrap">
-                <button class="dict-speak-btn text-xs px-3 py-2 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-full transition font-medium"
+            <div class="flex gap-2 flex-wrap mt-auto">
+                <button class="dict-speak-btn text-xs px-3 py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-800/40 text-blue-700 dark:text-blue-300 rounded-full transition font-bold flex items-center gap-1"
                         data-text="${escapedAudioText}">
                     <i class="ti ti-volume"></i> Listen
                 </button>
-                <a href="${entryPageUrl}" class="inline-block text-xs px-3 py-2 bg-green-100 hover:bg-green-200 text-green-700 rounded-full transition font-medium">
+                <a href="${entryPageUrl}" class="inline-block text-xs px-3 py-2 bg-green-100 dark:bg-green-900/30 hover:bg-green-200 dark:hover:bg-green-800/40 text-green-700 dark:text-green-300 rounded-full transition font-bold flex items-center gap-1">
                     <i class="ti ti-book"></i> Full Page
                 </a>
-                <button class="dict-practice-btn text-xs px-3 py-2 bg-purple-100 hover:bg-purple-200 text-purple-700 rounded-full transition font-medium"
+                <button class="dict-practice-btn text-xs px-3 py-2 bg-purple-100 dark:bg-purple-900/30 hover:bg-purple-200 dark:hover:bg-purple-800/40 text-purple-700 dark:text-purple-300 rounded-full transition font-bold flex items-center gap-1"
                         data-word="${escapedId}">
                     <i class="ti ti-target"></i> Practice
                 </button>
