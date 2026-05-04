@@ -180,7 +180,7 @@ function setupAlphabetBrowser() {
             const count = getLetterCount(letter);
             const escapedLetter = escapeHtml(letter);
             const escapedCount = escapeHtml(String(count));
-            return `<button class="alphabet-btn px-3 py-2 bg-gray-100 hover:bg-yellow-200 rounded-lg transition font-semibold text-sm ${count === 0 ? 'opacity-50 cursor-not-allowed' : ''}"
+            return `<button class="alphabet-btn px-3 py-2 bg-gray-100 dark:bg-slate-800 hover:bg-yellow-200 dark:hover:bg-yellow-500 rounded-lg transition font-bold text-sm border-2 border-transparent dark:border-slate-700/50 ${count === 0 ? 'opacity-30 cursor-not-allowed' : 'shadow-sm text-gray-800 dark:text-slate-200'}"
                      data-letter="${escapedLetter}"
                      ${count === 0 ? 'disabled' : ''}>
                      ${escapedLetter}<span class="text-xs block opacity-70">${escapedCount}</span>
