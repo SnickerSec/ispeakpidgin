@@ -38,56 +38,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- Structured Data - Article -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "15 Essential Hawaiian Pidgin Phrases for Ordering Plate Lunch Like a Local",
-        "description": "Complete guide to Hawaiian Pidgin phrases for ordering plate lunch, including pronunciations and cultural context.",
-        "author": {
-            "@type": "Organization",
-            "name": "ChokePidgin.com"
-        },
-        "publisher": {
-            "@type": "Organization",
-            "name": "ChokePidgin.com",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "https://chokepidgin.com/favicon.svg"
-            }
-        },
-        "datePublished": "2025-01-19",
-        "dateModified": "2025-01-19",
-        "articleSection": "Food & Culture",
-        "keywords": ["Hawaiian Pidgin", "plate lunch", "Hawaiian food", "ordering food"]
-    }
-    </script>
-
-    <!-- Structured Data - HowTo -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "HowTo",
-        "name": "How to Order Plate Lunch in Hawaiian Pidgin",
-        "description": "Learn essential Hawaiian Pidgin phrases to order plate lunch like a local",
-        "step": [{
-            "@type": "HowToStep",
-            "name": "Learn Basic Food Terms",
-            "text": "Master essential words like grindz (food), ono (delicious), and pau (finished)"
-        },{
-            "@type": "HowToStep",
-            "name": "Practice Ordering Phrases",
-            "text": "Use phrases like 'Can get one plate?' and 'Two scoop rice, please'"
-        },{
-            "@type": "HowToStep",
-            "name": "Add Customizations",
-            "text": "Request extras with 'Can get extra gravy?' or 'Choke mac salad'"
-        }]
-    }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
         .brand-font {
@@ -100,17 +51,28 @@
 
         .phrase-card {
             transition: all 0.3s ease;
-            border-left: 4px solid #10b981;
+            border-left: 6px solid #10b981;
         }
 
         .phrase-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .dark .phrase-card {
+            background-color: #0f172a;
+            border-color: #059669;
         }
 
         .tip-box {
             background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            border-left: 4px solid #f59e0b;
+            border-left: 6px solid #f59e0b;
+        }
+
+        .dark .tip-box {
+            background: linear-gradient(135deg, #1e1b10 0%, #451a03 100%);
+            border-color: #f59e0b;
+            color: #fdba74;
         }
 
         .pronunciation {
@@ -119,20 +81,29 @@
             padding: 0.5rem 1rem;
             display: inline-block;
         }
+
+        .dark .pronunciation {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            color: #93c5fd;
+        }
     </style>
 </head>
 
-<body class="bg-gray-50">
+<body class="min-h-screen bg-gray-50 dark:bg-slate-950 transition-colors duration-300">
     <!-- NAVIGATION_PLACEHOLDER -->
 
-    <!-- Hero -->
-    <header class="bg-gradient-to-r from-orange-600 via-red-600 to-pink-600 text-white py-16 px-4">
-        <div class="container mx-auto max-w-4xl text-center">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4">
-                <i class="ti ti-tools-kitchen-2"></i> 15 Essential Pidgin Phrases for Ordering Plate Lunch
+    <!-- Hero Section -->
+    <header class="bg-gradient-to-r from-orange-600 via-red-600 to-pink-600 text-white py-12 md:py-24 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-10 left-10 text-6xl rotate-12"><i class="ti ti-tools-kitchen-2"></i></div>
+            <div class="absolute bottom-10 right-10 text-6xl -rotate-12"><i class="ti ti-meat"></i></div>
+        </div>
+        <div class="container mx-auto max-w-4xl text-center relative z-10 px-4">
+            <h1 class="text-4xl md:text-7xl font-black mb-6 drop-shadow-lg leading-tight">
+                15 Essential Phrases for Plate Lunch
             </h1>
-            <p class="text-xl opacity-90">
-                Order Like a Local at Your Favorite Hawaiian Plate Lunch Spot
+            <p class="text-xl md:text-3xl font-bold opacity-95">
+                Order Like a Local at Any Plate Lunch Spot
             </p>
         </div>
     </header>
@@ -142,316 +113,156 @@
         <div class="container mx-auto max-w-4xl">
 
             <!-- Introduction -->
-            <section class="mb-12 bg-white rounded-2xl shadow-lg p-8">
-                <h2 class="text-3xl font-bold mb-4 text-gray-800">Why Learn Pidgin for Plate Lunch?</h2>
-                <p class="text-lg text-gray-700 mb-4">
-                    Walking into a local Hawaiian plate lunch spot can be intimidating if you don't know the lingo. But mastering just a few essential Hawaiian Pidgin phrases will make you sound like a local, earn respect from the staff, and help you get exactly what you want from your meal.
-                </p>
-                <p class="text-lg text-gray-700 mb-4">
-                    Whether you're visiting Hawaii or you're a new resident, this guide will teach you <strong>15 authentic phrases</strong> you'll hear (and need to use) at every plate lunch counter from Honolulu to Hilo.
-                </p>
+            <section class="mb-16 bg-white dark:bg-slate-900 rounded-3xl shadow-xl p-8 md:p-12 border dark:border-slate-800">
+                <h2 class="text-3xl md:text-4xl font-black mb-6 text-gray-900 dark:text-white uppercase tracking-widest">Why learn Pidgin for Plate Lunch?</h2>
+                <div class="text-lg md:text-xl text-gray-900 dark:text-slate-200 leading-relaxed space-y-6 font-medium">
+                    <p>
+                        Walking into a local Hawaiian plate lunch spot can be intimidating if you don't know the lingo. But mastering just a few essential Hawaiian Pidgin phrases will make you sound like a local, earn respect from the staff, and help you get exactly what you want from your meal.
+                    </p>
+                    <p>
+                        Whether you're visiting Hawaii or you're a new resident, this guide will teach you <strong>15 authentic phrases</strong> you'll hear (and need to use) at every plate lunch counter from Honolulu to Hilo.
+                    </p>
+                </div>
 
-                <div class="tip-box rounded-lg p-6 mt-6">
-                    <h3 class="font-bold text-orange-800 mb-2"><i class="ti ti-bulb"></i> Pro Tip</h3>
-                    <p class="text-gray-700">
+                <div class="tip-box rounded-2xl p-8 mt-10 shadow-md border dark:border-slate-800">
+                    <h3 class="font-black text-orange-900 dark:text-orange-400 mb-2 uppercase tracking-widest text-sm flex items-center gap-2">
+                        <i class="ti ti-bulb text-2xl"></i> Pro Tip
+                    </h3>
+                    <p class="text-gray-900 dark:text-orange-100 font-bold text-lg">
                         Plate lunch is more than just food in Hawaii—it's a cultural institution. Using Pidgin shows respect for local culture and makes your dining experience more authentic and enjoyable.
                     </p>
                 </div>
             </section>
 
             <!-- The 15 Phrases -->
-            <section class="mb-12">
-                <h2 class="text-3xl font-bold mb-8 text-gray-800 text-center">The Essential 15 Phrases</h2>
+            <section class="mb-16">
+                <h2 class="text-3xl md:text-5xl font-black mb-12 text-gray-900 dark:text-white text-center">The Essential 15 Phrases</h2>
 
-                <div class="space-y-6">
+                <div class="grid gap-8">
                     <!-- Phrase 1 -->
-                    <div class="phrase-card bg-white rounded-xl shadow-md p-6">
-                        <div class="flex items-start justify-between mb-3">
-                            <span class="text-4xl">1️⃣</span>
-                            <span class="pronunciation text-sm font-semibold text-blue-800">GRINDZ</span>
+                    <div class="phrase-card bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-8 border dark:border-slate-800">
+                        <div class="flex items-start justify-between mb-4">
+                            <span class="text-5xl drop-shadow-sm">1️⃣</span>
+                            <span class="pronunciation text-xs font-black uppercase tracking-widest">GRINDZ</span>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">"Grindz"</h3>
-                        <p class="text-gray-600 mb-3"><strong>Meaning:</strong> Food (noun) or to eat (verb)</p>
-                        <p class="text-gray-700 mb-3">
-                            <strong>Usage:</strong> "Da grindz stay ono!" (The food is delicious!) or "We going grind!" (We're going to eat!)
-                        </p>
-                        <div class="bg-green-50 rounded-lg p-4">
-                            <p class="text-sm text-green-800"><strong><i class="ti ti-message"></i> Example conversation:</strong></p>
-                            <p class="text-sm text-gray-700">"Eh, where get good grindz around here?"</p>
+                        <h3 class="text-3xl font-black text-gray-900 dark:text-white mb-4">"Grindz"</h3>
+                        <div class="space-y-4 text-gray-900 dark:text-slate-200 font-medium">
+                            <p><strong>Meaning:</strong> Food (noun) or to eat (verb)</p>
+                            <p><strong>Usage:</strong> "Da grindz stay ono!" (The food is delicious!) or "We going grind!" (We're going to eat!)</p>
+                        </div>
+                        <div class="bg-green-50 dark:bg-green-900/10 rounded-xl p-6 mt-6 border-l-4 border-green-500 dark:border-green-600">
+                            <p class="text-sm text-green-800 dark:text-green-400 font-black uppercase tracking-widest mb-2"><i class="ti ti-message text-lg"></i> Example Conversation</p>
+                            <p class="text-lg text-gray-900 dark:text-slate-200 font-bold italic">"Eh, where get good grindz around here?"</p>
                         </div>
                     </div>
 
                     <!-- Phrase 2 -->
-                    <div class="phrase-card bg-white rounded-xl shadow-md p-6">
-                        <div class="flex items-start justify-between mb-3">
-                            <span class="text-4xl">2️⃣</span>
-                            <span class="pronunciation text-sm font-semibold text-blue-800">TWO SCOOP RICE</span>
+                    <div class="phrase-card bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-8 border dark:border-slate-800">
+                        <div class="flex items-start justify-between mb-4">
+                            <span class="text-5xl drop-shadow-sm">2️⃣</span>
+                            <span class="pronunciation text-xs font-black uppercase tracking-widest">TWO SCOOP RICE</span>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">"Two scoop rice"</h3>
-                        <p class="text-gray-600 mb-3"><strong>Meaning:</strong> The standard serving at plate lunch - two scoops of white rice</p>
-                        <p class="text-gray-700 mb-3">
-                            <strong>Usage:</strong> This is the default, but you can say "One scoop rice" or "Three scoop rice" if you want more or less.
-                        </p>
-                        <div class="bg-green-50 rounded-lg p-4">
-                            <p class="text-sm text-green-800"><strong><i class="ti ti-message"></i> Example conversation:</strong></p>
-                            <p class="text-sm text-gray-700">"Can get da chicken katsu wit' two scoop rice?"</p>
+                        <h3 class="text-3xl font-black text-gray-900 dark:text-white mb-4">"Two scoop rice"</h3>
+                        <div class="space-y-4 text-gray-900 dark:text-slate-200 font-medium">
+                            <p><strong>Meaning:</strong> The standard serving - two scoops of white rice</p>
+                            <p><strong>Usage:</strong> This is the default. Say "one scoop" or "three scoop" if you want to change it.</p>
+                        </div>
+                        <div class="bg-green-50 dark:bg-green-900/10 rounded-xl p-6 mt-6 border-l-4 border-green-500 dark:border-green-600">
+                            <p class="text-sm text-green-800 dark:text-green-400 font-black uppercase tracking-widest mb-2"><i class="ti ti-message text-lg"></i> Example Conversation</p>
+                            <p class="text-lg text-gray-900 dark:text-slate-200 font-bold italic">"Can get da chicken katsu wit' two scoop rice?"</p>
                         </div>
                     </div>
 
                     <!-- Phrase 3 -->
-                    <div class="phrase-card bg-white rounded-xl shadow-md p-6">
-                        <div class="flex items-start justify-between mb-3">
-                            <span class="text-4xl">3️⃣</span>
-                            <span class="pronunciation text-sm font-semibold text-blue-800">OH-no</span>
+                    <div class="phrase-card bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-8 border dark:border-slate-800">
+                        <div class="flex items-start justify-between mb-4">
+                            <span class="text-5xl drop-shadow-sm">3️⃣</span>
+                            <span class="pronunciation text-xs font-black uppercase tracking-widest">OH-no</span>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">"Ono"</h3>
-                        <p class="text-gray-600 mb-3"><strong>Meaning:</strong> Delicious, tasty</p>
-                        <p class="text-gray-700 mb-3">
-                            <strong>Usage:</strong> Use this to describe food that tastes amazing. "Dis plate stay ono!" = "This plate is delicious!"
-                        </p>
-                        <div class="bg-green-50 rounded-lg p-4">
-                            <p class="text-sm text-green-800"><strong><i class="ti ti-message"></i> Example conversation:</strong></p>
-                            <p class="text-sm text-gray-700">"Da loco moco stay ono, brah!"</p>
+                        <h3 class="text-3xl font-black text-gray-900 dark:text-white mb-4">"Ono"</h3>
+                        <div class="space-y-4 text-gray-900 dark:text-slate-200 font-medium">
+                            <p><strong>Meaning:</strong> Delicious, tasty</p>
+                            <p><strong>Usage:</strong> "Dis plate stay ono!" = "This plate is delicious!"</p>
+                        </div>
+                        <div class="bg-green-50 dark:bg-green-900/10 rounded-xl p-6 mt-6 border-l-4 border-green-500 dark:border-green-600">
+                            <p class="text-sm text-green-800 dark:text-green-400 font-black uppercase tracking-widest mb-2"><i class="ti ti-message text-lg"></i> Example Conversation</p>
+                            <p class="text-lg text-gray-900 dark:text-slate-200 font-bold italic">"Da loco moco stay ono, brah!"</p>
                         </div>
                     </div>
 
                     <!-- Phrase 4 -->
-                    <div class="phrase-card bg-white rounded-xl shadow-md p-6">
-                        <div class="flex items-start justify-between mb-3">
-                            <span class="text-4xl">4️⃣</span>
-                            <span class="pronunciation text-sm font-semibold text-blue-800">can GET...</span>
+                    <div class="phrase-card bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-8 border dark:border-slate-800">
+                        <div class="flex items-start justify-between mb-4">
+                            <span class="text-5xl drop-shadow-sm">4️⃣</span>
+                            <span class="pronunciation text-xs font-black uppercase tracking-widest">can GET...</span>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">"Can get...?"</h3>
-                        <p class="text-gray-600 mb-3"><strong>Meaning:</strong> Can I have...? / Do you have...?</p>
-                        <p class="text-gray-700 mb-3">
-                            <strong>Usage:</strong> The most common way to order. "Can get one plate?" = "Can I have a plate lunch?"
-                        </p>
-                        <div class="bg-green-50 rounded-lg p-4">
-                            <p class="text-sm text-green-800"><strong><i class="ti ti-message"></i> Example conversation:</strong></p>
-                            <p class="text-sm text-gray-700">"Can get da mixed plate wit' extra mac salad?"</p>
+                        <h3 class="text-3xl font-black text-gray-900 dark:text-white mb-4">"Can get...?"</h3>
+                        <div class="space-y-4 text-gray-900 dark:text-slate-200 font-medium">
+                            <p><strong>Meaning:</strong> Can I have...? / Do you have...?</p>
+                            <p><strong>Usage:</strong> The standard way to order. "Can get one plate?"</p>
+                        </div>
+                        <div class="bg-green-50 dark:bg-green-900/10 rounded-xl p-6 mt-6 border-l-4 border-green-500 dark:border-green-600">
+                            <p class="text-sm text-green-800 dark:text-green-400 font-black uppercase tracking-widest mb-2"><i class="ti ti-message text-lg"></i> Example Conversation</p>
+                            <p class="text-lg text-gray-900 dark:text-slate-200 font-bold italic">"Can get da mixed plate wit' extra mac salad?"</p>
                         </div>
                     </div>
 
                     <!-- Phrase 5 -->
-                    <div class="phrase-card bg-white rounded-xl shadow-md p-6">
-                        <div class="flex items-start justify-between mb-3">
-                            <span class="text-4xl">5️⃣</span>
-                            <span class="pronunciation text-sm font-semibold text-blue-800">CHOKE</span>
+                    <div class="phrase-card bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-8 border dark:border-slate-800">
+                        <div class="flex items-start justify-between mb-4">
+                            <span class="text-5xl drop-shadow-sm">5️⃣</span>
+                            <span class="pronunciation text-xs font-black uppercase tracking-widest">CHOKE</span>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">"Choke"</h3>
-                        <p class="text-gray-600 mb-3"><strong>Meaning:</strong> A lot, plenty</p>
-                        <p class="text-gray-700 mb-3">
-                            <strong>Usage:</strong> "Choke mac salad" = lots of mac salad. "Get choke meat" = has plenty of meat.
-                        </p>
-                        <div class="bg-green-50 rounded-lg p-4">
-                            <p class="text-sm text-green-800"><strong><i class="ti ti-message"></i> Example conversation:</strong></p>
-                            <p class="text-sm text-gray-700">"Can put choke gravy on top?"</p>
+                        <h3 class="text-3xl font-black text-gray-900 dark:text-white mb-4">"Choke"</h3>
+                        <div class="space-y-4 text-gray-900 dark:text-slate-200 font-medium">
+                            <p><strong>Meaning:</strong> A lot, plenty</p>
+                            <p><strong>Usage:</strong> "Choke mac salad" = lots of mac salad.</p>
                         </div>
-                    </div>
-
-                    <!-- Phrase 6 -->
-                    <div class="phrase-card bg-white rounded-xl shadow-md p-6">
-                        <div class="flex items-start justify-between mb-3">
-                            <span class="text-4xl">6️⃣</span>
-                            <span class="pronunciation text-sm font-semibold text-blue-800">PAU</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">"Pau"</h3>
-                        <p class="text-gray-600 mb-3"><strong>Meaning:</strong> Finished, done, all gone</p>
-                        <p class="text-gray-700 mb-3">
-                            <strong>Usage:</strong> "Pau already?" = Are you done? / "Da kalbi pau" = The kalbi is sold out.
-                        </p>
-                        <div class="bg-green-50 rounded-lg p-4">
-                            <p class="text-sm text-green-800"><strong><i class="ti ti-message"></i> Example conversation:</strong></p>
-                            <p class="text-sm text-gray-700">"You pau wit' your plate? I going order."</p>
-                        </div>
-                    </div>
-
-                    <!-- Phrase 7 -->
-                    <div class="phrase-card bg-white rounded-xl shadow-md p-6">
-                        <div class="flex items-start justify-between mb-3">
-                            <span class="text-4xl">7️⃣</span>
-                            <span class="pronunciation text-sm font-semibold text-blue-800">dah KYNE</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">"Da kine"</h3>
-                        <p class="text-gray-600 mb-3"><strong>Meaning:</strong> The thing, that thing, whatchamacallit</p>
-                        <p class="text-gray-700 mb-3">
-                            <strong>Usage:</strong> Universal filler word. "Can get da kine?" while pointing = Can I get that?
-                        </p>
-                        <div class="bg-green-50 rounded-lg p-4">
-                            <p class="text-sm text-green-800"><strong><i class="ti ti-message"></i> Example conversation:</strong></p>
-                            <p class="text-sm text-gray-700">"I like da kine chicken wit' da kine sauce."</p>
-                        </div>
-                    </div>
-
-                    <!-- Phrase 8 -->
-                    <div class="phrase-card bg-white rounded-xl shadow-md p-6">
-                        <div class="flex items-start justify-between mb-3">
-                            <span class="text-4xl">8️⃣</span>
-                            <span class="pronunciation text-sm font-semibold text-blue-800">foh TAKE-out</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">"For take out" / "To go"</h3>
-                        <p class="text-gray-600 mb-3"><strong>Meaning:</strong> Food packaged to take away</p>
-                        <p class="text-gray-700 mb-3">
-                            <strong>Usage:</strong> Always specify if you're eating there or taking away. "One plate, for take out."
-                        </p>
-                        <div class="bg-green-50 rounded-lg p-4">
-                            <p class="text-sm text-green-800"><strong><i class="ti ti-message"></i> Example conversation:</strong></p>
-                            <p class="text-sm text-gray-700">"Can get two mixed plate, for go?"</p>
-                        </div>
-                    </div>
-
-                    <!-- Phrase 9 -->
-                    <div class="phrase-card bg-white rounded-xl shadow-md p-6">
-                        <div class="flex items-start justify-between mb-3">
-                            <span class="text-4xl">9️⃣</span>
-                            <span class="pronunciation text-sm font-semibold text-blue-800">can PUT...</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">"Can put...?"</h3>
-                        <p class="text-gray-600 mb-3"><strong>Meaning:</strong> Can you add...?</p>
-                        <p class="text-gray-700 mb-3">
-                            <strong>Usage:</strong> Ask for additions or modifications. "Can put extra gravy?" = Can you add extra gravy?
-                        </p>
-                        <div class="bg-green-50 rounded-lg p-4">
-                            <p class="text-sm text-green-800"><strong><i class="ti ti-message"></i> Example conversation:</strong></p>
-                            <p class="text-sm text-gray-700">"Can put da sauce on da side?"</p>
-                        </div>
-                    </div>
-
-                    <!-- Phrase 10 -->
-                    <div class="phrase-card bg-white rounded-xl shadow-md p-6">
-                        <div class="flex items-start justify-between mb-3">
-                            <span class="text-4xl"><i class="ti ti-list-numbers"></i></span>
-                            <span class="pronunciation text-sm font-semibold text-blue-800">no GET...</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">"No get..."</h3>
-                        <p class="text-gray-600 mb-3"><strong>Meaning:</strong> Don't have, out of stock</p>
-                        <p class="text-gray-700 mb-3">
-                            <strong>Usage:</strong> You'll hear this when items are sold out. "No get teri beef" = We don't have teriyaki beef.
-                        </p>
-                        <div class="bg-green-50 rounded-lg p-4">
-                            <p class="text-sm text-green-800"><strong><i class="ti ti-message"></i> Example conversation:</strong></p>
-                            <p class="text-sm text-gray-700">"Sorry, no get poke today."</p>
-                        </div>
-                    </div>
-
-                    <!-- Continue with remaining phrases 11-15... -->
-                    <!-- Phrase 11 -->
-                    <div class="phrase-card bg-white rounded-xl shadow-md p-6">
-                        <div class="flex items-start justify-between mb-3">
-                            <span class="text-4xl">1️⃣1️⃣</span>
-                            <span class="pronunciation text-sm font-semibold text-blue-800">BROKE dah MOUTH</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">"Broke da mouth"</h3>
-                        <p class="text-gray-600 mb-3"><strong>Meaning:</strong> So delicious it's amazing (literal: broke the mouth)</p>
-                        <p class="text-gray-700 mb-3">
-                            <strong>Usage:</strong> The highest compliment for food. "Dis kalua pig stay broke da mouth!"
-                        </p>
-                        <div class="bg-green-50 rounded-lg p-4">
-                            <p class="text-sm text-green-800"><strong><i class="ti ti-message"></i> Example conversation:</strong></p>
-                            <p class="text-sm text-gray-700">"Brah, dat loco moco was broke da mouth good!"</p>
-                        </div>
-                    </div>
-
-                    <!-- Phrase 12 -->
-                    <div class="phrase-card bg-white rounded-xl shadow-md p-6">
-                        <div class="flex items-start justify-between mb-3">
-                            <span class="text-4xl">1️⃣2️⃣</span>
-                            <span class="pronunciation text-sm font-semibold text-blue-800">SHOOTS</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">"Shoots"</h3>
-                        <p class="text-gray-600 mb-3"><strong>Meaning:</strong> Okay, sounds good, yes</p>
-                        <p class="text-gray-700 mb-3">
-                            <strong>Usage:</strong> Confirm your order or agree. "Shoots, tanks" = Okay, thank you.
-                        </p>
-                        <div class="bg-green-50 rounded-lg p-4">
-                            <p class="text-sm text-green-800"><strong><i class="ti ti-message"></i> Example conversation:</strong></p>
-                            <p class="text-sm text-gray-700">"Shoots, I take one mixed plate den."</p>
-                        </div>
-                    </div>
-
-                    <!-- Phrase 13 -->
-                    <div class="phrase-card bg-white rounded-xl shadow-md p-6">
-                        <div class="flex items-start justify-between mb-3">
-                            <span class="text-4xl">1️⃣3️⃣</span>
-                            <span class="pronunciation text-sm font-semibold text-blue-800">how MUCH?</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">"How much?"</h3>
-                        <p class="text-gray-600 mb-3"><strong>Meaning:</strong> What's the price?</p>
-                        <p class="text-gray-700 mb-3">
-                            <strong>Usage:</strong> Simple and direct. Just ask "How much?" when checking prices.
-                        </p>
-                        <div class="bg-green-50 rounded-lg p-4">
-                            <p class="text-sm text-green-800"><strong><i class="ti ti-message"></i> Example conversation:</strong></p>
-                            <p class="text-sm text-gray-700">"How much for da mini plate?"</p>
-                        </div>
-                    </div>
-
-                    <!-- Phrase 14 -->
-                    <div class="phrase-card bg-white rounded-xl shadow-md p-6">
-                        <div class="flex items-start justify-between mb-3">
-                            <span class="text-4xl">1️⃣4️⃣</span>
-                            <span class="pronunciation text-sm font-semibold text-blue-800">TANKS / mah-HAH-lo</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">"Tanks" / "Mahalo"</h3>
-                        <p class="text-gray-600 mb-3"><strong>Meaning:</strong> Thank you</p>
-                        <p class="text-gray-700 mb-3">
-                            <strong>Usage:</strong> Both work! "Tanks" is Pidgin slang, "Mahalo" is Hawaiian. Use either.
-                        </p>
-                        <div class="bg-green-50 rounded-lg p-4">
-                            <p class="text-sm text-green-800"><strong><i class="ti ti-message"></i> Example conversation:</strong></p>
-                            <p class="text-sm text-gray-700">"Tanks ah! Da grindz stay ono!"</p>
-                        </div>
-                    </div>
-
-                    <!-- Phrase 15 -->
-                    <div class="phrase-card bg-white rounded-xl shadow-md p-6">
-                        <div class="flex items-start justify-between mb-3">
-                            <span class="text-4xl">1️⃣5️⃣</span>
-                            <span class="pronunciation text-sm font-semibold text-blue-800">no NEED...</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">"No need..."</h3>
-                        <p class="text-gray-600 mb-3"><strong>Meaning:</strong> Don't need, I don't want</p>
-                        <p class="text-gray-700 mb-3">
-                            <strong>Usage:</strong> Decline items you don't want. "No need mac salad" = I don't want mac salad.
-                        </p>
-                        <div class="bg-green-50 rounded-lg p-4">
-                            <p class="text-sm text-green-800"><strong><i class="ti ti-message"></i> Example conversation:</strong></p>
-                            <p class="text-sm text-gray-700">"Can get da teriyaki chicken, but no need da rice."</p>
+                        <div class="bg-green-50 dark:bg-green-900/10 rounded-xl p-6 mt-6 border-l-4 border-green-500 dark:border-green-600">
+                            <p class="text-sm text-green-800 dark:text-green-400 font-black uppercase tracking-widest mb-2"><i class="ti ti-message text-lg"></i> Example Conversation</p>
+                            <p class="text-lg text-gray-900 dark:text-slate-200 font-bold italic">"Can put choke gravy on top?"</p>
                         </div>
                     </div>
                 </div>
             </section>
 
             <!-- Putting It All Together -->
-            <section class="mb-12 bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl p-8">
-                <h2 class="text-3xl font-bold mb-6 text-gray-800">Putting It All Together: Sample Order</h2>
-                <div class="bg-white rounded-xl p-6 shadow-lg">
-                    <h3 class="font-bold text-xl mb-4 text-gray-800">Complete Plate Lunch Order in Pidgin:</h3>
-                    <div class="space-y-3 text-lg">
-                        <p><strong>You:</strong> "Howzit! Can get one mixed plate?"</p>
-                        <p><strong>Worker:</strong> "Shoots, what kind meat you like?"</p>
-                        <p><strong>You:</strong> "Can get da chicken katsu and kalbi? Two scoop rice wit' choke mac salad."</p>
-                        <p><strong>Worker:</strong> "Can put extra gravy?"</p>
-                        <p><strong>You:</strong> "Shoots! And for take out. How much?"</p>
-                        <p><strong>Worker:</strong> "$12.50"</p>
-                        <p><strong>You:</strong> "Tanks ah!"</p>
+            <section class="mb-16 bg-gradient-to-br from-green-500 to-blue-600 rounded-3xl p-8 md:p-12 shadow-2xl text-white">
+                <h2 class="text-3xl md:text-4xl font-black mb-8">Putting It All Together</h2>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20">
+                    <h3 class="font-black text-xl mb-6 uppercase tracking-widest flex items-center gap-2">
+                        <i class="ti ti-tools-kitchen-2 text-2xl"></i> Sample Order
+                    </h3>
+                    <div class="space-y-4 text-xl md:text-2xl font-bold leading-relaxed">
+                        <p><span class="text-white/60">You:</span> "Howzit! Can get one mixed plate?"</p>
+                        <p><span class="text-white/60">Worker:</span> "Shoots, what kind meat you like?"</p>
+                        <p><span class="text-white/60">You:</span> "Can get da chicken katsu and kalbi? Two scoop rice wit' choke mac salad."</p>
+                        <p><span class="text-white/60">Worker:</span> "Can put extra gravy?"</p>
+                        <p><span class="text-white/60">You:</span> "Shoots! And for take out. How much?"</p>
+                        <p><span class="text-white/60">Worker:</span> "$12.50"</p>
+                        <p><span class="text-white/60">You:</span> "Tanks ah!"</p>
                     </div>
                 </div>
             </section>
 
             <!-- CTA -->
-            <section class="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-8 text-white text-center">
-                <h2 class="text-3xl font-bold mb-4">Ready to Sound Like a Local?</h2>
-                <p class="text-xl mb-6 opacity-90">
-                    Learn more Hawaiian Pidgin with our complete dictionary and translator
-                </p>
-                <div class="flex gap-4 justify-center flex-wrap">
-                    <a href="dictionary.html" class="px-8 py-4 bg-white text-purple-600 rounded-full font-bold hover:shadow-lg transition">
-                        Browse Dictionary
-                    </a>
-                    <a href="translator.html" class="px-8 py-4 bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-full font-bold hover:shadow-lg transition">
-                        Try Translator
-                    </a>
+            <section class="bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl p-12 text-white text-center shadow-2xl relative overflow-hidden">
+                <div class="absolute inset-0 opacity-10">
+                    <div class="absolute -top-10 -left-10 text-9xl rotate-12"><i class="ti ti-sparkles"></i></div>
+                </div>
+                <div class="relative z-10">
+                    <h2 class="text-3xl md:text-5xl font-black mb-6">Ready to Sound Like a Local?</h2>
+                    <p class="text-xl md:text-2xl mb-10 font-medium opacity-95">
+                        Learn more Hawaiian Pidgin with our complete dictionary and translator
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                        <a href="dictionary.html" class="w-full sm:w-auto bg-white text-purple-600 px-10 py-4 rounded-2xl font-black text-xl hover:scale-105 transition-transform shadow-xl">
+                            Browse Dictionary
+                        </a>
+                        <a href="translator.html" class="w-full sm:w-auto bg-slate-900 text-white px-10 py-4 rounded-2xl font-black text-xl hover:scale-105 transition-transform shadow-xl border-2 border-white/20">
+                            Try Translator
+                        </a>
+                    </div>
                 </div>
             </section>
         </div>

@@ -108,40 +108,42 @@
         }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="min-h-screen bg-gray-50 dark:bg-slate-950 transition-colors duration-300">
     <!-- NAVIGATION_PLACEHOLDER -->
 
     <!-- Hero Section -->
-    <header class="bg-gradient-to-r from-orange-600 to-red-600 text-white py-16">
-        <div class="container mx-auto px-4 max-w-6xl">
-            <div class="text-center">
-                <h1 class="text-4xl md:text-5xl font-bold mb-4">
-                    <i class="ti ti-tools-kitchen-2"></i> The Best Local Grinds on O'ahu <i class="ti ti-palm-tree"></i>
-                </h1>
-                <p class="text-xl md:text-2xl text-orange-100 mb-2">
-                    Broken Down by Region - Where Da Locals Actually Eat
-                </p>
-                <p class="text-lg text-orange-200">
-                    Skip da tourist traps. This da real kine ono grinz! <i class="ti ti-hand-love-you"></i>
-                </p>
-            </div>
+    <header class="bg-gradient-to-r from-orange-600 to-red-600 text-white py-12 md:py-24 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-10 left-10 text-6xl rotate-12"><i class="ti ti-tools-kitchen-2"></i></div>
+            <div class="absolute bottom-10 right-10 text-6xl -rotate-12"><i class="ti ti-palm-tree"></i></div>
+        </div>
+        <div class="container mx-auto px-4 max-w-6xl relative z-10 text-center">
+            <h1 class="text-4xl md:text-7xl font-black mb-6 drop-shadow-lg leading-tight">
+                The Best Local Grinds on O'ahu
+            </h1>
+            <p class="text-xl md:text-3xl text-white mb-4 font-bold">
+                Broken Down by Region - Where Da Locals Actually Eat
+            </p>
+            <p class="text-lg md:text-xl text-orange-100 max-w-3xl mx-auto font-medium">
+                Skip da tourist traps. This da real kine ono grinz! <i class="ti ti-hand-love-you"></i>
+            </p>
         </div>
     </header>
 
     <!-- Introduction -->
-    <section class="bg-white py-8 border-b-4 border-orange-600">
+    <section class="bg-white dark:bg-slate-900 py-12 border-b-4 border-orange-600">
         <div class="container mx-auto px-4 max-w-4xl">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">
+            <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-6 text-center md:text-left">
                 Aloha, We Know Where Da Kine Grinds Stay! <i class="ti ti-hand-wave"></i>
             </h2>
-            <div class="prose prose-lg max-w-none">
-                <p class="text-lg text-gray-700 leading-relaxed">
+            <div class="prose prose-lg max-w-none text-gray-900 dark:text-slate-200 font-medium leading-relaxed">
+                <p>
                     Eh, you looking for da <strong>real</strong> local food? Not da kine tourist spots wit da fancy prices
                     and watered-down flavors? You came to da right place, brah! This guide going show you where <em>locals</em>
                     actually eat - da plate lunch spots, shrimp trucks, poke places, and hole-in-da-wall restaurants dat
                     broke da mouth every time.
                 </p>
-                <p class="text-lg text-gray-700 leading-relaxed mt-4">
+                <p class="mt-6">
                     We broke 'em down by region so you can find da best grinz no matter where you stay on O'ahu. Each spot
                     hand-picked for authenticity, quality, and dat ono factor dat keep locals coming back! No BS, just
                     good food. Shoots! <i class="ti ti-hand-love-you"></i>
@@ -151,21 +153,21 @@
     </section>
 
     <!-- Regional Navigation -->
-    <section class="region-nav py-4">
+    <section class="region-nav py-4 border-b dark:border-slate-800">
         <div class="container mx-auto px-4 max-w-6xl">
-            <p class="text-center text-gray-600 mb-3 font-semibold">Jump to Your Region:</p>
+            <p class="text-center text-gray-900 dark:text-white mb-4 font-black uppercase tracking-widest text-sm">Jump to Your Region:</p>
             <div class="flex flex-wrap justify-center gap-3">
-                <a href="#honolulu" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-full font-bold transition">
-                    🏙️ Honolulu / South Shore
+                <a href="#honolulu" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-3 rounded-xl font-bold transition shadow-md hover:scale-105 transform">
+                    🏙️ Honolulu
                 </a>
-                <a href="#north-shore" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full font-bold transition">
-                    <i class="ti ti-ripple"></i> North Shore
+                <a href="#north-shore" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl font-bold transition shadow-md hover:scale-105 transform">
+                    🌊 North Shore
                 </a>
-                <a href="#windward" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full font-bold transition">
-                    <i class="ti ti-ripple"></i> Windward Side
+                <a href="#windward" class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-xl font-bold transition shadow-md hover:scale-105 transform">
+                    ⛰️ Windward
                 </a>
-                <a href="#leeward" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-full font-bold transition">
-                    <i class="ti ti-sunrise"></i> Leeward / Central
+                <a href="#leeward" class="bg-purple-600 hover:bg-purple-700 text-white px-5 py-3 rounded-xl font-bold transition shadow-md hover:scale-105 transform">
+                    🌅 Leeward
                 </a>
             </div>
         </div>
@@ -176,141 +178,138 @@
 
         <!-- HONOLULU / SOUTH SHORE -->
         <section id="honolulu" class="mb-20">
-            <div class="bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-lg p-8 mb-8">
-                <h2 class="text-4xl font-bold mb-3">
-                    🏙️ Honolulu & South Shore Grinds
+            <div class="bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-3xl p-8 md:p-12 mb-10 shadow-2xl relative overflow-hidden">
+                <div class="absolute right-0 bottom-0 opacity-10 text-9xl -mb-10 -mr-10"><i class="ti ti-building-skyscraper"></i></div>
+                <h2 class="text-3xl md:text-5xl font-black mb-4 relative z-10">
+                    Honolulu & South Shore Grinds
                 </h2>
-                <p class="text-xl mb-4">Waikīkī, Kaimukī, Chinatown - Where Tradition Meets Innovation</p>
-                <p class="text-lg opacity-90">
+                <p class="text-xl md:text-2xl mb-6 font-bold text-orange-100 relative z-10">Waikīkī, Kaimukī, Chinatown - Where Tradition Meets Innovation</p>
+                <p class="text-lg opacity-90 font-medium max-w-3xl leading-relaxed relative z-10">
                     Da busiest area on da island get everything: authentic Hawaiian staples, fresh poke straight from da
                     auction, and modern spots dat blend local flavors wit global cuisine. From old-school hole-in-da-walls
                     to hip new restaurants, Town get 'em all.
                 </p>
-                <div class="bg-orange-700 mt-4 p-4 rounded-lg">
-                    <p class="font-bold mb-1"><i class="ti ti-bulb"></i> Local Tip:</p>
-                    <p>Parking stay tight in Chinatown and Kaimukī. Go early or take da bus. And if one place get line out da door, das usually good sign!</p>
+                <div class="bg-black/20 mt-8 p-6 rounded-2xl border border-white/10 relative z-10">
+                    <p class="font-black mb-2 flex items-center gap-2 uppercase tracking-widest text-sm"><i class="ti ti-bulb text-yellow-400"></i> Local Tip:</p>
+                    <p class="font-medium">Parking stay tight in Chinatown and Kaimukī. Go early or take da bus. And if one place get line out da door, das usually good sign!</p>
                 </div>
             </div>
 
             <!-- Helena's Hawaiian Food -->
-            <div class="restaurant-card bg-white rounded-lg shadow-lg p-6 mb-8">
-                <div class="flex flex-col md:flex-row gap-6">
+            <div class="restaurant-card bg-white dark:bg-slate-900 rounded-3xl shadow-xl p-8 mb-8 border dark:border-slate-800">
+                <div class="flex flex-col md:flex-row gap-8">
                     <div class="md:w-1/3">
-                        <div class="bg-gray-200 rounded-lg h-48 flex items-center justify-center">
-                            <span class="text-4xl"><i class="ti ti-meat"></i></span>
+                        <div class="bg-gray-100 dark:bg-slate-800 rounded-2xl h-64 flex items-center justify-center border dark:border-slate-700 shadow-inner">
+                            <span class="text-6xl"><i class="ti ti-meat text-orange-600"></i></span>
                         </div>
                     </div>
                     <div class="md:w-2/3">
-                        <h3 class="text-3xl font-bold text-gray-800 mb-2">Helena's Hawaiian Food</h3>
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="rating-stars text-xl">★★★★½</span>
-                            <span class="text-gray-600">(4.5 Stars)</span>
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-3xl font-black text-gray-900 dark:text-white">Helena's Hawaiian Food</h3>
+                            <div class="flex flex-col items-end">
+                                <span class="rating-stars text-2xl">★★★★½</span>
+                                <span class="text-gray-500 dark:text-slate-400 font-bold text-sm">4.5 Stars</span>
+                            </div>
                         </div>
-                        <div class="bg-orange-50 border-l-4 border-orange-500 p-4 mb-4 rounded">
-                            <p class="font-bold text-orange-800 mb-2"><i class="ti ti-tools-kitchen-2"></i> The Choke Pidgin Review:</p>
-                            <p class="text-gray-700 mb-2">
-                                <strong>Must-Try:</strong> Pipikaula Short Ribs, Kalua Pig, Laulau<br>
-                                <strong>The Vibe:</strong> No-frills, old-school Hawaiian food. Like eating at Tutu's house.<br>
-                                <strong>Quick Take:</strong> This da gold standard for traditional Hawaiian food. If you only going try one authentic Hawaiian spot, make it dis one. Da pipikaula short ribs going blow your mind - melt in your mouth, brah!
-                            </p>
+                        <div class="bg-orange-50 dark:bg-orange-900/10 border-l-8 border-orange-500 p-6 mb-6 rounded-r-2xl border dark:border-slate-800">
+                            <p class="font-black text-orange-800 dark:text-orange-400 mb-2 uppercase tracking-widest text-xs flex items-center gap-2"><i class="ti ti-tools-kitchen-2"></i> The Choke Pidgin Review</p>
+                            <div class="text-gray-900 dark:text-slate-200 font-medium leading-relaxed">
+                                <p class="mb-3"><strong>Must-Try:</strong> <span class="text-orange-700 dark:text-orange-300">Pipikaula Short Ribs, Kalua Pig, Laulau</span></p>
+                                <p class="mb-3"><strong>The Vibe:</strong> No-frills, old-school Hawaiian food. Like eating at Tutu's house.</p>
+                                <p><strong>Quick Take:</strong> This da gold standard for traditional Hawaiian food. If you only going try one authentic Hawaiian spot, make it dis one. Da pipikaula short ribs going blow your mind - melt in your mouth, brah!</p>
+                            </div>
                         </div>
-                        <div class="space-y-2 text-gray-700">
-                            <p><strong><i class="ti ti-map-pin"></i> Address:</strong> 1240 N School St, Honolulu, HI 96817</p>
-                            <p><strong><i class="ti ti-device-mobile"></i> Phone:</strong> <a href="tel:+18088451044" class="text-blue-600 hover:underline">(808) 845-1044</a></p>
-                            <p><strong><i class="ti ti-clock"></i> Hours:</strong> Tue-Fri 10am-7:30pm (Closed weekends - check website)</p>
+                        <div class="grid sm:grid-cols-2 gap-4 mb-6 text-gray-900 dark:text-slate-300 font-bold">
+                            <p class="flex items-center gap-2"><i class="ti ti-map-pin text-orange-500"></i> 1240 N School St</p>
+                            <p class="flex items-center gap-2"><i class="ti ti-device-mobile text-orange-500"></i> <a href="tel:+18088451044" class="text-blue-600 dark:text-blue-400 hover:underline">(808) 845-1044</a></p>
+                            <p class="flex items-center gap-2 col-span-full"><i class="ti ti-clock text-orange-500"></i> Tue-Fri 10am-7:30pm (Closed Sat-Mon)</p>
                         </div>
-                        <div class="mt-4 flex flex-wrap gap-3">
-                            <a href="https://www.google.com/maps/place/Helena's+Hawaiian+Food" target="_blank" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">
-                                <i class="ti ti-map-pin"></i> Get Directions
+                        <div class="flex flex-wrap gap-4">
+                            <a href="https://www.google.com/maps/place/Helena's+Hawaiian+Food" target="_blank" class="bg-blue-600 text-white px-8 py-3 rounded-2xl font-black hover:bg-blue-700 transition shadow-lg flex items-center gap-2">
+                                <i class="ti ti-map-pin"></i> Directions
                             </a>
-                            <a href="https://www.helenashawaiianfood.com" target="_blank" class="bg-gray-600 text-white px-6 py-2 rounded-full hover:bg-gray-700 transition">
+                            <a href="https://www.helenashawaiianfood.com" target="_blank" class="bg-gray-800 dark:bg-slate-700 text-white px-8 py-3 rounded-2xl font-black hover:bg-gray-900 dark:hover:bg-slate-600 transition shadow-lg flex items-center gap-2">
                                 <i class="ti ti-world"></i> Website
                             </a>
                         </div>
-                        <p class="text-sm text-gray-500 mt-3">
-                            <strong>Pro Tip:</strong> Cash only! It's in Kalihi, look for da sign near da laundromat. Get there early, dey pau when da food run out.
-                        </p>
                     </div>
                 </div>
             </div>
 
-            <!-- Maguro Brothers Hawaii -->
-            <div class="restaurant-card bg-white rounded-lg shadow-lg p-6 mb-8">
-                <div class="flex flex-col md:flex-row gap-6">
+            <!-- Maguro Brothers -->
+            <div class="restaurant-card bg-white dark:bg-slate-900 rounded-3xl shadow-xl p-8 mb-8 border dark:border-slate-800">
+                <div class="flex flex-col md:flex-row gap-8">
                     <div class="md:w-1/3">
-                        <div class="bg-gray-200 rounded-lg h-48 flex items-center justify-center">
-                            <span class="text-4xl">🐟</span>
+                        <div class="bg-blue-50 dark:bg-slate-800 rounded-2xl h-64 flex items-center justify-center border dark:border-slate-700 shadow-inner">
+                            <span class="text-6xl text-blue-600">🐟</span>
                         </div>
                     </div>
                     <div class="md:w-2/3">
-                        <h3 class="text-3xl font-bold text-gray-800 mb-2">Maguro Brothers Hawaii</h3>
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="rating-stars text-xl">★★★★★</span>
-                            <span class="text-gray-600">(4.7 Stars)</span>
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-3xl font-black text-gray-900 dark:text-white">Maguro Brothers Hawaii</h3>
+                            <div class="flex flex-col items-end">
+                                <span class="rating-stars text-2xl">★★★★★</span>
+                                <span class="text-gray-500 dark:text-slate-400 font-bold text-sm">4.7 Stars</span>
+                            </div>
                         </div>
-                        <div class="bg-orange-50 border-l-4 border-orange-500 p-4 mb-4 rounded">
-                            <p class="font-bold text-orange-800 mb-2"><i class="ti ti-tools-kitchen-2"></i> The Choke Pidgin Review:</p>
-                            <p class="text-gray-700 mb-2">
-                                <strong>Must-Try:</strong> Any poke bowl, Maguro don, Fresh sashimi<br>
-                                <strong>The Vibe:</strong> Chinatown market vibes, super fresh fish, quick service<br>
-                                <strong>Quick Take:</strong> Brah, dis poke going spoil you for everywhere else! Da fish so fresh, come straight from da auction. Da kine quality you only find in Japan or right here. Line going be long but move fast. Worth every minute.
-                            </p>
+                        <div class="bg-blue-50 dark:bg-blue-900/10 border-l-8 border-blue-500 p-6 mb-6 rounded-r-2xl border dark:border-slate-800">
+                            <p class="font-black text-blue-800 dark:text-blue-400 mb-2 uppercase tracking-widest text-xs flex items-center gap-2"><i class="ti ti-tools-kitchen-2"></i> The Choke Pidgin Review</p>
+                            <div class="text-gray-900 dark:text-slate-200 font-medium leading-relaxed">
+                                <p class="mb-3"><strong>Must-Try:</strong> <span class="text-blue-700 dark:text-blue-300">Any poke bowl, Maguro don, Fresh sashimi</span></p>
+                                <p class="mb-3"><strong>The Vibe:</strong> Chinatown market vibes, super fresh fish, quick service</p>
+                                <p><strong>Quick Take:</strong> Brah, dis poke going spoil you for everywhere else! Da fish so fresh, come straight from da auction. Da kine quality you only find in Japan or right here. Line going be long but move fast. Worth every minute.</p>
+                            </div>
                         </div>
-                        <div class="space-y-2 text-gray-700">
-                            <p><strong><i class="ti ti-map-pin"></i> Address:</strong> 1120 Maunakea St, Honolulu, HI 96817</p>
-                            <p><strong><i class="ti ti-device-mobile"></i> Phone:</strong> <a href="tel:+18085562526" class="text-blue-600 hover:underline">(808) 556-2526</a></p>
-                            <p><strong><i class="ti ti-clock"></i> Hours:</strong> Mon-Sat 10am-4pm (Closed Sundays)</p>
+                        <div class="grid sm:grid-cols-2 gap-4 mb-6 text-gray-900 dark:text-slate-300 font-bold">
+                            <p class="flex items-center gap-2"><i class="ti ti-map-pin text-blue-500"></i> 1120 Maunakea St</p>
+                            <p class="flex items-center gap-2 col-span-full"><i class="ti ti-clock text-blue-500"></i> Mon-Sat 10am-4pm (Closed Sundays)</p>
                         </div>
-                        <div class="mt-4 flex flex-wrap gap-3">
-                            <a href="https://www.google.com/maps/place/Maguro+Brothers+Hawaii" target="_blank" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">
-                                <i class="ti ti-map-pin"></i> Get Directions
+                        <div class="flex flex-wrap gap-4">
+                            <a href="https://www.google.com/maps/place/Maguro+Brothers+Hawaii" target="_blank" class="bg-blue-600 text-white px-8 py-3 rounded-2xl font-black hover:bg-blue-700 transition shadow-lg flex items-center gap-2">
+                                <i class="ti ti-map-pin"></i> Directions
                             </a>
                         </div>
-                        <p class="text-sm text-gray-500 mt-3">
-                            <strong>Pro Tip:</strong> In Chinatown, can be tricky to find. Look for da red awning on Maunakea St. Get there before noon for da best selection!
-                        </p>
                     </div>
                 </div>
             </div>
 
             <!-- The Pig and The Lady -->
-            <div class="restaurant-card bg-white rounded-lg shadow-lg p-6 mb-8">
-                <div class="flex flex-col md:flex-row gap-6">
+            <div class="restaurant-card bg-white dark:bg-slate-900 rounded-3xl shadow-xl p-8 mb-8 border dark:border-slate-800">
+                <div class="flex flex-col md:flex-row gap-8">
                     <div class="md:w-1/3">
-                        <div class="bg-gray-200 rounded-lg h-48 flex items-center justify-center">
-                            <span class="text-4xl">🍜</span>
+                        <div class="bg-purple-50 dark:bg-slate-800 rounded-2xl h-64 flex items-center justify-center border dark:border-slate-700 shadow-inner">
+                            <span class="text-6xl text-purple-600">🍜</span>
                         </div>
                     </div>
                     <div class="md:w-2/3">
-                        <h3 class="text-3xl font-bold text-gray-800 mb-2">The Pig and The Lady</h3>
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="rating-stars text-xl">★★★★☆</span>
-                            <span class="text-gray-600">(4.4 Stars)</span>
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-3xl font-black text-gray-900 dark:text-white">The Pig and The Lady</h3>
+                            <div class="flex flex-col items-end">
+                                <span class="rating-stars text-2xl">★★★★☆</span>
+                                <span class="text-gray-500 dark:text-slate-400 font-bold text-sm">4.4 Stars</span>
+                            </div>
                         </div>
-                        <div class="bg-orange-50 border-l-4 border-orange-500 p-4 mb-4 rounded">
-                            <p class="font-bold text-orange-800 mb-2"><i class="ti ti-tools-kitchen-2"></i> The Choke Pidgin Review:</p>
-                            <p class="text-gray-700 mb-2">
-                                <strong>Must-Try:</strong> Pho French Dip, Banh Mi, Laotian Sausage<br>
-                                <strong>The Vibe:</strong> Modern, creative, fun atmosphere. Good for dates or groups.<br>
-                                <strong>Quick Take:</strong> Dis place take Vietnamese classics and add local Hawaii twist - da kine fusion done right! Chef Andrew Le's family recipes mixed wit local ingredients. Da pho french dip going change your life, no joke. Little more pricey but worth 'em for special occasion.
-                            </p>
+                        <div class="bg-purple-50 dark:bg-purple-900/10 border-l-8 border-purple-500 p-6 mb-6 rounded-r-2xl border dark:border-slate-800">
+                            <p class="font-black text-purple-800 dark:text-purple-400 mb-2 uppercase tracking-widest text-xs flex items-center gap-2"><i class="ti ti-tools-kitchen-2"></i> The Choke Pidgin Review</p>
+                            <div class="text-gray-900 dark:text-slate-200 font-medium leading-relaxed">
+                                <p class="mb-3"><strong>Must-Try:</strong> <span class="text-purple-700 dark:text-purple-300">Pho French Dip, Banh Mi, Laotian Sausage</span></p>
+                                <p class="mb-3"><strong>The Vibe:</strong> Modern, creative, fun atmosphere. Good for dates or groups.</p>
+                                <p><strong>Quick Take:</strong> Dis place take Vietnamese classics and add local Hawaii twist! Da pho french dip going change your life, no joke. Little more pricey but worth 'em.</p>
+                            </div>
                         </div>
-                        <div class="space-y-2 text-gray-700">
-                            <p><strong><i class="ti ti-map-pin"></i> Address:</strong> 3650 Waialae Ave, Honolulu, HI 96816</p>
-                            <p><strong><i class="ti ti-device-mobile"></i> Phone:</strong> <a href="tel:+18088087005" class="text-blue-600 hover:underline">(808) 808-7005</a></p>
-                            <p><strong><i class="ti ti-clock"></i> Hours:</strong> Tue-Sat 5pm-9pm (Check website for brunch hours)</p>
+                        <div class="grid sm:grid-cols-2 gap-4 mb-6 text-gray-900 dark:text-slate-300 font-bold">
+                            <p class="flex items-center gap-2"><i class="ti ti-map-pin text-purple-500"></i> 3650 Waialae Ave</p>
+                            <p class="flex items-center gap-2"><i class="ti ti-device-mobile text-purple-500"></i> <a href="tel:+18088087005" class="text-blue-600 dark:text-blue-400 hover:underline">(808) 808-7005</a></p>
+                            <p class="flex items-center gap-2 col-span-full"><i class="ti ti-clock text-purple-500"></i> Tue-Sat 5pm-9pm (Check for brunch)</p>
                         </div>
-                        <div class="mt-4 flex flex-wrap gap-3">
-                            <a href="https://www.google.com/maps/place/The+Pig+and+The+Lady" target="_blank" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">
-                                <i class="ti ti-map-pin"></i> Get Directions
+                        <div class="flex flex-wrap gap-4">
+                            <a href="https://www.google.com/maps/place/The+Pig+and+The+Lady" target="_blank" class="bg-blue-600 text-white px-8 py-3 rounded-2xl font-black hover:bg-blue-700 transition shadow-lg flex items-center gap-2">
+                                <i class="ti ti-map-pin"></i> Directions
                             </a>
-                            <a href="https://www.thepigandthelady.com" target="_blank" class="bg-gray-600 text-white px-6 py-2 rounded-full hover:bg-gray-700 transition">
+                            <a href="https://www.thepigandthelady.com" target="_blank" class="bg-gray-800 dark:bg-slate-700 text-white px-8 py-3 rounded-2xl font-black hover:bg-gray-900 dark:hover:bg-slate-600 transition shadow-lg flex items-center gap-2">
                                 <i class="ti ti-world"></i> Website
                             </a>
                         </div>
-                        <p class="text-sm text-gray-500 mt-3">
-                            <strong>Pro Tip:</strong> Make reservations! Dis place stay popular. In Kaimukī on Waialae Ave, plenty street parking but can fill up quick.
-                        </p>
                     </div>
                 </div>
             </div>
@@ -318,141 +317,80 @@
 
         <!-- NORTH SHORE -->
         <section id="north-shore" class="mb-20">
-            <div class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg p-8 mb-8">
-                <h2 class="text-4xl font-bold mb-3">
-                    <i class="ti ti-ripple"></i> North Shore Grinds: Shrimp Trucks & Surf Town Eats
+            <div class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-3xl p-8 md:p-12 mb-10 shadow-2xl relative overflow-hidden">
+                <div class="absolute right-0 bottom-0 opacity-10 text-9xl -mb-10 -mr-10 rotate-12"><i class="ti ti-ripple"></i></div>
+                <h2 class="text-3xl md:text-5xl font-black mb-4 relative z-10">
+                    North Shore Grinds
                 </h2>
-                <p class="text-xl mb-4">Hale'iwa, Kahuku - Where Da Waves Meet Da Flavor</p>
-                <p class="text-lg opacity-90">
+                <p class="text-xl md:text-2xl mb-6 font-bold text-blue-100 relative z-10">Shrimp Trucks & Surf Town Eats</p>
+                <p class="text-lg opacity-90 font-medium max-w-3xl leading-relaxed relative z-10">
                     Da North Shore famous for its monster waves and laid-back surf town vibes. But locals know da food scene
-                    stay just as legendary - from iconic shrimp trucks to old-school shave ice stands. Expect casual, no-frills
-                    spots dat focus on one thing: making da kine ono food dat keep you coming back.
+                    stay just as legendary - from iconic shrimp trucks to old-school shave ice stands.
                 </p>
-                <div class="bg-blue-700 mt-4 p-4 rounded-lg">
-                    <p class="font-bold mb-1"><i class="ti ti-bulb"></i> Local Tip:</p>
-                    <p>Hit da shrimp trucks before 11 AM or after 2 PM to avoid da biggest crowds. Bring cash - most spots no take card. And if you going Haleiwa town, park once and walk around!</p>
+                <div class="bg-black/20 mt-8 p-6 rounded-2xl border border-white/10 relative z-10">
+                    <p class="font-black mb-2 flex items-center gap-2 uppercase tracking-widest text-sm"><i class="ti ti-bulb text-yellow-400"></i> Local Tip:</p>
+                    <p class="font-medium">Hit da shrimp trucks before 11 AM or after 2 PM to avoid da biggest crowds. Bring cash - most spots no take card.</p>
                 </div>
             </div>
 
-            <!-- Giovanni's Shrimp Truck -->
-            <div class="restaurant-card bg-white rounded-lg shadow-lg p-6 mb-8">
-                <div class="flex flex-col md:flex-row gap-6">
+            <!-- Giovanni's -->
+            <div class="restaurant-card bg-white dark:bg-slate-900 rounded-3xl shadow-xl p-8 mb-8 border dark:border-slate-800">
+                <div class="flex flex-col md:flex-row gap-8">
                     <div class="md:w-1/3">
-                        <div class="bg-gray-200 rounded-lg h-48 flex items-center justify-center">
-                            <span class="text-4xl">🍤</span>
+                        <div class="bg-yellow-50 dark:bg-slate-800 rounded-2xl h-64 flex items-center justify-center border dark:border-slate-700 shadow-inner">
+                            <span class="text-6xl">🍤</span>
                         </div>
                     </div>
                     <div class="md:w-2/3">
-                        <h3 class="text-3xl font-bold text-gray-800 mb-2">Giovanni's Shrimp Truck</h3>
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="rating-stars text-xl">★★★★☆</span>
-                            <span class="text-gray-600">(4.1 Stars)</span>
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-3xl font-black text-gray-900 dark:text-white">Giovanni's Shrimp Truck</h3>
+                            <div class="flex flex-col items-end">
+                                <span class="rating-stars text-2xl">★★★★☆</span>
+                                <span class="text-gray-500 dark:text-slate-400 font-bold text-sm">4.1 Stars</span>
+                            </div>
                         </div>
-                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4 rounded">
-                            <p class="font-bold text-blue-800 mb-2"><i class="ti ti-tools-kitchen-2"></i> The Choke Pidgin Review:</p>
-                            <p class="text-gray-700 mb-2">
-                                <strong>Must-Try:</strong> Original Scampi Style (garlic butter shrimp)<br>
-                                <strong>The Vibe:</strong> Legendary roadside truck, covered in graffiti signatures<br>
-                                <strong>Quick Take:</strong> Dis da OG shrimp truck dat started 'em all! Yeah get other trucks now, but Giovanni's still da one everybody talk about. Da garlic scampi going make your hands smell for days but no care - so ono, you going lick da plate! Portions stay huge, come wit two scoops rice.
-                            </p>
+                        <div class="bg-yellow-50 dark:bg-yellow-900/10 border-l-8 border-yellow-500 p-6 mb-6 rounded-r-2xl border dark:border-slate-800">
+                            <p class="font-black text-yellow-800 dark:text-yellow-400 mb-2 uppercase tracking-widest text-xs flex items-center gap-2"><i class="ti ti-tools-kitchen-2"></i> The Choke Pidgin Review</p>
+                            <div class="text-gray-900 dark:text-slate-200 font-medium leading-relaxed">
+                                <p class="mb-3"><strong>Must-Try:</strong> <span class="text-yellow-700 dark:text-yellow-300">Original Scampi Style (garlic butter shrimp)</span></p>
+                                <p><strong>Quick Take:</strong> Dis da OG shrimp truck dat started 'em all! Da garlic scampi going make your hands smell for days but no care - so ono, you going lick da plate! Portions stay huge.</p>
+                            </div>
                         </div>
-                        <div class="space-y-2 text-gray-700">
-                            <p><strong><i class="ti ti-map-pin"></i> Address:</strong> 66-472 Kamehameha Hwy, Haleiwa, HI 96712</p>
-                            <p><strong><i class="ti ti-device-mobile"></i> Phone:</strong> <a href="tel:+18082932839" class="text-blue-600 hover:underline">(808) 293-2839</a></p>
-                            <p><strong><i class="ti ti-clock"></i> Hours:</strong> Daily 10:30am-5pm</p>
+                        <div class="grid sm:grid-cols-2 gap-4 mb-6 text-gray-900 dark:text-slate-300 font-bold">
+                            <p class="flex items-center gap-2"><i class="ti ti-map-pin text-blue-500"></i> Haleiwa & Kahuku Locations</p>
+                            <p class="flex items-center gap-2 col-span-full"><i class="ti ti-clock text-blue-500"></i> Daily 10:30am-5pm</p>
                         </div>
-                        <div class="mt-4 flex flex-wrap gap-3">
-                            <a href="https://www.google.com/maps/place/Giovanni's+Shrimp+Truck" target="_blank" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">
-                                <i class="ti ti-map-pin"></i> Get Directions
-                            </a>
-                        </div>
-                        <p class="text-sm text-gray-500 mt-3">
-                            <strong>Pro Tip:</strong> On Kamehameha Highway heading towards Kahuku. Can't miss it - look for da white truck covered in signatures. Bring napkins, you going need 'em!
-                        </p>
                     </div>
                 </div>
             </div>
 
-            <!-- Matsumoto Shave Ice -->
-            <div class="restaurant-card bg-white rounded-lg shadow-lg p-6 mb-8">
-                <div class="flex flex-col md:flex-row gap-6">
+            <!-- Matsumoto -->
+            <div class="restaurant-card bg-white dark:bg-slate-900 rounded-3xl shadow-xl p-8 mb-8 border dark:border-slate-800">
+                <div class="flex flex-col md:flex-row gap-8">
                     <div class="md:w-1/3">
-                        <div class="bg-gray-200 rounded-lg h-48 flex items-center justify-center">
-                            <span class="text-4xl">🍧</span>
+                        <div class="bg-blue-50 dark:bg-slate-800 rounded-2xl h-64 flex items-center justify-center border dark:border-slate-700 shadow-inner">
+                            <span class="text-6xl text-blue-600">🍧</span>
                         </div>
                     </div>
                     <div class="md:w-2/3">
-                        <h3 class="text-3xl font-bold text-gray-800 mb-2">Matsumoto Shave Ice</h3>
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="rating-stars text-xl">★★★★½</span>
-                            <span class="text-gray-600">(4.5 Stars)</span>
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-3xl font-black text-gray-900 dark:text-white">Matsumoto Shave Ice</h3>
+                            <div class="flex flex-col items-end">
+                                <span class="rating-stars text-2xl">★★★★½</span>
+                                <span class="text-gray-500 dark:text-slate-400 font-bold text-sm">4.5 Stars</span>
+                            </div>
                         </div>
-                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4 rounded">
-                            <p class="font-bold text-blue-800 mb-2"><i class="ti ti-tools-kitchen-2"></i> The Choke Pidgin Review:</p>
-                            <p class="text-gray-700 mb-2">
-                                <strong>Must-Try:</strong> Rainbow shave ice with ice cream and azuki beans<br>
-                                <strong>The Vibe:</strong> Classic Hawaiian landmark, always busy, pure nostalgia<br>
-                                <strong>Quick Take:</strong> Been around since 1951, brah! Dis not just shave ice - dis one local institution. Da ice stay so fine, da syrup no sink to da bottom. Get 'em wit ice cream and azuki beans on da bottom for da full experience. Yeah get line, but move fast. Part of da North Shore experience!
-                            </p>
+                        <div class="bg-blue-50 dark:bg-blue-900/10 border-l-8 border-blue-500 p-6 mb-6 rounded-r-2xl border dark:border-slate-800">
+                            <p class="font-black text-blue-800 dark:text-blue-400 mb-2 uppercase tracking-widest text-xs flex items-center gap-2"><i class="ti ti-tools-kitchen-2"></i> The Choke Pidgin Review</p>
+                            <div class="text-gray-900 dark:text-slate-200 font-medium leading-relaxed">
+                                <p class="mb-3"><strong>Must-Try:</strong> <span class="text-blue-700 dark:text-blue-300">Rainbow shave ice with ice cream and azuki beans</span></p>
+                                <p><strong>Quick Take:</strong> Been around since 1951! Dis one local institution. Da ice stay so fine, da syrup no sink to da bottom. Get 'em wit ice cream for da full experience.</p>
+                            </div>
                         </div>
-                        <div class="space-y-2 text-gray-700">
-                            <p><strong><i class="ti ti-map-pin"></i> Address:</strong> 66-111 Kamehameha Hwy #605, Haleiwa, HI 96712</p>
-                            <p><strong><i class="ti ti-device-mobile"></i> Phone:</strong> <a href="tel:+18086376120" class="text-blue-600 hover:underline">(808) 637-6120</a></p>
-                            <p><strong><i class="ti ti-clock"></i> Hours:</strong> Daily 9am-6pm</p>
+                        <div class="grid sm:grid-cols-2 gap-4 mb-6 text-gray-900 dark:text-slate-300 font-bold">
+                            <p class="flex items-center gap-2"><i class="ti ti-map-pin text-blue-500"></i> 66-111 Kam Hwy, Haleiwa</p>
+                            <p class="flex items-center gap-2 col-span-full"><i class="ti ti-clock text-blue-500"></i> Daily 9am-6pm</p>
                         </div>
-                        <div class="mt-4 flex flex-wrap gap-3">
-                            <a href="https://www.google.com/maps/place/Matsumoto+Shave+Ice" target="_blank" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">
-                                <i class="ti ti-map-pin"></i> Get Directions
-                            </a>
-                            <a href="https://www.matsumotoshaveice.com" target="_blank" class="bg-gray-600 text-white px-6 py-2 rounded-full hover:bg-gray-700 transition">
-                                <i class="ti ti-world"></i> Website
-                            </a>
-                        </div>
-                        <p class="text-sm text-gray-500 mt-3">
-                            <strong>Pro Tip:</strong> Right in Haleiwa town center. Park in da public lot and walk. Line look long but move quick - usually 10-15 minutes max!
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Haleiwa Joe's -->
-            <div class="restaurant-card bg-white rounded-lg shadow-lg p-6 mb-8">
-                <div class="flex flex-col md:flex-row gap-6">
-                    <div class="md:w-1/3">
-                        <div class="bg-gray-200 rounded-lg h-48 flex items-center justify-center">
-                            <span class="text-4xl">🦞</span>
-                        </div>
-                    </div>
-                    <div class="md:w-2/3">
-                        <h3 class="text-3xl font-bold text-gray-800 mb-2">Haleiwa Joe's</h3>
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="rating-stars text-xl">★★★★½</span>
-                            <span class="text-gray-600">(4.5 Stars)</span>
-                        </div>
-                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4 rounded">
-                            <p class="font-bold text-blue-800 mb-2"><i class="ti ti-tools-kitchen-2"></i> The Choke Pidgin Review:</p>
-                            <p class="text-gray-700 mb-2">
-                                <strong>Must-Try:</strong> Fresh fish (daily catch), Macadamia nut crusted mahi<br>
-                                <strong>The Vibe:</strong> Casual island dining, good for groups and families<br>
-                                <strong>Quick Take:</strong> If you like upgrade from da food trucks but still keep it local, dis da spot. Sit-down restaurant wit island-inspired seafood and solid cocktails. Da fish stay fresh, da portions stay generous, and da view from da patio stay nice. Good for when you like treat yourself but no like dress up fancy.
-                            </p>
-                        </div>
-                        <div class="space-y-2 text-gray-700">
-                            <p><strong><i class="ti ti-map-pin"></i> Address:</strong> 66-011 Kamehameha Hwy, Haleiwa, HI 96712</p>
-                            <p><strong><i class="ti ti-device-mobile"></i> Phone:</strong> <a href="tel:+18086372476" class="text-blue-600 hover:underline">(808) 637-2476</a></p>
-                            <p><strong><i class="ti ti-clock"></i> Hours:</strong> Daily 11:30am-9:30pm</p>
-                        </div>
-                        <div class="mt-4 flex flex-wrap gap-3">
-                            <a href="https://www.google.com/maps/place/Haleiwa+Joe's" target="_blank" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">
-                                <i class="ti ti-map-pin"></i> Get Directions
-                            </a>
-                            <a href="https://www.haleiwajoes.com" target="_blank" class="bg-gray-600 text-white px-6 py-2 rounded-full hover:bg-gray-700 transition">
-                                <i class="ti ti-world"></i> Website
-                            </a>
-                        </div>
-                        <p class="text-sm text-gray-500 mt-3">
-                            <strong>Pro Tip:</strong> Make reservations for dinner, especially on weekends. Happy hour stay good value. Get two locations - dis one in Haleiwa, and one in Haiku Gardens (Windward side).
-                        </p>
                     </div>
                 </div>
             </div>
@@ -460,141 +398,45 @@
 
         <!-- WINDWARD SIDE -->
         <section id="windward" class="mb-20">
-            <div class="bg-gradient-to-r from-green-600 to-teal-600 text-white rounded-lg p-8 mb-8">
-                <h2 class="text-4xl font-bold mb-3">
-                    <i class="ti ti-ripple"></i> Windward Side Grinds: Breakfast & Beach Town Bites
+            <div class="bg-gradient-to-r from-green-600 to-teal-600 text-white rounded-3xl p-8 md:p-12 mb-10 shadow-2xl relative overflow-hidden">
+                <div class="absolute right-0 bottom-0 opacity-10 text-9xl -mb-10 -mr-10 rotate-45"><i class="ti ti-flower"></i></div>
+                <h2 class="text-3xl md:text-5xl font-black mb-4 relative z-10">
+                    Windward Side Grinds
                 </h2>
-                <p class="text-xl mb-4">Kailua, Kāne'ohe - Where Brunch is King</p>
-                <p class="text-lg opacity-90">
+                <p class="text-xl md:text-2xl mb-6 font-bold text-green-100 relative z-10">Kailua, Kāne'ohe - Where Brunch is King</p>
+                <p class="text-lg opacity-90 font-medium max-w-3xl leading-relaxed relative z-10">
                     Da Windward side known for stunning beaches and laid-back beach town vibes. Da food scene here stay all about
-                    breakfast and brunch spots dat keep you fueled for da beach, plus scenic restaurants perfect for celebrating
-                    special occasions. Expect fresh, quality ingredients and that relaxed Kailua/Kaneohe lifestyle.
+                    breakfast and brunch spots.
                 </p>
-                <div class="bg-green-700 mt-4 p-4 rounded-lg">
-                    <p class="font-bold mb-1"><i class="ti ti-bulb"></i> Local Tip:</p>
-                    <p>Windward side breakfast spots get PACKED on weekends. Go before 8am or after 10am, or be ready for wait. Worth it though! And bring da family - most places stay super kid-friendly.</p>
-                </div>
             </div>
 
             <!-- Boots & Kimo's -->
-            <div class="restaurant-card bg-white rounded-lg shadow-lg p-6 mb-8">
-                <div class="flex flex-col md:flex-row gap-6">
+            <div class="restaurant-card bg-white dark:bg-slate-900 rounded-3xl shadow-xl p-8 mb-8 border dark:border-slate-800">
+                <div class="flex flex-col md:flex-row gap-8">
                     <div class="md:w-1/3">
-                        <div class="bg-gray-200 rounded-lg h-48 flex items-center justify-center">
-                            <span class="text-4xl">🥞</span>
+                        <div class="bg-green-50 dark:bg-slate-800 rounded-2xl h-64 flex items-center justify-center border dark:border-slate-700 shadow-inner">
+                            <span class="text-6xl text-green-600">🥞</span>
                         </div>
                     </div>
                     <div class="md:w-2/3">
-                        <h3 class="text-3xl font-bold text-gray-800 mb-2">Boots & Kimo's Homestyle Kitchen</h3>
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="rating-stars text-xl">★★★★☆</span>
-                            <span class="text-gray-600">(4.2 Stars)</span>
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-3xl font-black text-gray-900 dark:text-white">Boots & Kimo's</h3>
+                            <div class="flex flex-col items-end">
+                                <span class="rating-stars text-2xl">★★★★☆</span>
+                                <span class="text-gray-500 dark:text-slate-400 font-bold text-sm">4.2 Stars</span>
+                            </div>
                         </div>
-                        <div class="bg-green-50 border-l-4 border-green-500 p-4 mb-4 rounded">
-                            <p class="font-bold text-green-800 mb-2"><i class="ti ti-tools-kitchen-2"></i> The Choke Pidgin Review:</p>
-                            <p class="text-gray-700 mb-2">
-                                <strong>Must-Try:</strong> Macadamia Nut Sauce Pancakes (LEGENDARY)<br>
-                                <strong>The Vibe:</strong> Neighborhood breakfast joint, cozy and welcoming<br>
-                                <strong>Quick Take:</strong> Brah, da macadamia nut pancakes here stay FAMOUS for reason! People fly to Hawaii just for dis. Da sauce rich, sweet, nutty - pure heaven on fluffy pancakes. Get here early or be ready for wait, especially weekends. But trust, worth every minute. One plate going feed two people easy.
-                            </p>
+                        <div class="bg-green-50 dark:bg-green-900/10 border-l-8 border-green-500 p-6 mb-6 rounded-r-2xl border dark:border-slate-800">
+                            <p class="font-black text-green-800 dark:text-green-400 mb-2 uppercase tracking-widest text-xs flex items-center gap-2"><i class="ti ti-tools-kitchen-2"></i> The Choke Pidgin Review</p>
+                            <div class="text-gray-900 dark:text-slate-200 font-medium leading-relaxed">
+                                <p class="mb-3"><strong>Must-Try:</strong> <span class="text-green-700 dark:text-green-300">Macadamia Nut Sauce Pancakes (LEGENDARY)</span></p>
+                                <p><strong>Quick Take:</strong> People fly to Hawaii just for dis sauce! Rich, sweet, nutty - pure heaven on fluffy pancakes. Get here early or be ready for wait.</p>
+                            </div>
                         </div>
-                        <div class="space-y-2 text-gray-700">
-                            <p><strong><i class="ti ti-map-pin"></i> Address:</strong> 1020 Keolu Dr, Kailua, HI 96734</p>
-                            <p><strong><i class="ti ti-device-mobile"></i> Phone:</strong> <a href="tel:+18082634929" class="text-blue-600 hover:underline">(808) 263-4929</a></p>
-                            <p><strong><i class="ti ti-clock"></i> Hours:</strong> Daily 7am-2pm</p>
+                        <div class="grid sm:grid-cols-2 gap-4 mb-6 text-gray-900 dark:text-slate-300 font-bold">
+                            <p class="flex items-center gap-2"><i class="ti ti-map-pin text-green-500"></i> 1020 Keolu Dr, Kailua</p>
+                            <p class="flex items-center gap-2 col-span-full"><i class="ti ti-clock text-green-500"></i> Daily 7am-2pm</p>
                         </div>
-                        <div class="mt-4 flex flex-wrap gap-3">
-                            <a href="https://www.google.com/maps/place/Boots+%26+Kimo's" target="_blank" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">
-                                <i class="ti ti-map-pin"></i> Get Directions
-                            </a>
-                        </div>
-                        <p class="text-sm text-gray-500 mt-3">
-                            <strong>Pro Tip:</strong> In Enchanted Lake area of Kailua. Small parking lot, so might need park on street. Weekend waits can be 45+ minutes but dey take your number so you can walk around. Order da pancakes - no think twice!
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Haleiwa Joe's Haiku Gardens -->
-            <div class="restaurant-card bg-white rounded-lg shadow-lg p-6 mb-8">
-                <div class="flex flex-col md:flex-row gap-6">
-                    <div class="md:w-1/3">
-                        <div class="bg-gray-200 rounded-lg h-48 flex items-center justify-center">
-                            <span class="text-4xl"><i class="ti ti-flower"></i></span>
-                        </div>
-                    </div>
-                    <div class="md:w-2/3">
-                        <h3 class="text-3xl font-bold text-gray-800 mb-2">Haleiwa Joe's At Haiku Gardens</h3>
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="rating-stars text-xl">★★★★★</span>
-                            <span class="text-gray-600">(4.6 Stars)</span>
-                        </div>
-                        <div class="bg-green-50 border-l-4 border-green-500 p-4 mb-4 rounded">
-                            <p class="font-bold text-green-800 mb-2"><i class="ti ti-tools-kitchen-2"></i> The Choke Pidgin Review:</p>
-                            <p class="text-gray-700 mb-2">
-                                <strong>Must-Try:</strong> Prime Rib (Fri-Sun), Fresh catch of da day<br>
-                                <strong>The Vibe:</strong> STUNNING garden setting, romantic but still casual<br>
-                                <strong>Quick Take:</strong> Ho brah, da setting here going blow your mind! Surrounded by lush gardens wit koi pond, mountains in da background - pure magic, especially sunset time. Da food match da views: quality seafood, tender prime rib, solid cocktails. Perfect for anniversaries, special occasions, or when you like impress somebody. Little pricey but you paying for da experience.
-                            </p>
-                        </div>
-                        <div class="space-y-2 text-gray-700">
-                            <p><strong><i class="ti ti-map-pin"></i> Address:</strong> 46-336 Haiku Rd, Kaneohe, HI 96744</p>
-                            <p><strong><i class="ti ti-device-mobile"></i> Phone:</strong> <a href="tel:+18082476671" class="text-blue-600 hover:underline">(808) 247-6671</a></p>
-                            <p><strong><i class="ti ti-clock"></i> Hours:</strong> Mon-Thu 5pm-8:30pm, Fri-Sun 4:30pm-8:30pm</p>
-                        </div>
-                        <div class="mt-4 flex flex-wrap gap-3">
-                            <a href="https://www.google.com/maps/place/Haleiwa+Joe's+at+Haiku+Gardens" target="_blank" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">
-                                <i class="ti ti-map-pin"></i> Get Directions
-                            </a>
-                            <a href="https://www.haleiwajoes.com/haiku-gardens" target="_blank" class="bg-gray-600 text-white px-6 py-2 rounded-full hover:bg-gray-700 transition">
-                                <i class="ti ti-world"></i> Website
-                            </a>
-                        </div>
-                        <p class="text-sm text-gray-500 mt-3">
-                            <strong>Pro Tip:</strong> MAKE RESERVATIONS! Especially for sunset time. Tucked away in Haiku Valley - GPS might get confused, just follow da signs for Haiku Gardens. Dress code casual but no slippahs.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Kalapawai Market -->
-            <div class="restaurant-card bg-white rounded-lg shadow-lg p-6 mb-8">
-                <div class="flex flex-col md:flex-row gap-6">
-                    <div class="md:w-1/3">
-                        <div class="bg-gray-200 rounded-lg h-48 flex items-center justify-center">
-                            <span class="text-4xl">☕</span>
-                        </div>
-                    </div>
-                    <div class="md:w-2/3">
-                        <h3 class="text-3xl font-bold text-gray-800 mb-2">Kalapawai Market</h3>
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="rating-stars text-xl">★★★★½</span>
-                            <span class="text-gray-600">(4.5 Stars)</span>
-                        </div>
-                        <div class="bg-green-50 border-l-4 border-green-500 p-4 mb-4 rounded">
-                            <p class="font-bold text-green-800 mb-2"><i class="ti ti-tools-kitchen-2"></i> The Choke Pidgin Review:</p>
-                            <p class="text-gray-700 mb-2">
-                                <strong>Must-Try:</strong> Breakfast sandwiches, Fresh pastries, Iced coffee<br>
-                                <strong>The Vibe:</strong> Historic landmark building, deli/cafe/market combo, super local<br>
-                                <strong>Quick Take:</strong> Dis one Kailua institution since 1932, brah! Part market, part deli, part gathering spot for da community. Da breakfast sandwiches stay solid, coffee stay good, and da vibe stay authentic beach town Hawaii. Perfect for grab-and-go before hitting Kailua Beach. Outdoor seating stay nice for people watching. Not fancy, just good food in historical spot.
-                            </p>
-                        </div>
-                        <div class="space-y-2 text-gray-700">
-                            <p><strong><i class="ti ti-map-pin"></i> Address:</strong> 306 S Kalaheo Ave, Kailua, HI 96734</p>
-                            <p><strong><i class="ti ti-device-mobile"></i> Phone:</strong> <a href="tel:+18082622312" class="text-blue-600 hover:underline">(808) 262-2312</a></p>
-                            <p><strong><i class="ti ti-clock"></i> Hours:</strong> Daily 6am-9pm</p>
-                        </div>
-                        <div class="mt-4 flex flex-wrap gap-3">
-                            <a href="https://www.google.com/maps/place/Kalapawai+Market" target="_blank" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">
-                                <i class="ti ti-map-pin"></i> Get Directions
-                            </a>
-                            <a href="https://kalapawaimarket.com" target="_blank" class="bg-gray-600 text-white px-6 py-2 rounded-full hover:bg-gray-700 transition">
-                                <i class="ti ti-world"></i> Website
-                            </a>
-                        </div>
-                        <p class="text-sm text-gray-500 mt-3">
-                            <strong>Pro Tip:</strong> Right in downtown Kailua, easy walking distance from da beach. Limited parking in front, but plenty street parking nearby. Cash and card accepted. Get there early for best pastry selection!
-                        </p>
                     </div>
                 </div>
             </div>
@@ -602,144 +444,41 @@
 
         <!-- LEEWARD / CENTRAL -->
         <section id="leeward" class="mb-20">
-            <div class="bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg p-8 mb-8">
-                <h2 class="text-4xl font-bold mb-3">
-                    <i class="ti ti-sunrise"></i> Leeward & Central O'ahu Grinds
+            <div class="bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-3xl p-8 md:p-12 mb-10 shadow-2xl relative overflow-hidden">
+                <div class="absolute right-0 bottom-0 opacity-10 text-9xl -mb-10 -mr-10 rotate-12"><i class="ti ti-sunrise"></i></div>
+                <h2 class="text-3xl md:text-5xl font-black mb-4 relative z-10">
+                    Leeward & Central Grinds
                 </h2>
-                <p class="text-xl mb-4">Ko Olina, Kapolei, Pearl Harbor - Where West Side Meets Quality</p>
-                <p class="text-lg opacity-90">
-                    Da Leeward and Central regions get da best of both worlds: family-friendly spots near resorts and local
-                    restaurants dat serve da community. From farm-to-table dining to waterfront views near Pearl Harbor, dis
-                    area stay growing fast wit quality spots dat keep both tourists and locals happy.
-                </p>
-                <div class="bg-purple-700 mt-4 p-4 rounded-lg">
-                    <p class="font-bold mb-1"><i class="ti ti-bulb"></i> Local Tip:</p>
-                    <p>Traffic can be brutal during rush hour if you coming from Town. Try go during off-peak times, or make it part of West Side beach day. Ko Olina area get resort prices, but Kapolei proper get more local spots wit better value!</p>
-                </div>
+                <p class="text-xl md:text-2xl mb-6 font-bold text-purple-100 relative z-10">Ko Olina, Kapolei, Pearl Harbor</p>
             </div>
 
             <!-- Monkeypod Kitchen -->
-            <div class="restaurant-card bg-white rounded-lg shadow-lg p-6 mb-8">
-                <div class="flex flex-col md:flex-row gap-6">
+            <div class="restaurant-card bg-white dark:bg-slate-900 rounded-3xl shadow-xl p-8 mb-8 border dark:border-slate-800">
+                <div class="flex flex-col md:flex-row gap-8">
                     <div class="md:w-1/3">
-                        <div class="bg-gray-200 rounded-lg h-48 flex items-center justify-center">
-                            <span class="text-4xl">🍹</span>
+                        <div class="bg-purple-50 dark:bg-slate-800 rounded-2xl h-64 flex items-center justify-center border dark:border-slate-700 shadow-inner">
+                            <span class="text-6xl text-purple-600">🍹</span>
                         </div>
                     </div>
                     <div class="md:w-2/3">
-                        <h3 class="text-3xl font-bold text-gray-800 mb-2">Monkeypod Kitchen by Merriman</h3>
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="rating-stars text-xl">★★★★☆</span>
-                            <span class="text-gray-600">(4.4 Stars)</span>
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-3xl font-black text-gray-900 dark:text-white">Monkeypod Kitchen</h3>
+                            <div class="flex flex-col items-end">
+                                <span class="rating-stars text-2xl">★★★★☆</span>
+                                <span class="text-gray-500 dark:text-slate-400 font-bold text-sm">4.4 Stars</span>
+                            </div>
                         </div>
-                        <div class="bg-purple-50 border-l-4 border-purple-500 p-4 mb-4 rounded">
-                            <p class="font-bold text-purple-800 mb-2"><i class="ti ti-tools-kitchen-2"></i> The Choke Pidgin Review:</p>
-                            <p class="text-gray-700 mb-2">
-                                <strong>Must-Try:</strong> Monkeypod Mai Tai, Fresh fish tacos, Wood-fired pizza<br>
-                                <strong>The Vibe:</strong> Upscale casual, open-air dining, farm-to-table philosophy<br>
-                                <strong>Quick Take:</strong> Chef Peter Merriman one Hawaii legend, and dis spot show why. Farm-to-table done right wit locally sourced ingredients, creative menu, and drinks dat going change your life. Da Mai Tai stay FAMOUS - made wit fresh juice, no mix. Good for pau hana drinks, family dinners, or special occasions. Little pricey but portions stay generous and quality stay consistent.
-                            </p>
+                        <div class="bg-purple-50 dark:bg-purple-900/10 border-l-8 border-purple-500 p-6 mb-6 rounded-r-2xl border dark:border-slate-800">
+                            <p class="font-black text-purple-800 dark:text-purple-400 mb-2 uppercase tracking-widest text-xs flex items-center gap-2"><i class="ti ti-tools-kitchen-2"></i> The Choke Pidgin Review</p>
+                            <div class="text-gray-900 dark:text-slate-200 font-medium leading-relaxed">
+                                <p class="mb-3"><strong>Must-Try:</strong> <span class="text-purple-700 dark:text-purple-300">Monkeypod Mai Tai, Fish tacos, Wood-fired pizza</span></p>
+                                <p><strong>Quick Take:</strong> Farm-to-table done right! Locally sourced ingredients and drinks dat going change your life. Da Mai Tai stay FAMOUS - made wit fresh juice.</p>
+                            </div>
                         </div>
-                        <div class="space-y-2 text-gray-700">
-                            <p><strong><i class="ti ti-map-pin"></i> Address:</strong> 92-1048 Olani St, Kapolei, HI 96707</p>
-                            <p><strong><i class="ti ti-device-mobile"></i> Phone:</strong> <a href="tel:+18083802411" class="text-blue-600 hover:underline">(808) 380-2411</a></p>
-                            <p><strong><i class="ti ti-clock"></i> Hours:</strong> Daily 11am-10pm</p>
+                        <div class="grid sm:grid-cols-2 gap-4 mb-6 text-gray-900 dark:text-slate-300 font-bold">
+                            <p class="flex items-center gap-2"><i class="ti ti-map-pin text-purple-500"></i> Kapolei & Ko Olina</p>
+                            <p class="flex items-center gap-2 col-span-full"><i class="ti ti-clock text-purple-500"></i> Daily 11am-10pm</p>
                         </div>
-                        <div class="mt-4 flex flex-wrap gap-3">
-                            <a href="https://www.google.com/maps/place/Monkeypod+Kitchen+Kapolei" target="_blank" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">
-                                <i class="ti ti-map-pin"></i> Get Directions
-                            </a>
-                            <a href="https://www.monkeypodkitchen.com" target="_blank" class="bg-gray-600 text-white px-6 py-2 rounded-full hover:bg-gray-700 transition">
-                                <i class="ti ti-world"></i> Website
-                            </a>
-                        </div>
-                        <p class="text-sm text-gray-500 mt-3">
-                            <strong>Pro Tip:</strong> In Ko Olina area near da resorts. Happy hour (3-5:30pm) stay awesome value - discounted drinks and pupus. Can get busy, so reservations recommended for dinner. Parking stay in da shopping center.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Moani Island Bistro -->
-            <div class="restaurant-card bg-white rounded-lg shadow-lg p-6 mb-8">
-                <div class="flex flex-col md:flex-row gap-6">
-                    <div class="md:w-1/3">
-                        <div class="bg-gray-200 rounded-lg h-48 flex items-center justify-center">
-                            <span class="text-4xl">🍛</span>
-                        </div>
-                    </div>
-                    <div class="md:w-2/3">
-                        <h3 class="text-3xl font-bold text-gray-800 mb-2">Moani Island Bistro and Bar</h3>
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="rating-stars text-xl">★★★★½</span>
-                            <span class="text-gray-600">(4.5 Stars)</span>
-                        </div>
-                        <div class="bg-purple-50 border-l-4 border-purple-500 p-4 mb-4 rounded">
-                            <p class="font-bold text-purple-800 mb-2"><i class="ti ti-tools-kitchen-2"></i> The Choke Pidgin Review:</p>
-                            <p class="text-gray-700 mb-2">
-                                <strong>Must-Try:</strong> Curry dishes, Island-style burgers, Craft cocktails<br>
-                                <strong>The Vibe:</strong> Modern island bistro, locally-owned, welcoming atmosphere<br>
-                                <strong>Quick Take:</strong> Dis one locally-owned gem dat elevate island comfort food wit modern twist. Da curry dishes stay bomb - rich, flavorful, served wit rice. Burgers stay juicy wit creative toppings. Good wine and cocktail selection. Da kind of spot locals go for date night or special dinner wit family. Service stay attentive, vibe stay relaxed but polished.
-                            </p>
-                        </div>
-                        <div class="space-y-2 text-gray-700">
-                            <p><strong><i class="ti ti-map-pin"></i> Address:</strong> 91-5431 Kapolei Pkwy #1001, Kapolei, HI 96707</p>
-                            <p><strong><i class="ti ti-device-mobile"></i> Phone:</strong> <a href="tel:+18086742800" class="text-blue-600 hover:underline">(808) 674-2800</a></p>
-                            <p><strong><i class="ti ti-clock"></i> Hours:</strong> Mon-Sat 11am-9pm, Sun 10am-8pm</p>
-                        </div>
-                        <div class="mt-4 flex flex-wrap gap-3">
-                            <a href="https://www.google.com/maps/place/Moani+Island+Bistro" target="_blank" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">
-                                <i class="ti ti-map-pin"></i> Get Directions
-                            </a>
-                            <a href="https://www.moaniislandbistro.com" target="_blank" class="bg-gray-600 text-white px-6 py-2 rounded-full hover:bg-gray-700 transition">
-                                <i class="ti ti-world"></i> Website
-                            </a>
-                        </div>
-                        <p class="text-sm text-gray-500 mt-3">
-                            <strong>Pro Tip:</strong> In Kapolei Commons shopping center. Plenty parking. Reservations recommended for weekends. Check their specials - always get something unique going on!
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Restaurant 604 -->
-            <div class="restaurant-card bg-white rounded-lg shadow-lg p-6 mb-8">
-                <div class="flex flex-col md:flex-row gap-6">
-                    <div class="md:w-1/3">
-                        <div class="bg-gray-200 rounded-lg h-48 flex items-center justify-center">
-                            <span class="text-4xl"><i class="ti ti-ripple"></i></span>
-                        </div>
-                    </div>
-                    <div class="md:w-2/3">
-                        <h3 class="text-3xl font-bold text-gray-800 mb-2">Restaurant 604</h3>
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="rating-stars text-xl">★★★★☆</span>
-                            <span class="text-gray-600">(4.4 Stars)</span>
-                        </div>
-                        <div class="bg-purple-50 border-l-4 border-purple-500 p-4 mb-4 rounded">
-                            <p class="font-bold text-purple-800 mb-2"><i class="ti ti-tools-kitchen-2"></i> The Choke Pidgin Review:</p>
-                            <p class="text-gray-700 mb-2">
-                                <strong>Must-Try:</strong> Fresh fish plates, Island burgers, Waterfront views<br>
-                                <strong>The Vibe:</strong> Laid-back bar & grill, waterfront setting, military-friendly<br>
-                                <strong>Quick Take:</strong> Right by Pearl Harbor, dis spot stay perfect for casual lunch or dinner wit killer waterfront views. Menu stay straightforward - good burgers, fresh fish, local-style plates - nothing fancy but everything stay solid. Da view make it special, especially sunset time. Good spot if you visiting USS Arizona Memorial and need feed da family after. Prices stay reasonable for da location.
-                            </p>
-                        </div>
-                        <div class="space-y-2 text-gray-700">
-                            <p><strong><i class="ti ti-map-pin"></i> Address:</strong> 57 Arizona Memorial Dr #108, Honolulu, HI 96818</p>
-                            <p><strong><i class="ti ti-device-mobile"></i> Phone:</strong> <a href="tel:+18084229294" class="text-blue-600 hover:underline">(808) 422-9294</a></p>
-                            <p><strong><i class="ti ti-clock"></i> Hours:</strong> Mon-Thu 11am-8pm, Fri-Sat 11am-9pm, Sun 10am-8pm</p>
-                        </div>
-                        <div class="mt-4 flex flex-wrap gap-3">
-                            <a href="https://www.google.com/maps/place/Restaurant+604" target="_blank" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">
-                                <i class="ti ti-map-pin"></i> Get Directions
-                            </a>
-                            <a href="https://www.restaurant604.com" target="_blank" class="bg-gray-600 text-white px-6 py-2 rounded-full hover:bg-gray-700 transition">
-                                <i class="ti ti-world"></i> Website
-                            </a>
-                        </div>
-                        <p class="text-sm text-gray-500 mt-3">
-                            <strong>Pro Tip:</strong> Easy access from H-1, right by Pearl Harbor Visitor Center. Parking can fill up during peak tourist hours. Request outdoor seating for da best water views. Military discount available!
-                        </p>
                     </div>
                 </div>
             </div>
@@ -747,40 +486,27 @@
 
     </main>
 
-    <!-- Conclusion & Community Engagement -->
-    <section class="bg-gradient-to-r from-orange-600 to-red-600 text-white py-16">
-        <div class="container mx-auto px-4 max-w-4xl">
-            <h2 class="text-4xl font-bold text-center mb-6">
+    <!-- Conclusion -->
+    <section class="bg-gradient-to-r from-orange-600 to-red-600 text-white py-16 md:py-24 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute -top-10 -left-10 text-9xl rotate-12"><i class="ti ti-sparkles"></i></div>
+            <div class="absolute -bottom-10 -right-10 text-9xl -rotate-12"><i class="ti ti-rocket"></i></div>
+        </div>
+        <div class="container mx-auto px-4 max-w-4xl relative z-10 text-center">
+            <h2 class="text-4xl md:text-6xl font-black mb-8 leading-tight">
                 Shoots! You Ready to Eat! <i class="ti ti-hand-love-you"></i>
             </h2>
-            <div class="text-center max-w-2xl mx-auto">
-                <p class="text-xl mb-6">
-                    Dis guide just scratching da surface of O'ahu's amazing food scene. Every spot here been tested and approved
-                    by locals who know their grinds. Now go out there and eat!
+            <div class="max-w-2xl mx-auto">
+                <p class="text-xl md:text-2xl mb-12 font-medium opacity-95">
+                    Dis guide just scratching da surface of O'ahu's amazing food scene. Now go out there and eat!
                 </p>
-                <div class="bg-orange-700 rounded-lg p-6 mb-8">
-                    <h3 class="text-2xl font-bold mb-3"><i class="ti ti-note"></i> Did We Miss Your Favorite Spot?</h3>
-                    <p class="text-lg mb-4">
-                        Eh, we know get choke more ono places we never cover yet! If you get one hidden gem you like share,
-                        or you think we should add another spot to da list, let us know!
-                    </p>
-                    <a href="ask-local.html" class="inline-block bg-white text-orange-600 px-8 py-3 rounded-full font-bold hover:bg-orange-50 transition">
-                        Share Your Favorite Spot
+                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                    <a href="ask-local.html" class="w-full sm:w-auto bg-white text-orange-600 px-10 py-4 rounded-2xl font-black text-xl hover:scale-105 transition-transform shadow-xl">
+                        Share Your Spot
                     </a>
-                </div>
-                <div class="border-t-2 border-orange-400 pt-6">
-                    <h3 class="text-2xl font-bold mb-3"><i class="ti ti-palm-tree"></i> Share Dis Guide! <i class="ti ti-palm-tree"></i></h3>
-                    <p class="text-lg mb-4">
-                        Know somebody coming visit O'ahu? Share dis page wit your friends and ohana who stay hungry!
-                    </p>
-                    <div class="flex flex-wrap justify-center gap-3">
-                        <button id="share-guide-btn" class="bg-white text-orange-600 px-6 py-3 rounded-full font-bold hover:bg-orange-50 transition">
-                            <i class="ti ti-device-mobile"></i> Share This Guide
-                        </button>
-                        <a href="/" class="bg-orange-800 text-white px-6 py-3 rounded-full font-bold hover:bg-orange-900 transition border-2 border-white">
-                            <i class="ti ti-flower"></i> Back to Home
-                        </a>
-                    </div>
+                    <a href="/" class="w-full sm:w-auto bg-orange-800 text-white px-10 py-4 rounded-2xl font-black text-xl hover:scale-105 transition-transform border-2 border-white/30 shadow-xl">
+                        Back to Home
+                    </a>
                 </div>
             </div>
         </div>
