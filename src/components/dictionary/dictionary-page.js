@@ -363,18 +363,18 @@ function displayResults(entries, append = false) {
 
             ${masteryHtml}
 
-            <p class="text-gray-800 dark:text-slate-200 mb-3 font-semibold leading-relaxed">${escapedEnglish}</p>
+            <p class="text-gray-900 dark:text-white mb-3 font-bold leading-relaxed">${escapedEnglish}</p>
 
             ${escapedExample ? `
             <div class="mb-4">
-                <p class="text-sm text-gray-700 dark:text-slate-400 italic">"${escapedExample}"</p>
+                <p class="text-sm text-gray-800 dark:text-slate-200 italic font-medium">"${escapedExample}"</p>
             </div>
             ` : ''}
 
             ${escapedPronunciation ? `
-            <div class="mb-4 bg-yellow-50 dark:bg-yellow-900/10 rounded-lg p-3 border border-yellow-100/50 dark:border-yellow-900/20">
-                <div class="text-xs text-yellow-800 dark:text-yellow-500 font-bold mb-1 uppercase tracking-wider">Pronunciation:</div>
-                <div class="text-sm text-yellow-700 dark:text-yellow-200/90 font-medium">${escapedPronunciation}</div>
+            <div class="mb-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-3 border border-yellow-200 dark:border-yellow-700/50">
+                <div class="text-xs text-yellow-900 dark:text-yellow-400 font-black mb-1 uppercase tracking-wider">Pronunciation:</div>
+                <div class="text-sm text-yellow-800 dark:text-yellow-100 font-bold">${escapedPronunciation}</div>
             </div>
             ` : ''}
 
