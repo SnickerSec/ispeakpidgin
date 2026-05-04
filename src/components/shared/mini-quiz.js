@@ -69,7 +69,7 @@ class MiniQuiz {
 
         this.container.innerHTML = `
             <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-xl border-2 border-blue-100 dark:border-blue-900/30 relative overflow-hidden transition-all duration-500" id="mini-quiz-card">
-                <div class="absolute top-0 right-0 p-3 opacity-10">
+                <div class="absolute top-0 right-0 p-3 opacity-20">
                     <i class="ti ti-bulb text-6xl text-blue-600 dark:text-blue-400"></i>
                 </div>
                 
