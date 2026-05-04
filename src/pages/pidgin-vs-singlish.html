@@ -43,19 +43,23 @@
     </style>
 </head>
 
-<body class="min-h-screen bg-gray-50">
+<body class="min-h-screen bg-gray-50 dark:bg-slate-950 transition-colors duration-300">
     <!-- NAVIGATION_PLACEHOLDER -->
 
     <!-- Hero Section -->
-    <section class="hero-gradient py-20 px-4 text-white">
-        <div class="max-w-4xl mx-auto text-center">
-            <h1 class="text-5xl md:text-7xl font-bold mb-6">
+    <section class="hero-gradient py-12 md:py-24 px-4 text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-10 left-10 text-6xl rotate-12"><i class="ti ti-beach"></i></div>
+            <div class="absolute bottom-10 right-10 text-6xl -rotate-12"><i class="ti ti-building-skyscraper"></i></div>
+        </div>
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h1 class="text-4xl md:text-7xl font-black mb-6 drop-shadow-lg">
                 "Can or Wat?" vs. "Can or Not?"
             </h1>
-            <p class="text-2xl md:text-3xl text-white/90 mb-8 font-bold">
-                Hawaiian Pidgin <span class="px-2">⚡</span> Singaporean Singlish
+            <p class="text-xl md:text-3xl text-white mb-8 font-bold flex items-center justify-center gap-3">
+                Hawaiian Pidgin <span class="text-yellow-400">⚡</span> Singaporean Singlish
             </p>
-            <p class="text-lg text-white/80 max-w-2xl mx-auto">
+            <p class="text-lg md:text-xl text-white/90 max-w-2xl mx-auto font-medium">
                 Two islands, separated by 8,000 miles, speaking surprisingly similar languages. Discover why Hawaii and Singapore are "same same but different."
             </p>
         </div>
@@ -66,16 +70,16 @@
 
         <!-- Quick Summary -->
         <section class="mb-16">
-            <div class="bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row">
-                <div class="md:w-1/2 p-8 md:p-12 bg-green-50 border-r border-green-100">
-                    <h2 class="text-3xl font-bold text-green-800 mb-4">The Parallel</h2>
-                    <p class="text-lg text-gray-700 leading-relaxed">
+            <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row border dark:border-slate-800">
+                <div class="md:w-1/2 p-8 md:p-12 bg-green-50 dark:bg-green-900/10 border-r border-green-100 dark:border-slate-800">
+                    <h2 class="text-3xl font-black text-green-800 dark:text-green-400 mb-4">The Parallel</h2>
+                    <p class="text-lg text-gray-900 dark:text-slate-200 leading-relaxed font-medium">
                         Both **Hawaiian Pidgin** and **Singlish** are English-based creole languages born from a "melting pot" environment. Whether it was the sugar plantations of Hawaii or the trading port of Singapore, immigrant workers needed a common way to talk—and they built something beautiful.
                     </p>
                 </div>
                 <div class="md:w-1/2 p-8 md:p-12">
-                    <h2 class="text-3xl font-bold text-red-800 mb-4">The Secret</h2>
-                    <p class="text-lg text-gray-700 leading-relaxed">
+                    <h2 class="text-3xl font-black text-red-800 dark:text-red-400 mb-4">The Secret</h2>
+                    <p class="text-lg text-gray-900 dark:text-slate-200 leading-relaxed font-medium">
                         If a local from Hawaii and a local from Singapore met, they would understand each other better than either would understand a tourist from London or New York. The rhythm, the shortcuts, and the "can-do" attitude are identical.
                     </p>
                 </div>
@@ -84,109 +88,117 @@
 
         <!-- Vocabulary Showdown -->
         <section class="mb-16">
-            <h2 class="text-4xl font-bold text-gray-800 mb-10 text-center">Vocabulary Showdown</h2>
+            <h2 class="text-3xl md:text-5xl font-black text-gray-900 dark:text-white mb-10 text-center">Vocabulary Showdown</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Row 1 -->
-                <div class="bg-white p-6 rounded-2xl shadow-md border-t-4 border-red-500">
-                    <div class="text-sm font-bold text-gray-400 mb-2">SCENARIO: DELICIOUS FOOD</div>
-                    <div class="flex justify-between mb-2">
-                        <span class="font-bold text-green-600">Ono / Broke da mouth</span>
-                        <span class="text-gray-300">vs</span>
-                        <span class="font-bold text-red-600">Shiok!</span>
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-md border-t-4 border-red-500 dark:border-red-600 border dark:border-slate-800">
+                    <div class="text-xs font-black text-gray-500 dark:text-slate-500 mb-2 uppercase tracking-widest">Scenario: Delicious Food</div>
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="font-bold text-green-600 dark:text-green-400 text-lg">Ono / Broke da mouth</span>
+                        <span class="text-gray-400 font-black italic">vs</span>
+                        <span class="font-bold text-red-600 dark:text-red-400 text-lg">Shiok!</span>
                     </div>
-                    <p class="text-sm text-gray-600 italic">Both express peak satisfaction after a good meal.</p>
+                    <p class="text-sm text-gray-800 dark:text-slate-300 italic font-medium">Both express peak satisfaction after a good meal.</p>
                 </div>
 
-                <div class="bg-white p-6 rounded-2xl shadow-md border-t-4 border-green-500">
-                    <div class="text-sm font-bold text-gray-400 mb-2">SCENARIO: NOSY PEOPLE</div>
-                    <div class="flex justify-between mb-2">
-                        <span class="font-bold text-green-600">Niele</span>
-                        <span class="text-gray-300">vs</span>
-                        <span class="font-bold text-red-600">Kaypoh</span>
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-md border-t-4 border-green-500 dark:border-green-600 border dark:border-slate-800">
+                    <div class="text-xs font-black text-gray-500 dark:text-slate-500 mb-2 uppercase tracking-widest">Scenario: Nosy People</div>
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="font-bold text-green-600 dark:text-green-400 text-lg">Niele</span>
+                        <span class="text-gray-400 font-black italic">vs</span>
+                        <span class="font-bold text-red-600 dark:text-red-400 text-lg">Kaypoh</span>
                     </div>
-                    <p class="text-sm text-gray-600 italic">Don't be niele/kaypoh, mind your own business!</p>
+                    <p class="text-sm text-gray-800 dark:text-slate-300 italic font-medium">Don't be niele/kaypoh, mind your own business!</p>
                 </div>
 
-                <div class="bg-white p-6 rounded-2xl shadow-md border-t-4 border-red-500">
-                    <div class="text-sm font-bold text-gray-400 mb-2">SCENARIO: IS IT POSSIBLE?</div>
-                    <div class="flex justify-between mb-2">
-                        <span class="font-bold text-green-600">Can or wat?</span>
-                        <span class="text-gray-300">vs</span>
-                        <span class="font-bold text-red-600">Can or not?</span>
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-md border-t-4 border-red-500 dark:border-red-600 border dark:border-slate-800">
+                    <div class="text-xs font-black text-gray-500 dark:text-slate-500 mb-2 uppercase tracking-widest">Scenario: Is it possible?</div>
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="font-bold text-green-600 dark:text-green-400 text-lg">Can or wat?</span>
+                        <span class="text-gray-400 font-black italic">vs</span>
+                        <span class="font-bold text-red-600 dark:text-red-400 text-lg">Can or not?</span>
                     </div>
-                    <p class="text-sm text-gray-600 italic">The ultimate island question structure.</p>
+                    <p class="text-sm text-gray-800 dark:text-slate-300 italic font-medium">The ultimate island question structure.</p>
                 </div>
 
                 <!-- Row 2 -->
-                <div class="bg-white p-6 rounded-2xl shadow-md border-t-4 border-green-500">
-                    <div class="text-sm font-bold text-gray-400 mb-2">SCENARIO: ALREADY DONE</div>
-                    <div class="flex justify-between mb-2">
-                        <span class="font-bold text-green-600">Pau already</span>
-                        <span class="text-gray-300">vs</span>
-                        <span class="font-bold text-red-600">Done liao</span>
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-md border-t-4 border-green-500 dark:border-green-600 border dark:border-slate-800">
+                    <div class="text-xs font-black text-gray-500 dark:text-slate-500 mb-2 uppercase tracking-widest">Scenario: Already Done</div>
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="font-bold text-green-600 dark:text-green-400 text-lg">Pau already</span>
+                        <span class="text-gray-400 font-black italic">vs</span>
+                        <span class="font-bold text-red-600 dark:text-red-400 text-lg">Done liao</span>
                     </div>
-                    <p class="text-sm text-gray-600 italic">Marking completion at the end of a sentence.</p>
+                    <p class="text-sm text-gray-800 dark:text-slate-300 italic font-medium">Marking completion at the end of a sentence.</p>
                 </div>
 
-                <div class="bg-white p-6 rounded-2xl shadow-md border-t-4 border-red-500">
-                    <div class="text-sm font-bold text-gray-400 mb-2">SCENARIO: MISTAKES</div>
-                    <div class="flex justify-between mb-2">
-                        <span class="font-bold text-green-600">Aiyah! / Aisus!</span>
-                        <span class="text-gray-300">vs</span>
-                        <span class="font-bold text-red-600">Alamak!</span>
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-md border-t-4 border-red-500 dark:border-red-600 border dark:border-slate-800">
+                    <div class="text-xs font-black text-gray-500 dark:text-slate-500 mb-2 uppercase tracking-widest">Scenario: Mistakes</div>
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="font-bold text-green-600 dark:text-green-400 text-lg">Aiyah! / Aisus!</span>
+                        <span class="text-gray-400 font-black italic">vs</span>
+                        <span class="font-bold text-red-600 dark:text-red-400 text-lg">Alamak!</span>
                     </div>
-                    <p class="text-sm text-gray-600 italic">Exclamations of shock or frustration.</p>
+                    <p class="text-sm text-gray-800 dark:text-slate-300 italic font-medium">Exclamations of shock or frustration.</p>
                 </div>
 
-                <div class="bg-white p-6 rounded-2xl shadow-md border-t-4 border-green-500">
-                    <div class="text-sm font-bold text-gray-400 mb-2">SCENARIO: COOL/RELIABLE</div>
-                    <div class="flex justify-between mb-2">
-                        <span class="font-bold text-green-600">Steady</span>
-                        <span class="text-gray-300">vs</span>
-                        <span class="font-bold text-red-600">Steady pom pi pi</span>
+                <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-md border-t-4 border-green-500 dark:border-green-600 border dark:border-slate-800">
+                    <div class="text-xs font-black text-gray-500 dark:text-slate-500 mb-2 uppercase tracking-widest">Scenario: Cool/Reliable</div>
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="font-bold text-green-600 dark:text-green-400 text-lg">Steady</span>
+                        <span class="text-gray-400 font-black italic">vs</span>
+                        <span class="font-bold text-red-600 dark:text-red-400 text-lg">Steady pom pi pi</span>
                     </div>
-                    <p class="text-sm text-gray-600 italic">One of the few words used identically in both!</p>
+                    <p class="text-sm text-gray-800 dark:text-slate-300 italic font-medium">One of the few words used identically in both!</p>
                 </div>
             </div>
         </section>
 
         <!-- Grammar Parallels -->
-        <section class="mb-16 bg-gradient-to-br from-gray-900 to-indigo-900 rounded-3xl p-8 md:p-12 text-white">
-            <h2 class="text-3xl font-bold mb-8">Grammar Parallels</h2>
+        <section class="mb-16 bg-gradient-to-br from-slate-900 to-indigo-950 rounded-3xl p-8 md:p-12 text-white border dark:border-slate-800 shadow-2xl">
+            <h2 class="text-3xl md:text-4xl font-black mb-8">Grammar Parallels</h2>
             
             <div class="grid md:grid-cols-2 gap-12">
-                <div class="space-y-6">
+                <div class="space-y-8">
                     <div>
-                        <h3 class="text-xl font-bold text-green-400 mb-2">1. Dropping the "Is/Am/Are"</h3>
-                        <p class="text-gray-300">Both languages love efficiency. Why use many word when few word do trick?</p>
-                        <div class="mt-3 flex gap-4">
-                            <div class="flex-1 p-3 bg-white/10 rounded-lg"><span class="text-xs block text-white/50">HI PIDGIN</span>"He stay late"</div>
-                            <div class="flex-1 p-3 bg-white/10 rounded-lg"><span class="text-xs block text-white/50">SINGLISH</span>"He late already"</div>
+                        <h3 class="text-xl font-bold text-green-400 mb-3 flex items-center gap-2">
+                            <i class="ti ti-circle-number-1 text-2xl"></i> Dropping the "Is/Am/Are"
+                        </h3>
+                        <p class="text-slate-300 font-medium leading-relaxed">Both languages love efficiency. Why use many word when few word do trick?</p>
+                        <div class="mt-4 flex gap-4">
+                            <div class="flex-1 p-3 bg-white/5 border border-white/10 rounded-lg"><span class="text-xs font-black block text-white/40 uppercase mb-1">HI Pidgin</span><span class="font-bold text-green-300">"He stay late"</span></div>
+                            <div class="flex-1 p-3 bg-white/5 border border-white/10 rounded-lg"><span class="text-xs font-black block text-white/40 uppercase mb-1">Singlish</span><span class="font-bold text-red-300">"He late already"</span></div>
                         </div>
                     </div>
 
                     <div>
-                        <h3 class="text-xl font-bold text-green-400 mb-2">2. Subject Dropping</h3>
-                        <p class="text-gray-300">If we both know who we're talking about, why say the name?</p>
-                        <div class="mt-3 flex gap-4">
-                            <div class="flex-1 p-3 bg-white/10 rounded-lg"><span class="text-xs block text-white/50">HI PIDGIN</span>"Going beach."</div>
-                            <div class="flex-1 p-3 bg-white/10 rounded-lg"><span class="text-xs block text-white/50">SINGLISH</span>"Go beach lor."</div>
+                        <h3 class="text-xl font-bold text-green-400 mb-3 flex items-center gap-2">
+                            <i class="ti ti-circle-number-2 text-2xl"></i> Subject Dropping
+                        </h3>
+                        <p class="text-slate-300 font-medium leading-relaxed">If we both know who we're talking about, why say the name?</p>
+                        <div class="mt-4 flex gap-4">
+                            <div class="flex-1 p-3 bg-white/5 border border-white/10 rounded-lg"><span class="text-xs font-black block text-white/40 uppercase mb-1">HI Pidgin</span><span class="font-bold text-green-300">"Going beach."</span></div>
+                            <div class="flex-1 p-3 bg-white/5 border border-white/10 rounded-lg"><span class="text-xs font-black block text-white/40 uppercase mb-1">Singlish</span><span class="font-bold text-red-300">"Go beach lor."</span></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="space-y-6">
+                <div class="space-y-8">
                     <div>
-                        <h3 class="text-xl font-bold text-red-400 mb-2">3. Tone as Punctuation</h3>
-                        <p class="text-gray-300">In both cultures, a rising inflection at the end turns any statement into a question.</p>
-                        <div class="mt-3 p-4 bg-white/5 border border-white/10 rounded-xl italic">
+                        <h3 class="text-xl font-bold text-red-400 mb-3 flex items-center gap-2">
+                            <i class="ti ti-circle-number-3 text-2xl"></i> Tone as Punctuation
+                        </h3>
+                        <p class="text-slate-300 font-medium leading-relaxed">In both cultures, a rising inflection at the end turns any statement into a question.</p>
+                        <div class="mt-4 p-4 bg-white/5 border border-white/10 rounded-xl italic font-bold text-center text-lg">
                             "You like eat?" vs. "You want eat?"
                         </div>
                     </div>
 
                     <div>
-                        <h3 class="text-xl font-bold text-red-400 mb-2">4. Loanword Addiction</h3>
-                        <p class="text-gray-300">Singlish borrows from Malay, Hokkien, and Tamil. Hawaiian Pidgin borrows from Hawaiian, Japanese, and Portuguese. The *way* they borrow and "Pidgin-ize" these words is identical.</p>
+                        <h3 class="text-xl font-bold text-red-400 mb-3 flex items-center gap-2">
+                            <i class="ti ti-circle-number-4 text-2xl"></i> Loanword Addiction
+                        </h3>
+                        <p class="text-slate-300 font-medium leading-relaxed">Singlish borrows from Malay, Hokkien, and Tamil. Hawaiian Pidgin borrows from Hawaiian, Japanese, and Portuguese. The *way* they borrow and "Pidgin-ize" these words is identical.</p>
                     </div>
                 </div>
             </div>
@@ -194,31 +206,37 @@
 
         <!-- Why the Connection? -->
         <section class="mb-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Why do they sound so similar?</h2>
-            <div class="prose prose-lg max-w-4xl mx-auto text-gray-700">
+            <h2 class="text-3xl font-black text-gray-900 dark:text-white mb-6 text-center">Why do they sound so similar?</h2>
+            <div class="max-w-4xl mx-auto text-gray-900 dark:text-slate-200 text-lg space-y-6 font-medium leading-relaxed">
                 <p>
-                    The similarity isn't an accident. Hawaii and Singapore share a history of <strong>rapid multiculturalism</strong>. In the 19th and 20th centuries, both islands became hubs for global trade and labor. 
+                    The similarity isn't an accident. Hawaii and Singapore share a history of <strong class="text-purple-600 dark:text-purple-400">rapid multiculturalism</strong>. In the 19th and 20th centuries, both islands became hubs for global trade and labor. 
                 </p>
                 <p>
-                    When you put people who speak Cantonese, Portuguese, Malay, Japanese, and English in a small space and tell them to work together, they develop a "simplified" common language. Over generations, these simplifications become a <strong>Creole</strong>—a full language with its own internal logic.
+                    When you put people who speak Cantonese, Portuguese, Malay, Japanese, and English in a small space and tell them to work together, they develop a "simplified" common language. Over generations, these simplifications become a <strong class="text-green-600 dark:text-green-400">Creole</strong>—a full language with its own internal logic.
                 </p>
                 <p>
-                    Today, both Hawaiian Pidgin and Singlish are marks of <strong>cultural pride</strong>. They signify that you belong to the island and understand its complicated, beautiful history.
+                    Today, both Hawaiian Pidgin and Singlish are marks of <strong class="text-red-600 dark:text-red-400">cultural pride</strong>. They signify that you belong to the island and understand its complicated, beautiful history.
                 </p>
             </div>
         </section>
 
         <!-- CTA Section -->
-        <section class="bg-gradient-to-r from-green-600 to-red-600 text-white p-12 rounded-3xl text-center shadow-2xl">
-            <h2 class="text-4xl font-bold mb-6">Want to master the HI side?</h2>
-            <p class="text-xl mb-8 opacity-90">If you know Singlish, you're already 50% of the way to being a Pidgin pro. Let's finish the job.</p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="/translator.html" class="bg-white text-green-700 px-10 py-4 rounded-full font-black text-xl hover:bg-green-50 transition shadow-lg">
-                    Try The Translator
-                </a>
-                <a href="/dictionary.html" class="bg-white text-red-700 px-10 py-4 rounded-full font-black text-xl hover:bg-red-50 transition shadow-lg">
-                    Browse Dictionary
-                </a>
+        <section class="bg-gradient-to-r from-green-600 to-red-600 text-white p-8 md:p-16 rounded-3xl text-center shadow-2xl relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10">
+                <div class="absolute -top-10 -left-10 text-9xl rotate-12"><i class="ti ti-sparkles"></i></div>
+                <div class="absolute -bottom-10 -right-10 text-9xl -rotate-12"><i class="ti ti-rocket"></i></div>
+            </div>
+            <div class="relative z-10">
+                <h2 class="text-3xl md:text-5xl font-black mb-6">Want to master the HI side?</h2>
+                <p class="text-xl md:text-2xl mb-10 text-white font-medium max-w-2xl mx-auto">If you know Singlish, you're already 50% of the way to being a Pidgin pro. Let's finish the job.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="/translator.html" class="w-full sm:w-auto bg-white text-green-700 px-10 py-4 rounded-2xl font-black text-xl hover:scale-105 transition-transform shadow-lg flex items-center justify-center gap-2">
+                        <i class="ti ti-sparkles"></i> Try AI Translator
+                    </a>
+                    <a href="/dictionary.html" class="w-full sm:w-auto bg-white text-red-700 px-10 py-4 rounded-2xl font-black text-xl hover:scale-105 transition-transform shadow-lg flex items-center justify-center gap-2">
+                        <i class="ti ti-book"></i> Browse Dictionary
+                    </a>
+                </div>
             </div>
         </section>
 
