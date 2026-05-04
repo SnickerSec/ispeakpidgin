@@ -261,21 +261,11 @@ nav {
     transition: all 0.3s ease;
 }
 
-.phrase-card:hover::before {
-    transform: rotate(0deg) scale(1.3);
-    opacity: 0.15;
-}
-
-.phrase-card:hover::after {
-    transform: rotate(0deg) scale(1.1);
-    opacity: 0.08;
-}
+/* Removed phrase-card hover decorations */
 
 .phrase-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(30, 107, 168, 0.2);
-    border-color: #ffb347;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 251, 235, 0.1));
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
 /* Daily phrase animation */
