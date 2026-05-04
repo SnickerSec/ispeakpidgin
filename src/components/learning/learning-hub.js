@@ -190,21 +190,23 @@ class LearningHub {
                 lessonCard.innerHTML = `
                     <div class="flex justify-between items-start mb-3">
                         <div class="flex-1">
-                            <h4 class="font-semibold text-lg mb-1">${escapeHtml(lesson.title)}</h4>
-                            <p class="text-gray-600 text-sm">${escapeHtml(lesson.description)}</p>
+                            <h4 class="font-bold text-lg mb-1 text-gray-900 dark:text-white">${escapeHtml(lesson.title)}</h4>
+                            <p class="text-gray-800 dark:text-slate-300 text-sm leading-relaxed">${escapeHtml(lesson.description)}</p>
                         </div>
                         <div class="ml-4 text-right">
                             ${isCompleted ?
-                                '<span class="text-green-500 text-2xl">✓</span>' :
+                                '<span class="text-green-600 dark:text-green-400 text-2xl font-bold">✓</span>' :
                                 isLocked ?
-                                '<span class="text-gray-400 text-2xl"><i class="ti ti-lock"></i></span>' :
-                                '<span class="text-gray-400 text-2xl">○</span>'
+                                '<span class="text-gray-400 dark:text-slate-500 text-2xl"><i class="ti ti-lock"></i></span>' :
+                                '<span class="text-gray-400 dark:text-slate-500 text-2xl">○</span>'
                             }
                         </div>
                     </div>
-                    <div class="flex justify-between items-center text-sm">
-                        <span class="text-gray-500"><i class="ti ti-stopwatch"></i> ${lesson.duration}</span>
-                        <span class="text-gray-500">+${lesson.points} points</span>
+                    <div class="flex justify-between items-center text-sm font-semibold">
+                        <span class="text-gray-700 dark:text-slate-400 flex items-center gap-1">
+                            <i class="ti ti-stopwatch text-base"></i> ${lesson.duration}
+                        </span>
+                        <span class="text-blue-700 dark:text-blue-400 font-bold">+${lesson.points} points</span>
                     </div>
                 `;
 
