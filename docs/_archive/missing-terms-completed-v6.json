@@ -1,0 +1,47 @@
+{
+  "generated": "2026-05-08T06:47:14.525Z",
+  "count": 5,
+  "missing": [
+    {
+      "pidgin": "fakamean",
+      "english": [
+        "what the fuck does that mean",
+        "you're kidding",
+        "what do you mean"
+      ],
+      "category": "slang"
+    },
+    {
+      "pidgin": "goin",
+      "english": [
+        "going to",
+        "will"
+      ],
+      "category": "general"
+    },
+    {
+      "pidgin": "nene goose",
+      "english": [
+        "Hawaiian goose",
+        "state bird of Hawaii"
+      ],
+      "category": "general"
+    },
+    {
+      "pidgin": "pau pau",
+      "english": [
+        "completely finished",
+        "all done"
+      ],
+      "category": "general"
+    },
+    {
+      "pidgin": "errbody",
+      "english": [
+        "everybody",
+        "everyone"
+      ],
+      "category": "general"
+    }
+  ]
+}
