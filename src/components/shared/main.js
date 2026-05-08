@@ -1,5 +1,16 @@
 // Main JavaScript file for Pidgin Pal
 
+// Utility to escape HTML and prevent XSS
+function escapeHtml(text) {
+    if (!text) return '';
+    return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
 // Performance: Pause animations when tab is hidden (saves battery/CPU)
 document.addEventListener('visibilitychange', function() {
     const isPaused = document.hidden;
@@ -419,7 +430,7 @@ function initTranslator() {
                 suggestionsEl.innerHTML = `
                     <div class="text-sm font-semibold text-blue-800 mb-2"><i class="ti ti-bulb"></i> Suggestions:</div>
                     ${result.suggestions.map(suggestion =>
-                        `<div class="text-sm text-blue-700 mb-1">• ${suggestion}</div>`
+                        `<div class="text-sm text-blue-700 mb-1">• ${escapeHtml(suggestion)}</div>`
                     ).join('')}
                 `;
                 translatorOutput.appendChild(suggestionsEl);
@@ -650,8 +661,8 @@ function initLearningHub() {
         modalContent.innerHTML = `
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-3xl font-bold text-gray-800 dark:text-white">
-                    <span class="text-4xl mr-3">${lesson.icon}</span>
-                    ${lesson.title}
+                    <span class="text-4xl mr-3">${escapeHtml(lesson.icon)}</span>
+                    ${escapeHtml(lesson.title)}
                 </h2>
                 <button class="close-modal text-gray-500 hover:text-gray-700 dark:text-slate-400 dark:hover:text-white text-3xl">&times;</button>
             </div>
@@ -662,10 +673,10 @@ function initLearningHub() {
                     ${lesson.content.vocabulary.map(item => `
                         <div class="bg-gray-50 dark:bg-slate-900 rounded-lg p-4 border dark:border-slate-700">
                             <div class="flex justify-between items-start mb-2">
-                                <span class="text-lg font-bold text-gray-800 dark:text-white">${item.pidgin}</span>
-                                <span class="text-gray-600 dark:text-slate-400">${item.english}</span>
+                                <span class="text-lg font-bold text-gray-800 dark:text-white">${escapeHtml(item.pidgin)}</span>
+                                <span class="text-gray-600 dark:text-slate-400">${escapeHtml(item.english)}</span>
                             </div>
-                            <p class="text-gray-700 dark:text-slate-300 italic">"${item.example}"</p>
+                            <p class="text-gray-700 dark:text-slate-300 italic">"${escapeHtml(item.example)}"</p>
                         </div>
                     `).join('')}
                 </div>
@@ -673,12 +684,12 @@ function initLearningHub() {
 
             <div class="mb-6 bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 border dark:border-blue-800/50">
                 <h3 class="text-lg font-bold mb-2 text-blue-800 dark:text-blue-400">Cultural Note</h3>
-                <p class="text-gray-700 dark:text-slate-300">${lesson.content.culturalNote}</p>
+                <p class="text-gray-700 dark:text-slate-300">${escapeHtml(lesson.content.culturalNote)}</p>
             </div>
 
             <div class="mb-6 bg-green-50 dark:bg-green-900/20 rounded-lg p-4 border dark:border-green-800/50">
                 <h3 class="text-lg font-bold mb-2 text-green-800 dark:text-green-400">Practice</h3>
-                <p class="text-gray-700 dark:text-slate-300">${lesson.content.practice}</p>
+                <p class="text-gray-700 dark:text-slate-300">${escapeHtml(lesson.content.practice)}</p>
             </div>
 
             <button class="quiz-btn bg-green-500 text-white px-6 py-3 rounded-full hover:bg-green-600 transition" data-level="${level}" data-lesson-id="${lesson.id}">
@@ -854,11 +865,11 @@ function initLearningHub() {
             quizContent.innerHTML = `
                 <div class="mb-6">
                     <h3 class="text-xl font-bold mb-2 dark:text-white">Question ${currentQuestion + 1} of ${questions.length}</h3>
-                    <p class="text-lg mb-4 dark:text-slate-200">${q.question}</p>
+                    <p class="text-lg mb-4 dark:text-slate-200">${escapeHtml(q.question)}</p>
                     <div class="space-y-2">
                         ${q.options.map((option, index) => `
                             <button class="quiz-option w-full text-left p-4 bg-gray-50 dark:bg-slate-900 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition border dark:border-slate-700 dark:text-slate-200" data-index="${index}">
-                                ${option}
+                                ${escapeHtml(option)}
                             </button>
                         `).join('')}
                     </div>
@@ -894,7 +905,7 @@ function initLearningHub() {
                         ${percentage}%
                     </p>
                     <p class="text-lg mb-6">You got ${score} out of ${questions.length} questions correct!</p>
-                    <p class="text-md mb-6 text-gray-600">This quiz tested your knowledge of: <strong>${lesson.title}</strong></p>
+                    <p class="text-md mb-6 text-gray-600">This quiz tested your knowledge of: <strong>${escapeHtml(lesson.title)}</strong></p>
                     <div class="space-y-3">
                         <button id="try-another-quiz" class="bg-green-500 text-white px-6 py-3 rounded-full hover:bg-green-600 transition">
                             Try This Quiz Again
@@ -985,12 +996,12 @@ function initLearningHub() {
             quizContent.innerHTML = `
                 <div class="mb-6">
                     <p class="text-lg font-semibold mb-2">Question ${currentQuestion + 1} of ${questions.length}</p>
-                    <p class="text-sm text-gray-600 mb-4">Lesson: ${lesson.title}</p>
-                    <p class="text-xl mb-6">${q.question}</p>
+                    <p class="text-sm text-gray-600 mb-4">Lesson: ${escapeHtml(lesson.title)}</p>
+                    <p class="text-xl mb-6">${escapeHtml(q.question)}</p>
                     <div class="space-y-3">
                         ${q.options.map((option, index) => `
                             <button class="quiz-option w-full text-left p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition" data-index="${index}">
-                                ${option}
+                                ${escapeHtml(option)}
                             </button>
                         `).join('')}
                     </div>
@@ -1022,7 +1033,7 @@ function initLearningHub() {
             quizContent.innerHTML = `
                 <div class="text-center">
                     <h3 class="text-2xl font-bold mb-4">Quiz Complete!</h3>
-                    <p class="text-sm text-gray-600 mb-2">Lesson: ${lesson.title}</p>
+                    <p class="text-sm text-gray-600 mb-2">Lesson: ${escapeHtml(lesson.title)}</p>
                     <p class="text-4xl font-bold mb-4 ${percentage >= 70 ? 'text-green-600' : 'text-orange-600'}">
                         ${percentage}%
                     </p>
@@ -1123,7 +1134,7 @@ function showFullStory(storyId) {
                 <div class="flex justify-between items-start">
                     <div>
                         <span class="text-4xl mb-2 block"><i class="ti ti-book"></i></span>
-                        <h2 class="text-3xl font-bold mb-2">${story.title}</h2>
+                        <h2 class="text-3xl font-bold mb-2">${escapeHtml(story.title)}</h2>
                         <p class="text-orange-100 text-lg">Hawaiian Pidgin Short Story</p>
                     </div>
                     <button class="close-modal text-white hover:text-orange-200 text-3xl font-bold transition">×</button>
@@ -1133,7 +1144,7 @@ function showFullStory(storyId) {
             <!-- Story Content -->
             <div class="p-8">
                 <div class="prose prose-lg max-w-none">
-                    <div class="text-gray-800 dark:text-slate-200 leading-relaxed text-lg whitespace-pre-line">${story.pidginText}</div>
+                    <div class="text-gray-800 dark:text-slate-200 leading-relaxed text-lg whitespace-pre-line">${escapeHtml(story.pidginText)}</div>
                 </div>
             </div>
 
@@ -1219,8 +1230,8 @@ function showAllStories() {
         article.dataset.story = storyId;
 
         article.innerHTML = `
-            <h4 class="text-lg font-bold mb-2">${story.title}</h4>
-            <p class="text-gray-700 mb-2 italic">${story.preview}</p>
+            <h4 class="text-lg font-bold mb-2">${escapeHtml(story.title)}</h4>
+            <p class="text-gray-700 mb-2 italic">${escapeHtml(story.preview)}</p>
             <button class="read-more-btn text-green-600 hover:underline">Read More →</button>
         `;
 
@@ -1308,8 +1319,8 @@ async function initStoryCorner() {
             <div class="mb-4">
                 <span class="text-3xl dark:text-orange-400"><i class="ti ti-book"></i></span>
             </div>
-            <h4 class="text-xl font-bold text-gray-800 dark:text-white mb-2">${story.title}</h4>
-            <p class="text-gray-600 dark:text-slate-400 italic line-clamp-3">${preview}</p>
+            <h4 class="text-xl font-bold text-gray-800 dark:text-white mb-2">${escapeHtml(story.title)}</h4>
+            <p class="text-gray-600 dark:text-slate-400 italic line-clamp-3">${escapeHtml(preview)}</p>
             <button class="mt-4 text-green-600 dark:text-green-400 font-semibold hover:text-green-700 transition">
                 Read Story →
             </button>
@@ -1360,7 +1371,7 @@ function showStoryModal(story) {
                 <div class="flex justify-between items-start">
                     <div>
                         <span class="text-4xl mb-2 block"><i class="ti ti-books"></i></span>
-                        <h2 class="text-3xl font-bold mb-2">${story.title || 'Hawaiian Pidgin Story'}</h2>
+                        <h2 class="text-3xl font-bold mb-2">${escapeHtml(story.title || 'Hawaiian Pidgin Story')}</h2>
                         <p class="text-green-100 text-lg">Pidgin Story Corner</p>
                     </div>
                     <button class="close-modal text-white hover:text-green-200 text-3xl font-bold transition">×</button>
@@ -1370,7 +1381,7 @@ function showStoryModal(story) {
             <!-- Story Content -->
             <div class="p-8">
                 <div class="prose prose-lg max-w-none">
-                    <div class="text-gray-800 dark:text-slate-200 leading-relaxed text-lg whitespace-pre-line">${storyContent}</div>
+                    <div class="text-gray-800 dark:text-slate-200 leading-relaxed text-lg whitespace-pre-line">${escapeHtml(storyContent)}</div>
                 </div>
 
                 <!-- Story Actions -->

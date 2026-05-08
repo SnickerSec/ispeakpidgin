@@ -320,7 +320,7 @@ class PidginSpeed {
         allWords.slice(0, 20).forEach(word => {
             const item = document.createElement('div');
             item.className = `flex justify-between p-2 rounded ${word.correct ? 'bg-green-50' : 'bg-red-50'}`;
-            item.innerHTML = `<span><strong>${word.pidgin}</strong>: ${word.english}</span><span class="${word.correct ? 'text-green-600' : 'text-red-600'}"><i class="ti ti-${word.correct ? 'check' : 'x'}"></i></span>`;
+            item.innerHTML = `<span><strong>${this.escapeHtml(word.pidgin)}</strong>: ${this.escapeHtml(word.english)}</span><span class="${word.correct ? 'text-green-600' : 'text-red-600'}"><i class="ti ti-${word.correct ? 'check' : 'x'}"></i></span>`;
             reviewList.appendChild(item);
         });
         this.updateStatsDisplay();

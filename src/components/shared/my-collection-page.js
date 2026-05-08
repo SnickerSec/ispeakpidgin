@@ -144,8 +144,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="text-3xl mb-2 group-hover:scale-110 transition duration-300">
                     ${badgeIcons[badge.id] || '🏅'}
                 </div>
-                <div class="text-[10px] font-black text-gray-900 uppercase tracking-tighter mb-1">${badge.name}</div>
-                <div class="text-[9px] text-gray-500 leading-tight">${badge.description}</div>
+                <div class="text-[10px] font-black text-gray-900 uppercase tracking-tighter mb-1">${escapeHtml(badge.name)}</div>
+                <div class="text-[9px] text-gray-500 leading-tight">${escapeHtml(badge.description)}</div>
             </div>
         `).join('');
     };
@@ -178,9 +178,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         container.innerHTML = favorites.map(entry => {
-            const pidgin = entry.pidgin;
-            const english = Array.isArray(entry.english) ? entry.english[0] : entry.english;
-            const slug = pidgin.toLowerCase()
+            const pidgin = escapeHtml(entry.pidgin);
+            const english = escapeHtml(Array.isArray(entry.english) ? entry.english[0] : entry.english);
+            const slug = entry.pidgin.toLowerCase()
                 .replace(/['ʻ`‘’]/g, '')
                 .replace(/[^a-z0-9]+/g, '-')
                 .replace(/^-|-$/g, '');
@@ -188,8 +188,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return `
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition group">
                     <div class="flex justify-between items-start mb-4">
-                        <span class="text-xs font-bold text-blue-500 uppercase tracking-widest">${entry.category || 'general'}</span>
-                        <button onclick="window.favoritesManager.toggleFavorite('${pidgin}')" class="text-red-500 hover:scale-110 transition">
+                        <span class="text-xs font-bold text-blue-500 uppercase tracking-widest">${escapeHtml(entry.category || 'general')}</span>
+                        <button onclick="window.favoritesManager.toggleFavorite('${escapeHtml(entry.pidgin)}')" class="text-red-500 hover:scale-110 transition">
                             <i class="ti ti-heart-filled text-xl"></i>
                         </button>
                     </div>

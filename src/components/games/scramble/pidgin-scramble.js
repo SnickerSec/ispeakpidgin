@@ -266,7 +266,7 @@ class PidginScramble {
             this.showToast('Nice one, brah!');
         } else {
             this.streak = 0;
-            feedback.innerHTML = `<div class="text-red-600 font-bold text-lg"><i class="ti ti-x"></i> The word was: <span class="text-violet-700">${this.currentWord.pidgin}</span></div>`;
+            feedback.innerHTML = `<div class="text-red-600 font-bold text-lg"><i class="ti ti-x"></i> The word was: <span class="text-violet-700">${this.escapeHtml(this.currentWord.pidgin)}</span></div>`;
             document.querySelectorAll('.answer-slot').forEach(s => {
                 s.classList.add('border-red-400', 'text-red-600', 'bg-red-50');
             });
@@ -295,7 +295,7 @@ class PidginScramble {
         this.streak = 0;
         const feedback = document.getElementById('result-feedback');
         feedback.classList.remove('hidden');
-        feedback.innerHTML = `<div class="text-gray-600 font-bold">Skipped! The word was: <span class="text-violet-700">${this.currentWord.pidgin}</span></div>`;
+        feedback.innerHTML = `<div class="text-gray-600 font-bold">Skipped! The word was: <span class="text-violet-700">${this.escapeHtml(this.currentWord.pidgin)}</span></div>`;
         document.getElementById('streak-display').textContent = this.streak;
         setTimeout(() => this.nextRound(), 1500);
     }
