@@ -175,7 +175,7 @@ module.exports = function(supabase, dictionaryLimiter, translationLimiter) {
             const activityContext = activityContexts[activityKey] || activityContexts.grindz;
 
             const prompt = `Generate ONE SHORT, punchy Hawaiian Pidgin pickup line for a ${styleLabel} about "${locationName}"...`;
-            const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
+            const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${apiKey}`;
 
             const geminiResponse = await fetch(geminiUrl, {
                 method: 'POST',
@@ -250,7 +250,7 @@ RESPONSE FORMAT (JSON only):
 
 Generate ONE original pickup line now.`;
 
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${apiKey}`;
             const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -321,7 +321,7 @@ Provide 3 variations in JSON format:
   ]
 }`;
 
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${apiKey}`;
             const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
