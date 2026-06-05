@@ -281,7 +281,7 @@ CRITICAL RULES:
 
 ${vocabularySection}`;
 
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${apiKey}`;
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
 
                 const response = await fetch(apiUrl, {
                     method: 'POST',
@@ -324,7 +324,7 @@ ${vocabularySection}`;
                     }).catch(err => console.error('Translation cache save failed:', err));
                 }
 
-                res.json({ originalText: text, translatedText: translation, direction: transDirection, model: 'gemini-3.1-flash-lite', cached: false });
+                res.json({ originalText: text, translatedText: translation, direction: transDirection, model: 'gemini-2.5-flash-lite', cached: false });
             } catch (error) {
                 console.error('Gemini Translation error:', error);
                 res.status(500).json({ error: 'Translation service error' });
