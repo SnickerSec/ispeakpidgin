@@ -77,19 +77,26 @@ body {
 .dark :where(.text-gray-900):not([class*="dark:text-"]) { color: #f1f5f9; } /* slate-100 */
 
 /*
- * Exception: intentionally LIGHT colored pastel callout boxes (e.g.
- * bg-green-50 "Quick Answer", bg-yellow-50 tips) are NOT darkened, so the
- * gray text inside them must stay dark to remain readable. Ancestor
- * selector raises specificity above the :where() defaults above.
+ * Exception: intentionally LIGHT colored pastel boxes (solid bg-*-50 callouts
+ * AND light gradient boxes built from from-*-50/100 / to-*-50/100 stops) are
+ * NOT darkened, so the gray text inside them must stay dark to remain
+ * readable. Ancestor selector raises specificity above the :where() defaults.
  *
  * NOTE: neutral .bg-gray-50 / .bg-gray-100 are deliberately EXCLUDED here —
  * they're used as full-page body/section wrappers that render dark (the
  * body gradient wins), so their descendants must follow the light default.
+ * Saturated gradient stops (-500 etc.) are also excluded; only -50/-100.
  */
 .dark :is(
     .bg-yellow-50, .bg-amber-50, .bg-orange-50, .bg-red-50,
     .bg-green-50, .bg-emerald-50, .bg-teal-50,
-    .bg-blue-50, .bg-indigo-50, .bg-purple-50, .bg-pink-50
+    .bg-blue-50, .bg-indigo-50, .bg-purple-50, .bg-pink-50,
+    /* light gradient boxes: from-/to- stop at the -50 or -100 level only.
+       Anchored to end-of-attribute or followed-by-space so -500 etc. never match. */
+    [class*="from-"][class$="-50"],  [class*="from-"][class*="-50 "],
+    [class*="from-"][class$="-100"], [class*="from-"][class*="-100 "],
+    [class*="to-"][class$="-50"],    [class*="to-"][class*="-50 "],
+    [class*="to-"][class$="-100"],   [class*="to-"][class*="-100 "]
 ) :where(.text-gray-500, .text-gray-600, .text-gray-700, .text-gray-800, .text-gray-900):not([class*="dark:text-"]) {
     color: #374151; /* gray-700 — readable on light pastel */
 }

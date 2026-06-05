@@ -190,6 +190,17 @@
             border-color: #a16207;
         }
 
+        /*
+         * In dark mode the cards switch to dark saturated gradients, but the
+         * card text (rendered in JS) uses light-theme text-gray-* utilities
+         * with no dark: variant. Lighten it so it stays readable on the dark
+         * card backgrounds. Scoped to .pickup-card so nothing else is affected.
+         */
+        .dark .pickup-card .text-gray-800 { color: #f8fafc; }
+        .dark .pickup-card .text-gray-700 { color: #e2e8f0; }
+        .dark .pickup-card .text-gray-600 { color: #cbd5e1; }
+        .dark .pickup-card .text-purple-500 { color: #c4b5fd; }
+
         .shuffle-btn {
             transition: all 0.3s ease;
         }
