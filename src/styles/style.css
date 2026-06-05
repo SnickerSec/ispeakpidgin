@@ -50,9 +50,8 @@ body {
 }
 
 /* Ensure cards and articles use the themed card background */
-.dark article, 
+.dark article,
 .dark .bg-white,
-.dark .bg-gray-50,
 .dark .lesson-card,
 .dark .quiz-card {
     background: var(--card-bg);
