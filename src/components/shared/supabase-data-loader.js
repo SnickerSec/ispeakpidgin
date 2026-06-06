@@ -246,8 +246,14 @@ class SupabaseDataLoader {
             return this.getAllEntries();
         }
 
+        let normalizedTerm = term.toLowerCase().trim();
+        // Map common search misspellings/variations
+        if (normalizedTerm === 'kakua' || normalizedTerm === 'kakua kakua') {
+            normalizedTerm = 'kokua';
+        }
+
         // Use local fuzzy search for instant results
-        return this.fuzzySearch(term);
+        return this.fuzzySearch(normalizedTerm);
     }
 
     // Get all entries

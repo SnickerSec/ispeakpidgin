@@ -94,11 +94,17 @@ async function main() {
 
         // Helper for normalization (remove accents/okinas for comparison)
         const normalize = (txt) => {
-            return txt.toLowerCase()
+            let normalized = txt.toLowerCase()
                 .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
                 .replace(/['ʻ`‘’]/g, '')
                 .replace(/\s+/g, '') // Remove spaces for comparison
                 .trim();
+            
+            // Map common misspellings/variations
+            if (normalized === 'kakua' || normalized === 'kakuakakua') {
+                normalized = 'kokua';
+            }
+            return normalized;
         };
 
         const normalizedExisting = new Set();

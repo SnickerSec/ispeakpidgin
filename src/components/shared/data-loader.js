@@ -165,7 +165,12 @@ class PidginDataLoader {
     // Enhanced search with index support and fuzzy fallback
     search(term) {
         if (!term) return [];
-        const searchTerm = term.toLowerCase().trim();
+        let searchTerm = term.toLowerCase().trim();
+
+        // Map common search misspellings/variations
+        if (searchTerm === 'kakua' || searchTerm === 'kakua kakua') {
+            searchTerm = 'kokua';
+        }
 
         // 1. Try search index first (fastest)
         if (this.searchIndex && this.searchIndex.terms) {

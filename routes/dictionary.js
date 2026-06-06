@@ -241,7 +241,13 @@ module.exports = function(supabase, dictionaryLimiter, dictionaryCache, semantic
         try {
             const { q, limit = 20 } = req.query;
 
-            const searchTerm = q.toLowerCase().replace(/[%_\\{},.()"']/g, '');
+            let searchTerm = q.toLowerCase().replace(/[%_\\{},.()"']/g, '');
+            
+            // Map common search misspellings/variations
+            if (searchTerm === 'kakua' || searchTerm === 'kakua kakua') {
+                searchTerm = 'kokua';
+            }
+            
             const searchLimit = limit;
 
             // 1. Try traditional keyword search first
