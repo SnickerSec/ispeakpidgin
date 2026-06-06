@@ -66,3 +66,6 @@ server/
 tests/
 
 google-search-console-key.json
+
+# Auto-generated validation run reports (timestamped artifacts)
+docs/validation-report-*.json
