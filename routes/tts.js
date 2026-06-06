@@ -4,11 +4,11 @@ const { body, validationResult } = require('express-validator');
 const crypto = require('crypto');
 
 /**
- * Translation Routes (TTS via ElevenLabs)
+ * Text-to-Speech Routes (ElevenLabs, with Supabase audio cache)
  */
-module.exports = function(translationLimiter, dictionaryCache, supabase) {
+module.exports = function(translationLimiter, supabase) {
 
-    // POST /api/translate/text-to-speech
+    // POST /api/text-to-speech
     router.post('/text-to-speech',
         translationLimiter,
         [

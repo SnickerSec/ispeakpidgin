@@ -15,7 +15,7 @@ const adminAuth = require('./middleware/admin-auth');
 
 // Route imports
 const dictionaryRoutes = require('./routes/dictionary');
-const translateRoutes = require('./routes/translate');
+const ttsRoutes = require('./routes/tts');
 const contentRoutes = require('./routes/content');
 const gamesRoutes = require('./routes/games');
 const pickupRoutes = require('./routes/pickup');
@@ -272,12 +272,11 @@ app.use('/api/admin/login', adminLoginLimiter);
 app.use('/api/admin', adminActionLimiter);
 
 // Mount modular routes
-const translateRouter = translateRoutes(translationLimiter, dictionaryCache, supabaseAdmin);
-app.use('/api/translate', translateRouter);
-// Legacy frontend path (frontend uses /api/text-to-speech)
+const ttsRouter = ttsRoutes(translationLimiter, supabaseAdmin);
+// Frontend uses /api/text-to-speech
 app.post('/api/text-to-speech', translationLimiter, (req, res, next) => {
     req.url = '/text-to-speech';
-    translateRouter(req, res, next);
+    ttsRouter(req, res, next);
 });
 app.use('/api/dictionary', dictionaryRoutes(supabase, dictionaryLimiter, dictionaryCache, semanticSearchLimiter));
 app.use('/api', contentRoutes(supabase, dictionaryLimiter));
