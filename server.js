@@ -340,7 +340,9 @@ const spellingRedirects = {
     'cholips': 'cho-cho-lips',
     'chocholips': 'cho-cho-lips',
     'mempachi': 'menpachi',
-    'mempachi-eyes': 'menpachi-eyes'
+    'mempachi-eyes': 'menpachi-eyes',
+    'kakua': 'kokua',
+    'kakua-kakua': 'kokua'
 };
 
 // SEO: Spelling Variant Redirects for Words
