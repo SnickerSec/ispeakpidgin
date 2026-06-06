@@ -41,6 +41,7 @@ const premiumPages = {
     'choke': 'what-does-choke-mean.html',
     'mahalo': 'what-does-mahalo-mean.html',
     'no worry': 'what-does-no-worry-mean.html',
+    'sarap': 'what-does-sarap-mean.html',
     'talk story': 'what-does-talk-story-mean.html',
     'ainokea': 'what-does-ainokea-mean.html',
     'buss up': 'what-does-buss-up-mean.html',
