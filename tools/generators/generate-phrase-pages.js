@@ -30,35 +30,6 @@ const { generateOgImage } = require('./og-image-generator');
 const outputDir = path.join(__dirname, '../../public/phrase');
 const ogOutputDir = path.join(__dirname, '../../public/assets/og/phrases');
 
-// Map of words/phrases that have high-quality, dedicated landing pages
-const premiumPages = {
-    'akamai': 'what-does-akamai-mean.html',
-    'aloha': 'what-does-aloha-mean.html',
-    'howzit': 'what-does-howzit-mean.html',
-    'menpachi eyes': 'what-does-menpachi-eyes-mean.html',
-    'mempachi eyes': 'what-does-menpachi-eyes-mean.html',
-    'stop da menpachi eye': 'what-does-menpachi-eyes-mean.html',
-    'stop da mempachi eye': 'what-does-menpachi-eyes-mean.html',
-    'no ka oi': 'what-does-no-ka-oi-mean.html',
-    'pau': 'what-does-pau-mean.html',
-    'choke': 'what-does-choke-mean.html',
-    'mahalo': 'what-does-mahalo-mean.html',
-    'no worry': 'what-does-no-worry-mean.html',
-    'talk story': 'what-does-talk-story-mean.html',
-    'ainokea': 'what-does-ainokea-mean.html',
-    'buss up': 'what-does-buss-up-mean.html',
-    'amped': 'what-does-amped-mean.html',
-    'bline': 'what-does-bline-mean.html',
-    'bruddah': 'what-does-bruddah-mean.html',
-    'sistah': 'what-does-sistah-mean.html',
-    'moopuna': 'what-does-moopuna-mean.html',
-    'niele': 'what-does-niele-mean.html',
-    'pilau': 'what-does-pilau-mean.html',
-    'kanak attack': 'what-does-kanak-attack-mean.html',
-    'you da man': 'what-does-you-da-man-mean.html',
-    'you da best': 'what-does-you-da-man-mean.html'
-};
-
 // Create output directory
 if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
