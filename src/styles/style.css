@@ -58,6 +58,17 @@ body {
 }
 
 /*
+ * Exception to the above: white PILL buttons (rounded-full) sit on saturated
+ * colored gradient banners as CTAs and carry colored label text. The
+ * card-darkening above would turn them into dark pills, leaving that colored
+ * text low-contrast. Keep these pills white so their labels stay readable.
+ * rounded-full distinguishes them from content cards (rounded-xl/2xl).
+ */
+.dark .bg-white.rounded-full {
+    background: #ffffff;
+}
+
+/*
  * Dark-theme readability safety net for legacy light-theme markup.
  * Many pages (and JS card templates) were written with hardcoded
  * text-gray-* utilities and no dark: variants. On the always-dark site

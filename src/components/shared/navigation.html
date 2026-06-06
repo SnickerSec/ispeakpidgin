@@ -4,7 +4,7 @@
         <div class="flex justify-between items-center h-16">
             <!-- Brand/Logo -->
             <div class="flex items-center">
-                <a href="/" class="flex items-center gap-2">
+                <a href="/" class="flex items-center gap-2" aria-label="ChokePidgin home">
                     <span class="brand-font text-2xl bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent flex items-center gap-1">
                         <i class="ti ti-palm-tree"></i> <span class="hidden sm:inline">ChokePidgin</span>
                     </span>
@@ -13,8 +13,8 @@
 
             <!-- Desktop Navigation -->
             <div class="hidden lg:flex space-x-1 items-center">
-                <a href="/" class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-green-600 dark:hover:text-green-400 font-medium transition flex items-center gap-1" title="Home">
-                    <i class="ti ti-home text-lg"></i>
+                <a href="/" class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-green-600 dark:hover:text-green-400 font-medium transition flex items-center gap-1" title="Home" aria-label="Home">
+                    <i class="ti ti-home text-lg" aria-hidden="true"></i>
                 </a>
 
                 <!-- Tools Dropdown -->
@@ -185,12 +185,12 @@
                 <div class="auth-nav-container"></div>
 
                 <!-- Search Button (Trigger) -->
-                <button id="nav-search-btn" class="p-2 text-gray-600 dark:text-gray-300 hover:text-green-600 transition-colors rounded-full hover:bg-gray-100 dark:hover:bg-gray-800" title="Quick Search">
+                <button id="nav-search-btn" class="p-2 text-gray-600 dark:text-gray-300 hover:text-green-600 transition-colors rounded-full hover:bg-gray-100 dark:hover:bg-gray-800" title="Quick Search" aria-label="Search">
                     <i class="ti ti-search text-xl"></i>
                 </button>
 
                 <!-- Mobile menu button -->
-                <button id="mobile-menu-btn" class="lg:hidden p-2 text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
+                <button id="mobile-menu-btn" class="lg:hidden p-2 text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors rounded-full hover:bg-gray-100 dark:hover:bg-gray-800" aria-label="Open menu">
                     <i class="ti ti-menu-2 text-2xl"></i>
                 </button>
             </div>
@@ -204,7 +204,7 @@
                 <i class="ti ti-search text-2xl text-gray-400"></i>
                 <input type="text" id="nav-search-input" placeholder="Search dictionary or phrases..." 
                     class="flex-grow text-lg focus:!outline-none focus:!ring-0 focus:!shadow-none py-2 bg-transparent border-none dark:text-white" autocomplete="off">
-                <button id="close-search" class="p-2 text-gray-400 hover:text-red-500 transition-colors">
+                <button id="close-search" class="p-2 text-gray-400 hover:text-red-500 transition-colors" aria-label="Close search">
                     <i class="ti ti-x text-2xl"></i>
                 </button>
             </div>
@@ -230,7 +230,7 @@
             <div class="flex items-center justify-between border-b dark:border-gray-800 pb-4">
                 <span class="brand-font text-2xl text-orange-500">Menu</span>
                 <div class="flex items-center gap-2">
-                    <button id="close-mobile-menu" class="p-2 bg-gray-100 dark:bg-gray-800 rounded-full">
+                    <button id="close-mobile-menu" class="p-2 bg-gray-100 dark:bg-gray-800 rounded-full" aria-label="Close menu">
                         <i class="ti ti-x text-2xl text-gray-600 dark:text-gray-400"></i>
                     </button>
                 </div>
