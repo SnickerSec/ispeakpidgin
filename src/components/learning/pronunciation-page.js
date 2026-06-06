@@ -157,10 +157,10 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             if (typeof pidginSpeech !== 'undefined') {
                 await pidginSpeech.speak(currentWord.pidgin);
-            } else if ('speechSynthesis' in window) {
-                var utterance = new SpeechSynthesisUtterance(currentWord.pidgin);
+            } else if (typeof window !== 'undefined' && 'speechSynthesis' in window && window.SpeechSynthesisUtterance) {
+                var utterance = new window.SpeechSynthesisUtterance(currentWord.pidgin);
                 utterance.rate = 0.8;
-                speechSynthesis.speak(utterance);
+                window.speechSynthesis.speak(utterance);
             }
         } catch (error) {
             console.error('Speech error:', error);

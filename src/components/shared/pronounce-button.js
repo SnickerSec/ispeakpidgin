@@ -15,8 +15,8 @@
 
             if (typeof pidginSpeech !== 'undefined') {
                 pidginSpeech.speak(word);
-            } else if (window.speechSynthesis) {
-                var utterance = new SpeechSynthesisUtterance(word);
+            } else if (typeof window !== 'undefined' && window.speechSynthesis && window.SpeechSynthesisUtterance) {
+                var utterance = new window.SpeechSynthesisUtterance(word);
                 utterance.rate = 0.8;
                 window.speechSynthesis.speak(utterance);
             }

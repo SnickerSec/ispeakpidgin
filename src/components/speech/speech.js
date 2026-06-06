@@ -4,24 +4,32 @@ class PidginSpeech {
         this.voices = [];
         this.preferredVoice = null;
         this.isLoaded = false;
+
+        const hasSpeech = typeof window !== 'undefined' && 'speechSynthesis' in window;
+
         this.phonemeMap = this.createPhonemeMap();
-        this.ssmlSupported = this.checkSSMLSupport();
+        this.ssmlSupported = hasSpeech ? this.checkSSMLSupport() : false;
         this.rhythmPatterns = this.createRhythmPatterns();
         this.accentFeatures = this.createAccentFeatures();
 
-        // Initialize voices
-        this.loadVoices();
+        if (hasSpeech) {
+            // Initialize voices
+            this.loadVoices();
 
-        // Handle voice loading on different browsers
-        if (speechSynthesis.onvoiceschanged !== undefined) {
-            speechSynthesis.onvoiceschanged = () => this.loadVoices();
+            // Handle voice loading on different browsers
+            if (window.speechSynthesis.onvoiceschanged !== undefined) {
+                window.speechSynthesis.onvoiceschanged = () => this.loadVoices();
+            }
         }
     }
 
     // Check if the browser supports SSML
     checkSSMLSupport() {
         try {
-            const testUtterance = new SpeechSynthesisUtterance('<speak>test</speak>');
+            if (typeof window === 'undefined' || !('SpeechSynthesisUtterance' in window)) {
+                return false;
+            }
+            const testUtterance = new window.SpeechSynthesisUtterance('<speak>test</speak>');
             return true; // Most modern browsers support basic SSML
         } catch (e) {
             return false;
@@ -167,11 +175,13 @@ class PidginSpeech {
 
     // Load available voices and select the best one
     loadVoices() {
-        this.voices = speechSynthesis.getVoices();
+        if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+            this.voices = window.speechSynthesis.getVoices();
 
-        if (this.voices.length > 0) {
-            this.isLoaded = true;
-            this.selectBestVoice();
+            if (this.voices.length > 0) {
+                this.isLoaded = true;
+                this.selectBestVoice();
+            }
         }
     }
 
@@ -470,7 +480,7 @@ class PidginSpeech {
         const ssmlText = this.applySSMLMarkup(phoneticText);
 
         // Create utterance with phonetic text (NOT SSML - most browsers don't support it)
-        const utterance = new SpeechSynthesisUtterance(phoneticText);
+        const utterance = new window.SpeechSynthesisUtterance(phoneticText);
 
         // Set voice (prefer non-rhotic accents)
         if (this.preferredVoice) {
@@ -520,7 +530,7 @@ class PidginSpeech {
         };
 
         // Speak the enhanced text
-        speechSynthesis.speak(utterance);
+        window.speechSynthesis.speak(utterance);
     }
 
     // Get available voices for user selection including ElevenLabs
@@ -565,19 +575,21 @@ class PidginSpeech {
         if (typeof elevenLabsSpeech !== 'undefined') {
             elevenLabsSpeech.stop();
         }
-        if ('speechSynthesis' in window) {
-            speechSynthesis.cancel();
+        if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
         }
     }
 
     // Test different voices
     testVoices(text = "Howzit brah! Da waves stay pumping today!") {
+        if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
+        
         this.voices.forEach((voice, index) => {
             setTimeout(() => {
-                const utterance = new SpeechSynthesisUtterance(text);
+                const utterance = new window.SpeechSynthesisUtterance(text);
                 utterance.voice = voice;
                 utterance.rate = 0.9;
-                speechSynthesis.speak(utterance);
+                window.speechSynthesis.speak(utterance);
             }, index * 3000);
         });
     }

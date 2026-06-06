@@ -26,10 +26,25 @@ class MiniQuiz {
         }
     }
 
+    async waitForSupabaseAPI(timeoutMs = 5000) {
+        if (window.supabaseAPI) return window.supabaseAPI;
+        
+        return new Promise((resolve, reject) => {
+            const start = Date.now();
+            const interval = setInterval(() => {
+                if (window.supabaseAPI) {
+                    clearInterval(interval);
+                    resolve(window.supabaseAPI);
+                } else if (Date.now() - start > timeoutMs) {
+                    clearInterval(interval);
+                    reject(new Error('Supabase API loader not found (timeout)'));
+                }
+            }, 100);
+        });
+    }
+
     async loadQuestion() {
-        if (!window.supabaseAPI) {
-            throw new Error('Supabase API loader not found');
-        }
+        await this.waitForSupabaseAPI();
         
         // Fetch 1 random question
         const response = await window.supabaseAPI.loadQuizQuestions({ count: 1, random: 'true' });

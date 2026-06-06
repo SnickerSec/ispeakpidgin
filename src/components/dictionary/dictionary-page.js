@@ -822,11 +822,11 @@ function speakText(text, options = {}) {
             console.error('All speech methods failed:', err);
             alert('Sorry, speech synthesis is not available right now.');
         });
-    } else {
+    } else if (typeof window !== 'undefined' && window.speechSynthesis && window.SpeechSynthesisUtterance) {
         // Basic fallback only if pidginSpeech is not available
-        const utterance = new SpeechSynthesisUtterance(text);
+        const utterance = new window.SpeechSynthesisUtterance(text);
         utterance.rate = 0.9;
-        speechSynthesis.speak(utterance);
+        window.speechSynthesis.speak(utterance);
     }
 }
 

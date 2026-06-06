@@ -126,12 +126,11 @@ function setupFilters() {
     });
 }
 
-// Text-to-speech (global for onclick handlers)
 window.speakPhrase = function(text) {
-    if ('speechSynthesis' in window) {
-        var utterance = new SpeechSynthesisUtterance(text);
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window && window.SpeechSynthesisUtterance) {
+        var utterance = new window.SpeechSynthesisUtterance(text);
         utterance.rate = 0.8;
-        speechSynthesis.speak(utterance);
+        window.speechSynthesis.speak(utterance);
     }
 };
 

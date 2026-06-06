@@ -763,23 +763,23 @@ class ElevenLabsSpeech {
     }
 
     fallbackToWebSpeech(text) {
-        if ('speechSynthesis' in window) {
+        if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
             window.dispatchEvent(new CustomEvent('pidginSpeechStart'));
             
             // Apply pronunciation corrections for better Web Speech API pronunciation
             const correctedText = this.applyPronunciationCorrections(text);
-            const utterance = new SpeechSynthesisUtterance(correctedText);
+            const utterance = new window.SpeechSynthesisUtterance(correctedText);
             
             utterance.onend = () => window.dispatchEvent(new CustomEvent('pidginSpeechEnd'));
             utterance.onerror = () => window.dispatchEvent(new CustomEvent('pidginSpeechEnd'));
-
+ 
             utterance.rate = 0.85; // Slightly slower for pidgin
             utterance.pitch = 0.95; // Slightly lower pitch
             utterance.volume = 0.9;
-
+ 
             // Try to find the best available voice
-            const voices = speechSynthesis.getVoices();
-
+            const voices = window.speechSynthesis.getVoices();
+ 
             // Priority order for voices
             const voicePreferences = [
                 voice => voice.name.includes('Samantha'), // macOS natural voice
@@ -790,41 +790,41 @@ class ElevenLabsSpeech {
                 voice => voice.lang === 'en-US',
                 voice => voice.lang.startsWith('en')
             ];
-
+ 
             let selectedVoice = null;
             for (const preference of voicePreferences) {
                 selectedVoice = voices.find(preference);
                 if (selectedVoice) break;
             }
-
+ 
             if (selectedVoice) {
                 utterance.voice = selectedVoice;
             }
-
+ 
             // Add slight pauses for better pronunciation
             const modifiedText = correctedText
                 .replace(/([.!?])/g, '$1 ')  // Add pause after punctuation
                 .replace(/,/g, ', ');         // Add pause after commas
-
+ 
             utterance.text = modifiedText;
-            speechSynthesis.speak(utterance);
+            window.speechSynthesis.speak(utterance);
         } else {
             console.warn('Speech synthesis not supported');
             alert('Text-to-speech is not available. Please try a different browser.');
         }
     }
-
+ 
     stop() {
         if (this.currentAudio) {
             this.currentAudio.pause();
             this.currentAudio.currentTime = 0;
         }
-
+ 
         this.cleanup();
-
+ 
         // Also stop web speech synthesis
-        if ('speechSynthesis' in window) {
-            speechSynthesis.cancel();
+        if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
         }
     }
 

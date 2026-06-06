@@ -366,10 +366,10 @@ class PracticeSession {
             speakBtn.addEventListener('click', () => {
                 if (typeof speakText === 'function') {
                     speakText(text);
-                } else if ('speechSynthesis' in window) {
-                    const utterance = new SpeechSynthesisUtterance(text);
+                } else if (typeof window !== 'undefined' && 'speechSynthesis' in window && window.SpeechSynthesisUtterance) {
+                    const utterance = new window.SpeechSynthesisUtterance(text);
                     utterance.rate = 0.8;
-                    speechSynthesis.speak(utterance);
+                    window.speechSynthesis.speak(utterance);
                 }
             });
         }
