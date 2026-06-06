@@ -31,8 +31,6 @@ const { generateOgImage } = require('./og-image-generator');
 const outputDir = path.join(__dirname, '../../public/phrase');
 const ogOutputDir = path.join(__dirname, '../../public/assets/og/phrases');
 
-
-
 // Create output directory
 if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
