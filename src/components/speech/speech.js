@@ -410,10 +410,9 @@ class PidginSpeech {
             try {
                 // First try ElevenLabs if available
                 if (typeof elevenLabsSpeech !== 'undefined' && elevenLabsSpeech.isSupported()) {
-                    // Apply phonetic transformations for ElevenLabs too
-                    const phoneticText = this.applyPhoneticTransform(text);
-
-                    await elevenLabsSpeech.speak(phoneticText, {
+                    // ElevenLabs has its own highly-optimized pronunciation correction engine,
+                    // so we pass the raw text directly to avoid double-transformation.
+                    await elevenLabsSpeech.speak(text, {
                         ...options,
                         onStart: () => {
                             this.trackPronunciation(text, 'ElevenLabs');
