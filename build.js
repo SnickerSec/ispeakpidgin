@@ -278,8 +278,8 @@ function processHTMLFiles() {
 
             // Update script and link paths
             Object.entries(pathMappings).forEach(([oldPath, newPath]) => {
-                content = content.replace(new RegExp(`src="${oldPath}"`, 'g'), `src="${newPath}"`);
-                content = content.replace(new RegExp(`href="${oldPath}"`, 'g'), `href="${newPath}"`);
+                content = content.replace(new RegExp(`src="(/)?${oldPath}"`, 'g'), (match, slash) => `src="${slash || ''}${newPath}"`);
+                content = content.replace(new RegExp(`href="(/)?${oldPath}"`, 'g'), (match, slash) => `href="${slash || ''}${newPath}"`);
             });
 
             fs.writeFileSync(destPath, content);
