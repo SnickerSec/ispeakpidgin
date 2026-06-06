@@ -50,12 +50,66 @@ body {
 }
 
 /* Ensure cards and articles use the themed card background */
-.dark article, 
+.dark article,
 .dark .bg-white,
-.dark .bg-gray-50,
 .dark .lesson-card,
 .dark .quiz-card {
     background: var(--card-bg);
+}
+
+/*
+ * Exception to the above: white PILL buttons (rounded-full) sit on saturated
+ * colored gradient banners as CTAs and carry colored label text. The
+ * card-darkening above would turn them into dark pills, leaving that colored
+ * text low-contrast. Keep these pills white so their labels stay readable.
+ * rounded-full distinguishes them from content cards (rounded-xl/2xl).
+ */
+.dark .bg-white.rounded-full:not([class*="dark:bg-"]):not([class*="dark:text-"]) {
+    background: #ffffff;
+}
+
+/*
+ * Dark-theme readability safety net for legacy light-theme markup.
+ * Many pages (and JS card templates) were written with hardcoded
+ * text-gray-* utilities and no dark: variants. On the always-dark site
+ * those render as dark text on dark cards/background and are unreadable.
+ *
+ * The :not([class*="dark:text-"]) guard means these rules ONLY touch
+ * elements that have NO dark:text-* variant of their own. Already-converted
+ * markup keeps its explicit dark: colors untouched; only legacy elements
+ * (which would otherwise be dark-on-dark) get remapped. The :where() keeps
+ * the gray class itself at zero specificity so the guard alone determines
+ * precedence.
+ */
+.dark :where(.text-gray-500):not([class*="dark:text-"]) { color: #94a3b8; } /* slate-400 */
+.dark :where(.text-gray-600):not([class*="dark:text-"]) { color: #cbd5e1; } /* slate-300 */
+.dark :where(.text-gray-700):not([class*="dark:text-"]) { color: #cbd5e1; }
+.dark :where(.text-gray-800):not([class*="dark:text-"]) { color: #e2e8f0; } /* slate-200 */
+.dark :where(.text-gray-900):not([class*="dark:text-"]) { color: #f1f5f9; } /* slate-100 */
+
+/*
+ * Exception: intentionally LIGHT colored pastel boxes (solid bg-*-50 callouts
+ * AND light gradient boxes built from from-*-50/100 / to-*-50/100 stops) are
+ * NOT darkened, so the gray text inside them must stay dark to remain
+ * readable. Ancestor selector raises specificity above the :where() defaults.
+ *
+ * NOTE: neutral .bg-gray-50 / .bg-gray-100 are deliberately EXCLUDED here —
+ * they're used as full-page body/section wrappers that render dark (the
+ * body gradient wins), so their descendants must follow the light default.
+ * Saturated gradient stops (-500 etc.) are also excluded; only -50/-100.
+ */
+.dark :is(
+    .bg-yellow-50, .bg-amber-50, .bg-orange-50, .bg-red-50,
+    .bg-green-50, .bg-emerald-50, .bg-teal-50,
+    .bg-blue-50, .bg-indigo-50, .bg-purple-50, .bg-pink-50,
+    /* light gradient boxes: from-/to- stop at the -50 or -100 level only.
+       Anchored to end-of-attribute or followed-by-space so -500 etc. never match. */
+    [class*="from-"][class$="-50"],  [class*="from-"][class*="-50 "],
+    [class*="from-"][class$="-100"], [class*="from-"][class*="-100 "],
+    [class*="to-"][class$="-50"],    [class*="to-"][class*="-50 "],
+    [class*="to-"][class$="-100"],   [class*="to-"][class*="-100 "]
+) :where(.text-gray-500, .text-gray-600, .text-gray-700, .text-gray-800, .text-gray-900):not([class*="dark:text-"]) {
+    color: #374151; /* gray-700 — readable on light pastel */
 }
 
 /* Fix sticky headers to be semi-transparent dark */

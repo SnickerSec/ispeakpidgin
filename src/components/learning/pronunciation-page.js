@@ -113,9 +113,9 @@ document.addEventListener('DOMContentLoaded', function() {
         var toShow = filtered.slice(0, displayedCount);
 
         wordGrid.innerHTML = toShow.map(function(word) {
-            return '<button class="word-card p-3 bg-gray-50 hover:bg-purple-50 rounded-lg text-left border-2 border-transparent hover:border-purple-300 transition" data-word="' + encodeURIComponent(JSON.stringify(word)) + '">' +
-                '<div class="font-bold text-purple-700">' + word.pidgin + '</div>' +
-                '<div class="text-xs text-gray-500 truncate">' + word.english + '</div>' +
+            return '<button class="word-card p-3 bg-slate-700/60 hover:bg-purple-900/40 rounded-lg text-left border-2 border-transparent hover:border-purple-400 transition" data-word="' + encodeURIComponent(JSON.stringify(word)) + '">' +
+                '<div class="font-bold text-purple-300">' + word.pidgin + '</div>' +
+                '<div class="text-xs text-slate-400 truncate">' + word.english + '</div>' +
             '</button>';
         }).join('');
 
@@ -135,10 +135,10 @@ document.addEventListener('DOMContentLoaded', function() {
         btn.addEventListener('click', function() {
             document.querySelectorAll('.difficulty-btn').forEach(function(b) {
                 b.classList.remove('active', 'bg-green-500', 'text-white');
-                b.classList.add('bg-gray-200', 'text-gray-700');
+                b.classList.add('bg-slate-700', 'text-slate-200');
             });
             btn.classList.add('active', 'bg-green-500', 'text-white');
-            btn.classList.remove('bg-gray-200', 'text-gray-700');
+            btn.classList.remove('bg-slate-700', 'text-slate-200');
             currentDifficulty = btn.dataset.difficulty;
             displayedCount = 12;
             renderWordGrid();
@@ -157,10 +157,10 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             if (typeof pidginSpeech !== 'undefined') {
                 await pidginSpeech.speak(currentWord.pidgin);
-            } else if ('speechSynthesis' in window) {
-                var utterance = new SpeechSynthesisUtterance(currentWord.pidgin);
+            } else if (typeof window !== 'undefined' && 'speechSynthesis' in window && window.SpeechSynthesisUtterance) {
+                var utterance = new window.SpeechSynthesisUtterance(currentWord.pidgin);
                 utterance.rate = 0.8;
-                speechSynthesis.speak(utterance);
+                window.speechSynthesis.speak(utterance);
             }
         } catch (error) {
             console.error('Speech error:', error);

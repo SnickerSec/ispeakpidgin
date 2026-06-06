@@ -138,10 +138,10 @@
             speakBtn.addEventListener('click', function() {
                 if (window.currentWodWord && typeof pidginSpeech !== 'undefined') {
                     pidginSpeech.speak(window.currentWodWord.pidgin);
-                } else if (window.currentWodWord && 'speechSynthesis' in window) {
-                    var utterance = new SpeechSynthesisUtterance(window.currentWodWord.pidgin);
+                } else if (window.currentWodWord && typeof window !== 'undefined' && 'speechSynthesis' in window && window.SpeechSynthesisUtterance) {
+                    var utterance = new window.SpeechSynthesisUtterance(window.currentWodWord.pidgin);
                     utterance.rate = 0.9;
-                    speechSynthesis.speak(utterance);
+                    window.speechSynthesis.speak(utterance);
                 }
             });
         }

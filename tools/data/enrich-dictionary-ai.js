@@ -14,7 +14,7 @@ const fetch = require('node-fetch');
 const BATCH_SIZE = 300; // Total per run
 const SUB_BATCH_SIZE = 20; // Number of words per AI call
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_MODEL = 'gemini-2.0-flash-lite';
+const GEMINI_MODEL = 'gemini-2.5-flash-lite';
 
 async function main() {
     console.log('🚀 Bulk AI Dictionary Content Enrichment');

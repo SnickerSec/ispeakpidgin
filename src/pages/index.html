@@ -418,6 +418,7 @@
 </head>
 <body class="min-h-screen bg-gray-50 dark:bg-slate-900 transition-colors duration-300">
     <!-- NAVIGATION_PLACEHOLDER -->
+    <main id="main-content">
 
     <!-- Hero Section -->
     <section id="home" class="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-indigo-950 dark:to-slate-900 text-white py-20 px-4 relative overflow-hidden">
@@ -438,7 +439,7 @@
                         <img src="https://cdn-icons-png.flaticon.com/512/1375/1375510.png" alt="Translator" loading="lazy" class="w-5 h-5 filter brightness-0 dark:invert">
                         Start Translating
                     </a>
-                    <a href="pidgin-wordle.html" class="bg-green-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-400 transition flex items-center gap-2 justify-center shadow-lg">
+                    <a href="pidgin-wordle.html" class="bg-green-700 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-400 transition flex items-center gap-2 justify-center shadow-lg">
                         <img src="assets/images/wordle-icon.webp" alt="Wordle" loading="lazy" class="w-5 h-5"> Play Pidgin Wordle
                     </a>
                     <a href="dictionary.html" class="bg-transparent border-2 border-white dark:border-slate-700 text-white dark:text-slate-200 px-8 py-3 rounded-lg font-semibold hover:bg-white dark:hover:bg-slate-800 hover:text-blue-600 dark:hover:text-white transition">
@@ -712,7 +713,7 @@
                     </div>
 
                     <div class="text-center">
-                        <a href="games.html" class="inline-block bg-white text-teal-600 px-8 py-3 rounded-full font-bold hover:scale-105 transition shadow-lg">
+                        <a href="games.html" class="inline-block bg-white text-teal-800 px-8 py-3 rounded-full font-bold hover:scale-105 transition shadow-lg">
                             <i class="ti ti-device-gamepad-2"></i> View All Games
                         </a>
                     </div>
@@ -1113,7 +1114,7 @@
 
             <div class="mb-4">
                 <label class="block text-sm font-semibold mb-2 text-gray-700">Select Voice</label>
-                <select id="voice-select" class="w-full p-2 border rounded-lg">
+                <select id="voice-select" aria-label="Voice" class="w-full p-2 border rounded-lg">
                     <option value="">Loading voices...</option>
                 </select>
             </div>
@@ -1131,13 +1132,13 @@
             </div>
 
             <div class="mb-4">
-                <button id="test-voice-btn" class="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition w-full">
+                <button id="test-voice-btn" class="bg-green-700 text-white px-4 py-2 rounded-full hover:bg-green-800 transition w-full">
                     Test Voice: "Howzit brah!"
                 </button>
             </div>
 
             <div class="mb-4">
-                <button id="voice-install-guide-btn" class="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition w-full">
+                <button id="voice-install-guide-btn" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition w-full">
                     <i class="ti ti-download"></i> Get Better Voices (Installation Guide)
                 </button>
             </div>
@@ -1233,7 +1234,7 @@
             </div>
 
             <div class="mt-6 text-center">
-                <button id="close-voice-install-btn" class="bg-green-500 text-white px-6 py-2 rounded-full hover:bg-green-600 transition">
+                <button id="close-voice-install-btn" class="bg-green-700 text-white px-6 py-2 rounded-full hover:bg-green-800 transition">
                     Got it! Let's use what I have
                 </button>
             </div>
@@ -1253,6 +1254,7 @@
 
     <!-- Word of the Day (Supabase API) -->
     <script defer src="js/components/word-of-day.js"></script>
+    </main>
     <!-- FOOTER_PLACEHOLDER -->
 
 

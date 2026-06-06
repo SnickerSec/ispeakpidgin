@@ -3,7 +3,6 @@ const path = require('path');
 const compression = require('compression');
 const helmet = require('helmet');
 const fs = require('fs');
-const { Translate } = require('@google-cloud/translate').v2;
 const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const { createClient } = require('@supabase/supabase-js');
@@ -16,7 +15,7 @@ const adminAuth = require('./middleware/admin-auth');
 
 // Route imports
 const dictionaryRoutes = require('./routes/dictionary');
-const translateRoutes = require('./routes/translate');
+const ttsRoutes = require('./routes/tts');
 const contentRoutes = require('./routes/content');
 const gamesRoutes = require('./routes/games');
 const pickupRoutes = require('./routes/pickup');
@@ -47,27 +46,6 @@ if (supabaseServiceKey) {
 } else {
     console.warn('⚠️ SUPABASE_SERVICE_KEY not set - admin features disabled');
 }
-
-// Handle Google Cloud credentials
-let credentialsPath = './google-credentials.json';
-
-if (process.env.GOOGLE_CREDENTIALS_BASE64) {
-    try {
-        const credentialsJson = Buffer.from(process.env.GOOGLE_CREDENTIALS_BASE64, 'base64').toString('utf-8');
-        credentialsPath = '/tmp/google-credentials.json';
-        fs.writeFileSync(credentialsPath, credentialsJson);
-        console.log('✅ Google Cloud credentials loaded from environment variable');
-    } catch (error) {
-        console.error('❌ Error loading credentials from environment:', error);
-    }
-} else if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
-    credentialsPath = process.env.GOOGLE_APPLICATION_CREDENTIALS;
-}
-
-// Initialize Google Translate client
-const translate = new Translate({
-    keyFilename: credentialsPath
-});
 
 // Shared dictionary cache (used by dictionary and translate routes)
 const dictionaryCache = {
@@ -294,16 +272,11 @@ app.use('/api/admin/login', adminLoginLimiter);
 app.use('/api/admin', adminActionLimiter);
 
 // Mount modular routes
-const translateRouter = translateRoutes(translate, translationLimiter, dictionaryCache, supabaseAdmin);
-app.use('/api/translate', translateRouter);
-// Legacy frontend paths (frontend uses /api/text-to-speech and /api/translate-llm)
+const ttsRouter = ttsRoutes(translationLimiter, supabaseAdmin);
+// Frontend uses /api/text-to-speech
 app.post('/api/text-to-speech', translationLimiter, (req, res, next) => {
     req.url = '/text-to-speech';
-    translateRouter(req, res, next);
-});
-app.post('/api/translate-llm', translationLimiter, (req, res, next) => {
-    req.url = '/llm';
-    translateRouter(req, res, next);
+    ttsRouter(req, res, next);
 });
 app.use('/api/dictionary', dictionaryRoutes(supabase, dictionaryLimiter, dictionaryCache, semanticSearchLimiter));
 app.use('/api', contentRoutes(supabase, dictionaryLimiter));
@@ -367,7 +340,9 @@ const spellingRedirects = {
     'cholips': 'cho-cho-lips',
     'chocholips': 'cho-cho-lips',
     'mempachi': 'menpachi',
-    'mempachi-eyes': 'menpachi-eyes'
+    'mempachi-eyes': 'menpachi-eyes',
+    'kakua': 'kokua',
+    'kakua-kakua': 'kokua'
 };
 
 // SEO: Spelling Variant Redirects for Words

@@ -94,11 +94,17 @@ async function main() {
 
         // Helper for normalization (remove accents/okinas for comparison)
         const normalize = (txt) => {
-            return txt.toLowerCase()
+            let normalized = txt.toLowerCase()
                 .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
                 .replace(/['ʻ`‘’]/g, '')
                 .replace(/\s+/g, '') // Remove spaces for comparison
                 .trim();
+            
+            // Map common misspellings/variations
+            if (normalized === 'kakua' || normalized === 'kakuakakua') {
+                normalized = 'kokua';
+            }
+            return normalized;
         };
 
         const normalizedExisting = new Set();
@@ -113,7 +119,8 @@ async function main() {
             'english to', 'how to say', 'what does', 'meaning of', 'translate', 'sayings',
             'lingo', 'phrases', 'words', 'saying', 'phrase', 'word', 'help help', 'translate poo from',
             'google', 'search', 'free', 'online', 'app', 'download', 'website', 'best', 'hawaii',
-            'choke pidgin', 'chokepidgin', 'pronounce', 'pronunciation', 'how to', 'define', 'definition'
+            'choke pidgin', 'chokepidgin', 'pronounce', 'pronunciation', 'how to', 'define', 'definition',
+            'common', 'yubo', 'portal', 'scobeis', 'scobeis portal', 'tuls', 'bby', 'how\'s it'
         ];
 
         for (const row of scQueries) {
@@ -127,9 +134,35 @@ async function main() {
                 /(.*) definition/i,
                 /how to pronounce (.*)/i,
                 /(.*) pronunciation/i,
+                /spell (.*)/i,
+                /full form of (.*)/i,
+                /(.*) full form/i,
+                /(.*) full form in chat/i,
+                /meaning of (.*) in chat/i,
+                /what is the full form of (.*)/i,
                 /(.*) in hawaiian/i,
                 /(.*) in korean/i,
                 /(.*) in japanese/i,
+                /(.*) in english/i,
+                /(.*) in tagalog/i,
+                /(.*) in filipino/i,
+                /(.*) to english/i,
+                /(.*) translation/i,
+                /english translation of (.*)/i,
+                /english to (.*)/i,
+                /(.*) english/i,
+                /(.*) dictionary/i,
+                /dictionary (.*)/i,
+                /(.*) translator/i,
+                /translator (.*)/i,
+                /pidgin translator (.*)/i,
+                /pigeon translator (.*)/i,
+                /(.*) pigeon/i,
+                /pigeon (.*)/i,
+                /(.*) tagalog/i,
+                /(.*) filipino/i,
+                /(.*) german/i,
+                /(.*) bedeutung/i,
                 /(.*) hawaiian/i,
                 /(.*) pidgin/i,
                 /(.*) slang/i,
@@ -167,10 +200,24 @@ async function main() {
             }
 
             term = term.trim().replace(/[?!]/g, '');
+
+            // Handle word reduplication/repetition (e.g., "kokua kokua" -> "kokua")
+            // if the single word is already in the dictionary
+            const words = term.split(/\s+/);
+            if (words.length === 2 && words[0] === words[1]) {
+                const singleNormalized = normalize(words[0]);
+                if (normalizedExisting.has(singleNormalized)) {
+                    term = words[0];
+                }
+            }
+
             const normalizedTerm = normalize(term);
 
             // Skip if in blacklist or matches common site queries
-            if (blacklist.some(b => normalizedTerm === b || normalizedTerm.includes(b) && normalizedTerm.length < 15)) {
+            if (blacklist.some(b => {
+                const nb = normalize(b);
+                return normalizedTerm === nb || normalizedTerm.includes(nb);
+            })) {
                 continue;
             }
 

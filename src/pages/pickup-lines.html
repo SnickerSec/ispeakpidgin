@@ -190,6 +190,17 @@
             border-color: #a16207;
         }
 
+        /*
+         * In dark mode the cards switch to dark saturated gradients, but the
+         * card text (rendered in JS) uses light-theme text-gray-* utilities
+         * with no dark: variant. Lighten it so it stays readable on the dark
+         * card backgrounds. Scoped to .pickup-card so nothing else is affected.
+         */
+        .dark .pickup-card .text-gray-800 { color: #f8fafc; }
+        .dark .pickup-card .text-gray-700 { color: #e2e8f0; }
+        .dark .pickup-card .text-gray-600 { color: #cbd5e1; }
+        .dark .pickup-card .text-purple-500 { color: #c4b5fd; }
+
         .shuffle-btn {
             transition: all 0.3s ease;
         }
@@ -218,6 +229,7 @@
 
 <body class="min-h-screen bg-gradient-to-b from-pink-50 via-purple-50 to-blue-50 dark:from-slate-900 dark:via-indigo-950 dark:to-slate-900 transition-colors duration-300">
     <!-- NAVIGATION_PLACEHOLDER -->
+    <main id="main-content">
 
     <!-- Header -->
     <header class="py-12 px-4 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 dark:from-pink-900 dark:via-purple-900 dark:to-blue-900 text-white relative overflow-hidden">
@@ -297,6 +309,7 @@
         </div>
     </section>
 
+    </main>
     <!-- FOOTER_PLACEHOLDER -->
 
     <!-- Scripts -->

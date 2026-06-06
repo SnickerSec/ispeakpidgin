@@ -142,7 +142,7 @@ class ElevenLabsSpeech {
             'pau hana': 'pow hah-nah',
             'mauka': 'mow-kah',
             'makai': 'mah-kye',
-            'ono': 'oh-no',
+            'ono': 'oh-noh',
             'oe': 'oh-eh',
             'ʻoe': 'oh-eh',
             'auwe': 'ow-way',
@@ -184,7 +184,7 @@ class ElevenLabsSpeech {
             'cuz': 'kuz',
             'sole': 'so-leh',
             'pake': 'pah-keh',
-            'haole': 'how-leh',
+            'haole': 'how-lee',
             'poke': 'poh-kay',
             'musubi': 'moo-soo-bee',
             'shoyu': 'show-yoo',
@@ -215,7 +215,8 @@ class ElevenLabsSpeech {
             'stink eye': 'stink eye',
             'chicken skin': 'chicken skin',
             'talk story': 'talk story',
-            'broke da mouth': 'broke dah mouth',
+            'broke da mouth': 'broke dah mowt',
+            'broke da mout': 'broke dah mowt',
             'kanak attack': 'kah-nahk ah-tack',
             'mālama da ʻāina': 'mah-lah-mah dah eye-nah',
             'nō ka ʻoi': 'noh kah oy',
@@ -238,7 +239,57 @@ class ElevenLabsSpeech {
             'yobo': 'yo-boh',
             'wit\'': 'wit',
             'wit': 'wit',
-            'yesterday': 'yes-tah-deh'
+            'yesterday': 'yes-tah-deh',
+
+            // New Pronunciation Enhancements
+            'poi': 'poy',
+            'luau': 'loo-ow',
+            'laulau': 'laow-laow',
+            'pipikaula': 'pee-pee-kow-lah',
+            'haupia': 'how-pee-ah',
+            'lomilomi': 'low-mee-low-mee',
+            'lomi lomi': 'low-mee-low-mee',
+            'kiawe': 'kee-ah-veh',
+            'hula': 'hoo-lah',
+            'halau': 'hah-laow',
+            'kumu': 'koo-moo',
+            'malo': 'mah-low',
+            'ti': 'tee',
+            'lei': 'lay',
+            'heiau': 'hay-ow',
+            'menehune': 'meh-neh-hoo-neh',
+            'alii': 'ah-lee-ee',
+            'ali\'i': 'ah-lee-ee',
+            'imu': 'ee-moo',
+            'mo\'o': 'moh-oh',
+            'pueo': 'poo-eh-oh',
+            'nene': 'neh-neh',
+            'hapa': 'hah-pah',
+            'mana': 'mah-nah',
+            'pono': 'poh-noh',
+            'lanakila': 'lah-nah-kee-lah',
+            'kamaaina': 'kah-mah-eye-nah',
+            'kama\'aina': 'kah-mah-eye-nah',
+            'makana': 'mah-kah-nah',
+            'pualani': 'poo-ah-lah-nee',
+            'kealoha': 'kay-ah-low-hah',
+            'hoaloha': 'ho-ah-low-hah',
+            'luana': 'loo-ah-nah',
+            'huhu': 'hoo-hoo',
+            'pupule': 'poo-poo-lay',
+            'muliwai': 'moo-lee-vye',
+            'moemoe': 'moy-moy',
+            'nani': 'nah-nee',
+            'ua': 'oo-ah',
+            'bumbye': 'bum-bye',
+            'bumbai': 'bum-bye',
+            'latah': 'lay-tah',
+            'latahs': 'lay-tahz',
+            'later': 'lay-tah',
+            'fo\'': 'foh',
+            'fo': 'foh',
+            'mahimahi': 'mah-hee-mah-hee',
+            'mahi-mahi': 'mah-hee-mah-hee'
         };
 
         let correctedText = text.toLowerCase();
@@ -714,23 +765,23 @@ class ElevenLabsSpeech {
     }
 
     fallbackToWebSpeech(text) {
-        if ('speechSynthesis' in window) {
+        if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
             window.dispatchEvent(new CustomEvent('pidginSpeechStart'));
             
             // Apply pronunciation corrections for better Web Speech API pronunciation
             const correctedText = this.applyPronunciationCorrections(text);
-            const utterance = new SpeechSynthesisUtterance(correctedText);
+            const utterance = new window.SpeechSynthesisUtterance(correctedText);
             
             utterance.onend = () => window.dispatchEvent(new CustomEvent('pidginSpeechEnd'));
             utterance.onerror = () => window.dispatchEvent(new CustomEvent('pidginSpeechEnd'));
-
+ 
             utterance.rate = 0.85; // Slightly slower for pidgin
             utterance.pitch = 0.95; // Slightly lower pitch
             utterance.volume = 0.9;
-
+ 
             // Try to find the best available voice
-            const voices = speechSynthesis.getVoices();
-
+            const voices = window.speechSynthesis.getVoices();
+ 
             // Priority order for voices
             const voicePreferences = [
                 voice => voice.name.includes('Samantha'), // macOS natural voice
@@ -741,41 +792,41 @@ class ElevenLabsSpeech {
                 voice => voice.lang === 'en-US',
                 voice => voice.lang.startsWith('en')
             ];
-
+ 
             let selectedVoice = null;
             for (const preference of voicePreferences) {
                 selectedVoice = voices.find(preference);
                 if (selectedVoice) break;
             }
-
+ 
             if (selectedVoice) {
                 utterance.voice = selectedVoice;
             }
-
+ 
             // Add slight pauses for better pronunciation
             const modifiedText = correctedText
                 .replace(/([.!?])/g, '$1 ')  // Add pause after punctuation
                 .replace(/,/g, ', ');         // Add pause after commas
-
+ 
             utterance.text = modifiedText;
-            speechSynthesis.speak(utterance);
+            window.speechSynthesis.speak(utterance);
         } else {
             console.warn('Speech synthesis not supported');
             alert('Text-to-speech is not available. Please try a different browser.');
         }
     }
-
+ 
     stop() {
         if (this.currentAudio) {
             this.currentAudio.pause();
             this.currentAudio.currentTime = 0;
         }
-
+ 
         this.cleanup();
-
+ 
         // Also stop web speech synthesis
-        if ('speechSynthesis' in window) {
-            speechSynthesis.cancel();
+        if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
         }
     }
 

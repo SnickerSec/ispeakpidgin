@@ -26,10 +26,25 @@ class MiniQuiz {
         }
     }
 
+    async waitForSupabaseAPI(timeoutMs = 5000) {
+        if (window.supabaseAPI) return window.supabaseAPI;
+        
+        return new Promise((resolve, reject) => {
+            const start = Date.now();
+            const interval = setInterval(() => {
+                if (window.supabaseAPI) {
+                    clearInterval(interval);
+                    resolve(window.supabaseAPI);
+                } else if (Date.now() - start > timeoutMs) {
+                    clearInterval(interval);
+                    reject(new Error('Supabase API loader not found (timeout)'));
+                }
+            }, 100);
+        });
+    }
+
     async loadQuestion() {
-        if (!window.supabaseAPI) {
-            throw new Error('Supabase API loader not found');
-        }
+        await this.waitForSupabaseAPI();
         
         // Fetch 1 random question
         const response = await window.supabaseAPI.loadQuizQuestions({ count: 1, random: 'true' });
@@ -90,7 +105,7 @@ class MiniQuiz {
                     <p id="feedback-message" class="font-bold text-lg mb-1"></p>
                     <p id="feedback-explanation" class="text-sm opacity-90 mb-4"></p>
                     <div class="flex gap-2">
-                        <a href="/how-local-you-stay.html" class="flex-1 bg-white/20 hover:bg-white/30 text-center py-2 rounded-lg font-bold text-sm transition-colors border border-white/30">
+                        <a id="mini-quiz-full-link" href="/how-local-you-stay.html" class="flex-1 bg-white/20 hover:bg-white/30 text-center py-2 rounded-lg font-bold text-sm transition-colors border border-white/30">
                             Take Full Quiz
                         </a>
                         <button id="next-mini-quiz" class="flex-1 bg-white text-blue-700 py-2 rounded-lg font-bold text-sm hover:bg-blue-50 transition-colors">
@@ -159,8 +174,22 @@ class MiniQuiz {
 
         // Add next button listener
         this.container.querySelector('#next-mini-quiz').addEventListener('click', () => {
+            if (window.gtag) {
+                window.gtag('event', 'mini_quiz_next', {
+                    'previous_question_id': this.question.id
+                });
+            }
             this.answered = false;
             this.init();
+        });
+
+        // Add full quiz navigation listener
+        this.container.querySelector('#mini-quiz-full-link')?.addEventListener('click', () => {
+            if (window.gtag) {
+                window.gtag('event', 'mini_quiz_full_quiz_click', {
+                    'question_id': this.question.id
+                });
+            }
         });
 
         // Track event if gtag is available

@@ -99,9 +99,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="flex justify-between items-start mb-2">
                     <span class="text-xs font-bold text-blue-500 dark:text-blue-400 uppercase tracking-widest">${escapeHtml(item.category || 'general')}</span>
                 </div>
-                <h3 class="text-lg font-bold text-gray-400 dark:text-gray-500 mb-1">English: <span class="text-gray-900 dark:text-slate-100">${escapeHtml(item.english)}</span></h3>
+                <div class="text-lg font-bold text-gray-600 dark:text-slate-400 mb-1">English: <span class="text-gray-900 dark:text-slate-100">${escapeHtml(item.english)}</span></div>
                 <div class="text-2xl font-black text-blue-600 dark:text-blue-400 mb-3">
-                    <span class="text-gray-400 dark:text-gray-500 text-sm font-normal">Pidgin:</span> ${escapeHtml(item.pidgin)}
+                    <span class="text-gray-600 dark:text-slate-400 text-sm font-normal">Pidgin:</span> ${escapeHtml(item.pidgin)}
                 </div>
                 ${item.example ? `
                     <div class="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg border border-blue-100 dark:border-blue-800/50 italic text-sm text-blue-800 dark:text-blue-300">
@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 ` : ''}
                 <div class="mt-4 flex justify-end">
-                    <a href="/word/${slugify(item.pidgin)}.html" class="text-xs font-bold text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition flex items-center gap-1">
+                    <a href="/word/${slugify(item.pidgin)}.html" class="text-xs font-bold text-gray-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition flex items-center gap-1">
                         VIEW DETAILS <i class="ti ti-arrow-right"></i>
                     </a>
                 </div>
