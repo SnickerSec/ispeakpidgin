@@ -58,6 +58,13 @@ function setupTranslationEngine() {
         googleEngineBtn.classList.remove('bg-green-600', 'text-white');
         googleEngineBtn.classList.add('text-gray-600');
 
+        // Track engine preference selection
+        if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'translator_engine_select', {
+                'engine': 'local'
+            });
+        }
+
         // Store engine preference
         localStorage.setItem('translationEngine', 'local');
 
@@ -74,6 +81,13 @@ function setupTranslationEngine() {
         googleEngineBtn.classList.remove('text-gray-600');
         localEngineBtn.classList.remove('bg-green-600', 'text-white');
         localEngineBtn.classList.add('text-gray-600');
+
+        // Track engine preference selection
+        if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'translator_engine_select', {
+                'engine': 'google'
+            });
+        }
 
         // Store engine preference
         localStorage.setItem('translationEngine', 'google');
@@ -113,6 +127,13 @@ function setupTranslationDirection() {
         outputLabel.textContent = 'Pidgin Translation';
         inputField.placeholder = 'Type or paste English text here...';
 
+        // Track direction selection
+        if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'translator_direction_select', {
+                'direction': 'en-to-pid'
+            });
+        }
+
         // Store direction
         localStorage.setItem('translatorDirection', currentDirection);
     });
@@ -127,6 +148,13 @@ function setupTranslationDirection() {
         inputLabel.textContent = 'Enter Pidgin Text';
         outputLabel.textContent = 'English Translation';
         inputField.placeholder = 'Type or paste Pidgin text here...';
+
+        // Track direction selection
+        if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'translator_direction_select', {
+                'direction': 'pid-to-en'
+            });
+        }
 
         // Store direction
         localStorage.setItem('translatorDirection', currentDirection);
@@ -181,6 +209,9 @@ function setupTranslationControls() {
 
     // Clear button
     clearBtn?.addEventListener('click', () => {
+        if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'translator_clear_click');
+        }
         inputField.value = '';
         outputDiv.innerHTML = '<p class="text-gray-400 italic">Translation will appear here...</p>';
         confidenceIndicator?.classList.add('hidden');
@@ -191,6 +222,9 @@ function setupTranslationControls() {
 
     // Paste button (manual translation only)
     pasteBtn?.addEventListener('click', async () => {
+        if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'translator_paste_click');
+        }
         try {
             const text = await navigator.clipboard.readText();
             inputField.value = text;
@@ -204,6 +238,11 @@ function setupTranslationControls() {
     // Copy button
     copyBtn?.addEventListener('click', () => {
         const text = outputDiv.textContent;
+        if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'translator_copy_click', {
+                'text_length': text.length
+            });
+        }
         navigator.clipboard.writeText(text).then(() => {
             // Visual feedback
             const originalText = copyBtn.textContent;
@@ -219,6 +258,11 @@ function setupTranslationControls() {
     // Speak button
     speakBtn?.addEventListener('click', () => {
         const text = outputDiv.textContent;
+        if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'translator_speak_click', {
+                'text_length': text.length
+            });
+        }
         if (text && typeof speakText === 'function') {
             speakText(text);
             // Visual feedback
@@ -257,6 +301,16 @@ async function performTranslation() {
             }
 
             const result = await pidginTranslator.translate(text, direction, tone);
+            
+            // Track translator request event
+            if (typeof window !== 'undefined' && window.gtag) {
+                window.gtag('event', 'translator_request', {
+                    'direction': direction,
+                    'tone': tone,
+                    'text_length': text.length,
+                    'engine': localStorage.getItem('translatorEngine') || 'local'
+                });
+            }
             
             if (result && result.text) {
                 displayTranslationResult(result, text, directionStr);
@@ -691,6 +745,11 @@ function setupVoiceInput() {
     let isListening = false;
 
     micBtn?.addEventListener('click', () => {
+        if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'translator_mic_click', {
+                'action': !isListening ? 'start' : 'stop'
+            });
+        }
         if (!isListening) {
             recognition.start();
             isListening = true;

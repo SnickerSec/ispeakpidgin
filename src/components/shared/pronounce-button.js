@@ -16,6 +16,13 @@
             if (typeof pidginSpeech !== 'undefined') {
                 pidginSpeech.speak(word);
             } else if (typeof window !== 'undefined' && window.speechSynthesis && window.SpeechSynthesisUtterance) {
+                // Track fallback play event
+                if (window.gtag) {
+                    window.gtag('event', 'pronunciation_play', {
+                        'word': word,
+                        'provider': 'Browser_Direct'
+                    });
+                }
                 var utterance = new window.SpeechSynthesisUtterance(word);
                 utterance.rate = 0.8;
                 window.speechSynthesis.speak(utterance);
@@ -33,6 +40,13 @@
                 if (match) word = match[1];
             }
             if (!word) return;
+
+            // Track audio download event
+            if (typeof window !== 'undefined' && window.gtag) {
+                window.gtag('event', 'pronunciation_download', {
+                    'word': word
+                });
+            }
 
             try {
                 // Try to find pre-generated audio filename from index
@@ -56,6 +70,23 @@
             } catch (e) {
                 console.warn('Audio download error:', e);
                 alert('Aloha! Audio service is currently unavailable for direct downloads.');
+            }
+        });
+    });
+
+    // Handle share image buttons
+    document.querySelectorAll('#share-image-btn, .share-image-btn').forEach(shareBtn => {
+        shareBtn.addEventListener('click', function() {
+            var word = shareBtn.getAttribute('data-word');
+            if (!word) {
+                var title = document.title || '';
+                var match = title.match(/what does (.+?) mean/i);
+                if (match) word = match[1];
+            }
+            if (typeof window !== 'undefined' && window.gtag) {
+                window.gtag('event', 'pronunciation_share_click', {
+                    'word': word
+                });
             }
         });
     });

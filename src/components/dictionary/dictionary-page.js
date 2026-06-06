@@ -85,6 +85,14 @@ function setupSearch() {
 
         if (term) {
             results = pidginDictionary.searchDictionary(term);
+
+            // Track search query event
+            if (typeof window !== 'undefined' && window.gtag) {
+                window.gtag('event', 'dictionary_search', {
+                    'search_term': term,
+                    'results_count': results.length
+                });
+            }
             
             // Log content gap if no results found
             if (results.length === 0 && term.length >= 3) {
@@ -136,6 +144,14 @@ function setupFilters() {
                 results = pidginDictionary.getByCategory(category);
             }
             
+            // Track category filter selection
+            if (typeof window !== 'undefined' && window.gtag) {
+                window.gtag('event', 'dictionary_category_filter', {
+                    'category': category,
+                    'results_count': results.length
+                });
+            }
+
             displayResults(results);
             updateSearchStats(results.length, '', category === 'favorites' ? 'Your Saved Words' : category);
 

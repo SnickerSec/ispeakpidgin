@@ -394,12 +394,31 @@ function initTranslator() {
         const result = translator.translate(inputText, currentDirection);
         const translatedText = typeof result === 'string' ? result : result.text;
 
+        // Track translation event
+        if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'translator_request', {
+                'direction': currentDirection,
+                'tone': 'standard',
+                'text_length': inputText.length,
+                'engine': 'local_home'
+            });
+        }
+
         translatorOutput.textContent = translatedText;
 
         // Show pronunciation button
         if (speakTranslationBtn && translatedText) {
             speakTranslationBtn.classList.remove('hidden');
-            speakTranslationBtn.onclick = () => speakText(translatedText);
+            speakTranslationBtn.onclick = () => {
+                // Track speak translation event
+                if (typeof window !== 'undefined' && window.gtag) {
+                    window.gtag('event', 'translator_speak', {
+                        'text': translatedText,
+                        'engine': 'local_home'
+                    });
+                }
+                speakText(translatedText);
+            };
         }
 
         // Add enhanced features if result is object
