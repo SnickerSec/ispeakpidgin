@@ -21,7 +21,8 @@ const {
     getCulturalFact,
     parallelForEach,
     SITE_URL,
-    SITE_NAME
+    SITE_NAME,
+    premiumPages
 } = require('./shared-utils');
 const { generateOgImage } = require('./og-image-generator');
 
@@ -29,60 +30,6 @@ const { generateOgImage } = require('./og-image-generator');
 const outputDir = path.join(__dirname, '../../public/word');
 const ogOutputDir = path.join(__dirname, '../../public/assets/og/words');
 
-// Map of words that have high-quality, dedicated landing pages
-const premiumPages = {
-    'akamai': 'what-does-akamai-mean.html',
-    'aloha': 'what-does-aloha-mean.html',
-    'howzit': 'what-does-howzit-mean.html',
-    'menpachi eyes': 'what-does-menpachi-eyes-mean.html',
-    'mempachi eyes': 'what-does-menpachi-eyes-mean.html',
-    'no ka oi': 'what-does-no-ka-oi-mean.html',
-    'pau': 'what-does-pau-mean.html',
-    'choke': 'what-does-choke-mean.html',
-    'mahalo': 'what-does-mahalo-mean.html',
-    'no worry': 'what-does-no-worry-mean.html',
-    'sarap': 'what-does-sarap-mean.html',
-    'talk story': 'what-does-talk-story-mean.html',
-    'ainokea': 'what-does-ainokea-mean.html',
-    'buss up': 'what-does-buss-up-mean.html',
-    'amped': 'what-does-amped-mean.html',
-    'bline': 'what-does-bline-mean.html',
-    'bruddah': 'what-does-bruddah-mean.html',
-    'sistah': 'what-does-sistah-mean.html',
-    'moopuna': 'what-does-moopuna-mean.html',
-    'niele': 'what-does-niele-mean.html',
-    'pilau': 'what-does-pilau-mean.html',
-    'kanak attack': 'what-does-kanak-attack-mean.html',
-    'you da man': 'what-does-you-da-man-mean.html',
-    'you da best': 'what-does-you-da-man-mean.html',
-    'brah': 'what-does-brah-mean.html',
-    'broke da mouth': 'what-does-broke-da-mouth-mean.html',
-    'buggah': 'what-does-buggah-mean.html',
-    'chicken skin': 'what-does-chicken-skin-mean.html',
-    'da kine': 'what-does-da-kine-mean.html',
-    'faka': 'what-does-faka-mean.html',
-    'grindz': 'what-does-grindz-mean.html',
-    'hamajang': 'what-does-hamajang-mean.html',
-    'haole': 'what-does-haole-mean.html',
-    'humbug': 'what-does-humbug-mean.html',
-    'kamaaina': 'what-does-kamaaina-mean.html',
-    'keiki': 'what-does-keiki-mean.html',
-    'lolo': 'what-does-lolo-mean.html',
-    'mauka makai': 'what-does-mauka-makai-mean.html',
-    'mayjah': 'what-does-mayjah-mean.html',
-    'ohana': 'what-does-ohana-mean.html',
-    'ono grindz': 'what-does-ono-grindz-mean.html',
-    'ono': 'what-does-ono-mean.html',
-    'pake': 'what-does-pake-mean.html',
-    'pau hana': 'what-does-pau-hana-mean.html',
-    'poho': 'what-does-poho-mean.html',
-    'rajah': 'what-does-rajah-mean.html',
-    'shaka': 'what-does-shaka-mean.html',
-    'shoots': 'what-does-shoots-mean.html',
-    'small kine': 'what-does-small-kine-mean.html',
-    'stink eye': 'what-does-stink-eye-mean.html',
-    'wahine': 'what-does-wahine-mean.html'
-};
 
 // Create output directory
 if (!fs.existsSync(outputDir)) {
@@ -219,8 +166,10 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
                 ${relatedTerms.map(related => {
                     const relatedEnglish = Array.isArray(related.english) ? related.english : [related.english];
                     const relatedSlug = createSlug(related.pidgin);
+                    const premiumPage = premiumPages[related.pidgin.toLowerCase()];
+                    const href = premiumPage ? `/${premiumPage}` : `/word/${relatedSlug}.html`;
                     return `
-                    <a href="/word/${relatedSlug}.html"
+                    <a href="${href}"
                        class="group bg-gradient-to-br from-gray-50 to-blue-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-5 hover:from-purple-50 hover:to-blue-100 dark:hover:from-slate-600 dark:hover:to-slate-700 transition-all duration-300 border border-gray-100 dark:border-slate-600 shadow-sm hover:shadow-md">
                         <h3 class="font-bold text-lg text-purple-700 dark:text-purple-300 group-hover:text-purple-900 dark:group-hover:text-purple-100 mb-1 transition-colors">${escapeHtml(related.pidgin)}</h3>
                         <p class="text-xs text-gray-600 dark:text-slate-400 line-clamp-2">${escapeHtml(relatedEnglish.join(', '))}</p>

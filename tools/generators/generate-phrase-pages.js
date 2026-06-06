@@ -21,7 +21,8 @@ const {
     getCulturalFact,
     parallelForEach,
     SITE_URL,
-    SITE_NAME
+    SITE_NAME,
+    premiumPages
 } = require('./shared-utils');
 const { generateOgImage } = require('./og-image-generator');
 
@@ -133,7 +134,9 @@ function internalLinker(text, dictionary) {
 
             const slug = createSlug(pidgin);
             const placeholder = `__LINK_${placeholders.length}__`;
-            placeholders.push(`<a href="/word/${slug}.html" class="text-purple-600 hover:underline font-medium">${fullMatch}</a>`);
+            const premiumPage = premiumPages[pidgin.toLowerCase()];
+            const href = premiumPage ? `/${premiumPage}` : `/word/${slug}.html`;
+            placeholders.push(`<a href="${href}" class="text-purple-600 hover:underline font-medium">${fullMatch}</a>`);
             
             linkedText = linkedText.substring(0, start) + placeholder + linkedText.substring(start + length);
             

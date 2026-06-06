@@ -711,12 +711,189 @@ async function build() {
             console.log('\n⏩ Skipping heavy generations (--quick)');
         }
 
+        // Run link checker on the compiled public/ directory
+        checkLinks();
+
         console.log('\n✅ Build completed successfully!');
         console.log('📂 Production files are in the /public directory');
 
     } catch (error) {
         console.error('❌ Build failed:', error.message);
         process.exit(1);
+    }
+}
+
+// Helper to recursively list HTML files in a directory
+function getHtmlFiles(dir, fileList = []) {
+    const files = fs.readdirSync(dir);
+    for (const file of files) {
+        const filePath = path.join(dir, file);
+        const stat = fs.statSync(filePath);
+        if (stat.isDirectory()) {
+            getHtmlFiles(filePath, fileList);
+        } else if (file.endsWith('.html')) {
+            fileList.push(filePath);
+        }
+    }
+    return fileList;
+}
+
+// Build-time link validation utility
+function checkLinks() {
+    console.log('\n🔍 Running build-time link checker...');
+    const startTime = Date.now();
+    const publicDir = path.resolve(config.publicDir);
+    if (!fs.existsSync(publicDir)) {
+        console.error('❌ Public directory does not exist. Skipping link check.');
+        return;
+    }
+
+    const htmlFiles = getHtmlFiles(publicDir);
+    let totalLinks = 0;
+    let brokenLinks = 0;
+    let redirectProneLinks = 0;
+    const brokenList = [];
+    const redirectList = [];
+
+    // Premium pages map to detect links that should point to curated pages
+    const premiumPages = {
+        'akamai': 'what-does-akamai-mean.html',
+        'aloha': 'what-does-aloha-mean.html',
+        'howzit': 'what-does-howzit-mean.html',
+        'menpachi eyes': 'what-does-menpachi-eyes-mean.html',
+        'mempachi eyes': 'what-does-menpachi-eyes-mean.html',
+        'no ka oi': 'what-does-no-ka-oi-mean.html',
+        'pau': 'what-does-pau-mean.html',
+        'choke': 'what-does-choke-mean.html',
+        'mahalo': 'what-does-mahalo-mean.html',
+        'no worry': 'what-does-no-worry-mean.html',
+        'sarap': 'what-does-sarap-mean.html',
+        'talk story': 'what-does-talk-story-mean.html',
+        'ainokea': 'what-does-ainokea-mean.html',
+        'buss up': 'what-does-buss-up-mean.html',
+        'amped': 'what-does-amped-mean.html',
+        'bline': 'what-does-bline-mean.html',
+        'bruddah': 'what-does-bruddah-mean.html',
+        'sistah': 'what-does-sistah-mean.html',
+        'moopuna': 'what-does-moopuna-mean.html',
+        'niele': 'what-does-niele-mean.html',
+        'pilau': 'what-does-pilau-mean.html',
+        'kanak attack': 'what-does-kanak-attack-mean.html',
+        'you da man': 'what-does-you-da-man-mean.html',
+        'you da best': 'what-does-you-da-man-mean.html',
+        'brah': 'what-does-brah-mean.html',
+        'broke da mouth': 'what-does-broke-da-mouth-mean.html',
+        'buggah': 'what-does-buggah-mean.html',
+        'chicken skin': 'what-does-chicken-skin-mean.html',
+        'da kine': 'what-does-da-kine-mean.html',
+        'faka': 'what-does-faka-mean.html',
+        'grindz': 'what-does-grindz-mean.html',
+        'hamajang': 'what-does-hamajang-mean.html',
+        'haole': 'what-does-haole-mean.html',
+        'humbug': 'what-does-humbug-mean.html',
+        'kamaaina': 'what-does-kamaaina-mean.html',
+        'keiki': 'what-does-keiki-mean.html',
+        'lolo': 'what-does-lolo-mean.html',
+        'mauka makai': 'what-does-mauka-makai-mean.html',
+        'mayjah': 'what-does-mayjah-mean.html',
+        'ohana': 'what-does-ohana-mean.html',
+        'ono grindz': 'what-does-ono-grindz-mean.html',
+        'ono': 'what-does-ono-mean.html',
+        'pake': 'what-does-pake-mean.html',
+        'pau hana': 'what-does-pau-hana-mean.html',
+        'poho': 'what-does-poho-mean.html',
+        'rajah': 'what-does-rajah-mean.html',
+        'shaka': 'what-does-shaka-mean.html',
+        'shoots': 'what-does-shoots-mean.html',
+        'small kine': 'what-does-small-kine-mean.html',
+        'stink eye': 'what-does-stink-eye-mean.html',
+        'wahine': 'what-does-wahine-mean.html'
+    };
+
+    for (const filePath of htmlFiles) {
+        const relativeFilePath = path.relative(publicDir, filePath);
+        const html = fs.readFileSync(filePath, 'utf8');
+        
+        // Find all href values
+        const hrefRegex = /href=["']([^"']+)["']/g;
+        let match;
+        
+        while ((match = hrefRegex.exec(html)) !== null) {
+            let link = match[1].trim();
+            totalLinks++;
+            
+            // Skip external, anchor-only, mailto, tel, javascript, etc.
+            if (
+                link.startsWith('http://') || 
+                link.startsWith('https://') || 
+                link.startsWith('#') || 
+                link.startsWith('mailto:') || 
+                link.startsWith('tel:') || 
+                link.startsWith('javascript:')
+            ) {
+                continue;
+            }
+
+            // Remove query params and hashes
+            link = link.split('?')[0].split('#')[0];
+            if (!link) continue;
+
+            // Resolve target path
+            let targetPath;
+            if (link.startsWith('/')) {
+                // Root-relative
+                targetPath = path.join(publicDir, link);
+            } else {
+                // Document-relative
+                targetPath = path.resolve(path.dirname(filePath), link);
+            }
+
+            // Check if file exists
+            if (!fs.existsSync(targetPath)) {
+                // Sometimes directory links (like '/') check as folder existence
+                const isDir = fs.existsSync(targetPath) && fs.statSync(targetPath).isDirectory();
+                if (!isDir) {
+                    brokenLinks++;
+                    brokenList.push({
+                        file: relativeFilePath,
+                        link: match[1],
+                        resolved: path.relative(publicDir, targetPath)
+                    });
+                }
+            } else {
+                // File exists. Check if it's a generated word page that has a premium alternative
+                // e.g. /word/pau.html should be /what-does-pau-mean.html
+                if (link.includes('word/')) {
+                    const wordSlug = path.basename(link, '.html');
+                    const premiumPage = premiumPages[wordSlug.replace(/-/g, ' ')];
+                    if (premiumPage) {
+                        redirectProneLinks++;
+                        redirectList.push({
+                            file: relativeFilePath,
+                            link: match[1],
+                            suggested: `/${premiumPage}`
+                        });
+                    }
+                }
+            }
+        }
+    }
+
+    const duration = ((Date.now() - startTime) / 1000).toFixed(1);
+    console.log(`✅ Link check finished in ${duration}s (Audited ${totalLinks} links across ${htmlFiles.length} files)`);
+
+    if (brokenList.length > 0) {
+        console.warn(`\n⚠️  Found ${brokenLinks} Broken Links:`);
+        brokenList.forEach(item => {
+            console.warn(`   - In [${item.file}]: link "${item.link}" resolves to missing file "${item.resolved}"`);
+        });
+    }
+
+    if (redirectList.length > 0) {
+        console.info(`\n💡 Found ${redirectProneLinks} Redirect-Prone Links (point directly to curated pages instead of generic /word/*.html):`);
+        redirectList.forEach(item => {
+            console.info(`   - In [${item.file}]: link "${item.link}" should be updated to "${item.suggested}"`);
+        });
     }
 }
 
