@@ -39,6 +39,8 @@ const premiumPages = {
     'howzit': 'what-does-howzit-mean.html',
     'menpachi eyes': 'what-does-menpachi-eyes-mean.html',
     'mempachi eyes': 'what-does-menpachi-eyes-mean.html',
+    'stop da menpachi eye': 'what-does-menpachi-eyes-mean.html',
+    'stop da mempachi eye': 'what-does-menpachi-eyes-mean.html',
     'no ka oi': 'what-does-no-ka-oi-mean.html',
     'pau': 'what-does-pau-mean.html',
     'choke': 'what-does-choke-mean.html',
@@ -411,6 +413,21 @@ async function parallelForEach(items, concurrency, handler) {
     await Promise.all(workers);
 }
 
+/**
+ * Lookup a word in the premiumPages map, normalizing okinas and formatting
+ * @param {string} pidginWord - The Pidgin word to lookup
+ * @returns {string|null} The premium page path or null if not found
+ */
+function getPremiumPage(pidginWord) {
+    if (!pidginWord) return null;
+    const cleanWord = pidginWord.toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // remove kahako and other accents
+        .replace(/['ʻ`‘’]/g, '') // remove okinas and common quotes
+        .replace(/-/g, ' ')      // normalize hyphens to spaces
+        .trim();
+    return premiumPages[cleanWord] || null;
+}
+
 module.exports = {
     createSlug,
     escapeHtml,
@@ -425,5 +442,6 @@ module.exports = {
     parallelForEach,
     SITE_URL,
     SITE_NAME,
-    premiumPages
+    premiumPages,
+    getPremiumPage
 };

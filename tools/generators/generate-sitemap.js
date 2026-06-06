@@ -9,7 +9,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const { createSlug, fetchFromSupabase, premiumPages } = require('./shared-utils');
+const { createSlug, fetchFromSupabase, premiumPages, getPremiumPage } = require('./shared-utils');
 
 // Get current date in YYYY-MM-DD format
 function getCurrentDate() {
@@ -486,7 +486,7 @@ function generateSitemap({ dictionaryEntries, phrases, stories, pickupLines }) {
 
     dictionaryEntries.forEach(entry => {
         // Skip if this word has a premium curated landing page (they are already included as curated URLs)
-        if (premiumPages[entry.pidgin.toLowerCase()]) {
+        if (getPremiumPage(entry.pidgin)) {
             return;
         }
 

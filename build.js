@@ -762,6 +762,8 @@ function checkLinks() {
         'howzit': 'what-does-howzit-mean.html',
         'menpachi eyes': 'what-does-menpachi-eyes-mean.html',
         'mempachi eyes': 'what-does-menpachi-eyes-mean.html',
+        'stop da menpachi eye': 'what-does-menpachi-eyes-mean.html',
+        'stop da mempachi eye': 'what-does-menpachi-eyes-mean.html',
         'no ka oi': 'what-does-no-ka-oi-mean.html',
         'pau': 'what-does-pau-mean.html',
         'choke': 'what-does-choke-mean.html',

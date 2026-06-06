@@ -22,7 +22,8 @@ const {
     parallelForEach,
     SITE_URL,
     SITE_NAME,
-    premiumPages
+    premiumPages,
+    getPremiumPage
 } = require('./shared-utils');
 const { generateOgImage } = require('./og-image-generator');
 
@@ -69,7 +70,7 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
     const primaryMeaning = englishArray[0] || '';
 
     // Check if this word has a premium landing page
-    const premiumPage = premiumPages[entry.pidgin.toLowerCase()];
+    const premiumPage = getPremiumPage(entry.pidgin);
     const premiumLink = premiumPage ? `${SITE_URL}/${premiumPage}` : null;
 
     // SEO-optimized title: Match exact search query "X meaning" with compelling format
@@ -166,7 +167,7 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
                 ${relatedTerms.map(related => {
                     const relatedEnglish = Array.isArray(related.english) ? related.english : [related.english];
                     const relatedSlug = createSlug(related.pidgin);
-                    const premiumPage = premiumPages[related.pidgin.toLowerCase()];
+                    const premiumPage = getPremiumPage(related.pidgin);
                     const href = premiumPage ? `/${premiumPage}` : `/word/${relatedSlug}.html`;
                     return `
                     <a href="${href}"
