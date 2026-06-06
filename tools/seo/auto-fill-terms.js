@@ -51,7 +51,7 @@ Respond ONLY with a JSON object:
 }`;
 
     try {
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${GEMINI_API_KEY}`;
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${GEMINI_API_KEY}`;
         
         const response = await fetch(apiUrl, {
             method: 'POST',
@@ -65,7 +65,10 @@ Respond ONLY with a JSON object:
             })
         });
 
-        if (!response.ok) throw new Error(`API error: ${response.status}`);
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`API error: ${response.status} - ${errorText}`);
+        }
         
         const data = await response.json();
         const aiResponse = JSON.parse(data.candidates[0].content.parts[0].text);

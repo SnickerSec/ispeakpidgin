@@ -1,0 +1,905 @@
+{
+  "generated": "2026-06-06T04:15:48.228Z",
+  "count": 44,
+  "missing": [
+    {
+      "pidgin": "pidgin translator",
+      "english": [],
+      "category": "expressions",
+      "impressions": 419,
+      "clicks": 37,
+      "ctr": "8.83%",
+      "position": "4.2",
+      "pronunciation": "",
+      "examples": [],
+      "tags": [],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "sarap in english",
+      "english": [
+        "delicious",
+        "tasty"
+      ],
+      "category": "food",
+      "impressions": 247,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "10.9",
+      "pronunciation": "SAH-RAHP",
+      "examples": [
+        "This adobo is so sarap!",
+        "You went try the food? Sarap, boy!"
+      ],
+      "tags": [
+        "filipino",
+        "food",
+        "loanword"
+      ],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "kokua kokua in english",
+      "english": [
+        "help",
+        "cooperate",
+        "assistance"
+      ],
+      "category": "culture",
+      "impressions": 115,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "10.8",
+      "pronunciation": "koh-KOO-ah",
+      "examples": [
+        "We need everyone for kokua with the clean up.",
+        "Mahalo for your kokua."
+      ],
+      "tags": [
+        "hawaiian",
+        "help",
+        "cooperate",
+        "values"
+      ],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "sarap in tagalog",
+      "english": [
+        "delicious",
+        "tasty"
+      ],
+      "category": "food",
+      "impressions": 114,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "8.8",
+      "pronunciation": "SAH-RAHP",
+      "examples": [
+        "This adobo is so sarap!",
+        "You went try the lumpia? So sarap, boy."
+      ],
+      "tags": [
+        "filipino",
+        "loanword",
+        "slang",
+        "food"
+      ],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "pidgin dictionary",
+      "english": [
+        "pidgin dictionary"
+      ],
+      "category": "culture",
+      "impressions": 110,
+      "clicks": 11,
+      "ctr": "10.00%",
+      "position": "4.9",
+      "pronunciation": "PIJ-IN DIK-SHUN-A-REE",
+      "examples": [],
+      "tags": [
+        "meta",
+        "search query"
+      ],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "dictionary cabbage",
+      "english": [],
+      "category": "descriptions",
+      "impressions": 88,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "7.8",
+      "pronunciation": "",
+      "examples": [],
+      "tags": [],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "scrap fight",
+      "english": [
+        "physical fight",
+        "brawl",
+        "fistfight"
+      ],
+      "category": "expressions",
+      "impressions": 70,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "6.2",
+      "pronunciation": "SKRAP FYT",
+      "examples": [
+        "You guys going scrap fight or what? Just talk 'em out.",
+        "I heard there was one big scrap fight behind the gym after school."
+      ],
+      "tags": [
+        "slang",
+        "conflict",
+        "action",
+        "local-talk"
+      ],
+      "is_junk": false,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "pidgin to english",
+      "english": [
+        "pidgin to english translation query"
+      ],
+      "category": "grammar",
+      "impressions": 67,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "5.2",
+      "pronunciation": "PIJ-in TOO ING-glish",
+      "examples": [],
+      "tags": [
+        "search query",
+        "translation",
+        "dictionary"
+      ],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "ang sarap",
+      "english": [
+        "delicious",
+        "very tasty",
+        "so good"
+      ],
+      "category": "food",
+      "impressions": 62,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "8.8",
+      "pronunciation": "AHNG SAH-RAHP",
+      "examples": [
+        "You went make the pork adobo? Ang sarap, auntie!",
+        "This mango is ang sarap, so sweet!"
+      ],
+      "tags": [
+        "filipino",
+        "food",
+        "slang",
+        "loanword"
+      ],
+      "is_junk": false,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "borot in english",
+      "english": [
+        "bloated",
+        "stuffed from eating",
+        "full"
+      ],
+      "category": "descriptions",
+      "impressions": 53,
+      "clicks": 1,
+      "ctr": "1.89%",
+      "position": "4.1",
+      "pronunciation": "BOH-rot",
+      "examples": [
+        "I ate so much plate lunch, I stay borot already.",
+        "No make me eat more, I too borot."
+      ],
+      "tags": [
+        "food",
+        "descriptive",
+        "slang"
+      ],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "punnami lyrics translate",
+      "english": [],
+      "category": "expressions",
+      "impressions": 53,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "10.2",
+      "pronunciation": "",
+      "examples": [],
+      "tags": [],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "pigeon translation",
+      "english": [
+        "pidgin translation",
+        "translating hawaiian pidgin"
+      ],
+      "category": "culture",
+      "impressions": 50,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "6.6",
+      "pronunciation": "PIH-jin tranz-LAY-shun",
+      "examples": [],
+      "tags": [
+        "translation",
+        "search query",
+        "meta"
+      ],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "poho in english",
+      "english": [
+        "waste",
+        "pity",
+        "loss"
+      ],
+      "category": "expressions",
+      "impressions": 48,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "7.8",
+      "pronunciation": "POH-hoh",
+      "examples": [
+        "Ah, poho all dat food you guys never eat!",
+        "No go buy dat, waste money, poho!"
+      ],
+      "tags": [
+        "hawaiian",
+        "waste",
+        "pity",
+        "regret"
+      ],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "scobeis portal",
+      "english": [],
+      "category": "descriptions",
+      "impressions": 47,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "9.0",
+      "pronunciation": "",
+      "examples": [],
+      "tags": [],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "english to",
+      "english": [],
+      "category": "grammar",
+      "impressions": 46,
+      "clicks": 20,
+      "ctr": "43.48%",
+      "position": "1.6",
+      "pronunciation": "",
+      "examples": [],
+      "tags": [],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "what are we we da best",
+      "english": [],
+      "category": "expressions",
+      "impressions": 42,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "8.9",
+      "pronunciation": "",
+      "examples": [],
+      "tags": [],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "faka in english",
+      "english": [
+        "guy",
+        "fellow",
+        "fucker"
+      ],
+      "category": "people",
+      "impressions": 41,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "8.6",
+      "pronunciation": "FAH-kah",
+      "examples": [
+        "Who dat faka over deah?",
+        "Eh, dat faka went take my surf wax."
+      ],
+      "tags": [
+        "slang",
+        "nouns",
+        "people"
+      ],
+      "is_junk": false,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "goin or going",
+      "english": [
+        "going to",
+        "will",
+        "about to"
+      ],
+      "category": "grammar",
+      "impressions": 41,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "9.6",
+      "pronunciation": "GO-in",
+      "examples": [
+        "I goin go store, you like anything?",
+        "We going eat lunch later, you like come?"
+      ],
+      "tags": [
+        "grammar",
+        "future tense",
+        "verbs",
+        "sentence structure"
+      ],
+      "is_junk": false,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "yubo",
+      "english": [],
+      "category": "people",
+      "impressions": 41,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "10.1",
+      "pronunciation": "",
+      "examples": [],
+      "tags": [],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "fakas",
+      "english": [
+        "guys",
+        "fellows",
+        "bastards"
+      ],
+      "category": "people",
+      "impressions": 40,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "9.3",
+      "pronunciation": "FAH-kahs",
+      "examples": [
+        "What you fakas doing tonight?",
+        "Those fakas went take my slippers."
+      ],
+      "tags": [
+        "slang",
+        "casual",
+        "pronoun",
+        "local"
+      ],
+      "is_junk": false,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "cuz full form in chat",
+      "english": [],
+      "category": "expressions",
+      "impressions": 39,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "11.8",
+      "pronunciation": "",
+      "examples": [],
+      "tags": [],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "pidgin translation",
+      "english": [
+        "pidgin translation"
+      ],
+      "category": "expressions",
+      "impressions": 36,
+      "clicks": 3,
+      "ctr": "8.33%",
+      "position": "4.8",
+      "pronunciation": "PIJ-IN TRANZ-LAY-SHUN",
+      "examples": [],
+      "tags": [
+        "meta",
+        "search query",
+        "translation"
+      ],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "common",
+      "english": [
+        "common",
+        "ordinary",
+        "frequent"
+      ],
+      "category": "descriptions",
+      "impressions": 35,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "10.6",
+      "pronunciation": "KAH-mun",
+      "examples": [],
+      "tags": [
+        "english",
+        "general",
+        "search-query"
+      ],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "my cuz",
+      "english": [
+        "my cousin",
+        "my friend",
+        "my bro"
+      ],
+      "category": "people",
+      "impressions": 34,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "9.7",
+      "pronunciation": "MY KAHZ",
+      "examples": [
+        "Eh, dat's my cuz over dere, he can help us.",
+        "Aloha, my cuz! Long time no see."
+      ],
+      "tags": [
+        "relationship",
+        "slang",
+        "address",
+        "local"
+      ],
+      "is_junk": false,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "translate english to",
+      "english": [],
+      "category": "expressions",
+      "impressions": 31,
+      "clicks": 6,
+      "ctr": "19.35%",
+      "position": "2.3",
+      "pronunciation": "",
+      "examples": [],
+      "tags": [],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "pidgin to english translator",
+      "english": [],
+      "category": "grammar",
+      "impressions": 31,
+      "clicks": 1,
+      "ctr": "3.23%",
+      "position": "5.6",
+      "pronunciation": "",
+      "examples": [],
+      "tags": [],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "spell nene",
+      "english": [
+        "how to spell nene",
+        "nene spelling"
+      ],
+      "category": "descriptions",
+      "impressions": 31,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "7.9",
+      "pronunciation": "SPELL NEH-NEH",
+      "examples": [],
+      "tags": [
+        "search query",
+        "typo",
+        "gibberish"
+      ],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "\"tuls\" dictionary",
+      "english": [],
+      "category": "expressions",
+      "impressions": 30,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "6.3",
+      "pronunciation": "",
+      "examples": [],
+      "tags": [],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "sarap bby",
+      "english": [
+        "delicious baby",
+        "feels good baby"
+      ],
+      "category": "expressions",
+      "impressions": 28,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "7.4",
+      "pronunciation": "SAH-RAHP BEH-BEE",
+      "examples": [],
+      "tags": [
+        "tagalog",
+        "slang",
+        "filipino"
+      ],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "sarap filipino",
+      "english": [
+        "delicious",
+        "tasty",
+        "delicious Filipino food"
+      ],
+      "category": "food",
+      "impressions": 28,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "9.4",
+      "pronunciation": "sah-RAHP",
+      "examples": [
+        "You gotta try dis pork adobo, so sarap!",
+        "My grandma make the most sarap Filipino desserts for New Years."
+      ],
+      "tags": [
+        "food",
+        "filipino",
+        "slang",
+        "delicious"
+      ],
+      "is_junk": false,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "korean yobo",
+      "english": [
+        "Korean person",
+        "spouse",
+        "Korean-style"
+      ],
+      "category": "people",
+      "impressions": 27,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "8.6",
+      "pronunciation": "KOH-REE-AN YOH-BOH",
+      "examples": [
+        "Eh, you went try the meat jun from that new Korean yobo place?",
+        "My neighbor is one sweet old Korean yobo."
+      ],
+      "tags": [
+        "korean",
+        "plantation",
+        "slang",
+        "local culture"
+      ],
+      "is_junk": false,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "sarap tagalog",
+      "english": [
+        "delicious",
+        "tasty"
+      ],
+      "category": "food",
+      "impressions": 26,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "13.2",
+      "pronunciation": "SAH-RAHP tah-GAH-LOG",
+      "examples": [
+        "The food at the party was so sarap!",
+        "You know how for make the adobo taste sarap?"
+      ],
+      "tags": [
+        "filipino",
+        "slang",
+        "food",
+        "loanword"
+      ],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "learn",
+      "english": [
+        "to teach",
+        "to learn"
+      ],
+      "category": "grammar",
+      "impressions": 25,
+      "clicks": 1,
+      "ctr": "4.00%",
+      "position": "7.2",
+      "pronunciation": "LEN",
+      "examples": [
+        "My uncle went len me how for throw net.",
+        "Who went learn you how for talk like dat?"
+      ],
+      "tags": [
+        "verb",
+        "grammar",
+        "education",
+        "local-slang"
+      ],
+      "is_junk": false,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "full form of cuz",
+      "english": [
+        "cousin",
+        "friend",
+        "brother"
+      ],
+      "category": "people",
+      "impressions": 25,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "9.5",
+      "pronunciation": "KUHZ",
+      "examples": [],
+      "tags": [
+        "pronoun",
+        "slang",
+        "relationship"
+      ],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "does scrap",
+      "english": [
+        "habitually fights",
+        "gets into fights",
+        "fights"
+      ],
+      "category": "grammar",
+      "impressions": 24,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "6.0",
+      "pronunciation": "DUZ SKRAP",
+      "examples": [
+        "Eh, no mess with dat guy from Waianae, he does scrap.",
+        "My cousin does scrap every time he go to the bar."
+      ],
+      "tags": [
+        "slang",
+        "habitual",
+        "fighting",
+        "verbs"
+      ],
+      "is_junk": false,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "google translate",
+      "english": [
+        "google translate"
+      ],
+      "category": "grammar",
+      "impressions": 24,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "7.3",
+      "pronunciation": "GOO-GUHL TRANZ-LAYT",
+      "examples": [],
+      "tags": [
+        "search query",
+        "translation tool",
+        "internet"
+      ],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "how's it",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 24,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "7.8"
+    },
+    {
+      "pidgin": "sarap in filipino",
+      "english": [
+        "delicious",
+        "tasty"
+      ],
+      "category": "food",
+      "impressions": 24,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "8.6",
+      "pronunciation": "SAH-RAHP",
+      "examples": [
+        "This adobo is so sarap!",
+        "You went try the lumpia? Sarap, boy!"
+      ],
+      "tags": [
+        "filipino",
+        "loanword",
+        "food",
+        "delicious"
+      ],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "raja dat",
+      "english": [
+        "roger that",
+        "I agree",
+        "that's correct"
+      ],
+      "category": "expressions",
+      "impressions": 23,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "7.2",
+      "pronunciation": "RAH-jah DAT",
+      "examples": [
+        "You going beach bumbye? Raja dat, I grab the cooler.",
+        "We meeting at Zippy's at five? Raja dat, see you there."
+      ],
+      "tags": [
+        "slang",
+        "agreement",
+        "expression",
+        "local talk"
+      ],
+      "is_junk": false,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "google translate english to",
+      "english": [],
+      "category": "grammar",
+      "impressions": 22,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "6.8",
+      "pronunciation": "",
+      "examples": [],
+      "tags": [],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "kakua kakua",
+      "english": [],
+      "category": "descriptions",
+      "impressions": 22,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "8.3",
+      "pronunciation": "",
+      "examples": [],
+      "tags": [],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "pidgin translate",
+      "english": [],
+      "category": "grammar",
+      "impressions": 22,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "6.0",
+      "pronunciation": "",
+      "examples": [],
+      "tags": [],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "howzit bedeutung",
+      "english": [
+        "how is it",
+        "how are you"
+      ],
+      "category": "greetings",
+      "impressions": 21,
+      "clicks": 1,
+      "ctr": "4.76%",
+      "position": "11.3",
+      "pronunciation": "HOW-zit",
+      "examples": [],
+      "tags": [
+        "greeting",
+        "query",
+        "german"
+      ],
+      "is_junk": true,
+      "ai_generated": true
+    },
+    {
+      "pidgin": "yobo in english",
+      "english": [
+        "Korean person",
+        "Korean style"
+      ],
+      "category": "people",
+      "impressions": 21,
+      "clicks": 0,
+      "ctr": "0.00%",
+      "position": "11.5",
+      "pronunciation": "YOH-boh",
+      "examples": [
+        "We going eat at the yobo place down the street.",
+        "My neighbor is one old-school yobo."
+      ],
+      "tags": [
+        "slang",
+        "korean",
+        "local identity"
+      ],
+      "is_junk": true,
+      "ai_generated": true
+    }
+  ],
+  "last_auto_fill": "2026-06-06T04:40:19.925Z"
+}

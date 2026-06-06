@@ -62,6 +62,19 @@ async function main() {
             return;
         }
 
+        if (term.is_junk === true) {
+            console.log(`🗑️  Skipping junk term: "${term.pidgin}"`);
+            skippedCount++;
+            return;
+        }
+
+        const englishArray = Array.isArray(term.english) ? term.english : [term.english];
+        if (englishArray.length === 0 || englishArray[0] === 'TBD (Add English translation)' || englishArray[0] === '') {
+            console.log(`⚠️  Skipping term without translation: "${term.pidgin}"`);
+            skippedCount++;
+            return;
+        }
+
         // Generate ID if not provided (UUID)
         const id = term.id || crypto.randomUUID();
 
