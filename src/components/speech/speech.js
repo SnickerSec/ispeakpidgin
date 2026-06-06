@@ -159,6 +159,7 @@ class PidginSpeech {
             'bumbye': 'bum-bye',
             'latah': 'lay-tah',
             'latahs': 'lay-tahz',
+            'later': 'lay-tah',
             'tanks': 'tahnks',
             'choke': 'chohk',
             'geev': 'geev',

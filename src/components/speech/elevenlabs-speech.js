@@ -285,6 +285,7 @@ class ElevenLabsSpeech {
             'bumbai': 'bum-bye',
             'latah': 'lay-tah',
             'latahs': 'lay-tahz',
+            'later': 'lay-tah',
             'fo\'': 'foh',
             'fo': 'foh',
             'mahimahi': 'mah-hee-mah-hee',
