@@ -237,7 +237,8 @@ function setupTranslationControls() {
 
     // Copy button
     copyBtn?.addEventListener('click', () => {
-        const text = outputDiv.textContent;
+        const textEl = document.getElementById('translation-text');
+        const text = textEl ? textEl.textContent.trim() : outputDiv.textContent.trim();
         if (typeof window !== 'undefined' && window.gtag) {
             window.gtag('event', 'translator_copy_click', {
                 'text_length': text.length
@@ -257,7 +258,8 @@ function setupTranslationControls() {
 
     // Speak button
     speakBtn?.addEventListener('click', () => {
-        const text = outputDiv.textContent;
+        const textEl = document.getElementById('translation-text');
+        const text = textEl ? textEl.textContent.trim() : outputDiv.textContent.trim();
         if (typeof window !== 'undefined' && window.gtag) {
             window.gtag('event', 'translator_speak_click', {
                 'text_length': text.length
@@ -333,7 +335,7 @@ function displayTranslationResult(result, originalText, direction) {
         ? highlightDictionaryWords(result.text) 
         : escapeHtml(result.text);
 
-    let outputHTML = `<div class="text-2xl font-semibold text-gray-800 mb-3">${highlightedText}</div>`;
+    let outputHTML = `<div id="translation-text" class="text-2xl font-semibold text-gray-800 mb-3">${highlightedText}</div>`;
 
     // Show confidence
     const confidence = result.confidence || 80;

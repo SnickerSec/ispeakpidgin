@@ -22,7 +22,8 @@ const {
     parallelForEach,
     SITE_URL,
     SITE_NAME,
-    premiumPages
+    premiumPages,
+    getPremiumPage
 } = require('./shared-utils');
 const { generateOgImage } = require('./og-image-generator');
 
@@ -105,7 +106,7 @@ function internalLinker(text, dictionary) {
 
             const slug = createSlug(pidgin);
             const placeholder = `__LINK_${placeholders.length}__`;
-            const premiumPage = premiumPages[pidgin.toLowerCase()];
+            const premiumPage = getPremiumPage(pidgin);
             const href = premiumPage ? `/${premiumPage}` : `/word/${slug}.html`;
             placeholders.push(`<a href="${href}" class="text-purple-600 hover:underline font-medium">${fullMatch}</a>`);
             
@@ -131,8 +132,8 @@ function generatePhrasePage(phrase, relatedPhrases, navigation, footer, dictiona
     const slug = createSlug(phrase.pidgin);
     
     // Check if this phrase has a premium landing page
-    const cleanedPidgin = phrase.pidgin.toLowerCase().replace(/[!?.]$/, '');
-    const premiumPage = premiumPages[cleanedPidgin];
+    const cleanedPidgin = phrase.pidgin.replace(/[!?.]$/, '');
+    const premiumPage = getPremiumPage(cleanedPidgin);
     const premiumLink = premiumPage ? `${SITE_URL}/${premiumPage}` : null;
     
     // Apply internal linking to the phrase itself and notes
