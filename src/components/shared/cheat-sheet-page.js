@@ -48,14 +48,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Track cheat sheet views
-if (typeof gtag === 'function') {
-    gtag('event', 'page_view', {
-        page_title: 'Hawaiian Pidgin Cheat Sheet',
-        page_location: window.location.href,
-        page_path: '/cheat-sheet.html'
-    });
-}
 
 // Track print action
 window.addEventListener('beforeprint', function() {
