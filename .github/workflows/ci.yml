@@ -1,0 +1,61 @@
+# CI: install, syntax/module load check, and Railway-equivalent build on
+# every push to main and every PR. The build is green without any secrets
+# (Supabase-dependent page generators are skipped non-fatally).
+#
+# To enable the full build generators AND the translator validation suite,
+# add a repo secret SUPABASE_ANON_KEY (the public client key already shipped
+# to browsers). SUPABASE_URL is optional — config/supabase.js has a fallback.
+#   Settings -> Secrets and variables -> Actions -> New repository secret
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Cancel superseded runs on the same ref
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-validate:
+    runs-on: ubuntu-latest
+    # Map the (public client) anon key to env so the validation step can
+    # detect whether it's configured. URL has a committed fallback.
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Load check (syntax + module wiring)
+        run: |
+          node --check server.js
+          node --check build.js
+          node -e "[
+            './routes/ai','./routes/tts','./routes/dictionary','./routes/content',
+            './routes/games','./routes/pickup','./routes/admin','./routes/questions',
+            './routes/user','./routes/suggestions',
+            './services/gamification-service','./services/settings-manager',
+            './middleware/admin-auth'
+          ].forEach(m => require(m)); console.log('✅ all server modules load')"
+
+      - name: Build (Railway-equivalent)
+        run: npm run build
+
+      - name: Validation suite
+        # Skipped until SUPABASE_ANON_KEY is added as a repo secret.
+        # The anon key is a public client key, safe to store as an Actions secret.
+        if: ${{ env.SUPABASE_ANON_KEY != '' }}
+        run: |
+          npm test
+          npm run test:translator
