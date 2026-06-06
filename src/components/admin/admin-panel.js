@@ -817,7 +817,7 @@
                         ${status === 'pending' ? `
                             <div class="flex justify-center gap-2">
                                 <button data-action="approve" data-id="${escapedId}"
-                                        class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition font-bold text-xs shadow-sm">
+                                        class="bg-green-700 text-white px-3 py-1 rounded hover:bg-green-800 transition font-bold text-xs shadow-sm">
                                     Approve
                                 </button>
                                 <button data-action="reject" data-id="${escapedId}"
@@ -1113,7 +1113,7 @@
                                     <i class="ti ti-wand"></i> Suggest
                                 </button>
                                 <button data-action="add-gap-btn" data-id="${escapedId}" data-pidgin="${term}"
-                                        class="flex-1 bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700 transition text-xs font-bold shadow-sm">
+                                        class="flex-1 bg-green-700 text-white px-2 py-1 rounded hover:bg-green-800 transition text-xs font-bold shadow-sm">
                                     <i class="ti ti-plus"></i> Add
                                 </button>
                             </div>

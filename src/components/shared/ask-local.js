@@ -315,7 +315,7 @@ class AskLocalManager {
                             </div>
 
                             <div class="flex gap-2">
-                                <button class="submit-response-btn bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition text-sm" data-question-id="${safeId}">
+                                <button class="submit-response-btn bg-green-700 text-white px-4 py-2 rounded hover:bg-green-800 transition text-sm" data-question-id="${safeId}">
                                     <i class="ti ti-flower"></i> Submit Response
                                 </button>
                                 <button class="cancel-response-btn text-gray-600 hover:text-gray-800 px-3 py-2 text-sm" data-question-id="${safeId}">
@@ -333,7 +333,7 @@ class AskLocalManager {
         if (hasMoreQuestions) {
             container.innerHTML += `
                 <div class="text-center mt-6">
-                    <a href="ask-local.html" class="inline-block bg-blue-500 text-white px-6 py-3 rounded-full hover:bg-blue-600 transition font-semibold">
+                    <a href="ask-local.html" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition font-semibold">
                         <i class="ti ti-clipboard"></i> View All Questions (${questions.length} total)
                     </a>
                 </div>

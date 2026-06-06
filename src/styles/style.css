@@ -64,7 +64,7 @@ body {
  * text low-contrast. Keep these pills white so their labels stay readable.
  * rounded-full distinguishes them from content cards (rounded-xl/2xl).
  */
-.dark .bg-white.rounded-full {
+.dark .bg-white.rounded-full:not([class*="dark:bg-"]):not([class*="dark:text-"]) {
     background: #ffffff;
 }
 

@@ -583,7 +583,7 @@ function showWordDetails(wordKey) {
                         <i class="ti ti-speakerphone"></i> Pronunciation
                     </h3>
                     <p class="text-2xl text-purple-700 font-mono">${displayEntry.pronunciation}</p>
-                    <button class="mt-3 px-6 py-3 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition speak-word"
+                    <button class="mt-3 px-6 py-3 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition speak-word"
                             data-text="${displayEntry.pidgin}">
                         <i class="ti ti-volume"></i> Hear Pronunciation
                     </button>
@@ -599,7 +599,7 @@ function showWordDetails(wordKey) {
                     ${displayEntry.examples.filter(ex => ex).map(example => `
                         <p class="text-xl italic text-blue-700 mb-3">"${example}"</p>
                     `).join('')}
-                    <button class="px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition speak-example"
+                    <button class="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition speak-example"
                             data-text="${displayEntry.audioExample}">
                         <i class="ti ti-volume"></i> Listen to Example
                     </button>
@@ -640,11 +640,11 @@ function showWordDetails(wordKey) {
             <!-- Actions -->
             <div class="p-8 border-t bg-gray-50 rounded-b-2xl">
                 <div class="flex gap-4 justify-center flex-wrap">
-                    <button class="px-8 py-4 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition font-semibold practice-word"
+                    <button class="px-8 py-4 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition font-semibold practice-word"
                             data-word="${escapedWordKey}">
                         <i class="ti ti-target"></i> Practice This Word
                     </button>
-                    <button class="px-8 py-4 bg-green-500 text-white rounded-full hover:bg-green-600 transition font-semibold translate-word"
+                    <button class="px-8 py-4 bg-green-700 text-white rounded-full hover:bg-green-800 transition font-semibold translate-word"
                             data-text="${displayEntry.pidgin}">
                         <i class="ti ti-refresh"></i> Use in Translator
                     </button>

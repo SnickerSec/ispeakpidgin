@@ -285,10 +285,10 @@ class PracticeSession {
 
                 <!-- Action Buttons (shown after flip) -->
                 <div id="assessment-buttons" class="hidden flex justify-center items-center gap-4 mb-4">
-                    <button id="know-it" class="px-6 py-3 bg-green-500 text-white rounded-xl hover:bg-green-600 transition font-semibold flex items-center gap-2">
+                    <button id="know-it" class="px-6 py-3 bg-green-700 text-white rounded-xl hover:bg-green-800 transition font-semibold flex items-center gap-2">
                         ✓ I know this!
                     </button>
-                    <button id="need-practice" class="px-6 py-3 bg-orange-500 text-white rounded-xl hover:bg-orange-600 transition font-semibold flex items-center gap-2">
+                    <button id="need-practice" class="px-6 py-3 bg-orange-700 text-white rounded-xl hover:bg-orange-800 transition font-semibold flex items-center gap-2">
                         <i class="ti ti-books"></i> Need practice
                     </button>
                 </div>
@@ -353,7 +353,7 @@ class PracticeSession {
     // Render audio button if speech is available
     renderAudioButton(text) {
         return `
-            <button id="speak-word" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+            <button id="speak-word" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
                 <i class="ti ti-volume"></i> Hear pronunciation
             </button>
         `;

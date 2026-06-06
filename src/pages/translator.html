@@ -267,7 +267,7 @@
                         </label>
                         <div id="tone-selector" class="flex items-center gap-2">
                             <span class="text-[10px] font-bold text-gray-400 uppercase">Style:</span>
-                            <select id="translation-tone" class="text-xs font-bold text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-slate-900 border-none rounded-md px-2 py-1 focus:ring-1 focus:ring-purple-500">
+                            <select id="translation-tone" aria-label="Translation style" class="text-xs font-bold text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-slate-900 border-none rounded-md px-2 py-1 focus:ring-1 focus:ring-purple-500">
                                 <option value="light">Light (Visitor)</option>
                                 <option value="standard" selected>Standard (Local)</option>
                                 <option value="heavy">Heavy (Street)</option>
@@ -280,7 +280,7 @@
                             placeholder="Type or paste English text here..."
                             class="w-full h-40 p-4 pb-8 border-2 border-gray-300 dark:border-slate-700 rounded-xl focus:outline-none focus:border-purple-500 bg-white dark:bg-slate-900 text-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 transition resize-none text-lg"
                         ></textarea>
-                        <span id="char-count" class="absolute bottom-4 left-4 text-sm text-gray-500 dark:text-slate-500 whitespace-nowrap">0 / 500 characters</span>
+                        <span id="char-count" class="absolute bottom-4 left-4 text-sm text-gray-500 dark:text-slate-400 whitespace-nowrap">0 / 500 characters</span>
                         <div class="absolute bottom-4 right-4 flex gap-2">
                             <button id="clear-input-btn" class="text-gray-400 hover:text-gray-600 dark:hover:text-slate-300 transition" title="Clear">
                                 ✕
@@ -297,7 +297,7 @@
                                 <i class="ti ti-microphone text-xl"></i> Voice Input
                             </button>
                             <label class="flex items-center cursor-pointer gap-2" title="Automatically translate and speak after voice input">
-                                <span class="text-[10px] font-bold text-gray-400 dark:text-slate-500 uppercase">Hands-Free</span>
+                                <span class="text-[10px] font-bold text-gray-400 dark:text-slate-400 uppercase">Hands-Free</span>
                                 <div class="relative">
                                     <input type="checkbox" id="hands-free-mode" class="sr-only peer" checked>
                                     <div class="w-8 h-4 bg-gray-200 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-purple-500"></div>
@@ -317,7 +317,7 @@
                     </label>
                     <div class="relative bg-gray-50 dark:bg-slate-900 rounded-xl p-4 h-40 overflow-y-auto border dark:border-slate-700">
                         <div id="translation-output" class="text-lg text-gray-800 dark:text-white">
-                            <p class="text-gray-400 dark:text-slate-500 italic">Translation will appear here...</p>
+                            <p class="text-gray-400 dark:text-slate-400 italic">Translation will appear here...</p>
                         </div>
                         <div class="absolute top-4 right-4 flex gap-2">
                             <button id="copy-btn" class="text-gray-400 hover:text-gray-600 dark:hover:text-slate-300 transition hidden" title="Copy">
@@ -349,32 +349,32 @@
             </h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <button class="example-phrase p-4 bg-gray-50 dark:bg-slate-900 hover:bg-purple-50 dark:hover:bg-slate-800 rounded-lg text-left transition border dark:border-slate-700" data-text="How are you doing?" data-direction="en-to-pid">
-                    <div class="text-sm text-gray-600 dark:text-slate-500">English:</div>
+                    <div class="text-sm text-gray-600 dark:text-slate-400">English:</div>
                     <div class="font-semibold dark:text-slate-200">How are you doing?</div>
                     <div class="text-sm text-purple-600 dark:text-purple-400 mt-1">→ Howzit?</div>
                 </button>
                 <button class="example-phrase p-4 bg-gray-50 dark:bg-slate-900 hover:bg-purple-50 dark:hover:bg-slate-800 rounded-lg text-left transition border dark:border-slate-700" data-text="The food is delicious" data-direction="en-to-pid">
-                    <div class="text-sm text-gray-600 dark:text-slate-500">English:</div>
+                    <div class="text-sm text-gray-600 dark:text-slate-400">English:</div>
                     <div class="font-semibold dark:text-slate-200">The food is delicious</div>
                     <div class="text-sm text-purple-600 dark:text-purple-400 mt-1">→ Da grinds stay ono</div>
                 </button>
                 <button class="example-phrase p-4 bg-gray-50 dark:bg-slate-900 hover:bg-purple-50 dark:hover:bg-slate-800 rounded-lg text-left transition border dark:border-slate-700" data-text="I'm finished" data-direction="en-to-pid">
-                    <div class="text-sm text-gray-600 dark:text-slate-500">English:</div>
+                    <div class="text-sm text-gray-600 dark:text-slate-400">English:</div>
                     <div class="font-semibold dark:text-slate-200">I'm finished</div>
                     <div class="text-sm text-purple-600 dark:text-purple-400 mt-1">→ I stay pau</div>
                 </button>
                 <button class="example-phrase p-4 bg-gray-50 dark:bg-slate-900 hover:bg-purple-50 dark:hover:bg-slate-800 rounded-lg text-left transition border dark:border-slate-700" data-text="Shoots brah" data-direction="pid-to-en">
-                    <div class="text-sm text-gray-600 dark:text-slate-500">Pidgin:</div>
+                    <div class="text-sm text-gray-600 dark:text-slate-400">Pidgin:</div>
                     <div class="font-semibold dark:text-slate-200">Shoots brah</div>
                     <div class="text-sm text-blue-600 dark:text-blue-400 mt-1">→ Sounds good, friend</div>
                 </button>
                 <button class="example-phrase p-4 bg-gray-50 dark:bg-slate-900 hover:bg-purple-50 dark:hover:bg-slate-800 rounded-lg text-left transition border dark:border-slate-700" data-text="Dis buggah stay broke" data-direction="pid-to-en">
-                    <div class="text-sm text-gray-600 dark:text-slate-500">Pidgin:</div>
+                    <div class="text-sm text-gray-600 dark:text-slate-400">Pidgin:</div>
                     <div class="font-semibold dark:text-slate-200">Dis buggah stay broke</div>
                     <div class="text-sm text-blue-600 dark:text-blue-400 mt-1">→ This thing is broken</div>
                 </button>
                 <button class="example-phrase p-4 bg-gray-50 dark:bg-slate-900 hover:bg-purple-50 dark:hover:bg-slate-800 rounded-lg text-left transition border dark:border-slate-700" data-text="No make lidat" data-direction="pid-to-en">
-                    <div class="text-sm text-gray-600 dark:text-slate-500">Pidgin:</div>
+                    <div class="text-sm text-gray-600 dark:text-slate-400">Pidgin:</div>
                     <div class="font-semibold dark:text-slate-200">No make lidat</div>
                     <div class="text-sm text-blue-600 dark:text-blue-400 mt-1">→ Don't do it like that</div>
                 </button>
@@ -390,16 +390,16 @@
                 <span class="bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Popular Now</span>
             </div>
             <div class="flex flex-wrap gap-3">
-                <a href="what-does-da-kine-mean.html" class="bg-white dark:bg-slate-800 border border-indigo-200 dark:border-slate-700 px-4 py-2 rounded-full text-indigo-700 dark:text-indigo-400 hover:bg-indigo-600 hover:text-white transition shadow-sm hover:shadow-md font-medium">#da-kine</a>
-                <a href="what-does-shoots-mean.html" class="bg-white dark:bg-slate-800 border border-indigo-200 dark:border-slate-700 px-4 py-2 rounded-full text-indigo-700 dark:text-indigo-400 hover:bg-indigo-600 hover:text-white transition shadow-sm hover:shadow-md font-medium">#shoots</a>
-                <a href="what-does-howzit-mean.html" class="bg-white dark:bg-slate-800 border border-indigo-200 dark:border-slate-700 px-4 py-2 rounded-full text-indigo-700 dark:text-indigo-400 hover:bg-indigo-600 hover:text-white transition shadow-sm hover:shadow-md font-medium">#howzit</a>
-                <a href="what-does-ono-mean.html" class="bg-white dark:bg-slate-800 border border-indigo-200 dark:border-slate-700 px-4 py-2 rounded-full text-indigo-700 dark:text-indigo-400 hover:bg-indigo-600 hover:text-white transition shadow-sm hover:shadow-md font-medium">#ono</a>
-                <a href="what-does-pau-hana-mean.html" class="bg-white dark:bg-slate-800 border border-indigo-200 dark:border-slate-700 px-4 py-2 rounded-full text-indigo-700 dark:text-indigo-400 hover:bg-indigo-600 hover:text-white transition shadow-sm hover:shadow-md font-medium">#pau-hana</a>
-                <a href="what-does-brah-mean.html" class="bg-white dark:bg-slate-800 border border-indigo-200 dark:border-slate-700 px-4 py-2 rounded-full text-indigo-700 dark:text-indigo-400 hover:bg-indigo-600 hover:text-white transition shadow-sm hover:shadow-md font-medium">#brah</a>
-                <a href="what-does-broke-da-mouth-mean.html" class="bg-white dark:bg-slate-800 border border-indigo-200 dark:border-slate-700 px-4 py-2 rounded-full text-indigo-700 dark:text-indigo-400 hover:bg-indigo-600 hover:text-white transition shadow-sm hover:shadow-md font-medium">#broke-da-mouth</a>
-                <a href="what-does-grindz-mean.html" class="bg-white dark:bg-slate-800 border border-indigo-200 dark:border-slate-700 px-4 py-2 rounded-full text-indigo-700 dark:text-indigo-400 hover:bg-indigo-600 hover:text-white transition shadow-sm hover:shadow-md font-medium">#grindz</a>
+                <a href="what-does-da-kine-mean.html" class="bg-white dark:bg-slate-800 border border-indigo-200 dark:border-slate-700 px-4 py-2 rounded-full text-indigo-700 dark:text-indigo-400 hover:bg-indigo-700 hover:text-white transition shadow-sm hover:shadow-md font-medium">#da-kine</a>
+                <a href="what-does-shoots-mean.html" class="bg-white dark:bg-slate-800 border border-indigo-200 dark:border-slate-700 px-4 py-2 rounded-full text-indigo-700 dark:text-indigo-400 hover:bg-indigo-700 hover:text-white transition shadow-sm hover:shadow-md font-medium">#shoots</a>
+                <a href="what-does-howzit-mean.html" class="bg-white dark:bg-slate-800 border border-indigo-200 dark:border-slate-700 px-4 py-2 rounded-full text-indigo-700 dark:text-indigo-400 hover:bg-indigo-700 hover:text-white transition shadow-sm hover:shadow-md font-medium">#howzit</a>
+                <a href="what-does-ono-mean.html" class="bg-white dark:bg-slate-800 border border-indigo-200 dark:border-slate-700 px-4 py-2 rounded-full text-indigo-700 dark:text-indigo-400 hover:bg-indigo-700 hover:text-white transition shadow-sm hover:shadow-md font-medium">#ono</a>
+                <a href="what-does-pau-hana-mean.html" class="bg-white dark:bg-slate-800 border border-indigo-200 dark:border-slate-700 px-4 py-2 rounded-full text-indigo-700 dark:text-indigo-400 hover:bg-indigo-700 hover:text-white transition shadow-sm hover:shadow-md font-medium">#pau-hana</a>
+                <a href="what-does-brah-mean.html" class="bg-white dark:bg-slate-800 border border-indigo-200 dark:border-slate-700 px-4 py-2 rounded-full text-indigo-700 dark:text-indigo-400 hover:bg-indigo-700 hover:text-white transition shadow-sm hover:shadow-md font-medium">#brah</a>
+                <a href="what-does-broke-da-mouth-mean.html" class="bg-white dark:bg-slate-800 border border-indigo-200 dark:border-slate-700 px-4 py-2 rounded-full text-indigo-700 dark:text-indigo-400 hover:bg-indigo-700 hover:text-white transition shadow-sm hover:shadow-md font-medium">#broke-da-mouth</a>
+                <a href="what-does-grindz-mean.html" class="bg-white dark:bg-slate-800 border border-indigo-200 dark:border-slate-700 px-4 py-2 rounded-full text-indigo-700 dark:text-indigo-400 hover:bg-indigo-700 hover:text-white transition shadow-sm hover:shadow-md font-medium">#grindz</a>
             </div>
-            <p class="text-xs text-gray-500 dark:text-slate-500 mt-6 text-center italic">
+            <p class="text-xs text-gray-500 dark:text-slate-400 mt-6 text-center italic">
                 <i class="ti ti-info-circle"></i> Trending based on real-world island conversations and search interest.
             </p>
         </div>
@@ -454,7 +454,7 @@
                 </button>
             </div>
             <div id="translation-history" class="space-y-3">
-                <p class="text-gray-400 dark:text-slate-500 italic text-center py-8">No translations yet. Start translating above!</p>
+                <p class="text-gray-400 dark:text-slate-400 italic text-center py-8">No translations yet. Start translating above!</p>
             </div>
         </div>
 

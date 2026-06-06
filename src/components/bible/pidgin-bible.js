@@ -225,7 +225,7 @@ function loadBook(slug) {
                         <button
                             data-book-name="${escapedBookName}"
                             data-chapter="${escapedCh}"
-                            class="chapter-btn bg-purple-100 hover:bg-purple-600 hover:text-white text-purple-800 font-bold py-3 px-4 rounded-lg transition text-center">
+                            class="chapter-btn bg-purple-100 hover:bg-purple-700 hover:text-white text-purple-800 font-bold py-3 px-4 rounded-lg transition text-center">
                             ${escapedCh}
                         </button>
                     `;
@@ -240,11 +240,11 @@ function loadBook(slug) {
                         Bible.com →
                     </a>
                     <a href="${bibleResources.hipidginbible}" target="_blank" rel="noopener"
-                       class="inline-block bg-green-600 text-white px-6 py-3 rounded-xl hover:bg-green-700 transition font-semibold">
+                       class="inline-block bg-green-700 text-white px-6 py-3 rounded-xl hover:bg-green-800 transition font-semibold">
                         Official Site →
                     </a>
                     <a href="${bibleResources.ebible}" target="_blank" rel="noopener"
-                       class="inline-block bg-orange-600 text-white px-6 py-3 rounded-xl hover:bg-orange-700 transition font-semibold">
+                       class="inline-block bg-orange-700 text-white px-6 py-3 rounded-xl hover:bg-orange-800 transition font-semibold">
                         eBible.org →
                     </a>
                 </div>

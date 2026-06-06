@@ -638,7 +638,7 @@ function initLearningHub() {
             <div class="text-4xl mb-3">${lesson.icon}</div>
             <h3 class="text-xl font-bold mb-3 text-gray-800 dark:text-white">${lesson.title}</h3>
             <p class="text-gray-600 dark:text-slate-400 mb-4">Learn essential ${lesson.title.toLowerCase()} in Pidgin</p>
-            <button class="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition">
+            <button class="bg-green-700 text-white px-4 py-2 rounded-full hover:bg-green-800 transition">
                 Start Lesson →
             </button>
         `;
@@ -692,7 +692,7 @@ function initLearningHub() {
                 <p class="text-gray-700 dark:text-slate-300">${escapeHtml(lesson.content.practice)}</p>
             </div>
 
-            <button class="quiz-btn bg-green-500 text-white px-6 py-3 rounded-full hover:bg-green-600 transition" data-level="${level}" data-lesson-id="${lesson.id}">
+            <button class="quiz-btn bg-green-700 text-white px-6 py-3 rounded-full hover:bg-green-800 transition" data-level="${level}" data-lesson-id="${lesson.id}">
                 Take Quiz on This Topic →
             </button>
         `;
@@ -907,7 +907,7 @@ function initLearningHub() {
                     <p class="text-lg mb-6">You got ${score} out of ${questions.length} questions correct!</p>
                     <p class="text-md mb-6 text-gray-600">This quiz tested your knowledge of: <strong>${escapeHtml(lesson.title)}</strong></p>
                     <div class="space-y-3">
-                        <button id="try-another-quiz" class="bg-green-500 text-white px-6 py-3 rounded-full hover:bg-green-600 transition">
+                        <button id="try-another-quiz" class="bg-green-700 text-white px-6 py-3 rounded-full hover:bg-green-800 transition">
                             Try This Quiz Again
                         </button>
                         <br>
@@ -1039,7 +1039,7 @@ function initLearningHub() {
                     </p>
                     <p class="text-lg mb-6">You got ${score} out of ${questions.length} questions correct!</p>
                     <div class="space-y-3">
-                        <button id="try-another-quiz" class="bg-green-500 text-white px-6 py-3 rounded-full hover:bg-green-600 transition">
+                        <button id="try-another-quiz" class="bg-green-700 text-white px-6 py-3 rounded-full hover:bg-green-800 transition">
                             Try Another Quiz
                         </button>
                         <br>
@@ -1151,10 +1151,10 @@ function showFullStory(storyId) {
             <!-- Actions -->
             <div class="p-8 border-t dark:border-slate-700 bg-gray-50 dark:bg-slate-900 rounded-b-2xl">
                 <div class="flex gap-4 justify-center flex-wrap">
-                    <button class="px-8 py-4 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition font-semibold listen-story shadow-lg">
+                    <button class="px-8 py-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition font-semibold listen-story shadow-lg">
                         <i class="ti ti-volume"></i> Listen to Story
                     </button>
-                    <button class="px-8 py-4 bg-green-500 text-white rounded-full hover:bg-green-600 transition font-semibold share-story shadow-lg">
+                    <button class="px-8 py-4 bg-green-700 text-white rounded-full hover:bg-green-800 transition font-semibold share-story shadow-lg">
                         <i class="ti ti-share"></i> Share Story
                     </button>
                     <button class="px-8 py-4 bg-gray-500 text-white rounded-full hover:bg-gray-600 transition font-semibold close-btn shadow-lg">
@@ -1249,7 +1249,7 @@ function showAllStories() {
     const backToTopDiv = document.createElement('div');
     backToTopDiv.className = 'text-center mt-6';
     backToTopDiv.innerHTML = `
-        <button id="back-to-top-btn" class="bg-orange-400 text-white px-6 py-3 rounded-full hover:bg-orange-500 transition font-semibold">
+        <button id="back-to-top-btn" class="bg-orange-400 text-white px-6 py-3 rounded-full hover:bg-orange-800 transition font-semibold">
             <i class="ti ti-arrow-up"></i> Back to Top
         </button>
     `;
@@ -1338,7 +1338,7 @@ async function initStoryCorner() {
     const refreshButton = document.createElement('div');
     refreshButton.className = 'col-span-full text-center mt-6';
     refreshButton.innerHTML = `
-        <button id="refresh-stories" class="bg-green-500 text-white px-6 py-3 rounded-full hover:bg-green-600 transition font-semibold shadow-lg">
+        <button id="refresh-stories" class="bg-green-700 text-white px-6 py-3 rounded-full hover:bg-green-800 transition font-semibold shadow-lg">
             <i class="ti ti-dice"></i> Show Different Stories
         </button>
     `;
@@ -1386,7 +1386,7 @@ function showStoryModal(story) {
 
                 <!-- Story Actions -->
                 <div class="mt-8 pt-6 border-t dark:border-slate-700 flex justify-between items-center">
-                    <button class="speak-story bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition shadow-lg">
+                    <button class="speak-story bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition shadow-lg">
                         <i class="ti ti-volume"></i> Listen to Story
                     </button>
                     <button class="close-btn bg-gray-500 text-white px-6 py-2 rounded-full hover:bg-gray-600 transition shadow-lg">
