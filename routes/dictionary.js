@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { query, param, validationResult } = require('express-validator');
+const { query, param, body, validationResult } = require('express-validator');
 
 /**
  * Dictionary Routes
@@ -339,6 +339,65 @@ module.exports = function(supabase, dictionaryLimiter, dictionaryCache, semantic
             });
         } catch (error) {
             console.error('Search API error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+
+    // POST /api/dictionary/search-gap - Log a search gap
+    router.post('/search-gap', dictionaryLimiter, [
+        body('term').trim().notEmpty().isLength({ min: 2, max: 100 }).escape()
+    ], validate, async (req, res) => {
+        try {
+            const { term } = req.body;
+            const searchTerm = term.toLowerCase().replace(/[%_\\{},.()"']/g, '');
+
+            if (searchTerm.length < 2) {
+                return res.status(400).json({ error: 'Search term too short' });
+            }
+
+            // Check if it already exists in the dictionary to avoid logging existing words as gaps
+            const { data: dictMatch, error: dictError } = await supabase
+                .from('dictionary_entries')
+                .select('id')
+                .ilike('pidgin', searchTerm)
+                .limit(1);
+
+            if (dictError) throw dictError;
+
+            // If it exists in the dictionary, don't log it as a gap
+            if (dictMatch && dictMatch.length > 0) {
+                return res.json({ status: 'ignored', reason: 'exists_in_dictionary' });
+            }
+
+            // Check if already in search_gaps
+            const { data: existing } = await supabase
+                .from('search_gaps')
+                .select('id, count')
+                .eq('term', searchTerm)
+                .single();
+
+            if (existing) {
+                const { error: updateError } = await supabase
+                    .from('search_gaps')
+                    .update({ 
+                        count: (existing.count || 1) + 1, 
+                        last_searched_at: new Date(),
+                        status: 'pending'
+                    })
+                    .eq('id', existing.id);
+
+                if (updateError) throw updateError;
+            } else {
+                const { error: insertError } = await supabase
+                    .from('search_gaps')
+                    .insert([{ term: searchTerm, count: 1, status: 'pending' }]);
+
+                if (insertError) throw insertError;
+            }
+
+            res.json({ status: 'logged', term: searchTerm });
+        } catch (error) {
+            console.error('Search gap logging API error:', error);
             res.status(500).json({ error: 'Internal server error' });
         }
     });

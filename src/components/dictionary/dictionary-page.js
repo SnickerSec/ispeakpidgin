@@ -104,9 +104,13 @@ function setupSearch() {
      */
     async function logSearchGap(term) {
         try {
-            // Hit the search endpoint - the server-side logic handles the logging to Supabase
-            // when results count is 0
-            await fetch(`/api/dictionary/search?q=${encodeURIComponent(term)}&limit=1`);
+            await fetch('/api/dictionary/search-gap', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ term })
+            });
         } catch (e) {
             console.warn('Could not log search gap:', e.message);
         }
