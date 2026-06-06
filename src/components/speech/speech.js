@@ -157,6 +157,7 @@ class PidginSpeech {
             'wat': 'waht',
             'wea': 'weah',
             'bumbye': 'bum-bye',
+            'latah': 'lay-tah',
             'latahs': 'lay-tahz',
             'tanks': 'tahnks',
             'choke': 'chohk',

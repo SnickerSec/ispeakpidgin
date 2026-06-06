@@ -283,6 +283,7 @@ class ElevenLabsSpeech {
             'ua': 'oo-ah',
             'bumbye': 'bum-bye',
             'bumbai': 'bum-bye',
+            'latah': 'lay-tah',
             'latahs': 'lay-tahz',
             'fo\'': 'foh',
             'fo': 'foh',
