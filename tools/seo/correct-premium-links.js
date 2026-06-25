@@ -56,8 +56,8 @@ function correctLinks() {
             let pathPart = hashParts[0];
             const hashPart = hashParts.slice(1).join('#');
 
-            // If the path contains 'word/'
-            if (pathPart.includes('word/')) {
+            // If the path contains 'word/' or 'phrase/'
+            if (pathPart.includes('word/') || pathPart.includes('phrase/')) {
                 const wordSlug = path.basename(pathPart, '.html');
                 const wordKey = wordSlug.replace(/-/g, ' ');
                 const premiumPage = premiumPages[wordKey];
