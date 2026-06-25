@@ -401,9 +401,17 @@ app.use('/word/:slug', pageLimiter, (req, res, next) => {
     }
 
     // Explicitly check for file existence to avoid 5xx or SPA issues
-    const filePath = path.join(__dirname, 'public', 'word', safeSlug.endsWith('.html') ? safeSlug : `${safeSlug}.html`);
+    const baseName = safeSlug.endsWith('.html') ? safeSlug : `${safeSlug}.html`;
+    const filePath = path.join(__dirname, 'public', 'word', baseName);
     if (fs.existsSync(filePath)) {
         return res.sendFile(filePath);
+    }
+
+    // Fallback: check if it exists as a phrase page and redirect
+    const phrasePath = path.join(__dirname, 'public', 'phrase', baseName);
+    if (fs.existsSync(phrasePath)) {
+        console.log(`SEO Redirect: word/${baseName} not found, redirecting to phrase/${baseName}`);
+        return res.redirect(301, `/phrase/${baseName}`);
     }
 
     next();
@@ -428,9 +436,17 @@ app.use('/phrase/:slug', pageLimiter, (req, res, next) => {
         return res.redirect(301, `/phrase/${correctSlug}.html`);
     }
     // Explicitly check for file existence
-    const filePath = path.join(__dirname, 'public', 'phrase', safeSlug.endsWith('.html') ? safeSlug : `${safeSlug}.html`);
+    const baseName = safeSlug.endsWith('.html') ? safeSlug : `${safeSlug}.html`;
+    const filePath = path.join(__dirname, 'public', 'phrase', baseName);
     if (fs.existsSync(filePath)) {
         return res.sendFile(filePath);
+    }
+
+    // Fallback: check if it exists as a word page and redirect
+    const wordPath = path.join(__dirname, 'public', 'word', baseName);
+    if (fs.existsSync(wordPath)) {
+        console.log(`SEO Redirect: phrase/${baseName} not found, redirecting to word/${baseName}`);
+        return res.redirect(301, `/word/${baseName}`);
     }
 
     next();

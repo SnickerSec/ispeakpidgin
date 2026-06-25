@@ -146,6 +146,24 @@ function getPhraseUrl(pidgin) {
     }
     
     var slug = createSlug(pidgin);
+    
+    // Curated terms that are registered as words (dictionary entries) instead of phrases
+    var dictionaryWords = [
+        'a-hui-hou',
+        'aole-pilikia',
+        'e-komo-mai',
+        'bumbai',
+        'kaukau',
+        'pupus',
+        'moke',
+        'tita',
+        'latahs'
+    ];
+    
+    if (dictionaryWords.indexOf(slug) !== -1) {
+        return '/word/' + slug + '.html';
+    }
+    
     return '/phrase/' + slug + '.html';
 }
 
