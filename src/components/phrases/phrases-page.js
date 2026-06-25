@@ -72,9 +72,86 @@ function createSlug(text) {
         .replace(/^-|-$/g, '');
 }
 
+function getPhraseUrl(pidgin) {
+    if (!pidgin) return '#';
+    
+    // Normalize word/phrase to check against premium pages
+    var clean = pidgin.toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // remove accents/macrons
+        .replace(/['ʻ`‘’]/g, '') // remove okinas
+        .replace(/-/g, ' ')      // normalize hyphens to spaces
+        .trim();
+        
+    var premiumPages = {
+        'akamai': 'what-does-akamai-mean.html',
+        'aloha': 'what-does-aloha-mean.html',
+        'howzit': 'what-does-howzit-mean.html',
+        'howzit brah': 'what-does-howzit-mean.html',
+        'menpachi eyes': 'what-does-menpachi-eyes-mean.html',
+        'mempachi eyes': 'what-does-menpachi-eyes-mean.html',
+        'stop da menpachi eye': 'what-does-menpachi-eyes-mean.html',
+        'stop da mempachi eye': 'what-does-menpachi-eyes-mean.html',
+        'no ka oi': 'what-does-no-ka-oi-mean.html',
+        'pau': 'what-does-pau-mean.html',
+        'choke': 'what-does-choke-mean.html',
+        'mahalo': 'what-does-mahalo-mean.html',
+        'no worry': 'what-does-no-worry-mean.html',
+        'sarap': 'what-does-sarap-mean.html',
+        'talk story': 'what-does-talk-story-mean.html',
+        'ainokea': 'what-does-ainokea-mean.html',
+        'buss up': 'what-does-buss-up-mean.html',
+        'amped': 'what-does-amped-mean.html',
+        'bline': 'what-does-bline-mean.html',
+        'bruddah': 'what-does-bruddah-mean.html',
+        'sistah': 'what-does-sistah-mean.html',
+        'moopuna': 'what-does-moopuna-mean.html',
+        'niele': 'what-does-niele-mean.html',
+        'pilau': 'what-does-pilau-mean.html',
+        'kanak attack': 'what-does-kanak-attack-mean.html',
+        'you da man': 'what-does-you-da-man-mean.html',
+        'you da best': 'what-does-you-da-man-mean.html',
+        'brah': 'what-does-brah-mean.html',
+        'broke da mouth': 'what-does-broke-da-mouth-mean.html',
+        'buggah': 'what-does-buggah-mean.html',
+        'chicken skin': 'what-does-chicken-skin-mean.html',
+        'da kine': 'what-does-da-kine-mean.html',
+        'faka': 'what-does-faka-mean.html',
+        'grindz': 'what-does-grindz-mean.html',
+        'hamajang': 'what-does-hamajang-mean.html',
+        'haole': 'what-does-haole-mean.html',
+        'humbug': 'what-does-humbug-mean.html',
+        'kamaaina': 'what-does-kamaaina-mean.html',
+        'keiki': 'what-does-keiki-mean.html',
+        'lolo': 'what-does-lolo-mean.html',
+        'mauka makai': 'what-does-mauka-makai-mean.html',
+        'mauka': 'what-does-mauka-makai-mean.html',
+        'makai': 'what-does-mauka-makai-mean.html',
+        'mayjah': 'what-does-mayjah-mean.html',
+        'ohana': 'what-does-ohana-mean.html',
+        'ono grindz': 'what-does-ono-grindz-mean.html',
+        'ono': 'what-does-ono-mean.html',
+        'pake': 'what-does-pake-mean.html',
+        'pau hana': 'what-does-pau-hana-mean.html',
+        'poho': 'what-does-poho-mean.html',
+        'rajah': 'what-does-rajah-mean.html',
+        'shaka': 'what-does-shaka-mean.html',
+        'shoots': 'what-does-shoots-mean.html',
+        'small kine': 'what-does-small-kine-mean.html',
+        'stink eye': 'what-does-stink-eye-mean.html',
+        'wahine': 'what-does-wahine-mean.html'
+    };
+    
+    if (premiumPages[clean]) {
+        return '/' + premiumPages[clean];
+    }
+    
+    var slug = createSlug(pidgin);
+    return '/phrase/' + slug + '.html';
+}
+
 function renderPhraseCard(phrase) {
-    var slug = createSlug(phrase.pidgin);
-    return '<a href="/phrase/' + slug + '.html" class="phrase-card bg-white rounded-xl p-5 shadow-md border border-gray-100 block">' +
+    var href = getPhraseUrl(phrase.pidgin);
+    return '<a href="' + href + '" class="phrase-card bg-white rounded-xl p-5 shadow-md border border-gray-100 block">' +
         '<div class="flex justify-between items-start mb-2">' +
             '<h3 class="text-xl font-bold text-purple-700">' + phrase.pidgin + '</h3>' +
             '<button onclick="event.preventDefault(); event.stopPropagation(); speakPhrase(\'' + phrase.pidgin.replace(/\\/g, "\\\\").replace(/'/g, "\\'") + '\')" ' +
