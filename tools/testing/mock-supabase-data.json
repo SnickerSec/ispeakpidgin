@@ -494,6 +494,39 @@
       "examples": ["Listen to the kupuna."],
       "pronunciation": "koo-POO-nah",
       "origin": "Hawaiian"
+    },
+    {
+      "id": "dict-46",
+      "pidgin": "hana hou",
+      "english": ["one more time", "encore", "again"],
+      "category": "actions",
+      "difficulty": "beginner",
+      "usage": "To do again, or shout for an encore.",
+      "examples": ["Hana hou! Sing one more!"],
+      "pronunciation": "hah-nah hoe",
+      "origin": "Hawaiian"
+    },
+    {
+      "id": "dict-47",
+      "pidgin": "grind",
+      "english": ["eat", "food"],
+      "category": "food",
+      "difficulty": "beginner",
+      "usage": "To eat or have food.",
+      "examples": ["We go grind."],
+      "pronunciation": "grynd",
+      "origin": "English slang"
+    },
+    {
+      "id": "dict-48",
+      "pidgin": "hanabada",
+      "english": ["nasal mucus", "snot"],
+      "category": "descriptions",
+      "difficulty": "beginner",
+      "usage": "Nasal mucus, commonly used for runny nose in childhood ('hanabada days').",
+      "examples": ["He got hanabada on his face."],
+      "pronunciation": "hah-nah-bah-dah",
+      "origin": "Japanese-English hybrid"
     }
   ],
   "phrases": [
@@ -661,6 +694,29 @@
       "english_translation": "Every Saturday, my grandfather and I go down to the pier to fish. He has his special spot, been going there since he was a child. 'Hey, you've got to be patient,' he always tells me. 'The fish will come when they're ready.' We sit there, chatting about the old days. He tells me about when Haleiwa was all pineapple fields. No cars, no tourists, just the locals. 'Wow, it was a different time,' he says, looking at the ocean. I love those days with grandpa. That's how we pass down the culture, one fishing trip at a time.",
       "cultural_notes": "Fishing is an important cultural activity in Hawaii, passed down through generations. 'Tutu kane' is the Hawaiian term for grandfather.",
       "difficulty": "intermediate"
+    }
+  ],
+  "pickup_lines": [
+    {
+      "id": "pickup-1",
+      "pidgin": "You ono like da grindz!",
+      "english": "You're delicious like the food!",
+      "category": "classic",
+      "spiciness": 3
+    },
+    {
+      "id": "pickup-2",
+      "pidgin": "Howzit? You stay makin' my heart go buss!",
+      "english": "How's it going? You're making my heart race!",
+      "category": "classic",
+      "spiciness": 4
+    },
+    {
+      "id": "pickup-3",
+      "pidgin": "Can I take you out fo' some ono grindz?",
+      "english": "Can I take you out for some delicious food?",
+      "category": "classic",
+      "spiciness": 2
     }
   ]
 }

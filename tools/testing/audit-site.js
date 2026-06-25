@@ -112,12 +112,28 @@ function auditHTMLFile(filePath) {
     // 5. Collect internal links for later validation
     const hrefMatches = content.matchAll(/href="(.*?)"/g);
     for (const match of hrefMatches) {
-        const href = match[1];
-        // Only internal, non-anchor, non-mail links
-        if ((href.startsWith('/') || href.startsWith(SITE_URL)) && !href.includes('#') && !href.includes('mailto:')) {
-            let cleanHref = href.replace(SITE_URL, '');
-            if (!cleanHref.startsWith('/')) cleanHref = '/' + cleanHref;
+        const href = match[1].trim();
+        // Skip external, anchors, mailto, tel, javascript, etc.
+        if (
+            href.startsWith('http://') || 
+            href.startsWith('https://') || 
+            href.includes('#') || 
+            href.startsWith('mailto:') || 
+            href.startsWith('tel:') || 
+            href.startsWith('javascript:') ||
+            !href
+        ) {
+            continue;
+        }
+
+        let cleanHref = href.replace(SITE_URL, '');
+        if (cleanHref.startsWith('/')) {
             internalLinks.push({ from: relativePath, to: cleanHref });
+        } else {
+            // Resolve relative path
+            const currentDir = path.dirname(relativePath);
+            const resolved = path.posix.resolve(currentDir, cleanHref);
+            internalLinks.push({ from: relativePath, to: resolved });
         }
     }
 
