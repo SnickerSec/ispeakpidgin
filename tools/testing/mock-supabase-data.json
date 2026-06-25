@@ -329,6 +329,171 @@
       "examples": ["I all poho."],
       "pronunciation": "poh-HOH",
       "origin": "Hawaiian"
+    },
+    {
+      "id": "dict-31",
+      "pidgin": "hana hou",
+      "english": ["do it again", "encore", "one more time"],
+      "category": "general",
+      "difficulty": "beginner",
+      "usage": "Used to request a repetition of an action or performance.",
+      "examples": ["Hana hou, brah!"],
+      "pronunciation": "HAH-nah HOO",
+      "origin": "Hawaiian"
+    },
+    {
+      "id": "dict-32",
+      "pidgin": "grind",
+      "english": ["eat", "food", "work hard", "hustle"],
+      "category": "food",
+      "difficulty": "beginner",
+      "usage": "To eat or get food; also used to describe working hard.",
+      "examples": ["We go grind.", "Time for grind."],
+      "pronunciation": "grind",
+      "origin": "English slang"
+    },
+    {
+      "id": "dict-33",
+      "pidgin": "hanabada",
+      "english": ["childhood", "snotty nose"],
+      "category": "general",
+      "difficulty": "intermediate",
+      "usage": "Refers to childhood days (literally snotty nose days).",
+      "examples": ["Since hanabada days."],
+      "pronunciation": "hah-nah-BAH-dah",
+      "origin": "Japanese-Hawaiian hybrid"
+    },
+    {
+      "id": "dict-34",
+      "pidgin": "bumbye",
+      "english": ["later", "by and by", "otherwise"],
+      "category": "grammar",
+      "difficulty": "beginner",
+      "usage": "Meaning later or eventually.",
+      "examples": ["Bumbye we go."],
+      "pronunciation": "bum-BYE",
+      "origin": "English hybrid"
+    },
+    {
+      "id": "dict-35",
+      "pidgin": "mana",
+      "english": ["spiritual power", "divine power", "energy"],
+      "category": "general",
+      "difficulty": "intermediate",
+      "usage": "Spiritual energy or power.",
+      "examples": ["The place get choke mana."],
+      "pronunciation": "MAH-nah",
+      "origin": "Hawaiian"
+    },
+    {
+      "id": "dict-36",
+      "pidgin": "obake",
+      "english": ["ghost", "spirit", "apparition"],
+      "category": "general",
+      "difficulty": "intermediate",
+      "usage": "Ghost or supernatural creature.",
+      "examples": ["Spooky obake stories."],
+      "pronunciation": "oh-BAH-keh",
+      "origin": "Japanese"
+    },
+    {
+      "id": "dict-37",
+      "pidgin": "malihini",
+      "english": ["newcomer", "stranger", "visitor"],
+      "category": "general",
+      "difficulty": "beginner",
+      "usage": "A visitor or newcomer to the islands.",
+      "examples": ["She one malihini."],
+      "pronunciation": "mah-lee-HEE-nee",
+      "origin": "Hawaiian"
+    },
+    {
+      "id": "dict-38",
+      "pidgin": "aina",
+      "english": ["land", "earth"],
+      "category": "general",
+      "difficulty": "beginner",
+      "usage": "The land or earth.",
+      "examples": ["Respect the aina."],
+      "pronunciation": "EYE-nah",
+      "origin": "Hawaiian"
+    },
+    {
+      "id": "dict-39",
+      "pidgin": "kai",
+      "english": ["ocean", "sea", "seawater"],
+      "category": "general",
+      "difficulty": "beginner",
+      "usage": "The ocean or sea.",
+      "examples": ["Go makai to the kai."],
+      "pronunciation": "kai",
+      "origin": "Hawaiian"
+    },
+    {
+      "id": "dict-40",
+      "pidgin": "mauna",
+      "english": ["mountain"],
+      "category": "general",
+      "difficulty": "beginner",
+      "usage": "Mountain.",
+      "examples": ["The mauna is covered in snow."],
+      "pronunciation": "MAW-nah",
+      "origin": "Hawaiian"
+    },
+    {
+      "id": "dict-41",
+      "pidgin": "all pau",
+      "english": ["completely finished", "entirely done"],
+      "category": "general",
+      "difficulty": "beginner",
+      "usage": "Refers to something being entirely finished.",
+      "examples": ["The food is all pau."],
+      "pronunciation": "all pow",
+      "origin": "English-Hawaiian hybrid"
+    },
+    {
+      "id": "dict-42",
+      "pidgin": "huhu",
+      "english": ["angry", "mad", "offended"],
+      "category": "emotions",
+      "difficulty": "beginner",
+      "usage": "To be angry or mad.",
+      "examples": ["Don't get huhu."],
+      "pronunciation": "hoo-HOO",
+      "origin": "Hawaiian"
+    },
+    {
+      "id": "dict-43",
+      "pidgin": "kolohe",
+      "english": ["mischievous", "rascal", "naughty"],
+      "category": "descriptions",
+      "difficulty": "beginner",
+      "usage": "Mischievous or rascal behavior.",
+      "examples": ["That kid is kolohe."],
+      "pronunciation": "koh-LOH-heh",
+      "origin": "Hawaiian"
+    },
+    {
+      "id": "dict-44",
+      "pidgin": "kane",
+      "english": ["man", "male"],
+      "category": "general",
+      "difficulty": "beginner",
+      "usage": "Man or male.",
+      "examples": ["He is one kane."],
+      "pronunciation": "KAH-neh",
+      "origin": "Hawaiian"
+    },
+    {
+      "id": "dict-45",
+      "pidgin": "kupuna",
+      "english": ["elder", "grandparent", "ancestor"],
+      "category": "family",
+      "difficulty": "beginner",
+      "usage": "An elder or grandparent.",
+      "examples": ["Listen to the kupuna."],
+      "pronunciation": "koo-POO-nah",
+      "origin": "Hawaiian"
     }
   ],
   "phrases": [
@@ -463,6 +628,20 @@
       "pidgin": "Wea you going?",
       "english": "where are you going?",
       "category": "questions",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "phrase-20",
+      "pidgin": "da food stay all pau already",
+      "english": "the food is all finished already",
+      "category": "food",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "phrase-21",
+      "pidgin": "i stay pau",
+      "english": "I'm finished",
+      "category": "grammar",
       "difficulty": "beginner"
     }
   ],

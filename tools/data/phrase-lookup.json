@@ -150,5 +150,21 @@
       "difficulty": "beginner",
       "source": "phrases"
     }
+  ],
+  "the food is all finished already": [
+    {
+      "pidgin": "da food stay all pau already",
+      "category": "food",
+      "difficulty": "intermediate",
+      "source": "phrases"
+    }
+  ],
+  "i'm finished": [
+    {
+      "pidgin": "i stay pau",
+      "category": "grammar",
+      "difficulty": "beginner",
+      "source": "phrases"
+    }
   ]
 }

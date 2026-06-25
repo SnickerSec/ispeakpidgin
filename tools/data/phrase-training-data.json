@@ -1,12 +1,12 @@
 {
   "metadata": {
     "version": "1.0",
-    "created": "2026-06-25T21:01:00.961Z",
-    "totalPhrases": 19,
+    "created": "2026-06-25T21:08:44.641Z",
+    "totalPhrases": 21,
     "sources": [
       "phrases"
     ],
-    "categories": 6,
+    "categories": 7,
     "description": "Parallel phrase/sentence translations generated from mock data"
   },
   "data": [
@@ -141,6 +141,20 @@
       "english": "where are you going?",
       "source": "phrases",
       "category": "questions",
+      "difficulty": "beginner"
+    },
+    {
+      "pidgin": "da food stay all pau already",
+      "english": "the food is all finished already",
+      "source": "phrases",
+      "category": "food",
+      "difficulty": "intermediate"
+    },
+    {
+      "pidgin": "i stay pau",
+      "english": "I'm finished",
+      "source": "phrases",
+      "category": "grammar",
       "difficulty": "beginner"
     }
   ]
