@@ -59,12 +59,34 @@
                 
                 if (filename) {
                     const audioUrl = `${supabaseStorageUrl}/${filename}`;
-                    const anchor = document.createElement('a');
-                    anchor.href = audioUrl;
-                    anchor.download = `${word.toLowerCase().replace(/\s+/g, '-')}.mp3`;
-                    document.body.appendChild(anchor);
-                    anchor.click();
-                    document.body.removeChild(anchor);
+                    const originalHtml = dlBtn.innerHTML;
+                    dlBtn.innerHTML = '<i class="ti ti-loader animate-spin"></i> Downloading...';
+                    dlBtn.disabled = true;
+
+                    try {
+                        const audioResponse = await fetch(audioUrl);
+                        if (!audioResponse.ok) throw new Error('Failed to fetch audio file');
+                        const blob = await audioResponse.blob();
+                        const blobUrl = URL.createObjectURL(blob);
+                        
+                        const anchor = document.createElement('a');
+                        anchor.href = blobUrl;
+                        anchor.download = `${word.toLowerCase().replace(/\s+/g, '-')}.mp3`;
+                        document.body.appendChild(anchor);
+                        anchor.click();
+                        document.body.removeChild(anchor);
+                        
+                        setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
+                    } catch (err) {
+                        console.warn('Blob download failed, falling back to direct navigation:', err);
+                        const anchor = document.createElement('a');
+                        anchor.href = audioUrl;
+                        anchor.target = '_blank';
+                        anchor.click();
+                    } finally {
+                        dlBtn.innerHTML = originalHtml;
+                        dlBtn.disabled = false;
+                    }
                 } else {
                     alert('Aloha! Offline download for "' + word + '" not yet available. Please check back soon!');
                 }

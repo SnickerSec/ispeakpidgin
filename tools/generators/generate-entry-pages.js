@@ -413,23 +413,41 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
         // Download button handler
         document.getElementById('download-audio')?.addEventListener('click', async () => {
             const text = "${jsEscapedWord}";
+            const btn = document.getElementById('download-audio');
+            if (!btn) return;
+            const originalHtml = btn.innerHTML;
             try {
+                btn.innerHTML = '<i class="ti ti-loader animate-spin"></i> Downloading...';
+                btn.disabled = true;
+
                 const supabaseStorageUrl = 'https://jfzgzjgdptowfbtljvyp.supabase.co/storage/v1/object/public/audio-assets';
                 const response = await fetch(supabaseStorageUrl + '/index.json');
                 const index = await response.json();
                 const filename = index[text.toLowerCase()];
                 if (filename) {
+                    const audioUrl = supabaseStorageUrl + '/' + filename;
+                    const audioResponse = await fetch(audioUrl);
+                    if (!audioResponse.ok) throw new Error('Failed to fetch audio file');
+                    const blob = await audioResponse.blob();
+                    const blobUrl = URL.createObjectURL(blob);
+
                     const anchor = document.createElement('a');
-                    anchor.href = supabaseStorageUrl + '/' + filename;
+                    anchor.href = blobUrl;
                     anchor.download = text.toLowerCase().replace(/\\s+/g, '-') + ".mp3";
                     document.body.appendChild(anchor);
                     anchor.click();
                     document.body.removeChild(anchor);
+
+                    setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
                 } else {
                     alert('Aloha! Download for "' + text + '" not yet available.');
                 }
             } catch (e) {
+                console.error('Audio download error:', e);
                 alert('Aloha! Audio download is currently unavailable.');
+            } finally {
+                btn.innerHTML = originalHtml;
+                btn.disabled = false;
             }
         });
 
