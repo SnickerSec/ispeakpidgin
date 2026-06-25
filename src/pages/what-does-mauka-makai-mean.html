@@ -83,7 +83,7 @@
                 Hawaii's Unique Directional System Explained
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button id="pronounce-mauka" class="pronounce-btn bg-white text-green-700 px-8 py-4 rounded-full text-lg font-bold hover:bg-green-50 transition shadow-xl">
+                <button data-word="mauka" id="pronounce-mauka" class="pronounce-btn bg-white text-green-700 px-8 py-4 rounded-full text-lg font-bold hover:bg-green-50 transition shadow-xl">
                     Hear "Mauka"
                 </button>
             <button class="download-btn mt-4 md:mt-0 md:ml-4 bg-red-700 text-white border-2 border-white px-8 py-4 rounded-full text-lg font-bold hover:bg-red-800 transition shadow-xl" data-word="mauka">
@@ -92,7 +92,7 @@
             <button id="share-image-btn" data-word="mauka" class="mt-4 md:mt-0 md:ml-4 bg-white text-purple-700 border-2 border-white px-8 py-4 rounded-full text-lg font-bold hover:bg-purple-50 transition shadow-xl">
                 <i class="ti ti-camera"></i> Share as Image
             </button>
-                <button id="pronounce-makai" class="pronounce-btn bg-white text-blue-700 px-8 py-4 rounded-full text-lg font-bold hover:bg-blue-50 transition shadow-xl">
+                <button data-word="makai" id="pronounce-makai" class="pronounce-btn bg-white text-blue-700 px-8 py-4 rounded-full text-lg font-bold hover:bg-blue-50 transition shadow-xl">
                     Hear "Makai"
                 </button>
             <button class="download-btn mt-4 md:mt-0 md:ml-4 bg-red-700 text-white border-2 border-white px-8 py-4 rounded-full text-lg font-bold hover:bg-red-800 transition shadow-xl" data-word="makai">
@@ -300,6 +300,7 @@
     <script defer src="js/components/elevenlabs-speech.js"></script>
     <script defer src="js/components/social-card-generator.js"></script>
     <script defer src="js/components/speech.js"></script>
+    <script defer src="js/components/pronounce-button.js"></script>
     <script defer src="js/components/main.js"></script>
 
     <script>

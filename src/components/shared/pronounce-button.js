@@ -9,7 +9,7 @@
                 // Fallback: extract word from page title pattern "What Does X Mean"
                 var title = document.title || '';
                 var match = title.match(/what does (.+?) mean/i);
-                if (match) word = match[1];
+                if (match) word = match[1].replace(/['"“”]/g, '').trim();
             }
             if (!word) return;
 
@@ -37,7 +37,7 @@
             if (!word) {
                 var title = document.title || '';
                 var match = title.match(/what does (.+?) mean/i);
-                if (match) word = match[1];
+                if (match) word = match[1].replace(/['"“”]/g, '').trim();
             }
             if (!word) return;
 
