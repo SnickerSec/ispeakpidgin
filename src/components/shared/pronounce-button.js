@@ -50,14 +50,15 @@
 
             try {
                 // Try to find pre-generated audio filename from index
-                const response = await fetch('/assets/audio/index.json');
+                const supabaseStorageUrl = 'https://jfzgzjgdptowfbtljvyp.supabase.co/storage/v1/object/public/audio-assets';
+                const response = await fetch(`${supabaseStorageUrl}/index.json`);
                 if (!response.ok) throw new Error('Index not found');
                 
                 const index = await response.json();
                 const filename = index[word.toLowerCase()];
                 
                 if (filename) {
-                    const audioUrl = `/assets/audio/${filename}`;
+                    const audioUrl = `${supabaseStorageUrl}/${filename}`;
                     const anchor = document.createElement('a');
                     anchor.href = audioUrl;
                     anchor.download = `${word.toLowerCase().replace(/\s+/g, '-')}.mp3`;

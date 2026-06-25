@@ -414,12 +414,13 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
         document.getElementById('download-audio')?.addEventListener('click', async () => {
             const text = "${jsEscapedWord}";
             try {
-                const response = await fetch('/assets/audio/index.json');
+                const supabaseStorageUrl = 'https://jfzgzjgdptowfbtljvyp.supabase.co/storage/v1/object/public/audio-assets';
+                const response = await fetch(supabaseStorageUrl + '/index.json');
                 const index = await response.json();
                 const filename = index[text.toLowerCase()];
                 if (filename) {
                     const anchor = document.createElement('a');
-                    anchor.href = "/assets/audio/" + filename;
+                    anchor.href = supabaseStorageUrl + '/' + filename;
                     anchor.download = text.toLowerCase().replace(/\\s+/g, '-') + ".mp3";
                     document.body.appendChild(anchor);
                     anchor.click();
