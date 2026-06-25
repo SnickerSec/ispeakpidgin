@@ -279,6 +279,12 @@ function generateSitemap({ dictionaryEntries, phrases, stories, pickupLines }) {
     </url>
     <!-- New SEO Pages based on Search Console Data -->
     <url>
+        <loc>${baseUrl}/what-does-a-hui-hou-mean.html</loc>
+        <lastmod>${currentDate}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
         <loc>${baseUrl}/what-does-ainokea-mean.html</loc>
         <lastmod>${currentDate}</lastmod>
         <changefreq>monthly</changefreq>

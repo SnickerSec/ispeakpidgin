@@ -22,6 +22,7 @@ const config = {
 
 // Premium pages map to detect links that should point to curated pages
 const premiumPages = {
+    'a hui hou': 'what-does-a-hui-hou-mean.html',
     'akamai': 'what-does-akamai-mean.html',
     'aloha': 'what-does-aloha-mean.html',
     'howzit': 'what-does-howzit-mean.html',
