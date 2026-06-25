@@ -22,6 +22,11 @@ console.log('============================================================\n');
 
 const testSuites = [
     {
+        name: 'Mock Supabase client validation',
+        script: 'test-mock-supabase.js',
+        requiredEnv: false
+    },
+    {
         name: 'Master Translator Validation',
         script: 'run-validation.js',
         requiredEnv: false
