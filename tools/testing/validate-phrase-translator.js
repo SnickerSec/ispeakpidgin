@@ -10,12 +10,61 @@
 const fs = require('fs');
 const path = require('path');
 
+const toolsDataDir = path.join(__dirname, '../data');
+if (!fs.existsSync(toolsDataDir)) {
+    fs.mkdirSync(toolsDataDir, { recursive: true });
+}
+
+const phraseDataPath = path.join(toolsDataDir, 'phrase-training-data.json');
+const phraseLookupPath = path.join(toolsDataDir, 'phrase-lookup.json');
+
+// Generate mock phrase files if they don't exist
+if (!fs.existsSync(phraseDataPath) || !fs.existsSync(phraseLookupPath)) {
+    console.log('Generating temporary training and lookup files from mock-supabase-data.json...');
+    const mockDataPath = path.join(__dirname, 'mock-supabase-data.json');
+    const mockData = JSON.parse(fs.readFileSync(mockDataPath, 'utf8'));
+    
+    const trainingData = mockData.phrases.map(p => ({
+        pidgin: p.pidgin,
+        english: p.english,
+        source: 'phrases',
+        category: p.category,
+        difficulty: p.difficulty
+    }));
+    
+    const phraseDataContent = {
+        metadata: {
+            version: '1.0',
+            created: new Date().toISOString(),
+            totalPhrases: trainingData.length,
+            sources: ['phrases'],
+            categories: [...new Set(trainingData.map(t => t.category))].length,
+            description: 'Parallel phrase/sentence translations generated from mock data'
+        },
+        data: trainingData
+    };
+    fs.writeFileSync(phraseDataPath, JSON.stringify(phraseDataContent, null, 2));
+
+    const phraseLookup = {};
+    trainingData.forEach(item => {
+        const englishLower = item.english.toLowerCase();
+        if (!phraseLookup[englishLower]) {
+            phraseLookup[englishLower] = [];
+        }
+        phraseLookup[englishLower].push({
+            pidgin: item.pidgin,
+            category: item.category,
+            difficulty: item.difficulty,
+            source: item.source
+        });
+    });
+    fs.writeFileSync(phraseLookupPath, JSON.stringify(phraseLookup, null, 2));
+}
+
 // Load phrase training data
-const phraseDataPath = path.join(__dirname, '../data/phrase-training-data.json');
 const phraseData = JSON.parse(fs.readFileSync(phraseDataPath, 'utf8'));
 
 // Load phrase lookup
-const phraseLookupPath = path.join(__dirname, '../data/phrase-lookup.json');
 const phraseLookup = JSON.parse(fs.readFileSync(phraseLookupPath, 'utf8'));
 
 console.log('🧪 Validating Phrase Translator\n');

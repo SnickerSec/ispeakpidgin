@@ -1,0 +1,147 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "created": "2026-06-25T21:01:00.961Z",
+    "totalPhrases": 19,
+    "sources": [
+      "phrases"
+    ],
+    "categories": 6,
+    "description": "Parallel phrase/sentence translations generated from mock data"
+  },
+  "data": [
+    {
+      "pidgin": "Howzit?",
+      "english": "how are you?",
+      "source": "phrases",
+      "category": "greetings",
+      "difficulty": "beginner"
+    },
+    {
+      "pidgin": "Howzit goin'?",
+      "english": "how are you doing?",
+      "source": "phrases",
+      "category": "greetings",
+      "difficulty": "beginner"
+    },
+    {
+      "pidgin": "Wassup?",
+      "english": "what's up?",
+      "source": "phrases",
+      "category": "greetings",
+      "difficulty": "beginner"
+    },
+    {
+      "pidgin": "Latahs",
+      "english": "see you later",
+      "source": "phrases",
+      "category": "greetings",
+      "difficulty": "beginner"
+    },
+    {
+      "pidgin": "I dunno",
+      "english": "I don't know",
+      "source": "phrases",
+      "category": "expressions",
+      "difficulty": "beginner"
+    },
+    {
+      "pidgin": "We go",
+      "english": "let's go",
+      "source": "phrases",
+      "category": "expressions",
+      "difficulty": "beginner"
+    },
+    {
+      "pidgin": "No worries",
+      "english": "no problem",
+      "source": "phrases",
+      "category": "expressions",
+      "difficulty": "beginner"
+    },
+    {
+      "pidgin": "Dass broke da mouth",
+      "english": "that's really good",
+      "source": "phrases",
+      "category": "expressions",
+      "difficulty": "intermediate"
+    },
+    {
+      "pidgin": "We go grindz",
+      "english": "let's go eat",
+      "source": "phrases",
+      "category": "food",
+      "difficulty": "intermediate"
+    },
+    {
+      "pidgin": "I stay hungry",
+      "english": "I'm hungry",
+      "source": "phrases",
+      "category": "food",
+      "difficulty": "beginner"
+    },
+    {
+      "pidgin": "Dass ono",
+      "english": "that's delicious",
+      "source": "phrases",
+      "category": "food",
+      "difficulty": "beginner"
+    },
+    {
+      "pidgin": "You ono like da grindz!",
+      "english": "You're delicious like the food!",
+      "source": "phrases",
+      "category": "expressions",
+      "difficulty": "intermediate"
+    },
+    {
+      "pidgin": "Howzit? You stay makin' my heart go buss!",
+      "english": "How's it going? You're making my heart race!",
+      "source": "phrases",
+      "category": "expressions",
+      "difficulty": "intermediate"
+    },
+    {
+      "pidgin": "Can I take you out fo' some ono grindz?",
+      "english": "Can I take you out for some delicious food?",
+      "source": "phrases",
+      "category": "expressions",
+      "difficulty": "intermediate"
+    },
+    {
+      "pidgin": "I going home",
+      "english": "I'm going home",
+      "source": "phrases",
+      "category": "actions",
+      "difficulty": "beginner"
+    },
+    {
+      "pidgin": "I stay tired",
+      "english": "I'm tired",
+      "source": "phrases",
+      "category": "emotions",
+      "difficulty": "beginner"
+    },
+    {
+      "pidgin": "What you like?",
+      "english": "what do you want?",
+      "source": "phrases",
+      "category": "questions",
+      "difficulty": "beginner"
+    },
+    {
+      "pidgin": "You like go?",
+      "english": "do you want to go?",
+      "source": "phrases",
+      "category": "questions",
+      "difficulty": "beginner"
+    },
+    {
+      "pidgin": "Wea you going?",
+      "english": "where are you going?",
+      "source": "phrases",
+      "category": "questions",
+      "difficulty": "beginner"
+    }
+  ]
+}

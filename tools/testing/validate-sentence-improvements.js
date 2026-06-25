@@ -13,16 +13,81 @@ const path = require('path');
 console.log('🧪 Validating Sentence Translation Improvements\n');
 console.log('='.repeat(60));
 
+const toolsDataDir = path.join(__dirname, '../data');
+if (!fs.existsSync(toolsDataDir)) {
+    fs.mkdirSync(toolsDataDir, { recursive: true });
+}
+
+const sentenceDataPath = path.join(toolsDataDir, 'sentence-training-data.json');
+const sentenceLookupPath = path.join(toolsDataDir, 'sentence-lookup.json');
+const phraseLookupPath = path.join(toolsDataDir, 'phrase-lookup.json');
+
+// Generate mock phrase lookup if it doesn't exist
+if (!fs.existsSync(phraseLookupPath)) {
+    console.log('Generating temporary phrase lookup from mock-supabase-data.json...');
+    const mockDataPath = path.join(__dirname, 'mock-supabase-data.json');
+    const mockData = JSON.parse(fs.readFileSync(mockDataPath, 'utf8'));
+    const phraseLookup = {};
+    mockData.phrases.forEach(p => {
+        const englishLower = p.english.toLowerCase();
+        if (!phraseLookup[englishLower]) {
+            phraseLookup[englishLower] = [];
+        }
+        phraseLookup[englishLower].push({
+            pidgin: p.pidgin,
+            category: p.category,
+            difficulty: p.difficulty,
+            source: 'phrases'
+        });
+    });
+    fs.writeFileSync(phraseLookupPath, JSON.stringify(phraseLookup, null, 2));
+}
+
+// Generate mock sentence files if they don't exist
+if (!fs.existsSync(sentenceDataPath) || !fs.existsSync(sentenceLookupPath)) {
+    console.log('Generating temporary sentence training and lookup files...');
+    
+    // Some sample sentence translation pairs for validation
+    const sentences = [
+        { english: "I am going to the beach today", pidgin: "I going beach today", category: "beginner" },
+        { english: "Do you want to eat some food?", pidgin: "You like grindz?", category: "beginner" },
+        { english: "I don't know where he went", pidgin: "I dunno wea he went", category: "intermediate" },
+        { english: "That food was so delicious", pidgin: "Dat food was so ono", category: "beginner" },
+        { english: "The weather is really nice today", pidgin: "Da weather stay real nice today", category: "beginner" },
+        { english: "I'm tired from work", pidgin: "I stay tired from work", category: "beginner" },
+        { english: "We should go to the beach later", pidgin: "We should go beach latahs", category: "beginner" },
+        { english: "How's it going? Long time no see!", pidgin: "Howzit? Long time no see!", category: "beginner" },
+        { english: "I'm hungry, let's go eat", pidgin: "I stay hungry, we go grindz", category: "intermediate" },
+        { english: "That was the best day ever", pidgin: "Was da best day eva", category: "intermediate" }
+    ];
+    
+    const sentenceDataContent = {
+        metadata: {
+            totalSentences: sentences.length
+        },
+        data: sentences
+    };
+    fs.writeFileSync(sentenceDataPath, JSON.stringify(sentenceDataContent, null, 2));
+
+    const sentenceLookupContent = {
+        englishToPidgin: {}
+    };
+    sentences.forEach(s => {
+        const engLower = s.english.toLowerCase();
+        sentenceLookupContent.englishToPidgin[engLower] = [
+            { pidgin: s.pidgin }
+        ];
+    });
+    fs.writeFileSync(sentenceLookupPath, JSON.stringify(sentenceLookupContent, null, 2));
+}
+
 // Load sentence dataset
-const sentenceDataPath = path.join(__dirname, '../data/sentence-training-data.json');
 const sentenceData = JSON.parse(fs.readFileSync(sentenceDataPath, 'utf8'));
 
 // Load sentence lookup
-const sentenceLookupPath = path.join(__dirname, '../data/sentence-lookup.json');
 const sentenceLookup = JSON.parse(fs.readFileSync(sentenceLookupPath, 'utf8'));
 
 // Load phrase lookup for chunking simulation
-const phraseLookupPath = path.join(__dirname, '../data/phrase-lookup.json');
 const phraseLookup = JSON.parse(fs.readFileSync(phraseLookupPath, 'utf8'));
 
 console.log(`\n📊 Dataset Loaded:`);

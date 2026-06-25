@@ -23,11 +23,16 @@ npm run dev
 
 ### Testing and Deployment
 ```bash
-# Run translator validation (comprehensive)
+# Run all tests sequentially (uses offline mock mode if no Supabase credentials)
 npm test
 
-# Run Phase 2 & 3 validation (grammar/stories)
-npm run test:translator
+# Run individual validation suites
+npm run test:validation                             # Master translator validation
+npm run test:translator                             # Phase 2 & 3 validation (grammar/stories)
+node tools/testing/validate-phrase-translator.js    # Phrase translator validation
+node tools/testing/validate-sentence-improvements.js  # Sentence chunking validation
+node tools/testing/pronunciation-audit.js           # Phonetics pronunciation audit
+node tools/testing/audit-site.js                    # Built-site link & SEO check
 
 # Generate individual word pages from Supabase
 npm run generate:pages

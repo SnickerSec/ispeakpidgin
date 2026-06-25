@@ -1,0 +1,154 @@
+{
+  "how are you?": [
+    {
+      "pidgin": "Howzit?",
+      "category": "greetings",
+      "difficulty": "beginner",
+      "source": "phrases"
+    }
+  ],
+  "how are you doing?": [
+    {
+      "pidgin": "Howzit goin'?",
+      "category": "greetings",
+      "difficulty": "beginner",
+      "source": "phrases"
+    }
+  ],
+  "what's up?": [
+    {
+      "pidgin": "Wassup?",
+      "category": "greetings",
+      "difficulty": "beginner",
+      "source": "phrases"
+    }
+  ],
+  "see you later": [
+    {
+      "pidgin": "Latahs",
+      "category": "greetings",
+      "difficulty": "beginner",
+      "source": "phrases"
+    }
+  ],
+  "i don't know": [
+    {
+      "pidgin": "I dunno",
+      "category": "expressions",
+      "difficulty": "beginner",
+      "source": "phrases"
+    }
+  ],
+  "let's go": [
+    {
+      "pidgin": "We go",
+      "category": "expressions",
+      "difficulty": "beginner",
+      "source": "phrases"
+    }
+  ],
+  "no problem": [
+    {
+      "pidgin": "No worries",
+      "category": "expressions",
+      "difficulty": "beginner",
+      "source": "phrases"
+    }
+  ],
+  "that's really good": [
+    {
+      "pidgin": "Dass broke da mouth",
+      "category": "expressions",
+      "difficulty": "intermediate",
+      "source": "phrases"
+    }
+  ],
+  "let's go eat": [
+    {
+      "pidgin": "We go grindz",
+      "category": "food",
+      "difficulty": "intermediate",
+      "source": "phrases"
+    }
+  ],
+  "i'm hungry": [
+    {
+      "pidgin": "I stay hungry",
+      "category": "food",
+      "difficulty": "beginner",
+      "source": "phrases"
+    }
+  ],
+  "that's delicious": [
+    {
+      "pidgin": "Dass ono",
+      "category": "food",
+      "difficulty": "beginner",
+      "source": "phrases"
+    }
+  ],
+  "you're delicious like the food!": [
+    {
+      "pidgin": "You ono like da grindz!",
+      "category": "expressions",
+      "difficulty": "intermediate",
+      "source": "phrases"
+    }
+  ],
+  "how's it going? you're making my heart race!": [
+    {
+      "pidgin": "Howzit? You stay makin' my heart go buss!",
+      "category": "expressions",
+      "difficulty": "intermediate",
+      "source": "phrases"
+    }
+  ],
+  "can i take you out for some delicious food?": [
+    {
+      "pidgin": "Can I take you out fo' some ono grindz?",
+      "category": "expressions",
+      "difficulty": "intermediate",
+      "source": "phrases"
+    }
+  ],
+  "i'm going home": [
+    {
+      "pidgin": "I going home",
+      "category": "actions",
+      "difficulty": "beginner",
+      "source": "phrases"
+    }
+  ],
+  "i'm tired": [
+    {
+      "pidgin": "I stay tired",
+      "category": "emotions",
+      "difficulty": "beginner",
+      "source": "phrases"
+    }
+  ],
+  "what do you want?": [
+    {
+      "pidgin": "What you like?",
+      "category": "questions",
+      "difficulty": "beginner",
+      "source": "phrases"
+    }
+  ],
+  "do you want to go?": [
+    {
+      "pidgin": "You like go?",
+      "category": "questions",
+      "difficulty": "beginner",
+      "source": "phrases"
+    }
+  ],
+  "where are you going?": [
+    {
+      "pidgin": "Wea you going?",
+      "category": "questions",
+      "difficulty": "beginner",
+      "source": "phrases"
+    }
+  ]
+}

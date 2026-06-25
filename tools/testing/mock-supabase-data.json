@@ -1,0 +1,487 @@
+{
+  "dictionary_entries": [
+    {
+      "id": "dict-1",
+      "pidgin": "akamai",
+      "english": ["smart", "intelligent", "clever"],
+      "category": "descriptions",
+      "difficulty": "beginner",
+      "usage": "Used to describe someone who is smart or clever.",
+      "examples": ["That kid is akamai!"],
+      "pronunciation": "ah-kah-MY",
+      "origin": "Hawaiian"
+    },
+    {
+      "id": "dict-2",
+      "pidgin": "aloha",
+      "english": ["hello", "goodbye", "love", "compassion"],
+      "category": "greetings",
+      "difficulty": "beginner",
+      "usage": "The ultimate Hawaiian word, representing greetings, farewells, and love.",
+      "examples": ["Aloha, how stay you?"],
+      "pronunciation": "ah-LOH-hah",
+      "origin": "Hawaiian"
+    },
+    {
+      "id": "dict-3",
+      "pidgin": "howzit",
+      "english": ["how are you", "how is it going", "what's up"],
+      "category": "greetings",
+      "difficulty": "beginner",
+      "usage": "The standard local greeting.",
+      "examples": ["Howzit, brah!"],
+      "pronunciation": "HOW-zit",
+      "origin": "English hybrid"
+    },
+    {
+      "id": "dict-4",
+      "pidgin": "pau",
+      "english": ["finished", "done", "completed"],
+      "category": "actions",
+      "difficulty": "beginner",
+      "usage": "Used to describe something that is completed.",
+      "examples": ["I pau work."],
+      "pronunciation": "pow",
+      "origin": "Hawaiian"
+    },
+    {
+      "id": "dict-5",
+      "pidgin": "choke",
+      "english": ["a lot", "many", "plenty", "choke"],
+      "category": "descriptions",
+      "difficulty": "beginner",
+      "usage": "Used to describe a large quantity of something.",
+      "examples": ["Get choke waves today!"],
+      "pronunciation": "choke",
+      "origin": "English slang"
+    },
+    {
+      "id": "dict-6",
+      "pidgin": "mahalo",
+      "english": ["thank you", "thanks"],
+      "category": "greetings",
+      "difficulty": "beginner",
+      "usage": "Expression of gratitude.",
+      "examples": ["Mahalo for the grinds!"],
+      "pronunciation": "mah-HAH-loh",
+      "origin": "Hawaiian"
+    },
+    {
+      "id": "dict-7",
+      "pidgin": "no worry",
+      "english": ["don't worry", "no problem", "no worries"],
+      "category": "greetings",
+      "difficulty": "beginner",
+      "usage": "Reassurance, similar to no problem.",
+      "examples": ["No worry, I got you."],
+      "pronunciation": "no worry",
+      "origin": "English hybrid"
+    },
+    {
+      "id": "dict-8",
+      "pidgin": "grindz",
+      "english": ["food", "eat", "delicious food"],
+      "category": "food",
+      "difficulty": "beginner",
+      "usage": "Local term for food or eating.",
+      "examples": ["We go get some grindz."],
+      "pronunciation": "grinds",
+      "origin": "English slang"
+    },
+    {
+      "id": "dict-9",
+      "pidgin": "ono",
+      "english": ["delicious", "tasty", "good tasting"],
+      "category": "food",
+      "difficulty": "beginner",
+      "usage": "Used to describe delicious food.",
+      "examples": ["The poke is real ono!"],
+      "pronunciation": "OH-no",
+      "origin": "Hawaiian"
+    },
+    {
+      "id": "dict-10",
+      "pidgin": "broke da mouth",
+      "english": ["delicious", "incredibly tasty", "amazing food"],
+      "category": "food",
+      "difficulty": "intermediate",
+      "usage": "Used for food that is exceptionally delicious.",
+      "examples": ["That kalua pig broke da mouth!"],
+      "pronunciation": "broke da mouth",
+      "origin": "Idiomatic"
+    },
+    {
+      "id": "dict-11",
+      "pidgin": "brah",
+      "english": ["brother", "friend", "man", "guy"],
+      "category": "greetings",
+      "difficulty": "beginner",
+      "usage": "Casual address for a male friend or acquaintance.",
+      "examples": ["Eh brah, what's up?"],
+      "pronunciation": "brah",
+      "origin": "English contraction"
+    },
+    {
+      "id": "dict-12",
+      "pidgin": "sistah",
+      "english": ["sister", "female friend"],
+      "category": "greetings",
+      "difficulty": "beginner",
+      "usage": "Casual address for a female friend.",
+      "examples": ["Howzit, sistah!"],
+      "pronunciation": "SIS-tah",
+      "origin": "English dialect"
+    },
+    {
+      "id": "dict-13",
+      "pidgin": "cuz",
+      "english": ["cousin", "friend", "bro"],
+      "category": "greetings",
+      "difficulty": "beginner",
+      "usage": "Term of endearment for a close friend.",
+      "examples": ["Shoots cuz!"],
+      "pronunciation": "cuz",
+      "origin": "English contraction"
+    },
+    {
+      "id": "dict-14",
+      "pidgin": "bruddah",
+      "english": ["brother", "friend", "man"],
+      "category": "greetings",
+      "difficulty": "beginner",
+      "usage": "Formal local spelling of brother/friend.",
+      "examples": ["Eh bruddah, you ready?"],
+      "pronunciation": "BRAH-dah",
+      "origin": "English dialect"
+    },
+    {
+      "id": "dict-15",
+      "pidgin": "stay",
+      "english": ["am", "is", "are", "live", "stay"],
+      "category": "grammar",
+      "difficulty": "beginner",
+      "usage": "Verb meaning to be or exist in a state.",
+      "examples": ["I stay hungry."],
+      "pronunciation": "stay",
+      "origin": "Portuguese pidgin root"
+    },
+    {
+      "id": "dict-16",
+      "pidgin": "wen",
+      "english": ["went", "did", "past tense marker"],
+      "category": "grammar",
+      "difficulty": "beginner",
+      "usage": "Placed before verbs to indicate past tense.",
+      "examples": ["I wen go beach."],
+      "pronunciation": "wen",
+      "origin": "English dialect"
+    },
+    {
+      "id": "dict-17",
+      "pidgin": "going",
+      "english": ["going to", "will", "future tense marker"],
+      "category": "grammar",
+      "difficulty": "beginner",
+      "usage": "Placed before verbs to indicate future tense.",
+      "examples": ["I going surf tomorrow."],
+      "pronunciation": "going",
+      "origin": "English"
+    },
+    {
+      "id": "dict-18",
+      "pidgin": "no can",
+      "english": ["cannot", "can't", "unable to"],
+      "category": "grammar",
+      "difficulty": "beginner",
+      "usage": "Indicates inability to do something.",
+      "examples": ["I no can go."],
+      "pronunciation": "no can",
+      "origin": "Cantonese pidgin root"
+    },
+    {
+      "id": "dict-19",
+      "pidgin": "like",
+      "english": ["want", "want to", "like"],
+      "category": "grammar",
+      "difficulty": "beginner",
+      "usage": "Used to express desire.",
+      "examples": ["You like go beach?"],
+      "pronunciation": "like",
+      "origin": "English dialect"
+    },
+    {
+      "id": "dict-20",
+      "pidgin": "gotta",
+      "english": ["have to", "must", "got to"],
+      "category": "grammar",
+      "difficulty": "beginner",
+      "usage": "Indicates necessity.",
+      "examples": ["I gotta go home."],
+      "pronunciation": "gotta",
+      "origin": "English"
+    },
+    {
+      "id": "dict-21",
+      "pidgin": "neva",
+      "english": ["never", "did not"],
+      "category": "grammar",
+      "difficulty": "beginner",
+      "usage": "Indicates past negative action (did not).",
+      "examples": ["I neva go."],
+      "pronunciation": "NEH-vah",
+      "origin": "English dialect"
+    },
+    {
+      "id": "dict-22",
+      "pidgin": "pupule",
+      "english": ["crazy", "insane"],
+      "category": "descriptions",
+      "difficulty": "beginner",
+      "usage": "Describing wild or crazy behavior.",
+      "examples": ["You stay pupule!"],
+      "pronunciation": "poo-POO-leh",
+      "origin": "Hawaiian"
+    },
+    {
+      "id": "dict-23",
+      "pidgin": "slippahs",
+      "english": ["slippers", "flip-flops", "sandals"],
+      "category": "general",
+      "difficulty": "beginner",
+      "usage": "Local footwear.",
+      "examples": ["Don't forget your slippahs."],
+      "pronunciation": "SLIP-pahs",
+      "origin": "English dialect"
+    },
+    {
+      "id": "dict-24",
+      "pidgin": "tutu kane",
+      "english": ["grandfather", "grandpa"],
+      "category": "family",
+      "difficulty": "intermediate",
+      "usage": "Term for grandfather.",
+      "examples": ["I go fish with tutu kane."],
+      "pronunciation": "too-too KAH-neh",
+      "origin": "Hawaiian"
+    },
+    {
+      "id": "dict-25",
+      "pidgin": "pau hana",
+      "english": ["after work", "pau hana", "finished work"],
+      "category": "actions",
+      "difficulty": "intermediate",
+      "usage": "Refers to the time after work or happy hour.",
+      "examples": ["We go get drinks for pau hana."],
+      "pronunciation": "pow HAH-nah",
+      "origin": "Hawaiian"
+    },
+    {
+      "id": "dict-26",
+      "pidgin": "shoots",
+      "english": ["okay", "alright", "sure", "deal"],
+      "category": "greetings",
+      "difficulty": "beginner",
+      "usage": "Expresses agreement or confirmation.",
+      "examples": ["Shoots, see you later!"],
+      "pronunciation": "shoots",
+      "origin": "English slang"
+    },
+    {
+      "id": "dict-27",
+      "pidgin": "kumu",
+      "english": ["teacher", "instructor"],
+      "category": "general",
+      "difficulty": "beginner",
+      "usage": "A teacher or guide.",
+      "examples": ["The kumu says to study."],
+      "pronunciation": "KOO-moo",
+      "origin": "Hawaiian"
+    },
+    {
+      "id": "dict-28",
+      "pidgin": "keiki",
+      "english": ["children", "kids", "child"],
+      "category": "family",
+      "difficulty": "beginner",
+      "usage": "Children or child.",
+      "examples": ["The keiki stay playing."],
+      "pronunciation": "KAY-kee",
+      "origin": "Hawaiian"
+    },
+    {
+      "id": "dict-29",
+      "pidgin": "ohana",
+      "english": ["family"],
+      "category": "family",
+      "difficulty": "beginner",
+      "usage": "Family, including extended family and friends.",
+      "examples": ["We stay ohana."],
+      "pronunciation": "oh-HAH-nah",
+      "origin": "Hawaiian"
+    },
+    {
+      "id": "dict-30",
+      "pidgin": "poho",
+      "english": ["waste", "out of luck", "very tired", "worn out"],
+      "category": "emotions",
+      "difficulty": "intermediate",
+      "usage": "Describes something that is a waste or being out of luck / exhausted.",
+      "examples": ["I all poho."],
+      "pronunciation": "poh-HOH",
+      "origin": "Hawaiian"
+    }
+  ],
+  "phrases": [
+    {
+      "id": "phrase-1",
+      "pidgin": "Howzit?",
+      "english": "how are you?",
+      "category": "greetings",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "phrase-2",
+      "pidgin": "Howzit goin'?",
+      "english": "how are you doing?",
+      "category": "greetings",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "phrase-3",
+      "pidgin": "Wassup?",
+      "english": "what's up?",
+      "category": "greetings",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "phrase-4",
+      "pidgin": "Latahs",
+      "english": "see you later",
+      "category": "greetings",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "phrase-5",
+      "pidgin": "I dunno",
+      "english": "I don't know",
+      "category": "expressions",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "phrase-6",
+      "pidgin": "We go",
+      "english": "let's go",
+      "category": "expressions",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "phrase-7",
+      "pidgin": "No worries",
+      "english": "no problem",
+      "category": "expressions",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "phrase-8",
+      "pidgin": "Dass broke da mouth",
+      "english": "that's really good",
+      "category": "expressions",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "phrase-9",
+      "pidgin": "We go grindz",
+      "english": "let's go eat",
+      "category": "food",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "phrase-10",
+      "pidgin": "I stay hungry",
+      "english": "I'm hungry",
+      "category": "food",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "phrase-11",
+      "pidgin": "Dass ono",
+      "english": "that's delicious",
+      "category": "food",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "phrase-12",
+      "pidgin": "You ono like da grindz!",
+      "english": "You're delicious like the food!",
+      "category": "expressions",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "phrase-13",
+      "pidgin": "Howzit? You stay makin' my heart go buss!",
+      "english": "How's it going? You're making my heart race!",
+      "category": "expressions",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "phrase-14",
+      "pidgin": "Can I take you out fo' some ono grindz?",
+      "english": "Can I take you out for some delicious food?",
+      "category": "expressions",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "phrase-15",
+      "pidgin": "I going home",
+      "english": "I'm going home",
+      "category": "actions",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "phrase-16",
+      "pidgin": "I stay tired",
+      "english": "I'm tired",
+      "category": "emotions",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "phrase-17",
+      "pidgin": "What you like?",
+      "english": "what do you want?",
+      "category": "questions",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "phrase-18",
+      "pidgin": "You like go?",
+      "english": "do you want to go?",
+      "category": "questions",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "phrase-19",
+      "pidgin": "Wea you going?",
+      "english": "where are you going?",
+      "category": "questions",
+      "difficulty": "beginner"
+    }
+  ],
+  "stories": [
+    {
+      "id": "first_day_work",
+      "title": "First Day on the Job",
+      "pidgin_text": "Ho brah, my first day work was one trip! Da boss tell me, 'Eh, you da new guy yeah? No worry, we going show you how we do.' I was so nervous, hands stay shaking. But den dis one aunty from accounting come ovah, 'Eh, relax. We all ohana hea. You like some coffee?' She wen bring me one fresh malasada too. By pau hana time, I felt like I been working dea my whole life. Dat's da aloha spirit, brah.",
+      "english_translation": "Wow man, my first day of work was quite an experience! The boss tells me, 'Hey, you're the new guy right? Don't worry, we're going to show you how we do things.' I was so nervous, my hands were shaking. But then this one lady from accounting came over, 'Hey, relax. We're all family here. Would you like some coffee?' She brought me a fresh malasada too. By the end of work, I felt like I had been working there my whole life. That's the aloha spirit, man.",
+      "cultural_notes": "Hawaiian workplaces often have a strong sense of 'ohana' (family). Malasadas are Portuguese donuts that are extremely popular in Hawaii. 'Pau hana' refers to the time after work is finished.",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "fishing_with_grandpa",
+      "title": "Fishing with Grandpa",
+      "pidgin_text": "Every Saturday, me and my tutu kane go down da pier fo' fish. He get his special spot, been going dea since small kid time. 'Eh, you gotta be patient,' he always tell me. 'Da fish going come when dey ready.' We sit dea, talk story about da old days. He tell me about when Haleiwa was all pineapple fields. No cars, no tourists, just da locals. 'Ho, was different time,' he say, looking at da ocean. I love dose days with tutu. Dat's how we pass down da culture, one fishing trip at a time.",
+      "english_translation": "Every Saturday, my grandfather and I go down to the pier to fish. He has his special spot, been going there since he was a child. 'Hey, you've got to be patient,' he always tells me. 'The fish will come when they're ready.' We sit there, chatting about the old days. He tells me about when Haleiwa was all pineapple fields. No cars, no tourists, just the locals. 'Wow, it was a different time,' he says, looking at the ocean. I love those days with grandpa. That's how we pass down the culture, one fishing trip at a time.",
+      "cultural_notes": "Fishing is an important cultural activity in Hawaii, passed down through generations. 'Tutu kane' is the Hawaiian term for grandfather.",
+      "difficulty": "intermediate"
+    }
+  ]
+}

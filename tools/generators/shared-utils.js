@@ -136,7 +136,41 @@ function escapeHtml(text) {
  */
 async function fetchFromSupabase(tableName, selectFields = '*', orderBy = null) {
     if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-        throw new Error('Missing required environment variables: SUPABASE_URL, SUPABASE_ANON_KEY');
+        console.warn(`⚠️ Missing required environment variables (SUPABASE_URL, SUPABASE_ANON_KEY). Loading "${tableName}" from mock-supabase-data.json.`);
+        try {
+            const mockPath = path.join(__dirname, '../testing/mock-supabase-data.json');
+            if (fs.existsSync(mockPath)) {
+                const mockData = JSON.parse(fs.readFileSync(mockPath, 'utf8'));
+                let result = mockData[tableName] || [];
+                
+                // Filter fields if not '*'
+                if (selectFields && selectFields !== '*') {
+                    const fieldList = selectFields.split(',').map(f => f.trim());
+                    result = result.map(row => {
+                        const filtered = {};
+                        fieldList.forEach(f => {
+                            if (f in row) filtered[f] = row[f];
+                        });
+                        return filtered;
+                    });
+                }
+                
+                // Optional sort
+                if (orderBy) {
+                    const [col, dir] = orderBy.split('.');
+                    const ascending = dir !== 'desc';
+                    result.sort((a, b) => {
+                        const valA = String(a[col] || '').toLowerCase();
+                        const valB = String(b[col] || '').toLowerCase();
+                        return ascending ? valA.localeCompare(valB) : valB.localeCompare(valA);
+                    });
+                }
+                return result;
+            }
+        } catch (e) {
+            console.error('Error loading mock data:', e.message);
+        }
+        return [];
     }
 
     const allRows = [];
