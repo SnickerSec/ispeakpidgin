@@ -5,6 +5,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const rateLimit = require('express-rate-limit');
+const geminiService = require('../services/gemini');
 
 // Define rate limiters explicitly for CodeQL detection
 const adminLoginLimiter = rateLimit({
@@ -583,25 +584,19 @@ Respond only with a JSON object:
   "pronunciation": "Phonetic pronunciation guide"
 }`;
 
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
-
-            const response = await fetch(apiUrl, {
-               method: 'POST',
-               headers: { 'Content-Type': 'application/json' },
-               body: JSON.stringify({
-                   system_instruction: {
-                       parts: [{ text: systemPrompt }]
-                   },
-                   contents: [{
-                       role: 'user',
-                       parts: [{ text: `PIDGIN TERM: "${pidgin}"` }]
-                   }],
-                   generationConfig: {
-                       temperature: 0.3,
-                       maxOutputTokens: 300,
-                       responseMimeType: "application/json"
-                   }
-               })
+            const response = await geminiService.generateContent(apiKey, {
+                system_instruction: {
+                    parts: [{ text: systemPrompt }]
+                },
+                contents: [{
+                    role: 'user',
+                    parts: [{ text: `PIDGIN TERM: "${pidgin}"` }]
+                }],
+                generationConfig: {
+                    temperature: 0.3,
+                    maxOutputTokens: 300,
+                    responseMimeType: "application/json"
+                }
             });
             if (!response.ok) throw new Error('AI Service error');
 

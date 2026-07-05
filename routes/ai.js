@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const userAuth = require('../middleware/user-auth');
+const geminiService = require('../services/gemini');
 
 /**
  * AI & Chat Routes
@@ -121,8 +122,6 @@ Respond in JSON format:
 }
 ${vocabulary}`;
 
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
-
                 // Format history for Gemini
                 const contents = history.map(msg => ({
                     role: msg.role === 'user' ? 'user' : 'model',
@@ -135,20 +134,16 @@ ${vocabulary}`;
                     parts: [{ text: message }]
                 });
 
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        system_instruction: {
-                            parts: [{ text: systemPrompt }]
-                        },
-                        contents: contents,
-                        generationConfig: { 
-                            temperature: 0.7, 
-                            maxOutputTokens: 800,
-                            responseMimeType: "application/json"
-                        }
-                    })
+                const response = await geminiService.generateContent(apiKey, {
+                    system_instruction: {
+                        parts: [{ text: systemPrompt }]
+                    },
+                    contents: contents,
+                    generationConfig: { 
+                        temperature: 0.7, 
+                        maxOutputTokens: 800,
+                        responseMimeType: "application/json"
+                    }
                 });
 
                 if (!response.ok) {
@@ -264,25 +259,19 @@ Respond only with a JSON object:
   "confidence": 0.95
 }`;
 
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
-
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        system_instruction: {
-                            parts: [{ text: systemPrompt }]
-                        },
-                        contents: [{
-                            role: 'user',
-                            parts: [{ text: `TEXT TO TRANSLATE: "${text}"` }]
-                        }],
-                        generationConfig: { 
-                            temperature: 0.2, // Lower temperature for more accurate translation
-                            maxOutputTokens: 500,
-                            responseMimeType: "application/json"
-                        }
-                    })
+                const response = await geminiService.generateContent(apiKey, {
+                    system_instruction: {
+                        parts: [{ text: systemPrompt }]
+                    },
+                    contents: [{
+                        role: 'user',
+                        parts: [{ text: `TEXT TO TRANSLATE: "${text}"` }]
+                    }],
+                    generationConfig: { 
+                        temperature: 0.2, // Lower temperature for more accurate translation
+                        maxOutputTokens: 500,
+                        responseMimeType: "application/json"
+                    }
                 });
 
                 if (!response.ok) {

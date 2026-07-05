@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const userAuth = require('../middleware/user-auth');
+const geminiService = require('../services/gemini');
 
 /**
  * Local Questions API (Ask a Local)
@@ -45,21 +46,15 @@ Respond with a JSON object:
 }
 ${vocabContext}`;
 
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
-
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{
-                        role: 'user',
-                        parts: [{ text: `SYSTEM INSTRUCTION: ${systemPrompt}\n\nQUESTION: "${questionText}"` }]
-                    }],
-                    generationConfig: { 
-                        temperature: 0.7, 
-                        responseMimeType: "application/json"
-                    }
-                })
+            const response = await geminiService.generateContent(apiKey, {
+                contents: [{
+                    role: 'user',
+                    parts: [{ text: `SYSTEM INSTRUCTION: ${systemPrompt}\n\nQUESTION: "${questionText}"` }]
+                }],
+                generationConfig: { 
+                    temperature: 0.7, 
+                    responseMimeType: "application/json"
+                }
             });
 
             if (!response.ok) return null;

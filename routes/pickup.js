@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { body, query, validationResult } = require('express-validator');
+const geminiService = require('../services/gemini');
 
 /**
  * Pickup Line Routes (Standard, 808 Mode, Cringe Generator)
@@ -175,15 +176,9 @@ module.exports = function(supabase, dictionaryLimiter, translationLimiter) {
             const activityContext = activityContexts[activityKey] || activityContexts.grindz;
 
             const prompt = `Generate ONE SHORT, punchy Hawaiian Pidgin pickup line for a ${styleLabel} about "${locationName}"...`;
-            const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
-
-            const geminiResponse = await fetch(geminiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: prompt }] }],
-                    generationConfig: { temperature: 0.85, maxOutputTokens: 150 }
-                })
+            const geminiResponse = await geminiService.generateContent(apiKey, {
+                contents: [{ parts: [{ text: prompt }] }],
+                generationConfig: { temperature: 0.85, maxOutputTokens: 150 }
             });
 
             if (!geminiResponse.ok) throw new Error(`Gemini API error: ${geminiResponse.status}`);
@@ -250,14 +245,9 @@ RESPONSE FORMAT (JSON only):
 
 Generate ONE original pickup line now.`;
 
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: systemPrompt }] }],
-                    generationConfig: { temperature: 0.9, maxOutputTokens: 300 }
-                })
+            const response = await geminiService.generateContent(apiKey, {
+                contents: [{ parts: [{ text: systemPrompt }] }],
+                generationConfig: { temperature: 0.9, maxOutputTokens: 300 }
             });
 
             if (!response.ok) {
@@ -321,14 +311,9 @@ Provide 3 variations in JSON format:
   ]
 }`;
 
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: systemPrompt }] }],
-                    generationConfig: { temperature: 0.8, maxOutputTokens: 500 }
-                })
+            const response = await geminiService.generateContent(apiKey, {
+                contents: [{ parts: [{ text: systemPrompt }] }],
+                generationConfig: { temperature: 0.8, maxOutputTokens: 500 }
             });
 
             if (!response.ok) {
