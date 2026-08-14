@@ -58,7 +58,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Enable trust proxy for accurate rate limiting on Railway/proxies
-app.set('trust proxy', 1);
+// Two hops in front of the app: Cloudflare edge -> Railway edge
+app.set('trust proxy', 2);
 
 // Rate limiting configuration
 const apiLimiter = rateLimit({
