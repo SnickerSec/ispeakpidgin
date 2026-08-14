@@ -158,6 +158,16 @@ const corsOptions = {
     optionsSuccessStatus: 200
 };
 
+// Canonical host: send www to the apex, which is what every canonical tag,
+// og:url, and the sitemap already declare. Matched on the www hostname alone
+// so the *.up.railway.app domain and local development are untouched.
+app.use((req, res, next) => {
+    if (req.hostname === 'www.chokepidgin.com') {
+        return res.redirect(301, `https://chokepidgin.com${req.originalUrl}`);
+    }
+    next();
+});
+
 app.use(cors(corsOptions));
 
 // Security middleware
