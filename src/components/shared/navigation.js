@@ -1,43 +1,92 @@
 // Navigation JavaScript - automatically included on all pages
 document.addEventListener('DOMContentLoaded', function() {
-    // Dropdown Logic (Desktop)
-    const dropdowns = document.querySelectorAll('.nav-dropdown');
-    let activeDropdown = null;
+    // --- shadcn Navigation Menu Controller ---
+    const menuItems = document.querySelectorAll('.nav-menu-item');
+    let activeItem = null;
+    let closeTimeout = null;
 
-    dropdowns.forEach(dropdown => {
-        const btn = dropdown.querySelector('button');
-        const menu = dropdown.querySelector('.dropdown-menu');
-        
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const isHidden = menu.classList.contains('hidden');
-            
-            // Close all others
-            closeAllDropdowns();
-            
-            if (isHidden) {
-                menu.classList.remove('hidden');
-                activeDropdown = menu;
+    menuItems.forEach(item => {
+        const trigger = item.querySelector('.nav-menu-trigger');
+        const content = item.querySelector('.nav-menu-content');
+        if (!trigger || !content) return;
+
+        function openMenu() {
+            clearTimeout(closeTimeout);
+            // Close any currently open menu item that isn't this one
+            if (activeItem && activeItem !== item) {
+                closeMenuItem(activeItem);
+            }
+
+            content.classList.remove('hidden');
+            trigger.setAttribute('data-state', 'open');
+            trigger.setAttribute('aria-expanded', 'true');
+            content.setAttribute('data-state', 'open');
+            activeItem = item;
+
+            // Ensure dropdown doesn't overflow right edge of viewport
+            const rect = content.getBoundingClientRect();
+            if (rect.right > window.innerWidth - 16) {
+                const overflow = rect.right - (window.innerWidth - 16);
+                content.style.left = `-${overflow}px`;
+            } else {
+                content.style.left = '0px';
+            }
+        }
+
+        function closeMenuWithDelay() {
+            closeTimeout = setTimeout(() => {
+                closeMenuItem(item);
+            }, 150); // Small intent delay for smooth mouse travel
+        }
+
+        // Desktop Hover (mouseenter / mouseleave)
+        item.addEventListener('mouseenter', () => {
+            if (window.innerWidth >= 1024) {
+                openMenu();
             }
         });
 
-        // Hover support for desktop
-        dropdown.addEventListener('mouseenter', () => {
+        item.addEventListener('mouseleave', () => {
             if (window.innerWidth >= 1024) {
-                closeAllDropdowns();
-                menu.classList.remove('hidden');
-                activeDropdown = menu;
+                closeMenuWithDelay();
+            }
+        });
+
+        // Click / Touch Toggle
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = trigger.getAttribute('data-state') === 'open';
+            if (isOpen) {
+                closeMenuItem(item);
+            } else {
+                openMenu();
             }
         });
     });
 
-    function closeAllDropdowns() {
-        document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.add('hidden'));
-        activeDropdown = null;
+    function closeMenuItem(item) {
+        if (!item) return;
+        const trigger = item.querySelector('.nav-menu-trigger');
+        const content = item.querySelector('.nav-menu-content');
+        if (trigger && content) {
+            trigger.setAttribute('data-state', 'closed');
+            trigger.setAttribute('aria-expanded', 'false');
+            content.setAttribute('data-state', 'closed');
+            content.classList.add('hidden');
+        }
+        if (activeItem === item) activeItem = null;
+    }
+
+    function closeAllMenus() {
+        menuItems.forEach(item => closeMenuItem(item));
     }
 
     // Close on outside click
-    document.addEventListener('click', () => closeAllDropdowns());
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-menu-item')) {
+            closeAllMenus();
+        }
+    });
 
     // Mobile Menu Logic
     const mobileBtn = document.getElementById('mobile-menu-btn');
@@ -59,9 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // --- Theme Enforcement (Exclusive Island Night) ---
-    // Ensure dark mode is always applied on load
     document.documentElement.classList.add('dark');
-    // We can also clear the saved theme to avoid confusion if it was 'light'
     localStorage.removeItem('pidgin_theme');
 
     // Quick Search Logic
@@ -97,6 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Handle ESC key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
+                closeAllMenus();
                 hideSearch();
                 if (mobileMenu) mobileMenu.classList.add('hidden');
                 document.body.style.overflow = '';
@@ -152,10 +200,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (matches.length === 0) {
                 searchResults.innerHTML = `
-                    <div class="p-8 text-center text-gray-500">
-                        <i class="ti ti-mood-empty text-3xl mb-2 block"></i>
+                    <div class="p-8 text-center text-slate-400">
+                        <iconify-icon icon="lucide:frown" class="text-3xl mb-2 block mx-auto opacity-50"></iconify-icon>
                         <p>No results found for "${escapeHtml(query)}"</p>
-                        <p class="text-xs mt-1">Try different word, brah!</p>
+                        <p class="text-xs mt-1 text-slate-500">Try different word, brah!</p>
                     </div>
                 `;
                 return;
@@ -166,12 +214,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 const english = Array.isArray(entry.english) ? entry.english[0] : entry.english;
                 return `
                 <a href="/word/${encodeURIComponent(slug)}.html"
-                   class="flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-slate-700/50 rounded-2xl transition group">
+                   class="flex items-center justify-between p-3.5 hover:bg-slate-800 rounded-xl transition group">
                     <div>
-                        <div class="font-bold text-gray-800 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400">${escapeHtml(entry.pidgin)}</div>
-                        <div class="text-sm text-gray-500 dark:text-slate-400 line-clamp-1">${escapeHtml(english)}</div>
+                        <div class="font-bold text-slate-100 group-hover:text-orange-400 transition-colors">${escapeHtml(entry.pidgin)}</div>
+                        <div class="text-xs text-slate-400 line-clamp-1">${escapeHtml(english)}</div>
                     </div>
-                    <i class="ti ti-chevron-right text-gray-300 dark:text-gray-600 group-hover:text-green-400"></i>
+                    <iconify-icon icon="lucide:chevron-right" class="text-slate-600 group-hover:text-orange-400 transition-colors"></iconify-icon>
                 </a>
                 `;
             }).join('');
@@ -179,7 +227,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Add "See all" link if many results
             if (matches.length >= 8) {
                 searchResults.innerHTML += `
-                    <a href="/dictionary.html?q=${encodeURIComponent(query)}" class="block text-center p-3 text-sm font-bold text-blue-500 hover:text-blue-700">
+                    <a href="/dictionary.html?q=${encodeURIComponent(query)}" class="block text-center p-3 text-sm font-bold text-orange-400 hover:text-orange-300 transition-colors">
                         View all results in dictionary
                     </a>
                 `;

@@ -1,305 +1,395 @@
 <!-- Navigation -->
-<nav class="shadow-lg sticky top-0 z-50 bg-white dark:bg-slate-900 transition-colors duration-300">
+<nav class="sticky top-0 z-50 w-full border-b border-slate-800/80 bg-slate-900/90 backdrop-blur-md transition-colors duration-200">
     <div class="container mx-auto px-4">
         <div class="flex justify-between items-center h-16">
             <!-- Brand/Logo -->
-            <div class="flex items-center">
-                <a href="/" class="flex items-center gap-2" aria-label="ChokePidgin home">
-                    <span class="brand-font text-2xl bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent flex items-center gap-1">
-                        <i class="ti ti-palm-tree"></i> <span class="hidden sm:inline">ChokePidgin</span>
+            <div class="flex items-center gap-6">
+                <a href="/" class="flex items-center gap-2 group" aria-label="ChokePidgin home">
+                    <span class="p-1.5 rounded-lg bg-orange-500/10 text-orange-500 group-hover:scale-105 transition-transform flex items-center justify-center">
+                        <iconify-icon icon="lucide:palmtree" class="text-2xl text-orange-500"></iconify-icon>
+                    </span>
+                    <span class="brand-font text-2xl bg-gradient-to-r from-orange-400 via-amber-400 to-red-500 bg-clip-text text-transparent">
+                        ChokePidgin
                     </span>
                 </a>
             </div>
 
-            <!-- Desktop Navigation -->
-            <div class="hidden lg:flex space-x-1 items-center">
-                <a href="/" class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-green-600 dark:hover:text-green-400 font-medium transition flex items-center gap-1" title="Home" aria-label="Home">
-                    <i class="ti ti-home text-lg" aria-hidden="true"></i>
-                </a>
+            <!-- shadcn Desktop Navigation Menu -->
+            <div class="hidden lg:flex items-center">
+                <ul class="flex items-center space-x-1 list-none m-0 p-0" id="shadcn-nav-menu">
+                    <!-- Home -->
+                    <li>
+                        <a href="/" class="group inline-flex h-9 w-max items-center justify-center rounded-md px-3 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-slate-100 focus:bg-slate-800 focus:text-slate-100 focus:outline-none" title="Home" aria-label="Home">
+                            <iconify-icon icon="lucide:home" class="text-base"></iconify-icon>
+                        </a>
+                    </li>
 
-                <!-- Tools Dropdown -->
-                <div class="nav-dropdown relative">
-                    <button class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-green-600 dark:hover:text-green-400 font-medium transition flex items-center gap-1">
-                        Tools
-                        <i class="ti ti-chevron-down text-xs opacity-50"></i>
-                    </button>
-                    <div class="dropdown-menu hidden absolute left-0 mt-0 w-64 bg-white dark:bg-slate-800 shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-2xl border border-gray-100 dark:border-slate-700 overflow-hidden translate-y-2 z-50">
-                        <div class="p-2 space-y-1">
-                            <a href="/translator.html" class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl transition">
-                                <i class="ti ti-language text-xl text-blue-500 bg-blue-100 dark:bg-blue-900/50 p-2 rounded-lg"></i>
-                                <div>
-                                    <div class="font-bold text-sm">Translator</div>
-                                    <div class="text-[10px] text-gray-400 dark:text-gray-500">English to Pidgin AI</div>
+                    <!-- Tools Dropdown -->
+                    <li class="nav-menu-item relative">
+                        <button type="button" class="nav-menu-trigger group inline-flex h-9 w-max items-center justify-center rounded-md px-3.5 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-slate-100 focus:bg-slate-800 focus:text-slate-100 focus:outline-none data-[state=open]:bg-slate-800 data-[state=open]:text-slate-100" data-state="closed" aria-expanded="false">
+                            <span>Tools</span>
+                            <iconify-icon icon="lucide:chevron-down" class="relative top-[1px] ml-1 text-xs text-slate-400 transition-transform duration-200 group-data-[state=open]:rotate-180"></iconify-icon>
+                        </button>
+                        <div class="nav-menu-content hidden absolute left-0 top-full mt-2 w-[480px] rounded-xl border border-slate-800 bg-slate-950/95 p-3 text-slate-100 shadow-2xl backdrop-blur-md z-50 transition-all duration-200" data-state="closed">
+                            <div class="grid grid-cols-5 gap-3">
+                                <!-- Featured Callout Card -->
+                                <a href="/talk-story.html" class="col-span-2 flex flex-col justify-between rounded-lg bg-gradient-to-b from-blue-600/20 via-purple-600/20 to-slate-900/90 p-3.5 no-underline outline-none transition-all hover:from-blue-600/30 hover:to-purple-600/30 border border-blue-500/30 group">
+                                    <div>
+                                        <div class="p-2 rounded-lg bg-blue-500/20 text-blue-400 w-fit mb-3 group-hover:scale-110 transition-transform">
+                                            <iconify-icon icon="lucide:bot" class="text-2xl block"></iconify-icon>
+                                        </div>
+                                        <div class="font-bold text-sm text-slate-100 flex items-center gap-1.5 mb-1">
+                                            Talk Story AI
+                                            <span class="text-[9px] uppercase font-black px-1.5 py-0.5 rounded bg-blue-500/30 text-blue-300">Live</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-[11px] leading-relaxed text-slate-400">Practice Pidgin with Kimo using authentic ElevenLabs voice audio.</p>
+                                </a>
+                                <!-- Action Items -->
+                                <div class="col-span-3 flex flex-col gap-1">
+                                    <a href="/translator.html" class="group flex items-start gap-3 rounded-lg p-2.5 transition-colors hover:bg-slate-900">
+                                        <div class="p-2 rounded-md bg-blue-950/70 border border-blue-800/40 text-blue-400 mt-0.5 group-hover:bg-blue-900/50 transition-colors">
+                                            <iconify-icon icon="lucide:languages" class="text-lg block"></iconify-icon>
+                                        </div>
+                                        <div>
+                                            <div class="text-sm font-semibold text-slate-100 group-hover:text-blue-400 transition-colors">Translator</div>
+                                            <p class="text-xs text-slate-400">English to Hawaiian Pidgin with nuance controls.</p>
+                                        </div>
+                                    </a>
+                                    <a href="/pronunciation-practice.html" class="group flex items-start gap-3 rounded-lg p-2.5 transition-colors hover:bg-slate-900">
+                                        <div class="p-2 rounded-md bg-rose-950/70 border border-rose-800/40 text-rose-400 mt-0.5 group-hover:bg-rose-900/50 transition-colors">
+                                            <iconify-icon icon="lucide:mic" class="text-lg block"></iconify-icon>
+                                        </div>
+                                        <div>
+                                            <div class="text-sm font-semibold text-slate-100 group-hover:text-rose-400 transition-colors">Pronunciation</div>
+                                            <p class="text-xs text-slate-400">Master island sounds & phonetic pitch.</p>
+                                        </div>
+                                    </a>
                                 </div>
-                            </a>
-                            <a href="/talk-story.html" class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-200 hover:bg-purple-50 dark:hover:bg-purple-900/30 hover:text-purple-600 dark:hover:text-purple-400 rounded-xl transition">
-                                <i class="ti ti-messages text-xl text-purple-500 bg-purple-100 dark:bg-purple-900/50 p-2 rounded-lg"></i>
-                                <div>
-                                    <div class="font-bold text-sm">Talk Story AI</div>
-                                    <div class="text-[10px] text-gray-400 dark:text-gray-500">Practice wit' Kimo</div>
-                                </div>
-                            </a>
-                            <a href="/pronunciation-practice.html" class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-200 hover:bg-red-50 dark:hover:bg-red-900/30 hover:text-red-600 dark:hover:text-red-400 rounded-xl transition">
-                                <i class="ti ti-microphone text-xl text-red-500 bg-red-100 dark:bg-red-900/50 p-2 rounded-lg"></i>
-                                <div>
-                                    <div class="font-bold text-sm">Pronunciation</div>
-                                    <div class="text-[10px] text-gray-400 dark:text-gray-500">Master da accent</div>
-                                </div>
-                            </a>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </li>
 
-                <!-- Learn Dropdown -->
-                <div class="nav-dropdown relative">
-                    <button class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-green-600 dark:hover:text-green-400 font-medium transition flex items-center gap-1">
-                        Learn
-                        <i class="ti ti-chevron-down text-xs opacity-50"></i>
-                    </button>
-                    <div class="dropdown-menu hidden absolute left-0 mt-0 w-64 bg-white dark:bg-slate-800 shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-2xl border border-gray-100 dark:border-slate-700 overflow-hidden translate-y-2 z-50">
-                        <div class="p-2 space-y-1">
-                            <a href="/dictionary.html" class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-200 hover:bg-orange-50 dark:hover:bg-orange-900/30 hover:text-orange-600 dark:hover:text-orange-400 rounded-xl transition">
-                                <i class="ti ti-vocabulary text-xl text-orange-500 bg-orange-100 dark:bg-orange-900/50 p-2 rounded-lg"></i>
-                                <div>
-                                    <div class="font-bold text-sm">Dictionary</div>
-                                    <div class="text-[10px] text-gray-400 dark:text-gray-500">700+ Island words</div>
-                                </div>
-                            </a>
-                            <a href="/english-to-pidgin.html" class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl transition">
-                                <i class="ti ti-language-hiragana text-xl text-blue-500 bg-blue-100 dark:bg-blue-900/50 p-2 rounded-lg"></i>
-                                <div>
-                                    <div class="font-bold text-sm">English to Pidgin</div>
-                                    <div class="text-[10px] text-gray-400 dark:text-gray-500">Common translations</div>
-                                </div>
-                            </a>
-                            <a href="/phrases.html" class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-200 hover:bg-green-50 dark:hover:bg-green-900/30 hover:text-green-600 dark:hover:text-green-400 rounded-xl transition">
-                                <i class="ti ti-message text-xl text-green-500 bg-green-100 dark:bg-green-900/50 p-2 rounded-lg"></i>
-                                <div>
-                                    <div class="font-bold text-sm">Phrases</div>
-                                    <div class="text-[10px] text-gray-400 dark:text-gray-500">Essential expressions</div>
-                                </div>
-                            </a>
-                            <a href="/learning-hub.html" class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 rounded-xl transition">
-                                <i class="ti ti-books text-xl text-blue-500 bg-blue-100 dark:bg-blue-900/50 p-2 rounded-lg"></i>
-                                <div>
-                                    <div class="font-bold text-sm">Lessons</div>
-                                    <div class="text-[10px] text-gray-400 dark:text-gray-500">Step-by-step guides</div>
-                                </div>
-                            </a>
-                            <a href="/cheat-sheet.html" class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-200 hover:bg-amber-50 dark:hover:bg-amber-900/30 hover:text-amber-600 dark:hover:text-amber-400 rounded-xl transition">
-                                <i class="ti ti-note text-xl text-amber-500 bg-amber-100 dark:bg-amber-900/50 p-2 rounded-lg"></i>
-                                <div>
-                                    <div class="font-bold text-sm">Cheat Sheet</div>
-                                    <div class="text-[10px] text-gray-400 dark:text-gray-500">Quick reference</div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Games Dropdown -->
-                <div class="nav-dropdown relative">
-                    <button class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-green-600 dark:hover:text-green-400 font-medium transition flex items-center gap-1">
-                        Games
-                        <i class="ti ti-chevron-down text-xs opacity-50"></i>
-                    </button>
-                    <div class="dropdown-menu hidden absolute left-0 mt-0 w-64 bg-white dark:bg-slate-800 shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-2xl border border-gray-100 dark:border-slate-700 overflow-hidden translate-y-2 z-50">
-                        <div class="p-2 grid grid-cols-1 divide-y divide-gray-50 dark:divide-slate-700">
-                            <a href="/games.html" class="px-4 py-3 text-gray-800 dark:text-gray-100 font-bold text-sm flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-slate-700 rounded-t-xl transition">
-                                <i class="ti ti-device-gamepad-2 text-lg"></i> All Games
-                            </a>
-                            <div class="py-2 px-2 space-y-1">
-                                <a href="/pidgin-wordle.html" class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-green-50 dark:hover:bg-green-900/20 text-sm transition text-gray-600 dark:text-gray-400 hover:text-green-700 dark:hover:text-green-400">
-                                    <i class="ti ti-grid-3x3 text-green-500"></i> Wordle
+                    <!-- Learn Dropdown -->
+                    <li class="nav-menu-item relative">
+                        <button type="button" class="nav-menu-trigger group inline-flex h-9 w-max items-center justify-center rounded-md px-3.5 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-slate-100 focus:bg-slate-800 focus:text-slate-100 focus:outline-none data-[state=open]:bg-slate-800 data-[state=open]:text-slate-100" data-state="closed" aria-expanded="false">
+                            <span>Learn</span>
+                            <iconify-icon icon="lucide:chevron-down" class="relative top-[1px] ml-1 text-xs text-slate-400 transition-transform duration-200 group-data-[state=open]:rotate-180"></iconify-icon>
+                        </button>
+                        <div class="nav-menu-content hidden absolute left-0 top-full mt-2 w-[520px] rounded-xl border border-slate-800 bg-slate-950/95 p-3 text-slate-100 shadow-2xl backdrop-blur-md z-50 transition-all duration-200" data-state="closed">
+                            <div class="grid grid-cols-2 gap-1.5">
+                                <a href="/dictionary.html" class="group flex items-start gap-3 rounded-lg p-2.5 transition-colors hover:bg-slate-900">
+                                    <div class="p-2 rounded-md bg-amber-950/70 border border-amber-800/40 text-amber-400 mt-0.5 group-hover:bg-amber-900/50 transition-colors">
+                                        <iconify-icon icon="lucide:book-open" class="text-lg block"></iconify-icon>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-semibold text-slate-100 group-hover:text-amber-400 transition-colors">Dictionary</div>
+                                        <p class="text-xs text-slate-400">700+ verified island words & slang.</p>
+                                    </div>
                                 </a>
-                                <a href="/pidgin-scramble.html" class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-orange-50 dark:hover:bg-orange-900/20 text-sm transition text-gray-600 dark:text-gray-400 hover:text-orange-700 dark:hover:text-orange-400">
-                                    <i class="ti ti-abc text-orange-500"></i> Scramble
+                                <a href="/english-to-pidgin.html" class="group flex items-start gap-3 rounded-lg p-2.5 transition-colors hover:bg-slate-900">
+                                    <div class="p-2 rounded-md bg-sky-950/70 border border-sky-800/40 text-sky-400 mt-0.5 group-hover:bg-sky-900/50 transition-colors">
+                                        <iconify-icon icon="lucide:arrow-right-left" class="text-lg block"></iconify-icon>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-semibold text-slate-100 group-hover:text-sky-400 transition-colors">English to Pidgin</div>
+                                        <p class="text-xs text-slate-400">Common everyday conversions.</p>
+                                    </div>
                                 </a>
-                                <a href="/how-local-you-stay.html" class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 text-sm transition text-gray-600 dark:text-gray-400 hover:text-red-700 dark:hover:text-red-400">
-                                    <i class="ti ti-hand-love-you text-red-500"></i> Local Quiz
+                                <a href="/phrases.html" class="group flex items-start gap-3 rounded-lg p-2.5 transition-colors hover:bg-slate-900">
+                                    <div class="p-2 rounded-md bg-emerald-950/70 border border-emerald-800/40 text-emerald-400 mt-0.5 group-hover:bg-emerald-900/50 transition-colors">
+                                        <iconify-icon icon="lucide:message-square-quote" class="text-lg block"></iconify-icon>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-semibold text-slate-100 group-hover:text-emerald-400 transition-colors">Phrases</div>
+                                        <p class="text-xs text-slate-400">1,000+ local expressions & idioms.</p>
+                                    </div>
                                 </a>
-                                <a href="/pidgin-crossword.html" class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 text-sm transition text-gray-600 dark:text-gray-400 hover:text-blue-700 dark:hover:text-blue-400">
-                                    <i class="ti ti-puzzle text-blue-500"></i> Crossword
+                                <a href="/learning-hub.html" class="group flex items-start gap-3 rounded-lg p-2.5 transition-colors hover:bg-slate-900">
+                                    <div class="p-2 rounded-md bg-indigo-950/70 border border-indigo-800/40 text-indigo-400 mt-0.5 group-hover:bg-indigo-900/50 transition-colors">
+                                        <iconify-icon icon="lucide:graduation-cap" class="text-lg block"></iconify-icon>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-semibold text-slate-100 group-hover:text-indigo-400 transition-colors">Lessons</div>
+                                        <p class="text-xs text-slate-400">Step-by-step tracks & grammar.</p>
+                                    </div>
+                                </a>
+                                <a href="/cheat-sheet.html" class="col-span-2 group flex items-start gap-3 rounded-lg p-2.5 transition-colors hover:bg-slate-900 border-t border-slate-800/70 mt-1 pt-2">
+                                    <div class="p-2 rounded-md bg-slate-800/80 text-slate-300 mt-0.5 group-hover:text-slate-100 transition-colors">
+                                        <iconify-icon icon="lucide:file-text" class="text-lg block"></iconify-icon>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-semibold text-slate-100 group-hover:text-slate-200 transition-colors">Cheat Sheet</div>
+                                        <p class="text-xs text-slate-400">Quick-reference island slang & survival words.</p>
+                                    </div>
                                 </a>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </li>
 
-                <!-- Community Dropdown -->
-                <div class="nav-dropdown relative">
-                    <button class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-green-600 dark:hover:text-green-400 font-medium transition flex items-center gap-1">
-                        Community
-                        <i class="ti ti-chevron-down text-xs opacity-50"></i>
-                    </button>
-                    <div class="dropdown-menu hidden absolute left-0 mt-0 w-56 bg-white dark:bg-slate-800 shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-2xl border border-gray-100 dark:border-slate-700 overflow-hidden translate-y-2 z-50">
-                        <div class="p-2 space-y-1">
-                            <a href="/blog/" class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-200 hover:bg-green-50 dark:hover:bg-green-900/30 rounded-xl transition">
-                                <i class="ti ti-news text-xl text-green-600"></i>
-                                <span class="text-sm font-medium">Blog</span>
-                            </a>
-                            <a href="/stories.html" class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-200 hover:bg-amber-50 dark:hover:bg-amber-900/30 rounded-xl transition">
-                                <i class="ti ti-books text-xl text-amber-600"></i>
-                                <span class="text-sm font-medium">Stories</span>
-                            </a>
-                            <a href="/ask-local.html" class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-xl transition">
-                                <i class="ti ti-help text-xl text-blue-600"></i>
-                                <span class="text-sm font-medium">Ask a Local</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Fun Dropdown -->
-                <div class="nav-dropdown relative">
-                    <button class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-green-600 dark:hover:text-green-400 font-medium transition flex items-center gap-1">
-                        Fun
-                        <i class="ti ti-chevron-down text-xs opacity-50"></i>
-                    </button>
-                    <div class="dropdown-menu hidden absolute left-0 mt-0 w-64 bg-white dark:bg-slate-800 shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-2xl border border-gray-100 dark:border-slate-700 overflow-hidden translate-y-2 z-50">
-                        <div class="p-2 space-y-1">
-                            <a href="/pickup-lines.html" class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-200 hover:bg-pink-50 dark:hover:bg-pink-900/30 hover:text-pink-600 dark:hover:text-pink-400 rounded-xl transition">
-                                <i class="ti ti-heart-handshake text-xl text-pink-500 bg-pink-100 dark:bg-pink-900/50 p-2 rounded-lg"></i>
-                                <div>
-                                    <div class="font-bold text-sm">Pickup Lines</div>
-                                    <div class="text-[10px] text-gray-400 dark:text-gray-500">Sweet island talk</div>
+                    <!-- Games Dropdown -->
+                    <li class="nav-menu-item relative">
+                        <button type="button" class="nav-menu-trigger group inline-flex h-9 w-max items-center justify-center rounded-md px-3.5 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-slate-100 focus:bg-slate-800 focus:text-slate-100 focus:outline-none data-[state=open]:bg-slate-800 data-[state=open]:text-slate-100" data-state="closed" aria-expanded="false">
+                            <span>Games</span>
+                            <iconify-icon icon="lucide:chevron-down" class="relative top-[1px] ml-1 text-xs text-slate-400 transition-transform duration-200 group-data-[state=open]:rotate-180"></iconify-icon>
+                        </button>
+                        <div class="nav-menu-content hidden absolute left-0 top-full mt-2 w-[440px] rounded-xl border border-slate-800 bg-slate-950/95 p-3 text-slate-100 shadow-2xl backdrop-blur-md z-50 transition-all duration-200" data-state="closed">
+                            <div class="space-y-1">
+                                <a href="/games.html" class="flex items-center justify-between p-2.5 rounded-lg bg-slate-900/90 hover:bg-slate-850 text-slate-100 font-semibold text-sm border border-slate-800 transition-colors group">
+                                    <span class="flex items-center gap-2.5">
+                                        <iconify-icon icon="lucide:gamepad-2" class="text-emerald-400 text-lg"></iconify-icon>
+                                        <span>All Arcade Games</span>
+                                    </span>
+                                    <iconify-icon icon="lucide:arrow-right" class="text-xs text-slate-400 group-hover:translate-x-0.5 transition-transform"></iconify-icon>
+                                </a>
+                                <div class="grid grid-cols-2 gap-1.5 pt-1">
+                                    <a href="/pidgin-wordle.html" class="group flex items-center gap-2.5 p-2 rounded-lg hover:bg-slate-900 text-slate-300 hover:text-emerald-400 transition-colors">
+                                        <iconify-icon icon="lucide:grid-3x3" class="text-emerald-400 text-base"></iconify-icon>
+                                        <div>
+                                            <div class="text-xs font-semibold text-slate-200 group-hover:text-emerald-400">Wordle</div>
+                                            <div class="text-[10px] text-slate-400">Daily 5-letter test</div>
+                                        </div>
+                                    </a>
+                                    <a href="/pidgin-scramble.html" class="group flex items-center gap-2.5 p-2 rounded-lg hover:bg-slate-900 text-slate-300 hover:text-amber-400 transition-colors">
+                                        <iconify-icon icon="lucide:shuffle" class="text-amber-400 text-base"></iconify-icon>
+                                        <div>
+                                            <div class="text-xs font-semibold text-slate-200 group-hover:text-amber-400">Scramble</div>
+                                            <div class="text-[10px] text-slate-400">Unscramble words</div>
+                                        </div>
+                                    </a>
+                                    <a href="/how-local-you-stay.html" class="group flex items-center gap-2.5 p-2 rounded-lg hover:bg-slate-900 text-slate-300 hover:text-rose-400 transition-colors">
+                                        <iconify-icon icon="lucide:sparkles" class="text-rose-400 text-base"></iconify-icon>
+                                        <div>
+                                            <div class="text-xs font-semibold text-slate-200 group-hover:text-rose-400">Local Quiz</div>
+                                            <div class="text-[10px] text-slate-400">Test your Pidgin IQ</div>
+                                        </div>
+                                    </a>
+                                    <a href="/pidgin-crossword.html" class="group flex items-center gap-2.5 p-2 rounded-lg hover:bg-slate-900 text-slate-300 hover:text-cyan-400 transition-colors">
+                                        <iconify-icon icon="lucide:puzzle" class="text-cyan-400 text-base"></iconify-icon>
+                                        <div>
+                                            <div class="text-xs font-semibold text-slate-200 group-hover:text-cyan-400">Crossword</div>
+                                            <div class="text-[10px] text-slate-400">Island puzzle grids</div>
+                                        </div>
+                                    </a>
                                 </div>
-                            </a>
-                            <a href="/pidgin-heads-up.html" class="flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-200 hover:bg-yellow-50 dark:hover:bg-yellow-900/30 hover:text-yellow-600 dark:hover:text-yellow-400 rounded-xl transition">
-                                <i class="ti ti-mood-smile text-xl text-yellow-500 bg-yellow-100 dark:bg-yellow-900/50 p-2 rounded-lg"></i>
-                                <div>
-                                    <div class="font-bold text-sm">Heads Up!</div>
-                                    <div class="text-[10px] text-gray-400 dark:text-gray-500">Party game fun</div>
-                                </div>
-                            </a>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </li>
 
-                <a href="/pidgin-bible.html" class="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-green-600 dark:hover:text-green-400 font-medium transition whitespace-nowrap">Pidgin Bible</a>
+                    <!-- Community Dropdown -->
+                    <li class="nav-menu-item relative">
+                        <button type="button" class="nav-menu-trigger group inline-flex h-9 w-max items-center justify-center rounded-md px-3.5 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-slate-100 focus:bg-slate-800 focus:text-slate-100 focus:outline-none data-[state=open]:bg-slate-800 data-[state=open]:text-slate-100" data-state="closed" aria-expanded="false">
+                            <span>Community</span>
+                            <iconify-icon icon="lucide:chevron-down" class="relative top-[1px] ml-1 text-xs text-slate-400 transition-transform duration-200 group-data-[state=open]:rotate-180"></iconify-icon>
+                        </button>
+                        <div class="nav-menu-content hidden absolute left-0 top-full mt-2 w-[340px] rounded-xl border border-slate-800 bg-slate-950/95 p-3 text-slate-100 shadow-2xl backdrop-blur-md z-50 transition-all duration-200" data-state="closed">
+                            <div class="flex flex-col gap-1">
+                                <a href="/blog/" class="group flex items-start gap-3 rounded-lg p-2.5 transition-colors hover:bg-slate-900">
+                                    <div class="p-2 rounded-md bg-emerald-950/70 border border-emerald-800/40 text-emerald-400 mt-0.5 group-hover:bg-emerald-900/50 transition-colors">
+                                        <iconify-icon icon="lucide:newspaper" class="text-lg block"></iconify-icon>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-semibold text-slate-100 group-hover:text-emerald-400 transition-colors">Blog</div>
+                                        <p class="text-xs text-slate-400">Island culture, history & linguistic guides.</p>
+                                    </div>
+                                </a>
+                                <a href="/stories.html" class="group flex items-start gap-3 rounded-lg p-2.5 transition-colors hover:bg-slate-900">
+                                    <div class="p-2 rounded-md bg-amber-950/70 border border-amber-800/40 text-amber-400 mt-0.5 group-hover:bg-amber-900/50 transition-colors">
+                                        <iconify-icon icon="lucide:scroll" class="text-lg block"></iconify-icon>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-semibold text-slate-100 group-hover:text-amber-400 transition-colors">Stories</div>
+                                        <p class="text-xs text-slate-400">Side-by-side bilingual island tales.</p>
+                                    </div>
+                                </a>
+                                <a href="/ask-local.html" class="group flex items-start gap-3 rounded-lg p-2.5 transition-colors hover:bg-slate-900">
+                                    <div class="p-2 rounded-md bg-sky-950/70 border border-sky-800/40 text-sky-400 mt-0.5 group-hover:bg-sky-900/50 transition-colors">
+                                        <iconify-icon icon="lucide:help-circle" class="text-lg block"></iconify-icon>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-semibold text-slate-100 group-hover:text-sky-400 transition-colors">Ask a Local</div>
+                                        <p class="text-xs text-slate-400">Ask Hawaii culture and etiquette questions.</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- Fun Dropdown -->
+                    <li class="nav-menu-item relative">
+                        <button type="button" class="nav-menu-trigger group inline-flex h-9 w-max items-center justify-center rounded-md px-3.5 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-slate-100 focus:bg-slate-800 focus:text-slate-100 focus:outline-none data-[state=open]:bg-slate-800 data-[state=open]:text-slate-100" data-state="closed" aria-expanded="false">
+                            <span>Fun</span>
+                            <iconify-icon icon="lucide:chevron-down" class="relative top-[1px] ml-1 text-xs text-slate-400 transition-transform duration-200 group-data-[state=open]:rotate-180"></iconify-icon>
+                        </button>
+                        <div class="nav-menu-content hidden absolute left-0 top-full mt-2 w-[340px] rounded-xl border border-slate-800 bg-slate-950/95 p-3 text-slate-100 shadow-2xl backdrop-blur-md z-50 transition-all duration-200" data-state="closed">
+                            <div class="flex flex-col gap-1">
+                                <a href="/pickup-lines.html" class="group flex items-start gap-3 rounded-lg p-2.5 transition-colors hover:bg-slate-900">
+                                    <div class="p-2 rounded-md bg-pink-950/70 border border-pink-800/40 text-pink-400 mt-0.5 group-hover:bg-pink-900/50 transition-colors">
+                                        <iconify-icon icon="lucide:heart" class="text-lg block"></iconify-icon>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-semibold text-slate-100 group-hover:text-pink-400 transition-colors">Pickup Lines</div>
+                                        <p class="text-xs text-slate-400">Sweet local pickup lines & generator.</p>
+                                    </div>
+                                </a>
+                                <a href="/pidgin-heads-up.html" class="group flex items-start gap-3 rounded-lg p-2.5 transition-colors hover:bg-slate-900">
+                                    <div class="p-2 rounded-md bg-amber-950/70 border border-amber-800/40 text-amber-400 mt-0.5 group-hover:bg-amber-900/50 transition-colors">
+                                        <iconify-icon icon="lucide:smile" class="text-lg block"></iconify-icon>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-semibold text-slate-100 group-hover:text-amber-400 transition-colors">Heads Up!</div>
+                                        <p class="text-xs text-slate-400">Party guessing game for friends & family.</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- Pidgin Bible -->
+                    <li>
+                        <a href="/pidgin-bible.html" class="group inline-flex h-9 w-max items-center justify-center rounded-md px-3.5 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-slate-100 focus:bg-slate-800 focus:text-slate-100 focus:outline-none whitespace-nowrap">
+                            <iconify-icon icon="lucide:book" class="text-sm mr-1.5 text-slate-400 group-hover:text-slate-200"></iconify-icon>
+                            <span>Pidgin Bible</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
 
-            <!-- Search and Mobile Toggle -->
-            <div class="flex items-center gap-4">
+            <!-- Search, Auth and Mobile Toggle -->
+            <div class="flex items-center gap-2.5">
                 <!-- Auth Container -->
                 <div class="auth-nav-container"></div>
 
                 <!-- Search Button (Trigger) -->
-                <button id="nav-search-btn" class="p-2 text-gray-600 dark:text-gray-300 hover:text-green-600 transition-colors rounded-full hover:bg-gray-100 dark:hover:bg-gray-800" title="Quick Search" aria-label="Search">
-                    <i class="ti ti-search text-xl"></i>
+                <button id="nav-search-btn" class="inline-flex h-9 w-9 items-center justify-center rounded-md text-slate-300 hover:bg-slate-800 hover:text-slate-100 transition-colors focus:outline-none" title="Quick Search" aria-label="Search">
+                    <iconify-icon icon="lucide:search" class="text-lg block"></iconify-icon>
                 </button>
 
                 <!-- Mobile menu button -->
-                <button id="mobile-menu-btn" class="lg:hidden p-2 text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors rounded-full hover:bg-gray-100 dark:hover:bg-gray-800" aria-label="Open menu">
-                    <i class="ti ti-menu-2 text-2xl"></i>
+                <button id="mobile-menu-btn" class="lg:hidden inline-flex h-9 w-9 items-center justify-center rounded-md text-slate-300 hover:bg-slate-800 hover:text-slate-100 transition-colors focus:outline-none" aria-label="Open menu">
+                    <iconify-icon icon="lucide:menu" class="text-xl block"></iconify-icon>
                 </button>
             </div>
         </div>
     </div>
 
     <!-- Quick Search Overlay (Hidden by default) -->
-    <div id="search-overlay" class="hidden fixed inset-0 z-[60] bg-gray-900/50 backdrop-blur-sm flex justify-center pt-20 px-4">
-        <div class="w-full max-w-2xl bg-white dark:bg-gray-800 rounded-3xl shadow-2xl h-fit overflow-hidden border border-white/20 dark:border-gray-700">
-            <div class="p-4 border-b dark:border-gray-700 flex items-center gap-3">
-                <i class="ti ti-search text-2xl text-gray-400"></i>
-                <input type="text" id="nav-search-input" placeholder="Search dictionary or phrases..." 
-                    class="flex-grow text-lg focus:!outline-none focus:!ring-0 focus:!shadow-none py-2 bg-transparent border-none dark:text-white" autocomplete="off">
-                <button id="close-search" class="p-2 text-gray-400 hover:text-red-500 transition-colors" aria-label="Close search">
-                    <i class="ti ti-x text-2xl"></i>
+    <div id="search-overlay" class="hidden fixed inset-0 z-[60] bg-slate-950/80 backdrop-blur-sm flex justify-center pt-20 px-4">
+        <div class="w-full max-w-2xl bg-slate-900 rounded-2xl shadow-2xl h-fit overflow-hidden border border-slate-800 text-slate-100">
+            <div class="p-4 border-b border-slate-800 flex items-center gap-3">
+                <iconify-icon icon="lucide:search" class="text-2xl text-slate-400"></iconify-icon>
+                <input type="text" id="nav-search-input" placeholder="Search dictionary, slang, or phrases..." 
+                    class="flex-grow text-lg focus:outline-none focus:ring-0 py-2 bg-transparent border-none text-slate-100 placeholder-slate-500" autocomplete="off">
+                <button id="close-search" class="p-2 text-slate-400 hover:text-rose-400 transition-colors rounded-lg hover:bg-slate-800" aria-label="Close search">
+                    <iconify-icon icon="lucide:x" class="text-2xl block"></iconify-icon>
                 </button>
             </div>
             <div id="search-results" class="max-h-[60vh] overflow-y-auto p-4 hidden">
                 <!-- Results populated by JS -->
             </div>
-            <div id="search-placeholder" class="p-12 text-center text-gray-400">
-                <i class="ti ti-keyboard text-5xl mb-3 block opacity-20"></i>
+            <div id="search-placeholder" class="p-12 text-center text-slate-400">
+                <iconify-icon icon="lucide:keyboard" class="text-5xl mb-3 block opacity-30 mx-auto"></iconify-icon>
                 <p class="text-lg">Type for find da kine word or phrase...</p>
                 <div class="mt-4 flex flex-wrap justify-center gap-2">
-                    <span class="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-gray-500 dark:text-gray-400">Howzit</span>
-                    <span class="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-gray-500 dark:text-gray-400">Aloha</span>
-                    <span class="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-gray-500 dark:text-gray-400">Pau Hana</span>
+                    <span class="text-xs px-2.5 py-1 bg-slate-800 rounded-md text-slate-300 border border-slate-700/50">Howzit</span>
+                    <span class="text-xs px-2.5 py-1 bg-slate-800 rounded-md text-slate-300 border border-slate-700/50">Aloha</span>
+                    <span class="text-xs px-2.5 py-1 bg-slate-800 rounded-md text-slate-300 border border-slate-700/50">Pau Hana</span>
                 </div>
             </div>
         </div>
     </div>
 </nav>
 
-<!-- Mobile Navigation Menu (outside nav so backdrop-filter doesn't trap `position: fixed`) -->
-<div id="mobile-menu" class="hidden lg:hidden fixed inset-0 z-50 bg-white dark:bg-gray-900 pt-20 overflow-y-auto">
-        <div class="px-6 pb-12 space-y-6">
-            <div class="flex items-center justify-between border-b dark:border-gray-800 pb-4">
-                <span class="brand-font text-2xl text-orange-500">Menu</span>
-                <div class="flex items-center gap-2">
-                    <button id="close-mobile-menu" class="p-2 bg-gray-100 dark:bg-gray-800 rounded-full" aria-label="Close menu">
-                        <i class="ti ti-x text-2xl text-gray-600 dark:text-gray-400"></i>
-                    </button>
-                </div>
+<!-- Mobile Navigation Drawer -->
+<div id="mobile-menu" class="hidden lg:hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-lg pt-16 overflow-y-auto">
+    <div class="px-6 pb-12 space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+            <span class="brand-font text-2xl bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">Menu</span>
+            <button id="close-mobile-menu" class="p-2 bg-slate-850 hover:bg-slate-800 text-slate-300 rounded-lg border border-slate-800 transition-colors" aria-label="Close menu">
+                <iconify-icon icon="lucide:x" class="text-2xl block"></iconify-icon>
+            </button>
+        </div>
+        
+        <a href="/" class="flex items-center gap-2 text-lg font-bold text-slate-100 hover:text-orange-400 transition-colors">
+            <iconify-icon icon="lucide:home" class="text-xl text-slate-400"></iconify-icon>
+            <span>Home</span>
+        </a>
+        
+        <!-- Mobile Tools -->
+        <div class="space-y-2.5">
+            <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Tools</div>
+            <div class="grid grid-cols-1 gap-2">
+                <a href="/talk-story.html" class="flex items-center gap-3 p-3.5 bg-gradient-to-r from-blue-950/60 to-purple-950/60 border border-blue-800/40 rounded-xl text-slate-100">
+                    <iconify-icon icon="lucide:bot" class="text-2xl text-blue-400"></iconify-icon>
+                    <div>
+                        <div class="font-bold text-sm">Talk Story AI</div>
+                        <div class="text-xs text-slate-400">Live Pidgin voice chat with Kimo</div>
+                    </div>
+                </a>
+                <a href="/translator.html" class="flex items-center gap-3 p-3.5 bg-slate-900 border border-slate-800 rounded-xl text-slate-100">
+                    <iconify-icon icon="lucide:languages" class="text-2xl text-sky-400"></iconify-icon>
+                    <div>
+                        <div class="font-bold text-sm">Translator</div>
+                        <div class="text-xs text-slate-400">English to Hawaiian Pidgin</div>
+                    </div>
+                </a>
+                <a href="/pronunciation-practice.html" class="flex items-center gap-3 p-3.5 bg-slate-900 border border-slate-800 rounded-xl text-slate-100">
+                    <iconify-icon icon="lucide:mic" class="text-2xl text-rose-400"></iconify-icon>
+                    <div>
+                        <div class="font-bold text-sm">Pronunciation</div>
+                        <div class="text-xs text-slate-400">Master island speech & phonetics</div>
+                    </div>
+                </a>
             </div>
-            
-            <a href="/" class="block text-xl font-bold text-gray-800 dark:text-gray-100">Home</a>
-            
-            <!-- Mobile Tools -->
-            <div class="space-y-3">
-                <div class="text-xs font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Tools</div>
-                <div class="grid grid-cols-1 gap-2">
-                    <a href="/translator.html" class="flex items-center gap-3 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-2xl text-blue-700 dark:text-blue-400">
-                        <i class="ti ti-language text-2xl"></i>
-                        <span class="font-bold">Translator</span>
-                    </a>
-                    <a href="/talk-story.html" class="flex items-center gap-3 p-4 bg-purple-50 dark:bg-purple-900/30 rounded-2xl text-purple-700 dark:text-purple-400">
-                        <i class="ti ti-messages text-2xl"></i>
-                        <span class="font-bold">Talk Story AI</span>
-                    </a>
-                    <a href="/pronunciation-practice.html" class="flex items-center gap-3 p-4 bg-red-50 dark:bg-red-900/30 rounded-2xl text-red-700 dark:text-red-400">
-                        <i class="ti ti-microphone text-2xl"></i>
-                        <span class="font-bold">Pronunciation</span>
-                    </a>
-                </div>
-            </div>
+        </div>
 
-            <!-- Mobile Learn -->
-            <div class="space-y-3">
-                <div class="text-xs font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Learning</div>
-                <div class="grid grid-cols-2 gap-2">
-                    <a href="/dictionary.html" class="flex flex-col items-center gap-1 p-4 border border-orange-100 dark:border-orange-900/30 bg-orange-50/30 dark:bg-orange-900/10 rounded-2xl text-sm font-bold text-orange-700 dark:text-orange-400 text-center">
-                        <i class="ti ti-vocabulary text-2xl"></i> Dictionary
-                    </a>
-                    <a href="/phrases.html" class="flex flex-col items-center gap-1 p-4 border border-green-100 dark:border-green-900/30 bg-green-50/30 dark:bg-green-900/10 rounded-2xl text-sm font-bold text-green-700 dark:text-green-400 text-center">
-                        <i class="ti ti-message text-2xl"></i> Phrases
-                    </a>
-                    <a href="/learning-hub.html" class="flex flex-col items-center gap-1 p-4 border border-blue-100 dark:border-blue-900/30 bg-blue-50/30 dark:bg-blue-900/10 rounded-2xl text-sm font-bold text-blue-700 dark:text-blue-400 text-center">
-                        <i class="ti ti-books text-2xl"></i> Lessons
-                    </a>
-                    <a href="/cheat-sheet.html" class="flex flex-col items-center gap-1 p-4 border border-amber-100 dark:border-amber-900/30 bg-amber-50/30 dark:bg-amber-900/10 rounded-2xl text-sm font-bold text-amber-700 dark:text-amber-400 text-center">
-                        <i class="ti ti-note text-2xl"></i> Cheat Sheet
-                    </a>
-                </div>
+        <!-- Mobile Learn -->
+        <div class="space-y-2.5">
+            <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Learning</div>
+            <div class="grid grid-cols-2 gap-2">
+                <a href="/dictionary.html" class="flex flex-col items-center gap-1.5 p-3.5 border border-slate-800 bg-slate-900/80 rounded-xl text-xs font-bold text-slate-200 text-center hover:border-amber-500/40">
+                    <iconify-icon icon="lucide:book-open" class="text-2xl text-amber-400"></iconify-icon> Dictionary
+                </a>
+                <a href="/phrases.html" class="flex flex-col items-center gap-1.5 p-3.5 border border-slate-800 bg-slate-900/80 rounded-xl text-xs font-bold text-slate-200 text-center hover:border-emerald-500/40">
+                    <iconify-icon icon="lucide:message-square-quote" class="text-2xl text-emerald-400"></iconify-icon> Phrases
+                </a>
+                <a href="/learning-hub.html" class="flex flex-col items-center gap-1.5 p-3.5 border border-slate-800 bg-slate-900/80 rounded-xl text-xs font-bold text-slate-200 text-center hover:border-indigo-500/40">
+                    <iconify-icon icon="lucide:graduation-cap" class="text-2xl text-indigo-400"></iconify-icon> Lessons
+                </a>
+                <a href="/cheat-sheet.html" class="flex flex-col items-center gap-1.5 p-3.5 border border-slate-800 bg-slate-900/80 rounded-xl text-xs font-bold text-slate-200 text-center hover:border-slate-500/40">
+                    <iconify-icon icon="lucide:file-text" class="text-2xl text-slate-300"></iconify-icon> Cheat Sheet
+                </a>
             </div>
+        </div>
 
-            <!-- More Links -->
-            <div class="space-y-2 pt-4 border-t dark:border-gray-800">
-                <a href="/games.html" class="flex items-center justify-between text-lg font-bold text-gray-800 dark:text-gray-200 py-2">
-                    <span>Games</span>
-                    <i class="ti ti-chevron-right text-gray-400"></i>
-                </a>
-                <a href="/blog/" class="flex items-center justify-between text-lg font-bold text-gray-800 dark:text-gray-200 py-2">
-                    <span>Blog</span>
-                    <i class="ti ti-chevron-right text-gray-400"></i>
-                </a>
-                <a href="/pickup-lines.html" class="flex items-center justify-between text-lg font-bold text-gray-800 dark:text-gray-200 py-2 text-pink-600 dark:text-pink-400">
-                    <span>Pickup Lines</span>
-                    <i class="ti ti-heart text-pink-400"></i>
-                </a>
-                <a href="/pidgin-bible.html" class="flex items-center justify-between text-lg font-bold text-gray-800 dark:text-gray-200 py-2">
-                    <span>Pidgin Bible</span>
-                    <i class="ti ti-book text-gray-400"></i>
-                </a>
-            </div>
+        <!-- More Links -->
+        <div class="space-y-1 pt-3 border-t border-slate-800">
+            <a href="/games.html" class="flex items-center justify-between text-base font-semibold text-slate-200 hover:text-emerald-400 py-2.5 transition-colors">
+                <span class="flex items-center gap-2.5"><iconify-icon icon="lucide:gamepad-2" class="text-lg text-emerald-400"></iconify-icon> Games</span>
+                <iconify-icon icon="lucide:chevron-right" class="text-slate-500"></iconify-icon>
+            </a>
+            <a href="/blog/" class="flex items-center justify-between text-base font-semibold text-slate-200 hover:text-emerald-400 py-2.5 transition-colors">
+                <span class="flex items-center gap-2.5"><iconify-icon icon="lucide:newspaper" class="text-lg text-emerald-400"></iconify-icon> Blog</span>
+                <iconify-icon icon="lucide:chevron-right" class="text-slate-500"></iconify-icon>
+            </a>
+            <a href="/stories.html" class="flex items-center justify-between text-base font-semibold text-slate-200 hover:text-amber-400 py-2.5 transition-colors">
+                <span class="flex items-center gap-2.5"><iconify-icon icon="lucide:scroll" class="text-lg text-amber-400"></iconify-icon> Stories</span>
+                <iconify-icon icon="lucide:chevron-right" class="text-slate-500"></iconify-icon>
+            </a>
+            <a href="/pickup-lines.html" class="flex items-center justify-between text-base font-semibold text-slate-200 hover:text-pink-400 py-2.5 transition-colors">
+                <span class="flex items-center gap-2.5"><iconify-icon icon="lucide:heart" class="text-lg text-pink-400"></iconify-icon> Pickup Lines</span>
+                <iconify-icon icon="lucide:chevron-right" class="text-slate-500"></iconify-icon>
+            </a>
+            <a href="/pidgin-bible.html" class="flex items-center justify-between text-base font-semibold text-slate-200 hover:text-blue-400 py-2.5 transition-colors">
+                <span class="flex items-center gap-2.5"><iconify-icon icon="lucide:book" class="text-lg text-blue-400"></iconify-icon> Pidgin Bible</span>
+                <iconify-icon icon="lucide:chevron-right" class="text-slate-500"></iconify-icon>
+            </a>
         </div>
     </div>
 </div>
 
-<!-- Navigation JavaScript - automatically included on all pages -->
+<!-- Iconify & Navigation Scripts -->
+<script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
 <script defer src="/js/components/user-auth.js"></script>
 <script defer src="/js/components/navigation.js"></script>
 

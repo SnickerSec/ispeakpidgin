@@ -186,7 +186,8 @@ app.use(helmet({
                 "'unsafe-inline'",
                 "https://www.googletagmanager.com",
                 "https://www.google-analytics.com",
-                "https://cdn.jsdelivr.net"
+                "https://cdn.jsdelivr.net",
+                "https://code.iconify.design"
             ],
             imgSrc: [
                 "'self'",
@@ -218,7 +219,10 @@ app.use(helmet({
                 "https://fonts.gstatic.com",
                 "https://api.elevenlabs.io",
                 "https://cdn.jsdelivr.net",
-                "https://cdn-icons-png.flaticon.com"
+                "https://cdn-icons-png.flaticon.com",
+                "https://api.iconify.design",
+                "https://api.simplesvg.com",
+                "https://api.unisvg.com"
             ],
             mediaSrc: [
                 "'self'", 
