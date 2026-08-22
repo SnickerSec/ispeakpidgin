@@ -32,11 +32,9 @@ module.exports = function(translationLimiter, supabase) {
                     return res.status(500).json({ error: 'ElevenLabs API key not configured' });
                 }
 
-                const defaultVoiceId = 'f0ODjLMfcJmlKfs7dFCW'; // Hawaiian-sounding voice
+                const defaultVoiceId = 'f0ODjLMfcJmlKfs7dFCW'; // Authentic Hawaiian voice (Kimo)
                 const allowedVoices = [
-                    'f0ODjLMfcJmlKfs7dFCW', // Kimo / Hawaiian
-                    'EXAVITQu4vr4xnSDxMaL', // Sarah / Aunty
-                    'ErXwbc3VNbCc1k9An9bS'  // Ethan / Braddah
+                    'f0ODjLMfcJmlKfs7dFCW' // Kimo / Hawaiian
                 ];
 
                 let voiceId = defaultVoiceId;

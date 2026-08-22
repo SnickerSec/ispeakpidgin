@@ -44,3 +44,24 @@ Each option presented to the user must include:
 3. **Actionable Deliverables**: 3-4 bullet points referencing specific files, tools, or tables.
 4. **Estimated Effort & Impact**: e.g., Effort: Low (1-2 hours) / Medium / High | Impact: High (User Retention / Search Growth / Reliability).
 5. **Execution Command / Next Step**: Exact prompt or command to start the work immediately.
+
+---
+
+## Interactive Keyboard Selection Integration (`ask_question`)
+
+To provide an effortless terminal/UI experience where the user can navigate with the **Up (↑)** and **Down (↓)** arrow keys and select by hitting **Enter**, the review advisor must trigger `ask_question` with the formulated options:
+
+```javascript
+ask_question({
+  questions: [{
+    question: "Which improvement option would you like to execute next?",
+    options: [
+      "(Recommended) Option 1: AI Talk-Story & ElevenLabs Audio Expansion",
+      "Option 2: Slang & Vocabulary Expansion with Search Feedback Loop",
+      "Option 3: Railway Production Hardening, CI/CD & Supabase Optimization"
+    ],
+    is_multi_select: false
+  }]
+})
+```
+

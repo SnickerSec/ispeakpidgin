@@ -109,7 +109,7 @@ try {
     results.elevenlabs.details.push(`Client ElevenLabs Engine: ${hasSpeech ? '✅ Present' : '❌ Missing'}`);
     results.elevenlabs.details.push(`Server TTS Route (/api/text-to-speech): ${hasTtsRoute ? '✅ Present' : '❌ Missing'}`);
     results.elevenlabs.details.push(`Audio Pre-generation Tool: ${hasAudioPre ? '✅ Present' : '❌ Missing'}`);
-    results.elevenlabs.details.push(`Configured Voices: Kimo (f0ODjLMfcJmlKfs7dFCW), Sarah/Aunty (EXAVITQu4vr4xnSDxMaL), Ethan/Braddah (ErXwbc3VNbCc1k9An9bS)`);
+    results.elevenlabs.details.push(`Configured Voice: Kimo (f0ODjLMfcJmlKfs7dFCW - authentic Hawaiian local voice)`);
 
     results.elevenlabs.status = (hasSpeech && hasTtsRoute) ? 'HEALTHY' : 'WARNING';
 } catch (e) {
@@ -154,7 +154,7 @@ try {
 
     results.ai.details.push(`Gemini Service (services/gemini.js): ${hasGemini ? '✅ Present' : '❌ Missing'}`);
     results.ai.details.push(`AI Routes (routes/ai.js): ${hasAiRoute ? '✅ Present' : '❌ Missing'}`);
-    results.ai.details.push(`Endpoints: /api/ai/talk-story (Personas: Kimo, Aunty, Braddah), /api/ai/translate (RAG Tone Adjustment)`);
+    results.ai.details.push(`Endpoints: /api/ai/talk-story (Persona: Kimo), /api/ai/translate (RAG Tone Adjustment)`);
     results.ai.details.push(`Gamification Link: XP & badge awarding upon chatting`);
 
     results.ai.status = (hasGemini && hasAiRoute) ? 'HEALTHY' : 'WARNING';
@@ -207,3 +207,79 @@ Object.keys(results).forEach(pillar => {
 console.log('\n=============================================================');
 console.log('✅ Audit diagnostic complete.');
 console.log('=============================================================\n');
+
+// Interactive CLI selection mode if requested or running in interactive terminal
+const isInteractive = process.argv.includes('--interactive') || process.argv.includes('-i');
+
+const defaultOptions = [
+    {
+        id: 1,
+        title: '🌴 Option 1: AI Talk-Story & ElevenLabs Audio Interactive Fluency',
+        action: 'Expand phonetic map from 68.8% to 90%+, add voice switcher UI, and connect TTS to Talk-Story'
+    },
+    {
+        id: 2,
+        title: '🏄 Option 2: Slang Expansion, Themed Phrase Collections & SEO Growth',
+        action: 'Ingest 40+ curated terms across Surf/Grindz/Youth slang, generate static pages and sitemaps'
+    },
+    {
+        id: 3,
+        title: '⚙️ Option 3: CI/CD Quality Guardrails & Production Architecture Hardening',
+        action: 'Add automated pronunciation & link checks to GitHub Actions, tune database indexes and CSP'
+    }
+];
+
+if (isInteractive && process.stdin.isTTY) {
+    const readline = require('readline');
+    let selectedIndex = 0;
+
+    readline.emitKeypressEvents(process.stdin);
+    process.stdin.setRawMode(true);
+
+    function renderMenu() {
+        console.log('💡 Select an option to execute (Use ↑ / ↓ arrow keys, press Enter to select):\n');
+        defaultOptions.forEach((opt, idx) => {
+            if (idx === selectedIndex) {
+                console.log(` \x1b[36m❯ [${idx + 1}] ${opt.title}\x1b[0m`);
+                console.log(`     \x1b[90m${opt.action}\x1b[0m`);
+            } else {
+                console.log(`   [${idx + 1}] ${opt.title}`);
+                console.log(`     \x1b[90m${opt.action}\x1b[0m`);
+            }
+        });
+    }
+
+    renderMenu();
+
+    const onKeypress = (str, key) => {
+        if (!key) return;
+        if (key.ctrl && key.name === 'c') {
+            process.stdin.setRawMode(false);
+            process.exit(0);
+        }
+
+        if (key.name === 'up') {
+            selectedIndex = (selectedIndex - 1 + defaultOptions.length) % defaultOptions.length;
+            readline.cursorTo(process.stdout, 0);
+            readline.moveCursor(process.stdout, 0, -(defaultOptions.length * 2 + 2));
+            readline.clearScreenDown(process.stdout);
+            renderMenu();
+        } else if (key.name === 'down') {
+            selectedIndex = (selectedIndex + 1) % defaultOptions.length;
+            readline.cursorTo(process.stdout, 0);
+            readline.moveCursor(process.stdout, 0, -(defaultOptions.length * 2 + 2));
+            readline.clearScreenDown(process.stdout);
+            renderMenu();
+        } else if (key.name === 'return') {
+            process.stdin.setRawMode(false);
+            process.stdin.removeListener('keypress', onKeypress);
+            const chosen = defaultOptions[selectedIndex];
+            console.log(`\n✨ Selected: \x1b[32m${chosen.title}\x1b[0m\n`);
+            console.log(`To execute this plan, prompt Antigravity: "Execute ${chosen.title}"\n`);
+            process.exit(0);
+        }
+    };
+
+    process.stdin.on('keypress', onKeypress);
+}
+

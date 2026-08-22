@@ -1,12 +1,12 @@
 ---
 name: pidgin-review-advisor
 description: >-
-  Reviews the ChokePidgin / iSpeakPidgin application and context across Supabase, ElevenLabs TTS, GitHub CI/CD, Gemini AI API, Hawaiian Pidgin language & pronunciation, vocabulary expansion (new words, slang, phrases), and Railway deployment. Delivers a comprehensive assessment and 3 prioritized options to choose from for recommended next improvements.
+  Reviews the ChokePidgin / iSpeakPidgin application and context across Supabase, ElevenLabs TTS, GitHub CI/CD, Gemini AI API, Hawaiian Pidgin language & pronunciation, vocabulary expansion (new words, slang, phrases), and Railway deployment. Delivers a comprehensive assessment and prompts the user with 3 prioritized options selectable via keyboard arrow keys (Up/Down) and Enter.
 ---
 
 # Pidgin Review & Enhancement Advisor Skill
 
-This skill provides an end-to-end framework to audit, review, and enhance the **ChokePidgin / iSpeakPidgin** application. It evaluates the complete ecosystem across seven core pillars and produces a structured review followed by **3 distinct, high-impact options** for next work.
+This skill provides an end-to-end framework to audit, review, and enhance the **ChokePidgin / iSpeakPidgin** application. It evaluates the complete ecosystem across seven core pillars and produces a structured review followed by **3 distinct, high-impact options** selectable interactively using keyboard navigation (Up/Down arrow keys + Enter).
 
 ```
                      ┌───────────────────────────────────────┐
@@ -26,6 +26,11 @@ This skill provides an end-to-end framework to audit, review, and enhance the **
                      │  1. Audio & AI Interactive Fluency   │
                      │  2. Content, Slang & Linguistic Depth │
                      │  3. DevOps, Architecture & Scalability│
+                     └───────────────────┬───────────────────┘
+                                         │
+                     ┌───────────────────▼───────────────────┐
+                     │  Interactive Selection (ask_question) │
+                     │  • Up/Down Arrow Keys + Enter        │
                      └───────────────────────────────────────┘
 ```
 
@@ -43,9 +48,7 @@ When conducting an application and context review, thoroughly evaluate these 7 p
 
 ### 2. ElevenLabs Text-to-Speech & Pronunciation
 - **Voices**:
-  - **Kimo** (`f0ODjLMfcJmlKfs7dFCW`) — Authentic local male voice (primary dictionary & default tutor).
-  - **Aunty Leilani / Sarah** (`EXAVITQu4vr4xnSDxMaL`) — Warm, mature local aunty.
-  - **Braddah Shane / Ethan** (`ErXwbc3VNbCc1k9An9bS`) — Casual surfer / youthful male.
+  - **Kimo** (`f0ODjLMfcJmlKfs7dFCW`) — The sole authentic Hawaiian local voice sourced from ElevenLabs (used for all dictionary entries, audio pre-generation, and Talk Story). *Note: Secondary synthesized voices (Aunty, Braddah) have been removed due to poor acoustic quality and must not be reintroduced.*
 - **Pronunciation Engine**: Phonetic substitution mapping (`tools/testing/pronunciation-audit.js`, `src/components/speech/elevenlabs-speech.js`) converting tricky Pidgin terms (e.g., `da kine` $\rightarrow$ `dah kyne`, `pau` $\rightarrow$ `pow`, `mauka` $\rightarrow$ `mow-kah`, `wikiwiki` $\rightarrow$ `vee-kee-vee-kee`).
 - **Audio Pre-generation & Cache**: `tools/audio/audio-pregeneration.js`, `cache-stats.js`, client-side Web Speech API fallback.
 
@@ -56,7 +59,7 @@ When conducting an application and context review, thoroughly evaluate these 7 p
 
 ### 4. AI API (Gemini & Semantic RAG)
 - **Service Integration**: `services/gemini.js` with structured generation, temperature modulation, and fallback handling.
-- **Interactive Tutor (`/api/ai/talk-story`)**: Persona-driven conversation with Kimo, Aunty Leilani, and Braddah Shane, contextual Pidgin vocabulary injection, automatic XP/badge awarding.
+- **Interactive Tutor (`/api/ai/talk-story`)**: Persona-driven conversation with Kimo (Hawaiian AI tutor), contextual Pidgin vocabulary injection, automatic XP/badge awarding.
 - **Semantic Translation (`/api/ai/translate`)**: Tone-adjusted translation (`light`, `standard`, `heavy`), bidirectional English $\leftrightarrow$ Pidgin, RAG retrieval against live dictionary cache.
 - **Safety & Rate Limiting**: Bot protection (domain verification), express-rate-limit (`aiChatLimiter`, `semanticSearchLimiter`, `questionSubmitLimiter`).
 
@@ -92,7 +95,8 @@ flowchart TD
     B --> C[Step 2: Evaluate All 7 Pillars]
     C --> D[Step 3: Identify High-Impact Gaps]
     D --> E[Step 4: Formulate 3 Distinct Options]
-    E --> F[Step 5: Present Review & Await User Choice]
+    E --> F[Step 5: Present Review in Markdown]
+    F --> G[Step 6: Trigger ask_question Interactive Menu]
 ```
 
 ### Step 1: Automated Diagnostics & Context Intake
@@ -177,12 +181,29 @@ Format your review response using this clean structure:
   - [Actionable item 3 with file link]
 - **Impact**: [Sub-second query times, robust CI pipeline, zero downtime]
 - **Effort**: [Low / Medium / High]
-
----
-
-## Next Steps
-Which option would you like to pursue? Reply with **Option 1**, **Option 2**, or **Option 3** (or a combination), and I will execute the implementation plan immediately.
 ```
+
+### Step 5: Trigger Interactive Selection Prompt (`ask_question`)
+
+Immediately after delivering the review, the agent **MUST** call the `ask_question` tool to present an interactive menu. This enables the user to select an option using the **Up (↑)** and **Down (↓)** arrow keys on the keyboard and confirm by pressing **Enter**.
+
+```json
+{
+  "questions": [
+    {
+      "question": "Which improvement option would you like to execute next?",
+      "options": [
+        "(Recommended) Option 1: [Title of Option 1]",
+        "Option 2: [Title of Option 2]",
+        "Option 3: [Title of Option 3]"
+      ],
+      "is_multi_select": false
+    }
+  ]
+}
+```
+
+Once the user selects their option and hits Enter, proceed immediately with the full execution and implementation of the chosen option.
 
 ---
 
@@ -192,3 +213,4 @@ Which option would you like to pursue? Reply with **Option 1**, **Option 2**, or
 - [Technical Pillars & Architecture Reference](./references/technical-pillars.md)
 - [3-Option Recommendation Framework](./references/three-option-framework.md)
 - [Diagnostic Audit Script](./scripts/audit-pidgin-app.js)
+

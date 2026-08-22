@@ -36,9 +36,8 @@ All application data is hosted in Supabase PostgreSQL and Supabase Storage.
   - `style`: `0.0`
   - `use_speaker_boost`: `true`
 - **Configured Voice IDs**:
-  - `f0ODjLMfcJmlKfs7dFCW` (Kimo / Hawaiian local male)
-  - `EXAVITQu4vr4xnSDxMaL` (Sarah / Aunty Leilani)
-  - `ErXwbc3VNbCc1k9An9bS` (Ethan / Braddah Shane)
+  - `f0ODjLMfcJmlKfs7dFCW` (Kimo / Hawaiian local male — authentic primary voice)
+  - *Note: Aunty and Braddah voices were deprecated/removed due to poor quality and must not be reintroduced.*
 
 ### Audio Delivery Lifecycle
 1. Request arrives at `POST /api/text-to-speech` with `text` and optional `voiceId`.
