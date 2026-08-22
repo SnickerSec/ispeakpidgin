@@ -58,6 +58,12 @@ npm run seo:loop
 
 ## Maintenance & Tools
 
+### Application Review & Advisory Skill (`pidgin-review-advisor`)
+The project includes a dedicated review and advisory skill located in `.claude/skills/pidgin-review-advisor/` (and `.agents/skills/pidgin-review-advisor/` for Antigravity):
+- **Purpose**: Audits the entire application across Supabase, ElevenLabs TTS, GitHub CI/CD, Gemini AI API, Hawaiian Pidgin language & pronunciation, vocabulary expansion (new words, slang, phrases), and Railway deployment.
+- **Diagnostics**: Run `node .agents/skills/pidgin-review-advisor/scripts/audit-pidgin-app.js` for an automated 7-pillar health report.
+- **Output**: Formulates 3 concrete, prioritized options for recommended next work.
+
 ### SEO Feedback Loop
 The feedback loop script closes the gap between what users search for and what is in the dictionary:
 1. **Search Gaps Tab**: The Admin Panel (`/admin.html`) automatically scans for search gaps and triggers AI suggestions for the top entries.

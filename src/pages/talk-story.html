@@ -114,6 +114,10 @@
                     <span class="text-xl">👵🏽</span>
                     <span class="text-xs font-bold mt-1">Aunty</span>
                 </button>
+                <button data-char="braddah" class="char-btn border-2 border-transparent bg-slate-700/60 text-slate-200 p-2 rounded-xl flex flex-col items-center transition-all hover:bg-emerald-900/40 hover:border-emerald-500/50">
+                    <span class="text-xl">🏄🏽‍♂️</span>
+                    <span class="text-xs font-bold mt-1">Braddah</span>
+                </button>
             </div>
         </div>
 
@@ -228,6 +232,15 @@
                     accent: "border-purple-500",
                     bg: "bg-purple-900/40",
                     voiceId: "EXAVITQu4vr4xnSDxMaL"
+                },
+                braddah: {
+                    name: "Talk Story wit' Braddah Shane",
+                    desc: "Young, super casual surfer braddah. Choke slang, beach vibes, and good times!",
+                    icon: "ti-wave-sine",
+                    color: "linear-gradient(135deg, #10b981 0%, #06b6d4 100%)",
+                    accent: "border-emerald-500",
+                    bg: "bg-emerald-900/40",
+                    voiceId: "ErXwbc3VNbCc1k9An9bS"
                 }
             };
 
@@ -310,8 +323,9 @@
                     // Reset chat for new character
                     chatMessages.innerHTML = '';
                     messageHistory = [];
-                    const welcomeMsg = char === 'kimo' ? "Aloha! I stay Kimo. Like talk story?" :
-                                     "Aloha my keiki! Come, sit, talk story with Aunty.";
+                    const welcomeMsg = char === 'kimo' ? "Aloha! I stay Kimo. Like talk story? I can help you practice your Pidgin. Just type someting below!" :
+                                     char === 'aunty' ? "Aloha my keiki! Come, sit, talk story with Aunty Leilani. What stay on your mind today?" :
+                                     "Howzit brah! Braddah Shane stay ready fo' shred some Pidgin. What stay good?";
                     addMessage('model', welcomeMsg, { character: char });
                     });
                     });
@@ -442,8 +456,9 @@
                     chatMessages.innerHTML = '';
                     messageHistory = [];
                     const profile = characterProfiles[currentCharacter];
-                    const welcomeMsg = currentCharacter === 'kimo' ? "Aloha! I stay Kimo. Like talk story?" :
-                                     "Aloha my keiki! Come, sit, talk story with Aunty.";
+                    const welcomeMsg = currentCharacter === 'kimo' ? "Aloha! I stay Kimo. Like talk story? I can help you practice your Pidgin. Just type someting below!" :
+                                     currentCharacter === 'aunty' ? "Aloha my keiki! Come, sit, talk story with Aunty Leilani. What stay on your mind today?" :
+                                     "Howzit brah! Braddah Shane stay ready fo' shred some Pidgin. What stay good?";
                     addMessage('model', welcomeMsg, { character: currentCharacter });
                     }
                     });

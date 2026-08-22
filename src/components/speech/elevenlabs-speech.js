@@ -137,7 +137,7 @@ class ElevenLabsSpeech {
             'fast kine': 'fast kyne',
             'faskine': 'fas-kyne',
 
-            // Common Hawaiian/Pidgin words with specific phonetic needs
+            // Core Hawaiian/Pidgin words with specific phonetic needs
             'pau': 'pow',
             'pau hana': 'pow hah-nah',
             'mauka': 'mow-kah',
@@ -191,11 +191,14 @@ class ElevenLabsSpeech {
             'mochi': 'mo-chee',
             'manapua': 'mah-nah-poo-ah',
             'malasada': 'mah-lah-sah-dah',
+            'malasadas': 'mah-lah-sah-dahz',
             'kanak': 'kah-nahk',
             'grindz': 'gryndz',
             'grind': 'grynd',
             'kaukau': 'cow-cow',
+            'kau kau': 'cow-cow',
             'cheehoo': 'chee-hoo!',
+            'chee-hoo': 'chee-hoo!',
             'rajah': 'rah-jah',
             'shoots': 'shoots',
             'choke': 'choke',
@@ -205,9 +208,10 @@ class ElevenLabsSpeech {
             'niele': 'nee-eh-leh',
             'pilikia': 'pee-lee-kee-ah',
             'chee hu': 'chee-hoo!',
-            'pilau': 'pee-lau',
             'bust \'em up': 'bust em up',
             'bust em up': 'bust em up',
+            'buss up': 'bus up',
+            'fakafied': 'fah-kah-fyde',
             'ainokea': 'eye-no-kay-ah',
             'mo bettah': 'mo beh-tah',
             'kay den': 'kay den...',
@@ -220,13 +224,16 @@ class ElevenLabsSpeech {
             'kanak attack': 'kah-nahk ah-tack',
             'mālama da ʻāina': 'mah-lah-mah dah eye-nah',
             'nō ka ʻoi': 'noh kah oy',
+            'no ka oi': 'noh kah oy',
             'a hui hou': 'ah-hoo-ee-hoh',
             'aʻole pilikia': 'ah-oh-leh pee-lee-kee-ah',
+            'aole pilikia': 'ah-oh-leh pee-lee-kee-ah',
             'moopuna': 'mo-poo-nah',
             'li hing mui': 'lee hing moo-ee',
             'lilikoi': 'lee-lee-koy',
             'shave ice': 'shave ice',
             'plate lunch': 'plate lunch',
+            'loco moco': 'low-coh moh-coh',
             'ballah': 'bal-lah',
             'rubbah': 'rub-bah',
             'punani': 'poo-nah-nee',
@@ -240,8 +247,15 @@ class ElevenLabsSpeech {
             'wit\'': 'wit',
             'wit': 'wit',
             'yesterday': 'yes-tah-deh',
+            'no make body': 'no make bah-dee',
+            'if can can': 'if can, can',
+            'if no can no can': 'if no can, no can',
+            'heavies': 'heh-veez',
+            'in da pit': 'in dah pit',
+            'junk surf': 'junk surf',
+            'shred da gnar': 'shred dah nahr',
 
-            // New Pronunciation Enhancements
+            // Culture, Food & Nature
             'poi': 'poy',
             'luau': 'loo-ow',
             'laulau': 'laow-laow',
@@ -252,6 +266,7 @@ class ElevenLabsSpeech {
             'kiawe': 'kee-ah-veh',
             'hula': 'hoo-lah',
             'halau': 'hah-laow',
+            'hālau': 'hah-laow',
             'kumu': 'koo-moo',
             'malo': 'mah-low',
             'ti': 'tee',
@@ -260,22 +275,28 @@ class ElevenLabsSpeech {
             'menehune': 'meh-neh-hoo-neh',
             'alii': 'ah-lee-ee',
             'ali\'i': 'ah-lee-ee',
+            'aliʻi': 'ah-lee-ee',
             'imu': 'ee-moo',
             'mo\'o': 'moh-oh',
+            'moʻo': 'moh-oh',
             'pueo': 'poo-eh-oh',
             'nene': 'neh-neh',
+            'nēnē': 'neh-neh',
             'hapa': 'hah-pah',
+            'hapa haole': 'hah-pah how-lee',
             'mana': 'mah-nah',
             'pono': 'poh-noh',
             'lanakila': 'lah-nah-kee-lah',
             'kamaaina': 'kah-mah-eye-nah',
             'kama\'aina': 'kah-mah-eye-nah',
+            'kamaʻāina': 'kah-mah-eye-nah',
             'makana': 'mah-kah-nah',
             'pualani': 'poo-ah-lah-nee',
             'kealoha': 'kay-ah-low-hah',
             'hoaloha': 'ho-ah-low-hah',
             'luana': 'loo-ah-nah',
             'huhu': 'hoo-hoo',
+            'hūhū': 'hoo-hoo',
             'pupule': 'poo-poo-lay',
             'muliwai': 'moo-lee-vye',
             'moemoe': 'moy-moy',
@@ -289,7 +310,70 @@ class ElevenLabsSpeech {
             'fo\'': 'foh',
             'fo': 'foh',
             'mahimahi': 'mah-hee-mah-hee',
-            'mahi-mahi': 'mah-hee-mah-hee'
+            'mahi-mahi': 'mah-hee-mah-hee',
+            'opihi': 'oh-pee-hee',
+            'ʻopihi': 'oh-pee-hee',
+            'limu': 'lee-moo',
+            'hapai': 'hah-pye',
+            'hāpai': 'hah-pye',
+            'haumana': 'how-mah-nah',
+            'haumāna': 'how-mah-nah',
+            'holoholo': 'hoh-low-hoh-low',
+            'huli huli': 'hoo-lee hoo-lee',
+            'hulihuli': 'hoo-lee-hoo-lee',
+            'kulolo': 'koo-low-low',
+            'kūlolo': 'koo-low-low',
+            'kahuna': 'kah-hoo-nah',
+            'pikake': 'pee-kah-kay',
+            'pīkake': 'pee-kah-kay',
+            'pohaku': 'poh-hah-koo',
+            'pōhaku': 'poh-hah-koo',
+            'pua': 'poo-ah',
+            'ukulele': 'oo-koo-lay-lay',
+            'ʻukulele': 'oo-koo-lay-lay',
+            'mana\'o': 'mah-nah-oh',
+            'manaʻo': 'mah-nah-oh',
+            'pali': 'pah-lee',
+            'pahoehoe': 'pah-hoy-hoy',
+            'pāhoehoe': 'pah-hoy-hoy',
+
+            // Island Place Names
+            'kailua': 'kye-loo-ah',
+            'kaneohe': 'kah-nay-oh-hay',
+            'kāneʻohe': 'kah-nay-oh-hay',
+            'waikiki': 'wye-kee-kee',
+            'waikīkī': 'wye-kee-kee',
+            'haleiwa': 'hah-lay-ee-vah',
+            'haleʻiwa': 'hah-lay-ee-vah',
+            'waianae': 'wye-ah-nye',
+            'waiʻanae': 'wye-ah-nye',
+            'waimanalo': 'wye-mah-nah-low',
+            'waimānalo': 'wye-mah-nah-low',
+            'molokai': 'moh-loh-kye',
+            'molokaʻi': 'moh-loh-kye',
+            'kahului': 'kah-hoo-loo-ee',
+            'hilo': 'hee-low',
+            'kona': 'koh-nah',
+            'punaluu': 'poo-nah-loo-oo',
+            'punaluʻu': 'poo-nah-loo-oo',
+            'kakaako': 'kah-kah-ah-koh',
+            'kakaʻako': 'kah-kah-ah-koh',
+            'kahala': 'kah-hah-lah',
+            'kāhala': 'kah-hah-lah',
+            'kapolei': 'kah-poh-lay',
+            'mililani': 'mee-lee-lah-nee',
+            'aiea': 'eye-eh-ah',
+            'ʻaiea': 'eye-eh-ah',
+            'makaha': 'mah-kah-hah',
+            'mākaha': 'mah-kah-hah',
+            'makawao': 'mah-kah-wow',
+            'pukalani': 'poo-kah-lah-nee',
+            'waimea': 'wye-may-ah',
+            'hanalei': 'hah-nah-lay',
+            'lahaina': 'lah-hye-nah',
+            'lāhainā': 'lah-hye-nah',
+            'ewa': 'eh-vah',
+            'ʻewa': 'eh-vah'
         };
 
         let correctedText = text.toLowerCase();
@@ -450,23 +534,27 @@ class ElevenLabsSpeech {
                     // Apply pronunciation corrections for Pidgin words
                     const correctedText = this.applyPronunciationCorrections(text);
 
-                    // Normalize text for caching (use original text for cache key)
+                    // Normalize text and partition cache by voice ID
                     const normalizedText = text.trim().toLowerCase();
+                    const voiceId = options.voiceId || 'f0ODjLMfcJmlKfs7dFCW';
+                    const cacheKey = `${voiceId}_${normalizedText}`;
 
-                    // Check cache first
-                    if (this.cache.has(normalizedText)) {
+                    // Check cache first (voice-specific with fallback)
+                    const cachedBlob = this.cache.get(cacheKey) || this.cache.get(normalizedText);
+                    if (cachedBlob) {
                         if (!options.silent) {
                             window.dispatchEvent(new CustomEvent('pidginSpeechStart'));
                             if (options.onStart) options.onStart();
 
                             // Try to play cached audio with retry fallback
-                            const success = await this.playAudioBlobWithRetry(this.cache.get(normalizedText), correctedText, normalizedText);
+                            const success = await this.playAudioBlobWithRetry(cachedBlob, correctedText, cacheKey);
                             
                             if (options.onEnd) options.onEnd();
                             
                             if (success) return;
 
                             // If cached audio failed, remove from cache and retry API
+                            this.cache.delete(cacheKey);
                             this.cache.delete(normalizedText);
                             // Continue to API call below
                         } else {
@@ -483,11 +571,11 @@ class ElevenLabsSpeech {
                             if (response.ok) {
                                 const audioBlob = await response.blob();
                                 // Cache it for next time
-                                this.cache.set(normalizedText, audioBlob);
+                                this.cache.set(cacheKey, audioBlob);
                                 
                                 if (!options.silent) {
                                     window.dispatchEvent(new CustomEvent('pidginSpeechStart'));
-                                    const success = await this.playAudioBlobWithRetry(audioBlob, correctedText, normalizedText);
+                                    const success = await this.playAudioBlobWithRetry(audioBlob, correctedText, cacheKey);
                                     if (options.onEnd) options.onEnd();
                                     if (success) return;
                                 } else {
@@ -511,7 +599,7 @@ class ElevenLabsSpeech {
                         body: JSON.stringify({
                             text: correctedText,  // Use corrected text for better pronunciation
                             originalText: text,   // Keep original for reference
-                            voiceId: options.voiceId // Pass through the requested voiceId
+                            voiceId: voiceId      // Pass through the requested voiceId
                         })
                     });
 
@@ -527,11 +615,11 @@ class ElevenLabsSpeech {
                         throw new Error('Received empty audio blob from API');
                     }
 
-                    // Cache the audio for future use
-                    this.cache.set(normalizedText, audioBlob);
+                    // Cache the audio for future use (per voice)
+                    this.cache.set(cacheKey, audioBlob);
 
                     // Also save to IndexedDB for persistent storage
-                    await this.saveToDB(normalizedText, audioBlob);
+                    await this.saveToDB(cacheKey, audioBlob);
 
                     // Play the audio (unless silent mode for preloading)
                     if (!options.silent) {
