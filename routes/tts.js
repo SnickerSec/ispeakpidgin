@@ -54,12 +54,18 @@ module.exports = function(translationLimiter, supabase) {
                 const rawText = originalText || text;
                 const spokenText = applyPronunciationCorrections(rawText);
 
-                // 1. Check Cache First.
-                // Keyed on the POST-substitution text, exactly as before: browsers previously
-                // sent text = applyPronunciationCorrections(raw), and the server hashed that.
-                // Computing the same transform server-side reproduces the same string, so every
-                // existing translation_cache row stays reachable.
-                const normalizedText = spokenText.trim().toLowerCase();
+                // 1. Check Cache First -- keyed on the CANONICAL Pidgin text, not the phonetic
+                // respelling. "ono" is the identity of the clip; "oh-noh" is an implementation
+                // detail of how we coax ElevenLabs into saying it. Keying on the canonical form
+                // means one entry per term per voice regardless of which caller asked, and it
+                // matches how tools/audio/* already name their files (md5 of the raw text), so
+                // the two namespaces finally agree.
+                //
+                // Trade-off to know about: because the key no longer contains the phonetics,
+                // editing the pronunciation map does NOT invalidate cached audio -- old clips
+                // keep serving the old pronunciation until they are regenerated. Bump a version
+                // into the key, or clear the affected rows, when the map changes materially.
+                const normalizedText = rawText.trim().toLowerCase();
                 const textHash = crypto.createHash('md5').update(normalizedText).digest('hex');
                 const BUCKET_NAME = 'audio-assets';
 

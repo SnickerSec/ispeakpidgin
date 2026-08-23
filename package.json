@@ -18,6 +18,7 @@
     "test": "node tools/testing/run-all-tests.js",
     "test:validation": "node tools/testing/run-validation.js",
     "test:translator": "node tools/testing/validate-phase-2-3.js",
+    "audit:pronunciation": "node tools/testing/pronunciation-audit.js",
     "generate:sitemap": "node tools/generators/generate-sitemap.js",
     "generate:pages": "node tools/generators/generate-entry-pages.js",
     "generate:phrases": "node tools/generators/generate-phrase-pages.js",

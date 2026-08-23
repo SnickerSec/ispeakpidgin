@@ -66,11 +66,27 @@ former to ElevenLabs. Consequences worth surfacing in a review:
   hear. Keep it that way: add pronunciations to the runtime module, never to a consumer.
 
 ### Request lifecycle (`POST /api/text-to-speech`)
-1. Receive `text` (already phoneticized), optional `voiceId` (defaults to Kimo).
-2. `md5(normalizedText)` → look up `translation_cache` by `md5_hash` + `voice_id`.
+1. Receive the canonical Pidgin text (`originalText`, or `text` from non-browser callers) and an
+   optional `voiceId` (defaults to Kimo).
+2. `md5(normalized CANONICAL text)` → look up `translation_cache` by `md5_hash` + `voice_id`.
+   The key is the canonical term, not its phonetic respelling: `ono` identifies the clip,
+   `oh-noh` is only how ElevenLabs is coaxed into saying it. This matches the md5(raw) naming
+   `tools/audio/*` already use, so the two namespaces agree.
 3. Hit → stream the cached object from the `audio-assets` bucket.
-4. Miss → call ElevenLabs, stream the response, then persist to Storage as
-   `cached_{voiceId}_{hash}.mp3` and upsert `translation_cache`.
+4. Miss → apply the shared phonetic transform, call ElevenLabs with the respelling, stream the
+   response, then persist to Storage as `cached_{voiceId}_{hash}.mp3` and upsert
+   `translation_cache` under the canonical key.
+
+**Because the key excludes the phonetics, editing the pronunciation map does not invalidate
+cached audio.** Old clips keep serving the old pronunciation until regenerated — version the key
+or clear affected rows after a material map change.
+
+**Known production issue (observed 2026-08-23):** repeat requests for the same text return
+different audio even 45s apart, so cache writes are not persisting and every playback bills
+ElevenLabs. `config/supabase.js` resolves `SUPABASE_ANON_KEY || SUPABASE_SERVICE_ROLE_KEY`, so the
+shared client is the anon client; RLS would reject its Storage upload and `translation_cache`
+upsert, and both failures are swallowed into `console.error`. Unconfirmed without production logs
+or a live query — verify before acting.
 
 ---
 
