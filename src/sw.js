@@ -67,12 +67,15 @@ self.addEventListener('fetch', (event) => {
     'www.googletagmanager.com',
     'googletagmanager.com',
     'stats.g.doubleclick.net',
-    'doubleclick.net'
+    'doubleclick.net',
+    'static.cloudflareinsights.com',
+    'cloudflareinsights.com'
   ].some(host => url.hostname === host || url.hostname.endsWith('.' + host));
 
   if (isAnalyticsHost || 
       url.pathname.includes('gtag.js') || 
-      url.pathname.includes('analytics.js')) {
+      url.pathname.includes('analytics.js') ||
+      url.pathname.includes('beacon.min.js')) {
     return;
   }
 

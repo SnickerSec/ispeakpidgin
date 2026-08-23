@@ -187,7 +187,8 @@ app.use(helmet({
                 "https://www.googletagmanager.com",
                 "https://www.google-analytics.com",
                 "https://cdn.jsdelivr.net",
-                "https://code.iconify.design"
+                "https://code.iconify.design",
+                "https://static.cloudflareinsights.com"
             ],
             imgSrc: [
                 "'self'",
@@ -220,9 +221,12 @@ app.use(helmet({
                 "https://api.elevenlabs.io",
                 "https://cdn.jsdelivr.net",
                 "https://cdn-icons-png.flaticon.com",
+                "https://code.iconify.design",
                 "https://api.iconify.design",
                 "https://api.simplesvg.com",
-                "https://api.unisvg.com"
+                "https://api.unisvg.com",
+                "https://static.cloudflareinsights.com",
+                "https://cloudflareinsights.com"
             ],
             mediaSrc: [
                 "'self'", 
