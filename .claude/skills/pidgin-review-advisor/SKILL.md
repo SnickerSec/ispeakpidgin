@@ -41,8 +41,8 @@ Cloudflare edge against the Railway origin. `--json` emits the machine-readable 
 `--strict` exits non-zero on any FAIL. Without `--live`/`--net` those checks report `SKIP`,
 which you must carry through to the review as unmeasured.
 
-The script measures rather than checks for file existence: phonetic-map drift between the
-runtime and audit copies, unapproved ElevenLabs voice IDs, whether CI's test step is gated
+The script measures rather than checks for file existence: whether the phonetic map has a single
+owner or is duplicated across consumers, unapproved ElevenLabs voice IDs, whether CI's test step is gated
 behind a possibly-absent secret, dictionary field completeness and duplicates, curated-term
 backlog vs what is actually in Supabase, CSP/`sw.js`/`trust proxy` hardening, and edge-vs-origin
 cache divergence.
@@ -88,7 +88,7 @@ Severity rubric — use it literally, so the colors carry information:
 | | Meaning |
 | :--- | :--- |
 | 🔴 FAIL | Users are affected now, or a safeguard is absent (audio blocked by CSP, CI runs no tests, table unreadable). |
-| 🟡 WARN | Real defect or debt with a bounded blast radius (map drift, duplicate entries, model sprawl). |
+| 🟡 WARN | Real defect or debt with a bounded blast radius (duplicated definitions, duplicate entries, model sprawl). |
 | ⚪ PARTIAL | Verified in part; at least one measurement could not be taken. Name the missing one. |
 | 🟢 OK | Measured this session and sound. |
 

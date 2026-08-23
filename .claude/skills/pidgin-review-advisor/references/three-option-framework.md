@@ -56,25 +56,34 @@ outranks it.
 
 ## 4. Worked example
 
-> **Finding (WARN, elevenlabs):** the phonetic maps in
-> `src/components/speech/elevenlabs-speech.js` (303 mappings) and
-> `tools/testing/pronunciation-audit.js` (293) have drifted by 10 mappings, so the audit tool
-> scores a map users never hear.
+> **Finding (WARN, elevenlabs):** the phonetic map is defined twice — in
+> `src/components/speech/elevenlabs-speech.js` and again in `tools/testing/pronunciation-audit.js`
+> — and kept in sync only by hand. The copies agree today; nothing enforces that they will.
 > **Finding (WARN, elevenlabs):** `routes/tts.js` forwards `req.body.text` verbatim — phonetics
 > are applied client-side only.
+>
+> (Both were real when this example was written. The first has since been fixed by making the
+> audit tool import the runtime map — see the note on evidence below.)
 
 These two findings support three genuinely different options along the depth axis:
 
-- **Fix the instance** — copy the 10 missing mappings into the audit tool. Low effort; the drift
-  returns on the next edit.
+- **Fix the instance** — reconcile the two copies by hand. Low effort; the exposure returns on
+  the next edit, because the copies are still copies.
 - **Fix the class** — extract `src/components/speech/pronunciation-map.js`, import it in both
   places, add a CI assertion that they can't diverge. Medium; kills the whole failure mode.
 - **Rebuild the mechanism** — apply substitution inside `routes/tts.js` so pre-generation and any
   server-side caller get local pronunciation too, keying the cache on post-substitution text.
   High; changes cache keys, so it needs a cache migration plan.
 
-Verification, respectively: rerun the audit and confirm zero drift / same, plus a deliberately
-broken map fails CI / pre-generate one term and confirm the produced audio matches browser playback.
+Verification, respectively: rerun the audit and confirm the copies match / delete a mapping from
+the runtime module and confirm the audit's numbers move, proving it reads the same object /
+pre-generate one term and confirm the produced audio matches browser playback.
+
+A caution this example earned the hard way: the check that first reported this "drift" was
+regexing `'key': 'value'` across whole files, so it counted a separate th-fronting table and an
+HTTP header as pronunciation entries and reported a 10-mapping divergence that did not exist. The
+duplication was real; the divergence was not. Before an option rests on a number, confirm the
+number measures what its label claims — a wrong finding costs more than a missing one.
 
 ## 5. Presenting the choice
 
@@ -88,7 +97,7 @@ Claude Code uses `AskUserQuestion` (arrow keys + Enter, "Other" is always availa
     "multiSelect": false,
     "options": [
       { "label": "Extract a shared pronunciation map (Recommended)",
-        "description": "Ends the 10-mapping drift between the runtime engine and the audit tool. Medium, ~2h." },
+        "description": "One definition, imported by both consumers — removes the standing risk of the audit scoring a map users never hear. Medium, ~2h." },
       { "label": "Ingest the staged curated terms",
         "description": "Ships terms already written and sitting unused, plus page/sitemap regeneration. Low, ~1h." },
       { "label": "Move phonetics server-side into routes/tts.js",

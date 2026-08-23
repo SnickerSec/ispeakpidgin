@@ -6,9 +6,9 @@ This reference provides the linguistic principles, orthographic rules, phonetic 
 > literal in `src/components/speech/elevenlabs-speech.js` — that is what users hear. The table
 > below is an illustrative excerpt that can fall behind; verify a mapping with
 > `grep "'word':" src/components/speech/elevenlabs-speech.js` before quoting it, and add new
-> mappings to the source file, never here. A second hand-copied map in
-> `tools/testing/pronunciation-audit.js` is known to drift from the runtime one — see
-> [technical-pillars.md](./technical-pillars.md).
+> mappings to the source file, never here — it is exported as `PIDGIN_PRONUNCIATION_MAP` and
+> imported by `tools/testing/pronunciation-audit.js`, so one edit updates both the runtime and
+> the audit. See [technical-pillars.md](./technical-pillars.md).
 
 ---
 

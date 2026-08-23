@@ -138,13 +138,31 @@ function read(rel) {
 }
 function missingOf(list) { return list.filter(f => !exists(f)); }
 
-/** Keys of an object literal written as  'key': 'value'  — used for the phonetic maps. */
-function quotedMapKeys(src) {
-    const out = new Set();
-    const re = /^\s*'([^']+)'\s*:\s*'/gm;
+/**
+ * Keys of ONE named object literal, located by brace matching.
+ *
+ * Do not be tempted to regex `'key': 'value'` across a whole file: this check originally did
+ * that and reported a 10-mapping "drift" that did not exist — it was counting a separate
+ * th-fronting table and an HTTP header as if they were pronunciation entries. A check that
+ * invents findings is worse than no check.
+ *
+ * @returns {Set<string>|null} null when the declaration is absent.
+ */
+function objectLiteralKeys(src, declaration) {
+    const start = src.indexOf(declaration);
+    if (start === -1) return null;
+    let depth = 0, end = -1;
+    for (let i = start; i < src.length; i++) {
+        if (src[i] === '{') depth++;
+        else if (src[i] === '}') { depth--; if (depth === 0) { end = i; break; } }
+    }
+    if (end === -1) return null;
+    const body = src.slice(start, end + 1);
+    const keys = new Set();
+    const re = /^\s*'([^']+)'\s*:/gm;
     let m;
-    while ((m = re.exec(src)) !== null) out.add(m[1]);
-    return out;
+    while ((m = re.exec(body)) !== null) keys.add(m[1]);
+    return keys;
 }
 
 function git(args) {
@@ -324,31 +342,51 @@ function auditElevenLabs() {
         finding: missing.length ? `Missing TTS components: ${missing.join(', ')}` : null
     });
 
-    // Phonetic map drift — the single highest-value check in this pillar.
+    // Phonetic map ownership. The ideal state is one definition imported by every consumer;
+    // two hand-synced copies are reported even while they happen to agree, because nothing
+    // stops the next edit to either side from diverging silently.
     const speechSrc = read('src/components/speech/elevenlabs-speech.js');
     const auditSrc = read('tools/testing/pronunciation-audit.js');
     if (speechSrc && auditSrc) {
-        const speechKeys = quotedMapKeys(speechSrc);
-        const auditKeys = quotedMapKeys(auditSrc);
-        const onlySpeech = [...speechKeys].filter(k => !auditKeys.has(k));
-        const onlyAudit = [...auditKeys].filter(k => !speechKeys.has(k));
-        const drift = onlySpeech.length + onlyAudit.length;
-        record('elevenlabs', {
-            id: 'elevenlabs.map-drift',
-            title: 'Phonetic map parity (runtime copy vs audit copy)',
-            status: drift > 0 ? 'WARN' : 'OK',
-            evidence: [
-                `src/components/speech/elevenlabs-speech.js: ${speechKeys.size} mappings (runtime — the one users hear)`,
-                `tools/testing/pronunciation-audit.js: ${auditKeys.size} mappings (audit copy, comment claims "identical")`,
-                onlySpeech.length ? `only in runtime: ${onlySpeech.slice(0, 12).join(', ')}${onlySpeech.length > 12 ? ` … +${onlySpeech.length - 12}` : ''}` : 'only in runtime: none',
-                onlyAudit.length ? `only in audit: ${onlyAudit.slice(0, 12).join(', ')}${onlyAudit.length > 12 ? ` … +${onlyAudit.length - 12}` : ''}` : 'only in audit: none'
-            ],
-            metrics: { runtimeKeys: speechKeys.size, auditKeys: auditKeys.size, onlyRuntime: onlySpeech.length, onlyAudit: onlyAudit.length },
-            finding: drift > 0
-                ? `The two hand-copied phonetic maps have drifted by ${drift} mappings, so pronunciation-audit.js scores a different map than the one shipped to users — its coverage percentage is not the real coverage.`
-                : null,
-            fix: 'Extract the map into one shared module (e.g. src/components/speech/pronunciation-map.js) and have both the runtime engine and the audit tool import it.'
-        });
+        const RUNTIME_DECL = 'const PIDGIN_PRONUNCIATION_MAP = {';
+        const imports = /require\([^)]*elevenlabs-speech(\.js)?['"]\)/.test(auditSrc);
+        const ownLiteral = objectLiteralKeys(auditSrc, 'const globalPronunciationMap = {');
+        const runtimeKeys = objectLiteralKeys(speechSrc, RUNTIME_DECL)
+            || objectLiteralKeys(speechSrc, 'const pronunciationMap = {');
+
+        if (imports && !ownLiteral) {
+            record('elevenlabs', {
+                id: 'elevenlabs.map-ownership',
+                title: 'Phonetic map has a single owner',
+                status: 'OK',
+                evidence: [
+                    `runtime map: ${runtimeKeys ? runtimeKeys.size : '?'} mappings in src/components/speech/elevenlabs-speech.js`,
+                    'tools/testing/pronunciation-audit.js imports it rather than keeping a copy — divergence is structurally impossible'
+                ],
+                metrics: { runtimeKeys: runtimeKeys ? runtimeKeys.size : null, duplicated: false }
+            });
+        } else if (ownLiteral && runtimeKeys) {
+            const onlyRuntime = [...runtimeKeys].filter(k => !ownLiteral.has(k));
+            const onlyAudit = [...ownLiteral].filter(k => !runtimeKeys.has(k));
+            const drift = onlyRuntime.length + onlyAudit.length;
+            record('elevenlabs', {
+                id: 'elevenlabs.map-ownership',
+                title: 'Phonetic map has a single owner',
+                status: 'WARN',
+                evidence: [
+                    `runtime map: ${runtimeKeys.size} mappings`,
+                    `audit-tool copy: ${ownLiteral.size} mappings`,
+                    drift === 0 ? 'contents currently agree' : `contents differ by ${drift} mappings`,
+                    onlyRuntime.length ? `only in runtime: ${onlyRuntime.slice(0, 10).join(', ')}` : '',
+                    onlyAudit.length ? `only in audit: ${onlyAudit.slice(0, 10).join(', ')}` : ''
+                ].filter(Boolean),
+                metrics: { runtimeKeys: runtimeKeys.size, auditKeys: ownLiteral.size, drift, duplicated: true },
+                finding: drift === 0
+                    ? 'The phonetic map is defined twice and kept in sync by hand. They agree today, but nothing enforces that — the next edit to either side would make the audit score a map users never hear.'
+                    : `The two phonetic map copies have diverged by ${drift} mappings, so pronunciation-audit.js scores a map users never hear.`,
+                fix: 'Export the map from the runtime module and require it in the audit tool, so there is one definition.'
+            });
+        }
     }
 
     // Voice-ID guard: deprecated Aunty/Braddah voices must not come back.

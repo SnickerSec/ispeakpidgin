@@ -59,9 +59,11 @@ former to ElevenLabs. Consequences worth surfacing in a review:
 
 - Non-browser callers (`tools/audio/*`, any server-side synthesis) must phoneticize themselves or
   they get mainland pronunciation.
-- A second, hand-copied version of the map lives in `tools/testing/pronunciation-audit.js` with
-  a comment claiming it is identical. It is not — the copies drift, so the audit tool's coverage
-  percentage describes a map users never hear. This is the highest-value cleanup in the pillar.
+- The map and the th-fronting table are exported from that module as `PIDGIN_PRONUNCIATION_MAP`
+  and `PIDGIN_TH_WORDS`, and `tools/testing/pronunciation-audit.js` imports them. It used to keep
+  hand-synced duplicates of both. They never actually diverged, but nothing enforced that — the
+  guarantee was a code comment — so the audit was one edit away from scoring a map users never
+  hear. Keep it that way: add pronunciations to the runtime module, never to a consumer.
 
 ### Request lifecycle (`POST /api/text-to-speech`)
 1. Receive `text` (already phoneticized), optional `voiceId` (defaults to Kimo).
