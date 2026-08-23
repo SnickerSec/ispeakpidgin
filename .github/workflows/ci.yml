@@ -56,6 +56,30 @@ jobs:
       - name: Build (Railway-equivalent)
         run: npm run build
 
+      - name: Boot check against the runtime image's file set
+        # The load check above runs against a full checkout, so it cannot catch a
+        # server-side require() reaching into a directory the Dockerfile's runtime
+        # stage does not copy. That shipped once and took the whole site down with
+        # MODULE_NOT_FOUND. Here we assemble exactly what the runtime stage copies
+        # and load every server module inside it.
+        run: |
+          set -euo pipefail
+          RT=$(mktemp -d)
+          # Mirror the COPY lines in the Dockerfile runtime stage.
+          cp server.js package.json "$RT"/
+          cp -r routes middleware services "$RT"/
+          mkdir -p "$RT/src/components"
+          cp -r src/components/speech "$RT/src/components/speech"
+          ln -s "$PWD/node_modules" "$RT/node_modules"
+          cd "$RT"
+          node -e "[
+            './routes/ai','./routes/tts','./routes/dictionary','./routes/content',
+            './routes/games','./routes/pickup','./routes/admin','./routes/questions',
+            './routes/user','./routes/suggestions',
+            './services/gamification-service','./services/settings-manager',
+            './middleware/admin-auth'
+          ].forEach(m => require(m)); console.log('✅ server boots with runtime-only files')"
+
       - name: Validation suite
         # Runs unconditionally. `npm test` (tools/testing/run-all-tests.js) drives
         # all seven suites — including validate-phase-2-3.js, which is why
