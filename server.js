@@ -518,17 +518,20 @@ app.use(express.static(path.join(__dirname, 'public'), {
     maxAge: '1h', // Default 1 hour for assets
     etag: true,
     dotfiles: 'deny',
-    setHeaders: (res, path) => {
-        // HTML files should always be revalidated (Cache-Busting)
-        if (path.endsWith('.html')) {
+    setHeaders: (res, filePath) => {
+        // sw.js must NEVER be cached by HTTP caches so updates are immediately detected
+        if (filePath.endsWith('sw.js')) {
+            res.set('Cache-Control', 'no-cache, no-store, must-revalidate, max-age=0');
+            res.set('Pragma', 'no-cache');
+            res.set('Expires', '0');
+        } else if (filePath.endsWith('.html')) {
+            // HTML files should always be revalidated (Cache-Busting)
             res.set('Cache-Control', 'public, no-cache, must-revalidate');
-        }
-        // CSS/JS can be cached longer if versioned, but for now 1 hour is safe
-        if (path.endsWith('.css') || path.endsWith('.js')) {
+        } else if (filePath.endsWith('.css') || filePath.endsWith('.js')) {
+            // CSS/JS can be cached for 1 hour
             res.set('Cache-Control', 'public, max-age=3600');
-        }
-        // Images can stay cached longer
-        if (/\.(jpg|jpeg|png|gif|ico|svg|webp)$/.test(path)) {
+        } else if (/\.(jpg|jpeg|png|gif|ico|svg|webp)$/.test(filePath)) {
+            // Images can stay cached longer
             res.set('Cache-Control', 'public, max-age=86400');
         }
     }
