@@ -342,51 +342,78 @@ function auditElevenLabs() {
         finding: missing.length ? `Missing TTS components: ${missing.join(', ')}` : null
     });
 
-    // Phonetic map ownership. The ideal state is one definition imported by every consumer;
-    // two hand-synced copies are reported even while they happen to agree, because nothing
-    // stops the next edit to either side from diverging silently.
+    // Phonetic map ownership across EVERY consumer. Checking only one consumer is how a third
+    // hand-copy in tools/audio/audio-pregeneration.js went unnoticed: all copies happened to
+    // agree, so nothing looked wrong, and each was one edit from silently disagreeing.
     const speechSrc = read('src/components/speech/elevenlabs-speech.js');
-    const auditSrc = read('tools/testing/pronunciation-audit.js');
-    if (speechSrc && auditSrc) {
-        const RUNTIME_DECL = 'const PIDGIN_PRONUNCIATION_MAP = {';
-        const imports = /require\([^)]*elevenlabs-speech(\.js)?['"]\)/.test(auditSrc);
-        const ownLiteral = objectLiteralKeys(auditSrc, 'const globalPronunciationMap = {');
-        const runtimeKeys = objectLiteralKeys(speechSrc, RUNTIME_DECL)
+    const CONSUMERS = ['tools/testing/pronunciation-audit.js', 'tools/audio/audio-pregeneration.js'];
+    if (speechSrc) {
+        const runtimeKeys = objectLiteralKeys(speechSrc, 'const PIDGIN_PRONUNCIATION_MAP = {')
             || objectLiteralKeys(speechSrc, 'const pronunciationMap = {');
+        const evidence = [`runtime map: ${runtimeKeys ? runtimeKeys.size : '?'} mappings in src/components/speech/elevenlabs-speech.js (source of truth)`];
+        const duplicators = [];
 
-        if (imports && !ownLiteral) {
-            record('elevenlabs', {
-                id: 'elevenlabs.map-ownership',
-                title: 'Phonetic map has a single owner',
-                status: 'OK',
-                evidence: [
-                    `runtime map: ${runtimeKeys ? runtimeKeys.size : '?'} mappings in src/components/speech/elevenlabs-speech.js`,
-                    'tools/testing/pronunciation-audit.js imports it rather than keeping a copy — divergence is structurally impossible'
-                ],
-                metrics: { runtimeKeys: runtimeKeys ? runtimeKeys.size : null, duplicated: false }
-            });
-        } else if (ownLiteral && runtimeKeys) {
-            const onlyRuntime = [...runtimeKeys].filter(k => !ownLiteral.has(k));
-            const onlyAudit = [...ownLiteral].filter(k => !runtimeKeys.has(k));
-            const drift = onlyRuntime.length + onlyAudit.length;
-            record('elevenlabs', {
-                id: 'elevenlabs.map-ownership',
-                title: 'Phonetic map has a single owner',
-                status: 'WARN',
-                evidence: [
-                    `runtime map: ${runtimeKeys.size} mappings`,
-                    `audit-tool copy: ${ownLiteral.size} mappings`,
-                    drift === 0 ? 'contents currently agree' : `contents differ by ${drift} mappings`,
-                    onlyRuntime.length ? `only in runtime: ${onlyRuntime.slice(0, 10).join(', ')}` : '',
-                    onlyAudit.length ? `only in audit: ${onlyAudit.slice(0, 10).join(', ')}` : ''
-                ].filter(Boolean),
-                metrics: { runtimeKeys: runtimeKeys.size, auditKeys: ownLiteral.size, drift, duplicated: true },
-                finding: drift === 0
-                    ? 'The phonetic map is defined twice and kept in sync by hand. They agree today, but nothing enforces that — the next edit to either side would make the audit score a map users never hear.'
-                    : `The two phonetic map copies have diverged by ${drift} mappings, so pronunciation-audit.js scores a map users never hear.`,
-                fix: 'Export the map from the runtime module and require it in the audit tool, so there is one definition.'
-            });
+        for (const rel of CONSUMERS) {
+            const src = read(rel);
+            if (!src) continue;
+            const imports = /require\([^)]*elevenlabs-speech(\.js)?['"]\)/.test(src);
+            const own = objectLiteralKeys(src, 'const globalPronunciationMap = {');
+            if (own) {
+                const drift = runtimeKeys
+                    ? [...runtimeKeys].filter(k => !own.has(k)).length + [...own].filter(k => !runtimeKeys.has(k)).length
+                    : null;
+                duplicators.push(rel);
+                evidence.push(`${rel}: OWN COPY of ${own.size} mappings${drift === 0 ? ' (agrees today — by luck, not construction)' : drift ? ` (differs by ${drift})` : ''}`);
+            } else if (imports) {
+                evidence.push(`${rel}: imports the runtime map ✓`);
+            } else {
+                evidence.push(`${rel}: no map reference found`);
+            }
         }
+
+        record('elevenlabs', {
+            id: 'elevenlabs.map-ownership',
+            title: 'Phonetic map has a single owner',
+            status: duplicators.length ? 'WARN' : 'OK',
+            evidence,
+            metrics: { runtimeKeys: runtimeKeys ? runtimeKeys.size : null, duplicators },
+            finding: duplicators.length
+                ? `The phonetic map is defined in ${duplicators.length + 1} places (${['runtime', ...duplicators].join(', ')}) and kept in sync by hand. Whether they agree today is not the point — nothing enforces it, and the audit or the pre-generated audio would silently diverge from what users hear.`
+                : null,
+            fix: duplicators.length
+                ? 'Export the map from the runtime module and require it in each consumer, so there is exactly one definition.'
+                : null
+        });
+    }
+
+    // Synthesis parameters must match across the two paths that call ElevenLabs, or cached audio
+    // sounds different from live audio for the same text and voice.
+    const ttsSrcCmp = read('routes/tts.js') || '';
+    const pregenSrc = read('tools/audio/audio-pregeneration.js') || '';
+    const grabModel = src => (src.match(/model_id:\s*'([^']+)'/) || [])[1] || null;
+    const grabSetting = (src, k) => (src.match(new RegExp(k + ':\\s*([0-9.]+)')) || [])[1] || null;
+    const liveModel = grabModel(ttsSrcCmp), pregenModel = grabModel(pregenSrc);
+    if (liveModel && pregenModel) {
+        const liveSim = grabSetting(ttsSrcCmp, 'similarity_boost');
+        const pregenSim = grabSetting(pregenSrc, 'similarity_boost');
+        const modelMismatch = liveModel !== pregenModel;
+        const simMismatch = liveSim !== pregenSim;
+        record('elevenlabs', {
+            id: 'elevenlabs.synthesis-parity',
+            title: 'Live and pre-generated audio use the same synthesis settings',
+            status: (modelMismatch || simMismatch) ? 'WARN' : 'OK',
+            evidence: [
+                `routes/tts.js (live):            model_id=${liveModel}, similarity_boost=${liveSim}`,
+                `audio-pregeneration.js (cached): model_id=${pregenModel}, similarity_boost=${pregenSim}`
+            ],
+            metrics: { liveModel, pregenModel, liveSim, pregenSim },
+            finding: (modelMismatch || simMismatch)
+                ? `The two paths that synthesize audio disagree${modelMismatch ? ` on the model (${liveModel} vs ${pregenModel})` : ''}${modelMismatch && simMismatch ? ' and' : ''}${simMismatch ? ` on similarity_boost (${liveSim} vs ${pregenSim})` : ''}. The same word can therefore sound different depending on whether it was pre-generated or synthesized on demand.`
+                : null,
+            fix: (modelMismatch || simMismatch)
+                ? 'Share one synthesis-settings constant between routes/tts.js and tools/audio/audio-pregeneration.js, then decide deliberately which model the site should use.'
+                : null
+        });
     }
 
     // Voice-ID guard: deprecated Aunty/Braddah voices must not come back.
@@ -422,20 +449,27 @@ function auditElevenLabs() {
         fix: strays.length ? 'Replace stray IDs with f0ODjLMfcJmlKfs7dFCW, or confirm the new voice was deliberately auditioned.' : null
     });
 
-    // Where phonetics actually get applied.
+    // Where phonetics get applied. Note what this does NOT claim: an earlier version of this
+    // check asserted that non-browser callers send raw text, which was false --
+    // audio-pregeneration.js phoneticizes before calling. The accurate risk is that the
+    // substitution lives in each caller rather than at the server boundary.
     const ttsSrc = read('routes/tts.js') || '';
     const serverSideAppliesPhonetics = /pronunciation|phonetic/i.test(ttsSrc);
+    const callers = ['src/components/speech/elevenlabs-speech.js', 'tools/audio/audio-pregeneration.js']
+        .filter(f => /applyPronunciationCorrections/.test(read(f) || ''));
     record('elevenlabs', {
         id: 'elevenlabs.phonetics-boundary',
         title: 'Phonetic substitution boundary',
         status: serverSideAppliesPhonetics ? 'OK' : 'WARN',
         evidence: [
-            `routes/tts.js applies phonetic substitution: ${serverSideAppliesPhonetics ? 'yes' : 'no — it forwards req.body.text verbatim'}`,
+            `routes/tts.js applies substitution: ${serverSideAppliesPhonetics ? 'yes' : 'no — it forwards req.body.text as given'}`,
+            `callers that phoneticize themselves: ${callers.length ? callers.join(', ') : 'none found'}`,
             `routes/tts.js caches by md5(text)+voice_id: ${/md5|createHash/.test(ttsSrc) ? 'yes' : 'no'}`
         ],
+        metrics: { serverSide: serverSideAppliesPhonetics, callersApplyingThemselves: callers },
         finding: serverSideAppliesPhonetics ? null
-            : 'Phonetics are client-side only: any non-browser caller (audio pre-generation, Talk Story server-side synthesis, future integrations) reaches ElevenLabs with unphoneticized text and gets mainland pronunciation.',
-        fix: 'Apply the shared map inside routes/tts.js so every caller benefits, keeping the cache key on the post-substitution text.'
+            : 'Substitution happens in each caller rather than at the server boundary. Today\'s callers all do it, so audio is correct — but the rule is convention, not enforcement: a new caller that forgets gets mainland pronunciation, and because the cache is keyed on the text as supplied, the mistake is then cached under a different key.',
+        fix: 'Apply the shared map inside routes/tts.js so correctness does not depend on every caller remembering, keying the cache on the post-substitution text.'
     });
 
     record('elevenlabs', {
@@ -538,17 +572,63 @@ function auditAi() {
         finding: missing.length ? `Missing: ${missing.join(', ')}` : null
     });
 
-    const srcs = ['services/gemini.js', 'routes/ai.js'].map(read).filter(Boolean).join('\n');
-    const models = [...new Set((srcs.match(/gemini-[a-z0-9.\-]+/g) || []))];
+    // Model IDs. Counting distinct IDs is NOT the signal: this check used to warn whenever it
+    // saw more than two, which flagged services/gemini.js's ordered fallback chain — a
+    // resilience feature — as "sprawl". What matters is whether the IDs live in one place or
+    // are scattered across call sites where they drift apart.
+    const modelFiles = {};
+    for (const rel of ['services/gemini.js', 'routes/ai.js']) {
+        const src = read(rel);
+        if (!src) continue;
+        const found = [...new Set(src.match(/gemini-[a-z0-9.\-]+/g) || [])];
+        if (found.length) modelFiles[rel] = found;
+    }
+    const allModels = [...new Set(Object.values(modelFiles).flat())];
+    const owners = Object.keys(modelFiles);
+
+    // Are they all inside one array literal (a declared fallback chain)?
+    let chain = null;
+    if (owners.length === 1) {
+        const src = read(owners[0]) || '';
+        const first = src.indexOf(allModels[0]);
+        const open = src.lastIndexOf('[', first);
+        const close = src.indexOf(']', first);
+        if (open !== -1 && close !== -1) {
+            const seg = src.slice(open, close);
+            const inSeg = [...new Set(seg.match(/gemini-[a-z0-9.\-]+/g) || [])];
+            if (allModels.every(m => inSeg.includes(m))) chain = inSeg;
+        }
+    }
+
+    const floating = allModels.filter(m => /-latest$/.test(m));
+    const primaryFloating = chain ? /-latest$/.test(chain[0]) : floating.length > 0;
+
     record('ai', {
-        id: 'ai.models', title: 'Gemini model IDs in use',
-        status: models.length === 0 ? 'WARN' : (models.length > 2 ? 'WARN' : 'OK'),
-        evidence: models.length ? models.map(m => `model: ${m}`) : ['no gemini-* model id found in source'],
-        metrics: { models },
-        finding: models.length > 2
-            ? `${models.length} different Gemini model IDs are hardcoded (${models.join(', ')}); each is a separate quota/latency/quality profile and they drift independently.`
-            : (models.length === 0 ? 'No model ID found — the model may be selected dynamically or the integration moved.' : null),
-        fix: models.length > 2 ? 'Centralize model selection in services/gemini.js behind one constant (or env var) so upgrades are a one-line change.' : null
+        id: 'ai.models',
+        title: 'Gemini model selection',
+        status: allModels.length === 0 ? 'WARN' : (chain ? (primaryFloating ? 'WARN' : 'OK') : (owners.length > 1 ? 'WARN' : 'OK')),
+        evidence: allModels.length === 0
+            ? ['no gemini-* model id found in source']
+            : [
+                chain
+                    ? `ordered fallback chain in ${owners[0]}: ${chain.join(' → ')}`
+                    : `model ids in ${owners.length} file(s): ${owners.map(o => `${o} (${modelFiles[o].join(', ')})`).join('; ')}`,
+                chain ? `primary model: ${chain[0]}` : '',
+                floating.length
+                    ? `floating alias(es): ${floating.join(', ')} — resolves to whatever Google ships, so behaviour can change with no commit${chain && !primaryFloating ? ' (last-resort position, which is a reasonable place for one)' : ''}`
+                    : 'no floating aliases — every model is pinned'
+            ].filter(Boolean),
+        metrics: { models: allModels, centralized: !!chain, owners, floating },
+        finding: allModels.length === 0
+            ? 'No model ID found — the model may be selected dynamically or the integration moved.'
+            : (chain && primaryFloating
+                ? `The primary model is the floating alias ${chain[0]}; its behaviour, latency and cost can change without a commit.`
+                : (!chain && owners.length > 1
+                    ? `Model IDs are hardcoded across ${owners.length} files (${owners.join(', ')}) rather than declared in one place, so call sites drift apart.`
+                    : null)),
+        fix: (chain && primaryFloating)
+            ? 'Pin the primary to an explicit version and keep the alias as a trailing fallback.'
+            : (!chain && owners.length > 1 ? 'Declare the model list once in services/gemini.js and have callers pass overrides.' : null)
     });
 
     const serverSrc = read('server.js') || '';

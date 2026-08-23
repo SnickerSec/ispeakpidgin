@@ -16,8 +16,8 @@ Group them:
   emitting a competing `/word/` page; a phonetic map drifting further with every edit).
 - **Blocking** — something else can't be done well until it is fixed (an audit tool measuring the
   wrong map means every future pronunciation claim is unreliable).
-- **Latent** — real, but no forcing function yet (model ID sprawl, unthrottled endpoint at
-  current traffic).
+- **Latent** — real, but no forcing function yet (a floating model alias in a primary position,
+  an unthrottled endpoint at current traffic).
 - **Additive** — nothing is broken; there's simply value not yet built (curated terms staged and
   un-ingested, unmapped slang categories).
 

@@ -73,8 +73,10 @@ missing" must cite the file you looked at.
    where substitution is applied, cache hit economics.
 3. **GitHub CI/CD** — does CI actually run tests, or is the step conditional; suite health; build
    artifact hygiene.
-4. **Gemini AI** — model ID sprawl, persona quality in `/api/ai/talk-story`, RAG grounding in
-   `/api/ai/translate`, rate limiting and abuse cost.
+4. **Gemini AI** — whether model IDs are declared once or scattered across call sites (the
+   fallback chain in `services/gemini.js` is deliberate; do not report it as sprawl), whether the
+   primary model is pinned or a floating alias, persona quality in `/api/ai/talk-story`, RAG
+   grounding in `/api/ai/translate`, rate limiting and abuse cost.
 5. **Pidgin linguistics** — preverbal markers (*stay*, *wen*, *go*, *like*), negation (*nevah*,
    *no can*), copula deletion, ʻokina/kahakō handling, tone profiles.
 6. **Vocabulary & slang** — search-gap backlog, pending community submissions, staged curated
@@ -88,7 +90,7 @@ Severity rubric — use it literally, so the colors carry information:
 | | Meaning |
 | :--- | :--- |
 | 🔴 FAIL | Users are affected now, or a safeguard is absent (audio blocked by CSP, CI runs no tests, table unreadable). |
-| 🟡 WARN | Real defect or debt with a bounded blast radius (duplicated definitions, duplicate entries, model sprawl). |
+| 🟡 WARN | Real defect or debt with a bounded blast radius (duplicated definitions, duplicate dictionary entries, scattered config). |
 | ⚪ PARTIAL | Verified in part; at least one measurement could not be taken. Name the missing one. |
 | 🟢 OK | Measured this session and sound. |
 

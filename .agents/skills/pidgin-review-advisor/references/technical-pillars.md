@@ -81,11 +81,14 @@ former to ElevenLabs. Consequences worth surfacing in a review:
   the `talk_story_pro` badge.
 - **`/api/ai/translate`** — bidirectional English ↔ Pidgin with tone modulation (`light`,
   `standard`, `heavy`), RAG-grounded against the live dictionary cache.
-- **Model IDs are not centralized.** Several distinct `gemini-*` IDs appear across the AI source
-  (a mix of pinned versions and a floating `-latest` alias). Each is a separate quota, latency and
-  quality profile; a floating alias can also change behavior with no commit. Worth consolidating
-  behind one constant or env var. Confirm the current set with
-  `grep -rhoE "gemini-[a-z0-9.\-]+" services routes | sort -u` rather than trusting this list.
+- **Model selection is an ordered fallback chain**, declared once in `services/gemini.js` and
+  overridable per call via `options.fallbackModels`. `generateContent()` walks the list, retrying
+  each model with backoff before falling through to the next, and logs when a fallback succeeds.
+  Several distinct `gemini-*` IDs in the source is therefore the design, not sprawl — a review
+  that counts IDs without reading the code will misreport this (one did). The only standing
+  caveat is the trailing `-latest` alias, which resolves to whatever Google ships; that is a
+  reasonable last resort, but would be a liability as the primary. Confirm the current chain with
+  `sed -n '18,23p' services/gemini.js` rather than trusting this list.
 - **Protection** — express-rate-limit (`aiChatLimiter`, `semanticSearchLimiter`,
   `questionSubmitLimiter`) plus domain verification.
 
