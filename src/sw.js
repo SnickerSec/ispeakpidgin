@@ -1,4 +1,4 @@
-const CACHE_NAME = 'chokepidgin-v3.0';
+const CACHE_NAME = 'chokepidgin-v3.1';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -58,6 +58,11 @@ self.addEventListener('fetch', (event) => {
 
   // Skip non-GET requests
   if (request.method !== 'GET') return;
+
+  // Let cross-origin requests pass through natively to the browser unless explicitly pre-cached
+  if (url.origin !== self.location.origin && !STATIC_ASSETS.includes(request.url)) {
+    return;
+  }
 
   // BYPASS TRACKING AND ANALYTICS COMPLETELY
   // Let the browser handle these natively without SW interference
