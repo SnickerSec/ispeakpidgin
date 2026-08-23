@@ -256,7 +256,7 @@ function generatePhrasePage(phrase, relatedPhrases, navigation, footer, dictiona
     const relatedHtml = relatedPhrases.length > 0 ? `
         <section class="mt-12 bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-xl border border-gray-100 dark:border-slate-700">
             <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6 flex items-center gap-2">
-                <i class="ti ti-link"></i> Related Pidgin Phrases
+                <iconify-icon icon="lucide:link"></iconify-icon> Related Pidgin Phrases
             </h2>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                 ${relatedPhrases.map(related => `
@@ -285,7 +285,7 @@ function generatePhrasePage(phrase, relatedPhrases, navigation, footer, dictiona
             <div class="flex flex-wrap gap-2 mt-4">
                 ${tagsArray.map(tag => `
                     <span class="inline-block bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm text-gray-700 dark:text-slate-300 rounded-full px-4 py-1 text-sm font-medium border dark:border-slate-700">
-                        <i class="ti ti-tag"></i> ${escapeHtml(tag)}
+                        <iconify-icon icon="lucide:tag"></iconify-icon> ${escapeHtml(tag)}
                     </span>
                 `).join('')}
             </div>
@@ -342,7 +342,7 @@ ${headContent}
                     </div>
                 </div>
                 <a href="${premiumLink}" class="whitespace-nowrap px-6 py-3 bg-orange-500 text-white rounded-xl font-bold hover:bg-orange-600 transition-all shadow-md">
-                    Read Full Guide <i class="ti ti-arrow-right"></i>
+                    Read Full Guide <iconify-icon icon="lucide:arrow-right"></iconify-icon>
                 </a>
             </div>
         </div>
@@ -356,7 +356,7 @@ ${headContent}
             ${phrase.pronunciation ? `
             <div class="mb-4">
                 <span class="inline-block bg-white/80 dark:bg-white/10 rounded-full px-6 py-2 text-lg text-gray-700 dark:text-slate-200 border border-transparent dark:border-white/10">
-                    <i class="ti ti-speakerphone"></i> <strong>Pronunciation:</strong> ${escapedPronunciation}
+                    <iconify-icon icon="lucide:megaphone"></iconify-icon> <strong>Pronunciation:</strong> ${escapedPronunciation}
                 </span>
             </div>
             ` : ''}
@@ -376,17 +376,17 @@ ${headContent}
 
             <div class="flex flex-wrap gap-4 mt-4">
                 <button id="speak-phrase" class="bg-gradient-to-r from-blue-500 to-teal-500 text-white px-8 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
-                    <i class="ti ti-volume"></i> Hear Pronunciation
+                    <iconify-icon icon="lucide:volume-2"></iconify-icon> Hear Pronunciation
                 </button>
                 <button id="download-audio" class="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-8 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
-                    <i class="ti ti-download"></i> Download MP3
+                    <iconify-icon icon="lucide:download"></iconify-icon> Download MP3
                 </button>
             </div>
         </div>
 
         <!-- Meaning Section -->
         <section class="bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border dark:border-slate-700">
-            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4"><i class="ti ti-book"></i> Meaning</h2>
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4"><iconify-icon icon="lucide:book-open"></iconify-icon> Meaning</h2>
             <div class="space-y-3">
                 <div class="flex items-start">
                     <span class="text-green-500 mr-2 text-xl">&bull;</span>
@@ -406,7 +406,7 @@ ${headContent}
 
         <!-- FAQ Section -->
         <section class="bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border dark:border-slate-700">
-            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6"><i class="ti ti-question-mark"></i> Frequently Asked Questions</h2>
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6"><iconify-icon icon="lucide:help-circle"></iconify-icon> Frequently Asked Questions</h2>
             <div class="space-y-4">
                 <div class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-5 border-l-4 border-blue-500">
                     <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">What does "${escapedPhrase}" mean in Hawaiian Pidgin?</h3>
@@ -432,12 +432,12 @@ ${headContent}
         <!-- Educational Corner -->
         <section class="mt-8 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-slate-800 dark:to-slate-900 rounded-2xl p-8 border border-blue-100 dark:border-slate-700 shadow-inner">
             <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6 flex items-center gap-2">
-                <i class="ti ti-school"></i> Pidgin & Local Culture Corner
+                <iconify-icon icon="lucide:graduation-cap"></iconify-icon> Pidgin & Local Culture Corner
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="bg-white/60 dark:bg-slate-700/50 backdrop-blur-sm rounded-xl p-6 border border-white dark:border-slate-600">
                     <h3 class="text-sm font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-3 flex items-center gap-2">
-                        <i class="ti ti-message-language"></i> Pidgin Grammar Tip
+                        <iconify-icon icon="lucide:languages"></iconify-icon> Pidgin Grammar Tip
                     </h3>
                     <p class="text-gray-700 dark:text-slate-200 leading-relaxed italic">
                         "${getGrammarTip()}"
@@ -445,7 +445,7 @@ ${headContent}
                 </div>
                 <div class="bg-white/60 dark:bg-slate-700/50 backdrop-blur-sm rounded-xl p-6 border border-white dark:border-slate-600">
                     <h3 class="text-sm font-bold text-purple-600 dark:text-purple-400 uppercase tracking-widest mb-3 flex items-center gap-2">
-                        <i class="ti ti-map-pin"></i> Local Culture Fact
+                        <iconify-icon icon="lucide:map-pin"></iconify-icon> Local Culture Fact
                     </h3>
                     <p class="text-gray-700 dark:text-slate-200 leading-relaxed italic">
                         "${getCulturalFact()}"
@@ -485,7 +485,7 @@ ${headContent}
             if (!btn) return;
             const originalHtml = btn.innerHTML;
             try {
-                btn.innerHTML = '<i class="ti ti-loader animate-spin"></i> Downloading...';
+                btn.innerHTML = '<iconify-icon icon="lucide:loader-2" class="animate-spin"></iconify-icon> Downloading...';
                 btn.disabled = true;
 
                 const supabaseStorageUrl = 'https://jfzgzjgdptowfbtljvyp.supabase.co/storage/v1/object/public/audio-assets';

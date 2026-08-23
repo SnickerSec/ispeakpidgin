@@ -175,12 +175,12 @@ function renderPhraseCard(phrase) {
             '<h3 class="text-xl font-bold text-purple-700">' + phrase.pidgin + '</h3>' +
             '<button onclick="event.preventDefault(); event.stopPropagation(); speakPhrase(\'' + phrase.pidgin.replace(/\\/g, "\\\\").replace(/'/g, "\\'") + '\')" ' +
                     'class="text-blue-500 hover:text-blue-700 p-1" title="Hear pronunciation">' +
-                '<i class="ti ti-volume"></i>' +
+                '<iconify-icon icon="lucide:volume-2"></iconify-icon>' +
             '</button>' +
         '</div>' +
         '<p class="text-gray-800 font-medium mb-1">' + phrase.english + '</p>' +
-        '<p class="text-sm text-gray-500"><i class="ti ti-speakerphone"></i> ' + phrase.pronunciation + '</p>' +
-        '<span class="text-xs text-purple-500 mt-2 inline-block">Learn more <i class="ti ti-arrow-right"></i></span>' +
+        '<p class="text-sm text-gray-500"><iconify-icon icon="lucide:megaphone"></iconify-icon> ' + phrase.pronunciation + '</p>' +
+        '<span class="text-xs text-purple-500 mt-2 inline-block">Learn more <iconify-icon icon="lucide:arrow-right"></iconify-icon></span>' +
     '</a>';
 }
 

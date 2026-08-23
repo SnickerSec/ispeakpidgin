@@ -259,14 +259,14 @@ class PidginScramble {
             this.stats.totalWords++;
             this.saveStats();
 
-            feedback.innerHTML = `<div class="text-green-600 font-bold text-lg"><i class="ti ti-check"></i> Correct! +${points + timeBonus} points</div>`;
+            feedback.innerHTML = `<div class="text-green-600 font-bold text-lg"><iconify-icon icon="lucide:check"></iconify-icon> Correct! +${points + timeBonus} points</div>`;
             document.querySelectorAll('.answer-slot').forEach(s => {
                 s.classList.add('border-green-500', 'text-green-700', 'bg-green-50');
             });
             this.showToast('Nice one, brah!');
         } else {
             this.streak = 0;
-            feedback.innerHTML = `<div class="text-red-600 font-bold text-lg"><i class="ti ti-x"></i> The word was: <span class="text-violet-700">${this.escapeHtml(this.currentWord.pidgin)}</span></div>`;
+            feedback.innerHTML = `<div class="text-red-600 font-bold text-lg"><iconify-icon icon="lucide:x"></iconify-icon> The word was: <span class="text-violet-700">${this.escapeHtml(this.currentWord.pidgin)}</span></div>`;
             document.querySelectorAll('.answer-slot').forEach(s => {
                 s.classList.add('border-red-400', 'text-red-600', 'bg-red-50');
             });
@@ -309,7 +309,7 @@ class PidginScramble {
     async submitScore() {
         const username = this.playerNameInput.value.trim() || 'Anonymous';
         this.submitScoreBtn.disabled = true;
-        this.submitScoreBtn.innerHTML = '<i class="ti ti-loader animate-spin"></i> Saving...';
+        this.submitScoreBtn.innerHTML = '<iconify-icon icon="lucide:loader-2" class="animate-spin"></iconify-icon> Saving...';
 
         try {
             const response = await fetch('/api/games/leaderboard', {

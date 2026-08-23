@@ -82,7 +82,7 @@ const UserAuth = {
                 container.innerHTML = `
                     <div class="flex items-center gap-3">
                         <a href="/my-collection.html" class="text-sm font-bold text-gray-700 hover:text-blue-600 transition flex items-center gap-1">
-                            <i class="ti ti-bookmarks"></i> Collection
+                            <iconify-icon icon="lucide:bookmark"></iconify-icon> Collection
                         </a>
                         <button onclick="UserAuth.logout()" class="text-xs text-gray-400 hover:text-red-500 transition">Logout</button>
                     </div>

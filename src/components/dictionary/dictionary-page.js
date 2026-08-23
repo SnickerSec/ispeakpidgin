@@ -373,7 +373,7 @@ function displayResults(entries, append = false) {
                     <button class="dict-fav-btn p-2 rounded-full hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors" 
                             data-word="${escapedId}" 
                             title="${isFav ? 'Remove from My Words' : 'Save to My Words'}">
-                        <i class="ti ${isFav ? 'ti-heart-filled text-red-500' : 'ti-heart text-gray-400 dark:text-slate-500'} text-lg"></i>
+                        <iconify-icon icon="lucide:heart" class="text-lg ${isFav ? 'text-red-500 fill-red-500' : 'text-gray-400 dark:text-slate-500'}"></iconify-icon>
                     </button>
                     <span class="text-xs px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-300 rounded-full font-bold">
                         ${escapedCategory}
@@ -401,14 +401,14 @@ function displayResults(entries, append = false) {
             <div class="flex gap-2 flex-wrap mt-auto">
                 <button class="dict-speak-btn text-xs px-3 py-2 bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-200 dark:hover:bg-blue-800/40 text-blue-700 dark:text-blue-300 rounded-full transition font-bold flex items-center gap-1"
                         data-text="${escapedAudioText}">
-                    <i class="ti ti-volume"></i> Listen
+                    <iconify-icon icon="lucide:volume-2"></iconify-icon> Listen
                 </button>
                 <a href="${entryPageUrl}" class="inline-block text-xs px-3 py-2 bg-green-100 dark:bg-green-900/30 hover:bg-green-200 dark:hover:bg-green-800/40 text-green-700 dark:text-green-300 rounded-full transition font-bold flex items-center gap-1">
-                    <i class="ti ti-book"></i> Full Page
+                    <iconify-icon icon="lucide:book-open"></iconify-icon> Full Page
                 </a>
                 <button class="dict-practice-btn text-xs px-3 py-2 bg-purple-100 dark:bg-purple-900/30 hover:bg-purple-200 dark:hover:bg-purple-800/40 text-purple-700 dark:text-purple-300 rounded-full transition font-bold flex items-center gap-1"
                         data-word="${escapedId}">
-                    <i class="ti ti-target"></i> Practice
+                    <iconify-icon icon="lucide:target"></iconify-icon> Practice
                 </button>
             </div>
         </div>
@@ -477,9 +477,9 @@ function addEntryEventListeners() {
             speakText(text);
 
             // Visual feedback
-            btn.innerHTML = '<i class="ti ti-volume"></i> Playing...';
+            btn.innerHTML = '<iconify-icon icon="lucide:volume-2"></iconify-icon> Playing...';
             setTimeout(() => {
-                btn.innerHTML = '<i class="ti ti-volume"></i> Listen';
+                btn.innerHTML = '<iconify-icon icon="lucide:volume-2"></iconify-icon> Listen';
             }, 2000);
         });
     });
@@ -513,12 +513,18 @@ function addEntryEventListeners() {
             const isAdded = window.favoritesManager.toggleFavorite(wordKey);
             
             // Update icon and title
-            const icon = btn.querySelector('i');
+            const icon = btn.querySelector('iconify-icon') || btn.querySelector('i');
             if (isAdded) {
-                icon.className = 'ti ti-heart-filled text-red-500 text-lg animate-bounce-subtle';
+                if (icon) {
+                    icon.setAttribute('icon', 'lucide:heart');
+                    icon.className = 'text-red-500 fill-red-500 text-lg animate-bounce-subtle';
+                }
                 btn.title = 'Remove from My Words';
             } else {
-                icon.className = 'ti ti-heart text-gray-400 text-lg';
+                if (icon) {
+                    icon.setAttribute('icon', 'lucide:heart');
+                    icon.className = 'text-gray-400 text-lg';
+                }
                 btn.title = 'Save to My Words';
             }
         });
@@ -587,7 +593,7 @@ function showWordDetails(wordKey) {
                         <button class="modal-fav-btn p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors" 
                                 data-word="${escapedWordKey}"
                                 title="${isFav ? 'Remove from My Words' : 'Save to My Words'}">
-                            <i class="ti ${isFav ? 'ti-heart-filled text-red-400' : 'ti-heart text-white'} text-2xl"></i>
+                            <iconify-icon icon="lucide:heart" class="${isFav ? 'text-red-400 fill-red-400' : 'text-white'} text-2xl"></iconify-icon>
                         </button>
                         <button class="close-modal text-white hover:text-purple-200 text-3xl font-bold">×</button>
                     </div>
@@ -600,12 +606,12 @@ function showWordDetails(wordKey) {
                 <!-- Pronunciation -->
                 <div class="bg-purple-50 rounded-xl p-6">
                     <h3 class="font-bold text-purple-800 mb-3 text-lg flex items-center">
-                        <i class="ti ti-speakerphone"></i> Pronunciation
+                        <iconify-icon icon="lucide:megaphone"></iconify-icon> Pronunciation
                     </h3>
                     <p class="text-2xl text-purple-700 font-mono">${displayEntry.pronunciation}</p>
                     <button class="mt-3 px-6 py-3 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition speak-word"
                             data-text="${displayEntry.pidgin}">
-                        <i class="ti ti-volume"></i> Hear Pronunciation
+                        <iconify-icon icon="lucide:volume-2"></iconify-icon> Hear Pronunciation
                     </button>
                 </div>
                 ` : ''}
@@ -614,14 +620,14 @@ function showWordDetails(wordKey) {
                 <!-- Examples -->
                 <div class="bg-blue-50 rounded-xl p-6">
                     <h3 class="font-bold text-blue-800 mb-3 text-lg flex items-center">
-                        <i class="ti ti-message"></i> Examples
+                        <iconify-icon icon="lucide:message-square"></iconify-icon> Examples
                     </h3>
                     ${displayEntry.examples.filter(ex => ex).map(example => `
                         <p class="text-xl italic text-blue-700 mb-3">"${example}"</p>
                     `).join('')}
                     <button class="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition speak-example"
                             data-text="${displayEntry.audioExample}">
-                        <i class="ti ti-volume"></i> Listen to Example
+                        <iconify-icon icon="lucide:volume-2"></iconify-icon> Listen to Example
                     </button>
                 </div>
                 ` : ''}
@@ -630,7 +636,7 @@ function showWordDetails(wordKey) {
                 <!-- Usage & Context -->
                 <div class="bg-green-50 rounded-xl p-6">
                     <h3 class="font-bold text-green-800 mb-3 text-lg flex items-center">
-                        <i class="ti ti-books"></i> Usage & Context
+                        <iconify-icon icon="lucide:book-open"></iconify-icon> Usage & Context
                     </h3>
                     <p class="text-green-700 text-lg">${displayEntry.usage}</p>
                 </div>
@@ -640,7 +646,7 @@ function showWordDetails(wordKey) {
                 <!-- Cultural Origin -->
                 <div class="bg-yellow-50 rounded-xl p-6">
                     <h3 class="font-bold text-yellow-800 mb-3 text-lg flex items-center">
-                        <i class="ti ti-flower"></i> Cultural Origin
+                        <iconify-icon icon="lucide:flower-2"></iconify-icon> Cultural Origin
                     </h3>
                     <p class="text-yellow-700 text-lg">${displayEntry.origin}</p>
                 </div>
@@ -649,7 +655,7 @@ function showWordDetails(wordKey) {
                 <!-- Category -->
                 <div class="bg-gray-50 rounded-xl p-6">
                     <h3 class="font-bold text-gray-800 mb-3 text-lg flex items-center">
-                        <i class="ti ti-tag"></i> Category
+                        <iconify-icon icon="lucide:tag"></iconify-icon> Category
                     </h3>
                     <span class="inline-block px-4 py-2 bg-purple-200 text-purple-800 rounded-full font-medium">
                         ${displayEntry.category}
@@ -662,11 +668,11 @@ function showWordDetails(wordKey) {
                 <div class="flex gap-4 justify-center flex-wrap">
                     <button class="px-8 py-4 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition font-semibold practice-word"
                             data-word="${escapedWordKey}">
-                        <i class="ti ti-target"></i> Practice This Word
+                        <iconify-icon icon="lucide:target"></iconify-icon> Practice This Word
                     </button>
                     <button class="px-8 py-4 bg-green-700 text-white rounded-full hover:bg-green-800 transition font-semibold translate-word"
                             data-text="${displayEntry.pidgin}">
-                        <i class="ti ti-refresh"></i> Use in Translator
+                        <iconify-icon icon="lucide:rotate-cw"></iconify-icon> Use in Translator
                     </button>
                     <button class="px-8 py-4 bg-gray-500 text-white rounded-full hover:bg-gray-600 transition font-semibold close-btn">
                         ✓ Got It!
@@ -699,25 +705,37 @@ function showWordDetails(wordKey) {
     // Favorite action
     favBtn.addEventListener('click', () => {
         const isAdded = window.favoritesManager.toggleFavorite(wordKey);
-        const icon = favBtn.querySelector('i');
+        const icon = favBtn.querySelector('iconify-icon') || favBtn.querySelector('i');
         
         if (isAdded) {
-            icon.className = 'ti ti-heart-filled text-red-400 text-2xl animate-bounce-subtle';
+            if (icon) {
+                icon.setAttribute('icon', 'lucide:heart');
+                icon.className = 'text-red-400 fill-red-400 text-2xl animate-bounce-subtle';
+            }
             favBtn.title = 'Remove from My Words';
         } else {
-            icon.className = 'ti ti-heart text-white text-2xl';
+            if (icon) {
+                icon.setAttribute('icon', 'lucide:heart');
+                icon.className = 'text-white text-2xl';
+            }
             favBtn.title = 'Save to My Words';
         }
 
         // Also update the card in the background if it exists
         const cardFavBtn = document.querySelector(`.dict-fav-btn[data-word="${wordKey}"]`);
         if (cardFavBtn) {
-            const cardIcon = cardFavBtn.querySelector('i');
+            const cardIcon = cardFavBtn.querySelector('iconify-icon') || cardFavBtn.querySelector('i');
             if (isAdded) {
-                cardIcon.className = 'ti ti-heart-filled text-red-500 text-lg';
+                if (cardIcon) {
+                    cardIcon.setAttribute('icon', 'lucide:heart');
+                    cardIcon.className = 'text-red-500 fill-red-500 text-lg';
+                }
                 cardFavBtn.title = 'Remove from My Words';
             } else {
-                cardIcon.className = 'ti ti-heart text-gray-400 text-lg';
+                if (cardIcon) {
+                    cardIcon.setAttribute('icon', 'lucide:heart');
+                    cardIcon.className = 'text-gray-400 text-lg';
+                }
                 cardFavBtn.title = 'Save to My Words';
             }
         }

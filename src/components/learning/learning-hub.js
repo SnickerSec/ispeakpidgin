@@ -197,14 +197,14 @@ class LearningHub {
                             ${isCompleted ?
                                 '<span class="text-green-600 dark:text-green-400 text-2xl font-bold">✓</span>' :
                                 isLocked ?
-                                '<span class="text-gray-400 dark:text-slate-500 text-2xl"><i class="ti ti-lock"></i></span>' :
+                                '<span class="text-gray-400 dark:text-slate-500 text-2xl"><iconify-icon icon="lucide:lock"></iconify-icon></span>' :
                                 '<span class="text-gray-400 dark:text-slate-500 text-2xl">○</span>'
                             }
                         </div>
                     </div>
                     <div class="flex justify-between items-center text-sm font-semibold">
                         <span class="text-gray-700 dark:text-slate-400 flex items-center gap-1">
-                            <i class="ti ti-stopwatch text-base"></i> ${lesson.duration}
+                            <iconify-icon icon="lucide:timer" class="text-base"></iconify-icon> ${lesson.duration}
                         </span>
                         <span class="text-blue-700 dark:text-blue-400 font-bold">+${lesson.points} points</span>
                     </div>
@@ -222,33 +222,33 @@ class LearningHub {
     playLessonAudio(key, btn) {
         if (!window.elevenLabsSpeech) return;
         
-        const icon = btn.querySelector('i');
-        const isPlaying = icon.classList.contains('ti-player-pause');
+        const icon = btn.querySelector('iconify-icon') || btn.querySelector('i');
+        const isPlaying = icon && icon.getAttribute('icon') === 'lucide:pause';
         
         window.elevenLabsSpeech.stop();
         
         if (isPlaying) {
-            icon.className = 'ti ti-player-play';
+            if (icon) icon.setAttribute('icon', 'lucide:play');
             return;
         }
 
         // Reset all play icons in the modal
-        document.querySelectorAll('.modal-play-btn i').forEach(i => i.className = 'ti ti-player-play');
-        icon.className = 'ti ti-player-pause';
+        document.querySelectorAll('.modal-play-btn iconify-icon, .modal-play-btn i').forEach(i => i.setAttribute('icon', 'lucide:play'));
+        if (icon) icon.setAttribute('icon', 'lucide:pause');
 
         // Check pregenerated index
         const filename = window.elevenLabsSpeech.pregeneratedIndex.get(key.toLowerCase());
         if (filename) {
             const url = 'https://jfzgzjgdptowfbtljvyp.supabase.co/storage/v1/object/public/audio-assets/' + filename;
             window.elevenLabsSpeech.speak(url, {
-                onEnd: () => icon.className = 'ti ti-player-play',
-                onError: () => icon.className = 'ti ti-player-play'
+                onEnd: () => { if (icon) icon.setAttribute('icon', 'lucide:play'); },
+                onError: () => { if (icon) icon.setAttribute('icon', 'lucide:play'); }
             });
         } else {
             // Fallback to TTS if not pre-generated
             window.elevenLabsSpeech.speak(key, {
-                onEnd: () => icon.className = 'ti ti-player-play',
-                onError: () => icon.className = 'ti ti-player-play'
+                onEnd: () => { if (icon) icon.setAttribute('icon', 'lucide:play'); },
+                onError: () => { if (icon) icon.setAttribute('icon', 'lucide:play'); }
             });
         }
     }
@@ -310,7 +310,7 @@ class LearningHub {
                                             <div class="flex items-center gap-2">
                                                 <span class="text-sm text-gray-500">[${escapeHtml(item.pronunciation)}]</span>
                                                 <button class="modal-play-btn p-1.5 bg-purple-100 text-purple-600 rounded-full hover:bg-purple-200 transition" data-audio-key="${escapeHtml(item.pidgin)}">
-                                                    <i class="ti ti-player-play"></i>
+                                                    <iconify-icon icon="lucide:play"></iconify-icon>
                                                 </button>
                                             </div>
                                         </div>
@@ -328,7 +328,7 @@ class LearningHub {
                                     <div class="bg-blue-50 rounded-lg p-3 flex justify-between items-center">
                                         <p class="italic">${escapeHtml(ex)}</p>
                                         <button class="modal-play-btn p-1.5 bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200 transition" data-audio-key="${escapeHtml(ex)}">
-                                            <i class="ti ti-player-play"></i>
+                                            <iconify-icon icon="lucide:play"></iconify-icon>
                                         </button>
                                     </div>
                                 `).join('')}
@@ -339,11 +339,11 @@ class LearningHub {
                     ${content.culturalNote ? `
                         <div class="mb-6 bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded flex justify-between items-start">
                             <div class="flex-1">
-                                <h3 class="text-sm font-semibold text-yellow-800 mb-1"><i class="ti ti-flower"></i> Cultural Note</h3>
+                                <h3 class="text-sm font-semibold text-yellow-800 mb-1"><iconify-icon icon="lucide:flower-2"></iconify-icon> Cultural Note</h3>
                                 <p class="text-sm text-yellow-700">${escapeHtml(content.culturalNote)}</p>
                             </div>
                             <button class="modal-play-btn ml-3 p-1.5 bg-yellow-100 text-yellow-600 rounded-full hover:bg-yellow-200 transition" data-audio-key="lesson:note:${lesson.id}">
-                                <i class="ti ti-player-play"></i>
+                                <iconify-icon icon="lucide:play"></iconify-icon>
                             </button>
                         </div>
                     ` : ''}
@@ -351,11 +351,11 @@ class LearningHub {
                     ${content.practice ? `
                         <div class="mb-6 bg-green-50 border-l-4 border-green-500 p-4 rounded flex justify-between items-start">
                             <div class="flex-1">
-                                <h3 class="text-sm font-semibold text-green-800 mb-1"><i class="ti ti-sparkles"></i> Practice Tip</h3>
+                                <h3 class="text-sm font-semibold text-green-800 mb-1"><iconify-icon icon="lucide:sparkles"></iconify-icon> Practice Tip</h3>
                                 <p class="text-sm text-green-700">${escapeHtml(content.practice)}</p>
                             </div>
                             <button class="modal-play-btn ml-3 p-1.5 bg-green-100 text-green-600 rounded-full hover:bg-green-200 transition" data-audio-key="lesson:practice:${lesson.id}">
-                                <i class="ti ti-player-play"></i>
+                                <iconify-icon icon="lucide:play"></iconify-icon>
                             </button>
                         </div>
                     ` : ''}
@@ -523,15 +523,15 @@ class LearningHub {
 
                 <div class="space-y-3">
                     <button class="level-btn w-full p-4 bg-green-100 hover:bg-green-200 rounded-lg text-left transition" data-level="beginner">
-                        <div class="font-bold text-green-700"><i class="ti ti-plant"></i> Beginner</div>
+                        <div class="font-bold text-green-700"><iconify-icon icon="lucide:leaf"></iconify-icon> Beginner</div>
                         <div class="text-sm text-green-600">Basic greetings, food, and everyday phrases</div>
                     </button>
                     <button class="level-btn w-full p-4 bg-yellow-100 hover:bg-yellow-200 rounded-lg text-left transition" data-level="intermediate">
-                        <div class="font-bold text-yellow-700"><i class="ti ti-star"></i> Intermediate</div>
+                        <div class="font-bold text-yellow-700"><iconify-icon icon="lucide:star"></iconify-icon> Intermediate</div>
                         <div class="text-sm text-yellow-600">Complex sentences and local slang</div>
                     </button>
                     <button class="level-btn w-full p-4 bg-purple-100 hover:bg-purple-200 rounded-lg text-left transition" data-level="advanced">
-                        <div class="font-bold text-purple-700"><i class="ti ti-trophy"></i> Advanced</div>
+                        <div class="font-bold text-purple-700"><iconify-icon icon="lucide:trophy"></iconify-icon> Advanced</div>
                         <div class="text-sm text-purple-600">Cultural nuances and grammar patterns</div>
                     </button>
                 </div>
@@ -719,13 +719,13 @@ class LearningHub {
 
         if (percentage >= 80) {
             message = 'Excellent work!';
-            emoji = '<i class="ti ti-confetti"></i>';
+            emoji = '<iconify-icon icon="lucide:party-popper"></iconify-icon>';
         } else if (percentage >= 60) {
             message = 'Good job!';
-            emoji = '<i class="ti ti-thumb-up"></i>';
+            emoji = '<iconify-icon icon="lucide:thumbs-up"></iconify-icon>';
         } else {
             message = 'Keep practicing!';
-            emoji = '<i class="ti ti-barbell"></i>';
+            emoji = '<iconify-icon icon="lucide:dumbbell"></iconify-icon>';
         }
 
         const modal = document.createElement('div');

@@ -108,7 +108,7 @@
         if (!notifyBtn) return;
         
         if (isEnabled) {
-            notifyBtn.innerHTML = '<i class="ti ti-bell-ringing"></i> Notifications On';
+            notifyBtn.innerHTML = '<iconify-icon icon="lucide:bell-ring"></iconify-icon> Notifications On';
             notifyBtn.classList.remove('bg-blue-100', 'text-blue-700');
             notifyBtn.classList.add('bg-green-100', 'text-green-700');
         }
@@ -149,7 +149,7 @@
         // New word button (changed to "Random Word" in deterministic mode)
         var newBtn = document.getElementById('new-wod');
         if (newBtn) {
-            newBtn.innerHTML = '<i class="ti ti-arrows-shuffle"></i> Random Word';
+            newBtn.innerHTML = '<iconify-icon icon="lucide:shuffle"></iconify-icon> Random Word';
             newBtn.addEventListener('click', function() {
                 window.location.href = '/dictionary.html?random=true';
             });

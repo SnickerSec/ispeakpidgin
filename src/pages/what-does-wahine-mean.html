@@ -86,13 +86,13 @@
                 Hear "Wahine" Pronounced
             </button>
             <button class="download-btn mt-4 md:mt-0 md:ml-4 bg-red-700 text-white border-2 border-white px-8 py-4 rounded-full text-lg font-bold hover:bg-red-800 transition shadow-xl" data-word="wahine">
-                <i class="ti ti-download"></i> Download MP3
+                <iconify-icon icon="lucide:download"></iconify-icon> Download MP3
             </button>
             <button id="share-image-btn" data-word="wahine" class="mt-4 md:mt-0 md:ml-4 bg-white text-purple-700 border-2 border-white px-8 py-4 rounded-full text-lg font-bold hover:bg-purple-50 transition shadow-xl">
-                <i class="ti ti-camera"></i> Share as Image
+                <iconify-icon icon="lucide:camera"></iconify-icon> Share as Image
             </button>
             <button id="download-audio" data-word="wahine" class="mt-4 md:mt-0 md:ml-4 bg-red-700 text-white border-2 border-white px-8 py-4 rounded-full text-lg font-bold hover:bg-red-800 transition shadow-xl">
-                <i class="ti ti-download"></i> Download MP3
+                <iconify-icon icon="lucide:download"></iconify-icon> Download MP3
             </button>
         </div>
     </section>
@@ -257,7 +257,7 @@
             const btn = document.getElementById('share-image-btn');
             const word = btn.getAttribute('data-word');
             const originalHtml = btn.innerHTML;
-            btn.innerHTML = '<i class="ti ti-loader animate-spin"></i> Generating...';
+            btn.innerHTML = '<iconify-icon icon="lucide:loader-2" class="animate-spin"></iconify-icon> Generating...';
             btn.disabled = true;
 
             try {

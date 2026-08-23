@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ` : ''}
                 <div class="mt-4 flex justify-end">
                     <a href="/word/${slugify(item.pidgin)}.html" class="text-xs font-bold text-gray-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition flex items-center gap-1">
-                        VIEW DETAILS <i class="ti ti-arrow-right"></i>
+                        VIEW DETAILS <iconify-icon icon="lucide:arrow-right"></iconify-icon>
                     </a>
                 </div>
             </div>

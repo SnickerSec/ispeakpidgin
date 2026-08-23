@@ -172,7 +172,7 @@ function generateStoryPage(story, allStories, navigation, footer) {
     const relatedStories = findRelatedStories(story, allStories);
     const relatedHtml = relatedStories.length > 0 ? `
         <section class="mt-12 bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border dark:border-slate-700">
-            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6"><i class="ti ti-books"></i> Related Stories</h2>
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6"><iconify-icon icon="lucide:book-open"></iconify-icon> Related Stories</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 ${relatedStories.map(rs => {
                     const rsSlug = createSlug(rs.title);
@@ -193,13 +193,13 @@ function generateStoryPage(story, allStories, navigation, footer) {
     // Vocabulary grid HTML
     const vocabularyHtml = vocabulary.length > 0 ? `
         <section class="mt-12 bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border dark:border-slate-700">
-            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6"><i class="ti ti-vocabulary"></i> Vocabulary</h2>
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6"><iconify-icon icon="lucide:book-a"></iconify-icon> Vocabulary</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 ${vocabulary.map(v => `
                     <div class="bg-gradient-to-br from-green-50 to-teal-50 dark:from-green-900/30 dark:to-teal-900/30 rounded-xl p-4 border-2 border-green-200 dark:border-green-800/50">
                         <h3 class="font-bold text-lg text-green-700 dark:text-green-400 mb-1">${escapeHtml(v.pidgin || '')}</h3>
                         <p class="text-gray-700 dark:text-slate-300 mb-1">${escapeHtml(v.english || '')}</p>
-                        ${v.pronunciation ? `<p class="text-sm text-gray-500 dark:text-slate-500 italic"><i class="ti ti-speakerphone"></i> ${escapeHtml(v.pronunciation)}</p>` : ''}
+                        ${v.pronunciation ? `<p class="text-sm text-gray-500 dark:text-slate-500 italic"><iconify-icon icon="lucide:megaphone"></iconify-icon> ${escapeHtml(v.pronunciation)}</p>` : ''}
                     </div>
                 `).join('')}
             </div>
@@ -208,7 +208,7 @@ function generateStoryPage(story, allStories, navigation, footer) {
     // Cultural notes HTML
     const culturalNotesHtml = story.cultural_notes ? `
         <section class="mt-12 bg-white rounded-2xl p-8 mb-8 shadow-xl">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4"><i class="ti ti-flower"></i> Cultural Notes</h2>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4"><iconify-icon icon="lucide:flower-2"></iconify-icon> Cultural Notes</h2>
             <div class="bg-gradient-to-r from-orange-50 to-pink-50 rounded-xl p-6 border-l-4 border-orange-500">
                 <p class="text-lg text-gray-700">${escapeHtml(story.cultural_notes)}</p>
             </div>
@@ -271,13 +271,13 @@ ${headContent}
 ${tagsBadgesHtml}
 
             <button id="speak-title" class="bg-gradient-to-r from-blue-500 to-teal-500 text-white px-8 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
-                <i class="ti ti-volume"></i> Listen to Story Title
+                <iconify-icon icon="lucide:volume-2"></iconify-icon> Listen to Story Title
             </button>
         </div>
 
         <!-- Pidgin Story Text -->
         <section class="bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border dark:border-slate-700">
-            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4"><i class="ti ti-book"></i> Story in Pidgin</h2>
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4"><iconify-icon icon="lucide:book-open"></iconify-icon> Story in Pidgin</h2>
             <blockquote class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-6 border-l-4 border-blue-500">
                 <p class="text-lg text-gray-800 dark:text-slate-200 leading-relaxed whitespace-pre-line">${escapeHtml(story.content_pidgin || '')}</p>
             </blockquote>
@@ -285,7 +285,7 @@ ${tagsBadgesHtml}
 
         <!-- English Translation (Collapsible) -->
         <section class="bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border dark:border-slate-700">
-            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4"><i class="ti ti-language"></i> English Translation</h2>
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4"><iconify-icon icon="lucide:languages"></iconify-icon> English Translation</h2>
             <button id="toggle-translation" class="bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg mb-4">
                 Show English Translation
             </button>
@@ -304,7 +304,7 @@ ${culturalNotesHtml}
 
         <!-- FAQ Section -->
         <section class="bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border dark:border-slate-700">
-            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6"><i class="ti ti-question-mark"></i> Frequently Asked Questions</h2>
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6"><iconify-icon icon="lucide:help-circle"></iconify-icon> Frequently Asked Questions</h2>
             <div class="space-y-4">
                 <div class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-5 border-l-4 border-blue-500">
                     <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">What is the story "${escapeHtml(capitalizedTitle)}" about?</h3>

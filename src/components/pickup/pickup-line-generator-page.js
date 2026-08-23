@@ -273,9 +273,9 @@
             locationResults.classList.add('hidden');
 
             // Visual feedback
-            this.innerHTML = '<i class="ti ti-sparkles"></i>';
+            this.innerHTML = '<iconify-icon icon="lucide:sparkles"></iconify-icon>';
             setTimeout(() => {
-                this.innerHTML = '<i class="ti ti-dice"></i>';
+                this.innerHTML = '<iconify-icon icon="lucide:dices"></iconify-icon>';
             }, 500);
         });
 
@@ -379,13 +379,13 @@
         // Set badge
         if (resultBadge) {
             if (line.type === 'howzit-grindz') {
-                resultBadge.innerHTML = '<i class="ti ti-map-pin"></i> 808 Mode';
+                resultBadge.innerHTML = '<iconify-icon icon="lucide:map-pin"></iconify-icon> 808 Mode';
                 resultBadge.className = 'badge badge-ai';
             } else if (line.aiGenerated || line.type === 'ai-generated') {
-                resultBadge.innerHTML = '<i class="ti ti-robot"></i> AI Generated';
+                resultBadge.innerHTML = '<iconify-icon icon="lucide:bot"></iconify-icon> AI Generated';
                 resultBadge.className = 'badge badge-ai';
             } else {
-                resultBadge.innerHTML = '<i class="ti ti-dice"></i> Random Mix';
+                resultBadge.innerHTML = '<iconify-icon icon="lucide:dices"></iconify-icon> Random Mix';
                 resultBadge.className = 'badge badge-random';
             }
         }
@@ -458,7 +458,7 @@
         if (!currentLine) return;
         const btn = document.getElementById('share-image-btn');
         const originalHtml = btn.innerHTML;
-        btn.innerHTML = '<i class="ti ti-loader animate-spin"></i> Generating...';
+        btn.innerHTML = '<iconify-icon icon="lucide:loader-2" class="animate-spin"></iconify-icon> Generating...';
         btn.disabled = true;
 
         try {
@@ -487,7 +487,7 @@
             // Update button to show loading state
             if (speakBtn) {
                 speakBtn.disabled = true;
-                speakBtn.innerHTML = '<i class="ti ti-player-pause"></i> Playing...';
+                speakBtn.innerHTML = '<iconify-icon icon="lucide:pause"></iconify-icon> Playing...';
             }
 
             // Use ElevenLabs speech if available, otherwise fallback to browser TTS
@@ -513,7 +513,7 @@
             // Reset button
             if (speakBtn) {
                 speakBtn.disabled = false;
-                speakBtn.innerHTML = '<i class="ti ti-volume"></i> Listen';
+                speakBtn.innerHTML = '<iconify-icon icon="lucide:volume-2"></iconify-icon> Listen';
             }
         }
     }
@@ -555,7 +555,7 @@
         if (resultContainer) {
             resultContainer.innerHTML = `
                 <div class="bg-red-50 border-2 border-red-300 rounded-2xl p-6 text-center">
-                    <p class="text-red-700 text-lg font-semibold mb-2"><i class="ti ti-alert-triangle"></i> Oops!</p>
+                    <p class="text-red-700 text-lg font-semibold mb-2"><iconify-icon icon="lucide:alert-triangle"></iconify-icon> Oops!</p>
                     <p class="text-red-600">${message}</p>
                 </div>
             `;

@@ -250,15 +250,15 @@
     <!-- Header -->
     <header class="py-12 px-4 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 text-white relative overflow-hidden">
         <div class="absolute inset-0 opacity-20">
-            <div class="absolute top-10 left-10 text-6xl emoji-float"><i class="ti ti-sparkles"></i></div>
-            <div class="absolute top-20 right-20 text-5xl emoji-float" style="animation-delay: 0.5s"><i class="ti ti-hearts"></i></div>
-            <div class="absolute bottom-20 left-20 text-5xl emoji-float" style="animation-delay: 1s"><i class="ti ti-flower"></i></div>
-            <div class="absolute bottom-10 right-10 text-4xl emoji-float" style="animation-delay: 1.5s"><i class="ti ti-robot"></i></div>
+            <div class="absolute top-10 left-10 text-6xl emoji-float"><iconify-icon icon="lucide:sparkles"></iconify-icon></div>
+            <div class="absolute top-20 right-20 text-5xl emoji-float" style="animation-delay: 0.5s"><iconify-icon icon="lucide:heart-handshake"></iconify-icon></div>
+            <div class="absolute bottom-20 left-20 text-5xl emoji-float" style="animation-delay: 1s"><iconify-icon icon="lucide:flower-2"></iconify-icon></div>
+            <div class="absolute bottom-10 right-10 text-4xl emoji-float" style="animation-delay: 1.5s"><iconify-icon icon="lucide:bot"></iconify-icon></div>
         </div>
 
         <div class="container mx-auto max-w-6xl text-center relative z-10">
             <h1 class="text-2xl md:text-5xl font-bold mb-4 whitespace-nowrap">
-                <i class="ti ti-sparkles"></i> Pidgin Pickup Line Generator <i class="ti ti-robot"></i>
+                <iconify-icon icon="lucide:sparkles"></iconify-icon> Pidgin Pickup Line Generator <iconify-icon icon="lucide:bot"></iconify-icon>
             </h1>
             <p class="text-xl md:text-2xl mb-2">
                 AI-Powered Custom Pickup Line Creation
@@ -275,7 +275,7 @@
             <!-- Generator Card -->
             <div class="generator-card rounded-3xl p-8 mb-8">
                 <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 text-center">
-                    <i class="ti ti-dice"></i> Create Your Pickup Line
+                    <iconify-icon icon="lucide:dices"></iconify-icon> Create Your Pickup Line
                 </h2>
 
                 <!-- Context Selection -->
@@ -283,7 +283,7 @@
                     <label class="block text-sm font-semibold text-gray-700 mb-3">Choose Your Style:</label>
                     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
                         <button class="context-btn active px-4 py-3 rounded-xl bg-white" data-context="romantic">
-                            <i class="ti ti-hearts"></i> Romantic
+                            <iconify-icon icon="lucide:heart-handshake"></iconify-icon> Romantic
                         </button>
                         <button class="context-btn px-4 py-3 rounded-xl bg-white" data-context="funny">
                             😄 Funny
@@ -292,10 +292,10 @@
                             🍯 Sweet
                         </button>
                         <button class="context-btn px-4 py-3 rounded-xl bg-white" data-context="bold">
-                            <i class="ti ti-flame"></i> Bold
+                            <iconify-icon icon="lucide:flame"></iconify-icon> Bold
                         </button>
                         <button class="context-btn px-4 py-3 rounded-xl bg-white" data-context="classic">
-                            <i class="ti ti-sparkles"></i> Classic
+                            <iconify-icon icon="lucide:sparkles"></iconify-icon> Classic
                         </button>
                         <button class="context-btn px-4 py-3 rounded-xl bg-white" data-context="cringe">
                             😬 Cringe
@@ -310,7 +310,7 @@
                         <button id="mode-random" class="context-btn active px-6 py-4 rounded-xl bg-white text-left">
                             <div class="flex items-center justify-between">
                                 <div>
-                                    <div class="font-bold"><i class="ti ti-dice"></i> Random Mix</div>
+                                    <div class="font-bold"><iconify-icon icon="lucide:dices"></iconify-icon> Random Mix</div>
                                     <div class="text-xs text-gray-600">Fast • Component-based</div>
                                 </div>
                             </div>
@@ -318,7 +318,7 @@
                         <button id="mode-howzit" class="context-btn px-6 py-4 rounded-xl bg-white text-left">
                             <div class="flex items-center justify-between">
                                 <div>
-                                    <div class="font-bold"><i class="ti ti-map-pin"></i> 808 Mode</div>
+                                    <div class="font-bold"><iconify-icon icon="lucide:map-pin"></iconify-icon> 808 Mode</div>
                                     <div class="text-xs text-gray-600">Contextual • Gemini AI</div>
                                 </div>
                             </div>
@@ -326,7 +326,7 @@
                         <button id="mode-ai" class="context-btn px-6 py-4 rounded-xl bg-white text-left">
                             <div class="flex items-center justify-between">
                                 <div>
-                                    <div class="font-bold"><i class="ti ti-robot"></i> AI Generated</div>
+                                    <div class="font-bold"><iconify-icon icon="lucide:bot"></iconify-icon> AI Generated</div>
                                     <div class="text-xs text-gray-600">Creative • Unique • Slower</div>
                                 </div>
                             </div>
@@ -336,7 +336,7 @@
 
                 <!-- 808 Mode Options (Hidden by default) -->
                 <div id="howzit-options" class="hidden mb-6 p-6 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-2xl border-2 border-orange-200">
-                    <h3 class="text-lg font-bold text-orange-900 mb-4"><i class="ti ti-map-pin"></i> 808 Mode - Cringe Pickup Line Generator</h3>
+                    <h3 class="text-lg font-bold text-orange-900 mb-4"><iconify-icon icon="lucide:map-pin"></iconify-icon> 808 Mode - Cringe Pickup Line Generator</h3>
 
                     <!-- Step 1: Gender Selection -->
                     <div class="mb-4">
@@ -389,20 +389,20 @@
                                 class="text-2xl hover:scale-110 transition disabled:opacity-50"
                                 title="Random location"
                                 disabled
-                            ><i class="ti ti-dice"></i></button>
+                            ><iconify-icon icon="lucide:dices"></iconify-icon></button>
                         </div>
                     </div>
 
                     <div class="bg-white p-3 rounded-lg border border-orange-300">
                         <p class="text-xs text-gray-600">
-                            <i class="ti ti-bulb"></i> <strong>How it works:</strong> Pick your target, choose what you like do, and select one spot. We go generate one cringey but hilarious pickup line wit local flavor!
+                            <iconify-icon icon="lucide:lightbulb"></iconify-icon> <strong>How it works:</strong> Pick your target, choose what you like do, and select one spot. We go generate one cringey but hilarious pickup line wit local flavor!
                         </p>
                     </div>
                 </div>
 
                 <!-- Generate Button -->
                 <button id="generate-btn" class="generate-btn w-full py-4 rounded-2xl text-white text-xl font-bold shadow-lg">
-                    <i class="ti ti-sparkles"></i> Generate Pickup Line
+                    <iconify-icon icon="lucide:sparkles"></iconify-icon> Generate Pickup Line
                 </button>
 
                 <p class="text-center text-sm text-gray-600 mt-4">
@@ -421,13 +421,13 @@
             <div id="result-container" class="hidden">
                 <div class="result-card bg-white rounded-3xl shadow-2xl p-8 border-4 border-pink-300">
                     <div class="flex items-start justify-between mb-4">
-                        <span id="result-badge" class="badge badge-random"><i class="ti ti-dice"></i> Random Mix</span>
+                        <span id="result-badge" class="badge badge-random"><iconify-icon icon="lucide:dices"></iconify-icon> Random Mix</span>
                         <div class="flex gap-2">
                             <button id="speak-btn" class="share-btn bg-gradient-to-r from-green-500 to-teal-500 text-white px-4 py-2 rounded-full text-sm font-semibold" title="Listen to pronunciation">
-                                <i class="ti ti-volume"></i> Listen
+                                <iconify-icon icon="lucide:volume-2"></iconify-icon> Listen
                             </button>
                             <button id="share-btn" class="share-btn bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
-                                <i class="ti ti-link"></i> Share
+                                <iconify-icon icon="lucide:link"></iconify-icon> Share
                             </button>
                         </div>
                     </div>
@@ -446,19 +446,19 @@
 
                     <div id="cultural-note" class="hidden bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg mb-4">
                         <p class="text-sm text-blue-900">
-                            <strong><i class="ti ti-bulb"></i> Cultural Note:</strong> <span id="cultural-note-text"></span>
+                            <strong><iconify-icon icon="lucide:lightbulb"></iconify-icon> Cultural Note:</strong> <span id="cultural-note-text"></span>
                         </p>
                     </div>
 
                     <div class="flex gap-3 flex-wrap">
                         <button id="regenerate-btn" class="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:shadow-lg transition">
-                            <i class="ti ti-dice"></i> Generate Another
+                            <iconify-icon icon="lucide:dices"></iconify-icon> Generate Another
                         </button>
                         <button id="copy-btn" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-xl font-semibold transition">
-                            <i class="ti ti-clipboard"></i> Copy Text
+                            <iconify-icon icon="lucide:clipboard"></iconify-icon> Copy Text
                         </button>
                         <button id="share-image-btn" class="px-6 py-3 bg-white text-purple-600 border-2 border-purple-100 rounded-xl font-semibold hover:shadow-lg transition">
-                            <i class="ti ti-camera"></i> Share Image
+                            <iconify-icon icon="lucide:camera"></iconify-icon> Share Image
                         </button>
                     </div>
                 </div>
@@ -476,10 +476,10 @@
     <!-- How It Works -->
     <section class="py-12 px-4 bg-white">
         <div class="container mx-auto max-w-4xl">
-            <h2 class="text-3xl font-bold text-center mb-8">How It Works <i class="ti ti-mood-puzzled"></i></h2>
+            <h2 class="text-3xl font-bold text-center mb-8">How It Works <iconify-icon icon="lucide:help-circle"></iconify-icon></h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-6 border-2 border-pink-200">
-                    <h3 class="text-xl font-bold mb-3"><i class="ti ti-dice"></i> Random Mix Mode</h3>
+                    <h3 class="text-xl font-bold mb-3"><iconify-icon icon="lucide:dices"></iconify-icon> Random Mix Mode</h3>
                     <ul class="space-y-2 text-gray-700">
                         <li>✓ Combines authentic Pidgin components</li>
                         <li>✓ Thousands of unique combinations</li>
@@ -488,7 +488,7 @@
                     </ul>
                 </div>
                 <div class="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-6 border-2 border-purple-200">
-                    <h3 class="text-xl font-bold mb-3"><i class="ti ti-robot"></i> AI Generated Mode</h3>
+                    <h3 class="text-xl font-bold mb-3"><iconify-icon icon="lucide:bot"></iconify-icon> AI Generated Mode</h3>
                     <ul class="space-y-2 text-gray-700">
                         <li>✓ Powered by Google Gemini AI</li>
                         <li>✓ Completely original lines</li>
@@ -510,7 +510,7 @@
                 Explore our handpicked collection of Hawaii's favorite Pidgin pickup lines, complete with difficulty, frequency, and local tips!
             </p>
             <a href="pickup-lines.html" class="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-full hover:from-purple-700 hover:to-pink-700 transition shadow-lg">
-                <i class="ti ti-hearts"></i> View Curated Pickup Lines
+                <iconify-icon icon="lucide:heart-handshake"></iconify-icon> View Curated Pickup Lines
             </a>
         </div>
     </section>

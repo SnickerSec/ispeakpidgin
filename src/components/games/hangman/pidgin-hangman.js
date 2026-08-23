@@ -244,7 +244,7 @@ class PidginHangman {
         const resultLink = document.getElementById('result-link');
 
         if (resultTitle) {
-            resultTitle.innerHTML = won ? '<i class="ti ti-confetti"></i> You Got It!' : '<i class="ti ti-mood-sad"></i> Game Over';
+            resultTitle.innerHTML = won ? '<iconify-icon icon="lucide:party-popper"></iconify-icon> You Got It!' : '<iconify-icon icon="lucide:frown"></iconify-icon> Game Over';
             resultTitle.className = `text-2xl font-bold mb-2 ${won ? 'text-green-600' : 'text-red-600'}`;
         }
 

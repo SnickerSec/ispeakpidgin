@@ -238,7 +238,7 @@ class AskLocalPageManager {
         const submitBtn = document.getElementById('submit-question-btn');
         const originalText = submitBtn.innerHTML;
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="ti ti-loader animate-spin"></span> Sending...';
+        submitBtn.innerHTML = '<iconify-icon icon="lucide:loader-2" class="animate-spin"></iconify-icon> Sending...';
 
         try {
             const headers = { 'Content-Type': 'application/json' };
@@ -256,9 +256,9 @@ class AskLocalPageManager {
 
             const data = await response.json();
 
-            let feedbackMsg = 'Your question has been submitted! Locals will respond soon. <i class="ti ti-flower"></i>';
+            let feedbackMsg = 'Your question has been submitted! Locals will respond soon. <iconify-icon icon="lucide:flower-2"></iconify-icon>';
             if (data.ai_response) {
-                feedbackMsg = '<b>Instant Answer!</b> Kimo (AI) just responded to your question below. <i class="ti ti-robot"></i>';
+                feedbackMsg = '<b>Instant Answer!</b> Kimo (AI) just responded to your question below. <iconify-icon icon="lucide:bot"></iconify-icon>';
             }
             if (data.xp && data.xp.xp_awarded) {
                 feedbackMsg += `<br><span class="text-xs font-bold text-blue-500">+${data.xp.xp_awarded} XP earned!</span>`;
@@ -453,15 +453,15 @@ class AskLocalPageManager {
             const isAiSuggested = q.status === 'ai_suggested';
             
             let statusClass = 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300';
-            let statusText = '<i class="ti ti-hourglass"></i> Pending Response';
+            let statusText = '<iconify-icon icon="lucide:hourglass"></iconify-icon> Pending Response';
             
             if (hasResponses) {
                 if (isAiSuggested && q.responses.every(r => r.is_ai)) {
                     statusClass = 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300';
-                    statusText = '<i class="ti ti-robot"></i> AI Suggested';
+                    statusText = '<iconify-icon icon="lucide:bot"></iconify-icon> AI Suggested';
                 } else {
                     statusClass = 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
-                    statusText = '<i class="ti ti-circle-check"></i> Answered';
+                    statusText = '<iconify-icon icon="lucide:check-circle"></iconify-icon> Answered';
                 }
             }
 
@@ -480,9 +480,9 @@ class AskLocalPageManager {
                             <div class="flex-1">
                                 <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">${this.escapeHtml(questionText)}</h3>
                                 <div class="flex items-center gap-3 text-sm text-gray-500 dark:text-slate-400">
-                                    <span class="whitespace-nowrap"><i class="ti ti-user"></i> ${this.escapeHtml(userName)}</span>
+                                    <span class="whitespace-nowrap"><iconify-icon icon="lucide:user"></iconify-icon> ${this.escapeHtml(userName)}</span>
                                     <span class="whitespace-nowrap">•</span>
-                                    <span class="whitespace-nowrap"><i class="ti ti-calendar"></i> ${this.formatDate(timestamp)}</span>
+                                    <span class="whitespace-nowrap"><iconify-icon icon="lucide:calendar"></iconify-icon> ${this.formatDate(timestamp)}</span>
                                     <span class="${statusClass} px-3 py-1 rounded-full font-medium whitespace-nowrap border dark:border-slate-700">${statusText}</span>
                                 </div>
                             </div>
@@ -492,7 +492,7 @@ class AskLocalPageManager {
 
                         <div class="mt-4 pt-4 border-t border-gray-100 dark:border-slate-700">
                             <button class="respond-btn text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium" data-question-id="${safeId}">
-                                <i class="ti ti-message"></i> ${hasResponses ? 'Add Another Response' : 'Respond to Question'}
+                                <iconify-icon icon="lucide:message-square"></iconify-icon> ${hasResponses ? 'Add Another Response' : 'Respond to Question'}
                             </button>
                         </div>
                     </div>
@@ -507,7 +507,7 @@ class AskLocalPageManager {
     renderResponses(responses) {
         return `
             <div class="bg-green-50 dark:bg-green-900/10 rounded-lg p-4 mt-4 border border-green-200 dark:border-green-800/50">
-                <h4 class="font-semibold text-green-800 dark:text-green-400 mb-3"><i class="ti ti-flower"></i> Local Responses:</h4>
+                <h4 class="font-semibold text-green-800 dark:text-green-400 mb-3"><iconify-icon icon="lucide:flower-2"></iconify-icon> Local Responses:</h4>
                 <div class="space-y-3">
                     ${responses.map(r => {
                         const safeResponseId = this.escapeAttr(r.id);
@@ -526,10 +526,10 @@ class AskLocalPageManager {
                             <div class="flex items-center gap-3 text-sm text-gray-500 dark:text-slate-500">
                                 <span class="whitespace-nowrap"><span class="text-lg mr-1">${avatar}</span> ${this.escapeHtml(responderName)}</span>
                                 <span class="whitespace-nowrap">•</span>
-                                <span class="whitespace-nowrap"><i class="ti ti-calendar"></i> ${this.formatDate(timestamp)}</span>
+                                <span class="whitespace-nowrap"><iconify-icon icon="lucide:calendar"></iconify-icon> ${this.formatDate(timestamp)}</span>
                                 ${!isAi ? `
                                 <button class="helpful-btn text-green-600 dark:text-green-500 hover:text-green-800 dark:hover:text-green-400 ml-2 whitespace-nowrap" data-response-id="${safeResponseId}">
-                                    <i class="ti ti-thumb-up"></i> Helpful (${helpfulCount})
+                                    <iconify-icon icon="lucide:thumbs-up"></iconify-icon> Helpful (${helpfulCount})
                                 </button>` : '<span class="text-xs bg-blue-50 text-blue-600 px-2 py-0.5 rounded ml-2">AI Suggestion</span>'}
                             </div>
                         </div>
@@ -637,7 +637,7 @@ class AskLocalPageManager {
 
         try {
             this.addResponseToQuestion(questionId, responderName, responseText);
-            this.showResponseFeedback(questionId, 'Thank you for sharing your local knowledge! <i class="ti ti-flower"></i>', 'success');
+            this.showResponseFeedback(questionId, 'Thank you for sharing your local knowledge! <iconify-icon icon="lucide:flower-2"></iconify-icon>', 'success');
 
             setTimeout(() => {
                 this.hideResponseForm(questionId);

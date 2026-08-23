@@ -333,11 +333,11 @@ class PidginWordle {
 
     handleWin() {
         const messages = [
-            'Chee hoo! <i class="ti ti-flower"></i>',
-            'Rajah! You got em! <i class="ti ti-hand-love-you"></i>',
-            'Das it! You da champion! <i class="ti ti-trophy"></i>',
-            'Broke da mouth! <i class="ti ti-number-100-small"></i>',
-            'You stay local! <i class="ti ti-palm-tree"></i>'
+            'Chee hoo! <iconify-icon icon="lucide:flower-2"></iconify-icon>',
+            'Rajah! You got em! <iconify-icon icon="lucide:heart"></iconify-icon>',
+            'Das it! You da champion! <iconify-icon icon="lucide:trophy"></iconify-icon>',
+            'Broke da mouth! <iconify-icon icon="tabler:number-100-small"></iconify-icon>',
+            'You stay local! <iconify-icon icon="lucide:palmtree"></iconify-icon>'
         ];
 
         const randomMessage = messages[Math.floor(Math.random() * messages.length)];
@@ -566,7 +566,7 @@ class PidginWordle {
     async submitScore() {
         const username = this.playerNameInput.value.trim() || 'Anonymous';
         this.submitScoreBtn.disabled = true;
-        this.submitScoreBtn.innerHTML = '<i class="ti ti-loader animate-spin"></i> Saving...';
+        this.submitScoreBtn.innerHTML = '<iconify-icon icon="lucide:loader-2" class="animate-spin"></iconify-icon> Saving...';
 
         try {
             // We use guess count as the "score" but lower is better
@@ -671,7 +671,7 @@ class PidginWordle {
     fallbackShare(text) {
         // Copy to clipboard
         navigator.clipboard.writeText(text).then(() => {
-            this.showToast('Results copied to clipboard! <i class="ti ti-clipboard"></i>');
+            this.showToast('Results copied to clipboard! <iconify-icon icon="lucide:clipboard"></iconify-icon>');
         }).catch(err => {
             // If clipboard fails, show the text in an alert
             alert(text);

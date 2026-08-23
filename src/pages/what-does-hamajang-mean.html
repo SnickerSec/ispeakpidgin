@@ -88,22 +88,22 @@
     <section class="bg-gradient-to-r from-rose-600 to-pink-600 text-white py-16 px-4">
         <div class="container mx-auto max-w-4xl text-center">
             <h1 class="text-4xl md:text-6xl font-bold mb-6">
-                What Does "Hamajang" Mean? <i class="ti ti-tornado"></i>
+                What Does "Hamajang" Mean? <iconify-icon icon="lucide:wind"></iconify-icon>
             </h1>
             <p class="text-xl md:text-2xl mb-8 opacity-90">
                 Hawaii's Term for Messed Up, Disorganized, or Out of Order
             </p>
             <button id="pronounce-word" data-word="hamajang" class="pronounce-btn bg-white text-rose-700 px-8 py-4 rounded-full text-lg font-bold hover:bg-rose-50 transition shadow-xl">
-                <i class="ti ti-volume"></i> Hear "Hamajang" Pronounced
+                <iconify-icon icon="lucide:volume-2"></iconify-icon> Hear "Hamajang" Pronounced
             </button>
             <button class="download-btn mt-4 md:mt-0 md:ml-4 bg-red-700 text-white border-2 border-white px-8 py-4 rounded-full text-lg font-bold hover:bg-red-800 transition shadow-xl" data-word="hamajang">
-                <i class="ti ti-download"></i> Download MP3
+                <iconify-icon icon="lucide:download"></iconify-icon> Download MP3
             </button>
             <button id="share-image-btn" data-word="hamajang" class="mt-4 md:mt-0 md:ml-4 bg-white text-purple-700 border-2 border-white px-8 py-4 rounded-full text-lg font-bold hover:bg-purple-50 transition shadow-xl">
-                <i class="ti ti-camera"></i> Share as Image
+                <iconify-icon icon="lucide:camera"></iconify-icon> Share as Image
             </button>
             <button id="download-audio" data-word="hamajang" class="mt-4 md:mt-0 md:ml-4 bg-red-700 text-white border-2 border-white px-8 py-4 rounded-full text-lg font-bold hover:bg-red-800 transition shadow-xl">
-                <i class="ti ti-download"></i> Download MP3
+                <iconify-icon icon="lucide:download"></iconify-icon> Download MP3
             </button>
         </div>
     </section>
@@ -121,7 +121,7 @@
 
         <!-- Pronunciation Guide -->
         <section class="mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6"><i class="ti ti-speakerphone"></i> How to Pronounce "Hamajang"</h2>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6"><iconify-icon icon="lucide:megaphone"></iconify-icon> How to Pronounce "Hamajang"</h2>
             <div class="bg-rose-50 p-6 rounded-lg">
                 <div class="text-center mb-4">
                     <span class="text-4xl font-bold text-rose-600">hah-mah-JAHNG</span>
@@ -141,7 +141,7 @@
 
         <!-- Meaning & Origins -->
         <section class="mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6"><i class="ti ti-book"></i> The Meaning Behind "Hamajang"</h2>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6"><iconify-icon icon="lucide:book-open"></iconify-icon> The Meaning Behind "Hamajang"</h2>
 
             <div class="space-y-6">
                 <div class="flex items-start gap-4">
@@ -179,7 +179,7 @@
 
         <!-- Usage Examples -->
         <section class="mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6"><i class="ti ti-message"></i> How to Use "Hamajang" - Real Examples</h2>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6"><iconify-icon icon="lucide:message-square"></iconify-icon> How to Use "Hamajang" - Real Examples</h2>
 
             <div class="grid md:grid-cols-2 gap-4">
                 <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-rose-500">
@@ -252,17 +252,17 @@
 
         <!-- Similar Terms -->
         <section class="mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6"><i class="ti ti-refresh"></i> "Hamajang" vs Similar Terms</h2>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6"><iconify-icon icon="lucide:rotate-cw"></iconify-icon> "Hamajang" vs Similar Terms</h2>
 
             <div class="bg-gradient-to-r from-rose-50 to-pink-50 p-6 rounded-lg">
                 <div class="grid md:grid-cols-3 gap-4">
                     <div class="text-center">
-                        <div class="text-3xl mb-2"><i class="ti ti-tornado"></i></div>
+                        <div class="text-3xl mb-2"><iconify-icon icon="lucide:wind"></iconify-icon></div>
                         <h3 class="font-bold text-rose-700 mb-1">Hamajang</h3>
                         <p class="text-gray-700 text-sm">Disorganized, chaotic, messy</p>
                     </div>
                     <div class="text-center">
-                        <div class="text-3xl mb-2"><i class="ti ti-bomb"></i></div>
+                        <div class="text-3xl mb-2"><iconify-icon icon="lucide:bomb"></iconify-icon></div>
                         <h3 class="font-bold text-pink-700 mb-1">Buss Up</h3>
                         <p class="text-gray-700 text-sm">Broken, damaged, destroyed</p>
                     </div>
@@ -278,7 +278,7 @@
 
         <!-- Related Terms -->
         <section class="mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6"><i class="ti ti-link"></i> Related Hawaiian Pidgin Terms</h2>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6"><iconify-icon icon="lucide:link"></iconify-icon> Related Hawaiian Pidgin Terms</h2>
 
             <div class="grid md:grid-cols-3 gap-4">
                 <a href="what-does-buss-up-mean.html" class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition">
@@ -338,7 +338,7 @@
             const btn = document.getElementById('share-image-btn');
             const word = btn.getAttribute('data-word');
             const originalHtml = btn.innerHTML;
-            btn.innerHTML = '<i class="ti ti-loader animate-spin"></i> Generating...';
+            btn.innerHTML = '<iconify-icon icon="lucide:loader-2" class="animate-spin"></iconify-icon> Generating...';
             btn.disabled = true;
 
             try {

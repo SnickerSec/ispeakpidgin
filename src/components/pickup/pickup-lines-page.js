@@ -2,13 +2,13 @@
 var pickupLines = [];
 
 var categoryStyles = {
-    romantic: { color: 'pink', emoji: '<i class="ti ti-hearts"></i>' },
+    romantic: { color: 'pink', emoji: '<iconify-icon icon="lucide:heart-handshake"></iconify-icon>' },
     food: { color: 'orange', emoji: '🍜' },
     funny: { color: 'yellow', emoji: '😂' },
-    bold: { color: 'red', emoji: '<i class="ti ti-flame"></i>' },
-    sweet: { color: 'purple', emoji: '<i class="ti ti-flower"></i>' },
-    classic: { color: 'green', emoji: '<i class="ti ti-palm-tree"></i>' },
-    default: { color: 'blue', emoji: '<i class="ti ti-hand-love-you"></i>' }
+    bold: { color: 'red', emoji: '<iconify-icon icon="lucide:flame"></iconify-icon>' },
+    sweet: { color: 'purple', emoji: '<iconify-icon icon="lucide:flower-2"></iconify-icon>' },
+    classic: { color: 'green', emoji: '<iconify-icon icon="lucide:palmtree"></iconify-icon>' },
+    default: { color: 'blue', emoji: '<iconify-icon icon="lucide:heart"></iconify-icon>' }
 };
 
 var favorites = JSON.parse(localStorage.getItem('favoritePickupLines') || '[]');
@@ -57,14 +57,14 @@ function displayPickupLines(lines, showingFavorites) {
             '<div class="flex items-start justify-between mb-3">' +
                 '<span class="text-4xl emoji-float">' + style.emoji + '</span>' +
                 '<button class="favorite-btn text-2xl ' + (isFav ? 'active' : '') + '" data-id="' + line.id + '" title="' + (isFav ? 'Remove from favorites' : 'Add to favorites') + '">' +
-                    (isFav ? '<i class="ti ti-heart-filled" style="color:#ef4444"></i>' : '<i class="ti ti-heart"></i>') +
+                    (isFav ? '<iconify-icon icon="lucide:heart" style="color:#ef4444"></iconify-icon>' : '<iconify-icon icon="lucide:heart"></iconify-icon>') +
                 '</button>' +
             '</div>' +
             '<a href="/pickup/' + slug + '.html" class="block">' +
                 '<p class="text-xl font-bold text-gray-800 mb-2">"' + line.pidgin + '"</p>' +
                 '<p class="text-gray-600 italic text-sm mb-3">' + (line.pronunciation || '') + '</p>' +
                 '<p class="text-gray-700 font-medium">' + line.english + '</p>' +
-                '<span class="text-xs text-purple-500 mt-2 inline-block">Learn more <i class="ti ti-arrow-right"></i></span>' +
+                '<span class="text-xs text-purple-500 mt-2 inline-block">Learn more <iconify-icon icon="lucide:arrow-right"></iconify-icon></span>' +
             '</a>' +
         '</div>';
     }).join('');
@@ -78,7 +78,7 @@ function displayPickupLines(lines, showingFavorites) {
                 showFavorites();
             } else {
                 var fav = isFavorite(id);
-                this.innerHTML = fav ? '<i class="ti ti-heart-filled" style="color:#ef4444"></i>' : '<i class="ti ti-heart"></i>';
+                this.innerHTML = fav ? '<iconify-icon icon="lucide:heart" style="color:#ef4444"></iconify-icon>' : '<iconify-icon icon="lucide:heart"></iconify-icon>';
                 this.classList.toggle('active', fav);
             }
         });

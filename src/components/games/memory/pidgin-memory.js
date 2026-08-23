@@ -161,7 +161,7 @@ class PidginMemory {
             cardEl.innerHTML = `
                 <div class="card-inner w-full h-full relative">
                     <div class="card-back absolute inset-0 bg-gradient-to-br from-emerald-400 to-cyan-500 rounded-xl flex items-center justify-center text-white text-2xl md:text-3xl">
-                        <i class="ti ti-question-mark"></i>
+                        <iconify-icon icon="lucide:help-circle"></iconify-icon>
                     </div>
                     <div class="card-front absolute inset-0 bg-white border-2 rounded-xl flex items-center justify-center p-2 hidden overflow-hidden ${card.type === 'pidgin' ? 'border-emerald-400 text-emerald-700' : 'border-cyan-400 text-cyan-700'}">
                         <span class="text-[10px] md:text-xs font-bold leading-tight break-words text-center uppercase">${card.text}</span>

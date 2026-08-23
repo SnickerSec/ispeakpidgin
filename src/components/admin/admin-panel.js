@@ -282,22 +282,22 @@
                         ${hasAudio ? 
                             `<div class="flex items-center gap-2">
                                 <span class="flex items-center gap-1 text-green-600 dark:text-green-400 text-xs font-bold">
-                                    <i class="ti ti-circle-check"></i> Ready
+                                    <iconify-icon icon="lucide:check-circle"></iconify-icon> Ready
                                 </span>
                                 <button data-action="play-audio" data-url="${audioUrl}" class="p-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded hover:bg-blue-100 dark:hover:bg-blue-900/50 transition" title="Play">
-                                    <i class="ti ti-player-play"></i>
+                                    <iconify-icon icon="lucide:play"></iconify-icon>
                                 </button>
                                 <button data-action="upload-audio" data-id="${entryId}" data-pidgin="${pidgin}" class="p-1 bg-gray-50 dark:bg-slate-700 text-gray-600 dark:text-slate-300 rounded hover:bg-gray-100 dark:hover:bg-slate-600 transition" title="Replace">
-                                    <i class="ti ti-upload"></i>
+                                    <iconify-icon icon="lucide:upload"></iconify-icon>
                                 </button>
                             </div>` : 
                             `<div class="flex items-center gap-2">
                                 <span class="text-red-400 dark:text-red-300 text-xs font-medium italic">Missing</span>
                                 <button data-action="auto-gen-audio" data-id="${entryId}" class="p-1.5 bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/50 border border-purple-200 dark:border-purple-800 transition flex items-center gap-1 text-[10px] font-bold" title="Auto-generate with ElevenLabs">
-                                    <i class="ti ti-wand"></i> GENERATE
+                                    <iconify-icon icon="lucide:wand-2"></iconify-icon> GENERATE
                                 </button>
                                 <button data-action="upload-audio" data-id="${entryId}" data-pidgin="${pidgin}" class="p-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded hover:bg-blue-100 dark:hover:bg-blue-900/50 transition" title="Upload Manual">
-                                    <i class="ti ti-upload"></i>
+                                    <iconify-icon icon="lucide:upload"></iconify-icon>
                                 </button>
                             </div>`
                         }
@@ -305,7 +305,7 @@
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <div class="flex justify-end gap-2">
                             <button data-action="delete-entry" data-id="${entryId}" data-pidgin="${pidgin}"
-                                    class="text-gray-400 dark:text-slate-500 hover:text-red-600 dark:hover:text-red-400 p-1.5 transition"><i class="ti ti-trash"></i></button>
+                                    class="text-gray-400 dark:text-slate-500 hover:text-red-600 dark:hover:text-red-400 p-1.5 transition"><iconify-icon icon="lucide:trash-2"></iconify-icon></button>
                         </div>
                     </td>
                 </tr>
@@ -1110,16 +1110,16 @@
                             <div class="flex gap-2">
                                 <button data-action="suggest-gap" data-pidgin="${term}"
                                         class="flex-1 bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 px-2 py-1 rounded hover:bg-purple-100 dark:hover:bg-purple-900/50 transition text-xs font-bold border border-purple-200 dark:border-purple-800/50">
-                                    <i class="ti ti-wand"></i> Suggest
+                                    <iconify-icon icon="lucide:wand-2"></iconify-icon> Suggest
                                 </button>
                                 <button data-action="add-gap-btn" data-id="${escapedId}" data-pidgin="${term}"
                                         class="flex-1 bg-green-700 text-white px-2 py-1 rounded hover:bg-green-800 transition text-xs font-bold shadow-sm">
-                                    <i class="ti ti-plus"></i> Add
+                                    <iconify-icon icon="lucide:plus"></iconify-icon> Add
                                 </button>
                             </div>
                             <button data-action="ignore-gap" data-id="${escapedId}"
                                     class="w-full bg-gray-100 dark:bg-slate-900 text-gray-600 dark:text-slate-400 px-2 py-1 rounded hover:bg-gray-200 dark:hover:bg-slate-800 transition text-xs border border-gray-200 dark:border-slate-700">
-                                <i class="ti ti-trash"></i> Ignore Gap
+                                <iconify-icon icon="lucide:trash-2"></iconify-icon> Ignore Gap
                             </button>
                         </div>
                     </td>

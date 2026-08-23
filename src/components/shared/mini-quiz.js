@@ -78,14 +78,14 @@ class MiniQuiz {
                 data-index="${index}"
             >
                 <span>${this.escapeHtml(option.text || option)}</span>
-                <i class="ti ti-chevron-right opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                <iconify-icon icon="lucide:chevron-right" class="opacity-0 group-hover:opacity-100 transition-opacity"></iconify-icon>
             </button>
         `).join('');
 
         this.container.innerHTML = `
             <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-xl border-2 border-blue-100 dark:border-blue-900/30 relative overflow-hidden transition-all duration-500" id="mini-quiz-card">
                 <div class="absolute top-0 right-0 p-3 opacity-20">
-                    <i class="ti ti-bulb text-6xl text-blue-600 dark:text-blue-400"></i>
+                    <iconify-icon icon="lucide:lightbulb" class="text-6xl text-blue-600 dark:text-blue-400"></iconify-icon>
                 </div>
                 
                 <div class="flex items-center gap-2 mb-4">
@@ -143,14 +143,14 @@ class MiniQuiz {
             feedbackContainer.classList.add('bg-green-600', 'text-white');
             feedbackMessage.innerHTML = '🤙 Shoots! Correct!';
             selectedBtn.classList.add('border-green-500', 'bg-green-100', 'text-green-800');
-            selectedBtn.innerHTML += '<i class="ti ti-circle-check text-green-600 text-xl"></i>';
+            selectedBtn.innerHTML += '<iconify-icon icon="lucide:check-circle" class="text-green-600 text-xl"></iconify-icon>';
         } else {
             card.classList.remove('border-blue-100');
             card.classList.add('border-red-400', 'bg-red-50');
             feedbackContainer.classList.add('bg-red-600', 'text-white');
             feedbackMessage.innerHTML = '❌ Aww, not quite!';
             selectedBtn.classList.add('border-red-500', 'bg-red-100', 'text-red-800');
-            selectedBtn.innerHTML += '<i class="ti ti-circle-x text-red-600 text-xl"></i>';
+            selectedBtn.innerHTML += '<iconify-icon icon="lucide:x-circle" class="text-red-600 text-xl"></iconify-icon>';
             
             // Highlight correct answer
             const correctIndex = this.question.correctAnswer !== undefined 

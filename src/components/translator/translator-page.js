@@ -288,7 +288,7 @@ async function performTranslation() {
     if (!text) return;
 
     // Show loading indicator
-    outputDiv.innerHTML = '<p class="text-gray-400 italic animate-pulse"><i class="ti ti-refresh animate-spin"></i> Translating with AI...</p>';
+    outputDiv.innerHTML = '<p class="text-gray-400 italic animate-pulse"><iconify-icon icon="lucide:rotate-cw" class="animate-spin"></iconify-icon> Translating with AI...</p>';
     confidenceIndicator?.classList.add('hidden');
 
     // Determine direction and tone
@@ -387,7 +387,7 @@ function displayTranslationResult(result, originalText, direction) {
 
         if (meta.explanation) {
             outputHTML += `<div class="mb-3 bg-indigo-50 p-3 rounded-lg border-l-4 border-indigo-400">
-                <p class="text-xs font-bold text-indigo-800 mb-1 uppercase tracking-wider"><i class="ti ti-info-circle"></i> AI Breakdown:</p>
+                <p class="text-xs font-bold text-indigo-800 mb-1 uppercase tracking-wider"><iconify-icon icon="lucide:info"></iconify-icon> AI Breakdown:</p>
                 <p class="text-sm text-indigo-900 leading-relaxed">${escapeHtml(meta.explanation)}</p>
             </div>`;
         }
@@ -395,14 +395,14 @@ function displayTranslationResult(result, originalText, direction) {
         // ... rest of metadata ...
         if (meta.usage) {
             outputHTML += `<div class="mb-3">
-                <span class="text-xs font-semibold text-blue-800"><i class="ti ti-bulb"></i> Usage Note:</span>
+                <span class="text-xs font-semibold text-blue-800"><iconify-icon icon="lucide:lightbulb"></iconify-icon> Usage Note:</span>
                 <p class="text-sm text-gray-700 mt-1">${escapeHtml(meta.usage)}</p>
             </div>`;
         }
 
         if (meta.examples && meta.examples.length > 0) {
             outputHTML += '<div class="mt-3">';
-            outputHTML += '<p class="text-xs font-semibold text-purple-800 mb-2"><i class="ti ti-note"></i> Examples:</p>';
+            outputHTML += '<p class="text-xs font-semibold text-purple-800 mb-2"><iconify-icon icon="lucide:sticky-note"></iconify-icon> Examples:</p>';
             meta.examples.slice(0, 2).forEach(example => {
                 outputHTML += `<p class="text-sm italic text-gray-600 mb-1">"${escapeHtml(example)}"</p>`;
             });
@@ -756,12 +756,12 @@ function setupVoiceInput() {
             recognition.start();
             isListening = true;
             micBtn.classList.add('text-red-600', 'animate-pulse');
-            micBtn.innerHTML = '<i class="ti ti-circle-filled"></i> Listening...';
+            micBtn.innerHTML = '<iconify-icon icon="lucide:circle"></iconify-icon> Listening...';
         } else {
             recognition.stop();
             isListening = false;
             micBtn.classList.remove('text-red-600', 'animate-pulse');
-            micBtn.innerHTML = '<i class="ti ti-microphone"></i> Voice Input';
+            micBtn.innerHTML = '<iconify-icon icon="lucide:mic"></iconify-icon> Voice Input';
         }
     });
 
@@ -791,7 +791,7 @@ function setupVoiceInput() {
         console.error('Speech recognition error:', event.error);
         isListening = false;
         micBtn.classList.remove('text-red-600', 'animate-pulse');
-        micBtn.innerHTML = '<i class="ti ti-microphone"></i> Voice Input';
+        micBtn.innerHTML = '<iconify-icon icon="lucide:mic"></iconify-icon> Voice Input';
 
         if (event.error === 'not-allowed') {
             alert('Please allow microphone access to use voice input');
@@ -801,7 +801,7 @@ function setupVoiceInput() {
     recognition.onend = () => {
         isListening = false;
         micBtn.classList.remove('text-red-600', 'animate-pulse');
-        micBtn.innerHTML = '<i class="ti ti-microphone"></i> Voice Input';
+        micBtn.innerHTML = '<iconify-icon icon="lucide:mic"></iconify-icon> Voice Input';
     };
 }
 

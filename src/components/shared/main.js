@@ -204,7 +204,7 @@ async function initDailyPhrase() {
         generateBtn.addEventListener('click', async () => {
             // Show loading state
             const originalText = generateBtn.innerHTML;
-            generateBtn.innerHTML = '<i class="ti ti-hourglass"></i> Generating...';
+            generateBtn.innerHTML = '<iconify-icon icon="lucide:hourglass"></iconify-icon> Generating...';
             generateBtn.disabled = true;
             generateBtn.style.transform = 'scale(0.95)';
 
@@ -447,7 +447,7 @@ function initTranslator() {
                 const suggestionsEl = document.createElement('div');
                 suggestionsEl.className = 'suggestions-box mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200';
                 suggestionsEl.innerHTML = `
-                    <div class="text-sm font-semibold text-blue-800 mb-2"><i class="ti ti-bulb"></i> Suggestions:</div>
+                    <div class="text-sm font-semibold text-blue-800 mb-2"><iconify-icon icon="lucide:lightbulb"></iconify-icon> Suggestions:</div>
                     ${result.suggestions.map(suggestion =>
                         `<div class="text-sm text-blue-700 mb-1">• ${escapeHtml(suggestion)}</div>`
                     ).join('')}
@@ -1152,7 +1152,7 @@ function showFullStory(storyId) {
             <div class="bg-gradient-to-r from-orange-500 to-red-500 dark:from-orange-700 dark:to-red-800 text-white p-8 rounded-t-2xl">
                 <div class="flex justify-between items-start">
                     <div>
-                        <span class="text-4xl mb-2 block"><i class="ti ti-book"></i></span>
+                        <span class="text-4xl mb-2 block"><iconify-icon icon="lucide:book-open"></iconify-icon></span>
                         <h2 class="text-3xl font-bold mb-2">${escapeHtml(story.title)}</h2>
                         <p class="text-orange-100 text-lg">Hawaiian Pidgin Short Story</p>
                     </div>
@@ -1171,10 +1171,10 @@ function showFullStory(storyId) {
             <div class="p-8 border-t dark:border-slate-700 bg-gray-50 dark:bg-slate-900 rounded-b-2xl">
                 <div class="flex gap-4 justify-center flex-wrap">
                     <button class="px-8 py-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition font-semibold listen-story shadow-lg">
-                        <i class="ti ti-volume"></i> Listen to Story
+                        <iconify-icon icon="lucide:volume-2"></iconify-icon> Listen to Story
                     </button>
                     <button class="px-8 py-4 bg-green-700 text-white rounded-full hover:bg-green-800 transition font-semibold share-story shadow-lg">
-                        <i class="ti ti-share"></i> Share Story
+                        <iconify-icon icon="lucide:share-2"></iconify-icon> Share Story
                     </button>
                     <button class="px-8 py-4 bg-gray-500 text-white rounded-full hover:bg-gray-600 transition font-semibold close-btn shadow-lg">
                         ✓ Close
@@ -1204,9 +1204,9 @@ function showFullStory(storyId) {
     // Listen to story
     listenBtn.addEventListener('click', () => {
         speakText(story.pidginText);
-        listenBtn.innerHTML = '<i class="ti ti-volume"></i> Playing...';
+        listenBtn.innerHTML = '<iconify-icon icon="lucide:volume-2"></iconify-icon> Playing...';
         setTimeout(() => {
-            listenBtn.innerHTML = '<i class="ti ti-volume"></i> Listen to Story';
+            listenBtn.innerHTML = '<iconify-icon icon="lucide:volume-2"></iconify-icon> Listen to Story';
         }, 3000);
     });
 
@@ -1223,7 +1223,7 @@ function showFullStory(storyId) {
             navigator.clipboard.writeText(`${story.title}\n\n${story.pidginText}\n\nFrom ChokePidgin.com`).then(() => {
                 shareBtn.innerHTML = '✓ Copied!';
                 setTimeout(() => {
-                    shareBtn.innerHTML = '<i class="ti ti-share"></i> Share Story';
+                    shareBtn.innerHTML = '<iconify-icon icon="lucide:share-2"></iconify-icon> Share Story';
                 }, 2000);
             });
         }
@@ -1269,7 +1269,7 @@ function showAllStories() {
     backToTopDiv.className = 'text-center mt-6';
     backToTopDiv.innerHTML = `
         <button id="back-to-top-btn" class="bg-orange-400 text-white px-6 py-3 rounded-full hover:bg-orange-800 transition font-semibold">
-            <i class="ti ti-arrow-up"></i> Back to Top
+            <iconify-icon icon="lucide:arrow-up"></iconify-icon> Back to Top
         </button>
     `;
     storiesContainer.appendChild(backToTopDiv);
@@ -1336,7 +1336,7 @@ async function initStoryCorner() {
 
         storyCard.innerHTML = `
             <div class="mb-4">
-                <span class="text-3xl dark:text-orange-400"><i class="ti ti-book"></i></span>
+                <span class="text-3xl dark:text-orange-400"><iconify-icon icon="lucide:book-open"></iconify-icon></span>
             </div>
             <h4 class="text-xl font-bold text-gray-800 dark:text-white mb-2">${escapeHtml(story.title)}</h4>
             <p class="text-gray-600 dark:text-slate-400 italic line-clamp-3">${escapeHtml(preview)}</p>
@@ -1358,7 +1358,7 @@ async function initStoryCorner() {
     refreshButton.className = 'col-span-full text-center mt-6';
     refreshButton.innerHTML = `
         <button id="refresh-stories" class="bg-green-700 text-white px-6 py-3 rounded-full hover:bg-green-800 transition font-semibold shadow-lg">
-            <i class="ti ti-dice"></i> Show Different Stories
+            <iconify-icon icon="lucide:dices"></iconify-icon> Show Different Stories
         </button>
     `;
     storyCorner.appendChild(refreshButton);
@@ -1389,7 +1389,7 @@ function showStoryModal(story) {
             <div class="bg-gradient-to-r from-green-500 to-teal-500 dark:from-emerald-700 dark:to-teal-800 text-white p-8 rounded-t-2xl">
                 <div class="flex justify-between items-start">
                     <div>
-                        <span class="text-4xl mb-2 block"><i class="ti ti-books"></i></span>
+                        <span class="text-4xl mb-2 block"><iconify-icon icon="lucide:book-open"></iconify-icon></span>
                         <h2 class="text-3xl font-bold mb-2">${escapeHtml(story.title || 'Hawaiian Pidgin Story')}</h2>
                         <p class="text-green-100 text-lg">Pidgin Story Corner</p>
                     </div>
@@ -1406,7 +1406,7 @@ function showStoryModal(story) {
                 <!-- Story Actions -->
                 <div class="mt-8 pt-6 border-t dark:border-slate-700 flex justify-between items-center">
                     <button class="speak-story bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition shadow-lg">
-                        <i class="ti ti-volume"></i> Listen to Story
+                        <iconify-icon icon="lucide:volume-2"></iconify-icon> Listen to Story
                     </button>
                     <button class="close-btn bg-gray-500 text-white px-6 py-2 rounded-full hover:bg-gray-600 transition shadow-lg">
                         Close

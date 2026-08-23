@@ -53,16 +53,16 @@
                 The Hawaiian Word for Grandchild
             </p>
             <button id="pronounce-word" data-word="moopuna" class="pronounce-btn bg-white text-amber-700 px-8 py-4 rounded-full text-lg font-bold hover:bg-amber-50 transition shadow-xl">
-                <i class="ti ti-volume"></i> Hear "Mo'opuna" Pronounced
+                <iconify-icon icon="lucide:volume-2"></iconify-icon> Hear "Mo'opuna" Pronounced
             </button>
             <button class="download-btn mt-4 md:mt-0 md:ml-4 bg-red-700 text-white border-2 border-white px-8 py-4 rounded-full text-lg font-bold hover:bg-red-800 transition shadow-xl" data-word="moopuna">
-                <i class="ti ti-download"></i> Download MP3
+                <iconify-icon icon="lucide:download"></iconify-icon> Download MP3
             </button>
             <button id="share-image-btn" data-word="moopuna" class="mt-4 md:mt-0 md:ml-4 bg-white text-purple-700 border-2 border-white px-8 py-4 rounded-full text-lg font-bold hover:bg-purple-50 transition shadow-xl">
-                <i class="ti ti-camera"></i> Share as Image
+                <iconify-icon icon="lucide:camera"></iconify-icon> Share as Image
             </button>
             <button id="download-audio" data-word="moopuna" class="mt-4 md:mt-0 md:ml-4 bg-red-700 text-white border-2 border-white px-8 py-4 rounded-full text-lg font-bold hover:bg-red-800 transition shadow-xl">
-                <i class="ti ti-download"></i> Download MP3
+                <iconify-icon icon="lucide:download"></iconify-icon> Download MP3
             </button>
         </div>
     </section>
@@ -80,7 +80,7 @@
 
         <!-- Pronunciation Guide -->
         <section class="mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6"><i class="ti ti-speakerphone"></i> How to Pronounce "Mo'opuna"</h2>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6"><iconify-icon icon="lucide:megaphone"></iconify-icon> How to Pronounce "Mo'opuna"</h2>
             <div class="bg-amber-50 p-6 rounded-lg">
                 <div class="text-center mb-4">
                     <span class="text-4xl font-bold text-amber-600">moh-oh-POO-nah</span>
@@ -101,7 +101,7 @@
 
         <!-- Meaning & Origins -->
         <section class="mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6"><i class="ti ti-book"></i> The Meaning Behind "Mo'opuna"</h2>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6"><iconify-icon icon="lucide:book-open"></iconify-icon> The Meaning Behind "Mo'opuna"</h2>
 
             <div class="space-y-6">
                 <div class="flex items-start gap-4">
@@ -139,7 +139,7 @@
 
         <!-- Usage Examples -->
         <section class="mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6"><i class="ti ti-message"></i> How "Mo'opuna" is Used</h2>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6"><iconify-icon icon="lucide:message-square"></iconify-icon> How "Mo'opuna" is Used</h2>
 
             <div class="grid md:grid-cols-2 gap-4">
                 <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-amber-500">
@@ -190,13 +190,13 @@
 
         <!-- The Kupuna-Mo'opuna Bond -->
         <section class="mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6"><i class="ti ti-hearts"></i> The Sacred Kupuna-Mo'opuna Bond</h2>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6"><iconify-icon icon="lucide:heart-handshake"></iconify-icon> The Sacred Kupuna-Mo'opuna Bond</h2>
 
             <div class="bg-gradient-to-r from-amber-50 to-orange-50 p-6 rounded-lg">
                 <p class="text-gray-700 mb-4">In Hawaiian tradition, the relationship between kupuna (grandparents) and mo'opuna (grandchildren) is especially significant:</p>
                 <div class="grid md:grid-cols-2 gap-4">
                     <div class="bg-white p-4 rounded-lg">
-                        <h3 class="font-bold text-amber-700 mb-2"><i class="ti ti-flower"></i> What Kupuna Pass Down</h3>
+                        <h3 class="font-bold text-amber-700 mb-2"><iconify-icon icon="lucide:flower-2"></iconify-icon> What Kupuna Pass Down</h3>
                         <ul class="text-gray-700 text-sm space-y-1">
                             <li>• Hawaiian language ('Ōlelo Hawai'i)</li>
                             <li>• Family genealogy (mo'okū'auhau)</li>
@@ -207,7 +207,7 @@
                         </ul>
                     </div>
                     <div class="bg-white p-4 rounded-lg">
-                        <h3 class="font-bold text-amber-700 mb-2"><i class="ti ti-palm-tree"></i> What Mo'opuna Represent</h3>
+                        <h3 class="font-bold text-amber-700 mb-2"><iconify-icon icon="lucide:palmtree"></iconify-icon> What Mo'opuna Represent</h3>
                         <ul class="text-gray-700 text-sm space-y-1">
                             <li>• Hope for the future</li>
                             <li>• Continuation of family line</li>
@@ -223,7 +223,7 @@
 
         <!-- Related Terms -->
         <section class="mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6"><i class="ti ti-link"></i> Related Hawaiian Family Terms</h2>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6"><iconify-icon icon="lucide:link"></iconify-icon> Related Hawaiian Family Terms</h2>
 
             <div class="grid md:grid-cols-3 gap-4">
                 <div class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition">
@@ -283,7 +283,7 @@
             const btn = document.getElementById('share-image-btn');
             const word = btn.getAttribute('data-word');
             const originalHtml = btn.innerHTML;
-            btn.innerHTML = '<i class="ti ti-loader animate-spin"></i> Generating...';
+            btn.innerHTML = '<iconify-icon icon="lucide:loader-2" class="animate-spin"></iconify-icon> Generating...';
             btn.disabled = true;
 
             try {

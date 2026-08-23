@@ -161,7 +161,7 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
     const relatedHtml = relatedTerms.length > 0 ? `
         <section class="mt-12 bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-xl border border-gray-100 dark:border-slate-700">
             <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6 flex items-center gap-2">
-                <i class="ti ti-link"></i> Related Pidgin Words
+                <iconify-icon icon="lucide:link"></iconify-icon> Related Pidgin Words
             </h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 ${relatedTerms.map(related => {
@@ -175,7 +175,7 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
                         <h3 class="font-bold text-lg text-purple-700 dark:text-purple-300 group-hover:text-purple-900 dark:group-hover:text-purple-100 mb-1 transition-colors">${escapeHtml(related.pidgin)}</h3>
                         <p class="text-xs text-gray-600 dark:text-slate-400 line-clamp-2">${escapeHtml(relatedEnglish.join(', '))}</p>
                         <div class="mt-2 text-[10px] font-bold text-blue-500 dark:text-blue-400 uppercase tracking-wider flex items-center gap-1">
-                            Learn More <i class="ti ti-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                            Learn More <iconify-icon icon="lucide:arrow-right" class="group-hover:translate-x-1 transition-transform"></iconify-icon>
                         </div>
                     </a>
                 `}).join('')}
@@ -239,7 +239,7 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
                     </div>
                 </div>
                 <a href="${premiumLink}" class="whitespace-nowrap px-6 py-3 bg-orange-500 text-white rounded-xl font-bold hover:bg-orange-600 transition-all shadow-md">
-                    Read Full Guide <i class="ti ti-arrow-right"></i>
+                    Read Full Guide <iconify-icon icon="lucide:arrow-right"></iconify-icon>
                 </a>
             </div>
         </div>
@@ -253,7 +253,7 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
             ${entry.pronunciation ? `
             <div class="mb-4">
                 <span class="inline-block bg-white/80 dark:bg-white/10 rounded-full px-6 py-2 text-lg text-gray-700 dark:text-slate-200 border border-transparent dark:border-white/10">
-                    <i class="ti ti-speakerphone"></i> <strong>Pronunciation:</strong> ${escapeHtml(entry.pronunciation)}
+                    <iconify-icon icon="lucide:megaphone"></iconify-icon> <strong>Pronunciation:</strong> ${escapeHtml(entry.pronunciation)}
                 </span>
             </div>
             ` : ''}
@@ -271,23 +271,23 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
 
             <div class="flex flex-wrap gap-4">
                 <button id="speak-word" class="bg-gradient-to-r from-blue-500 to-teal-500 text-white px-8 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
-                    <i class="ti ti-volume"></i> Hear Pronunciation
+                    <iconify-icon icon="lucide:volume-2"></iconify-icon> Hear Pronunciation
                 </button>
                 <button id="download-audio" class="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-8 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
-                    <i class="ti ti-download"></i> Download MP3
+                    <iconify-icon icon="lucide:download"></iconify-icon> Download MP3
                 </button>
                 <button id="fav-word" class="bg-white dark:bg-slate-800 text-gray-700 dark:text-slate-200 px-8 py-3 rounded-full hover:bg-red-50 dark:hover:bg-red-900/20 transition-all font-bold shadow-lg border-2 border-transparent hover:border-red-200 dark:hover:border-red-800/50 flex items-center gap-2">
-                    <i class="ti ti-heart text-red-500"></i> <span id="fav-text">Save to My Words</span>
+                    <iconify-icon icon="lucide:heart" class="text-red-500"></iconify-icon> <span id="fav-text">Save to My Words</span>
                 </button>
                 <button id="share-image-btn" class="bg-white dark:bg-slate-800 text-gray-700 dark:text-slate-200 px-8 py-3 rounded-full hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-all font-bold shadow-lg border-2 border-transparent hover:border-purple-200 dark:hover:border-purple-800/50 flex items-center gap-2">
-                    <i class="ti ti-camera text-purple-600"></i> Share as Image
+                    <iconify-icon icon="lucide:camera" class="text-purple-600"></iconify-icon> Share as Image
                 </button>
             </div>
         </div>
 
         <!-- Meaning Section -->
         <section class="bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border border-gray-100 dark:border-slate-700">
-            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4"><i class="ti ti-book"></i> Meaning</h2>
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4"><iconify-icon icon="lucide:book-open"></iconify-icon> Meaning</h2>
             <div class="space-y-3">
                 ${englishArray.map(meaning => `
                     <div class="flex items-start">
@@ -310,7 +310,7 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
         <!-- Examples Section -->
         ${examplesArray.length > 0 ? `
         <section class="bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border border-gray-100 dark:border-slate-700">
-            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4"><i class="ti ti-message"></i> Examples</h2>
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4"><iconify-icon icon="lucide:message-square"></iconify-icon> Examples</h2>
             <div class="space-y-4">
                 ${examplesArray.map(example => `
                     <div class="bg-gradient-to-r from-green-50 to-blue-50 dark:from-slate-700 dark:to-slate-800 rounded-lg p-4 border-l-4 border-green-500">
@@ -324,7 +324,7 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
         <!-- Origin & Cultural Context -->
         ${entry.origin ? `
         <section class="bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border border-gray-100 dark:border-slate-700">
-            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4"><i class="ti ti-flower"></i> Origin & Cultural Context</h2>
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4"><iconify-icon icon="lucide:flower-2"></iconify-icon> Origin & Cultural Context</h2>
             <div class="bg-gradient-to-r from-orange-50 to-pink-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-6">
                 <p class="text-lg text-gray-700 dark:text-slate-200 mb-2">
                     <strong>Origin:</strong> ${escapeHtml(entry.origin)}
@@ -338,7 +338,7 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
 
         <!-- FAQ Section for Engagement -->
         <section class="bg-white dark:bg-slate-800 rounded-2xl p-8 mb-8 shadow-xl border border-gray-100 dark:border-slate-700">
-            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6"><i class="ti ti-question-mark"></i> Frequently Asked Questions</h2>
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6"><iconify-icon icon="lucide:help-circle"></iconify-icon> Frequently Asked Questions</h2>
             <div class="space-y-4">
                 <div class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-700 dark:to-slate-800 rounded-xl p-5 border-l-4 border-blue-500">
                     <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">What does "${escapeHtml(entry.pidgin)}" mean in Hawaiian Pidgin?</h3>
@@ -363,12 +363,12 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
         <!-- Educational Corner -->
         <section class="mt-8 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-slate-800 dark:to-slate-900 rounded-2xl p-8 border border-blue-100 dark:border-slate-700 shadow-inner">
             <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6 flex items-center gap-2">
-                <i class="ti ti-school"></i> Pidgin & Local Culture Corner
+                <iconify-icon icon="lucide:graduation-cap"></iconify-icon> Pidgin & Local Culture Corner
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="bg-white/60 dark:bg-slate-700/50 backdrop-blur-sm rounded-xl p-6 border border-white dark:border-slate-600">
                     <h3 class="text-sm font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-3 flex items-center gap-2">
-                        <i class="ti ti-message-language"></i> Pidgin Grammar Tip
+                        <iconify-icon icon="lucide:languages"></iconify-icon> Pidgin Grammar Tip
                     </h3>
                     <p class="text-gray-700 dark:text-slate-200 leading-relaxed italic">
                         "${getGrammarTip()}"
@@ -376,7 +376,7 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
                 </div>
                 <div class="bg-white/60 dark:bg-slate-700/50 backdrop-blur-sm rounded-xl p-6 border border-white dark:border-slate-600">
                     <h3 class="text-sm font-bold text-purple-600 dark:text-purple-400 uppercase tracking-widest mb-3 flex items-center gap-2">
-                        <i class="ti ti-map-pin"></i> Local Culture Fact
+                        <iconify-icon icon="lucide:map-pin"></iconify-icon> Local Culture Fact
                     </h3>
                     <p class="text-gray-700 dark:text-slate-200 leading-relaxed italic">
                         "${getCulturalFact()}"
@@ -417,7 +417,7 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
             if (!btn) return;
             const originalHtml = btn.innerHTML;
             try {
-                btn.innerHTML = '<i class="ti ti-loader animate-spin"></i> Downloading...';
+                btn.innerHTML = '<iconify-icon icon="lucide:loader-2" class="animate-spin"></iconify-icon> Downloading...';
                 btn.disabled = true;
 
                 const supabaseStorageUrl = 'https://jfzgzjgdptowfbtljvyp.supabase.co/storage/v1/object/public/audio-assets';
@@ -454,7 +454,7 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
         // Favorites toggle handler
         (function() {
             const favBtn = document.getElementById('fav-word');
-            const favIcon = favBtn?.querySelector('i');
+            const favIcon = favBtn?.querySelector('iconify-icon') || favBtn?.querySelector('i');
             const favText = document.getElementById('fav-text');
             const wordKey = "${entry.key || entry.id}";
 
@@ -462,7 +462,10 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
 
             // Initial state
             if (window.favoritesManager.isFavorite(wordKey)) {
-                favIcon.className = 'ti ti-heart-filled text-red-500';
+                if (favIcon) {
+                    favIcon.setAttribute('icon', 'lucide:heart');
+                    favIcon.className = 'text-red-500 fill-red-500';
+                }
                 favText.textContent = 'Saved to My Words';
                 favBtn.classList.add('bg-red-50', 'border-red-200');
             }
@@ -471,22 +474,28 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
                 const isAdded = window.favoritesManager.toggleFavorite(wordKey);
                 
                 if (isAdded) {
-                    favIcon.className = 'ti ti-heart-filled text-red-500 animate-bounce-subtle';
+                    if (favIcon) {
+                        favIcon.setAttribute('icon', 'lucide:heart');
+                        favIcon.className = 'text-red-500 fill-red-500 animate-bounce-subtle';
+                    }
                     favText.textContent = 'Saved to My Words';
                     favBtn.classList.add('bg-red-50', 'border-red-200');
                 } else {
-                    favIcon.className = 'ti ti-heart text-red-500';
+                    if (favIcon) {
+                        favIcon.setAttribute('icon', 'lucide:heart');
+                        favIcon.className = 'text-red-500';
+                    }
                     favText.textContent = 'Save to My Words';
                     favBtn.classList.remove('bg-red-50', 'border-red-200');
                 }
-            }
-            })();
+            });
+        })();
 
             // Social Share button handler
             document.getElementById('share-image-btn')?.addEventListener('click', async () => {
             const btn = document.getElementById('share-image-btn');
             const originalHtml = btn.innerHTML;
-            btn.innerHTML = '<i class="ti ti-loader animate-spin"></i> Generating...';
+            btn.innerHTML = '<iconify-icon icon="lucide:loader-2" class="animate-spin"></iconify-icon> Generating...';
             btn.disabled = true;
 
             try {

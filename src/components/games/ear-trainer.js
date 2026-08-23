@@ -251,13 +251,13 @@ class PidginEarTrainer {
     playCurrentAudio() {
         if (!window.elevenLabsSpeech || !this.currentRound) return;
 
-        this.elements.playIcon.className = 'ti ti-player-pause';
+        this.elements.playIcon.setAttribute('icon', 'lucide:pause');
         this.elements.audioRing.classList.remove('hidden');
         this.elements.playBtn.classList.add('playing');
 
         window.elevenLabsSpeech.speak(this.currentRound.correct.pidgin, {
             onEnd: () => {
-                this.elements.playIcon.className = 'ti ti-player-play';
+                this.elements.playIcon.setAttribute('icon', 'lucide:play');
                 this.elements.audioRing.classList.add('hidden');
                 this.elements.playBtn.classList.remove('playing');
             }
@@ -332,7 +332,7 @@ class PidginEarTrainer {
     async submitScore() {
         const username = this.elements.playerNameInput.value.trim() || 'Anonymous';
         this.elements.submitScoreBtn.disabled = true;
-        this.elements.submitScoreBtn.innerHTML = '<i class="ti ti-loader animate-spin"></i> Saving...';
+        this.elements.submitScoreBtn.innerHTML = '<iconify-icon icon="lucide:loader-2" class="animate-spin"></iconify-icon> Saving...';
 
         try {
             const response = await fetch('/api/games/leaderboard', {

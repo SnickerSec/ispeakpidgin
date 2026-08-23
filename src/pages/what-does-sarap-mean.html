@@ -88,13 +88,13 @@
             </p>
             <div class="flex flex-wrap gap-4 justify-center">
                 <button id="pronounce-word" data-word="sarap" class="pronounce-btn bg-white text-gray-700 px-8 py-4 rounded-full text-lg font-bold hover:bg-gray-50 transition shadow-xl">
-                    <i class="ti ti-volume"></i> Hear "Sarap" Pronounced
+                    <iconify-icon icon="lucide:volume-2"></iconify-icon> Hear "Sarap" Pronounced
                 </button>
                 <button id="share-image-btn" data-word="sarap" class="bg-white text-purple-700 border-2 border-white px-8 py-4 rounded-full text-lg font-bold hover:bg-purple-50 transition shadow-xl">
-                    <i class="ti ti-camera"></i> Share as Image
+                    <iconify-icon icon="lucide:camera"></iconify-icon> Share as Image
                 </button>
                 <button id="download-audio" data-word="sarap" class="bg-red-800 text-white border-2 border-white px-8 py-4 rounded-full text-lg font-bold hover:bg-red-900 transition shadow-xl">
-                    <i class="ti ti-download"></i> Download MP3
+                    <iconify-icon icon="lucide:download"></iconify-icon> Download MP3
                 </button>
             </div>
         </div>
@@ -113,7 +113,7 @@
 
         <!-- Pronunciation Guide -->
         <section class="mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6"><i class="ti ti-speakerphone"></i> How to Pronounce "Sarap"</h2>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6"><iconify-icon icon="lucide:megaphone"></iconify-icon> How to Pronounce "Sarap"</h2>
             <div class="bg-slate-50 p-6 rounded-lg shadow-sm border border-slate-100">
                 <div class="text-center mb-4">
                     <span class="text-4xl font-bold text-slate-700">SAH-rahp</span>
@@ -131,7 +131,7 @@
 
         <!-- Meaning & Origins -->
         <section class="mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6"><i class="ti ti-book"></i> The Origin and Cultural Context</h2>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6"><iconify-icon icon="lucide:book-open"></iconify-icon> The Origin and Cultural Context</h2>
 
             <div class="space-y-6">
                 <div class="flex items-start gap-4">
@@ -162,7 +162,7 @@
 
         <!-- Usage Examples -->
         <section class="mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6"><i class="ti ti-message"></i> Real-World Examples</h2>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6"><iconify-icon icon="lucide:message-square"></iconify-icon> Real-World Examples</h2>
 
             <div class="grid md:grid-cols-2 gap-4">
                 <div class="bg-white p-5 rounded-lg shadow border-l-4 border-red-500">
@@ -213,7 +213,7 @@
 
         <!-- When to Use -->
         <section class="mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6"><i class="ti ti-circle-check"></i> When to Use "Sarap"</h2>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6"><iconify-icon icon="lucide:check-circle"></iconify-icon> When to Use "Sarap"</h2>
 
             <div class="bg-slate-50 p-6 rounded-lg border border-slate-100 shadow-sm">
                 <div class="grid md:grid-cols-2 gap-6">
@@ -241,7 +241,7 @@
 
         <!-- Related Terms -->
         <section class="mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6"><i class="ti ti-link"></i> Related Slang Terms</h2>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6"><iconify-icon icon="lucide:link"></iconify-icon> Related Slang Terms</h2>
 
             <div class="grid md:grid-cols-3 gap-4">
                 <a href="what-does-ono-mean.html" class="bg-white p-4 rounded-lg shadow border border-slate-100 hover:shadow-md transition">
@@ -261,7 +261,7 @@
 
         <!-- FAQ Section -->
         <section class="mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6"><i class="ti ti-help"></i> FAQ about "Sarap"</h2>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6"><iconify-icon icon="lucide:help-circle"></iconify-icon> FAQ about "Sarap"</h2>
             <div class="space-y-4">
                 <div class="bg-white p-5 rounded-lg shadow border border-slate-100">
                     <h3 class="font-bold text-lg text-gray-800 mb-2">Is "sarap" a Hawaiian word?</h3>
@@ -308,7 +308,7 @@
             const btn = document.getElementById('share-image-btn');
             const word = btn.getAttribute('data-word');
             const originalHtml = btn.innerHTML;
-            btn.innerHTML = '<i class="ti ti-loader animate-spin"></i> Generating...';
+            btn.innerHTML = '<iconify-icon icon="lucide:loader-2" class="animate-spin"></iconify-icon> Generating...';
             btn.disabled = true;
 
             try {

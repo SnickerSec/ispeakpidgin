@@ -327,8 +327,8 @@ function getCommonHead({ title, metaDescription, keywords, canonicalUrl, ogType 
     <link rel="stylesheet" href="/css/tailwind.css">
     <link rel="stylesheet" href="/css/main.css">
 
-    <!-- Tabler Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+    <!-- Iconify -->
+    <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
 
     <style>
         .brand-font { font-family: 'Pacifico', cursive; }
@@ -352,18 +352,18 @@ function getGameLinksHtml(pidginWord = null) {
     return `
         <section class="mt-12 bg-gradient-to-r from-yellow-100 to-orange-100 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 mb-8 shadow-xl border-2 border-yellow-200 dark:border-slate-700 overflow-hidden relative group">
             <div class="absolute -right-10 -bottom-10 text-9xl text-yellow-500/10 dark:text-yellow-500/5 rotate-12 group-hover:scale-110 transition-transform duration-500">
-                <i class="ti ti-device-gamepad-2"></i>
+                <iconify-icon icon="lucide:gamepad-2"></iconify-icon>
             </div>
             
             <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6 flex items-center gap-2 relative z-10">
-                <i class="ti ti-device-gamepad-2"></i> Practice Your Pidgin
+                <iconify-icon icon="lucide:gamepad-2"></iconify-icon> Practice Your Pidgin
             </h2>
             
             <!-- High Impact Quiz CTA for Word Pages -->
             <div class="bg-gradient-to-r from-orange-500 to-red-600 dark:from-orange-700 dark:to-red-800 rounded-2xl p-6 mb-8 text-white shadow-lg transform hover:scale-[1.02] transition-transform relative z-10">
                 <div class="flex flex-col md:flex-row items-center gap-6">
                     <div class="text-5xl animate-bounce">
-                        <i class="ti ti-trophy"></i>
+                        <iconify-icon icon="lucide:trophy"></iconify-icon>
                     </div>
                     <div class="text-center md:text-left flex-1">
                         <h3 class="text-xl md:text-2xl font-black mb-1">How Local You Stay?</h3>
@@ -377,17 +377,17 @@ function getGameLinksHtml(pidginWord = null) {
 
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4 relative z-10">
                 <a href="/pidgin-wordle.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow border-2 border-green-200 dark:border-green-900/50 hover:border-green-400 dark:hover:border-green-600">
-                    <div class="text-3xl mb-2"><i class="ti ti-grid-3x3" style="color: #22c55e;"></i></div>
+                    <div class="text-3xl mb-2"><iconify-icon icon="lucide:grid-3x3" style="color: #22c55e;"></iconify-icon></div>
                     <h3 class="font-bold text-gray-800 dark:text-white">Pidgin Wordle</h3>
                     <p class="text-sm text-gray-600 dark:text-slate-400">Can you spell it?</p>
                 </a>
                 <a href="/pidgin-hangman.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow border-2 border-indigo-200 dark:border-indigo-900/50 hover:border-indigo-400 dark:hover:border-indigo-600">
-                    <div class="text-3xl mb-2"><i class="ti ti-typography" style="color: #6366f1;"></i></div>
+                    <div class="text-3xl mb-2"><iconify-icon icon="lucide:type" style="color: #6366f1;"></iconify-icon></div>
                     <h3 class="font-bold text-gray-800 dark:text-white">Hangman</h3>
                     <p class="text-sm text-gray-600 dark:text-slate-400">Guess da word</p>
                 </a>
                 <a href="/pidgin-crossword.html" class="bg-white dark:bg-slate-800 rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow border-2 border-blue-200 dark:border-blue-900/50 hover:border-blue-400 dark:hover:border-blue-600">
-                    <div class="text-3xl mb-2"><i class="ti ti-note" style="color: #3b82f6;"></i></div>
+                    <div class="text-3xl mb-2"><iconify-icon icon="lucide:sticky-note" style="color: #3b82f6;"></iconify-icon></div>
                     <h3 class="font-bold text-gray-800 dark:text-white">Crossword</h3>
                     <p class="text-sm text-gray-600 dark:text-slate-400">Vocabulary test</p>
                 </a>
@@ -402,19 +402,19 @@ function getQuickActionsHtml(translateText) {
     const encoded = encodeURIComponent(translateText || '');
     return `
         <section class="mt-12 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-slate-800 dark:to-slate-900 rounded-2xl p-8 mb-8 shadow-xl border dark:border-slate-700">
-            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4"><i class="ti ti-rocket"></i> Quick Actions</h2>
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4"><iconify-icon icon="lucide:rocket"></iconify-icon> Quick Actions</h2>
             <div class="flex flex-wrap gap-4">
                 <a href="/translator.html${encoded ? '?text=' + encoded : ''}"
                    class="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-6 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
-                    <i class="ti ti-refresh"></i> Translate
+                    <iconify-icon icon="lucide:rotate-cw"></iconify-icon> Translate
                 </a>
                 <a href="/dictionary.html"
                    class="bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
-                    <i class="ti ti-books"></i> Browse Dictionary
+                    <iconify-icon icon="lucide:book-open"></iconify-icon> Browse Dictionary
                 </a>
                 <a href="/phrases.html"
                    class="bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-3 rounded-full hover:scale-105 transition-transform font-bold shadow-lg">
-                    <i class="ti ti-message"></i> Browse Phrases
+                    <iconify-icon icon="lucide:message-square"></iconify-icon> Browse Phrases
                 </a>
             </div>
         </section>`;

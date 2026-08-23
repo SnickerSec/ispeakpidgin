@@ -80,15 +80,15 @@
     <div class="ask-local-header py-16 px-4 relative overflow-hidden border-b dark:border-slate-800">
         <!-- Background decoration -->
         <div class="absolute inset-0 opacity-20">
-            <div class="absolute top-10 left-10 text-6xl"><i class="ti ti-beach"></i></div>
-            <div class="absolute top-20 right-20 text-4xl"><i class="ti ti-message"></i></div>
-            <div class="absolute bottom-20 left-20 text-5xl"><i class="ti ti-hand-love-you"></i></div>
-            <div class="absolute bottom-10 right-10 text-3xl"><i class="ti ti-flower"></i></div>
+            <div class="absolute top-10 left-10 text-6xl"><iconify-icon icon="lucide:waves"></iconify-icon></div>
+            <div class="absolute top-20 right-20 text-4xl"><iconify-icon icon="lucide:message-square"></iconify-icon></div>
+            <div class="absolute bottom-20 left-20 text-5xl"><iconify-icon icon="lucide:heart"></iconify-icon></div>
+            <div class="absolute bottom-10 right-10 text-3xl"><iconify-icon icon="lucide:flower-2"></iconify-icon></div>
         </div>
 
         <div class="max-w-4xl mx-auto text-center relative z-10">
             <h1 class="text-5xl font-bold text-white mb-4">
-                <i class="ti ti-beach"></i> Ask a Local
+                <iconify-icon icon="lucide:waves"></iconify-icon> Ask a Local
             </h1>
             <p class="text-xl text-white/90 mb-8">
                 Get answers about Hawaiian Pidgin from native speakers and local experts
@@ -99,10 +99,10 @@
     <!-- Ask / Suggest Toggle -->
     <div class="max-w-4xl mx-auto px-4 py-4 flex gap-4">
         <button id="show-ask-form" class="flex-1 py-3 rounded-xl font-bold bg-white dark:bg-slate-800 border-2 border-blue-500 text-blue-600 dark:text-blue-400 shadow-sm transition-all active-tab">
-            <i class="ti ti-message-question"></i> Ask a Question
+            <iconify-icon icon="lucide:message-circle-question"></iconify-icon> Ask a Question
         </button>
         <button id="show-suggest-form" class="flex-1 py-3 rounded-xl font-bold bg-white dark:bg-slate-800 border-2 border-gray-200 dark:border-slate-700 text-gray-500 dark:text-gray-400 shadow-sm transition-all">
-            <i class="ti ti-plus"></i> Suggest a Word
+            <iconify-icon icon="lucide:plus"></iconify-icon> Suggest a Word
         </button>
     </div>
 
@@ -110,7 +110,7 @@
     <div id="ask-section" class="max-w-4xl mx-auto px-4 py-4">
         <div class="bg-gradient-to-br from-white/90 to-blue-50/90 dark:from-slate-800 dark:to-slate-900 backdrop-blur rounded-lg p-6 shadow-xl border-2 border-blue-200 dark:border-blue-900/50 mb-8">
             <h2 class="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-teal-500 bg-clip-text text-transparent">
-                <i class="ti ti-flower"></i> Ask Your Question
+                <iconify-icon icon="lucide:flower-2"></iconify-icon> Ask Your Question
             </h2>
             <form id="ask-form" class="mb-6">
                 <div class="mb-4">
@@ -146,7 +146,7 @@
     <div id="suggest-section" class="max-w-4xl mx-auto px-4 py-4 hidden">
         <div class="bg-gradient-to-br from-white/90 to-purple-50/90 dark:from-slate-800 dark:to-slate-900 backdrop-blur rounded-lg p-6 shadow-xl border-2 border-purple-200 dark:border-purple-900/50 mb-8">
             <h2 class="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-500 to-indigo-500 bg-clip-text text-transparent">
-                <i class="ti ti-plus"></i> Suggest a New Word
+                <iconify-icon icon="lucide:plus"></iconify-icon> Suggest a New Word
             </h2>
             <p class="text-gray-600 dark:text-slate-400 mb-6 text-sm">Know one Pidgin word we stay missing? Share 'um below and we go check 'um out!</p>
             
@@ -198,10 +198,10 @@
                     All Questions
                 </button>
                 <button class="filter-btn px-4 py-2 rounded-full border dark:border-slate-700 transition hover:bg-gray-100 dark:hover:bg-slate-800 dark:text-slate-300 whitespace-nowrap" data-filter="answered">
-                    <i class="ti ti-circle-check"></i> Answered
+                    <iconify-icon icon="lucide:check-circle"></iconify-icon> Answered
                 </button>
                 <button class="filter-btn px-4 py-2 rounded-full border dark:border-slate-700 transition hover:bg-gray-100 dark:hover:bg-slate-800 dark:text-slate-300 whitespace-nowrap" data-filter="pending">
-                    <i class="ti ti-hourglass"></i> Pending
+                    <iconify-icon icon="lucide:hourglass"></iconify-icon> Pending
                 </button>
             </div>
         </div>
@@ -230,7 +230,7 @@
 
         <!-- No Results State -->
         <div id="no-results" class="hidden text-center py-12">
-            <div class="text-6xl mb-4"><i class="ti ti-mood-puzzled"></i></div>
+            <div class="text-6xl mb-4"><iconify-icon icon="lucide:help-circle"></iconify-icon></div>
             <h3 class="text-2xl font-bold text-gray-800 mb-2">No questions found</h3>
             <p class="text-gray-600 mb-6">Be the first to ask a question!</p>
             <a href="#ask-form" class="bg-green-700 text-white px-6 py-3 rounded-full hover:bg-green-800 transition">

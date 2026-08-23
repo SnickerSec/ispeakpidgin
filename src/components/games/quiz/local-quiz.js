@@ -257,7 +257,7 @@ class LocalQuiz {
             {
                 level: "Fresh Off Da Boat",
                 title: "Malihini Status",
-                emoji: '<i class="ti ti-plane"></i>',
+                emoji: '<iconify-icon icon="lucide:plane"></iconify-icon>',
                 minScore: 0,
                 maxScore: 20,
                 description: "Ho brah, you stay need learn more about da local kine! No worry, everybody gotta start somewhere.",
@@ -270,7 +270,7 @@ class LocalQuiz {
             {
                 level: "Tourist",
                 title: "Learning Da Kine",
-                emoji: '<i class="ti ti-flower"></i>',
+                emoji: '<iconify-icon icon="lucide:flower-2"></iconify-icon>',
                 minScore: 21,
                 maxScore: 30,
                 description: "Not bad! You know some tings, but still get plenny fo learn bout da islands.",
@@ -283,7 +283,7 @@ class LocalQuiz {
             {
                 level: "Part-Time Local",
                 title: "Getting There!",
-                emoji: '<i class="ti ti-hand-love-you"></i>',
+                emoji: '<iconify-icon icon="lucide:heart"></iconify-icon>',
                 minScore: 31,
                 maxScore: 40,
                 description: "Eh, you stay catch on! You know nuff fo get by at da beach and grindz spots.",
@@ -296,7 +296,7 @@ class LocalQuiz {
             {
                 level: "Born and Raised",
                 title: "100% Island Kine!",
-                emoji: '<i class="ti ti-palm-tree"></i>',
+                emoji: '<iconify-icon icon="lucide:palmtree"></iconify-icon>',
                 minScore: 41,
                 maxScore: 50,
                 description: "Chee hoo! You DA LOCAL! Born and raised, yeah? You know your grindz, your slippahs, and your pidgin!",

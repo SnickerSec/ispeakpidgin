@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
     listenBtn.addEventListener('click', async function() {
         if (!currentWord) return;
         listenBtn.disabled = true;
-        listenBtn.innerHTML = '<span class="text-xl"><i class="ti ti-volume"></i></span> <span>Playing...</span>';
+        listenBtn.innerHTML = '<span class="text-xl"><iconify-icon icon="lucide:volume-2"></iconify-icon></span> <span>Playing...</span>';
         try {
             if (typeof pidginSpeech !== 'undefined') {
                 await pidginSpeech.speak(currentWord.pidgin);
@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         setTimeout(function() {
             listenBtn.disabled = false;
-            listenBtn.innerHTML = '<span class="text-xl"><i class="ti ti-volume"></i></span> <span>Hear Native</span>';
+            listenBtn.innerHTML = '<span class="text-xl"><iconify-icon icon="lucide:volume-2"></iconify-icon></span> <span>Hear Native</span>';
         }, 1500);
     });
 

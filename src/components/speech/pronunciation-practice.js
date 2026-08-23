@@ -888,12 +888,12 @@ class PronunciationPractice {
         if (score >= 90) {
             feedback.push({
                 type: 'success',
-                message: 'Ho, you sound like one local! Perfect! <i class="ti ti-hand-love-you"></i>'
+                message: 'Ho, you sound like one local! Perfect! <iconify-icon icon="lucide:heart"></iconify-icon>'
             });
         } else if (score >= 75) {
             feedback.push({
                 type: 'good',
-                message: 'Solid! Getting da hang of it! <i class="ti ti-flower"></i>'
+                message: 'Solid! Getting da hang of it! <iconify-icon icon="lucide:flower-2"></iconify-icon>'
             });
         } else if (score >= 50) {
             feedback.push({

@@ -57,7 +57,7 @@
         <!-- Header -->
         <div class="text-center mb-8">
             <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-2">
-                <i class="ti ti-bolt"></i> Speed Translation
+                <iconify-icon icon="lucide:zap"></iconify-icon> Speed Translation
             </h1>
             <p class="text-gray-600 text-lg">Type the Pidgin word before time runs out!</p>
         </div>
@@ -80,24 +80,24 @@
 
         <!-- Start Screen -->
         <div id="start-screen" class="bg-white rounded-3xl shadow-xl p-8 text-center">
-            <div class="text-6xl mb-4"><i class="ti ti-bolt"></i></div>
+            <div class="text-6xl mb-4"><iconify-icon icon="lucide:zap"></iconify-icon></div>
             <h2 class="text-2xl font-bold text-gray-800 mb-2">Choose Time Mode</h2>
             <p class="text-gray-600 mb-2">See an English word, type the Pidgin translation.</p>
             <p class="text-gray-500 mb-8 text-sm">Build combos for multiplier bonuses! (3 correct = +1x, max 5x)</p>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <button data-time="30" class="bg-gradient-to-br from-yellow-400 to-amber-500 text-white p-6 rounded-2xl font-bold text-lg hover:scale-105 transition-all shadow-lg">
-                    <div class="text-3xl mb-2"><i class="ti ti-clock"></i></div>
+                    <div class="text-3xl mb-2"><iconify-icon icon="lucide:clock"></iconify-icon></div>
                     30 Seconds
                     <div class="text-sm font-normal opacity-80">Quick round</div>
                 </button>
                 <button data-time="60" class="bg-gradient-to-br from-red-400 to-pink-500 text-white p-6 rounded-2xl font-bold text-lg hover:scale-105 transition-all shadow-lg">
-                    <div class="text-3xl mb-2"><i class="ti ti-clock"></i></div>
+                    <div class="text-3xl mb-2"><iconify-icon icon="lucide:clock"></iconify-icon></div>
                     60 Seconds
                     <div class="text-sm font-normal opacity-80">Standard</div>
                 </button>
                 <button data-time="90" class="bg-gradient-to-br from-purple-400 to-indigo-500 text-white p-6 rounded-2xl font-bold text-lg hover:scale-105 transition-all shadow-lg">
-                    <div class="text-3xl mb-2"><i class="ti ti-clock"></i></div>
+                    <div class="text-3xl mb-2"><iconify-icon icon="lucide:clock"></iconify-icon></div>
                     90 Seconds
                     <div class="text-sm font-normal opacity-80">Extended</div>
                 </button>
@@ -141,7 +141,7 @@
                         class="flex-1 p-4 text-xl border-2 border-gray-300 rounded-xl focus:border-red-500 focus:outline-none font-bold text-center"
                         placeholder="Type Pidgin word...">
                     <button id="submit-btn" class="bg-gradient-to-r from-red-500 to-pink-500 text-white px-6 py-4 rounded-xl font-bold hover:from-red-600 hover:to-pink-600 transition-all">
-                        <i class="ti ti-send"></i>
+                        <iconify-icon icon="lucide:send"></iconify-icon>
                     </button>
                 </div>
 
@@ -151,7 +151,7 @@
                 <!-- Skip -->
                 <div class="text-center">
                     <button id="skip-btn" class="text-gray-400 hover:text-gray-600 text-sm font-medium transition">
-                        Skip word <i class="ti ti-arrow-right"></i>
+                        Skip word <iconify-icon icon="lucide:arrow-right"></iconify-icon>
                     </button>
                 </div>
             </div>
@@ -159,7 +159,7 @@
 
         <!-- Results Screen -->
         <div id="results-screen" class="hidden bg-white rounded-3xl shadow-xl p-8 text-center">
-            <div class="text-6xl mb-4"><i class="ti ti-trophy"></i></div>
+            <div class="text-6xl mb-4"><iconify-icon icon="lucide:trophy"></iconify-icon></div>
             <h2 class="text-3xl font-bold text-gray-800 mb-2">Time's Up!</h2>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
@@ -195,7 +195,7 @@
             <!-- Leaderboard Display -->
             <div id="leaderboard-container" class="mb-8 hidden text-left">
                 <h3 class="font-bold text-gray-800 mb-4 flex items-center gap-2">
-                    <i class="ti ti-medal text-yellow-500"></i> Global Leaderboard (<span id="leaderboard-time">60s</span>)
+                    <iconify-icon icon="lucide:award" class="text-yellow-500"></iconify-icon> Global Leaderboard (<span id="leaderboard-time">60s</span>)
                 </h3>
                 <div class="bg-gray-50 rounded-2xl overflow-hidden border border-gray-100">
                     <table class="w-full text-sm">
@@ -223,17 +223,17 @@
 
             <div class="flex flex-col sm:flex-row justify-center gap-4">
                 <button id="play-again-btn" class="bg-gradient-to-r from-red-600 to-pink-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:from-red-700 hover:to-pink-700 transition-all shadow-lg">
-                    <i class="ti ti-refresh"></i> Play Again
+                    <iconify-icon icon="lucide:rotate-cw"></iconify-icon> Play Again
                 </button>
                 <button id="share-results-btn" class="bg-red-100 text-red-700 px-8 py-4 rounded-full font-bold text-lg hover:bg-red-200 transition-all shadow-md border border-red-200 flex items-center justify-center gap-2">
-                    <i class="ti ti-share"></i> Share My Score
+                    <iconify-icon icon="lucide:share-2"></iconify-icon> Share My Score
                 </button>
             </div>
         </div>
 
         <!-- More Games -->
         <div class="bg-white rounded-2xl shadow-xl p-6 mt-8">
-            <h2 class="text-xl font-bold text-gray-800 mb-4 text-center"><i class="ti ti-device-gamepad-2"></i> More Pidgin Games</h2>
+            <h2 class="text-xl font-bold text-gray-800 mb-4 text-center"><iconify-icon icon="lucide:gamepad-2"></iconify-icon> More Pidgin Games</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <a href="/pidgin-wordle.html" class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-4 hover:shadow-lg transition-shadow border-2 border-green-200 hover:border-green-400 text-center">
                     <img src="assets/images/wordle-icon.webp" alt="Wordle" loading="lazy" class="w-10 h-10 mx-auto mb-2">
@@ -241,12 +241,12 @@
                     <p class="text-sm text-gray-600">Daily 5-letter puzzle</p>
                 </a>
                 <a href="/pidgin-memory.html" class="bg-gradient-to-br from-emerald-50 to-cyan-50 rounded-xl p-4 hover:shadow-lg transition-shadow border-2 border-emerald-200 hover:border-emerald-400 text-center">
-                    <div class="text-3xl mb-2"><i class="ti ti-cards"></i></div>
+                    <div class="text-3xl mb-2"><iconify-icon icon="lucide:layers"></iconify-icon></div>
                     <h3 class="font-bold text-gray-800">Memory Match</h3>
                     <p class="text-sm text-gray-600">Match Pidgin pairs</p>
                 </a>
                 <a href="/pidgin-fill-blank.html" class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl p-4 hover:shadow-lg transition-shadow border-2 border-amber-200 hover:border-amber-400 text-center">
-                    <div class="text-3xl mb-2"><i class="ti ti-writing"></i></div>
+                    <div class="text-3xl mb-2"><iconify-icon icon="lucide:pencil"></iconify-icon></div>
                     <h3 class="font-bold text-gray-800">Fill in the Blank</h3>
                     <p class="text-sm text-gray-600">Complete the sentence</p>
                 </a>

@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         userInfo.innerHTML = `
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                    <i class="ti ti-user"></i>
+                    <iconify-icon icon="lucide:user"></iconify-icon>
                 </div>
                 <div>
                     <div class="font-bold leading-tight text-white">Guest User</div>
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="flex justify-between items-start mb-4">
                         <span class="text-xs font-bold text-blue-500 uppercase tracking-widest">${escapeHtml(entry.category || 'general')}</span>
                         <button onclick="window.favoritesManager.toggleFavorite('${escapeHtml(entry.pidgin)}')" class="text-red-500 hover:scale-110 transition">
-                            <i class="ti ti-heart-filled text-xl"></i>
+                            <iconify-icon icon="lucide:heart" class="text-xl"></iconify-icon>
                         </button>
                     </div>
                     
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-50">
                         <a href="/word/${slug}.html" class="text-xs font-bold text-blue-600 hover:underline flex items-center gap-1">
-                            LEARN MORE <i class="ti ti-arrow-right"></i>
+                            LEARN MORE <iconify-icon icon="lucide:arrow-right"></iconify-icon>
                         </a>
                         <span class="text-[10px] text-gray-400 uppercase font-medium">Saved</span>
                     </div>

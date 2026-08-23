@@ -397,7 +397,7 @@ function endGame() {
     var wordsList = document.getElementById('words-list');
     wordsList.innerHTML = roundResults.map(function(result) {
         return '<div class="flex items-center gap-2">' +
-            '<span>' + (result.correct ? '<i class="ti ti-circle-check"></i>' : '<i class="ti ti-circle-x"></i>') + '</span>' +
+            '<span>' + (result.correct ? '<iconify-icon icon="lucide:check-circle"></iconify-icon>' : '<iconify-icon icon="lucide:x-circle"></iconify-icon>') + '</span>' +
             '<span class="font-bold">' + result.word.word + '</span>' +
             '<span class="opacity-60">- ' + result.word.english + '</span>' +
         '</div>';

@@ -60,7 +60,7 @@
                 if (filename) {
                     const audioUrl = `${supabaseStorageUrl}/${filename}`;
                     const originalHtml = dlBtn.innerHTML;
-                    dlBtn.innerHTML = '<i class="ti ti-loader animate-spin"></i> Downloading...';
+                    dlBtn.innerHTML = '<iconify-icon icon="lucide:loader-2" class="animate-spin"></iconify-icon> Downloading...';
                     dlBtn.disabled = true;
 
                     try {

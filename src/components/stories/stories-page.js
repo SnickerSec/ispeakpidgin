@@ -72,23 +72,23 @@ function displayStories(filter) {
                     '<div class="story-content collapsed mb-4" id="content-' + escapedId + '">' +
                         '<div class="mb-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl relative group">' +
                             '<div class="flex justify-between items-start mb-2">' +
-                                '<h3 class="text-lg font-bold text-purple-700"><i class="ti ti-book"></i> Pidgin Story</h3>' +
+                                '<h3 class="text-lg font-bold text-purple-700"><iconify-icon icon="lucide:book-open"></iconify-icon> Pidgin Story</h3>' +
                                 (story.audioExample ? 
                                     '<button class="play-story-btn p-2 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition shadow-md flex items-center justify-center" data-audio="' + escapeHtml(story.audioExample) + '" title="Listen to story">' +
-                                        '<i class="ti ti-player-play"></i></button>' : '') +
+                                        '<iconify-icon icon="lucide:play"></iconify-icon></button>' : '') +
                             '</div>' +
                             '<p class="text-gray-800 text-base leading-relaxed">' + escapedPidgin + '</p>' +
                         '</div>' +
                         '<div class="mb-6 p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-xl">' +
-                            '<h3 class="text-lg font-bold text-green-700 mb-2"><i class="ti ti-note"></i> English Translation</h3>' +
+                            '<h3 class="text-lg font-bold text-green-700 mb-2"><iconify-icon icon="lucide:sticky-note"></iconify-icon> English Translation</h3>' +
                             '<p class="text-gray-700 text-base leading-relaxed">' + escapedEnglish + '</p>' +
                         '</div>' +
                         '<div class="mb-6 p-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl">' +
-                            '<h3 class="text-lg font-bold text-orange-700 mb-2"><i class="ti ti-flower"></i> Cultural Context</h3>' +
+                            '<h3 class="text-lg font-bold text-orange-700 mb-2"><iconify-icon icon="lucide:flower-2"></iconify-icon> Cultural Context</h3>' +
                             '<p class="text-gray-700 text-base leading-relaxed">' + escapedNotes + '</p>' +
                         '</div>' +
                         '<div class="mb-4">' +
-                            '<h3 class="text-lg font-bold text-gray-800 mb-3"><i class="ti ti-books"></i> Key Vocabulary</h3>' +
+                            '<h3 class="text-lg font-bold text-gray-800 mb-3"><iconify-icon icon="lucide:book-open"></iconify-icon> Key Vocabulary</h3>' +
                             '<div class="flex flex-wrap gap-2">' +
                                 story.vocabulary.map(function(word) {
                                     return '<div class="vocab-item"><strong class="text-purple-700">' + escapeHtml(word.pidgin) + '</strong>' +
@@ -98,15 +98,15 @@ function displayStories(filter) {
                             '</div>' +
                         '</div>' +
                         (escapedAudio ? '<div class="p-4 bg-gradient-to-r from-pink-50 to-red-50 rounded-xl">' +
-                            '<h3 class="text-lg font-bold text-red-700 mb-2"><i class="ti ti-volume"></i> Listen & Learn</h3>' +
+                            '<h3 class="text-lg font-bold text-red-700 mb-2"><iconify-icon icon="lucide:volume-2"></iconify-icon> Listen & Learn</h3>' +
                             '<p class="text-gray-800 text-base italic">"' + escapedAudio + '"</p>' +
                         '</div>' : '') +
                     '</div>' +
                     '<div class="flex gap-3 mt-4">' +
                         '<a href="/story/' + slug + '.html" class="flex-1 text-center px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:from-purple-700 hover:to-blue-700 transition shadow-lg">' +
-                            '<i class="ti ti-book"></i> Read Full Story</a>' +
+                            '<iconify-icon icon="lucide:book-open"></iconify-icon> Read Full Story</a>' +
                         '<button class="read-more-btn px-6 py-3 bg-gray-100 text-gray-700 rounded-xl font-semibold hover:bg-gray-200 transition" data-story-id="' + escapedId + '">' +
-                            '<i class="ti ti-chevron-down"></i> Preview</button>' +
+                            '<iconify-icon icon="lucide:chevron-down"></iconify-icon> Preview</button>' +
                     '</div>' +
                 '</div>' +
             '</div>' +
@@ -126,7 +126,7 @@ function displayStories(filter) {
             } else {
                 content.classList.remove('expanded');
                 content.classList.add('collapsed');
-                this.innerHTML = '<i class="ti ti-chevron-down"></i> Preview';
+                this.innerHTML = '<iconify-icon icon="lucide:chevron-down"></iconify-icon> Preview';
                 document.querySelector('[data-story-id="' + storyId + '"]').scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
@@ -142,8 +142,8 @@ function displayStories(filter) {
             var audioFile = this.getAttribute('data-audio');
             if (!audioFile) return;
 
-            var icon = this.querySelector('i');
-            var isPlaying = icon.classList.contains('ti-player-pause');
+            var icon = this.querySelector('iconify-icon') || this.querySelector('i');
+            var isPlaying = icon && icon.getAttribute('icon') === 'lucide:pause';
             
             // Stop any currently playing speech
             if (window.elevenLabsSpeech) {
@@ -151,27 +151,27 @@ function displayStories(filter) {
             }
 
             if (isPlaying) {
-                icon.className = 'ti ti-player-play';
+                if (icon) icon.setAttribute('icon', 'lucide:play');
                 return;
             }
 
             // Reset all other icons
-            document.querySelectorAll('.play-story-btn i').forEach(function(i) {
-                i.className = 'ti ti-player-play';
+            document.querySelectorAll('.play-story-btn iconify-icon, .play-story-btn i').forEach(function(i) {
+                i.setAttribute('icon', 'lucide:play');
             });
 
             // Set this one to pause
-            icon.className = 'ti ti-player-pause';
+            if (icon) icon.setAttribute('icon', 'lucide:pause');
 
             var audioUrl = 'https://jfzgzjgdptowfbtljvyp.supabase.co/storage/v1/object/public/audio-assets/' + audioFile;
             
             if (window.elevenLabsSpeech) {
                 window.elevenLabsSpeech.speak(audioUrl, {
                     onEnd: function() {
-                        icon.className = 'ti ti-player-play';
+                        if (icon) icon.setAttribute('icon', 'lucide:play');
                     },
                     onError: function() {
-                        icon.className = 'ti ti-player-play';
+                        if (icon) icon.setAttribute('icon', 'lucide:play');
                     }
                 });
             }

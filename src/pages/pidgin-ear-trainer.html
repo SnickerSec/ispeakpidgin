@@ -82,7 +82,7 @@
         <!-- Header -->
         <div class="text-center mb-8">
             <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-2">
-                <i class="ti ti-headset text-indigo-600"></i> Ear Trainer
+                <iconify-icon icon="lucide:headset" class="text-indigo-600"></iconify-icon> Ear Trainer
             </h1>
             <p class="text-gray-600 text-lg">Listen carefully... wot dey wen say?</p>
         </div>
@@ -90,7 +90,7 @@
         <!-- Start Screen -->
         <div id="start-screen" class="bg-white rounded-3xl shadow-xl p-8 text-center">
             <div class="w-32 h-32 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-6 text-5xl">
-                <i class="ti ti-volume"></i>
+                <iconify-icon icon="lucide:volume-2"></iconify-icon>
             </div>
             <h2 class="text-2xl font-bold text-gray-800 mb-4">Master da Accent</h2>
             <p class="text-gray-600 mb-8">Listen to high-quality Pidgin audio and choose the correct English translation. How many can you get right?</p>
@@ -98,7 +98,7 @@
             <div class="grid grid-cols-1 gap-4">
                 <button data-mode="relaxed" class="flex items-center gap-4 p-5 rounded-2xl border-2 border-gray-100 hover:border-indigo-500 hover:bg-indigo-50 transition-all text-left group">
                     <div class="w-12 h-12 rounded-xl bg-green-100 text-green-600 flex items-center justify-center text-2xl group-hover:bg-green-800 group-hover:text-white transition-colors">
-                        <i class="ti ti-leaf"></i>
+                        <iconify-icon icon="lucide:leaf"></iconify-icon>
                     </div>
                     <div>
                         <div class="font-bold text-gray-800">Relaxed Mode</div>
@@ -108,7 +108,7 @@
 
                 <button data-mode="blitz" class="flex items-center gap-4 p-5 rounded-2xl border-2 border-gray-100 hover:border-purple-500 hover:bg-purple-50 transition-all text-left group">
                     <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-2xl group-hover:bg-purple-700 group-hover:text-white transition-colors">
-                        <i class="ti ti-bolt"></i>
+                        <iconify-icon icon="lucide:zap"></iconify-icon>
                     </div>
                     <div>
                         <div class="font-bold text-gray-800">Blitz Mode</div>
@@ -118,7 +118,7 @@
 
                 <button data-mode="marathon" class="flex items-center gap-4 p-5 rounded-2xl border-2 border-gray-100 hover:border-blue-500 hover:bg-blue-50 transition-all text-left group">
                     <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-2xl group-hover:bg-blue-700 group-hover:text-white transition-colors">
-                        <i class="ti ti-trophy"></i>
+                        <iconify-icon icon="lucide:trophy"></iconify-icon>
                     </div>
                     <div>
                         <div class="font-bold text-gray-800">Marathon</div>
@@ -128,7 +128,7 @@
             </div>
             
             <div class="mt-8 p-4 bg-yellow-50 rounded-2xl border border-yellow-100 flex items-center gap-3 text-left">
-                <div class="text-2xl text-yellow-600"><i class="ti ti-info-circle"></i></div>
+                <div class="text-2xl text-yellow-600"><iconify-icon icon="lucide:info"></iconify-icon></div>
                 <p class="text-xs text-yellow-800">
                     <strong>Note:</strong> Dis game use high-quality ElevenLabs AI voices. Make sure your volume is up!
                 </p>
@@ -140,17 +140,17 @@
             <div class="flex justify-between items-center mb-6">
                 <div id="game-stats" class="flex gap-2 sm:gap-4">
                     <div class="bg-white px-3 sm:px-4 py-2 rounded-full shadow-sm font-bold text-gray-700 text-sm sm:text-base">
-                        <i class="ti ti-star text-yellow-500"></i> Score: <span id="current-score">0</span>
+                        <iconify-icon icon="lucide:star" class="text-yellow-500"></iconify-icon> Score: <span id="current-score">0</span>
                     </div>
                     <div id="streak-container" class="bg-orange-50 px-3 sm:px-4 py-2 rounded-full shadow-sm font-bold text-orange-600 text-sm sm:text-base border border-orange-100 hidden">
-                        <i class="ti ti-flame"></i> <span id="current-streak">0</span>
+                        <iconify-icon icon="lucide:flame"></iconify-icon> <span id="current-streak">0</span>
                     </div>
                     <div id="timer-container" class="bg-white px-3 sm:px-4 py-2 rounded-full shadow-sm font-bold text-gray-700 hidden text-sm sm:text-base">
-                        <i class="ti ti-clock text-red-500"></i> <span id="time-left">60</span>s
+                        <iconify-icon icon="lucide:clock" class="text-red-500"></iconify-icon> <span id="time-left">60</span>s
                     </div>
                 </div>
                 <button id="exit-game" class="text-gray-400 hover:text-gray-600 transition">
-                    <i class="ti ti-x text-2xl"></i>
+                    <iconify-icon icon="lucide:x" class="text-2xl"></iconify-icon>
                 </button>
             </div>
 
@@ -162,7 +162,7 @@
                 
                 <button id="play-audio-btn" class="w-32 h-32 bg-indigo-600 text-white rounded-full flex items-center justify-center mx-auto mb-8 text-5xl hover:bg-indigo-700 hover:scale-110 transition-all shadow-lg shadow-indigo-200 group relative">
                     <div class="absolute inset-0 rounded-full bg-indigo-400 animate-ping opacity-20 hidden" id="audio-ring"></div>
-                    <i class="ti ti-player-play" id="play-icon"></i>
+                    <iconify-icon icon="lucide:play" id="play-icon"></iconify-icon>
                 </button>
 
                 <div class="mb-8">
@@ -178,7 +178,7 @@
             
             <div class="flex flex-col gap-4">
                 <button id="replay-btn" class="text-indigo-600 font-bold hover:underline flex items-center gap-2 mx-auto">
-                    <i class="ti ti-refresh"></i> Play audio again
+                    <iconify-icon icon="lucide:rotate-cw"></iconify-icon> Play audio again
                 </button>
                 
                 <button id="skip-btn" class="text-gray-400 font-medium hover:text-gray-600 transition flex items-center gap-2 mx-auto text-sm">
@@ -218,7 +218,7 @@
             <!-- Leaderboard Display -->
             <div id="leaderboard-container" class="mb-8 hidden text-left">
                 <h3 class="font-bold text-gray-800 mb-4 flex items-center gap-2">
-                    <i class="ti ti-medal text-yellow-500"></i> Global Leaderboard
+                    <iconify-icon icon="lucide:award" class="text-yellow-500"></iconify-icon> Global Leaderboard
                 </h3>
                 <div class="bg-gray-50 rounded-2xl overflow-hidden border border-gray-100">
                     <table class="w-full text-sm">
