@@ -192,6 +192,38 @@ The site uses a **build-time component injection system** for consistent navigat
 - **CSP configuration**: Includes `mediaSrc: ["blob:", ...]` for ElevenLabs audio
 - **Static serving**: Express serves `public/` directory with compression and security headers
 
+### Cloudflare CDN (in front of Railway)
+`chokepidgin.com` is proxied through Cloudflare (zone `75ad78bba4908589b1c1434c5ee648ba`, free plan).
+Cloudflare sits between the browser and Railway, so **the headers `server.js` sets are not
+necessarily the headers users receive**.
+
+Current zone configuration (set 2026-08-23, not stored in this repo):
+- **Cache rule** `/sw.js` → *Bypass cache* + Browser TTL *Respect origin*
+  (ruleset `65970663838141ce9592b4a616d3e508`, rule `82244fb2fcae412b86fe6ff7da5e0277`)
+- **Browser Cache TTL** → *Respect Existing Headers* (API value `0`)
+
+**Do not remove either setting.** Both exist to fix a real outage-shaped bug:
+
+> Cloudflare's default Browser Cache TTL (4 hours) *overrides* the `Cache-Control` values
+> `server.js` sets in `setHeaders`, including the `no-cache, no-store` on `sw.js`. The edge then
+> pins an old service worker for 4 hours. Because a service worker's `fetch()` is governed by the
+> CSP of *its own script response*, the stale `sw.js` also carries a **stale CSP header** — so
+> newly-allowlisted origins get blocked with confusing `sw.js:NNN ... violates the following
+> Content Security Policy directive: connect-src ...` errors that do not match the CSP currently
+> in `server.js`. Symptom: "the browser refuses to load the latest updates."
+
+Debugging cache issues — always compare edge vs origin:
+```bash
+# What users get (may be a stale edge copy)
+curl -sSI https://chokepidgin.com/sw.js | grep -i "cache-control\|cf-cache-status\|age:"
+
+# What Railway actually serves (cache-buster forces a BYPASS)
+curl -sSI "https://chokepidgin.com/sw.js?cb=$RANDOM" | grep -i "cache-control\|cf-cache-status"
+```
+`cf-cache-status: HIT` plus a non-zero `age` on a file that should be fresh means the edge is stale.
+Purge is by **exact URL only** (max 30 per request); prefix/tag purge is Enterprise-only, so purging
+all JS means enumerating `public/**/*.js` and batching.
+
 ### Environment Variables
 - **SUPABASE_URL**: Supabase project URL
 - **SUPABASE_ANON_KEY**: Supabase anonymous key
