@@ -47,6 +47,12 @@ COPY server.js ./
 COPY routes/ ./routes/
 COPY middleware/ ./middleware/
 COPY services/ ./services/
+# routes/tts.js and routes/admin.js require the canonical pronunciation map and
+# synthesis settings from the speech engine, so this one source directory is
+# runtime code, not just build input. Omitting it makes the server exit with
+# MODULE_NOT_FOUND on boot -- the whole image, not just TTS. Keep this in sync
+# with any new server-side require() that reaches into src/.
+COPY src/components/speech/ ./src/components/speech/
 COPY --from=build /app/public ./public
 
 EXPOSE 3000
