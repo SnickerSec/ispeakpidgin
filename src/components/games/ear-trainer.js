@@ -65,7 +65,7 @@ class PidginEarTrainer {
         try {
             // Load dictionary and phrases for a huge pool of questions
             if (!window.supabaseAPI) {
-                console.error('Supabase API not found');
+                console.warn('Supabase API not found, waiting or checking local cache');
                 return;
             }
 
@@ -74,21 +74,18 @@ class PidginEarTrainer {
                 window.supabaseAPI.loadPhrases()
             ]);
 
-            // Combine only entries that HAVE pre-generated audio
-            const audioIndex = window.elevenLabsSpeech?.pregeneratedIndex || new Map();
-            
-            const dictEntries = (dict.entries || []).filter(e => audioIndex.has(e.pidgin.toLowerCase()));
-            const phraseEntries = (phrases.phrases || []).filter(e => audioIndex.has(e.pidgin.toLowerCase()));
+            const dictEntries = dict.entries || [];
+            const phraseEntries = phrases.phrases || [];
 
             this.allWords = [
-                ...dictEntries.map(e => ({ pidgin: e.pidgin, english: e.english, type: 'word' })),
-                ...phraseEntries.map(e => ({ pidgin: e.pidgin, english: e.english, type: 'phrase' }))
+                ...dictEntries.map(e => ({ pidgin: e.pidgin, english: e.english, type: 'word', category: e.category, difficulty: e.difficulty || 'beginner' })),
+                ...phraseEntries.map(e => ({ pidgin: e.pidgin, english: e.english, type: 'phrase', category: e.category, difficulty: e.difficulty || 'intermediate' }))
             ];
 
-            console.log(`Loaded ${this.allWords.length} audio-ready terms for Ear Trainer`);
+            console.log(`Loaded ${this.allWords.length} terms for Ear Trainer`);
             
-            if (this.allWords.length < 10) {
-                alert('Not enough audio assets loaded yet. Please try again later!');
+            if (this.allWords.length === 0) {
+                console.warn('No dictionary entries loaded yet.');
             }
         } catch (error) {
             console.error('Failed to load game data:', error);
@@ -249,19 +246,26 @@ class PidginEarTrainer {
     }
 
     playCurrentAudio() {
-        if (!window.elevenLabsSpeech || !this.currentRound) return;
+        if (!this.currentRound) return;
 
         this.elements.playIcon.setAttribute('icon', 'lucide:pause');
         this.elements.audioRing.classList.remove('hidden');
         this.elements.playBtn.classList.add('playing');
 
-        window.elevenLabsSpeech.speak(this.currentRound.correct.pidgin, {
-            onEnd: () => {
-                this.elements.playIcon.setAttribute('icon', 'lucide:play');
-                this.elements.audioRing.classList.add('hidden');
-                this.elements.playBtn.classList.remove('playing');
-            }
-        });
+        const onEnd = () => {
+            this.elements.playIcon.setAttribute('icon', 'lucide:play');
+            this.elements.audioRing.classList.add('hidden');
+            this.elements.playBtn.classList.remove('playing');
+        };
+
+        if (window.elevenLabsSpeech) {
+            window.elevenLabsSpeech.speak(this.currentRound.correct.pidgin, { onEnd });
+        } else if (window.pidginSpeech) {
+            window.pidginSpeech.speak(this.currentRound.correct.pidgin);
+            setTimeout(onEnd, 1200);
+        } else {
+            setTimeout(onEnd, 800);
+        }
     }
 
     skipQuestion() {

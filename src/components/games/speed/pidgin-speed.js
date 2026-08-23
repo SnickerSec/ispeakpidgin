@@ -142,7 +142,9 @@ class PidginSpeed {
         const input = document.getElementById('answer-input').value.trim().toLowerCase();
         if (!input) return;
         const correctAnswer = this.currentWord.pidgin.toLowerCase();
-        const isCorrect = input === correctAnswer;
+        
+        const normalize = str => str.replace(/['ʻ`‘’]/g, '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+        const isCorrect = input === correctAnswer || normalize(input) === normalize(correctAnswer);
 
         if (isCorrect) {
             this.combo++;

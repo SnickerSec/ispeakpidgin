@@ -186,21 +186,40 @@ module.exports = function(supabase, dictionaryLimiter, gamificationService) {
             if (difficulty) query = query.eq('level', difficulty);
             
             const { data: lessons, error } = await query;
-            if (error || !lessons || lessons.length === 0) return [];
 
             // Collect all vocabulary across eligible lessons
             let allVocab = [];
-            lessons.forEach(lesson => {
-                if (lesson.lesson_vocabulary) {
-                    lesson.lesson_vocabulary.forEach(v => {
+            if (!error && lessons && lessons.length > 0) {
+                lessons.forEach(lesson => {
+                    if (lesson.lesson_vocabulary) {
+                        lesson.lesson_vocabulary.forEach(v => {
+                            allVocab.push({
+                                ...v,
+                                lesson_title: lesson.title,
+                                level: lesson.level
+                            });
+                        });
+                    }
+                });
+            }
+
+            // Fallback to dictionary entries for dynamic question generation if lessons vocab is sparse
+            if (allVocab.length < 4) {
+                const { data: dictData } = await supabase.from('dictionary_entries').select('pidgin, english, examples, category, difficulty');
+                if (dictData && dictData.length >= 4) {
+                    dictData.forEach(d => {
+                        const englishStr = Array.isArray(d.english) ? d.english[0] : d.english;
+                        const exampleStr = Array.isArray(d.examples) && d.examples.length > 0 ? d.examples[0] : `I like go ${d.pidgin}.`;
                         allVocab.push({
-                            ...v,
-                            lesson_title: lesson.title,
-                            level: lesson.level
+                            pidgin: d.pidgin,
+                            english: englishStr,
+                            example: exampleStr,
+                            lesson_title: d.category || 'Dictionary',
+                            level: d.difficulty || 'beginner'
                         });
                     });
                 }
-            });
+            }
 
             if (allVocab.length < 4) return [];
 

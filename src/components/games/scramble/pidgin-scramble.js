@@ -100,16 +100,30 @@ class PidginScramble {
             else if (this.difficulty === 'medium') { minLen = 5; maxLen = 6; }
             else { minLen = 7; maxLen = 20; }
 
-            this.words = data.entries.filter(entry => {
-                const word = entry.pidgin.toLowerCase();
-                return /^[a-z]+$/.test(word) && word.length >= minLen && word.length <= maxLen;
+            this.words = data.entries.map(entry => {
+                const cleanWord = entry.pidgin
+                    .toLowerCase()
+                    .replace(/['ʻ`‘’]/g, '')
+                    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                    .replace(/[^a-z]/g, '');
+                return {
+                    ...entry,
+                    cleanWord
+                };
+            }).filter(entry => {
+                const word = entry.cleanWord;
+                return word.length >= minLen && word.length <= maxLen;
             });
 
             if (this.words.length < this.totalRounds) {
-                this.words = data.entries.filter(entry => {
-                    const word = entry.pidgin.toLowerCase();
-                    return /^[a-z]+$/.test(word) && word.length >= 3;
-                });
+                this.words = data.entries.map(entry => {
+                    const cleanWord = entry.pidgin
+                        .toLowerCase()
+                        .replace(/['ʻ`‘’]/g, '')
+                        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                        .replace(/[^a-z]/g, '');
+                    return { ...entry, cleanWord };
+                }).filter(entry => entry.cleanWord.length >= 3);
             }
 
             this.words.sort(() => Math.random() - 0.5);
@@ -132,7 +146,7 @@ class PidginScramble {
         this.gameActive = true;
         this.round++;
 
-        const word = this.currentWord.pidgin.toLowerCase();
+        const word = (this.currentWord.cleanWord || this.currentWord.pidgin.replace(/[^a-zA-Z]/g, '')).toLowerCase();
         this.currentScrambled = this.scrambleWord(word);
 
         document.getElementById('score-display').textContent = this.score;
@@ -179,7 +193,7 @@ class PidginScramble {
     renderAnswerSlots() {
         const container = document.getElementById('answer-slots');
         container.innerHTML = '';
-        const word = this.currentWord.pidgin.toLowerCase();
+        const word = (this.currentWord.cleanWord || this.currentWord.pidgin.replace(/[^a-zA-Z]/g, '')).toLowerCase();
 
         for (let i = 0; i < word.length; i++) {
             const slot = document.createElement('div');
@@ -208,7 +222,8 @@ class PidginScramble {
             slots[pos].classList.add('bg-violet-50', 'border-violet-600', 'cursor-pointer');
         }
 
-        if (this.selectedLetters.length === this.currentWord.pidgin.length) {
+        const targetLen = (this.currentWord.cleanWord || this.currentWord.pidgin.replace(/[^a-zA-Z]/g, '')).length;
+        if (this.selectedLetters.length === targetLen) {
             this.checkAnswer();
         }
     }
@@ -241,7 +256,7 @@ class PidginScramble {
 
     checkAnswer() {
         const answer = this.selectedLetters.map(l => l.letter).join('');
-        const correct = this.currentWord.pidgin.toLowerCase();
+        const correct = (this.currentWord.cleanWord || this.currentWord.pidgin.replace(/[^a-zA-Z]/g, '')).toLowerCase();
         const timeTaken = Math.round((Date.now() - this.startTime) / 1000);
 
         this.gameActive = false;
