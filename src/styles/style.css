@@ -915,7 +915,10 @@ button:focus, a:focus, input:focus, textarea:focus {
     transform: translateY(6px) scale(0.98);
     transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
     pointer-events: none;
-    z-index: 60 !important;
+    z-index: 100 !important;
+    background-color: #020617 !important; /* 100% opaque solid slate-950 */
+    border: 1px solid #334155 !important; /* slate-700 */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(51, 65, 85, 0.9) !important;
 }
 
 .nav-menu-content[data-state="open"] {
@@ -924,6 +927,7 @@ button:focus, a:focus, input:focus, textarea:focus {
     visibility: visible !important;
     transform: translateY(0) scale(1) !important;
     pointer-events: auto !important;
+    background-color: #020617 !important;
 }
 
 /* Invisible hover bridge to prevent mouseleave when moving from trigger to menu */
