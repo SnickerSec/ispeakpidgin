@@ -348,8 +348,8 @@ nav {
     box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
-/* Hawaiian styled buttons - exclude nav dropdown buttons */
-button:not(.nav-link):not(.mobile-dropdown-btn) {
+/* Hawaiian styled buttons - exclude nav buttons */
+button:not(.nav-link):not(.mobile-dropdown-btn):not(.nav-menu-trigger):not(#nav-search-btn):not(#mobile-menu-btn):not(#close-mobile-menu):not(#close-search) {
     position: relative;
     overflow: hidden;
     font-weight: 600;
@@ -367,7 +367,7 @@ button:not(.nav-link):not(.mobile-dropdown-btn) {
     box-shadow: 0 4px 15px rgba(30, 107, 168, 0.3);
 }
 
-button:not(.nav-link):not(.mobile-dropdown-btn)::after {
+button:not(.nav-link):not(.mobile-dropdown-btn):not(.nav-menu-trigger):not(#nav-search-btn):not(#mobile-menu-btn):not(#close-mobile-menu):not(#close-search)::after {
     content: '';
     position: absolute;
     top: 50%;
@@ -380,7 +380,7 @@ button:not(.nav-link):not(.mobile-dropdown-btn)::after {
     transition: width 0.6s, height 0.6s;
 }
 
-button:not(.nav-link):not(.mobile-dropdown-btn)::before {
+button:not(.nav-link):not(.mobile-dropdown-btn):not(.nav-menu-trigger):not(#nav-search-btn):not(#mobile-menu-btn):not(#close-mobile-menu):not(#close-search)::before {
     content: '🌊';
     position: absolute;
     font-size: 150px;
@@ -392,12 +392,12 @@ button:not(.nav-link):not(.mobile-dropdown-btn)::before {
     pointer-events: none;
 }
 
-button:not(.nav-link):not(.mobile-dropdown-btn):active::after {
+button:not(.nav-link):not(.mobile-dropdown-btn):not(.nav-menu-trigger):not(#nav-search-btn):not(#mobile-menu-btn):not(#close-mobile-menu):not(#close-search):active::after {
     width: 400px;
     height: 400px;
 }
 
-button:not(.nav-link):not(.mobile-dropdown-btn):hover::before {
+button:not(.nav-link):not(.mobile-dropdown-btn):not(.nav-menu-trigger):not(#nav-search-btn):not(#mobile-menu-btn):not(#close-mobile-menu):not(#close-search):hover::before {
     opacity: 0.1;
     transform: translate(-50%, -50%) scale(1);
 }
@@ -886,26 +886,69 @@ button:focus, a:focus, input:focus, textarea:focus {
     display: inline-block !important;
 }
 
-/* Navigation Dropdown Styles - Now handled by Tailwind in navigation.html */
-.nav-dropdown {
+/* ======================================================== */
+/* shadcn/ui Navigation Menu Styles & Animations            */
+/* ======================================================== */
+.nav-menu-item {
     position: relative;
 }
-/* Base styles for dropdown menu transition */
-.dropdown-menu {
-    transition: all 0.2s ease-out;
-    z-index: 100 !important;
-    background: #ffffff !important;
-}
-.dark .dropdown-menu {
-    background: #1e293b !important;
+
+.nav-menu-trigger {
+    cursor: pointer;
+    user-select: none;
+    outline: none !important;
 }
 
-/* Mobile menu - force opaque background so content doesn't bleed through */
-#mobile-menu {
-    background: #ffffff !important;
+.nav-menu-trigger .chevron-icon {
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.dark #mobile-menu {
-    background: #0f172a !important;
+
+.nav-menu-trigger[data-state="open"] .chevron-icon {
+    transform: rotate(180deg);
+}
+
+/* Base dropdown menu panel */
+.nav-menu-content {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px) scale(0.98);
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+    pointer-events: none;
+    z-index: 60 !important;
+}
+
+.nav-menu-content[data-state="open"] {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) scale(1) !important;
+    pointer-events: auto !important;
+}
+
+/* Invisible hover bridge to prevent mouseleave when moving from trigger to menu */
+.nav-menu-content::before {
+    content: '';
+    position: absolute;
+    top: -14px;
+    left: 0;
+    right: 0;
+    height: 14px;
+    background: transparent;
+}
+
+/* Iconify custom element baseline sizing */
+iconify-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+}
+
+/* Mobile menu - force opaque background */
+#mobile-menu {
+    background: #020617 !important; /* slate-950 */
+    z-index: 100 !important;
 }
 
 /* ==================== */

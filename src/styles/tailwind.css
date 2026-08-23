@@ -3,6 +3,7 @@
 
 /* Content sources for purging unused classes */
 @source "../pages/**/*.html";
+@source "../components/**/*.html";
 @source "../components/**/*.js";
 @source "../blog/**/*.html";
 
