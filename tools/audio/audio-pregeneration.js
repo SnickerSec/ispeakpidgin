@@ -309,7 +309,35 @@ const globalPronunciationMap = {
     'lahaina': 'lah-hye-nah',
     'lāhainā': 'lah-hye-nah',
     'ewa': 'eh-vah',
-    'ʻewa': 'eh-vah'
+    'ʻewa': 'eh-vah',
+    'honolulu': 'hoh-noh-loo-loo',
+    'ala moana': 'ah-lah moh-ah-nah',
+    'kapiolani': 'kah-pee-oh-lah-nee',
+    'kapiʻolani': 'kah-pee-oh-lah-nee',
+    'kalakaua': 'kah-lah-cow-ah',
+    'kalākaua': 'kah-lah-cow-ah',
+    'kuhio': 'koo-hee-oh',
+    'kūhiō': 'koo-hee-oh',
+    'waipahu': 'wye-pah-hoo',
+    'kahuku': 'kah-hoo-koo',
+    'laie': 'lah-ee-eh',
+    'lāʻie': 'lah-ee-eh',
+    'hanauma': 'hah-now-mah',
+    'lanikai': 'lah-nee-kye',
+    'koolau': 'koh-oh-laow',
+    'koʻolau': 'koh-oh-laow',
+
+    // Expanded Modern Slang & Food Expressions
+    'kefe': 'keh-feh',
+    'sukebe': 'soo-keh-beh',
+    'hukilau': 'hoo-kee-laow',
+    'tita': 'tee-tah',
+    'menpachi': 'men-pah-chee',
+    'menpachi eyes': 'men-pah-chee eyes',
+    'chawan': 'chah-wahn',
+    'moke': 'mohk',
+    'two scoops': 'two skoops',
+    'mac salad': 'mack salad'
 };
 
 // Helper to check if a word is likely Hawaiian/Pidgin (contains unique patterns)

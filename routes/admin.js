@@ -58,7 +58,14 @@ const globalPronunciationMap = {
     'rubbah': 'rub-bah', 'punani': 'poo-nah-nee', 'boto': 'boh-toh', 'faka': 'fah-kah',
     'hamajang': 'hah-mah-jahng', 'mayjah': 'may-jah', 'poho': 'poh-hoh',
     'rajah dat': 'rah-jah dat', 'yobo': 'yo-boh', 'wit\'': 'wit', 'wit': 'wit',
-    'yesterday': 'yes-tah-deh'
+    'yesterday': 'yes-tah-deh', 'honolulu': 'hoh-noh-loo-loo', 'ala moana': 'ah-lah moh-ah-nah',
+    'kapiolani': 'kah-pee-oh-lah-nee', 'kapiʻolani': 'kah-pee-oh-lah-nee', 'kalakaua': 'kah-lah-cow-ah',
+    'kalākaua': 'kah-lah-cow-ah', 'kuhio': 'koo-hee-oh', 'kūhiō': 'koo-hee-oh', 'waipahu': 'wye-pah-hoo',
+    'kahuku': 'kah-hoo-koo', 'laie': 'lah-ee-eh', 'lāʻie': 'lah-ee-eh', 'hanauma': 'hah-now-mah',
+    'lanikai': 'lah-nee-kye', 'koolau': 'koh-oh-laow', 'koʻolau': 'koh-oh-laow',
+    'kefe': 'keh-feh', 'sukebe': 'soo-keh-beh', 'hukilau': 'hoo-kee-laow', 'tita': 'tee-tah',
+    'menpachi': 'men-pah-chee', 'menpachi eyes': 'men-pah-chee eyes', 'chawan': 'chah-wahn',
+    'moke': 'mohk', 'two scoops': 'two skoops', 'mac salad': 'mack salad'
 };
 
 function applyPronunciationCorrections(text) {

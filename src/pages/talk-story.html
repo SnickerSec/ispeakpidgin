@@ -115,7 +115,7 @@
                     🤙 Casual Talk Story
                 </span>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
                 <button type="button" class="scenario-btn active p-3 rounded-xl bg-slate-800 border-2 border-blue-500 text-left transition-all hover:bg-slate-750" data-scenario="general">
                     <div class="text-xl mb-1">🤙</div>
                     <div class="text-sm font-bold text-slate-100">Casual Chat</div>
@@ -135,6 +135,16 @@
                     <div class="text-xl mb-1">🌴</div>
                     <div class="text-sm font-bold text-slate-100">Pau Hana</div>
                     <div class="text-[11px] text-slate-400">Weekend vibes & ohana</div>
+                </button>
+                <button type="button" class="scenario-btn p-3 rounded-xl bg-slate-800 border-2 border-slate-700 text-left transition-all hover:border-slate-500 hover:bg-slate-750" data-scenario="airport-greeting">
+                    <div class="text-xl mb-1">🌺</div>
+                    <div class="text-sm font-bold text-slate-100">Airport Pickup</div>
+                    <div class="text-[11px] text-slate-400">Lei greeting & welcome</div>
+                </button>
+                <button type="button" class="scenario-btn p-3 rounded-xl bg-slate-800 border-2 border-slate-700 text-left transition-all hover:border-slate-500 hover:bg-slate-750" data-scenario="holoholo-cruise">
+                    <div class="text-xl mb-1">🚗</div>
+                    <div class="text-sm font-bold text-slate-100">Holoholo Cruise</div>
+                    <div class="text-[11px] text-slate-400">Mauka & makai road trip</div>
                 </button>
             </div>
         </div>
@@ -257,6 +267,26 @@
                         "Pau hana! Grab one cold drink, brah.",
                         "We going holoholo North Shore dis weekend.",
                         "Aunty wen make choke grindz for dinner tonight!"
+                    ]
+                },
+                'airport-greeting': {
+                    title: '🌺 Airport Pickup & Lei Greeting',
+                    badge: '🌺 Airport Lei Pickup',
+                    welcome: "Aloha and welcome to Hawaii! Here is one fresh pikake lei fo' you! Long flight across da ocean, yeah? Where we going grind first?",
+                    starters: [
+                        "Mahalo for da beautiful lei, brah!",
+                        "Da flight was long, I stay starving!",
+                        "We can stop Rainbow Drive-In on da way?"
+                    ]
+                },
+                'holoholo-cruise': {
+                    title: '🚗 Holoholo Island Cruise & Directions',
+                    badge: '🚗 Holoholo Island Trip',
+                    welcome: "Hop in da truck, brah! We going holoholo today! You like head mauka towards da mountains or cruise makai along da coastline?",
+                    starters: [
+                        "Which way is mauka from here?",
+                        "We go check out North Shore surf spots!",
+                        "Where can we find da best fresh poke along da road?"
                     ]
                 }
             };

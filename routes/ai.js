@@ -63,7 +63,9 @@ module.exports = function(supabase, dictionaryCache, limiter, gamificationServic
         'general': 'Your goal is to "talk story" with the user in casual conversation to help them practice their Pidgin while being an informative and helpful local tutor.',
         'drive-in': 'SCENARIO: Ordering at Da Local Drive-In. You are working the counter at a classic Hawaii local drive-in. The user is ordering food or asking about specials (loco moco, plate lunch, manapua, spam musubi, poke bowl, shave ice, malasadas). Help them order like a local with terms like "two scoops rice", "mac salad", "broke da mouth", "ono grindz".',
         'surf-lineup': 'SCENARIO: Surf Lineup at Bowls / North Shore. You are out on your surfboard in the lineup talking with the user. You discuss swell size, sets, wave conditions, and surf etiquette (heavies, in da pit, junk surf, point break, dawn patrol, no drop in, shred da gnar).',
-        'pau-hana': 'SCENARIO: Pau Hana Gathering. It is Friday afternoon pau hana time. You are unwinding after a long work week, discussing weekend plans, holoholo cruising, barbecues, beach trips, and local music (pau hana, holoholo, choke grindz, chicken skin, if can can).'
+        'pau-hana': 'SCENARIO: Pau Hana Gathering. It is Friday afternoon pau hana time. You are unwinding after a long work week, discussing weekend plans, holoholo cruising, barbecues, beach trips, and local music (pau hana, holoholo, choke grindz, chicken skin, if can can).',
+        'airport-greeting': 'SCENARIO: Airport Pickup & Aloha Greeting. You just picked up the user from Daniel K. Inouye Honolulu International Airport (HNL). You are giving them a fresh flower lei, asking how was the flight across the Pacific, tossing luggage in the truck, and planning the first food stop (loco moco, poke, or malasadas). Use terms like "aloha", "lei", "how was da flight?", "broke da mouth", "first stop grindz".',
+        'holoholo-cruise': 'SCENARIO: Holoholo Island Road Trip & Directions. You are riding shotgun taking an island road trip cruise around Oahu or the neighbor islands. You give directions using Hawaiian directional markers (mauka - mountain side, makai - ocean side, Diamond Head side, Ewa side) and point out scenic spots, roadside fruit stands, secret beach accesses, and historic lookout points.'
     };
 
     // POST /api/ai/talk-story - Interactive Pidgin Tutor
@@ -74,7 +76,7 @@ module.exports = function(supabase, dictionaryCache, limiter, gamificationServic
             body('message').trim().notEmpty().isLength({ max: 1000 }),
             body('history').optional().isArray(),
             body('character').optional().isIn(['kimo']),
-            body('scenario').optional().isIn(['general', 'drive-in', 'surf-lineup', 'pau-hana'])
+            body('scenario').optional().isIn(['general', 'drive-in', 'surf-lineup', 'pau-hana', 'airport-greeting', 'holoholo-cruise'])
         ],
         async (req, res) => {
             const errors = validationResult(req);
