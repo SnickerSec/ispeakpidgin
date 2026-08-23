@@ -9,14 +9,11 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 require('dotenv').config();
-const { createClient } = require('@supabase/supabase-js');
-require('dotenv').config();
+const { supabase, isOfflineMock } = require('../../config/supabase');
 
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
-
-const DEFAULT_MISSING_TERMS_PATH = '/tmp/missing-terms.json';
+const CURATED_TERMS_PATH = path.join(__dirname, '../../docs/curated-slang-expansion.json');
+const DOCS_TERMS_PATH = path.join(__dirname, '../../docs/missing-terms.json');
+const DEFAULT_MISSING_TERMS_PATH = fs.existsSync(CURATED_TERMS_PATH) ? CURATED_TERMS_PATH : (fs.existsSync(DOCS_TERMS_PATH) ? DOCS_TERMS_PATH : '/tmp/missing-terms.json');
 const MISSING_TERMS_PATH = process.argv[2] || DEFAULT_MISSING_TERMS_PATH;
 
 async function main() {

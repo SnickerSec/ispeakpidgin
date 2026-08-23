@@ -1,0 +1,880 @@
+{
+  "generated": "2026-08-23T00:45:35.233Z",
+  "source": "curated-cultural-expansion",
+  "count": 40,
+  "missing": [
+    {
+      "pidgin": "heavies",
+      "english": [
+        "large waves",
+        "heavy surf",
+        "intense waves"
+      ],
+      "category": "nature",
+      "pronunciation": "HEH-veez",
+      "difficulty": "intermediate",
+      "usage": "Used by surfers to describe large, powerful, hollow, or intimidating waves.",
+      "examples": [
+        "Watch out on da outside, da heavies stay rolling in.",
+        "Dat north swell brought da heavies today."
+      ],
+      "origin": "Surfing slang",
+      "tags": [
+        "surf",
+        "ocean",
+        "waves",
+        "slang"
+      ]
+    },
+    {
+      "pidgin": "in da pit",
+      "english": [
+        "inside the barrel",
+        "deep in the tube",
+        "impact zone"
+      ],
+      "category": "nature",
+      "pronunciation": "een dah PEET",
+      "difficulty": "intermediate",
+      "usage": "Being deep inside the hollow curve of a breaking wave or right in the heaviest spot of the impact zone.",
+      "examples": [
+        "He wen drop in right in da pit!",
+        "If you stay in da pit, you gotta hold your breath."
+      ],
+      "origin": "Surfing slang",
+      "tags": [
+        "surf",
+        "ocean",
+        "barrel",
+        "slang"
+      ]
+    },
+    {
+      "pidgin": "junk surf",
+      "english": [
+        "poor quality waves",
+        "messy surf",
+        "choppy conditions"
+      ],
+      "category": "nature",
+      "pronunciation": "JUNK surf",
+      "difficulty": "beginner",
+      "usage": "Poor, blown-out, choppy, or unrideable wave conditions.",
+      "examples": [
+        "Too much wind today, only get junk surf.",
+        "No even bother paddle out, stay junk surf."
+      ],
+      "origin": "Pidgin-English hybrid",
+      "tags": [
+        "surf",
+        "ocean",
+        "weather",
+        "slang"
+      ]
+    },
+    {
+      "pidgin": "shred da gnar",
+      "english": [
+        "surf aggressively",
+        "carve waves with high skill",
+        "ride intensely"
+      ],
+      "category": "nature",
+      "pronunciation": "shred dah NAHR",
+      "difficulty": "intermediate",
+      "usage": "To surf or skate with high performance, throwing heavy carves and turns.",
+      "examples": [
+        "Look at dat grom shred da gnar at Bowls!",
+        "We wen shred da gnar all morning."
+      ],
+      "origin": "Surf culture slang",
+      "tags": [
+        "surf",
+        "action",
+        "sports",
+        "slang"
+      ]
+    },
+    {
+      "pidgin": "point break",
+      "english": [
+        "headland surf break",
+        "point wave"
+      ],
+      "category": "nature",
+      "pronunciation": "POINT brayk",
+      "difficulty": "intermediate",
+      "usage": "A surf spot where waves peel along a point of land or reef headland.",
+      "examples": [
+        "Dat spot is one classic point break.",
+        "Da point break stay firing on dis south swell."
+      ],
+      "origin": "Surfing terminology",
+      "tags": [
+        "surf",
+        "ocean",
+        "geography"
+      ]
+    },
+    {
+      "pidgin": "dawn patrol",
+      "english": [
+        "early morning surf session",
+        "sunrise check"
+      ],
+      "category": "actions",
+      "pronunciation": "DAWN pah-TROHL",
+      "difficulty": "beginner",
+      "usage": "Checking the surf or paddling out at the crack of dawn before crowds arrive.",
+      "examples": [
+        "We go dawn patrol tomorrow at 5:30 AM.",
+        "Dawn patrol caught da best sets of da day."
+      ],
+      "origin": "Surfing culture",
+      "tags": [
+        "surf",
+        "morning",
+        "routine",
+        "slang"
+      ]
+    },
+    {
+      "pidgin": "close out",
+      "english": [
+        "wave breaking all at once",
+        "unrideable section"
+      ],
+      "category": "nature",
+      "pronunciation": "KLOHZ owt",
+      "difficulty": "intermediate",
+      "usage": "When a wave crests and breaks entirely at one time across the reef with no open shoulder to ride.",
+      "examples": [
+        "Every wave was one close out, couldn't make da shoulder.",
+        "Watch out fo' dat close out on da inside."
+      ],
+      "origin": "Surfing terminology",
+      "tags": [
+        "surf",
+        "ocean",
+        "waves"
+      ]
+    },
+    {
+      "pidgin": "drop in",
+      "english": [
+        "cut off another surfer",
+        "steal a wave",
+        "take off on someone"
+      ],
+      "category": "actions",
+      "pronunciation": "DROP een",
+      "difficulty": "intermediate",
+      "usage": "Major surf etiquette violation where a surfer takes off on a wave in front of someone who already has right of way.",
+      "examples": [
+        "No drop in on da uncles, brah!",
+        "He wen drop in on me and lost his board."
+      ],
+      "origin": "Surfing terminology",
+      "tags": [
+        "surf",
+        "etiquette",
+        "action"
+      ]
+    },
+    {
+      "pidgin": "manapua",
+      "english": [
+        "char siu pork bun",
+        "steamed bun",
+        "baked bun"
+      ],
+      "category": "food",
+      "pronunciation": "mah-nah-POO-ah",
+      "difficulty": "beginner",
+      "usage": "Hawaiian-style char siu pork bun, available steamed (traditional white) or baked, sold in local shops and manapua trucks.",
+      "examples": [
+        "Pick up one box of steamed manapua from Chinatown.",
+        "Da baked manapua stay piping hot!"
+      ],
+      "origin": "Hawaiian (mea ono puaʻa)",
+      "tags": [
+        "food",
+        "grindz",
+        "snack",
+        "hawaiian"
+      ]
+    },
+    {
+      "pidgin": "loco moco",
+      "english": [
+        "rice topped with burger, egg and brown gravy"
+      ],
+      "category": "food",
+      "pronunciation": "LOH-koh MOH-koh",
+      "difficulty": "beginner",
+      "usage": "Iconic Hawaii comfort dish: a bed of white rice topped with a hamburger patty, fried egg, and rich brown gravy.",
+      "examples": [
+        "Gimme one loco moco with two eggs sunny side up.",
+        "After surfing, nothing beat one heavy loco moco."
+      ],
+      "origin": "Local Hawaii dish (Hilo, 1949)",
+      "tags": [
+        "food",
+        "grindz",
+        "plate lunch",
+        "classic"
+      ]
+    },
+    {
+      "pidgin": "poke bowl",
+      "english": [
+        "seasoned raw fish bowl over rice"
+      ],
+      "category": "food",
+      "pronunciation": "POH-kay bohl",
+      "difficulty": "beginner",
+      "usage": "Fresh cubed ahi or salmon seasoned with shoyu, sesame oil, and scallions served over warm sushi or white rice.",
+      "examples": [
+        "I going buy one spicy ahi poke bowl fo' lunch.",
+        "Dat poke bowl had limu and inamona inside."
+      ],
+      "origin": "Hawaiian-Japanese hybrid",
+      "tags": [
+        "food",
+        "grindz",
+        "seafood",
+        "hawaiian"
+      ]
+    },
+    {
+      "pidgin": "choke grindz",
+      "english": [
+        "huge feast",
+        "lots of food",
+        "abundant delicious meal"
+      ],
+      "category": "food",
+      "pronunciation": "CHOKE gryndz",
+      "difficulty": "beginner",
+      "usage": "Having an abundant, delicious spread of local food.",
+      "examples": [
+        "Aunty wen cook choke grindz fo' da graduation party.",
+        "Get choke grindz at da potluck, come through!"
+      ],
+      "origin": "Pidgin slang hybrid",
+      "tags": [
+        "food",
+        "grindz",
+        "slang",
+        "party"
+      ]
+    },
+    {
+      "pidgin": "kau kau",
+      "english": [
+        "food",
+        "meal",
+        "to eat"
+      ],
+      "category": "food",
+      "pronunciation": "COW cow",
+      "difficulty": "beginner",
+      "usage": "Pidgin slang for food or the act of eating.",
+      "examples": [
+        "Time for kau kau, grab one plate!",
+        "You like go kau kau after work?"
+      ],
+      "origin": "Hawaiian / Cantonese Pidgin loanword",
+      "tags": [
+        "food",
+        "grindz",
+        "slang"
+      ]
+    },
+    {
+      "pidgin": "li hing mui",
+      "english": [
+        "salty dried plum powder",
+        "preserved plum"
+      ],
+      "category": "food",
+      "pronunciation": "LEE HEENG moo-ee",
+      "difficulty": "beginner",
+      "usage": "Sweet, sour, and salty dried plum powder used to season gummy candies, fresh fruit (like pineapple and apples), or shave ice.",
+      "examples": [
+        "Sprinkle li hing mui on top da gummy bears.",
+        "I like my pineapple with choke li hing mui."
+      ],
+      "origin": "Cantonese loanword",
+      "tags": [
+        "food",
+        "snack",
+        "flavor",
+        "asian-pacific"
+      ]
+    },
+    {
+      "pidgin": "spam musubi",
+      "english": [
+        "grilled spam and rice wrapped in seaweed"
+      ],
+      "category": "food",
+      "pronunciation": "SPAM moo-soo-bee",
+      "difficulty": "beginner",
+      "usage": "A staple local Hawaii snack consisting of a block of sushi rice topped with glazed grilled Spam and bound with nori.",
+      "examples": [
+        "Grab two spam musubi from 7-Eleven fo' da beach trip.",
+        "Spam musubi is da best pau hana snack."
+      ],
+      "origin": "Japanese-Hawaiian fusion",
+      "tags": [
+        "food",
+        "grindz",
+        "snack",
+        "classic"
+      ]
+    },
+    {
+      "pidgin": "plate lunch",
+      "english": [
+        "local meat entrée with two scoops rice and macaroni salad"
+      ],
+      "category": "food",
+      "pronunciation": "PLAYT lunch",
+      "difficulty": "beginner",
+      "usage": "The quintessential Hawaii meal consisting of two scoops of white rice, one scoop of macaroni salad, and an entrée meat.",
+      "examples": [
+        "We go drive-in get one chicken katsu plate lunch.",
+        "No plate lunch complete without mac salad."
+      ],
+      "origin": "Hawaii plantation era",
+      "tags": [
+        "food",
+        "grindz",
+        "culture",
+        "lunch"
+      ]
+    },
+    {
+      "pidgin": "malasada",
+      "english": [
+        "Portuguese fried doughnut"
+      ],
+      "category": "food",
+      "pronunciation": "mah-lah-SAH-dah",
+      "difficulty": "beginner",
+      "usage": "A Portuguese yeast doughnut fried until golden, coated in granulated sugar or cinnamon, and optionally filled with haupia or custard.",
+      "examples": [
+        "We stopped at Leonard's Bakery fo' hot malasadas.",
+        "Da haupia malasadas stay broke da mouth!"
+      ],
+      "origin": "Portuguese loanword",
+      "tags": [
+        "food",
+        "dessert",
+        "bakery",
+        "portuguese"
+      ]
+    },
+    {
+      "pidgin": "shave ice",
+      "english": [
+        "Hawaiian shaved ice dessert"
+      ],
+      "category": "food",
+      "pronunciation": "SHAYV eye-ss",
+      "difficulty": "beginner",
+      "usage": "Finely shaved ice (not crushed) soaked in tropical flavored syrups, often served over vanilla ice cream with azuki beans and sweetened condensed milk (snow cap).",
+      "examples": [
+        "Hot day like today, time fo' rainbow shave ice with snow cap.",
+        "Get da best shave ice on North Shore."
+      ],
+      "origin": "Japanese kakigōri / Hawaii local",
+      "tags": [
+        "food",
+        "dessert",
+        "refreshment"
+      ]
+    },
+    {
+      "pidgin": "pipikaula",
+      "english": [
+        "Hawaiian salted dried beef",
+        "beef jerky"
+      ],
+      "category": "food",
+      "pronunciation": "pee-pee-COW-lah",
+      "difficulty": "intermediate",
+      "usage": "Traditional Hawaiian salted, seasoned, and sun-dried beef, often pan-fried before serving.",
+      "examples": [
+        "Dat luau had ono pipikaula and poi.",
+        "Pipikaula with hot rice is the best combination."
+      ],
+      "origin": "Hawaiian",
+      "tags": [
+        "food",
+        "hawaiian",
+        "traditional"
+      ]
+    },
+    {
+      "pidgin": "haupia",
+      "english": [
+        "coconut pudding",
+        "coconut custard"
+      ],
+      "category": "food",
+      "pronunciation": "how-PEE-ah",
+      "difficulty": "beginner",
+      "usage": "Traditional Hawaiian coconut milk pudding, sliced into blocks or used as dessert pie/cake filling.",
+      "examples": [
+        "Haupia pie is my favorite dessert at Thanksgiving.",
+        "Save some haupia for Uncle."
+      ],
+      "origin": "Hawaiian",
+      "tags": [
+        "food",
+        "dessert",
+        "hawaiian"
+      ]
+    },
+    {
+      "pidgin": "poke",
+      "english": [
+        "cut or cubed raw fish",
+        "diced seasoned seafood"
+      ],
+      "category": "food",
+      "pronunciation": "POH-kay",
+      "difficulty": "beginner",
+      "usage": "Hawaiian word meaning to slice or cut crosswise into pieces; refers to seasoned diced raw fish (usually yellowfin ahi).",
+      "examples": [
+        "Go buy two pounds shoyu poke for the family.",
+        "Fresh caught ahi makes the best poke."
+      ],
+      "origin": "Hawaiian",
+      "tags": [
+        "food",
+        "hawaiian",
+        "seafood"
+      ]
+    },
+    {
+      "pidgin": "buss up",
+      "english": [
+        "broken down",
+        "injured",
+        "laughing hysterically"
+      ],
+      "category": "descriptions",
+      "pronunciation": "BUSS up",
+      "difficulty": "beginner",
+      "usage": "Describes something physically damaged, a person who is exhausted/beaten up, or people laughing uncontrollably.",
+      "examples": [
+        "His truck was all buss up after the trail.",
+        "He told one joke and everybody wen buss up laughing."
+      ],
+      "origin": "Pidgin-English slang",
+      "tags": [
+        "slang",
+        "humor",
+        "condition"
+      ]
+    },
+    {
+      "pidgin": "fakafied",
+      "english": [
+        "fake",
+        "inauthentic",
+        "phony",
+        "pretentious"
+      ],
+      "category": "descriptions",
+      "pronunciation": "fah-kah-FYDE",
+      "difficulty": "intermediate",
+      "usage": "Describes someone who is being fake, disingenuous, or putting on a front.",
+      "examples": [
+        "No act all fakafied, just be yourself.",
+        "I can tell when someone stay fakafied."
+      ],
+      "origin": "Pidgin slang hybrid (faka + -fied)",
+      "tags": [
+        "slang",
+        "character",
+        "attitude"
+      ]
+    },
+    {
+      "pidgin": "solid bro",
+      "english": [
+        "reliable friend",
+        "dependable",
+        "awesome gesture"
+      ],
+      "category": "expressions",
+      "pronunciation": "SAH-leed broh",
+      "difficulty": "beginner",
+      "usage": "A compliment praising someone for being dependable, true to their word, or doing a great favor.",
+      "examples": [
+        "Thanks for picking me up at the airport, you solid bro.",
+        "He always shows up when you need help, solid bro."
+      ],
+      "origin": "Local slang",
+      "tags": [
+        "slang",
+        "friendship",
+        "compliment"
+      ]
+    },
+    {
+      "pidgin": "too much style",
+      "english": [
+        "exceptionally stylish",
+        "showing off flair",
+        "looking sharp"
+      ],
+      "category": "descriptions",
+      "pronunciation": "TOO much STY-uhl",
+      "difficulty": "intermediate",
+      "usage": "Exclamation when someone looks extraordinarily fly, does a slick maneuver, or is showing off stylish flair.",
+      "examples": [
+        "Check out his custom rims, too much style!",
+        "She caught that wave with too much style."
+      ],
+      "origin": "Local Hawaii youth slang",
+      "tags": [
+        "slang",
+        "fashion",
+        "praise"
+      ]
+    },
+    {
+      "pidgin": "guans",
+      "english": [
+        "guaranteed",
+        "for sure",
+        "without a doubt"
+      ],
+      "category": "expressions",
+      "pronunciation": "GWAHNZ",
+      "difficulty": "intermediate",
+      "usage": "Slang contraction of 'guaranteed'; means something is certain or promised.",
+      "examples": [
+        "Guans we going catch fish today.",
+        "You coming tonight? Guans, brah!"
+      ],
+      "origin": "Pidgin contraction of 'guaranteed'",
+      "tags": [
+        "slang",
+        "agreement",
+        "certainty"
+      ]
+    },
+    {
+      "pidgin": "no make body",
+      "english": [
+        "don't show off",
+        "don't act foolish",
+        "don't cause drama"
+      ],
+      "category": "expressions",
+      "pronunciation": "NO MAYK BAH-dee",
+      "difficulty": "intermediate",
+      "usage": "Admonition telling someone not to act arrogant, show off in public, or make a fool of themselves.",
+      "examples": [
+        "Just stay cool, no make body in front of everybody.",
+        "He started yelling, and his friend said 'no make body, brah.'"
+      ],
+      "origin": "Pidgin idiom",
+      "tags": [
+        "slang",
+        "idiom",
+        "behavior",
+        "etiquette"
+      ]
+    },
+    {
+      "pidgin": "stink eye",
+      "english": [
+        "dirty look",
+        "glare of disapproval",
+        "hostile glance"
+      ],
+      "category": "expressions",
+      "pronunciation": "STEENK eye",
+      "difficulty": "beginner",
+      "usage": "Giving someone a dirty look or glaring with disapproval or irritation.",
+      "examples": [
+        "Why dat guy giving us stink eye?",
+        "My mom gave me stink eye when I didn't take off my shoes."
+      ],
+      "origin": "Hawaii idiom",
+      "tags": [
+        "slang",
+        "idiom",
+        "expression"
+      ]
+    },
+    {
+      "pidgin": "chicken skin",
+      "english": [
+        "goosebumps",
+        "chills from emotion or fear"
+      ],
+      "category": "expressions",
+      "pronunciation": "CHEE-kehn skeen",
+      "difficulty": "beginner",
+      "usage": "Getting goosebumps from emotional music, spooky ghost stories, or awe-inspiring moments.",
+      "examples": [
+        "Hearing that Hawaiian chant gave me pure chicken skin.",
+        "Dat haunted road in Pali gives everybody chicken skin."
+      ],
+      "origin": "Hawaiian Pidgin idiom",
+      "tags": [
+        "slang",
+        "idiom",
+        "feelings"
+      ]
+    },
+    {
+      "pidgin": "if can, can",
+      "english": [
+        "if it's possible, we'll do it; if not, no worries"
+      ],
+      "category": "expressions",
+      "pronunciation": "EEF kan, kan",
+      "difficulty": "beginner",
+      "usage": "Philosophical local phrase representing a relaxed, flexible attitude toward life and plans.",
+      "examples": [
+        "You think we can finish today? If can, can; if no can, no can!",
+        "Just do your best, if can, can."
+      ],
+      "origin": "Hawaiian Pidgin philosophy",
+      "tags": [
+        "slang",
+        "idiom",
+        "philosophy",
+        "lifestyle"
+      ]
+    },
+    {
+      "pidgin": "talk stink",
+      "english": [
+        "gossip negatively",
+        "badmouth someone",
+        "speak ill"
+      ],
+      "category": "actions",
+      "pronunciation": "TAWK steenk",
+      "difficulty": "beginner",
+      "usage": "To speak negatively, gossip maliciously, or badmouth people behind their backs.",
+      "examples": [
+        "No talk stink about your cousins.",
+        "She always talking stink about her coworkers."
+      ],
+      "origin": "Pidgin idiom",
+      "tags": [
+        "slang",
+        "communication",
+        "behavior"
+      ]
+    },
+    {
+      "pidgin": "habut",
+      "english": [
+        "pouting",
+        "sulking",
+        "grumpy after being offended"
+      ],
+      "category": "descriptions",
+      "pronunciation": "hah-BOOT",
+      "difficulty": "intermediate",
+      "usage": "Describes someone who is sulking, grumpy, or throwing a silent tantrum because they didn't get their way.",
+      "examples": [
+        "Why you stay all habut? It was just a game.",
+        "He got habut and walked home by himself."
+      ],
+      "origin": "Japanese loanword (habuteru)",
+      "tags": [
+        "slang",
+        "mood",
+        "emotion",
+        "japanese"
+      ]
+    },
+    {
+      "pidgin": "holoholo",
+      "english": [
+        "to cruise",
+        "go for a leisure drive or stroll",
+        "wander for fun"
+      ],
+      "category": "actions",
+      "pronunciation": "hoh-low-HOH-low",
+      "difficulty": "beginner",
+      "usage": "To go out exploring, driving, strolling, or visiting friends with no strict agenda.",
+      "examples": [
+        "Sunday morning we go holoholo on the East Side.",
+        "Uncle went holoholo down to the harbor."
+      ],
+      "origin": "Hawaiian",
+      "tags": [
+        "hawaiian",
+        "activity",
+        "leisure"
+      ]
+    },
+    {
+      "pidgin": "aurite",
+      "english": [
+        "all right!",
+        "awesome",
+        "let's do it"
+      ],
+      "category": "expressions",
+      "pronunciation": "ow-RYTE",
+      "difficulty": "beginner",
+      "usage": "Enthusiastic contraction of 'all right' used to express agreement, celebration, or excitement.",
+      "examples": [
+        "Aurite! We going beach!",
+        "You got the job? Aurite!"
+      ],
+      "origin": "Pidgin phonetic contraction",
+      "tags": [
+        "slang",
+        "greetings",
+        "celebration"
+      ]
+    },
+    {
+      "pidgin": "gee vum",
+      "english": [
+        "give 'em",
+        "go for it with full energy",
+        "put maximum effort"
+      ],
+      "category": "expressions",
+      "pronunciation": "GEE vum",
+      "difficulty": "intermediate",
+      "usage": "Encouragement telling someone to go hard, give full effort, or strike with intensity.",
+      "examples": [
+        "Gee vum, brah! You can score the touchdown!",
+        "Time to study for finals, gee vum!"
+      ],
+      "origin": "Pidgin contraction (give them)",
+      "tags": [
+        "slang",
+        "motivation",
+        "sports"
+      ]
+    },
+    {
+      "pidgin": "shave head",
+      "english": [
+        "buzz cut hairstyle",
+        "getting completely defeated in a game"
+      ],
+      "category": "descriptions",
+      "pronunciation": "SHAYV hed",
+      "difficulty": "intermediate",
+      "usage": "Can refer to a short buzz haircut, or figuratively to being soundly defeated without scoring a point.",
+      "examples": [
+        "He got one fresh shave head for summer.",
+        "We got shave head in volleyball today, 21-0."
+      ],
+      "origin": "Local Hawaii slang",
+      "tags": [
+        "slang",
+        "humor",
+        "sports"
+      ]
+    },
+    {
+      "pidgin": "rajah dat",
+      "english": [
+        "roger that",
+        "understood",
+        "agreed"
+      ],
+      "category": "expressions",
+      "pronunciation": "RAH-jah daht",
+      "difficulty": "beginner",
+      "usage": "Local pronunciation of 'roger that' meaning affirmative, acknowledged, or agreed.",
+      "examples": [
+        "Meet at 6 PM? Rajah dat!",
+        "Rajah dat, I'll bring the cooler."
+      ],
+      "origin": "Pidgin military loanword",
+      "tags": [
+        "slang",
+        "communication",
+        "agreement"
+      ]
+    },
+    {
+      "pidgin": "lanai",
+      "english": [
+        "porch",
+        "patio",
+        "balcony",
+        "veranda"
+      ],
+      "category": "descriptions",
+      "pronunciation": "lah-NYE",
+      "difficulty": "beginner",
+      "usage": "An outdoor porch, covered patio, or open-air veranda on a home or condo.",
+      "examples": [
+        "Let's sit out on the lanai and drink coffee.",
+        "The apartment has a huge lanai with ocean views."
+      ],
+      "origin": "Hawaiian (lānaʻi)",
+      "tags": [
+        "hawaiian",
+        "home",
+        "architecture"
+      ]
+    },
+    {
+      "pidgin": "mauka",
+      "english": [
+        "toward the mountains",
+        "inland direction"
+      ],
+      "category": "descriptions",
+      "pronunciation": "MOW-kah",
+      "difficulty": "beginner",
+      "usage": "Cardinal direction in Hawaii meaning toward the mountains or inland (opposite of makai).",
+      "examples": [
+        "Turn mauka at the next intersection.",
+        "The mauka side of the highway is clear."
+      ],
+      "origin": "Hawaiian (ma uka)",
+      "tags": [
+        "hawaiian",
+        "directions",
+        "essential"
+      ]
+    },
+    {
+      "pidgin": "makai",
+      "english": [
+        "toward the ocean",
+        "seaward direction"
+      ],
+      "category": "descriptions",
+      "pronunciation": "mah-KYE",
+      "difficulty": "beginner",
+      "usage": "Cardinal direction in Hawaii meaning toward the ocean or sea (opposite of mauka).",
+      "examples": [
+        "The park is on the makai side of the street.",
+        "Walk makai until you reach the shoreline."
+      ],
+      "origin": "Hawaiian (ma kai)",
+      "tags": [
+        "hawaiian",
+        "directions",
+        "essential"
+      ]
+    }
+  ]
+}

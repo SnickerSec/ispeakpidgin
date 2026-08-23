@@ -3,530 +3,1724 @@
     {
       "id": "dict-1",
       "pidgin": "akamai",
-      "english": ["smart", "intelligent", "clever"],
+      "english": [
+        "smart",
+        "intelligent",
+        "clever"
+      ],
       "category": "descriptions",
       "difficulty": "beginner",
       "usage": "Used to describe someone who is smart or clever.",
-      "examples": ["That kid is akamai!"],
+      "examples": [
+        "That kid is akamai!"
+      ],
       "pronunciation": "ah-kah-MY",
       "origin": "Hawaiian"
     },
     {
       "id": "dict-2",
       "pidgin": "aloha",
-      "english": ["hello", "goodbye", "love", "compassion"],
+      "english": [
+        "hello",
+        "goodbye",
+        "love",
+        "compassion"
+      ],
       "category": "greetings",
       "difficulty": "beginner",
       "usage": "The ultimate Hawaiian word, representing greetings, farewells, and love.",
-      "examples": ["Aloha, how stay you?"],
+      "examples": [
+        "Aloha, how stay you?"
+      ],
       "pronunciation": "ah-LOH-hah",
       "origin": "Hawaiian"
     },
     {
       "id": "dict-3",
       "pidgin": "howzit",
-      "english": ["how are you", "how is it going", "what's up"],
+      "english": [
+        "how are you",
+        "how is it going",
+        "what's up"
+      ],
       "category": "greetings",
       "difficulty": "beginner",
       "usage": "The standard local greeting.",
-      "examples": ["Howzit, brah!"],
+      "examples": [
+        "Howzit, brah!"
+      ],
       "pronunciation": "HOW-zit",
       "origin": "English hybrid"
     },
     {
       "id": "dict-4",
       "pidgin": "pau",
-      "english": ["finished", "done", "completed"],
+      "english": [
+        "finished",
+        "done",
+        "completed"
+      ],
       "category": "actions",
       "difficulty": "beginner",
       "usage": "Used to describe something that is completed.",
-      "examples": ["I pau work."],
+      "examples": [
+        "I pau work."
+      ],
       "pronunciation": "pow",
       "origin": "Hawaiian"
     },
     {
       "id": "dict-5",
       "pidgin": "choke",
-      "english": ["a lot", "many", "plenty", "choke"],
+      "english": [
+        "a lot",
+        "many",
+        "plenty",
+        "choke"
+      ],
       "category": "descriptions",
       "difficulty": "beginner",
       "usage": "Used to describe a large quantity of something.",
-      "examples": ["Get choke waves today!"],
+      "examples": [
+        "Get choke waves today!"
+      ],
       "pronunciation": "choke",
       "origin": "English slang"
     },
     {
       "id": "dict-6",
       "pidgin": "mahalo",
-      "english": ["thank you", "thanks"],
+      "english": [
+        "thank you",
+        "thanks"
+      ],
       "category": "greetings",
       "difficulty": "beginner",
       "usage": "Expression of gratitude.",
-      "examples": ["Mahalo for the grinds!"],
+      "examples": [
+        "Mahalo for the grinds!"
+      ],
       "pronunciation": "mah-HAH-loh",
       "origin": "Hawaiian"
     },
     {
       "id": "dict-7",
       "pidgin": "no worry",
-      "english": ["don't worry", "no problem", "no worries"],
+      "english": [
+        "don't worry",
+        "no problem",
+        "no worries"
+      ],
       "category": "greetings",
       "difficulty": "beginner",
       "usage": "Reassurance, similar to no problem.",
-      "examples": ["No worry, I got you."],
+      "examples": [
+        "No worry, I got you."
+      ],
       "pronunciation": "no worry",
       "origin": "English hybrid"
     },
     {
       "id": "dict-8",
       "pidgin": "grindz",
-      "english": ["food", "eat", "delicious food"],
+      "english": [
+        "food",
+        "eat",
+        "delicious food"
+      ],
       "category": "food",
       "difficulty": "beginner",
       "usage": "Local term for food or eating.",
-      "examples": ["We go get some grindz."],
+      "examples": [
+        "We go get some grindz."
+      ],
       "pronunciation": "grinds",
       "origin": "English slang"
     },
     {
       "id": "dict-9",
       "pidgin": "ono",
-      "english": ["delicious", "tasty", "good tasting"],
+      "english": [
+        "delicious",
+        "tasty",
+        "good tasting"
+      ],
       "category": "food",
       "difficulty": "beginner",
       "usage": "Used to describe delicious food.",
-      "examples": ["The poke is real ono!"],
+      "examples": [
+        "The poke is real ono!"
+      ],
       "pronunciation": "OH-no",
       "origin": "Hawaiian"
     },
     {
       "id": "dict-10",
       "pidgin": "broke da mouth",
-      "english": ["delicious", "incredibly tasty", "amazing food"],
+      "english": [
+        "delicious",
+        "incredibly tasty",
+        "amazing food"
+      ],
       "category": "food",
       "difficulty": "intermediate",
       "usage": "Used for food that is exceptionally delicious.",
-      "examples": ["That kalua pig broke da mouth!"],
+      "examples": [
+        "That kalua pig broke da mouth!"
+      ],
       "pronunciation": "broke da mouth",
       "origin": "Idiomatic"
     },
     {
       "id": "dict-11",
       "pidgin": "brah",
-      "english": ["brother", "friend", "man", "guy"],
+      "english": [
+        "brother",
+        "friend",
+        "man",
+        "guy"
+      ],
       "category": "greetings",
       "difficulty": "beginner",
       "usage": "Casual address for a male friend or acquaintance.",
-      "examples": ["Eh brah, what's up?"],
+      "examples": [
+        "Eh brah, what's up?"
+      ],
       "pronunciation": "brah",
       "origin": "English contraction"
     },
     {
       "id": "dict-12",
       "pidgin": "sistah",
-      "english": ["sister", "female friend"],
+      "english": [
+        "sister",
+        "female friend"
+      ],
       "category": "greetings",
       "difficulty": "beginner",
       "usage": "Casual address for a female friend.",
-      "examples": ["Howzit, sistah!"],
+      "examples": [
+        "Howzit, sistah!"
+      ],
       "pronunciation": "SIS-tah",
       "origin": "English dialect"
     },
     {
       "id": "dict-13",
       "pidgin": "cuz",
-      "english": ["cousin", "friend", "bro"],
+      "english": [
+        "cousin",
+        "friend",
+        "bro"
+      ],
       "category": "greetings",
       "difficulty": "beginner",
       "usage": "Term of endearment for a close friend.",
-      "examples": ["Shoots cuz!"],
+      "examples": [
+        "Shoots cuz!"
+      ],
       "pronunciation": "cuz",
       "origin": "English contraction"
     },
     {
       "id": "dict-14",
       "pidgin": "bruddah",
-      "english": ["brother", "friend", "man"],
+      "english": [
+        "brother",
+        "friend",
+        "man"
+      ],
       "category": "greetings",
       "difficulty": "beginner",
       "usage": "Formal local spelling of brother/friend.",
-      "examples": ["Eh bruddah, you ready?"],
+      "examples": [
+        "Eh bruddah, you ready?"
+      ],
       "pronunciation": "BRAH-dah",
       "origin": "English dialect"
     },
     {
       "id": "dict-15",
       "pidgin": "stay",
-      "english": ["am", "is", "are", "live", "stay"],
+      "english": [
+        "am",
+        "is",
+        "are",
+        "live",
+        "stay"
+      ],
       "category": "grammar",
       "difficulty": "beginner",
       "usage": "Verb meaning to be or exist in a state.",
-      "examples": ["I stay hungry."],
+      "examples": [
+        "I stay hungry."
+      ],
       "pronunciation": "stay",
       "origin": "Portuguese pidgin root"
     },
     {
       "id": "dict-16",
       "pidgin": "wen",
-      "english": ["went", "did", "past tense marker"],
+      "english": [
+        "went",
+        "did",
+        "past tense marker"
+      ],
       "category": "grammar",
       "difficulty": "beginner",
       "usage": "Placed before verbs to indicate past tense.",
-      "examples": ["I wen go beach."],
+      "examples": [
+        "I wen go beach."
+      ],
       "pronunciation": "wen",
       "origin": "English dialect"
     },
     {
       "id": "dict-17",
       "pidgin": "going",
-      "english": ["going to", "will", "future tense marker"],
+      "english": [
+        "going to",
+        "will",
+        "future tense marker"
+      ],
       "category": "grammar",
       "difficulty": "beginner",
       "usage": "Placed before verbs to indicate future tense.",
-      "examples": ["I going surf tomorrow."],
+      "examples": [
+        "I going surf tomorrow."
+      ],
       "pronunciation": "going",
       "origin": "English"
     },
     {
       "id": "dict-18",
       "pidgin": "no can",
-      "english": ["cannot", "can't", "unable to"],
+      "english": [
+        "cannot",
+        "can't",
+        "unable to"
+      ],
       "category": "grammar",
       "difficulty": "beginner",
       "usage": "Indicates inability to do something.",
-      "examples": ["I no can go."],
+      "examples": [
+        "I no can go."
+      ],
       "pronunciation": "no can",
       "origin": "Cantonese pidgin root"
     },
     {
       "id": "dict-19",
       "pidgin": "like",
-      "english": ["want", "want to", "like"],
+      "english": [
+        "want",
+        "want to",
+        "like"
+      ],
       "category": "grammar",
       "difficulty": "beginner",
       "usage": "Used to express desire.",
-      "examples": ["You like go beach?"],
+      "examples": [
+        "You like go beach?"
+      ],
       "pronunciation": "like",
       "origin": "English dialect"
     },
     {
       "id": "dict-20",
       "pidgin": "gotta",
-      "english": ["have to", "must", "got to"],
+      "english": [
+        "have to",
+        "must",
+        "got to"
+      ],
       "category": "grammar",
       "difficulty": "beginner",
       "usage": "Indicates necessity.",
-      "examples": ["I gotta go home."],
+      "examples": [
+        "I gotta go home."
+      ],
       "pronunciation": "gotta",
       "origin": "English"
     },
     {
       "id": "dict-21",
       "pidgin": "neva",
-      "english": ["never", "did not"],
+      "english": [
+        "never",
+        "did not"
+      ],
       "category": "grammar",
       "difficulty": "beginner",
       "usage": "Indicates past negative action (did not).",
-      "examples": ["I neva go."],
+      "examples": [
+        "I neva go."
+      ],
       "pronunciation": "NEH-vah",
       "origin": "English dialect"
     },
     {
       "id": "dict-22",
       "pidgin": "pupule",
-      "english": ["crazy", "insane"],
+      "english": [
+        "crazy",
+        "insane"
+      ],
       "category": "descriptions",
       "difficulty": "beginner",
       "usage": "Describing wild or crazy behavior.",
-      "examples": ["You stay pupule!"],
+      "examples": [
+        "You stay pupule!"
+      ],
       "pronunciation": "poo-POO-leh",
       "origin": "Hawaiian"
     },
     {
       "id": "dict-23",
       "pidgin": "slippahs",
-      "english": ["slippers", "flip-flops", "sandals"],
+      "english": [
+        "slippers",
+        "flip-flops",
+        "sandals"
+      ],
       "category": "general",
       "difficulty": "beginner",
       "usage": "Local footwear.",
-      "examples": ["Don't forget your slippahs."],
+      "examples": [
+        "Don't forget your slippahs."
+      ],
       "pronunciation": "SLIP-pahs",
       "origin": "English dialect"
     },
     {
       "id": "dict-24",
       "pidgin": "tutu kane",
-      "english": ["grandfather", "grandpa"],
+      "english": [
+        "grandfather",
+        "grandpa"
+      ],
       "category": "family",
       "difficulty": "intermediate",
       "usage": "Term for grandfather.",
-      "examples": ["I go fish with tutu kane."],
+      "examples": [
+        "I go fish with tutu kane."
+      ],
       "pronunciation": "too-too KAH-neh",
       "origin": "Hawaiian"
     },
     {
       "id": "dict-25",
       "pidgin": "pau hana",
-      "english": ["after work", "pau hana", "finished work"],
+      "english": [
+        "after work",
+        "pau hana",
+        "finished work"
+      ],
       "category": "actions",
       "difficulty": "intermediate",
       "usage": "Refers to the time after work or happy hour.",
-      "examples": ["We go get drinks for pau hana."],
+      "examples": [
+        "We go get drinks for pau hana."
+      ],
       "pronunciation": "pow HAH-nah",
       "origin": "Hawaiian"
     },
     {
       "id": "dict-26",
       "pidgin": "shoots",
-      "english": ["okay", "alright", "sure", "deal"],
+      "english": [
+        "okay",
+        "alright",
+        "sure",
+        "deal"
+      ],
       "category": "greetings",
       "difficulty": "beginner",
       "usage": "Expresses agreement or confirmation.",
-      "examples": ["Shoots, see you later!"],
+      "examples": [
+        "Shoots, see you later!"
+      ],
       "pronunciation": "shoots",
       "origin": "English slang"
     },
     {
       "id": "dict-27",
       "pidgin": "kumu",
-      "english": ["teacher", "instructor"],
+      "english": [
+        "teacher",
+        "instructor"
+      ],
       "category": "general",
       "difficulty": "beginner",
       "usage": "A teacher or guide.",
-      "examples": ["The kumu says to study."],
+      "examples": [
+        "The kumu says to study."
+      ],
       "pronunciation": "KOO-moo",
       "origin": "Hawaiian"
     },
     {
       "id": "dict-28",
       "pidgin": "keiki",
-      "english": ["children", "kids", "child"],
+      "english": [
+        "children",
+        "kids",
+        "child"
+      ],
       "category": "family",
       "difficulty": "beginner",
       "usage": "Children or child.",
-      "examples": ["The keiki stay playing."],
+      "examples": [
+        "The keiki stay playing."
+      ],
       "pronunciation": "KAY-kee",
       "origin": "Hawaiian"
     },
     {
       "id": "dict-29",
       "pidgin": "ohana",
-      "english": ["family"],
+      "english": [
+        "family"
+      ],
       "category": "family",
       "difficulty": "beginner",
       "usage": "Family, including extended family and friends.",
-      "examples": ["We stay ohana."],
+      "examples": [
+        "We stay ohana."
+      ],
       "pronunciation": "oh-HAH-nah",
       "origin": "Hawaiian"
     },
     {
       "id": "dict-30",
       "pidgin": "poho",
-      "english": ["waste", "out of luck", "very tired", "worn out"],
+      "english": [
+        "waste",
+        "out of luck",
+        "very tired",
+        "worn out"
+      ],
       "category": "emotions",
       "difficulty": "intermediate",
       "usage": "Describes something that is a waste or being out of luck / exhausted.",
-      "examples": ["I all poho."],
+      "examples": [
+        "I all poho."
+      ],
       "pronunciation": "poh-HOH",
       "origin": "Hawaiian"
     },
     {
       "id": "dict-31",
       "pidgin": "hana hou",
-      "english": ["do it again", "encore", "one more time"],
+      "english": [
+        "do it again",
+        "encore",
+        "one more time"
+      ],
       "category": "general",
       "difficulty": "beginner",
       "usage": "Used to request a repetition of an action or performance.",
-      "examples": ["Hana hou, brah!"],
+      "examples": [
+        "Hana hou, brah!"
+      ],
       "pronunciation": "HAH-nah HOO",
       "origin": "Hawaiian"
     },
     {
       "id": "dict-32",
       "pidgin": "grind",
-      "english": ["eat", "food", "work hard", "hustle"],
+      "english": [
+        "eat",
+        "food",
+        "work hard",
+        "hustle"
+      ],
       "category": "food",
       "difficulty": "beginner",
       "usage": "To eat or get food; also used to describe working hard.",
-      "examples": ["We go grind.", "Time for grind."],
+      "examples": [
+        "We go grind.",
+        "Time for grind."
+      ],
       "pronunciation": "grind",
       "origin": "English slang"
     },
     {
       "id": "dict-33",
       "pidgin": "hanabada",
-      "english": ["childhood", "snotty nose"],
+      "english": [
+        "childhood",
+        "snotty nose"
+      ],
       "category": "general",
       "difficulty": "intermediate",
       "usage": "Refers to childhood days (literally snotty nose days).",
-      "examples": ["Since hanabada days."],
+      "examples": [
+        "Since hanabada days."
+      ],
       "pronunciation": "hah-nah-BAH-dah",
       "origin": "Japanese-Hawaiian hybrid"
     },
     {
       "id": "dict-34",
       "pidgin": "bumbye",
-      "english": ["later", "by and by", "otherwise"],
+      "english": [
+        "later",
+        "by and by",
+        "otherwise"
+      ],
       "category": "grammar",
       "difficulty": "beginner",
       "usage": "Meaning later or eventually.",
-      "examples": ["Bumbye we go."],
+      "examples": [
+        "Bumbye we go."
+      ],
       "pronunciation": "bum-BYE",
       "origin": "English hybrid"
     },
     {
       "id": "dict-35",
       "pidgin": "mana",
-      "english": ["spiritual power", "divine power", "energy"],
+      "english": [
+        "spiritual power",
+        "divine power",
+        "energy"
+      ],
       "category": "general",
       "difficulty": "intermediate",
       "usage": "Spiritual energy or power.",
-      "examples": ["The place get choke mana."],
+      "examples": [
+        "The place get choke mana."
+      ],
       "pronunciation": "MAH-nah",
       "origin": "Hawaiian"
     },
     {
       "id": "dict-36",
       "pidgin": "obake",
-      "english": ["ghost", "spirit", "apparition"],
+      "english": [
+        "ghost",
+        "spirit",
+        "apparition"
+      ],
       "category": "general",
       "difficulty": "intermediate",
       "usage": "Ghost or supernatural creature.",
-      "examples": ["Spooky obake stories."],
+      "examples": [
+        "Spooky obake stories."
+      ],
       "pronunciation": "oh-BAH-keh",
       "origin": "Japanese"
     },
     {
       "id": "dict-37",
       "pidgin": "malihini",
-      "english": ["newcomer", "stranger", "visitor"],
+      "english": [
+        "newcomer",
+        "stranger",
+        "visitor"
+      ],
       "category": "general",
       "difficulty": "beginner",
       "usage": "A visitor or newcomer to the islands.",
-      "examples": ["She one malihini."],
+      "examples": [
+        "She one malihini."
+      ],
       "pronunciation": "mah-lee-HEE-nee",
       "origin": "Hawaiian"
     },
     {
       "id": "dict-38",
       "pidgin": "aina",
-      "english": ["land", "earth"],
+      "english": [
+        "land",
+        "earth"
+      ],
       "category": "general",
       "difficulty": "beginner",
       "usage": "The land or earth.",
-      "examples": ["Respect the aina."],
+      "examples": [
+        "Respect the aina."
+      ],
       "pronunciation": "EYE-nah",
       "origin": "Hawaiian"
     },
     {
       "id": "dict-39",
       "pidgin": "kai",
-      "english": ["ocean", "sea", "seawater"],
+      "english": [
+        "ocean",
+        "sea",
+        "seawater"
+      ],
       "category": "general",
       "difficulty": "beginner",
       "usage": "The ocean or sea.",
-      "examples": ["Go makai to the kai."],
+      "examples": [
+        "Go makai to the kai."
+      ],
       "pronunciation": "kai",
       "origin": "Hawaiian"
     },
     {
       "id": "dict-40",
       "pidgin": "mauna",
-      "english": ["mountain"],
+      "english": [
+        "mountain"
+      ],
       "category": "general",
       "difficulty": "beginner",
       "usage": "Mountain.",
-      "examples": ["The mauna is covered in snow."],
+      "examples": [
+        "The mauna is covered in snow."
+      ],
       "pronunciation": "MAW-nah",
       "origin": "Hawaiian"
     },
     {
       "id": "dict-41",
       "pidgin": "all pau",
-      "english": ["completely finished", "entirely done"],
+      "english": [
+        "completely finished",
+        "entirely done"
+      ],
       "category": "general",
       "difficulty": "beginner",
       "usage": "Refers to something being entirely finished.",
-      "examples": ["The food is all pau."],
+      "examples": [
+        "The food is all pau."
+      ],
       "pronunciation": "all pow",
       "origin": "English-Hawaiian hybrid"
     },
     {
       "id": "dict-42",
       "pidgin": "huhu",
-      "english": ["angry", "mad", "offended"],
+      "english": [
+        "angry",
+        "mad",
+        "offended"
+      ],
       "category": "emotions",
       "difficulty": "beginner",
       "usage": "To be angry or mad.",
-      "examples": ["Don't get huhu."],
+      "examples": [
+        "Don't get huhu."
+      ],
       "pronunciation": "hoo-HOO",
       "origin": "Hawaiian"
     },
     {
       "id": "dict-43",
       "pidgin": "kolohe",
-      "english": ["mischievous", "rascal", "naughty"],
+      "english": [
+        "mischievous",
+        "rascal",
+        "naughty"
+      ],
       "category": "descriptions",
       "difficulty": "beginner",
       "usage": "Mischievous or rascal behavior.",
-      "examples": ["That kid is kolohe."],
+      "examples": [
+        "That kid is kolohe."
+      ],
       "pronunciation": "koh-LOH-heh",
       "origin": "Hawaiian"
     },
     {
       "id": "dict-44",
       "pidgin": "kane",
-      "english": ["man", "male"],
+      "english": [
+        "man",
+        "male"
+      ],
       "category": "general",
       "difficulty": "beginner",
       "usage": "Man or male.",
-      "examples": ["He is one kane."],
+      "examples": [
+        "He is one kane."
+      ],
       "pronunciation": "KAH-neh",
       "origin": "Hawaiian"
     },
     {
       "id": "dict-45",
       "pidgin": "kupuna",
-      "english": ["elder", "grandparent", "ancestor"],
+      "english": [
+        "elder",
+        "grandparent",
+        "ancestor"
+      ],
       "category": "family",
       "difficulty": "beginner",
       "usage": "An elder or grandparent.",
-      "examples": ["Listen to the kupuna."],
+      "examples": [
+        "Listen to the kupuna."
+      ],
       "pronunciation": "koo-POO-nah",
       "origin": "Hawaiian"
     },
     {
       "id": "dict-46",
       "pidgin": "hana hou",
-      "english": ["one more time", "encore", "again"],
+      "english": [
+        "one more time",
+        "encore",
+        "again"
+      ],
       "category": "actions",
       "difficulty": "beginner",
       "usage": "To do again, or shout for an encore.",
-      "examples": ["Hana hou! Sing one more!"],
+      "examples": [
+        "Hana hou! Sing one more!"
+      ],
       "pronunciation": "hah-nah hoe",
       "origin": "Hawaiian"
     },
     {
       "id": "dict-47",
       "pidgin": "grind",
-      "english": ["eat", "food"],
+      "english": [
+        "eat",
+        "food"
+      ],
       "category": "food",
       "difficulty": "beginner",
       "usage": "To eat or have food.",
-      "examples": ["We go grind."],
+      "examples": [
+        "We go grind."
+      ],
       "pronunciation": "grynd",
       "origin": "English slang"
     },
     {
       "id": "dict-48",
       "pidgin": "hanabada",
-      "english": ["nasal mucus", "snot"],
+      "english": [
+        "nasal mucus",
+        "snot"
+      ],
       "category": "descriptions",
       "difficulty": "beginner",
       "usage": "Nasal mucus, commonly used for runny nose in childhood ('hanabada days').",
-      "examples": ["He got hanabada on his face."],
+      "examples": [
+        "He got hanabada on his face."
+      ],
       "pronunciation": "hah-nah-bah-dah",
       "origin": "Japanese-English hybrid"
+    },
+    {
+      "id": "dict-49",
+      "pidgin": "heavies",
+      "english": [
+        "large waves",
+        "heavy surf",
+        "intense waves"
+      ],
+      "category": "nature",
+      "difficulty": "intermediate",
+      "usage": "Used by surfers to describe large, powerful, hollow, or intimidating waves.",
+      "examples": [
+        "Watch out on da outside, da heavies stay rolling in.",
+        "Dat north swell brought da heavies today."
+      ],
+      "pronunciation": "HEH-veez",
+      "origin": "Surfing slang",
+      "tags": [
+        "surf",
+        "ocean",
+        "waves",
+        "slang"
+      ]
+    },
+    {
+      "id": "dict-50",
+      "pidgin": "in da pit",
+      "english": [
+        "inside the barrel",
+        "deep in the tube",
+        "impact zone"
+      ],
+      "category": "nature",
+      "difficulty": "intermediate",
+      "usage": "Being deep inside the hollow curve of a breaking wave or right in the heaviest spot of the impact zone.",
+      "examples": [
+        "He wen drop in right in da pit!",
+        "If you stay in da pit, you gotta hold your breath."
+      ],
+      "pronunciation": "een dah PEET",
+      "origin": "Surfing slang",
+      "tags": [
+        "surf",
+        "ocean",
+        "barrel",
+        "slang"
+      ]
+    },
+    {
+      "id": "dict-51",
+      "pidgin": "junk surf",
+      "english": [
+        "poor quality waves",
+        "messy surf",
+        "choppy conditions"
+      ],
+      "category": "nature",
+      "difficulty": "beginner",
+      "usage": "Poor, blown-out, choppy, or unrideable wave conditions.",
+      "examples": [
+        "Too much wind today, only get junk surf.",
+        "No even bother paddle out, stay junk surf."
+      ],
+      "pronunciation": "JUNK surf",
+      "origin": "Pidgin-English hybrid",
+      "tags": [
+        "surf",
+        "ocean",
+        "weather",
+        "slang"
+      ]
+    },
+    {
+      "id": "dict-52",
+      "pidgin": "shred da gnar",
+      "english": [
+        "surf aggressively",
+        "carve waves with high skill",
+        "ride intensely"
+      ],
+      "category": "nature",
+      "difficulty": "intermediate",
+      "usage": "To surf or skate with high performance, throwing heavy carves and turns.",
+      "examples": [
+        "Look at dat grom shred da gnar at Bowls!",
+        "We wen shred da gnar all morning."
+      ],
+      "pronunciation": "shred dah NAHR",
+      "origin": "Surf culture slang",
+      "tags": [
+        "surf",
+        "action",
+        "sports",
+        "slang"
+      ]
+    },
+    {
+      "id": "dict-53",
+      "pidgin": "point break",
+      "english": [
+        "headland surf break",
+        "point wave"
+      ],
+      "category": "nature",
+      "difficulty": "intermediate",
+      "usage": "A surf spot where waves peel along a point of land or reef headland.",
+      "examples": [
+        "Dat spot is one classic point break.",
+        "Da point break stay firing on dis south swell."
+      ],
+      "pronunciation": "POINT brayk",
+      "origin": "Surfing terminology",
+      "tags": [
+        "surf",
+        "ocean",
+        "geography"
+      ]
+    },
+    {
+      "id": "dict-54",
+      "pidgin": "dawn patrol",
+      "english": [
+        "early morning surf session",
+        "sunrise check"
+      ],
+      "category": "actions",
+      "difficulty": "beginner",
+      "usage": "Checking the surf or paddling out at the crack of dawn before crowds arrive.",
+      "examples": [
+        "We go dawn patrol tomorrow at 5:30 AM.",
+        "Dawn patrol caught da best sets of da day."
+      ],
+      "pronunciation": "DAWN pah-TROHL",
+      "origin": "Surfing culture",
+      "tags": [
+        "surf",
+        "morning",
+        "routine",
+        "slang"
+      ]
+    },
+    {
+      "id": "dict-55",
+      "pidgin": "close out",
+      "english": [
+        "wave breaking all at once",
+        "unrideable section"
+      ],
+      "category": "nature",
+      "difficulty": "intermediate",
+      "usage": "When a wave crests and breaks entirely at one time across the reef with no open shoulder to ride.",
+      "examples": [
+        "Every wave was one close out, couldn't make da shoulder.",
+        "Watch out fo' dat close out on da inside."
+      ],
+      "pronunciation": "KLOHZ owt",
+      "origin": "Surfing terminology",
+      "tags": [
+        "surf",
+        "ocean",
+        "waves"
+      ]
+    },
+    {
+      "id": "dict-56",
+      "pidgin": "drop in",
+      "english": [
+        "cut off another surfer",
+        "steal a wave",
+        "take off on someone"
+      ],
+      "category": "actions",
+      "difficulty": "intermediate",
+      "usage": "Major surf etiquette violation where a surfer takes off on a wave in front of someone who already has right of way.",
+      "examples": [
+        "No drop in on da uncles, brah!",
+        "He wen drop in on me and lost his board."
+      ],
+      "pronunciation": "DROP een",
+      "origin": "Surfing terminology",
+      "tags": [
+        "surf",
+        "etiquette",
+        "action"
+      ]
+    },
+    {
+      "id": "dict-57",
+      "pidgin": "manapua",
+      "english": [
+        "char siu pork bun",
+        "steamed bun",
+        "baked bun"
+      ],
+      "category": "food",
+      "difficulty": "beginner",
+      "usage": "Hawaiian-style char siu pork bun, available steamed (traditional white) or baked, sold in local shops and manapua trucks.",
+      "examples": [
+        "Pick up one box of steamed manapua from Chinatown.",
+        "Da baked manapua stay piping hot!"
+      ],
+      "pronunciation": "mah-nah-POO-ah",
+      "origin": "Hawaiian (mea ono puaʻa)",
+      "tags": [
+        "food",
+        "grindz",
+        "snack",
+        "hawaiian"
+      ]
+    },
+    {
+      "id": "dict-58",
+      "pidgin": "loco moco",
+      "english": [
+        "rice topped with burger, egg and brown gravy"
+      ],
+      "category": "food",
+      "difficulty": "beginner",
+      "usage": "Iconic Hawaii comfort dish: a bed of white rice topped with a hamburger patty, fried egg, and rich brown gravy.",
+      "examples": [
+        "Gimme one loco moco with two eggs sunny side up.",
+        "After surfing, nothing beat one heavy loco moco."
+      ],
+      "pronunciation": "LOH-koh MOH-koh",
+      "origin": "Local Hawaii dish (Hilo, 1949)",
+      "tags": [
+        "food",
+        "grindz",
+        "plate lunch",
+        "classic"
+      ]
+    },
+    {
+      "id": "dict-59",
+      "pidgin": "poke bowl",
+      "english": [
+        "seasoned raw fish bowl over rice"
+      ],
+      "category": "food",
+      "difficulty": "beginner",
+      "usage": "Fresh cubed ahi or salmon seasoned with shoyu, sesame oil, and scallions served over warm sushi or white rice.",
+      "examples": [
+        "I going buy one spicy ahi poke bowl fo' lunch.",
+        "Dat poke bowl had limu and inamona inside."
+      ],
+      "pronunciation": "POH-kay bohl",
+      "origin": "Hawaiian-Japanese hybrid",
+      "tags": [
+        "food",
+        "grindz",
+        "seafood",
+        "hawaiian"
+      ]
+    },
+    {
+      "id": "dict-60",
+      "pidgin": "choke grindz",
+      "english": [
+        "huge feast",
+        "lots of food",
+        "abundant delicious meal"
+      ],
+      "category": "food",
+      "difficulty": "beginner",
+      "usage": "Having an abundant, delicious spread of local food.",
+      "examples": [
+        "Aunty wen cook choke grindz fo' da graduation party.",
+        "Get choke grindz at da potluck, come through!"
+      ],
+      "pronunciation": "CHOKE gryndz",
+      "origin": "Pidgin slang hybrid",
+      "tags": [
+        "food",
+        "grindz",
+        "slang",
+        "party"
+      ]
+    },
+    {
+      "id": "dict-61",
+      "pidgin": "kau kau",
+      "english": [
+        "food",
+        "meal",
+        "to eat"
+      ],
+      "category": "food",
+      "difficulty": "beginner",
+      "usage": "Pidgin slang for food or the act of eating.",
+      "examples": [
+        "Time for kau kau, grab one plate!",
+        "You like go kau kau after work?"
+      ],
+      "pronunciation": "COW cow",
+      "origin": "Hawaiian / Cantonese Pidgin loanword",
+      "tags": [
+        "food",
+        "grindz",
+        "slang"
+      ]
+    },
+    {
+      "id": "dict-62",
+      "pidgin": "li hing mui",
+      "english": [
+        "salty dried plum powder",
+        "preserved plum"
+      ],
+      "category": "food",
+      "difficulty": "beginner",
+      "usage": "Sweet, sour, and salty dried plum powder used to season gummy candies, fresh fruit (like pineapple and apples), or shave ice.",
+      "examples": [
+        "Sprinkle li hing mui on top da gummy bears.",
+        "I like my pineapple with choke li hing mui."
+      ],
+      "pronunciation": "LEE HEENG moo-ee",
+      "origin": "Cantonese loanword",
+      "tags": [
+        "food",
+        "snack",
+        "flavor",
+        "asian-pacific"
+      ]
+    },
+    {
+      "id": "dict-63",
+      "pidgin": "spam musubi",
+      "english": [
+        "grilled spam and rice wrapped in seaweed"
+      ],
+      "category": "food",
+      "difficulty": "beginner",
+      "usage": "A staple local Hawaii snack consisting of a block of sushi rice topped with glazed grilled Spam and bound with nori.",
+      "examples": [
+        "Grab two spam musubi from 7-Eleven fo' da beach trip.",
+        "Spam musubi is da best pau hana snack."
+      ],
+      "pronunciation": "SPAM moo-soo-bee",
+      "origin": "Japanese-Hawaiian fusion",
+      "tags": [
+        "food",
+        "grindz",
+        "snack",
+        "classic"
+      ]
+    },
+    {
+      "id": "dict-64",
+      "pidgin": "plate lunch",
+      "english": [
+        "local meat entrée with two scoops rice and macaroni salad"
+      ],
+      "category": "food",
+      "difficulty": "beginner",
+      "usage": "The quintessential Hawaii meal consisting of two scoops of white rice, one scoop of macaroni salad, and an entrée meat.",
+      "examples": [
+        "We go drive-in get one chicken katsu plate lunch.",
+        "No plate lunch complete without mac salad."
+      ],
+      "pronunciation": "PLAYT lunch",
+      "origin": "Hawaii plantation era",
+      "tags": [
+        "food",
+        "grindz",
+        "culture",
+        "lunch"
+      ]
+    },
+    {
+      "id": "dict-65",
+      "pidgin": "malasada",
+      "english": [
+        "Portuguese fried doughnut"
+      ],
+      "category": "food",
+      "difficulty": "beginner",
+      "usage": "A Portuguese yeast doughnut fried until golden, coated in granulated sugar or cinnamon, and optionally filled with haupia or custard.",
+      "examples": [
+        "We stopped at Leonard's Bakery fo' hot malasadas.",
+        "Da haupia malasadas stay broke da mouth!"
+      ],
+      "pronunciation": "mah-lah-SAH-dah",
+      "origin": "Portuguese loanword",
+      "tags": [
+        "food",
+        "dessert",
+        "bakery",
+        "portuguese"
+      ]
+    },
+    {
+      "id": "dict-66",
+      "pidgin": "shave ice",
+      "english": [
+        "Hawaiian shaved ice dessert"
+      ],
+      "category": "food",
+      "difficulty": "beginner",
+      "usage": "Finely shaved ice (not crushed) soaked in tropical flavored syrups, often served over vanilla ice cream with azuki beans and sweetened condensed milk (snow cap).",
+      "examples": [
+        "Hot day like today, time fo' rainbow shave ice with snow cap.",
+        "Get da best shave ice on North Shore."
+      ],
+      "pronunciation": "SHAYV eye-ss",
+      "origin": "Japanese kakigōri / Hawaii local",
+      "tags": [
+        "food",
+        "dessert",
+        "refreshment"
+      ]
+    },
+    {
+      "id": "dict-67",
+      "pidgin": "pipikaula",
+      "english": [
+        "Hawaiian salted dried beef",
+        "beef jerky"
+      ],
+      "category": "food",
+      "difficulty": "intermediate",
+      "usage": "Traditional Hawaiian salted, seasoned, and sun-dried beef, often pan-fried before serving.",
+      "examples": [
+        "Dat luau had ono pipikaula and poi.",
+        "Pipikaula with hot rice is the best combination."
+      ],
+      "pronunciation": "pee-pee-COW-lah",
+      "origin": "Hawaiian",
+      "tags": [
+        "food",
+        "hawaiian",
+        "traditional"
+      ]
+    },
+    {
+      "id": "dict-68",
+      "pidgin": "haupia",
+      "english": [
+        "coconut pudding",
+        "coconut custard"
+      ],
+      "category": "food",
+      "difficulty": "beginner",
+      "usage": "Traditional Hawaiian coconut milk pudding, sliced into blocks or used as dessert pie/cake filling.",
+      "examples": [
+        "Haupia pie is my favorite dessert at Thanksgiving.",
+        "Save some haupia for Uncle."
+      ],
+      "pronunciation": "how-PEE-ah",
+      "origin": "Hawaiian",
+      "tags": [
+        "food",
+        "dessert",
+        "hawaiian"
+      ]
+    },
+    {
+      "id": "dict-69",
+      "pidgin": "poke",
+      "english": [
+        "cut or cubed raw fish",
+        "diced seasoned seafood"
+      ],
+      "category": "food",
+      "difficulty": "beginner",
+      "usage": "Hawaiian word meaning to slice or cut crosswise into pieces; refers to seasoned diced raw fish (usually yellowfin ahi).",
+      "examples": [
+        "Go buy two pounds shoyu poke for the family.",
+        "Fresh caught ahi makes the best poke."
+      ],
+      "pronunciation": "POH-kay",
+      "origin": "Hawaiian",
+      "tags": [
+        "food",
+        "hawaiian",
+        "seafood"
+      ]
+    },
+    {
+      "id": "dict-70",
+      "pidgin": "buss up",
+      "english": [
+        "broken down",
+        "injured",
+        "laughing hysterically"
+      ],
+      "category": "descriptions",
+      "difficulty": "beginner",
+      "usage": "Describes something physically damaged, a person who is exhausted/beaten up, or people laughing uncontrollably.",
+      "examples": [
+        "His truck was all buss up after the trail.",
+        "He told one joke and everybody wen buss up laughing."
+      ],
+      "pronunciation": "BUSS up",
+      "origin": "Pidgin-English slang",
+      "tags": [
+        "slang",
+        "humor",
+        "condition"
+      ]
+    },
+    {
+      "id": "dict-71",
+      "pidgin": "fakafied",
+      "english": [
+        "fake",
+        "inauthentic",
+        "phony",
+        "pretentious"
+      ],
+      "category": "descriptions",
+      "difficulty": "intermediate",
+      "usage": "Describes someone who is being fake, disingenuous, or putting on a front.",
+      "examples": [
+        "No act all fakafied, just be yourself.",
+        "I can tell when someone stay fakafied."
+      ],
+      "pronunciation": "fah-kah-FYDE",
+      "origin": "Pidgin slang hybrid (faka + -fied)",
+      "tags": [
+        "slang",
+        "character",
+        "attitude"
+      ]
+    },
+    {
+      "id": "dict-72",
+      "pidgin": "solid bro",
+      "english": [
+        "reliable friend",
+        "dependable",
+        "awesome gesture"
+      ],
+      "category": "expressions",
+      "difficulty": "beginner",
+      "usage": "A compliment praising someone for being dependable, true to their word, or doing a great favor.",
+      "examples": [
+        "Thanks for picking me up at the airport, you solid bro.",
+        "He always shows up when you need help, solid bro."
+      ],
+      "pronunciation": "SAH-leed broh",
+      "origin": "Local slang",
+      "tags": [
+        "slang",
+        "friendship",
+        "compliment"
+      ]
+    },
+    {
+      "id": "dict-73",
+      "pidgin": "too much style",
+      "english": [
+        "exceptionally stylish",
+        "showing off flair",
+        "looking sharp"
+      ],
+      "category": "descriptions",
+      "difficulty": "intermediate",
+      "usage": "Exclamation when someone looks extraordinarily fly, does a slick maneuver, or is showing off stylish flair.",
+      "examples": [
+        "Check out his custom rims, too much style!",
+        "She caught that wave with too much style."
+      ],
+      "pronunciation": "TOO much STY-uhl",
+      "origin": "Local Hawaii youth slang",
+      "tags": [
+        "slang",
+        "fashion",
+        "praise"
+      ]
+    },
+    {
+      "id": "dict-74",
+      "pidgin": "guans",
+      "english": [
+        "guaranteed",
+        "for sure",
+        "without a doubt"
+      ],
+      "category": "expressions",
+      "difficulty": "intermediate",
+      "usage": "Slang contraction of 'guaranteed'; means something is certain or promised.",
+      "examples": [
+        "Guans we going catch fish today.",
+        "You coming tonight? Guans, brah!"
+      ],
+      "pronunciation": "GWAHNZ",
+      "origin": "Pidgin contraction of 'guaranteed'",
+      "tags": [
+        "slang",
+        "agreement",
+        "certainty"
+      ]
+    },
+    {
+      "id": "dict-75",
+      "pidgin": "no make body",
+      "english": [
+        "don't show off",
+        "don't act foolish",
+        "don't cause drama"
+      ],
+      "category": "expressions",
+      "difficulty": "intermediate",
+      "usage": "Admonition telling someone not to act arrogant, show off in public, or make a fool of themselves.",
+      "examples": [
+        "Just stay cool, no make body in front of everybody.",
+        "He started yelling, and his friend said 'no make body, brah.'"
+      ],
+      "pronunciation": "NO MAYK BAH-dee",
+      "origin": "Pidgin idiom",
+      "tags": [
+        "slang",
+        "idiom",
+        "behavior",
+        "etiquette"
+      ]
+    },
+    {
+      "id": "dict-76",
+      "pidgin": "stink eye",
+      "english": [
+        "dirty look",
+        "glare of disapproval",
+        "hostile glance"
+      ],
+      "category": "expressions",
+      "difficulty": "beginner",
+      "usage": "Giving someone a dirty look or glaring with disapproval or irritation.",
+      "examples": [
+        "Why dat guy giving us stink eye?",
+        "My mom gave me stink eye when I didn't take off my shoes."
+      ],
+      "pronunciation": "STEENK eye",
+      "origin": "Hawaii idiom",
+      "tags": [
+        "slang",
+        "idiom",
+        "expression"
+      ]
+    },
+    {
+      "id": "dict-77",
+      "pidgin": "chicken skin",
+      "english": [
+        "goosebumps",
+        "chills from emotion or fear"
+      ],
+      "category": "expressions",
+      "difficulty": "beginner",
+      "usage": "Getting goosebumps from emotional music, spooky ghost stories, or awe-inspiring moments.",
+      "examples": [
+        "Hearing that Hawaiian chant gave me pure chicken skin.",
+        "Dat haunted road in Pali gives everybody chicken skin."
+      ],
+      "pronunciation": "CHEE-kehn skeen",
+      "origin": "Hawaiian Pidgin idiom",
+      "tags": [
+        "slang",
+        "idiom",
+        "feelings"
+      ]
+    },
+    {
+      "id": "dict-78",
+      "pidgin": "if can, can",
+      "english": [
+        "if it's possible, we'll do it; if not, no worries"
+      ],
+      "category": "expressions",
+      "difficulty": "beginner",
+      "usage": "Philosophical local phrase representing a relaxed, flexible attitude toward life and plans.",
+      "examples": [
+        "You think we can finish today? If can, can; if no can, no can!",
+        "Just do your best, if can, can."
+      ],
+      "pronunciation": "EEF kan, kan",
+      "origin": "Hawaiian Pidgin philosophy",
+      "tags": [
+        "slang",
+        "idiom",
+        "philosophy",
+        "lifestyle"
+      ]
+    },
+    {
+      "id": "dict-79",
+      "pidgin": "talk stink",
+      "english": [
+        "gossip negatively",
+        "badmouth someone",
+        "speak ill"
+      ],
+      "category": "actions",
+      "difficulty": "beginner",
+      "usage": "To speak negatively, gossip maliciously, or badmouth people behind their backs.",
+      "examples": [
+        "No talk stink about your cousins.",
+        "She always talking stink about her coworkers."
+      ],
+      "pronunciation": "TAWK steenk",
+      "origin": "Pidgin idiom",
+      "tags": [
+        "slang",
+        "communication",
+        "behavior"
+      ]
+    },
+    {
+      "id": "dict-80",
+      "pidgin": "habut",
+      "english": [
+        "pouting",
+        "sulking",
+        "grumpy after being offended"
+      ],
+      "category": "descriptions",
+      "difficulty": "intermediate",
+      "usage": "Describes someone who is sulking, grumpy, or throwing a silent tantrum because they didn't get their way.",
+      "examples": [
+        "Why you stay all habut? It was just a game.",
+        "He got habut and walked home by himself."
+      ],
+      "pronunciation": "hah-BOOT",
+      "origin": "Japanese loanword (habuteru)",
+      "tags": [
+        "slang",
+        "mood",
+        "emotion",
+        "japanese"
+      ]
+    },
+    {
+      "id": "dict-81",
+      "pidgin": "holoholo",
+      "english": [
+        "to cruise",
+        "go for a leisure drive or stroll",
+        "wander for fun"
+      ],
+      "category": "actions",
+      "difficulty": "beginner",
+      "usage": "To go out exploring, driving, strolling, or visiting friends with no strict agenda.",
+      "examples": [
+        "Sunday morning we go holoholo on the East Side.",
+        "Uncle went holoholo down to the harbor."
+      ],
+      "pronunciation": "hoh-low-HOH-low",
+      "origin": "Hawaiian",
+      "tags": [
+        "hawaiian",
+        "activity",
+        "leisure"
+      ]
+    },
+    {
+      "id": "dict-82",
+      "pidgin": "aurite",
+      "english": [
+        "all right!",
+        "awesome",
+        "let's do it"
+      ],
+      "category": "expressions",
+      "difficulty": "beginner",
+      "usage": "Enthusiastic contraction of 'all right' used to express agreement, celebration, or excitement.",
+      "examples": [
+        "Aurite! We going beach!",
+        "You got the job? Aurite!"
+      ],
+      "pronunciation": "ow-RYTE",
+      "origin": "Pidgin phonetic contraction",
+      "tags": [
+        "slang",
+        "greetings",
+        "celebration"
+      ]
+    },
+    {
+      "id": "dict-83",
+      "pidgin": "gee vum",
+      "english": [
+        "give 'em",
+        "go for it with full energy",
+        "put maximum effort"
+      ],
+      "category": "expressions",
+      "difficulty": "intermediate",
+      "usage": "Encouragement telling someone to go hard, give full effort, or strike with intensity.",
+      "examples": [
+        "Gee vum, brah! You can score the touchdown!",
+        "Time to study for finals, gee vum!"
+      ],
+      "pronunciation": "GEE vum",
+      "origin": "Pidgin contraction (give them)",
+      "tags": [
+        "slang",
+        "motivation",
+        "sports"
+      ]
+    },
+    {
+      "id": "dict-84",
+      "pidgin": "shave head",
+      "english": [
+        "buzz cut hairstyle",
+        "getting completely defeated in a game"
+      ],
+      "category": "descriptions",
+      "difficulty": "intermediate",
+      "usage": "Can refer to a short buzz haircut, or figuratively to being soundly defeated without scoring a point.",
+      "examples": [
+        "He got one fresh shave head for summer.",
+        "We got shave head in volleyball today, 21-0."
+      ],
+      "pronunciation": "SHAYV hed",
+      "origin": "Local Hawaii slang",
+      "tags": [
+        "slang",
+        "humor",
+        "sports"
+      ]
+    },
+    {
+      "id": "dict-85",
+      "pidgin": "rajah dat",
+      "english": [
+        "roger that",
+        "understood",
+        "agreed"
+      ],
+      "category": "expressions",
+      "difficulty": "beginner",
+      "usage": "Local pronunciation of 'roger that' meaning affirmative, acknowledged, or agreed.",
+      "examples": [
+        "Meet at 6 PM? Rajah dat!",
+        "Rajah dat, I'll bring the cooler."
+      ],
+      "pronunciation": "RAH-jah daht",
+      "origin": "Pidgin military loanword",
+      "tags": [
+        "slang",
+        "communication",
+        "agreement"
+      ]
+    },
+    {
+      "id": "dict-86",
+      "pidgin": "lanai",
+      "english": [
+        "porch",
+        "patio",
+        "balcony",
+        "veranda"
+      ],
+      "category": "descriptions",
+      "difficulty": "beginner",
+      "usage": "An outdoor porch, covered patio, or open-air veranda on a home or condo.",
+      "examples": [
+        "Let's sit out on the lanai and drink coffee.",
+        "The apartment has a huge lanai with ocean views."
+      ],
+      "pronunciation": "lah-NYE",
+      "origin": "Hawaiian (lānaʻi)",
+      "tags": [
+        "hawaiian",
+        "home",
+        "architecture"
+      ]
+    },
+    {
+      "id": "dict-87",
+      "pidgin": "mauka",
+      "english": [
+        "toward the mountains",
+        "inland direction"
+      ],
+      "category": "descriptions",
+      "difficulty": "beginner",
+      "usage": "Cardinal direction in Hawaii meaning toward the mountains or inland (opposite of makai).",
+      "examples": [
+        "Turn mauka at the next intersection.",
+        "The mauka side of the highway is clear."
+      ],
+      "pronunciation": "MOW-kah",
+      "origin": "Hawaiian (ma uka)",
+      "tags": [
+        "hawaiian",
+        "directions",
+        "essential"
+      ]
+    },
+    {
+      "id": "dict-88",
+      "pidgin": "makai",
+      "english": [
+        "toward the ocean",
+        "seaward direction"
+      ],
+      "category": "descriptions",
+      "difficulty": "beginner",
+      "usage": "Cardinal direction in Hawaii meaning toward the ocean or sea (opposite of mauka).",
+      "examples": [
+        "The park is on the makai side of the street.",
+        "Walk makai until you reach the shoreline."
+      ],
+      "pronunciation": "mah-KYE",
+      "origin": "Hawaiian (ma kai)",
+      "tags": [
+        "hawaiian",
+        "directions",
+        "essential"
+      ]
     }
   ],
   "phrases": [
@@ -676,6 +1870,111 @@
       "english": "I'm finished",
       "category": "grammar",
       "difficulty": "beginner"
+    },
+    {
+      "id": "phrase-22",
+      "pidgin": "If can, can; if no can, no can",
+      "english": "if it is possible we will do it, if not, that is okay",
+      "category": "expressions",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "phrase-23",
+      "pidgin": "No make body, brah",
+      "english": "do not act foolish or show off, brother",
+      "category": "expressions",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "phrase-24",
+      "pidgin": "We go holoholo North Shore",
+      "english": "let us take a leisure drive to the North Shore",
+      "category": "expressions",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "phrase-25",
+      "pidgin": "Dat Hawaiian music give me chicken skin",
+      "english": "that Hawaiian music gives me goosebumps",
+      "category": "expressions",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "phrase-26",
+      "pidgin": "Aunty wen make choke grindz fo da party",
+      "english": "Aunty made an abundance of delicious food for the party",
+      "category": "food",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "phrase-27",
+      "pidgin": "Watch out on da outside, da heavies stay rolling in",
+      "english": "watch out in the deep water, large waves are rolling in",
+      "category": "expressions",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "phrase-28",
+      "pidgin": "Order one loco moco with two eggs sunny side up",
+      "english": "order a loco moco with two sunny side up eggs",
+      "category": "food",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "phrase-29",
+      "pidgin": "He stay all habut cause he lost da game",
+      "english": "he is sulking because he lost the game",
+      "category": "expressions",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "phrase-30",
+      "pidgin": "Rajah dat, I catch you at pau hana",
+      "english": "understood, I will meet you after work",
+      "category": "greetings",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "phrase-31",
+      "pidgin": "No talk stink about your family",
+      "english": "do not gossip or speak poorly about your family",
+      "category": "expressions",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "phrase-32",
+      "pidgin": "You like one spam musubi from da store?",
+      "english": "do you want a spam musubi from the store?",
+      "category": "food",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "phrase-33",
+      "pidgin": "Gee vum, brah! You almost pau!",
+      "english": "give it all you have got! You are almost done!",
+      "category": "expressions",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "phrase-34",
+      "pidgin": "Grab your slippahs, we go beach",
+      "english": "grab your flip-flops, let us go to the beach",
+      "category": "expressions",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "phrase-35",
+      "pidgin": "He wen drop in right in da pit",
+      "english": "he dropped in right in the barrel of the wave",
+      "category": "expressions",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "phrase-36",
+      "pidgin": "Li hing mui on top gummy bears stay broke da mouth",
+      "english": "li hing mui on gummy bears is unbelievably delicious",
+      "category": "food",
+      "difficulty": "intermediate"
     }
   ],
   "stories": [
