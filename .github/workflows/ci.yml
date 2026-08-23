@@ -1,10 +1,13 @@
-# CI: install, syntax/module load check, and Railway-equivalent build on
-# every push to main and every PR. The build is green without any secrets
-# (Supabase-dependent page generators are skipped non-fatally).
+# CI: install, syntax/module load check, Railway-equivalent build, and the
+# full validation suite on every push to main and every PR.
 #
-# To enable the full build generators AND the translator validation suite,
-# add a repo secret SUPABASE_ANON_KEY (the public client key already shipped
-# to browsers). SUPABASE_URL is optional — config/supabase.js has a fallback.
+# Everything here runs green without any secrets: config/supabase.js falls back
+# to an offline mock client, so the page generators and all seven test suites
+# work against fixture data.
+#
+# Adding a repo secret SUPABASE_ANON_KEY (the public client key already shipped
+# to browsers) is optional — it upgrades the same steps to run against live
+# Supabase data instead of the mock. SUPABASE_URL has a committed fallback.
 #   Settings -> Secrets and variables -> Actions -> New repository secret
 name: CI
 
@@ -21,8 +24,9 @@ concurrency:
 jobs:
   build-and-validate:
     runs-on: ubuntu-latest
-    # Map the (public client) anon key to env so the validation step can
-    # detect whether it's configured. URL has a committed fallback.
+    # When these secrets exist the build and tests run against live Supabase;
+    # when they don't, config/supabase.js supplies an offline mock instead.
+    # Either way the steps below run — they are never skipped.
     env:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
       SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
@@ -53,9 +57,8 @@ jobs:
         run: npm run build
 
       - name: Validation suite
-        # Skipped until SUPABASE_ANON_KEY is added as a repo secret.
-        # The anon key is a public client key, safe to store as an Actions secret.
-        if: ${{ env.SUPABASE_ANON_KEY != '' }}
-        run: |
-          npm test
-          npm run test:translator
+        # Runs unconditionally. `npm test` (tools/testing/run-all-tests.js) drives
+        # all seven suites — including validate-phase-2-3.js, which is why
+        # `npm run test:translator` is not invoked separately here — and exits 1
+        # if any of them fail.
+        run: npm test
