@@ -60,9 +60,22 @@ npm run seo:loop
 
 ### Application Review & Advisory Skill (`pidgin-review-advisor`)
 The project includes a dedicated review and advisory skill located in `.claude/skills/pidgin-review-advisor/` (and `.agents/skills/pidgin-review-advisor/` for Antigravity):
-- **Purpose**: Audits the entire application across Supabase, ElevenLabs TTS, GitHub CI/CD, Gemini AI API, Hawaiian Pidgin language & pronunciation, vocabulary expansion (new words, slang, phrases), and Railway deployment.
-- **Diagnostics**: Run `node .agents/skills/pidgin-review-advisor/scripts/audit-pidgin-app.js` for an automated 7-pillar health report.
-- **Output**: Formulates 3 concrete, prioritized options for recommended next work.
+- **Purpose**: Audits the entire application across Supabase, ElevenLabs TTS, GitHub CI/CD, Gemini AI API, Hawaiian Pidgin language & pronunciation, vocabulary expansion (new words, slang, phrases), and the Railway + Cloudflare delivery path.
+- **Diagnostics**:
+  ```bash
+  node .claude/skills/pidgin-review-advisor/scripts/audit-pidgin-app.js --live --net
+  ```
+  `--live` queries Supabase for real row counts and content-quality metrics (never mock data);
+  `--net` compares the Cloudflare edge against the Railway origin; `--json` emits a machine-readable
+  report; `--strict` exits non-zero on any FAIL. Checks that cannot be measured report SKIP rather
+  than a false green.
+- **Output**: An evidence-backed pillar assessment plus 3 prioritized options, each traceable to a
+  specific finding.
+- **Three installed copies**: `.claude/skills/` (Claude Code, source of truth), `.agents/skills/`
+  (Antigravity), and `~/.claude/skills/` (user-level). **The user-level copy shadows the project
+  one**, so a stale copy there silently overrides repo edits. After editing, run
+  `bash .claude/skills/pidgin-review-advisor/scripts/sync-skill.sh` (`--check` verifies without
+  writing, and is safe to wire into a pre-commit hook).
 
 ### SEO Feedback Loop
 The feedback loop script closes the gap between what users search for and what is in the dictionary:

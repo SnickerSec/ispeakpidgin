@@ -2,6 +2,14 @@
 
 This reference provides the linguistic principles, orthographic rules, phonetic mapping conventions, and slang taxonomies used in **ChokePidgin / iSpeakPidgin**.
 
+> **The phonetic map is owned by code, not by this document.** The authoritative map is the object
+> literal in `src/components/speech/elevenlabs-speech.js` — that is what users hear. The table
+> below is an illustrative excerpt that can fall behind; verify a mapping with
+> `grep "'word':" src/components/speech/elevenlabs-speech.js` before quoting it, and add new
+> mappings to the source file, never here. A second hand-copied map in
+> `tools/testing/pronunciation-audit.js` is known to drift from the runtime one — see
+> [technical-pillars.md](./technical-pillars.md).
+
 ---
 
 ## 1. Hawaiian Pidgin (Hawaiʻi Creole) Grammar & Syntax
@@ -53,21 +61,37 @@ Hawaiian Pidgin is a distinct English-lexifier creole language with its own syst
 | `pau hana` | `pow hah-nah` | After work / happy hour |
 | `mauka` | `mow-kah` | Toward the mountains |
 | `makai` | `mah-kye` | Toward the ocean |
-| `ono` | `oh-no` | Delicious |
+| `ono` | `oh-noh` | Delicious |
 | `wahine` | `vah-hee-nay` | Woman / female |
 | `kane` | `kah-nay` | Man / male |
 | `keiki` | `kay-kee` | Child / kids |
 | `wikiwiki` | `vee-kee-vee-kee` | Fast / hurry |
 | `choke` | `choke` | A lot / plenty |
 | `shaka` | `shah-kah` | Hand greeting / good vibes |
-| `chee-hoo` | `chee-hooo` | Local celebratory yell |
+| `chee-hoo` | `chee-hoo!` | Local celebratory yell |
 | `buss up` | `bus up` | Broken / ruined / wasted |
 
 ---
 
 ## 3. Slang Taxonomies & Expansion Candidates
 
-When recommending new words, slang, or phrases to add to the Supabase dictionary and phrase collections, draw from these rich cultural categories:
+### Before proposing any term
+Most of the candidates below have been in the dictionary for a long time. Recommending terms the
+app already has is the most common way this skill wastes a user's time, so check first:
+
+```bash
+# Is the term already there? (needs SUPABASE_URL + SUPABASE_ANON_KEY)
+curl -s "$SUPABASE_URL/rest/v1/dictionary_entries?pidgin=ilike.*shaka*&select=pidgin,english" \
+  -H "apikey: $SUPABASE_ANON_KEY"
+```
+
+Or run the audit with `--live`: it reports how many of the terms staged in
+`tools/data/curated-missing-terms.json` are genuinely absent. Higher-signal sources than this
+static list, in order: pending `user_suggestions` rows (real users, real usage), Search Console
+gaps via `npm run seo:loop` (demonstrated demand), then the taxonomies below (editorial judgment).
+
+The categories below are for coverage-gap thinking — which *domains* of local life are thin —
+rather than a shopping list:
 
 ### A. Surf & Ocean Slang
 - **`heavies`**: Huge, dangerous surf or intimidating waves.
