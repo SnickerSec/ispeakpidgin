@@ -105,6 +105,48 @@
             </div>
         </div>
 
+        <!-- Scenario Roleplay Selector -->
+        <div class="mb-4">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                    <iconify-icon icon="lucide:sparkles" class="text-amber-400"></iconify-icon> Practice Scenarios:
+                </span>
+                <span id="scenario-badge" class="text-xs px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 font-semibold border border-blue-500/30">
+                    🤙 Casual Talk Story
+                </span>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+                <button type="button" class="scenario-btn active p-3 rounded-xl bg-slate-800 border-2 border-blue-500 text-left transition-all hover:bg-slate-750" data-scenario="general">
+                    <div class="text-xl mb-1">🤙</div>
+                    <div class="text-sm font-bold text-slate-100">Casual Chat</div>
+                    <div class="text-[11px] text-slate-400">Everyday Pidgin tutor</div>
+                </button>
+                <button type="button" class="scenario-btn p-3 rounded-xl bg-slate-800 border-2 border-slate-700 text-left transition-all hover:border-slate-500 hover:bg-slate-750" data-scenario="drive-in">
+                    <div class="text-xl mb-1">🍔</div>
+                    <div class="text-sm font-bold text-slate-100">Da Drive-In</div>
+                    <div class="text-[11px] text-slate-400">Order plate lunch & grindz</div>
+                </button>
+                <button type="button" class="scenario-btn p-3 rounded-xl bg-slate-800 border-2 border-slate-700 text-left transition-all hover:border-slate-500 hover:bg-slate-750" data-scenario="surf-lineup">
+                    <div class="text-xl mb-1">🏄</div>
+                    <div class="text-sm font-bold text-slate-100">Surf Lineup</div>
+                    <div class="text-[11px] text-slate-400">Waves & lineup etiquette</div>
+                </button>
+                <button type="button" class="scenario-btn p-3 rounded-xl bg-slate-800 border-2 border-slate-700 text-left transition-all hover:border-slate-500 hover:bg-slate-750" data-scenario="pau-hana">
+                    <div class="text-xl mb-1">🌴</div>
+                    <div class="text-sm font-bold text-slate-100">Pau Hana</div>
+                    <div class="text-[11px] text-slate-400">Weekend vibes & ohana</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Quick Starters Chips -->
+        <div id="quick-starters" class="flex flex-wrap gap-2 mb-3 items-center">
+            <span class="text-xs text-slate-400 flex items-center gap-1 font-medium">
+                <iconify-icon icon="lucide:message-square-plus" class="text-slate-400"></iconify-icon> Try saying:
+            </span>
+            <!-- Dynamically populated chips -->
+        </div>
+
         <!-- Chat Area -->
         <div class="bg-slate-800 rounded-2xl shadow-xl border border-slate-700 flex flex-col overflow-hidden">
             <!-- Messages -->
@@ -170,6 +212,112 @@
             const micBtn = document.getElementById('mic-btn');
             const voiceStatus = document.getElementById('voice-status');
             
+            const scenarioBadge = document.getElementById('scenario-badge');
+            const quickStartersContainer = document.getElementById('quick-starters');
+            const scenarioButtons = document.querySelectorAll('.scenario-btn');
+
+            let currentScenario = 'general';
+
+            const scenarios = {
+                'general': {
+                    title: '🤙 Casual Talk Story',
+                    badge: '🤙 Casual Talk Story',
+                    welcome: "Aloha! I stay Kimo. Like talk story? I can help you practice your Pidgin. Just type someting below or use da mic!",
+                    starters: [
+                        "Howzit Kimo, how stay you?",
+                        "What stay da meaning of da kine?",
+                        "Teach me one authentic local phrase!"
+                    ]
+                },
+                'drive-in': {
+                    title: '🍔 Ordering at Da Drive-In',
+                    badge: '🍔 Da Drive-In Counter',
+                    welcome: "Howzit! Welcome to Rainbow Drive-In! What can I get for you today, brah? We got loco moco, fresh poke bowl, and hot manapua!",
+                    starters: [
+                        "Can I get one loco moco with two eggs sunny side up?",
+                        "You get fresh ahi poke bowl today?",
+                        "I like one dozen hot malasadas and one shave ice."
+                    ]
+                },
+                'surf-lineup': {
+                    title: '🏄 Surf Lineup at Bowls',
+                    badge: '🏄 Lineup at Bowls',
+                    welcome: "Shoots brah! Da swell stay pumping today at Bowls! Da heavies stay rolling in on da outside. How was your session?",
+                    starters: [
+                        "How stay da surf on da outside?",
+                        "Anybody drop in on you today?",
+                        "We go dawn patrol tomorrow morning?"
+                    ]
+                },
+                'pau-hana': {
+                    title: '🌴 Pau Hana Gathering',
+                    badge: '🌴 Pau Hana with Ohana',
+                    welcome: "Chee-hoo! Pau hana time alreadah! Work was one humbug today. What you doing dis weekend, brah? We go holoholo!",
+                    starters: [
+                        "Pau hana! Grab one cold drink, brah.",
+                        "We going holoholo North Shore dis weekend.",
+                        "Aunty wen make choke grindz for dinner tonight!"
+                    ]
+                }
+            };
+
+            function renderStarters(scenarioKey) {
+                const config = scenarios[scenarioKey] || scenarios['general'];
+                quickStartersContainer.innerHTML = `
+                    <span class="text-xs text-slate-400 flex items-center gap-1 font-medium mr-1">
+                        <iconify-icon icon="lucide:message-square-plus" class="text-amber-400"></iconify-icon> Quick Prompts:
+                    </span>
+                `;
+                config.starters.forEach(starterText => {
+                    const chip = document.createElement('button');
+                    chip.type = 'button';
+                    chip.className = 'text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white px-3 py-1.5 rounded-full border border-slate-700 hover:border-slate-500 transition-all text-left shadow-sm';
+                    chip.textContent = starterText;
+                    chip.addEventListener('click', () => {
+                        userInput.value = starterText;
+                        chatForm.dispatchEvent(new Event('submit'));
+                    });
+                    quickStartersContainer.appendChild(chip);
+                });
+            }
+
+            function switchScenario(scenarioKey) {
+                if (!scenarios[scenarioKey]) return;
+                currentScenario = scenarioKey;
+                const config = scenarios[scenarioKey];
+
+                scenarioBadge.textContent = config.badge;
+
+                scenarioButtons.forEach(btn => {
+                    if (btn.dataset.scenario === scenarioKey) {
+                        btn.classList.add('border-blue-500', 'bg-slate-700/60');
+                        btn.classList.remove('border-slate-700');
+                    } else {
+                        btn.classList.remove('border-blue-500', 'bg-slate-700/60');
+                        btn.classList.add('border-slate-700');
+                    }
+                });
+
+                renderStarters(scenarioKey);
+
+                // Reset chat with scenario welcome
+                chatMessages.innerHTML = '';
+                messageHistory = [];
+                addMessage('model', config.welcome);
+            }
+
+            scenarioButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const scenarioKey = btn.dataset.scenario;
+                    if (scenarioKey !== currentScenario) {
+                        switchScenario(scenarioKey);
+                    }
+                });
+            });
+
+            // Initial starters render
+            renderStarters('general');
+
             // Hands-Free Auto-Restart Logic
             let lastRestartTime = 0;
             window.addEventListener('pidginSpeechEnd', () => {
@@ -201,7 +349,6 @@
                 voiceId: "f0ODjLMfcJmlKfs7dFCW"
             };
 
-            const defaultWelcomeMessage = "Aloha! I stay Kimo. Like talk story? I can help you practice your Pidgin. Just type someting below!";
             let messageHistory = [];
 
             // Voice Visualizer
@@ -349,7 +496,8 @@
                         body: JSON.stringify({ 
                             message, 
                             history: messageHistory.slice(0, -1),
-                            character: 'kimo'
+                            character: 'kimo',
+                            scenario: currentScenario
                         })
                     });
 
@@ -374,7 +522,8 @@
                 if (confirm('Clear our conversation, brah?')) {
                     chatMessages.innerHTML = '';
                     messageHistory = [];
-                    addMessage('model', defaultWelcomeMessage);
+                    const config = scenarios[currentScenario] || scenarios['general'];
+                    addMessage('model', config.welcome);
                 }
             });
 

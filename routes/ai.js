@@ -58,6 +58,14 @@ module.exports = function(supabase, dictionaryCache, limiter, gamificationServic
         return `\n\nContextual Pidgin Vocabulary: ${matched.join(', ')}`;
     }
 
+    // Scenarios for Talk Story Roleplay
+    const talkStoryScenarios = {
+        'general': 'Your goal is to "talk story" with the user in casual conversation to help them practice their Pidgin while being an informative and helpful local tutor.',
+        'drive-in': 'SCENARIO: Ordering at Da Local Drive-In. You are working the counter at a classic Hawaii local drive-in. The user is ordering food or asking about specials (loco moco, plate lunch, manapua, spam musubi, poke bowl, shave ice, malasadas). Help them order like a local with terms like "two scoops rice", "mac salad", "broke da mouth", "ono grindz".',
+        'surf-lineup': 'SCENARIO: Surf Lineup at Bowls / North Shore. You are out on your surfboard in the lineup talking with the user. You discuss swell size, sets, wave conditions, and surf etiquette (heavies, in da pit, junk surf, point break, dawn patrol, no drop in, shred da gnar).',
+        'pau-hana': 'SCENARIO: Pau Hana Gathering. It is Friday afternoon pau hana time. You are unwinding after a long work week, discussing weekend plans, holoholo cruising, barbecues, beach trips, and local music (pau hana, holoholo, choke grindz, chicken skin, if can can).'
+    };
+
     // POST /api/ai/talk-story - Interactive Pidgin Tutor
     router.post('/talk-story',
         limiter,
@@ -65,18 +73,20 @@ module.exports = function(supabase, dictionaryCache, limiter, gamificationServic
         [
             body('message').trim().notEmpty().isLength({ max: 1000 }),
             body('history').optional().isArray(),
-            body('character').optional().isIn(['kimo'])
+            body('character').optional().isIn(['kimo']),
+            body('scenario').optional().isIn(['general', 'drive-in', 'surf-lineup', 'pau-hana'])
         ],
         async (req, res) => {
             const errors = validationResult(req);
             if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
             try {
-                const { message, history = [] } = req.body;
+                const { message, history = [], scenario = 'general' } = req.body;
                 const apiKey = process.env.GEMINI_API_KEY;
                 if (!apiKey) return res.status(500).json({ error: 'Gemini API key not configured' });
 
                 const vocabulary = getRelevantVocabulary(message);
+                const scenarioContext = talkStoryScenarios[scenario] || talkStoryScenarios['general'];
                 
                 const activeChar = {
                     name: "Kimo",
@@ -86,13 +96,13 @@ module.exports = function(supabase, dictionaryCache, limiter, gamificationServic
 
                 const systemPrompt = `
 You are "${activeChar.name}," ${activeChar.desc}
-Your goal is to "talk story" with the user to help them practice their Pidgin while being an informative and helpful local guide.
+${scenarioContext}
 
 GUIDELINES:
 1. Always respond in authentic, natural Hawaiian Pidgin. 
 2. Be helpful and knowledgeable. If the user asks a question or for a recommendation, provide a direct, informative answer based on local Hawaii knowledge before trying to keep the conversation going.
 3. Do not answer a question with only another question. Always provide value or info first.
-4. Keep your responses consistent with your personality (Kimo).
+4. Keep your responses consistent with your personality (Kimo) and the selected scenario.
 5. If the user makes a big mistake in their Pidgin, gently suggest the correct way to say it in your response.
 6. If they speak English, respond in Pidgin but keep it simple enough for them to follow.
 7. Use the provided vocabulary context to ensure accuracy.
@@ -104,6 +114,7 @@ Respond in JSON format:
   "translation": "English translation of your response",
   "hint": "A small tip about a word or grammar point used in this exchange (optional)",
   "character": "kimo",
+  "scenario": "${scenario}",
   "voiceId": "${activeChar.voiceId}"
 }
 ${vocabulary}`;
