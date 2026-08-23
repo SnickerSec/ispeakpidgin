@@ -25,73 +25,15 @@ const adminActionLimiter = rateLimit({
 });
 
 // Shared pronunciation map for admin audio generation
-const globalPronunciationMap = {
-    'kine': 'kyne', 'da kine': 'dah kyne', 'da': 'dah', 'any kine': 'any kyne',
-    'small kine': 'small kyne', 'funny kine': 'funny kyne', 'fast kine': 'fast kyne',
-    'faskine': 'fas-kyne', 'pau': 'pow', 'pau hana': 'pow hah-nah', 'mauka': 'mow-kah',
-    'makai': 'mah-kye', 'ono': 'oh-no', 'oe': 'oh-eh', 'ʻoe': 'oh-eh', 'auwe': 'ow-way',
-    'wahine': 'vah-hee-nay', 'kane': 'kah-nay', 'keiki': 'kay-kee', 'tutu': 'too-too',
-    'lanai': 'lah-nye', 'mahalo': 'mah-hah-low', 'aloha': 'ah-low-hah', 'ohana': 'oh-hah-nah',
-    'kokua': 'koh-koo-ah', 'malama': 'mah-lah-mah', 'kapu': 'kah-poo', 'wiki': 'vee-kee',
-    'wikiwiki': 'vee-kee-vee-kee', 'pupus': 'poo-poos', 'pupu': 'poo-poo', 'gou': 'gow',
-    'hale': 'hah-leh', 'hele': 'heh-leh', 'kupuna': 'koo-poo-nah', 'lolo': 'low-low',
-    'pilau': 'pee-lau', 'puka': 'poo-kah', 'humbug': 'hum-bug', 'ho': 'hoh',
-    'howzit': 'how-zit', 'hana hou': 'hah-nah hoh-oo', 'hanahou': 'hah-nah-hoh-oo',
-    'wassamattayou': 'wah-sah-mah-tah-yoo', 'whaddsdascoops': 'whah-dah-dah-skoops',
-    'shaka': 'shah-kah', 'slippahs': 'slippahz', 'still': 'steel', 'brah': 'brah',
-    'bruddah': 'bruh-dah', 'sistah': 'sis-tah', 'cuz': 'kuz', 'sole': 'so-leh',
-    'pake': 'pah-keh', 'haole': 'how-leh', 'poke': 'poh-kay', 'musubi': 'moo-soo-bee',
-    'shoyu': 'show-yoo', 'mochi': 'mo-chee', 'manapua': 'mah-nah-poo-ah',
-    'malasada': 'mah-lah-sah-dah', 'kanak': 'kah-nahk', 'grindz': 'gryndz',
-    'grind': 'grynd', 'kaukau': 'cow-cow', 'cheehoo': 'chee-hoo!', 'rajah': 'rah-jah',
-    'shoots': 'shoots', 'choke': 'choke', 'bamboocha': 'bam-boo-chah',
-    'akamai': 'ah-kah-my', 'buggah': 'buh-gah', 'niele': 'nee-eh-leh',
-    'pilikia': 'pee-lee-kee-ah', 'chee hu': 'chee-hoo!', 'pilau': 'pee-lau',
-    'bust \'em up': 'bust em up', 'bust em up': 'bust em up', 'ainokea': 'eye-no-kay-ah',
-    'mo bettah': 'mo beh-tah', 'kay den': 'kay den...', 'aurite': 'ah-rye-t',
-    'stink eye': 'stink eye', 'chicken skin': 'chicken skin', 'talk story': 'talk story',
-    'broke da mouth': 'broke dah mouth', 'kanak attack': 'kah-nahk ah-tack',
-    'mālama da ʻāina': 'mah-lah-mah dah eye-nah', 'nō ka ʻoi': 'noh kah oy',
-    'a hui hou': 'ah-hoo-ee-oh', 'aʻole pilikia': 'ah-oh-leh pee-lee-kee-ah',
-    'moopuna': 'mo-poo-nah', 'li hing mui': 'lee hing moo-ee', 'lilikoi': 'lee-lee-koy',
-    'shave ice': 'shave ice', 'plate lunch': 'plate lunch', 'ballah': 'bal-lah',
-    'rubbah': 'rub-bah', 'punani': 'poo-nah-nee', 'boto': 'boh-toh', 'faka': 'fah-kah',
-    'hamajang': 'hah-mah-jahng', 'mayjah': 'may-jah', 'poho': 'poh-hoh',
-    'rajah dat': 'rah-jah dat', 'yobo': 'yo-boh', 'wit\'': 'wit', 'wit': 'wit',
-    'yesterday': 'yes-tah-deh', 'honolulu': 'hoh-noh-loo-loo', 'ala moana': 'ah-lah moh-ah-nah',
-    'kapiolani': 'kah-pee-oh-lah-nee', 'kapiʻolani': 'kah-pee-oh-lah-nee', 'kalakaua': 'kah-lah-cow-ah',
-    'kalākaua': 'kah-lah-cow-ah', 'kuhio': 'koo-hee-oh', 'kūhiō': 'koo-hee-oh', 'waipahu': 'wye-pah-hoo',
-    'kahuku': 'kah-hoo-koo', 'laie': 'lah-ee-eh', 'lāʻie': 'lah-ee-eh', 'hanauma': 'hah-now-mah',
-    'lanikai': 'lah-nee-kye', 'koolau': 'koh-oh-laow', 'koʻolau': 'koh-oh-laow',
-    'kefe': 'keh-feh', 'sukebe': 'soo-keh-beh', 'hukilau': 'hoo-kee-laow', 'tita': 'tee-tah',
-    'menpachi': 'men-pah-chee', 'menpachi eyes': 'men-pah-chee eyes', 'chawan': 'chah-wahn',
-    'moke': 'mohk', 'two scoops': 'two skoops', 'mac salad': 'mack salad'
-};
+// Imported from the runtime speech engine. This route used to hold a 39-entry subset of the
+// map and its own transform, so admin-generated audio was pronounced differently from what
+// users hear live.
+const {
+    PIDGIN_PRONUNCIATION_MAP: globalPronunciationMap,
+    applyPronunciationCorrections,
+    ELEVENLABS_SYNTHESIS
+} = require('../src/components/speech/elevenlabs-speech.js');
 
-function applyPronunciationCorrections(text) {
-    if (!text) return '';
-    let correctedText = text.toLowerCase();
-    const thWords = {
-        'the': 'dah', 'that': 'daht', 'this': 'dis', 'them': 'dehm',
-        'there': 'dea', 'then': 'dehn', 'their': 'dea', 'they': 'dey',
-        'with': 'wit', 'mother': 'mah-dah', 'father': 'fah-dah', 'brother': 'bruh-dah'
-    };
-    Object.entries(thWords).forEach(([word, replacement]) => {
-        const regex = new RegExp(`\\b${word}\\b`, 'gi');
-        correctedText = correctedText.replace(regex, replacement);
-    });
-    correctedText = correctedText.replace(/(\w+)er\b/g, '$1ah');
-    correctedText = correctedText.replace(/(\w+)ar\b/g, '$1ah');
-    correctedText = correctedText.replace(/(\w+)or\b/g, '$1oh');
-    
-    const sortedKeys = Object.keys(globalPronunciationMap).sort((a, b) => b.length - a.length);
-    sortedKeys.forEach(original => {
-        const phonetic = globalPronunciationMap[original];
-        const regex = new RegExp(`\\b${original.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
-        correctedText = correctedText.replace(regex, phonetic);
-    });
-    return correctedText;
-}
 
 /**
  * Shared ElevenLabs + Supabase Storage generation logic
@@ -118,13 +60,8 @@ async function generateAndUploadAudio(supabaseAdmin, text, filenamePrefix) {
         },
         body: JSON.stringify({
             text: correctedText,
-            model_id: 'eleven_multilingual_v2',
-            voice_settings: {
-                stability: 0.5,
-                similarity_boost: 0.75,
-                style: 0.0,
-                use_speaker_boost: true
-            }
+            model_id: ELEVENLABS_SYNTHESIS.model_id,
+            voice_settings: ELEVENLABS_SYNTHESIS.voice_settings
         })
     });
 

@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const crypto = require('crypto');
+const {
+    applyPronunciationCorrections,
+    ELEVENLABS_SYNTHESIS
+} = require('../src/components/speech/elevenlabs-speech.js');
 
 /**
  * Text-to-Speech Routes (ElevenLabs, with Supabase audio cache)
@@ -42,8 +46,20 @@ module.exports = function(translationLimiter, supabase) {
                     voiceId = requestedVoiceId;
                 }
 
-                // 1. Check Cache First
-                const normalizedText = text.trim().toLowerCase();
+                // Apply phonetics HERE, at the boundary, so pronunciation no longer depends on
+                // each caller remembering to do it. `originalText` is the raw string; browsers
+                // also send a pre-corrected `text` for backward compatibility. Prefer the raw
+                // input -- the transform is NOT idempotent (the `brah` pause rule re-fires and
+                // stacks commas), so it must run exactly once, on unprocessed text.
+                const rawText = originalText || text;
+                const spokenText = applyPronunciationCorrections(rawText);
+
+                // 1. Check Cache First.
+                // Keyed on the POST-substitution text, exactly as before: browsers previously
+                // sent text = applyPronunciationCorrections(raw), and the server hashed that.
+                // Computing the same transform server-side reproduces the same string, so every
+                // existing translation_cache row stays reachable.
+                const normalizedText = spokenText.trim().toLowerCase();
                 const textHash = crypto.createHash('md5').update(normalizedText).digest('hex');
                 const BUCKET_NAME = 'audio-assets';
 
@@ -85,14 +101,9 @@ module.exports = function(translationLimiter, supabase) {
                         'xi-api-key': apiKey
                     },
                     body: JSON.stringify({
-                        text: text,
-                        model_id: 'eleven_multilingual_v2',
-                        voice_settings: {
-                            stability: 0.5,
-                            similarity_boost: 0.75,
-                            style: 0.0,
-                            use_speaker_boost: true
-                        }
+                        text: spokenText,
+                        model_id: ELEVENLABS_SYNTHESIS.model_id,
+                        voice_settings: ELEVENLABS_SYNTHESIS.voice_settings
                     })
                 });
 

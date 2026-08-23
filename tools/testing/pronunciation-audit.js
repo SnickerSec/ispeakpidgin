@@ -16,7 +16,8 @@ const { supabase } = require('../../config/supabase');
 // Requiring the runtime module makes divergence structurally impossible.
 const {
     PIDGIN_PRONUNCIATION_MAP: globalPronunciationMap,
-    PIDGIN_TH_WORDS
+    PIDGIN_TH_WORDS,
+    applyPronunciationCorrections
 } = require('../../src/components/speech/elevenlabs-speech.js');
 
 const commonEnglish = [
@@ -41,70 +42,6 @@ function isPidginLike(word) {
 }
 
 // Replicate the exact transformation logic from elevenlabs-speech.js
-function applyPronunciationCorrections(text) {
-    let correctedText = text.toLowerCase();
-
-    // 1. Th-fronting
-    const thWords = PIDGIN_TH_WORDS;
-    
-    Object.entries(thWords).forEach(([word, replacement]) => {
-        const regex = new RegExp(`\\b${word}\\b`, 'gi');
-        correctedText = correctedText.replace(regex, replacement);
-    });
-
-    // 2. Final 'r' dropping
-    correctedText = correctedText.replace(/(\w+)er\b/g, '$1ah');
-    correctedText = correctedText.replace(/(\w+)ar\b/g, '$1ah');
-    correctedText = correctedText.replace(/(\w+)or\b/g, '$1oh');
-
-    // 3. Vowel Adjustments for Hawaiian words
-    const words = correctedText.split(/\s+/);
-    const processedWords = words.map(word => {
-        const cleanWord = word.replace(/['ʻ]/g, '');
-        if (globalPronunciationMap[word]) return globalPronunciationMap[word];
-        if (globalPronunciationMap[cleanWord]) return globalPronunciationMap[cleanWord];
-        
-        if (isPidginLike(word)) {
-            let w = word.replace(/['ʻ]/g, '-');
-            w = w.replace(/ai/g, 'eye');
-            w = w.replace(/au/g, 'ow');
-            w = w.replace(/oi/g, 'oy');
-            w = w.replace(/ei/g, 'ay');
-            w = w.replace(/ie/g, 'ee-eh');
-            // Hawaiian 'u' sounds like 'oo' (as in hula, pupule)
-            if (!w.includes('oo') && !w.includes('ow')) {
-                // Only transform 'u' if it's not followed by certain consonants that usually stay 'u'
-                // Or if it's a standalone 'u'
-                w = w.replace(/\bu\b/g, 'oo');
-                w = w.replace(/u(?![nstp])/g, 'oo');
-            }
-            w = w.replace(/^-/, '').replace(/-$/, '');
-            return w;
-        }
-        return word;
-    });
-    
-    correctedText = processedWords.join(' ');
-
-    // 4. Hardcoded map
-    const sortedKeys = Object.keys(globalPronunciationMap).sort((a, b) => b.length - a.length);
-    sortedKeys.forEach(original => {
-        const phonetic = globalPronunciationMap[original];
-        const regex = new RegExp(`\\b${original.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
-        correctedText = correctedText.replace(regex, phonetic);
-    });
-
-    // 5. Add natural pauses for Pidgin rhythm
-    correctedText = correctedText
-        .replace(/, /g, '... ') 
-        .replace(/\beh\b(?!\.\.\.)/gi, 'eh...') 
-        .replace(/\bhoh\b(?!\.\.\.)/gi, 'hoh...') 
-        .replace(/\bbrah\b(?!\.\.\.)/gi, '...brah')
-        .replace(/\byeah\b\?/gi, '...yeah?')
-        .replace(/\bo wat\b\?/gi, '...or wat?');
-
-    return correctedText;
-}
 
 async function runAudit() {
     console.log('🎙️  Starting Dictionary Pronunciation Audit...\n');

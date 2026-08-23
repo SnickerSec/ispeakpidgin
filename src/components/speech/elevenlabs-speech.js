@@ -334,6 +334,128 @@ const PIDGIN_TH_WORDS = {
     'brother': 'bruh-dah'
 };
 
+// Synthesis settings shared by every path that calls ElevenLabs. These used to differ between
+// live TTS (eleven_multilingual_v2 / 0.75) and the offline generators (eleven_flash_v2_5 / 0.8),
+// so the same word could sound different depending on how it was produced. Standardized on
+// eleven_flash_v2_5.
+const ELEVENLABS_SYNTHESIS = {
+    model_id: 'eleven_flash_v2_5',
+    voice_settings: {
+        stability: 0.5,
+        similarity_boost: 0.8,
+        style: 0.0,
+        use_speaker_boost: true
+    }
+};
+
+// Canonical phonetic transform: map substitution, th-fronting, vowel rules and the prosody
+// pauses. Exported so the SERVER applies it at the /api/text-to-speech boundary; every caller
+// therefore gets identical pronunciation instead of each re-implementing it. Do not fork this.
+function applyPronunciationCorrections(text) {
+        // Map of Pidgin words to phonetic spelling for better TTS pronunciation
+        // Optimized specifically for ElevenLabs voices
+        const pronunciationMap = PIDGIN_PRONUNCIATION_MAP;
+
+        let correctedText = text.toLowerCase();
+
+        // 0. Remove emojis - ElevenLabs can sometimes error on complex emojis 
+        // or treat them as characters that exceed length limits
+        correctedText = correctedText.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E6}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F3FB}-\u{1F3FF}\u{1F170}-\u{1F251}\u{1F004}\u{1F0CF}\u{1F18E}\u{1F191}-\u{1F19A}\u{1F201}\u{1F202}\u{1F21A}\u{1F22F}\u{1F232}-\u{1F23A}\u{1F250}\u{1F251}\u{1F300}-\u{1F321}\u{1F324}-\u{1F393}\u{1F396}-\u{1F39B}\u{1F39E}-\u{1F3F0}\u{1F3F3}-\u{1F3F5}\u{1F3F7}-\u{1F4FD}\u{1F4FF}-\u{1F53D}\u{1F549}-\u{1F54E}\u{1F550}-\u{1F567}\u{1F56F}\u{1F570}\u{1F573}-\u{1F579}\u{1F57B}-\u{1F5A3}\u{1F5A5}-\u{1F5FA}\u{1F600}-\u{1F6D2}\u{1F6E0}-\u{1F6EC}\u{1F6F0}-\u{1F6F3}\u{1F700}-\u{1F773}\u{1F780}-\u{1F7D4}\u{1F800}-\u{1F80B}\u{1F810}-\u{1F847}\u{1F850}-\u{1F859}\u{1F860}-\u{1F887}\u{1F890}-\u{1F8AD}\u{1F900}-\u{1F93A}\u{1F93C}-\u{1F945}\u{1F947}-\u{1F970}\u{1F973}-\u{1F976}\u{1F97A}\u{1F97C}-\u{1F9A2}\u{1F9B0}-\u{1F9B9}\u{1F9C0}-\u{1F9C2}\u{1F9D0}-\u{1F9FF}]/gu, '');
+
+        // Advanced Phonetic Rules for ElevenLabs
+        // These rules catch patterns that the map might miss
+        
+        // 1. Th-fronting (th -> d or t) - very characteristic of Pidgin
+        // Only apply to common words to avoid mangling actual English
+        const thWords = PIDGIN_TH_WORDS;
+        
+        Object.entries(thWords).forEach(([word, replacement]) => {
+            const regex = new RegExp(`\\b${word}\\b`, 'gi');
+            correctedText = correctedText.replace(regex, replacement);
+        });
+
+        // 2. Final 'r' dropping (non-rhoticity)
+        // car -> cah, water -> wahtah
+        correctedText = correctedText.replace(/(\w+)er\b/g, '$1ah');
+        correctedText = correctedText.replace(/(\w+)ar\b/g, '$1ah');
+        correctedText = correctedText.replace(/(\w+)or\b/g, '$1oh');
+
+        // 3. Vowel Adjustments for Hawaiian words
+        // 'ai' usually sounds like 'eye'
+        // 'au' usually sounds like 'ow' (as in cow)
+        
+        // Helper to check if a word is likely Hawaiian/Pidgin (contains unique patterns)
+        const isPidginLike = (word) => {
+            // Exclude common English words that might trigger false positives
+            const commonEnglish = [
+                'you', 'your', 'out', 'about', 'around', 'sound', 'house', 'mouth', 'stout', 'shout',
+                'friend', 'believe', 'field', 'piece', 'view', 'die', 'lie', 'tie', 'tried',
+                'cousin', 'jealous', 'touch', 'enough', 'rough', 'tough', 'young', 'country', 'should', 'would', 'could',
+                'lunch', 'just', 'much', 'such', 'but', 'bus', 'up', 'us', 'under', 'until', 'uncle',
+                'buss', 'buggah', 'bust', 'cuz', 'humbug', 'funny', 'rub', 'rubbah', 'surf', 'brush', 'crush', 'must', 'trust',
+                'chance', 'dance', 'lance', 'glance', 'france', 'stance', 'bruddah', 'laff', 'chawan', 'stay', 'broke',
+                'aunty', 'going', 'nails', 'worries', 'wait', 'bait', 'shark', 'choice', 'goin', 'townie', 'point', 'noise',
+                'voice', 'boil', 'oil', 'soil', 'join', 'coin', 'enjoy', 'boy', 'toy', 'joy',
+                'cut', 'joke', 'um', 'them', 'then', 'than', 'that', 'this', 'there', 'their', 'they', 'with', 'jealous',
+                'mout', 'bout', 'bust', 'pilau', 'up', 'em'
+            ];
+            if (commonEnglish.includes(word.toLowerCase())) return false;
+
+            return /['ʻ]/.test(word) || pronunciationMap[word.replace(/['ʻ]/g, '')] || 
+                   ['ka', 'la', 'ma', 'na', 'ha', 'ke', 'le', 'me', 'ne', 'he', 'oi', 'ai', 'au', 'ei', 'ie', 'ou', 'lua', 'pua', 'hua'].some(s => word.includes(s));
+        };
+        const words = correctedText.split(/\s+/);
+        const processedWords = words.map(word => {
+            // Check map with and without okinas
+            const cleanWord = word.replace(/['ʻ]/g, '');
+            if (pronunciationMap[word]) return pronunciationMap[word];
+            if (pronunciationMap[cleanWord]) return pronunciationMap[cleanWord];
+            
+            if (isPidginLike(word)) {
+                let w = word.replace(/['ʻ]/g, '-'); // Pause for okinas
+                w = w.replace(/ai/g, 'eye');
+                w = w.replace(/au/g, 'ow');
+                w = w.replace(/oi/g, 'oy');
+                w = w.replace(/ei/g, 'ay');
+                w = w.replace(/ie/g, 'ee-eh');
+                // Hawaiian 'u' sounds like 'oo' (as in hula, pupule)
+                // But only if it's likely a Hawaiian word and not English/Pidgin
+                if (!w.includes('oo') && !w.includes('ow')) {
+                    // Only transform 'u' if it's not followed by certain consonants that usually stay 'u'
+                    // Or if it's a standalone 'u'
+                    w = w.replace(/\bu\b/g, 'oo');
+                    w = w.replace(/u(?![nstp])/g, 'oo');
+                }
+                // Clean up leading/trailing hyphens from okinas
+                w = w.replace(/^-/, '').replace(/-$/, '');
+                return w;
+            }
+            return word;
+        });
+        
+        correctedText = processedWords.join(' ');
+
+        // 4. Apply hardcoded corrections (Multi-word and high-priority)
+        // Sort keys by length descending to match longer phrases first
+        const sortedKeys = Object.keys(pronunciationMap).sort((a, b) => b.length - a.length);
+        
+        sortedKeys.forEach(original => {
+            const phonetic = pronunciationMap[original];
+            const regex = new RegExp(`\\b${original}\\b`, 'gi');
+            correctedText = correctedText.replace(regex, phonetic);
+        });
+
+        // 5. Add natural pauses for Pidgin rhythm
+        correctedText = correctedText
+            .replace(/\beh\b(?!\.\.\.)/gi, 'eh, ')
+            .replace(/\bhoh\b(?!\.\.\.)/gi, 'hoh, ') 
+            .replace(/\bbrah\b(?!\.\.\.)/gi, ', brah')
+            .replace(/\byeah\b\?/gi, ', yeah?')
+            .replace(/\bo wat\b\?/gi, ', or wat?');
+
+        return correctedText;
+    }
+
 class ElevenLabsSpeech {
     constructor() {
         this.isPlaying = false;
@@ -459,108 +581,7 @@ class ElevenLabsSpeech {
 
     // Pidgin pronunciation corrections for TTS
     applyPronunciationCorrections(text) {
-        // Map of Pidgin words to phonetic spelling for better TTS pronunciation
-        // Optimized specifically for ElevenLabs voices
-        const pronunciationMap = PIDGIN_PRONUNCIATION_MAP;
-
-        let correctedText = text.toLowerCase();
-
-        // 0. Remove emojis - ElevenLabs can sometimes error on complex emojis 
-        // or treat them as characters that exceed length limits
-        correctedText = correctedText.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E6}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F3FB}-\u{1F3FF}\u{1F170}-\u{1F251}\u{1F004}\u{1F0CF}\u{1F18E}\u{1F191}-\u{1F19A}\u{1F201}\u{1F202}\u{1F21A}\u{1F22F}\u{1F232}-\u{1F23A}\u{1F250}\u{1F251}\u{1F300}-\u{1F321}\u{1F324}-\u{1F393}\u{1F396}-\u{1F39B}\u{1F39E}-\u{1F3F0}\u{1F3F3}-\u{1F3F5}\u{1F3F7}-\u{1F4FD}\u{1F4FF}-\u{1F53D}\u{1F549}-\u{1F54E}\u{1F550}-\u{1F567}\u{1F56F}\u{1F570}\u{1F573}-\u{1F579}\u{1F57B}-\u{1F5A3}\u{1F5A5}-\u{1F5FA}\u{1F600}-\u{1F6D2}\u{1F6E0}-\u{1F6EC}\u{1F6F0}-\u{1F6F3}\u{1F700}-\u{1F773}\u{1F780}-\u{1F7D4}\u{1F800}-\u{1F80B}\u{1F810}-\u{1F847}\u{1F850}-\u{1F859}\u{1F860}-\u{1F887}\u{1F890}-\u{1F8AD}\u{1F900}-\u{1F93A}\u{1F93C}-\u{1F945}\u{1F947}-\u{1F970}\u{1F973}-\u{1F976}\u{1F97A}\u{1F97C}-\u{1F9A2}\u{1F9B0}-\u{1F9B9}\u{1F9C0}-\u{1F9C2}\u{1F9D0}-\u{1F9FF}]/gu, '');
-
-        // Advanced Phonetic Rules for ElevenLabs
-        // These rules catch patterns that the map might miss
-        
-        // 1. Th-fronting (th -> d or t) - very characteristic of Pidgin
-        // Only apply to common words to avoid mangling actual English
-        const thWords = PIDGIN_TH_WORDS;
-        
-        Object.entries(thWords).forEach(([word, replacement]) => {
-            const regex = new RegExp(`\\b${word}\\b`, 'gi');
-            correctedText = correctedText.replace(regex, replacement);
-        });
-
-        // 2. Final 'r' dropping (non-rhoticity)
-        // car -> cah, water -> wahtah
-        correctedText = correctedText.replace(/(\w+)er\b/g, '$1ah');
-        correctedText = correctedText.replace(/(\w+)ar\b/g, '$1ah');
-        correctedText = correctedText.replace(/(\w+)or\b/g, '$1oh');
-
-        // 3. Vowel Adjustments for Hawaiian words
-        // 'ai' usually sounds like 'eye'
-        // 'au' usually sounds like 'ow' (as in cow)
-        
-        // Helper to check if a word is likely Hawaiian/Pidgin (contains unique patterns)
-        const isPidginLike = (word) => {
-            // Exclude common English words that might trigger false positives
-            const commonEnglish = [
-                'you', 'your', 'out', 'about', 'around', 'sound', 'house', 'mouth', 'stout', 'shout',
-                'friend', 'believe', 'field', 'piece', 'view', 'die', 'lie', 'tie', 'tried',
-                'cousin', 'jealous', 'touch', 'enough', 'rough', 'tough', 'young', 'country', 'should', 'would', 'could',
-                'lunch', 'just', 'much', 'such', 'but', 'bus', 'up', 'us', 'under', 'until', 'uncle',
-                'buss', 'buggah', 'bust', 'cuz', 'humbug', 'funny', 'rub', 'rubbah', 'surf', 'brush', 'crush', 'must', 'trust',
-                'chance', 'dance', 'lance', 'glance', 'france', 'stance', 'bruddah', 'laff', 'chawan', 'stay', 'broke',
-                'aunty', 'going', 'nails', 'worries', 'wait', 'bait', 'shark', 'choice', 'goin', 'townie', 'point', 'noise',
-                'voice', 'boil', 'oil', 'soil', 'join', 'coin', 'enjoy', 'boy', 'toy', 'joy',
-                'cut', 'joke', 'um', 'them', 'then', 'than', 'that', 'this', 'there', 'their', 'they', 'with', 'jealous',
-                'mout', 'bout', 'bust', 'pilau', 'up', 'em'
-            ];
-            if (commonEnglish.includes(word.toLowerCase())) return false;
-
-            return /['ʻ]/.test(word) || pronunciationMap[word.replace(/['ʻ]/g, '')] || 
-                   ['ka', 'la', 'ma', 'na', 'ha', 'ke', 'le', 'me', 'ne', 'he', 'oi', 'ai', 'au', 'ei', 'ie', 'ou', 'lua', 'pua', 'hua'].some(s => word.includes(s));
-        };
-        const words = correctedText.split(/\s+/);
-        const processedWords = words.map(word => {
-            // Check map with and without okinas
-            const cleanWord = word.replace(/['ʻ]/g, '');
-            if (pronunciationMap[word]) return pronunciationMap[word];
-            if (pronunciationMap[cleanWord]) return pronunciationMap[cleanWord];
-            
-            if (isPidginLike(word)) {
-                let w = word.replace(/['ʻ]/g, '-'); // Pause for okinas
-                w = w.replace(/ai/g, 'eye');
-                w = w.replace(/au/g, 'ow');
-                w = w.replace(/oi/g, 'oy');
-                w = w.replace(/ei/g, 'ay');
-                w = w.replace(/ie/g, 'ee-eh');
-                // Hawaiian 'u' sounds like 'oo' (as in hula, pupule)
-                // But only if it's likely a Hawaiian word and not English/Pidgin
-                if (!w.includes('oo') && !w.includes('ow')) {
-                    // Only transform 'u' if it's not followed by certain consonants that usually stay 'u'
-                    // Or if it's a standalone 'u'
-                    w = w.replace(/\bu\b/g, 'oo');
-                    w = w.replace(/u(?![nstp])/g, 'oo');
-                }
-                // Clean up leading/trailing hyphens from okinas
-                w = w.replace(/^-/, '').replace(/-$/, '');
-                return w;
-            }
-            return word;
-        });
-        
-        correctedText = processedWords.join(' ');
-
-        // 4. Apply hardcoded corrections (Multi-word and high-priority)
-        // Sort keys by length descending to match longer phrases first
-        const sortedKeys = Object.keys(pronunciationMap).sort((a, b) => b.length - a.length);
-        
-        sortedKeys.forEach(original => {
-            const phonetic = pronunciationMap[original];
-            const regex = new RegExp(`\\b${original}\\b`, 'gi');
-            correctedText = correctedText.replace(regex, phonetic);
-        });
-
-        // 5. Add natural pauses for Pidgin rhythm
-        correctedText = correctedText
-            .replace(/\beh\b(?!\.\.\.)/gi, 'eh, ')
-            .replace(/\bhoh\b(?!\.\.\.)/gi, 'hoh, ') 
-            .replace(/\bbrah\b(?!\.\.\.)/gi, ', brah')
-            .replace(/\byeah\b\?/gi, ', yeah?')
-            .replace(/\bo wat\b\?/gi, ', or wat?');
-
-        return correctedText;
+        return applyPronunciationCorrections(text);
     }
 
     async speak(text, options = {}) {
@@ -1080,4 +1101,6 @@ if (typeof module !== 'undefined' && module.exports) {
     module.exports = ElevenLabsSpeech;
     module.exports.PIDGIN_PRONUNCIATION_MAP = PIDGIN_PRONUNCIATION_MAP;
     module.exports.PIDGIN_TH_WORDS = PIDGIN_TH_WORDS;
+    module.exports.applyPronunciationCorrections = applyPronunciationCorrections;
+    module.exports.ELEVENLABS_SYNTHESIS = ELEVENLABS_SYNTHESIS;
 }

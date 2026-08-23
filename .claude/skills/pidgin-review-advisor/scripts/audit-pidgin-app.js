@@ -346,7 +346,19 @@ function auditElevenLabs() {
     // hand-copy in tools/audio/audio-pregeneration.js went unnoticed: all copies happened to
     // agree, so nothing looked wrong, and each was one edit from silently disagreeing.
     const speechSrc = read('src/components/speech/elevenlabs-speech.js');
-    const CONSUMERS = ['tools/testing/pronunciation-audit.js', 'tools/audio/audio-pregeneration.js'];
+    // Every file that phoneticizes text before calling ElevenLabs. This list started with two
+    // entries; five more turned up (routes/admin.js and three generate-*.js tools each carried a
+    // 32-39 entry SUBSET of the 290-entry map, so their audio was materially less local than
+    // live playback). Add new callers here.
+    const CONSUMERS = [
+        'tools/testing/pronunciation-audit.js',
+        'tools/audio/audio-pregeneration.js',
+        'tools/audio/generate-missing-audio.js',
+        'tools/audio/generate-stories-audio.js',
+        'tools/audio/generate-lessons-audio.js',
+        'routes/admin.js',
+        'routes/tts.js'
+    ];
     if (speechSrc) {
         const runtimeKeys = objectLiteralKeys(speechSrc, 'const PIDGIN_PRONUNCIATION_MAP = {')
             || objectLiteralKeys(speechSrc, 'const pronunciationMap = {');
@@ -386,67 +398,43 @@ function auditElevenLabs() {
         });
     }
 
-    // Synthesis parameters must match across the two paths that call ElevenLabs, or cached audio
-    // sounds different from live audio for the same text and voice.
-    const ttsSrcCmp = read('routes/tts.js') || '';
-    const pregenSrc = read('tools/audio/audio-pregeneration.js') || '';
-    const grabModel = src => (src.match(/model_id:\s*'([^']+)'/) || [])[1] || null;
-    const grabSetting = (src, k) => (src.match(new RegExp(k + ':\\s*([0-9.]+)')) || [])[1] || null;
-    const liveModel = grabModel(ttsSrcCmp), pregenModel = grabModel(pregenSrc);
-    if (liveModel && pregenModel) {
-        const liveSim = grabSetting(ttsSrcCmp, 'similarity_boost');
-        const pregenSim = grabSetting(pregenSrc, 'similarity_boost');
-        const modelMismatch = liveModel !== pregenModel;
-        const simMismatch = liveSim !== pregenSim;
-        record('elevenlabs', {
-            id: 'elevenlabs.synthesis-parity',
-            title: 'Live and pre-generated audio use the same synthesis settings',
-            status: (modelMismatch || simMismatch) ? 'WARN' : 'OK',
-            evidence: [
-                `routes/tts.js (live):            model_id=${liveModel}, similarity_boost=${liveSim}`,
-                `audio-pregeneration.js (cached): model_id=${pregenModel}, similarity_boost=${pregenSim}`
-            ],
-            metrics: { liveModel, pregenModel, liveSim, pregenSim },
-            finding: (modelMismatch || simMismatch)
-                ? `The two paths that synthesize audio disagree${modelMismatch ? ` on the model (${liveModel} vs ${pregenModel})` : ''}${modelMismatch && simMismatch ? ' and' : ''}${simMismatch ? ` on similarity_boost (${liveSim} vs ${pregenSim})` : ''}. The same word can therefore sound different depending on whether it was pre-generated or synthesized on demand.`
-                : null,
-            fix: (modelMismatch || simMismatch)
-                ? 'Share one synthesis-settings constant between routes/tts.js and tools/audio/audio-pregeneration.js, then decide deliberately which model the site should use.'
-                : null
-        });
+    // Synthesis parameters must match across every path that calls ElevenLabs, or the same word
+    // sounds different depending on how it was produced. Note the shared-constant case is
+    // reported as OK rather than skipped: an earlier version keyed off a literal model_id and
+    // silently vanished once the literals were replaced, which reads as "no problem" when it
+    // actually means "no longer measured".
+    const SYNTH_CALLERS = [
+        'routes/tts.js', 'routes/admin.js',
+        'tools/audio/audio-pregeneration.js', 'tools/audio/generate-missing-audio.js',
+        'tools/audio/generate-stories-audio.js', 'tools/audio/generate-lessons-audio.js'
+    ];
+    const shared = [], literals = {};
+    for (const rel of SYNTH_CALLERS) {
+        const src = read(rel);
+        if (!src || !/api\.elevenlabs\.io/.test(src)) continue;
+        if (/ELEVENLABS_SYNTHESIS\.model_id/.test(src)) { shared.push(rel); continue; }
+        const model = (src.match(/model_id:\s*'([^']+)'/) || [])[1];
+        const sim = (src.match(/similarity_boost:\s*([0-9.]+)/) || [])[1];
+        if (model) literals[rel] = `${model} / similarity_boost ${sim || '?'}`;
     }
-
-    // Voice-ID guard: deprecated Aunty/Braddah voices must not come back.
-    const scanDirs = ['src', 'routes', 'services', 'tools'];
-    const foundIds = new Map();
-    function walk(dir) {
-        let entries = [];
-        try { entries = fs.readdirSync(abs(dir), { withFileTypes: true }); } catch { return; }
-        for (const e of entries) {
-            const rel = path.join(dir, e.name);
-            if (e.isDirectory()) { if (e.name !== 'node_modules' && e.name !== '_archive') walk(rel); continue; }
-            if (!/\.(js|html)$/.test(e.name)) continue;
-            const src = read(rel);
-            if (!src) continue;
-            const re = /voice_?[Ii]d['"]?\s*[:=]\s*['"]([A-Za-z0-9]{18,24})['"]/g;
-            let m;
-            while ((m = re.exec(src)) !== null) {
-                if (!foundIds.has(m[1])) foundIds.set(m[1], []);
-                if (!foundIds.get(m[1]).includes(rel)) foundIds.get(m[1]).push(rel);
-            }
-        }
-    }
-    scanDirs.forEach(walk);
-    const strays = [...foundIds.keys()].filter(id => id !== KIMO);
+    const distinct = [...new Set(Object.values(literals))];
+    const canonical = (read('src/components/speech/elevenlabs-speech.js') || '').match(/model_id:\s*'([^']+)'/);
     record('elevenlabs', {
-        id: 'elevenlabs.voice-guard',
-        title: 'Only the Kimo voice is referenced',
-        status: strays.length ? 'WARN' : 'OK',
-        evidence: [...foundIds.entries()].map(([id, files]) =>
-            `${id}${id === KIMO ? ' (Kimo — approved)' : ' (UNAPPROVED)'}: ${files.slice(0, 4).join(', ')}${files.length > 4 ? ` +${files.length - 4} more` : ''}`),
-        metrics: { distinctVoiceIds: foundIds.size, unapproved: strays.length },
-        finding: strays.length ? `Voice IDs other than Kimo are referenced: ${strays.join(', ')}. Aunty/Braddah were removed for poor acoustic quality and must not be reintroduced.` : null,
-        fix: strays.length ? 'Replace stray IDs with f0ODjLMfcJmlKfs7dFCW, or confirm the new voice was deliberately auditioned.' : null
+        id: 'elevenlabs.synthesis-parity',
+        title: 'All ElevenLabs callers use the same synthesis settings',
+        status: Object.keys(literals).length === 0 ? 'OK' : 'WARN',
+        evidence: [
+            canonical ? `shared constant ELEVENLABS_SYNTHESIS: ${canonical[1]}` : 'no shared synthesis constant found',
+            shared.length ? `using the shared constant (${shared.length}): ${shared.join(', ')}` : 'no caller uses a shared constant',
+            ...Object.entries(literals).map(([f, v]) => `hardcoded in ${f}: ${v}`)
+        ].filter(Boolean),
+        metrics: { sharedCallers: shared, hardcoded: literals },
+        finding: Object.keys(literals).length
+            ? `${Object.keys(literals).length} caller(s) hardcode synthesis settings (${distinct.join('; ')}) instead of the shared constant, so the same word can sound different depending on which path produced the audio.`
+            : null,
+        fix: Object.keys(literals).length
+            ? 'Import ELEVENLABS_SYNTHESIS from src/components/speech/elevenlabs-speech.js in each caller.'
+            : null
     });
 
     // Where phonetics get applied. Note what this does NOT claim: an earlier version of this

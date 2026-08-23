@@ -36,85 +36,13 @@ const MAX_TO_GENERATE = LIMIT_ARG !== -1 ? parseInt(args[LIMIT_ARG + 1], 10) : 1
 // 'identical to elevenlabs-speech.js'. It was identical -- by luck, not by construction.
 const {
     PIDGIN_PRONUNCIATION_MAP: globalPronunciationMap,
-    PIDGIN_TH_WORDS
+    PIDGIN_TH_WORDS,
+    applyPronunciationCorrections,
+    ELEVENLABS_SYNTHESIS
 } = require('../../src/components/speech/elevenlabs-speech.js');
 
 // Helper to check if a word is likely Hawaiian/Pidgin (contains unique patterns)
-function isPidginLike(word) {
-    // Exclude common English words that might trigger false positives
-    const commonEnglish = [
-        'you', 'your', 'out', 'about', 'around', 'sound', 'house', 'mouth', 'stout', 'shout',
-        'friend', 'believe', 'field', 'piece', 'view', 'die', 'lie', 'tie', 'tried',
-        'cousin', 'jealous', 'touch', 'enough', 'rough', 'tough', 'young', 'country', 'should', 'would', 'could',
-        'lunch', 'just', 'much', 'such', 'but', 'bus', 'up', 'us', 'under', 'until', 'uncle',
-        'buss', 'buggah', 'bust', 'cuz', 'humbug', 'funny', 'rub', 'rubbah', 'surf', 'brush', 'crush', 'must', 'trust',
-        'chance', 'dance', 'lance', 'glance', 'france', 'stance', 'bruddah', 'laff', 'chawan', 'stay', 'broke',
-        'aunty', 'going', 'nails', 'worries', 'wait', 'bait', 'shark', 'choice', 'goin', 'townie', 'point', 'noise',
-        'voice', 'boil', 'oil', 'soil', 'join', 'coin', 'enjoy', 'boy', 'toy', 'joy',
-        'cut', 'joke', 'um', 'them', 'then', 'than', 'that', 'this', 'there', 'their', 'they', 'with', 'jealous',
-        'mout', 'bout', 'bust', 'pilau', 'up', 'em'
-    ];
-    if (commonEnglish.includes(word.toLowerCase())) return false;
 
-    return /['ʻ]/.test(word) || globalPronunciationMap[word.replace(/['ʻ]/g, '')] || 
-           ['ka', 'la', 'ma', 'na', 'ha', 'ke', 'le', 'me', 'ne', 'he', 'oi', 'ai', 'au', 'ei', 'ie', 'ou', 'lua', 'pua', 'hua'].some(s => word.includes(s));
-}
-
-function applyPronunciationCorrections(text) {
-    let correctedText = text.toLowerCase();
-
-    // 1. Th-fronting
-    const thWords = PIDGIN_TH_WORDS;
-    
-    Object.entries(thWords).forEach(([word, replacement]) => {
-        const regex = new RegExp(`\\b${word}\\b`, 'gi');
-        correctedText = correctedText.replace(regex, replacement);
-    });
-
-    // 2. Final 'r' dropping
-    correctedText = correctedText.replace(/(\w+)er\b/g, '$1ah');
-    correctedText = correctedText.replace(/(\w+)ar\b/g, '$1ah');
-    correctedText = correctedText.replace(/(\w+)or\b/g, '$1oh');
-
-    // 3. Vowel Adjustments for Hawaiian words
-    const words = correctedText.split(/\s+/);
-    const processedWords = words.map(word => {
-        const cleanWord = word.replace(/['ʻ]/g, '');
-        if (globalPronunciationMap[word]) return globalPronunciationMap[word];
-        if (globalPronunciationMap[cleanWord]) return globalPronunciationMap[cleanWord];
-        
-        if (isPidginLike(word)) {
-            let w = word.replace(/['ʻ]/g, '-');
-            w = w.replace(/ai/g, 'eye');
-            w = w.replace(/au/g, 'ow');
-            w = w.replace(/oi/g, 'oy');
-            w = w.replace(/ei/g, 'ay');
-            w = w.replace(/ie/g, 'ee-eh');
-            // Hawaiian 'u' sounds like 'oo' (as in hula, pupule)
-            if (!w.includes('oo') && !w.includes('ow')) {
-                // Only transform 'u' if it's not followed by certain consonants that usually stay 'u'
-                // Or if it's a standalone 'u'
-                w = w.replace(/\bu\b/g, 'oo');
-                w = w.replace(/u(?![nstp])/g, 'oo');
-            }
-            w = w.replace(/^-/, '').replace(/-$/, '');
-            return w;
-        }
-        return word;
-    });
-    
-    correctedText = processedWords.join(' ');
-
-    // 4. Hardcoded map
-    const sortedKeys = Object.keys(globalPronunciationMap).sort((a, b) => b.length - a.length);
-    sortedKeys.forEach(original => {
-        const phonetic = globalPronunciationMap[original];
-        const regex = new RegExp(`\\b${original.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
-        correctedText = correctedText.replace(regex, phonetic);
-    });
-
-    return correctedText;
-}
 
 async function fetchAllEntries() {
     try {
@@ -168,13 +96,8 @@ async function generateAudioFile(text, apiKey) {
             },
             body: JSON.stringify({
                 text: correctedText,
-                model_id: 'eleven_flash_v2_5',
-                voice_settings: {
-                    stability: 0.5,
-                    similarity_boost: 0.8,
-                    style: 0.0,
-                    use_speaker_boost: true
-                }
+                model_id: ELEVENLABS_SYNTHESIS.model_id,
+                voice_settings: ELEVENLABS_SYNTHESIS.voice_settings
             })
         });
 
