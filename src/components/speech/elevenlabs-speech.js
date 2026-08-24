@@ -114,6 +114,11 @@ const PIDGIN_PRONUNCIATION_MAP = {
     'lilikoi': 'lee-lee-koy',
     'shave ice': 'shave ice',
     'okole': 'oh-koh-leh',
+    // Hawaiian ai/au are 'eye'/'ow'; left to the rules these came out as "weye" and "geye".
+    'wai': 'wye',
+    'gai': 'guy',
+    'uku pau': 'oo-koo pow',
+    'pipi kaula': 'pee-pee kow-lah',
     // Cantonese 粉, not the English word: the dish is "chow foon".
     'chow fun': 'chow foon',
     'ʻōkole': 'oh-koh-leh',
