@@ -10,6 +10,7 @@ const {
     applyPronunciationCorrections: f,
     PIDGIN_PRONUNCIATION_MAP: map
 } = require('../../src/components/speech/elevenlabs-speech.js');
+const { respell } = require('../../src/components/speech/hawaiian-orthoepy.js');
 
 const cases = [
     // --- English words must not be run through Hawaiian vowel rules -----------------
@@ -33,7 +34,7 @@ const cases = [
     // 15 of the 65 multi-word entries were unreachable: the map said one thing, users heard
     // another.
     ['pau hana', 'pow hah-nah'], ['hana hou', 'hah-nah hoh-oo'],
-    ['kau kau', 'cow-cow'], ['a hui hou', 'ah-hoo-ee-hoh'],
+    ['kau kau', 'cow-cow'], ['a hui hou', 'ah hoo-ee hoh-oo'],   // ou is two morae: superseded the old 'hoh'
     ['broke da mouth', 'broke dah mowt'], ['kanak attack', 'kah-nahk ah-tack'],
     ['no ka oi', 'noh kah oy'], ['shred da gnar', 'shred dah nahr'],
     ['poke bowl', 'poh-kay bohl'], ['tūtū kāne', 'too-too kah-nay'],
@@ -56,9 +57,29 @@ const cases = [
     ['kai', 'kye'], ['wai', 'wye'], ['lau', 'low'], ['gai', 'guy'],
     ['uku pau', 'oo-koo pow'], ['pipi kaula', 'pee-pee kow-lah'],
 
+    // --- Hawaiian, per Pukui-Elbert ---------------------------------------------------
+    // Short 'e' is "eh"; only the kahako 'e' is "ay". The map had these the wrong way round,
+    // so poke was spoken "poh-kay" and nene "neh-neh".
+    ['poke', 'poh-keh'], ['pupule', 'poo-poo-leh'], ['kolohe', 'koh-loh-heh'],
+    ['nēnē', 'nay-nay'],
+    // "oe" is two morae and must never collapse to the diphthong "oy".
+    ['moemoe', 'moh-eh-moh-eh'], ['pāhoehoe', 'pah-hoh-eh-hoh-eh'],
+    // w -> v only after i or e; word-initial w stays w.
+    ['wahine', 'wah-hee-neh'], ['wikiwiki', 'wee-kee-vee-kee'], ['wana', 'wah-nah'],
+    // "au" is "ow", not the malformed "aow".
+    ['laulau', 'low-low'], ['halau', 'hah-low'],
+    // The Hawaiian particle "e" must not be punctuated as the Pidgin interjection "eh".
+    ['e komo mai', 'eh koh-moh mye'], ['e kala mai', 'eh kah-lah mye'],
+
+    // --- Pidgin words that merely LOOK Hawaiian must not be respelled as Hawaiian -----
+    // Every one of these is Hawaiian-legal spelling; a letter test calls them Hawaiian and
+    // turns them into nonsense ("MOH-keh", "EE LEE-keh", "hah-wye-EE-ah").
+    ['moke', 'mohk'], ['I like', 'i like'], ['all pau', 'all pow'],
+    ['mean kine', 'mean kyne'], ['pow', 'pow'],
+
     // --- Regressions guard: these were already correct and must stay correct ---------
     ['da kine', 'dah kyne'], ['pau', 'pow'], ['mauka', 'mow-kah'],
-    ['keiki', 'kay-kee'], ['wikiwiki', 'vee-kee-vee-kee'], ['ono', 'oh-noh'],
+    ['keiki', 'kay-kee'], ['ono', 'oh-noh'],
     ["bust 'em up", 'bust em up'],
 ];
 
@@ -80,6 +101,23 @@ for (const t of idempotent) {
     const ok = once === twice;
     if (!ok) failed++;
     console.log(`  ${ok ? '✅' : '❌'} ${JSON.stringify(t).padEnd(16)} ${JSON.stringify(once)}${ok ? '' : ` -> ${JSON.stringify(twice)}`}`);
+}
+
+// The orthoepy module must reproduce every worked example in the standard it encodes.
+const SPEC_EXAMPLES = [
+    ['aloha', 'ah-LOH-hah'], ['kāne', 'KAH-neh'], ['hale', 'HAH-leh'], ['nēnē', 'NAY-nay'],
+    ['iki', 'EE-kee'], ['pono', 'POH-noh'], ['kupu', 'KOO-poo'], ['pūpū', 'POO-poo'],
+    ['kai', 'KYE'], ['mae', 'MYE'], ['mauka', 'MOW-kah'], ['lei', 'LAY'], ['poi', 'POY'],
+    ['niu', 'NEE-oo'], ['mōʻī', 'MOH-ee'], ['ʻohana', 'oh-HAH-nah'],
+    ['pāhoehoe', 'pah-HOH-eh-HOH-eh'], ['wahine', 'wah-HEE-neh'], ['ʻeleu', 'eh-LEH-oo']
+];
+console.log(`\n  Pukui-Elbert worked examples (${SPEC_EXAMPLES.length}):`);
+let specBad = 0;
+for (const [word, expected] of SPEC_EXAMPLES) {
+    const actual = respell(word);
+    const ok = actual === expected;
+    if (!ok) { specBad++; failed++; }
+    console.log(`  ${ok ? '✅' : '❌'} ${JSON.stringify(word).padEnd(14)} -> ${JSON.stringify(actual)}${ok ? '' : `  (expected ${JSON.stringify(expected)})`}`);
 }
 
 // Structural invariant, worth more than any list of examples above: every key in the map must

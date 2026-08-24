@@ -6,6 +6,8 @@
 // than keeping its own copy. The two used to be hand-synced literals and silently drifted
 // by 10 mappings, which made the audit report coverage for a map nobody was listening to.
 // Add new pronunciations here and both the runtime and the audit pick them up.
+const { respell: hawaiianRespell, respellPhrase } = require('./hawaiian-orthoepy.js');
+
 const PIDGIN_PRONUNCIATION_MAP = {
     // "kine" should rhyme with "nine"
     'kine': 'kyne',
@@ -330,6 +332,41 @@ const PIDGIN_PRONUNCIATION_MAP = {
     'mac salad': 'mack salad'
 };
 
+// Hawaiian terms whose respelling is DERIVED, not hand-written.
+//
+// Membership here is the claim "this word is Hawaiian", and it is deliberately explicit rather
+// than inferred from spelling. Hawaiian uses only h k l m n p w and the vowels, so a letter
+// test calls "hawaiian", "moke", "mean kine" and "I like" Hawaiian and respells them into
+// nonsense ("hah-wye-EE-ah", "MOH-keh", "EE LEE-keh"). Origin prose is no better: entries for
+// English words cite Hawaiian influence all the time. A curated list is the only gate that
+// does not silently mangle Pidgin, so a word earns its pronunciation here by being named.
+//
+// The VALUES are not listed: they come from hawaiian-orthoepy.js, which encodes the standard.
+// That is the point -- when the rules are right, 43 words are right, and the next word costs
+// one line instead of one judgement call.
+const HAWAIIAN_TERMS = [
+    'akamai', 'auē', 'auwe', 'pupule', 'kamaʻāina', 'kama\'āina', 'hukilau', 'hikie\'e',
+    'holo', 'holo holo', 'maile', 'ʻono', '\'ono', 'ʻōkole', 'moopuna', 'nēnē', 'kalamai',
+    'wahine', 'wana', 'wikiwiki', 'kōkō', 'pākē', 'moi', 'kolohe', 'uwau', 'moemoe',
+    'pāhoehoe', 'ʻanoʻai', '\'ano\'ai', 'maikaʻi', 'maika\'i', 'ʻauana', '\'auana',
+    'a hui hou', 'nai nai', 'laulau', 'kahakai', 'kaimana', 'koʻolina', 'ko\'olina',
+    'wailele', 'pilau', 'poke', 'e komo mai', 'halau', 'e kala mai', 'kala mai'
+];
+
+HAWAIIAN_TERMS.forEach(term => {
+    const spoken = respellPhrase(term);
+    // Lowercased for the same reason authored guides are: the map feeds a speech engine, and
+    // capitals mark stress to a reader, not to ElevenLabs.
+    if (spoken) PIDGIN_PRONUNCIATION_MAP[term.trim().toLowerCase()] = spoken.toLowerCase();
+});
+
+// "ʻae" is pinned against the standard on purpose. The spec classes "ae" as a diphthong
+// ("mae -> MYE"), which would make the word for yes "eye"; the regression suite has asserted
+// "ah-eh" since before this module existed. One of the two is wrong and it is not a call to
+// make silently, so the tested value stands until a speaker settles it.
+PIDGIN_PRONUNCIATION_MAP['ae'] = 'ah-eh';
+PIDGIN_PRONUNCIATION_MAP['ʻae'] = 'ah-eh';
+
 // Multi-word map entries, precomputed longest-first.
 //
 // These are applied BEFORE every other rule. They used to be applied only in the final map
@@ -580,12 +617,16 @@ function applyPronunciationCorrections(text) {
         // rewritten inside the result). The map is the most specific evidence there is; once it
         // has spoken, the rule passes have nothing left to decide.
         const mapSlots = [];
-        const settle = value => `\u0000${mapSlots.push(value) - 1}\u0000`;
+        // Only a value that actually CHANGES the text needs protecting. Identity guards
+        // ('brah' -> 'brah') protect nothing, and leaving them as literal text is what lets the
+        // rhythm rules below still see the word they key on -- "shoots brah" -> "shoots, brah".
+        const settle = (value, matched) =>
+            value === matched ? value : `\u0000${mapSlots.push(value) - 1}\u0000`;
 
         // 0b. Multi-word map entries. See PIDGIN_PHRASE_PATTERNS: these must be substituted
         // before any per-word rule gets a chance to rewrite the words they are made of.
         PIDGIN_PHRASE_PATTERNS.forEach(({ key, regex }) => {
-            correctedText = correctedText.replace(regex, () => settle(pronunciationMap[key]));
+            correctedText = correctedText.replace(regex, m => settle(pronunciationMap[key], m.toLowerCase()));
         });
 
         // 1. Th-fronting (th -> d or t) - very characteristic of Pidgin
@@ -642,8 +683,8 @@ function applyPronunciationCorrections(text) {
         const processedWords = words.map(word => {
             // Check map with and without okinas
             const cleanWord = word.replace(/['ʻ]/g, '');
-            if (pronunciationMap[word]) return settle(pronunciationMap[word]);
-            if (pronunciationMap[cleanWord]) return settle(pronunciationMap[cleanWord]);
+            if (pronunciationMap[word]) return settle(pronunciationMap[word], word);
+            if (pronunciationMap[cleanWord]) return settle(pronunciationMap[cleanWord], cleanWord);
             
             // A diacritic makes the word unambiguously Hawaiian; syllabify rather than guess.
             if (hasHawaiianDiacritic(word)) {
@@ -683,13 +724,6 @@ function applyPronunciationCorrections(text) {
         correctedText = correctedText.replace(PIDGIN_MAP_SWEEP,
             match => pronunciationMap[match.toLowerCase()] ?? match);
 
-        // Settled map values return to the text only now that every rule that could have
-        // rewritten them has run. The rhythm rules below still see them, which is what
-        // "..., brah" needs.
-        if (mapSlots.length) {
-            correctedText = correctedText.replace(/\u0000(\d+)\u0000/g,
-                (whole, index) => mapSlots[Number(index)] ?? whole);
-        }
 
         // 5. Add natural pauses for Pidgin rhythm
         // Each of these inserts a comma for rhythm. They must only fire when there is something
@@ -704,6 +738,14 @@ function applyPronunciationCorrections(text) {
             .replace(/\s{2,}/g, ' ')
             .replace(/,\s*$/, '')
             .trim();
+
+        // Settled map values return only now, after the rhythm rules. They must not be exposed
+        // to those rules: the Hawaiian particle in "e komo mai" respells to "eh", which the
+        // Pidgin interjection rule then punctuated into "eh, koh-moh mye".
+        if (mapSlots.length) {
+            correctedText = correctedText.replace(/\u0000(\d+)\u0000/g,
+                (whole, index) => mapSlots[Number(index)] ?? whole);
+        }
 
         return correctedText;
     }
