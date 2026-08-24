@@ -4,6 +4,7 @@ const { body, validationResult } = require('express-validator');
 const crypto = require('crypto');
 const {
     applyPronunciationCorrections,
+    setPronunciationGuides,
     ELEVENLABS_SYNTHESIS
 } = require('../src/components/speech/elevenlabs-speech.js');
 
@@ -16,6 +17,37 @@ let warnedNoAdminClient = false;
 // `direction`. TTS rows are tagged with this so they cannot collide with eng<->pidgin rows that
 // happen to hash the same text.
 const TTS_DIRECTION = 'tts';
+
+// dictionary_entries.pronunciation carries an authored respelling for most terms. Loading it
+// here means every TTS caller gets it, not just whoever remembered to look it up. Refreshed on
+// a TTL rather than per request: it is one query for the whole dictionary.
+const GUIDE_TTL_MS = 5 * 60 * 1000;
+let guidesLoadedAt = 0;
+let guidesLoading = null;
+
+async function ensurePronunciationGuides(db) {
+    if (!db) return;
+    if (Date.now() - guidesLoadedAt < GUIDE_TTL_MS) return;
+    if (guidesLoading) return guidesLoading;
+    guidesLoading = (async () => {
+        try {
+            const { data, error } = await db
+                .from('dictionary_entries')
+                .select('pidgin, pronunciation')
+                .not('pronunciation', 'is', null);
+            if (error) throw new Error(error.message);
+            const count = setPronunciationGuides(data || []);
+            guidesLoadedAt = Date.now();
+            console.log(`🗣️  Loaded ${count} dictionary pronunciation guides`);
+        } catch (e) {
+            // Non-fatal: the transform falls back to its algorithmic path.
+            console.warn('Pronunciation guide load failed:', e.message);
+        } finally {
+            guidesLoading = null;
+        }
+    })();
+    return guidesLoading;
+}
 
 // server.js passes the SERVICE-ROLE client here (`ttsRoutes(translationLimiter, supabaseAdmin)`),
 // not the anon one, so cache reads and writes already run with RLS bypassed. It is null when no
@@ -64,6 +96,7 @@ module.exports = function(translationLimiter, supabaseAdmin) {
                 // input -- the transform is NOT idempotent (the `brah` pause rule re-fires and
                 // stacks commas), so it must run exactly once, on unprocessed text.
                 const rawText = originalText || text;
+                await ensurePronunciationGuides(supabaseAdmin);
                 const spokenText = applyPronunciationCorrections(rawText);
 
                 // 1. Check Cache First -- keyed on the CANONICAL Pidgin text, not the phonetic

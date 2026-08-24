@@ -17,7 +17,8 @@ const { supabase } = require('../../config/supabase');
 const {
     PIDGIN_PRONUNCIATION_MAP: globalPronunciationMap,
     PIDGIN_TH_WORDS,
-    applyPronunciationCorrections
+    applyPronunciationCorrections,
+    setPronunciationGuides
 } = require('../../src/components/speech/elevenlabs-speech.js');
 
 const commonEnglish = [
@@ -49,11 +50,16 @@ async function runAudit() {
     try {
         const { data: entries, error } = await supabase
             .from('dictionary_entries')
-            .select('pidgin, english, category');
+            .select('pidgin, english, category, pronunciation');
 
         if (error) throw error;
 
-        console.log(`📊 Auditing ${entries.length} terms...\n`);
+        // Inject the same authored guides routes/tts.js loads, so this audit scores what users
+        // actually hear. Measuring the algorithm alone would understate coverage and, worse,
+        // would once again be auditing something other than the shipped behaviour.
+        const guideCount = setPronunciationGuides(entries);
+
+        console.log(`📊 Auditing ${entries.length} terms (${guideCount} authored pronunciation guides in play)...\n`);
 
         const results = entries.map(entry => {
             const original = entry.pidgin;
@@ -115,7 +121,12 @@ async function runAudit() {
                     if (correctedLower.includes('u')) {
                         // Check if 'u' is followed by n, s, t, or p which we excluded in logic
                         const hasRemainingU = /\bu\b/.test(correctedLower) || /\bu(?![nstp])/.test(correctedLower) || /[^nstp]u\b/.test(correctedLower);
-                        if (hasRemainingU) {
+                        // Pidgin 'um (them/it) really is "um" -- get'um, chance 'um, geev 'um.
+                        // Rewriting it to "oom" would be wrong, so these are not defects. This
+                        // exception is why the audit previously reported four "problems" that
+                        // were all the same non-problem.
+                        const isUmWord = /(^|[\s'-])um\b/.test(correctedLower);
+                        if (hasRemainingU && !isUmWord) {
                             score -= 5;
                             issues.push('Potential "u" -> "oo" missing');
                         }
@@ -132,9 +143,13 @@ async function runAudit() {
                 }
             });
 
+            const authoredGuide = (entry.pronunciation || '').trim().toLowerCase().replace(/\s+/g, ' ');
+            const fromGuide = !!authoredGuide && corrected.toLowerCase() === authoredGuide;
+
             return {
                 word: original,
                 phonetic: corrected,
+                fromGuide,
                 transformed: wasTransformed,
                 score,
                 issues,
@@ -157,7 +172,11 @@ async function runAudit() {
         if (problematic.length > 0) {
             console.log('--- Terms Needing Review (Score < 100) ---');
             problematic.forEach(p => {
-                console.log(`❌ "${p.word}" -> "${p.phonetic}" [Score: ${p.score}] | Issues: ${p.issues.join(', ')}`);
+                // Saying where the pronunciation came from makes the finding actionable: a
+                // guide-sourced flag is a content fix in dictionary_entries.pronunciation, an
+                // algorithm-sourced one is a code or map fix.
+                const src = p.fromGuide ? 'authored guide' : 'algorithm';
+                console.log(`❌ "${p.word}" -> "${p.phonetic}" [Score: ${p.score}, ${src}] | Issues: ${p.issues.join(', ')}`);
             });
         }
 

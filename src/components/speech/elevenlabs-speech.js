@@ -445,10 +445,65 @@ function hawaiianPhonetics(word) {
     return syllables.join('-');
 }
 
+// ---------------------------------------------------------------------------------------------
+// Dictionary pronunciation guides.
+//
+// dictionary_entries.pronunciation already holds a human-authored respelling for most entries
+// ("SHEE-shee", "ah-kah-MY", "OW-mah-koo-ah"). That is better evidence than any rule we can
+// infer, so when the text being spoken IS a dictionary term, the guide wins outright.
+//
+// The guides live in Supabase rather than in this file on purpose: the dictionary is the system
+// of record for content, and copying 679 respellings into source would recreate exactly the
+// hand-synced duplication this module was refactored to eliminate. Callers inject them; the
+// transform degrades to its algorithmic path when nothing has been injected.
+let pronunciationGuides = new Map();
+
+const normalizeSpokenKey = text => String(text).trim().toLowerCase().replace(/\s+/g, ' ');
+
+/**
+ * @param {Array<{pidgin: string, pronunciation: string}>|Map|Object} entries
+ * Guides are lowercased: the source data uses capitals to mark stress, but the map in this file
+ * was tuned lowercase, and shouting at a TTS engine is not the same as stressing a syllable.
+ */
+function setPronunciationGuides(entries) {
+    const next = new Map();
+    const add = (term, guide) => {
+        if (!term || !guide) return;
+        const key = normalizeSpokenKey(term);
+        const value = String(guide).trim().toLowerCase().replace(/\s+/g, ' ');
+        // A guide that only restates the term adds nothing and costs a lookup.
+        if (!key || !value || key === value) return;
+
+        // The tuned map wins. It was tuned by ear against ElevenLabs specifically, whereas the
+        // guides are reader-facing notation of mixed quality: for 73 terms the two disagree, and
+        // the guide is often the worse choice for a TTS engine -- "small kine" loses the tuned
+        // "kyne", "grindz" loses "gryndz", "mauka" reverts to "mau-kah" where "mow-kah" is the
+        // whole point. Skipping these lets the term fall through to the map.
+        if (PIDGIN_PRONUNCIATION_MAP[key] !== undefined) return;
+
+        // Guides are authored for humans and some use IPA (bruddah is written "brə-də").
+        // Characters outside a plain respelling alphabet are worse than no guide at all.
+        if (!/^[a-z0-9 '\-,.!?]+$/.test(value)) return;
+
+        next.set(key, value);
+    };
+    if (Array.isArray(entries)) entries.forEach(e => e && add(e.pidgin, e.pronunciation));
+    else if (entries instanceof Map) entries.forEach((v, k) => add(k, v));
+    else if (entries && typeof entries === 'object') Object.entries(entries).forEach(([k, v]) => add(k, v));
+    pronunciationGuides = next;
+    return next.size;
+}
+
+function getPronunciationGuideCount() { return pronunciationGuides.size; }
+
 // Canonical phonetic transform: map substitution, th-fronting, vowel rules and the prosody
 // pauses. Exported so the SERVER applies it at the /api/text-to-speech boundary; every caller
 // therefore gets identical pronunciation instead of each re-implementing it. Do not fork this.
 function applyPronunciationCorrections(text) {
+    // An authored guide for the exact phrase beats every rule below it.
+    const guide = pronunciationGuides.get(normalizeSpokenKey(text));
+    if (guide) return guide;
+
         // Map of Pidgin words to phonetic spelling for better TTS pronunciation
         // Optimized specifically for ElevenLabs voices
         const pronunciationMap = PIDGIN_PRONUNCIATION_MAP;
@@ -1226,4 +1281,6 @@ if (typeof module !== 'undefined' && module.exports) {
     module.exports.PIDGIN_TH_WORDS = PIDGIN_TH_WORDS;
     module.exports.applyPronunciationCorrections = applyPronunciationCorrections;
     module.exports.ELEVENLABS_SYNTHESIS = ELEVENLABS_SYNTHESIS;
+    module.exports.setPronunciationGuides = setPronunciationGuides;
+    module.exports.getPronunciationGuideCount = getPronunciationGuideCount;
 }
