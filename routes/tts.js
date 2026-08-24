@@ -12,6 +12,11 @@ const {
  */
 let warnedNoAdminClient = false;
 
+// translation_cache is shared with the text-translation cache, and its unique index includes
+// `direction`. TTS rows are tagged with this so they cannot collide with eng<->pidgin rows that
+// happen to hash the same text.
+const TTS_DIRECTION = 'tts';
+
 // server.js passes the SERVICE-ROLE client here (`ttsRoutes(translationLimiter, supabaseAdmin)`),
 // not the anon one, so cache reads and writes already run with RLS bypassed. It is null when no
 // service key is configured, which disables the whole cache block -- hence the explicit guard and
@@ -83,7 +88,8 @@ module.exports = function(translationLimiter, supabaseAdmin) {
                             .select('audio_filename')
                             .eq('md5_hash', textHash)
                             .eq('voice_id', voiceId)
-                            .single();
+                            .eq('direction', TTS_DIRECTION)
+                            .maybeSingle();
 
                         if (cached && cached.audio_filename) {
                             console.log(`📡 Serving cached TTS for: ${textHash}`);
@@ -153,10 +159,16 @@ module.exports = function(translationLimiter, supabaseAdmin) {
                             return;
                         }
                         supabaseAdmin.from('translation_cache').upsert({
+                            // original_text, translated_text and direction are NOT NULL in
+                            // migration 012. The previous payload omitted all three, so every
+                            // insert would have failed even once the table existed.
+                            original_text: rawText,
+                            translated_text: spokenText,
+                            direction: TTS_DIRECTION,
                             audio_filename: filename,
                             voice_id: voiceId,
                             md5_hash: textHash
-                        }).then(({ error: upsertError }) => {
+                        }, { onConflict: 'md5_hash,direction,voice_id' }).then(({ error: upsertError }) => {
                             if (upsertError) console.error('Cache DB update failed:', upsertError.message);
                         }).catch(err => console.error('Cache DB update failed:', err.message));
                     }).catch(err => console.error('Cache upload failed:', err.message));
