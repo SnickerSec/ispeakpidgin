@@ -6,14 +6,20 @@
  * request uploaded its MP3 to the audio-assets bucket and then failed to write the index row.
  * The audio is real and already paid for -- it is just unreachable. This script recovers it.
  *
- * The matching problem: a cached file is named cached_{voiceId}_{md5}.mp3, and that md5 was
- * historically computed over the PHONETICIZED text, while the route now looks up the md5 of the
- * CANONICAL text. A hash cannot be reversed, so recovery works forward: take every known source
- * string, compute both hashes, and see whether a file exists under either. When one does, we know
- * that file's source text and can write a row keyed the way the running code reads it.
+ * The matching problem: two naming schemes exist -- cached_{voiceId}_{md5}.mp3 from the TTS route
+ * and {md5}.mp3 from audio-pregeneration.js -- and the md5 in a cached_ name was historically
+ * computed over the PHONETICIZED text, while the route now looks up the md5 of the CANONICAL text.
+ * A hash cannot be reversed, so recovery works forward: take every known source string, compute
+ * both hashes, and see whether a file exists under either. When one does, we know that file's
+ * source text and can write a row keyed the way the running code reads it.
  *
  *   node tools/audio/rebuild-cache-index.js            # dry run, prints what it would do
  *   node tools/audio/rebuild-cache-index.js --apply    # write the rows
+ *
+ * Run --apply until it reports 0 recoverable. When several source strings phoneticize to the
+ * same speech they share one clip, and the one-row-per-file guard below claims that file for
+ * the first of them per run; the rest are picked up on the following pass. Convergence takes a
+ * couple of runs, not dozens.
  *
  * Deprecated voices are never indexed: Aunty/Braddah audio was removed deliberately, and
  * resurrecting it through the cache would undo that.
@@ -40,7 +46,21 @@ const norm = s => String(s).trim().toLowerCase();
 const md5 = s => crypto.createHash('md5').update(norm(s)).digest('hex');
 
 async function listCachedObjects() {
-    const found = new Map(); // md5 -> filename (Kimo only)
+    // Two naming schemes live in this bucket, and recovery has to see both.
+    //
+    //   cached_{voiceId}_{md5}.mp3   written by routes/tts.js on a cache miss
+    //   {md5}.mp3                    written by tools/audio/audio-pregeneration.js
+    //
+    // The second scheme is the reason this script previously recovered 168 rows and stopped:
+    // its regex only matched the first, so 1,780 pre-generated clips fell through and every
+    // playback of them re-billed ElevenLabs for audio already sitting in storage. Both schemes
+    // hash the same thing -- md5 of the trimmed, lowercased source text -- so once a bare-hash
+    // file is matched to its source string it indexes exactly like a cached_ one.
+    //
+    // Pre-generation only ever ran with Kimo (VOICE_ID in audio-pregeneration.js), so a
+    // bare-hash file carries no voice in its name and is attributed to Kimo.
+    const found = new Map(); // md5 -> filename
+    const scheme = new Map(); // md5 -> 'prefixed' | 'bare'
     let skippedDeprecated = 0;
     let offset = 0;
     for (;;) {
@@ -48,15 +68,25 @@ async function listCachedObjects() {
         if (error) throw new Error(`storage list failed: ${error.message}`);
         if (!data || data.length === 0) break;
         for (const obj of data) {
-            const m = /^cached_([A-Za-z0-9]+)_([0-9a-f]{32})\.mp3$/.exec(obj.name);
-            if (!m) continue;
-            if (m[1] !== KIMO) { skippedDeprecated++; continue; }
-            found.set(m[2], obj.name);
+            const prefixed = /^cached_([A-Za-z0-9]+)_([0-9a-f]{32})\.mp3$/.exec(obj.name);
+            if (prefixed) {
+                if (prefixed[1] !== KIMO) { skippedDeprecated++; continue; }
+                // A prefixed file names its voice explicitly, so it wins over a bare-hash file
+                // for the same md5 regardless of the order the pages of the listing arrive in.
+                found.set(prefixed[2], obj.name);
+                scheme.set(prefixed[2], 'prefixed');
+                continue;
+            }
+            const bare = /^([0-9a-f]{32})\.mp3$/.exec(obj.name);
+            if (!bare) continue;
+            if (scheme.get(bare[1]) === 'prefixed') continue;
+            found.set(bare[1], obj.name);
+            scheme.set(bare[1], 'bare');
         }
         offset += data.length;
         if (data.length < 1000) break;
     }
-    return { found, skippedDeprecated };
+    return { found, scheme, skippedDeprecated };
 }
 
 async function fetchAll(table, columns) {
@@ -93,19 +123,27 @@ async function candidateTexts() {
 (async () => {
     console.log('🔎 Rebuilding translation_cache index from orphaned audio\n');
 
-    const { found, skippedDeprecated } = await listCachedObjects();
-    console.log(`   cached_* files for Kimo:      ${found.size}`);
+    const { found, scheme, skippedDeprecated } = await listCachedObjects();
+    const schemeTotals = { prefixed: 0, bare: 0 };
+    scheme.forEach(v => { schemeTotals[v]++; });
+    console.log(`   indexable Kimo clips:         ${found.size}`);
+    console.log(`     cached_{voice}_{md5}.mp3:   ${schemeTotals.prefixed}`);
+    console.log(`     {md5}.mp3 (pre-generated):  ${schemeTotals.bare}`);
     console.log(`   skipped (deprecated voices):  ${skippedDeprecated}`);
 
     const texts = await candidateTexts();
     console.log(`   candidate source strings:     ${texts.length}\n`);
 
-    const { data: existing } = await db.from('translation_cache').select('md5_hash').eq('direction', DIRECTION);
-    const already = new Set((existing || []).map(r => r.md5_hash));
+    // Paginated on purpose. A bare .select() is capped at 1000 rows by PostgREST, so once the
+    // recovery succeeded and the table passed 1000 entries, an unpaginated read saw only the
+    // first page and re-reported ~900 already-indexed clips as "recoverable" on every re-run.
+    const existing = await fetchAll('translation_cache', 'md5_hash, direction');
+    const already = new Set(existing.filter(r => r.direction === DIRECTION).map(r => r.md5_hash));
 
     const rows = [];
     const usedFiles = new Set();
     let viaPhonetic = 0, viaCanonical = 0;
+    const recoveredByScheme = { prefixed: 0, bare: 0 };
 
     for (const text of texts) {
         const spoken = applyPronunciationCorrections(text);
@@ -119,6 +157,7 @@ async function candidateTexts() {
         // Count AFTER the dedup checks, so the per-scheme totals always sum to the row count.
         if (already.has(canonicalHash) || usedFiles.has(filename)) continue;
         if (matchedVia === 'phonetic') viaPhonetic++; else viaCanonical++;
+        recoveredByScheme[scheme.get(matchedVia === 'phonetic' ? phoneticHash : canonicalHash)]++;
 
         usedFiles.add(filename);
         rows.push({
@@ -135,6 +174,8 @@ async function candidateTexts() {
     console.log(`   recoverable:                  ${rows.length}`);
     console.log(`     matched via phonetic hash:  ${viaPhonetic}`);
     console.log(`     matched via canonical hash: ${viaCanonical}`);
+    console.log(`     from cached_* files:        ${recoveredByScheme.prefixed}`);
+    console.log(`     from pre-generated files:   ${recoveredByScheme.bare}`);
     console.log(`   unmatched files left orphaned:${unmatched}`);
     console.log(`   (unmatched = audio whose source text is no longer in the database, or was\n    produced by a phonetic map that has since changed)\n`);
 

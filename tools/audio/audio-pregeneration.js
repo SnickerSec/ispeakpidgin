@@ -23,6 +23,13 @@ const AUDIO_DIR = path.join(__dirname, '../../public/assets/audio');
 const INDEX_FILE = path.join(AUDIO_DIR, 'index.json');
 const VOICE_ID = 'f0ODjLMfcJmlKfs7dFCW'; // Authentic local voice
 const BUCKET_NAME = 'audio-assets';
+// routes/tts.js finds a cached clip by (md5_hash, voice_id, direction) in translation_cache and
+// then downloads audio_filename. Uploading to the bucket without writing that row leaves the
+// audio unreachable: the route re-synthesizes and re-bills ElevenLabs for a clip it already owns.
+// That is exactly what happened here -- 1,780 pre-generated clips sat in storage with no index
+// row until tools/audio/rebuild-cache-index.js recovered them. Every upload below now writes its
+// row, so the two never drift apart again.
+const DIRECTION = 'tts';
 
 // Parse arguments
 const args = process.argv.slice(2);
@@ -62,29 +69,30 @@ async function fetchAllEntries() {
 
 async function generateAudioFile(text, apiKey) {
     const normalizedText = text.trim().toLowerCase();
+    // The same key routes/tts.js computes: md5 of the trimmed, lowercased CANONICAL text.
     const hash = crypto.createHash('md5').update(normalizedText).digest('hex');
     const filename = `${hash}.mp3`;
     const filepath = path.join(AUDIO_DIR, filename);
+    const correctedText = applyPronunciationCorrections(text);
 
     // Check if file already exists locally or in Supabase
     // (For simplicity, we'll check local first if it exists, but the main goal is Supabase)
     if (!FORCE_REGEN) {
         try {
             await fs.access(filepath);
-            return { text: normalizedText, filename, skipped: true };
+            return { text, normalized: normalizedText, spoken: correctedText, hash, filename, skipped: true };
         } catch {
             // Check Supabase Storage
             const { data, error } = await supabase.storage.from(BUCKET_NAME).list('', {
                 search: filename
             });
             if (data && data.length > 0) {
-                return { text: normalizedText, filename, skipped: true };
+                return { text, normalized: normalizedText, spoken: correctedText, hash, filename, skipped: true };
             }
         }
     }
 
     const url = `https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}`;
-    const correctedText = applyPronunciationCorrections(text);
 
     try {
         const response = await fetch(url, {
@@ -124,11 +132,35 @@ async function generateAudioFile(text, apiKey) {
             // We still return the result because it was saved locally
         }
 
-        return { text: normalizedText, filename, skipped: false };
+        return { text, normalized: normalizedText, spoken: correctedText, hash, filename, skipped: false };
     } catch (error) {
         console.error(`  ✗ Error generating "${text}":`, error.message);
         return null;
     }
+}
+
+/**
+ * Write the translation_cache row that makes a stored clip reachable by routes/tts.js.
+ *
+ * Runs for skipped files too: a clip uploaded by an earlier version of this script has no row,
+ * and re-running the pipeline is the natural place to backfill it. Upsert on the same conflict
+ * target the route uses, so repeat runs are free.
+ */
+async function indexClip(result) {
+    const { error } = await supabase.from('translation_cache').upsert({
+        original_text: result.text,
+        translated_text: result.spoken,
+        direction: DIRECTION,
+        voice_id: VOICE_ID,
+        audio_filename: result.filename,
+        md5_hash: result.hash
+    }, { onConflict: 'md5_hash,direction,voice_id' });
+    if (error) {
+        // Loud, not silent. A clip that uploads but fails to index is a clip we pay for twice.
+        console.error(`  ⚠️  cache index write failed for "${result.text}": ${error.message}`);
+        return false;
+    }
+    return true;
 }
 
 async function main() {
@@ -192,6 +224,7 @@ async function main() {
 
     let successCount = 0;
     let skipCount = 0;
+    let indexedCount = 0;
 
     for (let i = 0; i < toGenerate.length; i++) {
         const term = toGenerate[i];
@@ -200,12 +233,14 @@ async function main() {
         const result = await generateAudioFile(term, apiKey);
         
         if (result) {
-            index[result.text] = result.filename;
+            index[result.normalized] = result.filename;
+            const indexed = await indexClip(result);
+            if (indexed) indexedCount++;
             if (result.skipped) {
-                console.log('Already exists');
+                console.log(indexed ? 'Already exists' : 'Already exists (NOT indexed)');
                 skipCount++;
             } else {
-                console.log('Generated! ✨');
+                console.log(indexed ? 'Generated! ✨' : 'Generated (NOT indexed) ⚠️');
                 successCount++;
             }
         } else {
@@ -240,6 +275,7 @@ async function main() {
     console.log('=======================');
     console.log(`✨ New audio generated: ${successCount}`);
     console.log(`⏭️  Skipped/Indexed: ${skipCount}`);
+    console.log(`🔗 Reachable via translation_cache: ${indexedCount}/${successCount + skipCount}`);
     console.log(`📊 Total now indexed: ${Object.keys(index).length}`);
     console.log(`📂 Audio stored in Supabase bucket: ${BUCKET_NAME}`);
     
