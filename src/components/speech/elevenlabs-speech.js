@@ -60,6 +60,7 @@ const PIDGIN_PRONUNCIATION_MAP = {
     'still': 'steel',
     'brah': 'brah',
     'bruddah': 'bruh-dah',
+    'braddah': 'brah-dah',
     'sistah': 'sis-tah',
     'cuz': 'kuz',
     'sole': 'so-leh',
@@ -112,6 +113,13 @@ const PIDGIN_PRONUNCIATION_MAP = {
     'li hing mui': 'lee hing moo-ee',
     'lilikoi': 'lee-lee-koy',
     'shave ice': 'shave ice',
+    'okole': 'oh-koh-leh',
+    'ʻōkole': 'oh-koh-leh',
+    'okole hao': 'oh-koh-leh how',
+    'ʻōkolehao': 'oh-koh-leh how',
+    'okolehao': 'oh-koh-leh how',
+    'maka piapia': 'mah-kah pee-ah-pee-ah',
+    'piapia': 'pee-ah-pee-ah',
     'plate lunch': 'plate lunch',
     'loco moco': 'low-coh moh-coh',
     'ballah': 'bal-lah',
@@ -315,6 +323,46 @@ const PIDGIN_PRONUNCIATION_MAP = {
     'mac salad': 'mack salad'
 };
 
+// Multi-word map entries, precomputed longest-first.
+//
+// These are applied BEFORE every other rule. They used to be applied only in the final map
+// sweep, which runs after the word-level pass has already rewritten the individual words -- so
+// "maka piapia" reached that sweep as "maka pee-ah-pee-ah" and no longer matched its own key.
+// 15 of the 65 multi-word entries were unreachable that way, "broke da mouth", "hana hou",
+// "kau kau" and "shred da gnar" among them: the map said one thing and users heard another.
+// A phrase is more specific evidence than any per-word rule, so it wins outright, the same way
+// an authored guide does.
+const PIDGIN_PHRASE_KEYS = Object.keys(PIDGIN_PRONUNCIATION_MAP)
+    .filter(key => /\s/.test(key))
+    .sort((a, b) => b.length - a.length);
+
+// \b is unreliable here: several keys carry an okina or a macron, and \b sees those as word
+// boundaries themselves. Letter/number lookarounds under the u flag treat them as part of the
+// word, which is what "nō ka ʻoi" needs.
+const escapeRegExp = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const PIDGIN_PHRASE_PATTERNS = PIDGIN_PHRASE_KEYS.map(key => ({
+    key,
+    regex: new RegExp(`(?<![\\p{L}\\p{N}])${escapeRegExp(key)}(?![\\p{L}\\p{N}])`, 'giu')
+}));
+
+// Every map key as ONE alternation, longest key first.
+//
+// The final map sweep used to be a loop of ~700 separate replaces over the accumulating text,
+// so each key was matched against the output of every key before it. Replacements that contain
+// their own key restacked on each pass -- 'chee-hoo' -> 'chee-hoo!' came out "chee-hoo!!" and
+// 'kay den' -> 'kay den...' came out "kay den......" -- and values could be re-substituted
+// mid-word, which is why 'hoaloha' -> 'ho-ah-low-hah' was delivered as "hoh-ah-low-hah".
+// A single left-to-right pass never rescans what it just inserted, so each occurrence is
+// substituted exactly once. Longest-first ordering preserves the loop's longest-match-wins
+// behaviour, since alternation takes the first branch that matches at a position.
+const PIDGIN_MAP_SWEEP = new RegExp(
+    `(?<![\\p{L}\\p{N}])(?:${Object.keys(PIDGIN_PRONUNCIATION_MAP)
+        .sort((a, b) => b.length - a.length)
+        .map(escapeRegExp)
+        .join('|')})(?![\\p{L}\\p{N}])`,
+    'giu'
+);
+
 // Th-fronting (th -> d/t), applied after the map above. Kept separate because it is a
 // rule class rather than a lookup, and restricted to common words so real English is not
 // mangled. pronunciation-audit.js imports this too, so the audit models the same two
@@ -516,7 +564,23 @@ function applyPronunciationCorrections(text) {
 
         // Advanced Phonetic Rules for ElevenLabs
         // These rules catch patterns that the map might miss
-        
+
+        // Map hits are settled: parked in a placeholder so no later rule can revise them.
+        // Without this, a value containing its own key is matched again by the sweep further
+        // down and stacks another copy of its tail ('chee-hoo' -> 'chee-hoo!' came out
+        // "chee-hoo!!"), and a value can be re-substituted mid-word ('hoaloha' ->
+        // 'ho-ah-low-hah' was delivered as "hoh-ah-low-hah", the leading 'ho' having been
+        // rewritten inside the result). The map is the most specific evidence there is; once it
+        // has spoken, the rule passes have nothing left to decide.
+        const mapSlots = [];
+        const settle = value => `\u0000${mapSlots.push(value) - 1}\u0000`;
+
+        // 0b. Multi-word map entries. See PIDGIN_PHRASE_PATTERNS: these must be substituted
+        // before any per-word rule gets a chance to rewrite the words they are made of.
+        PIDGIN_PHRASE_PATTERNS.forEach(({ key, regex }) => {
+            correctedText = correctedText.replace(regex, () => settle(pronunciationMap[key]));
+        });
+
         // 1. Th-fronting (th -> d or t) - very characteristic of Pidgin
         // Only apply to common words to avoid mangling actual English
         const thWords = PIDGIN_TH_WORDS;
@@ -571,8 +635,8 @@ function applyPronunciationCorrections(text) {
         const processedWords = words.map(word => {
             // Check map with and without okinas
             const cleanWord = word.replace(/['ʻ]/g, '');
-            if (pronunciationMap[word]) return pronunciationMap[word];
-            if (pronunciationMap[cleanWord]) return pronunciationMap[cleanWord];
+            if (pronunciationMap[word]) return settle(pronunciationMap[word]);
+            if (pronunciationMap[cleanWord]) return settle(pronunciationMap[cleanWord]);
             
             // A diacritic makes the word unambiguously Hawaiian; syllabify rather than guess.
             if (hasHawaiianDiacritic(word)) {
@@ -607,15 +671,18 @@ function applyPronunciationCorrections(text) {
         
         correctedText = processedWords.join(' ');
 
-        // 4. Apply hardcoded corrections (Multi-word and high-priority)
-        // Sort keys by length descending to match longer phrases first
-        const sortedKeys = Object.keys(pronunciationMap).sort((a, b) => b.length - a.length);
-        
-        sortedKeys.forEach(original => {
-            const phonetic = pronunciationMap[original];
-            const regex = new RegExp(`\\b${original}\\b`, 'gi');
-            correctedText = correctedText.replace(regex, phonetic);
-        });
+        // 4. Apply hardcoded corrections (multi-word and high-priority) in one pass.
+        // See PIDGIN_MAP_SWEEP for why this is a single alternation rather than a loop.
+        correctedText = correctedText.replace(PIDGIN_MAP_SWEEP,
+            match => pronunciationMap[match.toLowerCase()] ?? match);
+
+        // Settled map values return to the text only now that every rule that could have
+        // rewritten them has run. The rhythm rules below still see them, which is what
+        // "..., brah" needs.
+        if (mapSlots.length) {
+            correctedText = correctedText.replace(/\u0000(\d+)\u0000/g,
+                (whole, index) => mapSlots[Number(index)] ?? whole);
+        }
 
         // 5. Add natural pauses for Pidgin rhythm
         // Each of these inserts a comma for rhythm. They must only fire when there is something
@@ -624,7 +691,7 @@ function applyPronunciationCorrections(text) {
         correctedText = correctedText
             .replace(/(?<![\w-])eh(?![\w-])(?!\s*,)(?!\.\.\.)/gi, 'eh,')
             .replace(/(?<![\w-])hoh(?![\w-])(?!\s*,)(?!\.\.\.)/gi, 'hoh,')
-            .replace(/([^\s,])\s+\bbrah\b(?!\.\.\.)/gi, '$1, brah')
+            .replace(/([^\s,])\s+brah(?![-\w])(?!\.\.\.)/gi, '$1, brah')
             .replace(/([^\s,])\s*\byeah\b\?/gi, '$1, yeah?')
             .replace(/([^\s,])\s*\bo wat\b\?/gi, '$1, or wat?')
             .replace(/\s{2,}/g, ' ')
