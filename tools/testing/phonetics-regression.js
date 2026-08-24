@@ -49,6 +49,8 @@ const cases = [
     // as no-ops, which left these Hawaiian words going to ElevenLabs as raw English spelling.
     ['braddah', 'brah-dah'], ['okole', 'oh-koh-leh'],
     ['okole hao', 'oh-koh-leh how'], ['maka piapia', 'mah-kah pee-ah-pee-ah'],
+    // Cantonese 粉 is "foon"; read as the English word "fun" the dish is simply wrong.
+    ['chow fun', 'chow foon'],
 
     // --- Regressions guard: these were already correct and must stay correct ---------
     ['da kine', 'dah kyne'], ['pau', 'pow'], ['mauka', 'mow-kah'],

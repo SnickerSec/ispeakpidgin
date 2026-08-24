@@ -146,10 +146,14 @@ async function runAudit() {
             const authoredGuide = (entry.pronunciation || '').trim().toLowerCase().replace(/\s+/g, ' ');
             const fromGuide = !!authoredGuide && corrected.toLowerCase() === authoredGuide;
 
+            const mapKey = original.trim().toLowerCase().replace(/\s+/g, ' ');
+
             return {
                 word: original,
                 phonetic: corrected,
                 fromGuide,
+                hasGuide: !!authoredGuide,
+                inMap: globalPronunciationMap[mapKey] !== undefined,
                 transformed: wasTransformed,
                 score,
                 issues,
@@ -163,11 +167,44 @@ async function runAudit() {
         const problematic = results.filter(r => r.score < 100).sort((a, b) => a.score - b.score);
         const perfectScore = total - problematic.length;
 
+        // "Phonetically Mapped" counts terms whose output differs from their spelling, which
+        // reads as a coverage percentage but is not one: a term is also fully handled when the
+        // right answer IS the spelling. "junk", "stoked" and "bag" are English words that need
+        // no respelling, and an explicit identity entry in the map ('brah' -> 'brah') is a
+        // deliberate instruction to leave the word alone. Reported as a bare 91%, those look
+        // like 68 gaps and cost a day of chasing; only three of them were real. So the number
+        // below is split by where each pronunciation actually comes from, and the only bucket
+        // that means "nobody has decided about this word" is called out as such.
+        const source = r => {
+            if (r.transformed) return r.fromGuide ? 'guide' : (r.inMap ? 'map' : 'rules');
+            if (r.inMap) return 'identity';        // map says: correct as spelled
+            return r.hasGuide ? 'restated' : 'undecided';
+        };
+        const by = { guide: [], map: [], rules: [], identity: [], restated: [], undecided: [] };
+        results.forEach(r => by[source(r)].push(r));
+        const pct = n => `${((n / total) * 100).toFixed(1)}%`;
+
         console.log('--- Summary ---');
         console.log(`Total Terms: ${total}`);
-        console.log(`Phonetically Mapped: ${transformedCount} (${((transformedCount/total)*100).toFixed(1)}%)`);
-        console.log(`Confidence Score 100: ${perfectScore} (${((perfectScore/total)*100).toFixed(1)}%)`);
+        console.log('');
+        console.log('Respelled for TTS:');
+        console.log(`  from the tuned map:          ${by.map.length}`);
+        console.log(`  from an authored guide:      ${by.guide.length}`);
+        console.log(`  from the phonetic rules:     ${by.rules.length}`);
+        console.log(`  subtotal:                    ${transformedCount} (${pct(transformedCount)})`);
+        console.log('Spoken as spelled:');
+        console.log(`  map says correct as spelled: ${by.identity.length}`);
+        console.log(`  guide only restates it:      ${by.restated.length}`);
+        console.log(`  no guide, no map entry:      ${by.undecided.length}  <-- the only real gap`);
+        console.log('');
+        console.log(`Confidence Score 100: ${perfectScore} (${pct(perfectScore)})`);
         console.log(`Potentially Problematic: ${problematic.length}\n`);
+
+        if (by.undecided.length) {
+            console.log('--- No pronunciation decision on record ---');
+            by.undecided.forEach(r => console.log(`❓ "${r.word}" [${r.category}]`));
+            console.log('');
+        }
 
         if (problematic.length > 0) {
             console.log('--- Terms Needing Review (Score < 100) ---');

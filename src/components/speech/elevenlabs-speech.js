@@ -114,6 +114,8 @@ const PIDGIN_PRONUNCIATION_MAP = {
     'lilikoi': 'lee-lee-koy',
     'shave ice': 'shave ice',
     'okole': 'oh-koh-leh',
+    // Cantonese 粉, not the English word: the dish is "chow foon".
+    'chow fun': 'chow foon',
     'ʻōkole': 'oh-koh-leh',
     'okole hao': 'oh-koh-leh how',
     'ʻōkolehao': 'oh-koh-leh how',
