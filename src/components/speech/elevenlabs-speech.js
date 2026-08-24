@@ -348,6 +348,97 @@ const ELEVENLABS_SYNTHESIS = {
     }
 };
 
+// ---------------------------------------------------------------------------------------------
+// Hawaiian syllabification, used only for words carrying a diacritic.
+//
+// A word written with an okina or a kahako is unambiguously Hawaiian, which is what makes this
+// safe: no English word and no general Pidgin spelling carries one. Restricting the rule to
+// those words avoids the trap of guessing from letters alone -- "moke" and "poke" are spelled
+// with Hawaiian-legal letters but are not pronounced as Hawaiian.
+//
+// Before this existed, diacritic words fell through every rule: the okina was deleted and the
+// macron passed to ElevenLabs verbatim, so 'aina was sent as "aina" and 'aumakua as "owmakua".
+const HAWAIIAN_VOWEL_SOUNDS = { a: 'ah', e: 'eh', i: 'ee', o: 'oh', u: 'oo' };
+const HAWAIIAN_DIPHTHONGS = { ai: 'eye', au: 'ow', ei: 'ay', oi: 'oy', ou: 'oh' };
+const MACRON_TO_PLAIN = { 'ā': 'a', 'ē': 'e', 'ī': 'i', 'ō': 'o', 'ū': 'u' };
+
+/** Hawaiian orthography: only h k l m n p w plus vowels, and every word ends in a vowel. */
+function isHawaiianShaped(word) {
+    const bare = String(word).replace(/['ʻ]/g, '').replace(/[^a-zāēīōū]/gi, '');
+    return bare.length > 0
+        && /^[aeiouāēīōūhklmnpw]+$/i.test(bare)
+        && /[aeiouāēīōū]$/i.test(bare);
+}
+
+/**
+ * True when the ASCII apostrophe at `index` is an okina rather than English punctuation.
+ * Okina: word-initial before a vowel ('ahi), or between two vowels (a'ole).
+ * Not an okina: possessives, contractions, or a trailing apostrophe (watchin').
+ *
+ * The word-initial case additionally requires the rest of the word to be Hawaiian-shaped,
+ * because English clippings look identical otherwise -- 'em begins with an apostrophe and a
+ * vowel too, and was being syllabified into "eh-m".
+ */
+function isOkinaAt(word, index) {
+    const prev = word[index - 1];
+    const next = word[index + 1];
+    if (!next) return false;
+    const isVowel = ch => ch && /[aeiouāēīōū]/i.test(ch);
+    if (index === 0) return isVowel(next) && isHawaiianShaped(word.slice(1));
+    return isVowel(prev) && isVowel(next);
+}
+
+function hasHawaiianDiacritic(word) {
+    if (/[ʻāēīōū]/i.test(word)) return true;
+    for (let i = 0; i < word.length; i++) {
+        if (word[i] === "'" && isOkinaAt(word, i)) return true;
+    }
+    return false;
+}
+
+/** Split a Hawaiian word into (C)V syllables and render each phonetically. */
+function hawaiianPhonetics(word) {
+    // Okina marks a glottal stop, i.e. a syllable boundary; drop it and let the split handle it.
+    let w = '';
+    for (let i = 0; i < word.length; i++) {
+        const ch = word[i];
+        if (ch === 'ʻ' || (ch === "'" && isOkinaAt(word, i))) continue;
+        w += ch;
+    }
+
+    const syllables = [];
+    let i = 0;
+    while (i < w.length) {
+        const ch = w[i];
+        // Trailing punctuation rides along on the last syllable.
+        if (!/[a-zāēīōū]/i.test(ch)) {
+            if (syllables.length) syllables[syllables.length - 1] += ch; else syllables.push(ch);
+            i++;
+            continue;
+        }
+        let consonant = '';
+        if (!/[aeiouāēīōū]/i.test(ch)) { consonant = ch; i++; }
+        if (i >= w.length) { if (consonant) syllables.push(consonant); break; }
+
+        const raw = w[i];
+        const isLong = raw in MACRON_TO_PLAIN;
+        const plain = (MACRON_TO_PLAIN[raw] || raw).toLowerCase();
+        const nextRaw = w[i + 1];
+        const pair = nextRaw ? plain + (MACRON_TO_PLAIN[nextRaw] || nextRaw).toLowerCase() : '';
+
+        // A long vowel never joins the following vowel into a diphthong -- that is precisely
+        // why 'aina is "ah-ee-nah" and not "eye-nah".
+        if (!isLong && nextRaw && !(nextRaw in MACRON_TO_PLAIN) && HAWAIIAN_DIPHTHONGS[pair]) {
+            syllables.push(consonant + HAWAIIAN_DIPHTHONGS[pair]);
+            i += 2;
+        } else {
+            syllables.push(consonant + (HAWAIIAN_VOWEL_SOUNDS[plain] || plain));
+            i += 1;
+        }
+    }
+    return syllables.join('-');
+}
+
 // Canonical phonetic transform: map substitution, th-fronting, vowel rules and the prosody
 // pauses. Exported so the SERVER applies it at the /api/text-to-speech boundary; every caller
 // therefore gets identical pronunciation instead of each re-implementing it. Do not fork this.
@@ -401,7 +492,12 @@ function applyPronunciationCorrections(text) {
             ];
             if (commonEnglish.includes(word.toLowerCase())) return false;
 
-            return /['ʻ]/.test(word) || pronunciationMap[word.replace(/['ʻ]/g, '')] || 
+            // Substring hints like 'ou' or 'ai' are far too loose on their own: they matched
+            // our, sour, hour, flour, tour, four and pour, all of which the u->oo rule then
+            // turned into "ooor", "sooor" and so on. The allowlist above only ever caught the
+            // ones somebody noticed. Require the word to be shaped like Hawaiian as well --
+            // Hawaiian uses only h k l m n p w and the vowels, and every word ends in a vowel.
+            return /['ʻ]/.test(word) || pronunciationMap[word.replace(/['ʻ]/g, '')] ||
                    ['ka', 'la', 'ma', 'na', 'ha', 'ke', 'le', 'me', 'ne', 'he', 'oi', 'ai', 'au', 'ei', 'ie', 'ou', 'lua', 'pua', 'hua'].some(s => word.includes(s));
         };
         const words = correctedText.split(/\s+/);
@@ -411,6 +507,11 @@ function applyPronunciationCorrections(text) {
             if (pronunciationMap[word]) return pronunciationMap[word];
             if (pronunciationMap[cleanWord]) return pronunciationMap[cleanWord];
             
+            // A diacritic makes the word unambiguously Hawaiian; syllabify rather than guess.
+            if (hasHawaiianDiacritic(word)) {
+                return hawaiianPhonetics(word);
+            }
+
             if (isPidginLike(word)) {
                 let w = word.replace(/['ʻ]/g, '-'); // Pause for okinas
                 w = w.replace(/ai/g, 'eye');
@@ -420,9 +521,13 @@ function applyPronunciationCorrections(text) {
                 w = w.replace(/ie/g, 'ee-eh');
                 // Hawaiian 'u' sounds like 'oo' (as in hula, pupule)
                 // But only if it's likely a Hawaiian word and not English/Pidgin
-                if (!w.includes('oo') && !w.includes('ow')) {
-                    // Only transform 'u' if it's not followed by certain consonants that usually stay 'u'
-                    // Or if it's a standalone 'u'
+                // The u->oo rule is Hawaiian, so it only applies to vowel-final words. Without
+                // that guard it fired on English 'ou' words -- our, sour, hour, flour, tour,
+                // four, pour all became "ooor", "sooor" and so on. Gating the rule rather than
+                // the whole branch keeps the diphthong rules working for non-Hawaiian Pidgin
+                // and loanwords (katsu, bambucha, aiyah), which end in a vowel too.
+                const vowelFinal = /[aeiouāēīōū]$/i.test(w.replace(/[^a-zāēīōū]/gi, ''));
+                if (vowelFinal && !w.includes('oo') && !w.includes('ow')) {
                     w = w.replace(/\bu\b/g, 'oo');
                     w = w.replace(/u(?![nstp])/g, 'oo');
                 }
@@ -446,12 +551,18 @@ function applyPronunciationCorrections(text) {
         });
 
         // 5. Add natural pauses for Pidgin rhythm
+        // Each of these inserts a comma for rhythm. They must only fire when there is something
+        // to pause *between*, and must not fire again on their own output: the old `brah` rule
+        // turned "brah" into ", brah" and stacked another comma every time it was reapplied.
         correctedText = correctedText
-            .replace(/\beh\b(?!\.\.\.)/gi, 'eh, ')
-            .replace(/\bhoh\b(?!\.\.\.)/gi, 'hoh, ') 
-            .replace(/\bbrah\b(?!\.\.\.)/gi, ', brah')
-            .replace(/\byeah\b\?/gi, ', yeah?')
-            .replace(/\bo wat\b\?/gi, ', or wat?');
+            .replace(/(?<![\w-])eh(?![\w-])(?!\s*,)(?!\.\.\.)/gi, 'eh,')
+            .replace(/(?<![\w-])hoh(?![\w-])(?!\s*,)(?!\.\.\.)/gi, 'hoh,')
+            .replace(/([^\s,])\s+\bbrah\b(?!\.\.\.)/gi, '$1, brah')
+            .replace(/([^\s,])\s*\byeah\b\?/gi, '$1, yeah?')
+            .replace(/([^\s,])\s*\bo wat\b\?/gi, '$1, or wat?')
+            .replace(/\s{2,}/g, ' ')
+            .replace(/,\s*$/, '')
+            .trim();
 
         return correctedText;
     }

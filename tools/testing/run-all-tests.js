@@ -47,6 +47,14 @@ const testSuites = [
         requiredEnv: false
     },
     {
+        // Deterministic assertions on the transform itself. The audit below measures coverage
+        // against whatever content it can reach and reported "Problematic: 0" while 'aina was
+        // being sent to ElevenLabs with its macron intact -- coverage is not correctness.
+        name: 'Phonetic Transform Regression',
+        script: 'phonetics-regression.js',
+        requiredEnv: false
+    },
+    {
         name: 'Pronunciation / Phonetics Audit',
         script: 'pronunciation-audit.js',
         requiredEnv: false
