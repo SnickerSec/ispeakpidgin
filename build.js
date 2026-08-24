@@ -843,7 +843,9 @@ function checkLinks() {
                 link.startsWith('#') || 
                 link.startsWith('mailto:') || 
                 link.startsWith('tel:') || 
-                link.startsWith('javascript:')
+                link.startsWith('javascript:') ||
+                link.startsWith('data:') ||
+                link.startsWith('vbscript:')
             ) {
                 continue;
             }

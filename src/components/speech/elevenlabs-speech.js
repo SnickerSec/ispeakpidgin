@@ -396,8 +396,14 @@ function hasHawaiianDiacritic(word) {
     return false;
 }
 
+// Hawaiian words are short; anything longer than this is not a word we can usefully syllabify,
+// and iterating it character-by-character on the server is just attacker-controlled work
+// (CodeQL js/loop-bound-injection). Real entries top out well under this.
+const MAX_SYLLABIFY_LENGTH = 64;
+
 /** Split a Hawaiian word into (C)V syllables and render each phonetically. */
 function hawaiianPhonetics(word) {
+    if (word.length > MAX_SYLLABIFY_LENGTH) return word;
     // Okina marks a glottal stop, i.e. a syllable boundary; drop it and let the split handle it.
     let w = '';
     for (let i = 0; i < word.length; i++) {
@@ -466,10 +472,16 @@ function applyPronunciationCorrections(text) {
         });
 
         // 2. Final 'r' dropping (non-rhoticity)
-        // car -> cah, water -> wahtah
-        correctedText = correctedText.replace(/(\w+)er\b/g, '$1ah');
-        correctedText = correctedText.replace(/(\w+)ar\b/g, '$1ah');
-        correctedText = correctedText.replace(/(\w+)or\b/g, '$1oh');
+        // car -> cah, water -> watah
+        //
+        // Lookbehind rather than a capture group: /(\w+)er\b/ is polynomial (CodeQL
+        // js/polynomial-redos). The engine retries the \w+ prefix from every start position, so
+        // a long run of word characters costs O(n^2) -- measured at 0.9ms for 2k chars but 56ms
+        // for 16k. That became server-side exposure when phonetics moved to routes/tts.js.
+        // The lookbehind form is flat (~0.03ms at 16k) and produces identical output.
+        correctedText = correctedText.replace(/(?<=\w)er\b/g, 'ah');
+        correctedText = correctedText.replace(/(?<=\w)ar\b/g, 'ah');
+        correctedText = correctedText.replace(/(?<=\w)or\b/g, 'oh');
 
         // 3. Vowel Adjustments for Hawaiian words
         // 'ai' usually sounds like 'eye'

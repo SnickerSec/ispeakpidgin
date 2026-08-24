@@ -163,7 +163,16 @@ const corsOptions = {
 // so the *.up.railway.app domain and local development are untouched.
 app.use((req, res, next) => {
     if (req.hostname === 'www.chokepidgin.com') {
-        return res.redirect(301, `https://chokepidgin.com${req.originalUrl}`);
+        // Parse rather than concatenate, and forward only path/query/hash. Concatenating
+        // req.originalUrl onto a fixed origin is not actually exploitable -- the host is already
+        // fixed -- but CodeQL cannot see that (js/server-side-unvalidated-url-redirection), and
+        // normalising removes any argument about it.
+        let target = 'https://chokepidgin.com/';
+        try {
+            const parsed = new URL(req.originalUrl, 'https://chokepidgin.com');
+            target = `https://chokepidgin.com${parsed.pathname}${parsed.search}${parsed.hash}`;
+        } catch { /* malformed URL: fall back to the apex root */ }
+        return res.redirect(301, target);
     }
     next();
 });

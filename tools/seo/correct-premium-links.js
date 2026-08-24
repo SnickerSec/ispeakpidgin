@@ -42,7 +42,9 @@ function correctLinks() {
                 cleanLink.startsWith('#') || 
                 cleanLink.startsWith('mailto:') || 
                 cleanLink.startsWith('tel:') || 
-                cleanLink.startsWith('javascript:')
+                cleanLink.startsWith('javascript:') ||
+                cleanLink.startsWith('data:') ||
+                cleanLink.startsWith('vbscript:')
             ) {
                 return match;
             }

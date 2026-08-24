@@ -121,6 +121,8 @@ function auditHTMLFile(filePath) {
             href.startsWith('mailto:') || 
             href.startsWith('tel:') || 
             href.startsWith('javascript:') ||
+            href.startsWith('data:') ||
+            href.startsWith('vbscript:') ||
             !href
         ) {
             continue;

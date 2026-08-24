@@ -518,7 +518,10 @@ class AskLocalPageManager {
                         const timestamp = r.created_at || r.timestamp;
                         const helpfulCount = parseInt(r.helpful_count || r.helpfulCount, 10) || 0;
                         const isAi = r.is_ai === true;
-                        const avatar = r.responder_avatar || (isAi ? '🏝️' : '👤');
+                        // Server-set today (routes/questions.js hardcodes it), but this is an
+                        // innerHTML sink -- escape it so it stays safe if the field ever becomes
+                        // user-settable. Every other interpolation here is already escaped.
+                        const avatar = this.escapeHtml(r.responder_avatar || (isAi ? '🏝️' : '👤'));
 
                         return `
                         <div class="bg-white dark:bg-slate-900 p-4 rounded border-l-4 ${isAi ? 'border-blue-400 dark:border-blue-600' : 'border-green-400 dark:border-green-600'} shadow-sm">
