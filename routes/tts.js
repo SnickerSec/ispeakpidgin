@@ -10,7 +10,14 @@ const {
 /**
  * Text-to-Speech Routes (ElevenLabs, with Supabase audio cache)
  */
-module.exports = function(translationLimiter, supabase) {
+let warnedNoAdminClient = false;
+
+// server.js passes the SERVICE-ROLE client here (`ttsRoutes(translationLimiter, supabaseAdmin)`),
+// not the anon one, so cache reads and writes already run with RLS bypassed. It is null when no
+// service key is configured, which disables the whole cache block -- hence the explicit guard and
+// the one-time warning below. Naming the parameter accurately because reading it as the anon
+// client sends you chasing an RLS problem that does not exist.
+module.exports = function(translationLimiter, supabaseAdmin) {
 
     // POST /api/text-to-speech
     router.post('/text-to-speech',
@@ -69,9 +76,9 @@ module.exports = function(translationLimiter, supabase) {
                 const textHash = crypto.createHash('md5').update(normalizedText).digest('hex');
                 const BUCKET_NAME = 'audio-assets';
 
-                if (supabase) {
+                if (supabaseAdmin) {
                     try {
-                        const { data: cached } = await supabase
+                        const { data: cached } = await supabaseAdmin
                             .from('translation_cache')
                             .select('audio_filename')
                             .eq('md5_hash', textHash)
@@ -80,13 +87,17 @@ module.exports = function(translationLimiter, supabase) {
 
                         if (cached && cached.audio_filename) {
                             console.log(`📡 Serving cached TTS for: ${textHash}`);
-                            const { data: audioData, error: downloadError } = await supabase.storage
+                            const { data: audioData, error: downloadError } = await supabaseAdmin.storage
                                 .from(BUCKET_NAME)
                                 .download(cached.audio_filename);
 
                             if (!downloadError && audioData) {
                                 const audioBuffer = await audioData.arrayBuffer();
-                                res.set({ 'Content-Type': 'audio/mpeg', 'Content-Length': audioBuffer.byteLength });
+                                res.set({
+                                    'Content-Type': 'audio/mpeg',
+                                    'Content-Length': audioBuffer.byteLength,
+                                    'X-Cache': 'HIT'
+                                });
                                 return res.send(Buffer.from(audioBuffer));
                             }
                         }
@@ -123,30 +134,46 @@ module.exports = function(translationLimiter, supabase) {
 
                 const audioBuffer = Buffer.from(await response.arrayBuffer());
 
-                // 3. Save to Cache & Storage asynchronously
-                if (supabase) {
+                // 3. Save to Cache & Storage asynchronously.
+                // Guarded on supabaseAdmin, not supabase: without a service-role key this
+                // client is null, and dereferencing it here would throw inside the request
+                // handler and 500 the endpoint for every local/CI caller.
+                if (supabaseAdmin) {
                     const filename = `cached_${voiceId}_${textHash}.mp3`;
-                    
-                    // Upload to Storage
-                    supabase.storage.from(BUCKET_NAME).upload(filename, audioBuffer, {
+
+                    // Cache writes use the service-role client: the anon client's Storage
+                    // upload and translation_cache upsert are rejected by RLS, which is what
+                    // silently disabled this cache and re-billed every playback.
+                    supabaseAdmin.storage.from(BUCKET_NAME).upload(filename, audioBuffer, {
                         contentType: 'audio/mpeg',
                         upsert: true
                     }).then(({ error: uploadError }) => {
-                        if (!uploadError) {
-                            // Update database record
-                            supabase.from('translation_cache').upsert({
-                                original_text: originalText || text,
-                                translated_text: text,
-                                direction: 'tts',
-                                voice_id: voiceId,
-                                audio_filename: filename,
-                                md5_hash: textHash
-                            }).catch(err => console.error('Cache DB update failed:', err));
+                        if (uploadError) {
+                            console.error('Cache upload failed:', uploadError.message);
+                            return;
                         }
-                    }).catch(err => console.error('Cache upload failed:', err));
+                        supabaseAdmin.from('translation_cache').upsert({
+                            audio_filename: filename,
+                            voice_id: voiceId,
+                            md5_hash: textHash
+                        }).then(({ error: upsertError }) => {
+                            if (upsertError) console.error('Cache DB update failed:', upsertError.message);
+                        }).catch(err => console.error('Cache DB update failed:', err.message));
+                    }).catch(err => console.error('Cache upload failed:', err.message));
+                } else if (!warnedNoAdminClient) {
+                    // Say it once, loudly. This being silent is why the cache stayed broken.
+                    warnedNoAdminClient = true;
+                    console.warn(
+                        '⚠️  TTS audio cache disabled: no service-role Supabase client. ' +
+                        'Set SUPABASE_SERVICE_ROLE_KEY or every request will be billed by ElevenLabs.'
+                    );
                 }
 
-                res.set({ 'Content-Type': 'audio/mpeg', 'Content-Length': audioBuffer.length });
+                res.set({
+                    'Content-Type': 'audio/mpeg',
+                    'Content-Length': audioBuffer.length,
+                    'X-Cache': supabaseAdmin ? 'MISS' : 'DISABLED'
+                });
                 res.send(audioBuffer);
             } catch (error) {
                 console.error('TTS API error:', error);
