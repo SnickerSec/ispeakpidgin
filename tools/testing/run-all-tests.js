@@ -60,6 +60,11 @@ const testSuites = [
         requiredEnv: false
     },
     {
+        name: 'SEO Feedback Loop & Offline Intake',
+        script: 'test-seo-feedback-loop.js',
+        requiredEnv: false
+    },
+    {
         name: 'Site Integrity & SEO Link Audit',
         script: 'audit-site.js',
         preRunBuild: true

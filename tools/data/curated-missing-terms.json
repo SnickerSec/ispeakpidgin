@@ -1,46 +1,412 @@
 {
+  "generated": "2026-08-25T04:38:00.000Z",
+  "source": "curated-island-slang-and-cultural-terms",
+  "count": 27,
   "missing": [
     {
-      "pidgin": "yobo",
-      "english": ["honey", "dear", "sweetheart"],
-      "category": "romance",
-      "usage": "Used to call one's spouse or partner. From Korean 'yeobo'."
+      "pidgin": "loco moco",
+      "english": ["local rice dish with hamburger patty, egg, and gravy", "Hawaiian comfort food dish"],
+      "category": "food",
+      "pronunciation": "LOH-koh MOH-koh",
+      "difficulty": "beginner",
+      "usage": "A staple Hawaii diner comfort dish composed of a bowl of hot white rice topped with a hamburger patty, a sunny-side-up fried egg, and rich brown gravy.",
+      "examples": [
+        "Ho, I stay starving, we go get one loco moco from da diner.",
+        "Two scoop rice and extra gravy on top da loco moco."
+      ],
+      "origin": "Hawaii local diner creation (Hilo, 1949)",
+      "frequency": "high",
+      "tags": ["food", "diner", "comfort food", "local eats"]
     },
     {
-      "pidgin": "kefe",
-      "english": ["bastard", "idiot", "fool"],
+      "pidgin": "lomi salmon",
+      "english": ["salted salmon side dish with tomatoes and onions", "traditional Hawaiian luau side dish"],
+      "category": "food",
+      "pronunciation": "LOH-mee SAH-mun",
+      "difficulty": "beginner",
+      "usage": "A classic Hawaiian side dish made with diced salted salmon, ripe crushed tomatoes, sweet Maui onions, and crushed ice.",
+      "examples": [
+        "No forget da lomi salmon for da luau plate.",
+        "Lomi salmon taste so ono wit poi and kalua pork."
+      ],
+      "origin": "Hawaiian (lomi = massage or mix by hand)",
+      "frequency": "high",
+      "tags": ["food", "luau", "traditional", "local eats"]
+    },
+    {
+      "pidgin": "squid luau",
+      "english": ["octopus or squid simmered in taro leaves and coconut milk", "traditional Hawaiian stew"],
+      "category": "food",
+      "pronunciation": "SKWID LOO-ow",
+      "difficulty": "intermediate",
+      "usage": "A cherished traditional Hawaiian stew prepared by slow-cooking tender octopus or squid with young luau (taro) leaves, coconut milk, and sea salt.",
+      "examples": [
+        "My tutu make da best squid luau on da island.",
+        "Squid luau stay rich and sweet from da coconut milk."
+      ],
+      "origin": "Hawaiian traditional cuisine",
+      "frequency": "medium",
+      "tags": ["food", "traditional", "luau", "seafood"]
+    },
+    {
+      "pidgin": "pipikaula",
+      "english": ["Hawaiian cured beef flank", "seasoned semi-dried beef jerky"],
+      "category": "food",
+      "pronunciation": "PEE-pee-KOW-lah",
+      "difficulty": "intermediate",
+      "usage": "Seasoned, cured, and salted dried flank steak, traditionally broiled or pan-fried; staple of pupu platters and luau spreads.",
+      "examples": [
+        "Pass da pipikaula, brah, dat beef so ono!",
+        "We brought poke and pipikaula to da beach."
+      ],
+      "origin": "Hawaiian (pipi = beef, kaula = rope/string)",
+      "frequency": "high",
+      "tags": ["food", "beef", "pupu", "traditional"]
+    },
+    {
+      "pidgin": "mochi",
+      "english": ["sweet chewy rice cake", "local Japanese dessert"],
+      "category": "food",
+      "pronunciation": "MOH-chee",
+      "difficulty": "beginner",
+      "usage": "A chewy, sweet, glutinous rice cake that is a beloved dessert across Hawaii, appearing in variations like butter mochi, chi chi dango, and strawberry mochi.",
+      "examples": [
+        "Aunty brought fresh butter mochi to da potluck.",
+        "Dis strawberry mochi stay broke da mouth."
+      ],
+      "origin": "Japanese loanword",
+      "frequency": "high",
+      "tags": ["food", "dessert", "japanese", "baking"]
+    },
+    {
+      "pidgin": "makana",
+      "english": ["gift", "present", "reward"],
+      "category": "general",
+      "pronunciation": "mah-KAH-nah",
+      "difficulty": "beginner",
+      "usage": "A gift or offering given with aloha, often presented during celebrations, birthdays, or cultural ceremonies.",
+      "examples": [
+        "I got one special makana for your birthday.",
+        "Mahalo for da beautiful makana!"
+      ],
+      "origin": "Hawaiian",
+      "frequency": "medium",
+      "tags": ["culture", "gift", "greetings", "aloha"]
+    },
+    {
+      "pidgin": "tutu kane",
+      "english": ["grandfather", "respected male elder"],
+      "category": "general",
+      "pronunciation": "TOO-too KAH-nay",
+      "difficulty": "beginner",
+      "usage": "An affectionate and respectful term for a grandfather or elderly male figure in the ohana.",
+      "examples": [
+        "Tutu kane wen teach me how for throw net fishing.",
+        "My tutu kane get choke stories about old Hawaii."
+      ],
+      "origin": "Hawaiian (tūtū = grandparent, kāne = male)",
+      "frequency": "high",
+      "tags": ["family", "ohana", "elders", "culture"]
+    },
+    {
+      "pidgin": "tutu wahine",
+      "english": ["grandmother", "respected female elder"],
+      "category": "general",
+      "pronunciation": "TOO-too wah-HEE-nay",
+      "difficulty": "beginner",
+      "usage": "An affectionate and respectful term for a grandmother or elderly matriarch in the family.",
+      "examples": [
+        "Tutu wahine stay cooking in da kitchen.",
+        "We go visit tutu wahine this weekend."
+      ],
+      "origin": "Hawaiian (tūtū = grandparent, wahine = female)",
+      "frequency": "high",
+      "tags": ["family", "ohana", "elders", "culture"]
+    },
+    {
+      "pidgin": "wahine toa",
+      "english": ["strong woman", "female warrior", "fierce brave woman"],
+      "category": "general",
+      "pronunciation": "wah-HEE-nay TOH-ah",
+      "difficulty": "intermediate",
+      "usage": "A powerful, brave, capable woman who demonstrates strength, resilience, and leadership.",
+      "examples": [
+        "She paddle through da rough surf like one true wahine toa.",
+        "Aunty is one wahine toa, she handle everything."
+      ],
+      "origin": "Hawaiian and Polynesian (toa = warrior / champion)",
+      "frequency": "medium",
+      "tags": ["culture", "women", "strength", "empowerment"]
+    },
+    {
+      "pidgin": "mahalo nui loa",
+      "english": ["thank you very much", "deep gratitude", "heartfelt thanks"],
+      "category": "greetings",
+      "pronunciation": "mah-HAH-low NOO-ee LOH-ah",
+      "difficulty": "beginner",
+      "usage": "A phrase expressing profound appreciation, gratitude, and thankfulness.",
+      "examples": [
+        "Mahalo nui loa for helping us fix da truck.",
+        "Mahalo nui loa to all da family who came."
+      ],
+      "origin": "Hawaiian (nui = great, loa = very)",
+      "frequency": "high",
+      "tags": ["greetings", "gratitude", "manners", "aloha"]
+    },
+    {
+      "pidgin": "mauka makai",
+      "english": ["from mountain to sea", "island-wide", "everywhere across the island"],
+      "category": "locations",
+      "pronunciation": "MOW-kah mah-KYE",
+      "difficulty": "intermediate",
+      "usage": "Encompassing the whole island from mountain ridge to shoreline; everywhere across land and sea.",
+      "examples": [
+        "We wen search mauka makai for dat missing surfboard.",
+        "Da whole island stay celebrating mauka makai."
+      ],
+      "origin": "Hawaiian directional compound (mauka = mountain-ward, makai = ocean-ward)",
+      "frequency": "medium",
+      "tags": ["directions", "island", "geography", "travel"]
+    },
+    {
+      "pidgin": "opelu",
+      "english": ["mackerel scad fish", "prized local scad fish"],
+      "category": "food",
+      "pronunciation": "oh-PEH-loo",
+      "difficulty": "intermediate",
+      "usage": "Mackerel scad fish, highly prized in island waters as a staple food fish and premier live bait for big pelagic game fish.",
+      "examples": [
+        "We wen catch one bucket of opelu off da ledge.",
+        "Crispy fried opelu with poi stay da best."
+      ],
+      "origin": "Hawaiian (ʻōpelu)",
+      "frequency": "medium",
+      "tags": ["ocean", "fishing", "food", "marine life"]
+    },
+    {
+      "pidgin": "poi dog",
+      "english": ["mixed breed dog", "local island mutt"],
       "category": "slang",
-      "usage": "A Samoan slang term often used as an insult or exclamation."
+      "pronunciation": "POY DAWG",
+      "difficulty": "beginner",
+      "usage": "A friendly local slang term for a mixed-breed dog, or affectionately for someone of mixed heritage / multicultural background.",
+      "examples": [
+        "My dog is one rescue poi dog, smart as anything.",
+        "He got one loyal poi dog dat follow him everywhere."
+      ],
+      "origin": "Hawaiian-English hybrid",
+      "frequency": "high",
+      "tags": ["slang", "animals", "pets", "local identity"]
     },
     {
-      "pidgin": "sukebe",
-      "english": ["pervert", "lecherous"],
+      "pidgin": "pupu platter",
+      "english": ["appetizer assortment plate", "party starter dish"],
+      "category": "food",
+      "pronunciation": "POO-poo PLAT-tah",
+      "difficulty": "beginner",
+      "usage": "A large platter of mixed appetizers and finger foods served at parties, pau hana gatherings, and local diners.",
+      "examples": [
+        "Order da pupu platter while we wait for da main food.",
+        "Da pupu platter get lumpia, chicken wings, and edamame."
+      ],
+      "origin": "Hawaiian-English hybrid (pūpū = appetizer/snack)",
+      "frequency": "high",
+      "tags": ["food", "pupu", "parties", "gatherings"]
+    },
+    {
+      "pidgin": "bumbai you learn",
+      "english": ["later you will learn the hard way", "experience will teach you"],
       "category": "slang",
-      "usage": "From Japanese. Used to describe someone who is being perverted or overly sexual."
+      "pronunciation": "BUM-bye YOU LERN",
+      "difficulty": "intermediate",
+      "usage": "A classic local warning given to hardheaded or stubborn people meaning that consequences will eventually teach them a lesson.",
+      "examples": [
+        "No touch dat hot pan! Bumbai you learn.",
+        "Go ahead, do silly tings, bumbai you learn."
+      ],
+      "origin": "Pidgin idiom (bumbai = by and by / later)",
+      "frequency": "high",
+      "tags": ["slang", "idioms", "advice", "humor"]
     },
     {
-      "pidgin": "hukilau",
-      "english": ["net fishing party", "community feast"],
-      "category": "general",
-      "usage": "A traditional Hawaiian way of fishing with a large net, usually involving a group of people and followed by a feast."
+      "pidgin": "mo bettah",
+      "english": ["much better", "far superior", "preferable"],
+      "category": "slang",
+      "pronunciation": "MOH BEH-tah",
+      "difficulty": "beginner",
+      "usage": "The essential Pidgin comparative meaning 'much better', 'superior', or 'way more enjoyable'.",
+      "examples": [
+        "Going early morning is mo bettah, no get traffic.",
+        "Homemade poke stay mo bettah than store-bought."
+      ],
+      "origin": "Pidgin comparative construction",
+      "frequency": "high",
+      "tags": ["slang", "grammar", "expressions", "everyday"]
     },
     {
-      "pidgin": "pilikia",
-      "english": ["trouble", "problem", "difficulty"],
-      "category": "general",
-      "usage": "A very common Hawaiian word used to describe any kind of trouble or issue."
+      "pidgin": "chotto matte",
+      "english": ["wait a minute", "hold on", "hold your horses"],
+      "category": "slang",
+      "pronunciation": "CHOH-toh MAH-teh",
+      "difficulty": "intermediate",
+      "usage": "A common loan phrase used in Hawaii conversation to tell someone to pause, slow down, or wait a second.",
+      "examples": [
+        "Chotto matte brah, I still tying my shoes.",
+        "Chotto matte, lemme check da directions first."
+      ],
+      "origin": "Japanese loanword",
+      "frequency": "medium",
+      "tags": ["slang", "japanese", "expressions", "time"]
     },
     {
-      "pidgin": "nani",
-      "english": ["beautiful", "pretty", "lovely"],
+      "pidgin": "kachi kachi",
+      "english": ["Puerto Rican dance music in Hawaii", "upbeat island accordion music"],
       "category": "general",
-      "usage": "A Hawaiian word for beauty, often used for people or scenery."
+      "pronunciation": "KAH-chee KAH-chee",
+      "difficulty": "intermediate",
+      "usage": "A lively genre of Puerto Rican dance music created by immigrants to Hawaii plantations, characterized by accordion, cuatro, and guiro rhythm.",
+      "examples": [
+        "Dey playing kachi kachi music at da graduation party!",
+        "Everyone was dancing to da kachi kachi band."
+      ],
+      "origin": "Puerto Rican plantation culture in Hawaii",
+      "frequency": "medium",
+      "tags": ["music", "culture", "puerto rican", "parties"]
     },
     {
-      "pidgin": "kai",
-      "english": ["ocean", "sea", "seawater"],
+      "pidgin": "bagasu",
+      "english": ["useless residue", "worthless person", "scoundrel"],
+      "category": "slang",
+      "pronunciation": "bah-GAH-soo",
+      "difficulty": "advanced",
+      "usage": "Originally sugarcane fiber waste; colloquially used in local plantation slang as a playful or biting term for a rascal or good-for-nothing.",
+      "examples": [
+        "Dat guy acting like real bagasu.",
+        "Clean up all dat bagasu from da yard."
+      ],
+      "origin": "Ilocano and plantation Spanish/Portuguese (bagasse)",
+      "frequency": "low",
+      "tags": ["slang", "insults", "plantation", "vintage"]
+    },
+    {
+      "pidgin": "botan",
+      "english": ["button", "snap fastener"],
+      "category": "slang",
+      "pronunciation": "boh-TAHN",
+      "difficulty": "intermediate",
+      "usage": "A button on clothing, or a button on an electronic switch/device.",
+      "examples": [
+        "Push da botan for open da gate.",
+        "Your shirt missing one botan, brah."
+      ],
+      "origin": "Japanese loanword (botan / ボタン)",
+      "frequency": "medium",
+      "tags": ["slang", "japanese", "everyday", "objects"]
+    },
+    {
+      "pidgin": "totus",
+      "english": ["fart", "flatulence"],
+      "category": "slang",
+      "pronunciation": "TOH-toos",
+      "difficulty": "intermediate",
+      "usage": "Plantation-era slang word for breaking wind or flatulence.",
+      "examples": [
+        "Who wen make totus in da car?!",
+        "Crack da window, someone wen make totus."
+      ],
+      "origin": "Portuguese plantation loanword",
+      "frequency": "medium",
+      "tags": ["slang", "humor", "plantation", "body"]
+    },
+    {
+      "pidgin": "no make lolo",
+      "english": ["do not act foolish", "do not make a fool of yourself"],
+      "category": "slang",
+      "pronunciation": "NOH MAYK LOH-loh",
+      "difficulty": "beginner",
+      "usage": "Admonition instructing someone to behave with common sense and stop acting crazy or stupid.",
+      "examples": [
+        "Behave in front da kumu, no make lolo.",
+        "No make lolo on camera, brah!"
+      ],
+      "origin": "Pidgin idiom with Hawaiian lōlō (crazy/foolish)",
+      "frequency": "high",
+      "tags": ["slang", "idioms", "advice", "behavior"]
+    },
+    {
+      "pidgin": "broke mouth",
+      "english": ["extremely delicious", "mouth-watering", "appetizing"],
+      "category": "food",
+      "pronunciation": "BROHK MOWT",
+      "difficulty": "beginner",
+      "usage": "An emphatic slang descriptor meaning food that is so delicious it bursts with flavor (variant of 'broke da mouth').",
+      "examples": [
+        "Aunty's ribs stay broke mouth ono!",
+        "Dat dessert was so broke mouth."
+      ],
+      "origin": "Pidgin idiom",
+      "frequency": "high",
+      "tags": ["food", "slang", "praise", "flavor"]
+    },
+    {
+      "pidgin": "choke traffic",
+      "english": ["heavy traffic", "bumper to bumper gridlock"],
+      "category": "slang",
+      "pronunciation": "CHOHK TRAF-fik",
+      "difficulty": "beginner",
+      "usage": "Severe highway or island road congestion where cars are packed tightly bumper-to-bumper.",
+      "examples": [
+        "H-1 get choke traffic right now, take da back road.",
+        "We was late because had choke traffic going town-bound."
+      ],
+      "origin": "Pidgin idiom (choke = abundant/crowded)",
+      "frequency": "high",
+      "tags": ["slang", "travel", "driving", "everyday"]
+    },
+    {
+      "pidgin": "puka shell",
+      "english": ["naturally perforated cone shell necklace", "traditional shell jewelry"],
       "category": "general",
-      "usage": "The Hawaiian word for the sea. Used in names and directions (makai)."
+      "pronunciation": "POO-kah SHELL",
+      "difficulty": "beginner",
+      "usage": "A traditional beach necklace or jewelry item made from the worn, naturally holed tip of cone shells found along Hawaiian shorelines.",
+      "examples": [
+        "He wearing his vintage puka shell necklace.",
+        "We went hunting for puka shells along da shoreline."
+      ],
+      "origin": "Hawaiian-English hybrid (puka = hole)",
+      "frequency": "high",
+      "tags": ["beach", "fashion", "jewelry", "ocean"]
+    },
+    {
+      "pidgin": "shaka brah",
+      "english": ["island greeting accompanied by shaka sign", "hang loose friend"],
+      "category": "greetings",
+      "pronunciation": "SHAH-kah BRAH",
+      "difficulty": "beginner",
+      "usage": "The quintessential friendly Hawaii greeting and hand gesture expressing goodwill, friendliness, and solidarity.",
+      "examples": [
+        "Shaka brah, good for see you!",
+        "Threw him one big shaka brah when he let us merge."
+      ],
+      "origin": "Pidgin colloquialism",
+      "frequency": "high",
+      "tags": ["greetings", "shaka", "aloha", "slang"]
+    },
+    {
+      "pidgin": "make ass",
+      "english": ["embarrass oneself", "make a fool of oneself in public"],
+      "category": "slang",
+      "pronunciation": "MAYK ASS",
+      "difficulty": "intermediate",
+      "usage": "To humiliate or embarrass oneself in front of others by doing something clumsy, silly, or foolish.",
+      "examples": [
+        "I slipped on da wet floor and wen make ass in front errbody.",
+        "No go over dere and make ass, stay cool."
+      ],
+      "origin": "Pidgin idiom",
+      "frequency": "high",
+      "tags": ["slang", "humor", "idioms", "social"]
     }
   ]
 }
