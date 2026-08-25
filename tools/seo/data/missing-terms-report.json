@@ -1,0 +1,95 @@
+{
+  "generated": "2026-08-25T22:25:37.229Z",
+  "count": 8,
+  "minImpressions": 5,
+  "missing": [
+    {
+      "pidgin": "mauka and makai",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "locations",
+      "impressions": 27400,
+      "clicks": 1680,
+      "ctr": "6.13%",
+      "position": "1.8"
+    },
+    {
+      "pidgin": "cheeehoo",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 12500,
+      "clicks": 780,
+      "ctr": "6.24%",
+      "position": "2.7"
+    },
+    {
+      "pidgin": "make die dead",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 11200,
+      "clicks": 690,
+      "ctr": "6.16%",
+      "position": "2.4"
+    },
+    {
+      "pidgin": "beef curry no worry",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 7900,
+      "clicks": 490,
+      "ctr": "6.20%",
+      "position": "2.9"
+    },
+    {
+      "pidgin": "ting",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 7400,
+      "clicks": 480,
+      "ctr": "6.49%",
+      "position": "3.0"
+    },
+    {
+      "pidgin": "bus laugh",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 6800,
+      "clicks": 420,
+      "ctr": "6.18%",
+      "position": "3.0"
+    },
+    {
+      "pidgin": "cook goose",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 5900,
+      "clicks": 380,
+      "ctr": "6.44%",
+      "position": "3.1"
+    },
+    {
+      "pidgin": "blend",
+      "english": [
+        "TBD (Add English translation)"
+      ],
+      "category": "general",
+      "impressions": 4800,
+      "clicks": 310,
+      "ctr": "6.46%",
+      "position": "3.2"
+    }
+  ]
+}
