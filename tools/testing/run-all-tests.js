@@ -65,6 +65,11 @@ const testSuites = [
         requiredEnv: false
     },
     {
+        name: 'Context Tracker & Paragraph Translation',
+        script: 'test-context-tracker.js',
+        requiredEnv: false
+    },
+    {
         name: 'Site Integrity & SEO Link Audit',
         script: 'audit-site.js',
         preRunBuild: true

@@ -88,27 +88,41 @@ class SentenceChunker {
 
         // Step 1: Check for exact sentence match
         if (direction === 'eng-to-pidgin') {
-            const exactMatch = this.sentenceLookup.englishToPidgin[textLower];
-            if (exactMatch && exactMatch.length > 0) {
-                return {
-                    translation: exactMatch[0].pidgin,
-                    confidence: 0.95,
-                    method: 'exact_sentence_match',
-                    category: exactMatch[0].category,
-                    difficulty: exactMatch[0].difficulty,
-                    alternatives: exactMatch.slice(1, 3).map(m => m.pidgin)
-                };
+            const exactMatch = this.sentenceLookup && this.sentenceLookup.englishToPidgin ? this.sentenceLookup.englishToPidgin[textLower] : null;
+            if (exactMatch) {
+                const translation = typeof exactMatch === 'string'
+                    ? exactMatch
+                    : (Array.isArray(exactMatch) && exactMatch.length > 0
+                        ? (typeof exactMatch[0] === 'object' ? exactMatch[0].pidgin : exactMatch[0])
+                        : '');
+                if (translation) {
+                    return {
+                        translation: translation,
+                        confidence: 0.95,
+                        method: 'exact_sentence_match',
+                        category: (Array.isArray(exactMatch) && exactMatch[0]?.category) || 'general',
+                        difficulty: (Array.isArray(exactMatch) && exactMatch[0]?.difficulty) || 'beginner',
+                        alternatives: Array.isArray(exactMatch) ? exactMatch.slice(1, 3).map(m => typeof m === 'object' ? m.pidgin : m) : []
+                    };
+                }
             }
         } else {
-            const exactMatch = this.sentenceLookup.pidginToEnglish[textLower];
-            if (exactMatch && exactMatch.length > 0) {
-                return {
-                    translation: exactMatch[0].english,
-                    confidence: 0.95,
-                    method: 'exact_sentence_match',
-                    category: exactMatch[0].category,
-                    difficulty: exactMatch[0].difficulty
-                };
+            const exactMatch = this.sentenceLookup && this.sentenceLookup.pidginToEnglish ? this.sentenceLookup.pidginToEnglish[textLower] : null;
+            if (exactMatch) {
+                const translation = typeof exactMatch === 'string'
+                    ? exactMatch
+                    : (Array.isArray(exactMatch) && exactMatch.length > 0
+                        ? (typeof exactMatch[0] === 'object' ? exactMatch[0].english : exactMatch[0])
+                        : '');
+                if (translation) {
+                    return {
+                        translation: translation,
+                        confidence: 0.95,
+                        method: 'exact_sentence_match',
+                        category: (Array.isArray(exactMatch) && exactMatch[0]?.category) || 'general',
+                        difficulty: (Array.isArray(exactMatch) && exactMatch[0]?.difficulty) || 'beginner'
+                    };
+                }
             }
         }
 
