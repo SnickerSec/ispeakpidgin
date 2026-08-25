@@ -1,0 +1,153 @@
+{
+  "missing": [
+    {
+      "pidgin": "make die dead",
+      "english": [
+        "Completely broken",
+        "Dead",
+        "Destroyed",
+        "Non-functional"
+      ],
+      "category": "slang",
+      "pronunciation": "mah-kay dye ded",
+      "usage": "Extreme humorous hyperbole used when something is beyond repair or completely non-functional, combining Hawaiian 'make' (dead) with English 'die' and 'dead'.",
+      "examples": [
+        "My old truck wen make die dead on H-1 dis morning, gotta call tow truck.",
+        "After surf all day at Bowls, my body wen make die dead."
+      ],
+      "origin": "Hawaiian (make = dead) + English reinforcement",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "slang",
+        "hyperbole",
+        "humor",
+        "everyday"
+      ]
+    },
+    {
+      "pidgin": "beef curry no worry",
+      "english": [
+        "Don't worry",
+        "No problem",
+        "Everything is fine",
+        "Relax"
+      ],
+      "category": "expressions",
+      "pronunciation": "beef kur-ree noh wur-ree",
+      "usage": "A playful rhyming Pidgin catchphrase used to reassure someone that there is nothing to stress about.",
+      "examples": [
+        "No worry, beef curry! We going make 'em on time.",
+        "You forgot your wallet? Beef curry no worry brah, I got you."
+      ],
+      "origin": "Local Hawaii food culture rhyme",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "reassurance",
+        "slang",
+        "rhyme"
+      ]
+    },
+    {
+      "pidgin": "bus laugh",
+      "english": [
+        "Burst out laughing",
+        "Laugh uncontrollably",
+        "Crack up"
+      ],
+      "category": "slang",
+      "pronunciation": "bus laff",
+      "usage": "Used when someone suddenly breaks into loud, uncontrollable laughter at a funny joke or situation.",
+      "examples": [
+        "Uncle told one joke and everybody wen bus laugh!",
+        "I had to hold back so I no bus laugh during da meeting."
+      ],
+      "origin": "Pidgin contraction of burst laugh",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "slang",
+        "humor",
+        "emotions",
+        "actions"
+      ]
+    },
+    {
+      "pidgin": "cook goose",
+      "english": [
+        "In big trouble",
+        "Finished",
+        "Done for",
+        "Doomed"
+      ],
+      "category": "idioms",
+      "pronunciation": "kook goos",
+      "usage": "Used when someone makes a major mistake or is caught doing something wrong and faces imminent consequences.",
+      "examples": [
+        "If Mom finds out you broke her favorite bowl, your goose stay cooked!",
+        "Brah, if boss catch you sleeping, cook goose!"
+      ],
+      "origin": "Colloquial idiom adopted in local Hawaii speech",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "idioms",
+        "slang",
+        "warning",
+        "trouble"
+      ]
+    },
+    {
+      "pidgin": "blend",
+      "english": [
+        "Socialize",
+        "Hang out",
+        "Mix in naturally",
+        "Fit in"
+      ],
+      "category": "slang",
+      "pronunciation": "blend",
+      "usage": "To mingle effortlessly with the local crowd or hang out at a gathering without drawing unnecessary attention.",
+      "examples": [
+        "Just come by da party and blend wit' da ohana.",
+        "He stay quiet at first, but now he blend real good."
+      ],
+      "origin": "Local island colloquialism",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "social",
+        "lifestyle",
+        "gatherings"
+      ]
+    },
+    {
+      "pidgin": "ting",
+      "english": [
+        "Thing",
+        "Item",
+        "Object",
+        "Possession"
+      ],
+      "category": "pronouns",
+      "pronunciation": "ting",
+      "usage": "The standard Pidgin pronunciation of 'thing', used to refer to any object, gadget, or topic.",
+      "examples": [
+        "Pass me dat ting over dere on da table.",
+        "What dis ting stay called again?"
+      ],
+      "origin": "Hawaiian Pidgin th-stopping of English 'thing'",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "pronouns",
+        "everyday",
+        "vocabulary",
+        "basics"
+      ]
+    }
+  ]
+}
