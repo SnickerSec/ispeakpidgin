@@ -105,6 +105,45 @@
             </div>
         </div>
 
+        <!-- Character / Persona Selector -->
+        <div class="mb-4">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                    <iconify-icon icon="lucide:user-check" class="text-blue-400"></iconify-icon> Choose Persona & Voice:
+                </span>
+                <span id="character-voice-badge" class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-semibold border border-emerald-500/30">
+                    🎙️ Uncle Kimo (Hawaiian Male)
+                </span>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
+                <button type="button" class="character-btn active p-3 rounded-xl bg-slate-800 border-2 border-blue-500 text-left transition-all hover:bg-slate-750" data-character="kimo">
+                    <div class="text-xl mb-1">👨🏽‍🦳</div>
+                    <div class="text-sm font-bold text-slate-100">Uncle Kimo</div>
+                    <div class="text-[11px] text-slate-400">Elder storyteller</div>
+                </button>
+                <button type="button" class="character-btn p-3 rounded-xl bg-slate-800 border-2 border-slate-700 text-left transition-all hover:border-slate-500 hover:bg-slate-750" data-character="aunty_pua">
+                    <div class="text-xl mb-1">👩🏽</div>
+                    <div class="text-sm font-bold text-slate-100">Aunty Pua</div>
+                    <div class="text-[11px] text-slate-400">Drive-in matriarch</div>
+                </button>
+                <button type="button" class="character-btn p-3 rounded-xl bg-slate-800 border-2 border-slate-700 text-left transition-all hover:border-slate-500 hover:bg-slate-750" data-character="hoku">
+                    <div class="text-xl mb-1">🌺</div>
+                    <div class="text-sm font-bold text-slate-100">Sister Hoku</div>
+                    <div class="text-[11px] text-slate-400">Island cultural guide</div>
+                </button>
+                <button type="button" class="character-btn p-3 rounded-xl bg-slate-800 border-2 border-slate-700 text-left transition-all hover:border-slate-500 hover:bg-slate-750" data-character="keanu">
+                    <div class="text-xl mb-1">🏄🏽‍♂️</div>
+                    <div class="text-sm font-bold text-slate-100">Keanu</div>
+                    <div class="text-[11px] text-slate-400">North Shore surf brah</div>
+                </button>
+                <button type="button" class="character-btn p-3 rounded-xl bg-slate-800 border-2 border-slate-700 text-left transition-all hover:border-slate-500 hover:bg-slate-750" data-character="kaipo">
+                    <div class="text-xl mb-1">🤙🏽</div>
+                    <div class="text-sm font-bold text-slate-100">Cousin Kaipo</div>
+                    <div class="text-[11px] text-slate-400">Town-bound commuter</div>
+                </button>
+            </div>
+        </div>
+
         <!-- Scenario Roleplay Selector -->
         <div class="mb-4">
             <div class="flex items-center justify-between mb-2">
@@ -225,16 +264,71 @@
             const scenarioBadge = document.getElementById('scenario-badge');
             const quickStartersContainer = document.getElementById('quick-starters');
             const scenarioButtons = document.querySelectorAll('.scenario-btn');
+            
+            const characterVoiceBadge = document.getElementById('character-voice-badge');
+            const characterButtons = document.querySelectorAll('.character-btn');
+            const characterAvatar = document.getElementById('character-avatar');
+            const characterName = document.getElementById('character-name');
+            const characterDesc = document.getElementById('character-desc');
 
             let currentScenario = 'general';
+            let currentCharacter = 'kimo';
+
+            const characters = {
+                'kimo': {
+                    name: "Uncle Kimo",
+                    title: "Talk Story wit' Uncle Kimo",
+                    desc: "Wise local elder, fisherman, and Pidgin storyteller. Powered by ElevenLabs authentic Hawaiian voice audio.",
+                    avatar: "👨🏽‍🦳",
+                    voiceId: "f0ODjLMfcJmlKfs7dFCW",
+                    voiceBadge: "🎙️ Uncle Kimo (Hawaiian Male)",
+                    welcome: "Aloha! I stay Uncle Kimo. Like talk story? I can help you practice your Pidgin. Just type someting below or use da mic!"
+                },
+                'aunty_pua': {
+                    name: "Aunty Pua",
+                    title: "Talk Story wit' Aunty Pua",
+                    desc: "Warm drive-in culinary matriarch. Ask her for food tips, recipes, and lively local stories.",
+                    avatar: "👩🏽",
+                    voiceId: "0f4r1bLyisMv67ocsZMl",
+                    voiceBadge: "🎙️ Aunty Pua (Hawaiian Female)",
+                    welcome: "Aloha my keiki! Come inside, grab one plate lunch! Aunty Pua stay cooking choke ono grindz today. What you like talk about?"
+                },
+                'hoku': {
+                    name: "Sister Hoku",
+                    title: "Talk Story wit' Sister Hoku",
+                    desc: "Friendly island guide and cultural tutor. Great for exploring Hawaiian culture, traditions, and island history.",
+                    avatar: "🌺",
+                    voiceId: "jRIDd6YCznqwKHkWlpOh",
+                    voiceBadge: "🎙️ Sister Hoku (Hawaiian Female)",
+                    welcome: "Aloha mai kākou! I stay Sister Hoku. I love sharing island culture and authentic Pidgin words. How can I kokua you today?"
+                },
+                'keanu': {
+                    name: "Keanu",
+                    title: "Talk Story wit' Keanu",
+                    desc: "Stoked North Shore surfer and waterman. Chat about waves, swell forecasts, surf spots, and beach vibes.",
+                    avatar: "🏄🏽‍♂️",
+                    voiceId: "Eqw4o5WB3NXnOBL9xr97",
+                    voiceBadge: "🎙️ Keanu (Surf Brah Male)",
+                    welcome: "Chee-hoo! Howzit brah, I stay Keanu! Da swell stay pumping out on da North Shore today! What's da scoops?"
+                },
+                'kaipo': {
+                    name: "Cousin Kaipo",
+                    title: "Talk Story wit' Cousin Kaipo",
+                    desc: "Witty, street-smart island commuter and mechanic from Oahu. Practical island advice, directions, and humor.",
+                    avatar: "🤙🏽",
+                    voiceId: "4P3xiZBsFtmaNelXtmvq",
+                    voiceBadge: "🎙️ Cousin Kaipo (Island Male)",
+                    welcome: "Shoots! Cousin Kaipo here. Cruising through town after one long day on H-1. What stay on your mind, cuz?"
+                }
+            };
 
             const scenarios = {
                 'general': {
                     title: '🤙 Casual Talk Story',
                     badge: '🤙 Casual Talk Story',
-                    welcome: "Aloha! I stay Kimo. Like talk story? I can help you practice your Pidgin. Just type someting below or use da mic!",
+                    welcome: "Aloha! Like talk story? I can help you practice your Pidgin. Just type someting below or use da mic!",
                     starters: [
-                        "Howzit Kimo, how stay you?",
+                        "Howzit, how stay you today?",
                         "What stay da meaning of da kine?",
                         "Teach me one authentic local phrase!"
                     ]
@@ -311,6 +405,41 @@
                 });
             }
 
+            function switchCharacter(charKey) {
+                if (!characters[charKey]) return;
+                currentCharacter = charKey;
+                const charData = characters[charKey];
+
+                characterName.textContent = charData.title;
+                characterDesc.textContent = charData.desc;
+                characterVoiceBadge.textContent = charData.voiceBadge;
+                characterAvatar.innerHTML = `<span class="text-3xl">${charData.avatar}</span>`;
+
+                characterButtons.forEach(btn => {
+                    if (btn.dataset.character === charKey) {
+                        btn.classList.add('border-blue-500', 'bg-slate-700/60');
+                        btn.classList.remove('border-slate-700');
+                    } else {
+                        btn.classList.remove('border-blue-500', 'bg-slate-700/60');
+                        btn.classList.add('border-slate-700');
+                    }
+                });
+
+                // Reset chat with character welcome
+                chatMessages.innerHTML = '';
+                messageHistory = [];
+                addMessage('model', charData.welcome);
+            }
+
+            characterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const charKey = btn.dataset.character;
+                    if (charKey !== currentCharacter) {
+                        switchCharacter(charKey);
+                    }
+                });
+            });
+
             function switchScenario(scenarioKey) {
                 if (!scenarios[scenarioKey]) return;
                 currentScenario = scenarioKey;
@@ -345,7 +474,7 @@
                 });
             });
 
-            // Initial starters render
+            // Initial render
             renderStarters('general');
 
             // Hands-Free Auto-Restart Logic
@@ -373,12 +502,6 @@
                 }
             });
             
-            const kimoProfile = {
-                name: "Talk Story wit' Kimo",
-                desc: "Your friendly AI Pidgin tutor. Powered by ElevenLabs authentic Hawaiian voice audio.",
-                voiceId: "f0ODjLMfcJmlKfs7dFCW"
-            };
-
             let messageHistory = [];
 
             // Voice Visualizer
@@ -440,7 +563,7 @@
                 } else {
                     const { pidgin = content, translation, hint, voiceId } = data || {};
                     const safePidgin = pidgin || '';
-                    const voiceToUse = voiceId || kimoProfile.voiceId;
+                    const voiceToUse = voiceId || characters[currentCharacter].voiceId;
 
                     innerHTML = `
                         <div class="message-bubble bg-slate-700 border border-slate-600 rounded-2xl rounded-tl-none p-4 shadow-sm">
@@ -491,7 +614,7 @@
 
                         if (window.elevenLabsSpeech) {
                             window.elevenLabsSpeech.speak(textToSpeak, {
-                                voiceId: btn.dataset.voice || kimoProfile.voiceId
+                                voiceId: btn.dataset.voice || characters[currentCharacter].voiceId
                             });
                         } else if (window.pidginSpeech) {
                             window.pidginSpeech.speak(textToSpeak);
@@ -526,7 +649,7 @@
                         body: JSON.stringify({ 
                             message, 
                             history: messageHistory.slice(0, -1),
-                            character: 'kimo',
+                            character: currentCharacter,
                             scenario: currentScenario
                         })
                     });
@@ -540,8 +663,9 @@
                         addMessage('model', data.pidgin, data);
                     }
                 } catch (err) {
+                    console.error('Chat error:', err);
                     typingIndicator.classList.add('hidden');
-                    addMessage('model', "Eh, looks like da kine network stay acting up. Try refresh!");
+                    addMessage('model', "Shoots, network error! Check your connection brah.");
                 } finally {
                     userInput.disabled = false;
                     userInput.focus();
@@ -549,22 +673,21 @@
             });
 
             clearChatBtn.addEventListener('click', () => {
-                if (confirm('Clear our conversation, brah?')) {
-                    chatMessages.innerHTML = '';
-                    messageHistory = [];
-                    const config = scenarios[currentScenario] || scenarios['general'];
-                    addMessage('model', config.welcome);
-                }
+                chatMessages.innerHTML = '';
+                messageHistory = [];
+                const welcomeText = scenarios[currentScenario]?.welcome || characters[currentCharacter]?.welcome;
+                addMessage('model', welcomeText);
             });
 
             function escapeHtml(text) {
-                if (!text) return '';
-                return String(text)
-                    .replace(/&/g, '&amp;')
-                    .replace(/</g, '&lt;')
-                    .replace(/>/g, '&gt;')
-                    .replace(/"/g, '&quot;')
-                    .replace(/'/g, '&#039;');
+                const map = {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#039;'
+                };
+                return text ? text.replace(/[&<>"']/g, m => map[m]) : '';
             }
         });
     </script>

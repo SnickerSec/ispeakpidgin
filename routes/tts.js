@@ -80,9 +80,13 @@ module.exports = function(translationLimiter, supabaseAdmin) {
                     return res.status(500).json({ error: 'ElevenLabs API key not configured' });
                 }
 
-                const defaultVoiceId = 'f0ODjLMfcJmlKfs7dFCW'; // Authentic Hawaiian voice (Kimo)
+                const defaultVoiceId = 'f0ODjLMfcJmlKfs7dFCW'; // Authentic Hawaiian voice (Uncle Kimo)
                 const allowedVoices = [
-                    'f0ODjLMfcJmlKfs7dFCW' // Kimo / Hawaiian
+                    'f0ODjLMfcJmlKfs7dFCW', // Uncle Kimo (Mikey - Elder Hawaiian Male)
+                    '0f4r1bLyisMv67ocsZMl', // Aunty Pua (Cristina G. - Hawaiian Female)
+                    'jRIDd6YCznqwKHkWlpOh', // Sister Hoku (Hoku - Hawaiian Female)
+                    'Eqw4o5WB3NXnOBL9xr97', // Keanu (Brandon - Surf Brah Male)
+                    '4P3xiZBsFtmaNelXtmvq'  // Cousin Kaipo (Noah - Island Male)
                 ];
 
                 let voiceId = defaultVoiceId;

@@ -68,6 +68,35 @@ module.exports = function(supabase, dictionaryCache, limiter, gamificationServic
         'holoholo-cruise': 'SCENARIO: Holoholo Island Road Trip & Directions. You are riding shotgun taking an island road trip cruise around Oahu or the neighbor islands. You give directions using Hawaiian directional markers (mauka - mountain side, makai - ocean side, Diamond Head side, Ewa side) and point out scenic spots, roadside fruit stands, secret beach accesses, and historic lookout points.'
     };
 
+    // Multi-Persona Character Configurations with Dedicated ElevenLabs Voice IDs
+    const talkStoryCharacters = {
+        'kimo': {
+            name: "Uncle Kimo",
+            desc: "a friendly and patient Hawaiian elder, fisherman, and Pidgin storyteller. He speaks classic plantation-era Pidgin with warm cultural wisdom.",
+            voiceId: "f0ODjLMfcJmlKfs7dFCW"
+        },
+        'aunty_pua': {
+            name: "Aunty Pua",
+            desc: "a warm, funny local matriarch and drive-in culinary master. She loves making sure you ate, giving food tips, and speaking lively Pidgin with heart.",
+            voiceId: "0f4r1bLyisMv67ocsZMl"
+        },
+        'hoku': {
+            name: "Sister Hoku",
+            desc: "a friendly, knowledgeable local island guide and language teacher. She loves helping people connect with authentic Hawaiian culture and modern everyday phrases.",
+            voiceId: "jRIDd6YCznqwKHkWlpOh"
+        },
+        'keanu': {
+            name: "Keanu",
+            desc: "a stoked North Shore surfer and waterman. He speaks high-energy modern surf Pidgin, full of 'chee-hoo', 'pumping waves', 'heavies', and island beach vibes.",
+            voiceId: "Eqw4o5WB3NXnOBL9xr97"
+        },
+        'kaipo': {
+            name: "Cousin Kaipo",
+            desc: "a witty, street-smart island commuter and mechanic from Oahu. He gives practical island advice, laughs about H-1 traffic, and keeps it 100% real.",
+            voiceId: "4P3xiZBsFtmaNelXtmvq"
+        }
+    };
+
     // POST /api/ai/talk-story - Interactive Pidgin Tutor
     router.post('/talk-story',
         limiter,
@@ -75,7 +104,7 @@ module.exports = function(supabase, dictionaryCache, limiter, gamificationServic
         [
             body('message').trim().notEmpty().isLength({ max: 1000 }),
             body('history').optional().isArray(),
-            body('character').optional().isIn(['kimo']),
+            body('character').optional().isIn(['kimo', 'aunty_pua', 'hoku', 'keanu', 'kaipo']),
             body('scenario').optional().isIn(['general', 'drive-in', 'surf-lineup', 'pau-hana', 'airport-greeting', 'holoholo-cruise'])
         ],
         async (req, res) => {
@@ -83,28 +112,23 @@ module.exports = function(supabase, dictionaryCache, limiter, gamificationServic
             if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
             try {
-                const { message, history = [], scenario = 'general' } = req.body;
+                const { message, history = [], character = 'kimo', scenario = 'general' } = req.body;
                 const apiKey = process.env.GEMINI_API_KEY;
                 if (!apiKey) return res.status(500).json({ error: 'Gemini API key not configured' });
 
                 const vocabulary = getRelevantVocabulary(message);
                 const scenarioContext = talkStoryScenarios[scenario] || talkStoryScenarios['general'];
-                
-                const activeChar = {
-                    name: "Kimo",
-                    desc: "a friendly and patient Hawaiian Pidgin tutor. He likes to help people learn correctly but stay casual.",
-                    voiceId: "f0ODjLMfcJmlKfs7dFCW"
-                };
+                const activeChar = talkStoryCharacters[character] || talkStoryCharacters['kimo'];
 
                 const systemPrompt = `
 You are "${activeChar.name}," ${activeChar.desc}
 ${scenarioContext}
 
 GUIDELINES:
-1. Always respond in authentic, natural Hawaiian Pidgin. 
+1. Always respond in authentic, natural Hawaiian Pidgin matching your persona (${activeChar.name}).
 2. Be helpful and knowledgeable. If the user asks a question or for a recommendation, provide a direct, informative answer based on local Hawaii knowledge before trying to keep the conversation going.
 3. Do not answer a question with only another question. Always provide value or info first.
-4. Keep your responses consistent with your personality (Kimo) and the selected scenario.
+4. Keep your responses consistent with your personality (${activeChar.name}) and the selected scenario.
 5. If the user makes a big mistake in their Pidgin, gently suggest the correct way to say it in your response.
 6. If they speak English, respond in Pidgin but keep it simple enough for them to follow.
 7. Use the provided vocabulary context to ensure accuracy.
@@ -115,7 +139,7 @@ Respond in JSON format:
   "pidgin": "Your response in authentic Pidgin",
   "translation": "English translation of your response",
   "hint": "A small tip about a word or grammar point used in this exchange (optional)",
-  "character": "kimo",
+  "character": "${character}",
   "scenario": "${scenario}",
   "voiceId": "${activeChar.voiceId}"
 }
