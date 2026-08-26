@@ -59,32 +59,45 @@ jobs:
             './middleware/admin-auth'
           ].forEach(m => require(m)); console.log('✅ all server modules load')"
 
+      - name: Runtime dependency check (static)
+        # Cheap static gate for the same failure class as the boot check below:
+        # every require() in the files the Dockerfile runtime stage ships must
+        # resolve to a production dependency or to another shipped file. Runs
+        # before the build so a dependency mistake fails in seconds.
+        run: npm run test:runtime-deps
+
       - name: Build (Railway-equivalent)
         run: npm run build
 
-      - name: Boot check against the runtime image's file set
-        # The load check above runs against a full checkout, so it cannot catch a
-        # server-side require() reaching into a directory the Dockerfile's runtime
-        # stage does not copy. That shipped once and took the whole site down with
-        # MODULE_NOT_FOUND. Here we assemble exactly what the runtime stage copies
-        # and load every server module inside it.
+      - name: Boot check against the runtime image (file set + prod-only deps)
+        # The load check above runs against a full checkout with devDependencies
+        # installed, so on its own it cannot catch either production-only failure:
+        # a server-side require() reaching into a directory the Dockerfile runtime
+        # stage does not COPY, or one resolving to a devDependency that
+        # `npm ci --omit=dev` strips out. Both have shipped and taken the whole
+        # site down with MODULE_NOT_FOUND -- the second on 2026-08-26, via
+        # google-auth-library in routes/user.js.
+        #
+        # An earlier version of this step symlinked the full node_modules, which
+        # is exactly why it stayed green through that outage. Install prod deps
+        # for real instead; it is the only faithful reproduction of the image.
         run: |
           set -euo pipefail
           RT=$(mktemp -d)
           # Mirror the COPY lines in the Dockerfile runtime stage.
-          cp server.js package.json "$RT"/
+          cp server.js package.json package-lock.json .npmrc "$RT"/
           cp -r routes middleware services "$RT"/
           mkdir -p "$RT/src/components"
           cp -r src/components/speech "$RT/src/components/speech"
-          ln -s "$PWD/node_modules" "$RT/node_modules"
           cd "$RT"
+          npm ci --omit=dev
           node -e "[
             './routes/ai','./routes/tts','./routes/dictionary','./routes/content',
             './routes/games','./routes/pickup','./routes/admin','./routes/questions',
             './routes/user','./routes/suggestions',
             './services/gamification-service','./services/settings-manager',
             './middleware/admin-auth'
-          ].forEach(m => require(m)); console.log('✅ server boots with runtime-only files')"
+          ].forEach(m => require(m)); console.log('✅ server boots with runtime-only files and prod-only deps')"
 
       - name: Validation suite
         # Runs unconditionally. `npm test` (tools/testing/run-all-tests.js) drives

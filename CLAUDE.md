@@ -262,6 +262,31 @@ When creating or editing pages:
 
 **Why:** Ensures consistency, prevents duplicate code conflicts, single source of truth for all pages.
 
+### Server-Side Dependencies — MUST FOLLOW
+**Any package `require()`d by server code must be in `dependencies`, never `devDependencies`.**
+
+The Dockerfile runtime stage installs with `npm ci --omit=dev` and copies only `server.js`,
+`routes/`, `middleware/`, `services/`, and `src/components/speech/`. So two mistakes resolve
+fine locally and are fatal in production:
+
+1. Requiring a **devDependency** — absent from the image.
+2. Requiring a **relative path** into a directory the runtime stage never `COPY`s — absent too.
+
+Either one exits the server on boot with `MODULE_NOT_FOUND`. Railway exhausts
+`restartPolicyMaxRetries` (3) and Cloudflare then serves a **site-wide 502** — the whole site,
+not just the new feature. This has shipped twice; most recently on 2026-08-26 via
+`google-auth-library` in `routes/user.js`.
+
+Guard, run automatically as the first suite in `npm test` and in CI:
+```bash
+npm run test:runtime-deps
+```
+It reads the COPY lines out of the Dockerfile, so adding a `COPY` to the runtime stage widens
+the check automatically — the script never needs editing. CI additionally boots every server
+module inside a real `npm ci --omit=dev` install for a faithful reproduction of the image.
+
+After adding a server-side `require()`, run `npm run test:runtime-deps` before pushing.
+
 ### File Editing Rules
 - **Edit source**: `src/` directory only
 - **Build required**: Run `npm run build` after changes

@@ -10,6 +10,7 @@
  * 4. Sentence Chunking (validate-sentence-improvements.js)
  * 5. Phonetics/Pronunciation Audit (pronunciation-audit.js)
  * 6. Site Link & SEO Integrity (audit-site.js) - runs a quick build first if needed
+ * 7. Runtime Dependency & Image File Set (check-runtime-deps.js)
  */
 
 const { spawnSync } = require('child_process');
@@ -21,6 +22,14 @@ console.log('🌺 ChokePidgin Unified Test Suite');
 console.log('============================================================\n');
 
 const testSuites = [
+    {
+        // Deploy-blocking, so it runs first: a runtime require() of a devDependency (or of a
+        // file the Dockerfile runtime stage never COPYs) resolves fine here but is absent from
+        // the production image, exiting the server on boot and 502-ing the entire site.
+        name: 'Runtime Dependency & Image File Set',
+        script: 'check-runtime-deps.js',
+        requiredEnv: false
+    },
     {
         name: 'Mock Supabase client validation',
         script: 'test-mock-supabase.js',
