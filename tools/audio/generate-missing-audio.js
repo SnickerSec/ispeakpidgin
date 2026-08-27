@@ -17,6 +17,7 @@ const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPAB
 const ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY;
 const BUCKET_NAME = 'audio-assets';
 const VOICE_ID = 'f0ODjLMfcJmlKfs7dFCW'; // Authentic local voice
+const DIRECTION = 'tts';
 
 if (!supabaseUrl || !supabaseServiceKey || !ELEVENLABS_API_KEY) {
     console.error('❌ Missing SUPABASE_URL, SUPABASE_SERVICE_KEY, or ELEVENLABS_API_KEY');
@@ -93,7 +94,18 @@ async function main() {
             try {
                 const result = await generateAndUpload(word);
                 if (result) {
-                    index[word] = result;
+                    index[word] = result.filename;
+
+                    // Index into translation_cache
+                    await supabase.from('translation_cache').upsert({
+                        original_text: word,
+                        translated_text: result.spokenText,
+                        direction: DIRECTION,
+                        voice_id: VOICE_ID,
+                        audio_filename: result.filename,
+                        md5_hash: result.hash
+                    }, { onConflict: 'md5_hash,direction,voice_id' });
+
                     // Save index incrementally to Supabase
                     const indexStr = JSON.stringify(index, null, 2);
                     await supabase.storage.from(BUCKET_NAME).upload('index.json', Buffer.from(indexStr), {
@@ -163,7 +175,7 @@ async function generateAndUpload(text) {
         fs.writeFileSync(path.join(AUDIO_DIR, filename), buffer);
     }
 
-    return filename;
+    return { filename, hash, spokenText: correctedText };
 }
 
 main();

@@ -2,9 +2,10 @@
 // Fetches dictionary terms from Supabase and pre-generates high-quality audio via ElevenLabs
 // Run with: node tools/audio/audio-pregeneration.js [--force] [--limit 50]
 
-require('dotenv').config({ path: '../../.env' });
-const fs = require('fs').promises;
 const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
+require('dotenv').config();
+const fs = require('fs').promises;
 const crypto = require('crypto');
 const { createClient } = require('@supabase/supabase-js');
 
@@ -33,6 +34,7 @@ const DIRECTION = 'tts';
 
 // Parse arguments
 const args = process.argv.slice(2);
+const IS_AUDIT = args.includes('--audit') || args.includes('--dry-run');
 const FORCE_REGEN = args.includes('--force');
 const LIMIT_ARG = args.indexOf('--limit');
 const MAX_TO_GENERATE = LIMIT_ARG !== -1 ? parseInt(args[LIMIT_ARG + 1], 10) : 100;
@@ -164,14 +166,8 @@ async function indexClip(result) {
 }
 
 async function main() {
-    console.log('🎙️ ChokePidgin Audio Pipeline');
+    console.log(`🎙️ ChokePidgin Audio Pipeline ${IS_AUDIT ? '(Audit Mode)' : ''}`);
     console.log('===========================\n');
-
-    const apiKey = process.env.ELEVENLABS_API_KEY;
-    if (!apiKey) {
-        console.error('❌ ELEVENLABS_API_KEY not found in .env');
-        process.exit(1);
-    }
 
     // Ensure audio directory exists
     await fs.mkdir(AUDIO_DIR, { recursive: true });
@@ -205,6 +201,61 @@ async function main() {
     }
 
     console.log(`🔍 Total terms in Supabase: ${allTerms.length}`);
+
+    if (IS_AUDIT) {
+        console.log(`\n📊 Audit Mode: Checking cache & storage coverage for ${allTerms.length} dictionary terms...`);
+        const cachedRows = [];
+        let from = 0;
+        while (true) {
+            const { data, error } = await supabase
+                .from('translation_cache')
+                .select('md5_hash, audio_filename')
+                .eq('voice_id', VOICE_ID)
+                .eq('direction', DIRECTION)
+                .range(from, from + 999);
+            if (error) {
+                console.warn('Cache fetch warning:', error.message);
+                break;
+            }
+            if (!data || data.length === 0) break;
+            cachedRows.push(...data);
+            if (data.length < 1000) break;
+            from += 1000;
+        }
+
+        const cacheSet = new Set(cachedRows.map(r => r.md5_hash));
+        let inStorageCount = 0;
+        let inCacheCount = 0;
+        let missingTerms = [];
+
+        for (const term of allTerms) {
+            const normalized = term.trim().toLowerCase();
+            const hash = crypto.createHash('md5').update(normalized).digest('hex');
+            const inIndex = Boolean(index[normalized]);
+            const inCache = cacheSet.has(hash);
+            if (inIndex) inStorageCount++;
+            if (inCache) inCacheCount++;
+            if (!inIndex && !inCache) missingTerms.push(term);
+        }
+
+        console.log('\n===================================================');
+        console.log(`📊 Dictionary Audio Audit Summary:`);
+        console.log(`   Total terms:           ${allTerms.length}`);
+        console.log(`   In Storage (index):    ${inStorageCount}/${allTerms.length} (${((inStorageCount / allTerms.length) * 100).toFixed(1)}%)`);
+        console.log(`   In translation_cache:  ${inCacheCount}/${allTerms.length} (${((inCacheCount / allTerms.length) * 100).toFixed(1)}%)`);
+        console.log(`   Missing terms:         ${missingTerms.length}`);
+        if (missingTerms.length > 0) {
+            console.log(`   Sample missing:        ${missingTerms.slice(0, 5).join(', ')}`);
+        }
+        console.log('===================================================\n');
+        return;
+    }
+
+    const apiKey = process.env.ELEVENLABS_API_KEY;
+    if (!apiKey) {
+        console.error('❌ ELEVENLABS_API_KEY not found in .env');
+        process.exit(1);
+    }
 
     // Identify terms that need audio
     const termsToProcess = allTerms.filter(term => {

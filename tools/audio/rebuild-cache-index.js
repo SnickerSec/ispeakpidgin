@@ -77,6 +77,18 @@ async function listCachedObjects() {
                 scheme.set(prefixed[2], 'prefixed');
                 continue;
             }
+            const story = /^story_([0-9a-f]{32})\.mp3$/.exec(obj.name);
+            if (story) {
+                found.set(story[1], obj.name);
+                scheme.set(story[1], 'story');
+                continue;
+            }
+            const lesson = /^lesson_(?:note|prac)_\d+_([0-9a-f]{32})\.mp3$/.exec(obj.name);
+            if (lesson) {
+                found.set(lesson[1], obj.name);
+                scheme.set(lesson[1], 'lesson');
+                continue;
+            }
             const bare = /^([0-9a-f]{32})\.mp3$/.exec(obj.name);
             if (!bare) continue;
             if (scheme.get(bare[1]) === 'prefixed') continue;
@@ -117,6 +129,7 @@ async function candidateTexts() {
     for (const r of await fetchAll('phrases', 'pidgin, english')) { add(r.pidgin); add(r.english); }
     for (const r of await fetchAll('pickup_lines', 'pidgin')) add(r.pidgin);
     for (const r of await fetchAll('stories', 'title, pidgin_text')) { add(r.title); add(r.pidgin_text); }
+    for (const r of await fetchAll('lessons', 'title, cultural_note, practice')) { add(r.title); add(r.cultural_note); add(r.practice); }
     return [...set];
 }
 
@@ -124,11 +137,13 @@ async function candidateTexts() {
     console.log('🔎 Rebuilding translation_cache index from orphaned audio\n');
 
     const { found, scheme, skippedDeprecated } = await listCachedObjects();
-    const schemeTotals = { prefixed: 0, bare: 0 };
-    scheme.forEach(v => { schemeTotals[v]++; });
+    const schemeTotals = { prefixed: 0, bare: 0, story: 0, lesson: 0 };
+    scheme.forEach(v => { schemeTotals[v] = (schemeTotals[v] || 0) + 1; });
     console.log(`   indexable Kimo clips:         ${found.size}`);
-    console.log(`     cached_{voice}_{md5}.mp3:   ${schemeTotals.prefixed}`);
-    console.log(`     {md5}.mp3 (pre-generated):  ${schemeTotals.bare}`);
+    console.log(`     cached_{voice}_{md5}.mp3:   ${schemeTotals.prefixed || 0}`);
+    console.log(`     {md5}.mp3 (pre-generated):  ${schemeTotals.bare || 0}`);
+    console.log(`     story_{md5}.mp3:            ${schemeTotals.story || 0}`);
+    console.log(`     lesson_*.mp3:               ${schemeTotals.lesson || 0}`);
     console.log(`   skipped (deprecated voices):  ${skippedDeprecated}`);
 
     const texts = await candidateTexts();
