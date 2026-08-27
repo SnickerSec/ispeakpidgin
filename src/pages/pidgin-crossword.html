@@ -27,6 +27,7 @@
 
     <!-- Tailwind CSS -->
     <link href="css/tailwind.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,16 +47,16 @@
         .crossword-grid {
             display: inline-grid;
             gap: 2px;
-            background: #000;
+            background: #0f172a;
             padding: 2px;
-            border: 3px solid #000;
+            border: 3px solid #0f172a;
         }
 
         .crossword-cell {
             width: 40px;
             height: 40px;
-            background: white;
-            border: 1px solid #ddd;
+            background: #1e293b;
+            border: 1px solid #334155;
             position: relative;
             display: flex;
             align-items: center;
@@ -63,7 +64,7 @@
         }
 
         .crossword-cell.black {
-            background: #000;
+            background: #020617;
         }
 
         .crossword-cell input {
@@ -75,20 +76,21 @@
             font-weight: bold;
             text-transform: uppercase;
             background: transparent;
+            color: #f1f5f9;
             outline: none;
         }
 
         .crossword-cell.active {
-            background: #fef3c7;
+            background: rgba(245, 158, 11, 0.3);
             outline: 3px solid #f59e0b;
         }
 
         .crossword-cell.correct {
-            background: #d1fae5;
+            background: rgba(16, 185, 129, 0.28);
         }
 
         .crossword-cell.incorrect {
-            background: #fee2e2;
+            background: rgba(239, 68, 68, 0.28);
         }
 
         .crossword-cell .cell-number {
@@ -97,7 +99,7 @@
             left: 2px;
             font-size: 0.625rem;
             font-weight: bold;
-            color: #666;
+            color: #94a3b8;
         }
 
         .clue-list {
@@ -112,11 +114,12 @@
         }
 
         .clue-item:hover {
-            background: #f3f4f6;
+            background: rgba(148, 163, 184, 0.14);
         }
 
         .clue-item.active {
-            background: #fef3c7;
+            background: rgba(245, 158, 11, 0.18);
+            color: #fcd34d;
             font-weight: bold;
         }
 
