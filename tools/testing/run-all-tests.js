@@ -79,6 +79,11 @@ const testSuites = [
         requiredEnv: false
     },
     {
+        name: 'AI Talk-Story Persona & Tone Consistency',
+        script: 'test-ai-personas.js',
+        requiredEnv: false
+    },
+    {
         name: 'Site Integrity & SEO Link Audit',
         script: 'audit-site.js',
         preRunBuild: true
