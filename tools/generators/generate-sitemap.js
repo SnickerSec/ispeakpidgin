@@ -1,629 +1,305 @@
 #!/usr/bin/env node
 
 /**
- * Generate Sitemap with All Page Types
- * Creates comprehensive sitemap.xml for SEO
- * Fetches data from Supabase API
+ * Generate Sitemap from Built Output
+ *
+ * The URL set is derived from the pages that actually exist in public/, not from a
+ * hand-maintained list. The previous version enumerated every static page inline, which meant
+ * every new page had to be added by hand -- and 26 of them never were, including all eight game
+ * pages, talk-story.html, pidgin-bible.html and the curated /what-does-sarap-mean.html (whose
+ * /word/sarap.html alternative is deliberately suppressed, so the term had no indexable URL at
+ * all). Walking the build output makes that class of drift impossible.
+ *
+ * A page is included unless it opts out, using the signals already present in the markup:
+ *   - <meta name="robots" content="noindex">   -> excluded
+ *   - a canonical pointing at a different URL  -> excluded (premium landing pages already
+ *     absorb their /word/ alternative; -2/-3 slug collisions already point at the base page)
+ *   - a robots.txt Disallow rule               -> excluded
+ *
+ * Priority and changefreq come from path rules plus a small editorial override table. Those
+ * describe *ranking*, not membership, so they cannot cause a page to go missing.
+ *
+ * Must run AFTER all page generators (build.js does this).
  */
 
 const fs = require('fs');
 const path = require('path');
 
-const { createSlug, fetchFromSupabase, premiumPages, getPremiumPage } = require('./shared-utils');
+const { fetchFromSupabase, SITE_URL } = require('./shared-utils');
 
-// Get current date in YYYY-MM-DD format
+const PUBLIC_DIR = path.join(__dirname, '../../public');
+const OUTPUT_PATH = path.join(PUBLIC_DIR, 'sitemap.xml');
+const baseUrl = SITE_URL || 'https://chokepidgin.com';
+
+// A sitemap this much smaller than the build means something upstream failed; refuse to
+// overwrite a good sitemap with a broken one.
+const MIN_EXPECTED_URLS = 500;
+
+// Editorial weighting for hub pages. Membership never depends on this table -- an entry that
+// no longer exists on disk is simply unused, and a page missing from it gets the default.
+const PAGE_RULES = [
+    ['/',                            'weekly',  1.0],
+    ['/english-to-pidgin.html',      'weekly',  0.95],
+    ['/dictionary.html',             'weekly',  0.9],
+    ['/translator.html',             'weekly',  0.9],
+    ['/phrases.html',                'weekly',  0.9],
+    ['/games.html',                  'weekly',  0.9],
+    ['/learning-hub.html',           'weekly',  0.9],
+    ['/pidgin-vs-hawaiian.html',     'monthly', 0.9],
+    ['/pidgin-vs-singlish.html',     'monthly', 0.9],
+    ['/pronunciation-practice.html', 'weekly',  0.85],
+    ['/stories.html',                'weekly',  0.85],
+    ['/blog/',                       'weekly',  0.85],
+    ['/ask-local.html',              'monthly', 0.8],
+    ['/pidgin-heads-up.html',        'monthly', 0.8],
+    ['/pickup-lines.html',           'monthly', 0.75],
+];
+const PAGE_RULE_MAP = new Map(PAGE_RULES.map(([url, changefreq, priority]) => [url, { changefreq, priority }]));
+
+// Curated landing pages that outperform the rest of the "what does X mean" set.
+const HIGH_VALUE_LANDING = new Map([
+    ['/what-does-menpachi-eyes-mean.html', { changefreq: 'weekly',  priority: 0.9 }],
+    ['/what-does-no-ka-oi-mean.html',      { changefreq: 'weekly',  priority: 0.9 }],
+    ['/what-does-akamai-mean.html',        { changefreq: 'weekly',  priority: 0.9 }],
+    ['/what-does-a-hui-hou-mean.html',     { changefreq: 'weekly',  priority: 0.9 }],
+    ['/what-does-aloha-mean.html',         { changefreq: 'monthly', priority: 0.9 }],
+    ['/what-does-ohana-mean.html',         { changefreq: 'monthly', priority: 0.9 }],
+]);
+
+// Section ordering keeps the generated file readable and the diffs small.
+const SECTIONS = [
+    { key: 'root',   label: 'Main Pages & Curated Landing Pages', test: url => !/^\/(word|phrase|story|pickup|blog)\//.test(url) },
+    { key: 'blog',   label: 'Blog',                               test: url => url.startsWith('/blog/') },
+    { key: 'word',   label: 'Individual Dictionary Entry Pages',  test: url => url.startsWith('/word/') },
+    { key: 'phrase', label: 'Individual Phrase Pages',            test: url => url.startsWith('/phrase/') },
+    { key: 'story',  label: 'Individual Story Pages',             test: url => url.startsWith('/story/') },
+    { key: 'pickup', label: 'Individual Pickup Line Pages',       test: url => url.startsWith('/pickup/') },
+];
+
 function getCurrentDate() {
-    const now = new Date();
-    return now.toISOString().split('T')[0];
+    return new Date().toISOString().split('T')[0];
 }
 
-// Generate sitemap XML
-function generateSitemap({ dictionaryEntries, phrases, stories, pickupLines }) {
-    const baseUrl = 'https://chokepidgin.com';
+/**
+ * Collapse the equivalent spellings of one URL (/, /index.html, /x.html, /x/) to a single key
+ * so a self-referencing canonical is recognised as self-referencing.
+ */
+function normalizeUrl(url) {
+    let u = url.trim();
+    u = u.replace(/^https?:\/\/[^/]+/, '');
+    u = u.split(/[?#]/)[0];
+    u = u.replace(/index\.html$/, '');
+    u = u.replace(/\.html$/, '');
+    u = u.replace(/\/+$/, '');
+    return u === '' ? '/' : u;
+}
+
+/** Map a file inside public/ to the URL path it is served at. */
+function fileToUrl(relativePath) {
+    const url = '/' + relativePath.split(path.sep).join('/');
+    if (url === '/index.html') return '/';
+    if (url.endsWith('/index.html')) return url.slice(0, -'index.html'.length);
+    return url;
+}
+
+function walkHtmlFiles(dir, found = []) {
+    for (const name of fs.readdirSync(dir)) {
+        const full = path.join(dir, name);
+        if (fs.statSync(full).isDirectory()) {
+            walkHtmlFiles(full, found);
+        } else if (name.endsWith('.html')) {
+            found.push(path.relative(PUBLIC_DIR, full));
+        }
+    }
+    return found;
+}
+
+/** Paths blocked in robots.txt -- listing them in the sitemap would be a contradictory signal. */
+function readRobotsDisallows() {
+    const robotsPath = path.join(PUBLIC_DIR, 'robots.txt');
+    if (!fs.existsSync(robotsPath)) return [];
+
+    const disallows = [];
+    let inWildcardGroup = false;
+
+    for (const rawLine of fs.readFileSync(robotsPath, 'utf8').split('\n')) {
+        const line = rawLine.replace(/#.*$/, '').trim();
+        if (!line) continue;
+
+        const uaMatch = line.match(/^User-agent:\s*(.+)$/i);
+        if (uaMatch) {
+            inWildcardGroup = uaMatch[1].trim() === '*';
+            continue;
+        }
+
+        const disallowMatch = line.match(/^Disallow:\s*(.+)$/i);
+        if (inWildcardGroup && disallowMatch) {
+            disallows.push(disallowMatch[1].trim());
+        }
+    }
+    return disallows;
+}
+
+function isDisallowed(url, disallows) {
+    return disallows.some(rule => {
+        if (!rule || rule === '/') return false;
+        if (rule.endsWith('$')) {
+            return url.endsWith(rule.slice(0, -1));
+        }
+        return url === rule || url.startsWith(rule);
+    });
+}
+
+/**
+ * Decide whether one built page belongs in the sitemap, reading the opt-out signals already
+ * present in its markup.
+ */
+function classifyPage(relativePath, disallows) {
+    const url = fileToUrl(relativePath);
+    const html = fs.readFileSync(path.join(PUBLIC_DIR, relativePath), 'utf8');
+
+    const robotsMatch = html.match(/<meta\s+name=["']robots["']\s+content=["']([^"']*)["']/i);
+    if (robotsMatch && /noindex/i.test(robotsMatch[1])) {
+        return { url, included: false, reason: 'noindex' };
+    }
+
+    if (isDisallowed(url, disallows)) {
+        return { url, included: false, reason: 'robots.txt' };
+    }
+
+    const canonicalMatch = html.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']*)["']/i);
+    if (canonicalMatch) {
+        const canonical = normalizeUrl(canonicalMatch[1]);
+        if (canonical !== normalizeUrl(url)) {
+            return { url, included: false, reason: 'canonical -> ' + canonical };
+        }
+    } else {
+        return { url, included: false, reason: 'no canonical' };
+    }
+
+    return { url, included: true };
+}
+
+/** Weighting for a URL. wordMeta supplies the frequency/difficulty nuance for /word/ pages. */
+function weightFor(url, wordMeta) {
+    if (PAGE_RULE_MAP.has(url)) return PAGE_RULE_MAP.get(url);
+    if (HIGH_VALUE_LANDING.has(url)) return HIGH_VALUE_LANDING.get(url);
+
+    if (url.startsWith('/word/')) {
+        const meta = wordMeta.get(url.slice('/word/'.length).replace(/\.html$/, ''));
+        if (meta && meta.frequency === 'high') return { changefreq: 'weekly', priority: 0.8 };
+        if (meta && meta.difficulty === 'beginner') return { changefreq: 'monthly', priority: 0.75 };
+        return { changefreq: 'monthly', priority: 0.7 };
+    }
+    if (url.startsWith('/phrase/')) return { changefreq: 'monthly', priority: 0.65 };
+    if (url.startsWith('/story/'))  return { changefreq: 'monthly', priority: 0.75 };
+    if (url.startsWith('/pickup/')) return { changefreq: 'monthly', priority: 0.6 };
+    if (url.startsWith('/blog/'))   return { changefreq: 'monthly', priority: 0.8 };
+    if (/^\/what-does-.+-mean\.html$/.test(url)) return { changefreq: 'monthly', priority: 0.85 };
+
+    return { changefreq: 'monthly', priority: 0.7 };
+}
+
+/**
+ * Per-entry frequency/difficulty, used only for weighting. Best-effort: without it every word
+ * page still ships, just at the default priority.
+ */
+async function loadWordMeta() {
+    const { createSlug } = require('./shared-utils');
+    const wordMeta = new Map();
+    try {
+        const entries = await fetchFromSupabase('dictionary_entries', 'pidgin,frequency,difficulty', 'pidgin.asc');
+        entries.forEach(entry => {
+            if (entry.pidgin) wordMeta.set(createSlug(entry.pidgin), entry);
+        });
+    } catch (error) {
+        console.warn(`⚠️  Could not load dictionary metadata (${error.message}); using default priorities.`);
+    }
+    return wordMeta;
+}
+
+function buildSitemap(includedUrls, wordMeta) {
     const currentDate = getCurrentDate();
+    const remaining = new Set(includedUrls);
 
     let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-
-    <!-- Homepage - Main landing page -->
-    <url>
-        <loc>${baseUrl}/</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>1.0</priority>
-    </url>
-
-    <!-- Dictionary Page - Main feature -->
-    <url>
-        <loc>${baseUrl}/dictionary.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
-    </url>
-
-    <!-- English to Pidgin Page - SEO reverse lookup -->
-    <url>
-        <loc>${baseUrl}/english-to-pidgin.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.95</priority>
-    </url>
-
-    <!-- Translator Page - Dedicated translator tool -->
-    <url>
-        <loc>${baseUrl}/translator.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
-    </url>
-
-    <!-- Phrases Page - Common Hawaiian Pidgin phrases -->
-    <url>
-        <loc>${baseUrl}/phrases.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
-    </url>
-
-    <!-- Games Page - Hawaiian Pidgin word games -->
-    <url>
-        <loc>${baseUrl}/games.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
-    </url>
-
-    <!-- Learning Hub Page - Structured lessons and progress tracking -->
-    <url>
-        <loc>${baseUrl}/learning-hub.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
-    </url>
-
-    <!-- Pronunciation Practice Page - Interactive speech training -->
-    <url>
-        <loc>${baseUrl}/pronunciation-practice.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.85</priority>
-    </url>
-
-    <!-- Pidgin Heads Up Game - Party game -->
-    <url>
-        <loc>${baseUrl}/pidgin-heads-up.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>${baseUrl}/pidgin-vs-hawaiian.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-
-    <url>
-        <loc>${baseUrl}/pidgin-vs-singlish.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-
-    <!-- Ask a Local Page - Community feature -->
-    <url>
-        <loc>${baseUrl}/ask-local.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <!-- Stories Page - Cultural narratives and learning -->
-    <url>
-        <loc>${baseUrl}/stories.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.85</priority>
-    </url>
-
-    <!-- Pickup Lines Page - Fun and engaging content -->
-    <url>
-        <loc>${baseUrl}/pickup-lines.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.75</priority>
-    </url>
-
-    <!-- Blog Section -->
-    <url>
-        <loc>${baseUrl}/blog/</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.85</priority>
-    </url>
-
-    <url>
-        <loc>${baseUrl}/blog/hawaiian-pidgin-beginners-guide.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>${baseUrl}/blog/10-essential-pidgin-phrases-visitors.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>${baseUrl}/blog/pidgin-vs-hawaiian-language.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>${baseUrl}/blog/history-of-hawaiian-pidgin.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <!-- SEO Landing Pages - What Does X Mean -->
-    <url>
-        <loc>${baseUrl}/what-does-da-kine-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-howzit-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-brah-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-shoots-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-pau-hana-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-grindz-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-shaka-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-broke-da-mouth-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-ono-grindz-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-pau-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-choke-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-talk-story-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-mahalo-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-no-worry-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-menpachi-eyes-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-no-ka-oi-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-akamai-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <!-- New SEO Pages based on Search Console Data -->
-    <url>
-        <loc>${baseUrl}/what-does-a-hui-hou-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-ainokea-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-kanak-attack-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-niele-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-pilau-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-sistah-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-moopuna-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-bruddah-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-you-da-man-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-buss-up-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-amped-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-bline-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-mayjah-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-poho-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-faka-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-small-kine-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-pake-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-buggah-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-rajah-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-lolo-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-hamajang-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-humbug-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <!-- High-Volume Keyword SEO Pages -->
-    <url>
-        <loc>${baseUrl}/what-does-aloha-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-ohana-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-haole-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-keiki-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-ono-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-kamaaina-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-wahine-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-stink-eye-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-chicken-skin-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-    <url>
-        <loc>${baseUrl}/what-does-mauka-makai-mean.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.85</priority>
-    </url>
-
 `;
 
-    // Track slugs to prevent duplicates across all types
-    const slugSet = new Set();
-    let entryCount = 0;
-    let phraseCount = 0;
-    let storyCount = 0;
-    let pickupCount = 0;
+    const counts = {};
 
-    // Add individual dictionary entry pages
-    xml += `    <!-- Individual Dictionary Entry Pages -->\n`;
+    for (const section of SECTIONS) {
+        const urls = [...remaining].filter(section.test).sort();
+        urls.forEach(u => remaining.delete(u));
+        counts[section.key] = urls.length;
+        if (urls.length === 0) continue;
 
-    dictionaryEntries.forEach(entry => {
-        // Skip if this word has a premium curated landing page (they are already included as curated URLs)
-        if (getPremiumPage(entry.pidgin)) {
-            return;
-        }
-
-        const slug = createSlug(entry.pidgin);
-        if (slugSet.has('word/' + slug)) return;
-        slugSet.add('word/' + slug);
-        entryCount++;
-
-        let changefreq = 'monthly';
-        let priority = 0.7;
-
-        if (entry.frequency === 'high') {
-            changefreq = 'weekly';
-            priority = 0.8;
-        } else if (entry.difficulty === 'beginner') {
-            priority = 0.75;
-        }
-
-        xml += `    <url>
-        <loc>${baseUrl}/word/${slug}.html</loc>
+        xml += `\n    <!-- ${section.label} -->\n`;
+        for (const url of urls) {
+            const { changefreq, priority } = weightFor(url, wordMeta);
+            xml += `    <url>
+        <loc>${baseUrl}${url}</loc>
         <lastmod>${currentDate}</lastmod>
         <changefreq>${changefreq}</changefreq>
         <priority>${priority}</priority>
     </url>
 `;
-    });
-
-    // Add individual phrase pages
-    xml += `\n    <!-- Individual Phrase Pages -->\n`;
-
-    phrases.forEach(phrase => {
-        const slug = createSlug(phrase.pidgin);
-        if (slugSet.has('phrase/' + slug)) return;
-        slugSet.add('phrase/' + slug);
-        phraseCount++;
-
-        xml += `    <url>
-        <loc>${baseUrl}/phrase/${slug}.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.65</priority>
-    </url>
-`;
-    });
-
-    // Add individual story pages
-    xml += `\n    <!-- Individual Story Pages -->\n`;
-
-    stories.forEach(story => {
-        const slug = createSlug(story.title);
-        if (slugSet.has('story/' + slug)) return;
-        slugSet.add('story/' + slug);
-        storyCount++;
-
-        xml += `    <url>
-        <loc>${baseUrl}/story/${slug}.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.75</priority>
-    </url>
-`;
-    });
-
-    // Add individual pickup line pages
-    xml += `\n    <!-- Individual Pickup Line Pages -->\n`;
-
-    pickupLines.forEach(line => {
-        const slug = createSlug(line.pidgin.substring(0, 50));
-        if (slugSet.has('pickup/' + slug)) return;
-        slugSet.add('pickup/' + slug);
-        pickupCount++;
-
-        xml += `    <url>
-        <loc>${baseUrl}/pickup/${slug}.html</loc>
-        <lastmod>${currentDate}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-`;
-    });
+        }
+    }
 
     xml += `
 </urlset>`;
 
-    return { xml, entryCount, phraseCount, storyCount, pickupCount };
+    return { xml, counts };
 }
 
-// Main execution
 async function main() {
-    console.log('🗺️  Generating sitemap.xml...\n');
+    console.log('🗺️  Generating sitemap.xml from built output...\n');
 
-    try {
-        // Fetch all content types in parallel
-        const [dictionaryEntries, phrases, stories, pickupLines] = await Promise.all([
-            fetchFromSupabase('dictionary_entries', 'pidgin,frequency,difficulty', 'pidgin.asc'),
-            fetchFromSupabase('phrases', 'pidgin', 'pidgin.asc'),
-            fetchFromSupabase('stories', 'title', 'title.asc'),
-            fetchFromSupabase('pickup_lines', 'pidgin', 'pidgin.asc')
-        ]);
+    if (!fs.existsSync(PUBLIC_DIR)) {
+        throw new Error(`public/ does not exist -- run the build before generating the sitemap.`);
+    }
 
-        console.log(`📊 Fetched: ${dictionaryEntries.length} dictionary entries, ${phrases.length} phrases, ${stories.length} stories, ${pickupLines.length} pickup lines\n`);
+    const disallows = readRobotsDisallows();
+    const htmlFiles = walkHtmlFiles(PUBLIC_DIR);
+    console.log(`📂 Scanned ${htmlFiles.length} built HTML pages`);
 
-        if (dictionaryEntries.length === 0) {
-            throw new Error('No dictionary entries found in Supabase');
-        }
+    const classified = htmlFiles.map(f => classifyPage(f, disallows));
+    const included = classified.filter(p => p.included).map(p => p.url);
+    const excluded = classified.filter(p => !p.included);
 
-        const { xml, entryCount, phraseCount, storyCount, pickupCount } = generateSitemap({
-            dictionaryEntries,
-            phrases,
-            stories,
-            pickupLines
-        });
+    if (included.length < MIN_EXPECTED_URLS) {
+        throw new Error(`Only ${included.length} indexable pages found (expected at least ${MIN_EXPECTED_URLS}). Refusing to write a truncated sitemap.`);
+    }
 
-        // Write sitemap
-        const outputPath = path.join(__dirname, '../../public/sitemap.xml');
-        fs.writeFileSync(outputPath, xml, 'utf8');
+    const wordMeta = await loadWordMeta();
+    const { xml, counts } = buildSitemap(included, wordMeta);
 
-        const staticPages = 57; // main pages + blog + SEO landing pages
-        const totalUrls = staticPages + entryCount + phraseCount + storyCount + pickupCount;
+    fs.writeFileSync(OUTPUT_PATH, xml, 'utf8');
 
-        console.log('✅ Sitemap generated successfully!');
-        console.log(`📄 Total URLs: ${totalUrls}`);
-        console.log(`   - Static pages: ${staticPages}`);
-        console.log(`   - Dictionary entries: ${entryCount}`);
-        console.log(`   - Phrases: ${phraseCount}`);
-        console.log(`   - Stories: ${storyCount}`);
-        console.log(`   - Pickup lines: ${pickupCount}`);
-        console.log(`📂 Output: ${outputPath}`);
-        console.log(`\n🔗 Submit to search engines:`);
-        console.log(`   - Google: https://search.google.com/search-console`);
-        console.log(`   - Bing: https://www.bing.com/webmasters`);
-        console.log(`   - Sitemap URL: https://chokepidgin.com/sitemap.xml`);
+    const reasons = excluded.reduce((acc, p) => {
+        const key = p.reason.startsWith('canonical') ? 'canonical elsewhere' : p.reason;
+        acc[key] = (acc[key] || 0) + 1;
+        return acc;
+    }, {});
 
-    } catch (error) {
+    console.log('\n✅ Sitemap generated successfully!');
+    console.log(`📄 Total URLs: ${included.length}`);
+    Object.entries(counts).forEach(([key, n]) => console.log(`   - ${key}: ${n}`));
+    console.log(`\n🚫 Excluded ${excluded.length} pages:`);
+    Object.entries(reasons).forEach(([reason, n]) => console.log(`   - ${reason}: ${n}`));
+    console.log(`\n📂 Output: ${OUTPUT_PATH}`);
+    console.log(`🔗 Sitemap URL: ${baseUrl}/sitemap.xml`);
+}
+
+if (require.main === module) {
+    main().catch(error => {
         console.error('❌ Fatal error:', error.message);
         process.exit(1);
-    }
+    });
 }
 
-main();
+module.exports = { normalizeUrl, fileToUrl, classifyPage, readRobotsDisallows, isDisallowed, weightFor };

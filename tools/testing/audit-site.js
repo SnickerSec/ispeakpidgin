@@ -13,6 +13,11 @@
 const fs = require('fs');
 const path = require('path');
 
+// The sitemap generator owns the include/exclude rules; importing them means this audit checks
+// that sitemap.xml matches what the current build would produce, rather than restating the rules
+// and drifting from them.
+const { classifyPage, readRobotsDisallows } = require('../generators/generate-sitemap');
+
 // Configuration
 const PUBLIC_DIR = path.join(__dirname, '../../public');
 const SITE_URL = 'https://chokepidgin.com';
@@ -146,6 +151,57 @@ function auditHTMLFile(filePath) {
 }
 
 /**
+ * Verify sitemap.xml still covers the site.
+ *
+ * Two failures matter and neither shows up as a broken link: an indexable page that exists in the
+ * build but is missing from the sitemap (26 pages had drifted this way, including every game page
+ * and the curated /what-does-sarap-mean.html), and a sitemap entry that no longer resolves to a
+ * file. Both mean the sitemap was not regenerated after the build.
+ */
+function auditSitemap() {
+    const issues = [];
+    const sitemapPath = path.join(PUBLIC_DIR, 'sitemap.xml');
+
+    if (!fs.existsSync(sitemapPath)) {
+        issues.push('sitemap.xml is missing from public/ - run: npm run generate:sitemap');
+        return issues;
+    }
+
+    const xml = fs.readFileSync(sitemapPath, 'utf8');
+    const listed = new Set(
+        [...xml.matchAll(/<loc>([^<]*)<\/loc>/g)].map(m => m[1].replace(SITE_URL, '') || '/')
+    );
+
+    const disallows = readRobotsDisallows();
+    const htmlFiles = Array.from(existingFiles).filter(f => f.endsWith('.html'));
+
+    // Every indexable built page must be listed.
+    const missing = [];
+    for (const file of htmlFiles) {
+        const page = classifyPage(file.replace(/^\//, ''), disallows);
+        if (page.included && !listed.has(page.url)) missing.push(page.url);
+    }
+
+    // Every listed URL must resolve to a built file.
+    const dead = [];
+    for (const url of listed) {
+        const asFile = url === '/' ? '/index.html'
+            : url.endsWith('/') ? url + 'index.html'
+            : url;
+        if (!existingFiles.has(asFile)) dead.push(url);
+    }
+
+    if (missing.length > 0) {
+        issues.push(`${missing.length} indexable page(s) missing from sitemap.xml: ${missing.slice(0, 5).join(', ')}${missing.length > 5 ? ', ...' : ''}`);
+    }
+    if (dead.length > 0) {
+        issues.push(`${dead.length} sitemap URL(s) do not resolve to a built page: ${dead.slice(0, 5).join(', ')}${dead.length > 5 ? ', ...' : ''}`);
+    }
+
+    return issues;
+}
+
+/**
  * Main execution
  */
 async function runAudit() {
@@ -183,17 +239,28 @@ async function runAudit() {
         }
     }
 
-    // Step 4: Report
+    // Step 4: Validate sitemap coverage
+    console.log('🗺️  Checking sitemap coverage...');
+    const sitemapIssues = auditSitemap();
+
+    // Step 5: Report
     console.log('\n=======================================');
     console.log('REPORT');
     console.log('=======================================');
     console.log(`Pages Audited:    ${stats.pagesChecked}`);
     console.log(`Links Validated:  ${stats.linksChecked}`);
     console.log(`Broken Links:     ${brokenLinks.length}`);
-    
-    const totalErrors = results.reduce((acc, r) => acc + r.errors.length, 0) + brokenLinks.length;
+    console.log(`Sitemap Issues:   ${sitemapIssues.length}`);
+
+    const totalErrors = results.reduce((acc, r) => acc + r.errors.length, 0) + brokenLinks.length + sitemapIssues.length;
     console.log(`Total Critical:   ${totalErrors}`);
     console.log('=======================================\n');
+
+    if (sitemapIssues.length > 0) {
+        console.log('❌ SITEMAP COVERAGE:');
+        sitemapIssues.forEach(issue => console.log(`  - ${issue}`));
+        console.log('');
+    }
 
     if (brokenLinks.length > 0) {
         console.log('❌ BROKEN INTERNAL LINKS:');
@@ -212,6 +279,12 @@ async function runAudit() {
             page.errors.forEach(err => console.log(`    - ${err}`));
         });
         if (pagesWithErrors.length > 10) console.log(`  ... and ${pagesWithErrors.length - 10} more pages.`);
+    }
+
+    if (totalErrors > 0) {
+        console.log(`\n❌ Audit failed with ${totalErrors} critical issue(s).`);
+        process.exitCode = 1;
+        return;
     }
 
     console.log('\n✅ Audit complete!');
