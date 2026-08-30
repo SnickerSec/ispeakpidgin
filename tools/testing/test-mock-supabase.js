@@ -5,10 +5,11 @@
  */
 
 const assert = require('assert').strict;
-const { supabase } = require('../../config/supabase');
+const { MockSupabaseClient } = require('../../config/supabase');
 
 async function testQueryBuilder() {
     console.log('🧪 Testing Upgraded MockSupabaseClient / MockQueryBuilder...\n');
+    const supabase = new MockSupabaseClient();
 
     // 1. Test basic select
     console.log('1. Testing basic select...');
