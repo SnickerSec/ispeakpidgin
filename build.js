@@ -778,6 +778,9 @@ async function build() {
             console.error('❌ Error during premium link correction:', err.message);
         }
 
+        // Fingerprint local script/stylesheet URLs so every cache layer fetches fresh copies
+        versionAssetUrls();
+
         // Run link checker on the compiled public/ directory
         checkLinks();
 
@@ -788,6 +791,44 @@ async function build() {
         console.error('❌ Build failed:', error.message);
         process.exit(1);
     }
+}
+
+// Append ?v=<content hash> to every local .js/.css reference in the built HTML.
+// HTML is never cached, but scripts are (Cloudflare edge, browser max-age, and the service
+// worker's stale-while-revalidate). Unversioned URLs let a fresh page run against a stale
+// script after a deploy; a content-hashed URL is a new cache key the moment a file changes.
+function versionAssetUrls() {
+    const crypto = require('crypto');
+    const publicDir = path.resolve(config.publicDir);
+    const hashes = new Map();
+    const assetRef = /(<(?:script|link)\b[^>]*?\b(?:src|href)=)(["'])([^"'?#]+\.(?:js|css))\2/g;
+
+    const hashFor = (absPath) => {
+        if (!hashes.has(absPath)) {
+            hashes.set(absPath, fs.existsSync(absPath)
+                ? crypto.createHash('md5').update(fs.readFileSync(absPath)).digest('hex').slice(0, 10)
+                : null);
+        }
+        return hashes.get(absPath);
+    };
+
+    let filesChanged = 0;
+    for (const htmlPath of getHtmlFiles(publicDir)) {
+        const html = fs.readFileSync(htmlPath, 'utf8');
+        const versioned = html.replace(assetRef, (match, prefix, quote, url) => {
+            if (/^(?:[a-z]+:)?\/\//i.test(url)) return match; // external
+            const absPath = url.startsWith('/')
+                ? path.join(publicDir, url)
+                : path.resolve(path.dirname(htmlPath), url);
+            const hash = hashFor(absPath);
+            return hash ? `${prefix}${quote}${url}?v=${hash}${quote}` : match;
+        });
+        if (versioned !== html) {
+            fs.writeFileSync(htmlPath, versioned);
+            filesChanged++;
+        }
+    }
+    console.log(`🔖 Versioned asset URLs in ${filesChanged} HTML files`);
 }
 
 // Helper to recursively list HTML files in a directory
