@@ -622,7 +622,7 @@ nav {
 }
 
 /* Hawaiian styled buttons - exclude nav buttons */
-button:not(.nav-link):not(.mobile-dropdown-btn):not(.nav-menu-trigger):not(#nav-search-btn):not(#mobile-menu-btn):not(#close-mobile-menu):not(#close-search) {
+button:not(.nav-link):not(.mobile-dropdown-btn):not(.nav-menu-trigger):not(.nav-search-trigger):not(#mobile-menu-btn):not(#close-mobile-menu):not(#close-search):not(.account-menu-trigger):not(.account-logout) {
     position: relative;
     overflow: hidden;
     font-weight: 600;
@@ -640,7 +640,7 @@ button:not(.nav-link):not(.mobile-dropdown-btn):not(.nav-menu-trigger):not(#nav-
     box-shadow: 0 4px 15px rgba(30, 107, 168, 0.3);
 }
 
-button:not(.nav-link):not(.mobile-dropdown-btn):not(.nav-menu-trigger):not(#nav-search-btn):not(#mobile-menu-btn):not(#close-mobile-menu):not(#close-search)::after {
+button:not(.nav-link):not(.mobile-dropdown-btn):not(.nav-menu-trigger):not(.nav-search-trigger):not(#mobile-menu-btn):not(#close-mobile-menu):not(#close-search):not(.account-menu-trigger):not(.account-logout)::after {
     content: '';
     position: absolute;
     top: 50%;
@@ -653,7 +653,7 @@ button:not(.nav-link):not(.mobile-dropdown-btn):not(.nav-menu-trigger):not(#nav-
     transition: width 0.6s, height 0.6s;
 }
 
-button:not(.nav-link):not(.mobile-dropdown-btn):not(.nav-menu-trigger):not(#nav-search-btn):not(#mobile-menu-btn):not(#close-mobile-menu):not(#close-search)::before {
+button:not(.nav-link):not(.mobile-dropdown-btn):not(.nav-menu-trigger):not(.nav-search-trigger):not(#mobile-menu-btn):not(#close-mobile-menu):not(#close-search):not(.account-menu-trigger):not(.account-logout)::before {
     content: '🌊';
     position: absolute;
     font-size: 150px;
@@ -665,12 +665,12 @@ button:not(.nav-link):not(.mobile-dropdown-btn):not(.nav-menu-trigger):not(#nav-
     pointer-events: none;
 }
 
-button:not(.nav-link):not(.mobile-dropdown-btn):not(.nav-menu-trigger):not(#nav-search-btn):not(#mobile-menu-btn):not(#close-mobile-menu):not(#close-search):active::after {
+button:not(.nav-link):not(.mobile-dropdown-btn):not(.nav-menu-trigger):not(.nav-search-trigger):not(#mobile-menu-btn):not(#close-mobile-menu):not(#close-search):not(.account-menu-trigger):not(.account-logout):active::after {
     width: 400px;
     height: 400px;
 }
 
-button:not(.nav-link):not(.mobile-dropdown-btn):not(.nav-menu-trigger):not(#nav-search-btn):not(#mobile-menu-btn):not(#close-mobile-menu):not(#close-search):hover::before {
+button:not(.nav-link):not(.mobile-dropdown-btn):not(.nav-menu-trigger):not(.nav-search-trigger):not(#mobile-menu-btn):not(#close-mobile-menu):not(#close-search):not(.account-menu-trigger):not(.account-logout):hover::before {
     opacity: 0.1;
     transform: translate(-50%, -50%) scale(1);
 }
@@ -855,6 +855,21 @@ button:focus, a:focus, input:focus, textarea:focus {
     outline: 3px solid #ff6b6b;
     outline-offset: 2px;
     box-shadow: 0 0 0 6px rgba(255, 107, 107, 0.1);
+}
+
+/* Nav account menu (shadcn-style Avatar + DropdownMenu): subtle focus ring for keyboard
+   users only, matching the rest of the nav instead of the global coral outline. */
+.account-menu-trigger:focus,
+.account-logout:focus,
+.account-menu-content a:focus {
+    outline: none;
+    box-shadow: none;
+}
+.account-menu-trigger[data-state="open"] .account-avatar {
+    box-shadow: 0 0 0 2px #0f172a, 0 0 0 4px #475569;
+}
+.account-menu-trigger:focus-visible .account-avatar {
+    box-shadow: 0 0 0 2px #0f172a, 0 0 0 4px #3b82f6;
 }
 
 /* Hawaiian loading spinner */

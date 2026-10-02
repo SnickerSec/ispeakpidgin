@@ -252,6 +252,13 @@
                             <span>Pidgin Bible</span>
                         </a>
                     </li>
+
+                    <!-- Search (desktop) -->
+                    <li>
+                        <button id="nav-search-btn" class="nav-search-trigger inline-flex h-9 w-9 items-center justify-center rounded-md text-slate-300 transition-colors hover:bg-slate-800 hover:text-slate-100 focus:bg-slate-800 focus:text-slate-100 focus:outline-none" title="Quick Search" aria-label="Search">
+                            <iconify-icon icon="lucide:search" class="text-base block"></iconify-icon>
+                        </button>
+                    </li>
                 </ul>
             </div>
 
@@ -260,8 +267,8 @@
                 <!-- Auth Container -->
                 <div class="auth-nav-container"></div>
 
-                <!-- Search Button (Trigger) -->
-                <button id="nav-search-btn" class="inline-flex h-9 w-9 items-center justify-center rounded-md text-slate-300 hover:bg-slate-800 hover:text-slate-100 transition-colors focus:outline-none" title="Quick Search" aria-label="Search">
+                <!-- Search Button (below lg the desktop menu is hidden, so search lives here) -->
+                <button class="nav-search-trigger lg:hidden inline-flex h-9 w-9 items-center justify-center rounded-md text-slate-300 hover:bg-slate-800 hover:text-slate-100 transition-colors focus:outline-none" title="Quick Search" aria-label="Search">
                     <iconify-icon icon="lucide:search" class="text-lg block"></iconify-icon>
                 </button>
 

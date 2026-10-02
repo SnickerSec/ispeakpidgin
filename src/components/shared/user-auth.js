@@ -113,20 +113,91 @@ const UserAuth = {
         return this.token ? { 'Authorization': `Bearer ${this.token}` } : {};
     },
 
+    // shadcn/ui Avatar + DropdownMenu, ported to plain markup with the same Tailwind classes
+    // (Avatar / AvatarImage / AvatarFallback, DropdownMenuContent / Label / Separator / Item).
+    renderAccountMenu(container) {
+        const user = this.user || {};
+        const displayName = user.display_name || 'My Account';
+        const initials = displayName.split(/\s+/).filter(Boolean).slice(0, 2)
+            .map(word => word[0].toUpperCase()).join('') || (user.email || '?')[0].toUpperCase();
+        const avatarUrl = /^https:\/\//.test(user.avatar_url || '') ? user.avatar_url : '';
+        const itemClass = 'relative flex w-full cursor-pointer select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm text-slate-200 outline-none transition-colors hover:bg-slate-800 hover:text-slate-50 focus:bg-slate-800 focus:text-slate-50';
+
+        container.innerHTML = `
+            <div class="relative">
+                <button type="button" class="account-menu-trigger flex items-center justify-center rounded-full"
+                        aria-haspopup="menu" aria-expanded="false" data-state="closed" aria-label="Account menu for ${escapeHtml(displayName)}">
+                    <span class="account-avatar relative flex size-8 shrink-0 overflow-hidden rounded-full transition-shadow">
+                        ${avatarUrl ? `<img class="account-avatar-image aspect-square size-full object-cover" src="${escapeHtml(avatarUrl)}" alt="" referrerpolicy="no-referrer">` : ''}
+                        <span class="account-avatar-fallback ${avatarUrl ? 'hidden' : 'flex'} size-full items-center justify-center rounded-full bg-slate-700 text-xs font-semibold text-slate-100">${escapeHtml(initials)}</span>
+                    </span>
+                </button>
+                <div class="account-menu-content hidden absolute right-0 top-full z-50 mt-2 min-w-56 overflow-hidden rounded-md border border-slate-700 bg-slate-950 p-1 text-slate-100 shadow-md" role="menu">
+                    <div class="px-2 py-1.5">
+                        <p class="truncate text-sm font-medium text-slate-100">${escapeHtml(displayName)}</p>
+                        ${user.email ? `<p class="truncate text-xs text-slate-400">${escapeHtml(user.email)}</p>` : ''}
+                    </div>
+                    <div class="-mx-1 my-1 h-px bg-slate-800" role="separator"></div>
+                    <a href="/my-collection.html" class="${itemClass}" role="menuitem">
+                        <iconify-icon icon="lucide:bookmark" class="text-amber-400"></iconify-icon> My Collection
+                    </a>
+                    <div class="-mx-1 my-1 h-px bg-slate-800" role="separator"></div>
+                    <button type="button" class="account-logout ${itemClass}" role="menuitem">
+                        <iconify-icon icon="lucide:log-out" class="text-slate-400"></iconify-icon> Log out
+                    </button>
+                </div>
+            </div>
+        `;
+
+        const trigger = container.querySelector('.account-menu-trigger');
+        const menu = container.querySelector('.account-menu-content');
+        const image = container.querySelector('.account-avatar-image');
+
+        // AvatarFallback behavior: show initials until (or unless) the photo loads
+        if (image) {
+            image.addEventListener('error', () => {
+                image.remove();
+                container.querySelector('.account-avatar-fallback').classList.replace('hidden', 'flex');
+            });
+        }
+
+        const setOpen = (open) => {
+            menu.classList.toggle('hidden', !open);
+            menu.style.transform = '';
+            if (open) {
+                // right-aligned to the avatar, but never past the left edge on narrow screens
+                const overflow = 8 - menu.getBoundingClientRect().left;
+                if (overflow > 0) menu.style.transform = `translateX(${overflow}px)`;
+            }
+            trigger.setAttribute('aria-expanded', String(open));
+            trigger.dataset.state = open ? 'open' : 'closed';
+        };
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            setOpen(menu.classList.contains('hidden'));
+        });
+        menu.addEventListener('click', (e) => e.stopPropagation());
+        container.querySelector('.account-logout').addEventListener('click', () => this.logout());
+
+        if (!this._accountMenuDismissBound) {
+            this._accountMenuDismissBound = true;
+            const closeAll = () => document.querySelectorAll('.account-menu-content').forEach(el => {
+                el.classList.add('hidden');
+                const t = el.parentElement.querySelector('.account-menu-trigger');
+                t.setAttribute('aria-expanded', 'false');
+                t.dataset.state = 'closed';
+            });
+            document.addEventListener('click', closeAll);
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
+        }
+    },
+
     updateUI() {
         // Shared UI elements like "Login" vs "My Account" in header
         const authContainers = document.querySelectorAll('.auth-nav-container');
         authContainers.forEach(container => {
             if (this.isLoggedIn()) {
-                const displayName = this.user?.display_name || 'My Account';
-                container.innerHTML = `
-                    <div class="flex items-center gap-3">
-                        <a href="/my-collection.html" class="text-sm font-bold text-slate-200 hover:text-blue-400 transition flex items-center gap-1">
-                            <iconify-icon icon="lucide:bookmark" class="text-amber-400"></iconify-icon> ${escapeHtml(displayName)}
-                        </a>
-                        <button onclick="UserAuth.logout()" class="text-xs text-slate-400 hover:text-red-400 transition">Logout</button>
-                    </div>
-                `;
+                this.renderAccountMenu(container);
             } else {
                 // The Login link stays as the fallback if Google's script is blocked or fails
                 container.innerHTML = `

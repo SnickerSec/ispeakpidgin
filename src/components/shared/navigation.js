@@ -127,15 +127,15 @@
         localStorage.removeItem('pidgin_theme');
 
         // Quick Search Overlay Logic
-        const searchBtn = document.getElementById('nav-search-btn');
+        const searchBtns = document.querySelectorAll('.nav-search-trigger');
         const searchOverlay = document.getElementById('search-overlay');
         const searchInput = document.getElementById('nav-search-input');
         const closeSearch = document.getElementById('close-search');
         const searchResults = document.getElementById('search-results');
         const searchPlaceholder = document.getElementById('search-placeholder');
 
-        if (searchBtn && searchOverlay) {
-            searchBtn.addEventListener('click', (e) => {
+        if (searchBtns.length && searchOverlay) {
+            searchBtns.forEach(btn => btn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 searchOverlay.classList.remove('hidden');
                 if (searchInput) searchInput.focus();
@@ -145,7 +145,7 @@
                 if (window.pidginDataLoader && !window.pidginDataLoader.loaded) {
                     window.pidginDataLoader.autoLoad();
                 }
-            });
+            }));
 
             const hideSearch = () => {
                 searchOverlay.classList.add('hidden');
