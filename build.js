@@ -208,7 +208,6 @@ const pathMappings = {
     'js/phrases-data.js': 'js/data/phrases-data.js',
     'js/data/phrases-loader.js': 'js/data/phrases-loader.js',
     'js/comprehensive-pidgin-data.js': 'js/data/comprehensive-pidgin-data.js',
-    'js/stories-data.js': 'js/data/stories-data.js',
     'js/pickup-lines.js': 'js/components/pickup-lines.js',
     'js/pickup-line-generator.js': 'js/components/pickup-line-generator.js',
     'js/pickup-line-generator-page.js': 'js/components/pickup-line-generator-page.js',
