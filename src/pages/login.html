@@ -51,10 +51,8 @@
     <!-- FOOTER_PLACEHOLDER -->
 
     <!-- Components & Auth Scripts -->
-    <script src="js/components/user-auth.js"></script>
     <script src="js/components/favorites-manager.js"></script>
     <script src="js/main.js" defer></script>
-    <script src="https://accounts.google.com/gsi/client" async></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const authError = document.getElementById('auth-error');
@@ -79,63 +77,29 @@
                 authError.classList.add('hidden');
             };
 
-            const handleCredential = async (response) => {
-                authError.classList.add('hidden');
-                try {
-                    const data = await window.UserAuth.loginWithGoogle(response.credential);
-                    showSuccess(data.isNewUser
-                        ? 'Mahalo! Account created. Welcome to da ohana!'
-                        : 'Aloha! Signed in successfully. Redirecting...');
-                    if (window.favoritesManager) await window.favoritesManager.syncFromCloud();
-                    setTimeout(() => {
-                        window.location.href = '/my-collection.html';
-                    }, 500);
-                } catch (err) {
-                    showError(err.message || 'Google authentication failed');
-                }
-            };
-
-            let clientId = null;
-            try {
-                const res = await fetch('/api/user/auth-config');
-                clientId = (await res.json()).googleClientId;
-            } catch (e) {
-                // handled below
-            }
-            if (!clientId) {
-                showError('Sign-in is temporarily unavailable. Please try again later.');
-                return;
-            }
-
-            // The GSI script loads async; wait for it before rendering the button
-            const waitForGoogle = () => new Promise((resolve, reject) => {
-                const started = Date.now();
-                (function check() {
-                    if (window.google?.accounts?.id) return resolve();
-                    if (Date.now() - started > 10000) return reject(new Error('timeout'));
-                    setTimeout(check, 100);
-                })();
+            window.addEventListener('googleSignIn', (e) => {
+                showSuccess(e.detail.isNewUser
+                    ? 'Mahalo! Account created. Welcome to da ohana!'
+                    : 'Aloha! Signed in successfully. Redirecting...');
+                setTimeout(() => {
+                    window.location.href = '/my-collection.html';
+                }, 500);
+            });
+            window.addEventListener('googleSignInError', (e) => {
+                showError(e.detail?.message || 'Google authentication failed');
             });
 
             try {
-                await waitForGoogle();
-            } catch (e) {
-                showError('Could not load Google Sign-In. Check your connection or disable blockers for this site.');
-                return;
+                await window.UserAuth.renderGoogleButton(buttonContainer, {
+                    theme: 'outline',
+                    size: 'large',
+                    shape: 'pill',
+                    text: 'continue_with',
+                    width: Math.min(buttonContainer.offsetWidth || 320, 400)
+                });
+            } catch (err) {
+                showError(err.message);
             }
-
-            google.accounts.id.initialize({
-                client_id: clientId,
-                callback: handleCredential,
-                ux_mode: 'popup'
-            });
-            google.accounts.id.renderButton(buttonContainer, {
-                theme: 'outline',
-                size: 'large',
-                shape: 'pill',
-                text: 'continue_with',
-                width: Math.min(buttonContainer.offsetWidth || 320, 400)
-            });
         });
     </script>
 </body>

@@ -38,6 +38,56 @@ const UserAuth = {
         }
     },
 
+    // Loads Google Identity Services once per page and initializes it with the site's
+    // client ID. Every Google button on the page shares this single initialization.
+    loadGoogle() {
+        if (!this._googleReady) {
+            this._googleReady = (async () => {
+                const res = await fetch('/api/user/auth-config');
+                const { googleClientId } = await res.json();
+                if (!googleClientId) throw new Error('Sign-in is temporarily unavailable. Please try again later.');
+
+                if (!window.google?.accounts?.id) {
+                    await new Promise((resolve, reject) => {
+                        const script = document.createElement('script');
+                        script.src = 'https://accounts.google.com/gsi/client';
+                        script.async = true;
+                        script.onload = resolve;
+                        script.onerror = () => reject(new Error('Could not load Google Sign-In. Check your connection or disable blockers for this site.'));
+                        document.head.appendChild(script);
+                    });
+                }
+
+                google.accounts.id.initialize({
+                    client_id: googleClientId,
+                    callback: (response) => this.handleGoogleCredential(response),
+                    ux_mode: 'popup'
+                });
+            })().catch(error => {
+                this._googleReady = null; // allow a retry on the next render
+                throw error;
+            });
+        }
+        return this._googleReady;
+    },
+
+    async renderGoogleButton(element, options) {
+        await this.loadGoogle();
+        element.innerHTML = '';
+        google.accounts.id.renderButton(element, options);
+    },
+
+    // Pages listen for 'googleSignIn' / 'googleSignInError' to react (e.g. redirect, show errors)
+    async handleGoogleCredential(response) {
+        try {
+            const data = await this.loginWithGoogle(response.credential);
+            if (window.favoritesManager) await window.favoritesManager.syncFromCloud();
+            window.dispatchEvent(new CustomEvent('googleSignIn', { detail: data }));
+        } catch (error) {
+            window.dispatchEvent(new CustomEvent('googleSignInError', { detail: error }));
+        }
+    },
+
     logout() {
         this.token = null;
         this.user = null;
@@ -78,11 +128,28 @@ const UserAuth = {
                     </div>
                 `;
             } else {
+                // The Login link stays as the fallback if Google's script is blocked or fails
                 container.innerHTML = `
                     <a href="/login.html" class="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold hover:bg-blue-700 transition shadow-sm">
                         Login
                     </a>
                 `;
+                const swapInGoogleButton = () => {
+                    if (this.isLoggedIn()) return;
+                    this.renderGoogleButton(container, {
+                        type: 'standard',
+                        size: 'small',
+                        theme: 'filled_black',
+                        shape: 'pill',
+                        text: 'signin'
+                    }).catch(() => {});
+                };
+                // Defer the third-party script so it never competes with page load
+                if ('requestIdleCallback' in window) {
+                    requestIdleCallback(swapInGoogleButton, { timeout: 3000 });
+                } else {
+                    setTimeout(swapInGoogleButton, 1500);
+                }
             }
         });
     }

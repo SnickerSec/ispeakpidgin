@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const emptyState = document.getElementById('empty-state');
     const userInfo = document.getElementById('user-info');
 
+    // Signing in from the nav button: reload to show the synced cloud collection
+    window.addEventListener('googleSignIn', () => window.location.reload());
+
     const init = async () => {
         const clearAllBtn = document.getElementById('clear-all-btn');
         if (clearAllBtn) {
