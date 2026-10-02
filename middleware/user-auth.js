@@ -3,26 +3,16 @@
  * Handles JWT authentication for regular users
  */
 
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 
 // Configuration
-const BCRYPT_ROUNDS = 12;
 const JWT_EXPIRY = '30d'; // Longer for regular users
 
 let supabaseAdmin = null;
 
 function initializeAuth(client) {
     supabaseAdmin = client;
-}
-
-async function hashPassword(password) {
-    return bcrypt.hash(password, BCRYPT_ROUNDS);
-}
-
-async function verifyPassword(password, hash) {
-    return bcrypt.compare(password, hash);
 }
 
 function generateToken(user) {
@@ -116,8 +106,6 @@ async function requireUserAuth(req, res, next) {
 
 module.exports = {
     initializeAuth,
-    hashPassword,
-    verifyPassword,
     generateToken,
     requireUserAuth,
     createSession

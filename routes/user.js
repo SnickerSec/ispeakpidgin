@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const { body, validationResult } = require('express-validator');
 const rateLimit = require('express-rate-limit');
 const userAuth = require('../middleware/user-auth');
 const { OAuth2Client } = require('google-auth-library');
@@ -18,223 +17,87 @@ const rl = rateLimit({
 module.exports = function(supabaseAdmin, gamificationService) {
     userAuth.initializeAuth(supabaseAdmin);
 
-    // POST /api/user/register
-    router.post('/register', rl, [
-        body('email').isEmail().normalizeEmail(),
-        body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
-        body('display_name').trim().notEmpty().withMessage('Display name is required').custom(value => {
-            if (/[<>]/.test(value)) {
-                throw new Error('Display name cannot contain < or > characters');
-            }
-            return true;
-        })
-    ], async (req, res) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ error: errors.array()[0].msg, errors: errors.array() });
-        }
-
-        const { email, password, display_name } = req.body;
-
-        try {
-            // Check if user exists
-            const { data: existing } = await supabaseAdmin
-                .from('user_profiles')
-                .select('id')
-                .eq('email', email)
-                .maybeSingle();
-            
-            if (existing) {
-                return res.status(400).json({ error: 'Email already registered. Try logging in!' });
-            }
-
-            const hash = await userAuth.hashPassword(password);
-            
-            const { data: user, error } = await supabaseAdmin
-                .from('user_profiles')
-                .insert([{
-                    email,
-                    password_hash: hash,
-                    display_name: display_name.trim(),
-                    created_at: new Date().toISOString(),
-                    updated_at: new Date().toISOString()
-                }])
-                .select('id, email, display_name, current_rank, total_xp')
-                .single();
-
-            if (error) {
-                console.error('Registration insert error:', error);
-                return res.status(500).json({ error: 'Failed to create user profile: ' + error.message });
-            }
-
-            // Gamification: Award registration XP and badge
-            if (gamificationService) {
-                try {
-                    await gamificationService.awardXP(user.id, 50, 'registration');
-                    await gamificationService.awardBadge(user.id, 'malahini_arrival');
-                } catch (gameErr) {
-                    console.error('Gamification award error:', gameErr.message);
-                }
-            }
-
-            const token = userAuth.generateToken(user);
-            await userAuth.createSession(user.id, token, req);
-
-            res.status(201).json({ 
-                user: { 
-                    id: user.id, 
-                    email: user.email, 
-                    display_name: user.display_name,
-                    current_rank: user.current_rank || 'Malahini',
-                    total_xp: user.total_xp || 50
-                }, 
-                token 
-            });
-        } catch (error) {
-            console.error('Registration exception:', error);
-            res.status(500).json({ error: error.message || 'Registration failed' });
-        }
-    });
-
-    // POST /api/user/login
-    router.post('/login', rl, async (req, res) => {
-        const { email, password } = req.body;
-
-        if (!email || !password) {
-            return res.status(400).json({ error: 'Email and password are required' });
-        }
-
-        try {
-            const { data: user, error } = await supabaseAdmin
-                .from('user_profiles')
-                .select('*')
-                .eq('email', email.trim().toLowerCase())
-                .maybeSingle();
-
-            if (error || !user) {
-                return res.status(401).json({ error: 'Invalid email or password' });
-            }
-
-            if (!user.password_hash) {
-                return res.status(401).json({ error: 'This account was created with Google Sign-In. Please sign in with Google.' });
-            }
-
-            const isValid = await userAuth.verifyPassword(password, user.password_hash);
-            if (!isValid) {
-                return res.status(401).json({ error: 'Invalid email or password' });
-            }
-
-            // Update last_login
-            await supabaseAdmin
-                .from('user_profiles')
-                .update({ last_login: new Date().toISOString() })
-                .eq('id', user.id);
-
-            const token = userAuth.generateToken(user);
-            await userAuth.createSession(user.id, token, req);
-
-            res.json({ 
-                user: { 
-                    id: user.id, 
-                    email: user.email, 
-                    display_name: user.display_name,
-                    avatar_url: user.avatar_url,
-                    current_rank: user.current_rank || 'Malahini',
-                    total_xp: user.total_xp || 0
-                }, 
-                token 
-            });
-        } catch (error) {
-            console.error('Login exception:', error);
-            res.status(500).json({ error: error.message || 'Login failed' });
-        }
+    // GET /api/user/auth-config
+    // Exposes the public OAuth client ID so the login page can render the Google button.
+    router.get('/auth-config', (req, res) => {
+        res.json({ googleClientId: process.env.GOOGLE_CLIENT_ID || null });
     });
 
     // POST /api/user/google-auth
-    // Handles Google Sign-In with either ID token or verified Google profile
+    // Google Sign-In is the only way to sign in. The client sends the ID token (credential)
+    // from Google Identity Services; identity comes solely from its verified payload.
     router.post('/google-auth', rl, async (req, res) => {
-        const { credential, email, name, picture, sub } = req.body;
+        const { credential } = req.body || {};
+
+        if (!process.env.GOOGLE_CLIENT_ID) {
+            console.error('Google auth attempted but GOOGLE_CLIENT_ID is not configured');
+            return res.status(503).json({ error: 'Google Sign-In is not configured' });
+        }
+
+        if (!credential || typeof credential !== 'string') {
+            return res.status(400).json({ error: 'Missing Google credential' });
+        }
+
+        let payload;
+        try {
+            const ticket = await googleClient.verifyIdToken({
+                idToken: credential,
+                audience: process.env.GOOGLE_CLIENT_ID
+            });
+            payload = ticket.getPayload();
+        } catch (verifyErr) {
+            console.error('Google token verification error:', verifyErr.message);
+            return res.status(401).json({ error: 'Invalid Google authentication token' });
+        }
+
+        if (!payload || !payload.sub || !payload.email || payload.email_verified !== true) {
+            return res.status(401).json({ error: 'Google account email is not verified' });
+        }
+
+        const googleSub = payload.sub;
+        const googleEmail = payload.email.toLowerCase();
+        const googleName = payload.name;
+        const googlePicture = payload.picture;
 
         try {
-            let googleEmail = email;
-            let googleName = name;
-            let googlePicture = picture;
-            let googleSub = sub;
-
-            // If a Google credential JWT is provided, verify or decode it
-            if (credential) {
-                try {
-                    // If GOOGLE_CLIENT_ID is configured, verify signature
-                    if (process.env.GOOGLE_CLIENT_ID) {
-                        const ticket = await googleClient.verifyIdToken({
-                            idToken: credential,
-                            audience: process.env.GOOGLE_CLIENT_ID
-                        });
-                        const payload = ticket.getPayload();
-                        googleEmail = payload.email;
-                        googleName = payload.name;
-                        googlePicture = payload.picture;
-                        googleSub = payload.sub;
-                    } else {
-                        // Decode token payload (base64)
-                        const parts = credential.split('.');
-                        if (parts.length === 3) {
-                            const payload = JSON.parse(Buffer.from(parts[1], 'base64').toString('utf8'));
-                            googleEmail = payload.email;
-                            googleName = payload.name;
-                            googlePicture = payload.picture;
-                            googleSub = payload.sub;
-                        }
-                    }
-                } catch (verifyErr) {
-                    console.error('Google token verification error:', verifyErr);
-                    return res.status(400).json({ error: 'Invalid Google authentication token' });
-                }
-            }
-
-            if (!googleEmail) {
-                return res.status(400).json({ error: 'Google authentication failed: missing email' });
-            }
-
-            // Check if user already exists
+            // Match by Google ID first; fall back to email so accounts created before
+            // Google-only sign-in (email + password) are linked rather than duplicated.
             let { data: user } = await supabaseAdmin
                 .from('user_profiles')
                 .select('*')
-                .eq('email', googleEmail.toLowerCase())
+                .eq('google_id', googleSub)
                 .maybeSingle();
 
-            if (!user && googleSub) {
-                const { data: userByGoogleId } = await supabaseAdmin
+            if (!user) {
+                const { data: userByEmail } = await supabaseAdmin
                     .from('user_profiles')
                     .select('*')
-                    .eq('google_id', googleSub)
+                    .eq('email', googleEmail)
                     .maybeSingle();
-                user = userByGoogleId;
+                user = userByEmail;
             }
 
             let isNewUser = false;
 
             if (user) {
-                // Existing user: update last login and picture
                 await supabaseAdmin
                     .from('user_profiles')
-                    .update({ 
+                    .update({
                         last_login: new Date().toISOString(),
-                        google_id: googleSub || user.google_id,
+                        google_id: googleSub,
                         avatar_url: googlePicture || user.avatar_url,
                         display_name: user.display_name || googleName
                     })
                     .eq('id', user.id);
             } else {
-                // New user: create account
                 isNewUser = true;
                 const { data: newUser, error: createError } = await supabaseAdmin
                     .from('user_profiles')
                     .insert([{
-                        email: googleEmail.toLowerCase(),
+                        email: googleEmail,
                         display_name: (googleName || 'Local Legend').trim(),
                         avatar_url: googlePicture || null,
-                        google_id: googleSub || null,
+                        google_id: googleSub,
                         total_xp: 50,
                         current_rank: 'Malahini',
                         last_login: new Date().toISOString(),
@@ -265,8 +128,8 @@ module.exports = function(supabaseAdmin, gamificationService) {
                 user: {
                     id: user.id,
                     email: user.email,
-                    display_name: user.display_name,
-                    avatar_url: user.avatar_url,
+                    display_name: user.display_name || googleName,
+                    avatar_url: googlePicture || user.avatar_url,
                     current_rank: user.current_rank || 'Malahini',
                     total_xp: user.total_xp || 50
                 },
@@ -275,7 +138,7 @@ module.exports = function(supabaseAdmin, gamificationService) {
             });
         } catch (error) {
             console.error('Google auth exception:', error);
-            res.status(500).json({ error: error.message || 'Google authentication failed' });
+            res.status(500).json({ error: 'Google authentication failed' });
         }
     });
 

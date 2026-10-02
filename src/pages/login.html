@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login / Register - ChokePidgin.com</title>
+    <title>Sign In - ChokePidgin.com</title>
     <meta name="description" content="Sign in or create an account on ChokePidgin to bookmark favorite words, sync across devices, and track your Pidgin learning progress.">
     <link rel="canonical" href="https://chokepidgin.com/login.html">
     
@@ -33,66 +33,10 @@
                 <p class="text-blue-100 text-xs mt-1">Sign in to save favorite words & track your Pidgin progress.</p>
             </div>
 
-            <!-- Tab Headers -->
-            <div class="flex border-b border-slate-700 bg-slate-850">
-                <button id="tab-login" class="flex-1 py-4 text-center font-bold text-blue-400 border-b-2 border-blue-500 transition">Sign In</button>
-                <button id="tab-register" class="flex-1 py-4 text-center font-bold text-slate-400 border-b-2 border-transparent hover:text-slate-200 transition">Create Account</button>
-            </div>
-
             <div class="p-6 md:p-8 space-y-6">
-                <!-- Google Sign-In Button -->
-                <div>
-                    <button type="button" id="google-auth-btn" class="w-full bg-white hover:bg-slate-100 text-slate-800 font-bold py-3.5 px-4 rounded-xl flex items-center justify-center gap-3 transition shadow-md hover:shadow-lg border border-slate-200 active:scale-[0.99]">
-                        <svg class="w-5 h-5" viewBox="0 0 24 24">
-                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-                        </svg>
-                        <span>Continue with Google</span>
-                    </button>
-                </div>
-
-                <div class="relative flex py-1 items-center">
-                    <div class="flex-grow border-t border-slate-700"></div>
-                    <span class="flex-shrink mx-4 text-xs uppercase font-bold text-slate-500 tracking-wider">Or with email</span>
-                    <div class="flex-grow border-t border-slate-700"></div>
-                </div>
-
-                <!-- Login Form -->
-                <form id="login-form" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">Email Address</label>
-                        <input type="email" id="login-email" required placeholder="your.name@email.com" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 placeholder-slate-500 focus:border-blue-400 focus:outline-none transition">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">Password</label>
-                        <input type="password" id="login-password" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 placeholder-slate-500 focus:border-blue-400 focus:outline-none transition">
-                    </div>
-                    <button type="submit" id="login-btn" class="w-full bg-blue-600 hover:bg-blue-500 text-white py-3.5 rounded-xl font-bold transition shadow-lg shadow-blue-500/20 active:scale-[0.99]">
-                        Sign In
-                    </button>
-                </form>
-
-                <!-- Register Form (Hidden by default) -->
-                <form id="register-form" class="space-y-4 hidden">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">Display Name</label>
-                        <input type="text" id="reg-name" required placeholder="Local Legend" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 placeholder-slate-500 focus:border-blue-400 focus:outline-none transition">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">Email Address</label>
-                        <input type="email" id="reg-email" required placeholder="your.name@email.com" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 placeholder-slate-500 focus:border-blue-400 focus:outline-none transition">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">Password</label>
-                        <input type="password" id="reg-password" required minlength="6" placeholder="At least 6 characters" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-slate-100 placeholder-slate-500 focus:border-blue-400 focus:outline-none transition">
-                    </div>
-                    <button type="submit" id="register-btn" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white py-3.5 rounded-xl font-bold transition shadow-lg shadow-emerald-500/20 active:scale-[0.99]">
-                        Create Free Account
-                    </button>
-                </form>
-
+                <!-- Google Sign-In button is rendered here by Google Identity Services -->
+                <div id="google-signin" class="flex justify-center min-h-[44px]"></div>
+                <p class="text-center text-slate-400 text-xs">New here? Signing in with Google creates your free account.</p>
                 <!-- Error & Status Notification -->
                 <div id="auth-error" class="hidden p-3 bg-red-900/40 border border-red-500/50 text-red-300 text-sm rounded-xl text-center font-medium"></div>
                 <div id="auth-success" class="hidden p-3 bg-emerald-900/40 border border-emerald-500/50 text-emerald-300 text-sm rounded-xl text-center font-medium"></div>
@@ -110,15 +54,12 @@
     <script src="js/components/user-auth.js"></script>
     <script src="js/components/favorites-manager.js"></script>
     <script src="js/main.js" defer></script>
+    <script src="https://accounts.google.com/gsi/client" async></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const loginTab = document.getElementById('tab-login');
-            const regTab = document.getElementById('tab-register');
-            const loginForm = document.getElementById('login-form');
-            const regForm = document.getElementById('register-form');
+        document.addEventListener('DOMContentLoaded', async () => {
             const authError = document.getElementById('auth-error');
             const authSuccess = document.getElementById('auth-success');
-            const googleBtn = document.getElementById('google-auth-btn');
+            const buttonContainer = document.getElementById('google-signin');
 
             // If already logged in, redirect to collection
             if (window.UserAuth && window.UserAuth.isLoggedIn()) {
@@ -138,101 +79,62 @@
                 authError.classList.add('hidden');
             };
 
-            const switchTab = (isLogin) => {
-                if (isLogin) {
-                    loginTab.classList.add('text-blue-400', 'border-blue-500');
-                    loginTab.classList.remove('text-slate-400', 'border-transparent');
-                    regTab.classList.add('text-slate-400', 'border-transparent');
-                    regTab.classList.remove('text-blue-400', 'border-blue-500');
-                    loginForm.classList.remove('hidden');
-                    regForm.classList.add('hidden');
-                } else {
-                    regTab.classList.add('text-blue-400', 'border-blue-500');
-                    regTab.classList.remove('text-slate-400', 'border-transparent');
-                    loginTab.classList.add('text-slate-400', 'border-transparent');
-                    loginTab.classList.remove('text-blue-400', 'border-blue-500');
-                    regForm.classList.remove('hidden');
-                    loginForm.classList.add('hidden');
-                }
+            const handleCredential = async (response) => {
                 authError.classList.add('hidden');
-                authSuccess.classList.add('hidden');
-            };
-
-            loginTab.addEventListener('click', () => switchTab(true));
-            regTab.addEventListener('click', () => switchTab(false));
-
-            // Handle Email/Password Login
-            loginForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const btn = document.getElementById('login-btn');
-                btn.disabled = true;
-                btn.textContent = 'Signing in...';
-                authError.classList.add('hidden');
-
                 try {
-                    const email = document.getElementById('login-email').value;
-                    const password = document.getElementById('login-password').value;
-
-                    await window.UserAuth.login(email, password);
-                    showSuccess('Aloha! Signed in successfully. Redirecting...');
-                    
+                    const data = await window.UserAuth.loginWithGoogle(response.credential);
+                    showSuccess(data.isNewUser
+                        ? 'Mahalo! Account created. Welcome to da ohana!'
+                        : 'Aloha! Signed in successfully. Redirecting...');
                     if (window.favoritesManager) await window.favoritesManager.syncFromCloud();
-                    setTimeout(() => {
-                        window.location.href = '/my-collection.html';
-                    }, 500);
-                } catch (err) {
-                    showError(err.message || 'Invalid email or password');
-                    btn.disabled = false;
-                    btn.textContent = 'Sign In';
-                }
-            });
-
-            // Handle Registration
-            regForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const btn = document.getElementById('register-btn');
-                btn.disabled = true;
-                btn.textContent = 'Creating account...';
-                authError.classList.add('hidden');
-
-                try {
-                    const email = document.getElementById('reg-email').value;
-                    const password = document.getElementById('reg-password').value;
-                    const name = document.getElementById('reg-name').value;
-
-                    await window.UserAuth.register(email, password, name);
-                    showSuccess('Mahalo! Account created. Welcome to da ohana!');
-                    
-                    setTimeout(() => {
-                        window.location.href = '/my-collection.html';
-                    }, 600);
-                } catch (err) {
-                    showError(err.message || 'Registration failed. Try a different email.');
-                    btn.disabled = false;
-                    btn.textContent = 'Create Free Account';
-                }
-            });
-
-            // Handle Google Sign-In
-            googleBtn.addEventListener('click', async () => {
-                const promptName = prompt('Enter your name or email for Google Sign-In demo:', 'Aloha Explorer');
-                if (!promptName) return;
-
-                const googleEmail = promptName.includes('@') ? promptName : `${promptName.toLowerCase().replace(/[^a-z0-9]/g, '')}@gmail.com`;
-
-                try {
-                    await window.UserAuth.loginWithGoogle({
-                        email: googleEmail,
-                        name: promptName,
-                        google_id: `g_${Date.now()}`
-                    });
-                    showSuccess('Signed in with Google! Redirecting...');
                     setTimeout(() => {
                         window.location.href = '/my-collection.html';
                     }, 500);
                 } catch (err) {
                     showError(err.message || 'Google authentication failed');
                 }
+            };
+
+            let clientId = null;
+            try {
+                const res = await fetch('/api/user/auth-config');
+                clientId = (await res.json()).googleClientId;
+            } catch (e) {
+                // handled below
+            }
+            if (!clientId) {
+                showError('Sign-in is temporarily unavailable. Please try again later.');
+                return;
+            }
+
+            // The GSI script loads async; wait for it before rendering the button
+            const waitForGoogle = () => new Promise((resolve, reject) => {
+                const started = Date.now();
+                (function check() {
+                    if (window.google?.accounts?.id) return resolve();
+                    if (Date.now() - started > 10000) return reject(new Error('timeout'));
+                    setTimeout(check, 100);
+                })();
+            });
+
+            try {
+                await waitForGoogle();
+            } catch (e) {
+                showError('Could not load Google Sign-In. Check your connection or disable blockers for this site.');
+                return;
+            }
+
+            google.accounts.id.initialize({
+                client_id: clientId,
+                callback: handleCredential,
+                ux_mode: 'popup'
+            });
+            google.accounts.id.renderButton(buttonContainer, {
+                theme: 'outline',
+                size: 'large',
+                shape: 'pill',
+                text: 'continue_with',
+                width: Math.min(buttonContainer.offsetWidth || 320, 400)
             });
         });
     </script>

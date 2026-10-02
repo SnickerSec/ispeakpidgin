@@ -188,7 +188,8 @@ app.use(helmet({
                 "'self'", 
                 "'unsafe-inline'", 
                 "https://fonts.googleapis.com",
-                "https://cdn.jsdelivr.net"
+                "https://cdn.jsdelivr.net",
+                "https://accounts.google.com/gsi/style"
             ],
             scriptSrc: [
                 "'self'",
@@ -197,7 +198,8 @@ app.use(helmet({
                 "https://www.google-analytics.com",
                 "https://cdn.jsdelivr.net",
                 "https://code.iconify.design",
-                "https://static.cloudflareinsights.com"
+                "https://static.cloudflareinsights.com",
+                "https://accounts.google.com/gsi/client"
             ],
             imgSrc: [
                 "'self'",
@@ -207,7 +209,8 @@ app.use(helmet({
                 "https://*.googletagmanager.com",
                 "https://www.googletagmanager.com",
                 "https://cdn-icons-png.flaticon.com",
-                "https://*.g.doubleclick.net"
+                "https://*.g.doubleclick.net",
+                "https://*.googleusercontent.com"
             ],
             fontSrc: [
                 "'self'", 
@@ -235,7 +238,8 @@ app.use(helmet({
                 "https://api.simplesvg.com",
                 "https://api.unisvg.com",
                 "https://static.cloudflareinsights.com",
-                "https://cloudflareinsights.com"
+                "https://cloudflareinsights.com",
+                "https://accounts.google.com/gsi/"
             ],
             mediaSrc: [
                 "'self'", 
@@ -244,7 +248,7 @@ app.use(helmet({
                 "https://jfzgzjgdptowfbtljvyp.supabase.co"
             ],
             objectSrc: ["'none'"],
-            frameSrc: ["'none'"],
+            frameSrc: ["https://accounts.google.com/gsi/"],
             frameAncestors: ["'none'"],
             baseUri: ["'self'"],
             formAction: ["'self'"],
@@ -313,7 +317,8 @@ app.use('/api', pickupRoutes(supabase, dictionaryLimiter, translationLimiter));
 app.use('/api/ai', aiRoutes(supabase, dictionaryCache, aiChatLimiter, gamificationService));
 app.use('/api/suggestions', suggestionsRoutes(supabase, apiLimiter, gamificationService));
 app.use('/api/questions', questionsRoutes(supabase, questionSubmitLimiter, gamificationService, dictionaryCache));
-app.use('/api/user', userLoginLimiter, userRoutes(supabaseAdmin, gamificationService));
+app.use('/api/user/google-auth', userLoginLimiter);
+app.use('/api/user', userRoutes(supabaseAdmin, gamificationService));
 app.use('/api/admin', adminRoutes(supabaseAdmin, adminAuth, settingsManager));
 
 // ============================================

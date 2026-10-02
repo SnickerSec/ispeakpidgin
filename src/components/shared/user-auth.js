@@ -1,6 +1,6 @@
 /**
  * User Authentication Client
- * Handles user login, registration, Google authentication, and session management
+ * Handles Google Sign-In and session management
  */
 const UserAuth = {
     token: localStorage.getItem('userToken'),
@@ -18,50 +18,13 @@ const UserAuth = {
         window.addEventListener('userStatusChanged', () => this.updateUI());
     },
 
-    async login(email, password) {
-        try {
-            const response = await fetch('/api/user/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
-            });
-
-            const data = await response.json();
-            if (!response.ok) throw new Error(data.error || 'Login failed');
-
-            this.setSession(data.token, data.user);
-            return data;
-        } catch (error) {
-            console.error('Login error:', error);
-            throw error;
-        }
-    },
-
-    async register(email, password, display_name) {
-        try {
-            const response = await fetch('/api/user/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password, display_name })
-            });
-
-            const data = await response.json();
-            if (!response.ok) throw new Error(data.error || 'Registration failed');
-
-            this.setSession(data.token, data.user);
-            return data;
-        } catch (error) {
-            console.error('Registration error:', error);
-            throw error;
-        }
-    },
-
-    async loginWithGoogle(googleData) {
+    // credential: the ID token Google Identity Services hands to the button callback
+    async loginWithGoogle(credential) {
         try {
             const response = await fetch('/api/user/google-auth', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(typeof googleData === 'string' ? { credential: googleData } : googleData)
+                body: JSON.stringify({ credential })
             });
 
             const data = await response.json();
