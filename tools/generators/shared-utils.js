@@ -462,7 +462,12 @@ function getPremiumPage(pidginWord) {
     return premiumPages[cleanWord] || null;
 }
 
+// True when generators read tools/testing/mock-supabase-data.json instead of live Supabase
+// (e.g. CI without secrets); the fixture is deliberately far smaller than production.
+const isOfflineMock = !SUPABASE_URL || !SUPABASE_ANON_KEY;
+
 module.exports = {
+    isOfflineMock,
     createSlug,
     escapeHtml,
     fetchFromSupabase,

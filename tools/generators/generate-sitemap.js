@@ -25,15 +25,16 @@
 const fs = require('fs');
 const path = require('path');
 
-const { fetchFromSupabase, SITE_URL } = require('./shared-utils');
+const { fetchFromSupabase, SITE_URL, isOfflineMock } = require('./shared-utils');
 
 const PUBLIC_DIR = path.join(__dirname, '../../public');
 const OUTPUT_PATH = path.join(PUBLIC_DIR, 'sitemap.xml');
 const baseUrl = SITE_URL || 'https://chokepidgin.com';
 
 // A sitemap this much smaller than the build means something upstream failed; refuse to
-// overwrite a good sitemap with a broken one.
-const MIN_EXPECTED_URLS = 500;
+// overwrite a good sitemap with a broken one. A mock-data build (CI without Supabase
+// secrets) is small by design, so the floor only guards builds from live data.
+const MIN_EXPECTED_URLS = isOfflineMock ? 1 : 500;
 
 // Editorial weighting for hub pages. Membership never depends on this table -- an entry that
 // no longer exists on disk is simply unused, and a page missing from it gets the default.
