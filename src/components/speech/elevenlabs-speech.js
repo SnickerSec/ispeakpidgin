@@ -41,6 +41,8 @@ const PIDGIN_PRONUNCIATION_MAP = {
     'wikiwiki': 'wee-kee-wee-kee',
     'pupus': 'poo-poos',
     'pupu': 'poo-poo',
+    'puʻuwai': 'poo-oo-wye',
+    'puuwai': 'poo-oo-wye',
     'gou': 'gow',
     'hale': 'hah-leh',
     'hele': 'heh-leh',

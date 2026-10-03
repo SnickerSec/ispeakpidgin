@@ -1,7 +1,7 @@
 {
   "generated": "2026-08-25T04:38:00.000Z",
   "source": "curated-island-slang-and-cultural-terms",
-  "count": 27,
+  "count": 28,
   "missing": [
     {
       "pidgin": "loco moco",
@@ -407,6 +407,23 @@
       "origin": "Pidgin idiom",
       "frequency": "high",
       "tags": ["slang", "humor", "idioms", "social"]
+    },
+    {
+      "pidgin": "puʻuwai",
+      "english": ["heart", "affection", "feelings"],
+      "category": "cultural",
+      "pronunciation": "poo-oo-WYE",
+      "difficulty": "intermediate",
+      "usage": "Heart, feelings, affection, or moral character. Commonly used in Hawaiian and local expressions of sincerity, aloha, and heartfelt emotion.",
+      "examples": [
+        "From da bottom of my puʻuwai, mahalo nui loa.",
+        "Uncle get one big puʻuwai, always taking care da family.",
+        "Listen to your puʻuwai when you need for choose da right path."
+      ],
+      "origin": "Hawaiian (puʻu = heart/mound, wai = water/vital fluid)",
+      "frequency": "medium",
+      "tags": ["hawaiian", "cultural", "heart", "feelings", "aloha"],
+      "source_language": "hawaiian"
     }
   ]
 }

@@ -520,7 +520,8 @@ SupabaseDataLoader.PIDGIN_HAWAIIAN_LOANWORDS = {
     'huli': ['to turn', 'flip'],
     'lua': ['toilet', 'bathroom'],
     'kapakahi': ['crooked'],
-    'tutu': ['grandmother', 'grandparent']
+    'tutu': ['grandmother', 'grandparent'],
+    'puuwai': ['heart', 'feelings', 'affection']
 };
 
 window.pidginDataLoader = supabaseDataLoader; // Backward compatibility alias
