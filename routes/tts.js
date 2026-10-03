@@ -82,18 +82,13 @@ module.exports = function(translationLimiter, supabaseAdmin) {
                     return res.status(500).json({ error: 'ElevenLabs API key not configured' });
                 }
 
-                const defaultVoiceId = 'f0ODjLMfcJmlKfs7dFCW'; // Authentic Hawaiian voice (Uncle Kimo)
-                const allowedVoices = [
-                    'f0ODjLMfcJmlKfs7dFCW', // Uncle Kimo (Mikey - Elder Hawaiian Male)
-                    '0f4r1bLyisMv67ocsZMl', // Aunty Pua (Cristina G. - Hawaiian Female)
-                    'jRIDd6YCznqwKHkWlpOh', // Sister Hoku (Hoku - Hawaiian Female)
-                    'Eqw4o5WB3NXnOBL9xr97', // Keanu (Brandon - Surf Brah Male)
-                    '4P3xiZBsFtmaNelXtmvq'  // Cousin Kaipo (Noah - Island Male)
-                ];
-
-                let voiceId = defaultVoiceId;
-                if (requestedVoiceId && allowedVoices.includes(requestedVoiceId)) {
-                    voiceId = requestedVoiceId;
+                let voiceId = KIMO_VOICE_ID;
+                if (requestedVoiceId) {
+                    if (APPROVED_VOICE_IDS.includes(requestedVoiceId)) {
+                        voiceId = requestedVoiceId;
+                    } else {
+                        console.warn(`⚠️ Unapproved voice ID rejected: "${requestedVoiceId}". Clamping to default authentic voice (Uncle Kimo).`);
+                    }
                 }
 
                 // Apply phonetics HERE, at the boundary, so pronunciation no longer depends on

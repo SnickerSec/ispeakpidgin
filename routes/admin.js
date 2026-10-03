@@ -33,7 +33,8 @@ const adminActionLimiter = rateLimit({
 const {
     PIDGIN_PRONUNCIATION_MAP: globalPronunciationMap,
     applyPronunciationCorrections,
-    ELEVENLABS_SYNTHESIS
+    ELEVENLABS_SYNTHESIS,
+    KIMO_VOICE_ID
 } = require('../src/components/speech/elevenlabs-speech.js');
 
 
@@ -43,7 +44,7 @@ const {
 async function generateAndUploadAudio(supabaseAdmin, text, filenamePrefix) {
     const crypto = require('crypto');
     const BUCKET_NAME = 'audio-assets';
-    const VOICE_ID = 'f0ODjLMfcJmlKfs7dFCW'; // Authentic local voice
+    const VOICE_ID = KIMO_VOICE_ID; // Authentic local Uncle Kimo voice
     const apiKey = process.env.ELEVENLABS_API_KEY;
 
     if (!apiKey) throw new Error('ElevenLabs API key not configured');
