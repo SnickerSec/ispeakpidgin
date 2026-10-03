@@ -74,6 +74,11 @@ const testSuites = [
         requiredEnv: false
     },
     {
+        name: 'Audio Cache Invalidation & Orthography',
+        script: 'test-audio-invalidate.js',
+        requiredEnv: false
+    },
+    {
         name: 'Context Tracker & Paragraph Translation',
         script: 'test-context-tracker.js',
         requiredEnv: false
