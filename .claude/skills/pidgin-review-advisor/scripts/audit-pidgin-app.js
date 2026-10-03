@@ -758,8 +758,11 @@ async function auditVocabulary(db) {
         try {
             const { data, error } = await db.from('dictionary_entries').select('pidgin');
             if (error) throw new Error(error.message);
-            const have = new Set((data || []).map(r => String(r.pidgin || '').trim().toLowerCase()));
-            const pending = curated.filter(t => !have.has(String(t.pidgin || '').trim().toLowerCase()));
+            // Compare by word-page slug, so "mo bettah" counts as present when the entry is "mo' bettah"
+            const slugOf = v => String(v || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                .replace(/[ʻʼ'‘’"]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+            const have = new Set((data || []).map(r => slugOf(r.pidgin)));
+            const pending = curated.filter(t => !have.has(slugOf(t.pidgin)));
             record('vocabulary', {
                 id: 'vocabulary.backlog', title: 'Curated term backlog',
                 status: pending.length ? 'WARN' : 'OK',
