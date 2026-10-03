@@ -1,7 +1,7 @@
 {
   "generated": "2026-08-25T04:38:00.000Z",
   "source": "curated-island-slang-and-cultural-terms",
-  "count": 36,
+  "count": 37,
   "missing": [
     {
       "pidgin": "loco moco",
@@ -561,6 +561,24 @@
       "frequency": "medium",
       "tags": ["slang", "japanese", "body"],
       "source_language": "pidgin"
+    },
+    {
+      "pidgin": "maui no ka oi",
+      "english": ["Maui is the best", "Maui is number one"],
+      "category": "expressions",
+      "pronunciation": "MOW-ee noh kah OY",
+      "difficulty": "beginner",
+      "usage": "Famous island phrase and motto celebrating Maui island pride: 'Maui is the best' or 'Maui is top of the line'. Frequently seen on island bumper stickers, shirts, and signs.",
+      "examples": [
+        "No matta where you go, Maui no ka oi, brah.",
+        "Ho, dat sunset from Haleakala proves Maui no ka oi.",
+        "Chee-hoo! Maui no ka oi all day!"
+      ],
+      "origin": "Hawaiian: Maui + nō (indeed) + ka (the) + ʻoi (best/superior).",
+      "frequency": "high",
+      "tags": ["expressions", "pride", "island", "maui", "hawaiian"],
+      "source_language": "hawaiian",
+      "spelling_variants": ["maui no ka 'oi", "maui nō ka ʻoi", "maui nō ka 'oi"]
     }
   ]
 }

@@ -498,14 +498,14 @@ function normalizeQueryTerm(txt) {
 // Words that ride along with a headword in a query without changing what it asks for
 // ("howzit brah", "brah def", "whats a brah", "bro vs brah").
 const FILLER_TOKENS = new Set([
-    'a', 'e', 'the', 'is', 'it', 'or', 'vs', 'whats', 'what', 'os', 'ehat', 'of', 'def', 'origin',
+    'a', 'e', 'the', 'is', 'it', 'or', 'vs', 'whats', 'what', 'os', 'ehat', 'of', 'if', 'def', 'origin',
     'acronym', 'spelling', 'sentence', 'in', 'ho', 'hey', 'hi', 'eh', 'aye', 'mate', 'bro', 'bruh',
-    'brah', 'cuz', 'homophone'
+    'brah', 'cuz', 'homophone', 'urban', 'dictionary', 'dict', 'slang', 'mean', 'means', 'meaning', 'meanings'
 ]);
-// "meaning"/"definition" and the typos real searchers make of them (menaing, defintion, mesning).
-const GLOSS_TYPO = /^(?:m|n)[a-z]{0,4}ing$|^def[a-z]*$/;
+// "meaning"/"definition" and the typos real searchers make of them (menaing, defintion, mesning, meanings).
+const GLOSS_TYPO = /^(?:m|n)[a-z]{0,4}ings?$|^def[a-z]*$/;
 // Queries for a site section rather than a word (the Pidgin Bible lives at /bible).
-const SECTION_QUERY = /jesus book|\bbible\b|spesho book/;
+const SECTION_QUERY = /jesus book|\bbible\b|spesho book|^list of\b|\blist of pidgin\b|\bwords list\b/;
 
 /** Lowercase, drop diacritics/punctuation, and collapse letter runs (brahhh, kamaaina → kamaina). */
 function squeezeKey(txt) {
