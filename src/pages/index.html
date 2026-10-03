@@ -434,21 +434,17 @@
                 <p class="text-lg text-blue-100 dark:text-blue-300 mb-8">
                     Master authentic Hawaiian slang, island expressions, and local Pidgin spoken by real locals
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
-                    <a href="translator.html" class="bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 dark:hover:bg-slate-700 transition flex items-center gap-2 justify-center border dark:border-slate-700">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1375/1375510.png" alt="Translator" loading="lazy" class="w-5 h-5 filter brightness-0 dark:invert">
-                        Start Translating
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="translator.html" class="bg-amber-400 text-slate-900 px-10 py-4 rounded-lg text-lg font-bold hover:bg-amber-300 transition flex items-center gap-2 justify-center shadow-xl">
+                        <iconify-icon icon="lucide:languages" class="text-xl"></iconify-icon> Start Translating
                     </a>
-                    <a href="pidgin-wordle.html" class="bg-green-700 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-400 transition flex items-center gap-2 justify-center shadow-lg">
-                        <img src="assets/images/wordle-icon.webp" alt="Wordle" loading="lazy" class="w-5 h-5"> Play Pidgin Wordle
-                    </a>
-                    <a href="dictionary.html" class="bg-transparent border-2 border-white dark:border-slate-700 text-white dark:text-slate-200 px-8 py-3 rounded-lg font-semibold hover:bg-white dark:hover:bg-slate-800 hover:text-blue-600 dark:hover:text-white transition">
-                        <iconify-icon icon="lucide:book-open"></iconify-icon> Dictionary
-                    </a>
-                    <a href="learning-hub.html" class="bg-transparent border-2 border-white dark:border-slate-700 text-white dark:text-slate-200 px-8 py-3 rounded-lg font-semibold hover:bg-white dark:hover:bg-slate-800 hover:text-blue-600 dark:hover:text-white transition">
-                        <iconify-icon icon="lucide:book-open"></iconify-icon> Learn Now
+                    <a href="dictionary.html" class="text-white px-6 py-3 rounded-lg font-semibold border border-white/40 hover:bg-white/10 transition flex items-center gap-2 justify-center">
+                        <iconify-icon icon="lucide:book-open"></iconify-icon> Browse Dictionary
                     </a>
                 </div>
+                <p class="mt-6 text-sm text-blue-100 dark:text-blue-300">
+                    <a href="pidgin-wordle.html" class="underline underline-offset-4 decoration-white/40 hover:decoration-white">Or play today's Pidgin Wordle &rarr;</a>
+                </p>
             </div>
         </div>
     </section>
@@ -599,15 +595,148 @@
                 </div>
             </div>
 
-            <!-- Essential Phrases Section -->
-            <div class="mb-12">
-                <div class="flex justify-center mb-8">
-                    <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 dark:text-white whitespace-nowrap">
-                        <iconify-icon icon="lucide:waves"></iconify-icon> Essential Pidgin Phrases <iconify-icon icon="lucide:waves"></iconify-icon>
-                    </h2>
+            <!-- Popular Expressions (static SEO cards + live random phrases) -->
+            <div id="popular-expressions" class="mb-12 max-w-6xl mx-auto">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-3">Popular Pidgin Expressions</h2>
+                    <p class="text-lg text-gray-700 dark:text-slate-300 max-w-3xl mx-auto">
+                        The slang locals use every day, from "howzit" to "da kine," with pronunciations and examples.
+                    </p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto" id="essential-phrases-grid">
-                    <!-- Phrases will be dynamically loaded -->
+
+                <div class="flex flex-wrap justify-center gap-2 mb-8" role="tablist" aria-label="Filter expressions">
+                    <button type="button" role="tab" data-phrase-tab="all" aria-selected="true" class="phrase-tab px-4 py-2 rounded-full text-sm font-semibold border transition bg-slate-800 text-slate-200 border-slate-600 hover:border-purple-400 aria-selected:bg-purple-600 aria-selected:text-white aria-selected:border-purple-600">All</button>
+                    <button type="button" role="tab" data-phrase-tab="greetings" aria-selected="false" class="phrase-tab px-4 py-2 rounded-full text-sm font-semibold border transition bg-slate-800 text-slate-200 border-slate-600 hover:border-purple-400 aria-selected:bg-purple-600 aria-selected:text-white aria-selected:border-purple-600">Greetings & People</button>
+                    <button type="button" role="tab" data-phrase-tab="food" aria-selected="false" class="phrase-tab px-4 py-2 rounded-full text-sm font-semibold border transition bg-slate-800 text-slate-200 border-slate-600 hover:border-purple-400 aria-selected:bg-purple-600 aria-selected:text-white aria-selected:border-purple-600">Food</button>
+                    <button type="button" role="tab" data-phrase-tab="everyday" aria-selected="false" class="phrase-tab px-4 py-2 rounded-full text-sm font-semibold border transition bg-slate-800 text-slate-200 border-slate-600 hover:border-purple-400 aria-selected:bg-purple-600 aria-selected:text-white aria-selected:border-purple-600">Everyday</button>
+                    <button type="button" role="tab" data-phrase-tab="random" aria-selected="false" class="phrase-tab px-4 py-2 rounded-full text-sm font-semibold border transition bg-slate-800 text-slate-200 border-slate-600 hover:border-purple-400 aria-selected:bg-purple-600 aria-selected:text-white aria-selected:border-purple-600">Surprise Me</button>
+                </div>
+
+                <div id="popular-expressions-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <a href="what-does-howzit-mean.html" data-phrase-category="greetings" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
+                        <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Howzit <iconify-icon icon="lucide:star"></iconify-icon></h3>
+                        <p class="text-gray-600 dark:text-slate-400 italic mb-2">HOW-zit</p>
+                        <p class="text-gray-700 dark:text-slate-300">Hawaiian slang greeting meaning "How's it going?" or "What's up?"</p>
+                        <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "Howzit, brah!"</p>
+                        <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ Complete guide to this greeting</p>
+                    </a>
+
+                    <a href="what-does-da-kine-mean.html" data-phrase-category="everyday" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
+                        <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Da Kine <iconify-icon icon="lucide:star"></iconify-icon></h3>
+                        <p class="text-gray-600 dark:text-slate-400 italic mb-2">dah KYNE</p>
+                        <p class="text-gray-700 dark:text-slate-300">Universal Hawaiian slang for "the thing" when you can't remember the word</p>
+                        <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "Pass me da kine over there"</p>
+                        <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ Learn more with 15+ examples</p>
+                    </a>
+
+                    <a href="what-does-shoots-mean.html" data-phrase-category="everyday" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
+                        <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Shoots <iconify-icon icon="lucide:star"></iconify-icon></h3>
+                        <p class="text-gray-600 dark:text-slate-400 italic mb-2">SHOOTS</p>
+                        <p class="text-gray-700 dark:text-slate-300">Hawaiian slang for "okay," "sounds good," or "let's do it"</p>
+                        <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "Wanna grab lunch? - Shoots!"</p>
+                        <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ See all the ways to use "shoots"</p>
+                    </a>
+
+                    <a href="what-does-ono-grindz-mean.html" data-phrase-category="food" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
+                        <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Ono Grindz <iconify-icon icon="lucide:star"></iconify-icon></h3>
+                        <p class="text-gray-600 dark:text-slate-400 italic mb-2">OH-no GRINDZ</p>
+                        <p class="text-gray-700 dark:text-slate-300">Local Hawaiian slang for delicious food</p>
+                        <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "Dis plate lunch get ono grindz!"</p>
+                        <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ Master this essential food phrase</p>
+                    </a>
+
+                    <a href="what-does-pau-hana-mean.html" data-phrase-category="everyday" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
+                        <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Pau Hana <iconify-icon icon="lucide:star"></iconify-icon></h3>
+                        <p class="text-gray-600 dark:text-slate-400 italic mb-2">POW HA-nah</p>
+                        <p class="text-gray-700 dark:text-slate-300">Hawaiian slang meaning "finished work" or after-work happy hour</p>
+                        <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "Let's grab drinks for pau hana!"</p>
+                        <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ Discover pau hana culture</p>
+                    </a>
+
+                    <a href="what-does-broke-da-mouth-mean.html" data-phrase-category="food" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
+                        <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Broke Da Mouth <iconify-icon icon="lucide:star"></iconify-icon></h3>
+                        <p class="text-gray-600 dark:text-slate-400 italic mb-2">BROKE dah MOWT</p>
+                        <p class="text-gray-700 dark:text-slate-300">Hawaiian slang for extremely delicious food</p>
+                        <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "Dat poke was so ono, broke da mouth!"</p>
+                        <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ Learn this food compliment</p>
+                    </a>
+
+                    <a href="what-does-brah-mean.html" data-phrase-category="greetings" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
+                        <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Brah <iconify-icon icon="lucide:star"></iconify-icon></h3>
+                        <p class="text-gray-600 dark:text-slate-400 italic mb-2">BRAH</p>
+                        <p class="text-gray-700 dark:text-slate-300">Hawaiian slang for "brother," "friend," or "dude"</p>
+                        <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "Eh brah, you like go beach?"</p>
+                        <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ How and when to say "brah"</p>
+                    </a>
+
+                    <a href="what-does-shaka-mean.html" data-phrase-category="greetings" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
+                        <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Shaka <iconify-icon icon="lucide:star"></iconify-icon></h3>
+                        <p class="text-gray-600 dark:text-slate-400 italic mb-2">SHAH-kah</p>
+                        <p class="text-gray-700 dark:text-slate-300">Hawaiian hand gesture and greeting meaning "hang loose"</p>
+                        <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "He gave me shaka from his car"</p>
+                        <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ Origins of the shaka sign</p>
+                    </a>
+
+                    <a href="what-does-grindz-mean.html" data-phrase-category="food" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
+                        <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Grindz <iconify-icon icon="lucide:star"></iconify-icon></h3>
+                        <p class="text-gray-600 dark:text-slate-400 italic mb-2">GRINDZ</p>
+                        <p class="text-gray-700 dark:text-slate-300">Hawaiian slang for food or eating</p>
+                        <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "Where da grindz at?"</p>
+                        <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ Complete food culture guide</p>
+                    </a>
+
+                    <a href="what-does-pau-mean.html" data-phrase-category="everyday" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
+                        <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Pau <iconify-icon icon="lucide:star"></iconify-icon></h3>
+                        <p class="text-gray-600 dark:text-slate-400 italic mb-2">POW</p>
+                        <p class="text-gray-700 dark:text-slate-300">Hawaiian slang for finished or done</p>
+                        <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "You pau with work?"</p>
+                        <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ Learn when and how to use it</p>
+                    </a>
+
+                    <a href="what-does-choke-mean.html" data-phrase-category="everyday" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
+                        <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Choke <iconify-icon icon="lucide:star"></iconify-icon></h3>
+                        <p class="text-gray-600 dark:text-slate-400 italic mb-2">CHOKE</p>
+                        <p class="text-gray-700 dark:text-slate-300">Hawaiian slang for a lot or plenty</p>
+                        <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "Get choke people at da beach"</p>
+                        <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ Master this abundance word</p>
+                    </a>
+
+                    <a href="what-does-talk-story-mean.html" data-phrase-category="everyday" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
+                        <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Talk Story <iconify-icon icon="lucide:star"></iconify-icon></h3>
+                        <p class="text-gray-600 dark:text-slate-400 italic mb-2">TAWK STOR-ee</p>
+                        <p class="text-gray-700 dark:text-slate-300">Hawaiian slang for chat or have a conversation</p>
+                        <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "Come, we talk story"</p>
+                        <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ Hawaii's art of conversation</p>
+                    </a>
+
+                    <a href="what-does-mahalo-mean.html" data-phrase-category="greetings" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
+                        <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Mahalo <iconify-icon icon="lucide:star"></iconify-icon></h3>
+                        <p class="text-gray-600 dark:text-slate-400 italic mb-2">mah-HA-lo</p>
+                        <p class="text-gray-700 dark:text-slate-300">Hawaiian word for thank you (universal in Hawaii)</p>
+                        <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "Mahalo for your help!"</p>
+                        <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ Gratitude the Hawaiian way</p>
+                    </a>
+
+                    <a href="what-does-no-worry-mean.html" data-phrase-category="everyday" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
+                        <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">No Worry <iconify-icon icon="lucide:star"></iconify-icon></h3>
+                        <p class="text-gray-600 dark:text-slate-400 italic mb-2">NO WUR-ee</p>
+                        <p class="text-gray-700 dark:text-slate-300">Hawaiian Pidgin for don't worry or no problem</p>
+                        <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "No worry, brah, I got you"</p>
+                        <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ The island's laid-back philosophy</p>
+                    </a>
+                </div>
+
+                <div id="essential-phrases-grid" hidden class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Random phrases from Supabase, loaded by main.js -->
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mt-10">
+                    <a href="dictionary.html" class="inline-block text-center bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-3 rounded-full font-bold hover:scale-105 transition-transform shadow-lg">
+                        <iconify-icon icon="lucide:book-open"></iconify-icon> Browse Full Dictionary
+                    </a>
+                    <a href="phrases.html" class="inline-block text-center bg-white dark:bg-slate-800 text-purple-700 dark:text-purple-300 border-2 border-purple-300 dark:border-slate-600 px-8 py-3 rounded-full font-bold hover:scale-105 transition-transform">
+                        <iconify-icon icon="lucide:message-square"></iconify-icon> Browse All Phrases
+                    </a>
                 </div>
             </div>
 
@@ -642,7 +771,7 @@
 
                     <div class="mb-6 flex justify-center relative z-10">
                         <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center shadow-lg">
-                            <img src="https://cdn-icons-png.flaticon.com/512/1375/1375510.png" alt="Translator" loading="lazy" class="w-8 h-8 filter brightness-0 invert">
+                            <iconify-icon icon="lucide:languages" class="text-3xl text-white"></iconify-icon>
                         </div>
                     </div>
                     <h3 class="text-2xl font-bold mb-3 text-gray-800 dark:text-white relative z-10"><iconify-icon icon="lucide:bot"></iconify-icon> AI-Powered Translation</h3>
@@ -717,39 +846,6 @@
                             <iconify-icon icon="lucide:gamepad-2"></iconify-icon> View All Games
                         </a>
                     </div>
-                </div>
-            </div>
-
-            <!-- Phrases Quick Access -->
-            <div class="bg-gradient-to-r from-purple-100 via-pink-100 to-orange-100 dark:from-slate-800 dark:via-slate-900 dark:to-slate-800 rounded-3xl shadow-xl p-8 mb-12 max-w-5xl mx-auto border-2 border-purple-200 dark:border-slate-700">
-                <div class="text-center mb-6">
-                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-2"><iconify-icon icon="lucide:message-square"></iconify-icon> Common Phrases</h2>
-                    <p class="text-gray-600 dark:text-slate-400">Essential expressions for everyday conversations</p>
-                </div>
-
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                    <div class="bg-white dark:bg-slate-700 rounded-xl p-4 shadow-md">
-                        <p class="font-bold text-purple-600 dark:text-purple-400">Howzit!</p>
-                        <p class="text-sm text-gray-600 dark:text-slate-300">Hello / How are you?</p>
-                    </div>
-                    <div class="bg-white dark:bg-slate-700 rounded-xl p-4 shadow-md">
-                        <p class="font-bold text-purple-600 dark:text-purple-400">Shoots</p>
-                        <p class="text-sm text-gray-600 dark:text-slate-300">Okay / Sounds good</p>
-                    </div>
-                    <div class="bg-white dark:bg-slate-700 rounded-xl p-4 shadow-md">
-                        <p class="font-bold text-purple-600 dark:text-purple-400">A hui hou</p>
-                        <p class="text-sm text-gray-600 dark:text-slate-300">Until we meet again</p>
-                    </div>
-                    <div class="bg-white dark:bg-slate-700 rounded-xl p-4 shadow-md">
-                        <p class="font-bold text-purple-600 dark:text-purple-400">Broke da mouth</p>
-                        <p class="text-sm text-gray-600 dark:text-slate-300">Delicious food</p>
-                    </div>
-                </div>
-
-                <div class="text-center">
-                    <a href="phrases.html" class="inline-block bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-3 rounded-full font-bold hover:scale-105 transition shadow-lg">
-                        <iconify-icon icon="lucide:message-square"></iconify-icon> Browse 100+ Phrases
-                    </a>
                 </div>
             </div>
         </div>
@@ -851,145 +947,6 @@
     </section>
 
     <!-- Hawaiian Slang Section - SEO Optimized -->
-    <section class="py-16 px-4 bg-gradient-to-b from-blue-50 to-purple-50 dark:from-slate-900 dark:to-slate-800">
-        <div class="container mx-auto">
-            <div class="text-center mb-12">
-                <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 dark:text-white mb-4">
-                    <span class="md:hidden whitespace-nowrap"><iconify-icon icon="lucide:flower-2"></iconify-icon> Popular Hawaiian Phrases <iconify-icon icon="lucide:palmtree"></iconify-icon></span>
-                    <span class="hidden md:inline"><iconify-icon icon="lucide:flower-2"></iconify-icon> Popular Hawaiian Slang Words & Phrases <iconify-icon icon="lucide:palmtree"></iconify-icon></span>
-                </h2>
-                <p class="text-xl text-gray-700 dark:text-slate-300 max-w-3xl mx-auto">
-                    Discover the most common Hawaiian slang used by locals every day. From "brah" to "da kine," learn authentic island expressions with real pronunciations.
-                </p>
-            </div>
-
-            <!-- Common Hawaiian Slang Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12">
-                <a href="what-does-howzit-mean.html" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
-                    <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Howzit <iconify-icon icon="lucide:star"></iconify-icon></h3>
-                    <p class="text-gray-600 dark:text-slate-400 italic mb-2">HOW-zit</p>
-                    <p class="text-gray-700 dark:text-slate-300">Hawaiian slang greeting meaning "How's it going?" or "What's up?"</p>
-                    <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "Howzit, brah!"</p>
-                    <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ Complete guide to this greeting</p>
-                </a>
-
-                <a href="what-does-da-kine-mean.html" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
-                    <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Da Kine <iconify-icon icon="lucide:star"></iconify-icon></h3>
-                    <p class="text-gray-600 dark:text-slate-400 italic mb-2">dah KYNE</p>
-                    <p class="text-gray-700 dark:text-slate-300">Universal Hawaiian slang for "the thing" when you can't remember the word</p>
-                    <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "Pass me da kine over there"</p>
-                    <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ Learn more with 15+ examples</p>
-                </a>
-
-                <a href="what-does-shoots-mean.html" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
-                    <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Shoots <iconify-icon icon="lucide:star"></iconify-icon></h3>
-                    <p class="text-gray-600 dark:text-slate-400 italic mb-2">SHOOTS</p>
-                    <p class="text-gray-700 dark:text-slate-300">Hawaiian slang for "okay," "sounds good," or "let's do it"</p>
-                    <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "Wanna grab lunch? - Shoots!"</p>
-                    <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ See all the ways to use "shoots"</p>
-                </a>
-
-                <a href="what-does-ono-grindz-mean.html" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
-                    <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Ono Grindz <iconify-icon icon="lucide:star"></iconify-icon></h3>
-                    <p class="text-gray-600 dark:text-slate-400 italic mb-2">OH-no GRINDZ</p>
-                    <p class="text-gray-700 dark:text-slate-300">Local Hawaiian slang for delicious food</p>
-                    <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "Dis plate lunch get ono grindz!"</p>
-                    <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ Master this essential food phrase</p>
-                </a>
-
-                <a href="what-does-pau-hana-mean.html" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
-                    <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Pau Hana <iconify-icon icon="lucide:star"></iconify-icon></h3>
-                    <p class="text-gray-600 dark:text-slate-400 italic mb-2">POW HA-nah</p>
-                    <p class="text-gray-700 dark:text-slate-300">Hawaiian slang meaning "finished work" or after-work happy hour</p>
-                    <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "Let's grab drinks for pau hana!"</p>
-                    <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ Discover pau hana culture</p>
-                </a>
-
-                <a href="what-does-broke-da-mouth-mean.html" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
-                    <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Broke Da Mouth <iconify-icon icon="lucide:star"></iconify-icon></h3>
-                    <p class="text-gray-600 dark:text-slate-400 italic mb-2">BROKE dah MOWT</p>
-                    <p class="text-gray-700 dark:text-slate-300">Hawaiian slang for extremely delicious food</p>
-                    <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "Dat poke was so ono, broke da mouth!"</p>
-                    <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ Learn this food compliment</p>
-                </a>
-
-                <a href="what-does-brah-mean.html" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
-                    <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Brah <iconify-icon icon="lucide:star"></iconify-icon></h3>
-                    <p class="text-gray-600 dark:text-slate-400 italic mb-2">BRAH</p>
-                    <p class="text-gray-700 dark:text-slate-300">Hawaiian slang for "brother," "friend," or "dude"</p>
-                    <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "Eh brah, you like go beach?"</p>
-                    <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ How and when to say "brah"</p>
-                </a>
-
-                <a href="what-does-shaka-mean.html" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
-                    <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Shaka <iconify-icon icon="lucide:star"></iconify-icon></h3>
-                    <p class="text-gray-600 dark:text-slate-400 italic mb-2">SHAH-kah</p>
-                    <p class="text-gray-700 dark:text-slate-300">Hawaiian hand gesture and greeting meaning "hang loose"</p>
-                    <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "He gave me shaka from his car"</p>
-                    <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ Origins of the shaka sign</p>
-                </a>
-
-                <a href="what-does-grindz-mean.html" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
-                    <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Grindz <iconify-icon icon="lucide:star"></iconify-icon></h3>
-                    <p class="text-gray-600 dark:text-slate-400 italic mb-2">GRINDZ</p>
-                    <p class="text-gray-700 dark:text-slate-300">Hawaiian slang for food or eating</p>
-                    <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "Where da grindz at?"</p>
-                    <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ Complete food culture guide</p>
-                </a>
-
-                <a href="what-does-pau-mean.html" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
-                    <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Pau <iconify-icon icon="lucide:star"></iconify-icon></h3>
-                    <p class="text-gray-600 dark:text-slate-400 italic mb-2">POW</p>
-                    <p class="text-gray-700 dark:text-slate-300">Hawaiian slang for finished or done</p>
-                    <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "You pau with work?"</p>
-                    <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ Learn when and how to use it</p>
-                </a>
-
-                <a href="what-does-choke-mean.html" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
-                    <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Choke <iconify-icon icon="lucide:star"></iconify-icon></h3>
-                    <p class="text-gray-600 dark:text-slate-400 italic mb-2">CHOKE</p>
-                    <p class="text-gray-700 dark:text-slate-300">Hawaiian slang for a lot or plenty</p>
-                    <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "Get choke people at da beach"</p>
-                    <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ Master this abundance word</p>
-                </a>
-
-                <a href="what-does-talk-story-mean.html" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
-                    <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Talk Story <iconify-icon icon="lucide:star"></iconify-icon></h3>
-                    <p class="text-gray-600 dark:text-slate-400 italic mb-2">TAWK STOR-ee</p>
-                    <p class="text-gray-700 dark:text-slate-300">Hawaiian slang for chat or have a conversation</p>
-                    <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "Come, we talk story"</p>
-                    <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ Hawaii's art of conversation</p>
-                </a>
-
-                <a href="what-does-mahalo-mean.html" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
-                    <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Mahalo <iconify-icon icon="lucide:star"></iconify-icon></h3>
-                    <p class="text-gray-600 dark:text-slate-400 italic mb-2">mah-HA-lo</p>
-                    <p class="text-gray-700 dark:text-slate-300">Hawaiian word for thank you (universal in Hawaii)</p>
-                    <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "Mahalo for your help!"</p>
-                    <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ Gratitude the Hawaiian way</p>
-                </a>
-
-                <a href="what-does-no-worry-mean.html" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow block border border-transparent dark:border-slate-700 hover:border-green-500 dark:hover:border-green-500">
-                    <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">No Worry <iconify-icon icon="lucide:star"></iconify-icon></h3>
-                    <p class="text-gray-600 dark:text-slate-400 italic mb-2">NO WUR-ee</p>
-                    <p class="text-gray-700 dark:text-slate-300">Hawaiian Pidgin for don't worry or no problem</p>
-                    <p class="text-sm text-gray-500 dark:text-slate-400 mt-2">Example: "No worry, brah, I got you"</p>
-                    <p class="text-sm text-green-600 dark:text-green-400 font-bold mt-3">→ The island's laid-back philosophy</p>
-                </a>
-            </div>
-
-            <!-- Call to Action -->
-            <div class="text-center">
-                <p class="text-lg text-gray-700 dark:text-slate-300 mb-6">
-                    Want to explore all 600+ Hawaiian slang words and phrases?
-                </p>
-                <a href="dictionary.html" class="inline-block bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl whitespace-nowrap">
-                    <iconify-icon icon="lucide:book-open"></iconify-icon> Browse Full Hawaiian Slang Dictionary
-                </a>
-            </div>
-        </div>
-    </section>
-
     <!-- Dictionary Link Section -->
     <section class="py-16 px-4 relative overflow-hidden" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);">
 

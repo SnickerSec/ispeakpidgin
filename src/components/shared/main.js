@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Note: Navigation is handled by navigation.html component
     initDailyPhrase();
     initEssentialPhrases();
+    initPopularExpressionTabs();
     initTranslator();
     initLearningHub();
     initStoryCorner();
@@ -320,6 +321,35 @@ async function initEssentialPhrases() {
             <p class="text-sm text-gray-500 dark:text-slate-500">${phrase.context || phrase.usage || ''}</p>
         </div>
     `).join('');
+}
+
+// Popular Expressions tabs: filter the static slang cards by category, or swap
+// in the random Supabase phrases. Cards stay in the HTML so crawlers see them all.
+function initPopularExpressionTabs() {
+    const tabs = document.querySelectorAll('[data-phrase-tab]');
+    const staticGrid = document.getElementById('popular-expressions-grid');
+    const randomGrid = document.getElementById('essential-phrases-grid');
+    if (!tabs.length || !staticGrid || !randomGrid) return;
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const category = tab.dataset.phraseTab;
+            tabs.forEach(t => t.setAttribute('aria-selected', t === tab ? 'true' : 'false'));
+
+            if (category === 'random') {
+                staticGrid.hidden = true;
+                randomGrid.hidden = false;
+                initEssentialPhrases(); // reshuffle on every visit to the tab
+                return;
+            }
+
+            randomGrid.hidden = true;
+            staticGrid.hidden = false;
+            staticGrid.querySelectorAll('[data-phrase-category]').forEach(card => {
+                card.hidden = category !== 'all' && card.dataset.phraseCategory !== category;
+            });
+        });
+    });
 }
 
 
