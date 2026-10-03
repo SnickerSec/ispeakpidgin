@@ -1,7 +1,7 @@
 {
   "generated": "2026-08-25T04:38:00.000Z",
   "source": "curated-island-slang-and-cultural-terms",
-  "count": 37,
+  "count": 38,
   "missing": [
     {
       "pidgin": "loco moco",
@@ -426,22 +426,6 @@
       "source_language": "hawaiian"
     },
     {
-      "pidgin": "mauka and makai",
-      "english": ["from mountain to sea", "island-wide", "everywhere across the island"],
-      "category": "locations",
-      "pronunciation": "MOW-kah and mah-KYE",
-      "difficulty": "intermediate",
-      "usage": "Directional phrase meaning everywhere across the island from the mountains to the ocean; alternate phrasing of mauka makai.",
-      "examples": [
-        "We searched mauka and makai for da lost dog.",
-        "Da whole island stay celebrating mauka and makai."
-      ],
-      "origin": "Hawaiian directional compound (mauka = mountain, makai = ocean)",
-      "frequency": "high",
-      "tags": ["locations", "directions", "island", "travel", "geography"],
-      "source_language": "hawaiian"
-    },
-    {
       "pidgin": "cheeehoo",
       "english": ["expression of joy", "excitement", "woohoo", "celebratory cry", "joyful shout"],
       "category": "expressions",
@@ -579,6 +563,42 @@
       "tags": ["expressions", "pride", "island", "maui", "hawaiian"],
       "source_language": "hawaiian",
       "spelling_variants": ["maui no ka 'oi", "maui nō ka ʻoi", "maui nō ka 'oi"]
+    },
+    {
+      "pidgin": "on da lo lo yo",
+      "english": ["on the down-low", "secretly", "quietly", "under the radar"],
+      "category": "slang",
+      "pronunciation": "on dah LOH LOH YOH",
+      "difficulty": "intermediate",
+      "usage": "Island Pidgin expression meaning to keep something confidential, secret, or discreet ('on the down-low'). Used when telling someone not to broadcast sensitive news or gossip.",
+      "examples": [
+        "Keep dis news on da lo lo yo, no tell nobody yet.",
+        "We stay planning one surprise party, so stay on da lo lo yo.",
+        "Brah, dat deal went down on da lo lo yo."
+      ],
+      "origin": "Blend of English 'on the down-low' / 'low-low' with Pidgin rhythm and rhyming marker 'yo'.",
+      "frequency": "high",
+      "tags": ["slang", "secrets", "discreet", "expressions"],
+      "source_language": "pidgin",
+      "spelling_variants": ["on da low low", "on da low low yo", "on da lolo yo", "on da loloyo"]
+    },
+    {
+      "pidgin": "me ka mahalo",
+      "english": ["with gratitude", "with thanks", "warm regards", "sincerely"],
+      "category": "greetings",
+      "pronunciation": "may kah mah-HAH-loh",
+      "difficulty": "beginner",
+      "usage": "Traditional and formal Hawaiian letter or email sign-off meaning 'with gratitude' or 'with thanks'. Commonly seen as a closing valediction in local correspondence, formal messages, and community announcements.",
+      "examples": [
+        "Me ka mahalo for your kokua and support.",
+        "He wen sign da letter 'Me ka mahalo, Uncle Kimo.'",
+        "Me ka mahalo nui loa to all our volunteers today."
+      ],
+      "origin": "Hawaiian: me (with) + ka (the) + mahalo (gratitude/thanks).",
+      "frequency": "high",
+      "tags": ["greetings", "valediction", "formal", "hawaiian", "gratitude"],
+      "source_language": "hawaiian",
+      "spelling_variants": ["me ka mahalo nui", "me ka mahalo nui loa"]
     }
   ]
 }

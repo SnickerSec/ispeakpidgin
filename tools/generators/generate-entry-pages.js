@@ -37,6 +37,13 @@ if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
 }
 
+// True when `inner` (4+ letters) appears as whole words inside a longer `outer` headword.
+function headwordContains(outer, inner) {
+    const fold = t => ` ${String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z\s]/g, ' ').replace(/\s+/g, ' ').trim()} `;
+    const o = fold(outer), i = fold(inner);
+    return i.trim().length >= 4 && o.length > i.length && o.includes(i);
+}
+
 // Helper: Find related terms (same category or similar tags)
 function findRelatedTerms(entry, allEntries, limit = 6) {
     const related = allEntries
@@ -52,6 +59,8 @@ function findRelatedTerms(entry, allEntries, limit = 6) {
             score += sharedTags.length;
             // Same difficulty
             if (e.difficulty === entry.difficulty) score += 1;
+            // One headword inside the other (mauka ↔ mauka makai): the strongest link there is
+            if (headwordContains(entry.pidgin, e.pidgin) || headwordContains(e.pidgin, entry.pidgin)) score += 10;
             return { entry: e, score };
         })
         .filter(r => r.score > 0)

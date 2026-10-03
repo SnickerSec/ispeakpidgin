@@ -358,8 +358,8 @@ const spellingRedirects = {
     'keiki': 'what-does-keiki-mean',
     'lolo': 'what-does-lolo-mean',
     'mauka-makai': 'what-does-mauka-makai-mean',
-    'mauka': 'what-does-mauka-makai-mean',
-    'makai': 'what-does-mauka-makai-mean',
+    'mauka-and-makai': 'what-does-mauka-makai-mean',
+    // mauka and makai keep their own word pages: single-direction searches are a different intent
     'mayjah': 'what-does-mayjah-mean',
     'ohana': 'what-does-ohana-mean',
     'ono-grindz': 'what-does-ono-grindz-mean',

@@ -42,14 +42,17 @@ async function main() {
     console.log('🔍 Checking for existing entries in Supabase...');
     const { data: existingEntries, error: fetchError } = await supabase
         .from('dictionary_entries')
-        .select('pidgin');
+        .select('pidgin, spelling_variants');
 
     if (fetchError) {
         console.error('❌ Error fetching existing entries:', fetchError.message);
         process.exit(1);
     }
 
-    const existingPidginSet = new Set(existingEntries.map(e => e.pidgin.toLowerCase()));
+    // A spelling variant is the same word: re-inserting it recreates a merged duplicate.
+    const existingPidginSet = new Set(existingEntries
+        .flatMap(e => [e.pidgin, ...(e.spelling_variants || [])])
+        .map(t => t.toLowerCase()));
     console.log(`✅ Loaded ${existingEntries.length} existing entries\n`);
 
     // Add missing terms
