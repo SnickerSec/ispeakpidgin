@@ -172,11 +172,16 @@ class PhraseTranslator {
         let bestMatch = null;
         let bestSimilarity = 0;
 
+        // A short phrase needs a closer match: at 0.7, "stay go" (7 chars) passed as a typo of
+        // "stay good" and came back "I am doing well". Two edits in a short phrase is a
+        // different phrase, not a typo.
+        const minSimilarity = text.length <= 12 ? 0.85 : 0.7;
+
         for (const [english, pidginOptions] of Object.entries(this.phraseLookup)) {
             for (const option of pidginOptions) {
                 const similarity = this.calculateSimilarity(text, option.pidgin.toLowerCase());
 
-                if (similarity > bestSimilarity && similarity > 0.7) {
+                if (similarity > bestSimilarity && similarity > minSimilarity) {
                     bestSimilarity = similarity;
                     bestMatch = {
                         translation: english,

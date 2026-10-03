@@ -49,7 +49,10 @@ const ENGLISH_TO_PIDGIN = [
     ['I don\'t know', 'I no know'],
     ['Do you want to eat?', 'you like eat, eh'],
     ['He is at home', 'he stay at home'],
-    ['she is angry', 'she stay angry']
+    ['she is angry', 'she stay angry'],
+    ["Let's go", 'we go'],
+    ['I can not go', 'I no can go'],
+    ["I can't go", 'I no can go']
 ];
 const PIDGIN_TO_ENGLISH = [
     ['howzit', 'how are you'],
@@ -64,7 +67,16 @@ const PIDGIN_TO_ENGLISH = [
     ['ohana', 'family'],
     ['kokua', 'help'],
     ['no ka oi', 'the best'],
-    ['mo bettah', 'better']
+    ['mo bettah', 'better'],
+    ['I no can go', 'I cannot go'],
+    ['we go beach', "let's go beach"]
+];
+
+// Pidgin → English outputs that must not contain a phrase (a mistranslation seen before)
+const PIDGIN_TO_ENGLISH_NEVER = [
+    ['you like go?', "let's"],      // "go" used to read as "let's go"
+    ['stay go', 'doing well'],      // short phrase fuzzy-matched "stay good"
+    ['he nevah like', 'nevah']      // spelling variant of neva left untranslated
 ];
 
 async function liveDictionary() {
@@ -145,6 +157,11 @@ const normalize = s => String(s || '').toLowerCase().replace(/[.?!\s]+$/, '').tr
         check(`"${input}" → "${expected}"`, normalize(text) === normalize(expected), `got "${text}"`);
     }
 
+    for (const [input, banned] of PIDGIN_TO_ENGLISH_NEVER) {
+        const { text } = await translator.translate(input, 'pidgin-to-eng');
+        check(`"${input}" → no "${banned}"`, !normalize(text).includes(banned), `got "${text}"`);
+    }
+
     // Every meaning of every Hawaiian entry, translated: the output must not be a Hawaiian
     // headword unless the allowlist permits that headword for that meaning.
     console.log('\n3. ʻŌlelo Hawaiʻi stays out of Pidgin output');
@@ -165,7 +182,7 @@ const normalize = s => String(s || '').toLowerCase().replace(/[.?!\s]+$/, '').tr
     check(`${hawaiian.length} Hawaiian entries: no unapproved Hawaiian output`, leaks.length === 0,
         `${leaks.length} leak(s): ${leaks.slice(0, 10).join(', ')}`);
 
-    const total = ENGLISH_TO_PIDGIN.length + PIDGIN_TO_ENGLISH.length + 1;
+    const total = ENGLISH_TO_PIDGIN.length + PIDGIN_TO_ENGLISH.length + PIDGIN_TO_ENGLISH_NEVER.length + 1;
     if (failures.length) {
         console.error(`\n❌ ${failures.length} of ${total} live translator checks failed`);
         process.exit(1);

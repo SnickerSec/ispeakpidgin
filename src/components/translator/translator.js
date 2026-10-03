@@ -418,6 +418,14 @@ class PidginTranslator {
                         reverse[entry.pidgin.toLowerCase()] = mainTranslation;
                     }
                 }
+                // Spelling variants (nevah → neva, howle → haole) read like their headword,
+                // unless the variant is itself a headword
+                for (let entry of entries) {
+                    for (const variant of entry.spelling_variants || []) {
+                        const key = variant.toLowerCase();
+                        if (!(key in reverse)) reverse[key] = reverse[entry.pidgin.toLowerCase()];
+                    }
+                }
             } catch (error) {
                 console.error('Error adding reverse mappings from loader:', error);
             }
@@ -656,6 +664,7 @@ class PidginTranslator {
                 "you'll": "you will",
                 "won't": "will not",
                 "can't": "cannot",
+                "can not": "cannot",
                 "don't": "do not",
                 "doesn't": "does not",
                 "didn't": "did not"
