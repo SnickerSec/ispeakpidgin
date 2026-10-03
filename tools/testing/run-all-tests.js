@@ -89,6 +89,11 @@ const testSuites = [
         requiredEnv: false
     },
     {
+        name: 'Live Translator (Supabase data)',
+        script: 'test-translator-live.js',
+        requiredEnv: true
+    },
+    {
         name: 'Site Integrity & SEO Link Audit',
         script: 'audit-site.js',
         preRunBuild: true

@@ -545,7 +545,8 @@ SupabaseDataLoader.PIDGIN_HAWAIIAN_LOANWORDS = {
     'kapakahi': ['crooked'],
     'tutu': ['grandmother', 'grandparent'],
     'molowa': ['lazy'],
-    'mimi': ['pee', 'urinate']
+    'mimi': ['pee', 'urinate'],
+    'hauoli la hanau': ['happy birthday']
 };
 
 window.pidginDataLoader = supabaseDataLoader; // Backward compatibility alias

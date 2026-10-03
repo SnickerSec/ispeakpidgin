@@ -29,6 +29,7 @@ npm test
 # Run individual validation suites
 npm run test:validation                             # Master translator validation
 npm run test:translator                             # Phase 2 & 3 validation (grammar/stories)
+npm run test:translator:live                        # Real translator stack on live Supabase data — run after every data migration
 node tools/testing/validate-phrase-translator.js    # Phrase translator validation
 node tools/testing/validate-sentence-improvements.js  # Sentence chunking validation
 node tools/testing/pronunciation-audit.js           # Phonetics pronunciation audit
