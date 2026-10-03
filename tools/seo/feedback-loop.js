@@ -290,7 +290,7 @@ function parseJsonQueries(jsonContent) {
     }
 
     // Format 2: Array of objects or strings
-    const list = Array.isArray(parsed) ? parsed : (parsed.queries || parsed.data || parsed.missing || []);
+    const list = Array.isArray(parsed) ? parsed : (parsed.topQueries || parsed.queries || parsed.data || parsed.missing || []);
 
     return list.map(item => {
         if (typeof item === 'string') {

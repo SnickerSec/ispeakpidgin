@@ -59,10 +59,18 @@ const PAGE_RULE_MAP = new Map(PAGE_RULES.map(([url, changefreq, priority]) => [u
 
 // Curated landing pages that outperform the rest of the "what does X mean" set.
 const HIGH_VALUE_LANDING = new Map([
+    ['/what-does-pau-mean.html',           { changefreq: 'weekly',  priority: 0.9 }],
     ['/what-does-menpachi-eyes-mean.html', { changefreq: 'weekly',  priority: 0.9 }],
+    ['/what-does-niele-mean.html',         { changefreq: 'weekly',  priority: 0.9 }],
     ['/what-does-no-ka-oi-mean.html',      { changefreq: 'weekly',  priority: 0.9 }],
+    ['/what-does-howzit-mean.html',        { changefreq: 'weekly',  priority: 0.9 }],
+    ['/what-does-grindz-mean.html',        { changefreq: 'weekly',  priority: 0.9 }],
     ['/what-does-akamai-mean.html',        { changefreq: 'weekly',  priority: 0.9 }],
     ['/what-does-a-hui-hou-mean.html',     { changefreq: 'weekly',  priority: 0.9 }],
+    ['/what-does-choke-mean.html',         { changefreq: 'weekly',  priority: 0.9 }],
+    ['/what-does-pau-hana-mean.html',      { changefreq: 'weekly',  priority: 0.9 }],
+    ['/what-does-shaka-mean.html',         { changefreq: 'weekly',  priority: 0.9 }],
+    ['/what-does-brah-mean.html',          { changefreq: 'weekly',  priority: 0.9 }],
     ['/what-does-aloha-mean.html',         { changefreq: 'monthly', priority: 0.9 }],
     ['/what-does-ohana-mean.html',         { changefreq: 'monthly', priority: 0.9 }],
 ]);

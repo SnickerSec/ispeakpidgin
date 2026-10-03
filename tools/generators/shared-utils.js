@@ -34,6 +34,7 @@ const SITE_NAME = 'ChokePidgin';
 
 // Map of words that have high-quality, dedicated landing pages
 const premiumPages = {
+    'a hui hou': 'what-does-a-hui-hou-mean.html',
     'akamai': 'what-does-akamai-mean.html',
     'aloha': 'what-does-aloha-mean.html',
     'howzit': 'what-does-howzit-mean.html',

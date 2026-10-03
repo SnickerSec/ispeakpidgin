@@ -128,10 +128,16 @@ async function generateOgImage(options) {
             return true;
         }
         
-        // Generate WebP image from SVG
-        await sharp(Buffer.from(svg))
-            .webp({ quality: 80 })
-            .toFile(outputPath);
+        // Generate image from SVG in requested format
+        const pipeline = sharp(Buffer.from(svg));
+        const ext = path.extname(filename).toLowerCase();
+        if (ext === '.png') {
+            await pipeline.png({ quality: 80, compressionLevel: 9 }).toFile(outputPath);
+        } else if (ext === '.jpg' || ext === '.jpeg') {
+            await pipeline.jpeg({ quality: 80 }).toFile(outputPath);
+        } else {
+            await pipeline.webp({ quality: 80 }).toFile(outputPath);
+        }
             
         return true;
     } catch (err) {
