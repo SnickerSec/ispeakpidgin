@@ -24,8 +24,16 @@ const { createClient } = require('@supabase/supabase-js');
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
 const ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY;
+const {
+    PIDGIN_PRONUNCIATION_MAP: globalPronunciationMap,
+    applyPronunciationCorrections,
+    setPronunciationGuides,
+    ELEVENLABS_SYNTHESIS,
+    KIMO_VOICE_ID
+} = require('../../src/components/speech/elevenlabs-speech.js');
+
 const BUCKET_NAME = 'audio-assets';
-const VOICE_ID = 'f0ODjLMfcJmlKfs7dFCW'; // Authentic local Uncle Kimo voice
+const VOICE_ID = KIMO_VOICE_ID; // Authentic local Uncle Kimo voice
 const DIRECTION = 'tts';
 const AUDIO_DIR = path.join(__dirname, '../../public/assets/audio');
 
@@ -35,13 +43,6 @@ if (!supabaseUrl || !supabaseServiceKey) {
 }
 
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
-
-const {
-    PIDGIN_PRONUNCIATION_MAP: globalPronunciationMap,
-    applyPronunciationCorrections,
-    setPronunciationGuides,
-    ELEVENLABS_SYNTHESIS
-} = require('../../src/components/speech/elevenlabs-speech.js');
 
 function parseArgs(argv) {
     const args = argv.slice(2);
