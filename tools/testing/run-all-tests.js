@@ -93,31 +93,43 @@ const testSuites = [
 const results = [];
 let overallPassed = true;
 
+// Parse CLI flags
+const isQuick = process.argv.includes('--quick') || process.argv.includes('-q');
+
 // Ensure public directory is built for the site audit
 const publicDir = path.join(__dirname, '../../public');
-const hasPublicDir = fs.existsSync(publicDir);
 
 for (const suite of testSuites) {
     console.log(`\n🏃 Running: ${suite.name} (${suite.script})...`);
     console.log('-'.repeat(50));
 
-    if (suite.preRunBuild && !hasPublicDir) {
-        console.log('🏗️  Public directory not found. Triggering a quick build first...');
-        const buildResult = spawnSync('node', [path.join(__dirname, '../../build.js'), '--quick'], {
-            stdio: 'inherit',
-            cwd: path.join(__dirname, '../..')
-        });
-        if (buildResult.status !== 0) {
-            console.error('❌ Quick build failed! Skipping site audit.');
-            results.push({ name: suite.name, status: 'SKIPPED (Build Failed)', code: buildResult.status });
-            overallPassed = false;
-            continue;
+    if (suite.preRunBuild) {
+        const isComplete = fs.existsSync(publicDir) &&
+            fs.existsSync(path.join(publicDir, 'sitemap.xml')) &&
+            fs.existsSync(path.join(publicDir, 'word'));
+        const hasDir = fs.existsSync(publicDir);
+
+        if (!hasDir || (!isQuick && !isComplete)) {
+            const buildArgs = isQuick ? ['--quick'] : [];
+            const buildDesc = isQuick ? 'quick build' : 'full build';
+            console.log(`🏗️  ${!hasDir ? 'Public directory not found' : 'Incomplete public build detected'}. Triggering ${buildDesc} first...`);
+            const buildResult = spawnSync('node', [path.join(__dirname, '../../build.js'), ...buildArgs], {
+                stdio: 'inherit',
+                cwd: path.join(__dirname, '../..')
+            });
+            if (buildResult.status !== 0) {
+                console.error(`❌ ${buildDesc} failed! Skipping site audit.`);
+                results.push({ name: suite.name, status: 'SKIPPED (Build Failed)', code: buildResult.status });
+                overallPassed = false;
+                continue;
+            }
         }
     }
 
     const scriptPath = path.join(__dirname, suite.script);
     const start = Date.now();
-    const processResult = spawnSync('node', [scriptPath], {
+    const args = (isQuick && suite.script === 'audit-site.js') ? ['--quick'] : [];
+    const processResult = spawnSync('node', [scriptPath, ...args], {
         stdio: 'inherit',
         cwd: __dirname
     });
