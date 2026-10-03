@@ -525,7 +525,8 @@ Respond only with a JSON object:
   "english": "The primary English translation",
   "category": "One of: general, slang, food, greetings, locations, culture",
   "example": "A natural example sentence in Pidgin",
-  "pronunciation": "Phonetic pronunciation guide"
+  "pronunciation": "Phonetic pronunciation guide",
+  "source_language": "hawaiian if the term itself is a word or phrase from ʻŌlelo Hawaiʻi (the Hawaiian language, e.g. mahalo, keiki, pau), otherwise pidgin"
 }`;
 
             const response = await geminiService.generateContent(apiKey, {
@@ -558,29 +559,41 @@ Respond only with a JSON object:
     router.post('/dictionary/add', adminActionLimiter, adminAuth.requireAdminAuth, [
         body('pidgin').trim().notEmpty(),
         body('english').trim().notEmpty(),
-        body('category').trim().notEmpty()
+        body('category').trim().notEmpty(),
+        body('source_language').optional().isIn(['pidgin', 'hawaiian'])
     ], async (req, res) => {
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
         const errors = validationResult(req);
         if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
         try {
-            const { pidgin, english, category, examples = [], pronunciation = '' } = req.body;
+            const { pidgin, english, category, examples = [], pronunciation = '', source_language } = req.body;
             const crypto = require('crypto');
 
-            const { data, error } = await supabaseAdmin
-                .from('dictionary_entries')
-                .insert([{
-                    id: crypto.randomUUID(),
-                    pidgin,
-                    english: [english],
-                    category,
-                    examples: examples.length > 0 ? examples : [`${pidgin} stay ${english}`],
-                    pronunciation,
-                    difficulty: 'beginner',
-                    frequency: 'medium'
-                }])
-                .select();
+            const entry = {
+                id: crypto.randomUUID(),
+                pidgin,
+                english: [english],
+                category,
+                examples: examples.length > 0 ? examples : [`${pidgin} stay ${english}`],
+                pronunciation,
+                difficulty: 'beginner',
+                frequency: 'medium'
+            };
+            // The column defaults to 'pidgin', so it only needs sending for Hawaiian entries
+            if (source_language === 'hawaiian') entry.source_language = 'hawaiian';
+
+            const insert = row => supabaseAdmin.from('dictionary_entries').insert([row]).select();
+            let { data, error } = await insert(entry);
+            let warning;
+
+            // Before migration 018 the column does not exist (PostgREST PGRST204). Save the entry
+            // anyway rather than losing it, and tell the admin the label was dropped.
+            if (error && error.code === 'PGRST204' && entry.source_language) {
+                delete entry.source_language;
+                ({ data, error } = await insert(entry));
+                warning = `Added "${pidgin}", but the ʻŌlelo Hawaiʻi label was not saved: apply migration 018 first.`;
+            }
 
             if (error) throw error;
 
@@ -592,7 +605,7 @@ Respond only with a JSON object:
                 req 
             });
 
-            res.json({ success: true, entry: data[0] });
+            res.json({ success: true, entry: data[0], ...(warning && { warning }) });
         } catch (error) {
             console.error('Add entry error:', error);
             res.status(500).json({ error: 'Failed to add entry' });

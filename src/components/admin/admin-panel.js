@@ -493,6 +493,7 @@
                 const english = row.querySelector('.gap-english-input')?.value;
                 const category = row.querySelector('.gap-category-select')?.value;
                 const example = row.querySelector('.gap-example-input')?.value;
+                const sourceLanguage = row.querySelector('.gap-language-select')?.value || 'pidgin';
                 const pronunciation = target.dataset.pronunciation || '';
 
                 if (!english) {
@@ -500,7 +501,7 @@
                     return;
                 }
 
-                addGapToDictionary(pidgin, english, category, example, pronunciation, target, id);
+                addGapToDictionary(pidgin, english, category, example, pronunciation, sourceLanguage, target, id);
             } else if (target.dataset.action === 'suggest-gap') {
                 suggestGapData(pidgin, row, target);
             } else if (target.dataset.action === 'ignore-gap') {
@@ -1100,6 +1101,11 @@
                                     <option value="expressions">Expressions</option>
                                     <option value="culture">Culture</option>
                                 </select>
+                                <select class="gap-language-select px-2 py-1 text-xs border dark:border-slate-700 dark:bg-slate-900 dark:text-white rounded outline-none focus:ring-1 focus:ring-purple-400"
+                                        title="Is the headword Pidgin, or a word from ʻŌlelo Hawaiʻi (the Hawaiian language)?">
+                                    <option value="pidgin">Pidgin</option>
+                                    <option value="hawaiian">ʻŌlelo Hawaiʻi</option>
+                                </select>
                             </div>
                             <input type="text" placeholder="Example sentence" 
                                    class="gap-example-input w-full px-2 py-1 text-xs border dark:border-slate-700 dark:bg-slate-900 dark:text-white rounded outline-none focus:ring-1 focus:ring-purple-400">
@@ -1156,7 +1162,7 @@
         }
     }
 
-    async function addGapToDictionary(pidgin, english, category, example, pronunciation, button, gapId) {
+    async function addGapToDictionary(pidgin, english, category, example, pronunciation, sourceLanguage, button, gapId) {
         button.disabled = true;
         const originalHtml = button.innerHTML;
         button.innerHTML = '<span class="spinner spinner-white"></span>';
@@ -1173,11 +1179,14 @@
                     english, 
                     category, 
                     examples: example ? [example] : [],
-                    pronunciation
+                    pronunciation,
+                    source_language: sourceLanguage
                 })
             });
 
             if (!response.ok) throw new Error('Failed to add entry');
+            const result = await response.json();
+            if (result.warning) showToast(result.warning, 'warning');
 
             // Now update the gap status if a gapId was provided
             if (gapId) {
@@ -1273,15 +1282,17 @@
             const englishInput = row.querySelector('.gap-english-input');
             const categorySelect = row.querySelector('.gap-category-select');
             const exampleInput = row.querySelector('.gap-example-input');
-            const addBtn = row.querySelector('[data-action="quick-add"]');
+            const languageSelect = row.querySelector('.gap-language-select');
+            const addBtn = row.querySelector('[data-action="add-gap-btn"]');
 
             if (englishInput) englishInput.value = data.english || '';
             if (categorySelect) categorySelect.value = data.category || 'general';
             if (exampleInput) exampleInput.value = data.example || '';
+            if (languageSelect) languageSelect.value = data.source_language === 'hawaiian' ? 'hawaiian' : 'pidgin';
             if (addBtn && data.pronunciation) addBtn.dataset.pronunciation = data.pronunciation;
 
             // Highlight changes
-            [englishInput, categorySelect, exampleInput].forEach(el => {
+            [englishInput, categorySelect, exampleInput, languageSelect].forEach(el => {
                 if (el) {
                     el.classList.add('border-purple-400', 'bg-purple-50');
                     setTimeout(() => el.classList.remove('border-purple-400', 'bg-purple-50'), 2000);
