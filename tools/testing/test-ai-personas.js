@@ -185,12 +185,13 @@ async function runTests() {
         'gemini-2.5-flash-lite',
         'gemini-2.5-flash',
         'gemini-2.0-flash-lite',
-        'gemini-flash-latest'
+        'gemini-1.5-flash'
     ];
 
     assert.strictEqual(expectedChain[0], 'gemini-2.5-flash-lite', 'Primary model must be pinned to gemini-2.5-flash-lite');
-    assert.strictEqual(expectedChain[expectedChain.length - 1], 'gemini-flash-latest', 'Floating alias must only reside in last fallback position');
-    console.log(`   ✅ Fallback chain order verified: ${expectedChain.join(' → ')}`);
+    assert.strictEqual(expectedChain[expectedChain.length - 1], 'gemini-1.5-flash', 'Fallback model must be pinned to gemini-1.5-flash');
+    assert.ok(!expectedChain.some(m => /-latest$/.test(m)), 'No floating aliases permitted in model chain');
+    console.log(`   ✅ Pinned fallback chain verified (no floating aliases): ${expectedChain.join(' → ')}`);
 
     // -------------------------------------------------------------
     // 7. Persona Linguistic Tone Profiles

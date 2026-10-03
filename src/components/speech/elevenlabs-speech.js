@@ -421,6 +421,19 @@ const ELEVENLABS_SYNTHESIS = {
     }
 };
 
+// Approved voice constants
+// Uncle Kimo is the authentic, elder local storyteller voice and the primary voice across the app.
+const KIMO_VOICE_ID = 'f0ODjLMfcJmlKfs7dFCW';
+
+// Full catalog of approved ElevenLabs voice IDs (Kimo + Talk Story personas)
+const APPROVED_VOICE_IDS = Object.freeze([
+    'f0ODjLMfcJmlKfs7dFCW', // Uncle Kimo (Mikey - Elder Hawaiian Male)
+    '0f4r1bLyisMv67ocsZMl', // Aunty Pua (Cristina G. - Hawaiian Female)
+    'jRIDd6YCznqwKHkWlpOh', // Sister Hoku (Hoku - Hawaiian Female)
+    'Eqw4o5WB3NXnOBL9xr97', // Keanu (Brandon - Surf Brah Male)
+    '4P3xiZBsFtmaNelXtmvq'  // Cousin Kaipo (Noah - Island Male)
+]);
+
 // ---------------------------------------------------------------------------------------------
 // Hawaiian syllabification, used only for words carrying a diacritic.
 //
@@ -901,7 +914,9 @@ class ElevenLabsSpeech {
 
                     // Normalize text and partition cache by voice ID
                     const normalizedText = text.trim().toLowerCase();
-                    const voiceId = options.voiceId || 'f0ODjLMfcJmlKfs7dFCW';
+                    const voiceId = (options.voiceId && APPROVED_VOICE_IDS.includes(options.voiceId))
+                        ? options.voiceId
+                        : KIMO_VOICE_ID;
                     const cacheKey = `${voiceId}_${normalizedText}`;
 
                     // Check cache first (voice-specific with fallback)
@@ -1373,6 +1388,8 @@ if (typeof module !== 'undefined' && module.exports) {
     module.exports.PIDGIN_TH_WORDS = PIDGIN_TH_WORDS;
     module.exports.applyPronunciationCorrections = applyPronunciationCorrections;
     module.exports.ELEVENLABS_SYNTHESIS = ELEVENLABS_SYNTHESIS;
+    module.exports.KIMO_VOICE_ID = KIMO_VOICE_ID;
+    module.exports.APPROVED_VOICE_IDS = APPROVED_VOICE_IDS;
     module.exports.setPronunciationGuides = setPronunciationGuides;
     module.exports.getPronunciationGuideCount = getPronunciationGuideCount;
 }

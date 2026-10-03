@@ -79,6 +79,8 @@ const QUERY_STRIP_REGEXES = [
     /what does (.*) mean in english/i,
     /what does (.*) mean in chat/i,
     /what does (.*) mean/i,
+    /how do you say (.*) in (?:hawaiian|pidgin)/i,
+    /how do you say (.*)/i,
     /how to say (.*) in hawaiian/i,
     /how to say (.*) in pidgin/i,
     /how to say (.*) in english/i,
@@ -406,14 +408,35 @@ function loadQueriesFromFile(filePath) {
     }));
 }
 
+// keyPath null → Application Default Credentials (gcloud auth application-default login).
 async function getAuthClient(keyPath) {
-    if (!fs.existsSync(keyPath)) {
+    if (keyPath && !fs.existsSync(keyPath)) {
         throw new Error(`Google Search Console key file not found at ${keyPath}`);
     }
     return new GoogleAuth({
-        keyFile: keyPath,
+        ...(keyPath ? { keyFile: keyPath } : {}),
         scopes: ['https://www.googleapis.com/auth/webmasters.readonly']
     });
+}
+
+/**
+ * Tries the service-account key, then ADC; the first credential that can read the
+ * property wins. Returns null (with the reasons logged) when none can.
+ */
+async function fetchLiveQueries(keyPath, days) {
+    const attempts = [...(keyPath ? [keyPath] : []), null];
+    for (const candidate of attempts) {
+        const label = candidate || 'application default credentials';
+        try {
+            console.log(`🔑 Authenticating with Google Search Console API (${label})...`);
+            const auth = await getAuthClient(candidate);
+            console.log(`📡 Fetching ${days} days of Search Console queries for ${SITE_URL}...`);
+            return await fetchSearchQueries(auth, days);
+        } catch (err) {
+            console.log(`   ✗ ${err.message.split('\n')[0]}`);
+        }
+    }
+    return null;
 }
 
 async function fetchSearchQueries(auth, days = 28) {
@@ -469,6 +492,86 @@ function normalizeQueryTerm(txt) {
         normalized = 'kokua';
     }
     return normalized;
+}
+
+// Words that ride along with a headword in a query without changing what it asks for
+// ("howzit brah", "brah def", "whats a brah", "bro vs brah").
+const FILLER_TOKENS = new Set([
+    'a', 'e', 'the', 'is', 'it', 'or', 'vs', 'whats', 'what', 'os', 'ehat', 'of', 'def', 'origin',
+    'acronym', 'spelling', 'sentence', 'in', 'ho', 'hey', 'hi', 'eh', 'aye', 'mate', 'bro', 'bruh',
+    'brah', 'cuz', 'homophone'
+]);
+// "meaning"/"definition" and the typos real searchers make of them (menaing, defintion, mesning).
+const GLOSS_TYPO = /^(?:m|n)[a-z]{0,4}ing$|^def[a-z]*$/;
+// Queries for a site section rather than a word (the Pidgin Bible lives at /bible).
+const SECTION_QUERY = /jesus book|\bbible\b|spesho book/;
+
+/** Lowercase, drop diacritics/punctuation, and collapse letter runs (brahhh, kamaaina → kamaina). */
+function squeezeKey(txt) {
+    return String(txt || '').toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z\s-]/g, '')
+        .replace(/(.)\1+/g, '$1')
+        .trim();
+}
+
+function editDistanceAtMostOne(a, b) {
+    if (Math.abs(a.length - b.length) > 1) return false;
+    let i = 0, j = 0, edits = 0;
+    while (i < a.length && j < b.length) {
+        if (a[i] === b[j]) { i++; j++; continue; }
+        if (++edits > 1) return false;
+        if (a.length > b.length) i++;
+        else if (b.length > a.length) j++;
+        else { i++; j++; }
+    }
+    return edits + (a.length - i) + (b.length - j) <= 1;
+}
+
+/**
+ * Index of existing headwords for coverage checks: joined keys (kuru-kuru → kurukuru),
+ * single-word keys, and the multi-word headwords themselves for containment.
+ */
+function buildCoverageIndex(existingTerms) {
+    const joined = new Set();
+    const words = new Set();
+    const phrases = [];
+    for (const term of existingTerms) {
+        const key = squeezeKey(term);
+        const tokens = key.split(/[\s-]+/).filter(Boolean);
+        if (!tokens.length) continue;
+        joined.add(tokens.join(''));
+        if (tokens.length === 1) words.add(tokens[0]);
+        else phrases.push(` ${tokens.join(' ')} `);
+    }
+    return { joined, words, phrases, joinedList: [...joined] };
+}
+
+/**
+ * The existing headword a query already lands on, or null for a real gap. Catches
+ * spelling variants (kamaina → kamaaina), hyphenation (kuru kuru → kuru-kuru),
+ * partial phrases (komo mai → e komo mai), plurals, and headword + filler.
+ */
+function coveredBy(term, index) {
+    const tokens = squeezeKey(term).split(/[\s-]+/).filter(Boolean)
+        .filter(t => !GLOSS_TYPO.test(t));
+    if (!tokens.length) return null;
+    const joined = tokens.join('').replace(/(?:meaning|mening|definition)$/, '');
+    const known = t => index.words.has(t) || (t.endsWith('s') && index.words.has(t.slice(0, -1)));
+
+    if (index.joined.has(joined)) return joined;
+    if (joined.endsWith('s') && index.joined.has(joined.slice(0, -1))) return joined.slice(0, -1);
+    if (tokens.length > 1 && index.phrases.some(p => p.includes(` ${tokens.join(' ')} `))) return tokens.join(' ');
+
+    const content = tokens.filter(t => !FILLER_TOKENS.has(t) || index.words.has(t));
+    if (content.length && content.every(known)) return content.join(' ');
+    if (!content.length && tokens.some(known)) return tokens.find(known);
+
+    if (joined.length >= 5) {
+        const near = index.joinedList.find(k => k.length >= 5 && editDistanceAtMostOne(joined, k));
+        if (near) return near;
+    }
+    return null;
 }
 
 function cleanQueryTerm(rawQuery, normalizedExisting = new Set()) {
@@ -540,12 +643,16 @@ function findMissingTerms(scQueries, existingTermsSet, minImpressions = 20) {
     const normalizedExisting = new Set();
     existingTermsSet.forEach(term => normalizedExisting.add(normalizeQueryTerm(term)));
 
+    const coverage = buildCoverageIndex(existingTermsSet);
     const missing = [];
     const seenQueries = new Set();
 
     for (const row of scQueries) {
         const rawQuery = (row.keys && row.keys[0]) ? row.keys[0] : '';
         if (!rawQuery) continue;
+
+        // Quoted searches are exact-match lookups for a name ("shoots with fabian"), not vocabulary.
+        if (/^["“]/.test(rawQuery.trim()) || SECTION_QUERY.test(rawQuery.toLowerCase())) continue;
 
         const term = cleanQueryTerm(rawQuery, normalizedExisting);
         const normalizedTerm = normalizeQueryTerm(term);
@@ -563,7 +670,7 @@ function findMissingTerms(scQueries, existingTermsSet, minImpressions = 20) {
         const ctr = typeof row.ctr === 'number' ? (row.ctr * 100).toFixed(2) + '%' : (row.ctr || '0.00%');
         const position = typeof row.position === 'number' ? row.position.toFixed(1) : (row.position || '0.0');
 
-        if (term.length > 2 && !normalizedExisting.has(normalizedTerm) && !seenQueries.has(normalizedTerm) && impressions >= minImpressions) {
+        if (term.length > 2 && !normalizedExisting.has(normalizedTerm) && !coveredBy(term, coverage) && !seenQueries.has(normalizedTerm) && impressions >= minImpressions) {
             missing.push({
                 pidgin: term,
                 english: ["TBD (Add English translation)"],
@@ -605,29 +712,26 @@ async function main() {
             console.log(`📂 Loading search queries from offline file: ${options.inputFile}`);
             scQueries = loadQueriesFromFile(options.inputFile);
             console.log(`✅ Loaded ${scQueries.length} queries from file`);
-        } else if (keyPath) {
-            console.log(`🔑 Authenticating with Google Search Console API (${keyPath})...`);
-            const auth = await getAuthClient(keyPath);
-
-            console.log(`📡 Fetching ${options.days} days of Search Console queries for ${SITE_URL}...`);
-            scQueries = await fetchSearchQueries(auth, options.days);
+        } else if ((scQueries = await fetchLiveQueries(keyPath, options.days)) !== null) {
             source = `search-console:${SITE_URL}:${options.days}d`;
             console.log(`✅ Found ${scQueries.length} unique search queries`);
         } else {
+            scQueries = [];
             const discovered = findOfflineQueryFile();
             if (discovered) {
-                console.log('ℹ️  No Search Console key found');
+                console.log('ℹ️  No Search Console credential could read the property');
                 const displayPath = path.relative(process.cwd(), discovered) || discovered;
                 console.log(`📂 Auto-discovered local query dataset: ${displayPath}`);
                 scQueries = loadQueriesFromFile(discovered);
                 source = `file:${displayPath}`;
                 console.log(`✅ Loaded ${scQueries.length} queries from file`);
             } else {
-                console.log('⚠️  No Search Console key found and no query export to read.');
+                console.log('⚠️  No Search Console credential could read the property, and no query export to read.');
                 console.log('\n💡 Tip: You can run offline with a Search Console CSV/JSON export:');
                 console.log('   npm run seo:loop -- --file /path/to/Queries.csv');
                 console.log('   Or run demo mode on packaged sample data: npm run seo:loop -- --demo');
-                console.log('\n   Or set GOOGLE_SEARCH_CONSOLE_KEY_PATH / GA4_KEY_FILE to a service account key');
+                console.log('\n   Or set GOOGLE_SEARCH_CONSOLE_KEY_PATH / GA4_KEY_FILE to a service account key,');
+                console.log('   or: gcloud auth application-default login --scopes=https://www.googleapis.com/auth/webmasters.readonly,https://www.googleapis.com/auth/cloud-platform');
                 console.log('   Run with --help for all available options.\n');
                 process.exit(1);
             }
@@ -687,6 +791,8 @@ module.exports = {
     cleanQueryTerm,
     categorizeQuery,
     findMissingTerms,
+    coveredBy,
+    buildCoverageIndex,
     parseCommandLineArgs,
     printHelp,
     findOfflineQueryFile,

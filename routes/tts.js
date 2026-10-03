@@ -5,7 +5,9 @@ const crypto = require('crypto');
 const {
     applyPronunciationCorrections,
     setPronunciationGuides,
-    ELEVENLABS_SYNTHESIS
+    ELEVENLABS_SYNTHESIS,
+    KIMO_VOICE_ID,
+    APPROVED_VOICE_IDS
 } = require('../src/components/speech/elevenlabs-speech.js');
 
 /**

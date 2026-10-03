@@ -19,7 +19,7 @@ async function generateContent(apiKey, body, options = {}) {
         'gemini-2.5-flash-lite',
         'gemini-2.5-flash',
         'gemini-2.0-flash-lite',
-        'gemini-flash-latest' // 1.5 Flash fallback
+        'gemini-1.5-flash' // Pinned 1.5 Flash fallback (no floating alias)
     ];
     const maxRetries = options.maxRetries !== undefined ? options.maxRetries : 2;
     const baseDelay = options.baseDelay || 500; // start with 500ms delay

@@ -16,6 +16,8 @@ const {
     cleanQueryTerm,
     categorizeQuery,
     findMissingTerms,
+    coveredBy,
+    buildCoverageIndex,
     parseCommandLineArgs,
     findOfflineQueryFile,
     resolveKeyPath,
@@ -171,6 +173,20 @@ async function runTests() {
 
     const sampleArgs = parseCommandLineArgs(['--sample']);
     assert.ok(sampleArgs.inputFile && sampleArgs.inputFile.endsWith('gsc-sample-performance.csv'));
+
+    // 9. Coverage: variants of existing headwords are not gaps (real GSC queries, 2026-10)
+    console.log('9. Testing headword coverage for spelling variants & filler...');
+    const idx = buildCoverageIndex(['brah', 'kamaʻāina', 'kuru-kuru', 'e komo mai', 'a hui hou', 'keiki', 'pau', 'howzit']);
+    for (const q of ['brah def', 'brah meaing', 'brahmeaning', 'whats a brah', 'brahhh', 'brahs', 'bro vs brah',
+                     'kamaina', 'kamaiana', 'kuru kuru', 'komo mai', 'hui hou', 'keikei', 'keikis', 'a pau', 'howzit brah']) {
+        assert.ok(coveredBy(q, idx), `"${q}" should resolve to an existing headword`);
+    }
+    for (const q of ['blalah', 'tantadan', 'das cherreh', 'daikon legs', 'live pono', 'bro']) {
+        assert.strictEqual(coveredBy(q, idx), null, `"${q}" is a real gap`);
+    }
+    const rows = [{ keys: ['"shoots with fabian"'], impressions: 50 }, { keys: ['da jesus book pdf'], impressions: 50 },
+                  { keys: ['brah meaning'], impressions: 50 }, { keys: ['how do you say daikon legs'], impressions: 50 }];
+    assert.deepStrictEqual(findMissingTerms(rows, new Set(['brah']), 20).map(m => m.pidgin), ['daikon legs']);
 
     console.log('\n🎉 All SEO Feedback Loop tests passed successfully!\n');
 }
