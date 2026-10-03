@@ -447,6 +447,13 @@ app.use('/word/:slug', pageLimiter, (req, res, next) => {
         return res.redirect(301, `/phrase/${baseName}`);
     }
 
+    // Fallback: a "-2"/"-3" page was a duplicate entry that has since been merged into the
+    // base word (luau-2 → luau), so send it to the surviving page
+    const suffixed = slugKey.match(/^([a-z0-9-]+?)-\d+$/);
+    if (suffixed && fs.existsSync(path.join(__dirname, 'public', 'word', `${suffixed[1]}.html`))) {
+        return res.redirect(301, `/word/${suffixed[1]}.html`);
+    }
+
     next();
 });
 

@@ -79,9 +79,38 @@ function setupSearch() {
         });
     });
 
+    // No local hit: once the user pauses, ask the server, whose semantic search finds related
+    // words ("grandma" → tūtū). The server logs the search gap itself when it finds nothing too.
+    let relatedTimer;
+    const relatedCache = new Map();
+    function showRelated(term) {
+        relatedTimer = setTimeout(async () => {
+            let related = relatedCache.get(term);
+            if (!related) {
+                try {
+                    const res = await fetch(`/api/dictionary/search?q=${encodeURIComponent(term)}`);
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    const { results = [] } = await res.json();
+                    related = results.map(r => (window.pidginDataLoader && window.pidginDataLoader.getById(r.id)) || r);
+                    relatedCache.set(term, related);
+                } catch (e) {
+                    logSearchGap(term);
+                    return;
+                }
+            }
+            if (searchInput.value.trim() !== term || related.length === 0) return;
+            displayResults(related);
+            const statsEl = document.getElementById('search-results-count');
+            if (statsEl) {
+                statsEl.textContent = `No exact match for "${term}" — ${related.length} related word${related.length !== 1 ? 's' : ''}`;
+            }
+        }, 1000);
+    }
+
     function performSearch() {
         const term = searchInput.value.trim();
         let results;
+        clearTimeout(relatedTimer);
 
         if (term) {
             results = pidginDictionary.searchDictionary(term);
@@ -94,9 +123,9 @@ function setupSearch() {
                 });
             }
             
-            // Log content gap if no results found
+            // No exact match: look for related words (and log the gap if there are none)
             if (results.length === 0 && term.length >= 3) {
-                logSearchGap(term);
+                showRelated(term);
             }
         } else {
             results = pidginDictionary.getByCategory('all');

@@ -6,6 +6,8 @@ const path = require('path');
 const fs = require('fs');
 const rateLimit = require('express-rate-limit');
 const geminiService = require('../services/gemini');
+const { searchEntries } = require('../services/dictionary-search');
+const { embedEntries } = require('../services/dictionary-embeddings');
 
 // Define rate limiters explicitly for CodeQL detection
 const adminLoginLimiter = rateLimit({
@@ -597,6 +599,14 @@ Respond only with a JSON object:
 
             if (error) throw error;
 
+            // Make the new word findable by semantic search right away. Not fatal: a later
+            // node tools/data/generate-embeddings.js run picks up anything missed.
+            if (process.env.GEMINI_API_KEY) {
+                await embedEntries(supabaseAdmin, process.env.GEMINI_API_KEY, data).catch(err => {
+                    console.warn(`Embedding new entry "${pidgin}" failed:`, err.message);
+                });
+            }
+
             await adminAuth.logAuditAction({ 
                 userId: req.adminUser.id, 
                 username: req.adminUser.username, 
@@ -813,9 +823,10 @@ Respond only with a JSON object:
                     const scRes = await client.request({ url, method: 'POST', data: requestBody });
                     const scQueries = scRes.data.rows || [];
 
-                    // Get existing dictionary terms to filter out
-                    const { data: existingDict } = await supabaseAdmin.from('dictionary_entries').select('pidgin');
-                    const existingSet = new Set(existingDict.map(item => item.pidgin.toLowerCase()));
+                    // Get existing dictionary entries to filter out (matched like site search, so
+                    // "tutu" counts as covered by tūtū)
+                    const { data: existingDict } = await supabaseAdmin.from('dictionary_entries').select('id, pidgin, english');
+                    const inDictionary = term => searchEntries(existingDict || [], term, 1).length > 0;
                     
                     // Patterns to clean/filter
                     const meanRegex = /what does (.*) mean/i;
@@ -829,11 +840,12 @@ Respond only with a JSON object:
                         else if (meaningRegex.test(query)) term = query.match(meaningRegex)[1];
                         term = term.trim().replace(/[?!]/g, '');
 
-                        if (term.length > 2 && !existingSet.has(term) && row.impressions > 5) {
+                        if (term.length > 2 && !inDictionary(term) && row.impressions > 5) {
+                            // No status: new rows default to 'pending', and on conflict the upsert
+                            // only touches these columns, so added/ignored gaps stay closed
                             gapsToUpsert.push({
                                 term,
                                 count: row.impressions,
-                                status: 'pending',
                                 last_searched_at: new Date()
                             });
                         }

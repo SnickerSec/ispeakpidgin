@@ -92,6 +92,49 @@ async function generateContent(apiKey, body, options = {}) {
     throw lastError || new Error('Failed to generate content from all Gemini models');
 }
 
+// Embeddings for dictionary semantic search. text-embedding-004 was retired (404 by 2026-10).
+// EMBEDDING_DIMENSIONS must match vector(768) in public.dictionary_embeddings (migration 016).
+const EMBEDDING_MODEL = 'gemini-embedding-001';
+const EMBEDDING_DIMENSIONS = 768;
+const EMBED_BATCH_LIMIT = 100;
+
+/**
+ * Embed texts with the dictionary embedding model.
+ * @param {string} apiKey - The Gemini API key.
+ * @param {string[]} texts - Texts to embed.
+ * @param {string} taskType - 'RETRIEVAL_QUERY' for searches, 'RETRIEVAL_DOCUMENT' for entries.
+ * @returns {Promise<number[][]>} - One vector per text, in order.
+ */
+async function embedTexts(apiKey, texts, taskType) {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${EMBEDDING_MODEL}:batchEmbedContents?key=${apiKey}`;
+    const vectors = [];
+    for (let i = 0; i < texts.length; i += EMBED_BATCH_LIMIT) {
+        const requests = texts.slice(i, i + EMBED_BATCH_LIMIT).map(text => ({
+            model: `models/${EMBEDDING_MODEL}`,
+            content: { parts: [{ text }] },
+            taskType,
+            outputDimensionality: EMBEDDING_DIMENSIONS
+        }));
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ requests })
+        });
+        if (!response.ok) {
+            throw new Error(`Gemini embedding error ${response.status}: ${(await response.text()).slice(0, 200)}`);
+        }
+        const { embeddings } = await response.json();
+        if (!embeddings || embeddings.length !== requests.length) {
+            throw new Error('Gemini returned a different number of embeddings than requested');
+        }
+        vectors.push(...embeddings.map(e => e.values));
+    }
+    return vectors;
+}
+
 module.exports = {
-    generateContent
+    generateContent,
+    embedTexts,
+    EMBEDDING_MODEL,
+    EMBEDDING_DIMENSIONS
 };

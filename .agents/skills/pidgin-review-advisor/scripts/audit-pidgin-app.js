@@ -264,10 +264,17 @@ async function auditSupabase(db) {
         const noExample = rows.filter(r => blank(r.examples) && blank(r.usage));
         const noEnglish = rows.filter(r => blank(r.english));
 
+        // Duplicates are judged by word-page slug, the way the page generator sees them:
+        // luau and lūʻau, or "shoots brah" and "shoots, brah!", become /word/luau.html and
+        // /word/luau-2.html. An exact-string check reported 0 while 24 such rows existed.
+        // pau (finished) and paʻu (skirt) are genuinely different words that share a slug.
+        const DISTINCT_WORDS_SHARING_A_SLUG = new Set(['pau']);
+        const slugOf = s => String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+            .replace(/[ʻʼ'‘’"]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
         const seen = new Map();
         for (const r of rows) {
-            const key = String(r.pidgin || '').trim().toLowerCase();
-            if (!key) continue;
+            const key = slugOf(r.pidgin);
+            if (!key || DISTINCT_WORDS_SHARING_A_SLUG.has(key)) continue;
             seen.set(key, (seen.get(key) || 0) + 1);
         }
         const dupes = [...seen.entries()].filter(([, n]) => n > 1);
@@ -284,7 +291,7 @@ async function auditSupabase(db) {
                 `missing category: ${noCat.length} (${pct(noCat.length)})`,
                 `no usage AND no examples: ${noExample.length} (${pct(noExample.length)})`,
                 `missing english meaning: ${noEnglish.length}`,
-                `duplicate pidgin terms: ${dupes.length}${dupes.length ? ' → ' + dupes.slice(0, 8).map(([k, n]) => `${k}×${n}`).join(', ') : ''}`
+                `duplicate terms (same word-page slug): ${dupes.length}${dupes.length ? ' → ' + dupes.slice(0, 8).map(([k, n]) => `${k}×${n}`).join(', ') : ''}`
             ],
             metrics: {
                 entries: rows.length, missingPronunciation: noPron.length, missingCategory: noCat.length,
@@ -295,6 +302,27 @@ async function auditSupabase(db) {
                 : null,
             fix: 'Backfill via tools/data/improve-dictionary.js (npm run data:improve); de-duplicate before regenerating word pages, since each duplicate emits a competing /word/ page.'
         });
+
+        // Semantic search embeddings (migration 016) ------------------------
+        try {
+            const { count, error: embError } = await db.from('dictionary_embeddings').select('entry_id', { count: 'exact', head: true });
+            if (embError) throw new Error(embError.message);
+            const missing = rows.length - (count || 0);
+            record('supabase', {
+                id: 'supabase.embeddings',
+                title: 'Semantic search embeddings',
+                status: missing > 0 ? 'WARN' : 'OK',
+                evidence: [`dictionary_embeddings rows: ${count} for ${rows.length} entries`],
+                metrics: { embeddings: count, entries: rows.length },
+                finding: missing > 0 ? `${missing} entries have no embedding, so semantic search ("grandma" → tūtū) cannot find them.` : null,
+                fix: missing > 0 ? 'node tools/data/generate-embeddings.js (re-embeds only new/changed entries).' : null
+            });
+        } catch (e) {
+            record('supabase', {
+                id: 'supabase.embeddings', title: 'Semantic search embeddings', status: 'SKIP',
+                evidence: [`dictionary_embeddings unreadable: ${e.message} (needs the service-role key; RLS hides it from anon)`]
+            });
+        }
 
         // Audio cache coverage ---------------------------------------------
         if (counts.translation_cache !== null && counts.translation_cache !== undefined) {

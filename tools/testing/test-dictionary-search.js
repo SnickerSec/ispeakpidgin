@@ -99,9 +99,12 @@ function fakeSupabase(gapWrites) {
                 if (calls.some(([prop, args]) => (prop === 'or' || prop === 'ilike') && /english\.ilike|^english$/.test(String(args[0])))) {
                     return { data: null, error: { code: '42883', message: 'operator does not exist: text[] ~~* unknown' } };
                 }
-                return table === 'dictionary_entries'
-                    ? { data: ENTRIES, error: null, count: ENTRIES.length }
-                    : { data: null, error: null };
+                if (table === 'dictionary_entries') return { data: ENTRIES, error: null, count: ENTRIES.length };
+                // An already-logged gap that an admin has closed
+                if (calls.some(([prop, args]) => prop === 'eq' && args[0] === 'term' && args[1] === 'already closed')) {
+                    return { data: { id: 42, count: 3, status: 'ignored' }, error: null };
+                }
+                return { data: null, error: null };
             };
             const chain = new Proxy({}, {
                 get(_, prop) {
@@ -197,6 +200,15 @@ async function startServer(gapWrites) {
         check('POST /search-gap ignores a plain spelling of an existing headword', () => {
             assert.equal(known.status, 'ignored');
             assert.equal(gapWrites.length, 0);
+        });
+
+        gapWrites.length = 0;
+        await post('already closed');
+        check('POST /search-gap counts a repeat search without reopening the gap', () => {
+            const update = gapWrites.find(w => w.prop === 'update');
+            assert.ok(update, 'expected the count to be incremented');
+            assert.equal(update.args[0].count, 4);
+            assert.ok(!('status' in update.args[0]), 'update must not touch status');
         });
 
         const unknown = await post('happy birthday');

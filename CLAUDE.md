@@ -87,6 +87,8 @@ The feedback loop script closes the gap between what users search for and what i
 The project includes specialized tools for maintaining the Supabase dictionary:
 - **`npm run data:add-missing`**: Reads from `/tmp/missing-terms.json` and inserts new, non-duplicate entries into the `dictionary_entries` table. Automatically handles UUID generation and array formatting for English meanings.
 - **`npm run data:improve`**: Reads from `/tmp/enhanced_final_recommendations.json` and applies targeted updates (pronunciation, category) to existing dictionary entries by ID.
+- **`node tools/data/generate-embeddings.js`**: Embeds new or changed dictionary entries into `dictionary_embeddings` (pgvector, migration 016) for semantic search ("grandma" → tūtū). Run it after bulk edits or migrations; entries added through the admin panel are embedded automatically. `--dry-run` reports what would change.
+- **Search matching** lives in `services/dictionary-search.js` (server) and `fuzzySearch` in `src/components/shared/supabase-data-loader.js` (browser). Both ignore kahakō/ʻokina so plain spellings find Hawaiian headwords; `tools/testing/test-dictionary-search.js` keeps them in step.
 
 ### SEO & Generators
 Static page generators fetch live data from Supabase to ensure SEO content is always up-to-date:
@@ -114,7 +116,8 @@ This project supports **two server environments**:
 #### Supabase Tables
 | Table | Description |
 |-------|-------------|
-| `dictionary_entries` | 655 Pidgin words with definitions, examples |
+| `dictionary_entries` | ~775 Pidgin words with definitions, examples |
+| `dictionary_embeddings` | Gemini vectors per entry for semantic search (service role only) |
 | `stories` | 22 Pidgin stories with translations |
 | `phrases` | 1,000 common phrases |
 | `pickup_lines` | 95 pickup lines |

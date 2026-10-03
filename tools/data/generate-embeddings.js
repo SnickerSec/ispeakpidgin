@@ -2,111 +2,60 @@
 
 /**
  * Generate Embeddings for Dictionary Entries
- * Uses Gemini text-embedding-004 to create 768-dimension vectors
- * for semantic search.
+ *
+ * Fills public.dictionary_embeddings (migration 016) for semantic search, using the model
+ * declared in services/gemini.js. Each row stores an md5 of the text it embedded, so a run
+ * re-embeds only entries that are new or whose text changed; safe to run after every
+ * dictionary edit. Rows for deleted entries go with them (ON DELETE CASCADE).
+ *
+ *   node tools/data/generate-embeddings.js            # embed new/changed entries
+ *   node tools/data/generate-embeddings.js --dry-run  # report what would be embedded
  */
 
 require('dotenv').config();
 const { createClient } = require('@supabase/supabase-js');
-const fetch = require('node-fetch');
+const { EMBEDDING_MODEL } = require('../../services/gemini');
+const { embeddingText, contentHash, embedEntries } = require('../../services/dictionary-embeddings');
 
-// Configuration
-const BATCH_SIZE = 100;
+const DRY_RUN = process.argv.includes('--dry-run');
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_KEY;
 
-if (!GEMINI_API_KEY || !SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
-    console.error('❌ Missing required environment variables (GEMINI_API_KEY, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)');
+if (!GEMINI_API_KEY || !SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
+    console.error('❌ Missing GEMINI_API_KEY, SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY/SUPABASE_SERVICE_KEY');
     process.exit(1);
 }
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
 
-async function generateEmbeddings() {
-    console.log('🚀 Starting Dictionary Embedding Generation...');
-
-    // 1. Fetch entries that need embeddings
-    const { data: entries, error: fetchError } = await supabase
-        .from('dictionary_entries')
-        .select('id, pidgin, english, usage, category')
-        .or('embedding.is.null,last_embedded_at.lt.updated_at')
-        .limit(BATCH_SIZE);
-
-    if (fetchError) {
-        console.error('❌ Error fetching entries:', fetchError.message);
-        return;
-    }
-
-    if (!entries || entries.length === 0) {
-        console.log('✅ All entries already have up-to-date embeddings.');
-        return;
-    }
-
-    console.log(`📦 Found ${entries.length} entries to process.`);
-
-    // 2. Prepare text for embedding
-    // We combine pidgin, english meanings, and usage for a rich semantic representation
-    const requests = entries.map(entry => {
-        const englishStr = Array.isArray(entry.english) ? entry.english.join(', ') : entry.english;
-        const text = `Pidgin: ${entry.pidgin}. English: ${englishStr}. Category: ${entry.category || 'general'}. Usage: ${entry.usage || ''}`;
-        return {
-            content: { parts: [{ text }] },
-            task_type: 'RETRIEVAL_DOCUMENT',
-            title: entry.pidgin
-        };
-    });
-
-    // 3. Call Gemini Embeddings API (Batch)
-    console.log(`🧠 Generating embeddings via Gemini...`);
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:batchEmbedContents?key=${GEMINI_API_KEY}`;
-
-    try {
-        const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ requests })
-        });
-
-        if (!response.ok) {
-            const err = await response.json();
-            throw new Error(`Gemini API Error: ${JSON.stringify(err)}`);
-        }
-
-        const result = await response.json();
-        const embeddings = result.embeddings;
-
-        if (!embeddings || embeddings.length !== entries.length) {
-            throw new Error('Mismatch in embeddings returned');
-        }
-
-        // 4. Update Supabase
-        console.log(`💾 Saving ${embeddings.length} embeddings to Supabase...`);
-        const updates = entries.map((entry, index) => ({
-            id: entry.id,
-            embedding: embeddings[index].values,
-            last_embedded_at: new Date().toISOString()
-        }));
-
-        const { error: updateError } = await supabase
-            .from('dictionary_entries')
-            .upsert(updates, { onConflict: 'id' });
-
-        if (updateError) {
-            throw new Error(`Supabase update error: ${updateError.message}`);
-        }
-
-        console.log(`✨ Successfully processed ${entries.length} entries.`);
-        
-        // If we hit the limit, there might be more
-        if (entries.length === BATCH_SIZE) {
-            console.log('🔄 More entries remaining, continuing in next batch...');
-            return generateEmbeddings(); 
-        }
-
-    } catch (error) {
-        console.error('❌ Embedding process failed:', error.message);
+async function selectAll(table, columns) {
+    const rows = [];
+    for (let from = 0; ; from += 1000) {
+        const { data, error } = await supabase.from(table).select(columns).range(from, from + 999);
+        if (error) throw new Error(`${table}: ${error.message}`);
+        rows.push(...data);
+        if (data.length < 1000) return rows;
     }
 }
 
-generateEmbeddings().catch(console.error);
+async function main() {
+    console.log(`🚀 Dictionary embeddings (${EMBEDDING_MODEL})${DRY_RUN ? ' — dry run' : ''}`);
+
+    const entries = await selectAll('dictionary_entries', 'id, pidgin, english, usage, category');
+    const existing = new Map((await selectAll('dictionary_embeddings', 'entry_id, content_hash'))
+        .map(r => [r.entry_id, r.content_hash]));
+
+    const stale = entries.filter(entry => existing.get(entry.id) !== contentHash(embeddingText(entry)));
+
+    console.log(`📦 ${entries.length} entries, ${existing.size} embedded, ${stale.length} new or changed`);
+    if (!stale.length || DRY_RUN) return;
+
+    const written = await embedEntries(supabase, GEMINI_API_KEY, stale);
+    console.log(`✨ Embedded ${written} entries`);
+}
+
+main().catch(err => {
+    console.error('❌', err.message);
+    process.exit(1);
+});

@@ -2,6 +2,12 @@ const express = require('express');
 const router = express.Router();
 const { query, param, body, validationResult } = require('express-validator');
 const { searchEntries } = require('../services/dictionary-search');
+const { embedTexts } = require('../services/gemini');
+
+// gemini-embedding-001 similarities are compressed: on 2026-10-02 real matches scored
+// 0.64-0.69 (grandma → tūtū, family → ʻohana) and nonsense 0.57-0.62 (xyzzy → gecko).
+const SEMANTIC_MATCH_THRESHOLD = 0.63;
+const SEMANTIC_MAX_RESULTS = 5;
 
 /**
  * Dictionary Routes
@@ -254,43 +260,28 @@ module.exports = function(supabase, dictionaryLimiter, dictionaryCache, semantic
             let finalResults = [...keywordResults];
             let searchMethod = 'keyword';
 
-            // 2. If results are thin, try Semantic Search (Gemini Embeddings + pgvector)
+            // 2. If results are thin, add Semantic Search (Gemini embeddings + pgvector, migration 016)
             const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
             if (finalResults.length < 5 && GEMINI_API_KEY) {
                 try {
-                    // Generate embedding for the query
-                    const embedUrl = `https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent?key=${GEMINI_API_KEY}`;
-                    const embedRes = await fetch(embedUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            model: "models/text-embedding-004",
-                            content: { parts: [{ text: searchTerm }] },
-                            task_type: "RETRIEVAL_QUERY"
-                        })
-                    });
+                    const [queryVector] = await embedTexts(GEMINI_API_KEY, [searchTerm], 'RETRIEVAL_QUERY');
+                    const { data: semanticResults, error: semanticError } = await supabase
+                        .rpc('match_dictionary_entries', {
+                            query_embedding: `[${queryVector.join(',')}]`,
+                            match_threshold: SEMANTIC_MATCH_THRESHOLD,
+                            match_count: Math.min(searchLimit, SEMANTIC_MAX_RESULTS)
+                        });
 
-                    if (embedRes.ok) {
-                        const { embedding } = await embedRes.json();
-                        
-                        // Call Supabase RPC for vector similarity
-                        const { data: semanticResults, error: semanticError } = await supabase
-                            .rpc('match_dictionary_entries', {
-                                query_embedding: embedding.values,
-                                match_threshold: 0.35, // Adjust based on testing
-                                match_count: searchLimit
-                            });
-
-                        if (!semanticError && semanticResults) {
-                            searchMethod = 'hybrid';
-                            // Merge results, removing duplicates by ID
-                            const existingIds = new Set(finalResults.map(r => r.id));
-                            semanticResults.forEach(res => {
-                                if (!existingIds.has(res.id)) {
-                                    finalResults.push({ ...res, is_semantic: true });
-                                }
-                            });
-                        }
+                    if (semanticError) throw new Error(semanticError.message);
+                    if (semanticResults && semanticResults.length) {
+                        searchMethod = 'hybrid';
+                        // Merge results, removing duplicates by ID
+                        const existingIds = new Set(finalResults.map(r => r.id));
+                        semanticResults.forEach(res => {
+                            if (!existingIds.has(res.id)) {
+                                finalResults.push({ ...res, is_semantic: true });
+                            }
+                        });
                     }
                 } catch (semanticErr) {
                     console.warn('Semantic search failed, falling back to keyword only:', semanticErr.message);
@@ -365,10 +356,10 @@ module.exports = function(supabase, dictionaryLimiter, dictionaryCache, semantic
             if (existing) {
                 const { error: updateError } = await supabase
                     .from('search_gaps')
-                    .update({ 
-                        count: (existing.count || 1) + 1, 
-                        last_searched_at: new Date(),
-                        status: 'pending'
+                    // No status here: a gap an admin marked added/ignored stays closed
+                    .update({
+                        count: (existing.count || 1) + 1,
+                        last_searched_at: new Date()
                     })
                     .eq('id', existing.id);
 
