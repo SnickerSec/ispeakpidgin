@@ -101,6 +101,8 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
         "@context": "https://schema.org",
         "@type": "DefinedTerm",
         "name": entry.pidgin,
+        // haw = ʻŌlelo Hawaiʻi, hwc = Hawaiʻi Creole English (Pidgin)
+        "inLanguage": entry.source_language === 'hawaiian' ? 'haw' : 'hwc',
         "description": escapeHtml(entry.usage || `Meaning of ${entry.pidgin}: ${englishMeanings}`),
         "inDefinedTermSet": {
             "@type": "DefinedTermSet",
@@ -266,6 +268,9 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
                 <span class="inline-block bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full px-6 py-2 text-lg font-semibold ml-2">
                     ${escapeHtml(entry.difficulty)}
                 </span>
+                ` : ''}
+                ${entry.source_language === 'hawaiian' ? `
+                <a href="/pidgin-vs-hawaiian.html" class="olelo-badge ml-2 align-middle" title="From ʻŌlelo Hawaiʻi, the Hawaiian language. Pidgin speakers use it, but it is not a Pidgin word.">ʻŌlelo Hawaiʻi &middot; Pidgin vs. Hawaiian &rarr;</a>
                 ` : ''}
             </div>
 

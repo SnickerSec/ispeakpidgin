@@ -62,6 +62,10 @@
         if (catEl) catEl.textContent = word.category || 'general';
         if (diffEl) diffEl.textContent = word.difficulty || 'beginner';
 
+        // ʻŌlelo Hawaiʻi badge (source_language from migration 018)
+        const oleloEl = document.getElementById('wod-olelo');
+        if (oleloEl) oleloEl.hidden = word.source_language !== 'hawaiian';
+
         // Create slug for link
         if (linkEl) {
             var slug = word.pidgin.toLowerCase()

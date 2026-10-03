@@ -368,6 +368,7 @@ function displayResults(entries, append = false) {
             <div class="flex justify-between items-start mb-1">
                 <div class="flex flex-col">
                     <a href="${entryPageUrl}" class="text-xl font-bold text-purple-700 dark:text-purple-400 hover:text-purple-900 dark:hover:text-purple-300 transition">${escapedPidgin}</a>
+                    ${entry.source_language === 'hawaiian' ? `<span class="olelo-badge mt-1 self-start" title="From ʻŌlelo Hawaiʻi, the Hawaiian language. Pidgin speakers use it, but it is not a Pidgin word.">ʻŌlelo Hawaiʻi</span>` : ''}
                 </div>
                 <div class="flex gap-2 items-center">
                     <button class="dict-fav-btn p-2 rounded-full hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors" 
@@ -660,6 +661,7 @@ function showWordDetails(wordKey) {
                     <span class="inline-block px-4 py-2 bg-purple-200 text-purple-800 rounded-full font-medium">
                         ${displayEntry.category}
                     </span>
+                    ${entry.source_language === 'hawaiian' ? `<a href="/pidgin-vs-hawaiian.html" class="olelo-badge ml-2 align-middle" title="From ʻŌlelo Hawaiʻi, the Hawaiian language. Pidgin speakers use it, but it is not a Pidgin word.">ʻŌlelo Hawaiʻi &middot; Pidgin vs. Hawaiian &rarr;</a>` : ''}
                 </div>
             </div>
 
