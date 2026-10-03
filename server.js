@@ -409,10 +409,23 @@ const spellingRedirects = {
     'cholips': 'cho-cho-lips',
     'chocholips': 'cho-cho-lips',
     'mempachi': 'menpachi',
-    'mempachi-eyes': 'menpachi-eyes',
     'kakua': 'kokua',
     'kakua-kakua': 'kokua',
-    'high-makamaka': 'high-maka-maka'
+    'high-makamaka': 'high-maka-maka',
+    // Merged in migration 026 (same word spelled with and without a space or hyphen)
+    'i-mua': 'imua',
+    'raja-dat': 'rajah-dat',
+    'ma-ke': 'make',
+    'aiyah': 'ai-yah',
+    'wikiwiki': 'wiki-wiki',
+    'kala-mai': 'kalamai',
+    'moemoe': 'moe-moe',
+    'holoholo': 'holo-holo',
+    'kau-kau': 'kaukau',
+    'pipi-kaula': 'pipikaula',
+    'hanahou': 'hana-hou',
+    'okole-hao': 'okolehao',
+    'cheeehoo': 'chee-hoo'
 };
 
 // SEO: Spelling Variant Redirects for Words

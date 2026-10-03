@@ -254,7 +254,7 @@ async function auditSupabase(db) {
     try {
         const { data, error } = await db
             .from('dictionary_entries')
-            .select('id, pidgin, english, category, pronunciation, usage, examples');
+            .select('id, pidgin, english, category, pronunciation, usage, examples, spelling_variants');
         if (error) throw new Error(error.message);
 
         const rows = data || [];
@@ -264,20 +264,30 @@ async function auditSupabase(db) {
         const noExample = rows.filter(r => blank(r.examples) && blank(r.usage));
         const noEnglish = rows.filter(r => blank(r.english));
 
-        // Duplicates are judged by word-page slug, the way the page generator sees them:
-        // luau and lūʻau, or "shoots brah" and "shoots, brah!", become /word/luau.html and
-        // /word/luau-2.html. An exact-string check reported 0 while 24 such rows existed.
-        // pau (finished) and paʻu (skirt) are genuinely different words that share a slug.
-        const DISTINCT_WORDS_SHARING_A_SLUG = new Set(['pau']);
-        const slugOf = s => String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-            .replace(/[ʻʼ'‘’"]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-        const seen = new Map();
+        // Duplicates are judged by letters alone: luau / lūʻau and "shoots brah" / "shoots, brah!"
+        // share a word-page slug, but kau kau / kaukau and wiki wiki / wikiwiki do not, and a
+        // slug-only check reported 0 while 13 such pairs existed (merged in migration 026).
+        // A headword that is also another entry's spelling_variant is the same word twice too.
+        // Genuinely different words that share their letters: pau / paʻu (skirt),
+        // nene (goose) / ne ne (sleep), hui (group) / hu-i (a call).
+        const DISTINCT_WORDS_SHARING_LETTERS = new Set(['pau', 'nene', 'hui']);
+        const lettersOf = s => String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^a-z0-9]+/g, '');
+        const byLetters = new Map();
         for (const r of rows) {
-            const key = slugOf(r.pidgin);
-            if (!key || DISTINCT_WORDS_SHARING_A_SLUG.has(key)) continue;
-            seen.set(key, (seen.get(key) || 0) + 1);
+            const key = lettersOf(r.pidgin);
+            if (!key || DISTINCT_WORDS_SHARING_LETTERS.has(key)) continue;
+            byLetters.set(key, [...(byLetters.get(key) || []), r]);
         }
-        const dupes = [...seen.entries()].filter(([, n]) => n > 1);
+        const dupes = [...byLetters.entries()].filter(([, g]) => g.length > 1).map(([k, g]) => [k, g.length]);
+        for (const r of rows) {
+            for (const v of r.spelling_variants || []) {
+                const key = lettersOf(v);
+                if (DISTINCT_WORDS_SHARING_LETTERS.has(key)) continue;
+                const other = (byLetters.get(key) || []).find(o => o.id !== r.id);
+                if (other) dupes.push([`${other.pidgin} (variant of ${r.pidgin})`, 2]);
+            }
+        }
 
         const pct = n => rows.length ? ((n / rows.length) * 100).toFixed(1) + '%' : 'n/a';
         const worst = Math.max(noPron.length, noExample.length, noEnglish.length, dupes.length);
@@ -291,7 +301,7 @@ async function auditSupabase(db) {
                 `missing category: ${noCat.length} (${pct(noCat.length)})`,
                 `no usage AND no examples: ${noExample.length} (${pct(noExample.length)})`,
                 `missing english meaning: ${noEnglish.length}`,
-                `duplicate terms (same word-page slug): ${dupes.length}${dupes.length ? ' → ' + dupes.slice(0, 8).map(([k, n]) => `${k}×${n}`).join(', ') : ''}`
+                `duplicate terms (same letters, or a headword listed as another's variant): ${dupes.length}${dupes.length ? ' → ' + dupes.slice(0, 8).map(([k, n]) => `${k}×${n}`).join(', ') : ''}`
             ],
             metrics: {
                 entries: rows.length, missingPronunciation: noPron.length, missingCategory: noCat.length,
@@ -756,12 +766,13 @@ async function auditVocabulary(db) {
         });
     } else {
         try {
-            const { data, error } = await db.from('dictionary_entries').select('pidgin');
+            const { data, error } = await db.from('dictionary_entries').select('pidgin, spelling_variants');
             if (error) throw new Error(error.message);
-            // Compare by word-page slug, so "mo bettah" counts as present when the entry is "mo' bettah"
+            // Compare by word-page slug, so "mo bettah" counts as present when the entry is "mo' bettah",
+            // and count spelling variants: a staged term merged into another entry is not missing.
             const slugOf = v => String(v || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
                 .replace(/[ʻʼ'‘’"]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-            const have = new Set((data || []).map(r => slugOf(r.pidgin)));
+            const have = new Set((data || []).flatMap(r => [r.pidgin, ...(r.spelling_variants || [])]).map(slugOf));
             const pending = curated.filter(t => !have.has(slugOf(t.pidgin)));
             record('vocabulary', {
                 id: 'vocabulary.backlog', title: 'Curated term backlog',
