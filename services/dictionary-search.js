@@ -24,11 +24,14 @@ function foldForSearch(text) {
 
 function scoreEntry(entry, searchTerm) {
     let score = 0;
-    const pidgin = foldForSearch(entry.pidgin);
+    // Spelling variants (howle → haole, migration 021) count as the headword
+    const spellings = [entry.pidgin, ...(entry.spelling_variants || [])].map(foldForSearch);
 
-    if (pidgin === searchTerm) score = 1.0;
-    else if (pidgin.startsWith(searchTerm)) score = 0.85;
-    else if (pidgin.includes(searchTerm)) score = 0.7;
+    for (const pidgin of spellings) {
+        if (pidgin === searchTerm) score = Math.max(score, 1.0);
+        else if (pidgin.startsWith(searchTerm)) score = Math.max(score, 0.85);
+        else if (pidgin.includes(searchTerm)) score = Math.max(score, 0.7);
+    }
 
     const english = Array.isArray(entry.english) ? entry.english : [entry.english];
     for (const meaning of english) {
@@ -55,6 +58,10 @@ function searchEntries(entries, term, limit = Infinity) {
     for (const entry of entries || []) {
         const score = scoreEntry(entry, searchTerm);
         if (score > 0) results.push({ entry, score });
+    }
+    // Nothing for a plural ("dogs")? Try the singular
+    if (!results.length && searchTerm.length > 3 && searchTerm.endsWith('s')) {
+        return searchEntries(entries, searchTerm.slice(0, -1), limit);
     }
     results.sort((a, b) => b.score - a.score);
     return results.slice(0, limit).map(r => r.entry);

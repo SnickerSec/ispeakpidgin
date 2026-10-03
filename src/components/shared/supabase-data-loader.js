@@ -363,19 +363,22 @@ class SupabaseDataLoader {
 
         for (const entry of this.entries) {
             let score = 0;
-            const pidginLower = fold(entry.pidgin);
 
-            // Exact match on pidgin
-            if (pidginLower === searchTerm) {
-                score = 1.0;
-            }
-            // Starts with (high priority)
-            else if (pidginLower.startsWith(searchTerm)) {
-                score = 0.85;
-            }
-            // Contains in pidgin
-            else if (pidginLower.includes(searchTerm)) {
-                score = 0.7;
+            // Pidgin headword and its spelling variants (howle → haole)
+            for (const spelling of [entry.pidgin, ...(entry.spelling_variants || [])]) {
+                const pidginLower = fold(spelling);
+                // Exact match on pidgin
+                if (pidginLower === searchTerm) {
+                    score = Math.max(score, 1.0);
+                }
+                // Starts with (high priority)
+                else if (pidginLower.startsWith(searchTerm)) {
+                    score = Math.max(score, 0.85);
+                }
+                // Contains in pidgin
+                else if (pidginLower.includes(searchTerm)) {
+                    score = Math.max(score, 0.7);
+                }
             }
 
             // Check English translations
@@ -396,6 +399,11 @@ class SupabaseDataLoader {
             if (score >= threshold) {
                 results.push({ entry, score });
             }
+        }
+
+        // Nothing for a plural ("dogs")? Try the singular
+        if (!results.length && searchTerm.length > 3 && searchTerm.endsWith('s')) {
+            return this.fuzzySearch(searchTerm.slice(0, -1), threshold);
         }
 
         // Sort by score descending
@@ -535,7 +543,9 @@ SupabaseDataLoader.PIDGIN_HAWAIIAN_LOANWORDS = {
     'huli': ['to turn', 'flip'],
     'lua': ['toilet', 'bathroom'],
     'kapakahi': ['crooked'],
-    'tutu': ['grandmother', 'grandparent']
+    'tutu': ['grandmother', 'grandparent'],
+    'molowa': ['lazy'],
+    'mimi': ['pee', 'urinate']
 };
 
 window.pidginDataLoader = supabaseDataLoader; // Backward compatibility alias

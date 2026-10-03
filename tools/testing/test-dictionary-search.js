@@ -36,7 +36,9 @@ const ENTRIES = [
     { id: 'letsgo', pidgin: "let's go", english: ["let's go"] },
     { id: 'aloha', pidgin: 'aloha', english: ['hello', 'goodbye', 'love'] },
     { id: 'lolo', pidgin: 'lolo', english: ['crazy', 'stupid'] },
-    { id: 'dakine', pidgin: 'da kine', english: ['whatchamacallit', 'the kind'] }
+    { id: 'dakine', pidgin: 'da kine', english: ['whatchamacallit', 'the kind'] },
+    { id: 'haole', pidgin: 'haole', english: ['foreigner'], spelling_variants: ['howle', 'howlie'] },
+    { id: 'dog', pidgin: 'poi dog', english: ['mixed-breed dog'] }
 ];
 
 // [query, id expected as the top result]
@@ -56,7 +58,10 @@ const TOP_HIT = [
     ['aloha', 'aloha'],
     ['grandmother', 'tutu'],
     ['crazy', 'lolo'],
-    ['da  kine', 'dakine']
+    ['da  kine', 'dakine'],
+    ['howle', 'haole'],
+    ['howl', 'haole'],
+    ['dogs', 'dog']
 ];
 const NO_HIT = ['xyzzy', 'zz'];
 
