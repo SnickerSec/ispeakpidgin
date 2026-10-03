@@ -1098,6 +1098,7 @@
                                     <option value="general">General</option>
                                     <option value="slang">Slang</option>
                                     <option value="food">Food</option>
+                                    <option value="greetings">Greetings</option>
                                     <option value="expressions">Expressions</option>
                                     <option value="culture">Culture</option>
                                 </select>

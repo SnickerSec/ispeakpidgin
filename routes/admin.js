@@ -523,7 +523,7 @@ RESPONSE FORMAT:
 Respond only with a JSON object:
 {
   "english": "The primary English translation",
-  "category": "One of: general, slang, food, greetings, locations, culture",
+  "category": "One of: general, slang, food, greetings, expressions, culture",
   "example": "A natural example sentence in Pidgin",
   "pronunciation": "Phonetic pronunciation guide",
   "source_language": "hawaiian if the term itself is a word or phrase from ʻŌlelo Hawaiʻi (the Hawaiian language, e.g. mahalo, keiki, pau), otherwise pidgin"
