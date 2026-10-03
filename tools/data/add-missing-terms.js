@@ -93,7 +93,11 @@ async function main() {
             origin: term.origin || '',
             difficulty: term.difficulty || 'intermediate',
             frequency: term.frequency || 'medium',
-            tags: term.tags || [term.category || 'general']
+            tags: term.tags || [term.category || 'general'],
+            // Every row carries the same keys: PostgREST nulls a key missing from some rows of a
+            // batch, and spelling_variants is NOT NULL.
+            source_language: term.source_language || 'pidgin',
+            spelling_variants: term.spelling_variants || []
         };
 
         entriesToInsert.push(newEntry);
@@ -112,6 +116,7 @@ async function main() {
     
     // Insert in batches of 50 to be safe
     const batchSize = 50;
+    let insertedCount = 0;
     for (let i = 0; i < entriesToInsert.length; i += batchSize) {
         const batch = entriesToInsert.slice(i, i + batchSize);
         const { error: insertError } = await supabase
@@ -121,6 +126,7 @@ async function main() {
         if (insertError) {
             console.error(`❌ Error inserting batch starting at index ${i}:`, insertError.message);
         } else {
+            insertedCount += batch.length;
             console.log(`✅ Inserted batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(entriesToInsert.length / batchSize)}`);
         }
     }
@@ -128,8 +134,12 @@ async function main() {
     // Summary
     console.log('\n✨ Addition Summary');
     console.log('==================');
-    console.log(`➕ Terms added: ${addedCount}`);
+    console.log(`➕ Terms added: ${insertedCount} of ${addedCount} prepared`);
     console.log(`⚠️  Terms skipped (duplicates): ${skippedCount}`);
+    if (insertedCount < addedCount) {
+        console.error('\n❌ Some batches failed; see errors above.');
+        process.exit(1);
+    }
     console.log(`\n✅ Missing terms processed successfully!`);
 }
 

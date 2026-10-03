@@ -473,10 +473,11 @@ async function fetchSearchQueries(auth, days = 28) {
 async function getExistingDictionary() {
     const { data, error } = await supabase
         .from('dictionary_entries')
-        .select('pidgin');
-    
+        .select('pidgin, spelling_variants');
+
     if (error) throw error;
-    return new Set(data.map(item => item.pidgin.toLowerCase()));
+    // Variants count as coverage: search already finds "no worry beef curry" via its entry.
+    return new Set(data.flatMap(item => [item.pidgin, ...(item.spelling_variants || [])]).map(t => t.toLowerCase()));
 }
 
 function normalizeQueryTerm(txt) {

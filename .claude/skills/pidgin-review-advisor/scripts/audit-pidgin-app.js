@@ -872,17 +872,14 @@ async function auditVocabulary(db) {
         const property = process.env.GSC_PROPERTY || 'sc-domain:chokepidgin.com';
         const keyPath = [process.env.GOOGLE_SEARCH_CONSOLE_KEY_PATH, path.join(REPO_ROOT, 'google-search-console-key.json'), process.env.GA4_KEY_FILE]
             .filter(Boolean).find(p => fs.existsSync(p));
-        if (!keyPath) {
-            record('vocabulary', {
-                id: 'vocabulary.search-demand', title: 'Search Console demand data', status: 'SKIP',
-                evidence: ['no key at GOOGLE_SEARCH_CONSOLE_KEY_PATH, ./google-search-console-key.json or GA4_KEY_FILE'],
-                finding: 'Content gaps are unmeasured: npm run seo:loop has no real query data to read.',
-                fix: 'Point GOOGLE_SEARCH_CONSOLE_KEY_PATH at a service account with access to the property.'
-            });
-        } else {
+        // Same order as tools/seo/feedback-loop.js: service-account key, then gcloud ADC.
+        const failures = [];
+        let measured = false;
+        for (const candidate of [...(keyPath ? [keyPath] : []), null]) {
+            const label = candidate ? path.basename(candidate) : 'application default credentials';
             try {
                 const { GoogleAuth } = require(path.join(REPO_ROOT, 'node_modules', 'google-auth-library'));
-                const auth = new GoogleAuth({ keyFile: keyPath, scopes: ['https://www.googleapis.com/auth/webmasters.readonly'] });
+                const auth = new GoogleAuth({ ...(candidate ? { keyFile: candidate } : {}), scopes: ['https://www.googleapis.com/auth/webmasters.readonly'] });
                 const client = await auth.getClient();
                 const end = new Date(Date.now() - 3 * 864e5);
                 const start = new Date(end.getTime() - 28 * 864e5);
@@ -894,20 +891,22 @@ async function auditVocabulary(db) {
                 const rows = res.data.rows || [];
                 record('vocabulary', {
                     id: 'vocabulary.search-demand', title: 'Search Console demand data', status: 'OK',
-                    evidence: [`${property}: ${rows.length} queries in the last 28 days`, `impressions: ${rows.reduce((n, r) => n + r.impressions, 0)}`],
+                    evidence: [`${property} via ${label}: ${rows.length} queries in the last 28 days`, `impressions: ${rows.reduce((n, r) => n + r.impressions, 0)}`],
                     metrics: { gscQueries: rows.length }
                 });
+                measured = true;
+                break;
             } catch (e) {
-                const denied = e.response && e.response.status === 403;
-                let email = '';
-                try { email = JSON.parse(fs.readFileSync(keyPath, 'utf8')).client_email; } catch { /* unreadable key */ }
-                record('vocabulary', {
-                    id: 'vocabulary.search-demand', title: 'Search Console demand data', status: 'SKIP',
-                    evidence: [denied ? `${email} has no access to ${property}` : `query failed: ${e.message}`],
-                    finding: 'Content gaps are unmeasured: npm run seo:loop cannot read real query data.',
-                    fix: denied ? `Add ${email} under Search Console → Settings → Users and permissions (Restricted).` : null
-                });
+                failures.push(`${label}: ${e.response && e.response.status === 403 ? `no access to ${property}` : e.message.split('\n')[0]}`);
             }
+        }
+        if (!measured) {
+            record('vocabulary', {
+                id: 'vocabulary.search-demand', title: 'Search Console demand data', status: 'SKIP',
+                evidence: failures,
+                finding: 'Content gaps are unmeasured: npm run seo:loop cannot read real query data.',
+                fix: 'Grant a service account access in Search Console, or: gcloud auth application-default login --scopes=https://www.googleapis.com/auth/webmasters.readonly,https://www.googleapis.com/auth/cloud-platform'
+            });
         }
     } else {
         record('vocabulary', {

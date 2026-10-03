@@ -1,7 +1,7 @@
 {
   "generated": "2026-08-25T04:38:00.000Z",
   "source": "curated-island-slang-and-cultural-terms",
-  "count": 30,
+  "count": 36,
   "missing": [
     {
       "pidgin": "loco moco",
@@ -456,6 +456,110 @@
       "origin": "Local Hawaiian and Polynesian celebratory cheer",
       "frequency": "high",
       "tags": ["expressions", "celebration", "shout", "joy", "slang"],
+      "source_language": "pidgin"
+    },
+    {
+      "pidgin": "stink",
+      "english": ["mean", "rude", "nasty", "in a bad mood"],
+      "category": "slang",
+      "pronunciation": "STINK",
+      "difficulty": "beginner",
+      "usage": "As an adjective, stink describes a bad attitude, not a bad smell: someone acting stink is being mean or rude. It also shows up in stink face (a scowl), alongside stink eye and talk stink.",
+      "examples": [
+        "How come you acting so stink to me?",
+        "No be stink, share da musubi wit your sistah.",
+        "He get one stink attitude today, no talk to him."
+      ],
+      "origin": "From English 'stink', extended in Pidgin from a bad smell to a bad attitude.",
+      "frequency": "high",
+      "tags": ["slang", "attitude", "english"],
+      "source_language": "pidgin"
+    },
+    {
+      "pidgin": "kalua pig",
+      "english": ["pork slow-cooked in an underground oven", "smoky shredded pork"],
+      "category": "food",
+      "pronunciation": "kah-LOO-ah pig",
+      "difficulty": "beginner",
+      "usage": "A whole pig cooked in an imu (underground oven) until smoky and tender, then shredded; a lūʻau staple. At home and in plate lunches it is usually made in an oven or slow cooker with Hawaiian salt. Also called kalua pork.",
+      "examples": [
+        "Get kalua pig and cabbage at da plate lunch place.",
+        "Uncle wen dig da imu fo' da kalua pig.",
+        "Fo' da baby lūʻau get kalua pig, lomi salmon, and poi."
+      ],
+      "origin": "Hawaiian kālua, to bake in an imu (underground oven).",
+      "frequency": "high",
+      "tags": ["food", "hawaiian", "luau"],
+      "source_language": "hawaiian",
+      "spelling_variants": ["kalua pork", "kālua pig", "kālua pork"]
+    },
+    {
+      "pidgin": "das right",
+      "english": ["that's right", "exactly", "you got it"],
+      "category": "expressions",
+      "pronunciation": "dahs RIGHT",
+      "difficulty": "beginner",
+      "usage": "Agreement: 'that's right.' The th in 'that' becomes d and the t drops, the same pattern as das why and das cherreh.",
+      "examples": [
+        "Das right, brah, we go early fo' get parking.",
+        "\"Pau hana time?\" \"Das right!\"",
+        "Das right, no can just give up."
+      ],
+      "origin": "Pidgin pronunciation of English 'that's right'.",
+      "frequency": "high",
+      "tags": ["expressions", "agreement"],
+      "source_language": "pidgin",
+      "spelling_variants": ["das rite", "dass right"]
+    },
+    {
+      "pidgin": "mahalo plenty",
+      "english": ["thank you very much", "thanks a lot"],
+      "category": "greetings",
+      "pronunciation": "mah-HAH-loh PLEN-tee",
+      "difficulty": "beginner",
+      "usage": "A Pidgin way to say thanks a lot: Hawaiian mahalo plus English plenty (a lot). More casual than mahalo nui loa.",
+      "examples": [
+        "Mahalo plenty fo' da ride, cuz!",
+        "Aunty, mahalo plenty fo' da food.",
+        "Mahalo plenty, brah, you saved me."
+      ],
+      "origin": "Hawaiian mahalo (thanks) with English plenty.",
+      "frequency": "medium",
+      "tags": ["greetings", "gratitude", "hawaiian"],
+      "source_language": "pidgin"
+    },
+    {
+      "pidgin": "bettah",
+      "english": ["better", "you had better"],
+      "category": "slang",
+      "pronunciation": "BET-tah",
+      "difficulty": "beginner",
+      "usage": "Pidgin pronunciation of 'better': the final -er becomes -ah, as in braddah and sistah. At the start of a sentence it means 'you had better' (Bettah you go now). Best known in mo' bettah.",
+      "examples": [
+        "Bettah you go now before da traffic.",
+        "Dis one bettah, try taste.",
+        "You feeling bettah today?"
+      ],
+      "origin": "English 'better' with the Pidgin -ah ending.",
+      "frequency": "high",
+      "tags": ["slang", "english"],
+      "source_language": "pidgin"
+    },
+    {
+      "pidgin": "daikon legs",
+      "english": ["thick legs", "stocky legs"],
+      "category": "slang",
+      "pronunciation": "DYE-kohn legs",
+      "difficulty": "intermediate",
+      "usage": "Teasing description of thick, sturdy legs, likened to a daikon radish. Playful between friends, but it is a jab about someone's body, so know your audience.",
+      "examples": [
+        "Ho, dat soccer player get daikon legs, strong!",
+        "She wen tease me 'cause I get daikon legs.",
+        "All da hiking wen give me daikon legs."
+      ],
+      "origin": "From Japanese daikon-ashi (radish legs), brought by Japanese immigrants to Hawaii.",
+      "frequency": "medium",
+      "tags": ["slang", "japanese", "body"],
       "source_language": "pidgin"
     }
   ]
