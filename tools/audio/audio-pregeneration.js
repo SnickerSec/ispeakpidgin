@@ -52,6 +52,7 @@ const {
     PIDGIN_PRONUNCIATION_MAP: globalPronunciationMap,
     PIDGIN_TH_WORDS,
     applyPronunciationCorrections,
+    setPronunciationGuides,
     ELEVENLABS_SYNTHESIS
 } = require('../../src/components/speech/elevenlabs-speech.js');
 
@@ -60,13 +61,15 @@ const {
 
 async function fetchAllEntries() {
     try {
-        console.log('📡 Fetching all dictionary entries from Supabase...');
+        console.log('📡 Fetching dictionary entries & pronunciation guides from Supabase...');
         const { data, error } = await supabase
             .from('dictionary_entries')
-            .select('pidgin')
+            .select('pidgin, pronunciation')
             .order('pidgin', { ascending: true });
 
         if (error) throw error;
+        const guideCount = setPronunciationGuides(data || []);
+        console.log(`🗣️ Loaded ${guideCount} dictionary pronunciation guides`);
         return data.map(item => item.pidgin);
     } catch (error) {
         console.error('❌ Error fetching entries:', error.message);
