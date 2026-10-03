@@ -204,6 +204,16 @@ The site uses a **build-time component injection system** for consistent navigat
 - **Start command**: `npm start` (runs Express server)
 - **CSP configuration**: Includes `mediaSrc: ["blob:", ...]` for ElevenLabs audio
 - **Static serving**: Express serves `public/` directory with compression and security headers
+- **Build cache disabled** (`NO_CACHE=1` service variable, set 2026-10-02, not stored in this repo).
+  **Do not remove it.** The page generators bake live Supabase content into `public/word/`, the
+  sitemap, etc. inside the Docker `RUN npm run build` step, which Docker caches on *file* inputs
+  only. With the cache on, a redeploy after a data-only change (a migration, an admin edit)
+  reused the old layer and served stale pages — and a revert once restored an even older cache
+  key, rolling word pages back to pre-migration data. `ARG RAILWAY_DEPLOYMENT_ID` did not bust
+  it. Cost: every build reinstalls deps, ~1 min instead of seconds.
+- **Refreshing static pages after a data change**: redeploy with explicit IDs (the CLI link in
+  this repo points at another project):
+  `railway redeploy -p 3ef8ad40-f6d4-4db3-a037-7a759c2193ac -e production -s ispeakpidgin --from-source -y`
 
 ### Cloudflare CDN (in front of Railway)
 `chokepidgin.com` is proxied through Cloudflare (zone `75ad78bba4908589b1c1434c5ee648ba`, free plan).
