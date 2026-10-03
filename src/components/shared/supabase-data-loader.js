@@ -392,7 +392,11 @@ class SupabaseDataLoader {
     // says they come from ʻŌlelo Hawaiʻi (maika'i, 'ae, nani...) are Hawaiian, not Pidgin,
     // so they only count for the pairs Pidgin speakers really use mid-sentence.
     isPidginUsage(entry, english) {
-        if (!/hawaiian language|from hawaiian|ʻōlelo|olelo hawai/i.test(entry.origin || '')) return true;
+        // source_language comes from migration 018; before it is applied, fall back to origin text
+        const isHawaiian = entry.source_language
+            ? entry.source_language === 'hawaiian'
+            : /hawaiian language|from hawaiian|ʻōlelo|olelo hawai/i.test(entry.origin || '');
+        if (!isHawaiian) return true;
         const pidgin = String(entry.pidgin).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f'ʻ‘’]/g, '');
         const allowed = SupabaseDataLoader.PIDGIN_HAWAIIAN_LOANWORDS[pidgin];
         return Boolean(allowed && allowed.includes(String(english).toLowerCase().trim()));
@@ -483,17 +487,40 @@ SupabaseDataLoader.PIDGIN_HAWAIIAN_LOANWORDS = {
     'mahalo': ['thank you', 'thanks'],
     'keiki': ['child', 'children', 'kid', 'kids'],
     'ono': ['delicious', 'tasty'],
-    'pau': ['finished', 'done'],
+    'pau': ['finished', 'done', 'completed'],
     'pau hana': ['after work', 'finished work'],
-    'kokua': ['help'],
+    'kokua': ['help', 'assistance', 'cooperation'],
     'wiki wiki': ['hurry', 'hurry up', 'quick', 'quickly', 'fast'],
-    'ohana': ['family'],
-    'puka': ['hole'],
+    'ohana': ['family', 'extended family'],
+    'puka': ['hole', 'opening'],
     'pilau': ['stinky', 'smelly', 'rotten'],
     'aloha': ['hello', 'goodbye'],
-    'a hui hou': ['until we meet again', 'see you later'],
-    'hana hou': ['encore', 'one more time'],
-    'kau kau': ['food', 'eat']
+    'a hui hou': ['goodbye', 'until we meet again', 'see you later'],
+    'hana hou': ['encore', 'do it again', 'one more time'],
+    'akamai': ['smart', 'clever', 'intelligent'],
+    'haole': ['white person', 'foreigner'],
+    'hapa': ['half', 'mixed race'],
+    'huhu': ['angry', 'upset'],
+    'kolohe': ['mischievous'],
+    'lolo': ['crazy', 'stupid'],
+    'pupule': ['crazy', 'insane'],
+    'opu': ['stomach', 'tummy'],
+    'pilikia': ['trouble', 'problem'],
+    'niele': ['nosy'],
+    'lanai': ['porch', 'balcony', 'patio', 'veranda'],
+    'pupu': ['appetizer', 'snacks', 'snack'],
+    'kuleana': ['responsibility'],
+    'malihini': ['newcomer', 'tourist'],
+    'kamaaina': ['local resident', 'longtime resident'],
+    'mauka': ['toward the mountains'],
+    'makai': ['toward the ocean'],
+    'manini': ['stingy'],
+    'poho': ['waste', 'a pity', 'loss'],
+    'hemo': ['remove', 'take off'],
+    'huli': ['to turn', 'flip'],
+    'lua': ['toilet', 'bathroom'],
+    'kapakahi': ['crooked'],
+    'tutu': ['grandmother', 'grandparent']
 };
 
 window.pidginDataLoader = supabaseDataLoader; // Backward compatibility alias
