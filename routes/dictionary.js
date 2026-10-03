@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { query, param, body, validationResult } = require('express-validator');
+const { searchEntries } = require('../services/dictionary-search');
 
 /**
  * Dictionary Routes
@@ -18,38 +19,52 @@ module.exports = function(supabase, dictionaryLimiter, dictionaryCache, semantic
         next();
     };
 
+    // Load every entry from Supabase into dictionaryCache
+    async function fetchDictionary() {
+        const { data, error, count } = await supabase
+            .from('dictionary_entries')
+            .select('*', { count: 'exact' })
+            .order('pidgin', { ascending: true })
+            .limit(1000);
+
+        if (error) throw new Error(error.message);
+
+        const categoryCounts = data.reduce((acc, item) => {
+            const cat = item.category || 'uncategorized';
+            acc[cat] = (acc[cat] || 0) + 1;
+            return acc;
+        }, {});
+
+        dictionaryCache.data = {
+            entries: data,
+            stats: {
+                totalEntries: count || data.length,
+                byCategory: categoryCounts,
+                lastUpdated: new Date().toISOString()
+            }
+        };
+        dictionaryCache.timestamp = Date.now();
+        return dictionaryCache.data;
+    }
+
+    function isCacheFresh() {
+        return dictionaryCache.data && (Date.now() - dictionaryCache.timestamp) < dictionaryCache.ttl;
+    }
+
+    // Cached entries for in-memory search (799 rows; avoids ilike, which cannot see
+    // past kahakō/ʻokina and errors on the text[] english column)
+    async function getDictionaryEntries() {
+        if (isCacheFresh()) return dictionaryCache.data.entries;
+        return (await fetchDictionary()).entries;
+    }
+
     // Pre-warm dictionary cache
     async function prewarmDictionaryCache() {
         try {
-            const { data, error, count } = await supabase
-                .from('dictionary_entries')
-                .select('*', { count: 'exact' })
-                .order('pidgin', { ascending: true })
-                .limit(1000);
-
-            if (error) {
-                console.error('❌ Failed to pre-warm dictionary cache:', error.message);
-                return;
-            }
-
-            const categoryCounts = data.reduce((acc, item) => {
-                const cat = item.category || 'uncategorized';
-                acc[cat] = (acc[cat] || 0) + 1;
-                return acc;
-            }, {});
-
-            dictionaryCache.data = {
-                entries: data,
-                stats: {
-                    totalEntries: count || data.length,
-                    byCategory: categoryCounts,
-                    lastUpdated: new Date().toISOString()
-                }
-            };
-            dictionaryCache.timestamp = Date.now();
-            console.log(`✅ Pre-warmed dictionary cache with ${data.length} entries`);
+            const { entries } = await fetchDictionary();
+            console.log(`✅ Pre-warmed dictionary cache with ${entries.length} entries`);
         } catch (err) {
-            console.error('❌ Dictionary pre-warm error:', err.message);
+            console.error('❌ Failed to pre-warm dictionary cache:', err.message);
         }
     }
 
@@ -59,42 +74,19 @@ module.exports = function(supabase, dictionaryLimiter, dictionaryCache, semantic
     // GET /api/dictionary/all - Get ALL dictionary entries in single request
     router.get('/all', dictionaryLimiter, async (req, res) => {
         try {
-            const now = Date.now();
-
-            if (dictionaryCache.data && (now - dictionaryCache.timestamp) < dictionaryCache.ttl) {
+            if (isCacheFresh()) {
                 res.set('X-Cache', 'HIT');
                 res.set('Cache-Control', 'public, max-age=300');
                 return res.json(dictionaryCache.data);
             }
 
-            const { data, error, count } = await supabase
-                .from('dictionary_entries')
-                .select('*', { count: 'exact' })
-                .order('pidgin', { ascending: true })
-                .limit(1000);
-
-            if (error) {
-                console.error('Supabase bulk query error:', error);
+            let response;
+            try {
+                response = await fetchDictionary();
+            } catch (err) {
+                console.error('Supabase bulk query error:', err.message);
                 return res.status(500).json({ error: 'Database query failed' });
             }
-
-            const categoryCounts = data.reduce((acc, item) => {
-                const cat = item.category || 'uncategorized';
-                acc[cat] = (acc[cat] || 0) + 1;
-                return acc;
-            }, {});
-
-            const response = {
-                entries: data,
-                stats: {
-                    totalEntries: count || data.length,
-                    byCategory: categoryCounts,
-                    lastUpdated: new Date().toISOString()
-                }
-            };
-
-            dictionaryCache.data = response;
-            dictionaryCache.timestamp = now;
 
             res.set('X-Cache', 'MISS');
             res.set('Cache-Control', 'public, max-age=300');
@@ -235,7 +227,7 @@ module.exports = function(supabase, dictionaryLimiter, dictionaryCache, semantic
 
     // GET /api/dictionary/search - Full-text + Semantic search
     router.get('/search', semanticSearchLimiter || dictionaryLimiter, [
-        query('q').trim().notEmpty().isLength({ min: 2, max: 100 }).escape(),
+        query('q').trim().notEmpty().isLength({ min: 2, max: 100 }),
         query('limit').optional().isInt({ min: 1, max: 100 }).toInt()
     ], validate, async (req, res) => {
         try {
@@ -251,14 +243,11 @@ module.exports = function(supabase, dictionaryLimiter, dictionaryCache, semantic
             const searchLimit = limit;
 
             // 1. Try traditional keyword search first
-            const { data: keywordResults, error: keywordError } = await supabase
-                .from('dictionary_entries')
-                .select('*')
-                .or(`pidgin.ilike.%${searchTerm}%,english.ilike.%${searchTerm}%`)
-                .limit(searchLimit);
-
-            if (keywordError) {
-                console.error('Supabase search error:', keywordError);
+            let keywordResults;
+            try {
+                keywordResults = searchEntries(await getDictionaryEntries(), searchTerm, searchLimit);
+            } catch (err) {
+                console.error('Dictionary search error:', err.message);
                 return res.status(500).json({ error: 'Search failed' });
             }
 
@@ -351,7 +340,7 @@ module.exports = function(supabase, dictionaryLimiter, dictionaryCache, semantic
 
     // POST /api/dictionary/search-gap - Log a search gap
     router.post('/search-gap', dictionaryLimiter, [
-        body('term').trim().notEmpty().isLength({ min: 2, max: 100 }).escape()
+        body('term').trim().notEmpty().isLength({ min: 2, max: 100 })
     ], validate, async (req, res) => {
         try {
             const { term } = req.body;
@@ -361,17 +350,8 @@ module.exports = function(supabase, dictionaryLimiter, dictionaryCache, semantic
                 return res.status(400).json({ error: 'Search term too short' });
             }
 
-            // Check if it already exists in the dictionary to avoid logging existing words as gaps
-            const { data: dictMatch, error: dictError } = await supabase
-                .from('dictionary_entries')
-                .select('id')
-                .ilike('pidgin', searchTerm)
-                .limit(1);
-
-            if (dictError) throw dictError;
-
-            // If it exists in the dictionary, don't log it as a gap
-            if (dictMatch && dictMatch.length > 0) {
+            // If a search for it finds an entry (tutu → tūtū), it is not a gap
+            if (searchEntries(await getDictionaryEntries(), searchTerm, 1).length > 0) {
                 return res.json({ status: 'ignored', reason: 'exists_in_dictionary' });
             }
 

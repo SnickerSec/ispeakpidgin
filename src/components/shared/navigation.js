@@ -203,14 +203,8 @@
                     await window.pidginDataLoader.autoLoad();
                 }
 
-                const entries = window.pidginDataLoader.getAllEntries();
-                if (!entries) return;
-
-                const matches = entries.filter(entry => {
-                    const pidgin = (entry.pidgin || '').toLowerCase();
-                    const english = Array.isArray(entry.english) ? entry.english.join(' ').toLowerCase() : (entry.english || '').toLowerCase();
-                    return pidgin.includes(query) || english.includes(query);
-                }).slice(0, 8);
+                // Same ranked, kahakō/ʻokina-insensitive search as the dictionary page
+                const matches = window.pidginDataLoader.search(query).slice(0, 8);
 
                 displayResults(matches, query);
             }

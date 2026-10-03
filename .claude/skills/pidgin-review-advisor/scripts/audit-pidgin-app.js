@@ -752,6 +752,89 @@ async function auditVocabulary(db) {
         }
     }
 
+    // Search reachability: run the browser's own matcher over every live headword, typed plain.
+    // Headwords carry kahakō/ʻokina (tūtū, lūʻau); a matcher that compares raw strings
+    // silently loses them, and every miss is logged as a "search gap" for a word we have.
+    if (db && FLAGS.live) {
+        try {
+            const { data, error } = await db.from('dictionary_entries').select('id, pidgin, english');
+            if (error) throw new Error(error.message);
+            const src = read('src/components/shared/supabase-data-loader.js');
+            if (!src) throw new Error('src/components/shared/supabase-data-loader.js not found');
+            const vm = require('vm');
+            const sandbox = { window: {}, document: { readyState: 'loading', addEventListener() {} }, console };
+            vm.createContext(sandbox);
+            vm.runInContext(`${src}\n;globalThis.__Loader = SupabaseDataLoader;`, sandbox);
+            const loader = new sandbox.__Loader();
+            loader.entries = data || [];
+            const plain = s => String(s || '').toLowerCase().normalize('NFD')
+                .replace(/[̀-ͯ]/g, '').replace(/[ʻʼ'‘’`]/g, '').replace(/\s+/g, ' ').trim();
+            const unreachable = loader.entries.filter(e => {
+                const q = plain(e.pidgin);
+                return q.length >= 2 && !Array.from(loader.search(q)).some(r => r.id === e.id);
+            });
+            record('vocabulary', {
+                id: 'vocabulary.search-reach', title: 'Dictionary search reaches every headword by plain spelling',
+                status: unreachable.length ? 'FAIL' : 'OK',
+                evidence: [
+                    `headwords checked: ${loader.entries.length} (client fuzzySearch from src/components/shared/supabase-data-loader.js)`,
+                    `unreachable when typed without kahakō/ʻokina: ${unreachable.length}${unreachable.length ? ' → ' + unreachable.slice(0, 12).map(e => e.pidgin).join(', ') : ''}`
+                ],
+                metrics: { checked: loader.entries.length, unreachable: unreachable.length },
+                finding: unreachable.length ? `${unreachable.length} headwords cannot be found by typing them without diacritics — users get "no results" for words the dictionary has, and each miss is logged as a false search gap.` : null,
+                fix: unreachable.length ? 'Fold kahakō/ʻokina in fuzzySearch (SupabaseDataLoader.foldForSearch) and services/dictionary-search.js; node tools/testing/test-dictionary-search.js.' : null
+            });
+        } catch (e) {
+            record('vocabulary', {
+                id: 'vocabulary.search-reach', title: 'Dictionary search reaches every headword by plain spelling', status: 'SKIP',
+                evidence: [`check failed: ${e.message}`]
+            });
+        }
+    } else {
+        record('vocabulary', {
+            id: 'vocabulary.search-reach', title: 'Dictionary search reaches every headword by plain spelling', status: 'SKIP',
+            evidence: ['needs --live to load every headword']
+        });
+    }
+
+    // Live search API: unit tests use a stand-in database, so only a real request shows
+    // whether production's query actually runs (it once returned 500 on every query).
+    if (FLAGS.net) {
+        try {
+            const probe = async q => {
+                const res = await fetch(`https://chokepidgin.com/api/dictionary/search?q=${encodeURIComponent(q)}`, { signal: AbortSignal.timeout(15000) });
+                const body = await res.json().catch(() => ({}));
+                return { status: res.status, results: Array.isArray(body.results) ? body.results : [], error: body.error };
+            };
+            const aloha = await probe('aloha');
+            const tutu = await probe('tutu');
+            const tutuFound = tutu.results.some(r => String(r.pidgin || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase() === 'tutu');
+            const down = aloha.status !== 200 || aloha.results.length === 0;
+            record('vocabulary', {
+                id: 'vocabulary.search-api', title: 'Live /api/dictionary/search',
+                status: down ? 'FAIL' : (tutuFound ? 'OK' : 'WARN'),
+                evidence: [
+                    `q=aloha → ${aloha.status}, ${aloha.results.length} results${aloha.error ? ` (${aloha.error})` : ''}`,
+                    `q=tutu → ${tutu.status}, tūtū ${tutuFound ? 'found' : 'NOT found'}`
+                ],
+                finding: down
+                    ? 'The public dictionary search API is failing for a common word.'
+                    : (tutuFound ? null : 'The search API answers but misses a headword typed without kahakō (tutu → tūtū).'),
+                fix: down || !tutuFound ? 'Check routes/dictionary.js GET /search and the Railway logs; node tools/testing/test-dictionary-search.js reproduces both failure modes.' : null
+            });
+        } catch (e) {
+            record('vocabulary', {
+                id: 'vocabulary.search-api', title: 'Live /api/dictionary/search', status: 'SKIP',
+                evidence: [`probe failed: ${e.message}`]
+            });
+        }
+    } else {
+        record('vocabulary', {
+            id: 'vocabulary.search-api', title: 'Live /api/dictionary/search', status: 'SKIP',
+            evidence: ['--net not passed']
+        });
+    }
+
     // Pending community suggestions
     if (db && FLAGS.live) {
         try {

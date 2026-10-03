@@ -84,6 +84,11 @@ const testSuites = [
         requiredEnv: false
     },
     {
+        name: 'Dictionary Search (kahakō/ʻokina)',
+        script: 'test-dictionary-search.js',
+        requiredEnv: false
+    },
+    {
         name: 'Site Integrity & SEO Link Audit',
         script: 'audit-site.js',
         preRunBuild: true

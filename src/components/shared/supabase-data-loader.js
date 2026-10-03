@@ -343,13 +343,27 @@ class SupabaseDataLoader {
     }
 
     // Fuzzy search with scoring (optimized)
+    // Lowercase, strip kahakō/accents and ʻokina/apostrophes, collapse spaces, so "tutu"
+    // finds tūtū and "luau" finds lūʻau. Mirrors foldForSearch in services/dictionary-search.js.
+    static foldForSearch(text) {
+        return String(text || '')
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[ʻʼ'‘’`]/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+    }
+
     fuzzySearch(term, threshold = 0.3) {
-        const searchTerm = term.toLowerCase();
+        const fold = SupabaseDataLoader.foldForSearch;
+        const searchTerm = fold(term);
         const results = [];
+        if (!searchTerm) return results;
 
         for (const entry of this.entries) {
             let score = 0;
-            const pidginLower = entry.pidgin.toLowerCase();
+            const pidginLower = fold(entry.pidgin);
 
             // Exact match on pidgin
             if (pidginLower === searchTerm) {
@@ -367,7 +381,8 @@ class SupabaseDataLoader {
             // Check English translations
             if (Array.isArray(entry.english)) {
                 for (const eng of entry.english) {
-                    const engLower = eng.toLowerCase();
+                    const engLower = fold(eng);
+                    if (!engLower) continue;
                     if (engLower === searchTerm) {
                         score = Math.max(score, 0.9);
                     } else if (engLower.startsWith(searchTerm)) {
