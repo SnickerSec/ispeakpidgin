@@ -16,7 +16,8 @@ const {
     cleanQueryTerm,
     categorizeQuery,
     findMissingTerms,
-    parseCommandLineArgs
+    parseCommandLineArgs,
+    findOfflineQueryFile
 } = require('../seo/feedback-loop.js');
 
 async function runTests() {
@@ -142,6 +143,18 @@ async function runTests() {
         if (fs.existsSync(tempCsvPath)) fs.unlinkSync(tempCsvPath);
         if (fs.existsSync(tempJsonPath)) fs.unlinkSync(tempJsonPath);
     }
+
+    // 8. Test offline query auto-discovery
+    console.log('8. Testing offline query auto-discovery & demo flags...');
+    const discovered = findOfflineQueryFile();
+    assert.ok(discovered, 'Expected findOfflineQueryFile to discover at least one local dataset');
+    assert.ok(fs.existsSync(discovered), 'Discovered path must exist');
+
+    const demoArgs = parseCommandLineArgs(['--demo']);
+    assert.ok(demoArgs.inputFile && demoArgs.inputFile.endsWith('gsc-sample-performance.csv'));
+
+    const sampleArgs = parseCommandLineArgs(['--sample']);
+    assert.ok(sampleArgs.inputFile && sampleArgs.inputFile.endsWith('gsc-sample-performance.csv'));
 
     console.log('\n🎉 All SEO Feedback Loop tests passed successfully!\n');
 }

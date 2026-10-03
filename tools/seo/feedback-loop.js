@@ -33,6 +33,25 @@ const DEFAULT_KEY_PATH = process.env.GOOGLE_SEARCH_CONSOLE_KEY_PATH || './google
 const SEARCH_CONSOLE_API = 'https://searchconsole.googleapis.com/webmasters/v3';
 const DEFAULT_OUTPUT_PATH = process.env.OUTPUT_PATH || '/tmp/missing-terms.json';
 
+const CANDIDATE_OFFLINE_PATHS = [
+    path.join(__dirname, 'data/gsc-sample-performance.csv'),
+    path.join(process.cwd(), 'Queries.csv'),
+    path.join(process.cwd(), 'queries.csv'),
+    path.join(__dirname, '../../data/Queries.csv'),
+    path.join(__dirname, '../../data/queries.csv'),
+    path.join(__dirname, '../../docs/Queries.csv'),
+    path.join(__dirname, '../../docs/queries.csv')
+];
+
+function findOfflineQueryFile(candidates = CANDIDATE_OFFLINE_PATHS) {
+    for (const candidate of candidates) {
+        if (fs.existsSync(candidate)) {
+            return candidate;
+        }
+    }
+    return null;
+}
+
 const BLACKLIST = [
     'dictionary', 'translator', 'pigeon', 'hawaiian', 'pidgin', 'google translate',
     'english to', 'how to say', 'what does', 'meaning of', 'translate', 'sayings',
@@ -139,6 +158,8 @@ function parseCommandLineArgs(argv = process.argv.slice(2)) {
             opts.minImpressions = parseInt(argv[++i], 10) || 20;
         } else if ((arg === '--output' || arg === '-o') && argv[i + 1]) {
             opts.outputPath = argv[++i];
+        } else if (arg === '--demo' || arg === '--sample') {
+            opts.inputFile = path.join(__dirname, 'data/gsc-sample-performance.csv');
         }
     }
 
@@ -161,6 +182,7 @@ Usage:
 
 Options:
   -f, --file <path>             Load queries from offline CSV or JSON export (e.g. GSC performance export)
+  --demo, --sample              Run with built-in sample Search Console dataset
   -k, --key-file <path>         Path to Google Search Console service account JSON (default: ./google-search-console-key.json)
   -d, --days <number>           Days of search analytics data to query if using API (default: 28)
   -m, --min-impressions <num>   Minimum impressions threshold to consider a query (default: 20)
@@ -168,8 +190,14 @@ Options:
   -h, --help                    Display this help message
 
 Offline CSV Examples:
-  # Using a Google Search Console CSV export:
+  # Auto-discovers local queries or built-in sample data when GSC key is not configured:
+  npm run seo:loop
+
+  # Explicitly using a Google Search Console CSV export:
   node tools/seo/feedback-loop.js --file ./gsc-queries.csv
+
+  # Run demo mode on packaged sample data:
+  npm run seo:loop -- --demo
 
   # Custom output and lower impression threshold:
   node tools/seo/feedback-loop.js -f ./queries.csv -m 10 -o ./staged-terms.json
@@ -547,23 +575,30 @@ async function main() {
             console.log(`📂 Loading search queries from offline file: ${options.inputFile}`);
             scQueries = loadQueriesFromFile(options.inputFile);
             console.log(`✅ Loaded ${scQueries.length} queries from file`);
-        } else {
-            // Check if key file exists
-            if (!fs.existsSync(options.keyPath)) {
-                console.log(`⚠️  Google Search Console key file not found at: ${options.keyPath}`);
-                console.log('\n💡 Tip: You can run offline with a Search Console CSV/JSON export:');
-                console.log('   npm run seo:loop -- --file /path/to/Queries.csv');
-                console.log('\n   Or place your service account key at ./google-search-console-key.json');
-                console.log('   Run with --help for all available options.\n');
-                process.exit(1);
-            }
-
+        } else if (fs.existsSync(options.keyPath)) {
             console.log('🔑 Authenticating with Google Search Console API...');
             const auth = await getAuthClient(options.keyPath);
             
             console.log('📡 Fetching Search Console queries...');
             scQueries = await fetchSearchQueries(auth, options.days);
             console.log(`✅ Found ${scQueries.length} unique search queries`);
+        } else {
+            const discovered = findOfflineQueryFile();
+            if (discovered) {
+                console.log(`ℹ️  Google Search Console key not found at: ${options.keyPath}`);
+                const displayPath = path.relative(process.cwd(), discovered) || discovered;
+                console.log(`📂 Auto-discovered local query dataset: ${displayPath}`);
+                scQueries = loadQueriesFromFile(discovered);
+                console.log(`✅ Loaded ${scQueries.length} queries from file`);
+            } else {
+                console.log(`⚠️  Google Search Console key file not found at: ${options.keyPath}`);
+                console.log('\n💡 Tip: You can run offline with a Search Console CSV/JSON export:');
+                console.log('   npm run seo:loop -- --file /path/to/Queries.csv');
+                console.log('   Or run demo mode on packaged sample data: npm run seo:loop -- --demo');
+                console.log('\n   Or place your service account key at ./google-search-console-key.json');
+                console.log('   Run with --help for all available options.\n');
+                process.exit(1);
+            }
         }
 
         console.log('🔍 Fetching current dictionary from Supabase...');
@@ -619,6 +654,8 @@ module.exports = {
     findMissingTerms,
     parseCommandLineArgs,
     printHelp,
+    findOfflineQueryFile,
+    CANDIDATE_OFFLINE_PATHS,
     main
 };
 
