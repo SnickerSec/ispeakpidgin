@@ -16,8 +16,8 @@
  *   2. No ʻŌlelo Hawaiʻi entry leaks into English→Pidgin output unless
  *      SupabaseDataLoader.PIDGIN_HAWAIIAN_LOANWORDS allows that meaning.
  *
- * Needs SUPABASE_URL + SUPABASE_ANON_KEY; without them it reports SKIPPED (exit 0) rather than
- * passing on data it never saw.
+ * Needs SUPABASE_URL + SUPABASE_ANON_KEY; without them it exits 78, which run-all-tests.js shows
+ * as SKIPPED rather than passing on data it never saw.
  */
 
 const fs = require('fs');
@@ -120,7 +120,7 @@ const normalize = s => String(s || '').toLowerCase().replace(/[.?!\s]+$/, '').tr
     console.log('🌐 Live Translator Test\n');
     if (!process.env.SUPABASE_URL || !process.env.SUPABASE_ANON_KEY) {
         console.log('⚪ SKIPPED: SUPABASE_URL / SUPABASE_ANON_KEY not set — nothing was measured.');
-        return;
+        process.exit(78);
     }
 
     const dictionary = await liveDictionary();

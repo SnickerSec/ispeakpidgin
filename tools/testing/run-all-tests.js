@@ -102,6 +102,7 @@ const testSuites = [
 
 const results = [];
 let overallPassed = true;
+const SKIP_EXIT_CODE = 78;
 
 // Ensure public directory is built for the site audit
 const publicDir = path.join(__dirname, '../../public');
@@ -133,14 +134,17 @@ for (const suite of testSuites) {
     });
     const duration = ((Date.now() - start) / 1000).toFixed(2);
 
+    // Exit 78 (EX_CONFIG): the suite could not measure anything here (e.g. no credentials).
+    // Report it as skipped, never as a pass.
+    const skipped = processResult.status === SKIP_EXIT_CODE;
     const passed = processResult.status === 0;
-    if (!passed) {
+    if (!passed && !skipped) {
         overallPassed = false;
     }
 
     results.push({
         name: suite.name,
-        status: passed ? 'PASSED ✅' : 'FAILED ❌',
+        status: skipped ? 'SKIPPED ⚪' : passed ? 'PASSED ✅' : 'FAILED ❌',
         code: processResult.status,
         duration: `${duration}s`
     });
@@ -160,7 +164,11 @@ for (const res of results) {
 }
 console.log('-'.repeat(60));
 
-if (overallPassed) {
+const skippedCount = results.filter(r => r.status.startsWith('SKIPPED ⚪')).length;
+if (overallPassed && skippedCount) {
+    console.log(`\n🎉 All measured suites passed — ${skippedCount} skipped (nothing measured; see above). 🌺\n`);
+    process.exit(0);
+} else if (overallPassed) {
     console.log('\n🎉 ALL TEST SUITES PASSED SUCCESSFULLY! 🌺\n');
     process.exit(0);
 } else {
