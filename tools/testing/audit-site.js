@@ -22,6 +22,7 @@ const { classifyPage, readRobotsDisallows } = require('../generators/generate-si
 const PUBLIC_DIR = path.join(__dirname, '../../public');
 const SITE_URL = 'https://chokepidgin.com';
 const IGNORE_PATTERNS = ['/node_modules/', '/.git/'];
+const isQuick = process.argv.includes('--quick') || process.argv.includes('-q');
 
 const stats = {
     pagesChecked: 0,
@@ -163,6 +164,10 @@ function auditSitemap() {
     const sitemapPath = path.join(PUBLIC_DIR, 'sitemap.xml');
 
     if (!fs.existsSync(sitemapPath)) {
+        if (isQuick) {
+            console.log('ℹ️  Quick mode: sitemap.xml skipped in --quick build');
+            return issues;
+        }
         issues.push('sitemap.xml is missing from public/ - run: npm run generate:sitemap');
         return issues;
     }
@@ -225,6 +230,7 @@ async function runAudit() {
     // Step 3: Validate collected internal links
     console.log('🔗 Checking internal links...');
     const brokenLinks = [];
+    const quickSkipped = [];
     for (const link of internalLinks) {
         stats.linksChecked++;
         // Remove trailing slash for comparison
@@ -234,9 +240,20 @@ async function runAudit() {
         if (!existingFiles.has(link.to) && !existingFiles.has(target) && !existingFiles.has(targetWithHtml)) {
             // Ignore common dynamic routes or those with query params
             if (!link.to.includes('?') && !link.to.includes('/api/')) {
-                brokenLinks.push(link);
+                const isGeneratedEntity = target.startsWith('/word/') ||
+                    target.startsWith('/phrase/') ||
+                    target.startsWith('/stories/') ||
+                    target.startsWith('/pickup-lines/');
+                if (isQuick && isGeneratedEntity) {
+                    quickSkipped.push(link);
+                } else {
+                    brokenLinks.push(link);
+                }
             }
         }
+    }
+    if (quickSkipped.length > 0) {
+        console.log(`⚠️  Quick mode: skipped ${quickSkipped.length} link(s) to ungenerated dynamic pages (/word/*, /phrase/*, etc.)`);
     }
 
     // Step 4: Validate sitemap coverage

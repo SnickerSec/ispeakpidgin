@@ -35,9 +35,14 @@ const DIRECTION = 'tts';
 // Parse arguments
 const args = process.argv.slice(2);
 const IS_AUDIT = args.includes('--audit') || args.includes('--dry-run');
-const FORCE_REGEN = args.includes('--force');
+let FORCE_REGEN = args.includes('--force');
 const LIMIT_ARG = args.indexOf('--limit');
 const MAX_TO_GENERATE = LIMIT_ARG !== -1 ? parseInt(args[LIMIT_ARG + 1], 10) : 100;
+const TERM_INDEX = args.indexOf('--term') !== -1 ? args.indexOf('--term') : args.indexOf('-t');
+const SPECIFIC_TERM = TERM_INDEX !== -1 && args[TERM_INDEX + 1] ? args[TERM_INDEX + 1] : (!args[0]?.startsWith('-') ? args[0] : null);
+if (SPECIFIC_TERM) {
+    FORCE_REGEN = true;
+}
 
 // Shared pronunciation map (identical to elevenlabs-speech.js)
 // Imported from the runtime speech engine, never copied. This file used to carry its own
@@ -47,6 +52,7 @@ const {
     PIDGIN_PRONUNCIATION_MAP: globalPronunciationMap,
     PIDGIN_TH_WORDS,
     applyPronunciationCorrections,
+    setPronunciationGuides,
     ELEVENLABS_SYNTHESIS
 } = require('../../src/components/speech/elevenlabs-speech.js');
 
@@ -55,13 +61,15 @@ const {
 
 async function fetchAllEntries() {
     try {
-        console.log('📡 Fetching all dictionary entries from Supabase...');
+        console.log('📡 Fetching dictionary entries & pronunciation guides from Supabase...');
         const { data, error } = await supabase
             .from('dictionary_entries')
-            .select('pidgin')
+            .select('pidgin, pronunciation')
             .order('pidgin', { ascending: true });
 
         if (error) throw error;
+        const guideCount = setPronunciationGuides(data || []);
+        console.log(`🗣️ Loaded ${guideCount} dictionary pronunciation guides`);
         return data.map(item => item.pidgin);
     } catch (error) {
         console.error('❌ Error fetching entries:', error.message);
@@ -175,9 +183,23 @@ async function main() {
     // Load existing index (Try Supabase first, then local)
     let index = {};
     try {
-        const { data, error } = await supabase.storage.from(BUCKET_NAME).download('index.json');
-        if (data) {
-            index = JSON.parse(await data.text());
+        let indexText = null;
+        if (supabaseUrl && supabaseServiceKey) {
+            const url = `${supabaseUrl}/storage/v1/object/${BUCKET_NAME}/index.json?t=${Date.now()}`;
+            const res = await fetch(url, {
+                headers: { 'Authorization': `Bearer ${supabaseServiceKey}` },
+                cache: 'no-store'
+            });
+            if (res.ok) {
+                indexText = await res.text();
+            }
+        }
+        if (!indexText) {
+            const { data, error } = await supabase.storage.from(BUCKET_NAME).download('index.json');
+            if (data) indexText = await data.text();
+        }
+        if (indexText) {
+            index = JSON.parse(indexText);
             console.log(`📦 Loaded index from Supabase with ${Object.keys(index).length} terms`);
             // Save locally too for sync
             await fs.writeFile(INDEX_FILE, JSON.stringify(index, null, 2));
@@ -258,10 +280,12 @@ async function main() {
     }
 
     // Identify terms that need audio
-    const termsToProcess = allTerms.filter(term => {
-        const normalized = term.trim().toLowerCase();
-        return FORCE_REGEN || !index[normalized];
-    });
+    const termsToProcess = SPECIFIC_TERM
+        ? [SPECIFIC_TERM]
+        : allTerms.filter(term => {
+            const normalized = term.trim().toLowerCase();
+            return FORCE_REGEN || !index[normalized];
+        });
 
     console.log(`✨ Terms needing audio: ${termsToProcess.length}`);
     
