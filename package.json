@@ -17,6 +17,8 @@
     "data:crosswords": "node tools/data/generate-more-crosswords.js",
     "seo:loop": "node tools/seo/feedback-loop.js",
     "audio:invalidate": "node tools/audio/invalidate-audio.js",
+    "audio:generate": "node tools/audio/audio-pregeneration.js",
+    "audio:audit": "node tools/audio/audio-pregeneration.js --audit",
     "test": "node tools/testing/run-all-tests.js",
     "test:runtime-deps": "node tools/testing/check-runtime-deps.js",
     "test:validation": "node tools/testing/run-validation.js",

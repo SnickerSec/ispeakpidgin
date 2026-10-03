@@ -111,8 +111,24 @@ function generateVariations(term) {
 /**
  * Download and parse index.json from Supabase Storage.
  */
+/**
+ * Download and parse index.json from Supabase Storage with CDN cache-busting.
+ */
 async function loadStorageIndex(db) {
     try {
+        const supabaseUrl = process.env.SUPABASE_URL;
+        const key = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
+        if (supabaseUrl && key) {
+            const url = `${supabaseUrl}/storage/v1/object/${BUCKET_NAME}/index.json?t=${Date.now()}`;
+            const res = await fetch(url, {
+                headers: { 'Authorization': `Bearer ${key}` },
+                cache: 'no-store'
+            });
+            if (res.ok) {
+                const json = await res.json();
+                return { index: json, exists: true };
+            }
+        }
         const { data, error } = await db.storage.from(BUCKET_NAME).download('index.json');
         if (error || !data) return { index: {}, exists: false };
         const text = await data.text();
