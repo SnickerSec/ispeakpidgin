@@ -144,8 +144,18 @@ async function runValidation() {
             { input: "Did you go?", expected: "you wen go?" }
         ],
         'Questions (Are/Is/Was)': [
-            { input: "Are you ready?", expected: "you stay ready?" },
+            // Pidgin drops the copula in adjective yes/no questions: "You ready?", "You hungry?"
+            { input: "Are you ready?", expected: "you ready?" },
             { input: "Is he coming?", expected: "he stay coming?" }
+        ],
+        'Everyday Questions & Quantity': [
+            { input: "Are you hungry?", expected: "you hungry?" },
+            { input: "What are you doing?", expected: "what you doing?" },
+            { input: "Do you want to eat?", expected: "you like eat, eh?" },
+            { input: "Did you eat yet?", expected: "you wen grind already?" },
+            { input: "How much is this?", expected: "how much dis?" },
+            { input: "A lot of people", expected: "choke people" },
+            { input: "I'm sorry", expected: "sorry, eh" }
         ],
         'Modal Verbs': [
             { input: "I want to eat", expected: "i like kau kau" },

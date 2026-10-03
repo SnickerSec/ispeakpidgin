@@ -22,7 +22,9 @@ class SentenceChunker {
         try {
             // Wait for the shared data loader to be ready
             await this._waitForDataLoader();
-            const translatorData = { entries: pidginDataLoader.getAllEntries() };
+            const translatorData = {
+                entries: pidginDataLoader.getEntriesByFrequency ? pidginDataLoader.getEntriesByFrequency() : pidginDataLoader.getAllEntries()
+            };
 
             // Build sentence and phrase lookups from translator data
             this.sentenceLookup = {
@@ -34,6 +36,7 @@ class SentenceChunker {
             (translatorData.entries || []).forEach(entry => {
                 if (entry.english && entry.pidgin) {
                     entry.english.forEach(eng => {
+                        if (pidginDataLoader.isPidginUsage && !pidginDataLoader.isPidginUsage(entry, eng)) return;
                         const normalized = eng.toLowerCase().trim();
 
                         // Add to phrase lookup
@@ -45,8 +48,10 @@ class SentenceChunker {
                             english: eng
                         });
 
-                        // Add to sentence lookup (for full sentence matches)
-                        this.sentenceLookup.englishToPidgin[normalized] = entry.pidgin;
+                        // Add to sentence lookup (for full sentence matches); first = most common
+                        if (!this.sentenceLookup.englishToPidgin[normalized]) {
+                            this.sentenceLookup.englishToPidgin[normalized] = entry.pidgin;
+                        }
                     });
 
                     // Reverse lookup for pidgin to English
@@ -183,14 +188,19 @@ class SentenceChunker {
 
         // Reassemble chunks
         const pidginSentence = chunks.map(c => c.pidgin).join(' ');
-        const avgConfidence = chunks.reduce((sum, c) => sum + c.confidence, 0) / chunks.length;
+        const phraseMatches = chunks.filter(c => c.type === 'phrase').length;
+        // Without a phrase match this is plain word-by-word output; score it below the
+        // translator's 0.7 cutoff so the grammar-aware fallback handles it instead
+        const avgConfidence = phraseMatches === 0
+            ? 0.6
+            : chunks.reduce((sum, c) => sum + c.confidence, 0) / chunks.length;
 
         return {
             translation: this.capitalizeFirst(pidginSentence),
             confidence: avgConfidence,
             method: 'sentence_chunking',
             chunks: chunks,
-            phraseMatches: chunks.filter(c => c.type === 'phrase').length,
+            phraseMatches: phraseMatches,
             wordFills: chunks.filter(c => c.type === 'word').length
         };
     }
@@ -267,8 +277,10 @@ class SentenceChunker {
     translateSingleWord(word) {
         // Use existing translator if available
         if (typeof pidginTranslator !== 'undefined' && pidginTranslator.comprehensiveDict) {
+            if (pidginTranslator.keepEnglishWords?.has(word.toLowerCase())) return word;
             const translation = pidginTranslator.comprehensiveDict[word.toLowerCase()];
-            if (translation) return translation;
+            // Entries can hold several variants; joining an array would print "stay,steah"
+            if (translation) return Array.isArray(translation) ? translation[0] : translation;
         }
 
         // Fallback: basic rules

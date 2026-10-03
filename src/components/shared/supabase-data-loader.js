@@ -388,6 +388,24 @@ class SupabaseDataLoader {
         return results.map(r => r.entry);
     }
 
+    // Whether an English meaning should translate to this entry. Entries whose origin
+    // says they come from ʻŌlelo Hawaiʻi (maika'i, 'ae, nani...) are Hawaiian, not Pidgin,
+    // so they only count for the pairs Pidgin speakers really use mid-sentence.
+    isPidginUsage(entry, english) {
+        if (!/hawaiian language|from hawaiian|ʻōlelo|olelo hawai/i.test(entry.origin || '')) return true;
+        const pidgin = String(entry.pidgin).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f'ʻ‘’]/g, '');
+        const allowed = SupabaseDataLoader.PIDGIN_HAWAIIAN_LOANWORDS[pidgin];
+        return Boolean(allowed && allowed.includes(String(english).toLowerCase().trim()));
+    }
+
+    // Entries ordered most-common first, so translation lookups that take the first
+    // candidate prefer "no worries" (very high) over "for no worries" (medium)
+    getEntriesByFrequency() {
+        const rank = { 'very_high': 4, 'very high': 4, 'high': 3, 'medium': 2, 'low': 1 };
+        const score = entry => rank[String(entry.frequency).toLowerCase()] || 2;
+        return [...this.entries].sort((a, b) => score(b) - score(a));
+    }
+
     // Get translations (for translator compatibility)
     getTranslations() {
         const translations = {
@@ -395,9 +413,10 @@ class SupabaseDataLoader {
             pidginToEnglish: {}
         };
 
-        this.entries.forEach(entry => {
+        this.getEntriesByFrequency().forEach(entry => {
             if (Array.isArray(entry.english)) {
                 entry.english.forEach(eng => {
+                    if (!this.isPidginUsage(entry, eng)) return;
                     const engLower = eng.toLowerCase();
                     if (!translations.englishToPidgin[engLower]) {
                         translations.englishToPidgin[engLower] = [];
@@ -458,4 +477,23 @@ if (document.readyState === 'loading') {
 
 // Make available globally
 window.supabaseDataLoader = supabaseDataLoader;
+// Hawaiian loanwords that are everyday Pidgin, keyed by the word with ʻokina and
+// macrons stripped, listing the English meanings they may translate.
+SupabaseDataLoader.PIDGIN_HAWAIIAN_LOANWORDS = {
+    'mahalo': ['thank you', 'thanks'],
+    'keiki': ['child', 'children', 'kid', 'kids'],
+    'ono': ['delicious', 'tasty'],
+    'pau': ['finished', 'done'],
+    'pau hana': ['after work', 'finished work'],
+    'kokua': ['help'],
+    'wiki wiki': ['hurry', 'hurry up', 'quick', 'quickly', 'fast'],
+    'ohana': ['family'],
+    'puka': ['hole'],
+    'pilau': ['stinky', 'smelly', 'rotten'],
+    'aloha': ['hello', 'goodbye'],
+    'a hui hou': ['until we meet again', 'see you later'],
+    'hana hou': ['encore', 'one more time'],
+    'kau kau': ['food', 'eat']
+};
+
 window.pidginDataLoader = supabaseDataLoader; // Backward compatibility alias

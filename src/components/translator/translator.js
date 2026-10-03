@@ -9,6 +9,15 @@ class PidginTranslator {
         this.grammarRules = this.createGrammarRules();
         this.initialized = false;
 
+        // Everyday words Pidgin keeps in English. The dictionary maps meanings, so
+        // swapping these word-by-word gives "Solid morning" for "good morning".
+        // Whole-input lookups still use their dictionary entries.
+        this.keepEnglishWords = new Set([
+            'good', 'fine', 'nice', 'cool', 'great', 'bad', 'love', 'like', 'okay', 'ok',
+            'yes', 'no', 'home', 'house', 'work', 'big', 'small', 'beautiful', 'pretty',
+            'morning', 'night', 'day', 'time', 'man', 'woman', 'people', 'person', 'thing'
+        ]);
+
         // Try to initialize immediately if data is available
         this.tryInitialize();
 
@@ -59,10 +68,15 @@ class PidginTranslator {
         const dict = {};
         if (typeof pidginDataLoader !== 'undefined' && pidginDataLoader.loaded) {
             try {
-                const entries = pidginDataLoader.getAllEntries();
+                // Most common entries first, so the primary translation is the usual one
+                const entries = pidginDataLoader.getEntriesByFrequency
+                    ? pidginDataLoader.getEntriesByFrequency()
+                    : pidginDataLoader.getAllEntries();
                 for (let entry of entries) {
                     // Add english to pidgin mapping
                     for (let englishTranslation of entry.english) {
+                        // Skip ʻŌlelo Hawaiʻi entries that are not everyday Pidgin for this meaning
+                        if (pidginDataLoader.isPidginUsage && !pidginDataLoader.isPidginUsage(entry, englishTranslation)) continue;
                         const key = englishTranslation.toLowerCase();
                         if (!dict[key]) dict[key] = [];
                         if (!dict[key].includes(entry.pidgin)) {
@@ -158,6 +172,19 @@ class PidginTranslator {
                 'neva (.+)': 'never $1'
             },
             englishToPidgin: {
+                // Questions and quantity (checked first: Priority 0.5 stops at the first match,
+                // and the dictionary would otherwise split "a lot of" into "big kine ... of")
+                '\\ba lot of\\b': 'choke',
+                '\\blots of\\b': 'choke',
+                '^(what|where|why|who|when|how) are you (.+)': '$1 you $2',
+                '^are you (.+)': 'you $1',
+                '^do you want to (.+)': 'you like $1',
+                '^did you (.+) yet\\b': 'you wen $1 already',
+                '^how much is this\\b': 'how much dis',
+                '^how much is that\\b': 'how much dat',
+                '^i am sorry\\b': 'sorry, eh',
+                '^what time is it\\b': 'what time already',
+
                 // Specific phrase overrides (highest priority)
                 'will eat': 'going kau kau',
                 'want food': 'like grinds',
@@ -733,6 +760,7 @@ class PidginTranslator {
             }
         }
 
+        resultText = this.capitalizeFirst(resultText.trim());
         const analysis = this.analyzeTranslation(rawInput, resultText, direction);
 
         return {
@@ -930,6 +958,10 @@ class PidginTranslator {
             if (punctMatch) {
                 punctuation = punctMatch[1];
                 cleanWord = word.slice(0, -punctuation.length);
+            }
+
+            if (this.keepEnglishWords.has(cleanWord)) {
+                return word;
             }
 
             // Check comprehensive dictionary first

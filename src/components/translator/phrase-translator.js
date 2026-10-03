@@ -21,7 +21,9 @@ class PhraseTranslator {
         try {
             // Wait for the shared data loader to be ready
             await this._waitForDataLoader();
-            const translatorData = { entries: pidginDataLoader.getAllEntries() };
+            const translatorData = {
+                entries: pidginDataLoader.getEntriesByFrequency ? pidginDataLoader.getEntriesByFrequency() : pidginDataLoader.getAllEntries()
+            };
 
             // Build phrase lookup from translator data
             this.phraseLookup = {};
@@ -36,6 +38,7 @@ class PhraseTranslator {
             (translatorData.entries || []).forEach(entry => {
                 if (entry.english) {
                     entry.english.forEach(eng => {
+                        if (pidginDataLoader.isPidginUsage && !pidginDataLoader.isPidginUsage(entry, eng)) return;
                         const normalized = eng.toLowerCase().trim();
                         if (!this.phraseLookup[normalized]) {
                             this.phraseLookup[normalized] = [];
@@ -93,19 +96,8 @@ class PhraseTranslator {
             };
         }
 
-        // 2. Check for partial phrase match (fuzzy)
-        const partialMatch = this.findPartialPhraseMatch(textLower);
-        if (partialMatch) {
-            return partialMatch;
-        }
-
-        // 3. Check if it contains a known phrase
-        const containsMatch = this.findContainedPhrase(textLower);
-        if (containsMatch) {
-            return containsMatch;
-        }
-
-        return null;
+        // 2. Substitute the longest known multi-word phrase
+        return this.findPartialPhraseMatch(textLower);
     }
 
     /**
@@ -143,49 +135,29 @@ class PhraseTranslator {
     }
 
     /**
-     * Find partial phrase match (handles variations)
+     * Find the longest known multi-word phrase inside the text and substitute it
+     * in place. Single words are left to the word-by-word stage, and confidence
+     * scales with how much of the input the phrase covers, so a short match in a
+     * long sentence falls through to the grammar-aware fallback instead of
+     * replacing the whole sentence.
      */
     findPartialPhraseMatch(text) {
         const words = text.split(/\s+/);
 
-        // Try different combinations
-        for (let i = 0; i < words.length; i++) {
-            for (let j = i + 1; j <= words.length; j++) {
-                const phrase = words.slice(i, j).join(' ');
+        for (let length = words.length - 1; length >= 2; length--) {
+            for (let i = 0; i + length <= words.length; i++) {
+                const phrase = words.slice(i, i + length).join(' ');
                 const match = this.phraseLookup[phrase];
+                if (!match || match.length === 0) continue;
 
-                if (match && match.length > 0) {
-                    return {
-                        translation: match[0].pidgin,
-                        confidence: 0.85,
-                        alternatives: match.slice(1, 3).map(m => m.pidgin),
-                        source: 'phrase_partial_match',
-                        matchedPhrase: phrase,
-                        category: match[0].category
-                    };
-                }
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Find if text contains a known phrase
-     */
-    findContainedPhrase(text) {
-        const phrases = Object.keys(this.phraseLookup).sort((a, b) => b.length - a.length);
-
-        for (const phrase of phrases) {
-            if (text.includes(phrase)) {
-                const match = this.phraseLookup[phrase][0];
+                const translation = [...words.slice(0, i), match[0].pidgin, ...words.slice(i + length)].join(' ');
                 return {
-                    translation: match.pidgin,
-                    confidence: 0.75,
-                    source: 'phrase_contained',
+                    translation,
+                    confidence: 0.6 + 0.3 * (length / words.length),
+                    alternatives: [],
+                    source: 'phrase_partial_match',
                     matchedPhrase: phrase,
-                    category: match.category,
-                    note: `Found phrase: "${phrase}"`
+                    category: match[0].category
                 };
             }
         }
