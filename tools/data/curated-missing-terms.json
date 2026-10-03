@@ -1,7 +1,7 @@
 {
   "generated": "2026-08-25T04:38:00.000Z",
   "source": "curated-island-slang-and-cultural-terms",
-  "count": 28,
+  "count": 30,
   "missing": [
     {
       "pidgin": "loco moco",
@@ -424,6 +424,39 @@
       "frequency": "medium",
       "tags": ["hawaiian", "cultural", "heart", "feelings", "aloha"],
       "source_language": "hawaiian"
+    },
+    {
+      "pidgin": "mauka and makai",
+      "english": ["from mountain to sea", "island-wide", "everywhere across the island"],
+      "category": "locations",
+      "pronunciation": "MOW-kah and mah-KYE",
+      "difficulty": "intermediate",
+      "usage": "Directional phrase meaning everywhere across the island from the mountains to the ocean; alternate phrasing of mauka makai.",
+      "examples": [
+        "We searched mauka and makai for da lost dog.",
+        "Da whole island stay celebrating mauka and makai."
+      ],
+      "origin": "Hawaiian directional compound (mauka = mountain, makai = ocean)",
+      "frequency": "high",
+      "tags": ["locations", "directions", "island", "travel", "geography"],
+      "source_language": "hawaiian"
+    },
+    {
+      "pidgin": "cheeehoo",
+      "english": ["expression of joy", "excitement", "woohoo", "celebratory cry", "joyful shout"],
+      "category": "expressions",
+      "pronunciation": "CHEE-hoo",
+      "difficulty": "beginner",
+      "usage": "Celebratory cry or joyful shout, commonly spelled with elongated e's (cheeehoo) in text messages and online searches.",
+      "examples": [
+        "Cheeehoo! We going beach today!",
+        "Cheeehoo! We won da championship!",
+        "Friday pau hana, cheeehoo!"
+      ],
+      "origin": "Local Hawaiian and Polynesian celebratory cheer",
+      "frequency": "high",
+      "tags": ["expressions", "celebration", "shout", "joy", "slang"],
+      "source_language": "pidgin"
     }
   ]
 }

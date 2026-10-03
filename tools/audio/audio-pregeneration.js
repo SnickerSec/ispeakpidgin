@@ -183,9 +183,23 @@ async function main() {
     // Load existing index (Try Supabase first, then local)
     let index = {};
     try {
-        const { data, error } = await supabase.storage.from(BUCKET_NAME).download('index.json');
-        if (data) {
-            index = JSON.parse(await data.text());
+        let indexText = null;
+        if (supabaseUrl && supabaseServiceKey) {
+            const url = `${supabaseUrl}/storage/v1/object/${BUCKET_NAME}/index.json?t=${Date.now()}`;
+            const res = await fetch(url, {
+                headers: { 'Authorization': `Bearer ${supabaseServiceKey}` },
+                cache: 'no-store'
+            });
+            if (res.ok) {
+                indexText = await res.text();
+            }
+        }
+        if (!indexText) {
+            const { data, error } = await supabase.storage.from(BUCKET_NAME).download('index.json');
+            if (data) indexText = await data.text();
+        }
+        if (indexText) {
+            index = JSON.parse(indexText);
             console.log(`📦 Loaded index from Supabase with ${Object.keys(index).length} terms`);
             // Save locally too for sync
             await fs.writeFile(INDEX_FILE, JSON.stringify(index, null, 2));

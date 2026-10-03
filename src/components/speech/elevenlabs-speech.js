@@ -81,6 +81,7 @@ const PIDGIN_PRONUNCIATION_MAP = {
     'kaukau': 'cow-cow',
     'kau kau': 'cow-cow',
     'cheehoo': 'chee-hoo!',
+    'cheeehoo': 'chee-hoo!',
     'chee-hoo': 'chee-hoo!',
     'rajah': 'rah-jah',
     'shoots': 'shoots',
