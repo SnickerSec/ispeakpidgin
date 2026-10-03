@@ -411,7 +411,8 @@ const spellingRedirects = {
     'mempachi': 'menpachi',
     'mempachi-eyes': 'menpachi-eyes',
     'kakua': 'kokua',
-    'kakua-kakua': 'kokua'
+    'kakua-kakua': 'kokua',
+    'high-makamaka': 'high-maka-maka'
 };
 
 // SEO: Spelling Variant Redirects for Words
