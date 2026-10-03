@@ -30,7 +30,12 @@ ARG SUPABASE_ANON_KEY
 ENV SUPABASE_URL=$SUPABASE_URL \
     SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY
 
-RUN npm run build
+# The generators bake live Supabase content into static pages, but Docker caches this
+# RUN on file inputs alone -- so a redeploy after a data-only change reused the old
+# pages. RAILWAY_DEPLOYMENT_ID is unique per deploy; declaring it busts the cache for
+# this step every time. (npm ci above stays cached.)
+ARG RAILWAY_DEPLOYMENT_ID
+RUN echo "Building pages for deployment ${RAILWAY_DEPLOYMENT_ID:-local}" && npm run build
 
 
 # --- Stage 2: runtime ---
