@@ -82,7 +82,11 @@ The project includes a dedicated review and advisory skill located in `.claude/s
 The feedback loop script closes the gap between what users search for and what is in the dictionary:
 1. **Search Gaps Tab**: The Admin Panel (`/admin.html`) automatically scans for search gaps and triggers AI suggestions for the top entries.
 2. **Review & Add**: Review the AI-generated definitions and examples in the Admin Panel and click "Add" to insert directly into Supabase.
-3. **Advanced Tooling**: Use the dedicated `seo-cli` tool in `tools/seo-cli` for comprehensive Search Console and Analytics audits.
+3. **CLI**: `npm run seo:loop -- --days 90` reads live Search Console data. Key lookup order:
+   `--key-file`, `GOOGLE_SEARCH_CONSOLE_KEY_PATH`, `./google-search-console-key.json`, `GA4_KEY_FILE`.
+   The property is `GSC_PROPERTY` (default `sc-domain:chokepidgin.com`) — **not** `SITE_URL`, which
+   `.env` sets to the site's `https://` origin. With no key and no export the loop exits 1; the
+   packaged sample CSV is used only with `--demo`, because "0 gaps" on sample data looks like a real result.
 
 ### Dictionary Maintenance
 The project includes specialized tools for maintaining the Supabase dictionary:

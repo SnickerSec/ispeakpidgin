@@ -17,7 +17,10 @@ const {
     categorizeQuery,
     findMissingTerms,
     parseCommandLineArgs,
-    findOfflineQueryFile
+    findOfflineQueryFile,
+    resolveKeyPath,
+    CANDIDATE_OFFLINE_PATHS,
+    SAMPLE_DATA_PATH
 } = require('../seo/feedback-loop.js');
 
 async function runTests() {
@@ -146,9 +149,22 @@ async function runTests() {
 
     // 8. Test offline query auto-discovery
     console.log('8. Testing offline query auto-discovery & demo flags...');
-    const discovered = findOfflineQueryFile();
-    assert.ok(discovered, 'Expected findOfflineQueryFile to discover at least one local dataset');
-    assert.ok(fs.existsSync(discovered), 'Discovered path must exist');
+    assert.ok(!CANDIDATE_OFFLINE_PATHS.includes(SAMPLE_DATA_PATH),
+        'The packaged sample must never be auto-discovered: it would pass for real search demand');
+    const csvCandidate = path.join(tmpDir, 'Queries.csv');
+    fs.writeFileSync(csvCandidate, sampleCsv, 'utf8');
+    try {
+        assert.strictEqual(findOfflineQueryFile([path.join(tmpDir, 'nope.csv'), csvCandidate]), csvCandidate);
+        assert.strictEqual(findOfflineQueryFile([path.join(tmpDir, 'nope.csv')]), null);
+
+        // Key resolution: explicit > GOOGLE_SEARCH_CONSOLE_KEY_PATH > ./google-search-console-key.json > GA4_KEY_FILE
+        const missingKey = path.join(tmpDir, 'missing-key.json');
+        assert.strictEqual(resolveKeyPath(null, { GA4_KEY_FILE: csvCandidate }), csvCandidate);
+        assert.strictEqual(resolveKeyPath(missingKey, { GOOGLE_SEARCH_CONSOLE_KEY_PATH: csvCandidate }), csvCandidate);
+        assert.strictEqual(resolveKeyPath(null, { GA4_KEY_FILE: missingKey }), null);
+    } finally {
+        fs.unlinkSync(csvCandidate);
+    }
 
     const demoArgs = parseCommandLineArgs(['--demo']);
     assert.ok(demoArgs.inputFile && demoArgs.inputFile.endsWith('gsc-sample-performance.csv'));

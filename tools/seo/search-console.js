@@ -27,7 +27,8 @@ require('dotenv').config();
 
 // Configuration
 // Use domain property format (sc-domain:) or URL prefix format (https://)
-const SITE_URL = process.env.SITE_URL || 'sc-domain:chokepidgin.com';
+// Search Console property id. Not SITE_URL: .env sets that to the site's https:// origin.
+const SITE_URL = process.env.GSC_PROPERTY || 'sc-domain:chokepidgin.com';
 const KEY_PATH = process.env.GOOGLE_SEARCH_CONSOLE_KEY_PATH || './google-search-console-key.json';
 
 const SEARCH_CONSOLE_API = 'https://searchconsole.googleapis.com/webmasters/v3';

@@ -28,13 +28,16 @@ const { GoogleAuth } = require('google-auth-library');
 const { supabase } = require('../../config/supabase');
 
 // Configuration Defaults
-const SITE_URL = process.env.SITE_URL || 'sc-domain:chokepidgin.com';
-const DEFAULT_KEY_PATH = process.env.GOOGLE_SEARCH_CONSOLE_KEY_PATH || './google-search-console-key.json';
+// Search Console property id. Not SITE_URL: .env sets that to the site's https:// origin.
+const SITE_URL = process.env.GSC_PROPERTY || 'sc-domain:chokepidgin.com';
+const DEFAULT_KEY_PATH = './google-search-console-key.json';
+const SAMPLE_DATA_PATH = path.join(__dirname, 'data/gsc-sample-performance.csv');
 const SEARCH_CONSOLE_API = 'https://searchconsole.googleapis.com/webmasters/v3';
 const DEFAULT_OUTPUT_PATH = process.env.OUTPUT_PATH || '/tmp/missing-terms.json';
 
+// Real exports only. The packaged sample is never auto-discovered: a run on it
+// reports "no gaps" against invented queries, which reads exactly like a real result.
 const CANDIDATE_OFFLINE_PATHS = [
-    path.join(__dirname, 'data/gsc-sample-performance.csv'),
     path.join(process.cwd(), 'Queries.csv'),
     path.join(process.cwd(), 'queries.csv'),
     path.join(__dirname, '../../data/Queries.csv'),
@@ -42,6 +45,17 @@ const CANDIDATE_OFFLINE_PATHS = [
     path.join(__dirname, '../../docs/Queries.csv'),
     path.join(__dirname, '../../docs/queries.csv')
 ];
+
+/**
+ * First Search Console service-account key that exists: --key-file, then
+ * GOOGLE_SEARCH_CONSOLE_KEY_PATH, then ./google-search-console-key.json, then
+ * GA4_KEY_FILE (the SEO service account in ~/.secrets, which can hold GSC access too).
+ */
+function resolveKeyPath(explicit, env = process.env) {
+    const candidates = [explicit, env.GOOGLE_SEARCH_CONSOLE_KEY_PATH, DEFAULT_KEY_PATH, env.GA4_KEY_FILE]
+        .filter(Boolean);
+    return candidates.find(p => fs.existsSync(p)) || null;
+}
 
 function findOfflineQueryFile(candidates = CANDIDATE_OFFLINE_PATHS) {
     for (const candidate of candidates) {
@@ -137,7 +151,7 @@ const QUERY_STRIP_REGEXES = [
 function parseCommandLineArgs(argv = process.argv.slice(2)) {
     const opts = {
         inputFile: null,
-        keyPath: DEFAULT_KEY_PATH,
+        keyPath: null,
         days: 28,
         minImpressions: 20,
         outputPath: DEFAULT_OUTPUT_PATH,
@@ -159,7 +173,7 @@ function parseCommandLineArgs(argv = process.argv.slice(2)) {
         } else if ((arg === '--output' || arg === '-o') && argv[i + 1]) {
             opts.outputPath = argv[++i];
         } else if (arg === '--demo' || arg === '--sample') {
-            opts.inputFile = path.join(__dirname, 'data/gsc-sample-performance.csv');
+            opts.inputFile = SAMPLE_DATA_PATH;
         }
     }
 
@@ -183,15 +197,16 @@ Usage:
 Options:
   -f, --file <path>             Load queries from offline CSV or JSON export (e.g. GSC performance export)
   --demo, --sample              Run with built-in sample Search Console dataset
-  -k, --key-file <path>         Path to Google Search Console service account JSON (default: ./google-search-console-key.json)
+  -k, --key-file <path>         Search Console service account JSON (default: $GOOGLE_SEARCH_CONSOLE_KEY_PATH,
+                                ./google-search-console-key.json, then $GA4_KEY_FILE)
   -d, --days <number>           Days of search analytics data to query if using API (default: 28)
   -m, --min-impressions <num>   Minimum impressions threshold to consider a query (default: 20)
   -o, --output <path>           Output file path for missing terms (default: /tmp/missing-terms.json)
   -h, --help                    Display this help message
 
 Offline CSV Examples:
-  # Auto-discovers local queries or built-in sample data when GSC key is not configured:
-  npm run seo:loop
+  # Live Search Console data (needs a key with access to ${SITE_URL}):
+  npm run seo:loop -- --days 90
 
   # Explicitly using a Google Search Console CSV export:
   node tools/seo/feedback-loop.js --file ./gsc-queries.csv
@@ -419,8 +434,17 @@ async function fetchSearchQueries(auth, days = 28) {
         orderBy: [{ fieldName: 'impressions', sortOrder: 'DESCENDING' }]
     };
 
-    const res = await client.request({ url, method: 'POST', data: requestBody });
-    return res.data.rows || [];
+    try {
+        const res = await client.request({ url, method: 'POST', data: requestBody });
+        return res.data.rows || [];
+    } catch (err) {
+        if (err.response && err.response.status === 403) {
+            const email = (await auth.getCredentials()).client_email || 'the service account';
+            throw new Error(`${email} has no Search Console access to ${SITE_URL}. ` +
+                `Add it under Search Console → Settings → Users and permissions (Restricted is enough).`);
+        }
+        throw err;
+    }
 }
 
 async function getExistingDictionary() {
@@ -570,32 +594,40 @@ async function main() {
 
     try {
         let scQueries = [];
+        let source;
+        const keyPath = resolveKeyPath(options.keyPath);
 
         if (options.inputFile) {
+            source = path.resolve(options.inputFile) === SAMPLE_DATA_PATH ? 'sample' : `file:${options.inputFile}`;
+            if (source === 'sample') {
+                console.log('⚠️  DEMO MODE: packaged sample queries, not real search demand.');
+            }
             console.log(`📂 Loading search queries from offline file: ${options.inputFile}`);
             scQueries = loadQueriesFromFile(options.inputFile);
             console.log(`✅ Loaded ${scQueries.length} queries from file`);
-        } else if (fs.existsSync(options.keyPath)) {
-            console.log('🔑 Authenticating with Google Search Console API...');
-            const auth = await getAuthClient(options.keyPath);
-            
-            console.log('📡 Fetching Search Console queries...');
+        } else if (keyPath) {
+            console.log(`🔑 Authenticating with Google Search Console API (${keyPath})...`);
+            const auth = await getAuthClient(keyPath);
+
+            console.log(`📡 Fetching ${options.days} days of Search Console queries for ${SITE_URL}...`);
             scQueries = await fetchSearchQueries(auth, options.days);
+            source = `search-console:${SITE_URL}:${options.days}d`;
             console.log(`✅ Found ${scQueries.length} unique search queries`);
         } else {
             const discovered = findOfflineQueryFile();
             if (discovered) {
-                console.log(`ℹ️  Google Search Console key not found at: ${options.keyPath}`);
+                console.log('ℹ️  No Search Console key found');
                 const displayPath = path.relative(process.cwd(), discovered) || discovered;
                 console.log(`📂 Auto-discovered local query dataset: ${displayPath}`);
                 scQueries = loadQueriesFromFile(discovered);
+                source = `file:${displayPath}`;
                 console.log(`✅ Loaded ${scQueries.length} queries from file`);
             } else {
-                console.log(`⚠️  Google Search Console key file not found at: ${options.keyPath}`);
+                console.log('⚠️  No Search Console key found and no query export to read.');
                 console.log('\n💡 Tip: You can run offline with a Search Console CSV/JSON export:');
                 console.log('   npm run seo:loop -- --file /path/to/Queries.csv');
                 console.log('   Or run demo mode on packaged sample data: npm run seo:loop -- --demo');
-                console.log('\n   Or place your service account key at ./google-search-console-key.json');
+                console.log('\n   Or set GOOGLE_SEARCH_CONSOLE_KEY_PATH / GA4_KEY_FILE to a service account key');
                 console.log('   Run with --help for all available options.\n');
                 process.exit(1);
             }
@@ -618,6 +650,7 @@ async function main() {
 
             const outputData = {
                 generated: new Date().toISOString(),
+                source,
                 count: missing.length,
                 minImpressions: options.minImpressions,
                 missing: missing
@@ -631,7 +664,9 @@ async function main() {
             console.log(`   1. Open ${options.outputPath} and fill in the "english" translations`);
             console.log('   2. Run: npm run data:add-missing');
         } else {
-            console.log('\n🎉 No significant content gaps found! You are covering what users are searching for.');
+            console.log(source === 'sample'
+                ? '\nℹ️  No gaps in the sample data. This says nothing about real search demand.'
+                : '\n🎉 No significant content gaps found! You are covering what users are searching for.');
         }
 
     } catch (err) {
@@ -655,7 +690,12 @@ module.exports = {
     parseCommandLineArgs,
     printHelp,
     findOfflineQueryFile,
+    resolveKeyPath,
+    fetchSearchQueries,
+    getAuthClient,
     CANDIDATE_OFFLINE_PATHS,
+    SAMPLE_DATA_PATH,
+    SITE_URL,
     main
 };
 

@@ -436,7 +436,7 @@ module.exports = function(supabaseAdmin, adminAuth, settingsManager) {
             const { GoogleAuth } = require('google-auth-library');
             const fs = require('fs');
             const KEY_PATH = process.env.GOOGLE_SEARCH_CONSOLE_KEY_PATH || './google-search-console-key.json';
-            const SITE_URL = process.env.SITE_URL || 'sc-domain:chokepidgin.com';
+            const SITE_URL = process.env.GSC_PROPERTY || 'sc-domain:chokepidgin.com';
 
             if (!fs.existsSync(KEY_PATH)) {
                 return res.status(500).json({ error: 'Search Console key file missing' });
@@ -795,7 +795,7 @@ Respond only with a JSON object:
             if (sync === 'true') {
                 const { GoogleAuth } = require('google-auth-library');
                 const KEY_PATH = process.env.GOOGLE_SEARCH_CONSOLE_KEY_PATH || './google-search-console-key.json';
-                const SITE_URL = process.env.SITE_URL || 'sc-domain:chokepidgin.com';
+                const SITE_URL = process.env.GSC_PROPERTY || 'sc-domain:chokepidgin.com';
 
                 if (fs.existsSync(KEY_PATH)) {
                     const auth = new GoogleAuth({

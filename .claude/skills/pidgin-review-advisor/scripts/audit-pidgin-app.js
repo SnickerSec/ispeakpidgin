@@ -866,6 +866,56 @@ async function auditVocabulary(db) {
         });
     }
 
+    // Real search demand: the gap loop once reported "0 gaps" for weeks while reading a
+    // packaged sample CSV, so only a successful Search Console query counts as measured.
+    if (FLAGS.net) {
+        const property = process.env.GSC_PROPERTY || 'sc-domain:chokepidgin.com';
+        const keyPath = [process.env.GOOGLE_SEARCH_CONSOLE_KEY_PATH, path.join(REPO_ROOT, 'google-search-console-key.json'), process.env.GA4_KEY_FILE]
+            .filter(Boolean).find(p => fs.existsSync(p));
+        if (!keyPath) {
+            record('vocabulary', {
+                id: 'vocabulary.search-demand', title: 'Search Console demand data', status: 'SKIP',
+                evidence: ['no key at GOOGLE_SEARCH_CONSOLE_KEY_PATH, ./google-search-console-key.json or GA4_KEY_FILE'],
+                finding: 'Content gaps are unmeasured: npm run seo:loop has no real query data to read.',
+                fix: 'Point GOOGLE_SEARCH_CONSOLE_KEY_PATH at a service account with access to the property.'
+            });
+        } else {
+            try {
+                const { GoogleAuth } = require(path.join(REPO_ROOT, 'node_modules', 'google-auth-library'));
+                const auth = new GoogleAuth({ keyFile: keyPath, scopes: ['https://www.googleapis.com/auth/webmasters.readonly'] });
+                const client = await auth.getClient();
+                const end = new Date(Date.now() - 3 * 864e5);
+                const start = new Date(end.getTime() - 28 * 864e5);
+                const res = await client.request({
+                    url: `https://searchconsole.googleapis.com/webmasters/v3/sites/${encodeURIComponent(property)}/searchAnalytics/query`,
+                    method: 'POST',
+                    data: { startDate: start.toISOString().slice(0, 10), endDate: end.toISOString().slice(0, 10), dimensions: ['query'], rowLimit: 5000 }
+                });
+                const rows = res.data.rows || [];
+                record('vocabulary', {
+                    id: 'vocabulary.search-demand', title: 'Search Console demand data', status: 'OK',
+                    evidence: [`${property}: ${rows.length} queries in the last 28 days`, `impressions: ${rows.reduce((n, r) => n + r.impressions, 0)}`],
+                    metrics: { gscQueries: rows.length }
+                });
+            } catch (e) {
+                const denied = e.response && e.response.status === 403;
+                let email = '';
+                try { email = JSON.parse(fs.readFileSync(keyPath, 'utf8')).client_email; } catch { /* unreadable key */ }
+                record('vocabulary', {
+                    id: 'vocabulary.search-demand', title: 'Search Console demand data', status: 'SKIP',
+                    evidence: [denied ? `${email} has no access to ${property}` : `query failed: ${e.message}`],
+                    finding: 'Content gaps are unmeasured: npm run seo:loop cannot read real query data.',
+                    fix: denied ? `Add ${email} under Search Console → Settings → Users and permissions (Restricted).` : null
+                });
+            }
+        }
+    } else {
+        record('vocabulary', {
+            id: 'vocabulary.search-demand', title: 'Search Console demand data', status: 'SKIP',
+            evidence: ['--net not passed']
+        });
+    }
+
     // Pending community suggestions
     if (db && FLAGS.live) {
         try {
