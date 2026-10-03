@@ -19,6 +19,7 @@
     "audio:invalidate": "node tools/audio/invalidate-audio.js",
     "audio:generate": "node tools/audio/audio-pregeneration.js",
     "audio:audit": "node tools/audio/audio-pregeneration.js --audit",
+    "audio:audit:all": "node tools/audio/generate-missing-audio.js --audit",
     "test": "node tools/testing/run-all-tests.js",
     "test:runtime-deps": "node tools/testing/check-runtime-deps.js",
     "test:validation": "node tools/testing/run-validation.js",
