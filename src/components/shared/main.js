@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initDailyPhrase();
     initEssentialPhrases();
     initPopularExpressionTabs();
+    initHeroQuickTranslate();
     initTranslator();
     initLearningHub();
     initStoryCorner();
@@ -352,6 +353,44 @@ function initPopularExpressionTabs() {
     });
 }
 
+
+// Homepage hero quick-translate. The form posts to translator.html?q= on its own;
+// when the translator engine is loaded we answer inline instead of navigating.
+function initHeroQuickTranslate() {
+    const form = document.getElementById('hero-translate-form');
+    const input = document.getElementById('hero-translate-input');
+    const result = document.getElementById('hero-translate-result');
+    const output = document.getElementById('hero-translate-output');
+    const more = document.getElementById('hero-translate-more');
+    if (!form || !input || !result || !output || !more) return;
+
+    form.addEventListener('submit', async (event) => {
+        const text = input.value.trim();
+        if (!text || typeof pidginTranslator === 'undefined' || !pidginTranslator.initialized) {
+            return; // let the browser submit to the full translator
+        }
+        event.preventDefault();
+
+        more.href = `translator.html?q=${encodeURIComponent(text)}`;
+        output.textContent = 'Translating...';
+        result.hidden = false;
+
+        try {
+            const translation = await pidginTranslator.translate(text, 'eng-to-pidgin');
+            const pidgin = translation && translation.text ? translation.text.trim() : '';
+            // An unchanged echo of the input means the local engine found nothing to translate
+            output.textContent = pidgin && pidgin.toLowerCase() !== text.toLowerCase()
+                ? pidgin
+                : 'No Pidgin match yet — try the full translator.';
+        } catch (error) {
+            output.textContent = 'Translation failed — try the full translator.';
+        }
+
+        if (window.gtag) {
+            window.gtag('event', 'translator_request', { direction: 'eng-to-pidgin', source: 'home_hero', text_length: text.length });
+        }
+    });
+}
 
 // Translator functionality
 function initTranslator() {

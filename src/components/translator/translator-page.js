@@ -28,6 +28,12 @@ function initTranslatorPage() {
         return;
     }
 
+    // ?q= comes from the homepage quick-translate box, which is always English -> Pidgin
+    const queryText = new URLSearchParams(window.location.search).get('q')?.trim();
+    if (queryText) {
+        try { localStorage.setItem('translatorDirection', 'en-to-pid'); } catch (e) { /* storage blocked */ }
+    }
+
     try {
         // Initialize components (AI engine is always default now)
         setupTranslationDirection();
@@ -41,6 +47,12 @@ function initTranslatorPage() {
         setupDiscoveryUI();
 
         window.translatorPageInitialized = true;
+
+        if (queryText && inputField) {
+            inputField.value = queryText.slice(0, 500);
+            inputField.dispatchEvent(new Event('input', { bubbles: true }));
+            performTranslation();
+        }
     } catch (error) {
         console.error('Error initializing translator page:', error);
     }
