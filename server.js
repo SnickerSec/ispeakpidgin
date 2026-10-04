@@ -412,8 +412,8 @@ const spellingRedirects = {
     'aole-pilikia': 'aole-pilikia',
     'bumbye': 'bumbai',
     'dakine': 'da-kine',
-    'bombucha': 'bumboocha',
-    'bumbucha': 'bumboocha',
+    'bombucha': 'bambucha',
+    'bumbucha': 'bambucha',
     'acshun': 'ackshun',
     'cholips': 'cho-cho-lips',
     'chocholips': 'cho-cho-lips',
@@ -438,7 +438,32 @@ const spellingRedirects = {
     // Merged in migration 030 (four spellings of "guarantee")
     'guaranz': 'garanz',
     'garans': 'garanz',
-    'gueren-tee': 'garanz'
+    'gueren-tee': 'garanz',
+    // Merged in migration 031 (near-duplicate spellings). bumbye, hamajang, mempachi and
+    // bruddah already redirect above; shootz and grinds go straight to their landing pages.
+    'going': 'goin',
+    'a-goin': 'goin',
+    'bolo-head': 'ballah-head',
+    'kay-den': 'k-den',
+    'nosy': 'nosey',
+    'auwe': 'aue',
+    'rubbah-slippah': 'rubbah-slippahs',
+    'i-shame': 'shame',
+    'plenny': 'planny',
+    'bumboocha': 'bambucha',
+    'hawaii-pick-up-lines': 'hawaiian-pick-up-lines',
+    'make-a-ass': 'make-ass',
+    'das-right': 'ass-right',
+    'fo-what': 'fo-wat',
+    'ova-dea': 'ova-dere',
+    'shootz': 'what-does-shoots-mean',
+    'grinds': 'what-does-grindz-mean',
+    'lidat': 'liddat',
+    'ldat': 'liddat',
+    'cockroach': 'cockaroach',
+    'zori': 'zoris',
+    'da-aina': 'aina',
+    'eh-chance-um': 'chance-um'
 };
 
 // SEO: Spelling Variant Redirects for Words

@@ -252,12 +252,9 @@ async function auditSupabase(db) {
 
     // Dictionary content quality -------------------------------------------
     try {
-        const { data, error } = await db
-            .from('dictionary_entries')
-            .select('id, pidgin, english, category, pronunciation, usage, examples, spelling_variants');
-        if (error) throw new Error(error.message);
-
-        const rows = data || [];
+        // Paged: a bare select stops at 1,000 rows and would audit only those
+        const { fetchAllRows } = require(path.join(REPO_ROOT, 'services', 'fetch-all-rows.js'));
+        const rows = await fetchAllRows(db, 'dictionary_entries', 'id, pidgin, english, category, pronunciation, usage, examples, spelling_variants');
         const blank = v => v === null || v === undefined || (typeof v === 'string' && !v.trim()) || (Array.isArray(v) && v.length === 0);
         const noPron = rows.filter(r => blank(r.pronunciation));
         const noCat = rows.filter(r => blank(r.category));
@@ -311,6 +308,49 @@ async function auditSupabase(db) {
                 ? `Content gaps in dictionary_entries: ${noPron.length} without pronunciation, ${noExample.length} without any usage/example, ${dupes.length} duplicate terms.`
                 : null,
             fix: 'Backfill via tools/data/improve-dictionary.js (npm run data:improve); de-duplicate before regenerating word pages, since each duplicate emits a competing /word/ page.'
+        });
+
+        // Near-duplicates: different letters, same word (bumbai / bumbye, garanz / guaranz). The
+        // letters check above cannot see these; 28 groups built up unnoticed until migrations 030
+        // and 031. A pair counts when the spellings are within one edit (two for 7+ letters), or
+        // have the same consonants, AND the entries share an English meaning.
+        // Checked by hand and kept apart: different words that happen to qualify.
+        const NOT_DUPLICATES = new Set(['kalamai|e kala mai', 'cuzzo|cuz', "geev 'um|get'um", 'nai nai|ne ne',
+            'all buss up|buss up', 'all katsu|katsu', 'all salty|salty']);
+        const squeeze = t => lettersOf(t).replace(/[0-9]/g, '').replace(/(.)\1+/g, '$1');
+        const gloss = t => String(t).toLowerCase().replace(/\([^)]*\)/g, ' ').replace(/[^a-z ]/g, ' ')
+            .replace(/\b(?:a|an|the|to)\b/g, ' ').replace(/\s+/g, ' ').trim();
+        const editDistance = (a, b) => {
+            let prev = Array.from({ length: b.length + 1 }, (_, j) => j);
+            for (let i = 1; i <= a.length; i++) {
+                const cur = [i];
+                for (let j = 1; j <= b.length; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+                prev = cur;
+            }
+            return prev[b.length];
+        };
+        const keyed = rows.map(r => ({ r, k: squeeze(r.pidgin), c: squeeze(r.pidgin).replace(/[aeiouy]/g, ''), g: new Set((r.english || []).map(gloss).filter(Boolean)) }))
+            .filter(x => x.k.length >= 3);
+        const nearDupes = [];
+        for (let i = 0; i < keyed.length; i++) {
+            for (let j = i + 1; j < keyed.length; j++) {
+                const a = keyed[i], b = keyed[j];
+                if (Math.abs(a.k.length - b.k.length) > 2) continue;
+                const close = a.c === b.c || editDistance(a.k, b.k) <= (Math.max(a.k.length, b.k.length) >= 7 ? 2 : 1);
+                if (!close || ![...a.g].some(m => b.g.has(m))) continue;
+                const pair = [a.r.pidgin, b.r.pidgin];
+                if (NOT_DUPLICATES.has(pair.join('|')) || NOT_DUPLICATES.has([...pair].reverse().join('|'))) continue;
+                nearDupes.push(pair.join(' / '));
+            }
+        }
+        record('supabase', {
+            id: 'supabase.near-duplicates',
+            title: 'Near-duplicate entries (different spellings, shared meaning)',
+            status: nearDupes.length ? 'WARN' : 'OK',
+            evidence: [`pairs: ${nearDupes.length}${nearDupes.length ? ' → ' + nearDupes.slice(0, 8).join(', ') : ''}`],
+            metrics: { nearDuplicates: nearDupes.length },
+            finding: nearDupes.length ? `${nearDupes.length} pairs look like one word entered twice, each with its own competing /word/ page.` : null,
+            fix: nearDupes.length ? 'Merge as in supabase/migrations/031 (keep the page with Search Console impressions; 301 the rest in server.js), or add the pair to NOT_DUPLICATES if they are different words.' : null
         });
 
         // Semantic search embeddings (migration 016) ------------------------
