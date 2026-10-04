@@ -1,7 +1,7 @@
 {
   "generated": "2026-08-25T04:38:00.000Z",
   "source": "curated-island-slang-and-cultural-terms",
-  "count": 38,
+  "count": 40,
   "missing": [
     {
       "pidgin": "loco moco",
@@ -599,6 +599,42 @@
       "tags": ["greetings", "valediction", "formal", "hawaiian", "gratitude"],
       "source_language": "hawaiian",
       "spelling_variants": ["me ka mahalo nui", "me ka mahalo nui loa"]
+    },
+    {
+      "pidgin": "ʻeha",
+      "english": ["painful", "hurt", "sore", "ache", "in pain", "injury"],
+      "category": "descriptions",
+      "pronunciation": "EH-hah",
+      "difficulty": "intermediate",
+      "usage": "Hawaiian loanword used in Pidgin to describe physical pain, soreness, or an injury. Commonly heard when describing sports injuries, sunburns, or sore muscles after hard work.",
+      "examples": [
+        "Auwe, my back stay so ʻeha after moving da heavy boxes.",
+        "No touch 'em, brah, da sunburn stay so ʻeha!",
+        "His knee wen get ʻeha at da football game."
+      ],
+      "origin": "From ʻŌlelo Hawaiʻi ʻeha (hurt, in pain, sore, painful, injured).",
+      "frequency": "high",
+      "tags": ["hawaiian", "feelings", "body", "descriptions", "pain"],
+      "source_language": "hawaiian",
+      "spelling_variants": ["eha", "painful"]
+    },
+    {
+      "pidgin": "almost pau",
+      "english": ["almost finished", "nearly done", "almost over"],
+      "category": "expressions",
+      "pronunciation": "ALL-most POW",
+      "difficulty": "beginner",
+      "usage": "Everyday Pidgin expression indicating that a task, work shift, or event is nearly finished and nearing completion.",
+      "examples": [
+        "Hang on brah, I stay almost pau with da truck.",
+        "Two mo minutes, den almost pau work—pau hana time!",
+        "We almost pau with da prep, get da grill ready."
+      ],
+      "origin": "Pidgin compound: English 'almost' + Hawaiian 'pau' (finished, completed, done).",
+      "frequency": "high",
+      "tags": ["expressions", "work", "time", "status", "pau"],
+      "source_language": "pidgin",
+      "spelling_variants": ["almost pow", "almost done"]
     }
   ]
 }
