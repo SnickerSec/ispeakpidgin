@@ -226,6 +226,17 @@ async function runTests() {
     for (const q of ['problems', 'said', 'pay', 'local', 'painful']) {
         assert.strictEqual(coveredBy(q, eidx), null, `"${q}" is a real gap`);
     }
+    // A headword plus words from its own meanings is covered; a headword plus anything else is
+    // a possible new compound and stays a gap (real GSC queries, 2026-10)
+    const midx = buildCoverageIndex([{ pidgin: 'kala', english: ['money', 'silver'] }, { pidgin: 'like beef', english: ['want to fight'] },
+                                     { pidgin: 'cuz', english: ['cousin'] }, { pidgin: 'stink', english: ['mean', 'rude'] }]);
+    assert.strictEqual(coverage('kala money', midx)?.via, 'meaning');
+    assert.strictEqual(coverage('beef like fight', midx)?.via, 'meaning');
+    assert.ok(coverage('does cuz', midx), '"does" is filler');
+    assert.strictEqual(coverage('stink eye', midx), null, 'A headword plus an unrelated word may be a new compound');
+    assert.strictEqual(coverage('kala gold', midx), null);
+    assert.strictEqual(cleanQueryTerm('kefe in samoan'), 'kefe');
+
     const gscRows = ['brother', 'thank you', 'kids', 'painful'].map(q => ({ keys: [q], impressions: 50 }));
     assert.deepStrictEqual(findMissingTerms(gscRows, entries, 20).map(m => m.pidgin), ['painful']);
 

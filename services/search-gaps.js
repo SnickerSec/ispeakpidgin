@@ -60,6 +60,7 @@ const QUERY_STRIP_REGEXES = [
     /(.*) in japanese/i,
     /(.*) in english/i,
     /(.*) in tagalog/i,
+    /(.*) in (?:samoan|tongan|ilocano|portuguese|chamorro)/i,
     /(.*) in filipino/i,
     /(.*) in chat/i,
     /(.*) in text/i,
@@ -109,7 +110,7 @@ const QUERY_STRIP_REGEXES = [
 const FILLER_TOKENS = new Set([
     'a', 'e', 'the', 'is', 'it', 'or', 'vs', 'whats', 'what', 'os', 'ehat', 'of', 'if', 'def', 'origin',
     'acronym', 'spelling', 'sentence', 'in', 'ho', 'hey', 'hi', 'eh', 'aye', 'mate', 'bro', 'bruh',
-    'brah', 'cuz', 'homophone', 'urban', 'dictionary', 'dict', 'slang', 'mean', 'means', 'meaning', 'meanings'
+    'brah', 'cuz', 'does', 'just', 'homophone', 'urban', 'dictionary', 'dict', 'slang', 'mean', 'means', 'meaning', 'meanings'
 ]);
 // "meaning"/"definition" and the typos real searchers make of them (menaing, defintion, mesning, meanings).
 const GLOSS_TYPO = /^(?:m|n)[a-z]{0,4}ings?$|^def[a-z]*$/;
@@ -190,18 +191,21 @@ function buildCoverageIndex(entries) {
     const phrases = [];
     const glosses = new Map();
     const normalized = new Set();
+    const spellings = [];
     for (const entry of entries || []) {
         const row = typeof entry === 'string' ? { pidgin: entry } : entry;
+        const english = Array.isArray(row.english) ? row.english : (row.english ? [row.english] : []);
+        const glossWords = new Set(english.flatMap(m => squeezeKey(m).split(/[\s-]+/)).filter(Boolean));
         for (const term of [row.pidgin, ...(row.spelling_variants || [])]) {
             if (!term) continue;
             normalized.add(normalizeQueryTerm(term));
             const tokens = squeezeKey(term).split(/[\s-]+/).filter(Boolean);
             if (!tokens.length) continue;
             joined.add(tokens.join(''));
+            spellings.push({ pidgin: row.pidgin, tokens, glossWords });
             if (tokens.length === 1) words.add(tokens[0]);
             else phrases.push(` ${tokens.join(' ')} `);
         }
-        const english = Array.isArray(row.english) ? row.english : (row.english ? [row.english] : []);
         // "angry; upset" and "sleepy / sleep" hold two glosses each. When several entries
         // share a gloss, credit the one listing it first and unqualified: "thank you" is
         // mahalo, not fa'afetai's "thank you (Samoan)".
@@ -212,7 +216,7 @@ function buildCoverageIndex(entries) {
             if (key && (!held || rank < held.rank)) glosses.set(key, { pidgin: row.pidgin, rank });
         });
     }
-    return { joined, words, phrases, glosses, normalized, joinedList: [...joined] };
+    return { joined, words, phrases, glosses, normalized, spellings, joinedList: [...joined] };
 }
 
 /**
@@ -223,6 +227,9 @@ function buildCoverageIndex(entries) {
  *   filler   - a headword plus words that do not change the question (brah def)
  *   english  - an English meaning, whole (brother → braddah). Only whole: matching words
  *              inside a gloss closed "problems" against "no problem", the opposite
+ *   meaning  - a headword plus words from its own meanings: "kala money", "beef like fight"
+ *              (like beef = want to fight). Words from other entries do not count, so a new
+ *              compound like "stink eye" stays a gap even though stink is a headword
  *   near     - one edit from a headword (kamaiana → kamaaina): probably a misspelling,
  *              but site search will not find it, so it may want a spelling variant
  */
@@ -246,6 +253,14 @@ function coverage(term, index) {
         const form = [gloss, gloss.length > 3 && gloss.endsWith('s') && gloss.slice(0, -1)]
             .find(f => f && index.glosses.has(f));
         if (form) return { match: index.glosses.get(form).pidgin, via: 'english' };
+    }
+
+    if (tokens.length > 1) {
+        const query = new Set(tokens);
+        const hit = (index.spellings || []).find(sp => sp.tokens.length < query.size &&
+            sp.tokens.every(t => query.has(t)) &&
+            tokens.every(t => sp.tokens.includes(t) || sp.glossWords.has(t) || FILLER_TOKENS.has(t)));
+        if (hit) return { match: hit.pidgin, via: 'meaning' };
     }
 
     if (joined.length >= 5) {

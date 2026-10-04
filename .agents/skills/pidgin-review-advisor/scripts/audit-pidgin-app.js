@@ -343,6 +343,24 @@ async function auditSupabase(db) {
                 nearDupes.push(pair.join(' / '));
             }
         }
+        // spelling_variants count as the headword in search and the translator, so an English
+        // meaning stored there ("water" on wai, migration 027) reads as a Pidgin spelling.
+        // Gap coverage does not need it: services/search-gaps.js matches meanings directly.
+        // bahjuju's "bad juju" is the source spelling as well as its gloss.
+        const ENGLISH_SPELLINGS_OK = new Set(['bahjuju|bad juju', 'bahjuju|bad joojoo']);
+        const englishVariants = rows.flatMap(r => (r.spelling_variants || [])
+            .filter(v => (r.english || []).some(m => gloss(m) === gloss(v)) && !ENGLISH_SPELLINGS_OK.has(`${r.pidgin}|${v}`))
+            .map(v => `${r.pidgin} ← "${v}"`));
+        record('supabase', {
+            id: 'supabase.english-variants',
+            title: 'Spelling variants that are English meanings',
+            status: englishVariants.length ? 'WARN' : 'OK',
+            evidence: [`variants equal to the entry's own English meaning: ${englishVariants.length}${englishVariants.length ? ' → ' + englishVariants.slice(0, 8).join(', ') : ''}`],
+            metrics: { englishVariants: englishVariants.length },
+            finding: englishVariants.length ? `${englishVariants.length} English meanings are stored as Pidgin spellings, so search and the translator treat them as the headword.` : null,
+            fix: englishVariants.length ? 'Remove them from spelling_variants (see supabase/migrations/032); search-gap coverage already matches English meanings.' : null
+        });
+
         record('supabase', {
             id: 'supabase.near-duplicates',
             title: 'Near-duplicate entries (different spellings, shared meaning)',
