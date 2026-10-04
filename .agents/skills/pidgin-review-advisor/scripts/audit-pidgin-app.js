@@ -738,7 +738,7 @@ function auditAi() {
 // ===========================================================================
 // 5. Linguistics & phonetics
 // ===========================================================================
-function auditLinguistics() {
+async function auditLinguistics(db) {
     progress('🌺 Auditing Pidgin grammar & phonetic rules...');
 
     const translatorDir = 'src/components/translator';
@@ -771,13 +771,46 @@ function auditLinguistics() {
         fix: okinaCount > 0 ? null : 'Add ʻokina-bearing keys (ʻohana, Hawaiʻi, manaʻo) to the shared map, and strip-or-map deliberately rather than incidentally.'
     });
 
-    record('linguistics', {
-        id: 'linguistics.coverage-measurement', title: 'Dictionary-wide phonetic coverage',
-        status: 'SKIP',
-        evidence: ['Requires Supabase credentials: node tools/testing/pronunciation-audit.js'],
-        finding: 'Coverage percentage was not measured by this script. Never quote a remembered figure — run the tool.',
-        fix: 'node tools/testing/pronunciation-audit.js'
-    });
+    // Measured with tools/testing/pronunciation-audit.js's own scoring, on every live entry and
+    // with the authored guides routes/tts.js injects, so this is the number that tool prints.
+    if (!(db && FLAGS.live)) {
+        record('linguistics', {
+            id: 'linguistics.coverage-measurement', title: 'Dictionary-wide phonetic coverage',
+            status: 'SKIP',
+            evidence: ['needs --live: node tools/testing/pronunciation-audit.js'],
+            finding: 'Coverage was not measured. Never quote a remembered figure — run the tool.'
+        });
+        return;
+    }
+    try {
+        const { fetchAllRows } = require(path.join(REPO_ROOT, 'services', 'fetch-all-rows.js'));
+        const { scoreEntries } = require(path.join(REPO_ROOT, 'tools', 'testing', 'pronunciation-audit.js'));
+        const entries = await fetchAllRows(db, 'dictionary_entries', 'id, pidgin, english, category, pronunciation');
+        const { by, total, problematic, guideCount } = scoreEntries(entries);
+        const undecided = by.undecided.map(r => r.word);
+        record('linguistics', {
+            id: 'linguistics.coverage-measurement', title: 'Dictionary-wide phonetic coverage',
+            status: undecided.length || problematic.length ? 'WARN' : 'OK',
+            evidence: [
+                `entries: ${total} (${guideCount} authored guides injected)`,
+                `respelled: map ${by.map.length}, guide ${by.guide.length}, rules ${by.rules.length}; as spelled by decision: ${by.identity.length + by.restated.length}`,
+                `no pronunciation decision: ${undecided.length}${undecided.length ? ' → ' + undecided.slice(0, 8).join(', ') : ''}`,
+                `flagged by the scorer: ${problematic.length}${problematic.length ? ' → ' + problematic.slice(0, 5).map(p => p.word).join(', ') : ''}`
+            ],
+            metrics: { phoneticEntries: total, phoneticUndecided: undecided.length, phoneticProblematic: problematic.length },
+            finding: undecided.length || problematic.length
+                ? `${undecided.length} entries have no pronunciation decision and ${problematic.length} are flagged; TTS falls back to the generic rules for them.`
+                : null,
+            fix: undecided.length || problematic.length
+                ? 'Add a respelling to dictionary_entries.pronunciation (or the tuned map), then: node tools/testing/pronunciation-audit.js'
+                : null
+        });
+    } catch (e) {
+        record('linguistics', {
+            id: 'linguistics.coverage-measurement', title: 'Dictionary-wide phonetic coverage', status: 'SKIP',
+            evidence: [`measurement failed: ${e.message}`]
+        });
+    }
 }
 
 // ===========================================================================
@@ -1197,7 +1230,7 @@ function printHuman() {
     auditElevenLabs();
     auditCicd();
     auditAi();
-    auditLinguistics();
+    await auditLinguistics(db);
     await auditVocabulary(db);
     await auditDeploy();
 

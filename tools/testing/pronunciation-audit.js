@@ -45,140 +45,149 @@ function isPidginLike(word) {
 
 // Replicate the exact transformation logic from elevenlabs-speech.js
 
+/**
+ * Score every entry's spoken form. Also used by the review advisor's audit
+ * (.claude/skills/pidgin-review-advisor), so the coverage it reports is this tool's number.
+ */
+function scoreEntries(entries) {
+    // Inject the same authored guides routes/tts.js loads, so this audit scores what users
+    // actually hear. Measuring the algorithm alone would understate coverage and, worse,
+    // would once again be auditing something other than the shipped behaviour.
+    const guideCount = setPronunciationGuides(entries);
+
+
+    const results = entries.map(entry => {
+        const original = entry.pidgin;
+        const corrected = applyPronunciationCorrections(original);
+        const wasTransformed = original.toLowerCase() !== corrected.toLowerCase();
+        
+        // Heuristic Scoring (0-100)
+        let score = 100;
+        const issues = [];
+
+        // 1. Unresolved okinas
+        if (corrected.includes('ʻ') || (corrected.includes("'") && !corrected.includes("..."))) {
+            score -= 20;
+            issues.push('Unresolved okinas');
+        }
+
+        // 2. Untransformed Hawaiian clusters
+        const clusters = ['ai', 'au', 'oi', 'ei', 'ie', 'ou'];
+        
+        const words = original.toLowerCase().split(/[\s,?!.'ʻ-]+/);
+        words.forEach(word => {
+            if (word.length < 2) return;
+            clusters.forEach(c => {
+                if (word.includes(c) && !commonEnglish.includes(word)) {
+                    // Check if it was actually transformed in the final output
+                    const wasClusterTransformed = !corrected.toLowerCase().includes(word);
+                    if (!wasClusterTransformed) {
+                        score -= 10;
+                        issues.push(`Potential Hawaiian cluster untransformed: ${c} in "${word}"`);
+                    }
+                }
+            });
+        });
+
+        // 3. Unresolved 'th' in likely Pidgin phrases
+        if (original.toLowerCase().includes('the ') || original.toLowerCase().includes(' this') || original.toLowerCase().includes(' that')) {
+            if (corrected.toLowerCase().includes('the ') || corrected.toLowerCase().includes(' this') || corrected.toLowerCase().includes(' that')) {
+                score -= 15;
+                issues.push('Unresolved "th" in Pidgin context');
+            }
+        }
+
+        // 4. Final 'r' in likely local words
+        if (original.toLowerCase().endsWith('er') || original.toLowerCase().endsWith('ar')) {
+            if (corrected.toLowerCase().endsWith('er') || corrected.toLowerCase().endsWith('ar')) {
+                // Only flag if it's not a common English word we want to keep standard
+                const keepStandardR = ['under', 'over', 'water', 'better', 'after']; // though usually these are changed in Pidgin
+                if (!keepStandardR.includes(original.toLowerCase())) {
+                    score -= 10;
+                    issues.push('Unresolved final "r"');
+                }
+            }
+        }
+
+        // 5. 'U' sounds that should be 'oo' in Hawaiian words
+        if (isPidginLike(original) && original.toLowerCase().includes('u') && !original.toLowerCase().includes('ou')) {
+            const correctedLower = corrected.toLowerCase();
+            if (!correctedLower.includes('oo') && !correctedLower.includes('ow') && !correctedLower.includes('ou')) {
+                if (correctedLower.includes('u')) {
+                    // Check if 'u' is followed by n, s, t, or p which we excluded in logic
+                    const hasRemainingU = /\bu\b/.test(correctedLower) || /\bu(?![nstp])/.test(correctedLower) || /[^nstp]u\b/.test(correctedLower);
+                    // Pidgin 'um (them/it) really is "um" -- get'um, chance 'um, geev 'um.
+                    // Rewriting it to "oom" would be wrong, so these are not defects. This
+                    // exception is why the audit previously reported four "problems" that
+                    // were all the same non-problem.
+                    const isUmWord = /(^|[\s'-])um\b/.test(correctedLower);
+                    if (hasRemainingU && !isUmWord) {
+                        score -= 5;
+                        issues.push('Potential "u" -> "oo" missing');
+                    }
+                }
+            }
+        }
+
+        // 6. Long words without breaks
+        const correctedWords = corrected.split(/\s+/);
+        correctedWords.forEach(w => {
+            if (w.length > 12 && !w.includes('-')) {
+                score -= 5;
+                issues.push(`Long word without hyphens: ${w}`);
+            }
+        });
+
+        const authoredGuide = (entry.pronunciation || '').trim().toLowerCase().replace(/\s+/g, ' ');
+        const fromGuide = !!authoredGuide && corrected.toLowerCase() === authoredGuide;
+
+        const mapKey = original.trim().toLowerCase().replace(/\s+/g, ' ');
+
+        return {
+            word: original,
+            phonetic: corrected,
+            fromGuide,
+            hasGuide: !!authoredGuide,
+            inMap: globalPronunciationMap[mapKey] !== undefined,
+            transformed: wasTransformed,
+            score,
+            issues,
+            category: entry.category
+        };
+    });
+
+    // Summary Stats
+    const total = results.length;
+    const transformedCount = results.filter(r => r.transformed).length;
+    const problematic = results.filter(r => r.score < 100).sort((a, b) => a.score - b.score);
+    const perfectScore = total - problematic.length;
+
+    // "Phonetically Mapped" counts terms whose output differs from their spelling, which
+    // reads as a coverage percentage but is not one: a term is also fully handled when the
+    // right answer IS the spelling. "junk", "stoked" and "bag" are English words that need
+    // no respelling, and an explicit identity entry in the map ('brah' -> 'brah') is a
+    // deliberate instruction to leave the word alone. Reported as a bare 91%, those look
+    // like 68 gaps and cost a day of chasing; only three of them were real. So the number
+    // below is split by where each pronunciation actually comes from, and the only bucket
+    // that means "nobody has decided about this word" is called out as such.
+    const source = r => {
+        if (r.transformed) return r.fromGuide ? 'guide' : (r.inMap ? 'map' : 'rules');
+        if (r.inMap) return 'identity';        // map says: correct as spelled
+        return r.hasGuide ? 'restated' : 'undecided';
+    };
+    const by = { guide: [], map: [], rules: [], identity: [], restated: [], undecided: [] };
+    results.forEach(r => by[source(r)].push(r));
+    return { results, by, total, transformedCount, problematic, perfectScore, guideCount };
+}
+
 async function runAudit() {
     console.log('🎙️  Starting Dictionary Pronunciation Audit...\n');
 
     try {
         const entries = await fetchAllRows(supabase, 'dictionary_entries', 'id, pidgin, english, category, pronunciation');
 
-        // Inject the same authored guides routes/tts.js loads, so this audit scores what users
-        // actually hear. Measuring the algorithm alone would understate coverage and, worse,
-        // would once again be auditing something other than the shipped behaviour.
-        const guideCount = setPronunciationGuides(entries);
-
+        const { results, by, total, transformedCount, problematic, perfectScore, guideCount } = scoreEntries(entries);
         console.log(`📊 Auditing ${entries.length} terms (${guideCount} authored pronunciation guides in play)...\n`);
-
-        const results = entries.map(entry => {
-            const original = entry.pidgin;
-            const corrected = applyPronunciationCorrections(original);
-            const wasTransformed = original.toLowerCase() !== corrected.toLowerCase();
-            
-            // Heuristic Scoring (0-100)
-            let score = 100;
-            const issues = [];
-
-            // 1. Unresolved okinas
-            if (corrected.includes('ʻ') || (corrected.includes("'") && !corrected.includes("..."))) {
-                score -= 20;
-                issues.push('Unresolved okinas');
-            }
-
-            // 2. Untransformed Hawaiian clusters
-            const clusters = ['ai', 'au', 'oi', 'ei', 'ie', 'ou'];
-            
-            const words = original.toLowerCase().split(/[\s,?!.'ʻ-]+/);
-            words.forEach(word => {
-                if (word.length < 2) return;
-                clusters.forEach(c => {
-                    if (word.includes(c) && !commonEnglish.includes(word)) {
-                        // Check if it was actually transformed in the final output
-                        const wasClusterTransformed = !corrected.toLowerCase().includes(word);
-                        if (!wasClusterTransformed) {
-                            score -= 10;
-                            issues.push(`Potential Hawaiian cluster untransformed: ${c} in "${word}"`);
-                        }
-                    }
-                });
-            });
-
-            // 3. Unresolved 'th' in likely Pidgin phrases
-            if (original.toLowerCase().includes('the ') || original.toLowerCase().includes(' this') || original.toLowerCase().includes(' that')) {
-                if (corrected.toLowerCase().includes('the ') || corrected.toLowerCase().includes(' this') || corrected.toLowerCase().includes(' that')) {
-                    score -= 15;
-                    issues.push('Unresolved "th" in Pidgin context');
-                }
-            }
-
-            // 4. Final 'r' in likely local words
-            if (original.toLowerCase().endsWith('er') || original.toLowerCase().endsWith('ar')) {
-                if (corrected.toLowerCase().endsWith('er') || corrected.toLowerCase().endsWith('ar')) {
-                    // Only flag if it's not a common English word we want to keep standard
-                    const keepStandardR = ['under', 'over', 'water', 'better', 'after']; // though usually these are changed in Pidgin
-                    if (!keepStandardR.includes(original.toLowerCase())) {
-                        score -= 10;
-                        issues.push('Unresolved final "r"');
-                    }
-                }
-            }
-
-            // 5. 'U' sounds that should be 'oo' in Hawaiian words
-            if (isPidginLike(original) && original.toLowerCase().includes('u') && !original.toLowerCase().includes('ou')) {
-                const correctedLower = corrected.toLowerCase();
-                if (!correctedLower.includes('oo') && !correctedLower.includes('ow') && !correctedLower.includes('ou')) {
-                    if (correctedLower.includes('u')) {
-                        // Check if 'u' is followed by n, s, t, or p which we excluded in logic
-                        const hasRemainingU = /\bu\b/.test(correctedLower) || /\bu(?![nstp])/.test(correctedLower) || /[^nstp]u\b/.test(correctedLower);
-                        // Pidgin 'um (them/it) really is "um" -- get'um, chance 'um, geev 'um.
-                        // Rewriting it to "oom" would be wrong, so these are not defects. This
-                        // exception is why the audit previously reported four "problems" that
-                        // were all the same non-problem.
-                        const isUmWord = /(^|[\s'-])um\b/.test(correctedLower);
-                        if (hasRemainingU && !isUmWord) {
-                            score -= 5;
-                            issues.push('Potential "u" -> "oo" missing');
-                        }
-                    }
-                }
-            }
-
-            // 6. Long words without breaks
-            const correctedWords = corrected.split(/\s+/);
-            correctedWords.forEach(w => {
-                if (w.length > 12 && !w.includes('-')) {
-                    score -= 5;
-                    issues.push(`Long word without hyphens: ${w}`);
-                }
-            });
-
-            const authoredGuide = (entry.pronunciation || '').trim().toLowerCase().replace(/\s+/g, ' ');
-            const fromGuide = !!authoredGuide && corrected.toLowerCase() === authoredGuide;
-
-            const mapKey = original.trim().toLowerCase().replace(/\s+/g, ' ');
-
-            return {
-                word: original,
-                phonetic: corrected,
-                fromGuide,
-                hasGuide: !!authoredGuide,
-                inMap: globalPronunciationMap[mapKey] !== undefined,
-                transformed: wasTransformed,
-                score,
-                issues,
-                category: entry.category
-            };
-        });
-
-        // Summary Stats
-        const total = results.length;
-        const transformedCount = results.filter(r => r.transformed).length;
-        const problematic = results.filter(r => r.score < 100).sort((a, b) => a.score - b.score);
-        const perfectScore = total - problematic.length;
-
-        // "Phonetically Mapped" counts terms whose output differs from their spelling, which
-        // reads as a coverage percentage but is not one: a term is also fully handled when the
-        // right answer IS the spelling. "junk", "stoked" and "bag" are English words that need
-        // no respelling, and an explicit identity entry in the map ('brah' -> 'brah') is a
-        // deliberate instruction to leave the word alone. Reported as a bare 91%, those look
-        // like 68 gaps and cost a day of chasing; only three of them were real. So the number
-        // below is split by where each pronunciation actually comes from, and the only bucket
-        // that means "nobody has decided about this word" is called out as such.
-        const source = r => {
-            if (r.transformed) return r.fromGuide ? 'guide' : (r.inMap ? 'map' : 'rules');
-            if (r.inMap) return 'identity';        // map says: correct as spelled
-            return r.hasGuide ? 'restated' : 'undecided';
-        };
-        const by = { guide: [], map: [], rules: [], identity: [], restated: [], undecided: [] };
-        results.forEach(r => by[source(r)].push(r));
         const pct = n => `${((n / total) * 100).toFixed(1)}%`;
 
         console.log('--- Summary ---');
@@ -221,7 +230,11 @@ async function runAudit() {
 
     } catch (err) {
         console.error('❌ Audit failed:', err.message);
+        // Non-zero, so npm test reports a crashed audit instead of passing it
+        process.exitCode = 1;
     }
 }
 
-runAudit();
+if (require.main === module) runAudit();
+
+module.exports = { scoreEntries };
