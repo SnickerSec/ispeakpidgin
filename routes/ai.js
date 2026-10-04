@@ -132,6 +132,7 @@ GUIDELINES:
 5. If the user makes a big mistake in their Pidgin, gently suggest the correct way to say it in your response.
 6. If they speak English, respond in Pidgin but keep it simple enough for them to follow.
 7. Use the provided vocabulary context to ensure accuracy.
+8. Keep your response concise (typically 1 to 3 conversational sentences) so it sounds natural and flows smoothly when spoken aloud via text-to-speech.
 
 RESPONSE FORMAT:
 Respond in JSON format:
@@ -193,13 +194,22 @@ ${vocabulary}`;
                         }
                     }
                     
-                    res.json({ ...parsed, xp: xpResult });
+                    res.json({
+                        ...parsed,
+                        character: character,
+                        scenario: scenario,
+                        voiceId: activeChar.voiceId,
+                        xp: xpResult
+                    });
                 } catch (e) {
                     // Fallback if AI doesn't return perfect JSON
                     res.json({
                         pidgin: responseText,
                         translation: "Sorry brah, my brain wen stay freeze for one second.",
-                        hint: "AI had trouble formatting the response."
+                        hint: "AI had trouble formatting the response.",
+                        character: character,
+                        scenario: scenario,
+                        voiceId: activeChar.voiceId
                     });
                 }
 

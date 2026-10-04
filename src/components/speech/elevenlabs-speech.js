@@ -98,6 +98,21 @@ const PIDGIN_PRONUNCIATION_MAP = {
     'bust \'em up': 'bust em up',
     'bust em up': 'bust em up',
     'buss up': 'bus up',
+    'garanz': 'gah-rahnz',
+    'garans': 'gah-rahnz',
+    'guaranz': 'gah-rahnz',
+    'gueren-tee': 'geh-ren-tee',
+    'garanz ballbaranz': 'gah-rahnz bahl-bah-rahnz',
+    'guaranz ballbaranz': 'gah-rahnz bahl-bah-rahnz',
+    'jus like': 'jus lyke',
+    'juslike': 'jus lyke',
+    'danjah': 'dahn-jah',
+    'danejah': 'dahn-jah',
+    'no play': 'noh play',
+    'buss nuts': 'bus nuhts',
+    'bus nuts': 'bus nuhts',
+    'bus da nuts': 'bus dah nuhts',
+    'bus da nut': 'bus dah nuht',
     'fakafied': 'fah-kah-fyde',
     'ainokea': 'eye-no-kay-ah',
     'mo bettah': 'mo beh-tah',
@@ -922,8 +937,8 @@ class ElevenLabsSpeech {
                         : KIMO_VOICE_ID;
                     const cacheKey = `${voiceId}_${normalizedText}`;
 
-                    // Check cache first (voice-specific with fallback)
-                    const cachedBlob = this.cache.get(cacheKey) || this.cache.get(normalizedText);
+                    // Check cache first (voice-specific; legacy unpartitioned key only valid for Kimo)
+                    const cachedBlob = this.cache.get(cacheKey) || (voiceId === KIMO_VOICE_ID ? this.cache.get(normalizedText) : null);
                     if (cachedBlob) {
                         if (!options.silent) {
                             window.dispatchEvent(new CustomEvent('pidginSpeechStart'));
@@ -1007,7 +1022,7 @@ class ElevenLabsSpeech {
                     // Play the audio (unless silent mode for preloading)
                     if (!options.silent) {
                         window.dispatchEvent(new CustomEvent('pidginSpeechStart'));
-                        const success = await this.playAudioBlobWithRetry(audioBlob, correctedText, normalizedText);
+                        const success = await this.playAudioBlobWithRetry(audioBlob, correctedText, cacheKey);
                         if (options.onEnd) options.onEnd();
                         
                         // If it failed but didn't actually start playing, we might want to retry
