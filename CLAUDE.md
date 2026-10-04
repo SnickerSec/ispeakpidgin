@@ -83,7 +83,10 @@ The feedback loop script closes the gap between what users search for and what i
 1. **Search Gaps Tab**: The Admin Panel (`/admin.html`) automatically scans for search gaps and triggers AI suggestions for the top entries.
 2. **Review & Add**: Review the AI-generated definitions and examples in the Admin Panel and click "Add" to insert directly into Supabase.
 3. **CLI**: `npm run seo:loop -- --days 90` reads live Search Console data. Key lookup order:
-   `--key-file`, `GOOGLE_SEARCH_CONSOLE_KEY_PATH`, `./google-search-console-key.json`, `GA4_KEY_FILE`.
+   `--key-file`, `GOOGLE_SEARCH_CONSOLE_KEY_PATH`, `./google-search-console-key.json`, `GA4_KEY_FILE`,
+   then `GOOGLE_CREDENTIALS_BASE64`, then gcloud ADC. **Production uses `GOOGLE_CREDENTIALS_BASE64`**
+   (Railway var; `choke-pidgin@choke-pidgin.iam.gserviceaccount.com`, Full user on the property):
+   the image holds no key file and Railway has no ADC, so without it the admin Sync cannot reach Google.
    The property is `GSC_PROPERTY` (default `sc-domain:chokepidgin.com`) — **not** `SITE_URL`, which
    `.env` sets to the site's `https://` origin. With no key and no export the loop exits 1; the
    packaged sample CSV is used only with `--demo`, because "0 gaps" on sample data looks like a real result.

@@ -428,14 +428,34 @@ function resolveKeyPath(explicit, env = process.env) {
     return candidates.find(p => fs.existsSync(p)) || null;
 }
 
-// keyPath null → Application Default Credentials (gcloud auth application-default login).
-async function getAuthClient(keyPath) {
-    if (keyPath && !fs.existsSync(keyPath)) {
-        throw new Error(`Google Search Console key file not found at ${keyPath}`);
+/**
+ * A service account JSON from GOOGLE_CREDENTIALS_BASE64, or null. This is how production
+ * authenticates: the runtime image holds no key file and Railway has no metadata server for
+ * ADC. (choke-pidgin@ has Full access to the property; verified 2026-10-03.)
+ */
+function credentialsFromEnv(env = process.env) {
+    const encoded = env.GOOGLE_CREDENTIALS_BASE64;
+    if (!encoded) return null;
+    try {
+        const credentials = JSON.parse(Buffer.from(encoded.trim(), 'base64').toString('utf8'));
+        return credentials.client_email && credentials.private_key ? credentials : null;
+    } catch {
+        return null;
+    }
+}
+
+/**
+ * source: a key file path, { credentials } (a parsed service account), or null for
+ * Application Default Credentials (gcloud auth application-default login).
+ */
+async function getAuthClient(source) {
+    if (typeof source === 'string' && !fs.existsSync(source)) {
+        throw new Error(`Google Search Console key file not found at ${source}`);
     }
     const { GoogleAuth } = require('google-auth-library');
     return new GoogleAuth({
-        ...(keyPath ? { keyFile: keyPath } : {}),
+        ...(typeof source === 'string' ? { keyFile: source } : {}),
+        ...(source && source.credentials ? { credentials: source.credentials } : {}),
         scopes: ['https://www.googleapis.com/auth/webmasters.readonly']
     });
 }
@@ -472,16 +492,20 @@ async function fetchSearchQueries(auth, days = 28, rowLimit = 5000) {
 }
 
 /**
- * Tries the service-account key, then ADC; the first credential that can read the
- * property wins. Returns null (with the reasons logged) when none can.
+ * Tries the key file, then GOOGLE_CREDENTIALS_BASE64, then ADC; the first credential that
+ * can read the property wins. Returns null (with the reasons logged) when none can.
  */
-async function fetchLiveQueries(keyPath, days = 28, { rowLimit = 5000, log = console.log } = {}) {
-    const attempts = [...(keyPath ? [keyPath] : []), null];
-    for (const candidate of attempts) {
-        const label = candidate || 'application default credentials';
+async function fetchLiveQueries(keyPath, days = 28, { rowLimit = 5000, log = console.log, env = process.env } = {}) {
+    const envCredentials = credentialsFromEnv(env);
+    const attempts = [
+        ...(keyPath ? [{ source: keyPath, label: keyPath }] : []),
+        ...(envCredentials ? [{ source: { credentials: envCredentials }, label: `GOOGLE_CREDENTIALS_BASE64 (${envCredentials.client_email})` }] : []),
+        { source: null, label: 'application default credentials' }
+    ];
+    for (const { source, label } of attempts) {
         try {
             log(`🔑 Authenticating with Google Search Console API (${label})...`);
-            const auth = await getAuthClient(candidate);
+            const auth = await getAuthClient(source);
             log(`📡 Fetching ${days} days of Search Console queries for ${SITE_URL}...`);
             return await fetchSearchQueries(auth, days, rowLimit);
         } catch (err) {
@@ -504,6 +528,7 @@ module.exports = {
     fetchDictionaryForCoverage,
     closeResolvedGaps,
     resolveKeyPath,
+    credentialsFromEnv,
     getAuthClient,
     fetchSearchQueries,
     fetchLiveQueries

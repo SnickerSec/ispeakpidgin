@@ -24,7 +24,7 @@ const {
     CANDIDATE_OFFLINE_PATHS,
     SAMPLE_DATA_PATH
 } = require('../seo/feedback-loop.js');
-const { coverage, closeResolvedGaps } = require('../../services/search-gaps');
+const { coverage, closeResolvedGaps, credentialsFromEnv } = require('../../services/search-gaps');
 
 async function runTests() {
     console.log('🧪 Testing SEO Feedback Loop & Offline Intake Tool...\n');
@@ -165,6 +165,14 @@ async function runTests() {
         assert.strictEqual(resolveKeyPath(null, { GA4_KEY_FILE: csvCandidate }), csvCandidate);
         assert.strictEqual(resolveKeyPath(missingKey, { GOOGLE_SEARCH_CONSOLE_KEY_PATH: csvCandidate }), csvCandidate);
         assert.strictEqual(resolveKeyPath(null, { GA4_KEY_FILE: missingKey }), null);
+
+        // Production has no key file: the service account arrives base64-encoded in the env
+        const sa = { type: 'service_account', client_email: 'sa@example.iam.gserviceaccount.com', private_key: 'k' };
+        const b64 = s => Buffer.from(s).toString('base64');
+        assert.deepStrictEqual(credentialsFromEnv({ GOOGLE_CREDENTIALS_BASE64: b64(JSON.stringify(sa)) }), sa);
+        assert.strictEqual(credentialsFromEnv({ GOOGLE_CREDENTIALS_BASE64: b64('not json') }), null);
+        assert.strictEqual(credentialsFromEnv({ GOOGLE_CREDENTIALS_BASE64: b64('{"client_id":"x"}') }), null);
+        assert.strictEqual(credentialsFromEnv({}), null);
     } finally {
         fs.unlinkSync(csvCandidate);
     }
