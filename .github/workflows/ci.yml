@@ -56,6 +56,7 @@ jobs:
             './routes/games','./routes/pickup','./routes/admin','./routes/questions',
             './routes/user','./routes/suggestions',
             './services/gamification-service','./services/settings-manager',
+            './services/search-gaps',
             './middleware/admin-auth'
           ].forEach(m => require(m)); console.log('✅ all server modules load')"
 
@@ -96,6 +97,7 @@ jobs:
             './routes/games','./routes/pickup','./routes/admin','./routes/questions',
             './routes/user','./routes/suggestions',
             './services/gamification-service','./services/settings-manager',
+            './services/search-gaps',
             './middleware/admin-auth'
           ].forEach(m => require(m)); console.log('✅ server boots with runtime-only files and prod-only deps')"
 

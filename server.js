@@ -296,6 +296,15 @@ app.use(express.urlencoded({
     limit: '10kb'
 }));
 
+// Healthcheck endpoints for Railway / deployment uptime probes (exempt from rate limits)
+app.get(['/health', '/api/health'], (req, res) => {
+    res.status(200).json({
+        status: 'healthy',
+        uptime: process.uptime(),
+        timestamp: new Date().toISOString()
+    });
+});
+
 // Apply general rate limiting to all API routes
 app.use('/api/', apiLimiter);
 
