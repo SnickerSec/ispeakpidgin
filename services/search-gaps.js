@@ -102,7 +102,9 @@ const QUERY_STRIP_REGEXES = [
     /pidgin phrase (.*)/i,
     /(.*) mean/i,
     /(.*) means/i,
-    /(.*) translated/i
+    /(.*) translated/i,
+    /meanings? for (.*)/i,
+    /(.*) meanings?/i
 ];
 
 // Words that ride along with a headword in a query without changing what it asks for
@@ -128,6 +130,9 @@ function normalizeQueryTerm(txt) {
     // Map common misspellings/variations
     if (normalized === 'kakua' || normalized === 'kakuakakua') {
         normalized = 'kokua';
+    }
+    if (normalized === 'olana') {
+        normalized = 'ohana';
     }
     return normalized;
 }
