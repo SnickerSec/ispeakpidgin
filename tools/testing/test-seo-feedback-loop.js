@@ -211,12 +211,13 @@ async function runTests() {
         { pidgin: 'minors', english: ['no problem'] },
         { pidgin: 'uku pau', english: ['to pay off completely'] },
         { pidgin: 'huhu', english: ['angry; upset'] },
+        { pidgin: 'mauka', english: ['towards the mountain'] },
         { pidgin: 'kamaʻāina', spelling_variants: ['kamaaina'], english: ['local resident'] }
     ];
     const eidx = buildCoverageIndex(entries);
     for (const [q, via] of [['brother', 'english'], ['kids', 'english'], ['children', 'english'], ['thank you', 'english'],
                             ['go to sleep', 'english'], ['pay off completely', 'english'], ['upset', 'english'],
-                            ['brothers', 'english'], ['kamaaina', 'headword'], ['kamaiana', 'near']]) {
+                            ['brothers', 'english'], ['towards mountain', 'english'], ['kamaaina', 'headword'], ['kamaiana', 'near']]) {
         assert.strictEqual(coverage(q, eidx)?.via, via, `"${q}" should be covered via ${via}`);
     }
     assert.strictEqual(coveredBy('thank you', eidx), 'mahalo', 'An unqualified gloss outranks "thank you (Samoan)"');
@@ -230,7 +231,9 @@ async function runTests() {
     // 11. Closing resolved search_gaps rows: 'near' matches stay pending for a person to judge
     console.log('11. Testing closeResolvedGaps against a mock search_gaps table...');
     const gapRows = [{ id: 1, term: 'brother' }, { id: 2, term: 'kamaiana' }, { id: 3, term: 'painful' },
-                     { id: 4, term: 'what does keiki mean' }];
+                     { id: 4, term: 'what does keiki mean' },
+                     // escaped by express-validator before 37fd9f68
+                     { id: 5, term: '&#x27;brother&#x27;' }];
     const updates = [];
     const mockDb = {
         from: table => {
@@ -244,11 +247,11 @@ async function runTests() {
         }
     };
     const dry = await closeResolvedGaps(mockDb, { entries, dryRun: true });
-    assert.strictEqual(dry.pending, 4);
-    assert.deepStrictEqual(dry.closed.map(g => g.id), [1, 4]);
+    assert.strictEqual(dry.pending, 5);
+    assert.deepStrictEqual(dry.closed.map(g => g.id), [1, 4, 5]);
     assert.strictEqual(updates.length, 0, 'A dry run writes nothing');
     await closeResolvedGaps(mockDb, { entries });
-    assert.deepStrictEqual(updates, [{ patch: { status: 'added' }, ids: [1, 4] }]);
+    assert.deepStrictEqual(updates, [{ patch: { status: 'added' }, ids: [1, 4, 5] }]);
 
     console.log('\n🎉 All SEO Feedback Loop tests passed successfully!\n');
 }

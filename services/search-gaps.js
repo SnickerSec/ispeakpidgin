@@ -141,7 +141,8 @@ function squeezeKey(txt) {
 
 /**
  * An English gloss as plain words, for exact comparison: parentheticals dropped
- * ("go to sleep (said to kids)"), leading to/a/an/the dropped ("to pay off" ~ "pay off").
+ * ("go to sleep (said to kids)"), articles dropped ("towards the mountain" ~ "towards mountain"),
+ * and a leading "to" ("to pay off" ~ "pay off").
  * No letter squeezing: that is for Pidgin spellings, and would fold English "good" into "god".
  */
 function glossKey(txt) {
@@ -150,8 +151,16 @@ function glossKey(txt) {
         .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
         .replace(/[ʻʼ'‘’`]/g, '')
         .replace(/[^a-z]+/g, ' ')
+        .replace(/\b(?:a|an|the) /g, '')
         .trim()
-        .replace(/^(?:to|a|an|the) /, '');
+        .replace(/^to /, '');
+}
+
+// search_gaps rows logged before 37fd9f68 went through express-validator's escape()
+// ("&quot;oh no&quot;", "pau&#x5c;"); decode so they can match.
+const HTML_ENTITIES = { '&quot;': '"', '&#x27;': "'", '&#39;': "'", '&#x5c;': '\\', '&#x2f;': '/', '&amp;': '&', '&lt;': '<', '&gt;': '>' };
+function decodeEntities(txt) {
+    return String(txt || '').replace(/&(?:quot|#x27|#39|#x5c|#x2f|amp|lt|gt);/gi, m => HTML_ENTITIES[m.toLowerCase()]);
 }
 
 function editDistanceAtMostOne(a, b) {
@@ -403,7 +412,8 @@ async function closeResolvedGaps(db, { entries, dryRun = false } = {}) {
 
     const closed = [];
     for (const gap of pending) {
-        const hit = coverage(gap.term, index) || coverage(cleanQueryTerm(gap.term, index.normalized), index);
+        const term = decodeEntities(gap.term);
+        const hit = coverage(term, index) || coverage(cleanQueryTerm(term, index.normalized), index);
         if (hit && hit.via !== 'near') closed.push({ id: gap.id, term: gap.term, ...hit });
     }
 
@@ -519,6 +529,7 @@ module.exports = {
     BLACKLIST,
     SITE_URL,
     normalizeQueryTerm,
+    decodeEntities,
     cleanQueryTerm,
     categorizeQuery,
     buildCoverageIndex,

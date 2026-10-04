@@ -1,7 +1,7 @@
 {
   "generated": "2026-08-25T04:38:00.000Z",
   "source": "curated-island-slang-and-cultural-terms",
-  "count": 40,
+  "count": 44,
   "missing": [
     {
       "pidgin": "loco moco",
@@ -635,6 +635,78 @@
       "tags": ["expressions", "work", "time", "status", "pau"],
       "source_language": "pidgin",
       "spelling_variants": ["almost pow", "almost done"]
+    },
+    {
+      "pidgin": "jus like",
+      "english": ["just like", "exactly like", "same as", "similar to"],
+      "category": "expressions",
+      "pronunciation": "jus LIKE",
+      "difficulty": "beginner",
+      "usage": "Compares two people or things: \"just like\", \"exactly like\". Pidgin drops the final t of \"just\", as in jus joke and jus buckaloose.",
+      "examples": [
+        "Dat boy jus like his faddah, always talking story.",
+        "She cook jus like her tūtū.",
+        "Da sunset tonight stay jus like one painting."
+      ],
+      "origin": "English \"just like\", with the final consonant dropped.",
+      "frequency": "high",
+      "tags": ["expressions", "comparison", "everyday"],
+      "source_language": "pidgin",
+      "spelling_variants": ["juslike", "jus' like"]
+    },
+    {
+      "pidgin": "danjah",
+      "english": ["danger", "dangerous", "risky"],
+      "category": "descriptions",
+      "pronunciation": "DANE-jah",
+      "difficulty": "beginner",
+      "usage": "Pidgin pronunciation of \"danger\", used both as a noun and as an adjective meaning \"dangerous\", often as a warning.",
+      "examples": [
+        "No go out dea, da current stay danjah today.",
+        "Dat road get danjah curves, so slow down.",
+        "Watch out, brah, danjah!"
+      ],
+      "origin": "English \"danger\"; Pidgin turns the final -er into -ah, as in braddah and sistah.",
+      "frequency": "medium",
+      "tags": ["descriptions", "warnings", "safety"],
+      "source_language": "pidgin",
+      "spelling_variants": ["danejah"]
+    },
+    {
+      "pidgin": "no play",
+      "english": ["don't mess around", "I'm serious", "don't fool around", "stop playing"],
+      "category": "expressions",
+      "pronunciation": "NO PLAY",
+      "difficulty": "beginner",
+      "usage": "A warning to stop joking or fooling around. Doubled as \"no play play\" for emphasis. \"No\" before a verb is the usual Pidgin negative command, as in no act and no worry.",
+      "examples": [
+        "No play, brah, I stay serious dis time.",
+        "Eh, no play wit da fire!",
+        "No play play, we gotta pau dis today."
+      ],
+      "origin": "Pidgin negative command: \"no\" + English \"play\".",
+      "frequency": "medium",
+      "tags": ["expressions", "commands", "warnings"],
+      "source_language": "pidgin",
+      "spelling_variants": ["no play play"]
+    },
+    {
+      "pidgin": "buss nuts",
+      "english": ["work extremely hard", "give it everything", "push yourself to the limit"],
+      "category": "slang",
+      "pronunciation": "BUSS NUTS",
+      "difficulty": "intermediate",
+      "usage": "Crude but common slang for straining or working as hard as you can. Buss is Pidgin for \"burst\" or \"break\", as in buss up and buss laff.",
+      "examples": [
+        "We wen buss nuts fo' pau da job before da rain came.",
+        "Coach made us buss nuts at practice today.",
+        "I wen buss my nuts fixing dat car."
+      ],
+      "origin": "Pidgin buss (\"burst, break\") + English \"nuts\".",
+      "frequency": "medium",
+      "tags": ["slang", "work", "effort", "crude"],
+      "source_language": "pidgin",
+      "spelling_variants": ["buss da nuts", "bus da nuts", "bus da nut", "buss nut"]
     }
   ]
 }
