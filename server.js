@@ -434,7 +434,11 @@ const spellingRedirects = {
     'pipi-kaula': 'pipikaula',
     'hanahou': 'hana-hou',
     'okole-hao': 'okolehao',
-    'cheeehoo': 'chee-hoo'
+    'cheeehoo': 'chee-hoo',
+    // Merged in migration 030 (four spellings of "guarantee")
+    'guaranz': 'garanz',
+    'garans': 'garanz',
+    'gueren-tee': 'garanz'
 };
 
 // SEO: Spelling Variant Redirects for Words

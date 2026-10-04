@@ -13,6 +13,7 @@
  */
 
 const fs = require('fs');
+const { fetchAllRows } = require('./fetch-all-rows');
 
 // Search Console property id. Not SITE_URL: .env sets that to the site's https:// origin.
 const SITE_URL = process.env.GSC_PROPERTY || 'sc-domain:chokepidgin.com';
@@ -378,16 +379,8 @@ function findMissingTerms(scQueries, entries, minImpressions = 20) {
 }
 
 /** Every dictionary_entries row needed for coverage. Paged: a bare select stops at 1,000 rows. */
-async function fetchDictionaryForCoverage(db) {
-    const rows = [];
-    for (let from = 0; ; from += 1000) {
-        const { data, error } = await db.from('dictionary_entries')
-            .select('pidgin, spelling_variants, english')
-            .range(from, from + 999);
-        if (error) throw error;
-        rows.push(...data);
-        if (data.length < 1000) return rows;
-    }
+function fetchDictionaryForCoverage(db) {
+    return fetchAllRows(db, 'dictionary_entries', 'id, pidgin, spelling_variants, english');
 }
 
 /**
@@ -398,17 +391,7 @@ async function fetchDictionaryForCoverage(db) {
  */
 async function closeResolvedGaps(db, { entries, dryRun = false } = {}) {
     const index = buildCoverageIndex(entries || await fetchDictionaryForCoverage(db));
-    const pending = [];
-    for (let from = 0; ; from += 1000) {
-        const { data, error } = await db.from('search_gaps')
-            .select('id, term')
-            .eq('status', 'pending')
-            .order('id')
-            .range(from, from + 999);
-        if (error) throw error;
-        pending.push(...data);
-        if (data.length < 1000) break;
-    }
+    const pending = await fetchAllRows(db, 'search_gaps', 'id, term', { filter: q => q.eq('status', 'pending') });
 
     const closed = [];
     for (const gap of pending) {

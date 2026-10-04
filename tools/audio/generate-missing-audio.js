@@ -20,6 +20,7 @@ require('dotenv').config();
 const fs = require('fs');
 const crypto = require('crypto');
 const { createClient } = require('@supabase/supabase-js');
+const { fetchAllRows } = require('../../services/fetch-all-rows');
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -97,30 +98,15 @@ async function loadIndex() {
  * Fetch all rows from a table with pagination past 1000 rows.
  */
 async function fetchAllTableEntries(table) {
-    const results = [];
-    for (let from = 0; ; from += 1000) {
-        const { data, error } = await supabase
-            .from(table)
-            .select('pidgin')
-            .range(from, from + 999);
-
-        if (error || !data || data.length === 0) break;
-        results.push(...data.map(r => r.pidgin && r.pidgin.trim()).filter(Boolean));
-        if (data.length < 1000) break;
-    }
-    return results;
+    const rows = await fetchAllRows(supabase, table, 'id, pidgin');
+    return rows.map(r => r.pidgin && r.pidgin.trim()).filter(Boolean);
 }
 
 async function loadAuthoredGuides() {
     try {
-        const { data, error } = await supabase
-            .from('dictionary_entries')
-            .select('pidgin, pronunciation')
-            .not('pronunciation', 'is', null);
-
-        if (!error && data) {
-            return setPronunciationGuides(data);
-        }
+        const data = await fetchAllRows(supabase, 'dictionary_entries', 'id, pidgin, pronunciation',
+            { filter: q => q.not('pronunciation', 'is', null) });
+        return setPronunciationGuides(data);
     } catch {}
     return 0;
 }

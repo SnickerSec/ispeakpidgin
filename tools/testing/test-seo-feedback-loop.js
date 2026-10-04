@@ -25,6 +25,7 @@ const {
     SAMPLE_DATA_PATH
 } = require('../seo/feedback-loop.js');
 const { coverage, closeResolvedGaps, credentialsFromEnv } = require('../../services/search-gaps');
+const { fetchAllRows } = require('../../services/fetch-all-rows');
 
 async function runTests() {
     console.log('🧪 Testing SEO Feedback Loop & Offline Intake Tool...\n');
@@ -252,6 +253,25 @@ async function runTests() {
     assert.strictEqual(updates.length, 0, 'A dry run writes nothing');
     await closeResolvedGaps(mockDb, { entries });
     assert.deepStrictEqual(updates, [{ patch: { status: 'added' }, ids: [1, 4, 5] }]);
+
+    // 12. Paging: PostgREST stops at 1,000 rows, and unordered pages can skip or repeat rows
+    console.log('12. Testing fetchAllRows paging past 1,000 rows...');
+    const table = Array.from({ length: 2345 }, (_, i) => ({ id: i }));
+    const calls = [];
+    const pagingDb = {
+        from: () => {
+            const q = { ordered: null };
+            q.select = () => q;
+            q.eq = () => q;
+            q.order = (col) => { q.ordered = col; return q; };
+            q.range = async (from, to) => { calls.push({ from, to, ordered: q.ordered }); return { data: table.slice(from, to + 1), error: null }; };
+            return q;
+        }
+    };
+    const all = await fetchAllRows(pagingDb, 'dictionary_entries', 'id');
+    assert.strictEqual(all.length, 2345);
+    assert.deepStrictEqual(calls.map(c => [c.from, c.to]), [[0, 999], [1000, 1999], [2000, 2999]]);
+    assert.ok(calls.every(c => c.ordered === 'id'), 'Every page must be ordered by a unique column');
 
     console.log('\n🎉 All SEO Feedback Loop tests passed successfully!\n');
 }

@@ -8,6 +8,7 @@ require('dotenv').config();
 const fs = require('fs').promises;
 const crypto = require('crypto');
 const { createClient } = require('@supabase/supabase-js');
+const { fetchAllRows } = require('../../services/fetch-all-rows');
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -62,13 +63,9 @@ const {
 async function fetchAllEntries() {
     try {
         console.log('📡 Fetching dictionary entries & pronunciation guides from Supabase...');
-        const { data, error } = await supabase
-            .from('dictionary_entries')
-            .select('pidgin, pronunciation')
-            .order('pidgin', { ascending: true });
-
-        if (error) throw error;
-        const guideCount = setPronunciationGuides(data || []);
+        const data = (await fetchAllRows(supabase, 'dictionary_entries', 'id, pidgin, pronunciation'))
+            .sort((a, b) => a.pidgin.localeCompare(b.pidgin));
+        const guideCount = setPronunciationGuides(data);
         console.log(`🗣️ Loaded ${guideCount} dictionary pronunciation guides`);
         return data.map(item => item.pidgin);
     } catch (error) {
@@ -226,23 +223,12 @@ async function main() {
 
     if (IS_AUDIT) {
         console.log(`\n📊 Audit Mode: Checking cache & storage coverage for ${allTerms.length} dictionary terms...`);
-        const cachedRows = [];
-        let from = 0;
-        while (true) {
-            const { data, error } = await supabase
-                .from('translation_cache')
-                .select('md5_hash, audio_filename')
-                .eq('voice_id', VOICE_ID)
-                .eq('direction', DIRECTION)
-                .range(from, from + 999);
-            if (error) {
-                console.warn('Cache fetch warning:', error.message);
-                break;
-            }
-            if (!data || data.length === 0) break;
-            cachedRows.push(...data);
-            if (data.length < 1000) break;
-            from += 1000;
+        let cachedRows = [];
+        try {
+            cachedRows = await fetchAllRows(supabase, 'translation_cache', 'id, md5_hash, audio_filename',
+                { filter: q => q.eq('voice_id', VOICE_ID).eq('direction', DIRECTION) });
+        } catch (error) {
+            console.warn('Cache fetch warning:', error.message);
         }
 
         const cacheSet = new Set(cachedRows.map(r => r.md5_hash));

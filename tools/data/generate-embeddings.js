@@ -14,6 +14,7 @@
 
 require('dotenv').config();
 const { createClient } = require('@supabase/supabase-js');
+const { fetchAllRows } = require('../../services/fetch-all-rows');
 const { EMBEDDING_MODEL } = require('../../services/gemini');
 const { embeddingText, contentHash, embedEntries } = require('../../services/dictionary-embeddings');
 
@@ -29,21 +30,13 @@ if (!GEMINI_API_KEY || !SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
 
-async function selectAll(table, columns) {
-    const rows = [];
-    for (let from = 0; ; from += 1000) {
-        const { data, error } = await supabase.from(table).select(columns).range(from, from + 999);
-        if (error) throw new Error(`${table}: ${error.message}`);
-        rows.push(...data);
-        if (data.length < 1000) return rows;
-    }
-}
+const selectAll = (table, columns, orderBy) => fetchAllRows(supabase, table, columns, { orderBy });
 
 async function main() {
     console.log(`🚀 Dictionary embeddings (${EMBEDDING_MODEL})${DRY_RUN ? ' — dry run' : ''}`);
 
     const entries = await selectAll('dictionary_entries', 'id, pidgin, english, usage, category');
-    const existing = new Map((await selectAll('dictionary_embeddings', 'entry_id, content_hash'))
+    const existing = new Map((await selectAll('dictionary_embeddings', 'entry_id, content_hash', 'entry_id'))
         .map(r => [r.entry_id, r.content_hash]));
 
     const stale = entries.filter(entry => existing.get(entry.id) !== contentHash(embeddingText(entry)));

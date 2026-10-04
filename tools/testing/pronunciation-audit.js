@@ -7,6 +7,7 @@
 
 require('dotenv').config();
 const { supabase } = require('../../config/supabase');
+const { fetchAllRows } = require('../../services/fetch-all-rows');
 
 // Shared pronunciation map (identical to elevenlabs-speech.js)
 // Imported, never copied. This file used to carry hand-synced duplicates of BOTH the
@@ -48,11 +49,7 @@ async function runAudit() {
     console.log('🎙️  Starting Dictionary Pronunciation Audit...\n');
 
     try {
-        const { data: entries, error } = await supabase
-            .from('dictionary_entries')
-            .select('pidgin, english, category, pronunciation');
-
-        if (error) throw error;
+        const entries = await fetchAllRows(supabase, 'dictionary_entries', 'id, pidgin, english, category, pronunciation');
 
         // Inject the same authored guides routes/tts.js loads, so this audit scores what users
         // actually hear. Measuring the algorithm alone would understate coverage and, worse,

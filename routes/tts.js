@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const crypto = require('crypto');
+const { fetchAllRows } = require('../services/fetch-all-rows');
 const {
     applyPronunciationCorrections,
     setPronunciationGuides,
@@ -33,12 +34,9 @@ async function ensurePronunciationGuides(db) {
     if (guidesLoading) return guidesLoading;
     guidesLoading = (async () => {
         try {
-            const { data, error } = await db
-                .from('dictionary_entries')
-                .select('pidgin, pronunciation')
-                .not('pronunciation', 'is', null);
-            if (error) throw new Error(error.message);
-            const count = setPronunciationGuides(data || []);
+            const data = await fetchAllRows(db, 'dictionary_entries', 'id, pidgin, pronunciation',
+                { filter: q => q.not('pronunciation', 'is', null) });
+            const count = setPronunciationGuides(data);
             guidesLoadedAt = Date.now();
             console.log(`🗣️  Loaded ${count} dictionary pronunciation guides`);
         } catch (e) {

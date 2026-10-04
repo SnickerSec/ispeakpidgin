@@ -120,6 +120,22 @@ class MockQueryBuilder {
         return this;
     }
 
+    // Inclusive, like PostgREST. Real callers page with it (services/fetch-all-rows.js).
+    range(from, to) {
+        if (this.error) return this;
+        this.data = this.data.slice(from, to + 1);
+        return this;
+    }
+
+    // Only the form callers use: .not(column, 'is', null)
+    not(column, operator, value) {
+        if (this.error) return this;
+        if (operator === 'is' && value === null) {
+            this.data = this.data.filter(row => row[column] !== null && row[column] !== undefined);
+        }
+        return this;
+    }
+
     order(column, options = {}) {
         if (this.error) return this;
         const ascending = options.ascending !== false;
