@@ -24,6 +24,7 @@ const {
     CANDIDATE_OFFLINE_PATHS,
     SAMPLE_DATA_PATH
 } = require('../seo/feedback-loop.js');
+const { coverage, closeResolvedGaps } = require('../../services/search-gaps');
 
 async function runTests() {
     console.log('🧪 Testing SEO Feedback Loop & Offline Intake Tool...\n');
@@ -189,6 +190,57 @@ async function runTests() {
                   { keys: ['brah meaning'], impressions: 50 }, { keys: ['how do you say daikon legs'], impressions: 50 },
                   { keys: ['list of words in pidgin'], impressions: 50 }];
     assert.deepStrictEqual(findMissingTerms(rows, new Set(['brah']), 20).map(m => m.pidgin), ['daikon legs']);
+
+    // 10. English meanings are coverage: before services/search-gaps.js the CLI reported these
+    // real GSC queries (2026-10) as missing Pidgin words, and ingesting them made duplicates
+    console.log('10. Testing English-meaning coverage (shared with the admin sync)...');
+    const entries = [
+        { pidgin: 'braddah', english: ['brother', 'bro', 'friend'] },
+        { pidgin: 'keiki', english: ['child', 'children', 'kid', 'kids', 'baby'] },
+        { pidgin: 'mahalo', english: ['thank you', 'appreciate'] },
+        { pidgin: "fa'afetai", english: ['thank you (Samoan)'] },
+        { pidgin: 'moe moe', english: ['sleepy', 'go to sleep (said to kids)'] },
+        { pidgin: 'minors', english: ['no problem'] },
+        { pidgin: 'uku pau', english: ['to pay off completely'] },
+        { pidgin: 'huhu', english: ['angry; upset'] },
+        { pidgin: 'kamaʻāina', spelling_variants: ['kamaaina'], english: ['local resident'] }
+    ];
+    const eidx = buildCoverageIndex(entries);
+    for (const [q, via] of [['brother', 'english'], ['kids', 'english'], ['children', 'english'], ['thank you', 'english'],
+                            ['go to sleep', 'english'], ['pay off completely', 'english'], ['upset', 'english'],
+                            ['brothers', 'english'], ['kamaaina', 'headword'], ['kamaiana', 'near']]) {
+        assert.strictEqual(coverage(q, eidx)?.via, via, `"${q}" should be covered via ${via}`);
+    }
+    assert.strictEqual(coveredBy('thank you', eidx), 'mahalo', 'An unqualified gloss outranks "thank you (Samoan)"');
+    // Only whole glosses: words inside one are not coverage ("problems" is not "no problem")
+    for (const q of ['problems', 'said', 'pay', 'local', 'painful']) {
+        assert.strictEqual(coveredBy(q, eidx), null, `"${q}" is a real gap`);
+    }
+    const gscRows = ['brother', 'thank you', 'kids', 'painful'].map(q => ({ keys: [q], impressions: 50 }));
+    assert.deepStrictEqual(findMissingTerms(gscRows, entries, 20).map(m => m.pidgin), ['painful']);
+
+    // 11. Closing resolved search_gaps rows: 'near' matches stay pending for a person to judge
+    console.log('11. Testing closeResolvedGaps against a mock search_gaps table...');
+    const gapRows = [{ id: 1, term: 'brother' }, { id: 2, term: 'kamaiana' }, { id: 3, term: 'painful' },
+                     { id: 4, term: 'what does keiki mean' }];
+    const updates = [];
+    const mockDb = {
+        from: table => {
+            assert.strictEqual(table, 'search_gaps');
+            const q = {
+                select: () => q, eq: () => q, order: () => q,
+                range: async (from) => ({ data: from === 0 ? gapRows : [], error: null }),
+                update: patch => ({ in: async (col, ids) => { updates.push({ patch, ids }); return { error: null }; } })
+            };
+            return q;
+        }
+    };
+    const dry = await closeResolvedGaps(mockDb, { entries, dryRun: true });
+    assert.strictEqual(dry.pending, 4);
+    assert.deepStrictEqual(dry.closed.map(g => g.id), [1, 4]);
+    assert.strictEqual(updates.length, 0, 'A dry run writes nothing');
+    await closeResolvedGaps(mockDb, { entries });
+    assert.deepStrictEqual(updates, [{ patch: { status: 'added' }, ids: [1, 4] }]);
 
     console.log('\n🎉 All SEO Feedback Loop tests passed successfully!\n');
 }

@@ -87,6 +87,14 @@ The feedback loop script closes the gap between what users search for and what i
    The property is `GSC_PROPERTY` (default `sc-domain:chokepidgin.com`) — **not** `SITE_URL`, which
    `.env` sets to the site's `https://` origin. With no key and no export the loop exits 1; the
    packaged sample CSV is used only with `--demo`, because "0 gaps" on sample data looks like a real result.
+4. **One detector**: what counts as a gap lives only in `services/search-gaps.js`, shared by the CLI,
+   the admin Sync button and `npm run seo:close-gaps`. A query is covered by a headword, a spelling
+   variant, or a *whole* English meaning ("brother" → braddah, but "problems" is not "no problem").
+   Don't re-implement matching in a route; separate copies are how English queries got ingested as
+   new Pidgin words, which then had to be merged back out (migrations 024–026).
+5. **Stale gaps**: `npm run seo:close-gaps` (dry run) / `-- --apply` marks pending `search_gaps` rows
+   the dictionary now answers as `added`. The admin Sync does this too. One-edit near misses stay
+   pending, since site search still finds nothing for them; they may need a spelling variant.
 
 ### Dictionary Maintenance
 The project includes specialized tools for maintaining the Supabase dictionary:

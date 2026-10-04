@@ -6,7 +6,9 @@ const path = require('path');
 const fs = require('fs');
 const rateLimit = require('express-rate-limit');
 const geminiService = require('../services/gemini');
-const { searchEntries } = require('../services/dictionary-search');
+const {
+    findMissingTerms, fetchDictionaryForCoverage, closeResolvedGaps, fetchLiveQueries, resolveKeyPath
+} = require('../services/search-gaps');
 const { embedEntries } = require('../services/dictionary-embeddings');
 
 // Define rate limiters explicitly for CodeQL detection
@@ -428,84 +430,6 @@ module.exports = function(supabaseAdmin, adminAuth, settingsManager) {
         }
     });
 
-    // SEO Content Gaps API
-    router.get('/seo/gaps', adminActionLimiter, adminAuth.requireAdminAuth, async (req, res) => {
-        if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
-        
-        try {
-            // Logic adapted from feedback-loop.js
-            const { GoogleAuth } = require('google-auth-library');
-            const fs = require('fs');
-            const KEY_PATH = process.env.GOOGLE_SEARCH_CONSOLE_KEY_PATH || './google-search-console-key.json';
-            const SITE_URL = process.env.GSC_PROPERTY || 'sc-domain:chokepidgin.com';
-
-            if (!fs.existsSync(KEY_PATH)) {
-                return res.status(500).json({ error: 'Search Console key file missing' });
-            }
-
-            const auth = new GoogleAuth({
-                keyFile: KEY_PATH,
-                scopes: ['https://www.googleapis.com/auth/webmasters.readonly']
-            });
-
-            const client = await auth.getClient();
-            const encodedSiteUrl = encodeURIComponent(SITE_URL);
-            const url = `https://searchconsole.googleapis.com/webmasters/v3/sites/${encodedSiteUrl}/searchAnalytics/query`;
-
-            const endDate = new Date();
-            endDate.setDate(endDate.getDate() - 3);
-            const startDate = new Date(endDate);
-            startDate.setDate(startDate.getDate() - 28);
-
-            const requestBody = {
-                startDate: startDate.toISOString().split('T')[0],
-                endDate: endDate.toISOString().split('T')[0],
-                dimensions: ['query'],
-                rowLimit: 1000,
-                orderBy: [{ fieldName: 'impressions', sortOrder: 'DESCENDING' }]
-            };
-
-            const scRes = await client.request({ url, method: 'POST', data: requestBody });
-            const scQueries = scRes.data.rows || [];
-
-            // Get existing terms
-            const { data: existing, error: dictErr } = await supabaseAdmin
-                .from('dictionary_entries')
-                .select('pidgin');
-            
-            if (dictErr) throw dictErr;
-            const existingSet = new Set(existing.map(item => item.pidgin.toLowerCase()));
-
-            const gaps = [];
-            scQueries.forEach(row => {
-                const query = row.keys[0].toLowerCase();
-                let term = query;
-                const meanRegex = /what does (.*) mean/i;
-                const meaningRegex = /(.*) meaning/i;
-
-                if (meanRegex.test(query)) term = query.match(meanRegex)[1];
-                else if (meaningRegex.test(query)) term = query.match(meaningRegex)[1];
-
-                term = term.trim().replace(/[?!]/g, '');
-
-                if (term.length > 2 && !existingSet.has(term) && row.impressions > 10) {
-                    gaps.push({
-                        pidgin: term,
-                        impressions: row.impressions,
-                        clicks: row.clicks,
-                        ctr: (row.ctr * 100).toFixed(1) + '%',
-                        position: row.position.toFixed(1)
-                    });
-                }
-            });
-
-            res.json({ gaps: gaps.slice(0, 50) });
-        } catch (error) {
-            console.error('SEO gaps error:', error);
-            res.status(500).json({ error: 'Failed to fetch SEO gaps' });
-        }
-    });
-
     // AI Suggestion for Dictionary Entry
     router.post('/seo/suggest', adminActionLimiter, adminAuth.requireAdminAuth, [
         body('pidgin').trim().notEmpty()
@@ -792,76 +716,32 @@ Respond only with a JSON object:
         try {
             const { sync = 'false' } = req.query;
 
-            // If sync is requested, fetch from GSC and update DB first
+            // Sync: pull Search Console demand into search_gaps, then close pending rows the
+            // dictionary now answers. Detection is shared with npm run seo:loop.
+            let syncResult = null;
             if (sync === 'true') {
-                const { GoogleAuth } = require('google-auth-library');
-                const KEY_PATH = process.env.GOOGLE_SEARCH_CONSOLE_KEY_PATH || './google-search-console-key.json';
-                const SITE_URL = process.env.GSC_PROPERTY || 'sc-domain:chokepidgin.com';
+                const entries = await fetchDictionaryForCoverage(supabaseAdmin);
+                const scQueries = await fetchLiveQueries(resolveKeyPath(), 28, { rowLimit: 1000 });
+                syncResult = { queries: 0, gaps: 0, closed: 0 };
 
-                if (fs.existsSync(KEY_PATH)) {
-                    const auth = new GoogleAuth({
-                        keyFile: KEY_PATH,
-                        scopes: ['https://www.googleapis.com/auth/webmasters.readonly']
-                    });
-
-                    const client = await auth.getClient();
-                    const encodedSiteUrl = encodeURIComponent(SITE_URL);
-                    const url = `https://searchconsole.googleapis.com/webmasters/v3/sites/${encodedSiteUrl}/searchAnalytics/query`;
-
-                    const endDate = new Date();
-                    endDate.setDate(endDate.getDate() - 3);
-                    const startDate = new Date(endDate);
-                    startDate.setDate(startDate.getDate() - 28);
-
-                    const requestBody = {
-                        startDate: startDate.toISOString().split('T')[0],
-                        endDate: endDate.toISOString().split('T')[0],
-                        dimensions: ['query'],
-                        rowLimit: 1000,
-                        orderBy: [{ fieldName: 'impressions', sortOrder: 'DESCENDING' }]
-                    };
-
-                    const scRes = await client.request({ url, method: 'POST', data: requestBody });
-                    const scQueries = scRes.data.rows || [];
-
-                    // Get existing dictionary entries to filter out (matched like site search, so
-                    // "tutu" counts as covered by tūtū)
-                    const { data: existingDict } = await supabaseAdmin.from('dictionary_entries').select('id, pidgin, english');
-                    const inDictionary = term => searchEntries(existingDict || [], term, 1).length > 0;
-                    
-                    // Patterns to clean/filter
-                    const meanRegex = /what does (.*) mean/i;
-                    const meaningRegex = /(.*) meaning/i;
-
-                    const gapsToUpsert = [];
-                    scQueries.forEach(row => {
-                        const query = row.keys[0].toLowerCase();
-                        let term = query;
-                        if (meanRegex.test(query)) term = query.match(meanRegex)[1];
-                        else if (meaningRegex.test(query)) term = query.match(meaningRegex)[1];
-                        term = term.trim().replace(/[?!]/g, '');
-
-                        if (term.length > 2 && !inDictionary(term) && row.impressions > 5) {
-                            // No status: new rows default to 'pending', and on conflict the upsert
-                            // only touches these columns, so added/ignored gaps stay closed
-                            gapsToUpsert.push({
-                                term,
-                                count: row.impressions,
-                                last_searched_at: new Date()
-                            });
-                        }
-                    });
-
-                    // Upsert in batches to DB
-                    if (gapsToUpsert.length > 0) {
-                        // Use a simple loop or bulk upsert if supported by your schema/policies
-                        // Here we'll do a few at a time for safety
-                        for (let i = 0; i < Math.min(gapsToUpsert.length, 100); i++) {
-                            const gap = gapsToUpsert[i];
-                            await supabaseAdmin.from('search_gaps').upsert([gap], { onConflict: 'term' });
-                        }
+                if (scQueries === null) {
+                    syncResult.error = 'No Search Console credential could read the property';
+                } else {
+                    // No status: new rows default to 'pending', and on conflict the upsert only
+                    // touches these columns, so added/ignored gaps stay closed
+                    const now = new Date();
+                    const gapsToUpsert = findMissingTerms(scQueries, entries, 6)
+                        .map(gap => ({ term: gap.pidgin, count: gap.impressions, last_searched_at: now }));
+                    for (let i = 0; i < gapsToUpsert.length; i += 200) {
+                        const { error } = await supabaseAdmin.from('search_gaps')
+                            .upsert(gapsToUpsert.slice(i, i + 200), { onConflict: 'term' });
+                        if (error) throw error;
                     }
+                    syncResult.queries = scQueries.length;
+                    syncResult.gaps = gapsToUpsert.length;
                 }
+
+                syncResult.closed = (await closeResolvedGaps(supabaseAdmin, { entries })).closed.length;
             }
 
             // Fetch pending gaps from DB
@@ -873,7 +753,7 @@ Respond only with a JSON object:
                 .limit(100);
 
             if (error) throw error;
-            res.json({ gaps: data });
+            res.json({ gaps: data, sync: syncResult });
         } catch (error) {
             console.error('Fetch gaps error:', error);
             res.status(500).json({ error: 'Failed to fetch gaps' });

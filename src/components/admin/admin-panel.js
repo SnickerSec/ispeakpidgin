@@ -1062,6 +1062,11 @@
 
             const data = await response.json();
 
+            if (data.sync) {
+                if (data.sync.error) showToast(`Search Console sync skipped: ${data.sync.error}`, 'error');
+                else showToast(`Synced ${data.sync.queries} queries: ${data.sync.gaps} gaps, ${data.sync.closed} resolved gaps closed`, 'success');
+            }
+
             if (!data.gaps || data.gaps.length === 0) {
                 container.innerHTML = `
                     <tr>

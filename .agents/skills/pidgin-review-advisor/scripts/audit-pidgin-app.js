@@ -718,7 +718,7 @@ function auditLinguistics() {
         status: 'SKIP',
         evidence: ['Requires Supabase credentials: node tools/testing/pronunciation-audit.js'],
         finding: 'Coverage percentage was not measured by this script. Never quote a remembered figure — run the tool.',
-        fix: 'node tools/testing/pronunciation-audit.js  (note the map-drift finding above: it scores the audit copy of the map, not the runtime one)'
+        fix: 'node tools/testing/pronunciation-audit.js'
     });
 }
 
@@ -948,6 +948,43 @@ async function auditVocabulary(db) {
     } else {
         record('vocabulary', {
             id: 'vocabulary.suggestions', title: 'Pending community submissions', status: 'SKIP',
+            evidence: ['needs --live plus a service-role key']
+        });
+    }
+
+    // Search-gap backlog: zero-result site searches + admin Search Console syncs. Judged with
+    // the same coverage rules as seo:loop and the admin sync (services/search-gaps.js).
+    if (db && FLAGS.live) {
+        try {
+            const { fetchDictionaryForCoverage, closeResolvedGaps } = require(path.join(REPO_ROOT, 'services', 'search-gaps.js'));
+            const entries = await fetchDictionaryForCoverage(db);
+            const { pending, closed } = await closeResolvedGaps(db, { entries, dryRun: true });
+            const { count: recent, error } = await db.from('search_gaps').select('id', { count: 'exact', head: true })
+                .eq('status', 'pending').gte('last_searched_at', new Date(Date.now() - 30 * 864e5).toISOString());
+            if (error) throw new Error(error.message);
+            if (pending === 0 && !process.env.SUPABASE_SERVICE_KEY && !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+                throw new Error('0 rows visible with the anon key');
+            }
+            record('vocabulary', {
+                id: 'vocabulary.search-gaps', title: 'Search-gap backlog',
+                status: closed.length > 0 ? 'WARN' : 'OK',
+                evidence: [
+                    `search_gaps pending: ${pending} (${recent} searched in the last 30 days)`,
+                    `already answered by the dictionary: ${closed.length}${closed.length ? ` (e.g. ${closed.slice(0, 3).map(g => `"${g.term}" → ${g.match}`).join(', ')})` : ''}`
+                ],
+                metrics: { pendingGaps: pending, recentGaps: recent, resolvedGaps: closed.length },
+                finding: closed.length > 0 ? `${closed.length} pending search gaps are already answered by the dictionary, burying the real ones in the admin Search Gaps tab.` : null,
+                fix: closed.length > 0 ? 'npm run seo:close-gaps -- --apply  (or Sync in the admin Search Gaps tab, which closes them too)' : null
+            });
+        } catch (e) {
+            record('vocabulary', {
+                id: 'vocabulary.search-gaps', title: 'Search-gap backlog', status: 'SKIP',
+                evidence: [`search_gaps unmeasured: ${e.message} (RLS usually restricts this to the service role)`]
+            });
+        }
+    } else {
+        record('vocabulary', {
+            id: 'vocabulary.search-gaps', title: 'Search-gap backlog', status: 'SKIP',
             evidence: ['needs --live plus a service-role key']
         });
     }

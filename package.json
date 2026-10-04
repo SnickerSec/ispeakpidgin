@@ -16,6 +16,7 @@
     "data:suggestions": "node tools/data/manage-suggestions.js",
     "data:crosswords": "node tools/data/generate-more-crosswords.js",
     "seo:loop": "node tools/seo/feedback-loop.js",
+    "seo:close-gaps": "node tools/seo/close-resolved-gaps.js",
     "audio:invalidate": "node tools/audio/invalidate-audio.js",
     "audio:generate": "node tools/audio/audio-pregeneration.js",
     "audio:audit": "node tools/audio/audio-pregeneration.js --audit",
