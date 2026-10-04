@@ -131,9 +131,6 @@ function normalizeQueryTerm(txt) {
     if (normalized === 'kakua' || normalized === 'kakuakakua') {
         normalized = 'kokua';
     }
-    if (normalized === 'olana') {
-        normalized = 'ohana';
-    }
     return normalized;
 }
 

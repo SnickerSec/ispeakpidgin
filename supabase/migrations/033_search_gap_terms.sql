@@ -1,4 +1,4 @@
--- Migration 032: Ingest high-traffic slang and search gap intents
+-- Migration 033 (committed as 032, renumbered: 032 is 032_variants_are_spellings.sql): Ingest high-traffic slang and search gap intents
 --
 -- Adds 4 high-demand missing terms from on-site user searches:
 --   1. otomatic (variants: automatic) - Pidgin for "guaranteed", "for sure", "done deal"
