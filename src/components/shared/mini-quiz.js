@@ -72,15 +72,23 @@ class MiniQuiz {
     render() {
         if (!this.question) return;
 
-        const optionsHtml = this.question.options.map((option, index) => `
-            <button 
-                class="mini-quiz-option w-full text-left p-4 rounded-xl border-2 border-gray-100 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all font-medium text-gray-700 dark:text-slate-200 mb-2 flex justify-between items-center group"
-                data-index="${index}"
-            >
-                <span>${this.escapeHtml(option.text || option)}</span>
-                <iconify-icon icon="lucide:chevron-right" class="opacity-0 group-hover:opacity-100 transition-opacity"></iconify-icon>
-            </button>
-        `).join('');
+        const optionsHtml = this.question.options.map((option, index) => {
+            const optText = option.text || option;
+            return `
+            <div class="flex items-center gap-2 mb-2">
+                <button 
+                    class="mini-quiz-option flex-1 text-left p-4 rounded-xl border-2 border-gray-100 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all font-medium text-gray-700 dark:text-slate-200 flex justify-between items-center group"
+                    data-index="${index}"
+                >
+                    <span>${this.escapeHtml(optText)}</span>
+                    <iconify-icon icon="lucide:chevron-right" class="opacity-0 group-hover:opacity-100 transition-opacity"></iconify-icon>
+                </button>
+                <button type="button" class="mini-quiz-speak-btn p-3.5 text-blue-500 hover:text-blue-700 dark:text-blue-400 rounded-xl border border-gray-200 dark:border-slate-700 hover:bg-blue-50 dark:hover:bg-slate-700 transition" data-text="${this.escapeHtml(optText)}" title="Hear pronunciation">
+                    <iconify-icon icon="lucide:volume-2" class="text-lg pointer-events-none"></iconify-icon>
+                </button>
+            </div>
+            `;
+        }).join('');
 
         this.container.innerHTML = `
             <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-xl border-2 border-blue-100 dark:border-blue-900/30 relative overflow-hidden transition-all duration-500" id="mini-quiz-card">
@@ -120,6 +128,19 @@ class MiniQuiz {
         const optionButtons = this.container.querySelectorAll('.mini-quiz-option');
         optionButtons.forEach(btn => {
             btn.addEventListener('click', (e) => this.handleAnswer(parseInt(btn.dataset.index), btn));
+        });
+
+        const speakButtons = this.container.querySelectorAll('.mini-quiz-speak-btn');
+        speakButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const text = btn.dataset.text;
+                if (window.elevenLabsSpeech && typeof window.elevenLabsSpeech.speak === 'function') {
+                    window.elevenLabsSpeech.speak(text);
+                } else if (typeof speakText === 'function') {
+                    speakText(text);
+                }
+            });
         });
     }
 

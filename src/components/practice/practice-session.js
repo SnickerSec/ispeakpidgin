@@ -364,7 +364,9 @@ class PracticeSession {
         const speakBtn = document.getElementById('speak-word');
         if (speakBtn) {
             speakBtn.addEventListener('click', () => {
-                if (typeof speakText === 'function') {
+                if (window.elevenLabsSpeech && typeof window.elevenLabsSpeech.speak === 'function') {
+                    window.elevenLabsSpeech.speak(text);
+                } else if (typeof speakText === 'function') {
                     speakText(text);
                 } else if (typeof window !== 'undefined' && 'speechSynthesis' in window && window.SpeechSynthesisUtterance) {
                     const utterance = new window.SpeechSynthesisUtterance(text);

@@ -945,8 +945,8 @@ class ElevenLabsSpeech {
                         }
                     }
 
-                    // Check pre-generated index for local file
-                    if (this.pregeneratedIndex.has(normalizedText)) {
+                    // Check pre-generated index for local file (Uncle Kimo pre-generated clips)
+                    if (voiceId === KIMO_VOICE_ID && this.pregeneratedIndex.has(normalizedText)) {
                         try {
                             const supabaseStorageUrl = 'https://jfzgzjgdptowfbtljvyp.supabase.co/storage/v1/object/public/audio-assets';
                             const filename = this.pregeneratedIndex.get(normalizedText);

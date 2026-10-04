@@ -144,10 +144,26 @@ class LocalQuiz {
         this.optionsContainer.innerHTML = '';
         question.options.forEach((option, index) => {
             const optionDiv = document.createElement('div');
-            optionDiv.className = 'quiz-option bg-white dark:bg-slate-800 border-4 border-gray-300 dark:border-slate-700 rounded-2xl p-6 text-center';
+            optionDiv.className = 'quiz-option bg-white dark:bg-slate-800 border-4 border-gray-300 dark:border-slate-700 rounded-2xl p-6 text-center relative cursor-pointer group';
             optionDiv.innerHTML = `
-                <p class="text-lg font-bold text-gray-800 dark:text-white">${escapeHtml(option.text)}</p>
+                <div class="flex items-center justify-between gap-3">
+                    <p class="text-lg font-bold text-gray-800 dark:text-white flex-1">${escapeHtml(option.text)}</p>
+                    <button type="button" class="quiz-option-audio text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 p-2 rounded-full hover:bg-blue-50 dark:hover:bg-slate-700 transition" title="Hear pronunciation">
+                        <iconify-icon icon="lucide:volume-2" class="text-xl pointer-events-none"></iconify-icon>
+                    </button>
+                </div>
             `;
+            const audioBtn = optionDiv.querySelector('.quiz-option-audio');
+            if (audioBtn) {
+                audioBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (window.elevenLabsSpeech && typeof window.elevenLabsSpeech.speak === 'function') {
+                        window.elevenLabsSpeech.speak(option.text);
+                    } else if (typeof speakText === 'function') {
+                        speakText(option.text);
+                    }
+                });
+            }
             optionDiv.addEventListener('click', () => this.selectOption(index));
             this.optionsContainer.appendChild(optionDiv);
         });
