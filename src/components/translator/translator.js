@@ -791,11 +791,12 @@ class PidginTranslator {
             // 1. Get relevant context from local dictionary
             const context = this.getRelevantContext(text, direction);
             
-            // 2. Call AI API
+            // 2. Call AI API (bounded, so a hung request can't leave the UI on "Translating...")
             const response = await fetch('/api/ai/translate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text, direction, context, tone })
+                body: JSON.stringify({ text, direction, context, tone }),
+                signal: AbortSignal.timeout(15000)
             });
 
             if (!response.ok) throw new Error('AI Service error');
@@ -815,8 +816,10 @@ class PidginTranslator {
             };
         } catch (error) {
             console.warn('AI translation failed, falling back to rules:', error);
-            // Re-call translate without AI (simplified fallback)
-            return this.translateSimple(text, direction);
+            // Return null so translate() continues with the rule-based engine. Calling
+            // translate() again here re-entered aiTranslate for 6+ word input, so any AI
+            // failure (e.g. the 10-per-15-min rate limit) looped forever.
+            return null;
         }
     }
 
