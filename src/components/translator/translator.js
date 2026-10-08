@@ -638,13 +638,15 @@ class PidginTranslator {
         // Check if AI is enabled in settings (default to true)
         const useAI = typeof settingsManager !== 'undefined' ? settingsManager.get('enable_ai_translator') !== 'false' : true;
 
+        // Why the AI was skipped, so the UI can say so instead of silently showing rules output
+        let aiFallback = null;
         if (rawWordCount >= 6 && useAI) {
             try {
                 // Use rawInput for AI to ensure it sees the natural English
-                const aiResult = await this.aiTranslate(rawInput, direction, tone);
-                if (aiResult) return aiResult;
+                return await this.aiTranslate(rawInput, direction, tone);
             } catch (e) {
-                console.warn('AI translation fallback:', e);
+                console.warn('AI translation failed, falling back to rules:', e);
+                aiFallback = e.status === 429 ? 'rate_limited' : 'unavailable';
             }
         }
 
@@ -780,47 +782,47 @@ class PidginTranslator {
             alternatives: resultAlternatives,
             metadata: {
                 method: resultMethod,
-                details: details
+                details: details,
+                aiFallback
             }
         };
     }
 
     // Semantic AI Translation with RAG (Retrieval-Augmented Generation)
+    // Throws on failure (err.status set for HTTP errors); translate() falls back to rules.
+    // Never call translate() from here: for 6+ words it re-enters this method and loops.
     async aiTranslate(text, direction, tone = 'standard') {
-        try {
-            // 1. Get relevant context from local dictionary
-            const context = this.getRelevantContext(text, direction);
-            
-            // 2. Call AI API (bounded, so a hung request can't leave the UI on "Translating...")
-            const response = await fetch('/api/ai/translate', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text, direction, context, tone }),
-                signal: AbortSignal.timeout(15000)
-            });
+        // 1. Get relevant context from local dictionary
+        const context = this.getRelevantContext(text, direction);
+        
+        // 2. Call AI API (bounded, so a hung request can't leave the UI on "Translating...")
+        const response = await fetch('/api/ai/translate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text, direction, context, tone }),
+            signal: AbortSignal.timeout(15000)
+        });
 
-            if (!response.ok) throw new Error('AI Service error');
-
-            const data = await response.json();
-
-            return {
-                text: data.translation,
-                confidence: Math.round(data.confidence * 100),
-                suggestions: [],
-                pronunciation: direction === 'eng-to-pidgin' ? this.getPronunciation(data.translation) : null,
-                metadata: {
-                    method: 'AI-Enhanced (RAG)',
-                    explanation: data.explanation,
-                    contextUsed: context.map(c => c.pidgin)
-                }
-            };
-        } catch (error) {
-            console.warn('AI translation failed, falling back to rules:', error);
-            // Return null so translate() continues with the rule-based engine. Calling
-            // translate() again here re-entered aiTranslate for 6+ word input, so any AI
-            // failure (e.g. the 10-per-15-min rate limit) looped forever.
-            return null;
+        if (!response.ok) {
+            const error = new Error(`AI service error ${response.status}`);
+            error.status = response.status;
+            throw error;
         }
+
+        const data = await response.json();
+        if (!data.translation) throw new Error('AI service returned no translation');
+
+        return {
+            text: data.translation,
+            confidence: Math.round(data.confidence * 100),
+            suggestions: [],
+            pronunciation: direction === 'eng-to-pidgin' ? this.getPronunciation(data.translation) : null,
+            metadata: {
+                method: 'AI-Enhanced (RAG)',
+                explanation: data.explanation,
+                contextUsed: context.map(c => c.pidgin)
+            }
+        };
     }
 
     // Helper: Find relevant dictionary entries for RAG

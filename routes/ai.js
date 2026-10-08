@@ -7,7 +7,7 @@ const geminiService = require('../services/gemini');
 /**
  * AI & Chat Routes
  */
-module.exports = function(supabase, dictionaryCache, limiter, gamificationService) {
+module.exports = function(supabase, dictionaryCache, limiter, gamificationService, translateLimiter = limiter) {
 
     // Simple bot protection: Ensure request comes from our own site
     const botProtection = (req, res, next) => {
@@ -221,7 +221,7 @@ ${vocabulary}`;
 
     // POST /api/ai/translate - Semantic RAG-based Translation
     router.post('/translate',
-        limiter,
+        translateLimiter,
         botProtection,
         [
             body('text').trim().notEmpty().isLength({ max: 500 }),

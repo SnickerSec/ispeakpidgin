@@ -382,6 +382,15 @@ function initHeroQuickTranslate() {
             output.textContent = pidgin && pidgin.toLowerCase() !== text.toLowerCase()
                 ? pidgin
                 : 'No Pidgin match yet — try the full translator.';
+            const fallback = translation && translation.metadata && translation.metadata.aiFallback;
+            if (fallback && pidgin) {
+                const note = document.createElement('span');
+                note.className = 'block mt-1 text-sm font-normal text-amber-200';
+                note.textContent = fallback === 'rate_limited'
+                    ? 'Basic translation: AI limit reached, try again in about 15 minutes.'
+                    : 'Basic translation: the AI translator is unavailable right now.';
+                output.appendChild(note);
+            }
         } catch (error) {
             output.textContent = 'Translation failed — try the full translator.';
         }

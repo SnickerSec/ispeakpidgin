@@ -84,6 +84,17 @@ const aiChatLimiter = rateLimit({
     legacyHeaders: false,
 });
 
+// AI translate gets its own bucket: one short prompt per call, far cheaper than a
+// Talk Story turn, and sharing aiChatLimiter let a few chat messages lock users out
+// of translation.
+const aiTranslateLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 30,
+    message: 'Too many AI translations, brah. Try again in one bit.',
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
 const semanticSearchLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 30, // 30 semantic searches per 15 mins
@@ -323,7 +334,7 @@ app.use('/api/dictionary', dictionaryRoutes(supabase, dictionaryLimiter, diction
 app.use('/api', contentRoutes(supabase, dictionaryLimiter));
 app.use('/api', gamesRoutes(supabase, dictionaryLimiter, gamificationService));
 app.use('/api', pickupRoutes(supabase, dictionaryLimiter, translationLimiter));
-app.use('/api/ai', aiRoutes(supabase, dictionaryCache, aiChatLimiter, gamificationService));
+app.use('/api/ai', aiRoutes(supabase, dictionaryCache, aiChatLimiter, gamificationService, aiTranslateLimiter));
 app.use('/api/suggestions', suggestionsRoutes(supabase, apiLimiter, gamificationService));
 app.use('/api/questions', questionsRoutes(supabase, questionSubmitLimiter, gamificationService, dictionaryCache));
 app.use('/api/user/google-auth', userLoginLimiter);

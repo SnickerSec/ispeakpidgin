@@ -397,6 +397,13 @@ function displayTranslationResult(result, originalText, direction) {
             ${toneLabels[currentTone]}
         </span>`;
 
+        if (meta.aiFallback) {
+            const reason = meta.aiFallback === 'rate_limited'
+                ? 'You hit the AI translation limit for now, so this is the basic word-by-word translation. Try again in about 15 minutes.'
+                : 'The AI translator is unavailable right now, so this is the basic word-by-word translation.';
+            outputHTML += `<p class="mb-3 text-xs text-amber-800 bg-amber-50 border-l-4 border-amber-400 p-2 rounded"><iconify-icon icon="lucide:alert-triangle"></iconify-icon> ${reason}</p>`;
+        }
+
         if (meta.explanation) {
             outputHTML += `<div class="mb-3 bg-indigo-50 p-3 rounded-lg border-l-4 border-indigo-400">
                 <p class="text-xs font-bold text-indigo-800 mb-1 uppercase tracking-wider"><iconify-icon icon="lucide:info"></iconify-icon> AI Breakdown:</p>
