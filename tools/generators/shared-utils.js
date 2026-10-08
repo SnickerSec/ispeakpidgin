@@ -129,6 +129,23 @@ function escapeHtml(text) {
 }
 
 /**
+ * The /word/ slug for each entry, in the order given. Two entries that slug the same get -2, -3...
+ * in that order, so callers must pass entries sorted the way the page generator fetches them
+ * (pidgin ascending). Shared with tools/testing/check-word-links.js so the check sees the same
+ * file names the build writes.
+ */
+function assignSlugs(entries) {
+    const taken = new Set();
+    return entries.map(entry => {
+        const base = createSlug(entry.pidgin);
+        let slug = base;
+        for (let n = 2; taken.has(slug); n++) slug = `${base}-${n}`;
+        taken.add(slug);
+        return { entry, slug };
+    });
+}
+
+/**
  * Fetch all rows from a Supabase table with pagination
  * @param {string} tableName - Table to fetch from
  * @param {string} selectFields - Fields to select (default '*')
@@ -470,6 +487,7 @@ const isOfflineMock = !SUPABASE_URL || !SUPABASE_ANON_KEY;
 module.exports = {
     isOfflineMock,
     createSlug,
+    assignSlugs,
     escapeHtml,
     fetchFromSupabase,
     getNavAndFooter,

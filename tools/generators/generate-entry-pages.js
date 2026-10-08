@@ -10,6 +10,7 @@ const fs = require('fs');
 const path = require('path');
 const {
     createSlug,
+    assignSlugs,
     escapeHtml,
     fetchFromSupabase,
     getNavAndFooter,
@@ -593,18 +594,7 @@ async function main() {
 
         // Phase 1: assign slugs sequentially to preserve the deterministic
         // duplicate-suffix behavior (-2, -3, ...) without cross-worker races.
-        const slugMap = new Map();
-        const jobs = entries.map(entry => {
-            let slug = createSlug(entry.pidgin);
-            let counter = 1;
-            let finalSlug = slug;
-            while (slugMap.has(finalSlug)) {
-                counter++;
-                finalSlug = `${slug}-${counter}`;
-            }
-            slugMap.set(finalSlug, entry);
-            return { entry, slug: finalSlug };
-        });
+        const jobs = assignSlugs(entries);
 
         // Phase 2: OG rasterization + HTML write run with bounded concurrency.
         await parallelForEach(jobs, 8, async ({ entry, slug }) => {
@@ -635,6 +625,7 @@ async function main() {
         // Phase 3: generate redirect stubs for spelling_variants so variant URLs never 404
         let variantCount = 0;
         const seenVariantSlugs = new Set();
+        const headwordSlugs = new Set(jobs.map(j => j.slug));
         for (const { entry, slug } of jobs) {
             if (!Array.isArray(entry.spelling_variants) || entry.spelling_variants.length === 0) continue;
 
@@ -649,7 +640,7 @@ async function main() {
                 if (!variantSlug) continue;
 
                 // Never overwrite a canonical headword page or duplicate variant slug
-                if (slugMap.has(variantSlug) || seenVariantSlugs.has(variantSlug)) continue;
+                if (headwordSlugs.has(variantSlug) || seenVariantSlugs.has(variantSlug)) continue;
                 seenVariantSlugs.add(variantSlug);
 
                 try {

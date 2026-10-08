@@ -26,6 +26,7 @@
     "test:validation": "node tools/testing/run-validation.js",
     "test:translator": "node tools/testing/validate-phase-2-3.js",
     "test:translator:live": "node tools/testing/test-translator-live.js",
+    "test:word-links": "node tools/testing/check-word-links.js",
     "audit:pronunciation": "node tools/testing/pronunciation-audit.js",
     "generate:sitemap": "node tools/generators/generate-sitemap.js",
     "generate:pages": "node tools/generators/generate-entry-pages.js",

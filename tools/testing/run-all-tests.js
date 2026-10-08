@@ -11,6 +11,7 @@
  * 5. Phonetics/Pronunciation Audit (pronunciation-audit.js)
  * 6. Site Link & SEO Integrity (audit-site.js) - runs a quick build first if needed
  * 7. Runtime Dependency & Image File Set (check-runtime-deps.js)
+ * 8. Word Links & Redirect Map (check-word-links.js)
  */
 
 const { spawnSync } = require('child_process');
@@ -96,6 +97,13 @@ const testSuites = [
     {
         name: 'Live Translator (Supabase data)',
         script: 'test-translator-live.js',
+        requiredEnv: true
+    },
+    {
+        // Needs no build, so it fails fast and names the fix. Run it with --migration before
+        // applying any migration that deletes or renames dictionary entries.
+        name: 'Word Links & Redirect Map (live)',
+        script: 'check-word-links.js',
         requiredEnv: true
     },
     {

@@ -602,6 +602,50 @@ function auditCicd() {
         });
     }
 
+    // Does CI pass? Checking that the workflow *runs* tests is not enough: from 2026-10-04 to
+    // 10-08 every push to main failed the site audit on one broken link, Railway deployed each
+    // one anyway (it does not wait for CI), and this audit kept reporting CI as OK.
+    if (!FLAGS.net) {
+        record('cicd', {
+            id: 'cicd.main-status', title: 'Latest CI result on main', status: 'SKIP',
+            evidence: ['--net not passed']
+        });
+    } else {
+        let runs = null;
+        try {
+            runs = JSON.parse(execFileSync('gh', ['run', 'list', '--workflow', 'CI', '--branch', 'main', '-L', '20',
+                '--json', 'conclusion,status,createdAt,displayTitle,url'],
+                { cwd: REPO_ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], timeout: 20000 }));
+        } catch { /* gh missing or not authenticated */ }
+        const done = (runs || []).filter(r => r.status === 'completed' && r.conclusion !== 'cancelled' && r.conclusion !== 'skipped');
+        if (!done.length) {
+            record('cicd', {
+                id: 'cicd.main-status', title: 'Latest CI result on main', status: 'SKIP',
+                evidence: [runs ? 'no completed runs on main' : 'gh CLI unavailable or not authenticated'],
+                fix: runs ? null : 'gh auth login, then re-run with --net.'
+            });
+        } else {
+            const latest = done[0];
+            const red = done.findIndex(r => r.conclusion !== 'success');
+            const streak = red === 0 ? (done.findIndex(r => r.conclusion === 'success') + 1 || done.length + 1) - 1 : 0;
+            const since = streak ? done[streak - 1].createdAt.slice(0, 10) : null;
+            record('cicd', {
+                id: 'cicd.main-status', title: 'Latest CI result on main',
+                status: latest.conclusion === 'success' ? 'OK' : 'FAIL',
+                evidence: [
+                    `latest: ${latest.conclusion} — ${latest.displayTitle.slice(0, 70)} (${latest.createdAt.slice(0, 10)})`,
+                    streak ? `failing for ${streak} consecutive run(s), since ${since}` : 'passing',
+                    latest.url
+                ],
+                metrics: { latestConclusion: latest.conclusion, failingStreak: streak },
+                finding: streak
+                    ? `CI on main has failed ${streak} run(s) in a row since ${since}. Railway deploys regardless, so whatever it caught is live.`
+                    : null,
+                fix: streak ? `gh run view ${latest.url.split('/').pop()} --log-failed` : null
+            });
+        }
+    }
+
     const suites = [
         'tools/testing/run-all-tests.js', 'tools/testing/run-validation.js',
         'tools/testing/validate-phase-2-3.js', 'tools/testing/pronunciation-audit.js',

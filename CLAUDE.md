@@ -104,6 +104,13 @@ The project includes specialized tools for maintaining the Supabase dictionary:
 - **`npm run data:add-missing`**: Reads from `/tmp/missing-terms.json` and inserts new, non-duplicate entries into the `dictionary_entries` table. Automatically handles UUID generation and array formatting for English meanings.
 - **`npm run data:improve`**: Reads from `/tmp/enhanced_final_recommendations.json` and applies targeted updates (pronunciation, category) to existing dictionary entries by ID.
 - **`node tools/data/generate-embeddings.js`**: Embeds new or changed dictionary entries into `dictionary_embeddings` (pgvector, migration 016) for semantic search ("grandma" → tūtū). Run it after bulk edits or migrations; entries added through the admin panel are embedded automatically. `--dry-run` reports what would change.
+- **Migrations that delete or rename entries** (merges): run
+  `npm run test:word-links -- --migration supabase/migrations/NNN_x.sql` *before* applying. It
+  models the migration against live data and fails on hand-written `/word/` links it would break
+  and on removed headwords with no line in `services/word-redirects.js` (the 301 map `server.js`
+  serves; without a line, the indexed `/word/` URL 404s). It names the fix for each. Without
+  `--migration` it runs in `npm test` and checks links and the redirect map against live data.
+  Railway deploys whether CI passes or not, so a red CI run means the problem is already live.
 - **Search matching** lives in `services/dictionary-search.js` (server) and `fuzzySearch` in `src/components/shared/supabase-data-loader.js` (browser). Both ignore kahakō/ʻokina so plain spellings find Hawaiian headwords; `tools/testing/test-dictionary-search.js` keeps them in step.
 
 ### SEO & Generators

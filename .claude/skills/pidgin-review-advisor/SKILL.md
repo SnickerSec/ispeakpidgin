@@ -43,7 +43,7 @@ which you must carry through to the review as unmeasured.
 
 The script measures rather than checks for file existence: whether the phonetic map has a single
 owner or is duplicated across consumers, unapproved ElevenLabs voice IDs, whether CI's test step is gated
-behind a possibly-absent secret, dictionary field completeness and duplicates, curated-term
+behind a possibly-absent secret, whether CI on main is actually passing (`--net`, via `gh`), dictionary field completeness and duplicates, curated-term
 backlog vs what is actually in Supabase, CSP/`sw.js`/`trust proxy` hardening, and edge-vs-origin
 cache divergence.
 
