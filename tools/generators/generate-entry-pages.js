@@ -534,6 +534,39 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
     return html;
 }
 
+// Generate lightweight redirect page for spelling variants
+function generateVariantRedirectPage({ variant, canonicalHeadword, targetPath, canonicalUrl }) {
+    const capitalizedVariant = variant.charAt(0).toUpperCase() + variant.slice(1);
+    const capitalizedWord = canonicalHeadword.charAt(0).toUpperCase() + canonicalHeadword.slice(1);
+    const pageTitle = `${capitalizedVariant} (${capitalizedWord}) Meaning: Definition & Pronunciation | ChokePidgin`;
+    const metaDescription = `What does '${variant}' mean? '${variant}' is a spelling variant of '${canonicalHeadword}' in Hawaiian Pidgin. Discover the definition, examples, and pronunciation.`;
+
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${escapeHtml(pageTitle)}</title>
+    <meta name="description" content="${escapeHtml(metaDescription)}">
+    <meta name="robots" content="noindex, follow">
+    <link rel="canonical" href="${canonicalUrl}">
+    <meta http-equiv="refresh" content="0; url=${targetPath}">
+    <script>window.location.replace('${targetPath}');</script>
+    <link rel="stylesheet" href="/css/tailwind.css">
+</head>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen p-4 text-center">
+    <div class="max-w-md bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+        <h1 class="text-2xl font-bold text-gray-800 mb-2">${escapeHtml(capitalizedVariant)}</h1>
+        <p class="text-gray-600 mb-4">Spelling variant of <strong class="text-purple-600">${escapeHtml(canonicalHeadword)}</strong></p>
+        <p class="text-sm text-gray-500 mb-6">Redirecting to full definition and pronunciation...</p>
+        <a href="${targetPath}" class="inline-block bg-purple-600 text-white font-medium px-6 py-2.5 rounded-xl hover:bg-purple-700 transition">
+            View ${escapeHtml(canonicalHeadword)}
+        </a>
+    </div>
+</body>
+</html>`;
+}
+
 // Main execution
 async function main() {
     console.log('🏗️  Generating individual dictionary entry pages...\n');
@@ -598,6 +631,42 @@ async function main() {
                 skippedCount++;
             }
         });
+
+        // Phase 3: generate redirect stubs for spelling_variants so variant URLs never 404
+        let variantCount = 0;
+        const seenVariantSlugs = new Set();
+        for (const { entry, slug } of jobs) {
+            if (!Array.isArray(entry.spelling_variants) || entry.spelling_variants.length === 0) continue;
+
+            const premiumPage = getPremiumPage(entry.pidgin);
+            const targetPath = premiumPage ? `/${premiumPage}` : `/word/${slug}.html`;
+            const canonicalUrl = premiumPage ? `${SITE_URL}/${premiumPage}` : `${SITE_URL}/word/${slug}.html`;
+
+            for (const variant of entry.spelling_variants) {
+                if (!variant || typeof variant !== 'string') continue;
+                const trimmed = variant.trim();
+                const variantSlug = createSlug(trimmed);
+                if (!variantSlug) continue;
+
+                // Never overwrite a canonical headword page or duplicate variant slug
+                if (slugMap.has(variantSlug) || seenVariantSlugs.has(variantSlug)) continue;
+                seenVariantSlugs.add(variantSlug);
+
+                try {
+                    const redirectHtml = generateVariantRedirectPage({
+                        variant: trimmed,
+                        canonicalHeadword: entry.pidgin,
+                        targetPath,
+                        canonicalUrl
+                    });
+                    fs.writeFileSync(path.join(outputDir, `${variantSlug}.html`), redirectHtml, 'utf8');
+                    variantCount++;
+                } catch (err) {
+                    console.error(`❌ Error writing variant redirect for "${variant}":`, err.message);
+                }
+            }
+        }
+        console.log(`📄 Generated: ${variantCount} spelling variant redirect pages`);
 
         console.log('\n✨ Generation complete!');
         console.log(`📄 Generated: ${generatedCount} pages`);

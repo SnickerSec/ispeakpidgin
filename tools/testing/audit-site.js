@@ -98,7 +98,8 @@ function auditHTMLFile(filePath) {
         // Loose check because our generator sometimes removes .html or adds it
         const actual = canonicalMatch[1].replace('.html', '');
         const expected = expectedCanonical.replace('.html', '').replace(/\/$/, '');
-        if (actual !== expected && !actual.includes('what-does-')) { // Skip premium redirects for now
+        const isRedirect = content.includes('http-equiv="refresh"') || /<meta\s+name=["']robots["']\s+content=["'][^"']*noindex/i.test(content);
+        if (actual !== expected && !actual.includes('what-does-') && !isRedirect) { // Skip premium & variant redirects
              warnings.push(`Canonical mismatch. Found: ${actual}, Expected: ${expected}`);
         }
     }
