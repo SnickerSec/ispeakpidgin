@@ -41,6 +41,16 @@ Cloudflare edge against the Railway origin. `--json` emits the machine-readable 
 `--strict` exits non-zero on any FAIL. Without `--live`/`--net` those checks report `SKIP`,
 which you must carry through to the review as unmeasured.
 
+Worktrees usually have no `.env`. Run the audit (and any suite that needs live data) under the
+production environment instead of reporting everything unmeasured; secrets are injected, not printed:
+
+```bash
+railway run -p 3ef8ad40-f6d4-4db3-a037-7a759c2193ac -e production -s ispeakpidgin -- \
+  node .claude/skills/pidgin-review-advisor/scripts/audit-pidgin-app.js --live --net
+```
+
+That also supplies `GOOGLE_CREDENTIALS_BASE64`, so Search Console demand is measured too.
+
 The script measures rather than checks for file existence: whether the phonetic map has a single
 owner or is duplicated across consumers, unapproved ElevenLabs voice IDs, whether CI's test step is gated
 behind a possibly-absent secret, whether CI on main is actually passing (`--net`, via `gh`), dictionary field completeness and duplicates, curated-term

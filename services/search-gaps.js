@@ -528,17 +528,25 @@ async function fetchSearchQueries(auth, days = 28, rowLimit = 5000) {
 }
 
 /**
- * Tries the key file, then GOOGLE_CREDENTIALS_BASE64, then ADC; the first credential that
- * can read the property wins. Returns null (with the reasons logged) when none can.
+ * Search Console credentials in the order to try them: the key file, then
+ * GOOGLE_CREDENTIALS_BASE64, then ADC. Each is { source, label } for getAuthClient.
+ * Shared with the review audit, so both read demand the way production does.
  */
-async function fetchLiveQueries(keyPath, days = 28, { rowLimit = 5000, log = console.log, env = process.env } = {}) {
+function credentialAttempts(keyPath, env = process.env) {
     const envCredentials = credentialsFromEnv(env);
-    const attempts = [
+    return [
         ...(keyPath ? [{ source: keyPath, label: keyPath }] : []),
         ...(envCredentials ? [{ source: { credentials: envCredentials }, label: `GOOGLE_CREDENTIALS_BASE64 (${envCredentials.client_email})` }] : []),
         { source: null, label: 'application default credentials' }
     ];
-    for (const { source, label } of attempts) {
+}
+
+/**
+ * Tries each credentialAttempts() entry; the first credential that can read the property
+ * wins. Returns null (with the reasons logged) when none can.
+ */
+async function fetchLiveQueries(keyPath, days = 28, { rowLimit = 5000, log = console.log, env = process.env } = {}) {
+    for (const { source, label } of credentialAttempts(keyPath, env)) {
         try {
             log(`🔑 Authenticating with Google Search Console API (${label})...`);
             const auth = await getAuthClient(source);
@@ -568,6 +576,7 @@ module.exports = {
     resolveKeyPath,
     credentialsFromEnv,
     getAuthClient,
+    credentialAttempts,
     fetchSearchQueries,
     fetchLiveQueries
 };

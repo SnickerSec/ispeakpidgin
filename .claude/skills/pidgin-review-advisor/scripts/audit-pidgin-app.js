@@ -1015,43 +1015,38 @@ async function auditVocabulary(db) {
     // Real search demand: the gap loop once reported "0 gaps" for weeks while reading a
     // packaged sample CSV, so only a successful Search Console query counts as measured.
     if (FLAGS.net) {
-        const property = process.env.GSC_PROPERTY || 'sc-domain:chokepidgin.com';
-        const keyPath = [process.env.GOOGLE_SEARCH_CONSOLE_KEY_PATH, path.join(REPO_ROOT, 'google-search-console-key.json'), process.env.GA4_KEY_FILE]
-            .filter(Boolean).find(p => fs.existsSync(p));
-        // Same order as tools/seo/feedback-loop.js: service-account key, then gcloud ADC.
+        // Credentials come from services/search-gaps.js, the same resolver npm run seo:loop and
+        // the admin Sync use: key file, then GOOGLE_CREDENTIALS_BASE64 (how production
+        // authenticates), then gcloud ADC. A private copy here once skipped the env credential
+        // and reported demand unmeasured while seo:loop was reading it fine.
         const failures = [];
         let measured = false;
-        for (const candidate of [...(keyPath ? [keyPath] : []), null]) {
-            const label = candidate ? path.basename(candidate) : 'application default credentials';
-            try {
-                const { GoogleAuth } = require(path.join(REPO_ROOT, 'node_modules', 'google-auth-library'));
-                const auth = new GoogleAuth({ ...(candidate ? { keyFile: candidate } : {}), scopes: ['https://www.googleapis.com/auth/webmasters.readonly'] });
-                const client = await auth.getClient();
-                const end = new Date(Date.now() - 3 * 864e5);
-                const start = new Date(end.getTime() - 28 * 864e5);
-                const res = await client.request({
-                    url: `https://searchconsole.googleapis.com/webmasters/v3/sites/${encodeURIComponent(property)}/searchAnalytics/query`,
-                    method: 'POST',
-                    data: { startDate: start.toISOString().slice(0, 10), endDate: end.toISOString().slice(0, 10), dimensions: ['query'], rowLimit: 5000 }
-                });
-                const rows = res.data.rows || [];
-                record('vocabulary', {
-                    id: 'vocabulary.search-demand', title: 'Search Console demand data', status: 'OK',
-                    evidence: [`${property} via ${label}: ${rows.length} queries in the last 28 days`, `impressions: ${rows.reduce((n, r) => n + r.impressions, 0)}`],
-                    metrics: { gscQueries: rows.length }
-                });
-                measured = true;
-                break;
-            } catch (e) {
-                failures.push(`${label}: ${e.response && e.response.status === 403 ? `no access to ${property}` : e.message.split('\n')[0]}`);
+        try {
+            const { SITE_URL: property, resolveKeyPath, credentialAttempts, getAuthClient, fetchSearchQueries } =
+                require(path.join(REPO_ROOT, 'services', 'search-gaps.js'));
+            for (const { source, label } of credentialAttempts(resolveKeyPath())) {
+                try {
+                    const rows = await fetchSearchQueries(await getAuthClient(source), 28, 5000);
+                    record('vocabulary', {
+                        id: 'vocabulary.search-demand', title: 'Search Console demand data', status: 'OK',
+                        evidence: [`${property} via ${label}: ${rows.length} queries in the last 28 days`, `impressions: ${rows.reduce((n, r) => n + r.impressions, 0)}`],
+                        metrics: { gscQueries: rows.length }
+                    });
+                    measured = true;
+                    break;
+                } catch (e) {
+                    failures.push(`${label}: ${e.message.split('\n')[0]}`);
+                }
             }
+        } catch (e) {
+            failures.push(e.message.split('\n')[0]);
         }
         if (!measured) {
             record('vocabulary', {
                 id: 'vocabulary.search-demand', title: 'Search Console demand data', status: 'SKIP',
                 evidence: failures,
                 finding: 'Content gaps are unmeasured: npm run seo:loop cannot read real query data.',
-                fix: 'Grant a service account access in Search Console, or: gcloud auth application-default login --scopes=https://www.googleapis.com/auth/webmasters.readonly,https://www.googleapis.com/auth/cloud-platform'
+                fix: 'Set GOOGLE_CREDENTIALS_BASE64 (production has it: run the audit under railway run), grant a service account access in Search Console, or: gcloud auth application-default login --scopes=https://www.googleapis.com/auth/webmasters.readonly,https://www.googleapis.com/auth/cloud-platform'
             });
         }
     } else {

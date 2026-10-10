@@ -24,7 +24,7 @@ const {
     CANDIDATE_OFFLINE_PATHS,
     SAMPLE_DATA_PATH
 } = require('../seo/feedback-loop.js');
-const { coverage, closeResolvedGaps, fragmentOf, credentialsFromEnv } = require('../../services/search-gaps');
+const { coverage, closeResolvedGaps, fragmentOf, credentialsFromEnv, credentialAttempts } = require('../../services/search-gaps');
 const { fetchAllRows } = require('../../services/fetch-all-rows');
 
 async function runTests() {
@@ -174,6 +174,11 @@ async function runTests() {
         assert.strictEqual(credentialsFromEnv({ GOOGLE_CREDENTIALS_BASE64: b64('not json') }), null);
         assert.strictEqual(credentialsFromEnv({ GOOGLE_CREDENTIALS_BASE64: b64('{"client_id":"x"}') }), null);
         assert.strictEqual(credentialsFromEnv({}), null);
+
+        // Key file, then the production env credential, then ADC; the review audit uses this list
+        const order = credentialAttempts('/k.json', { GOOGLE_CREDENTIALS_BASE64: b64(JSON.stringify(sa)) });
+        assert.deepStrictEqual(order.map(a => a.source && (a.source.credentials ? 'env' : a.source)), ['/k.json', 'env', null]);
+        assert.deepStrictEqual(credentialAttempts(null, {}).map(a => a.source), [null]);
     } finally {
         fs.unlinkSync(csvCandidate);
     }
