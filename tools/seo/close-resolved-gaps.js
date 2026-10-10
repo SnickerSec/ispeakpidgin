@@ -7,9 +7,12 @@
  * the same coverage rules as npm run seo:loop and the admin Google Sync
  * (services/search-gaps.js), so all three agree on what a gap is.
  *
+ * It also closes typing-pause fragments ("hope all is" beside "hope all is well") as
+ * status='ignored': the dictionary page logs whatever is in the box when the user pauses.
+ *
  * Usage:
  *   npm run seo:close-gaps            # report what would close (dry run)
- *   npm run seo:close-gaps -- --apply # mark them status='added'
+ *   npm run seo:close-gaps -- --apply # mark them status='added' / 'ignored'
  */
 
 require('dotenv').config({ quiet: true });
@@ -25,16 +28,19 @@ async function main() {
     }
     const db = createClient(process.env.SUPABASE_URL, key);
 
-    const { pending, closed } = await closeResolvedGaps(db, { dryRun: !apply });
+    const { pending, closed, fragments } = await closeResolvedGaps(db, { dryRun: !apply });
     const byVia = closed.reduce((acc, g) => ({ ...acc, [g.via]: (acc[g.via] || 0) + 1 }), {});
 
     console.log(`${pending} pending search gaps; ${closed.length} already answered by the dictionary`);
     for (const [via, n] of Object.entries(byVia)) console.log(`   via ${via}: ${n}`);
     for (const g of closed.slice(0, 40)) console.log(`   "${g.term}" → ${g.match} (${g.via})`);
     if (closed.length > 40) console.log(`   … and ${closed.length - 40} more`);
+    console.log(`${fragments.length} typing-pause fragments of a longer logged term`);
+    for (const g of fragments.slice(0, 40)) console.log(`   "${g.term}" → "${g.of}"`);
+    if (fragments.length > 40) console.log(`   … and ${fragments.length - 40} more`);
 
     console.log(apply
-        ? `\n✅ Closed ${closed.length} gaps (status='added').`
+        ? `\n✅ Closed ${closed.length} gaps (status='added') and ${fragments.length} fragments (status='ignored').`
         : '\nDry run. Re-run with --apply to close them.');
 }
 

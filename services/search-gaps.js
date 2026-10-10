@@ -401,30 +401,56 @@ function fetchDictionaryForCoverage(db) {
 }
 
 /**
- * Close pending search_gaps rows the dictionary now answers, as status 'added'.
+ * The longer logged term a gap is a typing-pause fragment of, or null. The dictionary page
+ * asks the server once the user pauses, so "hope all is well" also logs "hope all is", and
+ * "not catching fish" logs "not catching f". A fragment ends where the longer term has a
+ * space or punctuation next, or is itself several words: "puni" is not a fragment of
+ * "punish", but "me ha" is one of "me hapa".
+ */
+function fragmentOf(term, others) {
+    const t = term.trim();
+    if (!t) return null;
+    return others.find(o => o.length > t.length && o.startsWith(t) &&
+        (t.includes(' ') || !/[a-z0-9]/i.test(o[t.length]))) || null;
+}
+
+/**
+ * Close pending search_gaps rows the dictionary now answers, as status 'added', and
+ * typing-pause fragments of a longer logged term (fragmentOf), as status 'ignored'.
  * 'near' matches stay pending: site search still finds nothing for them, so a person
  * should decide whether they deserve a spelling variant.
- * @returns {Promise<{ pending: number, closed: Array<{ id, term, match, via }> }>}
+ * @returns {Promise<{ pending: number, closed: Array<{ id, term, match, via }>,
+ *   fragments: Array<{ id, term, of }> }>}
  */
 async function closeResolvedGaps(db, { entries, dryRun = false } = {}) {
     const index = buildCoverageIndex(entries || await fetchDictionaryForCoverage(db));
-    const pending = await fetchAllRows(db, 'search_gaps', 'id, term', { filter: q => q.eq('status', 'pending') });
+    const gaps = await fetchAllRows(db, 'search_gaps', 'id, term, status');
+    const pending = gaps.filter(g => g.status === 'pending');
+    const logged = gaps.map(g => decodeEntities(g.term).toLowerCase());
 
     const closed = [];
+    const fragments = [];
     for (const gap of pending) {
         const term = decodeEntities(gap.term);
         const hit = coverage(term, index) || coverage(cleanQueryTerm(term, index.normalized), index);
-        if (hit && hit.via !== 'near') closed.push({ id: gap.id, term: gap.term, ...hit });
+        if (hit && hit.via !== 'near') {
+            closed.push({ id: gap.id, term: gap.term, ...hit });
+            continue;
+        }
+        const of = fragmentOf(term.toLowerCase(), logged);
+        if (of) fragments.push({ id: gap.id, term: gap.term, of });
     }
 
     if (!dryRun) {
-        for (let i = 0; i < closed.length; i += 200) {
-            const ids = closed.slice(i, i + 200).map(g => g.id);
-            const { error } = await db.from('search_gaps').update({ status: 'added' }).in('id', ids);
-            if (error) throw error;
+        for (const [rows, status] of [[closed, 'added'], [fragments, 'ignored']]) {
+            for (let i = 0; i < rows.length; i += 200) {
+                const ids = rows.slice(i, i + 200).map(g => g.id);
+                const { error } = await db.from('search_gaps').update({ status }).in('id', ids);
+                if (error) throw error;
+            }
         }
     }
-    return { pending: pending.length, closed };
+    return { pending: pending.length, closed, fragments };
 }
 
 /**
@@ -538,6 +564,7 @@ module.exports = {
     findMissingTerms,
     fetchDictionaryForCoverage,
     closeResolvedGaps,
+    fragmentOf,
     resolveKeyPath,
     credentialsFromEnv,
     getAuthClient,

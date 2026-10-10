@@ -98,6 +98,8 @@ The feedback loop script closes the gap between what users search for and what i
 5. **Stale gaps**: `npm run seo:close-gaps` (dry run) / `-- --apply` marks pending `search_gaps` rows
    the dictionary now answers as `added`. The admin Sync does this too. One-edit near misses stay
    pending, since site search still finds nothing for them; they may need a spelling variant.
+   It also marks typing-pause fragments `ignored` ("hope all is" beside "hope all is well"): the
+   dictionary page queries the server whenever the user pauses, so partial input gets logged.
 
 ### Dictionary Maintenance
 The project includes specialized tools for maintaining the Supabase dictionary:

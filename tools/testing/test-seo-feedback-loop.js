@@ -24,7 +24,7 @@ const {
     CANDIDATE_OFFLINE_PATHS,
     SAMPLE_DATA_PATH
 } = require('../seo/feedback-loop.js');
-const { coverage, closeResolvedGaps, credentialsFromEnv } = require('../../services/search-gaps');
+const { coverage, closeResolvedGaps, fragmentOf, credentialsFromEnv } = require('../../services/search-gaps');
 const { fetchAllRows } = require('../../services/fetch-all-rows');
 
 async function runTests() {
@@ -240,12 +240,17 @@ async function runTests() {
     const gscRows = ['brother', 'thank you', 'kids', 'painful'].map(q => ({ keys: [q], impressions: 50 }));
     assert.deepStrictEqual(findMissingTerms(gscRows, entries, 20).map(m => m.pidgin), ['painful']);
 
-    // 11. Closing resolved search_gaps rows: 'near' matches stay pending for a person to judge
+    // 11. Closing resolved search_gaps rows: 'near' matches stay pending for a person to judge,
+    // and typing-pause fragments of a longer logged term (even a closed one) are ignored
     console.log('11. Testing closeResolvedGaps against a mock search_gaps table...');
     const gapRows = [{ id: 1, term: 'brother' }, { id: 2, term: 'kamaiana' }, { id: 3, term: 'painful' },
                      { id: 4, term: 'what does keiki mean' },
                      // escaped by express-validator before 37fd9f68
-                     { id: 5, term: '&#x27;brother&#x27;' }];
+                     { id: 5, term: '&#x27;brother&#x27;' },
+                     { id: 6, term: 'hope all is' }, { id: 7, term: 'hope all is well', status: 'ignored' },
+                     // a whole word, not a fragment of "punish"
+                     { id: 8, term: 'puni' }, { id: 9, term: 'punish', status: 'ignored' }]
+        .map(g => ({ status: 'pending', ...g }));
     const updates = [];
     const mockDb = {
         from: table => {
@@ -259,11 +264,16 @@ async function runTests() {
         }
     };
     const dry = await closeResolvedGaps(mockDb, { entries, dryRun: true });
-    assert.strictEqual(dry.pending, 5);
+    assert.strictEqual(dry.pending, 7);
     assert.deepStrictEqual(dry.closed.map(g => g.id), [1, 4, 5]);
+    assert.deepStrictEqual(dry.fragments.map(g => [g.id, g.of]), [[6, 'hope all is well']]);
     assert.strictEqual(updates.length, 0, 'A dry run writes nothing');
     await closeResolvedGaps(mockDb, { entries });
-    assert.deepStrictEqual(updates, [{ patch: { status: 'added' }, ids: [1, 4, 5] }]);
+    assert.deepStrictEqual(updates, [{ patch: { status: 'added' }, ids: [1, 4, 5] }, { patch: { status: 'ignored' }, ids: [6] }]);
+
+    assert.strictEqual(fragmentOf('not catching f', ['not catching fish']), 'not catching fish');
+    assert.strictEqual(fragmentOf('are you okay', ['are you okay?']), 'are you okay?');
+    assert.strictEqual(fragmentOf('astin', ['astine']), null);
 
     // 12. Paging: PostgREST stops at 1,000 rows, and unordered pages can skip or repeat rows
     console.log('12. Testing fetchAllRows paging past 1,000 rows...');
