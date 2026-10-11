@@ -34,6 +34,12 @@ const EXPERIMENTS = [
         page: '/translator.html',
         queries: ['pidgin translator', 'english to pidgin', 'pidgin english translator', 'english to pidgin translator']
     },
+    {
+        name: 'Pidgin Bible: fixed verses, both editions, FAQ',
+        live: '2026-10-11',
+        page: '/pidgin-bible.html',
+        queries: ['da jesus book', 'hawaiian pidgin bible', 'da good and spesho book', 'da jesus book pdf']
+    },
     { name: 'brah snippet', live: '2026-10-03', page: '/what-does-brah-mean.html', excludeDates: ['2026-09-20', '2026-09-21'] },
     { name: 'pau snippet', live: '2026-10-07', page: '/what-does-pau-mean.html' },
     { name: 'shaka snippet', live: '2026-10-07', page: '/what-does-shaka-mean.html' },
