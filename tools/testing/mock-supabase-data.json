@@ -2424,6 +2424,268 @@
         "me ka mahalo nui",
         "me ka mahalo nui loa"
       ]
+    },
+    {
+      "id": "dict-114",
+      "pidgin": "pork hash",
+      "english": [
+        "steamed pork dumpling",
+        "local dim sum dumpling",
+        "siu mai"
+      ],
+      "category": "food",
+      "difficulty": "beginner",
+      "usage": "A Hawaii Chinese-local dim sum classic (siu mai) featuring seasoned ground pork, water chestnuts, and shrimp steamed in an open wonton wrapper.",
+      "examples": [
+        "Grab two manapua and tree pork hash from da bakery.",
+        "Dip da pork hash in hot mustard and shoyu, so ono!"
+      ],
+      "pronunciation": "pork hash",
+      "origin": "Hawaii Chinese-plantation culinary adaptation of Cantonese siu mai (烧卖).",
+      "frequency": "high",
+      "tags": [
+        "food",
+        "local eats",
+        "dim sum",
+        "snack"
+      ],
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "dict-115",
+      "pidgin": "went grad",
+      "english": [
+        "graduated",
+        "finished school",
+        "graduated high school"
+      ],
+      "category": "expressions",
+      "difficulty": "beginner",
+      "usage": "The classic Hawaii local milestone question and phrase describing graduating from school, especially high school, which serves as a core local connection in Hawaii.",
+      "examples": [
+        "What year you went grad?",
+        "We wen grad together from McKinley.",
+        "His keiki wen grad college on da mainland."
+      ],
+      "pronunciation": "went grad",
+      "origin": "Hawaiian Pidgin past-tense preverbal marker 'wen/went' + English 'grad' (graduate).",
+      "frequency": "high",
+      "tags": [
+        "school",
+        "expressions",
+        "everyday",
+        "milestones"
+      ],
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "wen grad"
+      ]
+    },
+    {
+      "id": "dict-116",
+      "pidgin": "kava",
+      "english": [
+        "traditional Polynesian ceremonial beverage",
+        "awa root drink"
+      ],
+      "category": "cultural",
+      "difficulty": "intermediate",
+      "usage": "A traditional calming beverage prepared from the roots of the kava plant (Piper methysticum), shared across the Pacific and Hawaii during ceremonies and community gatherings.",
+      "examples": [
+        "Come join da kava circle tonight and talk story.",
+        "Drinking kava helps you relax and pau hana in peace."
+      ],
+      "pronunciation": "KAH-vah",
+      "origin": "Polynesian / Hawaiian (ʻawa).",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "polynesian",
+        "tradition",
+        "gatherings"
+      ],
+      "source_language": "hawaiian",
+      "spelling_variants": [
+        "ʻawa",
+        "awa"
+      ]
+    },
+    {
+      "id": "dict-117",
+      "pidgin": "makahiki",
+      "english": [
+        "ancient Hawaiian New Year festival",
+        "season of peace and harvest",
+        "year"
+      ],
+      "category": "cultural",
+      "difficulty": "intermediate",
+      "usage": "The ancient Hawaiian harvest festival and new year season dedicated to Lono, god of agriculture and fertility, marked by games, sports, feasts, and peace.",
+      "examples": [
+        "During Makahiki season, warfare was forbidden across da islands.",
+        "Hauʻoli Makahiki Hou means Happy New Year!"
+      ],
+      "pronunciation": "mah-kah-HEE-kee",
+      "origin": "Hawaiian: makahiki (year, season, annual festival).",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "history",
+        "celebration",
+        "hawaiian"
+      ],
+      "source_language": "hawaiian",
+      "spelling_variants": []
+    },
+    {
+      "id": "dict-118",
+      "pidgin": "beach boy",
+      "english": [
+        "Waikiki surfing instructor",
+        "waterman ambassador",
+        "surf guide"
+      ],
+      "category": "people",
+      "difficulty": "beginner",
+      "usage": "The legendary watermen and surf instructors of Waikiki who helped popularize surfing worldwide while serving as ambassadors of aloha.",
+      "examples": [
+        "Uncle was one Waikiki beach boy from small kid time.",
+        "Da beach boys know how fo read every single wave."
+      ],
+      "pronunciation": "beach boy",
+      "origin": "Hawaii coastal surf culture.",
+      "frequency": "medium",
+      "tags": [
+        "people",
+        "surfing",
+        "ocean",
+        "waikiki"
+      ],
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "beach boys"
+      ]
+    },
+    {
+      "id": "dict-119",
+      "pidgin": "holokū",
+      "english": [
+        "traditional formal Hawaiian gown",
+        "floor-length dress with train"
+      ],
+      "category": "cultural",
+      "difficulty": "intermediate",
+      "usage": "An elegant, formal, floor-length Hawaiian gown with a train, adapted in the 19th century from missionary dresses into a dignified symbol of Hawaiian royalty and modern formal attire.",
+      "examples": [
+        "Tutu wore her velvet holokū for da May Day pageant.",
+        "Da singer looked stunning in her silk holokū."
+      ],
+      "pronunciation": "hoh-loh-KOO",
+      "origin": "Hawaiian: holokū.",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "fashion",
+        "tradition",
+        "pageants"
+      ],
+      "source_language": "hawaiian",
+      "spelling_variants": [
+        "holoku"
+      ]
+    },
+    {
+      "id": "dict-120",
+      "pidgin": "nuff said",
+      "english": [
+        "say no more",
+        "enough said",
+        "completely agreed",
+        "understood"
+      ],
+      "category": "expressions",
+      "difficulty": "beginner",
+      "usage": "Everyday colloquial phrase indicating immediate agreement and that no further explanation or convincing is necessary.",
+      "examples": [
+        "Free food and live music? Nuff said, I stay dea!",
+        "Nuff said brah, pack your gear and we go."
+      ],
+      "pronunciation": "nuff sed",
+      "origin": "Pidgin contraction of English 'enough said'.",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "slang",
+        "agreement",
+        "everyday"
+      ],
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "'nuff said"
+      ]
+    },
+    {
+      "id": "dict-121",
+      "pidgin": "jah den",
+      "english": [
+        "alright then",
+        "see you later",
+        "until then",
+        "that is that"
+      ],
+      "category": "greetings",
+      "difficulty": "beginner",
+      "usage": "A casual Pidgin farewell and parting expression meaning 'alright then' or 'see you then'.",
+      "examples": [
+        "Shoots, I see you tomorrow, jah den!",
+        "Jah den brah, take care!"
+      ],
+      "pronunciation": "jah den",
+      "origin": "Hawaiian Pidgin contraction of 'just then' or 'alright then'.",
+      "frequency": "high",
+      "tags": [
+        "greetings",
+        "parting",
+        "farewell",
+        "slang"
+      ],
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "den jah"
+      ]
+    },
+    {
+      "id": "dict-122",
+      "pidgin": "ay koodish",
+      "english": [
+        "exclamation of shock",
+        "oh no",
+        "good grief",
+        "yikes"
+      ],
+      "category": "expressions",
+      "difficulty": "intermediate",
+      "usage": "Plantation-era island exclamation expressing disbelief, shock, surprise, or distress.",
+      "examples": [
+        "Ay koodish! How come da tyre stay flat?",
+        "Ay koodish, look at da long line!"
+      ],
+      "pronunciation": "eye koo-DEESH",
+      "origin": "Hawaii plantation multicultural loanword.",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "slang",
+        "shock",
+        "plantation"
+      ],
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "ay kudeesh",
+        "ay koodeesh",
+        "cu dish"
+      ]
     }
   ],
   "phrases": [

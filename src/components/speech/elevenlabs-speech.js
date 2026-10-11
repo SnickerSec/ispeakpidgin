@@ -413,7 +413,28 @@ const PIDGIN_PRONUNCIATION_MAP = {
     'me ka mahalo': 'may kah mah-hah-low',
     'on da lo lo yo': 'on dah low low yo',
     'broke mouth': 'broke mowt',
-    'broke mouf': 'broke mowt'
+    'broke mouf': 'broke mowt',
+
+    // Migration 040 Additions
+    'kanaka maoli': 'kah-nah-kah mow-lee',
+    'kanaka ʻōiwi': 'kah-nah-kah oh-ee-vee',
+    'kanaka oiwi': 'kah-nah-kah oh-ee-vee',
+    'pork hash': 'pork hash',
+    'went grad': 'went grad',
+    'wen grad': 'wen grad',
+    'kava': 'kah-vah',
+    'makahiki': 'mah-kah-hee-kee',
+    'beach boy': 'beach boy',
+    'beach boys': 'beach boys',
+    'holokū': 'hoh-loh-koo',
+    'holoku': 'hoh-loh-koo',
+    'nuff said': 'nuff sed',
+    '\'nuff said': 'nuff sed',
+    'jah den': 'jah den',
+    'den jah': 'den jah',
+    'ay koodish': 'eye koo-deesh',
+    'ay kudeesh': 'eye koo-deesh',
+    'ay koodeesh': 'eye koo-deesh'
 };
 
 // Multi-word map entries, precomputed longest-first.
