@@ -383,7 +383,37 @@ const PIDGIN_PRONUNCIATION_MAP = {
     'chawan': 'chah-wahn',
     'moke': 'mohk',
     'two scoops': 'two skoops',
-    'mac salad': 'mack salad'
+    'mac salad': 'mack salad',
+
+    // Curated Cultural & Island Slang Additions (Migration 039)
+    'lomi salmon': 'loh-mee salmon',
+    'lomi': 'loh-mee',
+    'squid luau': 'squid loo-ow',
+    'squid lūʻau': 'squid loo-ow',
+    'pupu platter': 'poo-poo plattah',
+    'pūpū platter': 'poo-poo plattah',
+    'kalua pig': 'kah-loo-ah pig',
+    'kalua pork': 'kah-loo-ah pork',
+    'kālua pig': 'kah-loo-ah pig',
+    'kālua pork': 'kah-loo-ah pork',
+    'chotto matte': 'chot-toh maht-teh',
+    'kachi kachi': 'kah-chee kah-chee',
+    'kachikachi': 'kah-chee kah-chee',
+    'bagasu': 'bah-gah-soo',
+    'botan': 'boh-tahn',
+    'totus': 'toh-toos',
+    'daikon legs': 'dye-kohn legs',
+    'daikon': 'dye-kohn',
+    'maui no ka oi': 'mow-ee noh kah oy',
+    'maui no ka \'oi': 'mow-ee noh kah oy',
+    'maui nō ka ʻoi': 'mow-ee noh kah oy',
+    'bettah': 'beh-tah',
+    'mo\' bettah': 'mo beh-tah',
+    'mo bettah': 'mo beh-tah',
+    'me ka mahalo': 'may kah mah-hah-low',
+    'on da lo lo yo': 'on dah low low yo',
+    'broke mouth': 'broke mowt',
+    'broke mouf': 'broke mowt'
 };
 
 // Multi-word map entries, precomputed longest-first.
