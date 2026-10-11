@@ -400,7 +400,7 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
             </div>
             <div class="mt-6 pt-6 border-t border-blue-100/50 dark:border-slate-700 text-center">
                 <p class="text-xs text-gray-500 dark:text-slate-400">
-                    Want to learn more? Check out our <a href="/learning-hub.html" class="text-blue-500 dark:text-blue-400 font-bold hover:underline">Learning Hub</a> or <a href="/talk-story.html" class="text-purple-500 dark:text-purple-400 font-bold hover:underline">Talk Story with Kimo</a>!
+                    Want to learn more? Try whole sentences in our <a href="/translator.html" class="text-blue-500 dark:text-blue-400 font-bold hover:underline">English to Pidgin translator</a>, check out our <a href="/learning-hub.html" class="text-blue-500 dark:text-blue-400 font-bold hover:underline">Learning Hub</a>, or <a href="/talk-story.html" class="text-purple-500 dark:text-purple-400 font-bold hover:underline">Talk Story with Kimo</a>!
                 </p>
             </div>
         </section>
