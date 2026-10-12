@@ -488,7 +488,14 @@ const PIDGIN_PRONUNCIATION_MAP = {
     'ass why': 'ass-why',
     'das why hard': 'das-why hahd',
     'suk suk': 'sook sook',
-    'bline': 'bee-lyne'
+    'bline': 'bee-lyne',
+    'aloha e komo mai': 'ah-low-hah ay koh-moh my',
+    'aku eye': 'ah-koo eye',
+    'fadah man': 'fah-dah man',
+    'aiyah': 'eye-yah',
+    'spesho': 'spesh-oh',
+    'trow up': 'trow up',
+    'dangah': 'dayn-gah'
 };
 
 // Multi-word map entries, precomputed longest-first.

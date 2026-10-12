@@ -157,7 +157,21 @@ class ContextTracker {
             { pattern: /^Meanwhile,?\s+/i, replacement: 'Same time, ' },
             { pattern: /^At the same time,?\s+/i, replacement: 'Same time, ' },
             { pattern: /^In addition,?\s+/i, replacement: 'Plus, ' },
-            { pattern: /^Furthermore,?\s+/i, replacement: 'Plus, ' }
+            { pattern: /^Furthermore,?\s+/i, replacement: 'Plus, ' },
+            { pattern: /^Seriously,?\s+/i, replacement: "Fo' real, " },
+            { pattern: /^Honestly,?\s+/i, replacement: "Fo' real, " },
+            { pattern: /^Hold on,?\s+/i, replacement: 'Try wait, ' },
+            { pattern: /^Wait a minute,?\s+/i, replacement: 'Try wait, ' },
+            { pattern: /^Look here,?\s+/i, replacement: 'Try look, ' },
+            { pattern: /^Check this out,?\s+/i, replacement: 'Try look, ' },
+            { pattern: /^No problem,?\s+/i, replacement: 'No worries, ' },
+            { pattern: /^If anything,?\s+/i, replacement: 'If anyting, ' },
+            { pattern: /^In case,?\s+/i, replacement: 'If anyting, ' },
+            { pattern: /^Never mind,?\s+/i, replacement: 'Nevah mind, ' },
+            { pattern: /^Forget it,?\s+/i, replacement: 'Ainokea, ' },
+            { pattern: /^You know what,?\s+/i, replacement: 'You know wat, ' },
+            { pattern: /^Anyway,?\s+/i, replacement: 'Whatevahs, ' },
+            { pattern: /^Anyhow,?\s+/i, replacement: 'Whatevahs, ' }
         ];
 
         for (const { pattern, replacement } of transitions) {
@@ -208,7 +222,16 @@ class ContextTracker {
                 { pattern: /^Bumbai,?\s+/i, replacement: 'Later on, ' },
                 { pattern: /^Matter of fact,?\s+/i, replacement: 'Actually, ' },
                 { pattern: /^At da end,?\s+/i, replacement: 'In the end, ' },
-                { pattern: /^Same time,?\s+/i, replacement: 'Meanwhile, ' }
+                { pattern: /^Same time,?\s+/i, replacement: 'Meanwhile, ' },
+                { pattern: /^Fo' real,?\s+/i, replacement: 'Honestly, ' },
+                { pattern: /^Try wait,?\s+/i, replacement: 'Hold on, ' },
+                { pattern: /^Try look,?\s+/i, replacement: 'Look here, ' },
+                { pattern: /^No worries,?\s+/i, replacement: 'No problem, ' },
+                { pattern: /^If anyting,?\s+/i, replacement: 'If anything, ' },
+                { pattern: /^Nevah mind,?\s+/i, replacement: 'Never mind, ' },
+                { pattern: /^Ainokea,?\s+/i, replacement: "Doesn't matter, " },
+                { pattern: /^You know wat,?\s+/i, replacement: 'You know what, ' },
+                { pattern: /^Whatevahs,?\s+/i, replacement: 'Anyway, ' }
             ];
 
             for (const { pattern, replacement } of transitions) {

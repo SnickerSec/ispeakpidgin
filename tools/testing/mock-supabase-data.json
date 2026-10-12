@@ -2686,6 +2686,155 @@
         "ay koodeesh",
         "cu dish"
       ]
+    },
+    {
+      "id": "dict-123",
+      "pidgin": "aku eye",
+      "english": [
+        "bulging eyes",
+        "bug-eyed",
+        "wide glassy eyes",
+        "staring blankly"
+      ],
+      "category": "slang",
+      "difficulty": "intermediate",
+      "usage": "Local slang describing someone with wide, bulging, tired, or blankly staring eyes, resembling an aku (skipjack tuna). Similar to menpachi eyes.",
+      "examples": [
+        "Why you got aku eye like dat? You nevah sleep last night?",
+        "He stayed looking at da waves wit aku eye."
+      ],
+      "pronunciation": "AH-koo eye",
+      "origin": "Hawaiian aku (skipjack tuna) + English eye.",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "expressions",
+        "humor",
+        "local"
+      ],
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "aku eyes"
+      ]
+    },
+    {
+      "id": "dict-124",
+      "pidgin": "fadah man",
+      "english": [
+        "Catholic priest",
+        "minister",
+        "pastor",
+        "reverend"
+      ],
+      "category": "people",
+      "difficulty": "intermediate",
+      "usage": "Local Pidgin term referring to a Catholic priest, pastor, or clerical father figure.",
+      "examples": [
+        "Fadah man wen give da blessing befo' we eat.",
+        "Uncle went talk story wit da fadah man aftah church."
+      ],
+      "pronunciation": "FAH-dah man",
+      "origin": "Pidgin pronunciation of father man.",
+      "frequency": "medium",
+      "tags": [
+        "people",
+        "church",
+        "culture",
+        "local"
+      ],
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "father man",
+        "fada man"
+      ]
+    },
+    {
+      "id": "dict-125",
+      "pidgin": "dap",
+      "english": [
+        "fist bump",
+        "handshake greeting",
+        "hand clasp greeting"
+      ],
+      "category": "slang",
+      "difficulty": "beginner",
+      "usage": "Casual island hand greeting incorporating a slap, slide, or fist bump between friends and braddahs.",
+      "examples": [
+        "Give da boy dap when you see him.",
+        "Shoots brah, throw me one dap."
+      ],
+      "pronunciation": "dap",
+      "origin": "Colloquial greeting gesture adopted widely in island culture.",
+      "frequency": "high",
+      "tags": [
+        "slang",
+        "greetings",
+        "gesture"
+      ],
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "dhaap",
+        "dapps"
+      ]
+    },
+    {
+      "id": "dict-126",
+      "pidgin": "spesho",
+      "english": [
+        "special",
+        "extraordinary",
+        "precious",
+        "unique"
+      ],
+      "category": "slang",
+      "difficulty": "beginner",
+      "usage": "Hawaiian Pidgin phonetic pronunciation and spelling of special. Widely recognized in Hawaii literature and everyday speech.",
+      "examples": [
+        "Dis one stay real spesho to me.",
+        "Da Good An Spesho Book stay da Pidgin Old Testament."
+      ],
+      "pronunciation": "SPESH-oh",
+      "origin": "Hawaiian Pidgin phonetic pronunciation of English special.",
+      "frequency": "high",
+      "tags": [
+        "slang",
+        "expressions",
+        "everyday"
+      ],
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "speso",
+        "speco"
+      ]
+    },
+    {
+      "id": "dict-127",
+      "pidgin": "trow up",
+      "english": [
+        "vomit",
+        "throw up",
+        "puke",
+        "get sick"
+      ],
+      "category": "actions",
+      "difficulty": "beginner",
+      "usage": "Everyday Pidgin term for vomiting or throwing up. Follows the standard Pidgin th-stopping (\"th\" -> \"t\").",
+      "examples": [
+        "Too much malasada, now I feel like I going trow up.",
+        "Dat boat ride was rough, almost everyone wen trow up."
+      ],
+      "pronunciation": "trow up",
+      "origin": "Pidgin phonology for English throw up.",
+      "frequency": "high",
+      "tags": [
+        "actions",
+        "health",
+        "slang"
+      ],
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "trow-up"
+      ]
     }
   ],
   "phrases": [

@@ -140,7 +140,9 @@ const spellingRedirects = {
     'cockroach': 'cockaroach',
     'zori': 'zoris',
     'da-aina': 'aina',
-    'eh-chance-um': 'chance-um'
+    'eh-chance-um': 'chance-um',
+    // Merged in migration 041
+    'dangah': 'danjah'
 };
 
 module.exports = spellingRedirects;

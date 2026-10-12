@@ -104,8 +104,20 @@ async function runTests() {
     assert.match(pidginResult.translation, /After that/i);
     assert.match(pidginResult.translation, /That is why/i);
 
-    // 7. Test Context Summary Metadata
-    console.log('7. Testing context summary metadata...');
+    // 7. Test Extended Conversational Discourse Transitions
+    console.log('7. Testing extended conversational discourse transitions...');
+    const conversationalText = 'We went surfing early morning. Honestly, the waves were huge. Hold on, look at that set.';
+    const convResult = tracker.translateParagraph(conversationalText, 'eng-to-pidgin');
+    assert.match(convResult.translation, /Fo' real/i);
+    assert.match(convResult.translation, /Try wait/i);
+
+    const pidginConversational = 'We went holo holo. Fo\' real, was so ono. Try wait, check out dis view.';
+    const pidginConvResult = tracker.translateParagraph(pidginConversational, 'pidgin-to-eng');
+    assert.match(pidginConvResult.translation, /Honestly/i);
+    assert.match(pidginConvResult.translation, /Hold on/i);
+
+    // 8. Test Context Summary Metadata
+    console.log('8. Testing context summary metadata...');
     const summary = tracker.getContextSummary();
     assert.ok(typeof summary.sentencesInHistory === 'number');
     assert.ok(typeof summary.entitiesTracked === 'number');
