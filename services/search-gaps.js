@@ -26,7 +26,8 @@ const BLACKLIST = [
     'lingo', 'phrases', 'words', 'saying', 'phrase', 'word', 'help help', 'translate poo from',
     'google', 'search', 'free', 'online', 'app', 'download', 'website', 'best', 'hawaii',
     'choke pidgin', 'chokepidgin', 'pronounce', 'pronunciation', 'how to', 'define', 'definition',
-    'common', 'yubo', 'portal', 'scobeis', 'scobeis portal', 'tuls', 'bby', 'how\'s it'
+    'common', 'yubo', 'portal', 'scobeis', 'scobeis portal', 'tuls', 'bby', 'how\'s it',
+    'top 10', 'top ten', 'how do', 'insults in', 'funny'
 ];
 
 const QUERY_STRIP_REGEXES = [
@@ -87,6 +88,11 @@ const QUERY_STRIP_REGEXES = [
     /(.*) hawaii/i,
     /what is (.*)/i,
     /define (.*)/i,
+    /is (.*) a slur/i,
+    /is (.*) an insult/i,
+    /is (.*) bad/i,
+    /is (.*) offensive/i,
+    /is (.*) derogatory/i,
     /is (.*) a word/i,
     /is (.*) a real word/i,
     /(.*) eyes/i,
@@ -117,7 +123,7 @@ const FILLER_TOKENS = new Set([
 // "meaning"/"definition" and the typos real searchers make of them (menaing, defintion, mesning, meanings).
 const GLOSS_TYPO = /^(?:m|n)[a-z]{0,4}ings?$|^def[a-z]*$/;
 // Queries for a site section rather than a word (the Pidgin Bible lives at /bible).
-const SECTION_QUERY = /jesus book|\bbible\b|spesho book|^list of\b|\blist of pidgin\b|\bwords list\b/;
+const SECTION_QUERY = /jesus book|\bbible\b|spesho book|^list of\b|\blist of pidgin\b|\bwords list\b|\btop\s*\d+\b|\btop ten\b/;
 
 function normalizeQueryTerm(txt) {
     if (!txt) return '';
@@ -361,8 +367,13 @@ function findMissingTerms(scQueries, entries, minImpressions = 20) {
         // Quoted searches are exact-match lookups for a name ("shoots with fabian"), not vocabulary.
         if (/^["“]/.test(rawQuery.trim()) || SECTION_QUERY.test(rawQuery.toLowerCase())) continue;
 
+        // Skip non-Hawaiian dialect queries (e.g. Nigerian Pidgin, African slang)
+        if (isOutOfScopeDialect(rawQuery)) continue;
+
         const term = cleanQueryTerm(rawQuery, index.normalized);
         const normalizedTerm = normalizeQueryTerm(term);
+
+        if (isOutOfScopeDialect(term)) continue;
 
         // Skip if in blacklist or matches common site queries
         if (BLACKLIST.some(b => {

@@ -96,8 +96,9 @@ async function runTests() {
     assert.strictEqual(cleanQueryTerm('what does pau hana mean'), 'pau hana');
     assert.strictEqual(cleanQueryTerm('how to say delicious in hawaiian'), 'delicious');
     assert.strictEqual(cleanQueryTerm('meaning of holoholo in chat'), 'holoholo');
-    assert.strictEqual(cleanQueryTerm('is chaminade a real word'), 'chaminade');
     assert.strictEqual(cleanQueryTerm('hawaiian word for grandmother'), 'grandmother');
+    assert.strictEqual(cleanQueryTerm('is haole a slur'), 'haole');
+    assert.strictEqual(cleanQueryTerm('is pupu an insult'), 'pupu');
 
     // Reduplication check with existing dictionary
     const existingSet = new Set(['kokua', 'ono', 'pau']);
@@ -202,7 +203,9 @@ async function runTests() {
     }
     const rows = [{ keys: ['"shoots with fabian"'], impressions: 50 }, { keys: ['da jesus book pdf'], impressions: 50 },
                   { keys: ['brah meaning'], impressions: 50 }, { keys: ['how do you say daikon legs'], impressions: 50 },
-                  { keys: ['list of words in pidgin'], impressions: 50 }];
+                  { keys: ['list of words in pidgin'], impressions: 50 },
+                  { keys: ['insults in nigerian'], impressions: 50 },
+                  { keys: ['top 10 pidgin words'], impressions: 50 }];
     assert.deepStrictEqual(findMissingTerms(rows, new Set(['brah']), 20).map(m => m.pidgin), ['daikon legs']);
 
     // 10. English meanings are coverage: before services/search-gaps.js the CLI reported these

@@ -147,7 +147,9 @@ const spellingRedirects = {
     'fa-uso': 'uso',
     'spoil-brat': 'spoil',
     // Merged in migration 043
-    'garot': 'garut'
+    'garot': 'garut',
+    // Merged in migration 044
+    'hihu': 'huhu'
 };
 
 module.exports = spellingRedirects;

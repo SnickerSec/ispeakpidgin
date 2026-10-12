@@ -40,7 +40,13 @@ const EXPERIMENTS = [
         page: '/pidgin-bible.html',
         queries: ['da jesus book', 'hawaiian pidgin bible', 'da good and spesho book', 'da jesus book pdf']
     },
-    { name: 'brah snippet', live: '2026-10-03', page: '/what-does-brah-mean.html', excludeDates: ['2026-09-20', '2026-09-21'] },
+    {
+        name: 'brah answer snippet, slang FAQ, definition schema',
+        live: '2026-10-12',
+        page: '/what-does-brah-mean.html',
+        queries: ['brah', 'brah meaning', 'brah definition', 'what is brah', 'define brah', 'what does brah mean', 'brah def', 'brah meaning slang'],
+        excludeDates: ['2026-09-20', '2026-09-21']
+    },
     { name: 'pau snippet', live: '2026-10-07', page: '/what-does-pau-mean.html' },
     { name: 'shaka snippet', live: '2026-10-07', page: '/what-does-shaka-mean.html' },
     { name: 'shoots snippet', live: '2026-10-07', page: '/what-does-shoots-mean.html' },

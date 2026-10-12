@@ -12,9 +12,8 @@ require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
-const { execSync } = require('child_process');
 const { createClient } = require('@supabase/supabase-js');
-const { applyPronunciationCorrections } = require('../../src/components/speech/elevenlabs-speech.js');
+const { applyPronunciationCorrections, ELEVENLABS_SYNTHESIS } = require('../../src/components/speech/elevenlabs-speech.js');
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -103,16 +102,30 @@ async function generateClip(text, voiceId) {
         return { status: 'cached', filename: cached.audio_filename, hash };
     }
 
-    // 2. Synthesize via ElevenLabs CLI
-    const tempFile = path.join('/tmp', `tts_${voiceId}_${hash}.mp3`);
-    const cmd = `ELEVENLABS_API_KEY="" /home/chuck/.cargo/bin/elevenlabs text-to-speech convert \
-        --voice-id "${voiceId}" \
-        --text "${spokenText.replace(/"/g, '\\"')}" \
-        --model-id "eleven_flash_v2_5" \
-        --format raw > "${tempFile}"`;
+    // 2. Synthesize via ElevenLabs API
+    const apiKey = process.env.ELEVENLABS_API_KEY;
+    if (!apiKey) throw new Error('Missing ELEVENLABS_API_KEY');
 
-    execSync(cmd, { stdio: 'pipe' });
-    const buffer = fs.readFileSync(tempFile);
+    const url = `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`;
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Accept': 'audio/mpeg',
+            'Content-Type': 'application/json',
+            'xi-api-key': apiKey
+        },
+        body: JSON.stringify({
+            text: spokenText,
+            model_id: ELEVENLABS_SYNTHESIS.model_id,
+            voice_settings: ELEVENLABS_SYNTHESIS.voice_settings
+        })
+    });
+
+    if (!response.ok) {
+        throw new Error(`ElevenLabs API error (${response.status}): ${await response.text()}`);
+    }
+
+    const buffer = Buffer.from(await response.arrayBuffer());
 
     // 3. Upload to Supabase Storage
     const { error: uploadError } = await supabase.storage
@@ -137,9 +150,6 @@ async function generateClip(text, voiceId) {
         }, { onConflict: 'md5_hash,direction,voice_id' });
 
     if (indexError) throw indexError;
-
-    // Cleanup temp
-    try { fs.unlinkSync(tempFile); } catch (e) {}
 
     return { status: 'generated', filename, hash, sizeKb: Math.round(buffer.length / 1024) };
 }
