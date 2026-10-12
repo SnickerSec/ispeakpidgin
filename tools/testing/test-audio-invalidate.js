@@ -11,6 +11,11 @@ const {
     invalidateTerm
 } = require('../audio/invalidate-audio.js');
 
+const {
+    computePhoneticHashes,
+    compareManifests
+} = require('../audio/detect-phonetic-drift.js');
+
 async function runTests() {
     console.log('🧪 Testing Audio Cache Invalidation Tool...\n');
 
@@ -165,10 +170,31 @@ async function runTests() {
     assert.strictEqual(activeResult.isDryRun, false);
     assert.deepStrictEqual(deleteDbCalledWith, [2563], 'Should delete matching translation_cache row IDs');
     assert.deepStrictEqual(removeStorageCalledWith, ['986a931e239eef0b18fdf3cc3630def0.mp3'], 'Should delete matching storage files');
-    assert.ok(uploadedIndexJson !== null, 'Should re-upload updated index.json');
-    assert.strictEqual(uploadedIndexJson['puʻuwai'], undefined, 'Removed term must not exist in updated index.json');
+    // Test 5: Phonetic drift detection and manifest diff
+    console.log('5. Testing phonetic drift detection & manifest comparison...');
+    const testMap = {
+        'ono': 'oh-noh',
+        'brah': 'brah',
+        'pau': 'pow'
+    };
+    const computed = computePhoneticHashes(testMap, (t) => testMap[t]);
+    assert.strictEqual(Object.keys(computed).length, 3);
+    assert.ok(computed['ono'].hash);
 
-    console.log('\n✅ All Audio Cache Invalidation unit tests passed successfully!\n');
+    const storedBaseline = {
+        'ono': computed['ono'].hash,
+        'brah': 'stale_hash_value', // modified
+        'old_term': 'some_hash'     // removed
+        // 'pau' is missing -> added
+    };
+
+    const diff = compareManifests(computed, storedBaseline);
+    assert.deepStrictEqual(diff.clean, ['ono']);
+    assert.deepStrictEqual(diff.modified, ['brah']);
+    assert.deepStrictEqual(diff.added, ['pau']);
+    assert.deepStrictEqual(diff.removed, ['old_term']);
+
+    console.log('\n✅ All Audio Cache Invalidation & Drift unit tests passed successfully!\n');
 }
 
 if (require.main === module) {

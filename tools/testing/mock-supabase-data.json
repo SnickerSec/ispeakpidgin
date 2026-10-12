@@ -2835,6 +2835,70 @@
       "spelling_variants": [
         "trow-up"
       ]
+    },
+    {
+      "id": "dict-128",
+      "pidgin": "uso",
+      "english": [
+        "brother",
+        "bro",
+        "brotherhood",
+        "friend"
+      ],
+      "category": "slang",
+      "difficulty": "beginner",
+      "usage": "A Samoan term widely embraced across Hawaii meaning brother or close friend, used similarly to brah or bro.",
+      "examples": [
+        "Cheee, what's up uso!",
+        "Dat guy my uso from way back, we grew up together."
+      ],
+      "pronunciation": "OO-soh",
+      "origin": "Samoan uso (sibling of the same gender). Commonly used in local Hawaii culture.",
+      "frequency": "high",
+      "tags": [
+        "slang",
+        "polynesian",
+        "brotherhood",
+        "greetings",
+        "local"
+      ],
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "fa uso",
+        "fa'a uso"
+      ]
+    },
+    {
+      "id": "dict-129",
+      "pidgin": "spoil",
+      "english": [
+        "spoiled",
+        "acting entitled",
+        "fussy",
+        "bratty"
+      ],
+      "category": "descriptions",
+      "difficulty": "beginner",
+      "usage": "Used to describe someone who acts entitled, fussy, or demanding like a spoiled child. Commonly heard as \"spoil brat\".",
+      "examples": [
+        "No be so spoil, eat what stay on your plate.",
+        "Dat kid stay one spoil brat when he no get his way."
+      ],
+      "pronunciation": "SPOIL",
+      "origin": "English spoiled, adapted with characteristic Pidgin consonant cluster reduction.",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "descriptions",
+        "behavior",
+        "family"
+      ],
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "spoil brat",
+        "spoilt",
+        "spoile"
+      ]
     }
   ],
   "phrases": [

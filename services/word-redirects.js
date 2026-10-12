@@ -142,7 +142,10 @@ const spellingRedirects = {
     'da-aina': 'aina',
     'eh-chance-um': 'chance-um',
     // Merged in migration 041
-    'dangah': 'danjah'
+    'dangah': 'danjah',
+    // Merged in migration 042
+    'fa-uso': 'uso',
+    'spoil-brat': 'spoil'
 };
 
 module.exports = spellingRedirects;

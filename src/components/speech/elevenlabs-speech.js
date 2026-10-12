@@ -495,7 +495,9 @@ const PIDGIN_PRONUNCIATION_MAP = {
     'aiyah': 'eye-yah',
     'spesho': 'spesh-oh',
     'trow up': 'trow up',
-    'dangah': 'dayn-gah'
+    'dangah': 'dayn-gah',
+    'uso': 'oo-soh',
+    'fa uso': 'fah oo-soh'
 };
 
 // Multi-word map entries, precomputed longest-first.

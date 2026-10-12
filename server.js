@@ -443,6 +443,13 @@ app.get(['/index.html', '/index'], pageLimiter, (req, res) => {
 });
 
 // ============================================
+// SEO: Redirect 'is-haole-a-slur' queries to what-does-haole-mean guide
+// ============================================
+app.get(['/is-haole-a-slur', '/is-haole-a-slur.html', '/is-haole-offensive', '/is-haole-offensive.html'], pageLimiter, (req, res) => {
+    res.redirect(301, '/what-does-haole-mean.html#is-haole-a-slur');
+});
+
+// ============================================
 // SEO: Redirect legacy 'what-does-X-mean.html' to '/word/X.html'
 // ============================================
 app.get(['/what-does-:word-mean.html', '/what-is-:word-mean.html', '/what-does-:word.html', '/what-is-:word.html'], (req, res, next) => {
