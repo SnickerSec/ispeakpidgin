@@ -45,6 +45,79 @@ function headwordContains(outer, inner) {
     return i.trim().length >= 4 && o.length > i.length && o.includes(i);
 }
 
+// Search snippets that answer the query instead of promising to. "Fosho Meaning: Definition,
+// Examples & Audio" drew 3,651 impressions for "fosho meaning" at position 6 and 2 clicks
+// (Search Console, 2026-09-22 → 10-09); the hand-written pau/shaka pages already lead with the answer.
+const META_DESCRIPTION_MAX = 160;
+const TITLE_MEANING_MAX = 30;
+
+// Capitalized first words in dictionary_entries.english that are proper nouns, not sentence case
+const PROPER_FIRST_WORD = /^(I|I'm|I'd|I'll|Hawaii|Hawaiian|Japanese|Portuguese|Filipino|Filipina|Korean|Korean-style|Chinese|Malay|Asian|Samoan|Tongan|Pacific|Puerto|Maui|Waikiki|Kona|Ko|Heineken|Merry)$/;
+
+// Meanings as they read mid-sentence: "Dead" → "dead", but "I care" and "Maui is the best" keep their case.
+function meaningForSentence(m) {
+    const text = String(m || '').trim();
+    if (PROPER_FIRST_WORD.test(text.split(/\s+/)[0])) return text;
+    return text.charAt(0).toLowerCase() + text.slice(1);
+}
+
+// "a", "a or b", "a, b, or c"
+function joinMeanings(meanings) {
+    const quoted = meanings.map(m => `"${m}"`);
+    if (quoted.length <= 2) return quoted.join(' or ');
+    return `${quoted.slice(0, -1).join(', ')}, or ${quoted[quoted.length - 1]}`;
+}
+
+// A respelling worth showing: skip guides that only restate the headword ("bumbai" → "BUM-bye" stays).
+function pronunciationHint(entry) {
+    const fold = t => String(t || '').toLowerCase().normalize('NFD').replace(/[^a-z]/g, '');
+    const said = String(entry.pronunciation || '').trim();
+    return said && fold(said) !== fold(entry.pidgin) ? said : '';
+}
+
+function answerFirstSnippet(entry, capitalizedWord) {
+    const meanings = (Array.isArray(entry.english) ? entry.english : [entry.english])
+        .filter(Boolean).map(meaningForSentence);
+    const isHawaiian = entry.source_language === 'hawaiian';
+    const said = pronunciationHint(entry);
+    const subject = said ? `${capitalizedWord} (said "${said}")` : capitalizedWord;
+    const first = meanings[0] || '';
+
+    // Entries that define a spelling, not a meaning: "Phonetic spelling of 'auwe'"
+    const spellingNote = /spelling of/i.test(first);
+    const sentenceFor = n => spellingNote
+        ? `${subject} is a ${first}.`
+        : isHawaiian
+            ? `${subject} means ${joinMeanings(meanings.slice(0, n))} in Hawaiian and Pidgin.`
+            : `${subject} is Hawaiian Pidgin for ${joinMeanings(meanings.slice(0, n))}.`;
+
+    const example = (entry.examples || [])
+        .map(e => String(e).trim())
+        .filter(e => e.length >= 12 && e.length <= 60)
+        .sort((a, b) => a.length - b.length)
+        .map(e => /[.!?]$/.test(e) ? e : `${e}.`)[0];
+    const close = 'Hear it said.';
+
+    // Longest version that fits: 3 meanings + example, then fewer meanings, then no example.
+    let description = '';
+    for (const withExample of [true, false]) {
+        for (let n = Math.min(3, meanings.length); n >= 1 && !description; n--) {
+            const parts = [sentenceFor(n), withExample && example ? `"${example}"` : '', close].filter(Boolean);
+            const candidate = parts.join(' ');
+            if (candidate.length <= META_DESCRIPTION_MAX) description = candidate;
+        }
+        if (description) break;
+    }
+    if (!description) description = `${sentenceFor(1)} ${close}`;
+
+    const language = isHawaiian ? 'Hawaiian' : 'Hawaiian Pidgin';
+    const title = first && !spellingNote && first.length <= TITLE_MEANING_MAX
+        ? `${capitalizedWord} Meaning: "${first}" in ${language} + Audio | ChokePidgin`
+        : `${capitalizedWord} Meaning in ${language}: Examples & Audio | ChokePidgin`;
+
+    return { title, description };
+}
+
 // Helper: Find related terms (same category or similar tags)
 function findRelatedTerms(entry, allEntries, limit = 6) {
     const related = allEntries
@@ -83,13 +156,9 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
     const premiumPage = getPremiumPage(entry.pidgin);
     const premiumLink = premiumPage ? `${SITE_URL}/${premiumPage}` : null;
 
-    // SEO-optimized title: Match exact search query "X meaning" with compelling format
-    // Capitalize the word properly for display
+    // Title keeps the exact "X meaning" match; title and description both lead with the answer
     const capitalizedWord = entry.pidgin.charAt(0).toUpperCase() + entry.pidgin.slice(1);
-    const pageTitle = `${capitalizedWord} Meaning: Definition, Examples & Audio | ChokePidgin`;
-
-    // Create a more compelling, action-oriented meta description
-    const metaDescription = `What does '${entry.pidgin}' mean? Discover the definition, authentic examples, cultural origin, and local pronunciation for this Hawaiian Pidgin term.`;
+    const { title: pageTitle, description: metaDescription } = answerFirstSnippet(entry, capitalizedWord);
 
     const canonicalUrl = premiumLink || `${SITE_URL}/word/${slug}.html`;
     const ogImage = `${SITE_URL}/assets/og/words/${slug}.webp`;

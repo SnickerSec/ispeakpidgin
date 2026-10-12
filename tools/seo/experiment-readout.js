@@ -44,7 +44,14 @@ const EXPERIMENTS = [
     { name: 'pau snippet', live: '2026-10-07', page: '/what-does-pau-mean.html' },
     { name: 'shaka snippet', live: '2026-10-07', page: '/what-does-shaka-mean.html' },
     { name: 'shoots snippet', live: '2026-10-07', page: '/what-does-shoots-mean.html' },
-    { name: 'faka snippet', live: '2026-10-07', page: '/what-does-faka-mean.html' }
+    { name: 'faka snippet', live: '2026-10-07', page: '/what-does-faka-mean.html' },
+    // Answer-first titles/descriptions on every /word/ page (generate-entry-pages.js); these five
+    // had the most impressions per click. Set `live` to the day the change actually deploys.
+    { name: 'word page: kefe', live: '2026-10-12', page: '/word/kefe.html', queries: ['kefe', 'kefe meaning'] },
+    { name: 'word page: fosho', live: '2026-10-12', page: '/word/fosho.html', queries: ['fosho meaning', 'fosho'] },
+    { name: 'word page: mahalo nui loa', live: '2026-10-12', page: '/word/mahalo-nui-loa.html', queries: ['mahalo nui loa'] },
+    { name: 'word page: bumbai', live: '2026-10-12', page: '/word/bumbai.html', queries: ['bumbai', 'bumbai meaning'] },
+    { name: 'word page: shaka brah', live: '2026-10-12', page: '/word/shaka-brah.html', queries: ['shaka brah'] }
 ];
 
 const isoDay = d => d.toISOString().slice(0, 10);
