@@ -45,6 +45,12 @@ const EXPERIMENTS = [
     { name: 'shaka snippet', live: '2026-10-07', page: '/what-does-shaka-mean.html' },
     { name: 'shoots snippet', live: '2026-10-07', page: '/what-does-shoots-mean.html' },
     { name: 'faka snippet', live: '2026-10-07', page: '/what-does-faka-mean.html' },
+    {
+        name: 'mahalo snippet, FAQ, folk etymology corrected',
+        live: '2026-10-12',
+        page: '/what-does-mahalo-mean.html',
+        queries: ['mahalo meaning', 'what does mahalo mean', 'hawaiian word for thank you', 'does mahalo mean thank you']
+    },
     // Answer-first titles/descriptions on every /word/ page (generate-entry-pages.js); these five
     // had the most impressions per click. Set `live` to the day the change actually deploys.
     { name: 'word page: kefe', live: '2026-10-12', page: '/word/kefe.html', queries: ['kefe', 'kefe meaning'] },
