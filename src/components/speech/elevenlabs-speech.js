@@ -434,7 +434,61 @@ const PIDGIN_PRONUNCIATION_MAP = {
     'den jah': 'den jah',
     'ay koodish': 'eye koo-deesh',
     'ay kudeesh': 'eye koo-deesh',
-    'ay koodeesh': 'eye koo-deesh'
+    'ay koodeesh': 'eye koo-deesh',
+
+    // Enhanced Local Vocabulary & Pronunciation Tuning
+    'nevah': 'neh-vah',
+    'pakalolo': 'pah-kah-low-low',
+    'try wait': 'chry wayt',
+    'try look': 'chry look',
+    'try taste': 'chry tayst',
+    'choke cars': 'chohk cahs',
+    'ice cake': 'ice cayk',
+    'hard rub': 'hahd rub',
+    'pork out': 'pawk owt',
+    'pau work': 'pow wurk',
+    'pau school': 'pow skool',
+    'shoots den': 'shoots den...',
+    'kay fine den': 'kay, fine den...',
+    'nah nah nah': 'nah, nah, nah...',
+    'whatevahs': 'wut-eh-vahs',
+    'whatevah': 'wut-eh-vah',
+    'watevah': 'wut-eh-vah',
+    'wotevah': 'wut-eh-vah',
+    'woteveah': 'wut-eh-vah',
+    'rubbah slippahs': 'rub-bah slip-pahz',
+    'ono grindz': 'oh-noh gryndz',
+    'two scoop': 'two skoop',
+    'shoyu chicken': 'show-yoo chick-en',
+    'chicken katsu': 'chicken kaht-soo',
+    'katsu': 'kaht-soo',
+    'teriyaki': 'teh-ree-yah-kee',
+    'tako': 'tah-koh',
+    'tako poke': 'tah-koh poh-kay',
+    'ahi poke': 'ah-hee poh-kay',
+    'lau lau': 'laow-laow',
+    'lomi lomi salmon': 'loh-mee loh-mee salmon',
+    'tutu wahine': 'too-too wah-hee-nay',
+    'tūtū wahine': 'too-too wah-hee-nay',
+    'bambucha': 'bam-boo-chah',
+    'mahalo nui': 'mah-hah-low noo-ee',
+    'mahalo nui loa': 'mah-hah-low noo-ee low-ah',
+    'can or no can': 'can, or no can?',
+    'hammah': 'hah-mah',
+    'tings': 'tings',
+    'ladat': 'lah-daht',
+    'likadat': 'lyke-ah-daht',
+    'laytah': 'lay-tah',
+    'laytahs': 'lay-tahz',
+    'alrite': 'all-rye-t',
+    'auright': 'all-rye-t',
+    'dassit': 'dass-it',
+    'dass why': 'dass-why',
+    'das why': 'dass-why',
+    'ass why': 'ass-why',
+    'das why hard': 'das-why hahd',
+    'suk suk': 'sook sook',
+    'bline': 'bee-lyne'
 };
 
 // Multi-word map entries, precomputed longest-first.
@@ -818,7 +872,12 @@ function applyPronunciationCorrections(text) {
         correctedText = correctedText
             .replace(/(?<![\w-])eh(?![\w-])(?!\s*,)(?!\.\.\.)/gi, 'eh,')
             .replace(/(?<![\w-])hoh(?![\w-])(?!\s*,)(?!\.\.\.)/gi, 'hoh,')
+            .replace(/(?<![\w-])how-zit(?![\w-])(?!\s*,)(?!\.\.\.)\s+/gi, 'how-zit, ')
+            .replace(/(?<![\w-])shoots(?![\w-])(?!\s*,)(?!\.\.\.)\s+(?!den\b)/gi, 'shoots, ')
+            .replace(/(?<![\w-])bum-bye(?![\w-])(?!\s*,)(?!\.\.\.)\s+/gi, 'bum-bye, ')
             .replace(/([^\s,])\s+brah(?![-\w])(?!\.\.\.)/gi, '$1, brah')
+            .replace(/([^\s,])\s+cuz(?![-\w])(?!\.\.\.)/gi, '$1, cuz')
+            .replace(/([^\s,])\s+sistah(?![-\w])(?!\.\.\.)/gi, '$1, sistah')
             .replace(/([^\s,])\s*\byeah\b\?/gi, '$1, yeah?')
             .replace(/([^\s,])\s*\bo wat\b\?/gi, '$1, or wat?')
             .replace(/\s{2,}/g, ' ')
