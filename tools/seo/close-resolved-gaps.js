@@ -28,7 +28,7 @@ async function main() {
     }
     const db = createClient(process.env.SUPABASE_URL, key);
 
-    const { pending, closed, fragments } = await closeResolvedGaps(db, { dryRun: !apply });
+    const { pending, closed, fragments, outOfScope = [] } = await closeResolvedGaps(db, { dryRun: !apply });
     const byVia = closed.reduce((acc, g) => ({ ...acc, [g.via]: (acc[g.via] || 0) + 1 }), {});
 
     console.log(`${pending} pending search gaps; ${closed.length} already answered by the dictionary`);
@@ -38,9 +38,12 @@ async function main() {
     console.log(`${fragments.length} typing-pause fragments of a longer logged term`);
     for (const g of fragments.slice(0, 40)) console.log(`   "${g.term}" → "${g.of}"`);
     if (fragments.length > 40) console.log(`   … and ${fragments.length - 40} more`);
+    console.log(`${outOfScope.length} out-of-scope non-Hawaiian dialect queries`);
+    for (const g of outOfScope.slice(0, 40)) console.log(`   "${g.term}" → ignored`);
+    if (outOfScope.length > 40) console.log(`   … and ${outOfScope.length - 40} more`);
 
     console.log(apply
-        ? `\n✅ Closed ${closed.length} gaps (status='added') and ${fragments.length} fragments (status='ignored').`
+        ? `\n✅ Closed ${closed.length} gaps (status='added'), ${fragments.length} fragments (status='ignored'), and ${outOfScope.length} out-of-scope dialect terms (status='ignored').`
         : '\nDry run. Re-run with --apply to close them.');
 }
 

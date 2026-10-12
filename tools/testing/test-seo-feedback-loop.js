@@ -24,7 +24,7 @@ const {
     CANDIDATE_OFFLINE_PATHS,
     SAMPLE_DATA_PATH
 } = require('../seo/feedback-loop.js');
-const { coverage, closeResolvedGaps, fragmentOf, credentialsFromEnv, credentialAttempts } = require('../../services/search-gaps');
+const { coverage, closeResolvedGaps, fragmentOf, isOutOfScopeDialect, credentialsFromEnv, credentialAttempts } = require('../../services/search-gaps');
 const { fetchAllRows } = require('../../services/fetch-all-rows');
 
 async function runTests() {
@@ -254,7 +254,9 @@ async function runTests() {
                      { id: 5, term: '&#x27;brother&#x27;' },
                      { id: 6, term: 'hope all is' }, { id: 7, term: 'hope all is well', status: 'ignored' },
                      // a whole word, not a fragment of "punish"
-                     { id: 8, term: 'puni' }, { id: 9, term: 'punish', status: 'ignored' }]
+                     { id: 8, term: 'puni' }, { id: 9, term: 'punish', status: 'ignored' },
+                     // out-of-scope non-Hawaiian dialects
+                     { id: 10, term: 'kiri' }, { id: 11, term: 'insults in nigerian' }]
         .map(g => ({ status: 'pending', ...g }));
     const updates = [];
     const mockDb = {
@@ -269,16 +271,33 @@ async function runTests() {
         }
     };
     const dry = await closeResolvedGaps(mockDb, { entries, dryRun: true });
-    assert.strictEqual(dry.pending, 7);
+    assert.strictEqual(dry.pending, 9);
     assert.deepStrictEqual(dry.closed.map(g => g.id), [1, 4, 5]);
     assert.deepStrictEqual(dry.fragments.map(g => [g.id, g.of]), [[6, 'hope all is well']]);
+    assert.deepStrictEqual(dry.outOfScope.map(g => g.id), [10, 11]);
     assert.strictEqual(updates.length, 0, 'A dry run writes nothing');
     await closeResolvedGaps(mockDb, { entries });
-    assert.deepStrictEqual(updates, [{ patch: { status: 'added' }, ids: [1, 4, 5] }, { patch: { status: 'ignored' }, ids: [6] }]);
+    assert.deepStrictEqual(updates, [
+        { patch: { status: 'added' }, ids: [1, 4, 5] },
+        { patch: { status: 'ignored' }, ids: [6] },
+        { patch: { status: 'ignored' }, ids: [10, 11] }
+    ]);
 
     assert.strictEqual(fragmentOf('not catching f', ['not catching fish']), 'not catching fish');
     assert.strictEqual(fragmentOf('are you okay', ['are you okay?']), 'are you okay?');
     assert.strictEqual(fragmentOf('astin', ['astine']), null);
+
+    // Out-of-scope dialect detector unit tests
+    assert.ok(isOutOfScopeDialect('kiri'));
+    assert.ok(isOutOfScopeDialect('kuruchung'));
+    assert.ok(isOutOfScopeDialect('insults in nigerian'));
+    assert.ok(isOutOfScopeDialect('wetin dey happen'));
+    assert.ok(isOutOfScopeDialect('shege'));
+    assert.ok(isOutOfScopeDialect('wahala'));
+    assert.strictEqual(isOutOfScopeDialect('garut'), null);
+    assert.strictEqual(isOutOfScopeDialect('mahalo'), null);
+    assert.strictEqual(isOutOfScopeDialect('shoots'), null);
+    assert.strictEqual(isOutOfScopeDialect('da kine'), null);
 
     // 12. Paging: PostgREST stops at 1,000 rows, and unordered pages can skip or repeat rows
     console.log('12. Testing fetchAllRows paging past 1,000 rows...');

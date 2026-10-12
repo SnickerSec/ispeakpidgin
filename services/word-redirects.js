@@ -145,7 +145,9 @@ const spellingRedirects = {
     'dangah': 'danjah',
     // Merged in migration 042
     'fa-uso': 'uso',
-    'spoil-brat': 'spoil'
+    'spoil-brat': 'spoil',
+    // Merged in migration 043
+    'garot': 'garut'
 };
 
 module.exports = spellingRedirects;

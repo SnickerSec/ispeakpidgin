@@ -497,7 +497,8 @@ const PIDGIN_PRONUNCIATION_MAP = {
     'trow up': 'trow up',
     'dangah': 'dayn-gah',
     'uso': 'oo-soh',
-    'fa uso': 'fah oo-soh'
+    'fa uso': 'fah oo-soh',
+    'garut': 'gah-root'
 };
 
 // Multi-word map entries, precomputed longest-first.

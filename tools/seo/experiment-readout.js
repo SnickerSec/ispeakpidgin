@@ -57,7 +57,19 @@ const EXPERIMENTS = [
     { name: 'word page: fosho', live: '2026-10-12', page: '/word/fosho.html', queries: ['fosho meaning', 'fosho'] },
     { name: 'word page: mahalo nui loa', live: '2026-10-12', page: '/word/mahalo-nui-loa.html', queries: ['mahalo nui loa'] },
     { name: 'word page: bumbai', live: '2026-10-12', page: '/word/bumbai.html', queries: ['bumbai', 'bumbai meaning'] },
-    { name: 'word page: shaka brah', live: '2026-10-12', page: '/word/shaka-brah.html', queries: ['shaka brah'] }
+    { name: 'word page: shaka brah', live: '2026-10-12', page: '/word/shaka-brah.html', queries: ['shaka brah'] },
+    {
+        name: 'poho snippet, answer-first, FAQ',
+        live: '2026-10-12',
+        page: '/what-does-poho-mean.html',
+        queries: ['poho meaning', 'what does poho mean', 'poho hawaiian', 'waste in hawaiian']
+    },
+    {
+        name: 'niele snippet, answer-first, FAQ',
+        live: '2026-10-12',
+        page: '/what-does-niele-mean.html',
+        queries: ['niele meaning', 'what does niele mean', 'nosy in hawaiian', 'hawaiian word for nosy']
+    }
 ];
 
 const isoDay = d => d.toISOString().slice(0, 10);

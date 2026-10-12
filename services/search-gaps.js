@@ -414,13 +414,35 @@ function fragmentOf(term, others) {
         (t.includes(' ') || !/[a-z0-9]/i.test(o[t.length]))) || null;
 }
 
+const OUT_OF_SCOPE_DIALECT_PATTERNS = [
+    /\b(nigerian|naija|yoruba|igbo|hausa)\b/i,
+    /\b(wahala|wetin|kirikiri|kuruchung|chop knuckle|dey play|shege|mumu)\b/i,
+    /^kiri$/i
+];
+
 /**
- * Close pending search_gaps rows the dictionary now answers, as status 'added', and
- * typing-pause fragments of a longer logged term (fragmentOf), as status 'ignored'.
+ * Identify search queries clearly originating from out-of-scope non-Hawaiian dialects
+ * (e.g. Nigerian Pidgin, African slang) to keep the search_gaps pipeline clean.
+ * @param {string} term
+ * @returns {string|null} Matched pattern or null
+ */
+function isOutOfScopeDialect(term) {
+    if (!term || typeof term !== 'string') return null;
+    const clean = term.toLowerCase().trim();
+    for (const pat of OUT_OF_SCOPE_DIALECT_PATTERNS) {
+        if (pat.test(clean)) return pat.toString();
+    }
+    return null;
+}
+
+/**
+ * Close pending search_gaps rows the dictionary now answers, as status 'added',
+ * typing-pause fragments of a longer logged term (fragmentOf), as status 'ignored',
+ * and out-of-scope non-Hawaiian dialect queries, as status 'ignored'.
  * 'near' matches stay pending: site search still finds nothing for them, so a person
  * should decide whether they deserve a spelling variant.
  * @returns {Promise<{ pending: number, closed: Array<{ id, term, match, via }>,
- *   fragments: Array<{ id, term, of }> }>}
+ *   fragments: Array<{ id, term, of }>, outOfScope: Array<{ id, term, reason }> }>}
  */
 async function closeResolvedGaps(db, { entries, dryRun = false } = {}) {
     const index = buildCoverageIndex(entries || await fetchDictionaryForCoverage(db));
@@ -430,6 +452,7 @@ async function closeResolvedGaps(db, { entries, dryRun = false } = {}) {
 
     const closed = [];
     const fragments = [];
+    const outOfScope = [];
     for (const gap of pending) {
         const term = decodeEntities(gap.term);
         const hit = coverage(term, index) || coverage(cleanQueryTerm(term, index.normalized), index);
@@ -438,11 +461,22 @@ async function closeResolvedGaps(db, { entries, dryRun = false } = {}) {
             continue;
         }
         const of = fragmentOf(term.toLowerCase(), logged);
-        if (of) fragments.push({ id: gap.id, term: gap.term, of });
+        if (of) {
+            fragments.push({ id: gap.id, term: gap.term, of });
+            continue;
+        }
+        const oos = isOutOfScopeDialect(term);
+        if (oos) {
+            outOfScope.push({ id: gap.id, term: gap.term, reason: oos });
+        }
     }
 
     if (!dryRun) {
-        for (const [rows, status] of [[closed, 'added'], [fragments, 'ignored']]) {
+        for (const [rows, status] of [
+            [closed, 'added'],
+            [fragments, 'ignored'],
+            [outOfScope, 'ignored']
+        ]) {
             for (let i = 0; i < rows.length; i += 200) {
                 const ids = rows.slice(i, i + 200).map(g => g.id);
                 const { error } = await db.from('search_gaps').update({ status }).in('id', ids);
@@ -450,7 +484,7 @@ async function closeResolvedGaps(db, { entries, dryRun = false } = {}) {
             }
         }
     }
-    return { pending: pending.length, closed, fragments };
+    return { pending: pending.length, closed, fragments, outOfScope };
 }
 
 /**
@@ -573,6 +607,7 @@ module.exports = {
     fetchDictionaryForCoverage,
     closeResolvedGaps,
     fragmentOf,
+    isOutOfScopeDialect,
     resolveKeyPath,
     credentialsFromEnv,
     getAuthClient,

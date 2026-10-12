@@ -2899,6 +2899,40 @@
         "spoilt",
         "spoile"
       ]
+    },
+    {
+      "id": "dict-130",
+      "pidgin": "garut",
+      "english": [
+        "flirty",
+        "boy-crazy",
+        "girl-crazy",
+        "teasing",
+        "coquettish"
+      ],
+      "category": "slang",
+      "difficulty": "intermediate",
+      "usage": "Used in local Pidgin to tease someone who is being overly flirty, boy-crazy, or acting coquettish. Often said as gentle teasing among friends and family.",
+      "examples": [
+        "Eh, no be so garut! You just met da guy five minutes ago.",
+        "She stay acting all garut in front of da boys."
+      ],
+      "pronunciation": "gah-ROOT",
+      "origin": "Ilocano garut (flirtatious, promiscuous, or playful). Brought to Hawaii plantations by Filipino laborers and widely adopted into local Pidgin.",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "filipino",
+        "ilocano",
+        "personality",
+        "humor",
+        "local"
+      ],
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "garot",
+        "gaddut"
+      ]
     }
   ],
   "phrases": [
