@@ -75,6 +75,18 @@ const EXPERIMENTS = [
         live: '2026-10-12',
         page: '/what-does-niele-mean.html',
         queries: ['niele meaning', 'what does niele mean', 'nosy in hawaiian', 'hawaiian word for nosy']
+    },
+    {
+        name: 'kimochi landing page, answer-first, FAQ',
+        live: '2026-10-13',
+        page: '/what-does-kimochi-mean.html',
+        queries: ['kimochi meaning', 'what does kimochi mean', 'good kimochi', 'kimochi in english', 'kimochi definition']
+    },
+    {
+        name: 'sarap snippet, answer-first, FAQ',
+        live: '2026-10-13',
+        page: '/what-does-sarap-mean.html',
+        queries: ['sarap meaning', 'what does sarap mean', 'sarap', 'sarap hawaiian', 'is sarap hawaiian']
     }
 ];
 

@@ -498,7 +498,8 @@ const PIDGIN_PRONUNCIATION_MAP = {
     'dangah': 'dayn-gah',
     'uso': 'oo-soh',
     'fa uso': 'fah oo-soh',
-    'garut': 'gah-root'
+    'garut': 'gah-root',
+    'kimochi': 'kee-moh-chee'
 };
 
 // Multi-word map entries, precomputed longest-first.

@@ -66,6 +66,7 @@ const spellingRedirects = {
     'ainokea': 'what-does-ainokea-mean',
     'buss-up': 'what-does-buss-up-mean',
     'sarap': 'what-does-sarap-mean',
+    'kimochi': 'what-does-kimochi-mean',
     'talk-story': 'what-does-talk-story-mean',
     'chee-woo': 'chee-hoo',
     'cheewoo': 'chee-hoo',
@@ -149,7 +150,9 @@ const spellingRedirects = {
     // Merged in migration 043
     'garot': 'garut',
     // Merged in migration 044
-    'hihu': 'huhu'
+    'hihu': 'huhu',
+    // Merged in migration 045
+    'punnami': 'punani'
 };
 
 module.exports = spellingRedirects;
