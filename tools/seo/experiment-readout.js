@@ -87,7 +87,20 @@ const EXPERIMENTS = [
         live: '2026-10-13',
         page: '/what-does-sarap-mean.html',
         queries: ['sarap meaning', 'what does sarap mean', 'sarap', 'sarap hawaiian', 'is sarap hawaiian']
-    }
+    },
+    // Answer-first rollout to the 10 untreated /what-does-* pages with the most impressions
+    // (2026-09-23 → 10-11: ~20.6k impressions, 25 clicks; sarap shipped separately above).
+    // Set `live` to the deploy day.
+    { name: 'what-does: keiki', live: '2026-10-13', page: '/what-does-keiki-mean.html', queries: ['keiki meaning', 'child in hawaiian'] },
+    { name: 'what-does: kamaaina', live: '2026-10-13', page: '/what-does-kamaaina-mean.html', queries: ['kamaaina', 'hawaiian word for local'] },
+    { name: 'what-does: a hui hou', live: '2026-10-13', page: '/what-does-a-hui-hou-mean.html', queries: ['a hui hou', 'a hui ho'] },
+    { name: 'what-does: da kine', live: '2026-10-13', page: '/what-does-da-kine-mean.html', queries: ['da kine', 'da kine meaning'] },
+    { name: 'what-does: pau hana', live: '2026-10-13', page: '/what-does-pau-hana-mean.html', queries: ['pau hana meaning', 'pau hana'] },
+    { name: 'what-does: pilau', live: '2026-10-13', page: '/what-does-pilau-mean.html' },
+    { name: 'what-does: lolo', live: '2026-10-13', page: '/what-does-lolo-mean.html' },
+    { name: 'what-does: howzit', live: '2026-10-13', page: '/what-does-howzit-mean.html', queries: ['howzit', 'howzit meaning'] },
+    { name: 'what-does: akamai', live: '2026-10-13', page: '/what-does-akamai-mean.html', queries: ['akamai meaning', 'akamai definition'] },
+    { name: 'what-does: humbug', live: '2026-10-13', page: '/what-does-humbug-mean.html', queries: ['humbug'] }
 ];
 
 const isoDay = d => d.toISOString().slice(0, 10);
