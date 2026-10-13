@@ -67,6 +67,8 @@ const spellingRedirects = {
     'buss-up': 'what-does-buss-up-mean',
     'sarap': 'what-does-sarap-mean',
     'kimochi': 'what-does-kimochi-mean',
+    'kefe': 'what-does-kefe-mean',
+    'kapakahi': 'what-does-kapakahi-mean',
     'talk-story': 'what-does-talk-story-mean',
     'chee-woo': 'chee-hoo',
     'cheewoo': 'chee-hoo',
@@ -152,7 +154,10 @@ const spellingRedirects = {
     // Merged in migration 044
     'hihu': 'huhu',
     // Merged in migration 045
-    'punnami': 'punani'
+    'punnami': 'punani',
+    // Spelling variants for da-haps
+    'dhaaps': 'da-haps',
+    'dahaps': 'da-haps'
 };
 
 module.exports = spellingRedirects;

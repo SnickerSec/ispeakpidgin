@@ -87,7 +87,6 @@ const EXPERIMENTS = [
         live: '2026-10-13',
         page: '/what-does-sarap-mean.html',
         queries: ['sarap meaning', 'what does sarap mean', 'sarap', 'sarap hawaiian', 'is sarap hawaiian']
-    },
     // Answer-first rollout to the 10 untreated /what-does-* pages with the most impressions
     // (2026-09-23 → 10-11: ~20.6k impressions, 25 clicks; sarap shipped separately above).
     // Set `live` to the deploy day.
@@ -100,7 +99,25 @@ const EXPERIMENTS = [
     { name: 'what-does: lolo', live: '2026-10-13', page: '/what-does-lolo-mean.html' },
     { name: 'what-does: howzit', live: '2026-10-13', page: '/what-does-howzit-mean.html', queries: ['howzit', 'howzit meaning'] },
     { name: 'what-does: akamai', live: '2026-10-13', page: '/what-does-akamai-mean.html', queries: ['akamai meaning', 'akamai definition'] },
-    { name: 'what-does: humbug', live: '2026-10-13', page: '/what-does-humbug-mean.html', queries: ['humbug'] }
+    { name: 'what-does: humbug', live: '2026-10-13', page: '/what-does-humbug-mean.html', queries: ['humbug'] },
+    {
+        name: 'kefe landing page, answer-first, FAQ',
+        live: '2026-10-13',
+        page: '/what-does-kefe-mean.html',
+        queries: ['kefe meaning', 'kefe', 'what does kefe mean in samoan', 'what does kefe mean']
+    },
+    {
+        name: 'kapakahi landing page, answer-first, FAQ',
+        live: '2026-10-13',
+        page: '/what-does-kapakahi-mean.html',
+        queries: ['kapakahi meaning', 'kapakahi', 'what does kapakahi mean in hawaii', 'what does kapakahi mean', 'all kapakahi']
+    },
+    {
+        name: 'pidgin insults guide, answer-first, FAQ',
+        live: '2026-10-13',
+        page: '/funny-insulting-pidgin-phrases.html',
+        queries: ['list of pidgin insults', 'painful pidgin insults in english', 'pidgin insults', 'insults in pidgin', 'hawaiian slang insults']
+    }
 ];
 
 const isoDay = d => d.toISOString().slice(0, 10);
