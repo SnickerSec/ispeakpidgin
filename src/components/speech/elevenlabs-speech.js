@@ -499,7 +499,10 @@ const PIDGIN_PRONUNCIATION_MAP = {
     'uso': 'oo-soh',
     'fa uso': 'fah oo-soh',
     'garut': 'gah-root',
-    'kimochi': 'kee-moh-chee'
+    'kimochi': 'kee-moh-chee',
+    // Tagalog saráp is stressed on the last syllable; the reduced first vowel carries that
+    // to ElevenLabs the way 'bruh-dah' does for bruddah (guides are lowercased, caps are lost).
+    'sarap': 'suh-rahp'
 };
 
 // Multi-word map entries, precomputed longest-first.
