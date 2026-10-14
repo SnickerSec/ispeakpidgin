@@ -31,6 +31,43 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [{
+            "@type": "Question",
+            "name": "What does pilau mean in Hawaiian and Pidgin?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Pilau (pronounced pee-LAU) means stink, rotten, spoiled, or foul in Hawaiian and Hawaiian Pidgin. Locals use it for bad smells and spoiled food (\"dis fish stay pilau\") as well as corrupt, shady, or dirty-minded behavior (\"dat was one pilau move\")."
+            }
+        }, {
+            "@type": "Question",
+            "name": "How do you pronounce pilau?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Pilau is pronounced pee-LAU (or pih-LAU), with two syllables and stress on the second syllable: \"pi\" sounds like \"pee\" and \"lau\" rhymes with \"ow\" or \"cow.\""
+            }
+        }, {
+            "@type": "Question",
+            "name": "What is the difference between pilau and hauna?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Both describe bad smells in Hawaii, but hauna specifically refers to a strong, unpleasant odor (especially fishy or musky smells), while pilau means rotten, putrid, or filthy and is also used figuratively for bad character or corrupt actions."
+            }
+        }, {
+            "@type": "Question",
+            "name": "What does it mean to call a person pilau?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Calling a person pilau means they are acting rotten, shady, corrupt, or dirty-minded. For example, \"Dat politician stay pilau\" means they are corrupt, while calling a friend pilau after a dirty joke is playful teasing."
+            }
+        }]
+    }
+    </script>
+
     <style>
         .brand-font {
             font-family: 'Pacifico', cursive;
@@ -61,9 +98,6 @@
             </button>
             <button id="share-image-btn" data-word="pilau" class="mt-4 md:mt-0 md:ml-4 bg-white text-purple-700 border-2 border-white px-8 py-4 rounded-full text-lg font-bold hover:bg-purple-50 transition shadow-xl">
                 <iconify-icon icon="lucide:camera"></iconify-icon> Share as Image
-            </button>
-            <button id="download-audio" data-word="pilau" class="mt-4 md:mt-0 md:ml-4 bg-red-700 text-white border-2 border-white px-8 py-4 rounded-full text-lg font-bold hover:bg-red-800 transition shadow-xl">
-                <iconify-icon icon="lucide:download"></iconify-icon> Download MP3
             </button>
         </div>
     </section>
@@ -270,6 +304,29 @@
                 <div class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition">
                     <h3 class="font-bold text-lg text-green-600 mb-2">Stink</h3>
                     <p class="text-gray-700 text-sm">English equivalent for bad smell/behavior</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ (mirrors the FAQPage schema in the head) -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6"><iconify-icon icon="lucide:help-circle"></iconify-icon> Pilau FAQ</h2>
+            <div class="space-y-4">
+                <div class="bg-white p-5 rounded-lg shadow-md">
+                    <h3 class="font-bold text-lg text-gray-800 mb-2">What does pilau mean in Hawaiian and Pidgin?</h3>
+                    <p class="text-gray-700"><strong>Pilau</strong> (pronounced pee-LAU) means stink, rotten, spoiled, or foul in Hawaiian and Hawaiian Pidgin. Locals use it for bad smells and spoiled food (<em>"dis fish stay pilau"</em>) as well as corrupt, shady, or dirty-minded behavior (<em>"dat was one pilau move"</em>).</p>
+                </div>
+                <div class="bg-white p-5 rounded-lg shadow-md">
+                    <h3 class="font-bold text-lg text-gray-800 mb-2">How do you pronounce pilau?</h3>
+                    <p class="text-gray-700"><strong>Pilau</strong> is pronounced <strong>pee-LAU</strong> (or pih-LAU), with two syllables and stress on the second syllable: "pi" sounds like "pee" and "lau" rhymes with "ow" or "cow."</p>
+                </div>
+                <div class="bg-white p-5 rounded-lg shadow-md">
+                    <h3 class="font-bold text-lg text-gray-800 mb-2">What is the difference between pilau and hauna?</h3>
+                    <p class="text-gray-700">Both describe bad smells in Hawaii, but <strong>hauna</strong> specifically refers to a strong, unpleasant odor (especially fishy or musky smells), while <strong>pilau</strong> means rotten, putrid, or filthy and is also used figuratively for bad character or corrupt actions.</p>
+                </div>
+                <div class="bg-white p-5 rounded-lg shadow-md">
+                    <h3 class="font-bold text-lg text-gray-800 mb-2">What does it mean to call a person pilau?</h3>
+                    <p class="text-gray-700">Calling a person <strong>pilau</strong> means they are acting rotten, shady, corrupt, or dirty-minded. For example, <em>"Dat politician stay pilau"</em> means they are corrupt, while calling a friend pilau after a dirty joke is playful teasing.</p>
                 </div>
             </div>
         </section>

@@ -104,6 +104,15 @@ function auditHTMLFile(filePath) {
         }
     }
 
+    // 3b. Validate JSON-LD structured data blocks
+    for (const match of content.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
+        try {
+            JSON.parse(match[1]);
+        } catch (err) {
+            errors.push(`Invalid JSON-LD block: ${err.message}`);
+        }
+    }
+
     // 4. Extract and check Assets (Images/Audio)
     const srcMatches = content.matchAll(/src="(.*?)"/g);
     for (const match of srcMatches) {

@@ -2937,6 +2937,2913 @@
         "garot",
         "gaddut"
       ]
+    },
+    {
+      "id": "bin_314",
+      "pidgin": "bin",
+      "english": [
+        "was",
+        "been"
+      ],
+      "category": "grammar",
+      "pronunciation": "BIN",
+      "examples": [
+        "I bin go already",
+        "I bin go da beach yesterday.",
+        "She bin tell me already."
+      ],
+      "usage": "This word is used as a past tense marker, similar to 'was' or 'were' in English. It's placed before the verb to indicate that an action happened in the past.",
+      "origin": "The word 'bin' comes from English and is a simplified form of 'been,' used to denote past actions.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "grammar",
+        "english"
+      ],
+      "audio_example": "I bin go da beach yesterday.",
+      "created_at": "2025-11-29T11:13:48.560742+00:00",
+      "updated_at": "2026-04-17T06:35:24.171+00:00",
+      "fts": "'bin':1",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "ho_nah_351",
+      "pidgin": "ho nah",
+      "english": [
+        "wow",
+        "really",
+        "expression of disbelief"
+      ],
+      "category": "expressions",
+      "pronunciation": "HOH-nah",
+      "examples": [
+        "Ho nah!",
+        "Ho nah, you wen' win da lottery?",
+        "Ho nah, I can't believe dat!"
+      ],
+      "usage": "Expresses a heightened level of surprise or disbelief. It's a more emphatic version of 'ho'.",
+      "origin": "A combination of 'ho' with 'nah' (a particle of emphasis), intensifying the expression of surprise.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "hawaiian"
+      ],
+      "audio_example": "Ho nah, you wen' win da lottery?",
+      "created_at": "2025-11-29T11:13:49.257591+00:00",
+      "updated_at": "2026-10-03T08:35:46.186715+00:00",
+      "fts": "'disbelief':7 'express':5 'ho':1 'nah':2 'realli':4 'wow':3",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "braddah_318",
+      "pidgin": "braddah",
+      "english": [
+        "brother",
+        "bro",
+        "friend"
+      ],
+      "category": "people",
+      "pronunciation": "BRAH-dah",
+      "examples": [
+        "Eh braddah",
+        "Eh, braddah, you goin' surf dis weekend?",
+        "My braddah from anoda muddah, always got my back.",
+        "Wassup bruddah!",
+        "Tanks bruddah"
+      ],
+      "usage": "A term of endearment and camaraderie used between males. It signifies a close friendship or a sense of brotherhood.",
+      "origin": "Derived from the English word \"brother,\" it reflects the close-knit community and the importance of relationships in Hawaiian culture.",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "people",
+        "english",
+        "greetings"
+      ],
+      "audio_example": "Eh, braddah, you goin' surf dis weekend?",
+      "created_at": "2025-11-29T11:13:48.560742+00:00",
+      "updated_at": "2026-10-04T04:29:39.809067+00:00",
+      "fts": "'braddah':1 'bro':3 'brother':2 'friend':4",
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "bruddah"
+      ]
+    },
+    {
+      "id": "ho_070",
+      "pidgin": "ho",
+      "english": [
+        "wow",
+        "whoa"
+      ],
+      "category": "expressions",
+      "pronunciation": "HO",
+      "examples": [
+        "Ho, dat wave was huge!",
+        "Ho! Dat sunset so beautiful, yeah?",
+        "Ho, I neva see nottin' like dat!"
+      ],
+      "usage": "An exclamation of surprise, amazement, or excitement. It's a versatile interjection used in various situations.",
+      "origin": "This is a Pidgin adaptation of a general exclamation, used to express strong emotion in a concise way.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions"
+      ],
+      "audio_example": "Ho! Dat sunset so beautiful, yeah?",
+      "created_at": "2025-11-29T11:13:49.257591+00:00",
+      "updated_at": "2026-04-17T06:32:50.764+00:00",
+      "fts": "'ho':1 'whoa':3 'wow':2",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "walaau_1028",
+      "pidgin": "wala'au",
+      "english": [
+        "to talk",
+        "to chat",
+        "conversation",
+        "chat",
+        "talk",
+        "speak"
+      ],
+      "category": "actions",
+      "pronunciation": "wah-LAH-ow",
+      "examples": [
+        "Let's wala'au story",
+        "We stay walaau all night",
+        "No walaʻau"
+      ],
+      "usage": "Having a conversation",
+      "origin": "Hawaiian",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "actions",
+        "hawaiian",
+        "conversation",
+        "expressions"
+      ],
+      "audio_example": null,
+      "created_at": "2025-11-29T11:12:13.070501+00:00",
+      "updated_at": "2025-11-29T11:12:13.070501+00:00",
+      "fts": "'au':2 'chat':6,8 'convers':7 'speak':10 'talk':4,9 'wala':1",
+      "source_language": "hawaiian",
+      "spelling_variants": []
+    },
+    {
+      "id": "wahine_186",
+      "pidgin": "wahine",
+      "english": [
+        "woman"
+      ],
+      "category": "people",
+      "pronunciation": "wah-HEE-nay",
+      "examples": [
+        "Da wahine",
+        "She one beautiful wahine.",
+        "Da wahine wen' win da race."
+      ],
+      "usage": "Wahine means woman or female. It's a respectful term.",
+      "origin": "This is the Hawaiian word for woman.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "people",
+        "hawaiian"
+      ],
+      "audio_example": "She one beautiful wahine.",
+      "created_at": "2025-11-29T11:12:12.863333+00:00",
+      "updated_at": "2026-04-17T06:42:00.674+00:00",
+      "fts": "'wahin':1 'woman':2",
+      "source_language": "hawaiian",
+      "spelling_variants": []
+    },
+    {
+      "id": "das_041",
+      "pidgin": "das",
+      "english": [
+        "that's"
+      ],
+      "category": "expressions",
+      "pronunciation": "DAHS",
+      "examples": [
+        "Das how we do um",
+        "Das right, brah!",
+        "Das what I mean."
+      ],
+      "usage": "A contraction of \"that's.\" It's used to express agreement, confirmation, or to introduce a statement.",
+      "origin": "A simplified contraction of the English phrase \"that is,\" common in casual speech.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audio_example": "Das right, brah!",
+      "created_at": "2025-11-29T11:11:03.369219+00:00",
+      "updated_at": "2026-04-17T06:44:07.094+00:00",
+      "fts": "'das':1",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "kane_3010",
+      "pidgin": "kāne",
+      "english": [
+        "man",
+        "husband",
+        "male"
+      ],
+      "category": "people",
+      "pronunciation": "KAH-neh",
+      "examples": [
+        "Da kāne stay working",
+        "kane stay man, male, husband"
+      ],
+      "usage": "Man or husband",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "people",
+        "hawaiian",
+        "cultural"
+      ],
+      "audio_example": null,
+      "created_at": "2025-11-29T11:12:13.070501+00:00",
+      "updated_at": "2025-11-29T11:12:13.070501+00:00",
+      "fts": "'husband':3 'kāne':1 'male':4 'man':2",
+      "source_language": "hawaiian",
+      "spelling_variants": []
+    },
+    {
+      "id": "get_052",
+      "pidgin": "get",
+      "english": [
+        "have",
+        "there is",
+        "understand?",
+        "got it?"
+      ],
+      "category": "expressions",
+      "pronunciation": "GET",
+      "examples": [
+        "Get plenty fish today",
+        "You get o wat?"
+      ],
+      "usage": "Existence or possession",
+      "origin": "English",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audio_example": "You get time?",
+      "created_at": "2025-11-29T11:11:03.369219+00:00",
+      "updated_at": "2025-11-29T11:11:03.369219+00:00",
+      "fts": "'get':1 'got':6 'understand':5",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "had_056",
+      "pidgin": "had",
+      "english": [
+        "was",
+        "were"
+      ],
+      "category": "grammar",
+      "pronunciation": "HAD",
+      "examples": [
+        "Had plenny people",
+        "I had da best shave ice yesterday.",
+        "We had fun at da party."
+      ],
+      "usage": "This is the past tense form of \"to have\" or \"to be\" in Pidgin. It indicates an action or state that occurred in the past.",
+      "origin": "This is a simplified past tense form of the English verb \"had,\" common in Pidgin.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "grammar",
+        "english"
+      ],
+      "audio_example": "I had da best shave ice yesterday.",
+      "created_at": "2025-11-29T11:11:03.369219+00:00",
+      "updated_at": "2026-04-17T06:43:24.625+00:00",
+      "fts": "",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "dem_229",
+      "pidgin": "dem",
+      "english": [
+        "them",
+        "those people"
+      ],
+      "category": "expressions",
+      "pronunciation": "DEM",
+      "examples": [
+        "Dem guys over dea",
+        "Dem guys over dere, dey always late.",
+        "I saw dem at da store."
+      ],
+      "usage": "Refers to them or those people. It's the plural form of \"da\" or \"that.\"",
+      "origin": "A Pidgin adaptation of the English plural pronoun \"them,\" used to refer to a group of people or things.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audio_example": "Dem guys over dere, dey always late.",
+      "created_at": "2025-11-29T11:11:03.369219+00:00",
+      "updated_at": "2026-04-17T06:44:07.094+00:00",
+      "fts": "'dem':1 'peopl':4",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "hea_250",
+      "pidgin": "hea",
+      "english": [
+        "here"
+      ],
+      "category": "expressions",
+      "pronunciation": "HEH-ah",
+      "examples": [
+        "Come ova hea",
+        "Eh, da plate lunch stay hea, you ready?",
+        "Come hea, I gotta tell you somet'ing."
+      ],
+      "usage": "Used to indicate the location of something or to call someone's attention. It's a simple and direct way to say 'here'.",
+      "origin": "Derived from the Hawaiian word for 'here', reflecting the importance of place and location in everyday communication.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audio_example": "Come hea, I gotta tell you somet'ing.",
+      "created_at": "2025-11-29T11:13:49.257591+00:00",
+      "updated_at": "2026-04-17T06:32:36.775+00:00",
+      "fts": "'hea':1",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "tired_999",
+      "pidgin": "tired",
+      "english": [
+        "tired",
+        "sleepy"
+      ],
+      "category": "emotions",
+      "pronunciation": "TY-erd",
+      "examples": [
+        "I stay tired today",
+        "Eh brah, I so tired, I goin' crash early tonight.",
+        "After all dat work, da keiki dem stay tired, gotta let dem rest."
+      ],
+      "usage": "In Pidgin, 'tired' reflects a state of fatigue, exhaustion, or sleepiness. It's used in everyday conversation to describe physical or mental weariness, often after a long day or strenuous activity. It can also imply a general lack of energy.",
+      "origin": "The Pidgin word for 'tired' directly reflects the English word, but its usage is deeply embedded in the local culture, reflecting the laid-back lifestyle and the importance of rest and relaxation.",
+      "difficulty": null,
+      "frequency": "high",
+      "tags": null,
+      "audio_example": "Eh brah, I so tired, I goin' crash early tonight.",
+      "created_at": "2026-03-30T18:29:30.535398+00:00",
+      "updated_at": "2026-04-06T04:53:44.021+00:00",
+      "fts": "'sleepi':3 'tire':1,2",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "886434ad-f8ee-4a69-856e-00740b01df41",
+      "pidgin": "wat",
+      "english": [
+        "what"
+      ],
+      "category": "grammar",
+      "pronunciation": "WAHT",
+      "examples": [
+        "Wat you like eat fo dinnah?"
+      ],
+      "usage": null,
+      "origin": "English 'what'",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": null,
+      "audio_example": null,
+      "created_at": "2026-10-03T08:35:46.186715+00:00",
+      "updated_at": "2026-10-03T08:35:46.186715+00:00",
+      "fts": "'wat':1",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "sarap_999",
+      "pidgin": "sarap",
+      "english": [
+        "delicious",
+        "tasty",
+        "good food"
+      ],
+      "category": "food",
+      "pronunciation": "sah-RAHP",
+      "examples": [
+        "Dis adobo is so sarap!",
+        "Eh, dat poke was so sarap, I wen' eat 'em all!",
+        "You like try my plate lunch? Da kalua pig so sarap, brah."
+      ],
+      "usage": "\"Sarap\" is used to express enjoyment of food's taste, similar to \"delicious\" or \"tasty.\" It's often used when describing a particularly good meal or dish, and can be used to describe any food from local plate lunches to international cuisine.",
+      "origin": "Borrowed from Tagalog, \"masarap\" (delicious) entered Pidgin through Filipino immigrants who came to work on the sugar plantations in the 19th and 20th centuries. It quickly became integrated into the local lexicon.",
+      "difficulty": null,
+      "frequency": "medium",
+      "tags": null,
+      "audio_example": "Eh, dat poke was so sarap, I wen' eat 'em all!",
+      "created_at": "2026-03-30T20:03:19.677568+00:00",
+      "updated_at": "2026-10-13T08:09:14.447+00:00",
+      "fts": "'delici':2 'food':5 'good':4 'sarap':1 'tasti':3",
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "grabe ang sarap"
+      ]
+    },
+    {
+      "id": "9583b55a-ad1d-4a14-8210-983c46ff1325",
+      "pidgin": "ocean",
+      "english": [
+        "kai",
+        "moana"
+      ],
+      "category": "nature",
+      "pronunciation": "OH-shun",
+      "examples": [
+        "Da ocean stay looking blue today.",
+        "Eh, da ocean get big swell today, gotta be careful, brah.",
+        "I wen' go swim in da ocean, but da water was too cold, so I just stay on da beach."
+      ],
+      "usage": "In Hawaiian Pidgin, 'ocean' can refer to both the nearshore and open sea. It's often used interchangeably with 'kai' (shoreline) and 'moana' (open ocean), depending on the specific context and the speaker's preference. The term is a general descriptor for the body of water surrounding the islands.",
+      "origin": "The term 'ocean' in this context is a direct borrowing from English, reflecting the influence of English on the development of Hawaiian Pidgin. The Pidgin speakers adopted the word to describe the vast body of water surrounding the islands.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "nature"
+      ],
+      "audio_example": "Eh, da ocean get big swell today, gotta be careful, brah.",
+      "created_at": "2026-04-08T07:54:14.198752+00:00",
+      "updated_at": "2026-04-17T06:14:57.344+00:00",
+      "fts": "'kai':2 'moana':3 'ocean':1",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "cef19c4e-ead4-49cf-9209-802b99859b66",
+      "pidgin": "dead",
+      "english": [
+        "make",
+        "pau"
+      ],
+      "category": "general",
+      "pronunciation": "ded",
+      "examples": [
+        "My phone stay dead, no more charge.",
+        "Da car battery stay dead, gotta get a jump.",
+        "Eh brah, my dog wen' dead las' night, sad, brah."
+      ],
+      "usage": "In Hawaiian Pidgin, \"dead\" (make, pau) is used to describe something that has stopped functioning, like a device with no power, or to express the passing of a person or animal. The term \"make\" is frequently used before \"dead\" to emphasize the state of being non-functional or deceased.",
+      "origin": "The Pidgin term \"make\" likely derives from the English word \"make,\" used to emphasize a state or condition, combined with the English word \"dead.\" This usage reflects the practical and direct nature of Pidgin.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "general"
+      ],
+      "audio_example": "Da car battery stay dead, gotta get a jump.",
+      "created_at": "2026-04-08T07:54:14.198752+00:00",
+      "updated_at": "2026-04-17T06:15:14.4+00:00",
+      "fts": "'dead':1 'make':2 'pau':3",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "d0b9b3aa-92cb-4623-859d-0e9f2fc9a8e3",
+      "pidgin": "sea",
+      "english": [
+        "kai",
+        "ocean"
+      ],
+      "category": "nature",
+      "pronunciation": "see",
+      "examples": [
+        "I love da smell of da sea.",
+        "Da sea get real rough today, stay watch out.",
+        "We wen go swim in da sea, but da water was too cold."
+      ],
+      "usage": "While 'sea' is understood, 'kai' is more commonly used to refer to the ocean in everyday Pidgin. However, 'sea' can be used to emphasize the vastness or wildness of the ocean, especially in descriptions of weather or ocean conditions.",
+      "origin": "The word 'sea' comes from English, reflecting the influence of English speakers on the development of Hawaiian Pidgin. It's usage is less frequent than the Hawaiian word 'kai', which has deeper roots in the local culture.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "nature"
+      ],
+      "audio_example": "Da sea get real rough today, stay watch out.",
+      "created_at": "2026-04-08T07:54:14.198752+00:00",
+      "updated_at": "2026-04-17T06:15:21.382+00:00",
+      "fts": "'kai':2 'ocean':3 'sea':1",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "aunty_014",
+      "pidgin": "aunty",
+      "english": [
+        "respectful term for older woman"
+      ],
+      "category": "expressions",
+      "pronunciation": "AUN-tee",
+      "examples": [
+        "Tank you, Aunty",
+        "Aunty, you like more poi?",
+        "Yeah, Aunty said she goin' bring da malasadas."
+      ],
+      "usage": "A term of respect for older women, not necessarily a blood relative. It shows respect and familiarity.",
+      "origin": "This is a cultural practice rooted in the extended family structure of Hawaiian and other Pacific Islander cultures.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audio_example": "Howzit, Aunty?",
+      "created_at": "2025-11-29T11:13:48.560742+00:00",
+      "updated_at": "2026-10-03T08:35:46.186715+00:00",
+      "fts": "'aunti':1 'older':5 'respect':2 'term':3 'woman':6",
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "auntie"
+      ]
+    },
+    {
+      "id": "all_katsu_292",
+      "pidgin": "all katsu",
+      "english": [
+        "perfect",
+        "victorious"
+      ],
+      "category": "expressions",
+      "pronunciation": "all-KAHT-soo",
+      "examples": [
+        "Everything stay all katsu",
+        "Da food stay all katsu, yeah!",
+        "We wen' win da game, all katsu!"
+      ],
+      "usage": "This phrase means everything is perfect, excellent, or victorious. It's used to express satisfaction or approval.",
+      "origin": "This phrase is a Pidgin adaptation, likely influenced by various languages, emphasizing completeness and perfection.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "japanese"
+      ],
+      "audio_example": "Da food stay all katsu, yeah!",
+      "created_at": "2025-11-29T11:13:48.560742+00:00",
+      "updated_at": "2026-04-17T06:39:26.25+00:00",
+      "fts": "'katsu':2 'perfect':3 'victori':4",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "aole_307",
+      "pidgin": "'a'ole",
+      "english": [
+        "no",
+        "not",
+        "not at all"
+      ],
+      "category": "expressions",
+      "pronunciation": "ah-OH-leh",
+      "examples": [
+        "'A'ole, cannot",
+        "A'ole, I no like dat"
+      ],
+      "usage": "Hawaiian no",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "hawaiian"
+      ],
+      "audio_example": "'A'ole good",
+      "created_at": "2025-11-29T11:13:48.560742+00:00",
+      "updated_at": "2025-11-29T11:13:48.560742+00:00",
+      "fts": "'ole':2",
+      "source_language": "hawaiian",
+      "spelling_variants": []
+    },
+    {
+      "id": "5bf32610-9b58-4611-8f9a-6b2191f60af7",
+      "pidgin": "teacher",
+      "english": [
+        "kumu",
+        "instructor"
+      ],
+      "category": "people",
+      "pronunciation": "TEE-chah",
+      "examples": [
+        "My teacher stay giving choke homework.",
+        "Da teacher wen tell us no can talk story in class.",
+        "Eh, you like go ask da teacher fo' help wit' da problem?"
+      ],
+      "usage": "In Pidgin, 'teacher' can refer to any instructor, but 'kumu' is often preferred, especially for those who teach traditional Hawaiian subjects. The term is used in both formal and informal settings, reflecting the importance of education in the local culture.",
+      "origin": "While 'teacher' is a direct borrowing from English, its usage in Hawaii reflects the historical influence of English-speaking educators and the evolution of Pidgin as a creole language.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "school",
+        "people"
+      ],
+      "audio_example": "Da teacher wen tell us no can talk story in class.",
+      "created_at": "2026-04-08T07:54:14.198752+00:00",
+      "updated_at": "2026-04-17T06:15:00.239+00:00",
+      "fts": "'instructor':3 'kumu':2 'teacher':1",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "unreal_184",
+      "pidgin": "unreal",
+      "english": [
+        "amazing",
+        "awesome"
+      ],
+      "category": "slang",
+      "pronunciation": "un-REEL",
+      "examples": [
+        "Da waves was unreal",
+        "Da waves was unreal today!",
+        "Dat sunset unreal, brah!"
+      ],
+      "usage": "Unreal means amazing, awesome, or incredible. It expresses a high degree of positive emotion.",
+      "origin": "This usage is a direct adoption from English slang, but is widely used in Pidgin.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "english"
+      ],
+      "audio_example": "Da waves was unreal today!",
+      "created_at": "2025-11-29T11:12:12.863333+00:00",
+      "updated_at": "2026-04-17T06:42:00.674+00:00",
+      "fts": "'amaz':2 'awesom':3 'unreal':1",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "ec300dba-4462-4b38-98e3-e21755c8f472",
+      "pidgin": "steah",
+      "english": [
+        "stay",
+        "is",
+        "located at"
+      ],
+      "category": "general",
+      "pronunciation": "STE-ah",
+      "examples": [
+        "Wea you steah?",
+        "Da party steah at da beach, yeah?",
+        "My car steah broke down, gotta get it tow, brah."
+      ],
+      "usage": "In Pidgin, 'steah' functions as a versatile verb, often replacing 'is', 'are', or 'stays'. It also indicates location or the state of something, reflecting a relaxed and informal communication style.",
+      "origin": "The term 'steah' is a phonetic representation of the English word 'stay' and reflects the influence of English on the development of Hawaiian Pidgin.",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "verb",
+        "grammar"
+      ],
+      "audio_example": "Da party steah at da beach, yeah?",
+      "created_at": "2026-04-08T07:58:50.819001+00:00",
+      "updated_at": "2026-04-17T06:13:47.003+00:00",
+      "fts": "'locat':4 'stay':2 'steah':1",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "915f5a8d-cf82-415e-a253-47f2d752a7a5",
+      "pidgin": "mean kine",
+      "english": [
+        "seriously",
+        "really",
+        "intensely"
+      ],
+      "category": "expressions",
+      "pronunciation": "MEAN kyne",
+      "examples": [
+        "He stay hungry mean kine.",
+        "Da sun burn mean kine today, gotta stay inside.",
+        "She like dat food mean kine, she wen' eat all of it!"
+      ],
+      "usage": "“Mean kine” is used to emphasize the degree or intensity of something. It's similar to saying “very” or “really,” but with a stronger sense of emphasis and can also express a strong emotion or reaction. It can be used to describe both positive and negative situations.",
+      "origin": "This phrase likely evolved from a combination of English and Hawaiian Creole. The word “mean” is used in its original English sense of “intense” or “significant”, while “kine” is a Pidgin word meaning “kind” or “sort” that is used as a general intensifier.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "emphasis"
+      ],
+      "audio_example": "Da sun burn mean kine today, gotta stay inside.",
+      "created_at": "2026-04-08T07:58:50.819001+00:00",
+      "updated_at": "2026-04-17T06:14:04.431+00:00",
+      "fts": "'intens':5 'kine':2 'mean':1 'realli':4 'serious':3",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "213daf9d-d513-42ad-af2d-593a72732a37",
+      "pidgin": "everyone",
+      "english": [
+        "errbody",
+        "all da guys"
+      ],
+      "category": "people",
+      "pronunciation": "EV-ree-won",
+      "examples": [
+        "Everyone stay going beach tomorrow.",
+        "Everyone get plenny food fo' da potluck, yeah?",
+        "Eh, everyone gotta bring dey own towel fo' da beach, okay?"
+      ],
+      "usage": "In Hawaiian Pidgin, \"everyone\" (errbody) is used to address a group of people in a casual and inclusive way. It's often used in invitations, announcements, or when giving instructions to a group.",
+      "origin": "The Pidgin term \"everyone\" reflects the influence of English, but the relaxed and informal usage is characteristic of the local culture.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "people"
+      ],
+      "audio_example": "Everyone get plenny food fo' da potluck, yeah?",
+      "created_at": "2026-04-08T07:54:14.198752+00:00",
+      "updated_at": "2026-04-17T06:15:07.492+00:00",
+      "fts": "'da':4 'errbodi':2 'everyon':1 'guy':5",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "bf76938e-03da-41ba-b453-5786e6b925b8",
+      "pidgin": "fat",
+      "english": [
+        "momona",
+        "huge",
+        "thick"
+      ],
+      "category": "descriptions",
+      "pronunciation": "fat",
+      "examples": [
+        "Ho, dat one fat fish you caught!",
+        "Da plate lunch was so fat, I couldn't even finish 'em!",
+        "Eh brah, look at dat fat wave! Perfect fo' surf!"
+      ],
+      "usage": "In Pidgin, \"fat\" can describe something large or plentiful, but it can also be used to express admiration for something delicious or impressive. It's a versatile word that reflects the Pidgin speaker's appreciation for abundance and quality.",
+      "origin": "The use of \"fat\" in this context likely evolved from English, but it gained a unique Pidgin flavor through its frequent use in describing food and other desirable things.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "description"
+      ],
+      "audio_example": "Eh brah, look at dat fat wave! Perfect fo' surf!",
+      "created_at": "2026-04-08T07:54:14.198752+00:00",
+      "updated_at": "2026-04-17T06:15:10.716+00:00",
+      "fts": "'fat':1 'huge':3 'momona':2 'thick':4",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "nerjis_405",
+      "pidgin": "nerjis",
+      "english": [
+        "nervous"
+      ],
+      "category": "emotions",
+      "pronunciation": "NER-jis",
+      "examples": [
+        "I stay nerjis",
+        "I get so nerjis fo' da test, I couldn't even tink.",
+        "You lookin' real nerjis, you okay?"
+      ],
+      "usage": "Describes a state of nervousness or anxiety. It's often used before a stressful event or when someone is feeling uneasy.",
+      "origin": "A Pidgin pronunciation of 'nervous,' highlighting the influence of English.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "emotions",
+        "english"
+      ],
+      "audio_example": "I get so nerjis.",
+      "created_at": "2025-11-29T11:13:49.536576+00:00",
+      "updated_at": "2026-04-17T06:32:09.541+00:00",
+      "fts": "'nerji':1 'nervous':2",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "da7979bc-11ed-4b22-95ab-b9115b590ef7",
+      "pidgin": "tante",
+      "english": [
+        "aunty",
+        "aunt"
+      ],
+      "category": "people",
+      "pronunciation": "TAHN-teh",
+      "examples": [
+        "Go help Tante in da kitchen.",
+        "Tante, can you check if da rice is ready?",
+        "My tante always makes da best malasadas."
+      ],
+      "usage": "In Pidgin, \"tante\" is a term of endearment and respect for a woman, often an older relative or family friend. It's used similarly to \"aunty\" but can carry a slightly different cultural weight, especially in families with European or Filipino heritage. It reflects the close-knit nature of many Hawaiian communities.",
+      "origin": "The term \"tante\" likely entered Pidgin through contact with European (particularly German) and Filipino communities who used similar terms for aunts or older female relatives. This linguistic blending is common in Hawaiian Pidgin.",
+      "difficulty": "intermediate",
+      "frequency": "low",
+      "tags": [
+        "people",
+        "family"
+      ],
+      "audio_example": "Tante, can you check if da rice is ready?",
+      "created_at": "2026-03-31T23:48:21.975529+00:00",
+      "updated_at": "2026-04-17T06:18:06.678+00:00",
+      "fts": "'aunt':3 'aunti':2 'tant':1",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "e382c613-3266-4cc0-885a-850ab6895f93",
+      "pidgin": "dea",
+      "english": [
+        "there",
+        "that place"
+      ],
+      "category": "general",
+      "pronunciation": "DEH-ah",
+      "examples": [
+        "Stay dea, I going come",
+        "Eh brah, you see da car ova dea?",
+        "I wen leave um dea las' night, gotta go get um."
+      ],
+      "usage": "\"Dea\" is a versatile Pidgin term, functioning as a demonstrative pronoun and adverb, similar to \"there\" or \"that place\" in English. It's used to indicate a specific location or to point out something that's already been mentioned or is within sight.",
+      "origin": "This word evolved from the English phrase \"there,\" and its usage reflects the localized pronunciation and grammatical adaptation common in Hawaiian Pidgin.",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "direction",
+        "common"
+      ],
+      "audio_example": "Eh brah, you see da car ova dea?",
+      "created_at": "2026-04-12T23:44:14.123805+00:00",
+      "updated_at": "2026-04-17T06:13:31.298+00:00",
+      "fts": "'dea':1 'place':4",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "no_5000",
+      "pidgin": "no",
+      "english": [
+        "not",
+        "don't",
+        "doesn't"
+      ],
+      "category": "expressions",
+      "pronunciation": "NO",
+      "examples": [
+        "I no like dat",
+        "He no stay here"
+      ],
+      "usage": "Primary negation word",
+      "origin": "English",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "grammar",
+        "common"
+      ],
+      "audio_example": null,
+      "created_at": "2025-11-29T11:11:04.688996+00:00",
+      "updated_at": "2025-11-29T11:11:04.688996+00:00",
+      "fts": "'doesn':5",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "da_5001",
+      "pidgin": "da",
+      "english": [
+        "the"
+      ],
+      "category": "expressions",
+      "pronunciation": "dah",
+      "examples": [
+        "Da buggah stay big",
+        "Da food stay 'ono"
+      ],
+      "usage": "Article 'the'",
+      "origin": "English",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "grammar",
+        "common"
+      ],
+      "audio_example": null,
+      "created_at": "2025-11-29T11:11:04.688996+00:00",
+      "updated_at": "2025-11-29T11:11:04.688996+00:00",
+      "fts": "'da':1",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "02a948d4-babb-4edf-9695-a5c3bc07fbcd",
+      "pidgin": "done",
+      "english": [
+        "pau",
+        "finished"
+      ],
+      "category": "general",
+      "pronunciation": "dun",
+      "examples": [
+        "You done with your lunch?",
+        "You done with da work, yeah?",
+        "I done, brah, I goin' home."
+      ],
+      "usage": "While 'done' exists in Pidgin, it's less frequent than 'pau'. It's often used for emphasis or to mirror Standard English, especially in questions or when confirming completion. It can also be used to show a more casual or relaxed tone.",
+      "origin": "Borrowed directly from English, 'done' maintains its original meaning in Pidgin but is less prevalent than the native Pidgin term 'pau'.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "general"
+      ],
+      "audio_example": "You done with da work, yeah?",
+      "created_at": "2026-04-08T07:54:14.198752+00:00",
+      "updated_at": "2026-04-17T06:15:24.528+00:00",
+      "fts": "'done':1 'finish':3 'pau':2",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "buggah_515",
+      "pidgin": "buggah",
+      "english": [
+        "bugger",
+        "guy",
+        "person",
+        "thing"
+      ],
+      "category": "people",
+      "pronunciation": "BUG-gah",
+      "examples": [
+        "Dat buggah is crazy",
+        "Da buggah stay big",
+        "Which buggah you talking about?",
+        "Eh, dat buggah wen' steal my plate lunch!",
+        "No can lie, da buggah get plenty money."
+      ],
+      "usage": "\"Buggah\" is a versatile term in Pidgin, often used to refer to a person, but it can also describe a thing or situation. It can express a range of emotions, from affection to frustration, depending on the context and tone of voice.",
+      "origin": "The term \"buggah\" likely evolved from a combination of English slang and local adaptation, becoming a core part of Pidgin vocabulary to fill a variety of conversational needs.",
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": [
+        "people",
+        "slang"
+      ],
+      "audio_example": "Eh, dat buggah wen' steal my plate lunch!",
+      "created_at": "2025-11-29T11:13:48.560742+00:00",
+      "updated_at": "2026-04-17T06:10:53.307+00:00",
+      "fts": "'buggah':1 'bugger':2 'guy':3 'person':4 'thing':5",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "6e86640d-555b-4b35-a421-b88fe870acdd",
+      "pidgin": "help",
+      "english": [
+        "kōkua",
+        "assistance",
+        "support"
+      ],
+      "category": "general",
+      "pronunciation": "help",
+      "examples": [
+        "You need some help with dat?",
+        "Eh brah, can you help me move dis couch?",
+        "She always ready to help, yeah? Real good kine person."
+      ],
+      "usage": "In Pidgin, 'help' is a common word, but it can also be expressed through actions. It's used in everyday situations, from asking for physical assistance to offering emotional support. The context often reveals the specific type of help needed.",
+      "origin": "Pidgin's 'help' comes from English, reflecting the language's roots in the plantation era, where diverse communities needed a common language for communication and mutual aid.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "general",
+        "social"
+      ],
+      "audio_example": "Eh brah, can you help me move dis couch?",
+      "created_at": "2026-04-08T07:54:14.198752+00:00",
+      "updated_at": "2026-04-17T06:14:46.293+00:00",
+      "fts": "'assist':3 'help':1 'kōkua':2 'support':4",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "negz_372",
+      "pidgin": "negz",
+      "english": [
+        "negative",
+        "no"
+      ],
+      "category": "slang",
+      "pronunciation": "NEGZ",
+      "examples": [
+        "Negz, cannot",
+        "You goin' da beach? Negz, I stay home.",
+        "He aks me fo' help, I said negz."
+      ],
+      "usage": "A simple and direct way to say 'no' or to express disagreement. It's a quick and common response.",
+      "origin": "A Pidgin simplification of 'negative,' demonstrating the language's efficiency.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "english"
+      ],
+      "audio_example": "Negz, I stay home.",
+      "created_at": "2025-11-29T11:13:49.536576+00:00",
+      "updated_at": "2026-04-17T06:32:09.541+00:00",
+      "fts": "'negat':2 'negz':1",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "all_nuts_009",
+      "pidgin": "all nuts",
+      "english": [
+        "crazy",
+        "wild"
+      ],
+      "category": "slang",
+      "pronunciation": "all-NUTS",
+      "examples": [
+        "Da party was all nuts last night",
+        "Da party stay all nuts las' night.",
+        "He stay all nuts, gotta watch out fo' 'em."
+      ],
+      "usage": "This phrase describes a situation or person that is crazy, wild, or chaotic. It can be used to describe exciting or overwhelming situations.",
+      "origin": "This phrase is a Pidgin adaptation, using the English word 'nuts' to describe a state of craziness.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "english"
+      ],
+      "audio_example": "Da party stay all nuts las' night.",
+      "created_at": "2025-11-29T11:13:48.560742+00:00",
+      "updated_at": "2026-04-17T06:39:26.25+00:00",
+      "fts": "'crazi':3 'nut':2 'wild':4",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "99e86dc5-09e8-44f4-ae2c-c4ae459cac3a",
+      "pidgin": "beef curry no worry",
+      "english": [
+        "Don't worry",
+        "No problem",
+        "Everything is fine",
+        "Relax"
+      ],
+      "category": "expressions",
+      "pronunciation": "beef kur-ree noh wur-ree",
+      "examples": [
+        "No worry, beef curry! We going make 'em on time.",
+        "You forgot your wallet? Beef curry no worry brah, I got you."
+      ],
+      "usage": "A playful rhyming Pidgin catchphrase used to reassure someone that there is nothing to stress about.",
+      "origin": "Local Hawaii food culture rhyme",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "reassurance",
+        "slang",
+        "rhyme"
+      ],
+      "audio_example": null,
+      "created_at": "2026-08-25T22:27:12.941849+00:00",
+      "updated_at": "2026-10-03T08:35:46.186715+00:00",
+      "fts": "'beef':1 'curri':2 'everyth':10 'fine':12 'problem':9 'relax':13 'worri':4,7",
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "no worry beef curry"
+      ]
+    },
+    {
+      "id": "04abefcf-3e3b-45c6-a0f4-84ab4c0b6d89",
+      "pidgin": "ting",
+      "english": [
+        "Thing",
+        "Item",
+        "Object",
+        "Possession"
+      ],
+      "category": "pronouns",
+      "pronunciation": "ting",
+      "examples": [
+        "Pass me dat ting over dere on da table.",
+        "What dis ting stay called again?"
+      ],
+      "usage": "The standard Pidgin pronunciation of 'thing', used to refer to any object, gadget, or topic.",
+      "origin": "Hawaiian Pidgin th-stopping of English 'thing'",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "pronouns",
+        "everyday",
+        "vocabulary",
+        "basics"
+      ],
+      "audio_example": null,
+      "created_at": "2026-08-25T22:27:12.941849+00:00",
+      "updated_at": "2026-08-25T22:27:12.941849+00:00",
+      "fts": "'item':3 'object':4 'possess':5 'thing':2 'ting':1",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "you_like_eat_eh_521",
+      "pidgin": "you like eat, eh?",
+      "english": [
+        "you want to eat, right?",
+        "do you want to eat?",
+        "hungry?"
+      ],
+      "category": "questions",
+      "pronunciation": "you LIKE eat, EH",
+      "examples": [
+        "You like eat, eh? I going cook",
+        "Stay lunch time, you like eat, eh?",
+        "You like eat, eh? Get choke food",
+        "You like eat, eh? I wen' make plate lunch.",
+        "Eh brah, you like eat, eh? Dis kine grindz ono!"
+      ],
+      "usage": "This phrase is a common way to offer food or inquire if someone is hungry. It's a friendly and casual way to check in with someone, often used when sharing a meal or offering a snack.",
+      "origin": "This Pidgin phrase reflects the importance of food and hospitality in Hawaiian culture, stemming from the diverse immigrant groups who came to the islands and shared meals together.",
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": [
+        "questions",
+        "food"
+      ],
+      "audio_example": "You like eat, eh? I wen' make plate lunch.",
+      "created_at": "2025-11-29T11:12:13.070501+00:00",
+      "updated_at": "2026-04-17T06:11:06.404+00:00",
+      "fts": "'eat':3,8,14 'eh':4 'hungri':15 'like':2 'right':9 'want':6,12",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "winnahz_414",
+      "pidgin": "winnahz",
+      "english": [
+        "delicious",
+        "awesome"
+      ],
+      "category": "slang",
+      "pronunciation": "WIN-nahz",
+      "examples": [
+        "Da food stay winnahz",
+        "Da food was winnahz!",
+        "Dis shave ice, winnahz, brah!"
+      ],
+      "usage": "\"Winnahz\" means \"delicious\" or \"awesome.\" It's an enthusiastic expression of approval or enjoyment. It's a positive adjective for something that is really good.",
+      "origin": "This is a Pidgin adaptation of the English word \"winners.\"",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "english"
+      ],
+      "audio_example": "Da food was winnahz!",
+      "created_at": "2025-11-29T11:12:12.863333+00:00",
+      "updated_at": "2026-04-17T06:42:22.982+00:00",
+      "fts": "'awesom':3 'delici':2 'winnahz':1",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "gohan_6003",
+      "pidgin": "gohan",
+      "english": [
+        "rice",
+        "food",
+        "meal"
+      ],
+      "category": "food",
+      "pronunciation": "GO-hahn",
+      "examples": [
+        "Time fo' gohan!",
+        "I go eat gohan now.",
+        "You like some gohan wit' yo' plate lunch?"
+      ],
+      "usage": "\"Gohan\" means \"rice\" or \"meal.\" It's a common term, especially in the context of plate lunches. It reflects the influence of Japanese culture on Hawaii.",
+      "origin": "This word is borrowed from the Japanese language, reflecting the influence of Japanese immigrants on Hawaiian culture.",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "food",
+        "japanese"
+      ],
+      "audio_example": "I go eat gohan now.",
+      "created_at": "2025-11-29T11:11:04.688996+00:00",
+      "updated_at": "2026-04-17T06:42:22.982+00:00",
+      "fts": "'food':3 'gohan':1 'meal':4 'rice':2",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "go_1025",
+      "pidgin": "go",
+      "english": [
+        "go"
+      ],
+      "category": "actions",
+      "pronunciation": "GO",
+      "examples": [
+        "I go store, you like anything?",
+        "Bumbye I go eat."
+      ],
+      "usage": "The verb \"to go\". Also marks intention before another verb: \"I go eat\" means I'm going to eat. For \"let's go\", Pidgin says \"we go\".",
+      "origin": "Derived from the English verb \"go,\" but its usage in Pidgin is broader, encompassing future actions and intentions.",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "actions",
+        "common"
+      ],
+      "audio_example": "We go!",
+      "created_at": "2025-11-29T11:12:13.070501+00:00",
+      "updated_at": "2026-10-03T09:03:45.522325+00:00",
+      "fts": "'go':1,2",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "cherreh_323",
+      "pidgin": "cherreh",
+      "english": [
+        "cherry",
+        "red"
+      ],
+      "category": "slang",
+      "pronunciation": "CHEH-reh",
+      "examples": [
+        "Da car stay cherreh",
+        "I like da cherreh color car.",
+        "Da sunset, it was cherreh."
+      ],
+      "usage": "Used to describe the color red.",
+      "origin": "A Pidgin pronunciation of \"cherry,\" used to describe the color red.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "english"
+      ],
+      "audio_example": "Da cherreh car, yeah?",
+      "created_at": "2025-11-29T11:11:03.369219+00:00",
+      "updated_at": "2026-04-17T06:43:03.275+00:00",
+      "fts": "'cherreh':1 'cherri':2 'red':3",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "dis_044",
+      "pidgin": "dis",
+      "english": [
+        "this"
+      ],
+      "category": "expressions",
+      "pronunciation": "DIS",
+      "examples": [
+        "Dis da place",
+        "Dis is my friend, John.",
+        "I like dis shirt."
+      ],
+      "usage": "This is the Pidgin pronunciation of \"this.\" It's used to point out something close to the speaker.",
+      "origin": "This is a simplified pronunciation of the English word \"this,\" common in Pidgin.",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audio_example": "Dis is my friend, John.",
+      "created_at": "2025-11-29T11:11:03.369219+00:00",
+      "updated_at": "2026-04-17T06:43:24.625+00:00",
+      "fts": "'dis':1",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "fo_1033",
+      "pidgin": "fo'",
+      "english": [
+        "for",
+        "to"
+      ],
+      "category": "expressions",
+      "pronunciation": "foh",
+      "examples": [
+        "What fo'?",
+        "Going fo' grind",
+        "Dis fo you"
+      ],
+      "usage": "Preposition meaning for or to",
+      "origin": "English",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "common",
+        "grammar",
+        "english"
+      ],
+      "audio_example": null,
+      "created_at": "2025-11-29T11:12:13.070501+00:00",
+      "updated_at": "2025-11-29T11:12:13.070501+00:00",
+      "fts": "'fo':1",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "ho_brah_7023",
+      "pidgin": "ho, brah",
+      "english": [
+        "wow",
+        "hey",
+        "listen",
+        "check this out",
+        "wow man",
+        "hey brother"
+      ],
+      "category": "expressions",
+      "pronunciation": "HO, BRAH",
+      "examples": [
+        "Ho, brah! You see dat?",
+        "Ho, brah, you see dat sunset?",
+        "Ho, brah, I wen' win da lottery!",
+        "Ho brah, you see dat wave?",
+        "Ho brah, long time no see!"
+      ],
+      "usage": "An exclamation used to get someone's attention, express surprise, or emphasize a point. \"Brah\" is a term of endearment, often used between friends. It can also be used to express excitement or disbelief.",
+      "origin": "A quintessential Pidgin phrase, \"ho\" is a general interjection, and \"brah\" is a term of camaraderie, reflecting the close-knit community spirit of Hawaii.",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "exclamations",
+        "common",
+        "greeting",
+        "surprise"
+      ],
+      "audio_example": "Ho, brah",
+      "created_at": "2025-11-29T11:11:04.688996+00:00",
+      "updated_at": "2026-10-03T08:08:15.417744+00:00",
+      "fts": "'brah':2 'brother':12 'check':6 'hey':4,11 'ho':1 'listen':5 'man':10 'wow':3,9",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "kuru_kuru_6005",
+      "pidgin": "kuru-kuru",
+      "english": [
+        "curly",
+        "spinning",
+        "crazy",
+        "going in circles"
+      ],
+      "category": "descriptions",
+      "pronunciation": "KOO-roo KOO-roo",
+      "examples": [
+        "His hair stay all kuru-kuru",
+        "Stop going kuru-kuru!"
+      ],
+      "usage": "Curly, spinning, or acting crazy",
+      "origin": "Japanese",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "descriptions",
+        "japanese",
+        "appearance"
+      ],
+      "audio_example": null,
+      "created_at": "2025-11-29T11:11:04.688996+00:00",
+      "updated_at": "2025-11-29T11:11:04.688996+00:00",
+      "fts": "'circl':9 'crazi':6 'cur':4 'go':7 'kuru':2,3 'kuru-kuru':1 'spin':5",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "off_da_hook_7010",
+      "pidgin": "off da hook",
+      "english": [
+        "excellent",
+        "amazing",
+        "incredible"
+      ],
+      "category": "expressions",
+      "pronunciation": "off dah HOOK",
+      "examples": [
+        "Da waves stay off da hook today!",
+        "Da party was off da hook, yeah!",
+        "Dat food was off da hook!"
+      ],
+      "usage": "Means something is excellent, amazing, or incredible. It's a strong expression of approval.",
+      "origin": "Likely from African American Vernacular English (AAVE), it has become widely adopted in Pidgin to express extreme positivity.",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "compliment",
+        "slang"
+      ],
+      "audio_example": "Dat was off da hook!",
+      "created_at": "2025-11-29T11:11:04.688996+00:00",
+      "updated_at": "2026-04-17T06:43:03.275+00:00",
+      "fts": "'amaz':5 'da':2 'excel':4 'hook':3 'incred':6",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "hungry_999",
+      "pidgin": "hungry",
+      "english": [
+        "hungry"
+      ],
+      "category": "emotions",
+      "pronunciation": "HUNG-gree",
+      "examples": [
+        "I stay hungry brah",
+        "Eh, I so hungry, gotta go grab some plate lunch.",
+        "You hungry? I got some musubi, you want?"
+      ],
+      "usage": "In Pidgin, 'hungry' is used just like in English, but often with the intensifier 'so' to emphasize the feeling. It's a common expression used in everyday conversations about food and meal times.",
+      "origin": "The Pidgin word 'hungry' comes directly from English, reflecting the influence of the English language on the development of Hawaiian Pidgin.",
+      "difficulty": null,
+      "frequency": "high",
+      "tags": null,
+      "audio_example": "Eh, I so hungry, gotta go grab some plate lunch.",
+      "created_at": "2026-03-30T18:29:30.535398+00:00",
+      "updated_at": "2026-04-06T04:53:46.929+00:00",
+      "fts": "'hungri':1,2",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "kine_094",
+      "pidgin": "kine",
+      "english": [
+        "kind",
+        "type"
+      ],
+      "category": "grammar",
+      "pronunciation": "KINE",
+      "examples": [
+        "Wat kine?",
+        "What kine food you like eat?",
+        "Dat kine car, I like get one!"
+      ],
+      "usage": "This versatile word means 'kind' or 'type' and is used extensively in Pidgin to describe different categories or varieties of things. It can replace the words 'sort of' or 'like'.",
+      "origin": "Derived from the English word 'kind', it's a prime example of how Pidgin simplifies and adapts English vocabulary.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "grammar",
+        "english"
+      ],
+      "audio_example": "kine",
+      "created_at": "2025-11-29T11:13:49.257591+00:00",
+      "updated_at": "2026-04-17T06:34:28.66+00:00",
+      "fts": "'kind':2 'kine':1 'type':3",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "753176ed-d9a9-4fc7-b691-183203a06239",
+      "pidgin": "errbody",
+      "english": [
+        "everybody",
+        "everyone"
+      ],
+      "category": "general",
+      "pronunciation": "ER-buh-dee",
+      "examples": [
+        "errbody stay everybody"
+      ],
+      "usage": "",
+      "origin": "",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "general"
+      ],
+      "audio_example": null,
+      "created_at": "2026-05-08T06:52:54.938557+00:00",
+      "updated_at": "2026-05-08T06:52:54.938557+00:00",
+      "fts": "'errbodi':1 'everybodi':2 'everyon':3",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "dat_042",
+      "pidgin": "dat",
+      "english": [
+        "that"
+      ],
+      "category": "expressions",
+      "pronunciation": "DAT",
+      "examples": [
+        "Look at dat",
+        "I like dat car.",
+        "Dat's my house over there."
+      ],
+      "usage": "This is the Pidgin pronunciation of \"that.\" It's used to point out something that is not close to the speaker.",
+      "origin": "This is a simplified pronunciation of the English word \"that,\" common in Pidgin.",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audio_example": "I like dat car.",
+      "created_at": "2025-11-29T11:11:03.369219+00:00",
+      "updated_at": "2026-04-17T06:43:24.625+00:00",
+      "fts": "'dat':1",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "ac7d8942-6c27-4933-83d8-bb4e23faea5d",
+      "pidgin": "boro boro",
+      "english": [
+        "tattered",
+        "old",
+        "raggedy"
+      ],
+      "category": "descriptions",
+      "pronunciation": "boh-roh boh-roh",
+      "examples": [
+        "Throw away dat boro boro shirt already!",
+        "Da car stay boro boro, gotta get a new one.",
+        "Eh brah, dis kine boro boro slippers, yeah?"
+      ],
+      "usage": "\"Boro boro\" is used to describe something that is worn out, dilapidated, or in a state of disrepair. It can apply to clothing, vehicles, buildings, or any object that has seen better days and is falling apart.",
+      "origin": "The term \"boro boro\" comes from the Japanese word \"boro-boro,\" meaning \"ragged\" or \"worn out.\" It was adopted into Pidgin English through the influence of Japanese immigrants who came to Hawai'i to work on the sugar plantations.",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "descriptions",
+        "japanese"
+      ],
+      "audio_example": "Da car stay boro boro, gotta get a new one.",
+      "created_at": "2026-03-31T08:51:01.162238+00:00",
+      "updated_at": "2026-04-17T06:19:15.892+00:00",
+      "fts": "'boro':1,2 'old':4 'raggedi':5 'tatter':3",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "hula_601",
+      "pidgin": "hula",
+      "english": [
+        "hula"
+      ],
+      "category": "cultural",
+      "pronunciation": "HOO-lah",
+      "examples": [
+        "hula stay hula",
+        "She like learn hula.",
+        "Da hula was beautiful."
+      ],
+      "usage": "Refers to the traditional Hawaiian dance, a significant part of Hawaiian culture. It's a form of storytelling and expression.",
+      "origin": "Deeply rooted in Hawaiian culture, the hula is a sacred dance form that tells stories, preserves history, and honors the gods and goddesses.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ],
+      "audio_example": "She like learn hula.",
+      "created_at": "2025-11-29T11:13:49.257591+00:00",
+      "updated_at": "2026-04-17T06:33:20.64+00:00",
+      "fts": "'hula':1,2",
+      "source_language": "hawaiian",
+      "spelling_variants": []
+    },
+    {
+      "id": "93129535-031c-401b-ac0f-0978ac49b830",
+      "pidgin": "bambucha",
+      "english": [
+        "huge",
+        "very large",
+        "gigantic",
+        "big",
+        "very big"
+      ],
+      "category": "descriptions",
+      "pronunciation": "bam-BOO-chah",
+      "examples": [
+        "Ho, dat mango stay bambucha!",
+        "Da wave was bambucha, brah, almost wen' wash 'em all away!",
+        "Eh, you see dat truck? Bambucha size, yeah?",
+        "One bumboocha wave",
+        "Da mango tree got bumboocha mangoes!",
+        "Look at dat bumboocha truck!",
+        "Dat fish bumbucha big, yeah?"
+      ],
+      "usage": "\"Bambucha\" is used to describe something of an exceptionally large size, often with a sense of awe or exaggeration. It's a common term in Pidgin, highlighting the speaker's surprise or emphasis on the size of an object or situation.",
+      "origin": "The term \"bambucha\" is a Pidgin word, likely derived from a combination of influences, including English and possibly other languages spoken by plantation workers. It reflects the expressive and colorful nature of Pidgin.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "descriptions",
+        "slang"
+      ],
+      "audio_example": "Da wave was bambucha, brah, almost wen' wash 'em all away!",
+      "created_at": "2026-03-31T08:51:01.162238+00:00",
+      "updated_at": "2026-10-08T10:04:52.264489+00:00",
+      "fts": "'bambucha':1 'big':6,8 'gigant':5 'huge':2 'larg':4",
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "bumboocha",
+        "bumbucha"
+      ]
+    },
+    {
+      "id": "minahs_369",
+      "pidgin": "minahs",
+      "english": [
+        "minor",
+        "small"
+      ],
+      "category": "slang",
+      "pronunciation": "MY-nahz",
+      "examples": [
+        "Just minahs",
+        "Da problem, just minahs, brah.",
+        "Eh, dat kine ting, minahs, no need worry."
+      ],
+      "usage": "In Hawaiian Pidgin, \"minahs\" signifies something insignificant or trivial. It's often used to downplay a problem or situation, indicating it's not worth significant concern or effort.",
+      "origin": "Derived from the English word \"minor,\" \"minahs\" reflects the Pidgin language's tendency to adapt and shorten words for everyday use.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "english"
+      ],
+      "audio_example": "Da problem, just minahs, brah.",
+      "created_at": "2025-11-29T11:13:49.536576+00:00",
+      "updated_at": "2026-04-17T06:24:18.309+00:00",
+      "fts": "'minah':1 'minor':2 'small':3",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "mento_121",
+      "pidgin": "mento",
+      "english": [
+        "mental",
+        "crazy"
+      ],
+      "category": "slang",
+      "pronunciation": "MEN-toh",
+      "examples": [
+        "You mento",
+        "Da guy stay mento, always talkin' to himself.",
+        "Eh brah, you mento fo' real! You wen' do dat?"
+      ],
+      "usage": "\"Mento\" is used to describe someone who is acting irrationally, strangely, or is perceived as mentally unstable. It can also be used playfully among friends to tease someone for doing something silly or unexpected.",
+      "origin": "Derived from the English word \"mental,\" \"mento\" in Pidgin gained its own unique flavor through local usage and the Pidgin language's tendency to adapt and simplify words.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "english"
+      ],
+      "audio_example": "Eh brah, you mento fo' real!",
+      "created_at": "2025-11-29T11:13:49.536576+00:00",
+      "updated_at": "2026-04-17T06:24:22.828+00:00",
+      "fts": "'crazi':3 'mental':2 'mento':1",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "mayjah_368",
+      "pidgin": "mayjah",
+      "english": [
+        "major",
+        "big"
+      ],
+      "category": "slang",
+      "pronunciation": "MAY-jah",
+      "examples": [
+        "Mayjah problem",
+        "Da mayjah kine kanack time fo' go beach.",
+        "Eh brah, dat's one mayjah lie you tell!"
+      ],
+      "usage": "In Pidgin, \"mayjah\" is used to emphasize the size, importance, or severity of something. It can describe a significant problem, a large amount, or a serious situation, often intensifying the meaning of the word it modifies.",
+      "origin": "Derived directly from the English word \"major,\" \"mayjah\" reflects the influence of English on the development of Hawaiian Pidgin. Its adoption highlights the practical need for words to describe importance and scale.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "english"
+      ],
+      "audio_example": "Eh brah, dat's one mayjah lie you tell!",
+      "created_at": "2025-11-29T11:13:49.536576+00:00",
+      "updated_at": "2026-04-17T06:24:39.483+00:00",
+      "fts": "'big':3 'major':2 'mayjah':1",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "bag_204",
+      "pidgin": "bag",
+      "english": [
+        "to leave",
+        "depart"
+      ],
+      "category": "slang",
+      "pronunciation": "BAG",
+      "examples": [
+        "Time fo bag, pau hana",
+        "Time to bag, brah!",
+        "I'm gonna bag now, see you guys later."
+      ],
+      "usage": "Means to leave or depart, often used when going home or leaving a place.",
+      "origin": "This is a Pidgin slang term, likely originating from the idea of gathering one's belongings to leave.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "english"
+      ],
+      "audio_example": "I gotta bag.",
+      "created_at": "2025-11-29T11:13:48.560742+00:00",
+      "updated_at": "2026-04-17T06:39:44.694+00:00",
+      "fts": "'bag':1 'depart':4 'leav':3",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "goin_240",
+      "pidgin": "goin",
+      "english": [
+        "going",
+        "will",
+        "gonna",
+        "going to",
+        "about to"
+      ],
+      "category": "expressions",
+      "pronunciation": "GO-in",
+      "examples": [
+        "We goin beach",
+        "I goin' to da beach tomorrow.",
+        "We goin' eat dinner at seven.",
+        "I going go beach later",
+        "I going eat latah.",
+        "She going to da store.",
+        "I a goin' store, you like something?",
+        "Eh brah, I a goin' surf after school, you wanna come?",
+        "She a goin' cry if you tell her dat."
+      ],
+      "usage": "This is the Pidgin form of \"going,\" used to indicate a future action or intention. It's a common way to express plans or arrangements.",
+      "origin": "This is a simplified pronunciation of the English word \"going,\" reflecting the way it's commonly spoken in Pidgin.",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "english",
+        "grammar",
+        "common",
+        "action"
+      ],
+      "audio_example": "I goin' to da beach tomorrow.",
+      "created_at": "2025-11-29T11:11:03.369219+00:00",
+      "updated_at": "2026-10-04T04:29:39.809067+00:00",
+      "fts": "'go':2,5 'goin':1 'gonna':4",
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "a goin"
+      ]
+    },
+    {
+      "id": "boro_boroz_211",
+      "pidgin": "boro boroz",
+      "english": [
+        "worn out",
+        "tired"
+      ],
+      "category": "slang",
+      "pronunciation": "BOH-roh-BOH-rohz",
+      "examples": [
+        "I stay boro boroz after work",
+        "I boro boroz afta dat long hike.",
+        "Workin' all day, I stay boro boroz."
+      ],
+      "usage": "Describes someone who is extremely tired, worn out, or exhausted. It conveys a feeling of being completely drained of energy.",
+      "origin": "This phrase likely evolved from a combination of English and local slang to express the feeling of exhaustion.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang"
+      ],
+      "audio_example": "I boro boroz afta dat long hike.",
+      "created_at": "2025-11-29T11:13:48.560742+00:00",
+      "updated_at": "2026-04-17T06:35:09.988+00:00",
+      "fts": "'boro':1 'boroz':2 'tire':5 'worn':3",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "lychee_7003",
+      "pidgin": "lychee",
+      "english": [
+        "lychee fruit",
+        "litchi"
+      ],
+      "category": "food",
+      "pronunciation": "LIE-chee",
+      "examples": [
+        "Fresh lychee season stay here",
+        "Lychee season, yeah! So ono!",
+        "You like some lychee from da market?"
+      ],
+      "usage": "Refers to the lychee fruit, a sweet and juicy tropical fruit. It's a popular treat. It's a fruit.",
+      "origin": "Introduced to Hawaii, it's a popular fruit, reflecting the islands' diverse agricultural history.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "food",
+        "chinese",
+        "fruit"
+      ],
+      "audio_example": "Lychee",
+      "created_at": "2025-11-29T11:11:04.688996+00:00",
+      "updated_at": "2026-04-17T06:42:43.266+00:00",
+      "fts": "'fruit':3 'litchi':4 'lyche':1,2",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "ia_7018",
+      "pidgin": "i'a",
+      "english": [
+        "fish"
+      ],
+      "category": "food",
+      "pronunciation": "EE-ah",
+      "examples": [
+        "We going catch i'a today",
+        "We wen' catch plenny i'a today.",
+        "I like eat i'a, yeah?"
+      ],
+      "usage": "The general term for fish. It's a common term. It's a food source.",
+      "origin": "From the Hawaiian language, reflecting the importance of fishing in Hawaiian culture and diet.",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "food",
+        "hawaiian",
+        "fish"
+      ],
+      "audio_example": "I'a",
+      "created_at": "2025-11-29T11:11:04.688996+00:00",
+      "updated_at": "2026-04-17T06:42:43.266+00:00",
+      "fts": "'fish':3",
+      "source_language": "hawaiian",
+      "spelling_variants": []
+    },
+    {
+      "id": "solid_1016",
+      "pidgin": "solid",
+      "english": [
+        "good",
+        "cool",
+        "nice",
+        "reliable"
+      ],
+      "category": "descriptions",
+      "pronunciation": "SAH-lid",
+      "examples": [
+        "That guy stay solid, you can trust him",
+        "He's a solid guy, you can trust him.",
+        "Da car is solid, no problem."
+      ],
+      "usage": "Means good, reliable, or trustworthy. It expresses approval or confidence.",
+      "origin": "A Pidgin adaptation of 'solid,' used to describe dependable people or things.",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "descriptions",
+        "compliment"
+      ],
+      "audio_example": "Solid, brah!",
+      "created_at": "2025-11-29T11:12:13.070501+00:00",
+      "updated_at": "2026-04-17T06:40:02.793+00:00",
+      "fts": "'cool':3 'good':2 'nice':4 'reliabl':5 'solid':1",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "katsu_1017",
+      "pidgin": "katsu",
+      "english": [
+        "perfect",
+        "victorious",
+        "winning"
+      ],
+      "category": "expressions",
+      "pronunciation": "KAT-soo",
+      "examples": [
+        "All katsu now!",
+        "We katsu! We win!",
+        "Da game was katsu!"
+      ],
+      "usage": "Means perfect, victorious, or winning. It expresses complete success or satisfaction.",
+      "origin": "From the Japanese word 'katsu,' meaning victory, reflecting the influence of Japanese culture in Hawaii.",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "japanese",
+        "success"
+      ],
+      "audio_example": "Katsu, yeah!",
+      "created_at": "2025-11-29T11:12:13.070501+00:00",
+      "updated_at": "2026-04-17T06:40:02.793+00:00",
+      "fts": "'katsu':1 'perfect':2 'victori':3 'win':4",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "big_kine_1031",
+      "pidgin": "big kine",
+      "english": [
+        "a lot",
+        "big",
+        "major"
+      ],
+      "category": "descriptions",
+      "pronunciation": "big KINE",
+      "examples": [
+        "That's one big kine problem",
+        "Da wave was big kine today!",
+        "He get big kine muscles, yeah?"
+      ],
+      "usage": "Used to emphasize the size, importance, or degree of something. It intensifies the adjective that follows, indicating something is significant or substantial.",
+      "origin": "This phrase is a Pidgin construction, using \"big\" (large) and \"kine\" (kind of/type of) to create an intensifier.",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "descriptions",
+        "amounts"
+      ],
+      "audio_example": "Big kine!",
+      "created_at": "2025-11-29T11:12:13.070501+00:00",
+      "updated_at": "2026-04-17T06:40:21.164+00:00",
+      "fts": "'big':1,5 'kine':2 'lot':4 'major':6",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "manini_999",
+      "pidgin": "manini",
+      "english": [
+        "small",
+        "insignificant",
+        "stingy",
+        "cheap"
+      ],
+      "category": "descriptions",
+      "pronunciation": "mah-NEE-nee",
+      "examples": [
+        "No be manini wit da tip brah",
+        "Dat fish is too manini, let um go",
+        "Eh, dat kine manini kine car, yeah?",
+        "She's so manini, she no like share nottin'."
+      ],
+      "usage": "\"Manini\" is used to describe something small in size or value, but it can also refer to someone who is stingy or unwilling to share. It's a versatile word that reflects both physical characteristics and personality traits, often used in a casual, everyday context.",
+      "origin": "The term originates from the Hawaiian language, referring to the convict tang fish, which are small in size. Over time, its meaning expanded to encompass other senses of smallness and stinginess.",
+      "difficulty": null,
+      "frequency": "high",
+      "tags": null,
+      "audio_example": "Eh, dat kine manini kine car, yeah?",
+      "created_at": "2026-03-30T20:03:19.677568+00:00",
+      "updated_at": "2026-04-06T04:53:30.599+00:00",
+      "fts": "'cheap':5 'insignific':3 'manini':1 'small':2 'stingi':4",
+      "source_language": "hawaiian",
+      "spelling_variants": []
+    },
+    {
+      "id": "kaukau_3003",
+      "pidgin": "kaukau",
+      "english": [
+        "food",
+        "meal",
+        "to eat",
+        "eat"
+      ],
+      "category": "food",
+      "pronunciation": "KOW-kow",
+      "examples": [
+        "Time fo' kaukau!",
+        "I going make kaukau.",
+        "Time fo kau kau",
+        "Time fo' kau kau, you guys hungry?",
+        "I wen' kau kau da best plate lunch today, brah!"
+      ],
+      "usage": "Means food or a meal, and can also be used as a verb meaning \"to eat.\" It's a general term for nourishment.",
+      "origin": "From Chinese Pidgin English chowchow (food), brought to Hawaii in the plantation era; often written kau kau.",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "food",
+        "chinese",
+        "actions"
+      ],
+      "audio_example": "Kaukau!",
+      "created_at": "2025-11-29T11:12:13.070501+00:00",
+      "updated_at": "2026-10-03T23:31:32.400552+00:00",
+      "fts": "'eat':5,6 'food':2 'kaukau':1 'meal':3",
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "kau kau"
+      ]
+    },
+    {
+      "id": "b8a90194-e8fe-45c3-95af-cc4e99803b83",
+      "pidgin": "palala",
+      "english": [
+        "brother",
+        "friend",
+        "bro",
+        "local guy",
+        "dude"
+      ],
+      "category": "people",
+      "pronunciation": "pah-LAH-lah",
+      "examples": [
+        "Howzit, palala! Long time no see!",
+        "Dat palala over dea know how fo' fix your truck.",
+        "Shoots, tanks palala, I catch you later."
+      ],
+      "usage": "Used warmly between friends or to refer respectfully to another local guy. Hawaiianized adaptation of \"brother\", parallel to \"braddah\". Common across Oahu, Maui, and Hawaii Island.",
+      "origin": "Hawaiianized adaptation of English \"brother\" (also influenced by Hawaiian palaoa/palalah).",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "people",
+        "greetings",
+        "slang",
+        "friendship"
+      ],
+      "audio_example": null,
+      "created_at": "2026-10-08T10:09:42.432596+00:00",
+      "updated_at": "2026-10-08T10:09:42.432596+00:00",
+      "fts": "'bro':4 'brother':2 'dude':7 'friend':3 'guy':6 'local':5 'palala':1",
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "palalah"
+      ]
+    },
+    {
+      "id": "correck_037",
+      "pidgin": "correck",
+      "english": [
+        "correct",
+        "right"
+      ],
+      "category": "expressions",
+      "pronunciation": "koh-REK",
+      "examples": [
+        "Dass correck",
+        "Yeah, brah, you correck!",
+        "You correck, dat's da way to do it."
+      ],
+      "usage": "Used to affirm that something is right, true, or accurate. It's a simple way to agree or confirm.",
+      "origin": "From the English word \"correct,\" it's a straightforward affirmation that has become a staple in Pidgin.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audio_example": "Yeah, brah, you correck!",
+      "created_at": "2025-11-29T11:11:03.369219+00:00",
+      "updated_at": "2026-04-17T06:44:07.094+00:00",
+      "fts": "'correck':1 'correct':2 'right':3",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "a93b38c3-e5ef-42cd-974b-f84181bae6ef",
+      "pidgin": "moana",
+      "english": [
+        "ocean",
+        "sea"
+      ],
+      "category": "nature",
+      "pronunciation": "moh-AH-nah",
+      "examples": [
+        "Lets go jump in the moana to cool off.",
+        "Da keiki dem wen go swim in da moana, plenny big waves!",
+        "Eh brah, I like go fishin' in da moana, you comin'?"
+      ],
+      "usage": "In Pidgin, \"moana\" is used to describe the ocean, encompassing both the vast open sea and the waters surrounding the islands. It's a common term in everyday conversation, reflecting the central role the ocean plays in Hawaiian life.",
+      "origin": "The word \"moana\" comes directly from the Hawaiian language, where it also means \"ocean\" or \"sea.\" This highlights the strong connection between the people and the ocean.",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "nature",
+        "hawaiian"
+      ],
+      "audio_example": "Eh brah, I like go fishin' in da moana, you comin'?",
+      "created_at": "2026-03-31T04:53:47.973894+00:00",
+      "updated_at": "2026-04-17T06:23:55.269+00:00",
+      "fts": "'moana':1 'ocean':2 'sea':3",
+      "source_language": "hawaiian",
+      "spelling_variants": []
+    },
+    {
+      "id": "0708d97a-9596-4e41-b60e-c4738be1ed11",
+      "pidgin": "the",
+      "english": [
+        "the"
+      ],
+      "category": "grammar",
+      "pronunciation": "duh",
+      "examples": [
+        "Da kine boy went to da store.",
+        "I like da beach."
+      ],
+      "usage": "",
+      "origin": "",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "grammar",
+        "article",
+        "hawaiian pidgin",
+        "language"
+      ],
+      "audio_example": null,
+      "created_at": "2026-04-19T07:14:38.032071+00:00",
+      "updated_at": "2026-04-19T07:14:38.032071+00:00",
+      "fts": "",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "kalua_614",
+      "pidgin": "kalua",
+      "english": [
+        "to bake in an imu"
+      ],
+      "category": "cultural",
+      "pronunciation": "kah-LOO-ah",
+      "examples": [
+        "kalua stay to bake in an imu",
+        "We kalua da pig fo' da lu'au, yeah?",
+        "Da chicken kalua taste ono, you know?"
+      ],
+      "usage": "Kalua refers to the traditional Hawaiian method of cooking food, especially pork, in an imu, an underground oven. The process imparts a smoky flavor and is a centerpiece of many celebrations.",
+      "origin": "The practice of kaluaing food in an imu is an ancient Hawaiian tradition, used for large gatherings and feasts.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ],
+      "audio_example": "We kalua da pig fo' da lu'au, yeah?",
+      "created_at": "2025-11-29T11:13:49.257591+00:00",
+      "updated_at": "2026-04-17T06:34:15.048+00:00",
+      "fts": "'bake':3 'imu':6 'kalua':1",
+      "source_language": "hawaiian",
+      "spelling_variants": []
+    },
+    {
+      "id": "5213452e-faeb-47ce-9ed9-9d50a883a501",
+      "pidgin": "ang sarap",
+      "english": [
+        "delicious",
+        "very tasty",
+        "so good"
+      ],
+      "category": "food",
+      "pronunciation": "AHNG SAH-RAHP",
+      "examples": [
+        "You went make the pork adobo? Ang sarap, auntie!",
+        "This mango is ang sarap, so sweet!"
+      ],
+      "usage": "",
+      "origin": "",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "filipino",
+        "food",
+        "slang",
+        "loanword"
+      ],
+      "audio_example": null,
+      "created_at": "2026-06-06T04:40:31.125595+00:00",
+      "updated_at": "2026-06-06T04:40:31.125595+00:00",
+      "fts": "'ang':1 'delici':3 'good':7 'sarap':2 'tasti':5",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "20df70c5-77b3-40f4-a10d-607aeb0f1d5e",
+      "pidgin": "faka in english",
+      "english": [
+        "guy",
+        "fellow",
+        "fucker"
+      ],
+      "category": "people",
+      "pronunciation": "FAH-kah",
+      "examples": [
+        "Who dat faka over deah?",
+        "Eh, dat faka went take my surf wax."
+      ],
+      "usage": "",
+      "origin": "",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "nouns",
+        "people"
+      ],
+      "audio_example": null,
+      "created_at": "2026-06-06T04:40:31.125595+00:00",
+      "updated_at": "2026-06-06T04:40:31.125595+00:00",
+      "fts": "'english':3 'faka':1 'fellow':5 'fucker':6 'guy':4",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "124c0176-ad2d-479f-85c1-ace6561b6990",
+      "pidgin": "goin or going",
+      "english": [
+        "going to",
+        "will",
+        "about to"
+      ],
+      "category": "grammar",
+      "pronunciation": "GO-in",
+      "examples": [
+        "I goin go store, you like anything?",
+        "We going eat lunch later, you like come?"
+      ],
+      "usage": "",
+      "origin": "",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "grammar",
+        "future tense",
+        "verbs",
+        "sentence structure"
+      ],
+      "audio_example": null,
+      "created_at": "2026-06-06T04:40:31.125595+00:00",
+      "updated_at": "2026-06-06T04:40:31.125595+00:00",
+      "fts": "'go':3,4 'goin':1",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "795cf4bb-87a3-499d-84ff-589a719cfc01",
+      "pidgin": "fakas",
+      "english": [
+        "guys",
+        "fellows",
+        "bastards"
+      ],
+      "category": "people",
+      "pronunciation": "FAH-kahs",
+      "examples": [
+        "What you fakas doing tonight?",
+        "Those fakas went take my slippers."
+      ],
+      "usage": "",
+      "origin": "",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "casual",
+        "pronoun",
+        "local"
+      ],
+      "audio_example": null,
+      "created_at": "2026-06-06T04:40:31.125595+00:00",
+      "updated_at": "2026-06-06T04:40:31.125595+00:00",
+      "fts": "'bastard':4 'faka':1 'fellow':3 'guy':2",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "f2d6f9bc-af78-4e6c-a7cf-80d9bdee7617",
+      "pidgin": "sarap filipino",
+      "english": [
+        "delicious",
+        "tasty",
+        "delicious Filipino food"
+      ],
+      "category": "food",
+      "pronunciation": "sah-RAHP",
+      "examples": [
+        "You gotta try dis pork adobo, so sarap!",
+        "My grandma make the most sarap Filipino desserts for New Years."
+      ],
+      "usage": "",
+      "origin": "",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "food",
+        "filipino",
+        "slang",
+        "delicious"
+      ],
+      "audio_example": null,
+      "created_at": "2026-06-06T04:40:31.125595+00:00",
+      "updated_at": "2026-06-06T04:40:31.125595+00:00",
+      "fts": "'delici':3,5 'filipino':2,6 'food':7 'sarap':1 'tasti':4",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "cb9b2a1a-0998-4145-ab63-0dc0ab336584",
+      "pidgin": "learn",
+      "english": [
+        "to teach",
+        "to learn"
+      ],
+      "category": "grammar",
+      "pronunciation": "LEN",
+      "examples": [
+        "My uncle went len me how for throw net.",
+        "Who went learn you how for talk like dat?"
+      ],
+      "usage": "",
+      "origin": "",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "verb",
+        "grammar",
+        "education",
+        "local-slang"
+      ],
+      "audio_example": null,
+      "created_at": "2026-06-06T04:40:31.125595+00:00",
+      "updated_at": "2026-06-06T04:40:31.125595+00:00",
+      "fts": "'learn':1,5 'teach':3",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "make_111",
+      "pidgin": "make",
+      "english": [
+        "dead",
+        "die",
+        "to die",
+        "broken"
+      ],
+      "category": "cultural",
+      "pronunciation": "MAH-keh",
+      "examples": [
+        "Da bug stay make",
+        "Eh brah, da fish wen make las week.",
+        "No worry, da plant no go make, I wen water 'em.",
+        "My phone stay ma-ke.",
+        "The battery ma-ke already."
+      ],
+      "usage": "In Pidgin, \"make\" is a versatile verb used to express the concept of dying or ceasing to exist. It's often used in place of \"die\" and can apply to people, animals, or even plants and objects.",
+      "origin": "This usage of \"make\" likely evolved from the Hawaiian language, where similar constructions were used to describe the end of life or the cessation of function.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "hawaiian",
+        "broken",
+        "status"
+      ],
+      "audio_example": "Eh brah, da fish wen make las week.",
+      "created_at": "2025-11-29T11:13:49.536576+00:00",
+      "updated_at": "2026-10-03T23:31:32.400552+00:00",
+      "fts": "'broken':6 'dead':2 'die':3,5 'make':1",
+      "source_language": "hawaiian",
+      "spelling_variants": [
+        "mahke",
+        "ma-ke"
+      ]
+    },
+    {
+      "id": "f94e7b05-e0d2-40f9-a4f8-333fc7fad83f",
+      "pidgin": "kahiko",
+      "english": [
+        "ancient",
+        "traditional",
+        "old style"
+      ],
+      "category": "cultural",
+      "pronunciation": "kah-HEE-koh",
+      "examples": [
+        "Dey danced hula kahiko at da festival.",
+        "Da kahiko chants, dey still echoing in my ears.",
+        "She like learn da kahiko ways, not just da modern stuff."
+      ],
+      "usage": "\"Kahiko\" is used to describe things related to old Hawaiian traditions, customs, and practices. It often appears in the context of hula, music, and storytelling, emphasizing the historical and cultural depth of these art forms.",
+      "origin": "The term \"kahiko\" is directly from the Hawaiian language, reflecting the importance of the past and the preservation of ancestral knowledge in Hawaiian culture.",
+      "difficulty": "advanced",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ],
+      "audio_example": "She like learn da kahiko ways, not just da modern stuff.",
+      "created_at": "2026-03-31T08:51:01.162238+00:00",
+      "updated_at": "2026-04-17T06:19:32.827+00:00",
+      "fts": "'ancient':2 'kahiko':1 'old':4 'style':5 'tradit':3",
+      "source_language": "hawaiian",
+      "spelling_variants": []
+    },
+    {
+      "id": "wiki_wiki_195",
+      "pidgin": "wiki wiki",
+      "english": [
+        "hurry up",
+        "fast",
+        "quickly",
+        "hurry"
+      ],
+      "category": "expressions",
+      "pronunciation": "WEE-kee-WEE-kee",
+      "examples": [
+        "Wiki wiki, we going be late",
+        "Wiki wiki, we gotta go!",
+        "Hurry up, wiki wiki!",
+        "Wikiwiki!",
+        "Drive wikiwiki, we late!",
+        "I gotta go wikiwiki to da store."
+      ],
+      "usage": "\"Wiki wiki\" means \"hurry up\" or \"fast.\" It emphasizes the need for speed or urgency. It's a common expression used to encourage someone to act quickly.",
+      "origin": "This phrase comes from the Hawaiian language, where \"wiki\" means \"quick\" or \"fast.\"",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "hawaiian"
+      ],
+      "audio_example": "Wiki wiki, we gotta go!",
+      "created_at": "2025-11-29T11:12:12.863333+00:00",
+      "updated_at": "2026-10-03T23:31:32.400552+00:00",
+      "fts": "'fast':5 'hurri':3,7 'quick':6 'wiki':1,2",
+      "source_language": "hawaiian",
+      "spelling_variants": [
+        "wikiwiki"
+      ]
+    },
+    {
+      "id": "lolo_107",
+      "pidgin": "lolo",
+      "english": [
+        "crazy",
+        "stupid",
+        "dumb"
+      ],
+      "category": "cultural",
+      "pronunciation": "LOH-loh",
+      "examples": [
+        "You lolo",
+        "Eh, dat guy lolo, yeah? He wen' jump off da roof!",
+        "I no can believe you do dat, brah. You so lolo!"
+      ],
+      "usage": "\"Lolo\" is used to describe someone acting foolishly, irrationally, or making a poor decision. It can range from playful teasing to a more serious judgment of someone's mental state or actions.",
+      "origin": "The term \"lolo\" comes from the Hawaiian language, where it originally meant \"brainless\" or \"crazy.\" It has been adopted and adapted within Pidgin to reflect local attitudes and humor.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "hawaiian"
+      ],
+      "audio_example": "Eh, dat guy lolo, yeah? He wen' jump off da roof!",
+      "created_at": "2025-11-29T11:13:49.536576+00:00",
+      "updated_at": "2026-10-03T08:35:46.186715+00:00",
+      "fts": "'crazi':2 'dumb':4 'lolo':1 'stupid':3",
+      "source_language": "hawaiian",
+      "spelling_variants": []
+    },
+    {
+      "id": "moe_moe_403",
+      "pidgin": "moe moe",
+      "english": [
+        "sleepy",
+        "sleep",
+        "go to sleep (said to kids)"
+      ],
+      "category": "actions",
+      "pronunciation": "MOH-eh-MOH-eh",
+      "examples": [
+        "I stay moe moe",
+        "Eh brah, I so moe moe, gotta go take one nap.",
+        "Da keiki stay moe moe, gotta put 'um to bed.",
+        "Eh, da keiki all ready moemoe, yeah?",
+        "I wen tell 'em, 'Moemoe now, gotta get plenny sleep!'"
+      ],
+      "usage": "Sleepy, or sleep. Said of yourself (\"I stay moe moe\") and, especially to children, as \"go moe moe\" or \"moemoe\" for going to bed.",
+      "origin": "This Pidgin term originates from the Hawaiian language, where \"moe\" means \"to sleep.\" The repetition, \"moe moe,\" emphasizes the feeling of sleepiness.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "descriptions",
+        "hawaiian",
+        "cultural"
+      ],
+      "audio_example": "Eh brah, I so moe moe, gotta go take one nap.",
+      "created_at": "2025-11-29T11:13:49.536576+00:00",
+      "updated_at": "2026-10-03T23:31:32.400552+00:00",
+      "fts": "'go':5 'kid':10 'moe':1,2 'said':8 'sleep':4,7 'sleepi':3",
+      "source_language": "hawaiian",
+      "spelling_variants": [
+        "moemoe"
+      ]
+    },
+    {
+      "id": "kamalii_3009",
+      "pidgin": "kamali'i",
+      "english": [
+        "children",
+        "kids"
+      ],
+      "category": "people",
+      "pronunciation": "kah-mah-LEE-ee",
+      "examples": [
+        "All da kamali'i stay playing outside",
+        "Da kamali'i playing at da kahakai.",
+        "You gotta watch out fo' da kamali'i, dey always running around."
+      ],
+      "usage": "Kamali'i means 'children' or 'kids'. It's used to refer to young people in a general sense, often in a plural form.",
+      "origin": "This word is from the Hawaiian language, emphasizing the importance of family and children in Hawaiian culture.",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "people",
+        "hawaiian",
+        "family"
+      ],
+      "audio_example": "Da kamali'i playing at da kahakai.",
+      "created_at": "2025-11-29T11:12:13.070501+00:00",
+      "updated_at": "2026-04-17T06:40:40.847+00:00",
+      "fts": "'children':3 'kamali':1 'kid':4",
+      "source_language": "hawaiian",
+      "spelling_variants": []
+    },
+    {
+      "id": "la_4004",
+      "pidgin": "lā",
+      "english": [
+        "the sun",
+        "day"
+      ],
+      "category": "nature",
+      "pronunciation": "LAH",
+      "examples": [
+        "Da lā stay hot today",
+        "Da lā shining bright today.",
+        "We go beach when da lā come up."
+      ],
+      "usage": "Lā means 'the sun' or 'day'. It's a fundamental concept in understanding time and weather.",
+      "origin": "This word is from the Hawaiian language, reflecting the importance of the sun in Hawaiian culture and daily life.",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "nature",
+        "hawaiian",
+        "weather"
+      ],
+      "audio_example": "Da lā shining bright today.",
+      "created_at": "2025-11-29T11:12:13.070501+00:00",
+      "updated_at": "2026-04-17T06:40:40.847+00:00",
+      "fts": "'day':4 'lā':1 'sun':3",
+      "source_language": "hawaiian",
+      "spelling_variants": []
+    },
+    {
+      "id": "poi_148",
+      "pidgin": "poi",
+      "english": [
+        "pounded taro paste"
+      ],
+      "category": "food",
+      "pronunciation": "POY",
+      "examples": [
+        "Pass da poi",
+        "Eh, you like poi wit' yo' kalua pig?",
+        "Da poi stay good, but gotta get used to da taste, yeah?"
+      ],
+      "usage": "A traditional Hawaiian staple made from pounded taro root. It is a significant part of Hawaiian culture and diet, often served alongside other local dishes.",
+      "origin": "A traditional food of the Native Hawaiians, central to their culture and sustenance.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "food",
+        "hawaiian"
+      ],
+      "audio_example": "Eh, you like poi wit' yo' kalua pig?",
+      "created_at": "2025-11-29T11:12:12.863333+00:00",
+      "updated_at": "2026-04-17T06:41:21.34+00:00",
+      "fts": "'past':4 'poi':1 'pound':2 'taro':3",
+      "source_language": "hawaiian",
+      "spelling_variants": []
+    },
+    {
+      "id": "halau_602",
+      "pidgin": "halau",
+      "english": [
+        "traditional workshop or school of learning"
+      ],
+      "category": "activities",
+      "pronunciation": "hah-LAOW",
+      "examples": [
+        "halau stay traditional workshop or school of learning",
+        "She go to halau to learn hula.",
+        "Da halau teach us how to make lei."
+      ],
+      "usage": "This word refers to a traditional Hawaiian school or workshop, often for learning hula or other cultural practices.",
+      "origin": "This word comes directly from the Hawaiian language, representing a core aspect of Hawaiian culture and education.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "activities",
+        "hawaiian"
+      ],
+      "audio_example": "She go to halau to learn hula.",
+      "created_at": "2025-11-29T11:11:03.369219+00:00",
+      "updated_at": "2026-04-17T06:43:46.693+00:00",
+      "fts": "'halau':1 'learn':7 'school':5 'tradit':2 'workshop':3",
+      "source_language": "hawaiian",
+      "spelling_variants": []
+    },
+    {
+      "id": "hana_061",
+      "pidgin": "hana",
+      "english": [
+        "work"
+      ],
+      "category": "expressions",
+      "pronunciation": "HAH-nah",
+      "examples": [
+        "Time fo go hana",
+        "I gotta go hana today, no can stay long.",
+        "What time you pau hana?"
+      ],
+      "usage": "This word means 'work' or 'to do'. It is used in everyday conversation to refer to any kind of work or activity.",
+      "origin": "This word comes directly from the Hawaiian language, showing the integration of Hawaiian vocabulary into Pidgin.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "hawaiian"
+      ],
+      "audio_example": "I gotta go hana today, no can stay long.",
+      "created_at": "2025-11-29T11:11:03.369219+00:00",
+      "updated_at": "2026-04-17T06:43:46.693+00:00",
+      "fts": "'hana':1 'work':2",
+      "source_language": "hawaiian",
+      "spelling_variants": []
+    },
+    {
+      "id": "hale_058",
+      "pidgin": "hale",
+      "english": [
+        "house",
+        "building"
+      ],
+      "category": "expressions",
+      "pronunciation": "HAH-leh",
+      "examples": [
+        "Come my hale fo dinner",
+        "We goin' to da hale for da party.",
+        "Dat hale is so big, yeah?"
+      ],
+      "usage": "This is the Hawaiian word for 'house' or 'building'. It's used in everyday conversation to refer to a home or any type of structure.",
+      "origin": "This word comes directly from the Hawaiian language, demonstrating the influence of Hawaiian vocabulary on Pidgin.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "hawaiian"
+      ],
+      "audio_example": "We goin' to da hale for da party.",
+      "created_at": "2025-11-29T11:11:03.369219+00:00",
+      "updated_at": "2026-04-17T06:43:46.693+00:00",
+      "fts": "'build':3 'hale':1 'hous':2",
+      "source_language": "hawaiian",
+      "spelling_variants": []
+    },
+    {
+      "id": "maikai_110",
+      "pidgin": "maika'i",
+      "english": [
+        "good",
+        "fine"
+      ],
+      "category": "expressions",
+      "pronunciation": "my-KAH-ee",
+      "examples": [
+        "Everything stay maika'i",
+        "Da food was so maika'i, I wen' eat 'em all!",
+        "Eh brah, you lookin' maika'i today, yeah?"
+      ],
+      "usage": "“Maika'i” is used extensively in Pidgin to express approval, satisfaction, or general well-being. It can apply to objects, situations, or a person's appearance or mood. It's a versatile word, similar to “good” or “fine” in English, but with a distinct local flavor.",
+      "origin": "The term “maika'i” is derived from the Hawaiian language, where it also means “good” or “fine.” Its widespread use in Pidgin reflects the strong influence of Hawaiian culture on the local language.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "hawaiian"
+      ],
+      "audio_example": "Eh brah, you lookin' maika'i today, yeah?",
+      "created_at": "2025-11-29T11:13:49.536576+00:00",
+      "updated_at": "2026-04-17T06:25:31.435+00:00",
+      "fts": "'fine':4 'good':3 'maika':1",
+      "source_language": "hawaiian",
+      "spelling_variants": []
+    },
+    {
+      "id": "puaa_639",
+      "pidgin": "puaa",
+      "english": [
+        "pig",
+        "pork"
+      ],
+      "category": "cultural",
+      "pronunciation": "POO-ah-ah",
+      "examples": [
+        "puaa stay pig, pork",
+        "Eh, da kalua puaa, so ono!",
+        "We goin' have puaa at da luau, yeah?"
+      ],
+      "usage": "Means \"pig\" or \"pork.\" It is a common term used in Pidgin to refer to pigs, which are a significant part of Hawaiian cuisine and culture. It is used in various contexts, from describing a meal to referring to the animal itself.",
+      "origin": "A Hawaiian word.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian"
+      ],
+      "audio_example": "Eh, da kalua puaa, so ono!",
+      "created_at": "2025-11-29T11:12:12.863333+00:00",
+      "updated_at": "2026-04-17T06:41:21.34+00:00",
+      "fts": "'pig':2 'pork':3 'puaa':1",
+      "source_language": "hawaiian",
+      "spelling_variants": []
+    },
+    {
+      "id": "chee_hoo_031",
+      "pidgin": "chee hoo",
+      "english": [
+        "expression of joy",
+        "excitement",
+        "exclamation of excitement",
+        "woohoo",
+        "yeah",
+        "joyful shout",
+        "celebratory cry",
+        "woo hoo"
+      ],
+      "category": "expressions",
+      "pronunciation": "CHEE-hoo",
+      "examples": [
+        "Chee hoo! We going Vegas!",
+        "Chee-hoo! We going beach!",
+        "We won da game! Chee-hoo!",
+        "Chee-hoo! Party tonight!",
+        "Cheeehoo! We going beach today!",
+        "Cheeehoo! We won da championship!",
+        "Friday pau hana, cheeehoo!",
+        "Chee hu! Going Vegas!",
+        "Chee hu! We win!",
+        "Chee hu, da food so good!"
+      ],
+      "usage": "Celebrating or cheering",
+      "origin": "Local expression",
+      "difficulty": "intermediate",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "celebration",
+        "shout",
+        "joy",
+        "slang"
+      ],
+      "audio_example": "Chee hoo, da waves stay pumping!",
+      "created_at": "2025-11-29T11:13:48.560742+00:00",
+      "updated_at": "2026-10-03T23:31:32.400552+00:00",
+      "fts": "'celebratori':14 'chee':1 'cri':15 'excit':6,9 'exclam':7 'express':3 'hoo':2,17 'joy':5,12 'shout':13 'woo':16 'woohoo':10 'yeah':11",
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "cheeehoo",
+        "chee-hoo",
+        "chee hu",
+        "cheehu"
+      ]
+    },
+    {
+      "id": "kokua_096",
+      "pidgin": "kokua",
+      "english": [
+        "help",
+        "assistance",
+        "cooperation"
+      ],
+      "category": "expressions",
+      "pronunciation": "koh-KOO-ah",
+      "examples": [
+        "Mahalo fo your kokua",
+        "Need kōkua?",
+        "Mahalo for your kokua.",
+        "We need some kokua over here."
+      ],
+      "usage": "Helping others",
+      "origin": "From ʻŌlelo Hawaiʻi kōkua.",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "hawaiian",
+        "actions"
+      ],
+      "audio_example": "Need kokua moving?",
+      "created_at": "2025-11-29T11:13:49.257591+00:00",
+      "updated_at": "2026-10-03T08:08:15.417744+00:00",
+      "fts": "'assist':3 'cooper':4 'help':2 'kokua':1",
+      "source_language": "hawaiian",
+      "spelling_variants": []
+    },
+    {
+      "id": "tutu_1009",
+      "pidgin": "tūtū",
+      "english": [
+        "grandmother",
+        "grandfather",
+        "grandparent",
+        "grandma",
+        "grandpa",
+        "old lady"
+      ],
+      "category": "people",
+      "pronunciation": "TOO-too",
+      "examples": [
+        "My tūtū make da best laulau",
+        "My tutu making lunch"
+      ],
+      "usage": "Grandparent term",
+      "origin": "Hawaiian",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "people",
+        "hawaiian",
+        "family",
+        "expressions"
+      ],
+      "audio_example": null,
+      "created_at": "2025-11-29T11:12:13.070501+00:00",
+      "updated_at": "2026-10-04T04:38:44.299+00:00",
+      "fts": "'grandfath':3 'grandma':5 'grandmoth':2 'grandpa':6 'grandpar':4 'ladi':8 'old':7 'tūtū':1",
+      "source_language": "hawaiian",
+      "spelling_variants": []
     }
   ],
   "phrases": [
@@ -3194,6 +6101,261 @@
     }
   ],
   "stories": [
+    {
+      "id": "chinatown_market",
+      "title": "Shopping at Chinatown Market",
+      "pidgin_text": "Saturday morning, Mama and little Leilani go Chinatown fo' buy groceries. 'Eh, how much dis dragon fruit?' Mama ask da vendor. 'For you, special price - five dollah!' he say wit' one big smile. Leilani stay looking at all da colorful fruits - lychee, rambutan, star fruit. 'Mama, wot dis red ting?' she ask, pointing at one exotic fruit. 'Dat's dragon fruit, baby. Very sweet inside.' They fill up their bag wit' all kine local produce. 'Dis market get da freshest kine food on da island,' Mama tell her daughter.",
+      "english_translation": "Saturday morning, Mom and little Leilani go to Chinatown to buy groceries. 'Hey, how much is this dragon fruit?' Mom asks the vendor. 'For you, special price - five dollars!' he says with a big smile. Leilani is looking at all the colorful fruits - lychee, rambutan, star fruit. 'Mom, what is this red thing?' she asks, pointing at an exotic fruit. 'That's dragon fruit, baby. Very sweet inside.' They fill up their bag with all kinds of local produce. 'This market has the freshest kind of food on the island,' Mom tells her daughter.",
+      "cultural_notes": "Honolulu's Chinatown is a vibrant cultural district where many locals shop for fresh produce, especially Asian fruits and vegetables. The multicultural aspect of Hawaii is reflected in the diverse food offerings.",
+      "vocabulary": [
+        {
+          "pidgin": "dis",
+          "english": "this",
+          "pronunciation": "dis"
+        },
+        {
+          "pidgin": "dollah",
+          "english": "dollar",
+          "pronunciation": "dollah"
+        },
+        {
+          "pidgin": "ting",
+          "english": "thing",
+          "pronunciation": "ting"
+        },
+        {
+          "pidgin": "dat",
+          "english": "that",
+          "pronunciation": "dat"
+        },
+        {
+          "pidgin": "wit'",
+          "english": "with",
+          "pronunciation": "wit"
+        },
+        {
+          "pidgin": "all kine",
+          "english": "all kinds",
+          "pronunciation": "all kine"
+        },
+        {
+          "pidgin": "get",
+          "english": "has",
+          "pronunciation": "get"
+        }
+      ],
+      "audio_example": "story_272986aa0245b11f675c3270efc2fb17.mp3",
+      "tags": [
+        "shopping",
+        "market",
+        "family",
+        "food",
+        "chinatown"
+      ],
+      "difficulty": "beginner",
+      "created_at": "2025-12-02T03:04:29.87069+00:00",
+      "updated_at": "2025-12-02T03:04:29.87069+00:00"
+    },
+    {
+      "id": "hula_practice_session",
+      "title": "Hula Practice with Kumu",
+      "pidgin_text": "Every Thursday evening, da hula halau meet at da community center. 'Remember girls, hula is not just dancing,' explain Kumu Leilani. 'Each movement tell one story.' Little Nalani stay struggling wit' da hand motions. 'Eh Nalani, no worry,' her Kumu say gently. 'Just feel da music in your heart.' Da older dancers help da young ones learn da traditional steps. 'When you dance hula, you connecting wit' your ancestors,' Kumu continue. 'Dis is how we keep our culture alive.' By da end of practice, all da wahine feel proud of what they accomplished.",
+      "english_translation": "Every Thursday evening, the hula school meets at the community center. 'Remember girls, hula is not just dancing,' explains Teacher Leilani. 'Each movement tells a story.' Little Nalani is struggling with the hand motions. 'Hey Nalani, don't worry,' her teacher says gently. 'Just feel the music in your heart.' The older dancers help the young ones learn the traditional steps. 'When you dance hula, you're connecting with your ancestors,' Teacher continues. 'This is how we keep our culture alive.' By the end of practice, all the women feel proud of what they accomplished.",
+      "cultural_notes": "Hula is the traditional Hawaiian dance that tells stories through graceful movements. A halau is a hula school, and Kumu means teacher. Hula is considered a sacred art form that connects practitioners to Hawaiian culture and spirituality.",
+      "vocabulary": [
+        {
+          "pidgin": "halau",
+          "english": "hula school",
+          "pronunciation": "hah-LAU"
+        },
+        {
+          "pidgin": "kumu",
+          "english": "teacher",
+          "pronunciation": "KOO-moo"
+        },
+        {
+          "pidgin": "wit'",
+          "english": "with",
+          "pronunciation": "wit"
+        },
+        {
+          "pidgin": "no worry",
+          "english": "don't worry",
+          "pronunciation": "no worry"
+        },
+        {
+          "pidgin": "wahine",
+          "english": "women",
+          "pronunciation": "wah-HEE-nay"
+        },
+        {
+          "pidgin": "dis",
+          "english": "this",
+          "pronunciation": "dis"
+        }
+      ],
+      "audio_example": "story_b9fb355d071146bbb585727bce1dad7f.mp3",
+      "tags": [
+        "hula",
+        "dance",
+        "culture",
+        "tradition",
+        "teaching"
+      ],
+      "difficulty": "intermediate",
+      "created_at": "2025-12-02T03:04:29.87069+00:00",
+      "updated_at": "2025-12-02T03:04:29.87069+00:00"
+    },
+    {
+      "id": "aunty_leis_kitchen",
+      "title": "Aunty Lei's Kitchen",
+      "pidgin_text": "Every Sunday, all da keiki come ovah Aunty Lei's house fo' grind. She stay cooking dat ono kine food - kalua pig, poi, haupia cake. 'Eh, you guys hungry or what?' she call out. 'Come, come! No be shy!' All da cousins rush inside, da smell stay so good. 'Wot you wen make today, Aunty?' ask little Keoni. 'Same same every week,' she laugh. 'But you nevah get tired, yeah?' Dis da kine tradition dat keep da ohana together.",
+      "english_translation": "Every Sunday, all the children come over to Aunty Lei's house to eat. She's cooking that delicious kind of food - kalua pig, poi, haupia cake. 'Hey, are you guys hungry or what?' she calls out. 'Come, come! Don't be shy!' All the cousins rush inside, the smell is so good. 'What did you make today, Aunty?' asks little Keoni. 'Same thing every week,' she laughs. 'But you never get tired, right?' This is the kind of tradition that keeps the family together.",
+      "cultural_notes": "Hawaiian families often gather on Sundays for large meals. Kalua pig is traditional Hawaiian barbecue, poi is a staple made from taro root, and haupia is coconut pudding cake. The concept of 'ohana' (family) extends beyond blood relations.",
+      "vocabulary": [
+        {
+          "pidgin": "keiki",
+          "english": "children",
+          "pronunciation": "KAY-key"
+        },
+        {
+          "pidgin": "grind",
+          "english": "eat",
+          "pronunciation": "grind"
+        },
+        {
+          "pidgin": "ono",
+          "english": "delicious",
+          "pronunciation": "OH-no"
+        },
+        {
+          "pidgin": "kine",
+          "english": "kind/type",
+          "pronunciation": "kine"
+        },
+        {
+          "pidgin": "wot",
+          "english": "what",
+          "pronunciation": "wot"
+        },
+        {
+          "pidgin": "wen",
+          "english": "did",
+          "pronunciation": "wen"
+        },
+        {
+          "pidgin": "ohana",
+          "english": "family",
+          "pronunciation": "oh-HAH-nah"
+        }
+      ],
+      "audio_example": "story_ab2098e7cf7f647c400b9504ca0ea622.mp3",
+      "tags": [
+        "family",
+        "food",
+        "tradition",
+        "sunday",
+        "culture"
+      ],
+      "difficulty": "intermediate",
+      "created_at": "2025-12-02T03:04:29.87069+00:00",
+      "updated_at": "2025-12-02T03:04:29.87069+00:00"
+    },
+    {
+      "id": "big_wave_surfing",
+      "title": "Big Wave Surfing at Pipeline",
+      "pidgin_text": "Brah, you see dat set coming in? Dose waves stay HUGE! Kawika grab his board real quick. 'Eh, I going charge 'em!' he tell his friends. 'You stay crazy or what?' they say. But Kawika, he one local boy, been surfing Pipeline since small kid time. He paddle out, wait fo' da perfect wave. Boom! One monster wave come. He drop in, ride 'em all da way. 'Ho, dat was sick!' everybody stay cheering from da beach.",
+      "english_translation": "Bro, do you see that set of waves coming in? Those waves are HUGE! Kawika grabs his board really quickly. 'Hey, I'm going to charge them!' he tells his friends. 'Are you crazy or what?' they say. But Kawika, he's a local boy, has been surfing Pipeline since he was a little kid. He paddles out, waits for the perfect wave. Boom! A monster wave comes. He drops in, rides it all the way. 'Wow, that was amazing!' everyone is cheering from the beach.",
+      "cultural_notes": "Pipeline on Oahu's North Shore is one of the world's most dangerous and famous surf breaks. Local surfers like Kawika grow up with deep respect for the ocean and often start surfing as young children.",
+      "vocabulary": [
+        {
+          "pidgin": "brah",
+          "english": "brother/friend",
+          "pronunciation": "brah"
+        },
+        {
+          "pidgin": "stay",
+          "english": "are/is",
+          "pronunciation": "stay"
+        },
+        {
+          "pidgin": "charge",
+          "english": "attack/go for it",
+          "pronunciation": "charge"
+        },
+        {
+          "pidgin": "small kid time",
+          "english": "childhood",
+          "pronunciation": "small kid time"
+        },
+        {
+          "pidgin": "ho",
+          "english": "wow/expression of amazement",
+          "pronunciation": "ho"
+        },
+        {
+          "pidgin": "sick",
+          "english": "awesome/cool",
+          "pronunciation": "sick"
+        }
+      ],
+      "audio_example": "story_39e9053504e7b30b5ec55659ba2071dd.mp3",
+      "tags": [
+        "surfing",
+        "ocean",
+        "adventure",
+        "local",
+        "courage"
+      ],
+      "difficulty": "intermediate",
+      "created_at": "2025-12-02T03:04:29.87069+00:00",
+      "updated_at": "2025-12-02T03:04:29.87069+00:00"
+    },
+    {
+      "id": "tutu_kane_fishing",
+      "title": "Tutu Kane's Fishing Wisdom",
+      "pidgin_text": "Old Tutu Kane wake up 4 o'clock every morning fo' go fishing. 'Eh grandson,' he tell young Makoa, 'you like come wit' me today?' Makoa stay sleepy but he know dis one special ting. Down at da pier, Tutu Kane teach him how fo' tie da hooks, wot kine bait fo' use. 'Da fish, they smart yeah? You gotta be patient, wait fo' da right moment.' All day they stay quiet, just enjoying da ocean breeze. When they catch one big mahi-mahi, Tutu Kane smile. 'Dis da kine memories dat stay wit' you forever, boy.'",
+      "english_translation": "Old Grandfather wakes up at 4 o'clock every morning to go fishing. 'Hey grandson,' he tells young Makoa, 'do you want to come with me today?' Makoa is sleepy but he knows this is a special thing. Down at the pier, Grandfather teaches him how to tie the hooks, what kind of bait to use. 'The fish, they're smart you know? You have to be patient, wait for the right moment.' All day they stay quiet, just enjoying the ocean breeze. When they catch a big mahi-mahi, Grandfather smiles. 'These are the kind of memories that stay with you forever, boy.'",
+      "cultural_notes": "Tutu Kane means grandfather in Hawaiian. Fishing is deeply ingrained in Hawaiian culture, representing both sustenance and spiritual connection to the ocean. The practice of kupuna (elders) teaching keiki (children) traditional skills is central to cultural preservation.",
+      "vocabulary": [
+        {
+          "pidgin": "tutu kane",
+          "english": "grandfather",
+          "pronunciation": "TOO-too KAH-nay"
+        },
+        {
+          "pidgin": "wit'",
+          "english": "with",
+          "pronunciation": "wit"
+        },
+        {
+          "pidgin": "dis",
+          "english": "this",
+          "pronunciation": "dis"
+        },
+        {
+          "pidgin": "wot kine",
+          "english": "what kind",
+          "pronunciation": "wot kine"
+        },
+        {
+          "pidgin": "da kine",
+          "english": "the kind/type",
+          "pronunciation": "da kine"
+        }
+      ],
+      "audio_example": "story_0de51d7bcefaa3e8807abdb29b7fd7de.mp3",
+      "tags": [
+        "fishing",
+        "family",
+        "wisdom",
+        "tradition",
+        "ocean"
+      ],
+      "difficulty": "beginner",
+      "created_at": "2025-12-02T03:04:29.87069+00:00",
+      "updated_at": "2025-12-02T03:04:29.87069+00:00"
+    },
     {
       "id": "first_day_work",
       "title": "First Day on the Job",

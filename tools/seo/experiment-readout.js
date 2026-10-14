@@ -87,6 +87,7 @@ const EXPERIMENTS = [
         live: '2026-10-13',
         page: '/what-does-sarap-mean.html',
         queries: ['sarap meaning', 'what does sarap mean', 'sarap', 'sarap hawaiian', 'is sarap hawaiian']
+    },
     // Answer-first rollout to the 10 untreated /what-does-* pages with the most impressions
     // (2026-09-23 → 10-11: ~20.6k impressions, 25 clicks; sarap shipped separately above).
     // Set `live` to the deploy day.
@@ -95,8 +96,8 @@ const EXPERIMENTS = [
     { name: 'what-does: a hui hou', live: '2026-10-13', page: '/what-does-a-hui-hou-mean.html', queries: ['a hui hou', 'a hui ho'] },
     { name: 'what-does: da kine', live: '2026-10-13', page: '/what-does-da-kine-mean.html', queries: ['da kine', 'da kine meaning'] },
     { name: 'what-does: pau hana', live: '2026-10-13', page: '/what-does-pau-hana-mean.html', queries: ['pau hana meaning', 'pau hana'] },
-    { name: 'what-does: pilau', live: '2026-10-13', page: '/what-does-pilau-mean.html' },
-    { name: 'what-does: lolo', live: '2026-10-13', page: '/what-does-lolo-mean.html' },
+    { name: 'what-does: pilau', live: '2026-10-13', page: '/what-does-pilau-mean.html', queries: ['pilau meaning', 'pilau', 'what does pilau mean'] },
+    { name: 'what-does: lolo', live: '2026-10-13', page: '/what-does-lolo-mean.html', queries: ['lolo meaning', 'lolo hawaiian', 'what does lolo mean'] },
     { name: 'what-does: howzit', live: '2026-10-13', page: '/what-does-howzit-mean.html', queries: ['howzit', 'howzit meaning'] },
     { name: 'what-does: akamai', live: '2026-10-13', page: '/what-does-akamai-mean.html', queries: ['akamai meaning', 'akamai definition'] },
     { name: 'what-does: humbug', live: '2026-10-13', page: '/what-does-humbug-mean.html', queries: ['humbug'] },
@@ -117,7 +118,23 @@ const EXPERIMENTS = [
         live: '2026-10-13',
         page: '/funny-insulting-pidgin-phrases.html',
         queries: ['list of pidgin insults', 'painful pidgin insults in english', 'pidgin insults', 'insults in pidgin', 'hawaiian slang insults']
-    }
+    },
+    // Top 5 uncovered /word/ pages upgraded to dedicated /what-does-*-mean.html explainers
+    { name: 'mahalo nui loa landing page, answer-first, FAQ', live: '2026-10-14', page: '/what-does-mahalo-nui-loa-mean.html', queries: ['mahalo nui loa', 'mahalo nui loa meaning', 'mahalo nui', 'what does mahalo nui loa mean'] },
+    { name: 'fosho landing page, answer-first, FAQ', live: '2026-10-14', page: '/what-does-fosho-mean.html', queries: ['fosho meaning', 'fosho', 'fo sho meaning', 'what does fosho mean'] },
+    { name: 'kokua landing page, answer-first, FAQ', live: '2026-10-14', page: '/what-does-kokua-mean.html', queries: ['kokua meaning', 'kokua', 'what does kokua mean', 'mahalo for your kokua'] },
+    { name: 'cuz landing page, answer-first, FAQ', live: '2026-10-14', page: '/what-does-cuz-mean.html', queries: ['cuz meaning', 'cuz slang', 'what does cuz mean'] },
+    { name: 'bumbai landing page, answer-first, FAQ', live: '2026-10-14', page: '/what-does-bumbai-mean.html', queries: ['bumbai', 'bumbai meaning', 'bumbye meaning', 'bumbai you learn'] },
+    // Final 9 untreated /what-does-* pages upgraded to answer-first + FAQPage schema
+    { name: 'what-does: broke da mouth', live: '2026-10-14', page: '/what-does-broke-da-mouth-mean.html', queries: ['broke da mouth', 'broke da mouth meaning'] },
+    { name: 'what-does: kanak attack', live: '2026-10-14', page: '/what-does-kanak-attack-mean.html', queries: ['kanak attack', 'kanak attack meaning'] },
+    { name: 'what-does: mayjah', live: '2026-10-14', page: '/what-does-mayjah-mean.html', queries: ['mayjah', 'mayjah meaning'] },
+    { name: 'what-does: moopuna', live: '2026-10-14', page: '/what-does-moopuna-mean.html', queries: ['moopuna', 'moopuna meaning', 'grandchild in hawaiian'] },
+    { name: 'what-does: ono grindz', live: '2026-10-14', page: '/what-does-ono-grindz-mean.html', queries: ['ono grindz', 'ono grindz meaning'] },
+    { name: 'what-does: pake', live: '2026-10-14', page: '/what-does-pake-mean.html', queries: ['pake meaning', 'pake hawaiian'] },
+    { name: 'what-does: rajah', live: '2026-10-14', page: '/what-does-rajah-mean.html', queries: ['rajah dat', 'rajah meaning hawaii'] },
+    { name: 'what-does: sistah', live: '2026-10-14', page: '/what-does-sistah-mean.html', queries: ['sistah meaning', 'tita hawaii'] },
+    { name: 'what-does: small kine', live: '2026-10-14', page: '/what-does-small-kine-mean.html', queries: ['small kine', 'small kine meaning'] }
 ];
 
 const isoDay = d => d.toISOString().slice(0, 10);

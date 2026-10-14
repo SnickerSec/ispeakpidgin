@@ -51,6 +51,7 @@ jobs:
         run: |
           node --check server.js
           node --check build.js
+          find tools src routes services middleware config -name "*.js" -exec node --check {} \;
           node -e "[
             './routes/ai','./routes/tts','./routes/dictionary','./routes/content',
             './routes/games','./routes/pickup','./routes/admin','./routes/questions',

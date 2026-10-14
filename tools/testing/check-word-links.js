@@ -27,7 +27,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { assignSlugs, createSlug, fetchFromSupabase, isOfflineMock } = require('../generators/shared-utils');
+const { assignSlugs, createSlug, fetchFromSupabase, isOfflineMock, premiumPages } = require('../generators/shared-utils');
 const redirects = require('../../services/word-redirects');
 
 const ROOT = path.join(__dirname, '../..');
@@ -199,6 +199,22 @@ async function main() {
         const survivor = survivorFor(e, entries, removedIds, sql);
         const hint = survivor ? `add '${slug}': '${slugOf.get(survivor.id)}'` : 'add a line pointing at the entry that absorbs it';
         problems.push(`${path.basename(migrationPath)} removes "${e.pidgin}": /word/${slug}.html will 404; ${hint} to services/word-redirects.js`);
+    }
+
+    // 4. Every curated what-does-*-mean.html page must be wired into services/word-redirects.js
+    //    and shared-utils premiumPages so its /word/ duplicate redirects and stays out of sitemap.xml
+    const redirectValues = new Set(Object.values(redirects));
+    const premiumValues = new Set(Object.values(premiumPages));
+    const whatDoesPages = fs.readdirSync(path.join(ROOT, 'src/pages'))
+        .filter(f => /^what-does-.+-mean\.html$/.test(f));
+    for (const page of whatDoesPages) {
+        const base = page.replace(/\.html$/, '');
+        if (!redirectValues.has(base)) {
+            problems.push(`src/pages/${page} has no redirect entry in services/word-redirects.js`);
+        }
+        if (!premiumValues.has(page)) {
+            problems.push(`src/pages/${page} is missing from premiumPages in tools/generators/shared-utils.js`);
+        }
     }
 
     console.log(`Dictionary: ${entries.length} entries${sql ? `, ${removedEntries.length} removed or renamed by ${path.basename(migrationPath)}` : ''}`);
