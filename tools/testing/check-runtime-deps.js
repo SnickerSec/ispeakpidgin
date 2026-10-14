@@ -17,6 +17,12 @@
  * hardcoded here, so adding a COPY to the runtime stage automatically widens
  * this check instead of silently outdating it.
  *
+ * The build stage has the same hazard for build.js: a relative require into a
+ * directory the build stage never COPYs fails `npm run build` inside Docker
+ * while working locally (services/word-redirects, deploy b8b1bbcc, 2026-10-14).
+ * So build.js's relative requires are followed transitively and checked
+ * against the build stage's COPY lines too.
+ *
  * Usage: node tools/testing/check-runtime-deps.js
  * Exits 0 when clean, 1 on any finding.
  */
@@ -31,15 +37,15 @@ const BUILTINS = new Set(builtinModules);
 const problems = [];
 const notes = [];
 
-/** Parse the Dockerfile's *runtime* stage and return the paths it copies in. */
-function readRuntimeCopyPaths() {
+/** Parse a Dockerfile stage (`FROM ... AS <stage>`) and return the paths it copies in. */
+function readStageCopyPaths(stage) {
     const dockerfile = fs.readFileSync(path.join(ROOT, 'Dockerfile'), 'utf8');
     const lines = dockerfile.split('\n');
 
-    // Find where the runtime stage begins; everything before it is the builder.
-    const startIdx = lines.findIndex((l) => /^FROM\s+.*\bAS\s+runtime\b/i.test(l.trim()));
+    const stageRe = new RegExp(`^FROM\\s+.*\\bAS\\s+${stage}\\b`, 'i');
+    const startIdx = lines.findIndex((l) => stageRe.test(l.trim()));
     if (startIdx === -1) {
-        throw new Error('Could not locate a `FROM ... AS runtime` stage in the Dockerfile.');
+        throw new Error(`Could not locate a \`FROM ... AS ${stage}\` stage in the Dockerfile.`);
     }
 
     const fromRepo = [];   // copied out of the build context (the repo)
@@ -124,6 +130,60 @@ function extractSpecifiers(src) {
     return found;
 }
 
+function resolveRelative(file, spec) {
+    const base = path.resolve(path.dirname(file), spec);
+    const candidates = [base, `${base}.js`, `${base}.json`, path.join(base, 'index.js')];
+    return candidates.find((c) => {
+        try { return fs.statSync(c).isFile(); } catch { return false; }
+    });
+}
+
+/**
+ * Follow build.js's relative requires transitively and flag any that land
+ * outside the build stage's COPY paths. Bare specifiers are fine here: the
+ * build stage runs a full `npm ci`, devDependencies included.
+ */
+function checkBuildEntry() {
+    const entry = path.join(ROOT, 'build.js');
+    if (!fs.existsSync(entry)) return;
+
+    const { fromRepo } = readStageCopyPaths('build');
+    const copied = fromRepo.map((p) => path.join(ROOT, p));
+    const inBuildImage = (abs) =>
+        copied.some((pre) => abs === pre || abs.startsWith(pre + path.sep));
+
+    const seen = new Set();
+    const queue = [entry];
+    while (queue.length) {
+        const file = queue.shift();
+        if (seen.has(file) || !file.endsWith('.js')) continue;
+        seen.add(file);
+
+        const src = stripComments(fs.readFileSync(file, 'utf8'));
+        const rel = path.relative(ROOT, file);
+        for (const { spec, index } of extractSpecifiers(src)) {
+            if (!spec.startsWith('.')) continue;
+            const where = `${rel}:${lineOf(src, index)}`;
+            const target = resolveRelative(file, spec);
+            if (!target) {
+                problems.push({ where, spec, kind: 'unresolved path', detail: 'does not resolve to a file in the repo.' });
+            } else if (!inBuildImage(target)) {
+                problems.push({
+                    where,
+                    spec,
+                    kind: 'not in the build image',
+                    detail:
+                        `resolves to "${path.relative(ROOT, target)}", which the Dockerfile ` +
+                        `build stage never COPYs, so \`npm run build\` fails on Railway. ` +
+                        `Add a COPY for it to the build stage.`,
+                });
+            } else {
+                queue.push(target);
+            }
+        }
+    }
+}
+
 function lineOf(src, index) {
     return src.slice(0, index).split('\n').length;
 }
@@ -141,7 +201,7 @@ function main() {
     const devDeps = new Set(Object.keys(pkg.devDependencies || {}));
     const optDeps = new Set(Object.keys(pkg.optionalDependencies || {}));
 
-    const { fromRepo, generated } = readRuntimeCopyPaths();
+    const { fromRepo, generated } = readStageCopyPaths('runtime');
     const runtimeFiles = collectRuntimeFiles(fromRepo);
 
     if (runtimeFiles.length === 0) {
@@ -164,11 +224,7 @@ function main() {
 
             if (spec.startsWith('.')) {
                 // Relative import: the target must itself ship in the image.
-                const base = path.resolve(path.dirname(file), spec);
-                const candidates = [base, `${base}.js`, `${base}.json`, path.join(base, 'index.js')];
-                const target = candidates.find((c) => {
-                    try { return fs.statSync(c).isFile(); } catch { return false; }
-                });
+                const target = resolveRelative(file, spec);
 
                 if (!target) {
                     problems.push({
@@ -219,7 +275,9 @@ function main() {
         }
     }
 
-    const scanned = `${runtimeFiles.length} runtime file(s) from: ${fromRepo.join(', ')}`;
+    checkBuildEntry();
+
+    const scanned = `${runtimeFiles.length} runtime file(s) from: ${fromRepo.join(', ')}; build.js against the build stage`;
 
     if (problems.length === 0) {
         console.log(`✅ Runtime dependency check passed — ${scanned}`);
@@ -228,7 +286,7 @@ function main() {
     }
 
     console.error(`\n✖ Runtime dependency check FAILED — ${problems.length} problem(s) found.`);
-    console.error('  These would crash the container on boot and 502 the entire site.\n');
+    console.error('  These would fail the Docker build, or crash the container on boot and 502 the entire site.\n');
     for (const p of problems) {
         console.error(`  ${p.where}`);
         console.error(`    require('${p.spec}') — ${p.kind}`);
