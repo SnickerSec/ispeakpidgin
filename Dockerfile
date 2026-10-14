@@ -15,6 +15,10 @@ RUN npm ci --prefer-offline
 # all content lives in Supabase now; the build script tolerates its
 # absence.)
 COPY build.js ./
+# build.js requires services/word-redirects (the /word/ 301 map) to derive
+# its premium-page link map. Omitting this fails the build with
+# MODULE_NOT_FOUND; `npm run test:runtime-deps` checks build.js's requires too.
+COPY services/ ./services/
 COPY src/ ./src/
 COPY tools/ ./tools/
 COPY scripts/ ./scripts/
