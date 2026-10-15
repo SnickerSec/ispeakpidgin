@@ -35,6 +35,57 @@ function escapeSvg(text) {
         .replace(/'/g, '&apos;');
 }
 
+// Bold Arial/Liberation Sans averages ~0.6em per character; regular ~0.47em.
+const BOLD_CHAR_EM = 0.6;
+const REGULAR_CHAR_EM = 0.47;
+const TEXT_WIDTH = 900; // card spans x=100..1100, text starts at x=150
+
+/**
+ * Largest font size (capped at max) at which text fits on one line of the card
+ */
+function fitFontSize(text, max, min) {
+    const fitted = Math.floor(TEXT_WIDTH / (Math.max(text.length, 1) * BOLD_CHAR_EM));
+    return Math.max(min, Math.min(max, fitted));
+}
+
+/**
+ * Greedy word wrap into at most maxLines lines; the last line gets an ellipsis if cut
+ */
+function wrapText(text, fontSize, maxLines) {
+    const maxChars = Math.floor(TEXT_WIDTH / (fontSize * REGULAR_CHAR_EM));
+    const lines = [];
+    let line = '';
+    for (const word of text.split(/\s+/).filter(Boolean)) {
+        const next = line ? `${line} ${word}` : word;
+        if (next.length <= maxChars || !line) {
+            line = next;
+            continue;
+        }
+        lines.push(line);
+        line = word;
+        if (lines.length === maxLines) break;
+    }
+    if (lines.length < maxLines && line) {
+        lines.push(line);
+    } else if (lines.length === maxLines) {
+        lines[maxLines - 1] = lines[maxLines - 1].slice(0, maxChars - 3).trimEnd() + '...';
+    }
+    return lines;
+}
+
+// librsvg renders text with system fonts via fontconfig. A container without fonts
+// (node:20-slim) draws every glyph as a box, and every social preview ships as tofu.
+let fontCheckDone = false;
+function warnIfNoFonts() {
+    if (fontCheckDone || process.platform !== 'linux') return;
+    fontCheckDone = true;
+    try {
+        const fonts = require('child_process').execSync('fc-list', { encoding: 'utf8' });
+        if (fonts.trim()) return;
+    } catch (_) { /* fc-list missing means fontconfig is missing */ }
+    console.error('❌ No system fonts found: OG images will render as empty boxes. Install fonts-liberation2 (see Dockerfile).');
+}
+
 /**
  * Generates an OG image and saves it to disk
  */
@@ -47,13 +98,16 @@ async function generateOgImage(options) {
         filename
     } = options;
 
+    warnIfNoFonts();
+
     const scheme = COLOR_SCHEMES[category.toLowerCase()] || COLOR_SCHEMES.default;
-    
-    // Clean and truncate subtitle if too long
-    let displaySubtitle = subtitle || '';
-    if (displaySubtitle.length > 120) {
-        displaySubtitle = displaySubtitle.substring(0, 117) + '...';
-    }
+
+    const titleSize = fitFontSize(title || '', 90, 44);
+    const subtitleSize = 36;
+    const subtitleLines = wrapText(subtitle || '', subtitleSize, 2);
+    const subtitleTspans = subtitleLines
+        .map((line, i) => `<tspan x="150" dy="${i === 0 ? 0 : subtitleSize * 1.25}">${escapeSvg(line)}</tspan>`)
+        .join('');
 
     // SVG Template
     const svg = `
@@ -89,7 +143,7 @@ async function generateOgImage(options) {
         
         <!-- Logo Top Left -->
         <text x="150" y="170" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="${scheme.bg.split(',')[1].trim()}">
-            🏝️ ChokePidgin.com
+            ChokePidgin.com
         </text>
 
         <!-- Category Badge -->
@@ -99,14 +153,12 @@ async function generateOgImage(options) {
         </text>
 
         <!-- Main Title (The Word/Phrase) -->
-        <text x="150" y="320" font-family="Arial, sans-serif" font-size="90" font-weight="900" fill="#1f2937">
+        <text x="150" y="320" font-family="Arial, sans-serif" font-size="${titleSize}" font-weight="900" fill="#1f2937">
             ${escapeSvg(title)}
         </text>
 
         <!-- Subtitle (The Meaning) -->
-        <text x="150" y="400" font-family="Arial, sans-serif" font-size="40" font-weight="500" fill="#4b5563">
-            ${escapeSvg(displaySubtitle)}
-        </text>
+        <text x="150" y="395" font-family="Arial, sans-serif" font-size="${subtitleSize}" font-weight="500" fill="#4b5563">${subtitleTspans}</text>
 
         <!-- Footer Call to Action -->
         <rect x="0" y="560" width="1200" height="70" fill="rgba(0,0,0,0.2)" />

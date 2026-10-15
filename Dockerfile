@@ -5,6 +5,14 @@
 FROM node:20-slim AS build
 WORKDIR /app
 
+# The OG image generators render SVG text through sharp/librsvg, which uses
+# system fonts. node:20-slim ships none, so without these every social preview
+# image is drawn as empty boxes. Liberation Sans is metric-compatible with the
+# Arial the SVGs ask for.
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends fontconfig fonts-liberation2 \
+    && rm -rf /var/lib/apt/lists/*
+
 # Install deps with lockfile (includes devDeps). Docker layer caching
 # skips this step entirely when package.json / package-lock.json are
 # unchanged between builds.
