@@ -105,11 +105,30 @@ function auditHTMLFile(filePath) {
     }
 
     // 3b. Validate JSON-LD structured data blocks
+    let hasFaqSchema = false;
     for (const match of content.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
         try {
-            JSON.parse(match[1]);
+            const parsed = JSON.parse(match[1]);
+            const items = Array.isArray(parsed)
+                ? parsed
+                : (parsed && Array.isArray(parsed['@graph']) ? parsed['@graph'] : [parsed]);
+            if (items.some(item => item && item['@type'] === 'FAQPage')) {
+                hasFaqSchema = true;
+            }
         } catch (err) {
             errors.push(`Invalid JSON-LD block: ${err.message}`);
+        }
+    }
+
+    if (/^\/what-does-.+-mean\.html$/.test(relativePath)) {
+        if (!hasFaqSchema) {
+            errors.push('Missing FAQPage JSON-LD structured data on explainer page');
+        }
+        if (!/class=["'][^"']*pronounce-btn[^"']*["'][^>]*data-word=["'][^"']+["']|data-word=["'][^"']+["'][^>]*class=["'][^"']*pronounce-btn[^"']*["']/i.test(content)) {
+            errors.push('Missing data-word attribute on .pronounce-btn');
+        }
+        if (!/class=["'][^"']*download-btn[^"']*["'][^>]*data-word=["'][^"']+["']|data-word=["'][^"']+["'][^>]*class=["'][^"']*download-btn[^"']*["']/i.test(content)) {
+            errors.push('Missing data-word attribute on .download-btn');
         }
     }
 

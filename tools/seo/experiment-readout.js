@@ -134,7 +134,20 @@ const EXPERIMENTS = [
     { name: 'what-does: pake', live: '2026-10-14', page: '/what-does-pake-mean.html', queries: ['pake meaning', 'pake hawaiian'] },
     { name: 'what-does: rajah', live: '2026-10-14', page: '/what-does-rajah-mean.html', queries: ['rajah dat', 'rajah meaning hawaii'] },
     { name: 'what-does: sistah', live: '2026-10-14', page: '/what-does-sistah-mean.html', queries: ['sistah meaning', 'tita hawaii'] },
-    { name: 'what-does: small kine', live: '2026-10-14', page: '/what-does-small-kine-mean.html', queries: ['small kine', 'small kine meaning'] }
+    { name: 'what-does: small kine', live: '2026-10-14', page: '/what-does-small-kine-mean.html', queries: ['small kine', 'small kine meaning'] },
+    // Next 5 high-impression /word/ pages upgraded to dedicated /what-does-*-mean.html explainers (2026-10-15)
+    { name: 'shaka brah landing page, answer-first, FAQ', live: '2026-10-15', page: '/what-does-shaka-brah-mean.html', queries: ['shaka brah', 'shaka brah meaning', 'what does shaka brah mean'] },
+    { name: 'imua landing page, answer-first, FAQ', live: '2026-10-15', page: '/what-does-imua-mean.html', queries: ['imua', 'imua meaning', 'what does imua mean in hawaiian', 'i mua meaning'] },
+    { name: 'no need landing page, answer-first, FAQ', live: '2026-10-15', page: '/what-does-no-need-mean.html', queries: ['no need', 'no need meaning', 'no need worry'] },
+    { name: 'kala landing page, answer-first, FAQ', live: '2026-10-15', page: '/what-does-kala-mean.html', queries: ['kala meaning', 'kala hawaiian meaning', 'hawaiian word for money', 'e kala mai'] },
+    { name: 'unko landing page, answer-first, FAQ', live: '2026-10-15', page: '/what-does-unko-mean.html', queries: ['unko', 'unko meaning', 'unko hawaii'] },
+    // Top 6 hub & guide pages upgraded with answer-first snippets & FAQPage schema (2026-10-15)
+    { name: 'dictionary hub answer-first & FAQ', live: '2026-10-15', page: '/dictionary.html', queries: ['hawaiian pidgin dictionary', 'pidgin dictionary', 'hawaiian slang dictionary'] },
+    { name: 'pickup lines hub answer-first & FAQ', live: '2026-10-15', page: '/pickup-lines.html', queries: ['hawaiian pickup lines', 'pidgin pickup lines', 'hawaiian pidgin pickup lines'] },
+    { name: 'games hub answer-first & FAQ', live: '2026-10-15', page: '/games.html', queries: ['pidgin wordle', 'hawaiian pidgin games', 'pidgin crossword'] },
+    { name: 'cheat sheet guide answer-first & FAQ', live: '2026-10-15', page: '/cheat-sheet.html', queries: ['hawaiian pidgin cheat sheet', 'pidgin phrases', 'common hawaiian pidgin phrases'] },
+    { name: 'plate lunch guide answer-first & FAQ', live: '2026-10-15', page: '/15-essential-pidgin-phrases-ordering-plate-lunch.html', queries: ['two scoop rice', 'hawaiian plate lunch', 'how to order plate lunch in hawaii'] },
+    { name: 'visitor phrases blog answer-first & FAQ', live: '2026-10-15', page: '/blog/10-essential-pidgin-phrases-visitors.html', queries: ['pidgin phrases for visitors', 'essential hawaiian pidgin phrases'] }
 ];
 
 const isoDay = d => d.toISOString().slice(0, 10);

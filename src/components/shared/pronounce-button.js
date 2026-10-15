@@ -1,16 +1,25 @@
 // Generic pronunciation button handler for what-does-*-mean pages
 // Looks for .pronounce-btn buttons and reads data-word attribute
 (function() {
+    function extractWord(el) {
+        var word = el && el.getAttribute('data-word');
+        if (word) return word.trim();
+        var title = (typeof document !== 'undefined' && document.title) || '';
+        var legacyMatch = title.match(/what does (.+?) mean/i);
+        if (legacyMatch) return legacyMatch[1].replace(/['"“”]/g, '').trim();
+        var answerFirstMatch = title.match(/^([^:|–—-]+?)\s+Meaning\b/i);
+        if (answerFirstMatch) return answerFirstMatch[1].replace(/['"“”]/g, '').trim();
+        if (typeof window !== 'undefined' && window.location && window.location.pathname) {
+            var pathMatch = window.location.pathname.match(/what-does-([a-z0-9-]+)-mean/i);
+            if (pathMatch) return pathMatch[1].replace(/-/g, ' ').trim();
+        }
+        return '';
+    }
+
     // Audio Speak Handler
     document.querySelectorAll('.pronounce-btn').forEach(btn => {
         btn.addEventListener('click', function() {
-            var word = btn.getAttribute('data-word');
-            if (!word) {
-                // Fallback: extract word from page title pattern "What Does X Mean"
-                var title = document.title || '';
-                var match = title.match(/what does (.+?) mean/i);
-                if (match) word = match[1].replace(/['"“”]/g, '').trim();
-            }
+            var word = extractWord(btn);
             if (!word) return;
 
             if (typeof pidginSpeech !== 'undefined') {
@@ -31,14 +40,9 @@
     });
 
     // Handle download buttons
-    document.querySelectorAll('.download-btn').forEach(dlBtn => {
+    document.querySelectorAll('#download-audio, .download-btn').forEach(dlBtn => {
         dlBtn.addEventListener('click', async function() {
-            var word = dlBtn.getAttribute('data-word');
-            if (!word) {
-                var title = document.title || '';
-                var match = title.match(/what does (.+?) mean/i);
-                if (match) word = match[1].replace(/['"“”]/g, '').trim();
-            }
+            var word = extractWord(dlBtn);
             if (!word) return;
 
             // Track audio download event
@@ -100,12 +104,7 @@
     // Handle share image buttons
     document.querySelectorAll('#share-image-btn, .share-image-btn').forEach(shareBtn => {
         shareBtn.addEventListener('click', function() {
-            var word = shareBtn.getAttribute('data-word');
-            if (!word) {
-                var title = document.title || '';
-                var match = title.match(/what does (.+?) mean/i);
-                if (match) word = match[1];
-            }
+            var word = extractWord(shareBtn);
             if (typeof window !== 'undefined' && window.gtag) {
                 window.gtag('event', 'pronunciation_share_click', {
                     'word': word
