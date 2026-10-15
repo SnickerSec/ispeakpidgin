@@ -433,26 +433,49 @@ body {
     transition: background 0.3s ease, color 0.3s ease;
 }
 
-body.dark::before {
-    opacity: 0.15; /* Dimmer waves in dark mode */
-}
-
-body::before {
+/* Ocean waves along the bottom of the viewport: two layers drifting at
+   different speeds for parallax, each with a gentle swell. Each tile is
+   1440px wide and starts/ends at the same height and slope, and each layer
+   is one tile wider than the screen, so translating by exactly one tile
+   loops with no visible seam or jump. */
+body::before,
+body::after {
     content: '';
     position: fixed;
-    top: 0;
     left: 0;
-    right: 0;
     bottom: 0;
-    background-image:
-        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.05" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>'),
-        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.03" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,218.7C672,235,768,245,864,234.7C960,224,1056,192,1152,192C1248,192,1344,224,1392,240L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
-    background-position: top, bottom;
+    width: calc(100% + 1440px);
     background-repeat: repeat-x;
-    animation: waves 10s linear infinite;
-    animation-play-state: var(--animation-play-state);
+    background-position: left bottom;
     pointer-events: none;
-    z-index: 1;
+    z-index: -1; /* behind page content, above the body gradient */
+    will-change: transform;
+    animation-play-state: var(--animation-play-state);
+}
+
+/* Back swell: one long, slow roller */
+body::before {
+    height: clamp(120px, 24vh, 260px);
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 200" preserveAspectRatio="none"><defs><linearGradient id="b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="%2338bdf8" stop-opacity="0.10"/><stop offset="1" stop-color="%231e3a8a" stop-opacity="0.22"/></linearGradient></defs><path fill="url(%23b)" d="M0,80 C240,40 480,40 720,80 C960,120 1200,120 1440,80 V200 H0 Z"/><path fill="none" stroke="%23bae6fd" stroke-opacity="0.12" stroke-width="1.5" vector-effect="non-scaling-stroke" d="M0,80 C240,40 480,40 720,80 C960,120 1200,120 1440,80"/></svg>');
+    background-size: 1440px 100%;
+    animation-name: wave-drift, wave-swell;
+    animation-duration: 38s, 9s;
+    animation-timing-function: linear, ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: normal, alternate;
+}
+
+/* Front chop: shorter, quicker waves with a moonlit crest */
+body::after {
+    height: clamp(80px, 15vh, 170px);
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 200" preserveAspectRatio="none"><defs><linearGradient id="f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="%2322d3ee" stop-opacity="0.12"/><stop offset="1" stop-color="%230f172a" stop-opacity="0.35"/></linearGradient></defs><path fill="url(%23f)" d="M0,110 C120,80 240,80 360,110 C480,140 600,140 720,110 C840,80 960,80 1080,110 C1200,140 1320,140 1440,110 V200 H0 Z"/><path fill="none" stroke="%23e0f2fe" stroke-opacity="0.22" stroke-width="1.5" vector-effect="non-scaling-stroke" d="M0,110 C120,80 240,80 360,110 C480,140 600,140 720,110 C840,80 960,80 1080,110 C1200,140 1320,140 1440,110"/></svg>');
+    background-size: 1440px 100%;
+    animation-name: wave-drift, wave-swell;
+    animation-duration: 21s, 6s;
+    animation-timing-function: linear, ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: normal, alternate;
+    animation-delay: 0s, -3s;
 }
 
 @keyframes hawaiianSunset {
@@ -467,12 +490,24 @@ body::before {
     }
 }
 
-@keyframes waves {
-    0% {
-        transform: translateX(0);
+/* Drift exactly one 1440px tile so the loop is seamless */
+@keyframes wave-drift {
+    from {
+        transform: translate3d(0, 0, 0);
     }
-    100% {
-        transform: translateX(-1440px);
+    to {
+        transform: translate3d(-1440px, 0, 0);
+    }
+}
+
+/* Rise and fall; uses the separate translate property so it composes
+   with the horizontal drift on transform */
+@keyframes wave-swell {
+    from {
+        translate: 0 0;
+    }
+    to {
+        translate: 0 10px;
     }
 }
 
