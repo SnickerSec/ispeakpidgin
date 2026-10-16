@@ -52,6 +52,12 @@ function initTranslatorPage() {
             inputField.value = queryText.slice(0, 500);
             inputField.dispatchEvent(new Event('input', { bubbles: true }));
             performTranslation();
+            setTimeout(() => {
+                const card = inputField.closest('.rounded-2xl') || inputField;
+                if (card && window.innerWidth < 768) {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 300);
         }
     } catch (error) {
         console.error('Error initializing translator page:', error);
@@ -258,10 +264,10 @@ function setupTranslationControls() {
         }
         navigator.clipboard.writeText(text).then(() => {
             // Visual feedback
-            const originalText = copyBtn.textContent;
-            copyBtn.textContent = '✓';
+            const originalHTML = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<iconify-icon icon="lucide:check" class="text-green-500"></iconify-icon>';
             setTimeout(() => {
-                copyBtn.textContent = originalText;
+                copyBtn.innerHTML = originalHTML;
             }, 2000);
         }).catch(err => {
             console.error('Failed to copy:', err);
@@ -347,7 +353,7 @@ function displayTranslationResult(result, originalText, direction) {
         ? highlightDictionaryWords(result.text) 
         : escapeHtml(result.text);
 
-    let outputHTML = `<div id="translation-text" class="text-2xl font-semibold text-gray-800 mb-3">${highlightedText}</div>`;
+    let outputHTML = `<div id="translation-text" class="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-slate-100 mb-3 break-words">${highlightedText}</div>`;
 
     // Show confidence
     const confidence = result.confidence || 80;
@@ -372,10 +378,10 @@ function displayTranslationResult(result, originalText, direction) {
     // Show AI Explanation/Metadata if available
     if (result.metadata) {
         const meta = result.metadata;
-        outputHTML += '<div class="mt-4 pt-4 border-t border-gray-200">';
+        outputHTML += '<div class="mt-4 pt-4 border-t border-gray-200 dark:border-slate-700">';
 
         // Method tag
-        const methodColor = meta.method?.includes('AI') ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700';
+        const methodColor = meta.method?.includes('AI') ? 'bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300' : 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300';
         outputHTML += `<span class="inline-block px-2 py-0.5 ${methodColor} rounded-full text-[10px] font-bold uppercase tracking-tighter mb-3">
             Method: ${escapeHtml(meta.method)}
         </span>`;
@@ -383,9 +389,9 @@ function displayTranslationResult(result, originalText, direction) {
         // Style tag
         const currentTone = document.getElementById('translation-tone')?.value || 'standard';
         const toneColors = {
-            'light': 'bg-blue-50 text-blue-600',
-            'standard': 'bg-purple-50 text-purple-600',
-            'heavy': 'bg-orange-50 text-orange-600'
+            'light': 'bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-300',
+            'standard': 'bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-300',
+            'heavy': 'bg-orange-50 dark:bg-orange-950/40 text-orange-600 dark:text-orange-300'
         };
         const toneLabels = {
             'light': 'Light Style',
@@ -401,29 +407,29 @@ function displayTranslationResult(result, originalText, direction) {
             const reason = meta.aiFallback === 'rate_limited'
                 ? 'You hit the AI translation limit for now, so this is the basic word-by-word translation. Try again in about 15 minutes.'
                 : 'The AI translator is unavailable right now, so this is the basic word-by-word translation.';
-            outputHTML += `<p class="mb-3 text-xs text-amber-800 bg-amber-50 border-l-4 border-amber-400 p-2 rounded"><iconify-icon icon="lucide:alert-triangle"></iconify-icon> ${reason}</p>`;
+            outputHTML += `<p class="mb-3 text-xs text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 border-l-4 border-amber-400 p-2 rounded flex items-center gap-1.5"><iconify-icon icon="lucide:alert-triangle"></iconify-icon> <span>${reason}</span></p>`;
         }
 
         if (meta.explanation) {
-            outputHTML += `<div class="mb-3 bg-indigo-50 p-3 rounded-lg border-l-4 border-indigo-400">
-                <p class="text-xs font-bold text-indigo-800 mb-1 uppercase tracking-wider"><iconify-icon icon="lucide:info"></iconify-icon> AI Breakdown:</p>
-                <p class="text-sm text-indigo-900 leading-relaxed">${escapeHtml(meta.explanation)}</p>
+            outputHTML += `<div class="mb-3 bg-indigo-50 dark:bg-slate-800/80 p-3 rounded-lg border-l-4 border-indigo-400 dark:border-indigo-500">
+                <p class="text-xs font-bold text-indigo-800 dark:text-indigo-300 mb-1 uppercase tracking-wider flex items-center gap-1"><iconify-icon icon="lucide:info"></iconify-icon> AI Breakdown:</p>
+                <p class="text-sm text-indigo-900 dark:text-slate-200 leading-relaxed">${escapeHtml(meta.explanation)}</p>
             </div>`;
         }
 
         // ... rest of metadata ...
         if (meta.usage) {
             outputHTML += `<div class="mb-3">
-                <span class="text-xs font-semibold text-blue-800"><iconify-icon icon="lucide:lightbulb"></iconify-icon> Usage Note:</span>
-                <p class="text-sm text-gray-700 mt-1">${escapeHtml(meta.usage)}</p>
+                <span class="text-xs font-semibold text-blue-800 dark:text-blue-300 flex items-center gap-1"><iconify-icon icon="lucide:lightbulb"></iconify-icon> Usage Note:</span>
+                <p class="text-sm text-gray-700 dark:text-slate-300 mt-1">${escapeHtml(meta.usage)}</p>
             </div>`;
         }
 
         if (meta.examples && meta.examples.length > 0) {
             outputHTML += '<div class="mt-3">';
-            outputHTML += '<p class="text-xs font-semibold text-purple-800 mb-2"><iconify-icon icon="lucide:sticky-note"></iconify-icon> Examples:</p>';
+            outputHTML += '<p class="text-xs font-semibold text-purple-800 dark:text-purple-300 mb-2 flex items-center gap-1"><iconify-icon icon="lucide:sticky-note"></iconify-icon> Examples:</p>';
             meta.examples.slice(0, 2).forEach(example => {
-                outputHTML += `<p class="text-sm italic text-gray-600 mb-1">"${escapeHtml(example)}"</p>`;
+                outputHTML += `<p class="text-sm italic text-gray-600 dark:text-slate-400 mb-1">"${escapeHtml(example)}"</p>`;
             });
             outputHTML += '</div>';
         }
@@ -433,13 +439,13 @@ function displayTranslationResult(result, originalText, direction) {
 
     // Add Grammar/Local Tip (Engagement Feature)
     const grammarTips = [
-        { title: "Present Tense Tip", text: 'Use "stay" for "am/is/are" when describing a state or location. Example: "I stay hungry" means "I am hungry".', icon: "ti-info-circle" },
-        { title: "Past Tense Tip", text: 'Use "wen" before a verb for past tense. Example: "I wen go beach" means "I went to the beach".', icon: "ti-history" },
-        { title: "Future Tense Tip", text: 'Use "going" or "going go" for future tense. Example: "I going eat" means "I will eat".', icon: "ti-arrow-forward" },
-        { title: "The Magic Word", text: '"Da kine" is the most versatile word in Pidgin! Use it for "the thing" when you forget the specific name.', icon: "ti-sparkles" },
-        { title: "Island Respect", text: 'Always say "Mahalo" to show gratitude. It\'s a key part of the aloha spirit!', icon: "ti-hand-love-you" },
-        { title: "Negation Tip", text: 'Use "no" for "don\'t" and "neva" for "didn\'t". Example: "I neva see \'em" means "I didn\'t see it".', icon: "ti-circle-x" },
-        { title: "Pronunciation Tip", text: 'Try dropping the "r" sound at the end of words. "Brother" becomes "Brah", "Sister" becomes "Sistah".', icon: "ti-microphone" }
+        { title: "Present Tense Tip", text: 'Use "stay" for "am/is/are" when describing a state or location. Example: "I stay hungry" means "I am hungry".', icon: "lucide:info" },
+        { title: "Past Tense Tip", text: 'Use "wen" before a verb for past tense. Example: "I wen go beach" means "I went to the beach".', icon: "lucide:history" },
+        { title: "Future Tense Tip", text: 'Use "going" or "going go" for future tense. Example: "I going eat" means "I will eat".', icon: "lucide:arrow-right" },
+        { title: "The Magic Word", text: '"Da kine" is the most versatile word in Pidgin! Use it for "the thing" when you forget the specific name.', icon: "lucide:sparkles" },
+        { title: "Island Respect", text: 'Always say "Mahalo" to show gratitude. It\'s a key part of the aloha spirit!', icon: "lucide:heart" },
+        { title: "Negation Tip", text: 'Use "no" for "don\'t" and "neva" for "didn\'t". Example: "I neva see \'em" means "I didn\'t see it".', icon: "lucide:x-circle" },
+        { title: "Pronunciation Tip", text: 'Try dropping the "r" sound at the end of words. "Brother" becomes "Brah", "Sister" becomes "Sistah".', icon: "lucide:mic" }
     ];
 
     const randomTip = grammarTips[Math.floor(Math.random() * grammarTips.length)];
@@ -448,13 +454,13 @@ function displayTranslationResult(result, originalText, direction) {
     const escapedTipIcon = escapeHtml(randomTip.icon);
     
     outputHTML += `
-        <div class="mt-6 pt-4 border-t-2 border-dashed border-gray-100 animate-fade-in">
-            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-xl border border-blue-100 flex items-start gap-3">
-                <div class="text-blue-600 mt-1 text-xl"><i class="ti ${escapedTipIcon}"></i></div>
+        <div class="mt-6 pt-4 border-t-2 border-dashed border-gray-100 dark:border-slate-700 animate-fade-in">
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-indigo-950/40 p-4 rounded-xl border border-blue-100 dark:border-slate-700 flex items-start gap-3">
+                <div class="text-blue-600 dark:text-blue-400 mt-1 text-xl"><iconify-icon icon="${escapedTipIcon}"></iconify-icon></div>
                 <div>
-                    <h4 class="text-sm font-bold text-blue-800 uppercase tracking-wider">${escapedTipTitle}</h4>
-                    <p class="text-sm text-blue-900 mt-0.5">${escapedTipText}</p>
-                    <a href="learning-hub.html" class="text-xs text-blue-600 font-bold hover:underline mt-2 inline-block">Learn more in the Hub →</a>
+                    <h4 class="text-sm font-bold text-blue-800 dark:text-blue-300 uppercase tracking-wider">${escapedTipTitle}</h4>
+                    <p class="text-sm text-blue-900 dark:text-slate-200 mt-0.5">${escapedTipText}</p>
+                    <a href="learning-hub.html" class="text-xs text-blue-600 dark:text-blue-400 font-bold hover:underline mt-2 inline-block">Learn more in the Hub →</a>
                 </div>
             </div>
         </div>
@@ -503,7 +509,7 @@ function highlightDictionaryWords(text) {
                 const placeholder = `__DICT_HL_${placeholders.length}__`;
                 placeholders.push({
                     placeholder,
-                    html: `<span class="dict-highlight text-purple-700 font-bold" data-id="${entry.id || entry.key}">${match}</span>`
+                    html: `<span class="dict-highlight text-purple-600 dark:text-purple-400 font-bold underline decoration-purple-400/40 cursor-pointer hover:opacity-80 transition" data-id="${entry.id || entry.key}">${match}</span>`
                 });
                 return placeholder;
             });
@@ -540,15 +546,15 @@ function showWordDiscovery(wordId) {
     content.innerHTML = `
         <div class="flex flex-col gap-2">
             <div class="flex justify-between items-baseline">
-                <span class="text-3xl font-black text-purple-700">${escapedPidgin}</span>
-                <span class="text-xs px-2 py-1 bg-purple-100 text-purple-600 rounded-full font-bold uppercase">${escapedCategory}</span>
+                <span class="text-3xl font-black text-purple-700 dark:text-purple-400">${escapedPidgin}</span>
+                <span class="text-xs px-2 py-1 bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-300 rounded-full font-bold uppercase">${escapedCategory}</span>
             </div>
-            <p class="text-lg text-gray-700 font-medium">${escapedEnglish}</p>
-            ${escapedPronunciation ? `<p class="text-sm text-gray-500 italic">[${escapedPronunciation}]</p>` : ''}
+            <p class="text-lg text-gray-700 dark:text-slate-200 font-medium">${escapedEnglish}</p>
+            ${escapedPronunciation ? `<p class="text-sm text-gray-500 dark:text-slate-400 italic">[${escapedPronunciation}]</p>` : ''}
             ${escapedExample ? `
-                <div class="mt-4 bg-gray-50 p-4 rounded-xl border-l-4 border-gray-200">
-                    <p class="text-xs font-bold text-gray-400 uppercase mb-1">Example</p>
-                    <p class="text-gray-700 italic">"${escapedExample}"</p>
+                <div class="mt-4 bg-gray-50 dark:bg-slate-900/80 p-4 rounded-xl border-l-4 border-gray-200 dark:border-purple-500">
+                    <p class="text-xs font-bold text-gray-400 dark:text-slate-400 uppercase mb-1">Example</p>
+                    <p class="text-gray-700 dark:text-slate-200 italic">"${escapedExample}"</p>
                 </div>
             ` : ''}
         </div>
@@ -682,14 +688,14 @@ function loadHistory() {
             const escapedDirectionKey = escapeHtml(item.direction);
 
             return `
-                <div class="border-l-4 border-purple-400 pl-4 py-2 hover:bg-gray-50 transition cursor-pointer history-item"
+                <div class="border-l-4 border-purple-400 pl-4 py-2 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition cursor-pointer history-item"
                      data-original="${escapedOriginal}" data-translation="${escapedTranslation}" data-direction="${escapedDirectionKey}">
                     <div class="flex justify-between items-start">
                         <div class="flex-1">
-                            <p class="text-gray-700">${escapedOriginal}</p>
-                            <p class="text-purple-600 font-medium">→ ${escapedTranslation}</p>
+                            <p class="text-gray-700 dark:text-slate-200">${escapedOriginal}</p>
+                            <p class="text-purple-600 dark:text-purple-400 font-medium">→ ${escapedTranslation}</p>
                         </div>
-                        <div class="text-xs text-gray-500 ml-4">
+                        <div class="text-xs text-gray-500 dark:text-slate-400 ml-4">
                             <div>${escapedDirectionLabel}</div>
                             <div>${escapedTime}</div>
                         </div>
