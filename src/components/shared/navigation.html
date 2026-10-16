@@ -311,16 +311,16 @@
 <div id="mobile-menu" class="hidden lg:hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-lg pt-16 overflow-y-auto">
     <div class="px-6 pb-12 space-y-6">
         <div class="flex items-center justify-between border-b border-slate-800 pb-4">
-            <span class="brand-font text-2xl bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">Menu</span>
+            <a href="/" class="flex items-center gap-2.5 group" aria-label="ChokePidgin Home">
+                <span class="p-1.5 rounded-lg bg-orange-500/10 text-orange-500 group-hover:scale-105 transition-transform flex items-center justify-center">
+                    <iconify-icon icon="lucide:home" class="text-xl text-orange-500"></iconify-icon>
+                </span>
+                <span class="brand-font text-2xl bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">Home</span>
+            </a>
             <button id="close-mobile-menu" class="p-2 bg-slate-850 hover:bg-slate-800 text-slate-300 rounded-lg border border-slate-800 transition-colors" aria-label="Close menu">
                 <iconify-icon icon="lucide:x" class="text-2xl block"></iconify-icon>
             </button>
         </div>
-        
-        <a href="/" class="flex items-center gap-2 text-lg font-bold text-slate-100 hover:text-orange-400 transition-colors">
-            <iconify-icon icon="lucide:home" class="text-xl text-slate-400"></iconify-icon>
-            <span>Home</span>
-        </a>
         
         <!-- Mobile Tools -->
         <div class="space-y-2.5">
