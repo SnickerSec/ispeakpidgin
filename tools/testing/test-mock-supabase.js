@@ -127,6 +127,44 @@ async function testQueryBuilder() {
     assert.strictEqual(verifyDeleteRes.data, null);
     assert.ok(verifyDeleteRes.error !== null);
 
+    // 15. Test mock dictionary coverage against hardcoded /word/*.html links in source pages
+    console.log('15. Testing mock dictionary coverage for hardcoded word links...');
+    const fs = require('fs');
+    const path = require('path');
+    const { assignSlugs } = require('../generators/shared-utils');
+    const mockData = require('./mock-supabase-data.json');
+    const mockSlugs = new Set(assignSlugs(mockData.dictionary_entries).map(s => s.slug));
+
+    const ROOT = path.join(__dirname, '../..');
+    const SCAN_DIRS = ['src/pages', 'src/components'];
+    const HREF = /href\s*=\s*["'](?:\.\.\/|\/)?word\/([a-z0-9-]+)\.html(?:[#?][^"']*)?["']/gi;
+
+    function listSourceFiles(dir) {
+        const abs = path.join(ROOT, dir);
+        if (!fs.existsSync(abs)) return [];
+        return fs.readdirSync(abs, { withFileTypes: true }).flatMap(d => {
+            const rel = path.join(dir, d.name);
+            if (d.isDirectory()) return listSourceFiles(rel);
+            return /\.(html|js)$/.test(d.name) ? [rel] : [];
+        });
+    }
+
+    const missingLinks = [];
+    for (const file of SCAN_DIRS.flatMap(listSourceFiles)) {
+        const content = fs.readFileSync(path.join(ROOT, file), 'utf8');
+        for (const m of content.matchAll(HREF)) {
+            const slug = m[1].toLowerCase();
+            if (!mockSlugs.has(slug)) {
+                missingLinks.push({ file, slug });
+            }
+        }
+    }
+    assert.strictEqual(
+        missingLinks.length,
+        0,
+        `Mock dictionary fixture is missing entries for hardcoded links: ${JSON.stringify(missingLinks)}`
+    );
+
     console.log('\n🎉 ALL MOCK SUPABASE CLIENT TESTS PASSED SUCCESSFULLY! 🌺\n');
 }
 

@@ -5844,6 +5844,128 @@
       "fts": "'grandfath':3 'grandma':5 'grandmoth':2 'grandpa':6 'grandpar':4 'ladi':8 'old':7 'tūtū':1",
       "source_language": "hawaiian",
       "spelling_variants": []
+    },
+    {
+      "id": "latahs_099",
+      "pidgin": "latahs",
+      "english": [
+        "see you later"
+      ],
+      "category": "greetings",
+      "pronunciation": "LAY-tahz",
+      "examples": [
+        "K den, latahs brah!",
+        "Latahs, brah, see you tomorrow!",
+        "Okay, latahs, gotta go!"
+      ],
+      "usage": "This is a very casual way of saying goodbye, similar to 'see you later' or 'bye'. It's commonly used among friends and family.",
+      "origin": "This is a Pidgin shortening of 'see you later', reflecting the way Hawaiians often condense phrases.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "greetings",
+        "english",
+        "greeting"
+      ],
+      "audio_example": "Latahs, brah, see you tomorrow!",
+      "created_at": "2025-11-29T11:13:49.536576+00:00",
+      "updated_at": "2026-04-17T06:32:22.495+00:00",
+      "fts": "'latah':1 'later':4 'see':2",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "we_go_191",
+      "pidgin": "we go",
+      "english": [
+        "let's go"
+      ],
+      "category": "expressions",
+      "pronunciation": "wee-GO",
+      "examples": [
+        "We go beach",
+        "We go eat lunch now?",
+        "We go to da beach dis afternoon."
+      ],
+      "usage": "\"We go\" is used to suggest an action or to propose doing something together, similar to \"Let's go.\" It implies a shared intention or plan.",
+      "origin": "This phrase is derived from English, but has become a unique Pidgin construction.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "expressions",
+        "english"
+      ],
+      "audio_example": "We go eat lunch now?",
+      "created_at": "2025-11-29T11:12:12.863333+00:00",
+      "updated_at": "2026-04-17T06:42:22.982+00:00",
+      "fts": "'go':2,5 'let':3",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "liddat_104",
+      "pidgin": "liddat",
+      "english": [
+        "like that",
+        "that way"
+      ],
+      "category": "expressions",
+      "pronunciation": "lih-DAT",
+      "examples": [
+        "Why you stay liddat?",
+        "Da kine tings stay liddat fo' years, brah.",
+        "No make liddat."
+      ],
+      "usage": "“Liddat” is used to describe a manner, a state, or a situation, similar to “like that” in English.",
+      "origin": "Derived from the English phrase “like that,” “liddat” reflects the creolization process of Hawaiian Pidgin.",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "expressions",
+        "english",
+        "common"
+      ],
+      "audio_example": "Da kine tings stay liddat fo' years, brah.",
+      "created_at": "2025-11-29T11:13:49.536576+00:00",
+      "updated_at": "2026-10-04T04:23:55.985941+00:00",
+      "fts": "'liddat':1 'like':2 'way':5",
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "li’ dat",
+        "lidat",
+        "l'dat"
+      ]
+    },
+    {
+      "id": "hammajang_282",
+      "pidgin": "hammajang",
+      "english": [
+        "messed up",
+        "broken"
+      ],
+      "category": "slang",
+      "pronunciation": "HAM-mah-jang",
+      "examples": [
+        "All hammajang",
+        "Eh, da car hammajang, no can start!",
+        "Everyting all hammajang."
+      ],
+      "usage": "This term means 'messed up' or 'broken'. It describes something that is not working correctly or is in a state of disrepair.",
+      "origin": "This Pidgin term is likely derived from a combination of English and other influences, describing a state of disarray or malfunction.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang"
+      ],
+      "audio_example": "Eh, da car hammajang, no can start!",
+      "created_at": "2025-11-29T11:11:03.369219+00:00",
+      "updated_at": "2026-10-04T04:23:55.985941+00:00",
+      "fts": "'broken':4 'hammajang':1 'mess':2",
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "hamachang",
+        "hamajang"
+      ]
     }
   ],
   "phrases": [

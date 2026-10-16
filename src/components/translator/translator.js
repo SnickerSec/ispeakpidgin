@@ -165,11 +165,16 @@ class PidginTranslator {
                 'going (.+)': 'will $1',
                 'no can (.+)': 'cannot $1',
                 // More specific 'like' patterns
+                'like beef': 'want to fight',
                 'like go (.+)': 'want to go $1',
                 'like eat': 'want to eat',
                 'like do (.+)': 'want to do $1',
                 'gotta (.+)': 'have to $1',
-                'neva (.+)': 'never $1'
+                'neva (.+)': 'never $1',
+                'no make liddat': "don't act like that",
+                'we go eat': "let's go eat",
+                'all hammajang': 'all messed up',
+                'everyting all hammajang': 'everything is all messed up'
             },
             englishToPidgin: {
                 // Questions and quantity (checked first: Priority 0.5 stops at the first match,
@@ -186,6 +191,12 @@ class PidginTranslator {
                 '^what time is it\\b': 'what time already',
 
                 // Specific phrase overrides (highest priority)
+                'want to fight': 'like beef',
+                "don't act like that": 'no make liddat',
+                "don't make like that": 'no make liddat',
+                "let's go eat": 'we go eat',
+                'all messed up': 'all hammajang',
+                'everything is all messed up': 'everyting all hammajang',
                 'will eat': 'going kau kau',
                 'want food': 'like grinds',
                 'to the beach': 'beach',
