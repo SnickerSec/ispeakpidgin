@@ -58,7 +58,7 @@ function findLinks() {
 
 // Where a redirect value points, as a site path, and whether that page exists.
 function redirectTarget(value, liveSlugs) {
-    if (value.startsWith('what-does-')) {
+    if (value.startsWith('what-does-') || value === 'pidgin-bible') {
         return { href: `/${value}.html`, exists: fs.existsSync(path.join(ROOT, 'src/pages', `${value}.html`)) };
     }
     return { href: `/word/${value}.html`, exists: liveSlugs.has(value) };

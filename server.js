@@ -358,8 +358,8 @@ app.use('/word/:slug', pageLimiter, (req, res, next) => {
     const correctSlug = spellingRedirects[slugKey];
 
     if (correctSlug && correctSlug !== slugKey) {
-        // If the correct slug is a "what-does-*-mean" page, it's at the root
-        if (correctSlug.startsWith('what-does-')) {
+        // If the correct slug is a "what-does-*-mean" page or a root feature page, it's at the root
+        if (correctSlug.startsWith('what-does-') || correctSlug === 'pidgin-bible') {
             return res.redirect(301, `/${correctSlug}.html`);
         }
         return res.redirect(301, `/word/${correctSlug}.html`);
@@ -401,8 +401,8 @@ app.use('/phrase/:slug', pageLimiter, (req, res, next) => {
     const correctSlug = spellingRedirects[slugKey];
 
     if (correctSlug && correctSlug !== slugKey) {
-        // If the correct slug is a "what-does-*-mean" page, it's at the root
-        if (correctSlug.startsWith('what-does-')) {
+        // If the correct slug is a "what-does-*-mean" page or a root feature page, it's at the root
+        if (correctSlug.startsWith('what-does-') || correctSlug === 'pidgin-bible') {
             return res.redirect(301, `/${correctSlug}.html`);
         }
         return res.redirect(301, `/phrase/${correctSlug}.html`);

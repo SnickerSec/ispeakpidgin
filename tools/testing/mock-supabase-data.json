@@ -5966,6 +5966,72 @@
         "hamachang",
         "hamajang"
       ]
+    },
+    {
+      "id": "188f904d-517f-4583-916d-1c00ef4b96f1",
+      "pidgin": "kamaaina",
+      "english": [
+        "local resident",
+        "child of the land",
+        "longtime resident",
+        "native-born"
+      ],
+      "category": "people",
+      "pronunciation": "kah-mah-EYE-nah",
+      "examples": [
+        "Do you have a kamaʻāina discount?",
+        "Eh, you stay kamaʻāina, yeah? You know da best shave ice place?",
+        "Kama'aina discount for locals"
+      ],
+      "usage": "Kamaʻāina is used to refer to someone who is a long-time resident of Hawaiʻi.",
+      "origin": "From ʻŌlelo Hawaiʻi kamaʻāina (\"child of the land\").",
+      "difficulty": "beginner",
+      "frequency": "very_high",
+      "tags": [
+        "local",
+        "identity",
+        "people",
+        "hawaiian",
+        "cultural",
+        "expressions"
+      ],
+      "source_language": "hawaiian",
+      "spelling_variants": [
+        "local",
+        "kamaaina discount",
+        "kama'aina discount",
+        "local discount"
+      ]
+    },
+    {
+      "id": "chow_fun_3000",
+      "pidgin": "chow fun",
+      "english": [
+        "wide flat rice noodles",
+        "stir-fried rice noodles"
+      ],
+      "category": "food",
+      "pronunciation": "chow FOON",
+      "examples": [
+        "Let's get chow fun from da Chinese place",
+        "I like eat chow fun fo' lunch.",
+        "Auntie went make one big pan of beef chow fun fo' da party."
+      ],
+      "usage": "Refers to a specific type of Chinese noodle dish, characterized by wide, flat rice noodles stir-fried with various ingredients.",
+      "origin": "Cantonese name for the dish, reflecting the influence of Chinese cuisine in Hawaii.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "food",
+        "chinese",
+        "noodles"
+      ],
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "beef chow fun",
+        "beef chowfun",
+        "chowfun"
+      ]
     }
   ],
   "phrases": [
