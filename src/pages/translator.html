@@ -298,8 +298,8 @@
                             </button>
                         </div>
                     </div>
+                    <div id="voice-status" class="hidden my-2"></div>
                     <div class="mt-3 flex flex-col sm:flex-row items-center justify-between gap-3">
-                        <div id="voice-status" class="hidden mb-2"></div>
                         <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
                             <button id="mic-input-btn" class="flex items-center gap-1.5 text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition whitespace-nowrap font-medium text-sm" title="Voice Input">
                                 <iconify-icon icon="lucide:mic" class="text-xl"></iconify-icon> Voice Input
@@ -680,14 +680,6 @@
                     });
 
                     micBtn.addEventListener('click', () => voiceHandler.toggle());
-
-                    // Listen for AI speech events to show waveform
-                    window.addEventListener('pidginSpeechStart', () => {
-                        if (visualizer) visualizer.start('ai');
-                    });
-                    window.addEventListener('pidginSpeechEnd', () => {
-                        if (visualizer) visualizer.stop();
-                    });
                 } else {
                     setTimeout(initVoice, 100);
                 }

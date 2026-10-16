@@ -285,12 +285,16 @@ function setupTranslationControls() {
         }
         if (text && typeof speakText === 'function') {
             speakText(text);
-            // Visual feedback
-            speakBtn.classList.add('animate-pulse');
+            // Visual feedback on the button itself
+            speakBtn.classList.add('text-purple-600', 'dark:text-purple-400', 'animate-pulse');
             setTimeout(() => {
-                speakBtn.classList.remove('animate-pulse');
-            }, 3000);
+                speakBtn.classList.remove('text-purple-600', 'dark:text-purple-400', 'animate-pulse');
+            }, 5000);
         }
+    });
+
+    window.addEventListener('pidginSpeechEnd', () => {
+        speakBtn?.classList.remove('text-purple-600', 'dark:text-purple-400', 'animate-pulse');
     });
 }
 
