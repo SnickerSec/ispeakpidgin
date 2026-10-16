@@ -30,7 +30,10 @@ var gameWords = {
         { word: "Kanak Attack", hint: "After big meal", english: "Food coma" },
         { word: "Luau", hint: "Hawaiian party", english: "Feast/celebration" },
         { word: "Lilikoi", hint: "Yellow fruit", english: "Passion fruit" },
-        { word: "Haupia", hint: "Coconut dessert", english: "Coconut pudding" }
+        { word: "Haupia", hint: "Coconut dessert", english: "Coconut pudding" },
+        { word: "Chow Fun", hint: "Local style wide noodles", english: "Fried wide noodles" },
+        { word: "Manapua", hint: "Char siu pork bun", english: "Steamed or baked pork bun" },
+        { word: "Butter Mochi", hint: "Chewy sweet dessert", english: "Local baked rice cake" }
     ],
     slang: [
         { word: "Da Kine", hint: "Universal word", english: "The thing/whatchamacallit" },
@@ -54,7 +57,10 @@ var gameWords = {
         { word: "Talk Story", hint: "Chat session", english: "Have a conversation" },
         { word: "Hang Loose", hint: "Relax brah", english: "Take it easy" },
         { word: "No Worry Beef Curry", hint: "Don't stress", english: "Don't worry about it" },
-        { word: "Wiki Wiki", hint: "Fast fast", english: "Quick/hurry" }
+        { word: "Wiki Wiki", hint: "Fast fast", english: "Quick/hurry" },
+        { word: "Kanakapila", hint: "Backyard music jam", english: "Playing music with friends" },
+        { word: "Hana Hou", hint: "One more time", english: "Encore/repeat" },
+        { word: "Holoholo", hint: "Cruising around", english: "Go for a ride/walk" }
     ],
     people: [
         { word: "Ohana", hint: "Blood or not", english: "Family" },
@@ -72,7 +78,9 @@ var gameWords = {
         { word: "Moke", hint: "Tough guy", english: "Tough local man" },
         { word: "Aunty", hint: "Respect for elder woman", english: "Older woman (respectful)" },
         { word: "Uncle", hint: "Respect for elder man", english: "Older man (respectful)" },
-        { word: "Calabash Cousin", hint: "Not blood related", english: "Close family friend" }
+        { word: "Calabash Cousin", hint: "Not blood related", english: "Close family friend" },
+        { word: "Hanai", hint: "Informal adoption", english: "Adopted/fostered family" },
+        { word: "Keiki O Ka Aina", hint: "Child of the land", english: "Native or island-born" }
     ],
     places: [
         { word: "Mauka", hint: "Mountain direction", english: "Toward the mountain" },

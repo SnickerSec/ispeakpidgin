@@ -35,6 +35,12 @@ const VOICES = [
     { id: '4P3xiZBsFtmaNelXtmvq', name: 'Cousin Kaipo', charKey: 'kaipo' }
 ];
 
+// CLI options
+const args = process.argv.slice(2);
+const IS_DRY_RUN = args.includes('--dry-run') || args.includes('--audit');
+const VOICE_FILTER = args.find(a => a.startsWith('--voices='))?.split('=')[1]?.split(',')
+    || (args.indexOf('--voices') !== -1 ? args[args.indexOf('--voices') + 1]?.split(',') : null);
+
 // Character-specific opening greetings
 const CHARACTER_WELCOMES = [
     {
@@ -66,7 +72,9 @@ const SCENARIO_WELCOMES = [
     "Shoots brah! Da swell stay pumping today at Bowls! Da heavies stay rolling in on da outside. How was your session?",
     "Chee-hoo! Pau hana time alreadah! Work was one humbug today. What you doing dis weekend, brah? We go holoholo!",
     "Aloha and welcome to Hawaii! Here is one fresh pikake lei fo' you! Long flight across da ocean, yeah? Where we going grind first?",
-    "Hop in da truck, brah! We going holoholo today! You like head mauka towards da mountains or cruise makai along da coastline?"
+    "Hop in da truck, brah! We going holoholo today! You like head mauka towards da mountains or cruise makai along da coastline?",
+    "E komo mai! Grab one stool and tune up your ukulele! We get da pupus on da table and uncle tuning his slack key. What song you like play, cuz?",
+    "Howzit! Saturday morning at da farmers market is da best! Da papaya and sweet mango stay ripe, and unko get fresh poi and apple bananas. What you looking for today?"
 ];
 
 // High-frequency island affirmations & common responses
@@ -100,6 +108,10 @@ async function generateClip(text, voiceId) {
 
     if (cached && cached.audio_filename) {
         return { status: 'cached', filename: cached.audio_filename, hash };
+    }
+
+    if (IS_DRY_RUN) {
+        return { status: 'missing-dry-run', filename, hash };
     }
 
     // 2. Synthesize via ElevenLabs API
@@ -161,9 +173,14 @@ async function main() {
     let totalCached = 0;
     let totalGenerated = 0;
 
+    const activeVoices = VOICE_FILTER
+        ? VOICES.filter(v => VOICE_FILTER.includes(v.charKey) || VOICE_FILTER.includes(v.id) || VOICE_FILTER.some(f => v.name.toLowerCase().includes(f.toLowerCase())))
+        : VOICES;
+
     // 1. Pregenerate character welcomes
     console.log('🗣️ 1. Pregenerating Character Welcomes...');
-    for (const item of CHARACTER_WELCOMES) {
+    const activeWelcomes = CHARACTER_WELCOMES.filter(item => activeVoices.some(v => v.id === item.voiceId));
+    for (const item of activeWelcomes) {
         const voiceObj = VOICES.find(v => v.id === item.voiceId);
         process.stdout.write(`   [${voiceObj.name}] "${item.text.slice(0, 40)}..." `);
         try {
@@ -171,6 +188,8 @@ async function main() {
             if (res.status === 'cached') {
                 console.log(`[CACHED ⚡]`);
                 totalCached++;
+            } else if (res.status === 'missing-dry-run') {
+                console.log(`[MISSING (dry-run) 🔍]`);
             } else {
                 console.log(`[GENERATED ✨ ${res.sizeKb}KB]`);
                 totalGenerated++;
@@ -180,11 +199,11 @@ async function main() {
         }
     }
 
-    // 2. Pregenerate scenario welcomes & common phrases across all 5 voices
-    console.log('\n🗣️ 2. Pregenerating Scenario Welcomes & Common Phrases across all 5 voices...');
+    // 2. Pregenerate scenario welcomes & common phrases across active voices
+    console.log(`\n🗣️ 2. Pregenerating Scenario Welcomes & Common Phrases across ${activeVoices.length} voice(s)...`);
     const allPhrases = [...SCENARIO_WELCOMES, ...COMMON_PHRASES];
 
-    for (const voice of VOICES) {
+    for (const voice of activeVoices) {
         console.log(`\n🔊 Voice: ${voice.name} (${voice.id})`);
         for (let i = 0; i < allPhrases.length; i++) {
             const phrase = allPhrases[i];
@@ -194,6 +213,8 @@ async function main() {
                 if (res.status === 'cached') {
                     console.log(`[CACHED ⚡]`);
                     totalCached++;
+                } else if (res.status === 'missing-dry-run') {
+                    console.log(`[MISSING (dry-run) 🔍]`);
                 } else {
                     console.log(`[GENERATED ✨ ${res.sizeKb}KB]`);
                     totalGenerated++;

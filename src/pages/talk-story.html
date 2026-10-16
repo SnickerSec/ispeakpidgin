@@ -284,6 +284,12 @@
             let currentScenario = 'general';
             let currentCharacter = 'kimo';
 
+            let userHasInteracted = false;
+            const markInteracted = () => { userHasInteracted = true; };
+            window.addEventListener('click', markInteracted, { once: true });
+            window.addEventListener('keydown', markInteracted, { once: true });
+            window.addEventListener('touchstart', markInteracted, { once: true });
+
             const characters = {
                 'kimo': {
                     name: "Uncle Kimo",
@@ -652,25 +658,47 @@
                 // Attach audio listeners and auto-play
                 if (!isUser) {
                     const btn = div.querySelector('.speak-btn');
+                    let isPlaying = false;
+
+                    const stopVoice = () => {
+                        if (window.elevenLabsSpeech) window.elevenLabsSpeech.stop();
+                        if (window.pidginSpeech) window.pidginSpeech.stop();
+                        visualizer.stop();
+                        btn?.classList.remove('text-amber-400', 'animate-pulse');
+                        btn?.classList.add('text-blue-400');
+                        isPlaying = false;
+                    };
+
                     const playVoice = () => {
-                        let textToSpeak = btn?.dataset.text?.trim();
+                        if (isPlaying) {
+                            stopVoice();
+                            return;
+                        }
+
+                        const textToSpeak = btn?.dataset.text?.trim();
                         if (!textToSpeak) return;
 
-                        // Fix pronunciation for specific Hawaiian words
-                        textToSpeak = textToSpeak.replace(/Kailua/gi, 'Kai-loo-ah');
+                        // Stop any other currently playing clip
+                        if (window.elevenLabsSpeech) window.elevenLabsSpeech.stop();
+                        if (window.pidginSpeech) window.pidginSpeech.stop();
 
+                        isPlaying = true;
+                        btn?.classList.remove('text-blue-400');
+                        btn?.classList.add('text-amber-400', 'animate-pulse');
                         visualizer.start('ai');
 
                         const onSpeechEnd = () => {
+                            btn?.classList.remove('text-amber-400', 'animate-pulse');
+                            btn?.classList.add('text-blue-400');
+                            isPlaying = false;
                             visualizer.stop();
                             window.removeEventListener('pidginSpeechEnd', onSpeechEnd);
                         };
                         window.addEventListener('pidginSpeechEnd', onSpeechEnd);
 
+                        const voiceId = btn?.dataset.voice || characters[currentCharacter].voiceId;
                         if (window.elevenLabsSpeech) {
-                            window.elevenLabsSpeech.speak(textToSpeak, {
-                                voiceId: btn.dataset.voice || characters[currentCharacter].voiceId
-                            });
+                            window.elevenLabsSpeech.speak(textToSpeak, { voiceId });
                         } else if (window.pidginSpeech) {
                             window.pidginSpeech.speak(textToSpeak);
                         }
@@ -678,9 +706,9 @@
 
                     btn?.addEventListener('click', playVoice);
 
-                    // Auto-play if enabled
-                    if (autoVoiceCheck.checked && data) {
-                        setTimeout(playVoice, 500);
+                    // Auto-play if enabled and user has already interacted
+                    if (autoVoiceCheck.checked && data && userHasInteracted) {
+                        setTimeout(playVoice, 400);
                     }
                 }
             }
