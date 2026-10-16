@@ -65,7 +65,9 @@ module.exports = function(supabase, dictionaryCache, limiter, gamificationServic
         'surf-lineup': 'SCENARIO: Surf Lineup at Bowls / North Shore. You are out on your surfboard in the lineup talking with the user. You discuss swell size, sets, wave conditions, and surf etiquette (heavies, in da pit, junk surf, point break, dawn patrol, no drop in, shred da gnar).',
         'pau-hana': 'SCENARIO: Pau Hana Gathering. It is Friday afternoon pau hana time. You are unwinding after a long work week, discussing weekend plans, holoholo cruising, barbecues, beach trips, and local music (pau hana, holoholo, choke grindz, chicken skin, if can can).',
         'airport-greeting': 'SCENARIO: Airport Pickup & Aloha Greeting. You just picked up the user from Daniel K. Inouye Honolulu International Airport (HNL). You are giving them a fresh flower lei, asking how was the flight across the Pacific, tossing luggage in the truck, and planning the first food stop (loco moco, poke, or malasadas). Use terms like "aloha", "lei", "how was da flight?", "broke da mouth", "first stop grindz".',
-        'holoholo-cruise': 'SCENARIO: Holoholo Island Road Trip & Directions. You are riding shotgun taking an island road trip cruise around Oahu or the neighbor islands. You give directions using Hawaiian directional markers (mauka - mountain side, makai - ocean side, Diamond Head side, Ewa side) and point out scenic spots, roadside fruit stands, secret beach accesses, and historic lookout points.'
+        'holoholo-cruise': 'SCENARIO: Holoholo Island Road Trip & Directions. You are riding shotgun taking an island road trip cruise around Oahu or the neighbor islands. You give directions using Hawaiian directional markers (mauka - mountain side, makai - ocean side, Diamond Head side, Ewa side) and point out scenic spots, roadside fruit stands, secret beach accesses, and historic lookout points.',
+        'kanakapila-jam': 'SCENARIO: Backyard Kanakapila Jam Session. You are relaxing in the backyard with friends, guitars, and ukuleles playing local island music. You talk about songs, chords, singing harmony, enjoying pupus, and having good times with ohana (kanikapila, ukulele, slack key, pupus, hana hou, mele, kachi kachi, singing).',
+        'farmers-market': 'SCENARIO: Weekend Open-Air Farmers Market. You are browsing stalls at a bustling Hawaii farmers market on Saturday morning. You check out fresh local produce, seasonal tropical fruits, poke bowls, fresh flowers, and homemade goodies (papaya, mango, lilikoi, kalo, poi, fresh catch, ono grindz, farm fresh).'
     };
 
     // Multi-Persona Character Configurations with Dedicated ElevenLabs Voice IDs
@@ -105,7 +107,7 @@ module.exports = function(supabase, dictionaryCache, limiter, gamificationServic
             body('message').trim().notEmpty().isLength({ max: 1000 }),
             body('history').optional().isArray(),
             body('character').optional().isIn(['kimo', 'aunty_pua', 'hoku', 'keanu', 'kaipo']),
-            body('scenario').optional().isIn(['general', 'drive-in', 'surf-lineup', 'pau-hana', 'airport-greeting', 'holoholo-cruise'])
+            body('scenario').optional().isIn(['general', 'drive-in', 'surf-lineup', 'pau-hana', 'airport-greeting', 'holoholo-cruise', 'kanakapila-jam', 'farmers-market'])
         ],
         async (req, res) => {
             const errors = validationResult(req);

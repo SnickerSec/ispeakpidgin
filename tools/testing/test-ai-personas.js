@@ -42,7 +42,9 @@ const EXPECTED_SCENARIOS = [
     'surf-lineup',
     'pau-hana',
     'airport-greeting',
-    'holoholo-cruise'
+    'holoholo-cruise',
+    'kanakapila-jam',
+    'farmers-market'
 ];
 
 async function runTests() {
@@ -72,7 +74,9 @@ async function runTests() {
         'surf-lineup': ['swell', 'surf', 'lineup', 'heavies'],
         'pau-hana': ['pau hana', 'friday', 'grindz', 'holoholo'],
         'airport-greeting': ['airport', 'lei', 'flight', 'aloha'],
-        'holoholo-cruise': ['mauka', 'makai', 'road trip', 'cruise']
+        'holoholo-cruise': ['mauka', 'makai', 'road trip', 'cruise'],
+        'kanakapila-jam': ['kanikapila', 'ukulele', 'slack key', 'pupu'],
+        'farmers-market': ['papaya', 'mango', 'kalo', 'fresh catch']
     };
 
     for (const scenario of EXPECTED_SCENARIOS) {
@@ -82,7 +86,7 @@ async function runTests() {
             assert.ok(requiredKeywords.length > 0, `Scenario ${scenario} has keyword expectations`);
         }
     }
-    console.log('   ✅ All 6 scenarios contain authentic island cultural keywords');
+    console.log('   ✅ All 8 scenarios contain authentic island cultural keywords');
 
     // -------------------------------------------------------------
     // 3. Translation Tone Guidance
