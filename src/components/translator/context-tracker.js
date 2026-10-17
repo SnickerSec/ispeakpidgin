@@ -171,7 +171,11 @@ class ContextTracker {
             { pattern: /^Forget it,?\s+/i, replacement: 'Ainokea, ' },
             { pattern: /^You know what,?\s+/i, replacement: 'You know wat, ' },
             { pattern: /^Anyway,?\s+/i, replacement: 'Whatevahs, ' },
-            { pattern: /^Anyhow,?\s+/i, replacement: 'Whatevahs, ' }
+            { pattern: /^Anyhow,?\s+/i, replacement: 'Whatevahs, ' },
+            { pattern: /^That's how it is,?\s+/i, replacement: 'Das how stay, ' },
+            { pattern: /^That is how it is,?\s+/i, replacement: 'Das how stay, ' },
+            { pattern: /^Have a (great|good|nice) day,?\s*/i, replacement: 'Shoots, take care, ' },
+            { pattern: /^Have a good one,?\s*/i, replacement: 'Shoots, take care, ' }
         ];
 
         for (const { pattern, replacement } of transitions) {
@@ -231,7 +235,10 @@ class ContextTracker {
                 { pattern: /^Nevah mind,?\s+/i, replacement: 'Never mind, ' },
                 { pattern: /^Ainokea,?\s+/i, replacement: "Doesn't matter, " },
                 { pattern: /^You know wat,?\s+/i, replacement: 'You know what, ' },
-                { pattern: /^Whatevahs,?\s+/i, replacement: 'Anyway, ' }
+                { pattern: /^Whatevahs,?\s+/i, replacement: 'Anyway, ' },
+                { pattern: /^Das how stay,?\s+/i, replacement: "That's how it is, " },
+                { pattern: /^Das how,?\s+/i, replacement: "That's how it is, " },
+                { pattern: /^Shoots, take care,?\s*/i, replacement: 'Have a great day, ' }
             ];
 
             for (const { pattern, replacement } of transitions) {

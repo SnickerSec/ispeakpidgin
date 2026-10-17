@@ -174,7 +174,10 @@ class PidginTranslator {
                 'no make liddat': "don't act like that",
                 'we go eat': "let's go eat",
                 'all hammajang': 'all messed up',
-                'everyting all hammajang': 'everything is all messed up'
+                'everyting all hammajang': 'everything is all messed up',
+                'das how stay': "that's how it is",
+                'das how': "that's how it is",
+                'no need': 'no need'
             },
             englishToPidgin: {
                 // Questions and quantity (checked first: Priority 0.5 stops at the first match,
@@ -202,6 +205,15 @@ class PidginTranslator {
                 'to the beach': 'beach',
                 'want to eat': 'like kau kau',
                 'want to food': 'like grinds',
+                "that's how it is": 'das how stay',
+                "that is how it is": 'das how stay',
+                "that's the way it is": 'das how stay',
+                "that is the way it is": 'das how stay',
+                "it's no need": 'no need',
+                'it is no need': 'no need',
+                'have a great day': 'shoots, take care',
+                'have a good day': 'shoots, take care',
+                'have a good one': 'shoots, take care',
 
                 // Specific Story Overrides (High priority)
                 "he's a local boy": 'he one local boy',

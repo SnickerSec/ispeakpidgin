@@ -187,7 +187,14 @@ const spellingRedirects = {
     'punnami': 'punani',
     // Spelling variants for da-haps
     'dhaaps': 'da-haps',
-    'dahaps': 'da-haps'
+    'dahaps': 'da-haps',
+    // Search Console demand spelling variants & query aliases
+    'malaho': 'what-does-mahalo-mean',
+    'mahalo-lui-noa': 'what-does-mahalo-nui-loa-mean',
+    'bu-lai-en': 'bulai',
+    'bulaien': 'bulai',
+    'akamai-name': 'what-does-akamai-mean',
+    'beef-as-in-fight': 'beef'
 };
 
 module.exports = spellingRedirects;

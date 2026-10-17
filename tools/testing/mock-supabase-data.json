@@ -6032,6 +6032,63 @@
         "beef chowfun",
         "chowfun"
       ]
+    },
+    {
+      "id": "dict-haaheo-47",
+      "pidgin": "haʻaheo",
+      "english": [
+        "pride",
+        "proud",
+        "to cherish with pride"
+      ],
+      "category": "cultural",
+      "pronunciation": "hah-ah-HEH-oh",
+      "examples": [
+        "Get plenty haʻaheo in da community."
+      ],
+      "usage": "Expresses deep cultural pride, honor, and dignity in Hawaiian heritage and identity.",
+      "origin": "Hawaiian",
+      "difficulty": "intermediate",
+      "frequency": "medium",
+      "tags": [
+        "cultural",
+        "hawaiian",
+        "values",
+        "pride"
+      ],
+      "source_language": "hawaiian",
+      "spelling_variants": [
+        "haaheo"
+      ]
+    },
+    {
+      "id": "dict-dashowstay-47",
+      "pidgin": "das how stay",
+      "english": [
+        "that's how it is",
+        "that's the way it is",
+        "that is how it is"
+      ],
+      "category": "phrases",
+      "pronunciation": "dahs how STAY",
+      "examples": [
+        "Sometimes win, sometimes lose, das how stay."
+      ],
+      "usage": "Common philosophical phrase accepting life as it happens; synonymous with \"c'est la vie\" or \"it is what it is\".",
+      "origin": "Pidgin",
+      "difficulty": "beginner",
+      "frequency": "high",
+      "tags": [
+        "phrases",
+        "idiom",
+        "acceptance",
+        "slang"
+      ],
+      "source_language": "pidgin",
+      "spelling_variants": [
+        "das how",
+        "dat how stay"
+      ]
     }
   ],
   "phrases": [

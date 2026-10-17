@@ -160,6 +160,11 @@ async function runValidation() {
         'Modal Verbs': [
             { input: "I want to eat", expected: "i like kau kau" },
             { input: "I must go", expected: "i gotta go" }
+        ],
+        'Discourse & State Idioms': [
+            { input: "That's how it is", expected: "das how stay" },
+            { input: "It's no need", expected: "no need" },
+            { input: "Have a great day", expected: "shoots, take care" }
         ]
     };
 

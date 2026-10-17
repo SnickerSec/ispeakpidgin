@@ -116,6 +116,16 @@ async function runTests() {
     assert.match(pidginConvResult.translation, /Honestly/i);
     assert.match(pidginConvResult.translation, /Hold on/i);
 
+    const idiomText = 'We lost the game. That\'s how it is, we try again. Have a great day!';
+    const idiomResult = tracker.translateParagraph(idiomText, 'eng-to-pidgin');
+    assert.match(idiomResult.translation, /Das how stay/i);
+    assert.match(idiomResult.translation, /Shoots, take care/i);
+
+    const pidginIdiomText = 'We pau work. Das how stay, we go home. Shoots, take care!';
+    const pidginIdiomResult = tracker.translateParagraph(pidginIdiomText, 'pidgin-to-eng');
+    assert.match(pidginIdiomResult.translation, /That's how it is/i);
+    assert.match(pidginIdiomResult.translation, /Have a great day/i);
+
     // 8. Test Context Summary Metadata
     console.log('8. Testing context summary metadata...');
     const summary = tracker.getContextSummary();
