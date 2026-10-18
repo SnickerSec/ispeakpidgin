@@ -201,7 +201,11 @@ const spellingRedirects = {
     'cuz-for-cousin': 'what-does-cuz-mean',
     'ke-akua': 'akua',
     'keakua': 'akua',
-    'lehua-flower': 'lehua'
+    'lehua-flower': 'lehua',
+    'kuru-hair': 'kuru-kuru',
+    'nice-punani': 'punani',
+    'i-pau': 'what-does-pau-mean',
+    'kalua-spelling': 'kalua'
 };
 
 module.exports = spellingRedirects;

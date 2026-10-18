@@ -74,7 +74,8 @@ const SCENARIO_WELCOMES = [
     "Aloha and welcome to Hawaii! Here is one fresh pikake lei fo' you! Long flight across da ocean, yeah? Where we going grind first?",
     "Hop in da truck, brah! We going holoholo today! You like head mauka towards da mountains or cruise makai along da coastline?",
     "E komo mai! Grab one stool and tune up your ukulele! We get da pupus on da table and uncle tuning his slack key. What song you like play, cuz?",
-    "Howzit! Saturday morning at da farmers market is da best! Da papaya and sweet mango stay ripe, and unko get fresh poi and apple bananas. What you looking for today?"
+    "Howzit! Saturday morning at da farmers market is da best! Da papaya and sweet mango stay ripe, and unko get fresh poi and apple bananas. What you looking for today?",
+    "Howzit! Welcome to da poke counter! We just got fresh local ahi straight from Honolulu fish auction. What kind poke you like today? Shoyu ahi, spicy mayo, or Hawaiian style with limu kohu?"
 ];
 
 // High-frequency island affirmations & common responses
@@ -88,7 +89,13 @@ const COMMON_PHRASES = [
     "Stay humble, stay aloha!",
     "Howzit, how stay you today?",
     "What stay da meaning of da kine?",
-    "Teach me one authentic local phrase!"
+    "Teach me one authentic local phrase!",
+    "Can I get one loco moco with two eggs sunny side up?",
+    "Pau hana! Grab one cold drink, brah.",
+    "No worry, beef curry, we talk story all night.",
+    "Mahalo for da beautiful lei, brah!",
+    "We go check out North Shore surf spots!",
+    "Which poke you recommend that stay super fresh today?"
 ];
 
 async function generateClip(text, voiceId) {

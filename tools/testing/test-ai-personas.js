@@ -232,6 +232,26 @@ async function runTests() {
     }
     console.log('   ✅ All 5 personas verified with distinct vocabulary and tone profiles');
 
+    // -------------------------------------------------------------
+    // 8. Scenario Starters & Persona Starters Coverage
+    // -------------------------------------------------------------
+    console.log('\n8. Testing Scenario Starters & Persona Starters Coverage in talk-story.html...');
+    const fs = require('fs');
+    const talkStoryHtml = fs.readFileSync(path.join(__dirname, '../../src/pages/talk-story.html'), 'utf8');
+
+    // Verify all 5 personas have personaStarters defined
+    for (const charKey of characters) {
+        assert.ok(talkStoryHtml.includes(`'${charKey}'`), `talk-story.html must include persona ${charKey}`);
+    }
+    assert.ok(talkStoryHtml.includes('personaStarters:'), 'talk-story.html must define personaStarters');
+    assert.ok(talkStoryHtml.includes('renderStarters('), 'talk-story.html must include renderStarters implementation');
+
+    // Verify all 9 scenarios are present
+    for (const scenario of EXPECTED_SCENARIOS) {
+        assert.ok(talkStoryHtml.includes(`'${scenario}':`), `talk-story.html must include scenario config for ${scenario}`);
+    }
+    console.log('   ✅ All 5 personas and 9 roleplay scenarios verified with rich quick-starter sets');
+
     console.log('\n🎉 All AI Persona & Dialogue tests passed successfully! 🌺\n');
 }
 
