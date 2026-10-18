@@ -194,7 +194,14 @@ const spellingRedirects = {
     'bu-lai-en': 'bulai',
     'bulaien': 'bulai',
     'akamai-name': 'what-does-akamai-mean',
-    'beef-as-in-fight': 'beef'
+    'beef-as-in-fight': 'beef',
+    'lania': 'lanai',
+    'ah-hui-ho': 'what-does-a-hui-hou-mean',
+    'no-worries-beef-curry': 'beef-curry-no-worry',
+    'cuz-for-cousin': 'what-does-cuz-mean',
+    'ke-akua': 'akua',
+    'keakua': 'akua',
+    'lehua-flower': 'lehua'
 };
 
 module.exports = spellingRedirects;

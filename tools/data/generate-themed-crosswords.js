@@ -22,11 +22,11 @@ if (!supabaseUrl || !supabaseServiceKey || !GEMINI_API_KEY) {
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 const THEMES = [
-    { key: 'food', name: 'Ono Grindz & Local Eats', keywords: ['grind', 'poke', 'moco', 'ono', 'pupu', 'shave', 'rice', 'kaukau', 'pau', 'lau', 'fish', 'poi', 'manapua', 'chow fun', 'chow', 'mochi', 'malasada'] },
+    { key: 'food', name: 'Ono Grindz & Local Eats', keywords: ['grind', 'poke', 'moco', 'ono', 'pupu', 'shave', 'rice', 'kaukau', 'pau', 'lau', 'fish', 'poi', 'manapua', 'chow fun', 'chow', 'mochi', 'malasada', 'sarap'] },
     { key: 'beach', name: 'Surf, Waves & Ocean Waterman', keywords: ['surf', 'wave', 'beach', 'ocean', 'makai', 'reef', 'water', 'shred', 'swell', 'lineup', 'board', 'kai'] },
-    { key: 'slang', name: 'Modern Slang & Street Talk', keywords: ['brah', 'chee', 'rajah', 'shoots', 'buss', 'kine', 'howzit', 'lolo', 'pau', 'choke', 'buggah', 'bline', 'hana hou', 'kanakapila'] },
-    { key: 'culture', name: 'Plantation Heritage & Island Culture', keywords: ['aloha', 'ohana', 'aina', 'kupuna', 'tutu', 'hale', 'hula', 'mahalo', 'kokua', 'pau', 'hana', 'luna', 'kanikapila', 'mele', 'kamaaina'] },
-    { key: 'family', name: 'Ohana, Tutu & Local Lifestyle', keywords: ['tutu', 'ohana', 'braddah', 'sistah', 'keiki', 'uncle', 'aunty', 'friend', 'home', 'kane', 'wahine', 'kamaaina', 'hanai'] },
+    { key: 'slang', name: 'Modern Slang & Street Talk', keywords: ['brah', 'chee', 'rajah', 'shoots', 'buss', 'kine', 'howzit', 'lolo', 'pau', 'choke', 'buggah', 'bline', 'hana hou', 'kanakapila', 'das how stay', 'punani'] },
+    { key: 'culture', name: 'Plantation Heritage & Island Culture', keywords: ['aloha', 'ohana', 'aina', 'kupuna', 'tutu', 'hale', 'hula', 'mahalo', 'kokua', 'pau', 'hana', 'luna', 'kanakapila', 'mele', 'kamaaina', 'haaheo', 'haʻaheo', 'akua', 'ke akua'] },
+    { key: 'family', name: 'Ohana, Tutu & Local Lifestyle', keywords: ['tutu', 'ohana', 'braddah', 'sistah', 'keiki', 'uncle', 'aunty', 'friend', 'home', 'kane', 'wahine', 'kamaaina', 'hanai', 'cuz'] },
     { key: 'directions', name: 'Island Road Trip & Navigation', keywords: ['mauka', 'makai', 'town', 'island', 'highway', 'holoholo', 'oahu', 'maui', 'hilo', 'kailua', 'ewa'] }
 ];
 
@@ -188,7 +188,7 @@ async function main() {
     const { count: currentCount } = await supabase.from('crossword_puzzles').select('*', { count: 'exact', head: true });
     console.log(`📊 Current Crossword Puzzles in DB: ${currentCount}`);
     
-    const TARGET_TOTAL = 102;
+    const TARGET_TOTAL = 110;
     const NEEDED = Math.max(0, TARGET_TOTAL - currentCount);
     console.log(`🎯 Generating ${NEEDED} new puzzles to reach ${TARGET_TOTAL} total...\n`);
 
