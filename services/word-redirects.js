@@ -205,7 +205,8 @@ const spellingRedirects = {
     'kuru-hair': 'kuru-kuru',
     'nice-punani': 'punani',
     'i-pau': 'what-does-pau-mean',
-    'kalua-spelling': 'kalua'
+    'kalua-spelling': 'kalua',
+    'its-no-need': 'what-does-no-need-mean'
 };
 
 module.exports = spellingRedirects;
