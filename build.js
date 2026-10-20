@@ -743,11 +743,15 @@ async function build() {
 // HTML is never cached, but scripts are (Cloudflare edge, browser max-age, and the service
 // worker's stale-while-revalidate). Unversioned URLs let a fresh page run against a stale
 // script after a deploy; a content-hashed URL is a new cache key the moment a file changes.
+// Social preview images get the same treatment: link unfurlers (iMessage, WhatsApp, Messages,
+// Facebook, X) cache a preview by image URL, so a regenerated og:image at an unchanged URL
+// keeps showing the old picture (e.g. the tofu-box cards from before the font fix).
 function versionAssetUrls() {
     const crypto = require('crypto');
     const publicDir = path.resolve(config.publicDir);
     const hashes = new Map();
     const assetRef = /(<(?:script|link)\b[^>]*?\b(?:src|href)=)(["'])([^"'?#]+\.(?:js|css))\2/g;
+    const socialImageRef = /(<meta\b[^>]*?\b(?:property|name)=["'](?:og:image(?::url|:secure_url)?|twitter:image)["'][^>]*?\bcontent=)(["'])(https:\/\/(?:www\.)?chokepidgin\.com)(\/[^"'?#]+\.(?:png|jpe?g|webp))\2/g;
 
     const hashFor = (absPath) => {
         if (!hashes.has(absPath)) {
@@ -768,6 +772,9 @@ function versionAssetUrls() {
                 : path.resolve(path.dirname(htmlPath), url);
             const hash = hashFor(absPath);
             return hash ? `${prefix}${quote}${url}?v=${hash}${quote}` : match;
+        }).replace(socialImageRef, (match, prefix, quote, origin, urlPath) => {
+            const hash = hashFor(path.join(publicDir, urlPath));
+            return hash ? `${prefix}${quote}${origin}${urlPath}?v=${hash}${quote}` : match;
         });
         if (versioned !== html) {
             fs.writeFileSync(htmlPath, versioned);
