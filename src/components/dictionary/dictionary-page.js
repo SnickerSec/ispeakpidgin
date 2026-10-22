@@ -328,6 +328,21 @@ function getMasteryHtml(wordKey) {
     `;
 }
 
+// Most no-result searches are English words ("bed", "princess") that Pidgin says the same way,
+// so point them at the translator (?q= is English -> Pidgin) instead of a dead end.
+function showTranslateOffer() {
+    const input = document.getElementById('dictionary-search');
+    const term = input ? input.value.trim() : '';
+    const link = document.getElementById('no-results-translate');
+    const hint = document.getElementById('no-results-english-hint');
+    if (!link) return;
+    link.classList.toggle('hidden', !term);
+    if (hint) hint.classList.toggle('hidden', !term);
+    if (!term) return;
+    link.href = `translator.html?q=${encodeURIComponent(term)}`;
+    document.getElementById('no-results-term').textContent = term.length > 40 ? `${term.slice(0, 40)}…` : term;
+}
+
 // Display search results with pagination
 function displayResults(entries, append = false) {
     const grid = document.getElementById('dictionary-grid');
@@ -346,6 +361,7 @@ function displayResults(entries, append = false) {
         grid.innerHTML = '';
         grid.style.display = 'none';
         if (noResults) noResults.classList.remove('hidden');
+        showTranslateOffer();
         removeLoadMoreButton();
         return;
     }
