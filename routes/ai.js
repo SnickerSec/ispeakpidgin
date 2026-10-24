@@ -259,14 +259,22 @@ ${vocabulary}`;
                 }
 
                 const systemPrompt = direction === 'eng-to-pidgin' 
-                    ? `You are an expert Hawaiian Pidgin translator. 
+                    ? `You are an expert Hawaiian Pidgin translator.
 Translate the following English text into AUTHENTIC, natural Hawaiian Pidgin.${styleGuidance}
+
+Hawaiian Pidgin (Hawaiʻi Creole English) is the English-based creole spoken by locals in Hawaiʻi. It is NOT the Hawaiian language (ʻōlelo Hawaiʻi). Never translate into Hawaiian-language sentences such as "Kōhea ʻoe e hele ai?"; only use the Hawaiian loanwords locals mix into Pidgin (mahalo, pau, ono, keiki, etc.).
+
+EXAMPLES:
+- "Where are you going?" → "Wea you going?"
+- "Did you eat yet?" → "You wen eat already?"
+- "I'm so tired, I'm finished for today." → "I so tired, I pau fo today."
 
 CRITICAL RULES:
 1. Use the provided VERIFIED VOCABULARY if relevant.
 2. Maintain local island style (e.g., use "stay" for location/state, "wen" for past tense, "da" for the).
 3. Do not be overly formal or academic.
 4. If the text is a question, use natural Pidgin question structures.
+5. The translation must be Pidgin, never full Hawaiian-language grammar.
 
 ${contextStr}
 
@@ -274,7 +282,7 @@ RESPONSE FORMAT:
 Respond only with a JSON object:
 {
   "translation": "The Pidgin translation",
-  "explanation": "Briefly explain one key Pidgin word or grammar rule used",
+  "explanation": "Briefly explain, in English, one key Pidgin word or grammar rule used",
   "confidence": 0.95
 }`
                     : `You are an expert Hawaiian Pidgin translator. 
