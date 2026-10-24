@@ -27,6 +27,7 @@
 require('dotenv').config();
 const crypto = require('crypto');
 const { createClient } = require('@supabase/supabase-js');
+const { loadPronunciationGuides } = require('../../services/pronunciation');
 const { applyPronunciationCorrections } = require('../../src/components/speech/elevenlabs-speech.js');
 
 const APPLY = process.argv.includes('--apply');
@@ -135,6 +136,9 @@ async function candidateTexts() {
 
 (async () => {
     console.log('🔎 Rebuilding translation_cache index from orphaned audio\n');
+    // Same dictionary guides /api/text-to-speech applies; required, so a failed load stops the run
+    // instead of caching clips made without them.
+    await loadPronunciationGuides(db, { required: true });
 
     const { found, scheme, skippedDeprecated } = await listCachedObjects();
     const schemeTotals = { prefixed: 0, bare: 0, story: 0, lesson: 0 };

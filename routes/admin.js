@@ -12,6 +12,7 @@ const {
 } = require('../services/search-gaps');
 const { embedEntries } = require('../services/dictionary-embeddings');
 const { fetchAllRows } = require('../services/fetch-all-rows');
+const { loadPronunciationGuides } = require('../services/pronunciation');
 
 // Define rate limiters explicitly for CodeQL detection
 const adminLoginLimiter = rateLimit({
@@ -83,8 +84,10 @@ async function generateAndUploadAudio(supabaseAdmin, text, filenamePrefix) {
 
     const hash = crypto.createHash('md5').update(text.trim().toLowerCase()).digest('hex');
     const filename = `${filenamePrefix}_${hash}.mp3`;
+    // Same guides /api/text-to-speech uses, so an admin-made clip matches what the site would make.
+    await loadPronunciationGuides(supabaseAdmin);
     const correctedText = applyPronunciationCorrections(text);
-    
+
     const url = `${ELEVENLABS_BASE_URL}/v1/text-to-speech/${VOICE_ID}`;
     const elRes = await fetch(url, {
         method: 'POST',

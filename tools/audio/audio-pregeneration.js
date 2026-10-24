@@ -9,6 +9,7 @@ const fs = require('fs').promises;
 const crypto = require('crypto');
 const { createClient } = require('@supabase/supabase-js');
 const { fetchAllRows } = require('../../services/fetch-all-rows');
+const { loadPronunciationGuides } = require('../../services/pronunciation');
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -52,7 +53,6 @@ const {
     PIDGIN_PRONUNCIATION_MAP: globalPronunciationMap,
     PIDGIN_TH_WORDS,
     applyPronunciationCorrections,
-    setPronunciationGuides,
     ELEVENLABS_SYNTHESIS
 } = require('../../src/components/speech/elevenlabs-speech.js');
 
@@ -64,8 +64,7 @@ async function fetchAllEntries() {
         console.log('📡 Fetching dictionary entries & pronunciation guides from Supabase...');
         const data = (await fetchAllRows(supabase, 'dictionary_entries', 'id, pidgin, pronunciation'))
             .sort((a, b) => a.pidgin.localeCompare(b.pidgin));
-        const guideCount = setPronunciationGuides(data);
-        console.log(`🗣️ Loaded ${guideCount} dictionary pronunciation guides`);
+        await loadPronunciationGuides(supabase, { required: true });
         return data.map(item => item.pidgin);
     } catch (error) {
         console.error('❌ Error fetching entries:', error.message);

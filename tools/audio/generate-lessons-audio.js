@@ -12,6 +12,7 @@
 require('dotenv').config();
 const crypto = require('crypto');
 const { createClient } = require('@supabase/supabase-js');
+const { loadPronunciationGuides } = require('../../services/pronunciation');
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -108,6 +109,9 @@ async function processLessonClip(lesson, type, text) {
 async function main() {
     console.log(`🎙️ Lesson Audio ${IS_AUDIT ? 'Audit' : 'Generation & Cache Sync'}`);
     console.log('===================================================\n');
+    // Same dictionary guides /api/text-to-speech applies; required, so a failed load stops the run
+    // instead of caching clips made without them.
+    await loadPronunciationGuides(supabase, { required: true });
 
     try {
 

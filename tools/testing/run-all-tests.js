@@ -65,6 +65,13 @@ const testSuites = [
         requiredEnv: false
     },
     {
+        // Static guard + contract: every route/tool that builds ElevenLabs input loads the
+        // dictionary guides through services/pronunciation.js. Forgetting is silent otherwise.
+        name: 'Pronunciation Guide Loader',
+        script: 'test-pronunciation-loader.js',
+        requiredEnv: false
+    },
+    {
         name: 'Pronunciation / Phonetics Audit',
         script: 'pronunciation-audit.js',
         requiredEnv: false

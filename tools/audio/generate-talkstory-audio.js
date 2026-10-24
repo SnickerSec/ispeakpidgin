@@ -13,6 +13,7 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const { createClient } = require('@supabase/supabase-js');
+const { loadPronunciationGuides } = require('../../services/pronunciation');
 const { applyPronunciationCorrections, ELEVENLABS_SYNTHESIS } = require('../../src/components/speech/elevenlabs-speech.js');
 
 const supabaseUrl = process.env.SUPABASE_URL;
@@ -176,6 +177,9 @@ async function generateClip(text, voiceId) {
 async function main() {
     console.log('🎙️ Talk Story Multi-Voice Audio Pregeneration');
     console.log('============================================\n');
+    // Same dictionary guides /api/text-to-speech applies; required, so a failed load stops the run
+    // instead of caching clips made without them.
+    await loadPronunciationGuides(supabase, { required: true });
 
     let totalCached = 0;
     let totalGenerated = 0;

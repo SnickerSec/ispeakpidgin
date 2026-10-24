@@ -21,6 +21,7 @@ const fs = require('fs');
 const crypto = require('crypto');
 const { createClient } = require('@supabase/supabase-js');
 const { fetchAllRows } = require('../../services/fetch-all-rows');
+const { loadPronunciationGuides } = require('../../services/pronunciation');
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -28,7 +29,6 @@ const ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY;
 const {
     PIDGIN_PRONUNCIATION_MAP: globalPronunciationMap,
     applyPronunciationCorrections,
-    setPronunciationGuides,
     ELEVENLABS_SYNTHESIS,
     KIMO_VOICE_ID
 } = require('../../src/components/speech/elevenlabs-speech.js');
@@ -86,15 +86,6 @@ const hashOf = text => crypto.createHash('md5').update(text.trim().toLowerCase()
 async function fetchAllTableEntries(table) {
     const rows = await fetchAllRows(supabase, table, 'id, pidgin');
     return rows.map(r => r.pidgin && r.pidgin.trim()).filter(Boolean);
-}
-
-async function loadAuthoredGuides() {
-    try {
-        const data = await fetchAllRows(supabase, 'dictionary_entries', 'id, pidgin, pronunciation',
-            { filter: q => q.not('pronunciation', 'is', null) });
-        return setPronunciationGuides(data);
-    } catch {}
-    return 0;
 }
 
 async function generateAndUpload(text) {
@@ -193,8 +184,7 @@ async function main() {
     console.log('==================================================\n');
 
     // 1. Preload authored pronunciation guides
-    const guideCount = await loadAuthoredGuides();
-    console.log(`🗣️ Loaded ${guideCount} authored dictionary pronunciation guides`);
+    await loadPronunciationGuides(supabase, { required: true });
 
     // 2. Load what translation_cache already holds
     const cached = await loadCachedHashes();
