@@ -6,6 +6,7 @@ const path = require('path');
 const fs = require('fs');
 const rateLimit = require('express-rate-limit');
 const geminiService = require('../services/gemini');
+const { GEMINI_BASE_URL, ELEVENLABS_BASE_URL } = require('../services/ai-upstreams');
 const {
     findMissingTerms, fetchDictionaryForCoverage, closeResolvedGaps, fetchLiveQueries, resolveKeyPath
 } = require('../services/search-gaps');
@@ -55,7 +56,7 @@ async function generateAndUploadAudio(supabaseAdmin, text, filenamePrefix) {
     const filename = `${filenamePrefix}_${hash}.mp3`;
     const correctedText = applyPronunciationCorrections(text);
     
-    const url = `https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}`;
+    const url = `${ELEVENLABS_BASE_URL}/v1/text-to-speech/${VOICE_ID}`;
     const elRes = await fetch(url, {
         method: 'POST',
         headers: {
@@ -328,7 +329,7 @@ module.exports = function(supabaseAdmin, adminAuth, settingsManager) {
     router.post('/test/elevenlabs', adminActionLimiter, adminAuth.requireAdminAuth, [body('apiKey').notEmpty()], async (req, res) => {
         try {
             const { apiKey } = req.body;
-            const response = await fetch('https://api.elevenlabs.io/v1/user', { headers: { 'xi-api-key': apiKey } });
+            const response = await fetch(`${ELEVENLABS_BASE_URL}/v1/user`, { headers: { 'xi-api-key': apiKey } });
             if (response.ok) {
                 const data = await response.json();
                 res.json({ success: true, message: `Connected as ${data.subscription?.tier || 'user'}`, charactersRemaining: data.subscription?.character_count });
@@ -341,7 +342,7 @@ module.exports = function(supabaseAdmin, adminAuth, settingsManager) {
     router.post('/test/gemini', adminActionLimiter, adminAuth.requireAdminAuth, [body('apiKey').notEmpty()], async (req, res) => {
         try {
             const { apiKey } = req.body;
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
+            const response = await fetch(`${GEMINI_BASE_URL}/v1beta/models?key=${apiKey}`);
             if (response.ok) {
                 const data = await response.json();
                 res.json({ success: true, message: `API key valid. ${data.models?.length || 0} models available.` });
