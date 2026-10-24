@@ -911,123 +911,26 @@ class ElevenLabsSpeech {
     constructor() {
         this.isPlaying = false;
         this.currentAudio = null;
-        this.cache = new Map(); // In-memory cache
-        this.pregeneratedIndex = new Map(); // Index of pre-generated local audio files
-        this.dbName = 'PidginAudioCache';
-        this.storeName = 'audioCache';
+        this.cache = new Map(); // In-memory cache for this page view
         this.initializationPromise = this.initialize();
     }
 
+    // The server (/api/text-to-speech -> translation_cache) is the only place audio is looked up.
+    //
+    // Two browser-side layers used to sit in front of it. A pre-generated index
+    // (audio-assets/index.json) was checked first, and it had drifted: for 62 terms -- aloha,
+    // bumbai, a hui hou among them -- it still pointed at April 2026 clips after the server had
+    // newer recordings, so a regenerated pronunciation never reached the browser. An IndexedDB
+    // cache was written on every playback but never read back (initialize() opened the database
+    // and loaded from it in parallel, so the load always saw no database). Both are gone; the
+    // leftover database is deleted so it stops holding blobs.
     async initialize() {
-        await Promise.all([
-            this.initIndexedDB(),
-            this.loadCacheFromDB(),
-            this.loadPregeneratedIndex()
-        ]);
-        return true;
-    }
-
-    async loadPregeneratedIndex() {
         try {
-            const supabaseStorageUrl = 'https://jfzgzjgdptowfbtljvyp.supabase.co/storage/v1/object/public/audio-assets';
-            const response = await fetch(`${supabaseStorageUrl}/index.json`);
-            if (response.ok) {
-                const data = await response.json();
-                Object.entries(data).forEach(([text, filename]) => {
-                    this.pregeneratedIndex.set(text.toLowerCase(), filename);
-                });
-                console.log(`SW: Loaded ${this.pregeneratedIndex.size} pre-generated audio terms from Supabase`);
-            }
+            if (typeof indexedDB !== 'undefined') indexedDB.deleteDatabase('PidginAudioCache');
         } catch (e) {
-            // Silently fail if index doesn't exist yet
+            // Private browsing and some embedded webviews have no IndexedDB; nothing to clean up.
         }
-    }
-
-    async initIndexedDB() {
-        return new Promise((resolve, reject) => {
-            const request = indexedDB.open(this.dbName, 1);
-
-            request.onerror = () => {
-                console.warn('IndexedDB not available, using memory cache only');
-                resolve();
-            };
-
-            request.onsuccess = (event) => {
-                this.db = event.target.result;
-                resolve();
-            };
-
-            request.onupgradeneeded = (event) => {
-                const db = event.target.result;
-                if (!db.objectStoreNames.contains(this.storeName)) {
-                    const store = db.createObjectStore(this.storeName, { keyPath: 'text' });
-                    store.createIndex('timestamp', 'timestamp', { unique: false });
-                }
-            };
-        });
-    }
-
-    async loadCacheFromDB() {
-        if (!this.db) return;
-
-        try {
-            const transaction = this.db.transaction([this.storeName], 'readonly');
-            const store = transaction.objectStore(this.storeName);
-            const request = store.getAll();
-
-            return new Promise((resolve) => {
-                request.onsuccess = (event) => {
-                    const cachedItems = event.target.result;
-                    const oneWeekAgo = Date.now() - (7 * 24 * 60 * 60 * 1000);
-
-                    cachedItems.forEach(item => {
-                        // Only load items from the last week
-                        if (item.timestamp > oneWeekAgo) {
-                            this.cache.set(item.text, item.blob);
-                        }
-                    });
-
-                    resolve();
-                };
-
-                request.onerror = () => {
-                    console.warn('Failed to load cache from IndexedDB');
-                    resolve();
-                };
-            });
-        } catch (error) {
-            console.warn('Error loading cache from IndexedDB:', error);
-        }
-    }
-
-    async saveToDB(text, blob) {
-        if (!this.db) return;
-
-        try {
-            const transaction = this.db.transaction([this.storeName], 'readwrite');
-            const store = transaction.objectStore(this.storeName);
-
-            store.put({
-                text: text,
-                blob: blob,
-                timestamp: Date.now()
-            });
-
-            // Clean up old entries (older than 1 week)
-            const oneWeekAgo = Date.now() - (7 * 24 * 60 * 60 * 1000);
-            const index = store.index('timestamp');
-            const range = IDBKeyRange.upperBound(oneWeekAgo);
-
-            index.openCursor(range).onsuccess = (event) => {
-                const cursor = event.target.result;
-                if (cursor) {
-                    store.delete(cursor.primaryKey);
-                    cursor.continue();
-                }
-            };
-        } catch (error) {
-            console.warn('Failed to save to IndexedDB:', error);
-        }
+        return true;
     }
 
     // Pidgin pronunciation corrections for TTS
@@ -1110,31 +1013,6 @@ class ElevenLabsSpeech {
                         }
                     }
 
-                    // Check pre-generated index for local file (Uncle Kimo pre-generated clips)
-                    if (voiceId === KIMO_VOICE_ID && this.pregeneratedIndex.has(normalizedText)) {
-                        try {
-                            const supabaseStorageUrl = 'https://jfzgzjgdptowfbtljvyp.supabase.co/storage/v1/object/public/audio-assets';
-                            const filename = this.pregeneratedIndex.get(normalizedText);
-                            const response = await fetch(`${supabaseStorageUrl}/${filename}`);
-                            if (response.ok) {
-                                const audioBlob = await response.blob();
-                                // Cache it for next time
-                                this.cache.set(cacheKey, audioBlob);
-                                
-                                if (!options.silent) {
-                                    window.dispatchEvent(new CustomEvent('pidginSpeechStart'));
-                                    const success = await this.playAudioBlobWithRetry(audioBlob, correctedText, cacheKey);
-                                    if (options.onEnd) options.onEnd();
-                                    if (success) return;
-                                } else {
-                                    return;
-                                }
-                            }
-                        } catch (e) {
-                            console.warn('Local audio fetch failed, falling back to API:', e);
-                        }
-                    }
-
                     // Show loading state if callback provided
                     if (options.onStart) options.onStart();
 
@@ -1165,9 +1043,6 @@ class ElevenLabsSpeech {
 
                     // Cache the audio for future use (per voice)
                     this.cache.set(cacheKey, audioBlob);
-
-                    // Also save to IndexedDB for persistent storage
-                    await this.saveToDB(cacheKey, audioBlob);
 
                     // Play the audio (unless silent mode for preloading)
                     if (!options.silent) {
@@ -1526,22 +1401,10 @@ class ElevenLabsSpeech {
     // Clear cache to free memory
     clearCache() {
         this.cache.clear();
-
-        // Also clear IndexedDB
-        if (this.db) {
-            try {
-                const transaction = this.db.transaction([this.storeName], 'readwrite');
-                const store = transaction.objectStore(this.storeName);
-                store.clear();
-            } catch (error) {
-                console.warn('Failed to clear IndexedDB cache:', error);
-            }
-        }
-
     }
 }
 
-// Create global instance (browser only -- the constructor touches IndexedDB, so Node
+// Create global instance (browser only -- the constructor touches browser APIs, so Node
 // consumers such as the pronunciation audit must be able to require this file without it).
 if (typeof window !== 'undefined') {
     const elevenLabsSpeech = new ElevenLabsSpeech();

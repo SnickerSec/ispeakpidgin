@@ -436,11 +436,8 @@ class PidginEarTrainer {
 
 window.addEventListener('load', () => {
     if (window.elevenLabsSpeech) {
-        const checkReady = setInterval(() => {
-            if (window.elevenLabsSpeech.pregeneratedIndex.size > 0) {
-                clearInterval(checkReady);
-                window.earTrainer = new PidginEarTrainer();
-            }
-        }, 500);
+        window.elevenLabsSpeech.initializationPromise.then(() => {
+            window.earTrainer = new PidginEarTrainer();
+        });
     }
 });

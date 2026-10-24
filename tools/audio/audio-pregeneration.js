@@ -152,6 +152,10 @@ async function generateAudioFile(text, apiKey) {
  * Runs for skipped files too: a clip uploaded by an earlier version of this script has no row,
  * and re-running the pipeline is the natural place to backfill it. Upsert on the same conflict
  * target the route uses, so repeat runs are free.
+ *
+ * A skipped clip only fills a MISSING row. The file it found may be years older than the clip
+ * the row already points at (the April 2026 "<hash>.mp3" set predates most phonetic fixes), so
+ * letting it overwrite would silently roll a regenerated pronunciation back.
  */
 async function indexClip(result) {
     const { error } = await supabase.from('translation_cache').upsert({
@@ -161,7 +165,7 @@ async function indexClip(result) {
         voice_id: VOICE_ID,
         audio_filename: result.filename,
         md5_hash: result.hash
-    }, { onConflict: 'md5_hash,direction,voice_id' });
+    }, { onConflict: 'md5_hash,direction,voice_id', ignoreDuplicates: result.skipped });
     if (error) {
         // Loud, not silent. A clip that uploads but fails to index is a clip we pay for twice.
         console.error(`  ⚠️  cache index write failed for "${result.text}": ${error.message}`);

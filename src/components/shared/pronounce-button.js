@@ -52,51 +52,35 @@
                 });
             }
 
+            // Same source as the play button: the server's TTS route, which serves the stored
+            // clip from translation_cache (or makes one). audio-assets/index.json used to be read
+            // here, and for some words it still pointed at clips the server had since replaced.
+            const originalHtml = dlBtn.innerHTML;
+            dlBtn.innerHTML = '<iconify-icon icon="lucide:loader-2" class="animate-spin"></iconify-icon> Downloading...';
+            dlBtn.disabled = true;
             try {
-                // Try to find pre-generated audio filename from index
-                const supabaseStorageUrl = 'https://jfzgzjgdptowfbtljvyp.supabase.co/storage/v1/object/public/audio-assets';
-                const response = await fetch(`${supabaseStorageUrl}/index.json`);
-                if (!response.ok) throw new Error('Index not found');
-                
-                const index = await response.json();
-                const filename = index[word.toLowerCase()];
-                
-                if (filename) {
-                    const audioUrl = `${supabaseStorageUrl}/${filename}`;
-                    const originalHtml = dlBtn.innerHTML;
-                    dlBtn.innerHTML = '<iconify-icon icon="lucide:loader-2" class="animate-spin"></iconify-icon> Downloading...';
-                    dlBtn.disabled = true;
-
-                    try {
-                        const audioResponse = await fetch(audioUrl);
-                        if (!audioResponse.ok) throw new Error('Failed to fetch audio file');
-                        const blob = await audioResponse.blob();
-                        const blobUrl = URL.createObjectURL(blob);
-                        
-                        const anchor = document.createElement('a');
-                        anchor.href = blobUrl;
-                        anchor.download = `${word.toLowerCase().replace(/\s+/g, '-')}.mp3`;
-                        document.body.appendChild(anchor);
-                        anchor.click();
-                        document.body.removeChild(anchor);
-                        
-                        setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
-                    } catch (err) {
-                        console.warn('Blob download failed, falling back to direct navigation:', err);
-                        const anchor = document.createElement('a');
-                        anchor.href = audioUrl;
-                        anchor.target = '_blank';
-                        anchor.click();
-                    } finally {
-                        dlBtn.innerHTML = originalHtml;
-                        dlBtn.disabled = false;
-                    }
-                } else {
-                    alert('Aloha! Offline download for "' + word + '" not yet available. Please check back soon!');
-                }
+                const response = await fetch('/api/text-to-speech', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: word, originalText: word })
+                });
+                if (!response.ok) throw new Error('TTS request failed: ' + response.status);
+                const blob = await response.blob();
+                if (!blob.size) throw new Error('Empty audio');
+                const blobUrl = URL.createObjectURL(blob);
+                const anchor = document.createElement('a');
+                anchor.href = blobUrl;
+                anchor.download = `${word.toLowerCase().replace(/\s+/g, '-')}.mp3`;
+                document.body.appendChild(anchor);
+                anchor.click();
+                document.body.removeChild(anchor);
+                setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
             } catch (e) {
                 console.warn('Audio download error:', e);
                 alert('Aloha! Audio service is currently unavailable for direct downloads.');
+            } finally {
+                dlBtn.innerHTML = originalHtml;
+                dlBtn.disabled = false;
             }
         });
     });

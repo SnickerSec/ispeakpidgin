@@ -9,6 +9,8 @@ function escapeHtml(text) {
         .replace(/'/g, '&#039;');
 }
 
+const LESSON_AUDIO_BASE = 'https://jfzgzjgdptowfbtljvyp.supabase.co/storage/v1/object/public/audio-assets/';
+
 class LearningHub {
     constructor() {
         this.progress = this.loadProgress();
@@ -236,21 +238,31 @@ class LearningHub {
         document.querySelectorAll('.modal-play-btn iconify-icon, .modal-play-btn i').forEach(i => i.setAttribute('icon', 'lucide:play'));
         if (icon) icon.setAttribute('icon', 'lucide:pause');
 
-        // Check pregenerated index
-        const filename = window.elevenLabsSpeech.pregeneratedIndex.get(key.toLowerCase());
-        if (filename) {
-            const url = 'https://jfzgzjgdptowfbtljvyp.supabase.co/storage/v1/object/public/audio-assets/' + filename;
-            window.elevenLabsSpeech.speak(url, {
-                onEnd: () => { if (icon) icon.setAttribute('icon', 'lucide:play'); },
-                onError: () => { if (icon) icon.setAttribute('icon', 'lucide:play'); }
-            });
-        } else {
-            // Fallback to TTS if not pre-generated
-            window.elevenLabsSpeech.speak(key, {
-                onEnd: () => { if (icon) icon.setAttribute('icon', 'lucide:play'); },
-                onError: () => { if (icon) icon.setAttribute('icon', 'lucide:play'); }
-            });
+        const reset = () => { if (icon) icon.setAttribute('icon', 'lucide:play'); };
+
+        // Vocabulary and example lines are ordinary text: speak them through the server like
+        // everywhere else. The index also holds old clips for many of those words, and it was
+        // playing them in place of the server's newer recordings.
+        if (!key.startsWith('lesson:')) {
+            window.elevenLabsSpeech.speak(key, { onEnd: reset, onError: reset });
+            return;
         }
+        this.lessonAudioFile(key).then(filename => {
+            // Keys like "lesson:note:8" only exist in the lesson audio index; never speak the key.
+            if (!filename) return reset();
+            window.elevenLabsSpeech.speak(LESSON_AUDIO_BASE + filename, { onEnd: reset, onError: reset });
+        });
+    }
+
+    // Lesson clips (tools/audio/generate-lessons-audio.js) are registered in audio-assets/index.json
+    // under "lesson:<part>:<id>". Fetched on first use, so pages without lessons never download it.
+    lessonAudioFile(key) {
+        if (!this.lessonAudioIndex) {
+            this.lessonAudioIndex = fetch(LESSON_AUDIO_BASE + 'index.json')
+                .then(r => (r.ok ? r.json() : {}))
+                .catch(() => ({}));
+        }
+        return this.lessonAudioIndex.then(index => index[key.toLowerCase()] || index[key] || null);
     }
 
     startLesson(lesson, level) {
