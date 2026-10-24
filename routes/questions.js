@@ -3,6 +3,7 @@ const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const userAuth = require('../middleware/user-auth');
 const geminiService = require('../services/gemini');
+const { PIDGIN_DEFINITION } = require('../services/pidgin-prompt');
 
 /**
  * Local Questions API (Ask a Local)
@@ -29,6 +30,7 @@ module.exports = function(supabase, limiter, gamificationService, dictionaryCach
 
             const systemPrompt = `You are "Kimo," a helpful and friendly Hawaiian local expert. 
 A user has asked a question about Hawaiian Pidgin or local culture. 
+${PIDGIN_DEFINITION}
 Provide a helpful, authentic answer in natural Pidgin.
 
 CRITICAL RULES:

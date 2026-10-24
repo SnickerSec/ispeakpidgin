@@ -72,6 +72,12 @@ const testSuites = [
         requiredEnv: false
     },
     {
+        // keyproxy: vendor URLs come from services/ai-upstreams.js, or the proxy tokens 401.
+        name: 'AI Vendor URLs via keyproxy',
+        script: 'test-vendor-urls.js',
+        requiredEnv: false
+    },
+    {
         name: 'Pronunciation / Phonetics Audit',
         script: 'pronunciation-audit.js',
         requiredEnv: false

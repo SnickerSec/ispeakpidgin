@@ -20,6 +20,7 @@ require('dotenv').config();
 const fs = require('fs');
 const crypto = require('crypto');
 const { createClient } = require('@supabase/supabase-js');
+const { ELEVENLABS_BASE_URL } = require('../../services/ai-upstreams');
 const { fetchAllRows } = require('../../services/fetch-all-rows');
 const { loadPronunciationGuides } = require('../../services/pronunciation');
 
@@ -93,7 +94,7 @@ async function generateAndUpload(text) {
     const hash = crypto.createHash('md5').update(normalized).digest('hex');
     const filename = `${hash}.mp3`;
     const correctedText = applyPronunciationCorrections(text);
-    const apiUrl = `https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}`;
+    const apiUrl = `${ELEVENLABS_BASE_URL}/v1/text-to-speech/${VOICE_ID}`;
 
     const response = await fetch(apiUrl, {
         method: 'POST',

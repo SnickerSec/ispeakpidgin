@@ -8,6 +8,7 @@ require('dotenv').config();
 const fs = require('fs').promises;
 const crypto = require('crypto');
 const { createClient } = require('@supabase/supabase-js');
+const { ELEVENLABS_BASE_URL } = require('../../services/ai-upstreams');
 const { fetchAllRows } = require('../../services/fetch-all-rows');
 const { loadPronunciationGuides } = require('../../services/pronunciation');
 
@@ -97,7 +98,7 @@ async function generateAudioFile(text, apiKey) {
         }
     }
 
-    const url = `https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}`;
+    const url = `${ELEVENLABS_BASE_URL}/v1/text-to-speech/${VOICE_ID}`;
 
     try {
         const response = await fetch(url, {

@@ -770,7 +770,8 @@ async function auditAi() {
         });
     } else {
         try {
-            const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models?pageSize=1000', {
+            // GEMINI_BASE_URL: on Railway the key is a keyproxy token, which Google rejects directly.
+            const res = await fetch(`${process.env.GEMINI_BASE_URL || 'https://generativelanguage.googleapis.com'}/v1beta/models?pageSize=1000`, {
                 headers: { 'x-goog-api-key': process.env.GEMINI_API_KEY }, signal: AbortSignal.timeout(15000)
             });
             if (!res.ok) throw new Error(`models.list → ${res.status}`);

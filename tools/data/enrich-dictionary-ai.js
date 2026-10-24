@@ -7,6 +7,8 @@
  */
 
 require('dotenv').config();
+const geminiService = require('../../services/gemini');
+const { PIDGIN_DEFINITION } = require('../../services/pidgin-prompt');
 const { supabase } = require('../../config/supabase');
 const fetch = require('node-fetch');
 
@@ -14,7 +16,6 @@ const fetch = require('node-fetch');
 const BATCH_SIZE = 300; // Total per run
 const SUB_BATCH_SIZE = 20; // Number of words per AI call
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_MODEL = 'gemini-2.5-flash-lite';
 
 async function main() {
     console.log('🚀 Bulk AI Dictionary Content Enrichment');
@@ -77,6 +78,7 @@ async function main() {
 
 async function getBulkAiEnrichment(entries) {
     const systemPrompt = `You are an expert Hawaiian Pidgin linguist and cultural historian.
+${PIDGIN_DEFINITION}
 Enrich these ${entries.length} dictionary entries with authentic examples and cultural context.
 
 For EACH entry, provide:
@@ -101,22 +103,18 @@ ENGLISH: "${Array.isArray(entry.english) ? entry.english.join(', ') : entry.engl
 CURRENT USAGE: "${entry.usage || 'None'}"
 `).join('\n---');
 
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
-
-    const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            contents: [{
-                role: 'user',
-                parts: [{ text: `SYSTEM INSTRUCTION: ${systemPrompt}\n\n${userPrompt}` }]
-            }],
-            generationConfig: { 
-                temperature: 0.4,
-                maxOutputTokens: 4000,
-                responseMimeType: "application/json"
-            }
-        })
+    // services/gemini.js: the keyproxy base URL, retries, and the shared TEXT_MODELS chain
+    // (3.1 Flash-Lite first). Calling the vendor URL directly fails with the proxy token.
+    const response = await geminiService.generateContent(GEMINI_API_KEY, {
+        contents: [{
+            role: 'user',
+            parts: [{ text: `SYSTEM INSTRUCTION: ${systemPrompt}\n\n${userPrompt}` }]
+        }],
+        generationConfig: { 
+            temperature: 0.4,
+            maxOutputTokens: 4000,
+            responseMimeType: "application/json"
+        }
     });
 
     if (!response.ok) {

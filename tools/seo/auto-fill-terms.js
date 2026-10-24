@@ -10,6 +10,7 @@
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
+const geminiService = require('../../services/gemini');
 
 const INPUT_PATH = path.join(__dirname, '../../docs/missing-terms.json');
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
@@ -51,18 +52,14 @@ Respond ONLY with a JSON object:
 }`;
 
     try {
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${GEMINI_API_KEY}`;
-        
-        const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{ parts: [{ text: `${systemPrompt}\n\nTerm to fill: "${term.pidgin}"` }] }],
-                generationConfig: { 
-                    response_mime_type: "application/json",
-                    temperature: 0.1
-                }
-            })
+        // services/gemini.js: the keyproxy base URL, retries, and the shared TEXT_MODELS chain
+        // (3.1 Flash-Lite first). Calling the vendor URL directly fails with the proxy token.
+        const response = await geminiService.generateContent(GEMINI_API_KEY, {
+            contents: [{ parts: [{ text: `${systemPrompt}\n\nTerm to fill: "${term.pidgin}"` }] }],
+            generationConfig: { 
+                response_mime_type: "application/json",
+                temperature: 0.1
+            }
         });
 
         if (!response.ok) {

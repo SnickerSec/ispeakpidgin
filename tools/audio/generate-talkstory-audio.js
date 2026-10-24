@@ -13,6 +13,7 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const { createClient } = require('@supabase/supabase-js');
+const { ELEVENLABS_BASE_URL } = require('../../services/ai-upstreams');
 const { loadPronunciationGuides } = require('../../services/pronunciation');
 const { applyPronunciationCorrections, ELEVENLABS_SYNTHESIS } = require('../../src/components/speech/elevenlabs-speech.js');
 
@@ -126,7 +127,7 @@ async function generateClip(text, voiceId) {
     const apiKey = process.env.ELEVENLABS_API_KEY;
     if (!apiKey) throw new Error('Missing ELEVENLABS_API_KEY');
 
-    const url = `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`;
+    const url = `${ELEVENLABS_BASE_URL}/v1/text-to-speech/${voiceId}`;
     const response = await fetch(url, {
         method: 'POST',
         headers: {

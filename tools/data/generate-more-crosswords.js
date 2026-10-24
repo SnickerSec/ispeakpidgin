@@ -7,11 +7,11 @@
  */
 
 require('dotenv').config();
+const geminiService = require('../../services/gemini');
 const { supabase } = require('../../config/supabase');
 const fetch = require('node-fetch');
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_MODEL = 'gemini-2.5-flash-lite';
 
 async function main() {
     console.log('🧩 AI Crossword Generator');
@@ -104,21 +104,17 @@ RETURN ONLY A JSON OBJECT:
 
     const userPrompt = `Candidate words:\n${candidates.map(c => `${c.word} (${c.clue})`).join('\n')}`;
 
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
-
-    const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            contents: [{
-                role: 'user',
-                parts: [{ text: `SYSTEM INSTRUCTION: ${systemPrompt}\n\n${userPrompt}` }]
-            }],
-            generationConfig: { 
-                temperature: 0.7,
-                responseMimeType: "application/json"
-            }
-        })
+    // services/gemini.js: the keyproxy base URL, retries, and the shared TEXT_MODELS chain
+    // (3.1 Flash-Lite first). Calling the vendor URL directly fails with the proxy token.
+    const response = await geminiService.generateContent(GEMINI_API_KEY, {
+        contents: [{
+            role: 'user',
+            parts: [{ text: `SYSTEM INSTRUCTION: ${systemPrompt}\n\n${userPrompt}` }]
+        }],
+        generationConfig: { 
+            temperature: 0.7,
+            responseMimeType: "application/json"
+        }
     });
 
     if (!response.ok) {

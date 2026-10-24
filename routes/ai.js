@@ -3,6 +3,7 @@ const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const userAuth = require('../middleware/user-auth');
 const geminiService = require('../services/gemini');
+const { PIDGIN_DEFINITION } = require('../services/pidgin-prompt');
 
 /**
  * AI & Chat Routes
@@ -125,6 +126,7 @@ module.exports = function(supabase, dictionaryCache, limiter, gamificationServic
 
                 const systemPrompt = `
 You are "${activeChar.name}," ${activeChar.desc}
+${PIDGIN_DEFINITION}
 ${scenarioContext}
 
 GUIDELINES:
@@ -262,7 +264,7 @@ ${vocabulary}`;
                     ? `You are an expert Hawaiian Pidgin translator.
 Translate the following English text into AUTHENTIC, natural Hawaiian Pidgin.${styleGuidance}
 
-Hawaiian Pidgin (Hawaiʻi Creole English) is the English-based creole spoken by locals in Hawaiʻi. It is NOT the Hawaiian language (ʻōlelo Hawaiʻi). Never translate into Hawaiian-language sentences such as "Kōhea ʻoe e hele ai?"; only use the Hawaiian loanwords locals mix into Pidgin (mahalo, pau, ono, keiki, etc.).
+${PIDGIN_DEFINITION} Never translate into Hawaiian-language sentences such as "Kōhea ʻoe e hele ai?".
 
 EXAMPLES:
 - "Where are you going?" → "Wea you going?"
