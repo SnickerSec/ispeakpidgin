@@ -8,6 +8,10 @@
  * is comparable, and spike days are dropped from both: brah drew ~347k impressions on
  * 2026-09-20/21 against a ~300/day baseline, which would swamp any real change.
  *
+ * A longer surge ran 2026-09-22 → 10-15 on a few pages: impressions jumped several-fold with no
+ * matching clicks, then fell back. Where it overlaps the 28-day window, `baseline` pins the
+ * "before" window to the pre-surge weeks instead, and the surge's tail is dropped from "after".
+ *
  * Position is impression-weighted, as Search Console reports it. Under 14 days of
  * "after" data the verdict is "too early": daily click counts here are single digits.
  *
@@ -52,18 +56,18 @@ const EXPERIMENTS = [
     { name: 'shoots snippet', live: '2026-10-07', page: '/what-does-shoots-mean.html' },
     { name: 'faka snippet', live: '2026-10-07', page: '/what-does-faka-mean.html' },
     {
+        // 202 impr/d before the surge, 837 during it, 132 after: the 28 days before launch
+        // were all surge, so measure against the weeks before it.
         name: 'mahalo snippet, FAQ, folk etymology corrected',
         live: '2026-10-12',
         page: '/what-does-mahalo-mean.html',
-        queries: ['mahalo meaning', 'what does mahalo mean', 'hawaiian word for thank you', 'does mahalo mean thank you']
+        queries: ['mahalo meaning', 'what does mahalo mean', 'hawaiian word for thank you', 'does mahalo mean thank you'],
+        baseline: { from: '2026-08-23', to: '2026-09-19' },
+        excludeDates: ['2026-10-14', '2026-10-15']
     },
-    // Answer-first titles/descriptions on every /word/ page (generate-entry-pages.js); these five
-    // had the most impressions per click. Set `live` to the day the change actually deploys.
-    { name: 'word page: kefe', live: '2026-10-12', page: '/word/kefe.html', queries: ['kefe', 'kefe meaning'] },
-    { name: 'word page: fosho', live: '2026-10-12', page: '/word/fosho.html', queries: ['fosho meaning', 'fosho'] },
-    { name: 'word page: mahalo nui loa', live: '2026-10-12', page: '/word/mahalo-nui-loa.html', queries: ['mahalo nui loa'] },
-    { name: 'word page: bumbai', live: '2026-10-12', page: '/word/bumbai.html', queries: ['bumbai', 'bumbai meaning'] },
-    { name: 'word page: shaka brah', live: '2026-10-12', page: '/word/shaka-brah.html', queries: ['shaka brah'] },
+    // The /word/ answer-first title cohort (kefe, fosho, mahalo nui loa, bumbai, shaka brah) is
+    // gone: each of those pages now 301s to its what-does-*-mean page (services/word-redirects.js),
+    // so there is no title change left to measure. Their landing pages are tracked below.
     {
         name: 'poho snippet, answer-first, FAQ',
         live: '2026-10-12',
@@ -198,7 +202,7 @@ function summarise(rows, from, to, exclude) {
 
 async function measure(client, target, exp, lastDay) {
     const exclude = new Set(exp.excludeDates || []);
-    const before = { from: addDays(exp.live, -BASELINE_DAYS), to: addDays(exp.live, -1) };
+    const before = exp.baseline || { from: addDays(exp.live, -BASELINE_DAYS), to: addDays(exp.live, -1) };
     const after = { from: addDays(exp.live, RECRAWL_DAYS), to: lastDay };
     const rows = await dailyRows(client, { ...target, startDate: before.from, endDate: after.to });
     return {
@@ -251,7 +255,7 @@ async function main() {
     console.log(`📊 SEO experiment readout: ${SITE_URL}, data through ${lastDay} (${conn.label})`);
     console.log(`   before = ${BASELINE_DAYS} days before launch; after = launch+${RECRAWL_DAYS}d → ${lastDay}; per-day averages\n`);
     for (const r of report) {
-        console.log(`${r.name}: ${r.page}, live ${r.live}${r.excludeDates ? `, excluding ${r.excludeDates.join(', ')}` : ''}`);
+        console.log(`${r.name}: ${r.page}, live ${r.live}${r.baseline ? `, baseline ${r.baseline.from} → ${r.baseline.to}` : ''}${r.excludeDates ? `, excluding ${r.excludeDates.join(', ')}` : ''}`);
         console.log(line('page total', r.overall));
         for (const q of r.queries) console.log(line(`"${q.query}"`, q));
         console.log('');
