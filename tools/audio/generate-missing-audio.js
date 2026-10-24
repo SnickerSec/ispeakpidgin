@@ -68,31 +68,17 @@ function parseArgs(argv) {
 }
 
 /**
- * Download index.json from Supabase Storage with CDN cache-busting.
+ * md5 hashes of every text translation_cache holds audio for: the store routes/tts.js serves
+ * from, so "covered" here means "the site will play it without calling ElevenLabs". This used to
+ * read audio-assets/index.json, which the site no longer consults and which had drifted.
  */
-async function loadIndex() {
-    try {
-        let indexText = null;
-        if (supabaseUrl && supabaseServiceKey) {
-            const url = `${supabaseUrl}/storage/v1/object/${BUCKET_NAME}/index.json?t=${Date.now()}`;
-            const res = await fetch(url, {
-                headers: { 'Authorization': `Bearer ${supabaseServiceKey}` },
-                cache: 'no-store'
-            });
-            if (res.ok) {
-                indexText = await res.text();
-            }
-        }
-        if (!indexText) {
-            const { data } = await supabase.storage.from(BUCKET_NAME).download('index.json');
-            if (data) indexText = await data.text();
-        }
-        if (indexText) {
-            return JSON.parse(indexText);
-        }
-    } catch {}
-    return {};
+async function loadCachedHashes() {
+    const rows = await fetchAllRows(supabase, 'translation_cache', 'md5_hash, audio_filename',
+        { filter: q => q.eq('voice_id', VOICE_ID).eq('direction', DIRECTION) });
+    return new Set(rows.filter(r => r.audio_filename).map(r => r.md5_hash));
 }
+
+const hashOf = text => crypto.createHash('md5').update(text.trim().toLowerCase()).digest('hex');
 
 /**
  * Fetch all rows from a table with pagination past 1000 rows.
@@ -210,10 +196,9 @@ async function main() {
     const guideCount = await loadAuthoredGuides();
     console.log(`🗣️ Loaded ${guideCount} authored dictionary pronunciation guides`);
 
-    // 2. Load index.json
-    console.log('📡 Downloading storage index.json...');
-    const index = await loadIndex();
-    console.log(`📦 Loaded index with ${Object.keys(index).length} terms.\n`);
+    // 2. Load what translation_cache already holds
+    const cached = await loadCachedHashes();
+    console.log(`📦 translation_cache holds audio for ${cached.size} texts.\n`);
 
     // 3. Fetch content
     console.log('🔍 Fetching content entries across tables...');
@@ -234,8 +219,8 @@ async function main() {
     for (const t of tablesToFetch) {
         const rawEntries = await fetchAllTableEntries(t.table);
         const unique = Array.from(new Set(rawEntries.map(e => e.toLowerCase())));
-        const covered = unique.filter(e => Boolean(index[e]));
-        const missing = unique.filter(e => !index[e]);
+        const covered = unique.filter(e => cached.has(hashOf(e)));
+        const missing = unique.filter(e => !cached.has(hashOf(e)));
 
         tableStats.push({
             name: t.name,
@@ -299,21 +284,9 @@ async function main() {
 
         try {
             const result = await generateAndUpload(item);
-            index[item] = result.filename;
+            cached.add(result.hash);
             successCount++;
             console.log('Generated! ✨');
-
-            // Save index incrementally every 5 items
-            if ((i + 1) % 5 === 0 || i === toGenerate.length - 1) {
-                const indexStr = JSON.stringify(index, null, 2);
-                await supabase.storage.from(BUCKET_NAME).upload('index.json', Buffer.from(indexStr), {
-                    contentType: 'application/json',
-                    upsert: true
-                });
-                if (fs.existsSync(AUDIO_DIR)) {
-                    fs.writeFileSync(path.join(AUDIO_DIR, 'index.json'), indexStr);
-                }
-            }
 
             // Small delay to pace requests
             await new Promise(resolve => setTimeout(resolve, 600));
@@ -323,7 +296,7 @@ async function main() {
     }
 
     console.log(`\n✅ Generation complete: ${successCount}/${toGenerate.length} terms successfully synthesized and indexed.`);
-    console.log(`📊 Total items now indexed: ${Object.keys(index).length}`);
+    console.log(`📊 translation_cache now holds audio for ${cached.size} texts.`);
 }
 
 main().catch(err => {

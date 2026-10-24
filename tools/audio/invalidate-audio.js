@@ -2,7 +2,7 @@
 /**
  * Audio Cache Invalidation CLI Tool for ChokePidgin / iSpeakPidgin
  *
- * Purges stale audio files, index references, and translation_cache database rows
+ * Purges stale audio files and translation_cache database rows
  * when phonetic respellings, pronunciations, or vocabulary entries change.
  *
  * Usage:
@@ -29,7 +29,6 @@ const BUCKET_NAME = 'audio-assets';
 const TTS_DIRECTION = 'tts';
 const KIMO_VOICE_ID = 'f0ODjLMfcJmlKfs7dFCW';
 const AUDIO_DIR = path.join(__dirname, '../../public/assets/audio');
-const LOCAL_INDEX_FILE = path.join(AUDIO_DIR, 'index.json');
 
 /**
  * Parse CLI arguments into structured configuration.
@@ -109,36 +108,6 @@ function generateVariations(term) {
 }
 
 /**
- * Download and parse index.json from Supabase Storage.
- */
-/**
- * Download and parse index.json from Supabase Storage with CDN cache-busting.
- */
-async function loadStorageIndex(db) {
-    try {
-        const supabaseUrl = process.env.SUPABASE_URL;
-        const key = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
-        if (supabaseUrl && key) {
-            const url = `${supabaseUrl}/storage/v1/object/${BUCKET_NAME}/index.json?t=${Date.now()}`;
-            const res = await fetch(url, {
-                headers: { 'Authorization': `Bearer ${key}` },
-                cache: 'no-store'
-            });
-            if (res.ok) {
-                const json = await res.json();
-                return { index: json, exists: true };
-            }
-        }
-        const { data, error } = await db.storage.from(BUCKET_NAME).download('index.json');
-        if (error || !data) return { index: {}, exists: false };
-        const text = await data.text();
-        return { index: JSON.parse(text), exists: true };
-    } catch {
-        return { index: {}, exists: false };
-    }
-}
-
-/**
  * Query translation_cache for entries matching hashes or text patterns.
  */
 async function findDatabaseMatches(db, variations, fuzzy) {
@@ -204,13 +173,16 @@ async function findDatabaseMatches(db, variations, fuzzy) {
 }
 
 /**
- * Inspect cache coverage for a term across DB, storage bucket, and index.json.
+ * Inspect cache coverage for a term across translation_cache and the storage bucket.
+ *
+ * audio-assets/index.json is no longer consulted: the site reads translation_cache only, and the
+ * index was retired after it drifted (62 terms pointed at superseded clips).
  */
 async function inspectTerm(db, term, options = {}) {
     const variations = generateVariations(term);
     const dbRows = await findDatabaseMatches(db, variations, options.fuzzy);
 
-    // Expand variations with discovered DB rows so index/storage checks catch canonical forms
+    // Expand variations with discovered DB rows so storage checks catch canonical forms
     for (const row of dbRows) {
         if (row.original_text) {
             const rowVars = generateVariations(row.original_text);
@@ -223,35 +195,10 @@ async function inspectTerm(db, term, options = {}) {
         }
     }
 
-    const { index } = await loadStorageIndex(db);
-
-    // Check index keys (exact, fuzzy, or stripped-okina match, or filename match)
-    const matchedIndexKeys = [];
-    const lowerKeys = Object.keys(index);
-    const dbFilenames = new Set(dbRows.map(r => r.audio_filename).filter(Boolean));
-
-    for (const key of lowerKeys) {
-        const lowerKey = key.toLowerCase();
-        const strippedKey = lowerKey.replace(/[\u02BB'‘’`\s-]/g, '');
-        const filename = index[key];
-
-        const matchesText = variations.texts.includes(lowerKey);
-        const matchesStripped = variations.texts.some(t => t.replace(/[\u02BB'‘’`\s-]/g, '') === strippedKey);
-        const matchesFilename = filename && dbFilenames.has(filename);
-        const matchesFuzzy = options.fuzzy && variations.texts.some(t => lowerKey.includes(t));
-
-        if (matchesText || matchesStripped || matchesFilename || matchesFuzzy) {
-            matchedIndexKeys.push({ key, filename });
-        }
-    }
-
     // Gather candidate filenames
     const candidateFiles = new Set();
     for (const row of dbRows) {
         if (row.audio_filename) candidateFiles.add(row.audio_filename);
-    }
-    for (const match of matchedIndexKeys) {
-        if (match.filename) candidateFiles.add(match.filename);
     }
     for (const hash of variations.hashes) {
         candidateFiles.add(`${hash}.mp3`);
@@ -273,7 +220,6 @@ async function inspectTerm(db, term, options = {}) {
         term,
         variations,
         dbRows,
-        matchedIndexKeys,
         candidateFiles: Array.from(candidateFiles),
         existingBucketFiles
     };
@@ -291,7 +237,6 @@ async function invalidateTerm(db, term, options = {}) {
         isDryRun,
         deletedDbRowIds: inspection.dbRows.map(r => r.id),
         deletedDbRows: inspection.dbRows,
-        deletedIndexKeys: inspection.matchedIndexKeys.map(k => k.key),
         deletedBucketFiles: inspection.existingBucketFiles,
         status: 'clean'
     };
@@ -323,36 +268,7 @@ async function invalidateTerm(db, term, options = {}) {
         }
     }
 
-    // 3. Update storage index.json if keys matched
-    if (result.deletedIndexKeys.length > 0) {
-        const { index, exists } = await loadStorageIndex(db);
-        if (exists) {
-            let modified = false;
-            for (const key of result.deletedIndexKeys) {
-                if (key in index) {
-                    delete index[key];
-                    modified = true;
-                }
-            }
-
-            if (modified) {
-                const indexStr = JSON.stringify(index, null, 2);
-                await db.storage.from(BUCKET_NAME).upload('index.json', Buffer.from(indexStr), {
-                    contentType: 'application/json',
-                    upsert: true
-                });
-
-                // Update local index file if it exists
-                if (fs.existsSync(LOCAL_INDEX_FILE)) {
-                    try {
-                        fs.writeFileSync(LOCAL_INDEX_FILE, indexStr, 'utf8');
-                    } catch {}
-                }
-            }
-        }
-    }
-
-    // 4. Remove local audio files if they exist in public/assets/audio
+    // 3. Remove local audio files if they exist in public/assets/audio
     if (fs.existsSync(AUDIO_DIR)) {
         for (const file of result.deletedBucketFiles) {
             const localFile = path.join(AUDIO_DIR, file);
@@ -420,12 +336,6 @@ async function invalidateAll(db, options = {}) {
         if (!removeError) filesDeleted += batch.length;
     }
 
-    // Reset index.json
-    await db.storage.from(BUCKET_NAME).upload('index.json', Buffer.from('{}'), {
-        contentType: 'application/json',
-        upsert: true
-    });
-
     result.filesDeleted = filesDeleted;
     return result;
 }
@@ -434,7 +344,7 @@ function printHelp() {
     console.log(`
 🌺 ChokePidgin Audio Cache Invalidation Tool
 ==================================================
-Purges cached audio clips, database index rows, and storage index references
+Purges cached audio clips and their translation_cache rows
 when pronunciation rules, phonetic maps, or dictionary definitions change.
 
 Usage:
@@ -523,15 +433,11 @@ async function main() {
             for (const row of status.dbRows) {
                 console.log(`     • [ID ${row.id}] "${row.original_text}" -> "${row.translated_text}" (${row.audio_filename})`);
             }
-            console.log(`   Storage index entries:  ${status.matchedIndexKeys.length}`);
-            for (const match of status.matchedIndexKeys) {
-                console.log(`     • "${match.key}" => ${match.filename}`);
-            }
             console.log(`   Bucket files existing:  ${status.existingBucketFiles.length}`);
             for (const file of status.existingBucketFiles) {
                 console.log(`     • ${file}`);
             }
-            if (status.dbRows.length === 0 && status.matchedIndexKeys.length === 0 && status.existingBucketFiles.length === 0) {
+            if (status.dbRows.length === 0 && status.existingBucketFiles.length === 0) {
                 console.log(`   ✨ No cached audio found for "${term}". Clean.`);
             }
             console.log('');
@@ -539,7 +445,6 @@ async function main() {
             const res = await invalidateTerm(db, term, { dryRun: config.dryRun, fuzzy: config.fuzzy });
             const verb = config.dryRun ? 'Would remove' : 'Removed';
             console.log(`   ${verb} database rows:   ${res.deletedDbRowIds.length} ${res.deletedDbRowIds.length ? `(${res.deletedDbRowIds.join(', ')})` : ''}`);
-            console.log(`   ${verb} storage index:   ${res.deletedIndexKeys.length} ${res.deletedIndexKeys.length ? `(${res.deletedIndexKeys.join(', ')})` : ''}`);
             console.log(`   ${verb} bucket files:    ${res.deletedBucketFiles.length} ${res.deletedBucketFiles.length ? `(${res.deletedBucketFiles.join(', ')})` : ''}`);
             console.log(`   ✨ Status: ${config.dryRun ? 'Preview complete' : 'Cache invalidated successfully'}\n`);
         }
@@ -556,7 +461,6 @@ if (require.main === module) {
 module.exports = {
     parseCommandLineArgs,
     generateVariations,
-    loadStorageIndex,
     findDatabaseMatches,
     inspectTerm,
     invalidateTerm,

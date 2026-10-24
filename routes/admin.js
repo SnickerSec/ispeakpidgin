@@ -11,6 +11,7 @@ const {
     findMissingTerms, fetchDictionaryForCoverage, closeResolvedGaps, fetchLiveQueries, resolveKeyPath
 } = require('../services/search-gaps');
 const { embedEntries } = require('../services/dictionary-embeddings');
+const { fetchAllRows } = require('../services/fetch-all-rows');
 
 // Define rate limiters explicitly for CodeQL detection
 const adminLoginLimiter = rateLimit({
@@ -40,6 +41,34 @@ const {
     KIMO_VOICE_ID
 } = require('../src/components/speech/elevenlabs-speech.js');
 
+
+/**
+ * Point the site's audio lookup at a clip. routes/tts.js serves from translation_cache, keyed on
+ * the md5 of the trimmed, lowercased text, so a row here is what makes an admin-made or uploaded
+ * clip play. These routes used to write audio-assets/index.json instead, which the site no longer
+ * reads -- an uploaded recording would have been stored and then never heard.
+ */
+/** md5-of-text test for "the site already has audio for this", matching routes/tts.js. */
+async function loadCachedAudio(supabaseAdmin) {
+    const crypto = require('crypto');
+    const rows = await fetchAllRows(supabaseAdmin, 'translation_cache', 'id, md5_hash, audio_filename',
+        { filter: q => q.eq('direction', 'tts').eq('voice_id', KIMO_VOICE_ID) });
+    const hashes = new Set(rows.filter(r => r.audio_filename).map(r => r.md5_hash));
+    return text => Boolean(text) && hashes.has(crypto.createHash('md5').update(String(text).trim().toLowerCase()).digest('hex'));
+}
+
+async function recordCachedClip(supabaseAdmin, text, spokenText, filename) {
+    const crypto = require('crypto');
+    const { error } = await supabaseAdmin.from('translation_cache').upsert({
+        original_text: text,
+        translated_text: spokenText,
+        direction: 'tts',
+        voice_id: KIMO_VOICE_ID,
+        audio_filename: filename,
+        md5_hash: crypto.createHash('md5').update(text.trim().toLowerCase()).digest('hex')
+    }, { onConflict: 'md5_hash,direction,voice_id' });
+    if (error) throw new Error(`translation_cache update failed: ${error.message}`);
+}
 
 /**
  * Shared ElevenLabs + Supabase Storage generation logic
@@ -89,26 +118,7 @@ async function generateAndUploadAudio(supabaseAdmin, text, filenamePrefix) {
 
     if (uploadError) throw uploadError;
 
-    // Update index.json in bucket
-    try {
-        const { data: indexBlob } = await supabaseAdmin.storage.from(BUCKET_NAME).download('index.json');
-        let index = {};
-        if (indexBlob) {
-            index = JSON.parse(await indexBlob.text());
-        }
-        
-        // Add entry to index
-        // If it starts with dict_, strip it for the key (dictionary terms use plain text as key)
-        const indexKey = filenamePrefix === 'dict' ? text.trim().toLowerCase() : `${filenamePrefix}:${text.trim().toLowerCase()}`;
-        index[indexKey] = filename;
-
-        await supabaseAdmin.storage.from(BUCKET_NAME).upload('index.json', Buffer.from(JSON.stringify(index, null, 2)), {
-            contentType: 'application/json',
-            upsert: true
-        });
-    } catch (e) {
-        console.warn('Failed to update index.json in admin route:', e.message);
-    }
+    await recordCachedClip(supabaseAdmin, text, correctedText, filename);
 
     return filename;
 }
@@ -619,17 +629,9 @@ Respond only with a JSON object:
 
             if (uploadError) throw uploadError;
 
-            // 2. Update index.json in bucket
-            try {
-                const { data: indexBlob } = await supabaseAdmin.storage.from(BUCKET_NAME).download('index.json');
-                let index = {};
-                if (indexBlob) index = JSON.parse(await indexBlob.text());
-                index[pidgin.trim().toLowerCase()] = finalFilename;
-                await supabaseAdmin.storage.from(BUCKET_NAME).upload('index.json', Buffer.from(JSON.stringify(index, null, 2)), {
-                    contentType: 'application/json',
-                    upsert: true
-                });
-            } catch (e) { console.warn('Index sync failed:', e.message); }
+            // 2. Make it the clip the site plays for this word. A human recording is spoken as
+            // written, so the "spoken" text is the word itself.
+            await recordCachedClip(supabaseAdmin, pidgin, pidgin, finalFilename);
 
             // 3. Update database
             const { error: dbError } = await supabaseAdmin
@@ -663,23 +665,9 @@ Respond only with a JSON object:
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
         
         try {
-            // Get current index from storage
-            const BUCKET_NAME = 'audio-assets';
-            const { data: indexBlob } = await supabaseAdmin.storage.from(BUCKET_NAME).download('index.json');
-            let index = {};
-            if (indexBlob) {
-                const text = await indexBlob.text();
-                index = JSON.parse(text);
-            }
-
-            // Find entries without audio in index
-            const { data: entries, error: fetchErr } = await supabaseAdmin
-                .from('dictionary_entries')
-                .select('id, pidgin');
-            
-            if (fetchErr) throw fetchErr;
-
-            const missing = entries.filter(e => !index[e.pidgin.trim().toLowerCase()]);
+            const hasAudio = await loadCachedAudio(supabaseAdmin);
+            const entries = await fetchAllRows(supabaseAdmin, 'dictionary_entries', 'id, pidgin');
+            const missing = entries.filter(e => !hasAudio(e.pidgin));
             
             res.json({ success: true, entries: missing.slice(0, 10) });
         } catch (error) {
@@ -914,31 +902,28 @@ Respond only with a JSON object:
         if (!supabaseAdmin) return res.status(503).json({ error: 'Admin features not available' });
         
         try {
-            const BUCKET_NAME = 'audio-assets';
-            const { data: indexBlob } = await supabaseAdmin.storage.from(BUCKET_NAME).download('index.json');
-            let index = {};
-            if (indexBlob) index = JSON.parse(await indexBlob.text());
-
-            const [dictRes, phrasesRes, storiesRes, lessonsRes] = await Promise.all([
-                supabaseAdmin.from('dictionary_entries').select('id, pidgin'),
-                supabaseAdmin.from('phrases').select('id, pidgin'),
-                supabaseAdmin.from('stories').select('id, title, pidgin_text'),
-                supabaseAdmin.from('lessons').select('id, title, cultural_note, practice')
+            // Paged: phrases alone are past PostgREST's 1,000-row cap.
+            const [hasAudio, dict, phrases, stories, lessons] = await Promise.all([
+                loadCachedAudio(supabaseAdmin),
+                fetchAllRows(supabaseAdmin, 'dictionary_entries', 'id, pidgin'),
+                fetchAllRows(supabaseAdmin, 'phrases', 'id, pidgin'),
+                fetchAllRows(supabaseAdmin, 'stories', 'id, title, pidgin_text'),
+                fetchAllRows(supabaseAdmin, 'lessons', 'id, title, cultural_note, practice')
             ]);
 
             const missing = {
-                dictionary: (dictRes.data || []).filter(e => !index[e.pidgin.trim().toLowerCase()]).map(e => ({ id: e.id, text: e.pidgin, type: 'dict' })),
-                phrases: (phrasesRes.data || []).filter(e => !index[`phrase:${e.pidgin.trim().toLowerCase()}`]).map(e => ({ id: e.id, text: e.pidgin, type: 'phrase' })),
-                stories: (storiesRes.data || []).filter(e => !index[`story:${e.id}`]).map(e => ({ id: e.id, text: e.title, type: 'story' })),
+                dictionary: dict.filter(e => !hasAudio(e.pidgin)).map(e => ({ id: e.id, text: e.pidgin, type: 'dict' })),
+                phrases: phrases.filter(e => !hasAudio(e.pidgin)).map(e => ({ id: e.id, text: e.pidgin, type: 'phrase' })),
+                stories: stories.filter(e => !hasAudio(e.pidgin_text)).map(e => ({ id: e.id, text: e.title, type: 'story' })),
                 lessons: []
             };
 
             // Lesson notes/practice
-            (lessonsRes.data || []).forEach(l => {
-                if (l.cultural_note && !index[`lesson:note:${l.id}`]) {
+            lessons.forEach(l => {
+                if (l.cultural_note && !hasAudio(l.cultural_note)) {
                     missing.lessons.push({ id: l.id, text: `${l.title} (Note)`, type: 'lesson_note' });
                 }
-                if (l.practice && !index[`lesson:practice:${l.id}`]) {
+                if (l.practice && !hasAudio(l.practice)) {
                     missing.lessons.push({ id: l.id, text: `${l.title} (Practice)`, type: 'lesson_practice' });
                 }
             });

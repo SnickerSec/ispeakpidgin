@@ -9,8 +9,6 @@ function escapeHtml(text) {
         .replace(/'/g, '&#039;');
 }
 
-const LESSON_AUDIO_BASE = 'https://jfzgzjgdptowfbtljvyp.supabase.co/storage/v1/object/public/audio-assets/';
-
 class LearningHub {
     constructor() {
         this.progress = this.loadProgress();
@@ -238,31 +236,11 @@ class LearningHub {
         document.querySelectorAll('.modal-play-btn iconify-icon, .modal-play-btn i').forEach(i => i.setAttribute('icon', 'lucide:play'));
         if (icon) icon.setAttribute('icon', 'lucide:pause');
 
+        // Every button carries the text it reads, and the server's TTS route serves the stored
+        // clip for it (lesson notes and tips included: generate-lessons-audio.js caches them in
+        // translation_cache under the same md5-of-text key) or records one on first play.
         const reset = () => { if (icon) icon.setAttribute('icon', 'lucide:play'); };
-
-        // Vocabulary and example lines are ordinary text: speak them through the server like
-        // everywhere else. The index also holds old clips for many of those words, and it was
-        // playing them in place of the server's newer recordings.
-        if (!key.startsWith('lesson:')) {
-            window.elevenLabsSpeech.speak(key, { onEnd: reset, onError: reset });
-            return;
-        }
-        this.lessonAudioFile(key).then(filename => {
-            // Keys like "lesson:note:8" only exist in the lesson audio index; never speak the key.
-            if (!filename) return reset();
-            window.elevenLabsSpeech.speak(LESSON_AUDIO_BASE + filename, { onEnd: reset, onError: reset });
-        });
-    }
-
-    // Lesson clips (tools/audio/generate-lessons-audio.js) are registered in audio-assets/index.json
-    // under "lesson:<part>:<id>". Fetched on first use, so pages without lessons never download it.
-    lessonAudioFile(key) {
-        if (!this.lessonAudioIndex) {
-            this.lessonAudioIndex = fetch(LESSON_AUDIO_BASE + 'index.json')
-                .then(r => (r.ok ? r.json() : {}))
-                .catch(() => ({}));
-        }
-        return this.lessonAudioIndex.then(index => index[key.toLowerCase()] || index[key] || null);
+        window.elevenLabsSpeech.speak(key, { onEnd: reset, onError: reset });
     }
 
     startLesson(lesson, level) {
@@ -354,7 +332,7 @@ class LearningHub {
                                 <h3 class="text-sm font-semibold text-yellow-800 mb-1"><iconify-icon icon="lucide:flower-2"></iconify-icon> Cultural Note</h3>
                                 <p class="text-sm text-yellow-700">${escapeHtml(content.culturalNote)}</p>
                             </div>
-                            <button class="modal-play-btn ml-3 p-1.5 bg-yellow-100 text-yellow-600 rounded-full hover:bg-yellow-200 transition" data-audio-key="lesson:note:${lesson.id}">
+                            <button class="modal-play-btn ml-3 p-1.5 bg-yellow-100 text-yellow-600 rounded-full hover:bg-yellow-200 transition" data-audio-key="${escapeHtml(content.culturalNote)}">
                                 <iconify-icon icon="lucide:play"></iconify-icon>
                             </button>
                         </div>
@@ -366,7 +344,7 @@ class LearningHub {
                                 <h3 class="text-sm font-semibold text-green-800 mb-1"><iconify-icon icon="lucide:sparkles"></iconify-icon> Practice Tip</h3>
                                 <p class="text-sm text-green-700">${escapeHtml(content.practice)}</p>
                             </div>
-                            <button class="modal-play-btn ml-3 p-1.5 bg-green-100 text-green-600 rounded-full hover:bg-green-200 transition" data-audio-key="lesson:practice:${lesson.id}">
+                            <button class="modal-play-btn ml-3 p-1.5 bg-green-100 text-green-600 rounded-full hover:bg-green-200 transition" data-audio-key="${escapeHtml(content.practice)}">
                                 <iconify-icon icon="lucide:play"></iconify-icon>
                             </button>
                         </div>

@@ -42,11 +42,7 @@ async function main() {
     console.log('===================================================\n');
 
     try {
-        // 1. Load index from Supabase
-        const { data: indexBlob } = await supabase.storage.from(BUCKET_NAME).download('index.json');
-        let index = indexBlob ? JSON.parse(await indexBlob.text()) : {};
-
-        // 2. Fetch all stories
+        // 1. Fetch all stories
         const { data: stories, error } = await supabase
             .from('stories')
             .select('id, title, pidgin_text, audio_example')
@@ -109,7 +105,6 @@ async function main() {
                     await supabase.from('stories').update({ audio_example: filename }).eq('id', story.id);
                 }
 
-                index[`story:${story.id}`] = filename;
                 console.log('INDEXED ✨');
                 continue;
             }
@@ -123,7 +118,6 @@ async function main() {
             process.stdout.write(`  [${i + 1}/${stories.length}] 🔊 Generating audio for: "${story.title}"... `);
             try {
                 const newFilename = await generateAndUpload(story.pidgin_text, spokenText, hash);
-                index[`story:${story.id}`] = newFilename;
 
                 await supabase.from('stories').update({ audio_example: newFilename }).eq('id', story.id);
                 await supabase.from('translation_cache').upsert({
@@ -141,15 +135,6 @@ async function main() {
             } catch (err) {
                 console.log('FAILED ❌', err.message);
             }
-        }
-
-        // Save index
-        if (!IS_AUDIT) {
-            const indexStr = JSON.stringify(index, null, 2);
-            await supabase.storage.from(BUCKET_NAME).upload('index.json', Buffer.from(indexStr), {
-                contentType: 'application/json',
-                upsert: true
-            });
         }
 
         console.log('\n===================================================');

@@ -22,7 +22,6 @@ const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 // Configuration
 const AUDIO_DIR = path.join(__dirname, '../../public/assets/audio');
-const INDEX_FILE = path.join(AUDIO_DIR, 'index.json');
 const VOICE_ID = 'f0ODjLMfcJmlKfs7dFCW'; // Authentic local voice
 const BUCKET_NAME = 'audio-assets';
 // routes/tts.js finds a cached clip by (md5_hash, voice_id, direction) in translation_cache and
@@ -181,41 +180,19 @@ async function main() {
     // Ensure audio directory exists
     await fs.mkdir(AUDIO_DIR, { recursive: true });
 
-    // Load existing index (Try Supabase first, then local)
-    let index = {};
+    // translation_cache is the record of which terms have audio: it is what routes/tts.js serves
+    // from. This used to be audio-assets/index.json, a second list that the site has stopped
+    // reading and that had drifted from the cache (62 terms pointed at superseded clips).
+    let cachedRows = [];
     try {
-        let indexText = null;
-        if (supabaseUrl && supabaseServiceKey) {
-            const url = `${supabaseUrl}/storage/v1/object/${BUCKET_NAME}/index.json?t=${Date.now()}`;
-            const res = await fetch(url, {
-                headers: { 'Authorization': `Bearer ${supabaseServiceKey}` },
-                cache: 'no-store'
-            });
-            if (res.ok) {
-                indexText = await res.text();
-            }
-        }
-        if (!indexText) {
-            const { data, error } = await supabase.storage.from(BUCKET_NAME).download('index.json');
-            if (data) indexText = await data.text();
-        }
-        if (indexText) {
-            index = JSON.parse(indexText);
-            console.log(`📦 Loaded index from Supabase with ${Object.keys(index).length} terms`);
-            // Save locally too for sync
-            await fs.writeFile(INDEX_FILE, JSON.stringify(index, null, 2));
-        } else {
-            throw new Error('Supabase index not found');
-        }
-    } catch (e) {
-        try {
-            const indexData = await fs.readFile(INDEX_FILE, 'utf8');
-            index = JSON.parse(indexData);
-            console.log(`📦 Loaded index from local file with ${Object.keys(index).length} terms`);
-        } catch (localError) {
-            console.log('📦 No existing index found, creating new one.');
-        }
+        cachedRows = await fetchAllRows(supabase, 'translation_cache', 'id, md5_hash, audio_filename',
+            { filter: q => q.eq('voice_id', VOICE_ID).eq('direction', DIRECTION) });
+    } catch (error) {
+        console.warn('Cache fetch warning:', error.message);
     }
+    const cacheSet = new Set(cachedRows.filter(r => r.audio_filename).map(r => r.md5_hash));
+    const hashOf = term => crypto.createHash('md5').update(term.trim().toLowerCase()).digest('hex');
+    console.log(`📦 translation_cache holds audio for ${cacheSet.size} texts`);
 
     const allTerms = await fetchAllEntries();
     if (allTerms.length === 0) {
@@ -227,33 +204,16 @@ async function main() {
 
     if (IS_AUDIT) {
         console.log(`\n📊 Audit Mode: Checking cache & storage coverage for ${allTerms.length} dictionary terms...`);
-        let cachedRows = [];
-        try {
-            cachedRows = await fetchAllRows(supabase, 'translation_cache', 'id, md5_hash, audio_filename',
-                { filter: q => q.eq('voice_id', VOICE_ID).eq('direction', DIRECTION) });
-        } catch (error) {
-            console.warn('Cache fetch warning:', error.message);
-        }
-
-        const cacheSet = new Set(cachedRows.map(r => r.md5_hash));
-        let inStorageCount = 0;
         let inCacheCount = 0;
-        let missingTerms = [];
-
+        const missingTerms = [];
         for (const term of allTerms) {
-            const normalized = term.trim().toLowerCase();
-            const hash = crypto.createHash('md5').update(normalized).digest('hex');
-            const inIndex = Boolean(index[normalized]);
-            const inCache = cacheSet.has(hash);
-            if (inIndex) inStorageCount++;
-            if (inCache) inCacheCount++;
-            if (!inIndex && !inCache) missingTerms.push(term);
+            if (cacheSet.has(hashOf(term))) inCacheCount++;
+            else missingTerms.push(term);
         }
 
         console.log('\n===================================================');
         console.log(`📊 Dictionary Audio Audit Summary:`);
         console.log(`   Total terms:           ${allTerms.length}`);
-        console.log(`   In Storage (index):    ${inStorageCount}/${allTerms.length} (${((inStorageCount / allTerms.length) * 100).toFixed(1)}%)`);
         console.log(`   In translation_cache:  ${inCacheCount}/${allTerms.length} (${((inCacheCount / allTerms.length) * 100).toFixed(1)}%)`);
         console.log(`   Missing terms:         ${missingTerms.length}`);
         if (missingTerms.length > 0) {
@@ -272,10 +232,7 @@ async function main() {
     // Identify terms that need audio
     const termsToProcess = SPECIFIC_TERM
         ? [SPECIFIC_TERM]
-        : allTerms.filter(term => {
-            const normalized = term.trim().toLowerCase();
-            return FORCE_REGEN || !index[normalized];
-        });
+        : allTerms.filter(term => FORCE_REGEN || !cacheSet.has(hashOf(term)));
 
     console.log(`✨ Terms needing audio: ${termsToProcess.length}`);
     
@@ -298,7 +255,6 @@ async function main() {
         const result = await generateAudioFile(term, apiKey);
         
         if (result) {
-            index[result.normalized] = result.filename;
             const indexed = await indexClip(result);
             if (indexed) indexedCount++;
             if (result.skipped) {
@@ -312,36 +268,17 @@ async function main() {
             console.log('FAILED ❌');
         }
 
-        // Save index every 10 items
-        if ((i + 1) % 10 === 0) {
-            const indexStr = JSON.stringify(index, null, 2);
-            await fs.writeFile(INDEX_FILE, indexStr);
-            await supabase.storage.from(BUCKET_NAME).upload('index.json', Buffer.from(indexStr), {
-                contentType: 'application/json',
-                upsert: true
-            });
-        }
-
         // Rate limiting delay
         if (!result?.skipped) {
             await new Promise(resolve => setTimeout(resolve, 500));
         }
     }
 
-    // Final index save
-    const finalIndexStr = JSON.stringify(index, null, 2);
-    await fs.writeFile(INDEX_FILE, finalIndexStr);
-    await supabase.storage.from(BUCKET_NAME).upload('index.json', Buffer.from(finalIndexStr), {
-        contentType: 'application/json',
-        upsert: true
-    });
-    
     console.log(`\n✅ Audio Pipeline Summary`);
     console.log('=======================');
     console.log(`✨ New audio generated: ${successCount}`);
     console.log(`⏭️  Skipped/Indexed: ${skipCount}`);
     console.log(`🔗 Reachable via translation_cache: ${indexedCount}/${successCount + skipCount}`);
-    console.log(`📊 Total now indexed: ${Object.keys(index).length}`);
     console.log(`📂 Audio stored in Supabase bucket: ${BUCKET_NAME}`);
     
     if (successCount < termsToProcess.length) {

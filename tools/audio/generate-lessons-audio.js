@@ -36,9 +36,8 @@ const {
     ELEVENLABS_SYNTHESIS
 } = require('../../src/components/speech/elevenlabs-speech.js');
 
-async function processLessonClip(lesson, type, text, index) {
+async function processLessonClip(lesson, type, text) {
     const prefix = type === 'note' ? `lesson_note_${lesson.id}` : `lesson_prac_${lesson.id}`;
-    const key = `lesson:${type}:${lesson.id}`;
     const normalized = text.trim().toLowerCase();
     const hash = crypto.createHash('md5').update(normalized).digest('hex');
     const filename = `${prefix}_${hash}.mp3`;
@@ -77,13 +76,11 @@ async function processLessonClip(lesson, type, text, index) {
             audio_filename: existingFilename,
             md5_hash: hash
         }, { onConflict: 'md5_hash,direction,voice_id' });
-        index[key] = existingFilename;
         console.log('INDEXED ✨');
         return { existsInBucket: true, inCache: true, generated: false };
     }
 
     if (existsInBucket && cacheRow && !FORCE_REGEN) {
-        index[key] = existingFilename;
         return { existsInBucket: true, inCache: true, generated: false };
     }
 
@@ -91,7 +88,6 @@ async function processLessonClip(lesson, type, text, index) {
     process.stdout.write(`    ${type.toUpperCase()}: 🔊 Generating audio... `);
     try {
         const uploadedFilename = await generateAndUpload(text, spokenText, prefix, hash);
-        index[key] = uploadedFilename;
         await supabase.from('translation_cache').upsert({
             original_text: text,
             translated_text: spokenText,
@@ -114,8 +110,6 @@ async function main() {
     console.log('===================================================\n');
 
     try {
-        const { data: indexBlob } = await supabase.storage.from(BUCKET_NAME).download('index.json');
-        let index = indexBlob ? JSON.parse(await indexBlob.text()) : {};
 
         const { data: lessons, error } = await supabase
             .from('lessons')
@@ -136,7 +130,7 @@ async function main() {
 
             if (lesson.cultural_note) {
                 totalClips++;
-                const res = await processLessonClip(lesson, 'note', lesson.cultural_note, index);
+                const res = await processLessonClip(lesson, 'note', lesson.cultural_note);
                 if (res.existsInBucket) inBucketCount++;
                 if (res.inCache) inCacheCount++;
                 if (res.generated) generatedCount++;
@@ -144,19 +138,11 @@ async function main() {
 
             if (lesson.practice) {
                 totalClips++;
-                const res = await processLessonClip(lesson, 'prac', lesson.practice, index);
+                const res = await processLessonClip(lesson, 'prac', lesson.practice);
                 if (res.existsInBucket) inBucketCount++;
                 if (res.inCache) inCacheCount++;
                 if (res.generated) generatedCount++;
             }
-        }
-
-        if (!IS_AUDIT) {
-            const indexStr = JSON.stringify(index, null, 2);
-            await supabase.storage.from(BUCKET_NAME).upload('index.json', Buffer.from(indexStr), {
-                contentType: 'application/json',
-                upsert: true
-            });
         }
 
         console.log('\n===================================================');

@@ -67,10 +67,7 @@ async function runTests() {
     console.log('3. Testing mock cache inspection and dry-run safety...');
 
     // Mock Supabase client
-    const mockStorageFiles = new Set(['986a931e239eef0b18fdf3cc3630def0.mp3', 'index.json']);
-    const mockIndex = {
-        'puʻuwai': '986a931e239eef0b18fdf3cc3630def0.mp3'
-    };
+    const mockStorageFiles = new Set(['986a931e239eef0b18fdf3cc3630def0.mp3']);
     const mockDbRows = [
         {
             id: 2563,
@@ -85,7 +82,7 @@ async function runTests() {
 
     let deleteDbCalledWith = null;
     let removeStorageCalledWith = null;
-    let uploadedIndexJson = null;
+    let indexTouched = false;
 
     const mockDb = {
         from: (table) => {
@@ -117,14 +114,7 @@ async function runTests() {
                 assert.strictEqual(bucket, 'audio-assets');
                 return {
                     download: (filename) => {
-                        if (filename === 'index.json') {
-                            return Promise.resolve({
-                                data: {
-                                    text: async () => JSON.stringify(mockIndex)
-                                },
-                                error: null
-                            });
-                        }
+                        if (filename === 'index.json') indexTouched = true;
                         return Promise.resolve({ data: null, error: { message: 'Not found' } });
                     },
                     list: (_path, opts) => {
@@ -138,10 +128,8 @@ async function runTests() {
                         removeStorageCalledWith = files;
                         return Promise.resolve({ error: null });
                     },
-                    upload: (filename, buffer) => {
-                        if (filename === 'index.json') {
-                            uploadedIndexJson = JSON.parse(buffer.toString('utf8'));
-                        }
+                    upload: (filename) => {
+                        if (filename === 'index.json') indexTouched = true;
                         return Promise.resolve({ error: null });
                     }
                 };
@@ -153,8 +141,6 @@ async function runTests() {
     const inspected = await inspectTerm(mockDb, 'puʻuwai');
     assert.strictEqual(inspected.dbRows.length, 1);
     assert.strictEqual(inspected.dbRows[0].id, 2563);
-    assert.strictEqual(inspected.matchedIndexKeys.length, 1);
-    assert.strictEqual(inspected.matchedIndexKeys[0].key, 'puʻuwai');
     assert.ok(inspected.existingBucketFiles.includes('986a931e239eef0b18fdf3cc3630def0.mp3'));
 
     // Test dry-run: should NOT invoke delete methods
@@ -170,6 +156,7 @@ async function runTests() {
     assert.strictEqual(activeResult.isDryRun, false);
     assert.deepStrictEqual(deleteDbCalledWith, [2563], 'Should delete matching translation_cache row IDs');
     assert.deepStrictEqual(removeStorageCalledWith, ['986a931e239eef0b18fdf3cc3630def0.mp3'], 'Should delete matching storage files');
+    assert.strictEqual(indexTouched, false, 'index.json is retired: invalidation must not read or write it');
     // Test 5: Phonetic drift detection and manifest diff
     console.log('5. Testing phonetic drift detection & manifest comparison...');
     const testMap = {
