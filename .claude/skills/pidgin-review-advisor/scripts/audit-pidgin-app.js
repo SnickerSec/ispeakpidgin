@@ -689,7 +689,7 @@ function auditCicd() {
 // ===========================================================================
 // 4. Gemini AI API
 // ===========================================================================
-function auditAi() {
+async function auditAi() {
     progress('🤖 Auditing Gemini AI service & endpoints...');
 
     const core = ['services/gemini.js', 'routes/ai.js'];
@@ -758,6 +758,38 @@ function auditAi() {
             ? 'Pin the primary to an explicit version and keep the alias as a trailing fallback.'
             : (!chain && owners.length > 1 ? 'Declare the model list once in services/gemini.js and have callers pass overrides.' : null)
     });
+
+    // A pinned id is only safe while Google still serves it. Retired models fail on every call,
+    // so a dead fallback goes unnoticed until the primary fails and the chain has nothing left
+    // (gemini-2.0-flash-lite and gemini-1.5-flash sat in the chain like that until 2026-10-24).
+    if (!FLAGS.net || !process.env.GEMINI_API_KEY || !allModels.length) {
+        record('ai', {
+            id: 'ai.models-served', title: 'Pinned Gemini models still served',
+            status: 'SKIP',
+            evidence: [!FLAGS.net ? 'needs --net' : (!process.env.GEMINI_API_KEY ? 'needs GEMINI_API_KEY (run under railway run)' : 'no model ids found')]
+        });
+    } else {
+        try {
+            const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models?pageSize=1000', {
+                headers: { 'x-goog-api-key': process.env.GEMINI_API_KEY }, signal: AbortSignal.timeout(15000)
+            });
+            if (!res.ok) throw new Error(`models.list → ${res.status}`);
+            const served = new Set(((await res.json()).models || []).map(m => m.name.replace(/^models\//, '')));
+            const gone = allModels.filter(m => !served.has(m));
+            const primaryGone = chain && gone.includes(chain[0]);
+            record('ai', {
+                id: 'ai.models-served', title: 'Pinned Gemini models still served',
+                status: gone.length ? (primaryGone || gone.length === allModels.length ? 'FAIL' : 'WARN') : 'OK',
+                evidence: [`checked ${allModels.length} id(s) against models.list (${served.size} served)`,
+                    gone.length ? `not served: ${gone.join(', ')}` : 'all served'],
+                metrics: { gone },
+                finding: gone.length ? `Gemini no longer serves ${gone.join(', ')}; ${primaryGone ? 'every AI call falls through to fallbacks' : 'those fallback slots fail instantly when needed'}.` : null,
+                fix: gone.length ? 'Replace them in services/gemini.js with current models (re-run a translation eval before changing the primary).' : null
+            });
+        } catch (err) {
+            record('ai', { id: 'ai.models-served', title: 'Pinned Gemini models still served', status: 'SKIP', evidence: [`could not list models: ${err.message}`] });
+        }
+    }
 
     const serverSrc = read('server.js') || '';
     const aiSrc = read('routes/ai.js') || '';
@@ -1268,7 +1300,7 @@ function printHuman() {
     await auditSupabase(db);
     auditElevenLabs();
     auditCicd();
-    auditAi();
+    await auditAi();
     await auditLinguistics(db);
     await auditVocabulary(db);
     await auditDeploy();

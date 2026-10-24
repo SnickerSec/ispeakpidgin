@@ -10,6 +10,19 @@ const { GEMINI_BASE_URL } = require('./ai-upstreams');
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 /**
+ * Text models, tried in order. 3.1 Flash-Lite won a blind 40-sentence translation eval
+ * (2026-10-24): 1 serious error vs 4 for 3.5 Flash-Lite ("Minututu" for grandmother) and
+ * 5 for 2.5 Flash-Lite ("No make li dat" → "Don't die like that"). Every id here must still
+ * be served: Google retires old models, and a retired fallback fails exactly when needed.
+ */
+const TEXT_MODELS = [
+    'gemini-3.1-flash-lite',
+    'gemini-3.5-flash-lite',
+    'gemini-2.5-flash-lite',
+    'gemini-2.5-flash'
+];
+
+/**
  * Call Gemini API with retries and fallback models.
  * @param {string} apiKey - The Gemini API key.
  * @param {object} body - The request body (contents, system_instruction, generationConfig, etc.)
@@ -17,12 +30,7 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
  * @returns {Promise<Response>} - The successful fetch Response object.
  */
 async function generateContent(apiKey, body, options = {}) {
-    const fallbackModels = options.fallbackModels || [
-        'gemini-2.5-flash-lite',
-        'gemini-2.5-flash',
-        'gemini-2.0-flash-lite',
-        'gemini-1.5-flash' // Pinned 1.5 Flash fallback (no floating alias)
-    ];
+    const fallbackModels = options.fallbackModels || TEXT_MODELS;
     const maxRetries = options.maxRetries !== undefined ? options.maxRetries : 2;
     const baseDelay = options.baseDelay || 500; // start with 500ms delay
 
@@ -136,6 +144,7 @@ async function embedTexts(apiKey, texts, taskType) {
 
 module.exports = {
     generateContent,
+    TEXT_MODELS,
     embedTexts,
     EMBEDDING_MODEL,
     EMBEDDING_DIMENSIONS

@@ -187,16 +187,11 @@ async function runTests() {
     // 6. Gemini Model Fallback Chain
     // -------------------------------------------------------------
     console.log('\n6. Testing Gemini AI Model Selection & Fallback Chain...');
-    const expectedChain = [
-        'gemini-2.5-flash-lite',
-        'gemini-2.5-flash',
-        'gemini-2.0-flash-lite',
-        'gemini-1.5-flash'
-    ];
+    const expectedChain = geminiService.TEXT_MODELS;
 
-    assert.strictEqual(expectedChain[0], 'gemini-2.5-flash-lite', 'Primary model must be pinned to gemini-2.5-flash-lite');
-    assert.strictEqual(expectedChain[expectedChain.length - 1], 'gemini-1.5-flash', 'Fallback model must be pinned to gemini-1.5-flash');
+    assert.strictEqual(expectedChain[0], 'gemini-3.1-flash-lite', 'Primary model must be gemini-3.1-flash-lite (won the 2026-10-24 translation eval)');
     assert.ok(!expectedChain.some(m => /-latest$/.test(m)), 'No floating aliases permitted in model chain');
+    assert.ok(!expectedChain.some(m => /^gemini-(1\.|2\.0)/.test(m)), 'Retired Gemini 1.x/2.0 models must not be in the chain');
     console.log(`   ✅ Pinned fallback chain verified (no floating aliases): ${expectedChain.join(' → ')}`);
 
     // -------------------------------------------------------------
