@@ -5,6 +5,8 @@
  * and automatic fallback to alternative models on transient errors.
  */
 
+const { GEMINI_BASE_URL } = require('./ai-upstreams');
+
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 /**
@@ -31,7 +33,7 @@ async function generateContent(apiKey, body, options = {}) {
         let retries = 0;
         while (retries <= maxRetries) {
             // Replace the model name in the endpoint URL
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+            const apiUrl = `${GEMINI_BASE_URL}/v1beta/models/${model}:generateContent?key=${apiKey}`;
             
             try {
                 const response = await fetch(apiUrl, {
@@ -106,7 +108,7 @@ const EMBED_BATCH_LIMIT = 100;
  * @returns {Promise<number[][]>} - One vector per text, in order.
  */
 async function embedTexts(apiKey, texts, taskType) {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${EMBEDDING_MODEL}:batchEmbedContents?key=${apiKey}`;
+    const url = `${GEMINI_BASE_URL}/v1beta/models/${EMBEDDING_MODEL}:batchEmbedContents?key=${apiKey}`;
     const vectors = [];
     for (let i = 0; i < texts.length; i += EMBED_BATCH_LIMIT) {
         const requests = texts.slice(i, i + EMBED_BATCH_LIMIT).map(text => ({

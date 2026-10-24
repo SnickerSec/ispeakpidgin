@@ -3,6 +3,7 @@ const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const crypto = require('crypto');
 const { fetchAllRows } = require('../services/fetch-all-rows');
+const { ELEVENLABS_BASE_URL } = require('../services/ai-upstreams');
 const {
     applyPronunciationCorrections,
     setPronunciationGuides,
@@ -145,7 +146,7 @@ module.exports = function(translationLimiter, supabaseAdmin) {
                 }
 
                 // 2. Generate new audio
-                const apiUrl = `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`;
+                const apiUrl = `${ELEVENLABS_BASE_URL}/v1/text-to-speech/${voiceId}`;
                 console.log(`Processing NEW TTS request for voice: ${voiceId}, length: ${text.length}`);
 
                 const response = await fetch(apiUrl, {
