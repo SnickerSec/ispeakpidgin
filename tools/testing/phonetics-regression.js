@@ -48,6 +48,10 @@ const cases = [
     // Authored guides that just restate the spelling in capitals ("MAKA PIAPIA") are dropped
     // as no-ops, which left these Hawaiian words going to ElevenLabs as raw English spelling.
     ['braddah', 'brah-dah'], ['okole', 'oh-koh-leh'],
+    // Map words next to punctuation must still hit the map (were "eyenokea." / "ookoolele?").
+    ['Ainokea, let her be.', 'eye-no-keh-ah, let hah be.'], ['Ainokea.', 'eye-no-keh-ah.'],
+    ['ukulele?', 'oo-koo-leh-leh?'], ['He play ʻukulele!', 'he play oo-koo-leh-leh!'],
+    ['"Kolohe," she yelled.', '"koh-low-hay," she yelled.'],
     ['okole hao', 'oh-koh-leh how'], ['maka piapia', 'mah-kah pee-ah-pee-ah'],
     // Cantonese 粉 is "foon"; read as the English word "fun" the dish is simply wrong.
     ['chow fun', 'chow foon'],

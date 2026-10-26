@@ -134,7 +134,7 @@ const PIDGIN_PRONUNCIATION_MAP = {
     'hammas': 'hah-mahz',
     'geevum': 'geev-um',
     'fakafied': 'fah-kah-fyde',
-    'ainokea': 'eye-no-kay-ah',
+    'ainokea': 'eye-no-keh-ah', // "I no care": crisp eh-ah, not a KAY-ah glide
     'mo bettah': 'mo beh-tah',
     'kay den': 'kay den...',
     'aurite': 'ah-rite', // "alright", prominence on -RITE
@@ -302,8 +302,8 @@ const PIDGIN_PRONUNCIATION_MAP = {
     'pohaku': 'poh-hah-koo',
     'pōhaku': 'poh-hah-koo',
     'pua': 'poo-ah',
-    'ukulele': 'oo-koo-lay-lay',
-    'ʻukulele': 'oo-koo-lay-lay',
+    'ukulele': 'oo-koo-leh-leh', // short pure eh, never the -lay glide or -lee
+    'ʻukulele': 'oo-koo-leh-leh',
     'mana\'o': 'mah-nah-oh',
     'manaʻo': 'mah-nah-oh',
     'pali': 'pah-lee',
@@ -838,6 +838,18 @@ function applyPronunciationCorrections(text) {
             const cleanWord = word.replace(/['ʻ]/g, '');
             if (pronunciationMap[word]) return settle(pronunciationMap[word]);
             if (pronunciationMap[cleanWord]) return settle(pronunciationMap[cleanWord]);
+
+            // Same lookup with sentence punctuation peeled off. Without it a map word at the end of
+            // a sentence or before a comma ("Ainokea." / "ukulele?") missed the map, fell into the
+            // vowel rules below and was rewritten ("eyenokea.", "ookoolele?") before the final
+            // sweep could find it -- so it only sounded right when spoken on its own.
+            // The okina is a letter here, not punctuation: it is not in either class.
+            const edge = word.match(/^([("“‘]*)(.+?)([.,!?;:…"”’)]*)$/u);
+            if (edge && (edge[1] || edge[3])) {
+                const core = edge[2];
+                const value = pronunciationMap[core] ?? pronunciationMap[core.replace(/['ʻ]/g, '')];
+                if (value !== undefined) return edge[1] + settle(value) + edge[3];
+            }
             
             // A diacritic makes the word unambiguously Hawaiian; syllabify rather than guess.
             if (hasHawaiianDiacritic(word)) {
