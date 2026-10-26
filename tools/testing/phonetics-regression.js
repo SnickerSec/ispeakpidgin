@@ -48,6 +48,11 @@ const cases = [
     // Authored guides that just restate the spelling in capitals ("MAKA PIAPIA") are dropped
     // as no-ops, which left these Hawaiian words going to ElevenLabs as raw English spelling.
     ['braddah', 'brah-dah'], ['okole', 'oh-koh-leh'],
+    // English 'ai' stays English; Hawaiian-spelled 'ai' and 'ai' before y / at the end -> eye.
+    ['she said', 'she said'], ['again?', 'again?'], ['rain', 'rain'], ['training', 'training'],
+    ['mainland', 'mainland'], ['daily', 'daily'], ['raise', 'raise'],
+    ['makai', 'mah-kye'], ['lanai', 'lah-nye'], ['Waikiki', 'wye-kee-kee'], ['aiyah', 'eye-yah'],
+    ['saimin', 'sigh-min'], ['chai', 'cheye'],
     // Map words next to punctuation must still hit the map (were "eyenokea." / "ookoolele?").
     ['Ainokea, let her be.', 'eye-no-keh-ah, let hah be.'], ['Ainokea.', 'eye-no-keh-ah.'],
     ['ukulele?', 'oo-koo-leh-leh?'], ['He play ʻukulele!', 'he play oo-koo-leh-leh!'],

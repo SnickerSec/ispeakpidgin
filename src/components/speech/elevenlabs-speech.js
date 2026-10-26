@@ -508,7 +508,12 @@ const PIDGIN_PRONUNCIATION_MAP = {
     'kimochi': 'kee-moh-chee',
     // Tagalog saráp is stressed on the last syllable; the reduced first vowel carries that
     // to ElevenLabs the way 'bruh-dah' does for bruddah (guides are lowercased, caps are lost).
-    'sarap': 'suh-rahp'
+    'sarap': 'suh-rahp',
+    // 'ai' words that are not spelled with Hawaiian letters only, so the vowel rules no longer
+    // give them 'eye' on their own (see the 'ai' rule in applyPronunciationCorrections).
+    'saimin': 'sigh-min',
+    'aisus': 'ay-sus',
+    'boolaia': 'boo-lye-ah'
 };
 
 // Multi-word map entries, precomputed longest-first.
@@ -858,7 +863,13 @@ function applyPronunciationCorrections(text) {
 
             if (isPidginLike(word)) {
                 let w = word.replace(/['ʻ]/g, '-'); // Pause for okinas
-                w = w.replace(/ai/g, 'eye');
+                // 'ai' -> 'eye' is Hawaiian. Applied to any word containing 'ai' it turned English
+                // into "seyed" (said), "ageyen" (again), "reyen" (rain), "treyening" (training).
+                // Only Hawaiian-spelled words get it everywhere (makai, lanai, aina, Waikiki);
+                // other words only where 'ai' ends the word or meets a 'y' (chai, aiyah).
+                w = isHawaiianShaped(word)
+                    ? w.replace(/ai/g, 'eye')
+                    : w.replace(/ai(?=y|[^a-z]*$)/g, 'eye');
                 w = w.replace(/au/g, 'ow');
                 w = w.replace(/oi/g, 'oy');
                 w = w.replace(/ei/g, 'ay');
