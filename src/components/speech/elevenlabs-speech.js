@@ -106,7 +106,7 @@ const PIDGIN_PRONUNCIATION_MAP = {
     'guaranz ballbaranz': 'gah-rahnz bahl-bah-rahnz',
     'jus like': 'jus lyke',
     'juslike': 'jus lyke',
-    'danjah': 'dahn-jah',
+    'danjah': 'dane-jah', // "danger" with -er vocalized; never 'dahn'
     'danejah': 'dahn-jah',
     'no play': 'noh play',
     'buss nuts': 'bus nuhts',
@@ -137,7 +137,7 @@ const PIDGIN_PRONUNCIATION_MAP = {
     'ainokea': 'eye-no-kay-ah',
     'mo bettah': 'mo beh-tah',
     'kay den': 'kay den...',
-    'aurite': 'ah-rye-t',
+    'aurite': 'ah-rite', // "alright", prominence on -RITE
     'stink eye': 'stink eye',
     'chicken skin': 'chicken skin',
     'talk story': 'talk story',
@@ -493,8 +493,8 @@ const PIDGIN_PRONUNCIATION_MAP = {
     'ass why': 'ass-why',
     'das why hard': 'das-why hahd',
     'das how stay': 'dahs-how stay',
-    'suk suk': 'sook sook',
-    'bline': 'bee-lyne',
+    'suk suk': 'suck suck', // "suck up": the vowel of suck, not book
+    'bline': 'blyne', // one syllable, rhymes with fine
     'aloha e komo mai': 'ah-low-hah ay koh-moh my',
     'aku eye': 'ah-koo eye',
     'fadah man': 'fah-dah man',
