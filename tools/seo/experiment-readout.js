@@ -52,6 +52,21 @@ const EXPERIMENTS = [
         excludeDates: ['2026-09-20', '2026-09-21']
     },
     { name: 'pau snippet', live: '2026-10-07', page: '/what-does-pau-mean.html' },
+    // 10-07 answer-first titles lost ground on the question queries (faka: clicks 25 -> 6,
+    // "faka in hawaiian" 3.4 -> 4.6; shaka: "shaka meaning" 6.2 -> 8.2). Hybrid: the searched
+    // question back at the front of the title, the short answer kept in the description.
+    {
+        name: 'faka hybrid title (question + answer)',
+        live: '2026-10-26',
+        page: '/what-does-faka-mean.html',
+        queries: ['faka', 'faka meaning', 'faka in hawaiian', 'faka meaning hawaiian', 'what does faka mean in hawaiian']
+    },
+    {
+        name: 'shaka hybrid title (question + answer)',
+        live: '2026-10-26',
+        page: '/what-does-shaka-mean.html',
+        queries: ['shaka meaning', 'what does shaka mean', 'shaka definition', 'hang loose sign']
+    },
     { name: 'shaka snippet', live: '2026-10-07', page: '/what-does-shaka-mean.html' },
     { name: 'shoots snippet', live: '2026-10-07', page: '/what-does-shoots-mean.html' },
     { name: 'faka snippet', live: '2026-10-07', page: '/what-does-faka-mean.html' },
