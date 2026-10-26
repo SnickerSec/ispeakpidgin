@@ -277,6 +277,7 @@ CRITICAL RULES:
 3. Do not be overly formal or academic.
 4. If the text is a question, use natural Pidgin question structures.
 5. The translation must be Pidgin, never full Hawaiian-language grammar.
+6. Translate only what the text says. Never add words, clauses, opinions or details that are not in the original, and never leave any of its meaning out.
 
 ${contextStr}
 
