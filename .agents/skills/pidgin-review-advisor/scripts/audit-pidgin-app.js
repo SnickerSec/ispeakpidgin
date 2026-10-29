@@ -23,6 +23,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const { execFileSync } = require('child_process');
 
 const argv = process.argv.slice(2);
@@ -287,27 +288,33 @@ async function auditSupabase(db) {
         }
 
         const pct = n => rows.length ? ((n / rows.length) * 100).toFixed(1) + '%' : 'n/a';
+        const metaGlosses = rows.filter(r => (r.english || []).some(e => /(?:phonetic spelling|misspelling) of\b/i.test(e)));
+        const queryHeadwords = rows.filter(r => /\b(?:in english|meaning of|slang for|how to respond)\b/i.test(r.pidgin));
         const worst = Math.max(noPron.length, noExample.length, noEnglish.length, dupes.length);
+        const hasPolluted = noEnglish.length || dupes.length || metaGlosses.length || queryHeadwords.length;
         record('supabase', {
             id: 'supabase.dictionary-quality',
             title: 'dictionary_entries field completeness',
-            status: noEnglish.length || dupes.length ? 'WARN' : (worst > rows.length * 0.25 ? 'WARN' : 'OK'),
+            status: hasPolluted ? 'WARN' : (worst > rows.length * 0.25 ? 'WARN' : 'OK'),
             evidence: [
                 `entries: ${rows.length}`,
                 `missing pronunciation: ${noPron.length} (${pct(noPron.length)})`,
                 `missing category: ${noCat.length} (${pct(noCat.length)})`,
                 `no usage AND no examples: ${noExample.length} (${pct(noExample.length)})`,
                 `missing english meaning: ${noEnglish.length}`,
-                `duplicate terms (same letters, or a headword listed as another's variant): ${dupes.length}${dupes.length ? ' → ' + dupes.slice(0, 8).map(([k, n]) => `${k}×${n}`).join(', ') : ''}`
+                `duplicate terms (same letters, or a headword listed as another's variant): ${dupes.length}${dupes.length ? ' → ' + dupes.slice(0, 8).map(([k, n]) => `${k}×${n}`).join(', ') : ''}`,
+                `meta-gloss meanings ("phonetic spelling/misspelling of..."): ${metaGlosses.length}${metaGlosses.length ? ' → ' + metaGlosses.slice(0, 8).map(r => r.pidgin).join(', ') : ''}`,
+                `query-fragment headwords ("...in english", "meaning of..."): ${queryHeadwords.length}${queryHeadwords.length ? ' → ' + queryHeadwords.slice(0, 8).map(r => r.pidgin).join(', ') : ''}`
             ],
             metrics: {
                 entries: rows.length, missingPronunciation: noPron.length, missingCategory: noCat.length,
-                missingExample: noExample.length, missingEnglish: noEnglish.length, duplicateTerms: dupes.length
+                missingExample: noExample.length, missingEnglish: noEnglish.length, duplicateTerms: dupes.length,
+                metaGlosses: metaGlosses.length, queryHeadwords: queryHeadwords.length
             },
-            finding: (noEnglish.length || dupes.length || worst > rows.length * 0.25)
-                ? `Content gaps in dictionary_entries: ${noPron.length} without pronunciation, ${noExample.length} without any usage/example, ${dupes.length} duplicate terms.`
+            finding: (hasPolluted || worst > rows.length * 0.25)
+                ? `Content gaps in dictionary_entries: ${noPron.length} without pronunciation, ${noExample.length} without any usage/example, ${dupes.length} duplicate terms, ${metaGlosses.length} meta-glosses, ${queryHeadwords.length} query-fragment headwords.`
                 : null,
-            fix: 'Backfill via tools/data/improve-dictionary.js (npm run data:improve); de-duplicate before regenerating word pages, since each duplicate emits a competing /word/ page.'
+            fix: 'Backfill via tools/data/improve-dictionary.js (npm run data:improve); de-duplicate and fold meta-glosses/query fragments into canonical entries before regenerating word pages.'
         });
 
         // Near-duplicates: different letters, same word (bumbai / bumbye, garanz / guaranz). The
@@ -394,19 +401,32 @@ async function auditSupabase(db) {
 
         // Audio cache coverage ---------------------------------------------
         if (counts.translation_cache !== null && counts.translation_cache !== undefined) {
+            const KIMO_VOICE = 'f0ODjLMfcJmlKfs7dFCW';
+            const cacheRows = await fetchAllRows(db, 'translation_cache', 'md5_hash, audio_filename', {
+                filter: q => q.eq('direction', 'tts').eq('voice_id', KIMO_VOICE)
+            });
+            const cachedHashes = new Set(cacheRows.filter(r => r.audio_filename).map(r => r.md5_hash));
+            const md5 = s => crypto.createHash('md5').update(String(s || '').trim().toLowerCase()).digest('hex');
+            const cachedHeadwords = rows.filter(r => cachedHashes.has(md5(r.pidgin))).length;
+            const headwordRatio = rows.length ? cachedHeadwords / rows.length : 0;
             const ratio = rows.length ? counts.translation_cache / rows.length : 0;
             record('supabase', {
                 id: 'supabase.audio-cache',
                 title: 'Pre-generated audio coverage',
-                status: ratio < 0.5 ? 'WARN' : 'OK',
+                status: headwordRatio < 0.5 ? 'WARN' : 'OK',
                 evidence: [
-                    `translation_cache rows: ${counts.translation_cache}`,
-                    `dictionary entries: ${rows.length}`,
-                    `cache rows per entry: ${ratio.toFixed(2)} (cache also holds phrases/stories/talk-story lines, so >1 is normal)`
+                    `dictionary headwords cached (Uncle Kimo): ${cachedHeadwords}/${rows.length} (${(headwordRatio * 100).toFixed(1)}%)`,
+                    `translation_cache rows: ${counts.translation_cache} (${cacheRows.length} Uncle Kimo TTS rows across dictionary, phrases, stories, and lessons)`,
+                    `total cache rows per dictionary entry: ${ratio.toFixed(2)}`
                 ],
-                metrics: { cacheRows: counts.translation_cache, entries: rows.length, ratio: Number(ratio.toFixed(3)) },
-                finding: ratio < 0.5 ? 'Fewer cached audio rows than dictionary entries — most playbacks are paying live ElevenLabs credits and first-play latency.' : null,
-                fix: 'node tools/audio/audio-pregeneration.js to warm the audio-assets bucket + translation_cache.'
+                metrics: {
+                    cacheRows: counts.translation_cache, kimoCacheRows: cacheRows.length,
+                    entries: rows.length, cachedHeadwords,
+                    headwordCoveragePct: Number((headwordRatio * 100).toFixed(1)),
+                    ratio: Number(ratio.toFixed(3))
+                },
+                finding: headwordRatio < 0.5 ? `Only ${cachedHeadwords}/${rows.length} (${(headwordRatio * 100).toFixed(1)}%) of dictionary headwords have a pre-generated Uncle Kimo clip in translation_cache — uncached playbacks pay live ElevenLabs credits and first-play latency.` : null,
+                fix: 'node tools/audio/rebuild-cache-index.js --apply (index orphaned clips) and node tools/audio/audio-pregeneration.js to warm missing dictionary headwords.'
             });
         }
     } catch (e) {
@@ -507,7 +527,7 @@ function auditElevenLabs() {
     const shared = [], literals = {};
     for (const rel of SYNTH_CALLERS) {
         const src = read(rel);
-        if (!src || !/api\.elevenlabs\.io/.test(src)) continue;
+        if (!src || !/(?:api\.elevenlabs\.io|ELEVENLABS_BASE_URL)/.test(src)) continue;
         if (/ELEVENLABS_SYNTHESIS\.model_id/.test(src)) { shared.push(rel); continue; }
         const model = (src.match(/model_id:\s*'([^']+)'/) || [])[1];
         const sim = (src.match(/similarity_boost:\s*([0-9.]+)/) || [])[1];
@@ -518,7 +538,7 @@ function auditElevenLabs() {
     record('elevenlabs', {
         id: 'elevenlabs.synthesis-parity',
         title: 'All ElevenLabs callers use the same synthesis settings',
-        status: Object.keys(literals).length === 0 ? 'OK' : 'WARN',
+        status: (Object.keys(literals).length === 0 && shared.length > 0) ? 'OK' : 'WARN',
         evidence: [
             canonical ? `shared constant ELEVENLABS_SYNTHESIS: ${canonical[1]}` : 'no shared synthesis constant found',
             shared.length ? `using the shared constant (${shared.length}): ${shared.join(', ')}` : 'no caller uses a shared constant',
@@ -527,7 +547,7 @@ function auditElevenLabs() {
         metrics: { sharedCallers: shared, hardcoded: literals },
         finding: Object.keys(literals).length
             ? `${Object.keys(literals).length} caller(s) hardcode synthesis settings (${distinct.join('; ')}) instead of the shared constant, so the same word can sound different depending on which path produced the audio.`
-            : null,
+            : (shared.length === 0 ? 'No ElevenLabs caller matched ELEVENLABS_SYNTHESIS — check upstream URL pattern.' : null),
         fix: Object.keys(literals).length
             ? 'Import ELEVENLABS_SYNTHESIS from src/components/speech/elevenlabs-speech.js in each caller.'
             : null

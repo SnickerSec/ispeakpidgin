@@ -21,7 +21,7 @@ const DEFAULT_KEY_PATH = './google-search-console-key.json';
 const SEARCH_CONSOLE_API = 'https://searchconsole.googleapis.com/webmasters/v3';
 
 const BLACKLIST = [
-    'dictionary', 'translator', 'pigeon', 'hawaiian', 'pidgin', 'google translate',
+    'dictionary', 'translator', 'pigeon', 'pidgin', 'pigdin', 'hawaiian', 'google translate',
     'english to', 'how to say', 'what does', 'meaning of', 'translate', 'sayings',
     'lingo', 'phrases', 'words', 'saying', 'phrase', 'word', 'help help', 'translate poo from',
     'google', 'search', 'free', 'online', 'app', 'download', 'website', 'best', 'hawaii',
@@ -56,7 +56,11 @@ const QUERY_STRIP_REGEXES = [
     /(.*) full form/i,
     /what is the full form of (.*)/i,
     /what is the meaning of (.*)/i,
+    /(.*) in hawaiian pidgin/i,
     /(.*) in hawaiian/i,
+    /(.*) in pidgin/i,
+    /(.*) in pigeon/i,
+    /(.*) in hawaii/i,
     /(.*) in korean/i,
     /(.*) in japanese/i,
     /(.*) in english/i,
@@ -80,6 +84,7 @@ const QUERY_STRIP_REGEXES = [
     /pigeon (.*)/i,
     /(.*) tagalog/i,
     /(.*) filipino/i,
+    /(.*) philippines/i,
     /(.*) german/i,
     /(.*) bedeutung/i,
     /(.*) hawaiian/i,
@@ -95,6 +100,7 @@ const QUERY_STRIP_REGEXES = [
     /is (.*) derogatory/i,
     /is (.*) a word/i,
     /is (.*) a real word/i,
+    /is (.*) short for (.*)/i,
     /(.*) eyes/i,
     /(.*) fish/i,
     /hawaiian word for (.*)/i,
@@ -118,12 +124,13 @@ const QUERY_STRIP_REGEXES = [
 const FILLER_TOKENS = new Set([
     'a', 'e', 'the', 'is', 'it', 'or', 'vs', 'whats', 'what', 'os', 'ehat', 'of', 'if', 'def', 'origin',
     'acronym', 'spelling', 'sentence', 'in', 'ho', 'hey', 'hi', 'eh', 'aye', 'mate', 'bro', 'bruh',
-    'brah', 'cuz', 'does', 'just', 'homophone', 'urban', 'dictionary', 'dict', 'slang', 'mean', 'means', 'meaning', 'meanings'
+    'brah', 'cuz', 'does', 'just', 'homophone', 'urban', 'dictionary', 'dict', 'slang', 'mean', 'means',
+    'meaning', 'meanings', 'sign', 'signal', 'symbol', 'gesture', 'hand', 'name', 'as'
 ]);
 // "meaning"/"definition" and the typos real searchers make of them (menaing, defintion, mesning, meanings).
 const GLOSS_TYPO = /^(?:m|n)[a-z]{0,4}ings?$|^def[a-z]*$/;
 // Queries for a site section rather than a word (the Pidgin Bible lives at /bible).
-const SECTION_QUERY = /jesus book|\bbible\b|spesho book|^list of\b|\blist of pidgin\b|\bwords list\b|\btop\s*\d+\b|\btop ten\b/;
+const SECTION_QUERY = /jesus book|\bda jesus\b|\bbible\b|spesho book|^list of\b|\blist of pidgin\b|\bwords list\b|\btop\s*\d+\b|\btop ten\b|^(?:slang|insults?)$/i;
 
 function normalizeQueryTerm(txt) {
     if (!txt) return '';
@@ -143,6 +150,7 @@ function normalizeQueryTerm(txt) {
 /** Lowercase, drop diacritics/punctuation, and collapse letter runs (brahhh, kamaaina → kamaina). */
 function squeezeKey(txt) {
     return String(txt || '').toLowerCase()
+        .replace(/\b10\b/g, 'ten')
         .normalize('NFD').replace(/[̀-ͯ]/g, '')
         .replace(/[^a-z\s-]/g, '')
         .replace(/(.)\1+/g, '$1')
@@ -265,7 +273,7 @@ function coverage(term, index) {
 
     if (tokens.length > 1) {
         const query = new Set(tokens);
-        const hit = (index.spellings || []).find(sp => sp.tokens.length < query.size &&
+        const hit = (index.spellings || []).find(sp => new Set(sp.tokens).size < query.size &&
             sp.tokens.every(t => query.has(t)) &&
             tokens.every(t => sp.tokens.includes(t) || sp.glossWords.has(t) || FILLER_TOKENS.has(t)));
         if (hit) return { match: hit.pidgin, via: 'meaning' };
@@ -373,7 +381,7 @@ function findMissingTerms(scQueries, entries, minImpressions = 20) {
         const term = cleanQueryTerm(rawQuery, index.normalized);
         const normalizedTerm = normalizeQueryTerm(term);
 
-        if (isOutOfScopeDialect(term)) continue;
+        if (SECTION_QUERY.test(term) || isOutOfScopeDialect(term)) continue;
 
         // Skip if in blacklist or matches common site queries
         if (BLACKLIST.some(b => {
@@ -456,10 +464,14 @@ function isOutOfScopeDialect(term) {
  *   fragments: Array<{ id, term, of }>, outOfScope: Array<{ id, term, reason }> }>}
  */
 async function closeResolvedGaps(db, { entries, dryRun = false } = {}) {
-    const index = buildCoverageIndex(entries || await fetchDictionaryForCoverage(db));
+    const dictRows = entries || await fetchDictionaryForCoverage(db);
+    const index = buildCoverageIndex(dictRows);
     const gaps = await fetchAllRows(db, 'search_gaps', 'id, term, status');
     const pending = gaps.filter(g => g.status === 'pending');
-    const logged = gaps.map(g => decodeEntities(g.term).toLowerCase());
+    const dictTerms = (dictRows || []).flatMap(r => typeof r === 'string' ? [r] : [r.pidgin, ...(r.spelling_variants || [])])
+        .filter(Boolean)
+        .map(t => String(t).toLowerCase());
+    const logged = [...gaps.map(g => decodeEntities(g.term).toLowerCase()), ...dictTerms];
 
     const closed = [];
     const fragments = [];

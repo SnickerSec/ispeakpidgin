@@ -513,7 +513,23 @@ const PIDGIN_PRONUNCIATION_MAP = {
     // give them 'eye' on their own (see the 'ai' rule in applyPronunciationCorrections).
     'saimin': 'sigh-min',
     'aisus': 'ay-sus',
-    'boolaia': 'boo-lye-ah'
+    'boolaia': 'boo-lye-ah',
+    'ānuenue': 'ah-noo-eh-noo-eh',
+    'anuenue': 'ah-noo-eh-noo-eh',
+    'hāʻae': 'hah-eye',
+    'haae': 'hah-eye',
+    'ha\'ae': 'hah-eye',
+    'uʻi': 'oo-ee',
+    'ui': 'oo-ee',
+    'wahine uʻi': 'wah-hee-nay oo-ee',
+    'wahine ui': 'wah-hee-nay oo-ee',
+    'hayn': 'hayn',
+    'hain': 'hayn',
+    'gaiz': 'gyze',
+    'you gaiz': 'yoo gyze',
+    'bangungot': 'bahng-oo-ngoht',
+    'bangogot': 'bahng-oh-goht',
+    'catch cracks': 'kach kraks'
 };
 
 // Multi-word map entries, precomputed longest-first.
