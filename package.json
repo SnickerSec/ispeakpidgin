@@ -25,6 +25,8 @@
     "audio:audit": "node tools/audio/audio-pregeneration.js --audit",
     "audio:audit:all": "node tools/audio/generate-missing-audio.js --audit",
     "test": "node tools/testing/run-all-tests.js",
+    "test:live": "railway run -p 3ef8ad40-f6d4-4db3-a037-7a759c2193ac -e production -s ispeakpidgin -- node tools/testing/run-all-tests.js",
+    "test:live:quick": "railway run -p 3ef8ad40-f6d4-4db3-a037-7a759c2193ac -e production -s ispeakpidgin -- node tools/testing/run-all-tests.js --quick",
     "test:runtime-deps": "node tools/testing/check-runtime-deps.js",
     "test:validation": "node tools/testing/run-validation.js",
     "test:translator": "node tools/testing/validate-phase-2-3.js",
