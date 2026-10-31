@@ -79,7 +79,7 @@ RESPONSE FORMAT (JSON ONLY):
 }
 
 async function main() {
-    const TARGET_COUNT = 28; // 74 + 28 = 102 questions
+    const TARGET_COUNT = parseInt(process.argv[2], 10) || 25;
     console.log(`📝 Generating ${TARGET_COUNT} New Hawaiian Pidgin Quiz Questions...`);
     console.log('==============================================================\n');
 

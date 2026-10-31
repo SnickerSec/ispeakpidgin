@@ -188,14 +188,9 @@ async function main() {
     const { count: currentCount } = await supabase.from('crossword_puzzles').select('*', { count: 'exact', head: true });
     console.log(`📊 Current Crossword Puzzles in DB: ${currentCount}`);
     
-    const TARGET_TOTAL = 110;
-    const NEEDED = Math.max(0, TARGET_TOTAL - currentCount);
-    console.log(`🎯 Generating ${NEEDED} new puzzles to reach ${TARGET_TOTAL} total...\n`);
-
-    if (NEEDED === 0) {
-        console.log('✅ Already at target count!');
-        return;
-    }
+    const TO_GENERATE = parseInt(process.argv[2], 10) || 10;
+    const NEEDED = TO_GENERATE;
+    console.log(`🎯 Generating ${NEEDED} new puzzles (Current: ${currentCount})...\n`);
 
     // 2. Fetch dictionary entries
     const { data: entries } = await supabase
