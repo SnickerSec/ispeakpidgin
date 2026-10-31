@@ -561,6 +561,22 @@ class PidginWordle {
         this.statWinRate.textContent = stats.winRate;
         this.statStreak.textContent = stats.currentStreak;
         this.statMaxStreak.textContent = stats.maxStreak;
+
+        // Show word meaning card if game has concluded
+        const meaningSection = document.getElementById('word-meaning-section');
+        if (meaningSection) {
+            if (this.gameOver && this.dailyWord) {
+                const termEl = document.getElementById('word-term');
+                const meaningEl = document.getElementById('word-meaning');
+                const pronEl = document.getElementById('word-pronunciation');
+                if (termEl) termEl.textContent = this.dailyWord;
+                if (meaningEl) meaningEl.textContent = (this.wordData && this.wordData.meaning) ? this.wordData.meaning : 'Hawaiian Pidgin daily vocabulary word.';
+                if (pronEl) pronEl.textContent = (this.wordData && this.wordData.pronunciation) ? `[${this.wordData.pronunciation}]` : '';
+                meaningSection.classList.remove('hidden');
+            } else {
+                meaningSection.classList.add('hidden');
+            }
+        }
     }
 
     async submitScore() {
