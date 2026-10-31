@@ -87,6 +87,21 @@ function getFallbackLessonsData() {
                     culturalNote: 'These expressions add energy to conversations.',
                     practice: 'Use "Chee hoo!" when excited!'
                 }
+            },
+            {
+                id: 'island-directions',
+                title: 'Island Directions: Mauka, Makai & Landmarks',
+                icon: '<iconify-icon icon="lucide:compass"></iconify-icon>',
+                content: {
+                    vocabulary: [
+                        { pidgin: 'Mauka', english: 'Toward the mountains / Inland', example: 'Turn mauka at da traffic light by da mountain.' },
+                        { pidgin: 'Makai', english: 'Toward the ocean / Sea', example: 'Da gas station stay makai side of da highway.' },
+                        { pidgin: 'Ewa', english: 'Westward toward Ewa plain (Oahu)', example: 'Head Ewa on da H-1 freeway fo get Pearl City.' },
+                        { pidgin: 'Diamond Head', english: 'Eastward toward Diamond Head crater (Oahu)', example: 'Stay cruising Diamond Head side past Waikiki.' }
+                    ],
+                    culturalNote: 'In Hawaii, locals never say north, south, east, or west. Mauka means toward the mountains, makai means toward the ocean.',
+                    practice: 'Practice giving directions: "Go makai toward da surf, den head Diamond Head side!"'
+                }
             }
         ],
         advanced: [

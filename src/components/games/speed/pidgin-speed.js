@@ -108,12 +108,21 @@ class PidginSpeed {
 
     async loadWords() {
         try {
-            const response = await fetch('/api/dictionary?limit=300&random=true');
-            const data = await response.json();
-            if (!data.entries || data.entries.length === 0) throw new Error('No words');
-            this.words = data.entries.filter(e => {
+            const [dictRes, wordleRes] = await Promise.all([
+                fetch('/api/dictionary?limit=300&random=true').then(r => r.json()).catch(() => ({ entries: [] })),
+                fetch('/api/games/wordle/words?with_meanings=true').then(r => r.json()).catch(() => ({ entries: [] }))
+            ]);
+
+            const combinedEntries = [...(dictRes.entries || []), ...(wordleRes.entries || [])];
+            if (combinedEntries.length === 0) throw new Error('No words');
+
+            const seen = new Set();
+            this.words = combinedEntries.filter(e => {
                 const word = e.pidgin.toLowerCase();
-                return /^[a-z' -]+$/i.test(word) && word.length >= 2 && word.length <= 20;
+                if (seen.has(word)) return false;
+                const isValid = /^[a-z' -]+$/i.test(word) && word.length >= 2 && word.length <= 20;
+                if (isValid) seen.add(word);
+                return isValid;
             });
             this.words.sort(() => Math.random() - 0.5);
         } catch (error) {

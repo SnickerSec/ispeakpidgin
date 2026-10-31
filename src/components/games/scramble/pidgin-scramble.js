@@ -88,10 +88,14 @@ class PidginScramble {
 
     async loadWords() {
         try {
-            const response = await fetch('/api/dictionary?limit=300&random=true');
-            const data = await response.json();
+            const [dictRes, wordleRes] = await Promise.all([
+                fetch('/api/dictionary?limit=300&random=true').then(r => r.json()).catch(() => ({ entries: [] })),
+                fetch('/api/games/wordle/words?with_meanings=true').then(r => r.json()).catch(() => ({ entries: [] }))
+            ]);
 
-            if (!data.entries || data.entries.length === 0) {
+            const combinedEntries = [...(dictRes.entries || []), ...(wordleRes.entries || [])];
+
+            if (combinedEntries.length === 0) {
                 throw new Error('No words available');
             }
 
@@ -100,7 +104,9 @@ class PidginScramble {
             else if (this.difficulty === 'medium') { minLen = 5; maxLen = 6; }
             else { minLen = 7; maxLen = 20; }
 
-            this.words = data.entries.map(entry => {
+            // Deduplicate by cleanWord
+            const seen = new Set();
+            this.words = combinedEntries.map(entry => {
                 const cleanWord = entry.pidgin
                     .toLowerCase()
                     .replace(/['ʻ`‘’]/g, '')
@@ -112,18 +118,23 @@ class PidginScramble {
                 };
             }).filter(entry => {
                 const word = entry.cleanWord;
-                return word.length >= minLen && word.length <= maxLen;
+                if (!word || seen.has(word)) return false;
+                if (word.length >= minLen && word.length <= maxLen) {
+                    seen.add(word);
+                    return true;
+                }
+                return false;
             });
 
             if (this.words.length < this.totalRounds) {
-                this.words = data.entries.map(entry => {
+                this.words = combinedEntries.map(entry => {
                     const cleanWord = entry.pidgin
                         .toLowerCase()
                         .replace(/['ʻ`‘’]/g, '')
                         .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
                         .replace(/[^a-z]/g, '');
                     return { ...entry, cleanWord };
-                }).filter(entry => entry.cleanWord.length >= 3);
+                }).filter(entry => entry.cleanWord && entry.cleanWord.length >= 3);
             }
 
             this.words.sort(() => Math.random() - 0.5);
@@ -297,8 +308,9 @@ class PidginScramble {
         this.hintUsed = true;
         const englishValue = this.currentWord.english;
         const meanings = Array.isArray(englishValue) ? englishValue.join(', ') : englishValue;
+        const pron = this.currentWord.pronunciation ? ` [${this.currentWord.pronunciation}]` : '';
         const hintArea = document.getElementById('hint-area');
-        hintArea.textContent = meanings || 'No hint available';
+        hintArea.textContent = `💡 Clue: "${meanings}"${pron}`;
         hintArea.classList.remove('hidden');
         document.getElementById('hint-btn').classList.add('opacity-50');
         this.showToast('Hint revealed! (-5 points)');

@@ -57,14 +57,29 @@ module.exports = function(supabase, dictionaryLimiter, gamificationService) {
 
     router.get('/wordle/words', dictionaryLimiter, async (req, res) => {
         try {
-            const { solutions_only, valid_guesses_only, difficulty } = req.query;
-            let query = supabase.from('wordle_words').select('word, is_solution, is_valid_guess, difficulty');
+            const { solutions_only, valid_guesses_only, difficulty, with_meanings } = req.query;
+            let query = supabase.from('wordle_words').select('word, is_solution, is_valid_guess, difficulty, meaning, pronunciation');
             if (solutions_only === 'true') query = query.eq('is_solution', true);
             if (valid_guesses_only === 'true') query = query.eq('is_valid_guess', true);
             if (difficulty) query = query.eq('difficulty', difficulty);
 
             const { data, error } = await query;
             if (error) return res.status(500).json({ error: 'Failed to fetch wordle words' });
+
+            if (with_meanings === 'true') {
+                const entries = data
+                    .filter(w => Boolean(w.meaning))
+                    .map(w => ({
+                        pidgin: w.word.toLowerCase(),
+                        english: [w.meaning],
+                        pronunciation: w.pronunciation || null,
+                        difficulty: w.difficulty || 'medium'
+                    }));
+                return res.json({
+                    entries,
+                    count: entries.length
+                });
+            }
 
             res.json({
                 words: data.map(w => w.word),
