@@ -17,6 +17,8 @@
     "data:crosswords": "node tools/data/generate-more-crosswords.js",
     "data:wordle": "node tools/data/expand-wordle-words.js",
     "data:directions-lesson": "node tools/data/add-island-directions-lesson.js",
+    "data:directions-quiz": "node tools/data/add-directions-quiz-questions.js",
+    "audio:wordle": "node tools/audio/generate-wordle-audio.js",
     "seo:loop": "node tools/seo/feedback-loop.js",
     "seo:close-gaps": "node tools/seo/close-resolved-gaps.js",
     "seo:readout": "node tools/seo/experiment-readout.js",
