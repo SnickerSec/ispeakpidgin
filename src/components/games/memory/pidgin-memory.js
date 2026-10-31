@@ -12,6 +12,9 @@ class PidginMemory {
         this.gameActive = false;
         this.lockBoard = false;
         this.difficulty = 'medium';
+        this.theme = 'all';
+        this.audioCache = {};
+        this.currentAudio = null;
         this.stats = this.loadStats();
         this.init();
     }
@@ -103,16 +106,68 @@ class PidginMemory {
 
             if (!data.entries || data.entries.length === 0) throw new Error('No words');
 
-            // Pick entries with short pidgin words (to fit on cards)
-            const suitable = data.entries.filter(e => {
-                const word = e.pidgin.toLowerCase();
-                // Avoid very long words that break layout
-                return word.length <= 15;
+            // Direction curated terms to ensure rich pool even if dictionary is small
+            const curatedDirections = [
+                { pidgin: 'Mauka', english: 'Toward the mountains' },
+                { pidgin: 'Makai', english: 'Toward the ocean' },
+                { pidgin: 'Diamond Head', english: 'Eastward (Oahu)' },
+                { pidgin: 'Ewa', english: 'Westward (Oahu)' },
+                { pidgin: 'Windward', english: 'East / Wet side' },
+                { pidgin: 'Leeward', english: 'West / Dry side' },
+                { pidgin: 'Town', english: 'Honolulu area' },
+                { pidgin: 'Country', english: 'Rural / North Shore' },
+                { pidgin: 'Ova dea', english: 'Over there' },
+                { pidgin: 'Wea', english: 'Where' },
+                { pidgin: 'Hea', english: 'Here' },
+                { pidgin: 'Hele', english: 'Go / Move' },
+                { pidgin: 'Stay go', english: 'Headed / Going' },
+                { pidgin: 'Pau hana', english: 'After work' }
+            ];
+
+            let pool = [];
+            const allEntries = data.entries.filter(e => {
+                const word = (e.pidgin || '').trim();
+                return word.length > 0 && word.length <= 16;
             });
 
-            // If we don't have enough, just use what we have
-            const pool = suitable.length >= this.totalPairs ? suitable : data.entries;
-            
+            if (this.theme === 'food') {
+                pool = allEntries.filter(e => {
+                    const cat = (e.category || '').toLowerCase();
+                    const en = JSON.stringify(e.english || '').toLowerCase();
+                    const pid = (e.pidgin || '').toLowerCase();
+                    return cat === 'food' || /(eat|food|delicious|tasty|snack|meat|pork|fish|rice|noodle|soup|plate lunch|poi|poke|grind)/i.test(en + ' ' + pid);
+                });
+            } else if (this.theme === 'directions') {
+                const dictDir = allEntries.filter(e => {
+                    const cat = (e.category || '').toLowerCase();
+                    const en = JSON.stringify(e.english || '').toLowerCase();
+                    return cat === 'directions' || /(mountain|ocean|toward|direction|where|there|here|go|side)/i.test(en);
+                });
+                const combined = [...curatedDirections, ...dictDir];
+                const seen = new Set();
+                pool = combined.filter(e => {
+                    const key = e.pidgin.toLowerCase();
+                    if (seen.has(key)) return false;
+                    seen.add(key);
+                    return true;
+                });
+            } else if (this.theme === 'ocean') {
+                pool = allEntries.filter(e => {
+                    const cat = (e.category || '').toLowerCase();
+                    const en = JSON.stringify(e.english || '').toLowerCase();
+                    const pid = (e.pidgin || '').toLowerCase();
+                    return cat === 'nature' || /(ocean|sea|beach|surf|wave|fish|water|swim|turtle|dive|reef|tide)/i.test(en + ' ' + pid);
+                });
+            } else {
+                pool = allEntries;
+            }
+
+            // Fallback if pool doesn't meet minimum requirements
+            if (pool.length < this.totalPairs) {
+                const remaining = allEntries.filter(e => !pool.some(p => p.pidgin.toLowerCase() === e.pidgin.toLowerCase()));
+                pool = pool.concat(remaining);
+            }
+
             // Shuffle pool before picking
             const shuffledPool = [...pool].sort(() => Math.random() - 0.5);
             const selected = shuffledPool.slice(0, this.totalPairs);
@@ -135,7 +190,7 @@ class PidginMemory {
                 [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
             }
             
-            console.log(`Loaded ${this.cards.length} cards (${this.totalPairs} pairs) for memory game`);
+            console.log(`Loaded ${this.cards.length} cards (${this.totalPairs} pairs) for theme: ${this.theme}`);
         } catch (error) {
             console.error('Error loading cards:', error);
             throw error;
@@ -202,7 +257,12 @@ class PidginMemory {
         const [first, second] = this.flippedCards;
 
         if (first.card.pairId === second.card.pairId) {
-            // Match found
+            // Match found! Speak the Pidgin term
+            const pidginCard = first.card.type === 'pidgin' ? first.card : second.card;
+            if (pidginCard && pidginCard.text) {
+                this.playAudio(pidginCard.text);
+            }
+
             const firstEl = document.querySelector(`[data-index="${first.index}"]`);
             const secondEl = document.querySelector(`[data-index="${second.index}"]`);
             
@@ -234,6 +294,38 @@ class PidginMemory {
                 this.flippedCards = [];
                 this.lockBoard = false;
             }, 1000);
+        }
+    }
+
+    async playAudio(text) {
+        if (!text) return;
+        try {
+            if (this.currentAudio) {
+                this.currentAudio.pause();
+                this.currentAudio = null;
+            }
+            if (this.audioCache && this.audioCache[text]) {
+                const audio = new Audio(this.audioCache[text]);
+                this.currentAudio = audio;
+                await audio.play().catch(() => {});
+                return;
+            }
+            const res = await fetch('/api/text-to-speech', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text, originalText: text })
+            });
+            if (!res.ok) return;
+            const blob = await res.blob();
+            if (!blob || blob.size === 0) return;
+            const url = URL.createObjectURL(blob);
+            if (!this.audioCache) this.audioCache = {};
+            this.audioCache[text] = url;
+            const audio = new Audio(url);
+            this.currentAudio = audio;
+            await audio.play().catch(() => {});
+        } catch (e) {
+            console.warn('Audio playback error:', e);
         }
     }
 
@@ -282,6 +374,18 @@ class PidginMemory {
     }
 
     attachEventListeners() {
+        document.querySelectorAll('.theme-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.theme-btn').forEach(b => {
+                    b.classList.remove('bg-white', 'text-emerald-700', 'shadow-sm', 'font-bold');
+                    b.classList.add('text-gray-600', 'font-medium');
+                });
+                btn.classList.add('bg-white', 'text-emerald-700', 'shadow-sm', 'font-bold');
+                btn.classList.remove('text-gray-600', 'font-medium');
+                this.theme = btn.dataset.theme || 'all';
+            });
+        });
+
         document.querySelectorAll('[data-difficulty]').forEach(btn => {
             btn.addEventListener('click', () => this.startGame(btn.dataset.difficulty));
         });

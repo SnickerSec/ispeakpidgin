@@ -87,8 +87,27 @@
         <!-- Start Screen -->
         <div id="start-screen" class="bg-white rounded-3xl shadow-xl p-8 text-center">
             <div class="text-6xl mb-4"><iconify-icon icon="lucide:layers"></iconify-icon></div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-2">Choose Difficulty</h2>
-            <p class="text-gray-600 mb-8">Match Pidgin words with their English translations</p>
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">Pidgin Memory Match</h2>
+            <p class="text-gray-600 mb-6">Match Pidgin words with their English translations</p>
+
+            <!-- Theme Selector -->
+            <div class="mb-8">
+                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Choose Theme:</label>
+                <div class="inline-flex flex-wrap rounded-2xl bg-gray-100 p-1.5 gap-1.5 max-w-lg w-full justify-center" id="theme-selector">
+                    <button type="button" data-theme="all" class="theme-btn py-2 px-3.5 rounded-xl text-xs md:text-sm font-bold bg-white text-emerald-700 shadow-sm transition-all">
+                        🌴 All Island
+                    </button>
+                    <button type="button" data-theme="food" class="theme-btn py-2 px-3.5 rounded-xl text-xs md:text-sm font-medium text-gray-600 hover:text-gray-900 transition-all">
+                        🍽️ Grindz
+                    </button>
+                    <button type="button" data-theme="directions" class="theme-btn py-2 px-3.5 rounded-xl text-xs md:text-sm font-medium text-gray-600 hover:text-gray-900 transition-all">
+                        🧭 Directions
+                    </button>
+                    <button type="button" data-theme="ocean" class="theme-btn py-2 px-3.5 rounded-xl text-xs md:text-sm font-medium text-gray-600 hover:text-gray-900 transition-all">
+                        🏄 Ocean &amp; Surf
+                    </button>
+                </div>
+            </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <button data-difficulty="easy" class="bg-gradient-to-br from-green-400 to-emerald-500 text-white p-6 rounded-2xl font-bold text-lg hover:scale-105 transition-all shadow-lg">

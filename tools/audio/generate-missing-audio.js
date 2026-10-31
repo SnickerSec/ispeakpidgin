@@ -203,6 +203,9 @@ async function main() {
     if (config.table === 'all' || config.table === 'pickups' || config.table === 'pickup_lines') {
         tablesToFetch.push({ name: 'pickup_lines', table: 'pickup_lines' });
     }
+    if (config.table === 'all' || config.table === 'pickup_components' || config.table === 'pickup_line_components') {
+        tablesToFetch.push({ name: 'pickup_line_components', table: 'pickup_line_components' });
+    }
 
     const tableStats = [];
     const allMissingMap = new Map(); // term -> array of table names
