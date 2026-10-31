@@ -24,6 +24,7 @@ const { GoogleAuth } = require('google-auth-library');
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
+const { credentialsFromEnv } = require('../../services/search-gaps');
 
 // Configuration
 // Use domain property format (sc-domain:) or URL prefix format (https://)
@@ -109,6 +110,14 @@ Setup:
 }
 
 async function getAuthClient(keyFilePath) {
+    const envCreds = credentialsFromEnv();
+    if (envCreds) {
+        return new GoogleAuth({
+            credentials: envCreds,
+            scopes: ['https://www.googleapis.com/auth/webmasters.readonly']
+        });
+    }
+
     if (!fs.existsSync(keyFilePath)) {
         console.error(`\n❌ Key file not found: ${keyFilePath}`);
         console.error('\nTo set up authentication:');
