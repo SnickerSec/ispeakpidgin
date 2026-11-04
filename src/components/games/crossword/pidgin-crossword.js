@@ -26,7 +26,6 @@ class PidginCrossword {
     async init() {
         await this.loadPuzzle();
         this.attachEventListeners();
-        this.loadProgress();
     }
 
     initElements() {
@@ -70,9 +69,13 @@ class PidginCrossword {
             this.puzzleTitle.textContent = this.puzzle.title;
             this.puzzleDescription.textContent = this.puzzle.description;
 
+            // Restore saved progress before building grid so inputs populate
+            this.loadProgress();
+
             // Build grid
             this.buildGrid();
             this.buildClues();
+            this.updateStats();
         } catch (error) {
             console.error('❌ Error loading puzzle:', error);
             this.showError('Failed to load puzzle. Please refresh the page.');
@@ -205,37 +208,44 @@ class PidginCrossword {
         this.container.appendChild(gridEl);
     }
 
+    createClueElement(word, direction) {
+        const clueEl = document.createElement('div');
+        clueEl.className = 'clue-item flex items-center justify-between gap-2';
+        clueEl.dataset.number = word.number;
+        clueEl.dataset.direction = direction;
+        clueEl.dataset.word = word.word || '';
+
+        const textSpan = document.createElement('span');
+        const numStrong = document.createElement('strong');
+        numStrong.textContent = `${word.number}. `;
+        textSpan.appendChild(numStrong);
+        textSpan.appendChild(document.createTextNode(word.clue));
+        clueEl.appendChild(textSpan);
+
+        if (word.word) {
+            const audioBtn = document.createElement('button');
+            audioBtn.type = 'button';
+            audioBtn.className = 'clue-audio-btn hidden shrink-0 p-1.5 rounded-full text-emerald-700 hover:bg-emerald-100 transition';
+            audioBtn.dataset.word = word.word.toLowerCase();
+            audioBtn.title = 'Hear Uncle Kimo pronounce this answer';
+            audioBtn.innerHTML = '<iconify-icon icon="lucide:volume-2" class="text-base pointer-events-none"></iconify-icon>';
+            clueEl.appendChild(audioBtn);
+        }
+
+        return clueEl;
+    }
+
     buildClues() {
         // Build across clues
         this.acrossClues.innerHTML = '';
         this.puzzle.words.across.forEach(word => {
-            const clueEl = document.createElement('div');
-            clueEl.className = 'clue-item';
-            clueEl.dataset.number = word.number;
-            clueEl.dataset.direction = 'across';
-            
-            const numStrong = document.createElement('strong');
-            numStrong.textContent = `${word.number}. `;
-            clueEl.appendChild(numStrong);
-            clueEl.appendChild(document.createTextNode(word.clue));
-            
-            this.acrossClues.appendChild(clueEl);
+            this.acrossClues.appendChild(this.createClueElement(word, 'across'));
         });
 
         // Build down clues
         this.downClues.innerHTML = '';
         this.puzzle.words.down.forEach(word => {
-            const clueEl = document.createElement('div');
-            clueEl.className = 'clue-item';
-            clueEl.dataset.number = word.number;
-            clueEl.dataset.direction = 'down';
-            
-            const numStrong = document.createElement('strong');
-            numStrong.textContent = `${word.number}. `;
-            clueEl.appendChild(numStrong);
-            clueEl.appendChild(document.createTextNode(word.clue));
-            
-            this.downClues.appendChild(clueEl);
+            this.downClues.appendChild(this.createClueElement(word, 'down'));
         });
 
         // Mobile clues (combined)
@@ -278,6 +288,9 @@ class PidginCrossword {
         // Clue clicks
         this.acrossClues.addEventListener('click', (e) => this.handleClueClick(e));
         this.downClues.addEventListener('click', (e) => this.handleClueClick(e));
+        if (this.mobileClues) {
+            this.mobileClues.addEventListener('click', (e) => this.handleClueClick(e));
+        }
 
         // Buttons
         this.hintBtn.addEventListener('click', () => this.showHint());
@@ -346,6 +359,20 @@ class PidginCrossword {
     }
 
     handleClueClick(e) {
+        const audioBtn = e.target.closest('.clue-audio-btn');
+        if (audioBtn) {
+            e.stopPropagation();
+            const spokenWord = audioBtn.dataset.word;
+            if (spokenWord) {
+                if (window.elevenLabsSpeech && typeof window.elevenLabsSpeech.speak === 'function') {
+                    window.elevenLabsSpeech.speak(spokenWord);
+                } else if (window.pidginSpeech && typeof window.pidginSpeech.speak === 'function') {
+                    window.pidginSpeech.speak(spokenWord);
+                }
+            }
+            return;
+        }
+
         const clueItem = e.target.closest('.clue-item');
         if (!clueItem) return;
 
@@ -493,7 +520,36 @@ class PidginCrossword {
         });
 
         this.statCorrect.textContent = correct;
-        this.statProgress.textContent = Math.round((filled / total) * 100) + '%';
+        this.statProgress.textContent = total > 0 ? Math.round((filled / total) * 100) + '%' : '0%';
+
+        // Update completed state & reveal audio buttons on solved clues
+        if (this.puzzle && this.puzzle.words) {
+            const checkWordSolved = (w, isAcross) => {
+                const row = w.row || 0;
+                const col = w.col || 0;
+                const word = w.word || '';
+                if (!word) return false;
+                for (let i = 0; i < word.length; i++) {
+                    const r = isAcross ? row : row + i;
+                    const c = isAcross ? col + i : col;
+                    const val = (this.userAnswers[`${r}-${c}`] || '').toUpperCase();
+                    if (val !== word[i].toUpperCase()) return false;
+                }
+                return true;
+            };
+
+            const syncClueState = (w, direction) => {
+                const solved = checkWordSolved(w, direction === 'across');
+                document.querySelectorAll(`.clue-item[data-direction="${direction}"][data-number="${w.number}"]`).forEach(el => {
+                    el.classList.toggle('completed', solved);
+                    const btn = el.querySelector('.clue-audio-btn');
+                    if (btn) btn.classList.toggle('hidden', !solved);
+                });
+            };
+
+            (this.puzzle.words.across || []).forEach(w => syncClueState(w, 'across'));
+            (this.puzzle.words.down || []).forEach(w => syncClueState(w, 'down'));
+        }
 
         // Load streak and total from localStorage
         const stats = this.getStats();

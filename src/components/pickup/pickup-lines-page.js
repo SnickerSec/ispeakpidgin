@@ -34,7 +34,11 @@ function isFavorite(id) {
 }
 
 function createSlug(text) {
-    return text.toLowerCase().replace(/'/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    return text.toLowerCase()
+        .replace(/['ʻ`‘’]/g, '')
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '');
 }
 
 function displayPickupLines(lines, showingFavorites) {

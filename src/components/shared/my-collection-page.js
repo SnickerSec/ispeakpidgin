@@ -185,6 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const english = escapeHtml(Array.isArray(entry.english) ? entry.english[0] : entry.english);
             const slug = entry.pidgin.toLowerCase()
                 .replace(/['ʻ`‘’]/g, '')
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
                 .replace(/[^a-z0-9]+/g, '-')
                 .replace(/^-|-$/g, '');
 

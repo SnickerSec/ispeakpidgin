@@ -69,7 +69,8 @@
         // Create slug for link
         if (linkEl) {
             var slug = word.pidgin.toLowerCase()
-                .replace(/[ʻ'‘`]/g, '')
+                .replace(/['ʻ`‘’]/g, '')
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
                 .replace(/[^a-z0-9]+/g, '-')
                 .replace(/^-|-$/g, '');
             linkEl.href = '/word/' + slug + '.html';

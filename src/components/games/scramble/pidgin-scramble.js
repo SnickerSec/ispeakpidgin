@@ -157,7 +157,7 @@ class PidginScramble {
         this.gameActive = true;
         this.round++;
 
-        const word = (this.currentWord.cleanWord || this.currentWord.pidgin.replace(/[^a-zA-Z]/g, '')).toLowerCase();
+        const word = (this.currentWord.cleanWord || this.currentWord.pidgin.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z]/g, '')).toLowerCase();
         this.currentScrambled = this.scrambleWord(word);
 
         document.getElementById('score-display').textContent = this.score;
@@ -204,7 +204,7 @@ class PidginScramble {
     renderAnswerSlots() {
         const container = document.getElementById('answer-slots');
         container.innerHTML = '';
-        const word = (this.currentWord.cleanWord || this.currentWord.pidgin.replace(/[^a-zA-Z]/g, '')).toLowerCase();
+        const word = (this.currentWord.cleanWord || this.currentWord.pidgin.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z]/g, '')).toLowerCase();
 
         for (let i = 0; i < word.length; i++) {
             const slot = document.createElement('div');
@@ -233,7 +233,7 @@ class PidginScramble {
             slots[pos].classList.add('bg-violet-50', 'border-violet-600', 'cursor-pointer');
         }
 
-        const targetLen = (this.currentWord.cleanWord || this.currentWord.pidgin.replace(/[^a-zA-Z]/g, '')).length;
+        const targetLen = (this.currentWord.cleanWord || this.currentWord.pidgin.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z]/g, '')).length;
         if (this.selectedLetters.length === targetLen) {
             this.checkAnswer();
         }
@@ -267,7 +267,7 @@ class PidginScramble {
 
     checkAnswer() {
         const answer = this.selectedLetters.map(l => l.letter).join('');
-        const correct = (this.currentWord.cleanWord || this.currentWord.pidgin.replace(/[^a-zA-Z]/g, '')).toLowerCase();
+        const correct = (this.currentWord.cleanWord || this.currentWord.pidgin.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z]/g, '')).toLowerCase();
         const timeTaken = Math.round((Date.now() - this.startTime) / 1000);
 
         this.gameActive = false;

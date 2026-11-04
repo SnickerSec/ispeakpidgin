@@ -232,7 +232,7 @@
                 }
 
                 searchResults.innerHTML = matches.map(entry => {
-                    const slug = entry.slug || entry.pidgin.toLowerCase().replace(/['ʻ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+                    const slug = entry.slug || entry.pidgin.toLowerCase().replace(/['ʻ`‘’]/g, '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
                     const english = Array.isArray(entry.english) ? entry.english[0] : entry.english;
                     return `
                     <a href="/word/${encodeURIComponent(slug)}.html"

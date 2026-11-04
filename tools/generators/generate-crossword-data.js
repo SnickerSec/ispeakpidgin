@@ -15,7 +15,7 @@ const crosswordWords = [];
 
 masterData.entries.forEach(entry => {
     // Clean the word - remove apostrophes, spaces, hyphens for grid placement
-    const cleanWord = entry.pidgin.toUpperCase().replace(/[^A-Z]/g, '');
+    const cleanWord = entry.pidgin.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase().replace(/[^A-Z]/g, '');
 
     // Only include words 3-15 letters
     if (cleanWord.length < 3 || cleanWord.length > 15) return;

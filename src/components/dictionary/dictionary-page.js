@@ -310,12 +310,12 @@ function getMasteryHtml(wordKey) {
     if (mastery === 0) return ''; // Don't show anything for unpracticed words
 
     const config = [
-        { label: 'New', color: 'bg-gray-100 text-gray-600', icon: 'ti-star' },
-        { label: 'Struggling', color: 'bg-red-100 text-red-600', icon: 'ti-mood-sad' },
-        { label: 'Learning', color: 'bg-orange-100 text-orange-600', icon: 'ti-book' },
-        { label: 'Good', color: 'bg-yellow-100 text-yellow-700', icon: 'ti-thumb-up' },
-        { label: 'Strong', color: 'bg-green-100 text-green-700', icon: 'ti-check' },
-        { label: 'Mastered', color: 'bg-blue-100 text-blue-700', icon: 'ti-circle-check' }
+        { label: 'New', color: 'bg-gray-100 text-gray-600', icon: 'lucide:star' },
+        { label: 'Struggling', color: 'bg-red-100 text-red-600', icon: 'lucide:frown' },
+        { label: 'Learning', color: 'bg-orange-100 text-orange-600', icon: 'lucide:book-open' },
+        { label: 'Good', color: 'bg-yellow-100 text-yellow-700', icon: 'lucide:thumbs-up' },
+        { label: 'Strong', color: 'bg-green-100 text-green-700', icon: 'lucide:check' },
+        { label: 'Mastered', color: 'bg-blue-100 text-blue-700', icon: 'lucide:check-circle-2' }
     ];
 
     const { label, color, icon } = config[mastery] || config[0];
@@ -323,7 +323,7 @@ function getMasteryHtml(wordKey) {
 
     return `
         <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md ${color} text-[10px] font-bold uppercase tracking-wider mb-2 border border-current opacity-80" title="Your Mastery: ${label}">
-            <i class="ti ${icon}"></i> ${prefix}${label}
+            <iconify-icon icon="${icon}"></iconify-icon> ${prefix}${label}
         </div>
     `;
 }
@@ -402,7 +402,8 @@ function displayResults(entries, append = false) {
 
         // Create slug for individual entry page
         const slug = entry.pidgin.toLowerCase()
-            .replace(/'/g, '')
+            .replace(/['ʻ`‘’]/g, '')
+            .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
             .replace(/[^a-z0-9]+/g, '-')
             .replace(/^-|-$/g, '');
         const entryPageUrl = `/word/${slug}.html`;

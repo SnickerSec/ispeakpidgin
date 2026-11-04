@@ -2,7 +2,11 @@
 var storiesData = { stories: [] };
 
 function createSlug(text) {
-    return text.toLowerCase().replace(/'/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    return text.toLowerCase()
+        .replace(/['ʻ`‘’]/g, '')
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '');
 }
 
 // Helper function to escape HTML entities to prevent XSS

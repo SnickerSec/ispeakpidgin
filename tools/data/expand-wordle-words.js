@@ -92,7 +92,7 @@ async function main() {
   // Build dictionary lookup by cleaned 5-letter uppercase word
   const dictMap = new Map();
   for (const entry of dictEntries) {
-    const clean = entry.pidgin.replace(/[^a-zA-Z]/g, '').toUpperCase();
+    const clean = entry.pidgin.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z]/g, '').toUpperCase();
     if (clean.length === 5 && !dictMap.has(clean)) {
       const englishMeaning = Array.isArray(entry.english) ? entry.english.join('; ') : entry.english;
       dictMap.set(clean, {

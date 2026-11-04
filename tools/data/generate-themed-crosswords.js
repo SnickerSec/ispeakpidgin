@@ -200,7 +200,7 @@ async function main() {
 
     const validWords = (entries || [])
         .map(e => ({
-            word: e.pidgin.toUpperCase().replace(/[^A-Z]/g, ''),
+            word: e.pidgin.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase().replace(/[^A-Z]/g, ''),
             display: e.pidgin,
             category: (e.category || 'general').toLowerCase(),
             clue: Array.isArray(e.english) ? e.english[0] : e.english

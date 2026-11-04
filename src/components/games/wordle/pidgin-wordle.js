@@ -417,8 +417,8 @@ class PidginWordle {
     showToast(message) {
         this.toast.textContent = ''; // Clear
         
-        // Handle icons if they are in the message (simple check)
-        if (message.includes('<i class="ti')) {
+        // Handle icons if they are in the message
+        if (message.includes('<iconify-icon') || message.includes('<i class="ti')) {
             const tempDiv = document.createElement('div');
             tempDiv.innerHTML = message;
             
@@ -569,9 +569,20 @@ class PidginWordle {
                 const termEl = document.getElementById('word-term');
                 const meaningEl = document.getElementById('word-meaning');
                 const pronEl = document.getElementById('word-pronunciation');
+                const audioBtn = document.getElementById('word-audio-btn');
                 if (termEl) termEl.textContent = this.dailyWord;
                 if (meaningEl) meaningEl.textContent = (this.wordData && this.wordData.meaning) ? this.wordData.meaning : 'Hawaiian Pidgin daily vocabulary word.';
                 if (pronEl) pronEl.textContent = (this.wordData && this.wordData.pronunciation) ? `[${this.wordData.pronunciation}]` : '';
+                if (audioBtn) {
+                    audioBtn.onclick = () => {
+                        const spokenWord = this.dailyWord.toLowerCase();
+                        if (window.elevenLabsSpeech && typeof window.elevenLabsSpeech.speak === 'function') {
+                            window.elevenLabsSpeech.speak(spokenWord);
+                        } else if (window.pidginSpeech && typeof window.pidginSpeech.speak === 'function') {
+                            window.pidginSpeech.speak(spokenWord);
+                        }
+                    };
+                }
                 meaningSection.classList.remove('hidden');
             } else {
                 meaningSection.classList.add('hidden');

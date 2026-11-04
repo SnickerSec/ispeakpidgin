@@ -257,9 +257,10 @@ class PidginHangman {
 
         // Create slug for link
         const slug = this.currentWordData.pidgin.toLowerCase()
-            .replace(/['']/g, '')
-            .replace(/\s+/g, '-')
-            .replace(/[^a-z0-9-]/g, '');
+            .replace(/['ʻ`‘’]/g, '')
+            .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-|-$/g, '');
         if (resultLink) resultLink.href = `/word/${slug}.html`;
 
         if (resultCard) {

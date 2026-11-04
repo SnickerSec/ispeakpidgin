@@ -181,6 +181,30 @@ async function runTests() {
     assert.deepStrictEqual(diff.added, ['pau']);
     assert.deepStrictEqual(diff.removed, ['old_term']);
 
+    // Test 6: Client-side orthography (kahakō/ʻokina slug builders & Iconify hygiene)
+    console.log('6. Testing client-side kahakō/ʻokina slug builders & Iconify hygiene...');
+    const fs = require('fs');
+    const path = require('path');
+    const slugBuilderFiles = [
+        'src/components/dictionary/dictionary-page.js',
+        'src/components/shared/navigation.js',
+        'src/components/shared/word-of-day.js',
+        'src/components/shared/my-collection-page.js',
+        'src/components/shared/english-to-pidgin-page.js',
+        'src/components/phrases/phrases-page.js',
+        'src/components/pickup/pickup-lines-page.js',
+        'src/components/stories/stories-page.js',
+        'src/components/games/hangman/pidgin-hangman.js'
+    ];
+    for (const rel of slugBuilderFiles) {
+        const content = fs.readFileSync(path.join(__dirname, '../..', rel), 'utf8');
+        assert.ok(content.includes("normalize('NFD')"), `${rel} must normalize('NFD') when building slugs so kahakō vowels are preserved as ASCII letters`);
+        assert.ok(!content.includes('<i class="ti '), `${rel} must not contain legacy Tabler <i class="ti "> tags`);
+    }
+
+    const wordleJs = fs.readFileSync(path.join(__dirname, '../../src/components/games/wordle/pidgin-wordle.js'), 'utf8');
+    assert.ok(wordleJs.includes("message.includes('<iconify-icon')"), 'pidgin-wordle.js showToast must support <iconify-icon> markup');
+
     console.log('\n✅ All Audio Cache Invalidation & Drift unit tests passed successfully!\n');
 }
 

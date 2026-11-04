@@ -38,7 +38,7 @@ async function main() {
             .sort(() => 0.5 - Math.random())
             .slice(0, 30)
             .map(e => ({
-                word: e.pidgin.toUpperCase().replace(/[^A-Z]/g, ''),
+                word: e.pidgin.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase().replace(/[^A-Z]/g, ''),
                 display: e.pidgin,
                 clue: Array.isArray(e.english) ? e.english[0] : e.english
             }))
