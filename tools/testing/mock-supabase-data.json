@@ -6090,6 +6090,234 @@
         "das how",
         "dat how stay"
       ]
+    },
+    {
+      "id": "6792256e-1d9b-4c5b-b890-dd47534eb363",
+      "pidgin": "aole pilikia",
+      "english": [
+        "no problem",
+        "you're welcome",
+        "no trouble"
+      ],
+      "category": "expressions",
+      "difficulty": "beginner",
+      "usage": "This phrase is a versatile response, similar to 'you're welcome' or 'no problem.' It's used to reassure someone that a task is not a burden or to dismiss a perceived inconvenience.",
+      "examples": [
+        "Mahalo! - A'ole pilikia.",
+        "Eh, I wen' aks fo' help, an' a'ole pilikia, da guy wen' do it right away!",
+        "You drop yo' phone? A'ole pilikia, I pick 'em up fo' you.",
+        "'A'ole pilikia brah",
+        "Mahalo for da help. 'A'ole pilikia!",
+        "You dropped your keys? 'A'ole pilikia, I got 'em."
+      ],
+      "pronunciation": "ah-OH-leh pee-lee-KEE-ah",
+      "origin": "From ʻŌlelo Hawaiʻi ʻaʻole pilikia. This Pidgin phrase directly translates to 'no problem' from Hawaiian. It reflects the laid-back, accommodating nature of Hawaiian culture."
+    },
+    {
+      "id": "308b3ed7-a5de-4fdf-8a30-37767804a8fc",
+      "pidgin": "blala",
+      "english": [
+        "large local man",
+        "tough local guy"
+      ],
+      "category": "people",
+      "difficulty": "intermediate",
+      "usage": "\"Blala\" is used to describe a physically imposing local male, often associated with a strong presence and familiarity within the community. It can imply a sense of respect or even a hint of caution, depending on the context and the speaker's relationship with the individual.",
+      "examples": [
+        "Couple blalas stay hanging out at da beach.",
+        "Eh, dat blala wen' try cut in line, brah.",
+        "Da blala down da street always get plenny kids."
+      ],
+      "pronunciation": "BLAH-lah",
+      "origin": "The term likely originated and evolved within the local communities of Hawai'i, reflecting the Pidgin English's tendency to create descriptive and colorful terms for people and things."
+    },
+    {
+      "id": "eceb20ad-85ed-44c8-8b24-79d9b5ca13af",
+      "pidgin": "habuteru",
+      "english": [
+        "pout",
+        "be in a bad mood",
+        "grumpy"
+      ],
+      "category": "emotions",
+      "difficulty": "intermediate",
+      "usage": "\"Habuteru\" is commonly used to describe someone who is sulking or in a bad mood, often without a clear reason. It can apply to both adults and children, but it sometimes implies a childish or petulant attitude.",
+      "examples": [
+        "Why you stay habuteru today?",
+        "Eh brah, why you so habuteru? Somting happen?",
+        "Da keiki stay habuteru cuz dey no get da candy."
+      ],
+      "pronunciation": "hah-boo-TEH-roo",
+      "origin": "The word \"habuteru\" comes from the Japanese word \"habuteru,\" meaning to sulk or pout. It was adopted into Pidgin English during the plantation era when many Japanese immigrants came to Hawaii."
+    },
+    {
+      "id": "lei_102",
+      "pidgin": "lei",
+      "english": [
+        "garland of flowers"
+      ],
+      "category": "cultural",
+      "difficulty": "beginner",
+      "usage": "A lei is a garland or wreath, typically made of flowers, leaves, or other natural materials. It's a symbol of affection, celebration, and welcome, and is often given as a gift or worn for special occasions.",
+      "examples": [
+        "Get beautiful lei",
+        "She wen' get one beautiful lei for graduation.",
+        "You goin' wear da lei to da lu'au, yeah?"
+      ],
+      "pronunciation": "LAY",
+      "origin": "Originating in ancient Hawaii, leis were originally made from plants and flowers and were used for adornment and as offerings to the gods. The practice of making and giving leis is deeply rooted in Hawaiian culture."
+    },
+    {
+      "id": "manong_6009",
+      "pidgin": "manong",
+      "english": [
+        "older Filipino man",
+        "older brother",
+        "respectful term for Filipino elder"
+      ],
+      "category": "people",
+      "difficulty": "intermediate",
+      "usage": "A term of respect used for an older Filipino man, similar to \"uncle\" or \"sir.\" It shows respect for elders.",
+      "examples": [
+        "Ask Manong if he need help",
+        "Yes, Manong, I like go there.",
+        "Manong, can you help me wit' dis?"
+      ],
+      "pronunciation": "mah-NONG",
+      "origin": "From the Tagalog language, reflecting the cultural value of respect for elders within the Filipino community."
+    },
+    {
+      "id": "moke_123",
+      "pidgin": "moke",
+      "english": [
+        "tough local guy",
+        "bully",
+        "tough guy"
+      ],
+      "category": "people",
+      "difficulty": "beginner",
+      "usage": "In Pidgin, \"moke\" refers to a local male, often perceived as rough, tough, or someone who might be involved in street culture. It can be used as a neutral descriptor, but often carries a connotation of being a bit of a troublemaker or someone not to be trifled with. The term's meaning can shift depending on the speaker's intent and the context.",
+      "examples": [
+        "He one moke",
+        "Da moke wen' try start fight, but I tell him, 'Brah, chill out!'",
+        "Eh, dat moke stay always lookin' for trouble, yeah?"
+      ],
+      "pronunciation": "MOHK",
+      "origin": "The exact origin of \"moke\" is debated, but it likely evolved from the word \"homo,\" which was used by early European settlers to describe Native Hawaiians. Over time, the term was adopted and adapted within local communities, taking on new meanings and associations."
+    },
+    {
+      "id": "pancit_377",
+      "pidgin": "pancit",
+      "english": [
+        "Filipino noodles"
+      ],
+      "category": "food",
+      "difficulty": "beginner",
+      "usage": "Pancit refers to various types of Filipino noodle dishes, often enjoyed at gatherings and potlucks. It's a staple food in the local Filipino community and a popular dish among all ethnicities in Hawai'i.",
+      "examples": [
+        "Make pancit",
+        "Eh, you like go eat pancit and lumpia tonight?",
+        "My tita make da best pancit, gotta get some!"
+      ],
+      "pronunciation": "pahn-SIT",
+      "origin": "Pancit originates from the Philippines, where it has a long history and is a common part of Filipino cuisine. The dish was brought to Hawai'i by Filipino immigrants."
+    },
+    {
+      "id": "pilikia_146",
+      "pidgin": "pilikia",
+      "english": [
+        "trouble",
+        "problem"
+      ],
+      "category": "expressions",
+      "difficulty": "beginner",
+      "usage": "This word means 'trouble' or 'problem.' It's used to describe a difficulty or issue.",
+      "examples": [
+        "Get pilikia",
+        "I get pilikia wit' my car.",
+        "No make pilikia, okay?"
+      ],
+      "pronunciation": "pee-lee-KEE-ah",
+      "origin": "From the Hawaiian language, meaning 'trouble' or 'problem'."
+    },
+    {
+      "id": "pono_150",
+      "pidgin": "pono",
+      "english": [
+        "righteous",
+        "proper"
+      ],
+      "category": "concepts",
+      "difficulty": "beginner",
+      "usage": "Means \"righteous\" or \"proper.\" It is used to describe something that is morally correct or in accordance with Hawaiian values. It's a term that reflects a sense of integrity and doing what is right.",
+      "examples": [
+        "Stay pono",
+        "You gotta do da pono ting, yeah?",
+        "Stay pono, stay true to yourself."
+      ],
+      "pronunciation": "POH-noh",
+      "origin": "A Hawaiian word that embodies the values of righteousness and balance."
+    },
+    {
+      "id": "rubbah_slippahs_155",
+      "pidgin": "rubbah slippahs",
+      "english": [
+        "flip flops",
+        "sandals",
+        "flip-flops"
+      ],
+      "category": "expressions",
+      "difficulty": "intermediate",
+      "usage": "Refers to flip-flops or sandals. It is the standard footwear in Hawaii. It is a comfortable and practical choice for the climate.",
+      "examples": [
+        "Wea my rubbah slippahs?",
+        "I wen' wear my rubbah slippahs to da beach.",
+        "Rubbah slippahs, da bes' footwear, yeah?",
+        "rubbah slippah stay flip-flops",
+        "Eh brah, goin' beach wit' my rubbah slippah.",
+        "I wen' broke my rubbah slippah, gotta go buy new one."
+      ],
+      "pronunciation": "RUB-bah-SLIP-pahz",
+      "origin": "A Pidgin term, derived from the materials used to make the footwear."
+    },
+    {
+      "id": "ui_048",
+      "pidgin": "uʻi",
+      "english": [
+        "beautiful",
+        "handsome",
+        "pretty",
+        "pretty girl",
+        "good-looking",
+        "attractive"
+      ],
+      "category": "descriptions",
+      "difficulty": "beginner",
+      "usage": "Used across Hawaii to compliment someone as beautiful, pretty, or handsome (often heard as \"wahine uʻi\" for a pretty girl).",
+      "examples": [
+        "Ho, dat wahine stay real uʻi!",
+        "Look how uʻi you look all dress up fo' da lūʻau."
+      ],
+      "pronunciation": "OO-ee",
+      "origin": "Hawaiian uʻi (youthful, handsome, pretty, beautiful)."
+    },
+    {
+      "id": "029f0e33-84d2-448d-8189-bb6c2967c7a2",
+      "pidgin": "wahine toa",
+      "english": [
+        "strong woman",
+        "female warrior",
+        "fierce brave woman"
+      ],
+      "category": "general",
+      "difficulty": "intermediate",
+      "usage": "A powerful, brave, capable woman who demonstrates strength, resilience, and leadership.",
+      "examples": [
+        "She paddle through da rough surf like one true wahine toa.",
+        "Aunty is one wahine toa, she handle everything."
+      ],
+      "pronunciation": "wah-HEE-nay TOH-ah",
+      "origin": "Hawaiian and Polynesian (toa = warrior / champion)"
     }
   ],
   "phrases": [

@@ -217,6 +217,24 @@ async function main() {
         }
     }
 
+    // 5. Split-authority guard: if a live entry lists a spelling_variant that redirects to a
+    //    curated what-does-*-mean page, the entry's own headword slug must also redirect to a
+    //    what-does-*-mean page (prevents /word/hammajang.html competing with /what-does-hamajang-mean.html).
+    for (const e of entries) {
+        if (removedIds.has(e.id)) continue;
+        const headSlug = slugOf.get(e.id);
+        if (redirects[headSlug] && redirects[headSlug].startsWith('what-does-')) continue;
+        for (const v of (e.spelling_variants || [])) {
+            const vSlug = createSlug(v);
+            if (vSlug && redirects[vSlug] && redirects[vSlug].startsWith('what-does-')) {
+                problems.push(
+                    `Split authority on "${e.pidgin}" (/word/${headSlug}.html): variant "${v}" redirects to /${redirects[vSlug]}.html, ` +
+                    `so add '${headSlug}': '${redirects[vSlug]}' to services/word-redirects.js`
+                );
+            }
+        }
+    }
+
     console.log(`Dictionary: ${entries.length} entries${sql ? `, ${removedEntries.length} removed or renamed by ${path.basename(migrationPath)}` : ''}`);
     console.log(`Hard-coded /word/ links: ${links.length} in ${SCAN_DIRS.join(', ')}`);
     console.log(`Redirect lines: ${Object.keys(redirects).length}\n`);

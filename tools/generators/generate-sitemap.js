@@ -81,6 +81,12 @@ const HIGH_VALUE_LANDING = new Map([
     ['/what-does-kimochi-mean.html',        { changefreq: 'weekly',  priority: 0.9 }],
     ['/what-does-kefe-mean.html',           { changefreq: 'weekly',  priority: 0.9 }],
     ['/what-does-kapakahi-mean.html',       { changefreq: 'weekly',  priority: 0.9 }],
+    ['/what-does-salamat-mean.html',        { changefreq: 'weekly',  priority: 0.9 }],
+    ['/what-does-kahuna-mean.html',         { changefreq: 'weekly',  priority: 0.9 }],
+    ['/what-does-huhu-mean.html',           { changefreq: 'weekly',  priority: 0.9 }],
+    ['/what-does-nani-mean.html',           { changefreq: 'weekly',  priority: 0.9 }],
+    ['/what-does-e-komo-mai-mean.html',     { changefreq: 'weekly',  priority: 0.9 }],
+    ['/what-does-tita-mean.html',           { changefreq: 'weekly',  priority: 0.9 }],
     ['/what-does-aloha-mean.html',          { changefreq: 'monthly', priority: 0.9 }],
     ['/what-does-ohana-mean.html',          { changefreq: 'monthly', priority: 0.9 }],
 ]);

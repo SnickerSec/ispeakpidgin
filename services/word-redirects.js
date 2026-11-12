@@ -31,6 +31,7 @@ const spellingRedirects = {
     'niele': 'what-does-niele-mean',
     'grindz': 'what-does-grindz-mean',
     'pau': 'what-does-pau-mean',
+    'pau-2': 'what-does-pau-mean',
     'pau-hana': 'what-does-pau-hana-mean',
     'da-kine': 'what-does-da-kine-mean',
     'shaka': 'what-does-shaka-mean',
@@ -133,7 +134,7 @@ const spellingRedirects = {
     'high-makamaka': 'high-maka-maka',
     // Merged in migration 026 (same word spelled with and without a space or hyphen)
     'i-mua': 'what-does-imua-mean',
-    'raja-dat': 'rajah-dat',
+    'raja-dat': 'what-does-rajah-mean',
     'ma-ke': 'make',
     'aiyah': 'ai-yah',
     'wikiwiki': 'wiki-wiki',
@@ -182,7 +183,7 @@ const spellingRedirects = {
     // Merged in migration 043
     'garot': 'garut',
     // Merged in migration 044
-    'hihu': 'huhu',
+    'hihu': 'what-does-huhu-mean',
     // Merged in migration 045
     'punnami': 'punani',
     // Spelling variants for da-haps
@@ -240,7 +241,50 @@ const spellingRedirects = {
     'fat': 'momona',
     'dead': 'make',
     'lets-go': 'we-go',
-    'the': 'da'
+    'the': 'da',
+    // Split-authority headword fixes & curated landing pages (migration 051)
+    'hammajang': 'what-does-hamajang-mean',
+    'hamachang': 'what-does-hamajang-mean',
+    'braddah': 'what-does-bruddah-mean',
+    'brodda': 'what-does-bruddah-mean',
+    'rajah-dat': 'what-does-rajah-mean',
+    'raja': 'what-does-rajah-mean',
+    'salamat': 'what-does-salamat-mean',
+    'kahuna': 'what-does-kahuna-mean',
+    'cahunas': 'what-does-kahuna-mean',
+    'kahoonas': 'what-does-kahuna-mean',
+    'kahonas': 'what-does-kahuna-mean',
+    'cahuna': 'what-does-kahuna-mean',
+    'kahoona': 'what-does-kahuna-mean',
+    'kahona': 'what-does-kahuna-mean',
+    'kahunas': 'what-does-kahuna-mean',
+    'huhu': 'what-does-huhu-mean',
+    'hu-hu': 'what-does-huhu-mean',
+    'nani': 'what-does-nani-mean',
+    'e-komo-mai': 'what-does-e-komo-mai-mean',
+    'komo-mai': 'what-does-e-komo-mai-mean',
+    'aloha-e-komo-mai': 'what-does-e-komo-mai-mean',
+    'tita': 'what-does-tita-mean',
+    'titah': 'what-does-tita-mean',
+    'howlie': 'what-does-haole-mean',
+    'a-hou-hoi': 'what-does-a-hui-hou-mean',
+    'sista': 'what-does-sistah-mean',
+    'sosta': 'what-does-sistah-mean',
+    // Search Console & search_gaps phonetic spelling aliases (migration 051)
+    'hoola': 'hula',
+    'houla': 'hula',
+    'huala': 'hula',
+    'couso': 'cuzzo',
+    'cuzo': 'cuzzo',
+    'fakamolemole': 'faamolemole',
+    'acking': 'ack',
+    'aking': 'ack',
+    'sup': 'wassup',
+    'sahp': 'wassup',
+    'sap': 'wassup',
+    'whassup': 'wassup',
+    'bvd': 'bvds',
+    'ufas': 'ufa'
 };
 
 module.exports = spellingRedirects;
