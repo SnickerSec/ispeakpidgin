@@ -1,5 +1,40 @@
 {
   "worktree": {
-    "setup": ["bash scripts/worktree_setup.sh"]
+    "setup": ["bash scripts/worktree_setup.sh"],
+    "servicePorts": {
+      "range": "3200-3299"
+    }
+  },
+  "scripts": {
+    "web": {
+      "type": "service",
+      "command": "PORT=\"${PASEO_PORT:-8080}\" railway run -p 3ef8ad40-f6d4-4db3-a037-7a759c2193ac -e production -s ispeakpidgin -- node server.js"
+    },
+    "test": {
+      "command": "npm test"
+    },
+    "runtime-deps": {
+      "command": "npm run test:runtime-deps"
+    },
+    "build": {
+      "command": "npm run build"
+    },
+    "audit": {
+      "command": "node .claude/skills/pidgin-review-advisor/scripts/audit-pidgin-app.js"
+    },
+    "phonetic-drift": {
+      "command": "npm run audio:drift"
+    }
+  },
+  "metadataGeneration": {
+    "branchName": {
+      "instructions": "Use lowercase kebab-case prefixed by change type: fix/<slug>, feat/<slug>, perf/<slug>, docs/<slug>, or chore/<slug>."
+    },
+    "commitMessage": {
+      "instructions": "Use Conventional Commits (fix/feat/perf/docs/chore/ci, optional scope like feat(seo):, fix(audio):, or fix(games):) with a concise imperative subject explaining what changed and why."
+    },
+    "pullRequest": {
+      "instructions": "Summarize root cause and fix concisely, list verification commands run (npm test, npm run test:runtime-deps, npm run build, audit-pidgin-app.js), respect the Kimo-only voice rule (f0ODjLMfcJmlKfs7dFCW) and /sw.js cache headers, and include Verify-After: <delay> | <check> when post-deploy live verification is needed."
+    }
   }
 }
