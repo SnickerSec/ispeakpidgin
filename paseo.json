@@ -8,7 +8,7 @@
   "scripts": {
     "web": {
       "type": "service",
-      "command": "PORT=\"${PASEO_PORT:-8080}\" railway run -p 3ef8ad40-f6d4-4db3-a037-7a759c2193ac -e production -s ispeakpidgin -- node server.js"
+      "command": "railway run -p 3ef8ad40-f6d4-4db3-a037-7a759c2193ac -e production -s ispeakpidgin -- sh -c '[ -f public/index.html ] || npm run build; export PORT=\"${PASEO_PORT:-8080}\"; exec node server.js'"
     },
     "test": {
       "command": "npm test"
@@ -17,7 +17,7 @@
       "command": "npm run test:runtime-deps"
     },
     "build": {
-      "command": "npm run build"
+      "command": "railway run -p 3ef8ad40-f6d4-4db3-a037-7a759c2193ac -e production -s ispeakpidgin -- npm run build"
     },
     "audit": {
       "command": "node .claude/skills/pidgin-review-advisor/scripts/audit-pidgin-app.js"
