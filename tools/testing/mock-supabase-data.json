@@ -6318,6 +6318,92 @@
       ],
       "pronunciation": "wah-HEE-nay TOH-ah",
       "origin": "Hawaiian and Polynesian (toa = warrior / champion)"
+    },
+    {
+      "id": "malama_113",
+      "pidgin": "malama",
+      "english": [
+        "to care for",
+        "protect"
+      ],
+      "category": "expressions",
+      "difficulty": "beginner",
+      "usage": "\"Malama\" is a core value in Hawaiian culture, encompassing care, respect, and responsibility. It extends beyond just physical protection, also including the spiritual and emotional well-being of people and places.",
+      "examples": [
+        "Malama da aina",
+        "Malama yoa braddah, he gettin' sick.",
+        "We gotta malama dis place, yeah?"
+      ],
+      "pronunciation": "mah-LAH-mah",
+      "origin": "Originating from the Hawaiian language, \"malama\" reflects the deep connection Hawaiians have with the land (aina), the people (kanaka), and the environment."
+    },
+    {
+      "id": "kuleana_097",
+      "pidgin": "kuleana",
+      "english": [
+        "responsibility"
+      ],
+      "category": "concepts",
+      "difficulty": "beginner",
+      "usage": "Kuleana signifies a person's rights, responsibilities, and privileges, often tied to a sense of duty or obligation. It's about fulfilling one's role within the family, community, or land. It emphasizes the importance of taking care of what is entrusted to you.",
+      "examples": [
+        "Your kuleana",
+        "Eh, gotta take care yo' kuleana, yeah?",
+        "My kuleana fo' help my fam'ly, you know?"
+      ],
+      "pronunciation": "koo-leh-AH-nah",
+      "origin": "Rooted in the Hawaiian concept of land ownership and social structure, kuleana reflects the interconnectedness of people and their responsibilities to each other and the 'aina (land)."
+    },
+    {
+      "id": "honu_417",
+      "pidgin": "honu",
+      "english": [
+        "sea turtle"
+      ],
+      "category": "animals",
+      "difficulty": "beginner",
+      "usage": "Refers to the Hawaiian green sea turtle, an important symbol in Hawaiian culture and a common sight in Hawaiian waters.",
+      "examples": [
+        "Swimming with da honu",
+        "We saw a honu swimmin' at da beach.",
+        "Da honu is a symbol of good luck, you know?"
+      ],
+      "pronunciation": "HOH-noo",
+      "origin": "The Hawaiian word for sea turtle, 'honu', is deeply connected to Hawaiian mythology, representing longevity, wisdom, and protection."
+    },
+    {
+      "id": "pueo_419",
+      "pidgin": "pueo",
+      "english": [
+        "Hawaiian owl"
+      ],
+      "category": "animals",
+      "difficulty": "beginner",
+      "usage": "Refers to the Hawaiian owl, a native species. It is a term that reflects the importance of nature and wildlife in Hawaiian culture. The pueo is often associated with wisdom and protection.",
+      "examples": [
+        "Da pueo hunting at night",
+        "I saw a pueo flyin' over da field.",
+        "Da pueo, dey stay sacred, yeah?"
+      ],
+      "pronunciation": "POO-eh-oh",
+      "origin": "A Hawaiian word."
+    },
+    {
+      "id": "lehua_619",
+      "pidgin": "lehua",
+      "english": [
+        "lehua - a type of blossom"
+      ],
+      "category": "nature",
+      "difficulty": "beginner",
+      "usage": "The lehua flower is a vibrant red blossom, deeply connected to Hawaiian legends and the goddess Pele. It's often used in lei making and represents beauty and resilience.",
+      "examples": [
+        "lehua stay lehua - a type of blossom",
+        "Da lehua blossoms on top da mountain, so pretty!",
+        "You like go pick lehua for make lei?"
+      ],
+      "pronunciation": "leh-HOO-ah",
+      "origin": "The lehua flower is native to Hawaii and is an integral part of Hawaiian flora and cultural practices."
     }
   ],
   "phrases": [

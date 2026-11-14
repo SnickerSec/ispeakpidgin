@@ -34,12 +34,12 @@ var curatedPhrases = {
         { pidgin: "Ono grindz", english: "Delicious food", pronunciation: "OH-noh GRINDS" },
         { pidgin: "Grindz", english: "Food / Meal", pronunciation: "GRINDS" },
         { pidgin: "Kaukau", english: "Food / To eat", pronunciation: "KOW-kow" },
-        { pidgin: "Grinds stay ono", english: "The food is delicious", pronunciation: "GRINDS stay OH-noh" },
-        { pidgin: "Choke ono", english: "Very delicious", pronunciation: "CHOKE OH-noh" },
-        { pidgin: "You like eat?", english: "Do you want to eat?", pronunciation: "you like EET" },
-        { pidgin: "Pupus", english: "Appetizers / Snacks", pronunciation: "POO-poos" },
-        { pidgin: "Get choke grindz", english: "There's lots of food", pronunciation: "get CHOKE GRINDS" },
-        { pidgin: "I stay hungry", english: "I'm hungry", pronunciation: "eye stay HUNG-ree" },
+        { pidgin: "Da grindz stay ono", english: "The food is delicious", pronunciation: "dah GRINDZ stay OH-noh" },
+        { pidgin: "Dis poke so ono, broke da mouth!", english: "This poke is so delicious!", pronunciation: "dis POH-keh soh OH-noh" },
+        { pidgin: "We go get some grinds!", english: "Let's go get some food!", pronunciation: "wee goh get sum GRINDZ" },
+        { pidgin: "Pupu", english: "Appetizers / Snacks", pronunciation: "POO-poo" },
+        { pidgin: "Get good grindz", english: "There's great food here", pronunciation: "get good GRINDZ" },
+        { pidgin: "Time fo kau kau", english: "Time to eat", pronunciation: "time foh KOW-kow" },
         { pidgin: "Mo' bettah", english: "Better / Much better", pronunciation: "moh BET-tah" }
     ],
     slang: [
@@ -139,7 +139,33 @@ function getPhraseUrl(pidgin) {
         'shoots': 'what-does-shoots-mean.html',
         'small kine': 'what-does-small-kine-mean.html',
         'stink eye': 'what-does-stink-eye-mean.html',
-        'wahine': 'what-does-wahine-mean.html'
+        'wahine': 'what-does-wahine-mean.html',
+        'mahalo nui loa': 'what-does-mahalo-nui-loa-mean.html',
+        'e komo mai': 'what-does-e-komo-mai-mean.html',
+        'rajah dat': 'what-does-rajah-mean.html',
+        'bumbai': 'what-does-bumbai-mean.html',
+        'tita': 'what-does-tita-mean.html',
+        'fosho': 'what-does-fosho-mean.html',
+        'kokua': 'what-does-kokua-mean.html',
+        'cuz': 'what-does-cuz-mean.html',
+        'cuzzo': 'what-does-cuzzo-mean.html',
+        'kimochi': 'what-does-kimochi-mean.html',
+        'kefe': 'what-does-kefe-mean.html',
+        'kapakahi': 'what-does-kapakahi-mean.html',
+        'shaka brah': 'what-does-shaka-brah-mean.html',
+        'imua': 'what-does-imua-mean.html',
+        'no need': 'what-does-no-need-mean.html',
+        'kala': 'what-does-kala-mean.html',
+        'unko': 'what-does-unko-mean.html',
+        'salamat': 'what-does-salamat-mean.html',
+        'kahuna': 'what-does-kahuna-mean.html',
+        'huhu': 'what-does-huhu-mean.html',
+        'nani': 'what-does-nani-mean.html',
+        'mele kalikimaka': 'what-does-mele-kalikimaka-mean.html',
+        'tante': 'what-does-tante-mean.html',
+        'nene': 'what-does-nene-mean.html',
+        'aina': 'what-does-aina-mean.html',
+        'pono': 'what-does-pono-mean.html'
     };
     
     if (premiumPages[clean]) {
@@ -150,15 +176,17 @@ function getPhraseUrl(pidgin) {
     
     // Curated terms that are registered as words (dictionary entries) instead of phrases
     var dictionaryWords = [
-        'a-hui-hou',
         'aole-pilikia',
-        'e-komo-mai',
-        'bumbai',
         'kaukau',
-        'pupus',
+        'pupu',
         'moke',
-        'tita',
-        'latahs'
+        'latahs',
+        'k-den',
+        'hana-hou',
+        'hele-on',
+        'no-can',
+        'like-beef',
+        'mo-bettah'
     ];
     
     if (dictionaryWords.indexOf(slug) !== -1) {
@@ -222,15 +250,36 @@ function setupFilters() {
     });
 }
 
-window.speakPhrase = function(text) {
+function speakPhrase(text) {
+    if (typeof pidginSpeech !== 'undefined' && pidginSpeech && typeof pidginSpeech.speak === 'function') {
+        pidginSpeech.speak(text).catch(function(err) {
+            console.error('Pidgin speech playback failed:', err);
+        });
+        return;
+    }
     if (typeof window !== 'undefined' && 'speechSynthesis' in window && window.SpeechSynthesisUtterance) {
         var utterance = new window.SpeechSynthesisUtterance(text);
         utterance.rate = 0.8;
         window.speechSynthesis.speak(utterance);
     }
-};
+}
 
-document.addEventListener('DOMContentLoaded', function() {
-    renderPhrases();
-    setupFilters();
-});
+if (typeof window !== 'undefined') {
+    window.speakPhrase = speakPhrase;
+}
+
+if (typeof document !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', function() {
+        renderPhrases();
+        setupFilters();
+    });
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        curatedPhrases: curatedPhrases,
+        createSlug: createSlug,
+        getPhraseUrl: getPhraseUrl,
+        speakPhrase: speakPhrase
+    };
+}

@@ -29,6 +29,7 @@ const fs = require('fs');
 const path = require('path');
 const { assignSlugs, createSlug, fetchFromSupabase, isOfflineMock, premiumPages } = require('../generators/shared-utils');
 const redirects = require('../../services/word-redirects');
+const { curatedPhrases, getPhraseUrl } = require('../../src/components/phrases/phrases-page');
 
 const ROOT = path.join(__dirname, '../..');
 const SCAN_DIRS = ['src/pages', 'src/components'];
@@ -235,8 +236,44 @@ async function main() {
         }
     }
 
+    // 6. JS-rendered phrase hub cards (src/components/phrases/phrases-page.js):
+    //    audit-site.js only parses static HTML, so broken or 301-redirected card URLs on /phrases.html
+    //    otherwise slip into production unseen.
+    const phrasesRows = await fetchFromSupabase('phrases', 'id,pidgin', 'id.asc');
+    const livePhraseSlugs = new Set(assignSlugs(phrasesRows).map(({ slug }) => slug));
+    let phraseCardCount = 0;
+    for (const [category, items] of Object.entries(curatedPhrases)) {
+        for (const item of items) {
+            phraseCardCount++;
+            const url = getPhraseUrl(item.pidgin);
+            const where = `src/components/phrases/phrases-page.js (${category}: "${item.pidgin}")`;
+            if (url.startsWith('/what-does-')) {
+                const relFile = url.replace(/^\//, '');
+                if (!fs.existsSync(path.join(ROOT, 'src/pages', relFile))) {
+                    problems.push(`${where} points to ${url}, which does not exist in src/pages/`);
+                }
+            } else if (url.startsWith('/word/')) {
+                const wSlug = url.replace(/^\/word\/|\.html$/g, '');
+                if (redirects[wSlug] && redirects[wSlug] !== wSlug) {
+                    const t = redirectTarget(redirects[wSlug], liveSlugs);
+                    problems.push(`${where} links ${url}, which redirects; route it to ${t.href} directly`);
+                } else if (!liveSlugs.has(wSlug)) {
+                    problems.push(`${where} links ${url}: no such word page in live dictionary_entries`);
+                }
+            } else if (url.startsWith('/phrase/')) {
+                const pSlug = url.replace(/^\/phrase\/|\.html$/g, '');
+                if (!livePhraseSlugs.has(pSlug)) {
+                    problems.push(`${where} links ${url}: no such phrase page in live phrases table`);
+                }
+            } else {
+                problems.push(`${where} produced unexpected URL format: ${url}`);
+            }
+        }
+    }
+
     console.log(`Dictionary: ${entries.length} entries${sql ? `, ${removedEntries.length} removed or renamed by ${path.basename(migrationPath)}` : ''}`);
     console.log(`Hard-coded /word/ links: ${links.length} in ${SCAN_DIRS.join(', ')}`);
+    console.log(`JS-rendered /phrases.html cards checked: ${phraseCardCount}`);
     console.log(`Redirect lines: ${Object.keys(redirects).length}\n`);
 
     if (problems.length) {

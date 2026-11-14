@@ -1179,12 +1179,27 @@ async function auditVocabulary(db) {
 async function auditDeploy() {
     progress('📦 Auditing Railway, Express hardening & Cloudflare edge...');
 
-    const core = ['railway.json', 'Dockerfile', 'server.js', 'build.js'];
-    const missing = missingOf(core);
+    const hasRailwayTs = exists('.railway/railway.ts');
+    const hasLegacyRailwayJson = exists('railway.json');
+    const core = ['Dockerfile', 'server.js', 'build.js'];
+    const missing = [
+        ...(!hasRailwayTs && !hasLegacyRailwayJson ? ['.railway/railway.ts'] : []),
+        ...missingOf(core)
+    ];
+    const legacyWarn = !missing.length && hasLegacyRailwayJson;
     record('deploy', {
-        id: 'deploy.files', title: 'Deployment configuration present', status: missing.length ? 'FAIL' : 'OK',
-        evidence: core.map(f => `${f}: ${exists(f) ? 'present' : 'MISSING'}`),
-        finding: missing.length ? `Missing: ${missing.join(', ')}` : null
+        id: 'deploy.files',
+        title: 'Deployment configuration present',
+        status: missing.length ? 'FAIL' : (legacyWarn ? 'WARN' : 'OK'),
+        evidence: [
+            `.railway/railway.ts: ${hasRailwayTs ? 'present' : 'MISSING'}`,
+            ...(hasLegacyRailwayJson ? ['railway.json: present (deprecated legacy Config as Code)'] : []),
+            ...core.map(f => `${f}: ${exists(f) ? 'present' : 'MISSING'}`)
+        ],
+        finding: missing.length
+            ? `Missing: ${missing.join(', ')}`
+            : (legacyWarn ? 'Deprecated railway.json is still present; Railway removes JSON Config-as-Code support on 2026-12-01 in favor of .railway/railway.ts.' : null),
+        fix: legacyWarn ? 'Run `railway config migrate status` to confirm no services read legacy Config as Code, then delete `railway.json`.' : null
     });
 
     const required = ['SUPABASE_URL', 'SUPABASE_ANON_KEY', 'ELEVENLABS_API_KEY', 'GEMINI_API_KEY'];

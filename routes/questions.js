@@ -73,9 +73,7 @@ ${vocabContext}`;
                 .insert({
                     question_id: questionId,
                     responder_name: 'Kimo (AI)',
-                    response_text: `${parsed.response}\n\n*English: ${parsed.translation}*`,
-                    is_ai: true,
-                    responder_avatar: '🏝️'
+                    response_text: `${parsed.response}\n\n*English: ${parsed.translation}*`
                 })
                 .select();
 

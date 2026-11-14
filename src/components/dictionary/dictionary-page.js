@@ -902,7 +902,7 @@ function debounce(func, wait) {
 
 // Enhanced text-to-speech functionality (reuse from main.js)
 function speakText(text, options = {}) {
-    if ('speechSynthesis' in window && typeof pidginSpeech !== 'undefined') {
+    if (typeof pidginSpeech !== 'undefined') {
         // Use the enhanced Pidgin speech synthesizer (handles all fallbacks internally)
         pidginSpeech.speak(text, options).catch(err => {
             console.error('All speech methods failed:', err);

@@ -173,7 +173,7 @@ const spellingRedirects = {
     'ldat': 'liddat',
     'cockroach': 'cockaroach',
     'zori': 'zoris',
-    'da-aina': 'aina',
+    'da-aina': 'what-does-aina-mean',
     'eh-chance-um': 'chance-um',
     // Merged in migration 041
     'dangah': 'danjah',
@@ -229,7 +229,7 @@ const spellingRedirects = {
     'cousin-cuz': 'what-does-cuz-mean',
     'my-cuz': 'what-does-cuz-mean',
     'cousin': 'what-does-cuz-mean',
-    'nene-goose': 'nene',
+    'nene-goose': 'what-does-nene-mean',
     'kokua-kokua': 'what-does-kokua-mean',
     'help': 'what-does-kokua-mean',
     'done': 'what-does-pau-mean',
@@ -274,8 +274,8 @@ const spellingRedirects = {
     'hoola': 'hula',
     'houla': 'hula',
     'huala': 'hula',
-    'couso': 'cuzzo',
-    'cuzo': 'cuzzo',
+    'couso': 'what-does-cuzzo-mean',
+    'cuzo': 'what-does-cuzzo-mean',
     'fakamolemole': 'faamolemole',
     'acking': 'ack',
     'aking': 'ack',
@@ -284,7 +284,16 @@ const spellingRedirects = {
     'sap': 'wassup',
     'whassup': 'wassup',
     'bvd': 'bvds',
-    'ufas': 'ufa'
+    'ufas': 'ufa',
+    // Curated hybrid landing pages: wave 2 (2026-11-13)
+    'mele-kalikimaka': 'what-does-mele-kalikimaka-mean',
+    'kalikimaka': 'what-does-mele-kalikimaka-mean',
+    'tante': 'what-does-tante-mean',
+    'nene': 'what-does-nene-mean',
+    'cuzzo': 'what-does-cuzzo-mean',
+    'aina': 'what-does-aina-mean',
+    'aina-spelling': 'what-does-aina-mean',
+    'pono': 'what-does-pono-mean'
 };
 
 module.exports = spellingRedirects;

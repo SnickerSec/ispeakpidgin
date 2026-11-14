@@ -50,6 +50,7 @@ function parseArgs(argv) {
     const args = argv.slice(2);
     const config = {
         audit: args.includes('--audit') || args.includes('--dry-run'),
+        highFrequencyOnly: args.includes('--high-frequency'),
         limit: 20,
         table: 'all',
         help: args.includes('--help') || args.includes('-h')
@@ -84,7 +85,21 @@ const hashOf = text => crypto.createHash('md5').update(text.trim().toLowerCase()
 /**
  * Fetch all rows from a table with pagination past 1000 rows.
  */
-async function fetchAllTableEntries(table) {
+async function fetchAllTableEntries(table, { highFrequencyOnly = false } = {}) {
+    if (table === 'dictionary_examples') {
+        const rows = await fetchAllRows(
+            supabase,
+            'dictionary_entries',
+            'id, frequency, audio_example, examples',
+            highFrequencyOnly ? { filter: q => q.eq('frequency', 'high') } : {}
+        );
+        return rows
+            .map(r => {
+                const ex = r.audio_example || (Array.isArray(r.examples) && r.examples[0]) || '';
+                return ex && String(ex).trim();
+            })
+            .filter(Boolean);
+    }
     const rows = await fetchAllRows(supabase, table, 'id, pidgin');
     return rows.map(r => r.pidgin && r.pidgin.trim()).filter(Boolean);
 }
@@ -206,12 +221,18 @@ async function main() {
     if (config.table === 'all' || config.table === 'pickup_components' || config.table === 'pickup_line_components') {
         tablesToFetch.push({ name: 'pickup_line_components', table: 'pickup_line_components' });
     }
+    if (config.table === 'dictionary_examples' || config.table === 'examples') {
+        tablesToFetch.push({
+            name: config.highFrequencyOnly ? 'dict_examples_high' : 'dict_examples',
+            table: 'dictionary_examples'
+        });
+    }
 
     const tableStats = [];
     const allMissingMap = new Map(); // term -> array of table names
 
     for (const t of tablesToFetch) {
-        const rawEntries = await fetchAllTableEntries(t.table);
+        const rawEntries = await fetchAllTableEntries(t.table, { highFrequencyOnly: config.highFrequencyOnly });
         const unique = Array.from(new Set(rawEntries.map(e => e.toLowerCase())));
         const covered = unique.filter(e => cached.has(hashOf(e)));
         const missing = unique.filter(e => !cached.has(hashOf(e)));

@@ -225,7 +225,14 @@ const EXPERIMENTS = [
     { name: 'huhu hybrid landing page + 301', live: '2026-11-12', page: '/what-does-huhu-mean.html', queries: ['huhu meaning', 'huhu hawaiian'] },
     { name: 'nani hybrid landing page + 301', live: '2026-11-12', page: '/what-does-nani-mean.html', queries: ['nani meaning hawaiian', 'what does nani mean in hawaiian'] },
     { name: 'e komo mai hybrid landing page + 301', live: '2026-11-12', page: '/what-does-e-komo-mai-mean.html', queries: ['e komo mai', 'e komo mai meaning', 'what does e komo mai mean'] },
-    { name: 'tita hybrid landing page + 301', live: '2026-11-12', page: '/what-does-tita-mean.html', queries: ['tita hawaii', 'tita meaning hawaii', 'what is a tita in hawaii'] }
+    { name: 'tita hybrid landing page + 301', live: '2026-11-12', page: '/what-does-tita-mean.html', queries: ['tita hawaii', 'tita meaning hawaii', 'what is a tita in hawaii'] },
+    // Next 6 high-impression /word/ pages upgraded to dedicated hybrid landing pages (2026-11-14)
+    { name: 'mele kalikimaka hybrid landing page + 301', live: '2026-11-14', page: '/what-does-mele-kalikimaka-mean.html', queries: ['mele kalikimaka', 'mele kalikimaka meaning', 'what does mele kalikimaka mean', 'merry christmas in hawaiian'] },
+    { name: 'tante hybrid landing page + 301', live: '2026-11-14', page: '/what-does-tante-mean.html', queries: ['tante', 'tante meaning', 'what does tante mean'] },
+    { name: 'nene hybrid landing page + 301', live: '2026-11-14', page: '/what-does-nene-mean.html', queries: ['nene', 'nene meaning', 'nene hawaiian goose', 'what does nene mean'] },
+    { name: 'cuzzo hybrid landing page + 301', live: '2026-11-14', page: '/what-does-cuzzo-mean.html', queries: ['cuzzo', 'cuzzo meaning', 'what does cuzzo mean'] },
+    { name: 'aina hybrid landing page + 301', live: '2026-11-14', page: '/what-does-aina-mean.html', queries: ['aina', 'aina meaning', 'what does aina mean', 'malama aina meaning'] },
+    { name: 'pono hybrid landing page + 301', live: '2026-11-14', page: '/what-does-pono-mean.html', queries: ['pono', 'pono meaning', 'what does pono mean', 'live pono'] }
 ];
 
 const isoDay = d => d.toISOString().slice(0, 10);

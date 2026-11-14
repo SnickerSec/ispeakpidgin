@@ -108,6 +108,11 @@ const testSuites = [
         requiredEnv: false
     },
     {
+        name: 'Daily Games, Phrase Cache & Speech',
+        script: 'test-games-and-phrases.js',
+        requiredEnv: false
+    },
+    {
         name: 'Live Translator (Supabase data)',
         script: 'test-translator-live.js',
         requiredEnv: true

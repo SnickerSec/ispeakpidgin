@@ -1,11 +1,12 @@
 const express = require('express');
-const router = express.Router();
 const { query, validationResult } = require('express-validator');
+const { fetchAllRows } = require('../services/fetch-all-rows');
 
 /**
  * Content Routes (Phrases, Stories, Lessons)
  */
 module.exports = function(supabase, dictionaryLimiter) {
+    const router = express.Router();
 
     // Helper to handle validation errors
     const validate = (req, res, next) => {
@@ -29,47 +30,33 @@ module.exports = function(supabase, dictionaryLimiter) {
     router.get('/phrases', dictionaryLimiter, async (req, res) => {
         try {
             const { page = 1, limit = 50, category, difficulty } = req.query;
-            const requestedLimit = Math.min(parseInt(limit), 1000);
-            const offset = (parseInt(page) - 1) * requestedLimit;
+            const requestedPage = Math.max(1, parseInt(page, 10) || 1);
+            const requestedLimit = Math.min(Math.max(1, parseInt(limit, 10) || 50), 2000);
+            const offset = (requestedPage - 1) * requestedLimit;
 
             const now = Date.now();
-            if (!category && !difficulty && requestedLimit >= 100 && offset === 0) {
-                if (phrasesCache.data && (now - phrasesCache.timestamp) < phrasesCache.ttl) {
-                    const cachedPhrases = phrasesCache.data.slice(0, requestedLimit);
-                    res.set('X-Cache', 'HIT');
-                    return res.json({
-                        phrases: cachedPhrases,
-                        pagination: {
-                            page: 1,
-                            limit: requestedLimit,
-                            total: phrasesCache.data.length,
-                            totalPages: Math.ceil(phrasesCache.data.length / requestedLimit)
-                        }
-                    });
-                }
-            }
-
-            let query = supabase.from('phrases').select('*', { count: 'exact' });
-            if (category) query = query.eq('category', category);
-            if (difficulty) query = query.eq('difficulty', difficulty);
-            query = query.range(offset, offset + requestedLimit - 1);
-
-            const { data, error, count } = await query;
-            if (error) return res.status(500).json({ error: 'Database query failed' });
-
-            if (!category && !difficulty && requestedLimit >= 100 && offset === 0) {
-                phrasesCache.data = data;
+            let cacheHit = true;
+            if (!phrasesCache.data || (now - phrasesCache.timestamp) >= phrasesCache.ttl) {
+                cacheHit = false;
+                phrasesCache.data = await fetchAllRows(supabase, 'phrases', '*', { orderBy: 'id' });
                 phrasesCache.timestamp = now;
             }
 
-            res.set('X-Cache', 'MISS');
+            let filtered = phrasesCache.data;
+            if (category) filtered = filtered.filter(p => p.category === category);
+            if (difficulty) filtered = filtered.filter(p => p.difficulty === difficulty);
+
+            const total = filtered.length;
+            const sliced = filtered.slice(offset, offset + requestedLimit);
+
+            res.set('X-Cache', cacheHit ? 'HIT' : 'MISS');
             res.json({
-                phrases: data,
+                phrases: sliced,
                 pagination: {
-                    page: parseInt(page),
+                    page: requestedPage,
                     limit: requestedLimit,
-                    total: count,
-                    totalPages: Math.ceil(count / requestedLimit)
+                    total,
+                    totalPages: Math.ceil(total / requestedLimit)
                 }
             });
         } catch (error) {

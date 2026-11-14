@@ -12,7 +12,7 @@ How Supabase, ElevenLabs, Gemini, GitHub Actions, Railway and Cloudflare fit tog
 ## 1. Supabase
 
 All content lives in Supabase Postgres + Storage. There are no local JSON content files (config
-like `railway.json` is the only exception, and `tools/data/curated-missing-terms.json` is a
+like `package.json` is the only exception, and `tools/data/curated-missing-terms.json` is a
 staging file for terms awaiting ingestion, not a content source).
 
 ### Tables
@@ -130,7 +130,7 @@ Check whether it is set before describing CI as protective.
 ## 5. Railway, Express & the Cloudflare edge
 
 ### Origin
-- `railway.json` (Dockerfile builder), `Dockerfile` on `node:20-alpine`, port 3000.
+- `.railway/railway.ts` (Railway IaC, Dockerfile builder), `Dockerfile` on `node:20-slim`, port 3000.
 - `server.js`: Helmet CSP — `mediaSrc` must include `blob:` and the Supabase origin or audio
   playback breaks; `app.set('trust proxy', 2)` so rate limiting keys on the real client IP;
   static `setHeaders` sets `no-cache, no-store, must-revalidate, max-age=0` on `sw.js`.

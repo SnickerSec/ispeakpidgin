@@ -1,19 +1,52 @@
 const express = require('express');
-const router = express.Router();
 const userAuth = require('../middleware/user-auth');
 
 /**
  * Game Routes (Wordle, Crossword, Quiz)
  */
 module.exports = function(supabase, dictionaryLimiter, gamificationService) {
+    const router = express.Router();
 
     // ============================================
     // WORDLE API
     // ============================================
 
+    // Deterministic day index and fixed-seed permutation so every player on the same
+    // Pacific/Honolulu calendar date gets the exact same Daily Wordle (no repeats across
+    // the full solution cycle), even when `used_on` is not written back to Supabase.
+    function honoluluDateString(now = new Date()) {
+        return now.toLocaleDateString('en-CA', { timeZone: 'Pacific/Honolulu' });
+    }
+
+    function daysSinceEpoch(isoDate) {
+        const [y, m, d] = isoDate.split('-').map(Number);
+        return Math.floor(Date.UTC(y, m - 1, d) / 86400000);
+    }
+
+    function dayOfYearFromIso(isoDate) {
+        const [y, m, d] = isoDate.split('-').map(Number);
+        return Math.floor((Date.UTC(y, m - 1, d) - Date.UTC(y, 0, 0)) / 86400000);
+    }
+
+    function seededPermutation(items, seed = 0x50494447) {
+        const arr = [...items].sort((a, b) => String(a.word || '').localeCompare(String(b.word || '')));
+        let s = seed >>> 0;
+        const rand = () => {
+            s = (s + 0x6D2B79F5) >>> 0;
+            let t = Math.imul(s ^ (s >>> 15), 1 | s);
+            t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(rand() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
     router.get('/wordle/daily', dictionaryLimiter, async (req, res) => {
         try {
-            const today = new Date().toLocaleDateString('en-CA', { timeZone: 'Pacific/Honolulu' });
+            const today = honoluluDateString();
             const { data: usedWord, error: usedError } = await supabase.from('wordle_words').select('*').eq('used_on', today).single();
 
             if (usedWord && !usedError) {
@@ -28,13 +61,18 @@ module.exports = function(supabase, dictionaryLimiter, gamificationService) {
 
             const { data: availableWords, error } = await supabase.from('wordle_words').select('*').eq('is_solution', true).is('used_on', null);
             if (error || !availableWords || availableWords.length === 0) {
-                const { data: anyWord } = await supabase.from('wordle_words').select('*').eq('is_solution', true).limit(1).single();
-                if (anyWord) return res.json({ word: anyWord.word, meaning: anyWord.meaning, pronunciation: anyWord.pronunciation, difficulty: anyWord.difficulty, date: today, recycled: true });
+                const { data: allSolutions } = await supabase.from('wordle_words').select('*').eq('is_solution', true);
+                if (allSolutions && allSolutions.length > 0) {
+                    const ordered = seededPermutation(allSolutions);
+                    const picked = ordered[((daysSinceEpoch(today) % ordered.length) + ordered.length) % ordered.length];
+                    return res.json({ word: picked.word, meaning: picked.meaning, pronunciation: picked.pronunciation, difficulty: picked.difficulty, date: today, recycled: true });
+                }
                 return res.status(500).json({ error: 'No wordle words available' });
             }
 
-            const randomWord = availableWords[Math.floor(Math.random() * availableWords.length)];
-            res.json({ word: randomWord.word, meaning: randomWord.meaning, pronunciation: randomWord.pronunciation, difficulty: randomWord.difficulty, date: today });
+            const ordered = seededPermutation(availableWords);
+            const dailyWord = ordered[((daysSinceEpoch(today) % ordered.length) + ordered.length) % ordered.length];
+            res.json({ word: dailyWord.word, meaning: dailyWord.meaning, pronunciation: dailyWord.pronunciation, difficulty: dailyWord.difficulty, date: today });
         } catch (error) {
             console.error('Wordle daily API error:', error);
             res.status(500).json({ error: 'Internal server error' });
@@ -165,7 +203,7 @@ module.exports = function(supabase, dictionaryLimiter, gamificationService) {
 
     router.get('/crossword/daily', dictionaryLimiter, async (req, res) => {
         try {
-            const today = new Date().toLocaleDateString('en-CA', { timeZone: 'Pacific/Honolulu' });
+            const today = honoluluDateString();
             const { data: todayPuzzle, error: todayError } = await supabase.from('crossword_puzzles').select('*').eq('used_on', today).single();
 
             if (todayPuzzle && !todayError) return res.json(todayPuzzle);
@@ -173,9 +211,7 @@ module.exports = function(supabase, dictionaryLimiter, gamificationService) {
             const { data: allPuzzles, error } = await supabase.from('crossword_puzzles').select('*').order('puzzle_id', { ascending: true });
             if (error || !allPuzzles || allPuzzles.length === 0) return res.status(500).json({ error: 'No crossword puzzles available' });
 
-            const startOfYear = new Date(new Date().getFullYear(), 0, 0);
-            const diff = new Date() - startOfYear;
-            const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const dayOfYear = dayOfYearFromIso(today);
             const puzzleIndex = dayOfYear % allPuzzles.length;
 
             res.json({ ...allPuzzles[puzzleIndex], date: today });

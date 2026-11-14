@@ -136,7 +136,7 @@ This project supports **two server environments**:
 ### Data Architecture (Supabase)
 **All data is stored in Supabase** - no local JSON data files.
 
-**IMPORTANT: Never create local JSON data files.** All content data must go directly into Supabase. Config files (like `railway.json`) are the only exception.
+**IMPORTANT: Never create local JSON data files.** All content data must go directly into Supabase. Config files (like `package.json`) are the only exception.
 
 #### Supabase Tables
 | Table | Description |
