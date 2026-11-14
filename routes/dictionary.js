@@ -1,5 +1,4 @@
 const express = require('express');
-const router = express.Router();
 const { query, param, body, validationResult } = require('express-validator');
 const { searchEntries } = require('../services/dictionary-search');
 const { embedTexts } = require('../services/gemini');
@@ -9,12 +8,30 @@ const { embedTexts } = require('../services/gemini');
 const SEMANTIC_MATCH_THRESHOLD = 0.63;
 const SEMANTIC_MAX_RESULTS = 5;
 
+const TRAILING_FRAGMENT_WORDS = new Set(['a', 'an', 'the', 'my', 'your', 'our', 'his', 'her', 'to', 'of', 'in', 'for', 'and', 'or']);
+
+function isLoggableSearchGap(rawTerm) {
+    const cleaned = String(rawTerm || '').trim().toLowerCase();
+    if (cleaned.length < 2 || cleaned.length > 60) return false;
+    // Reject pure numbers or strings with digits (e.g. "544", "123")
+    if (/\d/.test(cleaned)) return false;
+    // Require at least 2 letters (including Hawaiian diacritics)
+    const lettersOnly = cleaned.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z]/g, '');
+    if (lettersOnly.length < 2) return false;
+    // Reject long multi-word sentences (> 4 words) or unfinished sentence fragments ("i need my")
+    const words = cleaned.split(/\s+/).filter(Boolean);
+    if (words.length > 4) return false;
+    if (words.length >= 2 && TRAILING_FRAGMENT_WORDS.has(words[words.length - 1])) return false;
+    return true;
+}
+
 /**
  * Dictionary Routes
  * @param {object} supabase - Supabase client
  * @param {object} dictionaryLimiter - Rate limiter for dictionary endpoints
  */
 module.exports = function(supabase, dictionaryLimiter, dictionaryCache, semanticSearchLimiter) {
+    const router = express.Router();
 
     // Helper to handle validation errors
     const validate = (req, res, next) => {
@@ -289,7 +306,7 @@ module.exports = function(supabase, dictionaryLimiter, dictionaryCache, semantic
             }
 
             // SEO Content Gap Logging: If no results, log this term to help grow the dictionary
-            if (finalResults.length === 0 && searchTerm.length >= 3) {
+            if (finalResults.length === 0 && searchTerm.length >= 3 && isLoggableSearchGap(searchTerm)) {
                 try {
                     // Try to increment count if already exists, or insert new
                     const { data: existing } = await supabase
@@ -339,6 +356,10 @@ module.exports = function(supabase, dictionaryLimiter, dictionaryCache, semantic
 
             if (searchTerm.length < 2) {
                 return res.status(400).json({ error: 'Search term too short' });
+            }
+
+            if (!isLoggableSearchGap(searchTerm)) {
+                return res.json({ status: 'ignored', reason: 'noise_filtered' });
             }
 
             // If a search for it finds an entry (tutu → tūtū), it is not a gap

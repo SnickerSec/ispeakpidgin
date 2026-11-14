@@ -120,6 +120,67 @@ module.exports = function(supabase, dictionaryLimiter) {
     // ============================================
 
     const lessonsCache = { data: null, timestamp: 0, ttl: 300000 };
+    const pronLookupCache = { map: null, timestamp: 0, ttl: 300000 };
+
+    function normalizeLessonTerm(str) {
+        return String(str || '')
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+    }
+
+    async function getPronunciationLookup() {
+        const now = Date.now();
+        if (pronLookupCache.map && (now - pronLookupCache.timestamp) < pronLookupCache.ttl) {
+            return pronLookupCache.map;
+        }
+        try {
+            const entries = await fetchAllRows(
+                supabase,
+                'dictionary_entries',
+                'pidgin, pronunciation, spelling_variants',
+                { filter: q => q.not('pronunciation', 'is', null) }
+            );
+            const map = new Map();
+            for (const e of entries) {
+                if (!e.pronunciation) continue;
+                const exact = String(e.pidgin || '').trim().toLowerCase();
+                const norm = normalizeLessonTerm(e.pidgin);
+                if (exact && !map.has(exact)) map.set(exact, e.pronunciation);
+                if (norm && !map.has(norm)) map.set(norm, e.pronunciation);
+                for (const v of e.spelling_variants || []) {
+                    const vExact = String(v || '').trim().toLowerCase();
+                    const vNorm = normalizeLessonTerm(v);
+                    if (vExact && !map.has(vExact)) map.set(vExact, e.pronunciation);
+                    if (vNorm && !map.has(vNorm)) map.set(vNorm, e.pronunciation);
+                }
+            }
+            pronLookupCache.map = map;
+            pronLookupCache.timestamp = now;
+            return map;
+        } catch (err) {
+            return pronLookupCache.map || new Map();
+        }
+    }
+
+    function mapLessonVocabulary(vocabList, pronMap) {
+        return (vocabList || [])
+            .sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0))
+            .map(v => {
+                const exact = String(v.pidgin || '').trim().toLowerCase();
+                const norm = normalizeLessonTerm(v.pidgin);
+                const pronunciation = pronMap.get(exact) || pronMap.get(norm) || null;
+                return {
+                    pidgin: v.pidgin,
+                    english: v.english,
+                    example: v.example,
+                    pronunciation
+                };
+            });
+    }
 
     router.get('/lessons', dictionaryLimiter, [
         query('level').optional().isIn(['beginner', 'intermediate', 'advanced'])
@@ -140,7 +201,10 @@ module.exports = function(supabase, dictionaryLimiter) {
 
             if (level) query = query.eq('level', level);
 
-            const { data, error } = await query;
+            const [{ data, error }, pronMap] = await Promise.all([
+                query,
+                getPronunciationLookup()
+            ]);
             if (error) return res.status(500).json({ error: 'Failed to fetch lessons' });
 
             const lessonsByLevel = { beginner: [], intermediate: [], advanced: [] };
@@ -150,7 +214,7 @@ module.exports = function(supabase, dictionaryLimiter) {
                     title: lesson.title,
                     icon: lesson.icon,
                     content: {
-                        vocabulary: (lesson.lesson_vocabulary || []).sort((a, b) => a.sort_order - b.sort_order).map(v => ({ pidgin: v.pidgin, english: v.english, example: v.example })),
+                        vocabulary: mapLessonVocabulary(lesson.lesson_vocabulary, pronMap),
                         culturalNote: lesson.cultural_note,
                         practice: lesson.practice
                     }
@@ -171,11 +235,14 @@ module.exports = function(supabase, dictionaryLimiter) {
     router.get('/lessons/:lessonKey', dictionaryLimiter, async (req, res) => {
         try {
             const { lessonKey } = req.params;
-            const { data, error } = await supabase
-                .from('lessons')
-                .select(`id, lesson_key, level, title, icon, cultural_note, practice, lesson_vocabulary (pidgin, english, example, sort_order)`)
-                .eq('lesson_key', lessonKey)
-                .single();
+            const [{ data, error }, pronMap] = await Promise.all([
+                supabase
+                    .from('lessons')
+                    .select(`id, lesson_key, level, title, icon, cultural_note, practice, lesson_vocabulary (pidgin, english, example, sort_order)`)
+                    .eq('lesson_key', lessonKey)
+                    .single(),
+                getPronunciationLookup()
+            ]);
 
             if (error || !data) return res.status(404).json({ error: 'Lesson not found' });
 
@@ -185,7 +252,7 @@ module.exports = function(supabase, dictionaryLimiter) {
                 title: data.title,
                 icon: data.icon,
                 content: {
-                    vocabulary: (data.lesson_vocabulary || []).sort((a, b) => a.sort_order - b.sort_order).map(v => ({ pidgin: v.pidgin, english: v.english, example: v.example })),
+                    vocabulary: mapLessonVocabulary(data.lesson_vocabulary, pronMap),
                     culturalNote: data.cultural_note,
                     practice: data.practice
                 }

@@ -1,5 +1,4 @@
 const express = require('express');
-const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const crypto = require('crypto');
 const { loadPronunciationGuides } = require('../services/pronunciation');
@@ -27,6 +26,7 @@ const TTS_DIRECTION = 'tts';
 // the one-time warning below. Naming the parameter accurately because reading it as the anon
 // client sends you chasing an RLS problem that does not exist.
 module.exports = function(translationLimiter, supabaseAdmin) {
+    const router = express.Router();
 
     // POST /api/text-to-speech
     router.post('/text-to-speech',

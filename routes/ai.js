@@ -1,5 +1,4 @@
 const express = require('express');
-const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const userAuth = require('../middleware/user-auth');
 const geminiService = require('../services/gemini');
@@ -9,6 +8,7 @@ const { PIDGIN_DEFINITION } = require('../services/pidgin-prompt');
  * AI & Chat Routes
  */
 module.exports = function(supabase, dictionaryCache, limiter, gamificationService, translateLimiter = limiter) {
+    const router = express.Router();
 
     // Simple bot protection: Ensure request comes from our own site
     const botProtection = (req, res, next) => {

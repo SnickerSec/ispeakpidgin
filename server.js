@@ -421,6 +421,32 @@ app.use('/phrase/:slug', pageLimiter, (req, res, next) => {
         return res.redirect(301, `/word/${baseName}`);
     }
 
+    // Fallback: merged duplicate "-2"/"-3" phrase pages redirect to the surviving base phrase
+    const suffixed = slugKey.match(/^([a-z0-9-]+?)-\d+$/);
+    if (suffixed && fs.existsSync(path.join(__dirname, 'public', 'phrase', `${suffixed[1]}.html`))) {
+        return res.redirect(301, `/phrase/${suffixed[1]}.html`);
+    }
+
+    next();
+});
+
+// SEO: Redirect retired "-2"/"-3" duplicate pickup pages to the surviving base pickup page
+app.use('/pickup/:slug', pageLimiter, (req, res, next) => {
+    if (!req.params.slug) return next();
+    const safeSlug = path.basename(req.params.slug);
+    const slugKey = safeSlug.replace('.html', '').toLowerCase();
+    const baseName = safeSlug.endsWith('.html') ? safeSlug : `${safeSlug}.html`;
+    const filePath = path.join(__dirname, 'public', 'pickup', baseName);
+
+    if (fs.existsSync(filePath)) {
+        return res.sendFile(filePath);
+    }
+
+    const suffixed = slugKey.match(/^([a-z0-9-]+?)-\d+$/);
+    if (suffixed && fs.existsSync(path.join(__dirname, 'public', 'pickup', `${suffixed[1]}.html`))) {
+        return res.redirect(301, `/pickup/${suffixed[1]}.html`);
+    }
+
     next();
 });
 

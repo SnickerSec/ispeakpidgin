@@ -1,5 +1,4 @@
 const express = require('express');
-const router = express.Router();
 const { body, query, validationResult } = require('express-validator');
 const geminiService = require('../services/gemini');
 
@@ -7,6 +6,7 @@ const geminiService = require('../services/gemini');
  * Pickup Line Routes (Standard, 808 Mode, Cringe Generator)
  */
 module.exports = function(supabase, dictionaryLimiter, translationLimiter) {
+    const router = express.Router();
 
     // Helper to handle validation errors
     const validate = (req, res, next) => {

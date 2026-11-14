@@ -428,7 +428,69 @@ async function auditSupabase(db) {
                 finding: headwordRatio < 0.5 ? `Only ${cachedHeadwords}/${rows.length} (${(headwordRatio * 100).toFixed(1)}%) of dictionary headwords have a pre-generated Uncle Kimo clip in translation_cache — uncached playbacks pay live ElevenLabs credits and first-play latency.` : null,
                 fix: 'node tools/audio/rebuild-cache-index.js --apply (index orphaned clips) and node tools/audio/audio-pregeneration.js to warm missing dictionary headwords.'
             });
+            // Cache integrity (cross-wired lesson/story prefixes & unapproved voice IDs)
+            const allTtsRows = await fetchAllRows(db, 'translation_cache', 'id, md5_hash, voice_id, audio_filename', {
+                filter: q => q.eq('direction', 'tts')
+            });
+            const crossWired = allTtsRows.filter(r => {
+                if (!r.audio_filename) return false;
+                const m = r.audio_filename.match(/^(?:lesson|story)_[a-z]+_\d+_([a-f0-9]{32})\.mp3$/i);
+                return Boolean(m && m[1].toLowerCase() !== String(r.md5_hash || '').toLowerCase());
+            });
+            const retiredVoiceRows = allTtsRows.filter(r => r.voice_id !== KIMO_VOICE);
+            record('supabase', {
+                id: 'supabase.audio-cache-integrity',
+                title: 'TTS cache filename-hash & voice integrity',
+                status: crossWired.length ? 'FAIL' : (retiredVoiceRows.length ? 'WARN' : 'OK'),
+                evidence: [
+                    `cross-wired lesson/story clips: ${crossWired.length}${crossWired.length ? ' → ' + crossWired.slice(0, 5).map(r => `id=${r.id} (${r.audio_filename})`).join(', ') : ''}`,
+                    `non-Uncle-Kimo TTS rows: ${retiredVoiceRows.length}`
+                ],
+                metrics: { crossWiredClips: crossWired.length, retiredVoiceRows: retiredVoiceRows.length },
+                finding: crossWired.length
+                    ? `${crossWired.length} lesson/story TTS cache row(s) point to a mismatched MP3 hash (wrong clip plays to users!).`
+                    : (retiredVoiceRows.length ? `${retiredVoiceRows.length} TTS cache row(s) use retired voice IDs instead of Uncle Kimo.` : null),
+                fix: crossWired.length || retiredVoiceRows.length
+                    ? 'Delete cross-wired / retired-voice rows in translation_cache and re-run node tools/audio/generate-lessons-audio.js.'
+                    : null
+            });
         }
+
+        // Duplicate rows across non-dictionary content tables ---------------
+        const contentDupeSpecs = [
+            ['pickup_lines', 'pidgin'],
+            ['phrases', 'pidgin'],
+            ['quiz_questions', 'question'],
+            ['crossword_words', 'word']
+        ];
+        const tableDupeSummary = [];
+        let totalNonDictDupes = 0;
+        for (const [tbl, col] of contentDupeSpecs) {
+            const tRows = await fetchAllRows(db, tbl, `id, ${col}`);
+            const seenKeys = new Set();
+            let dupCount = 0;
+            for (const r of tRows) {
+                const k = String(r[col] || '').trim().toLowerCase();
+                if (!k) continue;
+                if (seenKeys.has(k)) dupCount++;
+                else seenKeys.add(k);
+            }
+            totalNonDictDupes += dupCount;
+            tableDupeSummary.push(`${tbl}: ${dupCount} duplicate(s) out of ${tRows.length}`);
+        }
+        record('supabase', {
+            id: 'supabase.content-duplicates',
+            title: 'Non-dictionary content table deduplication',
+            status: totalNonDictDupes > 0 ? 'WARN' : 'OK',
+            evidence: tableDupeSummary,
+            metrics: { totalNonDictDuplicates: totalNonDictDupes },
+            finding: totalNonDictDupes > 0
+                ? `${totalNonDictDupes} duplicate row(s) across pickup_lines, phrases, quiz_questions, or crossword_words.`
+                : null,
+            fix: totalNonDictDupes > 0
+                ? 'Deduplicate rows keeping canonical lowest IDs (see supabase/migrations/052_deduplicate_content_and_clean_cache.sql).'
+                : null
+        });
     } catch (e) {
         record('supabase', {
             id: 'supabase.dictionary-quality',
@@ -695,6 +757,17 @@ function auditCicd() {
         ],
         metrics: { branch, uncommittedFiles: dirtyCount, unpushedCommits: ahead ? Number(ahead) : null },
         finding: dirtyCount > 0 ? `${dirtyCount} uncommitted file(s) — audit results reflect local edits that are not deployed.` : null
+    });
+
+    const stageGitlinks = (git(['ls-files', '--stage']) || '').split('\n').filter(l => l.startsWith('160000 '));
+    const hasGitmodules = exists('.gitmodules');
+    const orphanGitlinks = !hasGitmodules ? stageGitlinks.map(l => l.split('\t')[1]).filter(Boolean) : [];
+    record('cicd', {
+        id: 'cicd.gitlinks', title: 'Submodule gitlink hygiene',
+        status: orphanGitlinks.length ? 'WARN' : 'OK',
+        evidence: [`gitlinks: ${stageGitlinks.length}${orphanGitlinks.length ? ` (orphaned without .gitmodules: ${orphanGitlinks.join(', ')})` : ''}`],
+        finding: orphanGitlinks.length ? `Orphaned gitlink(s) without .gitmodules (${orphanGitlinks.join(', ')}) cause git exit code 128 warnings in CI.` : null,
+        fix: orphanGitlinks.length ? `git rm --cached ${orphanGitlinks.join(' ')}` : null
     });
 
     const gitignore = read('.gitignore') || '';

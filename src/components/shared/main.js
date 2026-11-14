@@ -1578,26 +1578,23 @@ function predictiveCache(element) {
 }
 
 function speakText(text, options = {}) {
-    if ('speechSynthesis' in window) {
-        // Get user preferences from sliders if they exist
-        const rateSlider = document.getElementById('rate-slider');
-        const pitchSlider = document.getElementById('pitch-slider');
+    // Get user preferences from sliders if they exist
+    const rateSlider = document.getElementById('rate-slider');
+    const pitchSlider = document.getElementById('pitch-slider');
 
-        if (rateSlider) {
-            options.rate = options.rate || parseFloat(rateSlider.value);
-        }
-        if (pitchSlider) {
-            options.pitch = options.pitch || parseFloat(pitchSlider.value);
-        }
-
-        // Use the enhanced Pidgin speech synthesizer (handles all fallbacks internally)
-        pidginSpeech.speak(text, options).catch(err => {
-            console.error('All speech methods failed:', err);
-            alert('Sorry, speech synthesis is not available right now.');
-        });
-    } else {
-        alert('Sorry, your browser doesn\'t support text-to-speech!');
+    if (rateSlider) {
+        options.rate = options.rate || parseFloat(rateSlider.value);
     }
+    if (pitchSlider) {
+        options.pitch = options.pitch || parseFloat(pitchSlider.value);
+    }
+
+    // PidginSpeech plays ElevenLabs Uncle Kimo MP3s first and handles Web Speech fallback
+    // internally, so do not gate on window.speechSynthesis (which blocks mobile WebViews).
+    pidginSpeech.speak(text, options).catch(err => {
+        console.error('All speech methods failed:', err);
+        alert('Sorry, speech synthesis is not available right now.');
+    });
 }
 
 // Voice settings functionality

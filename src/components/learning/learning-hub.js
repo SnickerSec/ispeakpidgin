@@ -30,11 +30,21 @@ class LearningHub {
                     duration: '10-15 min',
                     points: 10 + (index * 2),
                     content: lesson.content ? {
-                        vocabulary: lesson.content.vocabulary?.map(v => ({
-                            pidgin: v.pidgin,
-                            english: v.english,
-                            pronunciation: v.pidgin.toUpperCase()
-                        })) || [],
+                        vocabulary: lesson.content.vocabulary?.map(v => {
+                            let pron = v.pronunciation || null;
+                            if (!pron && window.supabaseDataLoader?.entries?.length) {
+                                const needle = String(v.pidgin || '').trim().toLowerCase();
+                                const found = window.supabaseDataLoader.entries.find(
+                                    e => String(e.pidgin || '').trim().toLowerCase() === needle
+                                );
+                                if (found?.pronunciation) pron = found.pronunciation;
+                            }
+                            return {
+                                pidgin: v.pidgin,
+                                english: v.english,
+                                pronunciation: pron
+                            };
+                        }) || [],
                         examples: lesson.content.vocabulary?.map(v => v.example).filter(e => e) || [],
                         culturalNote: lesson.content.culturalNote,
                         practice: lesson.content.practice
@@ -298,7 +308,7 @@ class LearningHub {
                                                 </div>
                                             </div>
                                             <div class="flex items-center gap-2">
-                                                <span class="text-sm text-gray-500">[${escapeHtml(item.pronunciation)}]</span>
+                                                ${item.pronunciation ? `<span class="text-sm text-gray-500">[${escapeHtml(item.pronunciation)}]</span>` : ''}
                                                 <button class="modal-play-btn p-1.5 bg-purple-100 text-purple-600 rounded-full hover:bg-purple-200 transition" data-audio-key="${escapeHtml(item.pidgin)}">
                                                     <iconify-icon icon="lucide:play"></iconify-icon>
                                                 </button>

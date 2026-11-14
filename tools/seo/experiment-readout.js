@@ -232,7 +232,14 @@ const EXPERIMENTS = [
     { name: 'nene hybrid landing page + 301', live: '2026-11-14', page: '/what-does-nene-mean.html', queries: ['nene', 'nene meaning', 'nene hawaiian goose', 'what does nene mean'] },
     { name: 'cuzzo hybrid landing page + 301', live: '2026-11-14', page: '/what-does-cuzzo-mean.html', queries: ['cuzzo', 'cuzzo meaning', 'what does cuzzo mean'] },
     { name: 'aina hybrid landing page + 301', live: '2026-11-14', page: '/what-does-aina-mean.html', queries: ['aina', 'aina meaning', 'what does aina mean', 'malama aina meaning'] },
-    { name: 'pono hybrid landing page + 301', live: '2026-11-14', page: '/what-does-pono-mean.html', queries: ['pono', 'pono meaning', 'what does pono mean', 'live pono'] }
+    { name: 'pono hybrid landing page + 301', live: '2026-11-14', page: '/what-does-pono-mean.html', queries: ['pono', 'pono meaning', 'what does pono mean', 'live pono'] },
+    // Wave 3 curated hybrid landing pages (+16.3k 28d impr across holo-holo/holo, chotto-matte, lanai, kumu, aue, kolohe)
+    { name: 'holo-holo + holo hybrid landing page + 301', live: '2026-11-14', page: '/what-does-holo-holo-mean.html', queries: ['holoholo', 'holo holo', 'holoholo meaning', 'what does holoholo mean', 'holo meaning hawaiian'] },
+    { name: 'chotto matte hybrid landing page + 301', live: '2026-11-14', page: '/what-does-chotto-matte-mean.html', queries: ['chotto matte', 'chotto matte meaning', 'what does chotto matte mean'] },
+    { name: 'lanai hybrid landing page + 301', live: '2026-11-14', page: '/what-does-lanai-mean.html', queries: ['lanai', 'lanai meaning', 'what is a lanai', 'what does lanai mean'] },
+    { name: 'kumu hybrid landing page + 301', live: '2026-11-14', page: '/what-does-kumu-mean.html', queries: ['kumu', 'kumu meaning', 'what does kumu mean', 'kumu hula meaning'] },
+    { name: 'aue / auwe hybrid landing page + 301', live: '2026-11-14', page: '/what-does-aue-mean.html', queries: ['aue', 'auwe', 'aue meaning', 'auwe meaning', 'what does aue mean'] },
+    { name: 'kolohe hybrid landing page + 301', live: '2026-11-14', page: '/what-does-kolohe-mean.html', queries: ['kolohe', 'kolohe meaning', 'what does kolohe mean'] }
 ];
 
 const isoDay = d => d.toISOString().slice(0, 10);

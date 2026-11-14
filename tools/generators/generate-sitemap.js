@@ -93,6 +93,12 @@ const HIGH_VALUE_LANDING = new Map([
     ['/what-does-cuzzo-mean.html',          { changefreq: 'weekly',  priority: 0.9 }],
     ['/what-does-aina-mean.html',           { changefreq: 'weekly',  priority: 0.9 }],
     ['/what-does-pono-mean.html',           { changefreq: 'weekly',  priority: 0.9 }],
+    ['/what-does-holo-holo-mean.html',      { changefreq: 'weekly',  priority: 0.9 }],
+    ['/what-does-chotto-matte-mean.html',   { changefreq: 'weekly',  priority: 0.9 }],
+    ['/what-does-lanai-mean.html',          { changefreq: 'weekly',  priority: 0.9 }],
+    ['/what-does-kumu-mean.html',           { changefreq: 'weekly',  priority: 0.9 }],
+    ['/what-does-aue-mean.html',            { changefreq: 'weekly',  priority: 0.9 }],
+    ['/what-does-kolohe-mean.html',         { changefreq: 'weekly',  priority: 0.9 }],
     ['/what-does-aloha-mean.html',          { changefreq: 'monthly', priority: 0.9 }],
     ['/what-does-ohana-mean.html',          { changefreq: 'monthly', priority: 0.9 }],
 ]);

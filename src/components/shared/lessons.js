@@ -49,10 +49,10 @@ function getFallbackLessonsData() {
                 icon: '<iconify-icon icon="lucide:hand"></iconify-icon>',
                 content: {
                     vocabulary: [
-                        { pidgin: 'Howzit', english: 'Hello/How are you', example: 'Howzit, brah!' },
-                        { pidgin: 'Aloha', english: 'Hello/Goodbye/Love', example: 'Aloha, my friend!' },
-                        { pidgin: 'Shoots', english: 'Okay/Sounds good', example: 'You like go beach? Shoots!' },
-                        { pidgin: 'Tanks', english: 'Thanks', example: "Tanks fo' da help!" }
+                        { pidgin: 'Howzit', english: 'Hello/How are you', example: 'Howzit, brah!', pronunciation: 'HOW-zit' },
+                        { pidgin: 'Aloha', english: 'Hello/Goodbye/Love', example: 'Aloha, my friend!', pronunciation: 'ah-LOH-hah' },
+                        { pidgin: 'Shoots', english: 'Okay/Sounds good', example: 'You like go beach? Shoots!', pronunciation: 'SHOOTS' },
+                        { pidgin: 'Tanks', english: 'Thanks', example: "Tanks fo' da help!", pronunciation: 'TANKS' }
                     ],
                     culturalNote: 'Pidgin greetings are casual and friendly.',
                     practice: 'Try greeting someone with "Howzit" today!'
@@ -64,9 +64,9 @@ function getFallbackLessonsData() {
                 icon: '<iconify-icon icon="lucide:utensils"></iconify-icon>',
                 content: {
                     vocabulary: [
-                        { pidgin: 'Grinds', english: 'Food', example: 'Da grinds stay ono!' },
-                        { pidgin: 'Ono', english: 'Delicious', example: 'Da poke stay ono!' },
-                        { pidgin: 'Broke da mouth', english: 'Very delicious', example: 'Dis kalua pig broke da mouth!' }
+                        { pidgin: 'Grinds', english: 'Food', example: 'Da grinds stay ono!', pronunciation: 'GRINDZ' },
+                        { pidgin: 'Ono', english: 'Delicious', example: 'Da poke stay ono!', pronunciation: 'OH-noh' },
+                        { pidgin: 'Broke da mouth', english: 'Very delicious', example: 'Dis kalua pig broke da mouth!', pronunciation: 'BROHK dah MOWTH' }
                     ],
                     culturalNote: 'Food is central to Hawaiian culture.',
                     practice: 'Say it "broke da mouth" when food is delicious!'
@@ -80,9 +80,9 @@ function getFallbackLessonsData() {
                 icon: '<iconify-icon icon="lucide:party-popper"></iconify-icon>',
                 content: {
                     vocabulary: [
-                        { pidgin: 'Chee hoo!', english: 'Expression of joy', example: 'Chee hoo! We going beach!' },
-                        { pidgin: 'Ho!', english: 'Wow!', example: 'Ho! Look at dat sunset!' },
-                        { pidgin: 'Rajah dat!', english: 'Roger that!', example: 'We go eat? Rajah dat!' }
+                        { pidgin: 'Chee hoo!', english: 'Expression of joy', example: 'Chee hoo! We going beach!', pronunciation: 'CHEE-hoo' },
+                        { pidgin: 'Ho!', english: 'Wow!', example: 'Ho! Look at dat sunset!', pronunciation: 'HOH' },
+                        { pidgin: 'Rajah dat!', english: 'Roger that!', example: 'We go eat? Rajah dat!', pronunciation: 'RAH-jah DAT' }
                     ],
                     culturalNote: 'These expressions add energy to conversations.',
                     practice: 'Use "Chee hoo!" when excited!'
@@ -94,9 +94,9 @@ function getFallbackLessonsData() {
                 icon: '<iconify-icon icon="lucide:compass"></iconify-icon>',
                 content: {
                     vocabulary: [
-                        { pidgin: 'Mauka', english: 'Toward the mountains / Inland', example: 'Turn mauka at da traffic light by da mountain.' },
-                        { pidgin: 'Makai', english: 'Toward the ocean / Sea', example: 'Da gas station stay makai side of da highway.' },
-                        { pidgin: 'Ewa', english: 'Westward toward Ewa plain (Oahu)', example: 'Head Ewa on da H-1 freeway fo get Pearl City.' },
+                        { pidgin: 'Mauka', english: 'Toward the mountains / Inland', example: 'Turn mauka at da traffic light by da mountain.', pronunciation: 'MOW-kah' },
+                        { pidgin: 'Makai', english: 'Toward the ocean / Sea', example: 'Da gas station stay makai side of da highway.', pronunciation: 'mah-KYE' },
+                        { pidgin: 'Ewa', english: 'Westward toward Ewa plain (Oahu)', example: 'Head Ewa on da H-1 freeway fo get Pearl City.', pronunciation: 'EH-vah' },
                         { pidgin: 'Diamond Head', english: 'Eastward toward Diamond Head crater (Oahu)', example: 'Stay cruising Diamond Head side past Waikiki.' }
                     ],
                     culturalNote: 'In Hawaii, locals never say north, south, east, or west. Mauka means toward the mountains, makai means toward the ocean.',
@@ -112,7 +112,7 @@ function getFallbackLessonsData() {
                 content: {
                     vocabulary: [
                         { pidgin: 'If can can, if no can no can', english: "Do it if possible", example: 'If can can, if no can no can.' },
-                        { pidgin: 'Da kine', english: 'The thing/whatchamacallit', example: 'Pass me da kine!' }
+                        { pidgin: 'Da kine', english: 'The thing/whatchamacallit', example: 'Pass me da kine!', pronunciation: 'dah KYNE' }
                     ],
                     culturalNote: 'Advanced Pidgin involves context and humor.',
                     practice: 'Use "da kine" when you forget a word!'

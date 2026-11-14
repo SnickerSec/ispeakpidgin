@@ -6404,6 +6404,127 @@
       ],
       "pronunciation": "leh-HOO-ah",
       "origin": "The lehua flower is native to Hawaii and is an integral part of Hawaiian flora and cultural practices."
+    },
+    {
+      "id": "d0e1f2a3-b4c5-4d6e-9f7a-8b9c0d1e2f34",
+      "pidgin": "hae",
+      "english": [
+        "flag",
+        "banner"
+      ],
+      "category": "culture",
+      "pronunciation": "HYE",
+      "examples": [
+        "Ka Hae Hawaiʻi stay flying high at Iolani Palace.",
+        "Every classroom had da Hawaiian hae next to da door.",
+        "Dey wave da hae proud at da parade."
+      ],
+      "usage": "Hawaiian word for flag or banner, most famously heard in Ka Hae Hawaiʻi (the Hawaiian flag) at civic celebrations, parades, and cultural gatherings.",
+      "origin": "Directly from Hawaiian hae (flag, banner, ensign).",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "culture",
+        "hawaiian",
+        "history"
+      ],
+      "audio_example": "Ka Hae Hawaiʻi stay flying high at Iolani Palace.",
+      "created_at": "2026-11-14T07:08:39.839672+00:00",
+      "updated_at": "2026-11-14T07:08:39.784+00:00",
+      "fts": "'banner':3 'flag':2 'hae':1",
+      "source_language": "hawaiian",
+      "spelling_variants": [
+        "ka hae hawaii"
+      ]
+    },
+    {
+      "id": "c9d0e1f2-a3b4-4c5d-8e6f-7a8b9c0d1e23",
+      "pidgin": "ʻōkole maluna",
+      "english": [
+        "bottoms up",
+        "cheers",
+        "drinking toast"
+      ],
+      "category": "expressions",
+      "pronunciation": "oh-KOH-leh mah-LOO-nah",
+      "examples": [
+        "Raise your glass — ʻōkole maluna, everybody!",
+        "Uncle stood up at da pau hana party and yelled, \"ʻŌkole maluna!\"",
+        "Before we drink, give one big ʻōkole maluna fo' da birthday girl."
+      ],
+      "usage": "Classic humorous Hawaii drinking toast meaning \"bottoms up!\" (literally \"buttocks up\" in Hawaiian), said when clinking glasses at pau hana gatherings and backyard parties.",
+      "origin": "Coined in late-19th-century Hawaii from Hawaiian ʻōkole (buttocks/bottom) + maluna (upward/on top) as a playful literal calque of English \"bottoms up!\"",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "toast",
+        "party",
+        "expressions",
+        "hawaiian"
+      ],
+      "audio_example": "Raise your glass — ʻōkole maluna, everybody!",
+      "created_at": "2026-11-14T07:08:39.839672+00:00",
+      "updated_at": "2026-11-14T07:08:39.784+00:00",
+      "fts": "'bottom':3 'cheer':5 'drink':6 'maluna':2 'toast':7 'ʻōkole':1",
+      "source_language": "hawaiian",
+      "spelling_variants": [
+        "okole maluna"
+      ]
+    },
+    {
+      "id": "shishi_158",
+      "pidgin": "shishi",
+      "english": [
+        "urinate",
+        "pee",
+        "piss"
+      ],
+      "category": "slang",
+      "pronunciation": "SHEE-shee",
+      "examples": [
+        "Need shishi",
+        "Da keiki wen' shishi on da floor, gotta clean 'em up.",
+        "I gotta go shishi, I can't hold 'em no mo'."
+      ],
+      "usage": "This word means to urinate. It's a common and direct way to refer to the act of peeing, especially when talking to children or in casual conversation.",
+      "origin": "This is a borrowing from Japanese, reflecting the historical presence of Japanese immigrants in Hawaii.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "tags": [
+        "slang",
+        "japanese"
+      ],
+      "audio_example": "I gotta go shishi, I can't hold 'em no mo'.",
+      "created_at": "2025-11-29T11:12:12.863333+00:00",
+      "updated_at": "2026-10-03T08:35:46.186715+00:00",
+      "fts": "'pee':3 'piss':4 'shishi':1 'urin':2",
+      "source_language": "pidgin",
+      "spelling_variants": []
+    },
+    {
+      "id": "bachi_016",
+      "pidgin": "bachi",
+      "english": [
+        "bad luck",
+        "curse"
+      ],
+      "category": "slang",
+      "examples": [
+        "No do dat, going bring bachi",
+        "Eh, you goin' get bachi if you do dat!",
+        "Stay away from dat, you goin' get bachi."
+      ],
+      "pronunciation": "BAH-chee",
+      "usage": "Means bad luck or a curse, often used as a warning.",
+      "origin": "Derived from Japanese, reflecting the influence of Japanese culture in Hawaii.",
+      "difficulty": "beginner",
+      "frequency": "medium",
+      "audio_example": "Bachi!",
+      "created_at": "2025-11-29T11:13:48.560742+00:00",
+      "updated_at": "2026-10-10T10:03:45.186+00:00",
+      "spelling_variants": [
+        "batchee"
+      ]
     }
   ],
   "phrases": [

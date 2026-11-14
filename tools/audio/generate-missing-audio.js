@@ -111,21 +111,26 @@ async function generateAndUpload(text) {
     const correctedText = applyPronunciationCorrections(text);
     const apiUrl = `${ELEVENLABS_BASE_URL}/v1/text-to-speech/${VOICE_ID}`;
 
-    const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-            'Accept': 'audio/mpeg',
-            'Content-Type': 'application/json',
-            'xi-api-key': ELEVENLABS_API_KEY
-        },
-        body: JSON.stringify({
-            text: correctedText,
-            model_id: ELEVENLABS_SYNTHESIS.model_id,
-            voice_settings: ELEVENLABS_SYNTHESIS.voice_settings
-        })
-    });
-
-    if (!response.ok) {
+    let response;
+    for (let attempt = 1; attempt <= 3; attempt++) {
+        response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Accept': 'audio/mpeg',
+                'Content-Type': 'application/json',
+                'xi-api-key': ELEVENLABS_API_KEY
+            },
+            body: JSON.stringify({
+                text: correctedText,
+                model_id: ELEVENLABS_SYNTHESIS.model_id,
+                voice_settings: ELEVENLABS_SYNTHESIS.voice_settings
+            })
+        });
+        if (response.ok) break;
+        if ((response.status === 429 || response.status >= 500) && attempt < 3) {
+            await new Promise(r => setTimeout(r, 1500 * attempt));
+            continue;
+        }
         throw new Error(`ElevenLabs error: ${response.status} ${response.statusText}`);
     }
 

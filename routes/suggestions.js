@@ -1,5 +1,4 @@
 const express = require('express');
-const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const userAuth = require('../middleware/user-auth');
 
@@ -7,6 +6,7 @@ const userAuth = require('../middleware/user-auth');
  * User Suggestions Routes
  */
 module.exports = function(supabase, limiter, gamificationService) {
+    const router = express.Router();
 
     // POST /api/suggestions - Submit a new word/phrase suggestion
     router.post('/',

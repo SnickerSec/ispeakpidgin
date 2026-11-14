@@ -1,5 +1,4 @@
 const express = require('express');
-const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const multer = require('multer');
 const path = require('path');
@@ -141,6 +140,7 @@ const upload = multer({
  * Admin Routes (Login, Settings, Audit Logs, Tests)
  */
 module.exports = function(supabaseAdmin, adminAuth, settingsManager) {
+    const router = express.Router();
 
     // POST /api/admin/login
     router.post('/login', adminLoginLimiter, [

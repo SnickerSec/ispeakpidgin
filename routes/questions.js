@@ -1,5 +1,4 @@
 const express = require('express');
-const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const userAuth = require('../middleware/user-auth');
 const geminiService = require('../services/gemini');
@@ -9,6 +8,7 @@ const { PIDGIN_DEFINITION } = require('../services/pidgin-prompt');
  * Local Questions API (Ask a Local)
  */
 module.exports = function(supabase, limiter, gamificationService, dictionaryCache) {
+    const router = express.Router();
 
     // Helper: Generate AI Response for a question
     async function generateAIResponse(questionId, questionText) {

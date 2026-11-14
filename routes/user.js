@@ -1,5 +1,4 @@
 const express = require('express');
-const router = express.Router();
 const rateLimit = require('express-rate-limit');
 const userAuth = require('../middleware/user-auth');
 const { OAuth2Client } = require('google-auth-library');
@@ -15,6 +14,7 @@ const rl = rateLimit({
 });
 
 module.exports = function(supabaseAdmin, gamificationService) {
+    const router = express.Router();
     userAuth.initializeAuth(supabaseAdmin);
 
     // GET /api/user/auth-config
