@@ -231,7 +231,7 @@ ${vocabulary}`;
         [
             body('text').trim().notEmpty().isLength({ max: 500 }),
             body('direction').isIn(['eng-to-pidgin', 'pidgin-to-eng']),
-            body('context').optional().isArray(),
+            body('context').optional().isArray({ max: 10 }),
             body('tone').optional().isIn(['light', 'standard', 'heavy'])
         ],
         async (req, res) => {
