@@ -822,7 +822,7 @@ class PidginTranslator {
         const response = await fetch('/api/ai/translate', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text, direction, context, tone }),
+            body: JSON.stringify({ text, direction, context: this.toContextPayload(context), tone }),
             signal: AbortSignal.timeout(15000)
         });
 
@@ -846,6 +846,21 @@ class PidginTranslator {
                 contextUsed: context.map(c => c.pidgin)
             }
         };
+    }
+
+    // Slim RAG context to the fields /api/ai/translate reads. Full dictionary rows carry
+    // examples, fts vectors and timestamps; 10 of them overran the server's 10kb JSON limit
+    // and the request was rejected with 413 before reaching the route.
+    toContextPayload(context) {
+        return (context || []).slice(0, 10).map(c => {
+            const item = {
+                pidgin: String(c.pidgin || '').slice(0, 100),
+                english: (Array.isArray(c.english) ? c.english : [c.english])
+                    .filter(Boolean).slice(0, 5).map(e => String(e).slice(0, 100))
+            };
+            if (c.usage) item.usage = String(c.usage).slice(0, 200);
+            return item;
+        });
     }
 
     // Helper: Find relevant dictionary entries for RAG

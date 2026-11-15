@@ -98,6 +98,12 @@ const testSuites = [
         requiredEnv: false
     },
     {
+        // 413 regression: RAG context must stay under server.js's 10kb JSON body limit.
+        name: 'AI Translate Payload Size',
+        script: 'test-translate-payload.js',
+        requiredEnv: false
+    },
+    {
         name: 'AI Talk-Story Persona & Tone Consistency',
         script: 'test-ai-personas.js',
         requiredEnv: false
