@@ -45,7 +45,7 @@ const API_CHECKS = [
     {
         path: '/api/dictionary/daily',
         expectCache: true,
-        validate: (body) => Boolean(body && (body.pidgin || (body.entry && body.entry.pidgin)))
+        validate: (body) => Boolean(body && (body.pidgin || (body.word && body.word.pidgin) || (body.entry && body.entry.pidgin)))
     },
     {
         path: '/api/dictionary/search?q=brah',
