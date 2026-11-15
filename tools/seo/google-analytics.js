@@ -21,10 +21,12 @@
 const { BetaAnalyticsDataClient } = require('@google-analytics/data');
 const fs = require('fs');
 const path = require('path');
-require('dotenv').config();
+require('dotenv').config({ quiet: true });
+const { credentialsFromEnv } = require('../../services/search-gaps');
 
-// Configuration
-const PROPERTY_ID = process.env.GA4_PROPERTY_ID || '';
+// Configuration (PIDGIN_GA4_PROPERTY_ID takes precedence so shared host shells
+// that export another site's GA4_PROPERTY_ID do not collide)
+const PROPERTY_ID = process.env.PIDGIN_GA4_PROPERTY_ID || process.env.GA4_PROPERTY_ID || '';
 const KEY_PATH = process.env.GOOGLE_ANALYTICS_KEY_PATH ||
                  process.env.GOOGLE_SEARCH_CONSOLE_KEY_PATH ||
                  './google-search-console-key.json';
@@ -137,17 +139,24 @@ Setup:
 `);
 }
 
-// Initialize GA4 client
+// Initialize GA4 client (explicit key file first, then GOOGLE_CREDENTIALS_BASE64 on Railway)
 function createClient() {
-    if (!fs.existsSync(options.keyFile)) {
-        console.error(`❌ Service account key file not found: ${options.keyFile}`);
-        console.error('   Set GOOGLE_ANALYTICS_KEY_PATH or use --key-file option');
-        process.exit(1);
+    if (fs.existsSync(options.keyFile)) {
+        return new BetaAnalyticsDataClient({
+            keyFilename: options.keyFile
+        });
     }
 
-    return new BetaAnalyticsDataClient({
-        keyFilename: options.keyFile
-    });
+    const envCreds = credentialsFromEnv();
+    if (envCreds) {
+        return new BetaAnalyticsDataClient({
+            credentials: envCreds
+        });
+    }
+
+    console.error(`❌ Service account credentials not found: ${options.keyFile} (and GOOGLE_CREDENTIALS_BASE64 unset)`);
+    console.error('   Set GOOGLE_ANALYTICS_KEY_PATH, GOOGLE_CREDENTIALS_BASE64, or use --key-file');
+    process.exit(1);
 }
 
 // Get date range
