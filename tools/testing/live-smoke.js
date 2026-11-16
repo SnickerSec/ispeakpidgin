@@ -80,6 +80,16 @@ const API_CHECKS = [
         path: '/api/crossword/puzzles',
         expectCache: true,
         validate: (body) => Boolean(body && Array.isArray(body.puzzles) && body.puzzles.length >= 1)
+    },
+    {
+        path: '/api/games/leaderboard?game_type=wordle&limit=5',
+        expectCache: false,
+        validate: (body) => Boolean(body && Array.isArray(body.scores))
+    },
+    {
+        path: '/api/games/wordle/words?with_meanings=true',
+        expectCache: false,
+        validate: (body) => Boolean(body && Array.isArray(body.entries) && body.entries.length >= 1)
     }
 ];
 
@@ -213,6 +223,16 @@ async function run() {
         } catch (err) {
             record(`api:${a.path}`, false, 0, err.message);
         }
+    }
+
+    // 5. Unmatched /api/* routes must return JSON 404 (never SPA index.html 200)
+    try {
+        const { res, ms } = await timedFetch(`${BASE}/api/__nonexistent_smoke_probe__`);
+        const ct = (res.headers.get('content-type') || '').toLowerCase();
+        const ok404 = res.status === 404 && ct.includes('application/json');
+        record('api:404-json-guard', ok404, ms, `status=${res.status} content-type=${ct || '(missing)'}`);
+    } catch (err) {
+        record('api:404-json-guard', false, 0, err.message);
     }
 
     const summary = {

@@ -71,19 +71,23 @@ function postJson(server, reqPath, payload) {
     });
 }
 
-function makeFakeSupabase({ wordleWords, crosswordPuzzles, phrases, lessons = [], dictionaryEntries = [], searchGaps = [] }) {
+function makeFakeSupabase({ wordleWords, crosswordPuzzles, phrases, lessons = [], dictionaryEntries = [], searchGaps = [], siteSettings = [] }) {
     const tables = {
         wordle_words: wordleWords,
         crossword_puzzles: crosswordPuzzles,
         phrases,
         lessons,
         dictionary_entries: dictionaryEntries,
-        search_gaps: searchGaps
+        search_gaps: searchGaps,
+        site_settings: siteSettings
     };
+
+    const missingTableErr = { code: 'PGRST205', message: "Could not find the table 'public.game_scores' in the schema cache" };
 
     return {
         from(table) {
-            let rows = [...(tables[table] || [])];
+            const isMissing = !(table in tables);
+            let rows = isMissing ? [] : [...(tables[table] || [])];
             const builder = {
                 select() { return builder; },
                 not(col, op, val) {
@@ -113,19 +117,43 @@ function makeFakeSupabase({ wordleWords, crosswordPuzzles, phrases, lessons = []
                     return builder;
                 },
                 range(from, to) {
+                    if (isMissing) return Promise.resolve({ data: null, error: missingTableErr });
                     // Emulate PostgREST 1,000-row max-rows cap!
                     const cappedEnd = Math.min(to + 1, from + 1000);
                     return Promise.resolve({ data: rows.slice(from, cappedEnd), error: null });
                 },
                 insert(items) {
-                    tables[table].push(...items);
-                    return Promise.resolve({ data: items, error: null });
+                    if (isMissing) return Promise.resolve({ data: null, error: missingTableErr });
+                    const arr = Array.isArray(items) ? items : [items];
+                    tables[table].push(...arr);
+                    return Promise.resolve({ data: arr, error: null });
+                },
+                upsert(item, { onConflict } = {}) {
+                    if (isMissing) return Promise.resolve({ data: null, error: missingTableErr });
+                    const arr = Array.isArray(item) ? item : [item];
+                    for (const entry of arr) {
+                        if (onConflict) {
+                            const idx = tables[table].findIndex(r => r[onConflict] === entry[onConflict]);
+                            if (idx >= 0) tables[table][idx] = { ...tables[table][idx], ...entry };
+                            else tables[table].push(entry);
+                        } else {
+                            tables[table].push(entry);
+                        }
+                    }
+                    return Promise.resolve({ data: arr, error: null });
+                },
+                maybeSingle() {
+                    if (isMissing) return Promise.resolve({ data: null, error: missingTableErr });
+                    if (rows.length >= 1) return Promise.resolve({ data: rows[0], error: null });
+                    return Promise.resolve({ data: null, error: null });
                 },
                 single() {
+                    if (isMissing) return Promise.resolve({ data: null, error: missingTableErr });
                     if (rows.length === 1) return Promise.resolve({ data: rows[0], error: null });
                     return Promise.resolve({ data: null, error: { code: 'PGRST116' } });
                 },
                 then(resolve, reject) {
+                    if (isMissing) return Promise.resolve({ data: null, error: missingTableErr }).then(resolve, reject);
                     return Promise.resolve({ data: rows, error: null, count: rows.length }).then(resolve, reject);
                 }
             };
@@ -200,14 +228,18 @@ async function main() {
     ];
 
     const searchGaps = [];
+    const siteSettings = [];
     const dictionaryCache = { data: null, timestamp: 0, ttl: 300000 };
 
-    const fakeSupabase = makeFakeSupabase({ wordleWords, crosswordPuzzles, phrases, lessons, dictionaryEntries, searchGaps });
+    const fakeSupabase = makeFakeSupabase({ wordleWords, crosswordPuzzles, phrases, lessons, dictionaryEntries, searchGaps, siteSettings });
     const app = express();
     app.use(express.json());
-    app.use('/api', gamesRoutes(fakeSupabase, passLimiter, null));
+    const mountedGames = gamesRoutes(fakeSupabase, passLimiter, null, fakeSupabase);
+    app.use('/api', mountedGames);
+    app.use('/api/games', mountedGames);
     app.use('/api', contentRoutes(fakeSupabase, passLimiter));
     app.use('/api/dictionary', dictionaryRoutes(fakeSupabase, passLimiter, dictionaryCache, passLimiter));
+    app.use('/api', (_req, res) => res.status(404).json({ error: 'API endpoint not found' }));
 
     const server = await new Promise(resolve => {
         const s = app.listen(0, '127.0.0.1', () => resolve(s));
@@ -330,6 +362,43 @@ async function main() {
         const r2 = gamesRoutes(fakeSupabase, passLimiter, null);
         assert.notStrictEqual(r1, r2, 'Route factory must return a fresh Router instance per call');
         console.log(`   ✅ All ${routeFiles.length} routes/*.js modules return fresh factory-scoped Router instances`);
+
+        // 8. Verify /api/games/* mount parity, PGRST205 site_settings score fallback & /api JSON 404 guard
+        console.log('8. Verifying /api/games/* leaderboard, proficiency, wordle/words & /api 404 guard...');
+        const serverSrc = fs.readFileSync(path.join(__dirname, '../../server.js'), 'utf8');
+        assert.ok(serverSrc.includes("app.use('/api/games', gamesRouter)"), 'server.js must mount gamesRouter at /api/games');
+        assert.ok(serverSrc.includes("API endpoint not found"), 'server.js must return JSON 404 for unmatched /api/* routes');
+
+        const wwRes = await requestJson(server, '/api/games/wordle/words?with_meanings=true');
+        assert.strictEqual(wwRes.status, 200);
+        assert.ok(Array.isArray(wwRes.body.entries) && wwRes.body.entries.length >= 1, '/api/games/wordle/words must return entries');
+
+        const submitRes = await postJson(server, '/api/games/leaderboard', {
+            username: 'Keoni',
+            score: 180,
+            game_type: 'scramble-medium',
+            streak: 4
+        });
+        assert.strictEqual(submitRes.status, 200);
+        assert.strictEqual(submitRes.body.success, true);
+        assert.strictEqual(siteSettings.length, 1, 'Score must persist to site_settings fallback when game_scores is unmigrated');
+
+        const lbRes = await requestJson(server, '/api/games/leaderboard?game_type=scramble-medium&limit=10');
+        assert.strictEqual(lbRes.status, 200);
+        assert.strictEqual(lbRes.body.scores.length, 1);
+        assert.strictEqual(lbRes.body.scores[0].username, 'Keoni');
+        assert.strictEqual(lbRes.body.scores[0].score, 180);
+
+        const profRes = await requestJson(server, '/api/games/proficiency?username=Keoni');
+        assert.strictEqual(profRes.status, 200);
+        assert.strictEqual(profRes.body.totalScore, 180);
+        assert.strictEqual(profRes.body.gamesPlayed, 1);
+        assert.strictEqual(profRes.body.rank, 'Townie');
+
+        const api404 = await requestJson(server, '/api/games/does-not-exist');
+        assert.strictEqual(api404.status, 404);
+        assert.strictEqual(api404.body.error, 'API endpoint not found');
+        console.log('   ✅ /api/games/* leaderboard, proficiency, wordle/words & /api JSON 404 guard verified');
 
         console.log('\n🎉 All Daily Games, Phrase Cache, Lesson Phonetics, Search-Gap & Router guards passed!');
     } finally {
