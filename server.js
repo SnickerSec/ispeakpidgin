@@ -529,8 +529,15 @@ app.use(express.static(path.join(__dirname, 'public'), {
             // HTML files should always be revalidated (Cache-Busting)
             res.set('Cache-Control', 'public, no-cache, must-revalidate');
         } else if (filePath.endsWith('.css') || filePath.endsWith('.js')) {
-            // CSS/JS can be cached for 1 hour
-            res.set('Cache-Control', 'public, max-age=3600');
+            // Build stamps ?v=<10-hex-hash> onto CSS/JS URLs; cache versioned URLs
+            // long-term as immutable so Cloudflare edge never stalls critical CSS
+            // on hourly REVALIDATED origin roundtrips, while unversioned URLs keep 1h.
+            const rawUrl = (res.req && (res.req.originalUrl || res.req.url)) || '';
+            if (/[?&]v=[0-9a-f]{6,}/i.test(rawUrl)) {
+                res.set('Cache-Control', 'public, max-age=31536000, immutable');
+            } else {
+                res.set('Cache-Control', 'public, max-age=3600');
+            }
         } else if (/\.(jpg|jpeg|png|gif|ico|svg|webp)$/.test(filePath)) {
             // Images can stay cached longer
             res.set('Cache-Control', 'public, max-age=86400');
