@@ -109,6 +109,13 @@ const testSuites = [
         requiredEnv: false
     },
     {
+        // ?v= CSS/JS gets `immutable` only when v equals the file's real md5 prefix; a forged
+        // or deploy-race v must never pin stale bytes at Cloudflare for a year.
+        name: 'Static Asset ?v= Cache-Control',
+        script: 'test-static-cache-control.js',
+        requiredEnv: false
+    },
+    {
         name: 'AI Talk-Story Persona & Tone Consistency',
         script: 'test-ai-personas.js',
         requiredEnv: false
