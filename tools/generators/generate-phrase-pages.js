@@ -161,8 +161,11 @@ function generatePhrasePage(phrase, relatedPhrases, navigation, footer, dictiona
         ? `"${rawPidgin}" Meaning: "${rawEnglish}" in Hawaiian Pidgin + Audio | ${SITE_NAME}`
         : `"${rawPidgin}" Meaning in Hawaiian Pidgin: Translation & Audio | ${SITE_NAME}`;
 
-    const baseSentence = `"${rawPidgin}"${saidHint} means "${rawEnglish}" in Hawaiian Pidgin.`;
-    const cleanNote = String(phrase.notes || '').trim().replace(/\s+/g, ' ');
+    const baseSentence = rawEnglish
+        ? `"${rawPidgin}"${saidHint} means "${rawEnglish}" in Hawaiian Pidgin.`
+        : `"${rawPidgin}"${saidHint} is a Hawaiian Pidgin phrase.`;
+    const trimmedNote = String(phrase.notes || '').trim().replace(/\s+/g, ' ');
+    const cleanNote = trimmedNote && !/[.!?]$/.test(trimmedNote) ? `${trimmedNote}.` : trimmedNote;
     const closeCta = 'Hear how locals say it.';
     let metaDescription = `${baseSentence} ${closeCta}`;
     if (cleanNote && `${baseSentence} ${cleanNote} ${closeCta}`.length <= 160) {

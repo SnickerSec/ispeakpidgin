@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const express = require('express');
 const { body, validationResult } = require('express-validator');
 const userAuth = require('../middleware/user-auth');
@@ -7,14 +8,25 @@ const { PIDGIN_DEFINITION } = require('../services/pidgin-prompt');
 const TRANSLATE_CACHE_MAX = 500;
 const TRANSLATE_CACHE_TTL_MS = 6 * 60 * 60 * 1000; // 6 hours
 
+/**
+ * The exact vocabulary block interpolated into the Gemini system prompt.
+ * Shared by the route and the cache key so a cached translation is only
+ * reused when the full prompt context (pidgin, english AND usage) matches —
+ * otherwise one crafted request could poison the shared cache for everyone.
+ */
+function buildContextBlock(context = []) {
+    if (!Array.isArray(context) || context.length === 0) return '';
+    return '\n\nVERIFIED VOCABULARY CONTEXT (Use these terms first):\n' +
+        context.map(c => `- "${c?.pidgin}": ${Array.isArray(c?.english) ? c.english.join(', ') : c?.english}${c?.usage ? ' (Usage: ' + c.usage + ')' : ''}`).join('\n');
+}
+
 function createTranslateCache(maxEntries = TRANSLATE_CACHE_MAX, ttlMs = TRANSLATE_CACHE_TTL_MS) {
     const store = new Map();
 
     function buildKey(direction, tone, text, context = []) {
         const normText = String(text || '').trim().replace(/\s+/g, ' ').toLowerCase();
-        const ctxSig = Array.isArray(context) && context.length > 0
-            ? context.map(c => String(c?.pidgin || '').trim().toLowerCase()).filter(Boolean).sort().join('|')
-            : '';
+        const ctxBlock = buildContextBlock(context);
+        const ctxSig = ctxBlock ? crypto.createHash('sha256').update(ctxBlock).digest('hex') : '';
         return `${direction}:${tone || 'standard'}:${normText}::${ctxSig}`;
     }
 
@@ -294,11 +306,7 @@ ${vocabulary}`;
                 const apiKey = process.env.GEMINI_API_KEY;
                 if (!apiKey) return res.status(500).json({ error: 'Gemini API key not configured' });
 
-                let contextStr = '';
-                if (context.length > 0) {
-                    contextStr = '\n\nVERIFIED VOCABULARY CONTEXT (Use these terms first):\n' + 
-                        context.map(c => `- "${c.pidgin}": ${Array.isArray(c.english) ? c.english.join(', ') : c.english}${c.usage ? ' (Usage: ' + c.usage + ')' : ''}`).join('\n');
-                }
+                const contextStr = buildContextBlock(context);
 
                 let styleGuidance = '';
                 if (direction === 'eng-to-pidgin') {

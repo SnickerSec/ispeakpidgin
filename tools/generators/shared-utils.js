@@ -7,6 +7,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { asyncStylesheet } = require('./async-stylesheet');
 
 // Load environment
 require('dotenv').config({ path: path.join(__dirname, '../../.env') });
@@ -294,8 +295,7 @@ function getCommonHead({ title, metaDescription, keywords, canonicalUrl, ogType 
     <!-- Google Fonts (non-render-blocking) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700;800&display=swap"></noscript>
+    ${asyncStylesheet('https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700;800&display=swap')}
 
     <!-- Iconify -->
     <script defer src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>

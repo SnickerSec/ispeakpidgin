@@ -22,6 +22,7 @@ const config = {
 
 // Premium pages map derived from the single source of truth in services/word-redirects.js
 const wordRedirects = require('./services/word-redirects');
+const { asyncStylesheet } = require('./tools/generators/async-stylesheet');
 const premiumPages = Object.fromEntries(
     Object.entries(wordRedirects)
         .filter(([, target]) => target.startsWith('what-does-'))
@@ -48,7 +49,8 @@ function stripInlineGtag(html) {
 
 // Optimize <head> for mobile Core Web Vitals (LCP/FCP):
 // 1. Remove unused render-blocking @tabler/icons-webfont stylesheet.
-// 2. Load Google Fonts asynchronously (media="print" onload) with <noscript> fallback.
+// 2. Load Google Fonts asynchronously (media="print" flipped by an inline <script>, not an
+//    onload= attribute: Helmet's script-src-attr 'none' blocks those) with <noscript> fallback.
 // 3. Hoist local critical stylesheets above inline JSON-LD blocks so Chrome's preload scanner
 //    fetches tailwind.css/main.css in the first packet instead of after 10-20KB of schema JSON.
 function optimizeHeadForCWV(html) {
@@ -65,7 +67,7 @@ function optimizeHeadForCWV(html) {
     head = head.replace(
         /<link\b(?=[^>]*href=(["'])(https:\/\/fonts\.googleapis\.com\/css2\?[^"']+)\1)(?![^>]*media=["']print["'])[^>]*rel=["']stylesheet["'][^>]*>/gi,
         (_, _q, fontUrl) =>
-            `<link rel="stylesheet" href="${fontUrl}" media="print" onload="this.media='all'">\n    <noscript><link rel="stylesheet" href="${fontUrl}"></noscript>`
+            asyncStylesheet(fontUrl)
     );
 
     // 3. Hoist local CSS <link> tags above the first JSON-LD <script> when JSON-LD precedes them
@@ -959,4 +961,4 @@ if (require.main === module) {
     build();
 }
 
-module.exports = { build, pathMappings, premiumPages, getHtmlFiles };
+module.exports = { build, pathMappings, premiumPages, getHtmlFiles, optimizeHeadForCWV };
