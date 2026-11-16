@@ -12,6 +12,7 @@ require('dotenv').config();
 const settingsManager = require('./services/settings-manager');
 const gamificationService = require('./services/gamification-service');
 const adminAuth = require('./middleware/admin-auth');
+const { assetCacheControl } = require('./services/static-cache-control');
 
 // Route imports
 const dictionaryRoutes = require('./routes/dictionary');
@@ -519,7 +520,7 @@ app.use(express.static(path.join(__dirname, 'public'), {
     maxAge: '1h', // Default 1 hour for assets
     etag: true,
     dotfiles: 'deny',
-    setHeaders: (res, filePath) => {
+    setHeaders: (res, filePath, stat) => {
         // sw.js must NEVER be cached by HTTP caches so updates are immediately detected
         if (filePath.endsWith('sw.js')) {
             res.set('Cache-Control', 'no-cache, no-store, must-revalidate, max-age=0');
@@ -529,8 +530,12 @@ app.use(express.static(path.join(__dirname, 'public'), {
             // HTML files should always be revalidated (Cache-Busting)
             res.set('Cache-Control', 'public, no-cache, must-revalidate');
         } else if (filePath.endsWith('.css') || filePath.endsWith('.js')) {
-            // CSS/JS can be cached for 1 hour
-            res.set('Cache-Control', 'public, max-age=3600');
+            // Build stamps ?v=<10-hex md5> onto CSS/JS URLs. Versioned URLs are cached
+            // as immutable ONLY when v matches the served file's real hash; a mismatch
+            // (deploy cutover, pre-deploy probe) gets no-cache so stale bytes can't be
+            // pinned under the new key. Unversioned URLs keep 1h.
+            const rawUrl = (res.req && (res.req.originalUrl || res.req.url)) || '';
+            res.set('Cache-Control', assetCacheControl(filePath, rawUrl, stat));
         } else if (/\.(jpg|jpeg|png|gif|ico|svg|webp)$/.test(filePath)) {
             // Images can stay cached longer
             res.set('Cache-Control', 'public, max-age=86400');

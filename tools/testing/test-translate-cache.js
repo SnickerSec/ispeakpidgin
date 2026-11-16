@@ -176,12 +176,14 @@ async function requestJson(server, path, body) {
     // onload="this.media='all'" and would leave fonts stuck on media="print".
     assert.ok(!/\son\w+\s*=/i.test(headHtml), 'Shared head must not use inline event-handler attributes (blocked by script-src-attr)');
     assert.ok(/media="print">\s*<script>[^<]*media='all'/i.test(headHtml), 'Google Fonts media must be flipped by an inline <script>');
+    assert.ok(/requestAnimationFrame/i.test(headHtml), 'Google Fonts media flip must defer past first paint so woff2 fetches never block FCP/LCP');
 
     const { optimizeHeadForCWV } = require('../../build');
     const optimized = optimizeHeadForCWV('<html><head><link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet"></head><body></body></html>');
     assert.ok(/fonts\.googleapis\.com[^>]*media="print"/i.test(optimized), 'Build must make Google Fonts non-render-blocking');
     assert.ok(!/\son\w+\s*=/i.test(optimized.slice(0, optimized.indexOf('</head>'))), 'Build-optimized head must not use inline event-handler attributes');
     assert.ok(/media="print">\s*<script>[^<]*media='all'/i.test(optimized), 'Build must flip font media via an inline <script>');
+    assert.ok(/requestAnimationFrame/i.test(optimized), 'Build-optimized Google Fonts loader must defer past first paint');
 
     console.log('✅ AI translate cache & CWV head tests passed!');
 })().catch((err) => {

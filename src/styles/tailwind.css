@@ -1,5 +1,5 @@
 @import "tailwindcss" source(none);
-@config "../../tailwind.config.js";
+@custom-variant dark (&:where(.dark, .dark *));
 
 /* Content sources for purging unused classes (source(none) disables scanning tools/migrations/reports) */
 @source "../pages/**/*.html";
