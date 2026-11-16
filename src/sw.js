@@ -1,4 +1,4 @@
-const CACHE_NAME = 'chokepidgin-v3.1';
+const CACHE_NAME = 'chokepidgin-v3.2';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -17,8 +17,7 @@ const STATIC_ASSETS = [
   '/js/components/speech.js',
   '/android-chrome-192x192.png',
   '/android-chrome-512x512.png',
-  '/favicon.svg',
-  'https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css'
+  '/favicon.svg'
 ];
 
 // Install Event - Cache essential assets

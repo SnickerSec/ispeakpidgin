@@ -22,6 +22,7 @@ const config = {
 
 // Premium pages map derived from the single source of truth in services/word-redirects.js
 const wordRedirects = require('./services/word-redirects');
+const { asyncStylesheet } = require('./tools/generators/async-stylesheet');
 const premiumPages = Object.fromEntries(
     Object.entries(wordRedirects)
         .filter(([, target]) => target.startsWith('what-does-'))
@@ -44,6 +45,48 @@ function isModified(srcPath, destPath) {
 // Strip inline gtag blocks (now loaded via external file in footer template)
 function stripInlineGtag(html) {
     return html.replace(/\s*<!-- Google (?:tag \(gtag\.js\)|Analytics) -->\s*<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=G-RB7YYDVDXD"><\/script>\s*<script>\s*window\.dataLayer = window\.dataLayer \|\| \[\];\s*function gtag\(\)\{dataLayer\.push\(arguments\);\}\s*gtag\('js', new Date\(\)\);\s*gtag\('config', 'G-RB7YYDVDXD'\);\s*<\/script>/g, '');
+}
+
+// Optimize <head> for mobile Core Web Vitals (LCP/FCP):
+// 1. Remove unused render-blocking @tabler/icons-webfont stylesheet.
+// 2. Load Google Fonts asynchronously (media="print" flipped by an inline <script>, not an
+//    onload= attribute: Helmet's script-src-attr 'none' blocks those) with <noscript> fallback.
+// 3. Hoist local critical stylesheets above inline JSON-LD blocks so Chrome's preload scanner
+//    fetches tailwind.css/main.css in the first packet instead of after 10-20KB of schema JSON.
+function optimizeHeadForCWV(html) {
+    const headEnd = html.indexOf('</head>');
+    if (headEnd === -1) return html;
+
+    let head = html.slice(0, headEnd);
+    const rest = html.slice(headEnd);
+
+    // 1. Strip unused @tabler/icons-webfont link if present in source HTML
+    head = head.replace(/[ \t]*<link[^>]*@tabler\/icons-webfont[^>]*>\r?\n?/gi, '');
+
+    // 2. Make Google Fonts stylesheet non-render-blocking (skip if already media="print")
+    head = head.replace(
+        /<link\b(?=[^>]*href=(["'])(https:\/\/fonts\.googleapis\.com\/css2\?[^"']+)\1)(?![^>]*media=["']print["'])[^>]*rel=["']stylesheet["'][^>]*>/gi,
+        (_, _q, fontUrl) =>
+            asyncStylesheet(fontUrl)
+    );
+
+    // 3. Hoist local CSS <link> tags above the first JSON-LD <script> when JSON-LD precedes them
+    const firstJsonLdIdx = head.search(/<script[^>]*type=["']application\/ld\+json["']/i);
+    if (firstJsonLdIdx !== -1) {
+        const hoistedCss = [];
+        const afterJsonLd = head.slice(firstJsonLdIdx).replace(
+            /[ \t]*<link\b(?=[^>]*rel=["']stylesheet["'])(?=[^>]*href=["'](?!https?:\/\/)[^"']+\.css["'])[^>]*>\r?\n?/gi,
+            (match) => {
+                hoistedCss.push(match.trim());
+                return '';
+            }
+        );
+        if (hoistedCss.length > 0) {
+            head = head.slice(0, firstJsonLdIdx) + '    ' + hoistedCss.join('\n    ') + '\n\n' + afterJsonLd;
+        }
+    }
+
+    return head + rest;
 }
 
 // Helper to minify JS
@@ -272,8 +315,9 @@ function processHTMLFiles() {
                 content = content.replace('<!-- FOOTER_PLACEHOLDER -->', footerTemplate);
             }
 
-            // Inject Tabler Icons CDN stylesheet and Theme Initialization Script before </head>
+            // Inject Theme Initialization Script and deferred Iconify runtime before </head>
             const themeScript = `
+    <style>iconify-icon{display:inline-block;width:1em;height:1em}</style>
     <script>
         (function() {
             try {
@@ -282,7 +326,8 @@ function processHTMLFiles() {
             } catch (e) {}
         })();
     </script>`;
-            content = content.replace('</head>', `${themeScript}\n    <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>\n    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">\n</head>`);
+            content = optimizeHeadForCWV(content);
+            content = content.replace('</head>', `${themeScript}\n    <script defer src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>\n</head>`);
 
             // Update script and link paths
             Object.entries(pathMappings).forEach(([oldPath, newPath]) => {
@@ -325,8 +370,9 @@ function processHTMLFiles() {
                 content = content.replace('<!-- FOOTER_PLACEHOLDER -->', blogFooter);
             }
 
-            // Inject Tabler Icons CDN stylesheet and Theme Initialization Script before </head>
+            // Inject Theme Initialization Script and deferred Iconify runtime before </head>
             const themeScript = `
+    <style>iconify-icon{display:inline-block;width:1em;height:1em}</style>
     <script>
         (function() {
             try {
@@ -335,7 +381,8 @@ function processHTMLFiles() {
             } catch (e) {}
         })();
     </script>`;
-            content = content.replace('</head>', `${themeScript}\n    <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>\n    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">\n</head>`);
+            content = optimizeHeadForCWV(content);
+            content = content.replace('</head>', `${themeScript}\n    <script defer src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>\n</head>`);
 
             // Update script and link paths for blog pages
             // First apply standard mappings with ../ prefix for root-relative paths
@@ -364,8 +411,9 @@ function processHTMLFiles() {
 
         content = stripInlineGtag(content);
 
-        // Inject Tabler Icons CDN stylesheet and Theme Initialization Script before </head>
+        // Inject Theme Initialization Script and deferred Iconify runtime before </head>
         const themeScript = `
+    <style>iconify-icon{display:inline-block;width:1em;height:1em}</style>
     <script>
         (function() {
             try {
@@ -374,7 +422,8 @@ function processHTMLFiles() {
             } catch (e) {}
         })();
     </script>`;
-        content = content.replace('</head>', `${themeScript}\n    <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>\n    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">\n</head>`);
+        content = optimizeHeadForCWV(content);
+        content = content.replace('</head>', `${themeScript}\n    <script defer src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>\n</head>`);
 
         // Update script and link paths (no template injection for admin page)
         Object.entries(pathMappings).forEach(([oldPath, newPath]) => {
@@ -912,4 +961,4 @@ if (require.main === module) {
     build();
 }
 
-module.exports = { build, pathMappings, premiumPages, getHtmlFiles };
+module.exports = { build, pathMappings, premiumPages, getHtmlFiles, optimizeHeadForCWV };

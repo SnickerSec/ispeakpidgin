@@ -104,6 +104,11 @@ const testSuites = [
         requiredEnv: false
     },
     {
+        name: 'AI Translate Cache & CWV Head Invariants',
+        script: 'test-translate-cache.js',
+        requiredEnv: false
+    },
+    {
         name: 'AI Talk-Story Persona & Tone Consistency',
         script: 'test-ai-personas.js',
         requiredEnv: false

@@ -239,7 +239,9 @@ const EXPERIMENTS = [
     { name: 'lanai hybrid landing page + 301', live: '2026-11-14', page: '/what-does-lanai-mean.html', queries: ['lanai', 'lanai meaning', 'what is a lanai', 'what does lanai mean'] },
     { name: 'kumu hybrid landing page + 301', live: '2026-11-14', page: '/what-does-kumu-mean.html', queries: ['kumu', 'kumu meaning', 'what does kumu mean', 'kumu hula meaning'] },
     { name: 'aue / auwe hybrid landing page + 301', live: '2026-11-14', page: '/what-does-aue-mean.html', queries: ['aue', 'auwe', 'aue meaning', 'auwe meaning', 'what does aue mean'] },
-    { name: 'kolohe hybrid landing page + 301', live: '2026-11-14', page: '/what-does-kolohe-mean.html', queries: ['kolohe', 'kolohe meaning', 'what does kolohe mean'] }
+    { name: 'kolohe hybrid landing page + 301', live: '2026-11-14', page: '/what-does-kolohe-mean.html', queries: ['kolohe', 'kolohe meaning', 'what does kolohe mean'] },
+    // Answer-first hybrid title + meta rollout across /phrase/*.html pages (2026-11-16)
+    { name: 'phrase generator answer-first: wassup brah', live: '2026-11-16', page: '/phrase/wassup-brah.html', queries: ['wassup brah', 'wassup brah meaning'] }
 ];
 
 const isoDay = d => d.toISOString().slice(0, 10);

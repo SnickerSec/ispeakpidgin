@@ -1,13 +1,67 @@
+const crypto = require('crypto');
 const express = require('express');
 const { body, validationResult } = require('express-validator');
 const userAuth = require('../middleware/user-auth');
 const geminiService = require('../services/gemini');
 const { PIDGIN_DEFINITION } = require('../services/pidgin-prompt');
 
+const TRANSLATE_CACHE_MAX = 500;
+const TRANSLATE_CACHE_TTL_MS = 6 * 60 * 60 * 1000; // 6 hours
+
+/**
+ * The exact vocabulary block interpolated into the Gemini system prompt.
+ * Shared by the route and the cache key so a cached translation is only
+ * reused when the full prompt context (pidgin, english AND usage) matches —
+ * otherwise one crafted request could poison the shared cache for everyone.
+ */
+function buildContextBlock(context = []) {
+    if (!Array.isArray(context) || context.length === 0) return '';
+    return '\n\nVERIFIED VOCABULARY CONTEXT (Use these terms first):\n' +
+        context.map(c => `- "${c?.pidgin}": ${Array.isArray(c?.english) ? c.english.join(', ') : c?.english}${c?.usage ? ' (Usage: ' + c.usage + ')' : ''}`).join('\n');
+}
+
+function createTranslateCache(maxEntries = TRANSLATE_CACHE_MAX, ttlMs = TRANSLATE_CACHE_TTL_MS) {
+    const store = new Map();
+
+    function buildKey(direction, tone, text, context = []) {
+        const normText = String(text || '').trim().replace(/\s+/g, ' ').toLowerCase();
+        const ctxBlock = buildContextBlock(context);
+        const ctxSig = ctxBlock ? crypto.createHash('sha256').update(ctxBlock).digest('hex') : '';
+        return `${direction}:${tone || 'standard'}:${normText}::${ctxSig}`;
+    }
+
+    function get(key, now = Date.now()) {
+        const entry = store.get(key);
+        if (!entry) return null;
+        if (now - entry.createdAt > ttlMs) {
+            store.delete(key);
+            return null;
+        }
+        // Refresh LRU position
+        store.delete(key);
+        store.set(key, entry);
+        return entry.value;
+    }
+
+    function set(key, value, now = Date.now()) {
+        if (store.has(key)) store.delete(key);
+        while (store.size >= maxEntries) {
+            const oldestKey = store.keys().next().value;
+            if (oldestKey === undefined) break;
+            store.delete(oldestKey);
+        }
+        store.set(key, { value, createdAt: now });
+    }
+
+    return { buildKey, get, set, clear: () => store.clear(), size: () => store.size };
+}
+
+const sharedTranslateCache = createTranslateCache();
+
 /**
  * AI & Chat Routes
  */
-module.exports = function(supabase, dictionaryCache, limiter, gamificationService, translateLimiter = limiter) {
+module.exports = function(supabase, dictionaryCache, limiter, gamificationService, translateLimiter = limiter, translateCache = sharedTranslateCache) {
     const router = express.Router();
 
     // Simple bot protection: Ensure request comes from our own site
@@ -240,14 +294,19 @@ ${vocabulary}`;
 
             try {
                 const { text, direction, context = [], tone = 'standard' } = req.body;
+                const cacheKey = translateCache ? translateCache.buildKey(direction, tone, text, context) : null;
+                if (cacheKey && translateCache) {
+                    const cachedPayload = translateCache.get(cacheKey);
+                    if (cachedPayload) {
+                        res.set('X-Cache', 'HIT');
+                        return res.json(cachedPayload);
+                    }
+                }
+
                 const apiKey = process.env.GEMINI_API_KEY;
                 if (!apiKey) return res.status(500).json({ error: 'Gemini API key not configured' });
 
-                let contextStr = '';
-                if (context.length > 0) {
-                    contextStr = '\n\nVERIFIED VOCABULARY CONTEXT (Use these terms first):\n' + 
-                        context.map(c => `- "${c.pidgin}": ${Array.isArray(c.english) ? c.english.join(', ') : c.english}${c.usage ? ' (Usage: ' + c.usage + ')' : ''}`).join('\n');
-                }
+                const contextStr = buildContextBlock(context);
 
                 let styleGuidance = '';
                 if (direction === 'eng-to-pidgin') {
@@ -330,6 +389,10 @@ Respond only with a JSON object:
                 
                 try {
                     const parsed = JSON.parse(responseText);
+                    if (cacheKey && translateCache && parsed && typeof parsed.translation === 'string' && parsed.translation.trim()) {
+                        translateCache.set(cacheKey, parsed);
+                    }
+                    res.set('X-Cache', 'MISS');
                     res.json(parsed);
                 } catch (e) {
                     res.status(500).json({ error: 'AI returned invalid format' });
@@ -343,3 +406,5 @@ Respond only with a JSON object:
 
     return router;
 };
+
+module.exports.createTranslateCache = createTranslateCache;

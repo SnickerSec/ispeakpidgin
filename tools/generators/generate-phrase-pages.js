@@ -149,11 +149,30 @@ function generatePhrasePage(phrase, relatedPhrases, navigation, footer, dictiona
 
     const canonicalUrl = premiumLink || `${SITE_URL}/phrase/${slug}.html`;
 
-    // Page title - more compelling
-    const pageTitle = `"${phrase.pidgin}" Meaning & Pronunciation - Hawaiian Pidgin Guide | ${SITE_NAME}`;
+    // Answer-first hybrid title & meta description (matching generate-entry-pages.js):
+    // putting the English meaning directly in the SERP snippet answers "wassup brah" /
+    // "bumbai you learn" queries instead of generic clickbait boilerplate.
+    const rawPidgin = String(phrase.pidgin || '').trim();
+    const rawEnglish = String(phrase.english || '').trim().replace(/[.]+$/, '');
+    const rawPron = String(phrase.pronunciation || '').trim();
+    const foldAlpha = t => String(t || '').toLowerCase().normalize('NFD').replace(/[^a-z]/g, '');
+    const saidHint = rawPron && foldAlpha(rawPron) !== foldAlpha(rawPidgin) ? ` (said "${rawPron}")` : '';
+    const pageTitle = rawEnglish && rawEnglish.length <= 32
+        ? `"${rawPidgin}" Meaning: "${rawEnglish}" in Hawaiian Pidgin + Audio | ${SITE_NAME}`
+        : `"${rawPidgin}" Meaning in Hawaiian Pidgin: Translation & Audio | ${SITE_NAME}`;
 
-    // Meta description - much more compelling, includes call to action
-    const metaDescription = `What does "${phrase.pidgin}" mean? Discover the local meaning, hear the authentic pronunciation, and see real-life examples of this ${phrase.category || 'popular'} Hawaiian slang phrase.`;
+    const baseSentence = rawEnglish
+        ? `"${rawPidgin}"${saidHint} means "${rawEnglish}" in Hawaiian Pidgin.`
+        : `"${rawPidgin}"${saidHint} is a Hawaiian Pidgin phrase.`;
+    const trimmedNote = String(phrase.notes || '').trim().replace(/\s+/g, ' ');
+    const cleanNote = trimmedNote && !/[.!?]$/.test(trimmedNote) ? `${trimmedNote}.` : trimmedNote;
+    const closeCta = 'Hear how locals say it.';
+    let metaDescription = `${baseSentence} ${closeCta}`;
+    if (cleanNote && `${baseSentence} ${cleanNote} ${closeCta}`.length <= 160) {
+        metaDescription = `${baseSentence} ${cleanNote} ${closeCta}`;
+    } else if (metaDescription.length > 160) {
+        metaDescription = baseSentence.length <= 160 ? baseSentence : `${baseSentence.slice(0, 157).trimEnd()}...`;
+    }
 
     // Keywords
     const keywords = `${phrase.pidgin}, hawaiian slang, hawaiian pidgin, ${phrase.english}, pidgin phrases, hawaii language`;
