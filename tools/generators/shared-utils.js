@@ -288,9 +288,8 @@ function getCommonHead({ title, metaDescription, keywords, canonicalUrl, ogType 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="alternate icon" href="/favicon.ico">
 
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS (bundles custom theme rules) -->
     <link rel="stylesheet" href="/css/tailwind.css">
-    <link rel="stylesheet" href="/css/main.css">
 
     <!-- Google Fonts (non-render-blocking) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

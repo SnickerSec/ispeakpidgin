@@ -1,11 +1,12 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
 @config "../../tailwind.config.js";
 
-/* Content sources for purging unused classes */
+/* Content sources for purging unused classes (source(none) disables scanning tools/migrations/reports) */
 @source "../pages/**/*.html";
 @source "../components/**/*.html";
 @source "../components/**/*.js";
-@source "../blog/**/*.html";
+@source "../../tools/generators/**/*.js";
+@source "../../services/**/*.js";
 
 /* Global font rules */
 body, h1, h2, h3, h4, h5, h6 {
@@ -62,3 +63,6 @@ textarea,
   left: auto !important;
   z-index: 9999 !important;
 }
+
+/* Bundle custom Island Night theme rules directly into minified tailwind.css to save 1 render-blocking CSS roundtrip */
+@import "./style.css";

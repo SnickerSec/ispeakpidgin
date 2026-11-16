@@ -332,7 +332,9 @@ app.post('/api/text-to-speech', translationLimiter, (req, res, next) => {
 });
 app.use('/api/dictionary', dictionaryRoutes(supabase, dictionaryLimiter, dictionaryCache, semanticSearchLimiter));
 app.use('/api', contentRoutes(supabase, dictionaryLimiter));
-app.use('/api', gamesRoutes(supabase, dictionaryLimiter, gamificationService));
+const gamesRouter = gamesRoutes(supabase, dictionaryLimiter, gamificationService, supabaseAdmin);
+app.use('/api', gamesRouter);
+app.use('/api/games', gamesRouter);
 app.use('/api', pickupRoutes(supabase, dictionaryLimiter, translationLimiter));
 app.use('/api/ai', aiRoutes(supabase, dictionaryCache, aiChatLimiter, gamificationService, aiTranslateLimiter));
 app.use('/api/suggestions', suggestionsRoutes(supabase, apiLimiter, gamificationService));
@@ -340,6 +342,12 @@ app.use('/api/questions', questionsRoutes(supabase, questionSubmitLimiter, gamif
 app.use('/api/user/google-auth', userLoginLimiter);
 app.use('/api/user', userRoutes(supabaseAdmin, gamificationService));
 app.use('/api/admin', adminRoutes(supabaseAdmin, adminAuth, settingsManager));
+
+// Return JSON 404 for any unmatched /api/* route so broken API endpoints never
+// fall through to the SPA index.html (200 text/html) fallback below.
+app.use('/api', (req, res) => {
+    res.status(404).json({ error: 'API endpoint not found' });
+});
 
 // ============================================
 // SEO: Spelling Variant Redirects

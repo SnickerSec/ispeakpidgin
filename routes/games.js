@@ -4,8 +4,143 @@ const userAuth = require('../middleware/user-auth');
 /**
  * Game Routes (Wordle, Crossword, Quiz)
  */
-module.exports = function(supabase, dictionaryLimiter, gamificationService) {
+module.exports = function(supabase, dictionaryLimiter, gamificationService, supabaseAdmin = null) {
     const router = express.Router();
+
+    const SCORE_SETTINGS_KEY = 'game_scores_v1';
+    const SCORE_MAX_LEDGER = 1000;
+    const memoryScores = [];
+    let writeChain = Promise.resolve();
+
+    function isMissingTableError(err) {
+        if (!err) return false;
+        const code = String(err.code || '');
+        const msg = String(err.message || '');
+        return code === 'PGRST205' || code === '42P01' || /Could not find the table|does not exist/i.test(msg);
+    }
+
+    async function readFallbackScores() {
+        if (!supabaseAdmin) return [...memoryScores];
+        const { data, error } = await supabaseAdmin
+            .from('site_settings')
+            .select('value')
+            .eq('key', SCORE_SETTINGS_KEY)
+            .maybeSingle();
+        if (error) throw error;
+        if (!data || !data.value) return [];
+        try {
+            const parsed = JSON.parse(data.value);
+            return Array.isArray(parsed) ? parsed : [];
+        } catch {
+            return [];
+        }
+    }
+
+    function compactScoreLedger(entries) {
+        // Keep top 25 high scores per game_type plus the newest entries up to SCORE_MAX_LEDGER
+        const byType = new Map();
+        for (const e of entries) {
+            if (!e || !e.game_type) continue;
+            const list = byType.get(e.game_type) || [];
+            list.push(e);
+            byType.set(e.game_type, list);
+        }
+        const pinned = new Set();
+        for (const list of byType.values()) {
+            list
+                .slice()
+                .sort((a, b) => (b.score || 0) - (a.score || 0))
+                .slice(0, 25)
+                .forEach(item => pinned.add(item));
+        }
+        const sortedNewest = entries
+            .slice()
+            .sort((a, b) => String(b.created_at || '').localeCompare(String(a.created_at || '')));
+        const kept = [];
+        const seen = new Set();
+        for (const item of sortedNewest) {
+            if (kept.length >= SCORE_MAX_LEDGER && !pinned.has(item)) continue;
+            if (!seen.has(item)) {
+                seen.add(item);
+                kept.push(item);
+            }
+        }
+        for (const item of pinned) {
+            if (!seen.has(item)) kept.push(item);
+        }
+        return kept.slice(0, SCORE_MAX_LEDGER + 100);
+    }
+
+    function enqueueFallbackInsert(entry) {
+        const op = writeChain.then(async () => {
+            if (!supabaseAdmin) {
+                memoryScores.push(entry);
+                if (memoryScores.length > SCORE_MAX_LEDGER) memoryScores.shift();
+                return;
+            }
+            const current = await readFallbackScores();
+            current.push(entry);
+            const compacted = compactScoreLedger(current);
+            const { error } = await supabaseAdmin
+                .from('site_settings')
+                .upsert({
+                    key: SCORE_SETTINGS_KEY,
+                    value: JSON.stringify(compacted),
+                    value_type: 'json',
+                    category: 'leaderboard',
+                    description: 'Game leaderboard & proficiency score ledger (fallback while game_scores is unmigrated)',
+                    is_secret: false,
+                    updated_at: new Date().toISOString()
+                }, { onConflict: 'key' });
+            if (error) throw error;
+        });
+        writeChain = op.catch(() => {});
+        return op;
+    }
+
+    async function fetchGameScores({ gameType = null, username = null, limit = 10 } = {}) {
+        const db = supabaseAdmin || supabase;
+        if (db) {
+            let query = db
+                .from('game_scores')
+                .select('username, score, game_type, streak, created_at');
+            if (gameType) query = query.eq('game_type', gameType);
+            if (username) query = query.eq('username', username);
+            query = query.order('score', { ascending: false }).limit(limit);
+            const { data, error } = await query;
+            if (!error) return data || [];
+            if (!isMissingTableError(error)) throw error;
+        }
+
+        const all = await readFallbackScores();
+        return all
+            .filter(item => {
+                if (!item) return false;
+                if (gameType && item.game_type !== gameType) return false;
+                if (username && String(item.username || '').toLowerCase() !== String(username).toLowerCase()) return false;
+                return true;
+            })
+            .sort((a, b) => (b.score || 0) - (a.score || 0) || String(a.created_at || '').localeCompare(String(b.created_at || '')))
+            .slice(0, limit);
+    }
+
+    async function insertGameScore({ userId, username, score, gameType, streak }) {
+        const entry = {
+            username,
+            score,
+            game_type: gameType,
+            streak,
+            created_at: new Date().toISOString()
+        };
+        const db = supabaseAdmin || supabase;
+        if (db) {
+            const payload = userId ? { ...entry, user_id: userId } : entry;
+            const { error } = await db.from('game_scores').insert(payload);
+            if (!error) return;
+            if (!isMissingTableError(error)) throw error;
+        }
+        await enqueueFallbackInsert(entry);
+    }
 
     // ============================================
     // WORDLE API
@@ -412,35 +547,15 @@ module.exports = function(supabase, dictionaryLimiter, gamificationService) {
 
     router.get('/leaderboard', dictionaryLimiter, async (req, res) => {
         try {
-            const { game_type = 'ear-trainer', limit = 10 } = req.query;
-            
-            // We use local_questions table as a makeshift scores table
-            // status = 'score' identifies leaderboard entries
-            const { data, error } = await supabase
-                .from('local_questions')
-                .select('user_name, question_text, created_at')
-                .eq('status', 'score')
-                .order('created_at', { ascending: false }); // We'll sort by score in JS
-
-            if (error) throw error;
-
-            const scores = (data || [])
-                .map(item => {
-                    try {
-                        const meta = JSON.parse(item.question_text);
-                        if (meta.game_type !== game_type) return null;
-                        return {
-                            username: item.user_name,
-                            score: meta.score,
-                            streak: meta.streak || 0,
-                            created_at: item.created_at
-                        };
-                    } catch (e) { return null; }
-                })
-                .filter(Boolean)
-                .sort((a, b) => b.score - a.score)
-                .slice(0, parseInt(limit));
-
+            const gameType = String(req.query.game_type || 'ear-trainer').trim();
+            const parsedLimit = Math.min(100, Math.max(1, parseInt(req.query.limit, 10) || 10));
+            const rows = await fetchGameScores({ gameType, limit: parsedLimit });
+            const scores = rows.map(item => ({
+                username: item.username,
+                score: item.score,
+                streak: item.streak || 0,
+                created_at: item.created_at
+            }));
             res.json({ scores });
         } catch (error) {
             console.error('Leaderboard fetch error:', error);
@@ -450,10 +565,26 @@ module.exports = function(supabase, dictionaryLimiter, gamificationService) {
 
     router.post('/leaderboard', dictionaryLimiter, async (req, res) => {
         try {
-            const { username, score, game_type, streak } = req.body;
+            const { username, score, game_type, streak } = req.body || {};
 
-            if (!username || score === undefined || !game_type) {
+            if (!username || score === undefined || score === null || !game_type) {
                 return res.status(400).json({ error: 'Missing required fields' });
+            }
+
+            const cleanGameType = String(game_type).trim().slice(0, 40);
+            if (!/^[a-z0-9_-]+$/i.test(cleanGameType)) {
+                return res.status(400).json({ error: 'Invalid game_type' });
+            }
+
+            const parsedScore = parseInt(score, 10);
+            const parsedStreak = Math.max(0, parseInt(streak || 0, 10) || 0);
+            if (!Number.isFinite(parsedScore) || parsedScore < 0 || parsedScore > 100000) {
+                return res.status(400).json({ error: 'Invalid score' });
+            }
+
+            const sanitizedUsername = String(username).replace(/[<>]/g, '').trim().substring(0, 20);
+            if (!sanitizedUsername) {
+                return res.status(400).json({ error: 'Invalid username' });
             }
 
             // Check if user is logged in (optional)
@@ -465,41 +596,23 @@ module.exports = function(supabase, dictionaryLimiter, gamificationService) {
                 if (decoded) userId = decoded.userId;
             }
 
-            const parsedScore = parseInt(score);
-            // Basic sanitization for storage
-            const sanitizedUsername = username.replace(/[<>]/g, '').substring(0, 20);
-            
-            const metadata = JSON.stringify({
+            await insertGameScore({
+                userId,
+                username: sanitizedUsername,
                 score: parsedScore,
-                game_type,
-                streak: parseInt(streak || 0),
-                version: '1.1'
+                gameType: cleanGameType,
+                streak: parsedStreak
             });
-
-            const { data, error } = await supabase
-                .from('local_questions')
-                .insert({
-                    user_name: sanitizedUsername,
-                    question_text: metadata,
-                    status: 'score'
-                });
-
-            if (error) throw error;
 
             // Gamification: Award XP if user is logged in
             let xpResult = null;
             if (userId && gamificationService) {
-                // Base XP: 20 for finishing a game
-                // Bonus XP: score-based
                 let xpAmount = 20 + Math.floor(parsedScore / 10);
-                
-                // Perfect score bonus for quizzes
-                if (game_type.includes('quiz') && parsedScore >= 50) {
+                if (cleanGameType.includes('quiz') && parsedScore >= 50) {
                     xpAmount += 50;
                     await gamificationService.awardBadge(userId, 'quiz_king');
                 }
-
-                xpResult = await gamificationService.awardXP(userId, xpAmount, 'game_complete', `${game_type}_${Date.now()}`);
+                xpResult = await gamificationService.awardXP(userId, xpAmount, 'game_complete', `${cleanGameType}_${Date.now()}`);
             }
 
             res.json({ success: true, xp: xpResult });
@@ -515,19 +628,10 @@ module.exports = function(supabase, dictionaryLimiter, gamificationService) {
 
     router.get('/proficiency', dictionaryLimiter, async (req, res) => {
         try {
-            const { username } = req.query;
+            const username = String(req.query.username || '').trim();
             if (!username) return res.status(400).json({ error: 'Username required' });
 
-            // Fetch all scores for this user from our makeshift scores table
-            const { data, error } = await supabase
-                .from('local_questions')
-                .select('question_text, created_at')
-                .eq('status', 'score')
-                .eq('user_name', username);
-
-            if (error) throw error;
-
-            const scores = (data || []).map(d => JSON.parse(d.question_text));
+            const scores = await fetchGameScores({ username, limit: 1000 });
             
             // Logic: 
             // - Wordle: 1-6 points per win

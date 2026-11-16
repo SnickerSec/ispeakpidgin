@@ -63,6 +63,15 @@ function optimizeHeadForCWV(html) {
     // 1. Strip unused @tabler/icons-webfont link if present in source HTML
     head = head.replace(/[ \t]*<link[^>]*@tabler\/icons-webfont[^>]*>\r?\n?/gi, '');
 
+    // 1b. Since tailwind.css now bundles & minifies style.css, drop duplicate style.css/main.css
+    //     links when tailwind.css is already linked in <head> (saves 1 render-blocking roundtrip).
+    if (/href=["'][^"']*tailwind\.css["']/i.test(head)) {
+        head = head.replace(
+            /[ \t]*<link\b(?=[^>]*rel=["']stylesheet["'])(?=[^>]*href=["'](?:\.\.\/|\/)?css\/(?:style|main)\.css["'])[^>]*>\r?\n?/gi,
+            ''
+        );
+    }
+
     // 2. Make Google Fonts stylesheet non-render-blocking (skip if already media="print")
     head = head.replace(
         /<link\b(?=[^>]*href=(["'])(https:\/\/fonts\.googleapis\.com\/css2\?[^"']+)\1)(?![^>]*media=["']print["'])[^>]*rel=["']stylesheet["'][^>]*>/gi,
@@ -70,11 +79,12 @@ function optimizeHeadForCWV(html) {
             asyncStylesheet(fontUrl)
     );
 
-    // 3. Hoist local CSS <link> tags above the first JSON-LD <script> when JSON-LD precedes them
-    const firstJsonLdIdx = head.search(/<script[^>]*type=["']application\/ld\+json["']/i);
-    if (firstJsonLdIdx !== -1) {
+    // 3. Hoist local CSS <link> tags above Google Fonts preconnect & JSON-LD <script> blocks
+    //    so slow-4G fetches critical CSS in packet #1 before cross-origin font handshakes.
+    const hoistAnchorIdx = head.search(/<link[^>]*rel=["'](?:dns-prefetch|preconnect)["'][^>]*fonts\.|<script[^>]*type=["']application\/ld\+json["']/i);
+    if (hoistAnchorIdx !== -1) {
         const hoistedCss = [];
-        const afterJsonLd = head.slice(firstJsonLdIdx).replace(
+        const afterAnchor = head.slice(hoistAnchorIdx).replace(
             /[ \t]*<link\b(?=[^>]*rel=["']stylesheet["'])(?=[^>]*href=["'](?!https?:\/\/)[^"']+\.css["'])[^>]*>\r?\n?/gi,
             (match) => {
                 hoistedCss.push(match.trim());
@@ -82,7 +92,7 @@ function optimizeHeadForCWV(html) {
             }
         );
         if (hoistedCss.length > 0) {
-            head = head.slice(0, firstJsonLdIdx) + '    ' + hoistedCss.join('\n    ') + '\n\n' + afterJsonLd;
+            head = head.slice(0, hoistAnchorIdx) + '    ' + hoistedCss.join('\n    ') + '\n\n' + afterAnchor;
         }
     }
 
