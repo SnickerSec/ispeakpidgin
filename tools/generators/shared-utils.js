@@ -287,27 +287,29 @@ function getCommonHead({ title, metaDescription, keywords, canonicalUrl, ogType 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="alternate icon" href="/favicon.ico">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
     <!-- Tailwind CSS -->
     <link rel="stylesheet" href="/css/tailwind.css">
     <link rel="stylesheet" href="/css/main.css">
 
+    <!-- Google Fonts (non-render-blocking) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700;800&display=swap"></noscript>
+
     <!-- Iconify -->
-    <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
+    <script defer src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
 
     <style>
+        iconify-icon { display: inline-block; width: 1em; height: 1em; }
         .brand-font { font-family: 'Pacifico', cursive; }
         body, h1, h2, h3, h4, h5, h6 { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
     </style>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RB7YYDVDXD"></script>
-    <script src="/js/components/gtag.js"></script>
-    <script src="/js/components/favorites-manager.js"></script>`;
+    <script defer src="/js/components/gtag.js"></script>
+    <script defer src="/js/components/favorites-manager.js"></script>`;
 }
 
 /**

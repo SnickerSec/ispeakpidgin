@@ -531,8 +531,12 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
             }
         });
 
-        // Favorites toggle handler
-        (function() {
+        // Favorites toggle handler (runs once deferred favorites-manager.js initializes)
+        (function initFav() {
+            if (!window.favoritesManager && document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initFav, { once: true });
+                return;
+            }
             const favBtn = document.getElementById('fav-word');
             const favIcon = favBtn?.querySelector('iconify-icon') || favBtn?.querySelector('i');
             const favText = document.getElementById('fav-text');
