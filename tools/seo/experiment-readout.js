@@ -241,7 +241,16 @@ const EXPERIMENTS = [
     { name: 'aue / auwe hybrid landing page + 301', live: '2026-11-14', page: '/what-does-aue-mean.html', queries: ['aue', 'auwe', 'aue meaning', 'auwe meaning', 'what does aue mean'] },
     { name: 'kolohe hybrid landing page + 301', live: '2026-11-14', page: '/what-does-kolohe-mean.html', queries: ['kolohe', 'kolohe meaning', 'what does kolohe mean'] },
     // Answer-first hybrid title + meta rollout across /phrase/*.html pages (2026-11-16)
-    { name: 'phrase generator answer-first: wassup brah', live: '2026-11-16', page: '/phrase/wassup-brah.html', queries: ['wassup brah', 'wassup brah meaning'] }
+    { name: 'phrase generator answer-first: wassup brah', live: '2026-11-16', page: '/phrase/wassup-brah.html', queries: ['wassup brah', 'wassup brah meaning'] },
+    // Gesture-first shaka title. Two "What Does Shaka Mean?" titles (10-26, 10-31) left CTR at ~0.1%;
+    // most of the page's impressions come from searchers describing the gesture ("hang loose sign",
+    // "thumb and pinky out"), not asking about the word. Set `live` to the deploy date once merged.
+    {
+        name: 'shaka gesture-first title: hang loose sign, thumb & pinky out',
+        live: '2026-11-17',
+        page: '/what-does-shaka-mean.html',
+        queries: ['shaka meaning', 'hang loose sign', 'hang loose hand sign', 'hang loose meaning', 'shaka hand sign', 'what does hang loose mean', 'what does thumb and pinky out mean', 'hang ten hand sign']
+    }
 ];
 
 const isoDay = d => d.toISOString().slice(0, 10);
