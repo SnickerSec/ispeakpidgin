@@ -116,6 +116,12 @@ const testSuites = [
         requiredEnv: false
     },
     {
+        // A foreign Origin must get a quiet 403, not a 500 + logged stack trace.
+        name: 'CORS Policy (disallowed origin → 403)',
+        script: 'test-cors-policy.js',
+        requiredEnv: false
+    },
+    {
         name: 'AI Talk-Story Persona & Tone Consistency',
         script: 'test-ai-personas.js',
         requiredEnv: false

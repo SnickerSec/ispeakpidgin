@@ -4,7 +4,7 @@ const compression = require('compression');
 const helmet = require('helmet');
 const fs = require('fs');
 const rateLimit = require('express-rate-limit');
-const cors = require('cors');
+const { corsPolicy } = require('./services/cors-policy');
 const { createClient } = require('@supabase/supabase-js');
 require('dotenv').config();
 
@@ -150,25 +150,6 @@ const adminActionLimiter = rateLimit({
     legacyHeaders: false,
 });
 
-// CORS configuration
-const corsOptions = {
-    origin: function (origin, callback) {
-        if (!origin) return callback(null, true);
-
-        const isDev = process.env.NODE_ENV === 'development';
-        const allowedOrigins = isDev
-            ? ['http://localhost:3000', 'http://localhost:8080']
-            : ['https://chokepidgin.com', 'https://www.chokepidgin.com'];
-
-        if (allowedOrigins.indexOf(origin) !== -1) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true,
-    optionsSuccessStatus: 200
-};
 
 // Canonical host: send www to the apex, which is what every canonical tag,
 // og:url, and the sitemap already declare. Matched on the www hostname alone
@@ -189,7 +170,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(cors(corsOptions));
+app.use(corsPolicy());
 
 // Security middleware
 app.use(helmet({
