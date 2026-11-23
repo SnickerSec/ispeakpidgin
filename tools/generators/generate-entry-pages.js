@@ -32,11 +32,8 @@ const { generateOgImage } = require('./og-image-generator');
 const outputDir = path.join(__dirname, '../../public/word');
 const ogOutputDir = path.join(__dirname, '../../public/assets/og/words');
 
-
-// Create output directory
-if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir, { recursive: true });
-}
+// main() creates the output directories. Nothing runs at load time: tests import this
+// module, and an empty public/word/ made run-all-tests --quick skip the build and audit 0 pages.
 
 // True when `inner` (4+ letters) appears as whole words inside a longer `outer` headword.
 function headwordContains(outer, inner) {
@@ -118,6 +115,36 @@ function answerFirstSnippet(entry, capitalizedWord) {
     return { title, description };
 }
 
+// Hybrid question + quoted-answer snippets for /word/ pages that already rank on page 1 but
+// barely get clicks. The generic answer-first description gives the whole answer away in the
+// SERP; the hybrid format (shipped on the /what-does-* pages 10-26 → 11-12) leads with the
+// searcher's question, keeps a short answer, and adds a reason to click (origin, usage, audio).
+// Search Console, 28d to 2026-11-20:
+//   garut     "garut meaning" pos 1.7, 565 impr, 0.88% CTR
+//   tantaran  /word/tantaran.html 1,160 impr, 1.64% CTR
+//   k den     "k den" pos 4.5, 495 impr, 0.61% CTR
+// Each one is registered in tools/seo/experiment-readout.js; judge per query, not site totals.
+// Keep descriptions <= META_DESCRIPTION_MAX; tools/testing/test-word-snippets.js enforces it.
+const SNIPPET_OVERRIDES = {
+    'garut': {
+        title: 'What Does "Garut" Mean? Hawaii Slang for "Flirty" (Ilocano Roots) | ChokePidgin',
+        description: 'What does garut mean? In Hawaii Pidgin, garut (said "gah-ROOT") means flirty or boy-crazy, a tease that came from Ilocano. Hear it + real examples.'
+    },
+    'tantaran': {
+        title: 'What Does "Tantaran" Mean? Hawaii Pidgin for "Show-Off" | ChokePidgin',
+        description: 'What does tantaran mean? In Hawaii Pidgin, tantaran (said "tan-tah-RAHN") means a show-off. "He stay tantaran wit\' his new car." Hear it said.'
+    },
+    'k den': {
+        title: 'What Does "K Den" Mean? Pidgin for "Okay Then" | ChokePidgin',
+        description: 'What does k den mean? K den (said "kay-DEN") is Hawaii Pidgin for "okay then", how locals agree or say bye. "K den, see you latahs." Hear it said.'
+    }
+};
+
+function wordSnippet(entry, capitalizedWord) {
+    const key = String(entry.pidgin || '').trim().toLowerCase();
+    return SNIPPET_OVERRIDES[key] || answerFirstSnippet(entry, capitalizedWord);
+}
+
 // Helper: Find related terms (same category or similar tags)
 function findRelatedTerms(entry, allEntries, limit = 6) {
     const related = allEntries
@@ -158,7 +185,7 @@ function generateEntryPage(entry, relatedTerms, navigation, footer) {
 
     // Title keeps the exact "X meaning" match; title and description both lead with the answer
     const capitalizedWord = entry.pidgin.charAt(0).toUpperCase() + entry.pidgin.slice(1);
-    const { title: pageTitle, description: metaDescription } = answerFirstSnippet(entry, capitalizedWord);
+    const { title: pageTitle, description: metaDescription } = wordSnippet(entry, capitalizedWord);
 
     const canonicalUrl = premiumLink || `${SITE_URL}/word/${slug}.html`;
     const ogImage = `${SITE_URL}/assets/og/words/${slug}.webp`;
@@ -743,4 +770,8 @@ async function main() {
     }
 }
 
-main();
+if (require.main === module) {
+    main();
+}
+
+module.exports = { SNIPPET_OVERRIDES, META_DESCRIPTION_MAX, wordSnippet, answerFirstSnippet };
