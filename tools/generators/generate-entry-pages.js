@@ -32,11 +32,8 @@ const { generateOgImage } = require('./og-image-generator');
 const outputDir = path.join(__dirname, '../../public/word');
 const ogOutputDir = path.join(__dirname, '../../public/assets/og/words');
 
-
-// Create output directory
-if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir, { recursive: true });
-}
+// main() creates the output directories. Nothing runs at load time: tests import this
+// module, and an empty public/word/ made run-all-tests --quick skip the build and audit 0 pages.
 
 // True when `inner` (4+ letters) appears as whole words inside a longer `outer` headword.
 function headwordContains(outer, inner) {

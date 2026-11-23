@@ -7,6 +7,9 @@ const assert = require('assert');
 const {
     SNIPPET_OVERRIDES, META_DESCRIPTION_MAX, wordSnippet, answerFirstSnippet
 } = require('../generators/generate-entry-pages');
+const { getPremiumPage } = require('../generators/shared-utils');
+
+const escapeRegExp = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 let failures = 0;
 const check = (name, fn) => {
@@ -20,8 +23,10 @@ for (const [headword, { title, description }] of Object.entries(SNIPPET_OVERRIDE
         assert.ok(description.length <= META_DESCRIPTION_MAX, `${description.length} chars`));
     check(`${headword}: title and description lead with the question`, () => {
         assert.match(title, /^What Does "[^"]+" Mean\?/);
-        assert.match(description, new RegExp(`^What does ${headword} mean\\?`, 'i'));
+        assert.match(description, new RegExp(`^What does ${escapeRegExp(headword)} mean\\?`, 'i'));
     });
+    check(`${headword}: /word/ page is not redirected to a /what-does-* page`, () =>
+        assert.ok(!getPremiumPage(headword), `canonical is ${getPremiumPage(headword)}; the override would never be seen`));
     check(`${headword}: title is branded`, () => assert.match(title, /\| ChokePidgin$/));
     check(`${headword}: override wins over the generic snippet (case-insensitive)`, () => {
         const cap = headword.charAt(0).toUpperCase() + headword.slice(1);

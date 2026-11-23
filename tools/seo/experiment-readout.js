@@ -254,7 +254,8 @@ const EXPERIMENTS = [
     // Hybrid question + quoted-answer snippets on page-1 /word/ pages (SNIPPET_OVERRIDES in
     // tools/generators/generate-entry-pages.js). Baseline (GSC 28d to 2026-11-20): "garut meaning"
     // pos 1.7, 565 impr, 0.88% CTR; /word/tantaran.html 1,160 impr, 1.64%; "k den" pos 4.5, 495 impr,
-    // 0.61%. Set `live` to the deploy date once merged.
+    // 0.61%. `live` is 2026-11-24, the first full day the PR can be deployed (still unmerged on
+    // 11-23), so no deploy-day impressions land in "before". If it merges later, move it to that day.
     { name: 'word hybrid snippet: garut', live: '2026-11-24', page: '/word/garut.html', queries: ['garut meaning', 'garut', 'what does garut mean', 'garot meaning'] },
     { name: 'word hybrid snippet: tantaran', live: '2026-11-24', page: '/word/tantaran.html', queries: ['tantaran', 'tantaran meaning', 'what does tantaran mean'] },
     { name: 'word hybrid snippet: k den', live: '2026-11-24', page: '/word/k-den.html', queries: ['k den', 'k den meaning', 'kden'] }
