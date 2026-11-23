@@ -132,6 +132,11 @@ const testSuites = [
         requiredEnv: false
     },
     {
+        name: '/word/ Snippet Overrides',
+        script: 'test-word-snippets.js',
+        requiredEnv: false
+    },
+    {
         name: 'Daily Games, Phrase Cache & Speech',
         script: 'test-games-and-phrases.js',
         requiredEnv: false

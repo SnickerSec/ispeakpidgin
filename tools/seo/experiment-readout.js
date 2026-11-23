@@ -250,7 +250,14 @@ const EXPERIMENTS = [
         live: '2026-11-17',
         page: '/what-does-shaka-mean.html',
         queries: ['shaka meaning', 'hang loose sign', 'hang loose hand sign', 'hang loose meaning', 'shaka hand sign', 'what does hang loose mean', 'what does thumb and pinky out mean', 'hang ten hand sign']
-    }
+    },
+    // Hybrid question + quoted-answer snippets on page-1 /word/ pages (SNIPPET_OVERRIDES in
+    // tools/generators/generate-entry-pages.js). Baseline (GSC 28d to 2026-11-20): "garut meaning"
+    // pos 1.7, 565 impr, 0.88% CTR; /word/tantaran.html 1,160 impr, 1.64%; "k den" pos 4.5, 495 impr,
+    // 0.61%. Set `live` to the deploy date once merged.
+    { name: 'word hybrid snippet: garut', live: '2026-11-24', page: '/word/garut.html', queries: ['garut meaning', 'garut', 'what does garut mean', 'garot meaning'] },
+    { name: 'word hybrid snippet: tantaran', live: '2026-11-24', page: '/word/tantaran.html', queries: ['tantaran', 'tantaran meaning', 'what does tantaran mean'] },
+    { name: 'word hybrid snippet: k den', live: '2026-11-24', page: '/word/k-den.html', queries: ['k den', 'k den meaning', 'kden'] }
 ];
 
 const isoDay = d => d.toISOString().slice(0, 10);
